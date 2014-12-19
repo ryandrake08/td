@@ -9,7 +9,7 @@ struct inet_socket_impl;
 class inet_socket
 {
     std::shared_ptr<inet_socket_impl> impl;
-    
+
     // ensure socket has a valid impl
     void validate() const;
 
@@ -36,7 +36,7 @@ public:
     bool select(long usec=-1);
 
     // select on multiple sockets
-    static std::set<inet_socket> select(std::set<inet_socket>& sockets, long usec=-1);
+    static std::set<inet_socket> select(const std::set<inet_socket>& sockets, long usec=-1);
 
     // data transfer
     size_t recv(void* buf, size_t bytes);

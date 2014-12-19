@@ -63,10 +63,14 @@ struct inet_socket_impl
         {
             throw(std::system_error(errno, std::system_category(), "inet_socket_impl: invalid socket"));
         }
-        
+
         logger(LOG_DEBUG) << "created socket from fd: " << this->fd << '\n';
     }
 
+    inet_socket_impl() : inet_socket_impl(static_cast<int>(::socket(AF_INET, SOCK_STREAM, 0)))
+    {
+    }
+    
     ~inet_socket_impl()
     {
         logger(LOG_DEBUG) << "closing socket: " << this->fd << '\n';
@@ -102,7 +106,7 @@ inet_socket::inet_socket(inet_socket_impl* imp) : impl(imp)
 }
 
 // create and connect socket and connect to an address at a port
-inet_socket::inet_socket(uint32_t addr, uint16_t port) : impl(new inet_socket_impl(static_cast<int>(::socket(AF_INET, SOCK_STREAM, 0))))
+inet_socket::inet_socket(uint32_t addr, uint16_t port) : impl(new inet_socket_impl)
 {
     validate();
 
@@ -120,7 +124,7 @@ inet_socket::inet_socket(uint32_t addr, uint16_t port) : impl(new inet_socket_im
     }
 }
 
-inet_socket::inet_socket(const char* host, uint16_t port) : impl(new inet_socket_impl(static_cast<int>(::socket(AF_INET, SOCK_STREAM, 0))))
+inet_socket::inet_socket(const char* host, uint16_t port) : impl(new inet_socket_impl)
 {
     validate();
 
@@ -149,7 +153,7 @@ inet_socket::inet_socket(const char* host, uint16_t port) : impl(new inet_socket
     }
 }
 
-inet_socket::inet_socket(uint16_t port, int backlog) : impl(new inet_socket_impl(static_cast<int>(::socket(AF_INET, SOCK_STREAM, 0))))
+inet_socket::inet_socket(uint16_t port, int backlog) : impl(new inet_socket_impl)
 {
     validate();
 
@@ -184,7 +188,7 @@ inet_socket::inet_socket(uint16_t port, int backlog) : impl(new inet_socket_impl
 inet_socket inet_socket::accept()
 {
     validate();
-        
+
     logger(LOG_DEBUG) << "accepting from " << *this << '\n';
 
     sockaddr_in sad;
@@ -194,7 +198,7 @@ inet_socket inet_socket::accept()
     {
         throw(std::system_error(errno, std::system_category(), "inet_socket: accept"));
     }
-    
+
     return inet_socket(new inet_socket_impl(ret));
 }
 
@@ -229,11 +233,11 @@ bool inet_socket::select(long usec)
 }
 
 // select on multiple sockets
-std::set<inet_socket> inet_socket::select(std::set<inet_socket>& sockets, long usec)
+std::set<inet_socket> inet_socket::select(const std::set<inet_socket>& sockets, long usec)
 {
     // validate all passed in sockets
     std::for_each(sockets.begin(), sockets.end(), [](const inet_socket& s) { s.validate(); });
-    
+
     // timeout
     timeval tv;
     tv.tv_sec = usec / 1000000;
@@ -310,7 +314,7 @@ bool inet_socket::operator<(const inet_socket& other) const
 {
     validate();
     other.validate();
-    
+
     return this->impl->fd < other.impl->fd;
 }
 
@@ -318,7 +322,7 @@ bool inet_socket::operator==(const inet_socket& other) const
 {
     validate();
     other.validate();
-    
+
     return this->impl->fd == other.impl->fd;
 }
 
