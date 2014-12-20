@@ -1,13 +1,11 @@
 #pragma once
-#include <set>
 #include <string>
 #include <vector>
-#include "socket.hpp"
+#include "server.hpp"
 
 class program
 {
-    inet_socket sv_sock;
-    std::set<inet_socket> sockets;
+    server sv;
 
 public:
     // Create a program, given command line options
