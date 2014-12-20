@@ -37,11 +37,14 @@ private:
     ptrdiff_t output_buffer()
     {
         auto num(buf_type::pptr() - buf_type::pbase());
-        if(this->sock.send(obuf, num * char_size) != num)
+        if(num > 0)
         {
-            return traits_type::eof();
+            if(this->sock.send(obuf, num * char_size) != num)
+            {
+                return traits_type::eof();
+            }
+            buf_type::pbump(static_cast<int>(-num));
         }
-        buf_type::pbump(static_cast<int>(-num));
         return num;
     }
 

@@ -287,7 +287,7 @@ size_t inet_socket::recv(void* buf, size_t bytes)
         throw(std::system_error(errno, std::system_category(), "inet_socket: recv: recv"));
     }
 
-    logger(LOG_DEBUG) << "received " << len << "bytes\n";
+    logger(LOG_DEBUG) << "received " << len << " bytes\n";
 
     return static_cast<size_t>(len);
 }
@@ -305,7 +305,7 @@ size_t inet_socket::send(const void* buf, size_t bytes)
         throw(std::system_error(errno, std::system_category(), "inet_socket: send: send"));
     }
 
-    logger(LOG_DEBUG) << "sent " << len << "bytes\n";
+    logger(LOG_DEBUG) << "sent " << len << " bytes\n";
 
     return static_cast<size_t>(len);
 }
