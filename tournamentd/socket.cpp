@@ -106,7 +106,7 @@ inet_socket::inet_socket(inet_socket_impl* imp) : impl(imp)
 }
 
 // create and connect socket and connect to an address at a port
-inet_socket::inet_socket(uint32_t addr, uint16_t port) : impl(new inet_socket_impl)
+inet_socket::inet_socket(std::uint32_t addr, std::uint16_t port) : impl(new inet_socket_impl)
 {
     validate();
 
@@ -124,7 +124,7 @@ inet_socket::inet_socket(uint32_t addr, uint16_t port) : impl(new inet_socket_im
     }
 }
 
-inet_socket::inet_socket(const char* host, uint16_t port) : impl(new inet_socket_impl)
+inet_socket::inet_socket(const char* host, std::uint16_t port) : impl(new inet_socket_impl)
 {
     validate();
 
@@ -153,7 +153,7 @@ inet_socket::inet_socket(const char* host, uint16_t port) : impl(new inet_socket
     }
 }
 
-inet_socket::inet_socket(uint16_t port, int backlog) : impl(new inet_socket_impl)
+inet_socket::inet_socket(std::uint16_t port, int backlog) : impl(new inet_socket_impl)
 {
     validate();
 
@@ -274,7 +274,7 @@ std::set<inet_socket> inet_socket::select(const std::set<inet_socket>& sockets, 
     return ret;
 }
 
-size_t inet_socket::recv(void* buf, size_t bytes)
+std::size_t inet_socket::recv(void* buf, std::size_t bytes)
 {
     validate();
 
@@ -289,10 +289,10 @@ size_t inet_socket::recv(void* buf, size_t bytes)
 
     logger(LOG_DEBUG) << "received " << len << " bytes\n";
 
-    return static_cast<size_t>(len);
+    return static_cast<std::size_t>(len);
 }
 
-size_t inet_socket::send(const void* buf, size_t bytes)
+std::size_t inet_socket::send(const void* buf, std::size_t bytes)
 {
     validate();
 
@@ -307,7 +307,7 @@ size_t inet_socket::send(const void* buf, size_t bytes)
 
     logger(LOG_DEBUG) << "sent " << len << " bytes\n";
 
-    return static_cast<size_t>(len);
+    return static_cast<std::size_t>(len);
 }
 
 bool inet_socket::operator<(const inet_socket& other) const

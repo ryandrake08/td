@@ -4,7 +4,7 @@
 #include "socketstream.hpp"
 
 // create the server, listening on given port
-server::server(uint16_t port) : listener(port)
+server::server(std::uint16_t port) : listener(port)
 {
     this->all_open.insert(listener);
 }

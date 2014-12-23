@@ -9,7 +9,7 @@ class server
 
 public:
     // create the server, listening on given port
-    server(uint16_t port);
+    server(std::uint16_t port);
 
     // poll the server with given timeout
     void poll(long usec=-1);

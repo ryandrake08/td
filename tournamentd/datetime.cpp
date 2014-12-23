@@ -47,7 +47,7 @@ static inline int geti()
 
 static std::ostream& operator<<(std::ostream& os, const std::tm* date_time)
 {
-    const size_t size(1024);
+    const std::size_t size(1024);
     char buffer[size] = {0};
     if(std::strftime(buffer, size, "%F %T", date_time) != 0)
     {

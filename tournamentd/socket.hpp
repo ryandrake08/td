@@ -21,13 +21,13 @@ public:
     inet_socket(inet_socket_impl* imp);
 
     // create and connect socket and connect to an address at a port
-    inet_socket(uint32_t addr, uint16_t port);
+    inet_socket(std::uint32_t addr, std::uint16_t port);
 
     // create and connect socket and connect to a host at a port
-    inet_socket(const char* host, uint16_t port);
+    inet_socket(const char* host, std::uint16_t port);
 
     // create a listening socket by binding to a port
-    inet_socket(uint16_t port, int backlog=5);
+    inet_socket(std::uint16_t port, int backlog=5);
 
     // create a new socket by accepting on a listening socket
     inet_socket accept();
@@ -39,8 +39,8 @@ public:
     static std::set<inet_socket> select(const std::set<inet_socket>& sockets, long usec=-1);
 
     // data transfer
-    size_t recv(void* buf, size_t bytes);
-    size_t send(const void* buf, size_t bytes);
+    std::size_t recv(void* buf, std::size_t bytes);
+    std::size_t send(const void* buf, std::size_t bytes);
 
     // various operators
     bool operator<(const inet_socket& other) const;
