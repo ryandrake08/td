@@ -1,4 +1,5 @@
 #pragma once
+#include <functional>
 #include <string>
 #include <vector>
 
@@ -49,15 +50,20 @@ public:
     bool has_object(const char* name) const;
     bool has_object(const std::string& name) const;
 
+    // Perform a function on each array element
+    void for_each(const std::function<void(const json&,int)>& func) const;
+    void for_each(const char* name, const std::function<void(const json&,int)>& func) const;
+    void for_each(const std::string& name, const std::function<void(const json&,int)>& func) const;
+
     // Get value
     template <typename T>
     T value() const;
 
     // Get value for name
     template <typename T>
-    T value(const char* name) const;
+    bool get_value(const char* name, T& value) const;
     template <typename T>
-    T value(const std::string& name) const { value<T>(name.c_str()); }
+    bool get_value(const std::string& name, T& value) const { return get_value(name.c_str(), value); }
 
     // Set value for name
     template <typename T>
