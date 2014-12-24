@@ -1,6 +1,11 @@
 #include "datetime.hpp"
 #include <iomanip>
 
+#if defined(_WIN32)
+#define gmtime_r(a,b) gmtime((a))
+#define localtime_r(a,b) localtime((a))
+#endif
+
 datetime::datetime()
 {
 }
@@ -49,7 +54,7 @@ static std::ostream& operator<<(std::ostream& os, const std::tm* date_time)
 {
     const std::size_t size(1024);
     char buffer[size] = {0};
-    if(std::strftime(buffer, size, "%F %T", date_time) != 0)
+    if(std::strftime(buffer, size, "%Y-%m-%d %H:%M:%S", date_time) != 0)
     {
         return os << buffer;
     }
@@ -69,11 +74,11 @@ std::ostream& operator<<(std::ostream& os, const datetime& t)
     std::tm tm;
     if(mode == 0)
     {
-        t.gmtime(tm);
+        tm = t.gmtime(tm);
     }
     else
     {
-        t.localtime(tm);
+        tm = t.localtime(tm);
     }
 
     if(millis != 0)

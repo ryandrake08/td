@@ -4,3 +4,10 @@ xcuserdata
 db
 *.o
 *.a
+*.sdf
+*.opensdf
+*.suo
+*.vcxproj.user
+*.vcxproj.filters
+*/Debug*
+*/Release*

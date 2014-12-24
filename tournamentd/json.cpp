@@ -85,6 +85,16 @@ static bool safe_valuebool(cJSON* object)
     }
 }
 
+static unsigned int safe_valueuint(cJSON* object)
+{
+    ensure_type(object, cJSON_Number);
+    if (object->valueint < std::numeric_limits<unsigned int>::min())
+    {
+        throw std::runtime_error("object has negative value");
+    }
+    return static_cast<unsigned int>(object->valueint);
+}
+
 static unsigned long safe_valueulong(cJSON* object)
 {
     ensure_type(object, cJSON_Number);
@@ -326,6 +336,21 @@ bool json::get_value<long>(const char* name, long& value) const
 }
 
 template <>
+bool json::get_value<unsigned int>(const char* name, unsigned int& value) const
+{
+    auto obj(cJSON_GetObjectItem(this->ptr, name));
+    if (obj != nullptr)
+    {
+        value = safe_valueuint(obj);
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+template <>
 bool json::get_value<unsigned long>(const char* name, unsigned long& value) const
 {
     auto obj(cJSON_GetObjectItem(this->ptr, name));
@@ -428,9 +453,22 @@ json& json::set_value<int>(const char* name, const int& value)
 }
 
 template <>
-json& json::set_value<unsigned long>(const char* name, const unsigned long& value)
+json& json::set_value<unsigned int>(const char* name, const unsigned int& value)
 {
     if(value > std::numeric_limits<int>::max())
+    {
+        throw std::runtime_error("unsigned int value would overflow json int");
+    }
+
+    cJSON_AddNumberToObject(this->ptr, name, static_cast<int>(value));
+
+    return *this;
+}
+
+template <>
+json& json::set_value<unsigned long>(const char* name, const unsigned long& value)
+{
+    if (value > std::numeric_limits<int>::max())
     {
         throw std::runtime_error("unsigned long value would overflow json int");
     }

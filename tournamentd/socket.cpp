@@ -4,12 +4,14 @@
 #include <system_error>
 #include <cerrno> // for errno
 #include <cassert>
+#include <iterator>
 
 #if defined(_WIN32)
 #define STRICT 1
 #define WIN32_LEAN_AND_MEAN 1
 #include <windows.h>
 #include <winsock2.h>
+typedef int socklen_t;
 #endif
 #if defined(__unix) || defined(__APPLE__)
 #include <arpa/inet.h>
@@ -31,8 +33,8 @@ static struct socket_initializer
         WORD ver(MAKEWORD(1,1));
         WSADATA data;
         auto res = WSAStartup(ver, &data);
-        ASSERT(res == 0, "Unable to start Winsock");
-        ASSERT(LOBYTE(data.wVersion) == 1 && HIBYTE(data.wVersion) == 1, "Incorrect Winsock version");
+        assert(res == 0);
+        assert(LOBYTE(data.wVersion) == 1 && HIBYTE(data.wVersion) == 1);
 #endif
     }
 
@@ -74,10 +76,10 @@ struct inet_socket_impl
     ~inet_socket_impl()
     {
         logger(LOG_DEBUG) << "closing socket: " << this->fd << '\n';
-        ::sync();
 #if defined(_WIN32) // thank you, Microsoft
         ::closesocket(this->fd);
 #else
+        ::sync();
         ::close(this->fd);
 #endif
     }
@@ -159,7 +161,11 @@ inet_socket::inet_socket(std::uint16_t port, int backlog) : impl(new inet_socket
 
     // set SO_REUSADDR option
     int opt(1);
+#if defined(_WIN32)
+    if(::setsockopt(this->impl->fd, SOL_SOCKET, SO_REUSEADDR, reinterpret_cast<const char*>(&opt), sizeof(opt)) == SOCKET_ERROR)
+#else
     if(::setsockopt(this->impl->fd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)) == SOCKET_ERROR)
+#endif
     {
         throw(std::system_error(errno, std::system_category(), "inet_socket: setsockopt"));
     }
@@ -281,7 +287,11 @@ std::size_t inet_socket::recv(void* buf, std::size_t bytes)
     logger(LOG_DEBUG) << "receiving " << bytes << " on " << *this << "...\n";
 
     // read bytes from a fd
+#if defined(_WIN32)
+    auto len(::recv(this->impl->fd, reinterpret_cast<char*>(buf), bytes, 0));
+#else
     auto len(::recv(this->impl->fd, buf, bytes, 0));
+#endif
     if(len == SOCKET_ERROR)
     {
         throw(std::system_error(errno, std::system_category(), "inet_socket: recv: recv"));
@@ -299,7 +309,11 @@ std::size_t inet_socket::send(const void* buf, std::size_t bytes)
     logger(LOG_DEBUG) << "sending " << bytes << " on " << *this << "...\n";
 
     // write bytes to a fd
+#if defined(_WIN32)
+    auto len(::send(this->impl->fd, reinterpret_cast<const char*>(buf), bytes, 0));
+#else
     auto len(::send(this->impl->fd, buf, bytes, 0));
+#endif
     if(len == SOCKET_ERROR)
     {
         throw(std::system_error(errno, std::system_category(), "inet_socket: send: send"));

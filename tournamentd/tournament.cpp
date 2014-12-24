@@ -38,7 +38,7 @@ static void load(const json& config, const char* name, std::vector<T>& value)
     if(config.get_value(name, array))
     {
         value.resize(array.size());
-        for(auto i(0); i<array.size(); i++)
+        for(std::size_t i(0); i<array.size(); i++)
         {
             load(array[i], value[i]);
         }
@@ -315,7 +315,7 @@ std::vector<std::vector<tournament::player_id>> tournament::players_at_tables() 
         ret[seat.second.table_number].push_back(seat.first);
     }
 
-    for(auto i(0); i<ret.size(); i++)
+    for(std::size_t i(0); i<ret.size(); i++)
     {
         logger(LOG_DEBUG) << "Table " << i << " has " << ret[i].size() << " players\n";
     }
@@ -356,9 +356,9 @@ std::size_t tournament::plan_seating(std::size_t max_expected_players)
     logger(LOG_DEBUG) << "Tables needed: " << this->tables << "\n";
 
     // build up seat list
-    for(std::size_t t=0; t<this->tables; t++)
+    for(std::size_t t(0); t<this->tables; t++)
     {
-        for(std::size_t s=0; s<this->cfg.table_capacity; s++)
+        for(std::size_t s(0); s<this->cfg.table_capacity; s++)
         {
             this->empty_seats.push_back(seat({t,s}));
         }
@@ -588,7 +588,7 @@ std::vector<tournament::player_movement> tournament::try_break_table()
             }
 
             // move each player in list
-            const std::unordered_set<std::size_t> avoid({break_table});
+            const std::unordered_set<std::size_t> avoid = {break_table};
             for(auto player : to_move)
             {
                 ret.push_back(this->move_player(player, avoid));
