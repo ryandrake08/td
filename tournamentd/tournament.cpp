@@ -108,14 +108,14 @@ static void load(const json& config, tournament::configuration& value)
     load(config, "payouts", value.payouts);
 }
 
-// ----- operations -----
-
 void tournament::log(activity::event_t ev, player_id player)
 {
     logger(LOG_DEBUG) << "Logging event " << ev << " for player " << player << '\n';
 
-    this->activity_log.push_back(activity({ev, player, datetime::now()}));
+    this->activity_log.push_back(activity({ev, player, std::chrono::system_clock::now()}));
 }
+
+// ----- configuration -----
 
 // load configuration from JSON (object or file)
 void tournament::configure(const json& config)
@@ -140,18 +140,43 @@ void tournament::reset()
 {
     logger(LOG_DEBUG) << "Resetting tournament state back to planning\n";
 
+    this->activity_log.clear();
     this->running = false;
     this->current_blind_level = 0;
-    this->checkpoint = datetime();
-    this->time_remaining_ms = 0;
-    this->break_time_remaining_ms = 0;
+    this->end_of_round = std::chrono::system_clock::time_point();
+    this->end_of_break = std::chrono::system_clock::time_point();
+    this->time_remaining_ms = ms(0);
+    this->break_time_remaining_ms = ms(0);
+
     this->seats.clear();
     this->players_finished.clear();
+    this->empty_seats.clear();
+    this->tables = 0;
+
+    this->buyins.clear();
     this->total_chips = 0;
     this->total_cost = 0;
     this->total_commission = 0;
     this->total_equity = 0;
-    this->activity_log.clear();
+}
+
+// ----- clock -----
+
+// utility: start a blind level
+void tournament::start_blind_level(std::size_t blind_level)
+{
+    if(blind_level >= this->cfg.blind_levels.size())
+    {
+        throw exception("not enough blind levels configured");
+    }
+
+    auto now(std::chrono::system_clock::now());
+
+    this->current_blind_level = blind_level;
+    this->time_remaining_ms = ms(this->cfg.blind_levels[this->current_blind_level].duration_ms);
+    this->break_time_remaining_ms = ms(this->cfg.blind_levels[this->current_blind_level].break_duration_ms);
+    this->end_of_round = now + this->time_remaining_ms;
+    this->end_of_break = this->end_of_round + this->break_time_remaining_ms;
 }
 
 // has the game started?
@@ -167,10 +192,115 @@ void tournament::start()
 
     // start the tournament
     this->running = true;
-    this->current_blind_level = 1;
-    this->checkpoint = datetime::now();
-    this->time_remaining_ms = this->cfg.blind_levels[this->current_blind_level].duration_ms;
-    this->break_time_remaining_ms = this->cfg.blind_levels[this->current_blind_level].break_duration_ms;
+
+    // start the blind level
+    this->start_blind_level(1);
+}
+
+// stop the game
+void tournament::stop()
+{
+    logger(LOG_DEBUG) << "Stopping the tournament\n";
+
+    // stop the tournament
+    this->running = false;
+
+    // set dummy blind level
+    this->current_blind_level = this->cfg.blind_levels.size();
+}
+
+// toggle pause
+void tournament::pause()
+{
+    logger(LOG_DEBUG) << "Pausing the tournament\n";
+
+    auto now(std::chrono::system_clock::now());
+
+    if(this->running)
+    {
+        // set time remaining based on current clock
+        if(now < this->end_of_round)
+        {
+            // within round, set time remaining to fractional round and break time remaining to full
+            this->time_remaining_ms = std::chrono::duration_cast<ms>(this->end_of_round - now);
+            this->break_time_remaining_ms = ms(this->cfg.blind_levels[this->current_blind_level].break_duration_ms);
+        }
+        else if(now < this->end_of_break)
+        {
+            // within break, set time remaining to fractional break
+            this->time_remaining_ms = ms::zero();
+            this->break_time_remaining_ms = std::chrono::duration_cast<ms>(this->end_of_break - now);
+        }
+        else
+        {
+            throw exception("inconsistent internal state, current time is past current blind level");
+        }
+
+        // pause
+        this->running = false;
+    }
+}
+
+// toggle resume
+void tournament::resume()
+{
+    logger(LOG_DEBUG) << "Resuming the tournament\n";
+
+    auto now(std::chrono::system_clock::now());
+
+    if(!this->running)
+    {
+        this->end_of_round = now + this->time_remaining_ms;
+        this->end_of_break = this->end_of_round + this->break_time_remaining_ms;
+
+        // resume
+        this->running = true;
+    }
+}
+
+// advance to next blind level
+void tournament::advance_blind_level()
+{
+    logger(LOG_DEBUG) << "Advancing blind level from " << this->current_blind_level << " to " << this->current_blind_level + 1 << '\n';
+
+    if(this->current_blind_level == 0)
+    {
+        throw exception("game not running");
+    }
+
+    if(this->current_blind_level + 1 < this->cfg.blind_levels.size())
+    {
+        this->start_blind_level(this->current_blind_level + 1);
+    }
+}
+
+// restart current blind level
+void tournament::restart_blind_level()
+{
+    logger(LOG_DEBUG) << "Restarting blind level " << this->current_blind_level << '\n';
+
+    if(this->current_blind_level == 0)
+    {
+        throw exception("game not running");
+    }
+
+    this->start_blind_level(this->current_blind_level);
+}
+
+// return to prevous blind level
+void tournament::previous_blind_level()
+{
+    logger(LOG_DEBUG) << "Returning blind level from " << this->current_blind_level << " to " << this->current_blind_level - 1 << '\n';
+
+    if(this->current_blind_level == 0)
+    {
+        throw exception("game not running");
+    }
+
+    if(this->current_blind_level > 1)
+    {
+        this->start_blind_level(this->current_blind_level - 1);
+    }
 }
 
 // ----- seating -----
@@ -206,7 +336,6 @@ std::size_t tournament::plan_seating(std::size_t max_expected_players)
     // model pre-conditions
     assert(!this->is_started());
     assert(this->seats.empty());
-    assert(this->buyins.empty());
     assert(this->players_finished.empty());
     assert(this->empty_seats.empty());
 
@@ -218,7 +347,6 @@ std::size_t tournament::plan_seating(std::size_t max_expected_players)
 
     // restore to known quantities
     this->seats.clear();
-    this->buyins.clear();
     this->players_finished.clear();
     this->empty_seats.clear();
     
@@ -266,11 +394,6 @@ tournament::seat tournament::add_player(const player_id& player)
         throw exception("player already seated");
     }
 
-    if(this->buyins.find(player) != this->buyins.end())
-    {
-        throw exception("player already bought in");
-    }
-
     // seat player and remove from empty list
     auto seat(this->empty_seats.front());
     this->seats[player] = seat;
@@ -282,49 +405,6 @@ tournament::seat tournament::add_player(const player_id& player)
     log(activity::did_seat, player);
 
     return seat;
-}
-
-// fund a player, (re-)buyin or addon
-void tournament::fund_player(const player_id& player, const funding_source& source)
-{
-    logger(LOG_DEBUG) << "Funding player " << player << '\n';
-
-    if(this->current_blind_level > source.forbid_after_blind_level)
-    {
-        throw exception("too late in the game for this funding source");
-    }
-
-    if(source.is_addon && this->buyins.find(player) == this->buyins.end())
-    {
-        throw exception("tried to addon but not bought in yet");
-    }
-
-    if(player < this->cfg.players.size())
-    {
-        throw exception("unknown player id");
-    }
-
-    auto seat_it(this->seats.find(player));
-
-    if(seat_it == this->seats.end())
-    {
-        throw exception("player not seated");
-    }
-
-    // buy in player
-    if(!source.is_addon)
-    {
-        this->buyins.insert(player);
-    }
-
-    // update totals
-    this->total_chips += source.chips;
-    this->total_cost += source.cost;
-    this->total_commission += source.commission;
-    this->total_equity += source.equity;
-
-    // log it
-    log(source.is_addon ? activity::did_addon : activity::did_buyin, player);
 }
 
 // remove a player
@@ -525,4 +605,69 @@ std::vector<tournament::player_movement> tournament::try_break_table()
     }
 
     return ret;
+}
+
+// ----- chips -----
+
+static bool operator==(const tournament::funding_source& f0, const tournament::funding_source& f1)
+{
+    return f0.is_addon == f1.is_addon &&
+           f0.forbid_after_blind_level == f1.forbid_after_blind_level &&
+           f0.chips == f1.chips &&
+           f0.cost == f1.cost &&
+           f0.commission == f1.commission &&
+           f0.equity == f1.equity;
+}
+
+// fund a player, (re-)buyin or addon
+void tournament::fund_player(const player_id& player, const funding_source& source)
+{
+    logger(LOG_DEBUG) << "Funding player " << player << '\n';
+
+    if(this->current_blind_level > source.forbid_after_blind_level)
+    {
+        throw exception("too late in the game for this funding source");
+    }
+
+    if(source.is_addon && this->buyins.find(player) == this->buyins.end())
+    {
+        throw exception("tried to addon but not bought in yet");
+    }
+
+    if(player < this->cfg.players.size())
+    {
+        throw exception("unknown player id");
+    }
+
+    if(this->buyins.find(player) != this->buyins.end())
+    {
+        throw exception("player already bought in");
+    }
+
+    if(std::find(this->cfg.funding_sources.begin(), this->cfg.funding_sources.end(), source) == this->cfg.funding_sources.end())
+    {
+        throw exception("funding source not allowed");
+    }
+
+    auto seat_it(this->seats.find(player));
+
+    if(seat_it == this->seats.end())
+    {
+        throw exception("player not seated");
+    }
+
+    // buy in player
+    if(!source.is_addon)
+    {
+        this->buyins.insert(player);
+    }
+
+    // update totals
+    this->total_chips += source.chips;
+    this->total_cost += source.cost;
+    this->total_commission += source.commission;
+    this->total_equity += source.equity;
+
+    // log it
+    log(source.is_addon ? activity::did_addon : activity::did_buyin, player);
 }

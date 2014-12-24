@@ -258,6 +258,12 @@ int json::value<int>() const
 }
 
 template <>
+long json::value<long>() const
+{
+    return static_cast<long>(safe_valueint(this->ptr));
+}
+
+template <>
 unsigned long json::value<unsigned long>() const
 {
     return safe_valueulong(this->ptr);
@@ -291,6 +297,21 @@ std::vector<json> json::value<std::vector<json>>() const
 
 template <>
 bool json::get_value(const char* name, int& value) const
+{
+    auto obj(cJSON_GetObjectItem(this->ptr, name));
+    if(obj != nullptr)
+    {
+        value = safe_valueint(obj);
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+template <>
+bool json::get_value<long>(const char* name, long& value) const
 {
     auto obj(cJSON_GetObjectItem(this->ptr, name));
     if(obj != nullptr)

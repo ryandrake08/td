@@ -1,6 +1,7 @@
 #pragma once
 #include "datetime.hpp"
 #include "json.hpp"
+#include <chrono>
 #include <deque>
 #include <stdexcept>
 #include <string>
@@ -11,6 +12,9 @@
 class tournament
 {
 public:
+
+    // ----- types -----
+
     class exception : public std::runtime_error
     {
     public:
@@ -20,6 +24,7 @@ public:
 
     typedef std::size_t currency;
     typedef std::size_t player_id;
+    typedef std::chrono::milliseconds ms;
 
     struct funding_source
     {
@@ -50,8 +55,8 @@ public:
         std::size_t little_blind;
         std::size_t big_blind;
         std::size_t ante;
-        int duration_ms;
-        int break_duration_ms;
+        long duration_ms;
+        long break_duration_ms;
     };
 
     struct seat
@@ -81,7 +86,14 @@ public:
         
         event_t event;
         player_id player;
-        datetime timestamp;
+        std::chrono::system_clock::time_point timestamp;
+    };
+
+    struct player_movement
+    {
+        player_id player;
+        seat from_seat;
+        seat to_seat;
     };
 
     struct configuration
@@ -114,36 +126,79 @@ public:
         std::vector<payout> payouts;
     };
 
-    struct player_movement
-    {
-        player_id player;
-        seat from_seat;
-        seat to_seat;
-    };
+    // ----- utility -----
+
+    // log an activity
+    void log(activity::event_t ev, player_id player);
+
+
+    // ----- configuration -----
 
 private:
     // game configuration
     configuration cfg;
 
+    // activity log
+    std::vector<activity> activity_log;
+
+public:
+    // load configuration from JSON (object or file)
+    void configure(const json& config);
+
+    // reset game back to planning state
+    void reset();
+
+    // ----- clock -----
+
+private:
     // is the game running or paused?
     bool running;
 
     // Current bind level (index into vector)
-    // Note: blind level -1 is reserved for setup/planning
+    // Note: blind level 0 is reserved for setup/planning
     std::size_t current_blind_level;
 
-    // last time checkpoint (checkpoints happen when timer stops or starts)
-    datetime checkpoint;
+    // end of period (valid when running)
+    std::chrono::system_clock::time_point end_of_round;
+    std::chrono::system_clock::time_point end_of_break;
 
-    // ms remaining after last checkpoint
-    int time_remaining_ms;
-    int break_time_remaining_ms;
+    // ms remaining
+    ms time_remaining_ms;
+    ms break_time_remaining_ms;
 
+    // utility: start a blind level
+    void start_blind_level(std::size_t blind_level);
+
+public:
+    // has the game started?
+    bool is_started() const;
+
+    // start the game
+    void start();
+
+    // stop the game
+    void stop();
+
+    // toggle pause
+    void pause();
+
+    // toggle resume
+    void resume();
+
+    // advance to next blind level
+    void advance_blind_level();
+
+    // restart current blind level
+    void restart_blind_level();
+
+    // return to previous blind level
+    void previous_blind_level();
+
+    // ----- seating -----
+
+private:
     // players seated in the game
     std::unordered_map<player_id,seat> seats;
-
-    // players who bought in at least once
-    std::unordered_set<player_id> buyins;
 
     // players without seats or busted out
     std::deque<player_id> players_finished;
@@ -154,41 +209,10 @@ private:
     // number of tables total
     std::size_t tables;
 
-    // total game currency (chips) in play
-    std::size_t total_chips;
-
-    // total funds received
-    currency total_cost;
-    currency total_commission;
-
-    // total funds to pay out
-    currency total_equity;
-
-    // activity log
-    std::vector<activity> activity_log;
-
-    // log an activity
-    void log(activity::event_t ev, player_id player);
-
     // utility: arrange tables with lists of players
     std::vector<std::vector<player_id>> players_at_tables() const;
 
 public:
-    // load configuration from JSON (object or file)
-    void configure(const json& config);
-
-    // reset game back to planning state
-    void reset();
-
-    // has the game started?
-    bool is_started() const;
-
-    // start the game
-    void start();
-
-
-    // ----- seating -----
-
     // pre-game player seeting, with expected number of players (to predict table count)
     // returns number of tables needed
     std::size_t plan_seating(std::size_t max_expected_players);
@@ -196,9 +220,6 @@ public:
     // add player to an existing game
     // returns player's seat
     seat add_player(const player_id& player);
-
-    // fund a player, (re-)buyin or addon
-    void fund_player(const player_id& player, const funding_source& source);
 
     // remove a player from the game
     // returns bust-out order (1 being the first to bust)
@@ -219,5 +240,25 @@ public:
     // break a table if possible
     // returns all player movements
     std::vector<player_movement> try_break_table();
+
+    // ----- chips -----
+
+private:
+    // players who bought in at least once
+    std::unordered_set<player_id> buyins;
+
+    // total game currency (chips) in play
+    std::size_t total_chips;
+
+    // total funds received
+    currency total_cost;
+    currency total_commission;
+
+    // total funds to pay out
+    currency total_equity;
+
+public:
+    // fund a player, (re-)buyin or addon
+    void fund_player(const player_id& player, const funding_source& source);
 
 };
