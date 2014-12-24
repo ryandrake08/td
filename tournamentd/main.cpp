@@ -5,6 +5,7 @@
 #include <cerrno> // For EINTR
 #include <exception>
 #include <iostream>
+#include <system_error>
 #include <vector>
 
 #if !defined(SIGUSR1) && defined(SIGBREAK)

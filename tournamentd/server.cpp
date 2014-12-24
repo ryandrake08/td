@@ -3,6 +3,8 @@
 #include "server.hpp"
 #include "socketstream.hpp"
 
+#include <sstream>
+
 // create the server, listening on given port
 server::server(std::uint16_t port) : listener(port)
 {
@@ -32,7 +34,8 @@ void server::poll(long usec)
     for(auto client : selected)
     {
         std::string buffer;
-        std::getline(socketstream(client), buffer);
+        socketstream stream(client);
+        std::getline(stream, buffer);
         logger(LOG_DEBUG) << "received: " << buffer << '\n';
     }
 }
