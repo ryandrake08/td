@@ -11,6 +11,7 @@ program::program(const std::vector<std::string>& cmdline) : sv(25600)
 
 bool program::run()
 {
-    sv.poll();
+    sv.poll(50000);
+    game.update_remaining();
     return false;
 }

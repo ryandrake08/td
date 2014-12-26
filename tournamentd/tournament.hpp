@@ -1,5 +1,4 @@
 #pragma once
-#include "datetime.hpp"
 #include "json.hpp"
 #include <chrono>
 #include <deque>
@@ -24,7 +23,10 @@ public:
 
     typedef std::size_t currency;
     typedef std::size_t player_id;
+    typedef std::chrono::system_clock::time_point tp;
     typedef std::chrono::milliseconds ms;
+
+    static const player_id no_player;
 
     struct funding_source
     {
@@ -55,8 +57,8 @@ public:
         std::size_t little_blind;
         std::size_t big_blind;
         std::size_t ante;
-        long duration_ms;
-        long break_duration_ms;
+        long duration;
+        long break_duration;
     };
 
     struct seat
@@ -65,28 +67,22 @@ public:
         std::size_t seat_number;
     };
 
-    struct payout
-    {
-        // if true, the percent field is user-set and award is derived
-        bool derive_award;
-        std::size_t percent_x100;
-        currency award;
-    };
-
     struct activity
     {
         enum event_t
         {
-            did_buyin,
-            did_addon,
-            did_seat,
-            did_change_seat,
-            did_bust
+            game_reset,
+            game_new_blind_level,
+            player_did_buyin,
+            player_did_addon,
+            player_did_seat,
+            player_did_change_seat,
+            player_did_bust
         };
         
         event_t event;
         player_id player;
-        std::chrono::system_clock::time_point timestamp;
+        tp timestamp;
     };
 
     struct player_movement
@@ -110,6 +106,12 @@ public:
         // number of players per table
         std::size_t table_capacity;
 
+        // payout rules
+        bool payouts_proportional;
+        double percent_seats_paid;
+        currency guarantee_first;
+        currency guarantee_last;
+
         // funding rules
         std::vector<funding_source> funding_sources;
 
@@ -121,18 +123,15 @@ public:
 
         // blind structure for this game
         std::vector<blind_level> blind_levels;
-
-        // payout structure
-        std::vector<payout> payouts;
     };
 
     // ----- utility -----
 
     // log an activity
-    void log(activity::event_t ev, player_id player);
+    activity log(activity::event_t ev, player_id player=no_player);
 
 
-    // ----- configuration -----
+    // ----- general -----
 
 private:
     // game configuration
@@ -159,22 +158,23 @@ private:
     std::size_t current_blind_level;
 
     // end of period (valid when running)
-    std::chrono::system_clock::time_point end_of_round;
-    std::chrono::system_clock::time_point end_of_break;
+    tp end_of_round;
+    tp end_of_break;
 
     // ms remaining
-    ms time_remaining_ms;
-    ms break_time_remaining_ms;
+    ms time_remaining;
+    ms break_time_remaining;
 
     // utility: start a blind level
-    void start_blind_level(std::size_t blind_level);
+    void start_blind_level(std::size_t blind_level, ms offset);
 
 public:
     // has the game started?
     bool is_started() const;
 
-    // start the game
+    // start the game (optionally at certain time);
     void start();
+    void start(const tp& starttime);
 
     // stop the game
     void stop();
@@ -186,13 +186,16 @@ public:
     void resume();
 
     // advance to next blind level
-    void advance_blind_level();
+    bool advance_blind_level(ms offset=ms::zero());
 
     // restart current blind level
-    void restart_blind_level();
+    void restart_blind_level(ms offset=ms::zero());
 
     // return to previous blind level
-    void previous_blind_level();
+    bool previous_blind_level(ms offset=ms::zero());
+
+    // update time remaining
+    bool update_remaining();
 
     // ----- seating -----
 
@@ -247,6 +250,9 @@ private:
     // players who bought in at least once
     std::unordered_set<player_id> buyins;
 
+    // payout structure
+    std::vector<currency> payouts;
+
     // total game currency (chips) in play
     std::size_t total_chips;
 
@@ -261,4 +267,6 @@ public:
     // fund a player, (re-)buyin or addon
     void fund_player(const player_id& player, const funding_source& source);
 
+    // re-calculate payouts
+    std::vector<currency> recalculate_payouts();
 };

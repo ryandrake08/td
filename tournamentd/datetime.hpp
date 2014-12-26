@@ -14,6 +14,8 @@ class datetime
 public:
     datetime();
     explicit datetime(const std::chrono::system_clock::time_point& time_pt);
+    explicit datetime(const std::time_t& tt);
+    explicit datetime(const std::tm& tm_s);
 
     // Named constructor (now)
     static datetime now();
@@ -21,6 +23,10 @@ public:
     // Operators
     bool operator!=(const datetime& other) const;
     bool operator<(const datetime& other) const;
+
+    // Cast
+    operator std::chrono::system_clock::time_point() const;
+    operator std::time_t() const;
 
     // Stream insertion
     friend std::ostream& operator<<(std::ostream& os, const datetime& t);

@@ -2,9 +2,11 @@
 #include <string>
 #include <vector>
 #include "server.hpp"
+#include "tournament.hpp"
 
 class program
 {
+    tournament game;
     server sv;
 
 public:

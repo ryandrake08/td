@@ -6,30 +6,40 @@
 #define localtime_r(a,b) localtime((a))
 #endif
 
+typedef std::chrono::system_clock sc;
+
 datetime::datetime()
 {
 }
 
-datetime::datetime(const std::chrono::system_clock::time_point& time_pt) : tp(time_pt)
+datetime::datetime(const sc::time_point& time_pt) : tp(time_pt)
+{
+}
+
+datetime::datetime(const std::time_t& tt) : datetime(sc::from_time_t(tt))
+{
+}
+
+datetime::datetime(const std::tm& tm_s) : datetime(std::mktime(const_cast<std::tm*>(&tm_s)))
 {
 }
 
 // Named constructor (now)
 datetime datetime::now()
 {
-    return datetime(std::chrono::system_clock::now());
+    return datetime(sc::now());
 }
 
 // To tm structure
 std::tm& datetime::gmtime(std::tm& tm_s) const
 {
-    auto tt = std::chrono::system_clock::to_time_t(this->tp);
+    auto tt(sc::to_time_t(this->tp));
     return *::gmtime_r(&tt, &tm_s);
 }
 
 std::tm& datetime::localtime(std::tm& tm_s) const
 {
-    auto tt = std::chrono::system_clock::to_time_t(this->tp);
+    auto tt(sc::to_time_t(this->tp));
     return *::localtime_r(&tt, &tm_s);
 }
 
@@ -42,6 +52,17 @@ bool datetime::operator!=(const datetime& other) const
 bool datetime::operator<(const datetime& other) const
 {
     return this->tp < other.tp;
+}
+
+// Cast
+datetime::operator std::chrono::system_clock::time_point() const
+{
+    return this->tp;
+}
+
+datetime::operator std::time_t() const
+{
+    return sc::to_time_t(this->tp);
 }
 
 static inline int geti()
@@ -66,8 +87,8 @@ static std::ostream& operator<<(std::ostream& os, const std::tm* date_time)
 
 std::ostream& operator<<(std::ostream& os, const datetime& t)
 {
-    auto tt(std::chrono::system_clock::to_time_t(t.tp));
-    auto tpbase(std::chrono::system_clock::from_time_t(tt));
+    auto tt(sc::to_time_t(t.tp));
+    auto tpbase(sc::from_time_t(tt));
     auto millis(std::chrono::duration_cast<std::chrono::milliseconds>(t.tp-tpbase).count());
     auto mode(os.iword(geti()));
 

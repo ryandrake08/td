@@ -2,11 +2,13 @@
 #include "logger.hpp"
 #include <algorithm>
 #include <cassert>
-#include <limits>
 #include <iterator>
+#include <limits>
+#include <numeric>
 
 // ----- constants -----
 
+const tournament::player_id tournament::no_player = std::numeric_limits<std::size_t>::max();
 const std::size_t tournament::funding_source::always_allow = std::numeric_limits<std::size_t>::max();
 
 // ----- exception -----
@@ -80,17 +82,8 @@ static void load(const json& config, tournament::blind_level& value)
     config.get_value("little_blind", value.little_blind);
     config.get_value("big_blind", value.big_blind);
     config.get_value("ante", value.ante);
-    config.get_value("duration_ms", value.duration_ms);
-    config.get_value("break_duration_ms", value.break_duration_ms);
-}
-
-static void load(const json& config, tournament::payout& value)
-{
-    logger(LOG_DEBUG) << "Loading tournament payout\n";
-
-    config.get_value("derive_award", value.derive_award);
-    config.get_value("percent_x100", value.percent_x100);
-    config.get_value("award", value.award);
+    config.get_value("duration_ms", value.duration);
+    config.get_value("break_duration_ms", value.break_duration);
 }
 
 static void load(const json& config, tournament::configuration& value)
@@ -101,18 +94,21 @@ static void load(const json& config, tournament::configuration& value)
     config.get_value("cost_currency", value.cost_currency);
     config.get_value("equity_currency", value.equity_currency);
     config.get_value("table_capacity", value.table_capacity);
+    config.get_value("payouts_proportiona;", value.payouts_proportional);
+    config.get_value("percent_seats_paid", value.percent_seats_paid);
     load(config, "funding_sources", value.funding_sources);
     load(config, "players", value.players);
     load(config, "chips", value.chips);
     load(config, "blind_levels", value.blind_levels);
-    load(config, "payouts", value.payouts);
 }
 
-void tournament::log(activity::event_t ev, player_id player)
+tournament::activity tournament::log(activity::event_t ev, player_id player)
 {
     logger(LOG_DEBUG) << "Logging event " << ev << " for player " << player << '\n';
 
-    this->activity_log.push_back(activity({ev, player, std::chrono::system_clock::now()}));
+    activity ret({ev, player, std::chrono::system_clock::now()});
+    this->activity_log.push_back(ret);
+    return ret;
 }
 
 // ----- configuration -----
@@ -143,10 +139,10 @@ void tournament::reset()
     this->activity_log.clear();
     this->running = false;
     this->current_blind_level = 0;
-    this->end_of_round = std::chrono::system_clock::time_point();
-    this->end_of_break = std::chrono::system_clock::time_point();
-    this->time_remaining_ms = ms(0);
-    this->break_time_remaining_ms = ms(0);
+    this->end_of_round = tp();
+    this->end_of_break = tp();
+    this->time_remaining = ms(0);
+    this->break_time_remaining = ms(0);
 
     this->seats.clear();
     this->players_finished.clear();
@@ -154,16 +150,19 @@ void tournament::reset()
     this->tables = 0;
 
     this->buyins.clear();
+    this->payouts.clear();
     this->total_chips = 0;
     this->total_cost = 0;
     this->total_commission = 0;
     this->total_equity = 0;
+
+    log(activity::game_reset);
 }
 
 // ----- clock -----
 
-// utility: start a blind level
-void tournament::start_blind_level(std::size_t blind_level)
+// utility: start a blind level (optionally starting offset ms into the round)
+void tournament::start_blind_level(std::size_t blind_level, ms offset)
 {
     if(blind_level >= this->cfg.blind_levels.size())
     {
@@ -173,10 +172,13 @@ void tournament::start_blind_level(std::size_t blind_level)
     auto now(std::chrono::system_clock::now());
 
     this->current_blind_level = blind_level;
-    this->time_remaining_ms = ms(this->cfg.blind_levels[this->current_blind_level].duration_ms);
-    this->break_time_remaining_ms = ms(this->cfg.blind_levels[this->current_blind_level].break_duration_ms);
-    this->end_of_round = now + this->time_remaining_ms;
-    this->end_of_break = this->end_of_round + this->break_time_remaining_ms;
+    this->time_remaining = ms(this->cfg.blind_levels[this->current_blind_level].duration) - offset;
+    this->break_time_remaining = ms(this->cfg.blind_levels[this->current_blind_level].break_duration);
+    this->end_of_round = now + this->time_remaining;
+    this->end_of_break = this->end_of_round + this->break_time_remaining;
+
+    // log it
+    log(activity::game_new_blind_level);
 }
 
 // has the game started?
@@ -194,7 +196,18 @@ void tournament::start()
     this->running = true;
 
     // start the blind level
-    this->start_blind_level(1);
+    this->start_blind_level(1, ms::zero());
+}
+
+void tournament::start(const tp& starttime)
+{
+    logger(LOG_DEBUG) << "Starting the tournament in the future\n";
+
+    // start the tournament
+    this->running = true;
+
+    // set break end time
+    this->end_of_break = starttime;
 }
 
 // stop the game
@@ -206,7 +219,7 @@ void tournament::stop()
     this->running = false;
 
     // set dummy blind level
-    this->current_blind_level = this->cfg.blind_levels.size();
+    this->current_blind_level = 0;
 }
 
 // toggle pause
@@ -214,31 +227,11 @@ void tournament::pause()
 {
     logger(LOG_DEBUG) << "Pausing the tournament\n";
 
-    auto now(std::chrono::system_clock::now());
+    // update time remaining
+    this->update_remaining();
 
-    if(this->running)
-    {
-        // set time remaining based on current clock
-        if(now < this->end_of_round)
-        {
-            // within round, set time remaining to fractional round and break time remaining to full
-            this->time_remaining_ms = std::chrono::duration_cast<ms>(this->end_of_round - now);
-            this->break_time_remaining_ms = ms(this->cfg.blind_levels[this->current_blind_level].break_duration_ms);
-        }
-        else if(now < this->end_of_break)
-        {
-            // within break, set time remaining to fractional break
-            this->time_remaining_ms = ms::zero();
-            this->break_time_remaining_ms = std::chrono::duration_cast<ms>(this->end_of_break - now);
-        }
-        else
-        {
-            throw exception("inconsistent internal state, current time is past current blind level");
-        }
-
-        // pause
-        this->running = false;
-    }
+    // pause
+    this->running = false;
 }
 
 // toggle resume
@@ -248,59 +241,93 @@ void tournament::resume()
 
     auto now(std::chrono::system_clock::now());
 
-    if(!this->running)
-    {
-        this->end_of_round = now + this->time_remaining_ms;
-        this->end_of_break = this->end_of_round + this->break_time_remaining_ms;
+    // update end_of_xxx with values saved when we paused
+    this->end_of_round = now + this->time_remaining;
+    this->end_of_break = this->end_of_round + this->break_time_remaining;
 
-        // resume
-        this->running = true;
-    }
+    // resume
+    this->running = true;
 }
 
 // advance to next blind level
-void tournament::advance_blind_level()
+bool tournament::advance_blind_level(ms offset)
 {
     logger(LOG_DEBUG) << "Advancing blind level from " << this->current_blind_level << " to " << this->current_blind_level + 1 << '\n';
 
-    if(this->current_blind_level == 0)
+    if(!this->is_started())
     {
-        throw exception("game not running");
+        throw exception("game not started");
     }
 
     if(this->current_blind_level + 1 < this->cfg.blind_levels.size())
     {
-        this->start_blind_level(this->current_blind_level + 1);
+        this->start_blind_level(this->current_blind_level + 1, offset);
+        return true;
     }
+
+    return false;
 }
 
 // restart current blind level
-void tournament::restart_blind_level()
+void tournament::restart_blind_level(ms offset)
 {
     logger(LOG_DEBUG) << "Restarting blind level " << this->current_blind_level << '\n';
 
-    if(this->current_blind_level == 0)
+    if(!this->is_started())
     {
-        throw exception("game not running");
+        throw exception("game not started");
     }
 
-    this->start_blind_level(this->current_blind_level);
+    this->start_blind_level(this->current_blind_level, offset);
 }
 
 // return to prevous blind level
-void tournament::previous_blind_level()
+bool tournament::previous_blind_level(ms offset)
 {
     logger(LOG_DEBUG) << "Returning blind level from " << this->current_blind_level << " to " << this->current_blind_level - 1 << '\n';
 
-    if(this->current_blind_level == 0)
+    if(!this->is_started())
     {
-        throw exception("game not running");
+        throw exception("game not started");
     }
 
     if(this->current_blind_level > 1)
     {
-        this->start_blind_level(this->current_blind_level - 1);
+        this->start_blind_level(this->current_blind_level - 1, offset);
+        return true;
     }
+
+    return false;
+}
+
+// update time remaining
+bool tournament::update_remaining()
+{
+    if(this->running)
+    {
+        auto now(std::chrono::system_clock::now());
+
+        // set time remaining based on current clock
+        if(now < this->end_of_round)
+        {
+            // within round, set time remaining to fractional round and break time remaining to full
+            this->time_remaining = std::chrono::duration_cast<ms>(this->end_of_round - now);
+            this->break_time_remaining = ms(this->cfg.blind_levels[this->current_blind_level].break_duration);
+        }
+        else if(now < this->end_of_break)
+        {
+            // within break, set time remaining to fractional break
+            this->time_remaining = ms::zero();
+            this->break_time_remaining = std::chrono::duration_cast<ms>(this->end_of_break - now);
+        }
+        else
+        {
+            // advance to next blind
+            auto offset(std::chrono::duration_cast<ms>(this->end_of_break - now));
+            return this->advance_blind_level(offset);
+        }
+    }
+    return false;
 }
 
 // ----- seating -----
@@ -402,7 +429,7 @@ tournament::seat tournament::add_player(const player_id& player)
     logger(LOG_DEBUG) << "Seated player at table " << seat.table_number << ", seat " << seat.seat_number << '\n';
 
     // log it
-    log(activity::did_seat, player);
+    log(activity::player_did_seat, player);
 
     return seat;
 }
@@ -430,7 +457,7 @@ std::size_t tournament::remove_player(const player_id& player)
     this->empty_seats.push_back(seat_it->second);
 
     // log it
-    log(activity::did_bust, player);
+    log(activity::player_did_bust, player);
 
     return this->players_finished.size();
 }
@@ -477,7 +504,7 @@ tournament::player_movement tournament::move_player(const player_id& player, std
     logger(LOG_DEBUG) << "Moved player " << player << " from table " << from_seat.table_number << ", seat " << from_seat.seat_number << " to table " << to_seat.table_number << ", seat " << to_seat.seat_number << '\n';
 
     // log it
-    log(activity::did_change_seat, player);
+    log(activity::player_did_change_seat, player);
 
     return { player, from_seat, to_seat };
 }
@@ -669,5 +696,48 @@ void tournament::fund_player(const player_id& player, const funding_source& sour
     this->total_equity += source.equity;
 
     // log it
-    log(source.is_addon ? activity::did_addon : activity::did_buyin, player);
+    log(source.is_addon ? activity::player_did_addon : activity::player_did_buyin, player);
+}
+
+// re-calculate payouts
+std::vector<tournament::currency> tournament::recalculate_payouts()
+{
+    // first, calculate how many places pay, given configuration and number of players bought in
+    std::size_t seats_paid(static_cast<std::size_t>(this->buyins.size() * this->cfg.percent_seats_paid + 0.5));
+
+    // resize our payout structure
+    this->payouts.resize(seats_paid);
+
+    // ratio for each seat is comp[seat]:total
+    std::vector<double> comp(seats_paid);
+    double total(0.0);
+
+    if(this->cfg.payouts_proportional)
+    {
+        // generate proportional payouts based on harmonic series, 1/N / sum(1/k)
+        for(auto n(0); n<seats_paid; n++)
+        {
+            double c(1.0/(n+1));
+            comp[n] = c;
+            total += c;
+        }
+    }
+    else
+    {
+        // generate uniform payouts
+        std::fill(comp.begin(), comp.end(), 1.0);
+        total = seats_paid;
+    }
+
+    // next, loop through again generating payouts (rounding fractional payouts down)
+    std::transform(comp.begin(), comp.end(), this->payouts.begin(), [&](double c) { return static_cast<currency>(this->total_equity * c / total); });
+
+    // finally, allocating remainder (from rounding) starting from first place
+    auto remainder(this->total_equity - std::accumulate(this->payouts.begin(), this->payouts.end(), 0));
+    for(auto n(0); n<remainder; n++)
+    {
+        this->payouts[n]++;
+    }
+
+    return this->payouts;
 }
