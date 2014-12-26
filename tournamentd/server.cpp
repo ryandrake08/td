@@ -14,7 +14,7 @@ server::server(std::uint16_t port) : listener(port)
 // poll the server with given timeout
 void server::poll(long usec)
 {
-    auto selected(inet_socket::select(this->all_open));
+    auto selected(inet_socket::select(this->all_open, usec));
 
     // first, service the listening socket, if selected
     if(selected.find(this->listener) != selected.end())

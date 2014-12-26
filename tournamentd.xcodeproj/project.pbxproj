@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		AD73DBF51A4484D2008768BA /* server.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AD73DBF31A4484D2008768BA /* server.cpp */; };
+		ADADF8F21A4D23560016E567 /* gameclock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ADADF8EE1A4D23560016E567 /* gameclock.cpp */; };
+		ADADF8F31A4D23560016E567 /* gameseating.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ADADF8F01A4D23560016E567 /* gameseating.cpp */; };
+		ADADF8F61A4D33960016E567 /* gamefunding.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ADADF8F41A4D33960016E567 /* gamefunding.cpp */; };
 		ADEFA3711A41E6C800133B33 /* cJSON.c in Sources */ = {isa = PBXBuildFile; fileRef = ADEFA35C1A41E6C700133B33 /* cJSON.c */; };
 		ADEFA3721A41E6C800133B33 /* datetime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ADEFA35E1A41E6C700133B33 /* datetime.cpp */; };
 		ADEFA3731A41E6C800133B33 /* json.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ADEFA3611A41E6C700133B33 /* json.cpp */; };
@@ -35,6 +38,13 @@
 		AD1095F71A41E67300D132E4 /* tournamentd */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = tournamentd; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD73DBF31A4484D2008768BA /* server.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = server.cpp; sourceTree = "<group>"; };
 		AD73DBF41A4484D2008768BA /* server.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = server.hpp; sourceTree = "<group>"; };
+		ADADF8EE1A4D23560016E567 /* gameclock.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gameclock.cpp; sourceTree = "<group>"; };
+		ADADF8EF1A4D23560016E567 /* gameclock.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = gameclock.hpp; sourceTree = "<group>"; };
+		ADADF8F01A4D23560016E567 /* gameseating.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gameseating.cpp; sourceTree = "<group>"; };
+		ADADF8F11A4D23560016E567 /* gameseating.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = gameseating.hpp; sourceTree = "<group>"; };
+		ADADF8F41A4D33960016E567 /* gamefunding.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gamefunding.cpp; sourceTree = "<group>"; };
+		ADADF8F51A4D33960016E567 /* gamefunding.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = gamefunding.hpp; sourceTree = "<group>"; };
+		ADADF8F81A4D3BFA0016E567 /* types.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = types.hpp; sourceTree = "<group>"; };
 		ADEFA35C1A41E6C700133B33 /* cJSON.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cJSON.c; sourceTree = "<group>"; };
 		ADEFA35D1A41E6C700133B33 /* cJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cJSON.h; sourceTree = "<group>"; };
 		ADEFA35E1A41E6C700133B33 /* datetime.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = datetime.cpp; sourceTree = "<group>"; };
@@ -89,6 +99,12 @@
 				ADEFA35B1A41E6C700133B33 /* cjson */,
 				ADEFA35E1A41E6C700133B33 /* datetime.cpp */,
 				ADEFA35F1A41E6C700133B33 /* datetime.hpp */,
+				ADADF8EE1A4D23560016E567 /* gameclock.cpp */,
+				ADADF8EF1A4D23560016E567 /* gameclock.hpp */,
+				ADADF8F41A4D33960016E567 /* gamefunding.cpp */,
+				ADADF8F51A4D33960016E567 /* gamefunding.hpp */,
+				ADADF8F01A4D23560016E567 /* gameseating.cpp */,
+				ADADF8F11A4D23560016E567 /* gameseating.hpp */,
 				ADEFA3601A41E6C700133B33 /* ivectorstream.hpp */,
 				ADEFA3611A41E6C700133B33 /* json.cpp */,
 				ADEFA3621A41E6C700133B33 /* json.hpp */,
@@ -99,13 +115,14 @@
 				ADEFA3681A41E6C700133B33 /* process.hpp */,
 				ADEFA3691A41E6C700133B33 /* program.cpp */,
 				ADEFA36A1A41E6C700133B33 /* program.hpp */,
+				AD73DBF31A4484D2008768BA /* server.cpp */,
+				AD73DBF41A4484D2008768BA /* server.hpp */,
 				ADEFA36B1A41E6C800133B33 /* socket.cpp */,
 				ADEFA36C1A41E6C800133B33 /* socket.hpp */,
 				ADEFA36D1A41E6C800133B33 /* socketstream.hpp */,
 				ADEFA37C1A41EAD100133B33 /* tournament.cpp */,
 				ADEFA37D1A41EAD100133B33 /* tournament.hpp */,
-				AD73DBF31A4484D2008768BA /* server.cpp */,
-				AD73DBF41A4484D2008768BA /* server.hpp */,
+				ADADF8F81A4D3BFA0016E567 /* types.hpp */,
 			);
 			path = tournamentd;
 			sourceTree = "<group>";
@@ -180,9 +197,12 @@
 				ADEFA3771A41E6C800133B33 /* process.cpp in Sources */,
 				ADEFA3781A41E6C800133B33 /* program.cpp in Sources */,
 				ADEFA37E1A41EAD100133B33 /* tournament.cpp in Sources */,
+				ADADF8F31A4D23560016E567 /* gameseating.cpp in Sources */,
 				ADEFA3731A41E6C800133B33 /* json.cpp in Sources */,
+				ADADF8F21A4D23560016E567 /* gameclock.cpp in Sources */,
 				ADEFA3751A41E6C800133B33 /* main.cpp in Sources */,
 				ADEFA3791A41E6C800133B33 /* socket.cpp in Sources */,
+				ADADF8F61A4D33960016E567 /* gamefunding.cpp in Sources */,
 				AD73DBF51A4484D2008768BA /* server.cpp in Sources */,
 				ADEFA3741A41E6C800133B33 /* logger.cpp in Sources */,
 			);
