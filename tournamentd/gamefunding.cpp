@@ -44,7 +44,7 @@ void gamefunding::reset()
     this->total_equity = 0;
 }
 
-static bool operator==(const gamefunding::funding_source& f0, const gamefunding::funding_source& f1)
+static constexpr bool operator==(const gamefunding::funding_source& f0, const gamefunding::funding_source& f1)
 {
     return f0.is_addon == f1.is_addon &&
            f0.forbid_after_blind_level == f1.forbid_after_blind_level &&

@@ -195,7 +195,7 @@ gameseating::player_movement gameseating::move_player(const player_id& player, c
 }
 
 template <typename T>
-static bool has_lower_size(const T& i0, const T& i1)
+static constexpr bool has_lower_size(const T& i0, const T& i1)
 {
     return i0.size() < i1.size();
 }
