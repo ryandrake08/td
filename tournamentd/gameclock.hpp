@@ -20,8 +20,18 @@ public:
         long break_duration;
     };
 
+    struct chip
+    {
+        std::string color;
+        std::size_t denomination;
+        std::size_t count_available;
+    };
+
     // configuration: blind structure for this game
     std::vector<blind_level> blind_levels;
+
+    // configuration: description of each chip (for display)
+    std::vector<chip> chips;
 
     // is the game running or paused?
     bool running;
@@ -72,4 +82,7 @@ public:
 
     // update time remaining
     bool update_remaining();
+
+    // generate progressive blind levels, given available chip denominations
+    std::vector<blind_level> generate_blind_levels(std::size_t count, long level_duration);
 };

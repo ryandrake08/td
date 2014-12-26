@@ -1,5 +1,6 @@
 #include "gameclock.hpp"
 #include "logger.hpp"
+#include <cmath>
 
 // load configuration from JSON (object or file)
 void gameclock::configure(const json& config)
@@ -17,6 +18,17 @@ void gameclock::configure(const json& config)
             array[i].get_value("ante", this->blind_levels[i].ante);
             array[i].get_value("duration_ms", this->blind_levels[i].duration);
             array[i].get_value("break_duration_ms", this->blind_levels[i].break_duration);
+        }
+    }
+
+    if(config.get_value("chips", array))
+    {
+        this->chips.resize(array.size());
+        for(std::size_t i(0); i<array.size(); i++)
+        {
+            array[i].get_value("color", this->chips[i].color);
+            array[i].get_value("denomination", this->chips[i].denomination);
+            array[i].get_value("count_available", this->chips[i].count_available);
         }
     }
 }
@@ -194,4 +206,81 @@ bool gameclock::update_remaining()
         }
     }
     return false;
+}
+
+static constexpr bool operator<(const gameclock::chip& c0, const gameclock::chip& c1)
+{
+    return c0.denomination < c1.denomination;
+}
+
+static std::size_t calculate_round_denomination(double ideal_small, const std::vector<gameclock::chip>& chips)
+{
+    // round to denomination n if ideal small blind is at least 10x denomination n-1
+    static const std::size_t multiplier(10);
+
+    std::size_t chip_index(chips.size());
+    while(--chip_index > 0)
+    {
+        if(ideal_small > chips[chip_index-1].denomination * multiplier)
+        {
+            return chips[chip_index].denomination;
+        }
+    }
+
+    return chips[0].denomination;
+}
+
+// generate progressive blind levels, given available chip denominations
+// this was tuned to produce a sensible result for the following chip denomination sets:
+//  1/5/25/100/500
+//  5/25/100/500/1000
+//  25/100/500/1000/5000
+std::vector<gameclock::blind_level> gameclock::generate_blind_levels(std::size_t count, long level_duration)
+{
+    if(this->chips.empty())
+    {
+        throw "tried to create a blind structure without chips defined";
+    }
+
+    // blinds ideally go up 50% each level, TODO: make this configurable?
+    static const auto factor(1.5);
+
+    // sort chip denominations
+    std::sort(this->chips.begin(), this->chips.end());
+
+    // resize structure
+    this->blind_levels.resize(count);
+
+    // starting small blind = smallest denomination
+    double ideal_small(static_cast<double>(this->chips.front().denomination));
+
+    // store last round denomination (to check when it changes)
+    std::size_t last_round_denom(0);
+
+    for(auto i(0); i<count; i++)
+    {
+        // calculate nearest chip denomination to round to
+        const auto round_denom(calculate_round_denomination(ideal_small, this->chips));
+
+        // round up
+        this->blind_levels[i].little_blind = std::ceil(ideal_small / round_denom) * round_denom;
+        this->blind_levels[i].big_blind = this->blind_levels[i].little_blind * 2;
+        this->blind_levels[i].ante = 0;
+        this->blind_levels[i].duration = level_duration;
+
+        if(i>0 && round_denom != last_round_denom)
+        {
+            // 5 minute break to chip up after each minimum denomination change
+            this->blind_levels[i].break_duration = 300000;
+        }
+        else
+        {
+            this->blind_levels[i].break_duration = 0;
+        }
+
+        // next small blind should be about factor times bigger than previous one
+        ideal_small *= factor;
+    }
+
+    return this->blind_levels;
 }

@@ -19,17 +19,6 @@ void tournament::configure(const json& config)
         }
     }
 
-    if(config.get_value("chips", array))
-    {
-        this->chips.resize(array.size());
-        for(std::size_t i(0); i<array.size(); i++)
-        {
-            array[i].get_value("color", this->chips[i].color);
-            array[i].get_value("denomination", this->chips[i].denomination);
-            array[i].get_value("count_available", this->chips[i].count_available);
-        }
-    }
-
     clock.configure(config);
     funding.configure(config);
     seating.configure(config);

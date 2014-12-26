@@ -14,22 +14,12 @@ public:
         std::string name;
     };
 
-    struct chip
-    {
-        std::string color;
-        std::size_t denomination;
-        std::size_t count_available;
-    };
-
 private:
     // configuration: game name
     std::string name;
 
     // configuration: list of all known players (playing or not)
     std::vector<player> players;
-
-    // configuration: description of each chip (for display)
-    std::vector<chip> chips;
 
     // game state
     gameclock clock;
