@@ -62,11 +62,13 @@ std::size_t gameseating::plan_seating(std::size_t max_expected_players)
             this->empty_seats.push_back(seat({t,s}));
         }
     }
-    std::random_shuffle(this->empty_seats.begin(), this->empty_seats.end());
+
+    // randomize it
+    std::shuffle(this->empty_seats.begin(), this->empty_seats.end(), engine);
 
     logger(LOG_DEBUG) << "Created " << this->seats.size() << " empty seats\n";
 
-    // Return number of tables needed
+    // return number of tables needed
     return this->tables;
 }
 
@@ -143,7 +145,7 @@ gameseating::player_movement gameseating::move_player(const player_id& player, s
     }
 
     // pick one at random
-    auto index(std::rand() % candidates.size());
+    auto index(std::uniform_int_distribution<std::size_t>(0, candidates.size()-1)(engine));
     auto to_seat(*candidates[index]);
 
     // move player
@@ -219,7 +221,7 @@ std::vector<gameseating::player_movement> gameseating::try_rebalance()
         logger(LOG_DEBUG) << "Largest table has " << most_it->size() << " players and smallest table has " << fewest_it->size() << " players\n";
         
         // pick a random player at the table with the most players
-        auto index(std::rand() % most_it->size());
+        auto index(std::uniform_int_distribution<std::size_t>(0, most_it->size()-1)(engine));
         auto random_player((*most_it)[index]);
 
         // subtract iterator to find table number
