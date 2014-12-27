@@ -27,6 +27,9 @@ public:
         std::size_t count_available;
     };
 
+    // configuration: blind increase factor
+    double blind_increase_factor;
+
     // configuration: blind structure for this game
     std::vector<blind_level> blind_levels;
 

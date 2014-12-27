@@ -3,7 +3,7 @@
 #include <cmath>
 
 // initialize game clock
-gameclock::gameclock() : running(false), current_blind_level(0), time_remaining(0), break_time_remaining(0)
+gameclock::gameclock() : blind_increase_factor(1.5), running(false), current_blind_level(0), time_remaining(0), break_time_remaining(0)
 {
 }
 
@@ -11,6 +11,8 @@ gameclock::gameclock() : running(false), current_blind_level(0), time_remaining(
 void gameclock::configure(const json& config)
 {
     logger(LOG_DEBUG) << "Loading game clock configuration\n";
+
+    config.get_value("blind_increase_factor", this->blind_increase_factor);
 
     std::vector<json> array;
     if(config.get_value("blind_levels", array))
@@ -41,6 +43,8 @@ void gameclock::configure(const json& config)
 // dump configuration to JSON
 void gameclock::dump_configuration(json& config) const
 {
+    config.set_value("blind_increase_factor", this->blind_increase_factor);
+
     std::vector<json> array;
     for(auto level : this->blind_levels)
     {
@@ -284,9 +288,6 @@ std::vector<gameclock::blind_level> gameclock::generate_blind_levels(std::size_t
         throw "tried to create a blind structure without chips defined";
     }
 
-    // blinds ideally go up 50% each level, TODO: make this configurable?
-    static const auto factor(1.5);
-
     // sort chip denominations
     std::sort(this->chips.begin(), this->chips.end());
 
@@ -321,7 +322,7 @@ std::vector<gameclock::blind_level> gameclock::generate_blind_levels(std::size_t
         }
 
         // next small blind should be about factor times bigger than previous one
-        ideal_small *= factor;
+        ideal_small *= this->blind_increase_factor;
     }
 
     return this->blind_levels;
