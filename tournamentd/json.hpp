@@ -49,16 +49,7 @@ public:
 
     // Does this object contain a given child object?
     bool has_object(const char* name) const;
-    bool has_object(const std::string& name) const;
-
-    // Perform a function on each array element
-    void for_each(const std::function<void(const json&,int)>& func) const;
-    void for_each(const char* name, const std::function<void(const json&,int)>& func) const;
-    void for_each(const std::string& name, const std::function<void(const json&,int)>& func) const;
-
-    // Get value
-    template <typename T>
-    T value() const;
+    bool has_object(const std::string& name) const { return has_object(name.c_str()); }
 
     // Get value for name
     template <typename T>

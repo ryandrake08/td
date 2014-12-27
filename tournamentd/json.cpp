@@ -30,17 +30,6 @@ void ensure_type(cJSON* object, int type)
     }
 }
 
-static cJSON* safe_GetObjectItem(cJSON* object, const char* name)
-{
-    ensure_type(object, cJSON_Object);
-    auto obj(cJSON_GetObjectItem(object, name));
-    if(obj == nullptr)
-    {
-        throw std::runtime_error("child does not exist: " + std::string(name));
-    }
-    return obj;
-}
-
 static cJSON* safe_GetArrayItem(cJSON* object, int i)
 {
     ensure_type(object, cJSON_Array);
@@ -265,85 +254,8 @@ bool json::has_object(const char* name) const
 {
     return cJSON_GetObjectItem(this->ptr, name) != nullptr;
 }
-bool json::has_object(const std::string& name) const
-{
-    return this->has_object(name.c_str());
-}
-
-// Perform a function on each array element
-
-static void for_each_array_object(cJSON* object, const std::function<void(cJSON*, int)>& func)
-{
-    ensure_type(object, cJSON_Array);
-    auto size(cJSON_GetArraySize(object));
-    for(int i=0; i<size; i++)
-    {
-        func(safe_GetArrayItem(object, i), i);
-    }
-}
-
-void json::for_each(const std::function<void(const json&,int)>& func) const
-{
-    for_each_array_object(this->ptr, [func](cJSON* ptr, int i) { func(json::dup(ptr), i); });
-}
-
-void json::for_each(const char* name, const std::function<void(const json&,int)>& func) const
-{
-    auto obj(safe_GetObjectItem(this->ptr, name));
-    for_each_array_object(obj, [func](cJSON* ptr, int i) { func(json::dup(ptr), i); });
-}
-
-void json::for_each(const std::string& name, const std::function<void(const json&,int)>& func) const
-{
-    auto obj(safe_GetObjectItem(this->ptr, name.c_str()));
-    for_each_array_object(obj, [func](cJSON* ptr, int i) { func(json::dup(ptr), i); });
-}
 
 // Specialized getters
-template <>
-int json::value<int>() const
-{
-    return safe_valueint(this->ptr);
-}
-
-template <>
-long json::value<long>() const
-{
-    return static_cast<long>(safe_valueint(this->ptr));
-}
-
-template <>
-unsigned long json::value<unsigned long>() const
-{
-    return safe_valueulong(this->ptr);
-}
-
-template <>
-std::string json::value<std::string>() const
-{
-    return safe_valuestring(this->ptr);
-}
-
-template <>
-double json::value<double>() const
-{
-    return safe_valuedouble(this->ptr);
-}
-
-template <>
-bool json::value<bool>() const
-{
-    return safe_valuebool(this->ptr);
-}
-
-template <>
-std::vector<json> json::value<std::vector<json>>() const
-{
-    std::vector<json> ret;
-    for_each_array_object(this->ptr, [&ret](cJSON* ptr, int) { ret.push_back(json::dup(ptr)); });
-    return ret;
-}
-
 template <>
 bool json::get_value(const char* name, int& value) const
 {
@@ -471,9 +383,15 @@ bool json::get_value<std::vector<json>>(const char* name, std::vector<json>& val
     auto obj(cJSON_GetObjectItem(this->ptr, name));
     if(obj != nullptr)
     {
-        ensure_type(obj, cJSON_Array);
-        value.resize(cJSON_GetArraySize(obj));
-        for_each_array_object(obj, [&value](cJSON* ptr, int i) { value[i] = json::dup(ptr); });
+        auto size(cJSON_GetArraySize(this->ptr));
+
+        value.resize(size);
+
+        for(int i=0; i<size; i++)
+        {
+            value[i] = json::dup(safe_GetArrayItem(this->ptr, i));
+        }
+
         return true;
     }
     else
