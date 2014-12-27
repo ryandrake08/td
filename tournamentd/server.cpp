@@ -18,21 +18,39 @@ bool server::poll(const std::function<void(std::iostream&)>& handle_new_client, 
     // first, service the listening socket, if selected
     if(selected.find(this->listener) != selected.end())
     {
-        // accept and add to our 'all' set
-        auto client(this->listener.accept());
-        this->all_open.insert(client);
-        this->all_clients.insert(client);
-        selected.erase(this->listener);
+        logger(LOG_DEBUG) << "new client connection\n";
 
+        // accept new client from listening socket
+        auto client(this->listener.accept());
+
+        // greet new client
         socketstream ss(client);
         handle_new_client(ss);
+
+        // if all is well, move to our lists
+        if(ss.good())
+        {
+            this->all_open.insert(client);
+            this->all_clients.insert(client);
+            selected.erase(this->listener);
+        }
     }
 
     // then, handle each existing client, if selected
     for(auto c : selected)
     {
+        logger(LOG_DEBUG) << "handling client communication\n";
+
+        // handle client i/o
         socketstream ss(c);
         handle_client(ss);
+
+        if(!ss.good())
+        {
+            logger(LOG_DEBUG) << "closing client connection\n";
+            this->all_open.erase(c);
+            this->all_clients.erase(c);
+        }
     }
 
     return false;
@@ -43,7 +61,15 @@ void server::each_client(const std::function<void(std::ostream&)>& handler)
 {
     for(auto c : this->all_clients)
     {
+        // handle client i/o
         socketstream ss(c);
         handler(ss);
+
+        if(!ss.good())
+        {
+            logger(LOG_DEBUG) << "closing client connection\n";
+            this->all_open.erase(c);
+            this->all_clients.erase(c);
+        }
     }
 }
