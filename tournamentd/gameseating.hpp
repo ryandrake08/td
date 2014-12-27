@@ -49,6 +49,12 @@ public:
     // load configuration from JSON (object or file)
     void configure(const json& config);
 
+    // dump configuration to JSON
+    void dump_configuration(json& config) const;
+
+    // dump state to JSON
+    void dump_state(json& state) const;
+
     // pre-game player seeting, with expected number of players (to predict table count)
     // returns number of tables needed
     std::size_t plan_seating(std::size_t max_expected_players);

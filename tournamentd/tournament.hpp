@@ -30,6 +30,12 @@ public:
     // load configuration from JSON (object or file)
     void configure(const json& config);
 
+    // dump configuration to JSON
+    void dump_configuration(json& config) const;
+
+    // dump state to JSON
+    void dump_state(json& state) const;
+
     // accessors for game state
     gameclock& countdown_clock();
     gamefunding& funding_chart();

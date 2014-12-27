@@ -24,6 +24,31 @@ void tournament::configure(const json& config)
     seating.configure(config);
 }
 
+// dump configuration to JSON
+void tournament::dump_configuration(json& config) const
+{
+    config.set_value("name", this->name);
+
+    std::vector<json> array;
+    for(auto player : this->players)
+    {
+        array.push_back(json().set_value("name", player.name));
+    }
+    config.set_value("players", array);
+
+    clock.dump_configuration(config);
+    funding.dump_configuration(config);
+    seating.dump_configuration(config);
+}
+
+// dump state to JSON
+void tournament::dump_state(json& state) const
+{
+    clock.dump_state(state);
+    funding.dump_state(state);
+    seating.dump_state(state);
+}
+
 // accessors for game state
 gameclock& tournament::countdown_clock()
 {

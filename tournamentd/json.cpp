@@ -1,6 +1,7 @@
 #include "json.hpp"
 #include <stddef.h> // Oops, cJSON.h requires stddef.h
 #include "cjson/cJSON.h"
+#include <algorithm>
 #include <cassert>
 #include <fstream>
 #include <limits>
@@ -88,7 +89,7 @@ static bool safe_valuebool(cJSON* object)
 static unsigned int safe_valueuint(cJSON* object)
 {
     ensure_type(object, cJSON_Number);
-    if (object->valueint < std::numeric_limits<unsigned int>::min())
+    if(object->valueint < std::numeric_limits<unsigned int>::min())
     {
         throw std::runtime_error("object has negative value");
     }
@@ -132,6 +133,7 @@ json::json(const std::string& str) : json(str.c_str())
 }
 
 // Construct from an array
+template <>
 json::json(const std::vector<json>& values) : ptr(cJSON_CreateArray())
 {
     check();
@@ -139,6 +141,43 @@ json::json(const std::vector<json>& values) : ptr(cJSON_CreateArray())
     {
         cJSON_AddItemToArray(this->ptr, cJSON_Duplicate(item.ptr, 1));
     }
+}
+
+template <>
+json::json(const std::vector<int>& values) : ptr(cJSON_CreateIntArray(&values[0], static_cast<int>(values.size())))
+{
+    check();
+}
+
+template <>
+json::json(const std::vector<float>& values) : ptr(cJSON_CreateFloatArray(&values[0], static_cast<int>(values.size())))
+{
+    check();
+}
+
+template <>
+json::json(const std::vector<double>& values) : ptr(cJSON_CreateDoubleArray(&values[0], static_cast<int>(values.size())))
+{
+    check();
+}
+
+template <>
+json::json(const std::vector<std::string>& values)
+{
+    std::vector<const char*> tmp(values.size());
+    // workaround for clang using lambda:
+    // should be able to pass mem_fn(&string::c_str) to transform
+    std::transform(values.begin(), values.end(), tmp.begin(), [](const std::string& str) { return str.c_str(); });
+    ptr = cJSON_CreateStringArray(&tmp[0], static_cast<int>(tmp.size()));
+    check();
+}
+
+template <>
+json::json(const std::vector<unsigned long>& values)
+{
+    std::vector<int> tmp(values.begin(), values.end());
+    ptr = cJSON_CreateIntArray(&tmp[0], static_cast<int>(tmp.size()));
+    check();
 }
 
 // Construct from file
@@ -339,7 +378,7 @@ template <>
 bool json::get_value<unsigned int>(const char* name, unsigned int& value) const
 {
     auto obj(cJSON_GetObjectItem(this->ptr, name));
-    if (obj != nullptr)
+    if(obj != nullptr)
     {
         value = safe_valueuint(obj);
         return true;
@@ -453,6 +492,19 @@ json& json::set_value<int>(const char* name, const int& value)
 }
 
 template <>
+json& json::set_value<long>(const char* name, const long& value)
+{
+    if(value > std::numeric_limits<int>::max())
+    {
+        throw std::runtime_error("unsigned long value would overflow json int");
+    }
+
+    cJSON_AddNumberToObject(this->ptr, name, static_cast<int>(value));
+
+    return *this;
+}
+
+template <>
 json& json::set_value<unsigned int>(const char* name, const unsigned int& value)
 {
     if(value > std::numeric_limits<int>::max())
@@ -468,7 +520,7 @@ json& json::set_value<unsigned int>(const char* name, const unsigned int& value)
 template <>
 json& json::set_value<unsigned long>(const char* name, const unsigned long& value)
 {
-    if (value > std::numeric_limits<int>::max())
+    if(value > std::numeric_limits<int>::max())
     {
         throw std::runtime_error("unsigned long value would overflow json int");
     }
@@ -477,6 +529,20 @@ json& json::set_value<unsigned long>(const char* name, const unsigned long& valu
 
     return *this;
 }
+
+template <>
+json& json::set_value<long long>(const char* name, const long long& value)
+{
+    if(value > std::numeric_limits<int>::max())
+    {
+        throw std::runtime_error("unsigned long value would overflow json int");
+    }
+
+    cJSON_AddNumberToObject(this->ptr, name, static_cast<int>(value));
+
+    return *this;
+}
+
 
 template <>
 json& json::set_value<std::string>(const char* name, const std::string& value)

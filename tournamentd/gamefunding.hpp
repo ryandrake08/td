@@ -54,6 +54,12 @@ public:
     // load configuration from JSON (object or file)
     void configure(const json& config);
 
+    // dump configuration to JSON
+    void dump_configuration(json& config) const;
+
+    // dump state to JSON
+    void dump_state(json& state) const;
+
     // reset funding information back to zero
     void reset();
     

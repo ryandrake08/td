@@ -10,6 +10,41 @@ void gameseating::configure(const json& config)
     config.get_value("table_capacity", this->table_capacity);
 }
 
+// dump configuration to JSON
+void gameseating::dump_configuration(json& config) const
+{
+    config.set_value("table_capacity", this->table_capacity);
+}
+
+// dump state to JSON
+void gameseating::dump_state(json& state) const
+{
+    std::vector<json> array;
+    for(auto seatpair : seats)
+    {
+        json obj;
+        obj.set_value("player_id", seatpair.first);
+        obj.set_value("table_number", seatpair.second.table_number);
+        obj.set_value("seat_number", seatpair.second.seat_number);
+        array.push_back(obj);
+    }
+    state.set_value("seats", array);
+
+    // players without seats or busted out
+    std::vector<player_id> tmp_finished(this->players_finished.begin(), this->players_finished.end());
+    state.set_value("players_finished", json(tmp_finished));
+
+    array.clear();
+    for(auto seating : this->empty_seats)
+    {
+        json obj;
+        obj.set_value("table_number", seating.table_number);
+        obj.set_value("seat_number", seating.seat_number);
+        array.push_back(obj);
+    }
+    state.set_value("empty_seats", array);
+}
+
 std::vector<std::vector<player_id>> gameseating::players_at_tables() const
 {
     // build up two vectors, outer = tables, inner = players per table

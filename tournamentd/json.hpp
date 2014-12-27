@@ -30,7 +30,8 @@ public:
     static json load(const std::string& filename);
 
     // Construct from an array
-    explicit json(const std::vector<json>& values);
+    template <typename T>
+    explicit json(const std::vector<T>& values);
 
     // Copy/move construction
     json(const json& other);

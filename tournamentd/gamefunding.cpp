@@ -31,6 +31,43 @@ void gamefunding::configure(const json& config)
     }
 }
 
+// dump configuration to JSON
+void gamefunding::dump_configuration(json& config) const
+{
+    config.set_value("cost_currency", this->cost_currency);
+    config.set_value("equity_currency", this->equity_currency);
+    config.set_value("percent_seats_paid", this->percent_seats_paid);
+
+    std::vector<json> array;
+    for(auto source : this->funding_sources)
+    {
+        json obj;
+        obj.set_value("is_addon", source.is_addon);
+        obj.set_value("forbid_after_blind_level", source.forbid_after_blind_level);
+        obj.set_value("chips", source.chips);
+        obj.set_value("cost", source.cost);
+        obj.set_value("commission", source.commission);
+        obj.set_value("equity", source.equity);
+        array.push_back(obj);
+    }
+    config.set_value("funding_sources", array);
+}
+
+// dump state to JSON
+void gamefunding::dump_state(json& state) const
+{
+    std::vector<player_id> tmp_buyins(this->buyins.begin(), this->buyins.end());
+    state.set_value("buyins", json(tmp_buyins));
+
+    std::vector<currency> tmp_payouts(this->payouts.begin(), this->payouts.end());
+    state.set_value("payouts", json(tmp_payouts));
+
+    state.set_value("total_chips", this->total_chips);
+    state.set_value("total_cost", this->total_cost);
+    state.set_value("total_commission", this->total_commission);
+    state.set_value("total_equity", this->total_equity);
+}
+
 // reset funding information back to zero
 void gamefunding::reset()
 {

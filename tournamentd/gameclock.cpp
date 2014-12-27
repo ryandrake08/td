@@ -33,6 +33,43 @@ void gameclock::configure(const json& config)
     }
 }
 
+// dump configuration to JSON
+void gameclock::dump_configuration(json& config) const
+{
+    std::vector<json> array;
+    for(auto level : this->blind_levels)
+    {
+        json obj;
+        obj.set_value("little_blind", level.little_blind);
+        obj.set_value("big_blind", level.big_blind);
+        obj.set_value("ante", level.ante);
+        obj.set_value("duration_ms", level.duration);
+        obj.set_value("break_duration_ms", level.break_duration);
+        array.push_back(obj);
+    }
+    config.set_value("blind_levels", array);
+
+    array.clear();
+    for(auto chip : this->chips)
+    {
+        json obj;
+        obj.set_value("color", chip.color);
+        obj.set_value("denomination", chip.denomination);
+        obj.set_value("count_available", chip.count_available);
+        array.push_back(obj);
+    }
+    config.set_value("chips", array);
+}
+
+// dump state to JSON
+void gameclock::dump_state(json& state) const
+{
+    state.set_value("running", this->running);
+    state.set_value("current_blind_level", this->current_blind_level);
+    state.set_value("time_remaining", this->time_remaining.count());
+    state.set_value("break_time_remaining", this->break_time_remaining.count());
+}
+
 // utility: start a blind level (optionally starting offset ms into the round)
 void gameclock::start_blind_level(std::size_t blind_level, ms offset)
 {
