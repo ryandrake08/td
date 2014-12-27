@@ -2,6 +2,11 @@
 #include "logger.hpp"
 #include <algorithm>
 
+// initialize game seating chart
+gameseating::gameseating() : table_capacity(0), tables(0)
+{
+}
+
 // load configuration from JSON (object or file)
 void gameseating::configure(const json& config)
 {

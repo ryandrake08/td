@@ -46,6 +46,9 @@ private:
     std::vector<std::vector<player_id>> players_at_tables() const;
 
 public:
+    // initialize game seating chart
+    gameseating();
+    
     // load configuration from JSON (object or file)
     void configure(const json& config);
 

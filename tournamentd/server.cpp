@@ -2,7 +2,6 @@
 #include "logger.hpp"
 #include "server.hpp"
 #include "socketstream.hpp"
-
 #include <sstream>
 
 // create the server, listening on given port
@@ -12,7 +11,7 @@ server::server(std::uint16_t port) : listener(port)
 }
 
 // poll the server with given timeout
-void server::poll(long usec)
+bool server::poll(const handler& handle_new_client, const handler& handle_client, long usec)
 {
     auto selected(inet_socket::select(this->all_open, usec));
 
@@ -24,18 +23,16 @@ void server::poll(long usec)
         this->all_open.insert(client);
         selected.erase(this->listener);
 
-        // greet client
-        json greeting;
-        greeting.set_value("ready", true);
-        socketstream(client) << greeting;
+        socketstream ss(client);
+        handle_new_client(ss);
     }
 
-    // then, service the remaining (clients)
-    for(auto client : selected)
+    // then, handle each existing client, if selected
+    for(auto c : selected)
     {
-        std::string buffer;
-        socketstream stream(client);
-        std::getline(stream, buffer);
-        logger(LOG_DEBUG) << "received: " << buffer << '\n';
+        socketstream ss(c);
+        handle_client(ss);
     }
+
+    return false;
 }

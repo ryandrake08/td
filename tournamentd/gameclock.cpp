@@ -2,6 +2,11 @@
 #include "logger.hpp"
 #include <cmath>
 
+// initialize game clock
+gameclock::gameclock() : running(false), current_blind_level(0), time_remaining(0), break_time_remaining(0)
+{
+}
+
 // load configuration from JSON (object or file)
 void gameclock::configure(const json& config)
 {

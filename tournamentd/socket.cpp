@@ -264,8 +264,6 @@ std::set<inet_socket> inet_socket::select(const std::set<inet_socket>& sockets, 
         max_fd = sockets.rbegin()->impl->fd;
     }
 
-    logger(LOG_DEBUG) << "max_fd is " << max_fd+1 << '\n';
-
     // do the select
     auto ready(::select(max_fd+1, &fds, nullptr, nullptr, ptv));
     if(ready == SOCKET_ERROR)

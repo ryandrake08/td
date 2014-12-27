@@ -52,6 +52,9 @@ public:
     void start_blind_level(std::size_t blind_level, ms offset);
 
 public:
+    // initialize game clock
+    gameclock();
+
     // load configuration from JSON (object or file)
     void configure(const json& config);
 

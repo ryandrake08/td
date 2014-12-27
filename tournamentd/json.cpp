@@ -553,6 +553,14 @@ json& json::set_value<std::string>(const char* name, const std::string& value)
 }
 
 template <>
+json& json::set_value<const char*>(const char* name, const char* const& value)
+{
+    cJSON_AddStringToObject(this->ptr, name, value);
+
+    return *this;
+}
+
+template <>
 json& json::set_value<double>(const char* name, const double& value)
 {
     cJSON_AddNumberToObject(this->ptr, name, value);

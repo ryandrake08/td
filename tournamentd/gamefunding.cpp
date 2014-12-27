@@ -6,6 +6,11 @@
 
 const std::size_t gamefunding::funding_source::always_allow = std::numeric_limits<std::size_t>::max();
 
+// initialize game funding rules
+gamefunding::gamefunding() : percent_seats_paid(1.0), total_chips(0), total_cost(0), total_commission(0), total_equity(0)
+{
+}
+
 // load configuration from JSON (object or file)
 void gamefunding::configure(const json& config)
 {

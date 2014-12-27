@@ -51,6 +51,9 @@ private:
     currency total_equity;
 
 public:
+    // initialize game funding rules
+    gamefunding();
+
     // load configuration from JSON (object or file)
     void configure(const json& config);
 
