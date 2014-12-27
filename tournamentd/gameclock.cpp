@@ -248,8 +248,10 @@ bool gameclock::update_remaining()
         {
             // advance to next blind
             auto offset(std::chrono::duration_cast<ms>(this->end_of_break - now));
-            return this->advance_blind_level(offset);
+            this->advance_blind_level(offset);
         }
+
+        return true;
     }
     return false;
 }

@@ -11,7 +11,7 @@ server::server(std::uint16_t port) : listener(port)
 }
 
 // poll the server with given timeout
-bool server::poll(const std::function<void(std::iostream&)>& handle_new_client, const std::function<void(std::iostream&)>& handle_client, long usec)
+bool server::poll(const std::function<void(std::ostream&)>& handle_new_client, const std::function<void(std::iostream&)>& handle_client, long usec)
 {
     auto selected(inet_socket::select(this->all_open, usec));
 

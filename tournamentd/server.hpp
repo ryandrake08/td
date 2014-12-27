@@ -15,7 +15,7 @@ public:
     server(std::uint16_t port);
 
     // poll the server with given timeout, handling both new clients and clients with input
-    bool poll(const std::function<void(std::iostream&)>& handle_new_client, const std::function<void(std::iostream&)>& handle_client, long usec=-1);
+    bool poll(const std::function<void(std::ostream&)>& handle_new_client, const std::function<void(std::iostream&)>& handle_client, long usec=-1);
 
     // call back handler for each client
     void each_client(const std::function<void(std::ostream&)>& handler);

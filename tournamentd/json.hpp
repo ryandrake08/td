@@ -63,7 +63,11 @@ public:
     template <typename T>
     json& set_value(const std::string& name, const T& value) { return set_value(name.c_str(), value); }
 
-    // Stream operators
-    friend std::ostream& operator<<(std::ostream& os, const json& object);
-    friend std::istream& operator>>(std::istream& is, json& object);
+    // I/O from streams
+    void write(std::ostream& os) const;
+    void read(std::istream& is);
 };
+
+// Stream operators
+std::ostream& operator<<(std::ostream& os, const json& object);
+std::istream& operator>>(std::istream& is, json& object);

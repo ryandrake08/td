@@ -515,18 +515,39 @@ json& json::set_value<std::vector<json>>(const char* name, const std::vector<jso
     return set_value<json>(name, json(values));
 }
 
-std::ostream& operator<<(std::ostream& os, const json& object)
+// I/O from streams
+void json::write(std::ostream& os) const
 {
-    auto buffer(cJSON_PrintUnformatted(object.ptr));
+    auto buffer(cJSON_PrintUnformatted(this->ptr));
     os << buffer;
     free(buffer);
+}
+
+void json::read(std::istream& is)
+{
+    std::string buffer;
+    is >> buffer;
+
+    if(this->ptr != nullptr)
+    {
+        // Delete current cJSON
+        cJSON_Delete(this->ptr);
+    }
+
+    // Parse into new cJSON
+    this->ptr = cJSON_Parse(buffer.c_str());
+
+    check();
+}
+
+std::ostream& operator<<(std::ostream& os, const json& object)
+{
+    object.write(os);
     return os;
 }
 
 std::istream& operator>>(std::istream& is, json& object)
 {
-    std::string buffer;
-    is >> buffer;
-    object = json(buffer);
+    object.read(is);
     return is;
 }
