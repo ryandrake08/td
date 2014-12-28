@@ -287,7 +287,7 @@ std::vector<gameclock::blind_level> gameclock::generate_blind_levels(std::size_t
 {
     if(this->chips.empty())
     {
-        throw "tried to create a blind structure without chips defined";
+        throw tournament_error("tried to create a blind structure without chips defined");
     }
 
     // sort chip denominations
