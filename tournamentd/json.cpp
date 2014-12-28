@@ -29,18 +29,19 @@ static void ensure_type(const cJSON* object, int type)
 }
 
 template <typename Ts, typename Td>
-static Td bounds_checking_cast(const Ts& from)
+static Td bounds_checking_cast(Ts from)
 {
+#if 0
     if(from < std::numeric_limits<Td>::min())
     {
-        throw std::out_of_range("value would underflow: " + std::to_string(from));
+        throw std::out_of_range("value " + std::to_string(from) + " would underflow " + std::to_string(std::numeric_limits<Td>::min()));
     }
 
     if(from > std::numeric_limits<Td>::max())
     {
-        throw std::out_of_range("value would overflow: " + std::to_string(from));
+        throw std::out_of_range("value " + std::to_string(from) + " would overflow " + std::to_string(std::numeric_limits<Td>::max()));
     }
-
+#endif
     return static_cast<Td>(from);
 }
 
@@ -378,14 +379,14 @@ json& json::set_value(const char* name, const unsigned int& value)
 template <>
 json& json::set_value(const char* name, const unsigned long& value)
 {
-    cJSON_AddNumberToObject(this->ptr, name, (bounds_checking_cast<unsigned long,long>(value)));
+    cJSON_AddNumberToObject(this->ptr, name, (bounds_checking_cast<unsigned long,int>(value)));
     return *this;
 }
 
 template <>
 json& json::set_value(const char* name, const long long& value)
 {
-    cJSON_AddNumberToObject(this->ptr, name, (bounds_checking_cast<unsigned long,long>(value)));
+    cJSON_AddNumberToObject(this->ptr, name, (bounds_checking_cast<long long,int>(value)));
     return *this;
 }
 
