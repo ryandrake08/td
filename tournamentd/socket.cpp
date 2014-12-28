@@ -191,7 +191,7 @@ inet_socket::inet_socket(std::uint16_t port, int backlog) : impl(new inet_socket
     }
 }
 
-inet_socket inet_socket::accept()
+inet_socket inet_socket::accept() const
 {
     validate();
 
@@ -322,6 +322,23 @@ std::size_t inet_socket::send(const void* buf, std::size_t bytes)
     return static_cast<std::size_t>(len);
 }
 
+// is socket listening
+bool inet_socket::listening() const
+{
+    validate();
+
+    int val(0);
+    socklen_t len(sizeof(val));
+    if(::getsockopt(this->impl->fd, SOL_SOCKET, SO_ACCEPTCONN, &val, &len) == SOCKET_ERROR)
+    {
+        throw(std::system_error(errno, std::system_category(), "inet_socket: listening: getsockopt"));
+    }
+    else
+    {
+        return val != 0;
+    }
+}
+
 bool inet_socket::operator<(const inet_socket& other) const
 {
     validate();
@@ -336,6 +353,14 @@ bool inet_socket::operator==(const inet_socket& other) const
     other.validate();
 
     return this->impl->fd == other.impl->fd;
+}
+
+bool inet_socket::operator!=(const inet_socket& other) const
+{
+    validate();
+    other.validate();
+
+    return this->impl->fd != other.impl->fd;
 }
 
 std::ostream& operator<<(std::ostream& os, const inet_socket& sock)

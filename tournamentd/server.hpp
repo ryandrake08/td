@@ -6,14 +6,12 @@
 
 class server
 {
-    inet_socket listener;
-    std::set<inet_socket> all_open;
-    std::set<inet_socket> all_clients;
-
-    // disconnect a client
-    void disconnect(const inet_socket& client);
+    std::set<inet_socket> all;
+    std::set<inet_socket>::const_iterator listener;
 
 public:
+    server();
+    
     // listen on given port
     void listen(std::uint16_t port);
 

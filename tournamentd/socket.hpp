@@ -30,7 +30,7 @@ public:
     inet_socket(std::uint16_t port, int backlog=5);
 
     // create a new socket by accepting on a listening socket
-    inet_socket accept();
+    inet_socket accept() const;
 
     // select on this socket
     bool select(long usec=-1);
@@ -42,9 +42,13 @@ public:
     std::size_t recv(void* buf, std::size_t bytes);
     std::size_t send(const void* buf, std::size_t bytes);
 
+    // is socket listening
+    bool listening() const;
+
     // various operators
     bool operator<(const inet_socket& other) const;
     bool operator==(const inet_socket& other) const;
+    bool operator!=(const inet_socket& other) const;
 
     // Stream insertion
     friend std::ostream& operator<<(std::ostream& os, const inet_socket& sock);
