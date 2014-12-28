@@ -10,16 +10,12 @@ class json
 {
     cJSON* ptr;
 
-    // Verify valid ptr
-    void check() const;
-
-    // Construct from raw cJSON pointer
-    explicit json(cJSON* raw_ptr);
-    static json dup(cJSON* raw_ptr);
-
 public:
     // Construct an empty object
     json();
+
+    // Construct from raw cJSON pointer
+    explicit json(cJSON* raw_ptr);
 
     // Construct from json string
     explicit json(const char* str);

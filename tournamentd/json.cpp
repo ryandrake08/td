@@ -10,119 +10,172 @@
 #include <vector>
 
 // Verify valid ptr
-void json::check() const
+static cJSON* check(cJSON* obj)
 {
-    // Check root json pointer
-    if(this->ptr == nullptr)
-    {
-        throw std::logic_error("empty or invalid json");
-    }
-}
-
-void ensure_type(cJSON* object, int type)
-{
-    if((object->type & 0xff) != type)
-    {
-        throw std::runtime_error("object not of type: " + std::to_string(type));
-    }
-}
-
-static cJSON* safe_GetArrayItem(cJSON* object, int i)
-{
-    ensure_type(object, cJSON_Array);
-    auto obj(cJSON_GetArrayItem(object, i));
+    // Throw if pointer is null
     if(obj == nullptr)
     {
-        throw std::runtime_error("array item does not exist" + std::to_string(i));
+        throw std::logic_error("empty or invalid json");
     }
     return obj;
 }
 
-static int safe_valueint(cJSON* object)
+static void ensure_type(const cJSON* object, int type)
 {
-    ensure_type(object, cJSON_Number);
-    return object->valueint;
-}
-
-static double safe_valuedouble(cJSON* object)
-{
-    ensure_type(object, cJSON_Number);
-    return object->valuedouble;
-}
-
-static const char* safe_valuestring(cJSON* object)
-{
-    ensure_type(object, cJSON_String);
-    return object->valuestring;
-}
-
-static bool safe_valuebool(cJSON* object)
-{
-    if((object->type & 0xff) == cJSON_True)
+    if((object->type & 0xff) != type)
     {
-        return true;
+        throw std::invalid_argument("object not of type: " + std::to_string(type));
     }
-    else if((object->type & 0xff) == cJSON_False)
+}
+
+template <typename Ts, typename Td>
+static Td bounds_checking_cast(const Ts& from)
+{
+    if(from < std::numeric_limits<Td>::min())
     {
-        return false;
+        throw std::out_of_range("value would underflow: " + std::to_string(from));
+    }
+
+    if(from > std::numeric_limits<Td>::max())
+    {
+        throw std::out_of_range("value would overflow: " + std::to_string(from));
+    }
+
+    return static_cast<Td>(from);
+}
+
+template <typename T>
+static bool get_int_value(const cJSON* obj, T& value)
+{
+    if(obj != nullptr)
+    {
+        ensure_type(obj, cJSON_Number);
+        value = bounds_checking_cast<int,T>(obj->valueint);
+        return true;
     }
     else
     {
-        throw std::runtime_error("object not boolean");
+        return false;
     }
 }
 
-static unsigned int safe_valueuint(cJSON* object)
+template <typename T>
+static bool get_double_value(const cJSON* obj, T& value)
 {
-    ensure_type(object, cJSON_Number);
-    if(object->valueint < std::numeric_limits<unsigned int>::min())
+    if(obj != nullptr)
     {
-        throw std::runtime_error("object has negative value");
+        ensure_type(obj, cJSON_Number);
+        value = bounds_checking_cast<double,T>(obj->valuedouble);
+        return true;
     }
-    return static_cast<unsigned int>(object->valueint);
+    else
+    {
+        return false;
+    }
 }
 
-static unsigned long safe_valueulong(cJSON* object)
+template <typename T>
+static bool get_string_value(const cJSON* obj, T& value)
 {
-    ensure_type(object, cJSON_Number);
-    if(object->valueint < std::numeric_limits<unsigned long>::min())
+    if(obj != nullptr)
     {
-        throw std::runtime_error("object has negative value");
+        ensure_type(obj, cJSON_String);
+        value = obj->valuestring;
+        return true;
     }
-    return static_cast<unsigned long>(object->valueint);
+    else
+    {
+        return false;
+    }
+}
+
+static bool get_bool_value(const cJSON* obj, bool& value)
+{
+    if(obj != nullptr)
+    {
+        if((obj->type & 0xff) == cJSON_True)
+        {
+            return true;
+        }
+        else if((obj->type & 0xff) == cJSON_False)
+        {
+            return false;
+        }
+        else
+        {
+            throw std::invalid_argument("object not of type boolean");
+        }
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+static bool get_json_value(const cJSON* obj, json& value)
+{
+    if(obj != nullptr)
+    {
+        ensure_type(obj, cJSON_Object);
+        value = json(cJSON_Duplicate(const_cast<cJSON*>(obj), 1));
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+static bool get_json_array_value(const cJSON* obj, std::vector<json>& value)
+{
+    if(obj != nullptr)
+    {
+        ensure_type(obj, cJSON_Array);
+        auto size(cJSON_GetArraySize(const_cast<cJSON*>(obj)));
+        value.resize(size);
+
+        for(int i=0; i<size; i++)
+        {
+            auto item(cJSON_GetArrayItem(const_cast<cJSON*>(obj), i));
+            if(item == nullptr)
+            {
+                throw std::out_of_range("array item does not exist: " + std::to_string(i));
+            }
+            value[i] = json(cJSON_Duplicate(const_cast<cJSON*>(item), 1));
+        }
+
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
 
 // Construct an empty object
-json::json() : ptr(cJSON_CreateObject())
+json::json() : ptr(check(cJSON_CreateObject()))
 {
-    check();
 }
 
 // Construct from raw cJSON pointer
-json::json(cJSON* raw_ptr) : ptr(raw_ptr)
+json::json(cJSON* raw_ptr) : ptr(check(raw_ptr))
 {
-    check();
-}
-
-json json::dup(cJSON* raw_ptr)
-{
-    return json(cJSON_Duplicate(raw_ptr, 1));
 }
 
 // Construct from json string
-json::json(const char* str) : ptr(cJSON_Parse(str))
+json::json(const char* str) : ptr(check(cJSON_Parse(str)))
 {
-    check();
 }
-json::json(const std::string& str) : json(str.c_str())
+
+json::json(const std::string& str) : ptr(check(cJSON_Parse(str.c_str())))
 {
 }
 
 // Construct from an array
 template <>
-json::json(const std::vector<json>& values) : ptr(cJSON_CreateArray())
+json::json(const std::vector<json>& values) : ptr(check(cJSON_CreateArray()))
 {
-    check();
     for(auto item : values)
     {
         cJSON_AddItemToArray(this->ptr, cJSON_Duplicate(item.ptr, 1));
@@ -130,21 +183,18 @@ json::json(const std::vector<json>& values) : ptr(cJSON_CreateArray())
 }
 
 template <>
-json::json(const std::vector<int>& values) : ptr(cJSON_CreateIntArray(&values[0], static_cast<int>(values.size())))
+json::json(const std::vector<int>& values) : ptr(check(cJSON_CreateIntArray(&values[0], static_cast<int>(values.size()))))
 {
-    check();
 }
 
 template <>
-json::json(const std::vector<float>& values) : ptr(cJSON_CreateFloatArray(&values[0], static_cast<int>(values.size())))
+json::json(const std::vector<float>& values) : ptr(check(cJSON_CreateFloatArray(&values[0], static_cast<int>(values.size()))))
 {
-    check();
 }
 
 template <>
-json::json(const std::vector<double>& values) : ptr(cJSON_CreateDoubleArray(&values[0], static_cast<int>(values.size())))
+json::json(const std::vector<double>& values) : ptr(check(cJSON_CreateDoubleArray(&values[0], static_cast<int>(values.size()))))
 {
-    check();
 }
 
 template <>
@@ -153,17 +203,17 @@ json::json(const std::vector<std::string>& values)
     std::vector<const char*> tmp(values.size());
     // workaround for clang using lambda:
     // should be able to pass mem_fn(&string::c_str) to transform
+    //  std::transform(values.begin(), values.end(), tmp.begin(), std::mem_fn(&std::string::c_str));
+    //  std::transform(values.begin(), values.end(), tmp.begin(), std::bind(&std::string::c_str, std::placeholders::_1));
     std::transform(values.begin(), values.end(), tmp.begin(), [](const std::string& str) { return str.c_str(); });
-    this->ptr = cJSON_CreateStringArray(&tmp[0], static_cast<int>(tmp.size()));
-    check();
+    this->ptr = check(cJSON_CreateStringArray(&tmp[0], static_cast<int>(tmp.size())));
 }
 
 template <>
 json::json(const std::vector<unsigned long>& values)
 {
     std::vector<int> tmp(values.begin(), values.end());
-    this->ptr = cJSON_CreateIntArray(&tmp[0], static_cast<int>(tmp.size()));
-    check();
+    this->ptr = check(cJSON_CreateIntArray(&tmp[0], static_cast<int>(tmp.size())));
 }
 
 // Construct from file
@@ -186,16 +236,14 @@ json json::load(const std::string& filename)
 }
 
 // Copy constructor duplicates
-json::json(const json& other) : ptr(cJSON_Duplicate(other.ptr, 1))
+json::json(const json& other) : ptr(check(cJSON_Duplicate(other.ptr, 1)))
 {
-    check();
 }
 
 // Move constructor moves
-json::json(json&& other) : ptr(other.ptr)
+json::json(json&& other) : ptr(check(other.ptr))
 {
     other.ptr = nullptr;
-    check();
 }
 
 // Copy assignment duplicates
@@ -207,10 +255,10 @@ json& json::operator=(const json& other)
         cJSON_Delete(this->ptr);
 
         // Duplicate other one
-        this->ptr = cJSON_Duplicate(other.ptr, 1);
+        this->ptr = check(cJSON_Duplicate(other.ptr, 1));
     }
 
-    check();
+    check(this->ptr);
     return *this;
 }
 
@@ -223,11 +271,9 @@ json& json::operator=(json&& other)
         cJSON_Delete(this->ptr);
 
         // Copy the other one
-        this->ptr = other.ptr;
+        this->ptr = check(other.ptr);
         other.ptr = nullptr;
     }
-
-    check();
     return *this;
 }
 
@@ -256,260 +302,138 @@ bool json::has_object(const char* name) const
 template <>
 bool json::get_value(const char* name, int& value) const
 {
-    auto obj(cJSON_GetObjectItem(this->ptr, name));
-    if(obj != nullptr)
-    {
-        value = safe_valueint(obj);
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+    return ::get_int_value(cJSON_GetObjectItem(this->ptr, name), value);
 }
 
 template <>
-bool json::get_value<long>(const char* name, long& value) const
+bool json::get_value(const char* name, long& value) const
 {
-    auto obj(cJSON_GetObjectItem(this->ptr, name));
-    if(obj != nullptr)
-    {
-        value = safe_valueint(obj);
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+    return ::get_int_value(cJSON_GetObjectItem(this->ptr, name), value);
 }
 
 template <>
-bool json::get_value<unsigned int>(const char* name, unsigned int& value) const
+bool json::get_value(const char* name, unsigned int& value) const
 {
-    auto obj(cJSON_GetObjectItem(this->ptr, name));
-    if(obj != nullptr)
-    {
-        value = safe_valueuint(obj);
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+    return ::get_int_value(cJSON_GetObjectItem(this->ptr, name), value);
 }
 
 template <>
-bool json::get_value<unsigned long>(const char* name, unsigned long& value) const
+bool json::get_value(const char* name, unsigned long& value) const
 {
-    auto obj(cJSON_GetObjectItem(this->ptr, name));
-    if(obj != nullptr)
-    {
-        value = safe_valueulong(obj);
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+    return ::get_int_value(cJSON_GetObjectItem(this->ptr, name), value);
 }
 
 template <>
-bool json::get_value<std::string>(const char* name, std::string& value) const
+bool json::get_value(const char* name, double& value) const
 {
-    auto obj(cJSON_GetObjectItem(this->ptr, name));
-    if(obj != nullptr)
-    {
-        value = safe_valuestring(obj);
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+    return ::get_double_value(cJSON_GetObjectItem(this->ptr, name), value);
 }
 
 template <>
-bool json::get_value<double>(const char* name, double& value) const
+bool json::get_value(const char* name, std::string& value) const
 {
-    auto obj(cJSON_GetObjectItem(this->ptr, name));
-    if(obj != nullptr)
-    {
-        value = safe_valuedouble(obj);
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+    return ::get_string_value(cJSON_GetObjectItem(this->ptr, name), value);
 }
 
 template <>
-bool json::get_value<bool>(const char* name, bool& value) const
+bool json::get_value(const char* name, bool& value) const
 {
-    auto obj(cJSON_GetObjectItem(this->ptr, name));
-    if(obj != nullptr)
-    {
-        value = safe_valuebool(obj);
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+    return ::get_bool_value(cJSON_GetObjectItem(this->ptr, name), value);
 }
 
 template <>
-bool json::get_value<json>(const char* name, json& value) const
+bool json::get_value(const char* name, json& value) const
 {
-    auto obj(cJSON_GetObjectItem(this->ptr, name));
-    if(obj != nullptr)
-    {
-        ensure_type(obj, cJSON_Object);
-        value = json::dup(obj);
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+    return ::get_json_value(cJSON_GetObjectItem(this->ptr, name), value);
 }
 
 template <>
-bool json::get_value<std::vector<json>>(const char* name, std::vector<json>& value) const
+bool json::get_value(const char* name, std::vector<json>& value) const
 {
-    auto obj(cJSON_GetObjectItem(this->ptr, name));
-    if(obj != nullptr)
-    {
-        auto size(cJSON_GetArraySize(this->ptr));
-
-        value.resize(size);
-
-        for(int i=0; i<size; i++)
-        {
-            value[i] = json::dup(safe_GetArrayItem(this->ptr, i));
-        }
-
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+    return ::get_json_array_value(cJSON_GetObjectItem(this->ptr, name), value);
 }
 
 // Specialized setters
 template <>
-json& json::set_value<int>(const char* name, const int& value)
+json& json::set_value(const char* name, const int& value)
 {
     cJSON_AddNumberToObject(this->ptr, name, value);
-
     return *this;
 }
 
 template <>
-json& json::set_value<long>(const char* name, const long& value)
+json& json::set_value(const char* name, const long& value)
 {
-    if(value > std::numeric_limits<int>::max())
-    {
-        throw std::runtime_error("unsigned long value would overflow json int");
-    }
-
-    cJSON_AddNumberToObject(this->ptr, name, static_cast<int>(value));
-
+    cJSON_AddNumberToObject(this->ptr, name, (bounds_checking_cast<long,int>(value)));
     return *this;
 }
 
 template <>
-json& json::set_value<unsigned int>(const char* name, const unsigned int& value)
+json& json::set_value(const char* name, const unsigned int& value)
 {
-    if(value > std::numeric_limits<int>::max())
-    {
-        throw std::runtime_error("unsigned int value would overflow json int");
-    }
-
-    cJSON_AddNumberToObject(this->ptr, name, static_cast<int>(value));
-
+    cJSON_AddNumberToObject(this->ptr, name, (bounds_checking_cast<unsigned int,int>(value)));
     return *this;
 }
 
 template <>
-json& json::set_value<unsigned long>(const char* name, const unsigned long& value)
+json& json::set_value(const char* name, const unsigned long& value)
 {
-    if(value > std::numeric_limits<int>::max())
-    {
-        throw std::runtime_error("unsigned long value would overflow json int");
-    }
-
-    cJSON_AddNumberToObject(this->ptr, name, static_cast<int>(value));
-
+    cJSON_AddNumberToObject(this->ptr, name, (bounds_checking_cast<unsigned long,long>(value)));
     return *this;
 }
 
 template <>
-json& json::set_value<long long>(const char* name, const long long& value)
+json& json::set_value(const char* name, const long long& value)
 {
-    if(value > std::numeric_limits<int>::max())
-    {
-        throw std::runtime_error("unsigned long value would overflow json int");
-    }
-
-    cJSON_AddNumberToObject(this->ptr, name, static_cast<int>(value));
-
+    cJSON_AddNumberToObject(this->ptr, name, (bounds_checking_cast<unsigned long,long>(value)));
     return *this;
 }
 
 
 template <>
-json& json::set_value<std::string>(const char* name, const std::string& value)
+json& json::set_value(const char* name, const std::string& value)
 {
     cJSON_AddStringToObject(this->ptr, name, value.c_str());
-
     return *this;
 }
 
 template <>
-json& json::set_value<const char*>(const char* name, const char* const& value)
+json& json::set_value(const char* name, const char* const& value)
 {
     cJSON_AddStringToObject(this->ptr, name, value);
-
     return *this;
 }
 
 template <>
-json& json::set_value<double>(const char* name, const double& value)
+json& json::set_value(const char* name, const double& value)
 {
     cJSON_AddNumberToObject(this->ptr, name, value);
-
     return *this;
 }
 
 template <>
-json& json::set_value<bool>(const char* name, const bool& value)
+json& json::set_value(const char* name, const bool& value)
 {
-    if(value)
-    {
-        cJSON_AddTrueToObject(this->ptr, name);
-    }
-    else
-    {
-        cJSON_AddFalseToObject(this->ptr, name);
-    }
-
+    cJSON_AddBoolToObject(this->ptr, name, value);
     return *this;
 }
 
 template <>
-json& json::set_value<json>(const char* name, const json& value)
+json& json::set_value(const char* name, const json& value)
 {
     cJSON_AddItemToObject(this->ptr, name, cJSON_Duplicate(value.ptr, 1));
-
     return *this;
 }
 
 template <>
-json& json::set_value<std::vector<json>>(const char* name, const std::vector<json>& values)
+json& json::set_value(const char* name, const std::vector<json>& values)
 {
-    return set_value<json>(name, json(values));
+    cJSON_AddItemToObject(this->ptr, name, cJSON_CreateArray());
+    for(auto item : values)
+    {
+        cJSON_AddItemToArray(this->ptr, cJSON_Duplicate(item.ptr, 1));
+    }
+    return *this;
 }
 
 // I/O from streams
@@ -532,9 +456,7 @@ void json::read(std::istream& is)
     }
 
     // Parse into new cJSON
-    this->ptr = cJSON_Parse(buffer.c_str());
-
-    check();
+    this->ptr = check(cJSON_Parse(buffer.c_str()));
 }
 
 std::ostream& operator<<(std::ostream& os, const json& object)
