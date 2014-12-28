@@ -10,8 +10,16 @@ server::server(std::uint16_t port) : listener(port)
     this->all_open.insert(listener);
 }
 
+// disconnect a client
+void server::disconnect(const inet_socket& client)
+{
+    logger(LOG_DEBUG) << "closing client connection\n";
+    this->all_open.erase(client);
+    this->all_clients.erase(client);
+}
+
 // poll the server with given timeout
-bool server::poll(const std::function<void(std::ostream&)>& handle_new_client, const std::function<void(std::iostream&)>& handle_client, long usec)
+bool server::poll(const std::function<bool(std::ostream&)>& handle_new_client, const std::function<bool(std::iostream&)>& handle_client, long usec)
 {
     auto selected(inet_socket::select(this->all_open, usec));
 
@@ -25,11 +33,9 @@ bool server::poll(const std::function<void(std::ostream&)>& handle_new_client, c
 
         // greet new client
         socketstream ss(client);
-        handle_new_client(ss);
-
-        // if all is well, move to our lists
-        if(ss.good())
+        if(!handle_new_client(ss) && ss.good())
         {
+            // if all is well, add to our lists, and erase from our clients-to-be-handled list
             this->all_open.insert(client);
             this->all_clients.insert(client);
             selected.erase(this->listener);
@@ -43,13 +49,9 @@ bool server::poll(const std::function<void(std::ostream&)>& handle_new_client, c
 
         // handle client i/o
         socketstream ss(c);
-        handle_client(ss);
-
-        if(!ss.good())
+        if(handle_client(ss) || !ss.good())
         {
-            logger(LOG_DEBUG) << "closing client connection\n";
-            this->all_open.erase(c);
-            this->all_clients.erase(c);
+            disconnect(c);
         }
     }
 
@@ -57,19 +59,15 @@ bool server::poll(const std::function<void(std::ostream&)>& handle_new_client, c
 }
 
 // call back handler for each client
-void server::each_client(const std::function<void(std::ostream&)>& handler)
+void server::each_client(const std::function<bool(std::ostream&)>& handler)
 {
     for(auto c : this->all_clients)
     {
         // handle client i/o
         socketstream ss(c);
-        handler(ss);
-
-        if(!ss.good())
+        if(handler(ss) || !ss.good())
         {
-            logger(LOG_DEBUG) << "closing client connection\n";
-            this->all_open.erase(c);
-            this->all_clients.erase(c);
+            disconnect(c);
         }
     }
 }

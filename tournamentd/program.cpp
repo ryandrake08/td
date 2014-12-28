@@ -86,7 +86,7 @@ static void handle_cmd_get_all_state(const tournament& game, json& out)
     game.dump_state(out);
 }
 
-static void handle_new_client(std::ostream& client, const tournament& game)
+static bool handle_new_client(std::ostream& client, const tournament& game)
 {
     // greet client
     json out;
@@ -94,9 +94,11 @@ static void handle_new_client(std::ostream& client, const tournament& game)
     handle_cmd_get_all_config(game, out);
     handle_cmd_get_all_state(game, out);
     client << out << std::endl;
+
+    return false;
 }
 
-static void handle_client_input(std::iostream& client, tournament& game)
+static bool handle_client_input(std::iostream& client, tournament& game)
 {
     // get a line of input
     std::string input;
@@ -128,6 +130,10 @@ static void handle_client_input(std::iostream& client, tournament& game)
         json out;
         switch(crc32(cmd))
         {
+            case crc32_("quit"):
+            case crc32_("exit"):
+                return true;
+
             case crc32_("version"):
                 handle_cmd_version(game, out);
                 break;
@@ -142,6 +148,14 @@ static void handle_client_input(std::iostream& client, tournament& game)
         }
         client << out << std::endl;
     }
+
+    return false;
+}
+
+static bool handle_client_output(std::ostream& client, const json& out)
+{
+    client << out;
+    return false;
 }
 
 program::program(const std::vector<std::string>& cmdline) : sv(25600)
@@ -158,7 +172,7 @@ bool program::run()
         this->game.countdown_clock().dump_state(out);
 
         // bind handler
-        auto sender(std::bind(&json::write, std::ref(out), std::placeholders::_1));
+        auto sender(std::bind(&handle_client_output, std::placeholders::_1, std::ref(out)));
 
         // send to clients
         sv.each_client(sender);
