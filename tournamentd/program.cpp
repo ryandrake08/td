@@ -95,7 +95,7 @@ static void handle_cmd_authorize(std::unordered_set<int>& auths, json& out, cons
     }
 }
 
-static void handle_cmd_version(const tournament& game, json& out)
+static void handle_cmd_version(const gameinfo& game, json& out)
 {
     static const char* name = "tournamentd";
     static const char* version = "0.0.9";
@@ -104,22 +104,22 @@ static void handle_cmd_version(const tournament& game, json& out)
     out.set_value("server_version", version);
 }
 
-static void handle_cmd_get_all_config(const tournament& game, json& out)
+static void handle_cmd_get_all_config(const gameinfo& game, json& out)
 {
     game.dump_configuration(out);
 }
 
-static void handle_cmd_get_all_state(const tournament& game, json& out)
+static void handle_cmd_get_all_state(const gameinfo& game, json& out)
 {
     game.dump_state(out);
 }
 
-static void handle_cmd_get_clock_state(const tournament& game, json& out)
+static void handle_cmd_get_clock_state(const gameinfo& game, json& out)
 {
     game.countdown_clock().dump_state(out);
 }
 
-static void handle_cmd_start_game(tournament& game, json& out, const json& in)
+static void handle_cmd_start_game(gameinfo& game, json& out, const json& in)
 {
     datetime dt;
     if(in.get_value("start_at", dt))
@@ -137,7 +137,7 @@ void program::ensure_authorized(const json& in)
     int code;
     if(!in.get_value("authenticate", code) || auths.find(code) == this->auths.end())
     {
-        throw tournament_error("unauthorized");
+        throw std::runtime_error("unauthorized");
     }
 }
 

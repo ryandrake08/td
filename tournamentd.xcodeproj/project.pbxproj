@@ -19,7 +19,7 @@
 		ADEFA3771A41E6C800133B33 /* process.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ADEFA3671A41E6C700133B33 /* process.cpp */; };
 		ADEFA3781A41E6C800133B33 /* program.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ADEFA3691A41E6C700133B33 /* program.cpp */; };
 		ADEFA3791A41E6C800133B33 /* socket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ADEFA36B1A41E6C800133B33 /* socket.cpp */; };
-		ADEFA37E1A41EAD100133B33 /* tournament.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ADEFA37C1A41EAD100133B33 /* tournament.cpp */; };
+		ADEFA37E1A41EAD100133B33 /* gameinfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ADEFA37C1A41EAD100133B33 /* gameinfo.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -62,8 +62,8 @@
 		ADEFA36B1A41E6C800133B33 /* socket.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = socket.cpp; sourceTree = "<group>"; };
 		ADEFA36C1A41E6C800133B33 /* socket.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = socket.hpp; sourceTree = "<group>"; };
 		ADEFA36D1A41E6C800133B33 /* socketstream.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = socketstream.hpp; sourceTree = "<group>"; };
-		ADEFA37C1A41EAD100133B33 /* tournament.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tournament.cpp; sourceTree = "<group>"; };
-		ADEFA37D1A41EAD100133B33 /* tournament.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = tournament.hpp; sourceTree = "<group>"; };
+		ADEFA37C1A41EAD100133B33 /* gameinfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gameinfo.cpp; sourceTree = "<group>"; };
+		ADEFA37D1A41EAD100133B33 /* gameinfo.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = gameinfo.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +103,8 @@
 				ADADF8EF1A4D23560016E567 /* gameclock.hpp */,
 				ADADF8F41A4D33960016E567 /* gamefunding.cpp */,
 				ADADF8F51A4D33960016E567 /* gamefunding.hpp */,
+				ADEFA37C1A41EAD100133B33 /* gameinfo.cpp */,
+				ADEFA37D1A41EAD100133B33 /* gameinfo.hpp */,
 				ADADF8F01A4D23560016E567 /* gameseating.cpp */,
 				ADADF8F11A4D23560016E567 /* gameseating.hpp */,
 				ADEFA3601A41E6C700133B33 /* ivectorstream.hpp */,
@@ -120,8 +122,6 @@
 				ADEFA36B1A41E6C800133B33 /* socket.cpp */,
 				ADEFA36C1A41E6C800133B33 /* socket.hpp */,
 				ADEFA36D1A41E6C800133B33 /* socketstream.hpp */,
-				ADEFA37C1A41EAD100133B33 /* tournament.cpp */,
-				ADEFA37D1A41EAD100133B33 /* tournament.hpp */,
 				ADADF8F81A4D3BFA0016E567 /* types.hpp */,
 			);
 			path = tournamentd;
@@ -196,7 +196,7 @@
 				ADEFA3711A41E6C800133B33 /* cJSON.c in Sources */,
 				ADEFA3771A41E6C800133B33 /* process.cpp in Sources */,
 				ADEFA3781A41E6C800133B33 /* program.cpp in Sources */,
-				ADEFA37E1A41EAD100133B33 /* tournament.cpp in Sources */,
+				ADEFA37E1A41EAD100133B33 /* gameinfo.cpp in Sources */,
 				ADADF8F31A4D23560016E567 /* gameseating.cpp in Sources */,
 				ADEFA3731A41E6C800133B33 /* json.cpp in Sources */,
 				ADADF8F21A4D23560016E567 /* gameclock.cpp in Sources */,

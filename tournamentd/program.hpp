@@ -3,11 +3,11 @@
 #include <unordered_set>
 #include <vector>
 #include "server.hpp"
-#include "tournament.hpp"
+#include "gameinfo.hpp"
 
 class program
 {
-    tournament game;
+    gameinfo game;
     server sv;
 
     // accepted authorization codes

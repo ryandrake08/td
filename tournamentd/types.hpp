@@ -4,10 +4,10 @@
 #include <limits>
 #include <stdexcept>
 
-class tournament_error : public std::runtime_error
+class game_logic_error : public std::runtime_error
 {
 public:
-    explicit tournament_error(const char* what_arg) : std::runtime_error(what_arg) {}
+    explicit game_logic_error(const char* what_arg) : std::runtime_error(what_arg) {}
 };
 
 typedef std::size_t player_id;

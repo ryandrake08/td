@@ -75,13 +75,13 @@ std::size_t gameseating::plan_seating(std::size_t max_expected_players)
     // check arguments
     if(max_expected_players < 2)
     {
-        throw tournament_error("expected players must be at least 2");
+        throw game_logic_error("expected players must be at least 2");
     }
 
     // check configuration: table capacity should be sane
     if(this->table_capacity < 2)
     {
-        throw tournament_error("table capacity must be at least 2");
+        throw game_logic_error("table capacity must be at least 2");
     }
 
     // reset to known quantities
@@ -120,14 +120,14 @@ gameseating::seat gameseating::add_player(const player_id& player)
     // verify game state
     if(this->empty_seats.empty())
     {
-        throw tournament_error("tried to add players with no empty seats");
+        throw game_logic_error("tried to add players with no empty seats");
     }
 
     auto seat_it(this->seats.find(player));
 
     if(seat_it != this->seats.end())
     {
-        throw tournament_error("tried to add player already seated");
+        throw game_logic_error("tried to add player already seated");
     }
 
     // seat player and remove from empty list
@@ -149,7 +149,7 @@ std::size_t gameseating::remove_player(const player_id& player)
 
     if(seat_it == this->seats.end())
     {
-        throw tournament_error("tried to remove player not seated");
+        throw game_logic_error("tried to remove player not seated");
     }
 
     // bust player and add seat to the end of the empty list
@@ -181,7 +181,7 @@ gameseating::player_movement gameseating::move_player(const player_id& player, s
     // we should always have at least one seat free
     if(candidates.empty())
     {
-        throw tournament_error("tried to move player to a full table");
+        throw game_logic_error("tried to move player to a full table");
     }
 
     // pick one at random
@@ -228,7 +228,7 @@ gameseating::player_movement gameseating::move_player(const player_id& player, c
     // make sure at least one candidate table
     if(table >= ppt.size())
     {
-        throw tournament_error("tried to move player to another table but no candidate tables");
+        throw game_logic_error("tried to move player to another table but no candidate tables");
     }
 
     return this->move_player(player, table);

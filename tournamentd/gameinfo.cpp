@@ -1,8 +1,8 @@
-#include "tournament.hpp"
+#include "gameinfo.hpp"
 #include "logger.hpp"
 
 // load configuration from JSON (object or file)
-void tournament::configure(const json& config)
+void gameinfo::configure(const json& config)
 {
     logger(LOG_DEBUG) << "Loading tournament configuration\n";
 
@@ -25,7 +25,7 @@ void tournament::configure(const json& config)
 }
 
 // dump configuration to JSON
-void tournament::dump_configuration(json& config) const
+void gameinfo::dump_configuration(json& config) const
 {
     config.set_value("name", this->name);
 
@@ -42,7 +42,7 @@ void tournament::dump_configuration(json& config) const
 }
 
 // dump state to JSON
-void tournament::dump_state(json& state) const
+void gameinfo::dump_state(json& state) const
 {
     clock.dump_state(state);
     funding.dump_state(state);
@@ -50,31 +50,31 @@ void tournament::dump_state(json& state) const
 }
 
 // accessors for game state
-gameclock& tournament::countdown_clock()
+gameclock& gameinfo::countdown_clock()
 {
     return this->clock;
 }
 
-const gameclock& tournament::countdown_clock() const
+const gameclock& gameinfo::countdown_clock() const
 {
     return this->clock;
 }
 
-gamefunding& tournament::funding_chart()
+gamefunding& gameinfo::funding_chart()
 {
     return this->funding;
 }
 
-const gamefunding& tournament::funding_chart() const
+const gamefunding& gameinfo::funding_chart() const
 {
     return this->funding;
 }
 
-gameseating& tournament::seating_chart()
+gameseating& gameinfo::seating_chart()
 {
     return this->seating;
 }
-const gameseating& tournament::seating_chart() const
+const gameseating& gameinfo::seating_chart() const
 {
     return this->seating;
 }

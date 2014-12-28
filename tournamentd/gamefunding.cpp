@@ -103,22 +103,22 @@ void gamefunding::fund_player(const player_id& player, const funding_source& sou
 
     if(current_blind_level > source.forbid_after_blind_level)
     {
-        throw tournament_error("too late in the game for this funding source");
+        throw game_logic_error("too late in the game for this funding source");
     }
 
     if(source.is_addon && this->buyins.find(player) == this->buyins.end())
     {
-        throw tournament_error("tried to addon but not bought in yet");
+        throw game_logic_error("tried to addon but not bought in yet");
     }
 
     if(!source.is_addon && this->buyins.find(player) != this->buyins.end())
     {
-        throw tournament_error("player already bought in");
+        throw game_logic_error("player already bought in");
     }
 
     if(std::find(this->funding_sources.begin(), this->funding_sources.end(), source) == this->funding_sources.end())
     {
-        throw tournament_error("funding source not allowed");
+        throw game_logic_error("funding source not allowed");
     }
 
     // buy in player

@@ -6,7 +6,7 @@
 #include <string>
 #include <vector>
 
-class tournament
+class gameinfo
 {
 public:
     struct player

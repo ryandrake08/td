@@ -84,7 +84,7 @@ void gameclock::start_blind_level(std::size_t blind_level, ms offset)
 {
     if(blind_level >= this->blind_levels.size())
     {
-        throw tournament_error("not enough blind levels configured");
+        throw game_logic_error("not enough blind levels configured");
     }
 
     auto now(std::chrono::system_clock::now());
@@ -111,7 +111,7 @@ void gameclock::start()
 
         if(this->blind_levels.size() < 2)
         {
-            throw tournament_error("cannot start without blind levels configured");
+            throw game_logic_error("cannot start without blind levels configured");
         }
 
         // start the blind level
@@ -130,7 +130,7 @@ void gameclock::start(const tp& starttime)
 
         if(this->blind_levels.size() < 2)
         {
-            throw tournament_error("cannot start without blind levels configured");
+            throw game_logic_error("cannot start without blind levels configured");
         }
 
         // start the tournament
@@ -297,7 +297,7 @@ std::vector<gameclock::blind_level> gameclock::generate_blind_levels(std::size_t
 {
     if(this->chips.empty())
     {
-        throw tournament_error("tried to create a blind structure without chips defined");
+        throw game_logic_error("tried to create a blind structure without chips defined");
     }
 
     // sort chip denominations
