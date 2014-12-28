@@ -253,11 +253,23 @@ program::program(const std::vector<std::string>& cmdline)
     this->auths.insert(31337);
 #endif
 
+    // parse command-line
     for(auto it(cmdline.begin()+1); it != cmdline.end(); it++)
     {
         switch(crc32(*it))
         {
+            case crc32_("-c"):
+            case crc32_("--conf"):
+                if(++it != cmdline.end())
+                {
+                    // load supplied config
+                    auto config(json::load(*it));
+                    this->game.configure(config);
+                }
+                break;
+
             case crc32_("-p"):
+            case crc32_("--port"):
                 if(++it != cmdline.end())
                 {
                     // parse port number
@@ -266,6 +278,7 @@ program::program(const std::vector<std::string>& cmdline)
                 break;
 
             case crc32_("-a"):
+            case crc32_("--auth"):
                 if(++it != cmdline.end())
                 {
                     // parse comma-separated list of pre-authorized clients
@@ -284,6 +297,7 @@ program::program(const std::vector<std::string>& cmdline)
             default:
                 std::cerr << "Unknown option: " << *it << "\n"
                              "Usage: tournamentd [options]\n"
+                             " -c, --conf FILE\tInitialize configuration from file\n"
                              " -p, --port NUMBER\tListen on given port (default: 23000)\n"
                              " -a, --auth LIST\tPre-authorize comma-separated list of client authentication codes\n";
                 std::exit(EXIT_FAILURE);
