@@ -7,6 +7,7 @@
 // listen on given port
 void server::listen(std::uint16_t port)
 {
+    this->all_open.erase(this->listener);
     this->listener = inet_socket(port);
     this->all_open.insert(this->listener);
 }

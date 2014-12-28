@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AD3310951A50B9A1007E545B /* tournament.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AD3310931A50B9A1007E545B /* tournament.cpp */; };
 		AD73DBF51A4484D2008768BA /* server.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AD73DBF31A4484D2008768BA /* server.cpp */; };
 		ADADF8F21A4D23560016E567 /* gameclock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ADADF8EE1A4D23560016E567 /* gameclock.cpp */; };
 		ADADF8F31A4D23560016E567 /* gameseating.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ADADF8F01A4D23560016E567 /* gameseating.cpp */; };
@@ -36,6 +37,9 @@
 
 /* Begin PBXFileReference section */
 		AD1095F71A41E67300D132E4 /* tournamentd */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = tournamentd; sourceTree = BUILT_PRODUCTS_DIR; };
+		AD3310931A50B9A1007E545B /* tournament.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tournament.cpp; sourceTree = "<group>"; };
+		AD3310941A50B9A1007E545B /* tournament.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = tournament.hpp; sourceTree = "<group>"; };
+		AD3310961A50BC1F007E545B /* stringcrc.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = stringcrc.hpp; sourceTree = "<group>"; };
 		AD73DBF31A4484D2008768BA /* server.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = server.cpp; sourceTree = "<group>"; };
 		AD73DBF41A4484D2008768BA /* server.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = server.hpp; sourceTree = "<group>"; };
 		ADADF8EE1A4D23560016E567 /* gameclock.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gameclock.cpp; sourceTree = "<group>"; };
@@ -122,6 +126,9 @@
 				ADEFA36B1A41E6C800133B33 /* socket.cpp */,
 				ADEFA36C1A41E6C800133B33 /* socket.hpp */,
 				ADEFA36D1A41E6C800133B33 /* socketstream.hpp */,
+				AD3310961A50BC1F007E545B /* stringcrc.hpp */,
+				AD3310931A50B9A1007E545B /* tournament.cpp */,
+				AD3310941A50B9A1007E545B /* tournament.hpp */,
 				ADADF8F81A4D3BFA0016E567 /* types.hpp */,
 			);
 			path = tournamentd;
@@ -196,6 +203,7 @@
 				ADEFA3711A41E6C800133B33 /* cJSON.c in Sources */,
 				ADEFA3771A41E6C800133B33 /* process.cpp in Sources */,
 				ADEFA3781A41E6C800133B33 /* program.cpp in Sources */,
+				AD3310951A50B9A1007E545B /* tournament.cpp in Sources */,
 				ADEFA37E1A41EAD100133B33 /* gameinfo.cpp in Sources */,
 				ADADF8F31A4D23560016E567 /* gameseating.cpp in Sources */,
 				ADEFA3731A41E6C800133B33 /* json.cpp in Sources */,
