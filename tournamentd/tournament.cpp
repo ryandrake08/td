@@ -55,12 +55,26 @@ gameclock& tournament::countdown_clock()
     return this->clock;
 }
 
+const gameclock& tournament::countdown_clock() const
+{
+    return this->clock;
+}
+
 gamefunding& tournament::funding_chart()
 {
     return this->funding;
 }
 
+const gamefunding& tournament::funding_chart() const
+{
+    return this->funding;
+}
+
 gameseating& tournament::seating_chart()
+{
+    return this->seating;
+}
+const gameseating& tournament::seating_chart() const
 {
     return this->seating;
 }

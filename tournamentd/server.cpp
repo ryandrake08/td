@@ -4,10 +4,11 @@
 #include "socketstream.hpp"
 #include <sstream>
 
-// create the server, listening on given port
-server::server(std::uint16_t port) : listener(port)
+// listen on given port
+void server::listen(std::uint16_t port)
 {
-    this->all_open.insert(listener);
+    this->listener = inet_socket(port);
+    this->all_open.insert(this->listener);
 }
 
 // disconnect a client

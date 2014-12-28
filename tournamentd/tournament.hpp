@@ -38,6 +38,11 @@ public:
 
     // accessors for game state
     gameclock& countdown_clock();
+    const gameclock& countdown_clock() const;
+
     gamefunding& funding_chart();
+    const gamefunding& funding_chart() const;
+
     gameseating& seating_chart();
+    const gameseating& seating_chart() const;
 };

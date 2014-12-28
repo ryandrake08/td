@@ -2,7 +2,6 @@
 #include <stddef.h> // Oops, cJSON.h requires stddef.h
 #include "cjson/cJSON.h"
 #include <algorithm>
-#include <cassert>
 #include <fstream>
 #include <limits>
 #include <stdexcept>
@@ -13,12 +12,10 @@
 // Verify valid ptr
 void json::check() const
 {
-    assert(this->ptr != nullptr);
-
     // Check root json pointer
     if(this->ptr == nullptr)
     {
-        throw std::logic_error("uninitialized or invalid object");
+        throw std::logic_error("empty or invalid json");
     }
 }
 
@@ -157,7 +154,7 @@ json::json(const std::vector<std::string>& values)
     // workaround for clang using lambda:
     // should be able to pass mem_fn(&string::c_str) to transform
     std::transform(values.begin(), values.end(), tmp.begin(), [](const std::string& str) { return str.c_str(); });
-    ptr = cJSON_CreateStringArray(&tmp[0], static_cast<int>(tmp.size()));
+    this->ptr = cJSON_CreateStringArray(&tmp[0], static_cast<int>(tmp.size()));
     check();
 }
 
@@ -165,7 +162,7 @@ template <>
 json::json(const std::vector<unsigned long>& values)
 {
     std::vector<int> tmp(values.begin(), values.end());
-    ptr = cJSON_CreateIntArray(&tmp[0], static_cast<int>(tmp.size()));
+    this->ptr = cJSON_CreateIntArray(&tmp[0], static_cast<int>(tmp.size()));
     check();
 }
 

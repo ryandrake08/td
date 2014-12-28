@@ -3,8 +3,8 @@
 #include <cstddef>
 #include <iostream>
 #include <sstream>
+#include <stdexcept>
 #include <string>
-#include <system_error>
 
 // CRC32 Table (zlib polynomial)
 static constexpr uint32_t crc_table[256] = {
@@ -67,6 +67,16 @@ static uint32_t crc32(const std::string& buf)
 
 // ----- command handlers
 
+static void handle_cmd_authorize(std::unordered_set<int>& auths, json& out, const json& in)
+{
+    int code;
+    if(in.get_value("authorize", code))
+    {
+        auths.insert(code);
+        out.set_value("authorized", code);
+    }
+}
+
 static void handle_cmd_version(const tournament& game, json& out)
 {
     static const char* name = "tournamentd";
@@ -86,19 +96,35 @@ static void handle_cmd_get_all_state(const tournament& game, json& out)
     game.dump_state(out);
 }
 
-static bool handle_new_client(std::ostream& client, const tournament& game)
+static void handle_cmd_get_clock_state(const tournament& game, json& out)
+{
+    game.seating_chart().dump_state(out);
+}
+
+void program::ensure_authorized(const json& in)
+{
+    int code;
+    if(!in.get_value("authenticate", code) || auths.find(code) == this->auths.end())
+    {
+        throw tournament_error("unauthorized");
+    }
+}
+
+// handler for new client
+bool program::handle_new_client(std::ostream& client)
 {
     // greet client
     json out;
-    handle_cmd_version(game, out);
-    handle_cmd_get_all_config(game, out);
-    handle_cmd_get_all_state(game, out);
+    handle_cmd_version(this->game, out);
+    handle_cmd_get_all_config(this->game, out);
+    handle_cmd_get_all_state(this->game, out);
     client << out << std::endl;
 
     return false;
 }
 
-static bool handle_client_input(std::iostream& client, tournament& game)
+// handler for input from existing client
+bool program::handle_client_input(std::iostream& client)
 {
     // get a line of input
     std::string input;
@@ -109,78 +135,143 @@ static bool handle_client_input(std::iostream& client, tournament& game)
     auto cmd0(input.find_first_not_of(whitespace));
     if(cmd0 != std::string::npos)
     {
-        std::string cmd, arg;
+        // build up output
+        json out;
 
-        // find end of command
-        auto cmd1(input.find_first_of(whitespace, cmd0));
-        if(cmd1 != std::string::npos)
+        try
         {
-            auto arg0(input.find_first_not_of(whitespace, cmd1));
-            if(arg0 != std::string::npos)
+            // parse command and argument
+            std::string cmd;
+            json in;
+
+            // find end of command
+            auto cmd1(input.find_first_of(whitespace, cmd0));
+            if(cmd1 != std::string::npos)
             {
-                arg = input.substr(arg0, std::string::npos);
+                auto arg0(input.find_first_not_of(whitespace, cmd1));
+                if(arg0 != std::string::npos)
+                {
+                    auto arg = input.substr(arg0, std::string::npos);
+                    in = json(arg);
+                }
+            }
+            cmd = input.substr(cmd0, cmd1);
+
+            // convert command to lower-case for hashing (use ::tolower, assuming ASCII-encoded input)
+            std::transform(cmd.begin(), cmd.end(), cmd.begin(), ::tolower);
+
+            // call command handler
+            switch(crc32(cmd))
+            {
+                case crc32_("quit"):
+                case crc32_("exit"):
+                    return true;
+
+                case crc32_("authorize"):
+                    ensure_authorized(in);
+                    handle_cmd_authorize(this->auths, out, in);
+                    break;
+
+                case crc32_("version"):
+                    handle_cmd_version(this->game, out);
+                    break;
+
+                case crc32_("get_all_config"):
+                    handle_cmd_get_all_config(this->game, out);
+                    break;
+
+                case crc32_("get_all_state"):
+                    handle_cmd_get_all_state(this->game, out);
+                    break;
+
+                default:
+                    throw std::runtime_error("unknown command");
             }
         }
-        cmd = input.substr(cmd0, cmd1);
-
-        // convert command to lower-case for hashing (use ::tolower, assuming ASCII-encoded input)
-        std::transform(cmd.begin(), cmd.end(), cmd.begin(), ::tolower);
-
-        // call command handler
-        json out;
-        switch(crc32(cmd))
+        catch(const std::exception& e)
         {
-            case crc32_("quit"):
-            case crc32_("exit"):
-                return true;
-
-            case crc32_("version"):
-                handle_cmd_version(game, out);
-                break;
-
-            case crc32_("get_all_config"):
-                handle_cmd_get_all_config(game, out);
-                break;
-
-            case crc32_("get_all_state"):
-                handle_cmd_get_all_state(game, out);
-                break;
+            out.set_value("error", e.what());
         }
+
         client << out << std::endl;
     }
 
     return false;
 }
 
-static bool handle_client_output(std::ostream& client, const json& out)
+// handler for async game events
+bool program::handle_game_event(std::ostream& client)
 {
+    json out;
+    handle_cmd_get_clock_state(this->game, out);
     client << out;
     return false;
 }
 
-program::program(const std::vector<std::string>& cmdline) : sv(25600)
+program::program(const std::vector<std::string>& cmdline)
 {
+    uint16_t port(25600);
+
+#if defined(DEBUG)
+    // debug only: always accept this code
+    this->auths.insert(31337);
+#endif
+
+    for(auto it(cmdline.begin()+1); it != cmdline.end(); it++)
+    {
+        switch(crc32(*it))
+        {
+            case crc32_("-p"):
+                if(++it != cmdline.end())
+                {
+                    // parse port number
+                    port = std::stoul(*it);
+                }
+                break;
+
+            case crc32_("-a"):
+                if(++it != cmdline.end())
+                {
+                    // parse comma-separated list of pre-authorized clients
+                    std::stringstream ss(*it);
+                    while(ss.good())
+                    {
+                        std::string substr;
+                        getline(ss, substr, ',');
+                        this->auths.insert(std::stoi(substr));
+                    }
+                }
+                break;
+
+            case crc32_("-h"):
+            case crc32_("--help"):
+            default:
+                std::cerr << "Unknown option: " << *it << "\n"
+                             "Usage: tournamentd [options]\n"
+                             " -p, --port NUMBER\tListen on given port (default: 23000)\n"
+                             " -a, --auth LIST\tPre-authorize comma-separated list of client authentication codes\n";
+                std::exit(EXIT_FAILURE);
+                break;
+        }
+    }
+
+    // listen on appropriate port
+    sv.listen(port);
 }
 
 bool program::run()
 {
+    // various handler callback function objects
+    static const auto greeter(std::bind(&program::handle_new_client, this, std::placeholders::_1));
+    static const auto handler(std::bind(&program::handle_client_input, this, std::placeholders::_1));
+    static const auto sender(std::bind(&program::handle_game_event, this, std::placeholders::_1));
+
     // update the clock, and report to clients if anything changed
     if(this->game.countdown_clock().update_remaining())
     {
-        // get clock state
-        json out;
-        this->game.countdown_clock().dump_state(out);
-
-        // bind handler
-        auto sender(std::bind(&handle_client_output, std::placeholders::_1, std::ref(out)));
-
         // send to clients
-        sv.each_client(sender);
+        this->sv.each_client(sender);
     }
-
-    // bind handlers
-    auto greeter(std::bind(&handle_new_client, std::placeholders::_1, std::ref(this->game)));
-    auto handler(std::bind(&handle_client_input, std::placeholders::_1, std::ref(this->game)));
 
     // poll clients for commands, waiting at most 50ms
     return this->sv.poll(greeter, handler, 50000);

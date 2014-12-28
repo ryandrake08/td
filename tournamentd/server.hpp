@@ -14,8 +14,8 @@ class server
     void disconnect(const inet_socket& client);
 
 public:
-    // create the server, listening on given port
-    server(std::uint16_t port);
+    // listen on given port
+    void listen(std::uint16_t port);
 
     // poll the server with given timeout, handling both new clients and clients with input
     bool poll(const std::function<bool(std::ostream&)>& handle_new_client, const std::function<bool(std::iostream&)>& handle_client, long usec=-1);
