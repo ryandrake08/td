@@ -1,10 +1,13 @@
 #include "program.hpp"
+#include "datetime.hpp"
 #include "logger.hpp"
 #include <cstddef>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
 #include <string>
+
+// ----- string hashing (for selecting on command strings)
 
 // CRC32 Table (zlib polynomial)
 static constexpr uint32_t crc_table[256] = {
@@ -65,6 +68,21 @@ static uint32_t crc32(const std::string& buf)
     return crc ^ ~0U;
 }
 
+// ----- read datetime from json (specialize here to not pollute json or datetime classes with each other)
+
+template <>
+bool json::get_value<datetime>(const char* name, datetime& value) const
+{
+    std::string str;
+    if(this->get_value(name, str))
+    {
+        value = datetime::from_gm(str);
+        return true;
+    }
+
+    return false;
+}
+
 // ----- command handlers
 
 static void handle_cmd_authorize(std::unordered_set<int>& auths, json& out, const json& in)
@@ -98,7 +116,20 @@ static void handle_cmd_get_all_state(const tournament& game, json& out)
 
 static void handle_cmd_get_clock_state(const tournament& game, json& out)
 {
-    game.seating_chart().dump_state(out);
+    game.countdown_clock().dump_state(out);
+}
+
+static void handle_cmd_start_game(tournament& game, json& out, const json& in)
+{
+    datetime dt;
+    if(in.get_value("start_at", dt))
+    {
+        game.countdown_clock().start(dt);
+    }
+    else
+    {
+        game.countdown_clock().start();
+    }
 }
 
 void program::ensure_authorized(const json& in)
@@ -184,6 +215,11 @@ bool program::handle_client_input(std::iostream& client)
                     handle_cmd_get_all_state(this->game, out);
                     break;
 
+                case crc32_("start_game"):
+                    ensure_authorized(in);
+                    handle_cmd_start_game(this->game, out, in);
+                    break;
+
                 default:
                     throw std::runtime_error("unknown command");
             }
@@ -204,7 +240,7 @@ bool program::handle_game_event(std::ostream& client)
 {
     json out;
     handle_cmd_get_clock_state(this->game, out);
-    client << out;
+    client << out << std::endl;
     return false;
 }
 

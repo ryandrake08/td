@@ -109,11 +109,16 @@ void gameclock::start()
     {
         logger(LOG_DEBUG) << "Starting the tournament\n";
 
-        // start the tournament
-        this->running = true;
+        if(this->blind_levels.size() < 2)
+        {
+            throw tournament_error("cannot start without blind levels configured");
+        }
 
         // start the blind level
         this->start_blind_level(1, ms::zero());
+
+        // start the tournament
+        this->running = true;
     }
 }
 
@@ -122,6 +127,11 @@ void gameclock::start(const tp& starttime)
     if(!this->is_started())
     {
         logger(LOG_DEBUG) << "Starting the tournament in the future\n";
+
+        if(this->blind_levels.size() < 2)
+        {
+            throw tournament_error("cannot start without blind levels configured");
+        }
 
         // start the tournament
         this->running = true;
@@ -237,21 +247,21 @@ bool gameclock::update_remaining()
         {
             // within round, set time remaining
             this->time_remaining = std::chrono::duration_cast<ms>(this->end_of_round - now);
+            return true;
         }
         else if(now < this->end_of_break)
         {
             // within break, set time remaining to zero and set break time remaining
             this->time_remaining = ms::zero();
             this->break_time_remaining = std::chrono::duration_cast<ms>(this->end_of_break - now);
+            return true;
         }
         else
         {
             // advance to next blind
             auto offset(std::chrono::duration_cast<ms>(this->end_of_break - now));
-            this->advance_blind_level(offset);
+            return this->advance_blind_level(offset);
         }
-
-        return true;
     }
     return false;
 }

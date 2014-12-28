@@ -8,6 +8,13 @@
 
 typedef std::chrono::system_clock sc;
 
+static std::tm inline_strptime(const char* iso8601)
+{
+    struct std::tm tmp = {0};
+    ::strptime(iso8601, "%Y-%m-%dT%H:%M:%S%z", &tmp);
+    return tmp;
+}
+
 datetime::datetime()
 {
 }
@@ -20,15 +27,43 @@ datetime::datetime(const std::time_t& tt) : datetime(sc::from_time_t(tt))
 {
 }
 
-datetime::datetime(const std::tm& tm_s) : datetime(std::mktime(const_cast<std::tm*>(&tm_s)))
-{
-}
-
 // Named constructor (now)
 datetime datetime::now()
 {
     return datetime(sc::now());
 }
+
+datetime datetime::from_gm(const std::tm& tm_s)
+{
+    // timegm() not portable, but convenient
+    return datetime(::timegm(const_cast<std::tm*>(&tm_s)));
+}
+
+datetime datetime::from_local(const std::tm& tm_s)
+{
+    return datetime(std::mktime(const_cast<std::tm*>(&tm_s)));
+}
+
+datetime datetime::from_gm(const std::string& iso8601)
+{
+    return from_gm(iso8601.c_str());
+}
+
+datetime datetime::from_local(const std::string& iso8601)
+{
+    return from_local(iso8601.c_str());
+}
+
+datetime datetime::from_gm(const char* iso8601)
+{
+    return from_gm(inline_strptime(iso8601));
+}
+
+datetime datetime::from_local(const char* iso8601)
+{
+    return from_local(inline_strptime(iso8601));
+}
+
 
 // To tm structure
 std::tm& datetime::gmtime(std::tm& tm_s) const

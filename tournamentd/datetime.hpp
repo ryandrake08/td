@@ -15,10 +15,15 @@ public:
     datetime();
     explicit datetime(const std::chrono::system_clock::time_point& time_pt);
     explicit datetime(const std::time_t& tt);
-    explicit datetime(const std::tm& tm_s);
 
-    // Named constructor (now)
+    // Named constructors
     static datetime now();
+    static datetime from_gm(const std::tm& tm_s);
+    static datetime from_local(const std::tm& tm_s);
+    static datetime from_gm(const std::string& iso8601);
+    static datetime from_local(const std::string& iso8601);
+    static datetime from_gm(const char* iso8601);
+    static datetime from_local(const char* iso8601);
 
     // Operators
     bool operator!=(const datetime& other) const;
