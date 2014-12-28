@@ -72,7 +72,7 @@ struct inet_socket_impl
     inet_socket_impl() : inet_socket_impl(static_cast<int>(::socket(AF_INET, SOCK_STREAM, 0)))
     {
     }
-    
+
     ~inet_socket_impl()
     {
         logger(LOG_DEBUG) << "closing socket: " << this->fd << '\n';

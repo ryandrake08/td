@@ -48,7 +48,7 @@ private:
 public:
     // initialize game seating chart
     gameseating();
-    
+
     // load configuration from JSON (object or file)
     void configure(const json& config);
 

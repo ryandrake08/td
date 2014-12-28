@@ -88,7 +88,7 @@ std::size_t gameseating::plan_seating(std::size_t max_expected_players)
     this->seats.clear();
     this->players_finished.clear();
     this->empty_seats.clear();
-    
+
     // figure out how many tables needed
     this->tables = ((max_expected_players-1) / this->table_capacity) + 1;
 
@@ -259,7 +259,7 @@ std::vector<gameseating::player_movement> gameseating::try_rebalance()
     while(fewest_it->size() < most_it->size() - 1)
     {
         logger(LOG_DEBUG) << "Largest table has " << most_it->size() << " players and smallest table has " << fewest_it->size() << " players\n";
-        
+
         // pick a random player at the table with the most players
         auto index(std::uniform_int_distribution<std::size_t>(0, most_it->size()-1)(engine));
         auto random_player((*most_it)[index]);

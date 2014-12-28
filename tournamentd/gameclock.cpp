@@ -108,7 +108,7 @@ void gameclock::start()
     if(!this->is_started())
     {
         logger(LOG_DEBUG) << "Starting the tournament\n";
-        
+
         // start the tournament
         this->running = true;
 
