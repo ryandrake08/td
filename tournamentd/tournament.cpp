@@ -152,11 +152,13 @@ void tournament::handle_cmd_set_action_clock(const json& in)
 
 void tournament::handle_cmd_gen_blind_levels(const json& in)
 {
-    std::size_t count(30); // default to 30 blind levels
-    long duration(3600000); // default to 1 hour levels
+    std::size_t count;
+    long duration;
 
-    in.get_value("duration", duration);
-    in.get_value("count", count);
+    if(!in.get_value("duration", duration) || !in.get_value("count", count))
+    {
+        throw std::invalid_argument("must specify count and duration");
+    }
 
     this->clock.gen_blind_levels(count, duration);
 
@@ -164,6 +166,31 @@ void tournament::handle_cmd_gen_blind_levels(const json& in)
     this->clock.dump_configuration(out);
     this->game_server.broadcast(out.string());
 }
+
+void tournament::handle_cmd_fund_player(const json& in)
+{
+    player_id player;
+    json source_json;
+
+    if(!in.get_value("player", player) || !in.get_value("source", source_json))
+    {
+        throw std::invalid_argument("must specify player and source");
+    }
+
+    gamefunding::funding_source source = {0};
+    source_json.get_value("is_addon", source.is_addon);
+    source_json.get_value("forbid_after_blind_level", source.forbid_after_blind_level);
+    source_json.get_value("chips", source.chips);
+    source_json.get_value("cost", source.cost);
+    source_json.get_value("commission", source.commission);
+    source_json.get_value("equity", source.equity);
+    this->funding.fund_player(player, source, this->clock.blind_level());
+
+    json out;
+    this->funding.dump_state(out);
+    this->game_server.broadcast(out.string());
+}
+
 
 // handler for new client
 bool tournament::handle_new_client(std::ostream& client) const
@@ -277,6 +304,11 @@ bool tournament::handle_client_input(std::iostream& client)
                 case crc32_("gen_blind_levels"):
                     this->ensure_authorized(in);
                     this->handle_cmd_gen_blind_levels(in);
+                    break;
+
+                case crc32_("fund_player"):
+                    this->ensure_authorized(in);
+                    this->handle_cmd_fund_player(in);
                     break;
 
                 default:

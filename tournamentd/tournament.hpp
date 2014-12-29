@@ -41,6 +41,7 @@ private:
     void handle_cmd_next_level(const json& in);
     void handle_cmd_set_action_clock(const json& in);
     void handle_cmd_gen_blind_levels(const json& in);
+    void handle_cmd_fund_player(const json& in);
 
     // handler for new client
     bool handle_new_client(std::ostream& client) const;

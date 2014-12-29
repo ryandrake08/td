@@ -50,6 +50,9 @@ private:
     // total funds to pay out
     currency total_equity;
 
+    // re-calculate payouts
+    void recalculate_payouts();
+
 public:
     // initialize game funding rules
     gamefunding();
@@ -68,7 +71,4 @@ public:
 
     // fund a player, (re-)buyin or addon
     void fund_player(const player_id& player, const funding_source& source, std::size_t current_blind_level);
-
-    // re-calculate payouts
-    std::vector<currency> recalculate_payouts();
 };

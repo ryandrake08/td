@@ -115,6 +115,12 @@ bool gameclock::is_started() const
     return this->current_blind_level > 0;
 }
 
+// return current blind level
+std::size_t gameclock::blind_level() const
+{
+    return this->current_blind_level;
+}
+
 // start the game
 void gameclock::start()
 {

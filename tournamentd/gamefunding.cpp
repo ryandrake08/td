@@ -132,10 +132,13 @@ void gamefunding::fund_player(const player_id& player, const funding_source& sou
     this->total_cost += source.cost;
     this->total_commission += source.commission;
     this->total_equity += source.equity;
+
+    // automatically recalculate
+    this->recalculate_payouts();
 }
 
 // re-calculate payouts
-std::vector<gamefunding::currency> gamefunding::recalculate_payouts()
+void gamefunding::recalculate_payouts()
 {
     // first, calculate how many places pay, given configuration and number of players bought in
     std::size_t seats_paid(static_cast<std::size_t>(this->buyins.size() * this->percent_seats_paid + 0.5));
@@ -166,6 +169,4 @@ std::vector<gamefunding::currency> gamefunding::recalculate_payouts()
     {
         this->payouts[n]++;
     }
-
-    return this->payouts;
 }

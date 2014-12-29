@@ -74,6 +74,9 @@ public:
     // has the game started?
     bool is_started() const;
 
+    // return current blind level
+    std::size_t blind_level() const;
+
     // start the game (optionally at certain time);
     void start();
     void start(const tp& starttime);
