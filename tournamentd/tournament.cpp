@@ -103,14 +103,18 @@ void tournament::handle_cmd_pause_game(json& out, const json& in)
 
 void tournament::handle_cmd_previous_level(json& out, const json& in)
 {
-    this->clock.previous_blind_level();
-    this->clock.dump_state(out);
+    if(this->clock.previous_blind_level())
+    {
+        this->clock.dump_state(out);
+    }
 }
 
 void tournament::handle_cmd_next_level(json& out, const json& in)
 {
-    this->clock.next_blind_level();
-    this->clock.dump_state(out);
+    if(this->clock.next_blind_level())
+    {
+        this->clock.dump_state(out);
+    }
 }
 
 void tournament::handle_cmd_set_action_clock(json& out, const json& in)
