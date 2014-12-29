@@ -20,5 +20,5 @@ public:
     bool poll(const std::function<bool(std::ostream&)>& handle_new_client, const std::function<bool(std::iostream&)>& handle_client, long usec=-1);
 
     // broadcast message to all clients
-    void broadcast(const std::string& message);
+    void broadcast(const std::string& message) const;
 };

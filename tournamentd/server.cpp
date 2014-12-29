@@ -61,28 +61,15 @@ bool server::poll(const std::function<bool(std::ostream&)>& handle_new_client, c
 }
 
 // broadcast message to all clients
-void server::broadcast(const std::string& message)
+void server::broadcast(const std::string& message) const
 {
-    for(auto it(this->all.begin()); it != this->all.end();)
+    for(auto c : this->all)
     {
-        if(*it != *this->listener)
+        if(c != *this->listener)
         {
             // handle client i/o
-            socketstream ss(*it);
+            socketstream ss(c);
             ss << message;
-            if(!ss.good())
-            {
-                logger(LOG_DEBUG) << "closing client connection\n";
-                it = this->all.erase(it);
-            }
-            else
-            {
-                it++;
-            }
-        }
-        else
-        {
-            it++;
         }
     }
 }
