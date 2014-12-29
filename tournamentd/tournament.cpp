@@ -206,6 +206,36 @@ bool tournament::handle_client_input(std::iostream& client)
                     this->handle_cmd_start_game(out, in);
                     break;
 
+                case crc32_("stop_game"):
+                    this->ensure_authorized(in);
+                    this->handle_cmd_stop_game(out, in);
+                    break;
+
+                case crc32_("resume_game"):
+                    this->ensure_authorized(in);
+                    this->handle_cmd_resume_game(out, in);
+                    break;
+
+                case crc32_("pause_game"):
+                    this->ensure_authorized(in);
+                    this->handle_cmd_pause_game(out, in);
+                    break;
+
+                case crc32_("previous_level"):
+                    this->ensure_authorized(in);
+                    this->handle_cmd_previous_level(out, in);
+                    break;
+
+                case crc32_("next_level"):
+                    this->ensure_authorized(in);
+                    this->handle_cmd_next_level(out, in);
+                    break;
+
+                case crc32_("set_action_clock"):
+                    this->ensure_authorized(in);
+                    this->handle_cmd_set_action_clock(out, in);
+                    break;
+
                 default:
                     throw std::runtime_error("unknown command");
             }
