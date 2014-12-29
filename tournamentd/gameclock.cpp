@@ -191,14 +191,14 @@ void gameclock::resume()
 }
 
 // advance to next blind level
-bool gameclock::advance_blind_level(ms offset)
+bool gameclock::next_blind_level(ms offset)
 {
     if(this->is_started())
     {
-        logger(LOG_DEBUG) << "Advancing blind level from " << this->current_blind_level << " to " << this->current_blind_level + 1 << '\n';
-
         if(this->current_blind_level + 1 < this->blind_levels.size())
         {
+            logger(LOG_DEBUG) << "Setting next blind level from " << this->current_blind_level << " to " << this->current_blind_level + 1 << '\n';
+
             this->start_blind_level(this->current_blind_level + 1, offset);
             return true;
         }
@@ -207,28 +207,33 @@ bool gameclock::advance_blind_level(ms offset)
     return false;
 }
 
-// restart current blind level
-void gameclock::restart_blind_level(ms offset)
-{
-    if(this->is_started())
-    {
-        logger(LOG_DEBUG) << "Restarting blind level " << this->current_blind_level << '\n';
-
-        this->start_blind_level(this->current_blind_level, offset);
-    }
-}
-
 // return to prevous blind level
 bool gameclock::previous_blind_level(ms offset)
 {
     if(this->is_started())
     {
-        logger(LOG_DEBUG) << "Returning blind level from " << this->current_blind_level << " to " << this->current_blind_level - 1 << '\n';
-
-        if(this->current_blind_level > 1)
+        if(this->current_blind_level > 0)
         {
-            this->start_blind_level(this->current_blind_level - 1, offset);
-            return true;
+            // if elapsed time > 2 seconds, just restart current blind level
+            // TODO: configurable?
+            static auto max_elapsed_time_ms(2000);
+
+            // calculate elapsed time in this blind level
+            auto elapsed_time(this->blind_levels[this->current_blind_level].duration - this->time_remaining.count());
+            if(elapsed_time > max_elapsed_time_ms || this->current_blind_level == 1)
+            {
+                logger(LOG_DEBUG) << "Restarting blind level " << this->current_blind_level << '\n';
+
+                this->start_blind_level(this->current_blind_level, offset);
+                return true;
+            }
+            else
+            {
+                logger(LOG_DEBUG) << "Setting previous blind level from " << this->current_blind_level << " to " << this->current_blind_level - 1 << '\n';
+
+                this->start_blind_level(this->current_blind_level - 1, offset);
+                return true;
+            }
         }
     }
 
@@ -260,10 +265,22 @@ bool gameclock::update_remaining()
         {
             // advance to next blind
             auto offset(std::chrono::duration_cast<ms>(this->end_of_break - now));
-            return this->advance_blind_level(offset);
+            return this->next_blind_level(offset);
         }
     }
     return false;
+}
+
+// set the action clock (when someone 'needs the clock called on them'
+void gameclock::set_action_clock(long duration)
+{
+
+}
+
+// reset the action clock
+void gameclock::reset_action_clock()
+{
+
 }
 
 static constexpr bool operator<(const gameclock::chip& c0, const gameclock::chip& c1)

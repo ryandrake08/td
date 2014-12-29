@@ -15,7 +15,7 @@ void server::listen(std::uint16_t port)
         // destroy old socket
         this->all.erase(this->listener);
     }
-    
+
     // create new socket
     this->listener = this->all.insert(inet_socket(port)).first;
 }

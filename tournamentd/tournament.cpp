@@ -42,7 +42,7 @@ void tournament::handle_cmd_version(json& out) const
     out.set_value("server_version", version);
 }
 
-void tournament::handle_cmd_get_all_config(json& out) const
+void tournament::handle_cmd_get_config(json& out) const
 {
     this->game_info.dump_configuration(out);
     this->clock.dump_configuration(out);
@@ -50,16 +50,11 @@ void tournament::handle_cmd_get_all_config(json& out) const
     this->seating.dump_configuration(out);
 }
 
-void tournament::handle_cmd_get_all_state(json& out) const
+void tournament::handle_cmd_get_state(json& out) const
 {
     this->clock.dump_state(out);
     this->funding.dump_state(out);
     this->seating.dump_state(out);
-}
-
-void tournament::handle_cmd_get_clock_state(json& out) const
-{
-    this->clock.dump_state(out);
 }
 
 // ----- command handlers available to authorized clients
@@ -85,6 +80,51 @@ void tournament::handle_cmd_start_game(json& out, const json& in)
     {
         this->clock.start();
     }
+    this->clock.dump_state(out);
+}
+
+void tournament::handle_cmd_stop_game(json& out, const json& in)
+{
+    this->clock.stop();
+    this->clock.dump_state(out);
+}
+
+void tournament::handle_cmd_resume_game(json& out, const json& in)
+{
+    this->clock.resume();
+    this->clock.dump_state(out);
+}
+
+void tournament::handle_cmd_pause_game(json& out, const json& in)
+{
+    this->clock.pause();
+    this->clock.dump_state(out);
+}
+
+void tournament::handle_cmd_previous_level(json& out, const json& in)
+{
+    this->clock.previous_blind_level();
+    this->clock.dump_state(out);
+}
+
+void tournament::handle_cmd_next_level(json& out, const json& in)
+{
+    this->clock.next_blind_level();
+    this->clock.dump_state(out);
+}
+
+void tournament::handle_cmd_set_action_clock(json& out, const json& in)
+{
+    long duration;
+    if(in.get_value("duration", duration))
+    {
+        this->clock.set_action_clock(duration);
+    }
+    else
+    {
+        this->clock.reset_action_clock();
+    }
+    this->clock.dump_state(out);
 }
 
 // handler for new client
@@ -93,8 +133,8 @@ bool tournament::handle_new_client(std::ostream& client) const
     // greet client
     json out;
     this->handle_cmd_version(out);
-    this->handle_cmd_get_all_config(out);
-    this->handle_cmd_get_all_state(out);
+    this->handle_cmd_get_config(out);
+    this->handle_cmd_get_state(out);
     client << out << std::endl;
 
     return false;
@@ -153,12 +193,12 @@ bool tournament::handle_client_input(std::iostream& client)
                     this->handle_cmd_version(out);
                     break;
 
-                case crc32_("get_all_config"):
-                    this->handle_cmd_get_all_config(out);
+                case crc32_("get_config"):
+                    this->handle_cmd_get_config(out);
                     break;
 
-                case crc32_("get_all_state"):
-                    this->handle_cmd_get_all_state(out);
+                case crc32_("get_state"):
+                    this->handle_cmd_get_state(out);
                     break;
 
                 case crc32_("start_game"):
@@ -185,7 +225,7 @@ bool tournament::handle_client_input(std::iostream& client)
 bool tournament::handle_game_event(std::ostream& client) const
 {
     json out;
-    this->handle_cmd_get_clock_state(out);
+    this->clock.dump_state(out);
     client << out << std::endl;
     return false;
 }

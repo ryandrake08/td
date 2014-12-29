@@ -11,7 +11,7 @@ class server
 
 public:
     server();
-    
+
     // listen on given port
     void listen(std::uint16_t port);
 

@@ -84,16 +84,19 @@ public:
     void resume();
 
     // advance to next blind level
-    bool advance_blind_level(ms offset=ms::zero());
-
-    // restart current blind level
-    void restart_blind_level(ms offset=ms::zero());
+    bool next_blind_level(ms offset=ms::zero());
 
     // return to previous blind level
     bool previous_blind_level(ms offset=ms::zero());
 
     // update time remaining
     bool update_remaining();
+
+    // set the action clock (when someone 'needs the clock called on them'
+    void set_action_clock(long duration);
+
+    // reset the action clock
+    void reset_action_clock();
 
     // generate progressive blind levels, given available chip denominations
     std::vector<blind_level> generate_blind_levels(std::size_t count, long level_duration);

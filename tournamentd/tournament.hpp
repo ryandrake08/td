@@ -28,13 +28,18 @@ private:
 
     // command handlers available to anyone
     void handle_cmd_version(json& out) const;
-    void handle_cmd_get_all_config(json& out) const;
-    void handle_cmd_get_all_state(json& out) const;
-    void handle_cmd_get_clock_state(json& out) const;
+    void handle_cmd_get_config(json& out) const;
+    void handle_cmd_get_state(json& out) const;
 
     // command handlers available to authorized clients
     void handle_cmd_authorize(json& out, const json& in);
     void handle_cmd_start_game(json& out, const json& in);
+    void handle_cmd_stop_game(json& out, const json& in);
+    void handle_cmd_resume_game(json& out, const json& in);
+    void handle_cmd_pause_game(json& out, const json& in);
+    void handle_cmd_previous_level(json& out, const json& in);
+    void handle_cmd_next_level(json& out, const json& in);
+    void handle_cmd_set_action_clock(json& out, const json& in);
 
     // handler for new client
     bool handle_new_client(std::ostream& client) const;
