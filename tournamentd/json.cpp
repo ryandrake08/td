@@ -429,12 +429,7 @@ json& json::set_value(const char* name, const json& value)
 template <>
 json& json::set_value(const char* name, const std::vector<json>& values)
 {
-    cJSON_AddItemToObject(this->ptr, name, cJSON_CreateArray());
-    for(auto item : values)
-    {
-        cJSON_AddItemToArray(this->ptr, cJSON_Duplicate(item.ptr, 1));
-    }
-    return *this;
+    return this->set_value(name, json(values));
 }
 
 // I/O from streams

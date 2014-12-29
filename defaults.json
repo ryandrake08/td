@@ -1,0 +1,256 @@
+{
+    "name": "default",
+    "players": [],
+    "blind_increase_factor": 1.5,
+    "blind_levels": [
+        {},
+        {
+            "little_blind": 25,
+            "big_blind": 25,
+            "ante": 0,
+            "duration": 3600000
+        },
+        {
+            "little_blind": 25,
+            "big_blind": 50,
+            "ante": 0,
+            "duration": 3600000
+        },
+        {
+            "little_blind": 50,
+            "big_blind": 100,
+            "ante": 0,
+            "duration": 3600000
+        },
+        {
+            "little_blind": 75,
+            "big_blind": 150,
+            "ante": 0,
+            "duration": 3600000
+        },
+        {
+            "little_blind": 100,
+            "big_blind": 200,
+            "ante": 0,
+            "duration": 3600000
+        },
+        {
+            "little_blind": 100,
+            "big_blind": 200,
+            "ante": 25,
+            "duration": 3600000
+        },
+        {
+            "little_blind": 150,
+            "big_blind": 300,
+            "ante": 25,
+            "duration": 3600000
+        },
+        {
+            "little_blind": 200,
+            "big_blind": 400,
+            "ante": 50,
+            "duration": 3600000
+        },
+        {
+            "little_blind": 300,
+            "big_blind": 600,
+            "ante": 75,
+            "duration": 3600000,
+            "break_duration": 900000,
+            "reason": "Remove T25 chips"
+        },
+        {
+            "little_blind": 400,
+            "big_blind": 800,
+            "ante": 100,
+            "duration": 3600000
+        },
+        {
+            "little_blind": 500,
+            "big_blind": 1000,
+            "ante": 100,
+            "duration": 3600000
+        },
+        {
+            "little_blind": 600,
+            "big_blind": 1200,
+            "ante": 200,
+            "duration": 3600000
+        },
+        {
+            "little_blind": 800,
+            "big_blind": 1600,
+            "ante": 200,
+            "duration": 3600000
+        },
+        {
+            "little_blind": 1000,
+            "big_blind": 2000,
+            "ante": 300,
+            "duration": 3600000
+        },
+        {
+            "little_blind": 1200,
+            "big_blind": 2400,
+            "ante": 400,
+            "duration": 3600000,
+            "break_duration": 900000,
+            "reason": "Remove T100 chips"
+        },
+        {
+            "little_blind": 1500,
+            "big_blind": 3000,
+            "ante": 500,
+            "duration": 3600000
+        },
+        {
+            "little_blind": 2000,
+            "big_blind": 4000,
+            "ante": 500,
+            "duration": 3600000
+        },
+        {
+            "little_blind": 3000,
+            "big_blind": 6000,
+            "ante": 500,
+            "duration": 3600000
+        },
+        {
+            "little_blind": 4000,
+            "big_blind": 8000,
+            "ante": 1000,
+            "duration": 3600000,
+            "break_duration": 900000,
+            "reason": "Remove T500 chips"
+        },
+        {
+            "little_blind": 5000,
+            "big_blind": 10000,
+            "ante": 1000,
+            "duration": 3600000
+        },
+        {
+            "little_blind": 6000,
+            "big_blind": 12000,
+            "ante": 2000,
+            "duration": 3600000
+        },
+        {
+            "little_blind": 8000,
+            "big_blind": 16000,
+            "ante": 2000,
+            "duration": 3600000
+        },
+        {
+            "little_blind": 10000,
+            "big_blind": 20000,
+            "ante": 3000,
+            "duration": 3600000
+        },
+        {
+            "little_blind": 12000,
+            "big_blind": 24000,
+            "ante": 4000,
+            "duration": 3600000,
+            "break_duration": 900000,
+            "reason": "Remove T1000 chips"
+        },
+        {
+            "little_blind": 15000,
+            "big_blind": 30000,
+            "ante": 5000,
+            "duration": 3600000
+        },
+        {
+            "little_blind": 20000,
+            "big_blind": 40000,
+            "ante": 5000,
+            "duration": 3600000
+        },
+        {
+            "little_blind": 25000,
+            "big_blind": 50000,
+            "ante": 5000,
+            "duration": 3600000
+        },
+        {
+            "little_blind": 30000,
+            "big_blind": 60000,
+            "ante": 10000,
+            "duration": 3600000
+        },
+        {
+            "little_blind": 40000,
+            "big_blind": 80000,
+            "ante": 10000,
+            "duration": 3600000
+        },
+        {
+            "little_blind": 50000,
+            "big_blind": 100000,
+            "ante": 10000,
+            "duration": 3600000
+        }
+    ],
+    "chips": [
+        {
+            "color": "lime",
+            "denomination": 25,
+            "count_available": 160
+        },
+        {
+            "color": "black",
+            "denomination": 100,
+            "count_available": 160
+        },
+        {
+            "color": "fuchsia",
+            "denomination": 500,
+            "count_available": 80
+        },
+        {
+            "color": "orange",
+            "denomination": 1000,
+            "count_available": 60
+        },
+        {
+            "color": "teal",
+            "denomination": 5000,
+            "count_available": 40
+        }
+    ],
+    "cost_currency": "USDx100",
+    "equity_currency": "points",
+    "percent_seats_paid": 0.25,
+    "funding_sources": [
+        {
+            "name": "Main Buy-in",
+            "is_addon": false,
+            "forbid_after_blind_level": 0,
+            "chips": 5000,
+            "cost": 3000,
+            "commission": 0,
+            "equity": 5
+        },
+        {
+            "name": "Travel add-on",
+            "is_addon": true,
+            "forbid_after_blind_level": 0,
+            "chips": 500,
+            "cost": 500,
+            "commission": 0,
+            "equity": 0
+        },
+        {
+            "name": "Early arrival add-on",
+            "is_addon": true,
+            "forbid_after_blind_level": 0,
+            "chips": 500,
+            "cost": 0,
+            "commission": 0,
+            "equity": 0
+        }
+    ],
+    "table_capacity": 8
+}

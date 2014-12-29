@@ -8,6 +8,9 @@ program::program(const std::vector<std::string>& cmdline)
 #if defined(DEBUG)
     // debug only: always accept this code
     this->tourney.game_auths.insert(31337);
+
+    // debug only: load a default configuration
+    this->tourney.load_configuration("defaults.json");
 #endif
 
     // parse command-line

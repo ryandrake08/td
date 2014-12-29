@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		AD3310951A50B9A1007E545B /* tournament.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AD3310931A50B9A1007E545B /* tournament.cpp */; };
+		AD3310981A50DA88007E545B /* defaults.json in CopyFiles */ = {isa = PBXBuildFile; fileRef = AD3310971A50DA59007E545B /* defaults.json */; };
 		AD73DBF51A4484D2008768BA /* server.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AD73DBF31A4484D2008768BA /* server.cpp */; };
 		ADADF8F21A4D23560016E567 /* gameclock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ADADF8EE1A4D23560016E567 /* gameclock.cpp */; };
 		ADADF8F31A4D23560016E567 /* gameseating.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ADADF8F01A4D23560016E567 /* gameseating.cpp */; };
@@ -26,12 +27,13 @@
 /* Begin PBXCopyFilesBuildPhase section */
 		AD1095F51A41E67300D132E4 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
-			dstSubfolderSpec = 0;
+			buildActionMask = 12;
+			dstPath = "";
+			dstSubfolderSpec = 16;
 			files = (
+				AD3310981A50DA88007E545B /* defaults.json in CopyFiles */,
 			);
-			runOnlyForDeploymentPostprocessing = 1;
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
@@ -40,6 +42,7 @@
 		AD3310931A50B9A1007E545B /* tournament.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tournament.cpp; sourceTree = "<group>"; };
 		AD3310941A50B9A1007E545B /* tournament.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = tournament.hpp; sourceTree = "<group>"; };
 		AD3310961A50BC1F007E545B /* stringcrc.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = stringcrc.hpp; sourceTree = "<group>"; };
+		AD3310971A50DA59007E545B /* defaults.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = defaults.json; sourceTree = SOURCE_ROOT; };
 		AD73DBF31A4484D2008768BA /* server.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = server.cpp; sourceTree = "<group>"; };
 		AD73DBF41A4484D2008768BA /* server.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = server.hpp; sourceTree = "<group>"; };
 		ADADF8EE1A4D23560016E567 /* gameclock.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gameclock.cpp; sourceTree = "<group>"; };
@@ -100,6 +103,7 @@
 		AD1095F91A41E67300D132E4 /* tournamentd */ = {
 			isa = PBXGroup;
 			children = (
+				AD3310971A50DA59007E545B /* defaults.json */,
 				ADEFA35B1A41E6C700133B33 /* cjson */,
 				ADEFA35E1A41E6C700133B33 /* datetime.cpp */,
 				ADEFA35F1A41E6C700133B33 /* datetime.hpp */,
