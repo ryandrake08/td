@@ -5,7 +5,7 @@
 
 class program
 {
-    tournament t;
+    tournament tourney;
 
 public:
     // Create a program, given command line options

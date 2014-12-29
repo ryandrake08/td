@@ -1,6 +1,5 @@
 #include "program.hpp"
 #include "stringcrc.hpp"
-#include "json.hpp"
 
 program::program(const std::vector<std::string>& cmdline)
 {
@@ -8,7 +7,7 @@ program::program(const std::vector<std::string>& cmdline)
 
 #if defined(DEBUG)
     // debug only: always accept this code
-    this->t.auths.insert(31337);
+    this->tourney.game_auths.insert(31337);
 #endif
 
     // parse command-line
@@ -21,8 +20,7 @@ program::program(const std::vector<std::string>& cmdline)
                 if(++it != cmdline.end())
                 {
                     // load supplied config
-                    auto config(json::load(*it));
-                    this->t.game_info.configure(config);
+                    this->tourney.load_configuration(*it);
                 }
                 break;
 
@@ -40,7 +38,7 @@ program::program(const std::vector<std::string>& cmdline)
                 if(++it != cmdline.end())
                 {
                     // parse client code
-                    this->t.auths.insert(std::stoi(*it));
+                    this->tourney.game_auths.insert(std::stoi(*it));
                 }
                 break;
 
@@ -58,10 +56,10 @@ program::program(const std::vector<std::string>& cmdline)
     }
 
     // listen on appropriate port
-    this->t.sv.listen(port);
+    this->tourney.game_server.listen(port);
 }
 
 bool program::run()
 {
-    return this->t.run();
+    return this->tourney.run();
 }

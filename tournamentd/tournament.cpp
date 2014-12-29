@@ -1,8 +1,8 @@
 #include "tournament.hpp"
 #include "stringcrc.hpp"
 #include "datetime.hpp"
+#include "json.hpp"
 #include <cstddef>
-#include <iostream>
 #include <stdexcept>
 
 // ----- read datetime from json (specialize here to not pollute json or datetime classes with each other)
@@ -18,6 +18,17 @@ bool json::get_value<datetime>(const char* name, datetime& value) const
     }
 
     return false;
+}
+
+// ----- auth check
+
+static void ensure_authorized(const std::unordered_set<int>& auths, const json& in)
+{
+    int code;
+    if(!in.get_value("authenticate", code) || auths.find(code) == auths.end())
+    {
+        throw std::runtime_error("unauthorized");
+    }
 }
 
 // ----- command handlers
@@ -66,15 +77,6 @@ static void handle_cmd_start_game(gameinfo& game, json& out, const json& in)
     else
     {
         game.countdown_clock().start();
-    }
-}
-
-void tournament::ensure_authorized(const json& in)
-{
-    int code;
-    if(!in.get_value("authenticate", code) || auths.find(code) == this->auths.end())
-    {
-        throw std::runtime_error("unauthorized");
     }
 }
 
@@ -136,8 +138,8 @@ bool tournament::handle_client_input(std::iostream& client)
                     return true;
 
                 case crc32_("authorize"):
-                    ensure_authorized(in);
-                    handle_cmd_authorize(this->auths, out, in);
+                    ensure_authorized(this->game_auths, in);
+                    handle_cmd_authorize(this->game_auths, out, in);
                     break;
 
                 case crc32_("version"):
@@ -153,7 +155,7 @@ bool tournament::handle_client_input(std::iostream& client)
                     break;
 
                 case crc32_("start_game"):
-                    ensure_authorized(in);
+                    ensure_authorized(this->game_auths, in);
                     handle_cmd_start_game(this->game_info, out, in);
                     break;
 
@@ -181,6 +183,13 @@ bool tournament::handle_game_event(std::ostream& client)
     return false;
 }
 
+// load configuration from file
+void tournament::load_configuration(const std::string& filename)
+{
+    auto config(json::load(filename));
+    this->game_info.configure(config);
+}
+
 bool tournament::run()
 {
     // various handler callback function objects
@@ -192,9 +201,9 @@ bool tournament::run()
     if(this->game_info.countdown_clock().update_remaining())
     {
         // send to clients
-        this->sv.each_client(sender);
+        this->game_server.each_client(sender);
     }
 
     // poll clients for commands, waiting at most 50ms
-    return this->sv.poll(greeter, handler, 50000);
+    return this->game_server.poll(greeter, handler, 50000);
 }
