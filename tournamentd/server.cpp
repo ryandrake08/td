@@ -60,16 +60,17 @@ bool server::poll(const std::function<bool(std::ostream&)>& handle_new_client, c
     return false;
 }
 
-// call back handler for each client
-void server::each_client(const std::function<bool(std::ostream&)>& handler)
+// broadcast message to all clients
+void server::broadcast(const std::string& message)
 {
-    for(auto it(this->all.begin()); it != this->all.end(); it++)
+    for(auto it(this->all.begin()); it != this->all.end();)
     {
         if(*it != *this->listener)
         {
             // handle client i/o
             socketstream ss(*it);
-            if(handler(ss) || !ss.good())
+            ss << message;
+            if(!ss.good())
             {
                 logger(LOG_DEBUG) << "closing client connection\n";
                 it = this->all.erase(it);

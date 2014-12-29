@@ -69,7 +69,7 @@ void tournament::handle_cmd_authorize(json& out, const json& in)
     }
 }
 
-void tournament::handle_cmd_start_game(json& out, const json& in)
+void tournament::handle_cmd_start_game(const json& in)
 {
     datetime dt;
     if(in.get_value("start_at", dt))
@@ -80,44 +80,60 @@ void tournament::handle_cmd_start_game(json& out, const json& in)
     {
         this->clock.start();
     }
+
+    json out;
     this->clock.dump_state(out);
+    this->game_server.broadcast(out.string());
 }
 
-void tournament::handle_cmd_stop_game(json& out, const json& in)
+void tournament::handle_cmd_stop_game(const json& in)
 {
     this->clock.stop();
+
+    json out;
     this->clock.dump_state(out);
+    this->game_server.broadcast(out.string());
 }
 
-void tournament::handle_cmd_resume_game(json& out, const json& in)
+void tournament::handle_cmd_resume_game(const json& in)
 {
     this->clock.resume();
+
+    json out;
     this->clock.dump_state(out);
+    this->game_server.broadcast(out.string());
 }
 
-void tournament::handle_cmd_pause_game(json& out, const json& in)
+void tournament::handle_cmd_pause_game(const json& in)
 {
     this->clock.pause();
+
+    json out;
     this->clock.dump_state(out);
+    this->game_server.broadcast(out.string());
 }
 
-void tournament::handle_cmd_previous_level(json& out, const json& in)
+void tournament::handle_cmd_previous_level(const json& in)
 {
     if(this->clock.previous_blind_level())
     {
+        json out;
         this->clock.dump_state(out);
+        this->game_server.broadcast(out.string());
     }
 }
 
-void tournament::handle_cmd_next_level(json& out, const json& in)
+void tournament::handle_cmd_next_level(const json& in)
 {
     if(this->clock.next_blind_level())
     {
+        json out;
         this->clock.dump_state(out);
+        this->game_server.broadcast(out.string());
     }
 }
 
-void tournament::handle_cmd_set_action_clock(json& out, const json& in)
+void tournament::handle_cmd_set_action_clock(const json& in)
 {
     long duration;
     if(in.get_value("duration", duration))
@@ -128,10 +144,13 @@ void tournament::handle_cmd_set_action_clock(json& out, const json& in)
     {
         this->clock.reset_action_clock();
     }
+
+    json out;
     this->clock.dump_state(out);
+    this->game_server.broadcast(out.string());
 }
 
-void tournament::handle_cmd_gen_blind_levels(json& out, const json& in)
+void tournament::handle_cmd_gen_blind_levels(const json& in)
 {
     std::size_t count(30); // default to 30 blind levels
     long duration(3600000); // default to 1 hour levels
@@ -140,7 +159,10 @@ void tournament::handle_cmd_gen_blind_levels(json& out, const json& in)
     in.get_value("count", count);
 
     this->clock.gen_blind_levels(count, duration);
+
+    json out;
     this->clock.dump_configuration(out);
+    this->game_server.broadcast(out.string());
 }
 
 // handler for new client
@@ -219,42 +241,42 @@ bool tournament::handle_client_input(std::iostream& client)
 
                 case crc32_("start_game"):
                     this->ensure_authorized(in);
-                    this->handle_cmd_start_game(out, in);
+                    this->handle_cmd_start_game(in);
                     break;
 
                 case crc32_("stop_game"):
                     this->ensure_authorized(in);
-                    this->handle_cmd_stop_game(out, in);
+                    this->handle_cmd_stop_game(in);
                     break;
 
                 case crc32_("resume_game"):
                     this->ensure_authorized(in);
-                    this->handle_cmd_resume_game(out, in);
+                    this->handle_cmd_resume_game(in);
                     break;
 
                 case crc32_("pause_game"):
                     this->ensure_authorized(in);
-                    this->handle_cmd_pause_game(out, in);
+                    this->handle_cmd_pause_game(in);
                     break;
 
                 case crc32_("previous_level"):
                     this->ensure_authorized(in);
-                    this->handle_cmd_previous_level(out, in);
+                    this->handle_cmd_previous_level(in);
                     break;
 
                 case crc32_("next_level"):
                     this->ensure_authorized(in);
-                    this->handle_cmd_next_level(out, in);
+                    this->handle_cmd_next_level(in);
                     break;
 
                 case crc32_("set_action_clock"):
                     this->ensure_authorized(in);
-                    this->handle_cmd_set_action_clock(out, in);
+                    this->handle_cmd_set_action_clock(in);
                     break;
 
                 case crc32_("gen_blind_levels"):
                     this->ensure_authorized(in);
-                    this->handle_cmd_gen_blind_levels(out, in);
+                    this->handle_cmd_gen_blind_levels(in);
                     break;
 
                 default:
@@ -269,15 +291,6 @@ bool tournament::handle_client_input(std::iostream& client)
         client << out << std::endl;
     }
 
-    return false;
-}
-
-// handler for async game events
-bool tournament::handle_game_event(std::ostream& client) const
-{
-    json out;
-    this->clock.dump_state(out);
-    client << out << std::endl;
     return false;
 }
 
@@ -296,13 +309,14 @@ bool tournament::run()
     // various handler callback function objects
     static const auto greeter(std::bind(&tournament::handle_new_client, this, std::placeholders::_1));
     static const auto handler(std::bind(&tournament::handle_client_input, this, std::placeholders::_1));
-    static const auto sender(std::bind(&tournament::handle_game_event, this, std::placeholders::_1));
 
     // update the clock, and report to clients if anything changed
     if(this->clock.update_remaining())
     {
         // send to clients
-        this->game_server.each_client(sender);
+        json out;
+        this->clock.dump_state(out);
+        this->game_server.broadcast(out.string());
     }
 
     // poll clients for commands, waiting at most 50ms

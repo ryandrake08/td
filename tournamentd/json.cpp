@@ -287,6 +287,26 @@ json::~json()
     }
 }
 
+std::string json::string(bool pretty) const
+{
+    std::string ret;
+
+    if(pretty)
+    {
+        auto buffer(cJSON_Print(this->ptr));
+        ret = buffer;
+        free(buffer);
+    }
+    else
+    {
+        auto buffer(cJSON_PrintUnformatted(this->ptr));
+        ret = buffer;
+        free(buffer);
+    }
+
+    return ret;
+}
+
 // Is this json a cJSON_Object?
 bool json::is_object() const
 {
@@ -435,9 +455,7 @@ json& json::set_value(const char* name, const std::vector<json>& values)
 // I/O from streams
 void json::write(std::ostream& os) const
 {
-    auto buffer(cJSON_PrintUnformatted(this->ptr));
-    os << buffer;
-    free(buffer);
+    os << this->string();
 }
 
 void json::read(std::istream& is)

@@ -40,6 +40,9 @@ public:
     // Destruction
     ~json();
 
+    // Print to string
+    std::string string(bool pretty=false) const;
+
     // Is this json a cJSON_Object?
     bool is_object() const;
 

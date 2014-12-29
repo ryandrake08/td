@@ -33,14 +33,14 @@ private:
 
     // command handlers available to authorized clients
     void handle_cmd_authorize(json& out, const json& in);
-    void handle_cmd_start_game(json& out, const json& in);
-    void handle_cmd_stop_game(json& out, const json& in);
-    void handle_cmd_resume_game(json& out, const json& in);
-    void handle_cmd_pause_game(json& out, const json& in);
-    void handle_cmd_previous_level(json& out, const json& in);
-    void handle_cmd_next_level(json& out, const json& in);
-    void handle_cmd_set_action_clock(json& out, const json& in);
-    void handle_cmd_gen_blind_levels(json& out, const json& in);
+    void handle_cmd_start_game(const json& in);
+    void handle_cmd_stop_game(const json& in);
+    void handle_cmd_resume_game(const json& in);
+    void handle_cmd_pause_game(const json& in);
+    void handle_cmd_previous_level(const json& in);
+    void handle_cmd_next_level(const json& in);
+    void handle_cmd_set_action_clock(const json& in);
+    void handle_cmd_gen_blind_levels(const json& in);
 
     // handler for new client
     bool handle_new_client(std::ostream& client) const;
