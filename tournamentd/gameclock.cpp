@@ -74,9 +74,22 @@ void gameclock::dump_configuration(json& config) const
 void gameclock::dump_state(json& state) const
 {
     state.set_value("running", this->running);
-    state.set_value("current_blind_level", this->current_blind_level);
-    state.set_value("time_remaining", this->time_remaining.count());
-    state.set_value("break_time_remaining", this->break_time_remaining.count());
+    if(this->current_blind_level != 0)
+    {
+        state.set_value("current_blind_level", this->current_blind_level);
+    }
+    if(this->end_of_round != tp())
+    {
+        state.set_value("time_remaining", this->time_remaining.count());
+    }
+    if(this->end_of_break != tp())
+    {
+        state.set_value("break_time_remaining", this->break_time_remaining.count());
+    }
+    if(this->end_of_action_clock != tp())
+    {
+        state.set_value("action_clock_remaining", this->action_clock_remaining.count());
+    }
 }
 
 // utility: start a blind level (optionally starting offset ms into the round)
@@ -152,8 +165,10 @@ void gameclock::stop()
         this->current_blind_level = 0;
         this->end_of_round = tp();
         this->end_of_break = tp();
-        this->time_remaining = ms(0);
-        this->break_time_remaining = ms(0);
+        this->end_of_action_clock = tp();
+        this->time_remaining = ms::zero();
+        this->break_time_remaining = ms::zero();
+        this->action_clock_remaining = ms::zero();
     }
 }
 
@@ -247,6 +262,16 @@ bool gameclock::update_remaining()
     {
         auto now(std::chrono::system_clock::now());
 
+        // always update action clock if ticking
+        if(this->end_of_action_clock != tp())
+        {
+            this->action_clock_remaining = std::chrono::duration_cast<ms>(this->end_of_action_clock - now);
+        }
+        else
+        {
+            this->action_clock_remaining = ms::zero();
+        }
+
         // set time remaining based on current clock
         if(now < this->end_of_round)
         {
@@ -274,13 +299,22 @@ bool gameclock::update_remaining()
 // set the action clock (when someone 'needs the clock called on them'
 void gameclock::set_action_clock(long duration)
 {
-
+    if(this->end_of_action_clock != tp())
+    {
+        this->end_of_action_clock = std::chrono::system_clock::now() + ms(duration);
+        this->action_clock_remaining = ms(duration);
+    }
+    else
+    {
+        throw game_logic_error("only one action clock at a time");
+    }
 }
 
 // reset the action clock
 void gameclock::reset_action_clock()
 {
-
+    this->end_of_action_clock = tp();
+    this->action_clock_remaining = ms::zero();
 }
 
 static constexpr bool operator<(const gameclock::chip& c0, const gameclock::chip& c1)

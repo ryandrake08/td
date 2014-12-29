@@ -51,6 +51,10 @@ public:
     ms time_remaining;
     ms break_time_remaining;
 
+    // action clock
+    tp end_of_action_clock;
+    ms action_clock_remaining;
+
     // utility: start a blind level
     void start_blind_level(std::size_t blind_level, ms offset);
 
