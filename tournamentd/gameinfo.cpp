@@ -18,10 +18,6 @@ void gameinfo::configure(const json& config)
             array[i].get_value("name", this->players[i].name);
         }
     }
-
-    clock.configure(config);
-    funding.configure(config);
-    seating.configure(config);
 }
 
 // dump configuration to JSON
@@ -35,46 +31,4 @@ void gameinfo::dump_configuration(json& config) const
         array.push_back(json().set_value("name", player.name));
     }
     config.set_value("players", array);
-
-    clock.dump_configuration(config);
-    funding.dump_configuration(config);
-    seating.dump_configuration(config);
-}
-
-// dump state to JSON
-void gameinfo::dump_state(json& state) const
-{
-    clock.dump_state(state);
-    funding.dump_state(state);
-    seating.dump_state(state);
-}
-
-// accessors for game state
-gameclock& gameinfo::countdown_clock()
-{
-    return this->clock;
-}
-
-const gameclock& gameinfo::countdown_clock() const
-{
-    return this->clock;
-}
-
-gamefunding& gameinfo::funding_chart()
-{
-    return this->funding;
-}
-
-const gamefunding& gameinfo::funding_chart() const
-{
-    return this->funding;
-}
-
-gameseating& gameinfo::seating_chart()
-{
-    return this->seating;
-}
-const gameseating& gameinfo::seating_chart() const
-{
-    return this->seating;
 }

@@ -22,28 +22,18 @@ bool json::get_value<datetime>(const char* name, datetime& value) const
 
 // ----- auth check
 
-static void ensure_authorized(const std::unordered_set<int>& auths, const json& in)
+void tournament::ensure_authorized(const json& in) const
 {
     int code;
-    if(!in.get_value("authenticate", code) || auths.find(code) == auths.end())
+    if(!in.get_value("authenticate", code) || this->game_auths.find(code) == this->game_auths.end())
     {
         throw std::runtime_error("unauthorized");
     }
 }
 
-// ----- command handlers
+// ----- command handlers available to anyone
 
-static void handle_cmd_authorize(std::unordered_set<int>& auths, json& out, const json& in)
-{
-    int code;
-    if(in.get_value("authorize", code))
-    {
-        auths.insert(code);
-        out.set_value("authorized", code);
-    }
-}
-
-static void handle_cmd_version(const gameinfo& game, json& out)
+void tournament::handle_cmd_version(json& out) const
 {
     static const char* name = "tournamentd";
     static const char* version = "0.0.9";
@@ -52,42 +42,59 @@ static void handle_cmd_version(const gameinfo& game, json& out)
     out.set_value("server_version", version);
 }
 
-static void handle_cmd_get_all_config(const gameinfo& game, json& out)
+void tournament::handle_cmd_get_all_config(json& out) const
 {
-    game.dump_configuration(out);
+    this->game_info.dump_configuration(out);
+    this->clock.dump_configuration(out);
+    this->funding.dump_configuration(out);
+    this->seating.dump_configuration(out);
 }
 
-static void handle_cmd_get_all_state(const gameinfo& game, json& out)
+void tournament::handle_cmd_get_all_state(json& out) const
 {
-    game.dump_state(out);
+    this->clock.dump_state(out);
+    this->funding.dump_state(out);
+    this->seating.dump_state(out);
 }
 
-static void handle_cmd_get_clock_state(const gameinfo& game, json& out)
+void tournament::handle_cmd_get_clock_state(json& out) const
 {
-    game.countdown_clock().dump_state(out);
+    this->clock.dump_state(out);
 }
 
-static void handle_cmd_start_game(gameinfo& game, json& out, const json& in)
+// ----- command handlers available to authorized clients
+
+void tournament::handle_cmd_authorize(json& out, const json& in)
+{
+    int code;
+    if(in.get_value("authorize", code))
+    {
+        this->game_auths.insert(code);
+        out.set_value("authorized", code);
+    }
+}
+
+void tournament::handle_cmd_start_game(json& out, const json& in)
 {
     datetime dt;
     if(in.get_value("start_at", dt))
     {
-        game.countdown_clock().start(dt);
+        this->clock.start(dt);
     }
     else
     {
-        game.countdown_clock().start();
+        this->clock.start();
     }
 }
 
 // handler for new client
-bool tournament::handle_new_client(std::ostream& client)
+bool tournament::handle_new_client(std::ostream& client) const
 {
     // greet client
     json out;
-    handle_cmd_version(this->game_info, out);
-    handle_cmd_get_all_config(this->game_info, out);
-    handle_cmd_get_all_state(this->game_info, out);
+    this->handle_cmd_version(out);
+    this->handle_cmd_get_all_config(out);
+    this->handle_cmd_get_all_state(out);
     client << out << std::endl;
 
     return false;
@@ -138,25 +145,25 @@ bool tournament::handle_client_input(std::iostream& client)
                     return true;
 
                 case crc32_("authorize"):
-                    ensure_authorized(this->game_auths, in);
-                    handle_cmd_authorize(this->game_auths, out, in);
+                    this->ensure_authorized(in);
+                    this->handle_cmd_authorize(out, in);
                     break;
 
                 case crc32_("version"):
-                    handle_cmd_version(this->game_info, out);
+                    this->handle_cmd_version(out);
                     break;
 
                 case crc32_("get_all_config"):
-                    handle_cmd_get_all_config(this->game_info, out);
+                    this->handle_cmd_get_all_config(out);
                     break;
 
                 case crc32_("get_all_state"):
-                    handle_cmd_get_all_state(this->game_info, out);
+                    this->handle_cmd_get_all_state(out);
                     break;
 
                 case crc32_("start_game"):
-                    ensure_authorized(this->game_auths, in);
-                    handle_cmd_start_game(this->game_info, out, in);
+                    this->ensure_authorized(in);
+                    this->handle_cmd_start_game(out, in);
                     break;
 
                 default:
@@ -175,10 +182,10 @@ bool tournament::handle_client_input(std::iostream& client)
 }
 
 // handler for async game events
-bool tournament::handle_game_event(std::ostream& client)
+bool tournament::handle_game_event(std::ostream& client) const
 {
     json out;
-    handle_cmd_get_clock_state(this->game_info, out);
+    this->handle_cmd_get_clock_state(out);
     client << out << std::endl;
     return false;
 }
@@ -188,6 +195,9 @@ void tournament::load_configuration(const std::string& filename)
 {
     auto config(json::load(filename));
     this->game_info.configure(config);
+    this->clock.configure(config);
+    this->funding.configure(config);
+    this->seating.configure(config);
 }
 
 bool tournament::run()
@@ -198,7 +208,7 @@ bool tournament::run()
     static const auto sender(std::bind(&tournament::handle_game_event, this, std::placeholders::_1));
 
     // update the clock, and report to clients if anything changed
-    if(this->game_info.countdown_clock().update_remaining())
+    if(this->clock.update_remaining())
     {
         // send to clients
         this->game_server.each_client(sender);
