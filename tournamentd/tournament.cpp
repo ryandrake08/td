@@ -127,6 +127,18 @@ void tournament::handle_cmd_set_action_clock(json& out, const json& in)
     this->clock.dump_state(out);
 }
 
+void tournament::handle_cmd_gen_blind_levels(json& out, const json& in)
+{
+    std::size_t count(30); // default to 30 blind levels
+    long duration(3600000); // default to 1 hour levels
+
+    in.get_value("duration", duration);
+    in.get_value("count", count);
+
+    this->clock.gen_blind_levels(count, duration);
+    this->clock.dump_configuration(out);
+}
+
 // handler for new client
 bool tournament::handle_new_client(std::ostream& client) const
 {
@@ -234,6 +246,11 @@ bool tournament::handle_client_input(std::iostream& client)
                 case crc32_("set_action_clock"):
                     this->ensure_authorized(in);
                     this->handle_cmd_set_action_clock(out, in);
+                    break;
+
+                case crc32_("gen_blind_levels"):
+                    this->ensure_authorized(in);
+                    this->handle_cmd_gen_blind_levels(out, in);
                     break;
 
                 default:

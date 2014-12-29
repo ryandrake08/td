@@ -344,7 +344,7 @@ static std::size_t calculate_round_denomination(double ideal_small, const std::v
 //  1/5/25/100/500
 //  5/25/100/500/1000
 //  25/100/500/1000/5000
-std::vector<gameclock::blind_level> gameclock::generate_blind_levels(std::size_t count, long level_duration)
+void gameclock::gen_blind_levels(std::size_t count, long level_duration)
 {
     if(this->chips.empty())
     {
@@ -387,6 +387,4 @@ std::vector<gameclock::blind_level> gameclock::generate_blind_levels(std::size_t
         // next small blind should be about factor times bigger than previous one
         ideal_small *= this->blind_increase_factor;
     }
-
-    return this->blind_levels;
 }

@@ -103,5 +103,5 @@ public:
     void reset_action_clock();
 
     // generate progressive blind levels, given available chip denominations
-    std::vector<blind_level> generate_blind_levels(std::size_t count, long level_duration);
+    void gen_blind_levels(std::size_t count, long level_duration);
 };
