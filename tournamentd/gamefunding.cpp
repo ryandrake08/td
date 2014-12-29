@@ -4,7 +4,46 @@
 #include <limits>
 #include <numeric>
 
-const std::size_t gamefunding::funding_source::always_allow = std::numeric_limits<std::size_t>::max();
+// ----- game structure speciailization
+
+template <>
+json& json::set_value(const char* name, const std::vector<gamefunding::funding_source>& values)
+{
+    std::vector<json> array;
+    for(auto value : values)
+    {
+        json obj;
+        obj.set_value("is_addon", value.is_addon);
+        obj.set_value("forbid_after_blind_level", value.forbid_after_blind_level);
+        obj.set_value("chips", value.chips);
+        obj.set_value("cost", value.cost);
+        obj.set_value("commission", value.commission);
+        obj.set_value("equity", value.equity);
+        array.push_back(obj);
+    }
+    return this->set_value(name, array);
+}
+
+template <>
+bool json::get_value(const char *name, std::vector<gamefunding::funding_source>& values) const
+{
+    std::vector<json> array;
+    if(this->get_value("funding_sources", array))
+    {
+        values.resize(array.size());
+        for(std::size_t i(0); i<array.size(); i++)
+        {
+            array[i].get_value("is_addon", values[i].is_addon);
+            array[i].get_value("forbid_after_blind_level", values[i].forbid_after_blind_level);
+            array[i].get_value("chips", values[i].chips);
+            array[i].get_value("cost", values[i].cost);
+            array[i].get_value("commission", values[i].commission);
+            array[i].get_value("equity", values[i].equity);
+        }
+        return true;
+    }
+    return false;
+}
 
 // initialize game funding rules
 gamefunding::gamefunding() : percent_seats_paid(1.0), total_chips(0), total_cost(0), total_commission(0), total_equity(0)
@@ -19,54 +58,27 @@ void gamefunding::configure(const json& config)
     config.get_value("cost_currency", this->cost_currency);
     config.get_value("equity_currency", this->equity_currency);
     config.get_value("percent_seats_paid", this->percent_seats_paid);
-
-    std::vector<json> array;
-    if(config.get_value("funding_sources", array))
-    {
-        this->funding_sources.resize(array.size());
-        for(std::size_t i(0); i<array.size(); i++)
-        {
-            array[i].get_value("is_addon", this->funding_sources[i].is_addon);
-            array[i].get_value("forbid_after_blind_level", this->funding_sources[i].forbid_after_blind_level);
-            array[i].get_value("chips", this->funding_sources[i].chips);
-            array[i].get_value("cost", this->funding_sources[i].cost);
-            array[i].get_value("commission", this->funding_sources[i].commission);
-            array[i].get_value("equity", this->funding_sources[i].equity);
-        }
-    }
+    config.get_value("funding_sources", this->funding_sources);
 }
 
 // dump configuration to JSON
 void gamefunding::dump_configuration(json& config) const
 {
+    logger(LOG_DEBUG) << "Dumping game funding configuration\n";
+
     config.set_value("cost_currency", this->cost_currency);
     config.set_value("equity_currency", this->equity_currency);
     config.set_value("percent_seats_paid", this->percent_seats_paid);
-
-    std::vector<json> array;
-    for(auto source : this->funding_sources)
-    {
-        json obj;
-        obj.set_value("is_addon", source.is_addon);
-        obj.set_value("forbid_after_blind_level", source.forbid_after_blind_level);
-        obj.set_value("chips", source.chips);
-        obj.set_value("cost", source.cost);
-        obj.set_value("commission", source.commission);
-        obj.set_value("equity", source.equity);
-        array.push_back(obj);
-    }
-    config.set_value("funding_sources", array);
+    config.set_value("funding_sources", this->funding_sources);
 }
 
 // dump state to JSON
 void gamefunding::dump_state(json& state) const
 {
-    std::vector<player_id> tmp_buyins(this->buyins.begin(), this->buyins.end());
-    state.set_value("buyins", json(tmp_buyins));
+    logger(LOG_DEBUG) << "Dumping game funding state\n";
 
-    std::vector<currency> tmp_payouts(this->payouts.begin(), this->payouts.end());
-    state.set_value("payouts", json(tmp_payouts));
-
+    state.set_value("buyins", json(std::vector<player_id>(this->buyins.begin(), this->buyins.end())));
+    state.set_value("payouts", json(std::vector<currency>(this->payouts.begin(), this->payouts.end())));
     state.set_value("total_chips", this->total_chips);
     state.set_value("total_cost", this->total_cost);
     state.set_value("total_commission", this->total_commission);
@@ -86,20 +98,15 @@ void gamefunding::reset()
     this->total_equity = 0;
 }
 
-static constexpr bool operator==(const gamefunding::funding_source& f0, const gamefunding::funding_source& f1)
-{
-    return f0.is_addon == f1.is_addon &&
-           f0.forbid_after_blind_level == f1.forbid_after_blind_level &&
-           f0.chips == f1.chips &&
-           f0.cost == f1.cost &&
-           f0.commission == f1.commission &&
-           f0.equity == f1.equity;
-}
-
 // fund a player, (re-)buyin or addon
-void gamefunding::fund_player(const player_id& player, const funding_source& source, std::size_t current_blind_level)
+void gamefunding::fund_player(const player_id& player, const funding_source_id& src, std::size_t current_blind_level)
 {
-    logger(LOG_DEBUG) << "Funding player " << player << '\n';
+    if(src >= this->funding_sources.size())
+    {
+        throw game_logic_error("invalid funding source");
+    }
+
+    funding_source source(this->funding_sources[src]);
 
     if(current_blind_level > source.forbid_after_blind_level)
     {
@@ -116,10 +123,7 @@ void gamefunding::fund_player(const player_id& player, const funding_source& sou
         throw game_logic_error("player already bought in");
     }
 
-    if(std::find(this->funding_sources.begin(), this->funding_sources.end(), source) == this->funding_sources.end())
-    {
-        throw game_logic_error("funding source not allowed");
-    }
+    logger(LOG_DEBUG) << "Funding player " << player << '\n';
 
     // buy in player
     if(!source.is_addon)

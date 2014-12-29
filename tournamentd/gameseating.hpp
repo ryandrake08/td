@@ -45,6 +45,22 @@ private:
     // utility: arrange tables with lists of players
     std::vector<std::vector<player_id>> players_at_tables() const;
 
+    // move a player to a specific table
+    // returns player's original seat and new seat
+    player_movement move_player(const player_id& player, std::size_t table);
+
+    // move a player to the table with the smallest number of players, optionally avoiding a particular table
+    // returns player's movement
+    player_movement move_player(const player_id& player, const std::unordered_set<std::size_t>& avoid_tables);
+
+    // re-balance by moving any player from a large table to a smaller one
+    // returns number of movements, or zero, if no players moved
+    std::size_t try_rebalance(std::vector<player_movement>& movements);
+
+    // break a table if possible
+    // returns number of movements, or zero, if no players moved
+    std::size_t try_break_table(std::vector<player_movement>& movements);
+
 public:
     // initialize game seating chart
     gameseating();
@@ -67,22 +83,6 @@ public:
     seat add_player(const player_id& player);
 
     // remove a player from the game
-    // returns bust-out order (1 being the first to bust)
-    std::size_t remove_player(const player_id& player);
-
-    // move a player to a specific table
-    // returns player's original seat and new seat
-    player_movement move_player(const player_id& player, std::size_t table);
-
-    // move a player to the table with the smallest number of players, optionally avoiding a particular table
-    // returns player's movement
-    player_movement move_player(const player_id& player, const std::unordered_set<std::size_t>& avoid_tables);
-
-    // re-balance by moving any player from a large table to a smaller one, returns true if player was moved
-    // returns all player movements
-    std::vector<player_movement> try_rebalance();
-
-    // break a table if possible
-    // returns all player movements
-    std::vector<player_movement> try_break_table();
+    // returns any player movements that happened
+    std::vector<player_movement> remove_player(const player_id& player);
 };

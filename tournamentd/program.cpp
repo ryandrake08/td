@@ -7,7 +7,7 @@ program::program(const std::vector<std::string>& cmdline)
 
 #if defined(DEBUG)
     // debug only: always accept this code
-    this->tourney.game_auths.insert(31337);
+    this->tourney.authorize(31337);
 
     // debug only: load a default configuration
     this->tourney.load_configuration("defaults.json");
@@ -41,7 +41,7 @@ program::program(const std::vector<std::string>& cmdline)
                 if(++it != cmdline.end())
                 {
                     // parse client code
-                    this->tourney.game_auths.insert(std::stoi(*it));
+                    this->tourney.authorize(std::stoi(*it));
                 }
                 break;
 
@@ -59,7 +59,7 @@ program::program(const std::vector<std::string>& cmdline)
     }
 
     // listen on appropriate port
-    this->tourney.game_server.listen(port);
+    this->tourney.listen(port);
 }
 
 bool program::run()

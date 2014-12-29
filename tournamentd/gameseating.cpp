@@ -2,6 +2,37 @@
 #include "logger.hpp"
 #include <algorithm>
 
+// ----- game structure speciailization
+
+template <>
+json& json::set_value(const char* name, const std::unordered_map<player_id,gameseating::seat>& values)
+{
+    std::vector<json> array;
+    for(auto value : values)
+    {
+        json obj;
+        obj.set_value("player_id", value.first);
+        obj.set_value("table_number", value.second.table_number);
+        obj.set_value("seat_number", value.second.seat_number);
+        array.push_back(obj);
+    }
+    return this->set_value(name, array);
+}
+
+template <>
+json& json::set_value(const char* name, const std::deque<gameseating::seat>& values)
+{
+    std::vector<json> array;
+    for(auto value : values)
+    {
+        json obj;
+        obj.set_value("table_number", value.table_number);
+        obj.set_value("seat_number", value.seat_number);
+        array.push_back(obj);
+    }
+    return this->set_value(name, array);
+}
+
 // initialize game seating chart
 gameseating::gameseating() : table_capacity(0), tables(0)
 {
@@ -18,36 +49,20 @@ void gameseating::configure(const json& config)
 // dump configuration to JSON
 void gameseating::dump_configuration(json& config) const
 {
+    logger(LOG_DEBUG) << "Dumping game seating configuration\n";
+
     config.set_value("table_capacity", this->table_capacity);
 }
 
 // dump state to JSON
 void gameseating::dump_state(json& state) const
 {
-    std::vector<json> array;
-    for(auto seatpair : seats)
-    {
-        json obj;
-        obj.set_value("player_id", seatpair.first);
-        obj.set_value("table_number", seatpair.second.table_number);
-        obj.set_value("seat_number", seatpair.second.seat_number);
-        array.push_back(obj);
-    }
-    state.set_value("seats", array);
+    logger(LOG_DEBUG) << "Dumping game seating state\n";
 
     // players without seats or busted out
-    std::vector<player_id> tmp_finished(this->players_finished.begin(), this->players_finished.end());
-    state.set_value("players_finished", json(tmp_finished));
-
-    array.clear();
-    for(auto seating : this->empty_seats)
-    {
-        json obj;
-        obj.set_value("table_number", seating.table_number);
-        obj.set_value("seat_number", seating.seat_number);
-        array.push_back(obj);
-    }
-    state.set_value("empty_seats", array);
+    state.set_value("players_finished", json(std::vector<player_id>(this->players_finished.begin(), this->players_finished.end())));
+    state.set_value("seats", this->seats);
+    state.set_value("empty_seats", this->empty_seats);
 }
 
 std::vector<std::vector<player_id>> gameseating::players_at_tables() const
@@ -141,7 +156,7 @@ gameseating::seat gameseating::add_player(const player_id& player)
 }
 
 // remove a player
-std::size_t gameseating::remove_player(const player_id& player)
+std::vector<gameseating::player_movement> gameseating::remove_player(const player_id& player)
 {
     logger(LOG_DEBUG) << "Removing player " << player << " from game\n";
 
@@ -157,7 +172,11 @@ std::size_t gameseating::remove_player(const player_id& player)
     this->players_finished.push_front(player);
     this->empty_seats.push_back(seat_it->second);
 
-    return this->players_finished.size();
+    // try to break table or rebalance
+    std::vector<gameseating::player_movement> movements;
+    this->try_break_table(movements);
+    this->try_rebalance(movements);
+    return movements;
 }
 
 // move a player to a specific table
@@ -240,10 +259,13 @@ static constexpr bool has_lower_size(const T& i0, const T& i1)
     return i0.size() < i1.size();
 }
 
-// re-balance by moving any player from a large table to a smaller one, returns true if player was moved
-std::vector<gameseating::player_movement> gameseating::try_rebalance()
+// re-balance by moving any player from a large table to a smaller one
+// returns number of movements, or zero, if no players moved
+std::size_t gameseating::try_rebalance(std::vector<player_movement>& movements)
 {
     logger(LOG_DEBUG) << "Attemptying to rebalance tables\n";
+
+    std::size_t ret(0);
 
     // build players-per-table vector
     auto ppt(this->players_at_tables());
@@ -251,9 +273,6 @@ std::vector<gameseating::player_movement> gameseating::try_rebalance()
     // find smallest and largest tables
     auto fewest_it(std::min_element(ppt.begin(), ppt.end(), has_lower_size<std::vector<player_id>>));
     auto most_it(std::max_element(ppt.begin(), ppt.end(), has_lower_size<std::vector<player_id>>));
-
-    // return all player movements
-    std::vector<gameseating::player_movement> ret;
 
     // if fewest has two fewer players than most (e.g. 6 vs 8), then rebalance
     while(fewest_it->size() < most_it->size() - 1)
@@ -266,7 +285,8 @@ std::vector<gameseating::player_movement> gameseating::try_rebalance()
 
         // subtract iterator to find table number
         auto table(fewest_it - ppt.begin());
-        ret.push_back(this->move_player(random_player, table));
+        movements.push_back(this->move_player(random_player, table));
+        ret++;
 
         // update our lists to stay consistent
         (*most_it)[index] = std::move(most_it->back());
@@ -277,12 +297,13 @@ std::vector<gameseating::player_movement> gameseating::try_rebalance()
     return ret;
 }
 
-std::vector<gameseating::player_movement> gameseating::try_break_table()
+// break a table if possible
+// returns number of movements, or zero, if no players moved
+std::size_t gameseating::try_break_table(std::vector<player_movement>& movements)
 {
     logger(LOG_DEBUG) << "Attemptying to break a table\n";
 
-    // return all player movements
-    std::vector<gameseating::player_movement> ret;
+    std::size_t ret(0);
 
     if(this->tables > 1)
     {
@@ -308,7 +329,8 @@ std::vector<gameseating::player_movement> gameseating::try_break_table()
             const std::unordered_set<std::size_t> avoid = {break_table};
             for(auto player : to_move)
             {
-                ret.push_back(this->move_player(player, avoid));
+                movements.push_back(this->move_player(player, avoid));
+                ret++;
             }
 
             // decrement number of tables

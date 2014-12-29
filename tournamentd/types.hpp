@@ -11,4 +11,5 @@ public:
 };
 
 typedef std::size_t player_id;
+typedef std::size_t funding_source_id;
 static const player_id no_player = std::numeric_limits<std::size_t>::max();

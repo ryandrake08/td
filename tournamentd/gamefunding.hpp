@@ -70,5 +70,5 @@ public:
     void reset();
 
     // fund a player, (re-)buyin or addon
-    void fund_player(const player_id& player, const funding_source& source, std::size_t current_blind_level);
+    void fund_player(const player_id& player, const funding_source_id& src, std::size_t current_blind_level);
 };

@@ -75,7 +75,7 @@ public:
     bool is_started() const;
 
     // return current blind level
-    std::size_t blind_level() const;
+    std::size_t get_current_blind_level() const;
 
     // start the game (optionally at certain time);
     void start();
@@ -91,10 +91,10 @@ public:
     void resume();
 
     // advance to next blind level
-    bool next_blind_level(ms offset=ms::zero());
+    std::size_t next_blind_level(ms offset=ms::zero());
 
     // return to previous blind level
-    bool previous_blind_level(ms offset=ms::zero());
+    std::size_t previous_blind_level(ms offset=ms::zero());
 
     // update time remaining
     bool update_remaining();
