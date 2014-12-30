@@ -13,13 +13,10 @@ class inet_socket
     // ensure socket has a valid impl
     void validate() const;
 
-public:
-    // create an uninitialized socket
-    inet_socket();
-
     // create a socket with a given impl
     inet_socket(inet_socket_impl* imp);
 
+public:
     // create and connect socket and connect to an address at a port
     inet_socket(std::uint32_t addr, std::uint16_t port);
 

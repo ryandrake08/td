@@ -69,7 +69,7 @@ struct inet_socket_impl
         logger(LOG_DEBUG) << "created socket from fd: " << this->fd << '\n';
     }
 
-    inet_socket_impl() : inet_socket_impl(static_cast<int>(::socket(AF_INET, SOCK_STREAM, 0)))
+    inet_socket_impl(int domain, int type) : inet_socket_impl(static_cast<int>(::socket(domain, type, 0)))
     {
     }
 
@@ -93,12 +93,6 @@ void inet_socket::validate() const
     }
 }
 
-// create a socket without a fd
-inet_socket::inet_socket()
-{
-    logger(LOG_DEBUG) << "creating empty socket\n";
-}
-
 // create a socket with a given impl
 inet_socket::inet_socket(inet_socket_impl* imp) : impl(imp)
 {
@@ -108,7 +102,7 @@ inet_socket::inet_socket(inet_socket_impl* imp) : impl(imp)
 }
 
 // create and connect socket and connect to an address at a port
-inet_socket::inet_socket(std::uint32_t addr, std::uint16_t port) : impl(new inet_socket_impl)
+inet_socket::inet_socket(std::uint32_t addr, std::uint16_t port) : impl(new inet_socket_impl(AF_INET, SOCK_STREAM))
 {
     validate();
 
@@ -126,7 +120,7 @@ inet_socket::inet_socket(std::uint32_t addr, std::uint16_t port) : impl(new inet
     }
 }
 
-inet_socket::inet_socket(const char* host, std::uint16_t port) : impl(new inet_socket_impl)
+inet_socket::inet_socket(const char* host, std::uint16_t port) : impl(new inet_socket_impl(AF_INET, SOCK_STREAM))
 {
     validate();
 
@@ -155,7 +149,7 @@ inet_socket::inet_socket(const char* host, std::uint16_t port) : impl(new inet_s
     }
 }
 
-inet_socket::inet_socket(std::uint16_t port, int backlog) : impl(new inet_socket_impl)
+inet_socket::inet_socket(std::uint16_t port, int backlog) : impl(new inet_socket_impl(AF_INET, SOCK_STREAM))
 {
     validate();
 

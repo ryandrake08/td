@@ -8,11 +8,10 @@
 class server
 {
     std::set<inet_socket> all;
-    std::set<inet_socket>::const_iterator listener;
+    std::set<inet_socket> listeners;
+    std::set<inet_socket> clients;
 
 public:
-    server();
-
     // listen on given port
     void listen(std::uint16_t port);
 
