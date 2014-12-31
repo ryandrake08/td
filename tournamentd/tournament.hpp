@@ -83,7 +83,7 @@ public:
     std::vector<gameseating::player_movement> bust_player(player_id player);
 
     // listen for clients on given port
-    void listen(std::uint16_t port);
+    void listen(const char* service);
 
     // load configuration from file
     void load_configuration(const std::string& filename);

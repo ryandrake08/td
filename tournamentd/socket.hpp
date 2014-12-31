@@ -17,14 +17,11 @@ class inet_socket
     inet_socket(inet_socket_impl* imp);
 
 public:
-    // create and connect socket and connect to an address at a port
-    inet_socket(std::uint32_t addr, std::uint16_t port);
-
     // create and connect socket and connect to a host at a port
-    inet_socket(const char* host, std::uint16_t port);
+    inet_socket(const char* host, const char* service);
 
     // create a listening socket by binding to a port
-    inet_socket(std::uint16_t port, int backlog=5);
+    inet_socket(const char* service, bool force_v4=false, int backlog=5);
 
     // create a new socket by accepting on a listening socket
     inet_socket accept() const;

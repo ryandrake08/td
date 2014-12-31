@@ -3,7 +3,7 @@
 
 program::program(const std::vector<std::string>& cmdline)
 {
-    uint16_t port(25600);
+    std::string service("25600");
 
 #if defined(DEBUG)
     // debug only: always accept this code
@@ -32,7 +32,7 @@ program::program(const std::vector<std::string>& cmdline)
                 if(++it != cmdline.end())
                 {
                     // parse port number
-                    port = std::stoul(*it);
+                    service = *it;
                 }
                 break;
 
@@ -59,7 +59,7 @@ program::program(const std::vector<std::string>& cmdline)
     }
 
     // listen on appropriate port
-    this->tourney.listen(port);
+    this->tourney.listen(service.c_str());
 }
 
 bool program::run()

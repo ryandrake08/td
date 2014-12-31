@@ -24,6 +24,25 @@ static const SOCKET INVALID_SOCKET = -1;
 static const int SOCKET_ERROR = -1;
 #endif
 
+class eai_error_category : public std::error_category
+{
+public:
+    virtual const char* name() const throw()
+    {
+        return "eai";
+    }
+
+    virtual bool equivalent (const std::error_code& code, int condition) const throw()
+    {
+        return *this==code.category() && static_cast<int>(default_error_condition(code.value()).value())==condition;
+    }
+
+    virtual std::string message(int ev) const
+    {
+        return gai_strerror(ev);
+    }
+};
+
 // initializer
 static struct socket_initializer
 {
@@ -51,6 +70,17 @@ static struct socket_initializer
 
 } initializer;
 
+// exception-safe wrapper for addrinfo
+
+struct addrinfo_ptr
+{
+    addrinfo* ptr;
+    addrinfo_ptr() : ptr(nullptr) {}
+    ~addrinfo_ptr() { if(ptr) ::freeaddrinfo(ptr); }
+    addrinfo_ptr(const addrinfo_ptr& other) = delete;
+    addrinfo_ptr& operator=(const addrinfo_ptr&) = delete;
+};
+
 // pimpl (fd wrapper)
 
 struct inet_socket_impl
@@ -60,22 +90,12 @@ struct inet_socket_impl
     // construct with given fd
     inet_socket_impl(SOCKET newfd) : fd(newfd)
     {
-        // check socket
-        if(newfd == INVALID_SOCKET)
-        {
-            throw(std::system_error(errno, std::system_category(), "inet_socket_impl: invalid socket"));
-        }
-
-        logger(LOG_DEBUG) << "created socket from fd: " << this->fd << '\n';
-    }
-
-    inet_socket_impl(int domain, int type) : inet_socket_impl(static_cast<int>(::socket(domain, type, 0)))
-    {
+        logger(LOG_DEBUG) << "wrapped fd: " << this->fd << '\n';
     }
 
     ~inet_socket_impl()
     {
-        logger(LOG_DEBUG) << "closing socket: " << this->fd << '\n';
+        logger(LOG_DEBUG) << "closing fd: " << this->fd << '\n';
 #if defined(_WIN32) // thank you, Microsoft
         ::closesocket(this->fd);
 #else
@@ -89,7 +109,7 @@ void inet_socket::validate() const
 {
     if(!this->impl)
     {
-        throw(std::logic_error("inet_socket: invalid socket impl"));
+        throw std::logic_error("inet_socket: invalid socket impl");
     }
 }
 
@@ -98,115 +118,134 @@ inet_socket::inet_socket(inet_socket_impl* imp) : impl(imp)
 {
     validate();
 
-    logger(LOG_DEBUG) << "creating socket with impl: " << *this << '\n';
+    logger(LOG_DEBUG) << "creating socket from existing impl: " << *this << '\n';
 }
 
-// create and connect socket and connect to an address at a port
-inet_socket::inet_socket(std::uint32_t addr, std::uint16_t port) : impl(new inet_socket_impl(AF_INET, SOCK_STREAM))
+inet_socket::inet_socket(const char* host, const char* service)
 {
-    validate();
+    // set up hints
+    addrinfo hints = {0};
+    hints.ai_family = AF_UNSPEC;
+    hints.ai_socktype = SOCK_STREAM;
+    hints.ai_flags = 0;
 
-    sockaddr_in sad;
-    sad.sin_family = AF_INET;
-    sad.sin_port = htons(port);
-    sad.sin_addr.s_addr = htonl(addr);
+    logger(LOG_DEBUG) << "looking up host: " << host << ", service: " << service << '\n';
 
-    logger(LOG_DEBUG) << "connecting " << *this << " to: " << addr << ':' << port << '\n';
+    // fill in addrinfo
+    addrinfo_ptr result;
+    auto err(::getaddrinfo(host, service, &hints, &result.ptr));
+    if(err != 0)
+    {
+        throw std::system_error(err, eai_error_category(), "getaddrinfo");
+    }
+
+    logger(LOG_DEBUG) << "creating a socket\n";
+
+    // create the socket
+    auto sock(::socket(result.ptr->ai_family, result.ptr->ai_socktype, result.ptr->ai_protocol));
+    if(sock == INVALID_SOCKET)
+    {
+        throw std::system_error(errno, std::system_category(), "socket");
+    }
+
+    // wrap the socket and store
+    this->impl = std::shared_ptr<inet_socket_impl>(new inet_socket_impl(sock));
+
+    logger(LOG_DEBUG) << "connecting " << *this << " to host: " << host << ", service: " << service << '\n';
 
     // connect to remote address
-    if(::connect(this->impl->fd, reinterpret_cast<sockaddr*>(&sad), sizeof(sad)) == SOCKET_ERROR)
+    if(::connect(this->impl->fd, result.ptr->ai_addr, result.ptr->ai_addrlen) == SOCKET_ERROR)
     {
-        throw(std::system_error(errno, std::system_category(), "inet_socket: connect"));
+        throw std::system_error(errno, std::system_category(), "connect");
     }
+
+    validate();
 }
 
-inet_socket::inet_socket(const char* host, std::uint16_t port) : impl(new inet_socket_impl(AF_INET, SOCK_STREAM))
+inet_socket::inet_socket(const char* service, bool force_v4, int backlog)
 {
-    validate();
+    // set up hints
+    addrinfo hints = {0};
+    hints.ai_family = force_v4 ? PF_INET : PF_INET6;
+    hints.ai_socktype = SOCK_STREAM;
+    hints.ai_flags = AI_PASSIVE;
 
-    logger(LOG_DEBUG) << "looking up host: " << host << '\n';
+    logger(LOG_DEBUG) << "looking up service: " << service << (force_v4 ? " (IPV4)\n" : "(IPV6)\n");
 
-    // look up hostname
-    hostent* he(::gethostbyname(host));
-    if(he == nullptr)
+    // fill in addrinfo
+    addrinfo_ptr result;
+    auto err(::getaddrinfo(nullptr, service, &hints, &result.ptr));
+    if(err != 0)
     {
-        throw(std::system_error(errno, std::system_category(), "inet_socket: gethostbyname"));
+        throw std::system_error(err, eai_error_category(), "getaddrinfo");
     }
 
-    sockaddr_in sad;
-    sad.sin_family = AF_INET;
-    sad.sin_port = htons(port);
-    std::copy(reinterpret_cast<char*>(he->h_addr),
-              reinterpret_cast<char*>(he->h_addr) + he->h_length,
-              reinterpret_cast<char*>(&sad.sin_addr.s_addr));
+    logger(LOG_DEBUG) << "creating a socket\n";
 
-    logger(LOG_DEBUG) << "connecting " << *this << " to: " << host << ':' << port << '\n';
-
-    // connect to remote address
-    if(::connect(this->impl->fd, reinterpret_cast<sockaddr*>(&sad), sizeof(sad)) == SOCKET_ERROR)
+    // create the socket
+    auto sock(::socket(result.ptr->ai_family, result.ptr->ai_socktype, result.ptr->ai_protocol));
+    if(sock == INVALID_SOCKET)
     {
-        throw(std::system_error(errno, std::system_category(), "inet_socket: connect"));
+        throw std::system_error(errno, std::system_category(), "socket");
     }
-}
 
-inet_socket::inet_socket(std::uint16_t port, int backlog) : impl(new inet_socket_impl(AF_INET, SOCK_STREAM))
-{
-    validate();
+    // wrap the socket and store
+    this->impl = std::shared_ptr<inet_socket_impl>(new inet_socket_impl(sock));
+
+    logger(LOG_DEBUG) << "setting SO_REUSEADDR\n";
 
     // set SO_REUSADDR option
-    int opt(1);
+    int yes(1);
 #if defined(_WIN32)
-    if(::setsockopt(this->impl->fd, SOL_SOCKET, SO_REUSEADDR, reinterpret_cast<const char*>(&opt), sizeof(opt)) == SOCKET_ERROR)
+    if(::setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, reinterpret_cast<const char*>(&yes), sizeof(yes)) == SOCKET_ERROR)
 #else
-    if(::setsockopt(this->impl->fd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)) == SOCKET_ERROR)
+    if(::setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, &yes, sizeof(yes)) == SOCKET_ERROR)
 #endif
     {
-        throw(std::system_error(errno, std::system_category(), "inet_socket: setsockopt"));
+        throw std::system_error(errno, std::system_category(), "setsockopt");
     }
 
-    logger(LOG_DEBUG) << "binding " << *this << " to port: " << port << '\n';
+    logger(LOG_DEBUG) << "binding " << *this << " to service: " << service << '\n';
 
     // bind to server port
-    sockaddr_in sad;
-    sad.sin_family = AF_INET;
-    sad.sin_port = htons(port);
-    sad.sin_addr.s_addr = INADDR_ANY;
-    if(::bind(this->impl->fd, reinterpret_cast<sockaddr*>(&sad), sizeof(sad)) == SOCKET_ERROR) 
+    if(::bind(sock, result.ptr->ai_addr, result.ptr->ai_addrlen) == SOCKET_ERROR)
     {
-        throw(std::system_error(errno, std::system_category(), "inet_socket: bind"));
+        throw std::system_error(errno, std::system_category(), "bind");
     }
 
     logger(LOG_DEBUG) << "listening on " << *this << " with backlog: " << backlog << '\n';
 
     // begin listening on the socket
-    if(::listen(this->impl->fd, backlog) == SOCKET_ERROR)
+    if(::listen(sock, backlog) == SOCKET_ERROR)
     {
-        throw(std::system_error(errno, std::system_category(), "inet_socket: listen"));
+        throw std::system_error(errno, std::system_category(), "listen");
     }
+
+    validate();
 }
 
 inet_socket inet_socket::accept() const
 {
     validate();
 
-    logger(LOG_DEBUG) << "accepting from " << *this << '\n';
+    logger(LOG_DEBUG) << "accepting with " << *this << '\n';
 
-    sockaddr_in sad;
-    socklen_t len;
-    auto ret(::accept(this->impl->fd, reinterpret_cast<sockaddr*>(&sad), &len));
+    // accept connection
+    sockaddr_storage addr;
+    socklen_t addrlen(sizeof(addr));
+    auto ret(::accept(this->impl->fd, reinterpret_cast<sockaddr*>(&addr), &addrlen));
     if(ret == SOCKET_ERROR)
     {
-        throw(std::system_error(errno, std::system_category(), "inet_socket: accept"));
+        throw std::system_error(errno, std::system_category(), "accept");
     }
 
+    logger(LOG_DEBUG) << "accepted connection on " << *this << '\n';
+    
     return inet_socket(new inet_socket_impl(ret));
 }
 
-// select on this socket
-bool inet_socket::select(long usec)
+int do_select(int max_fd, fd_set* fds, long usec)
 {
-    validate();
-
     // timeout
     timeval tv;
     tv.tv_sec = usec / 1000000;
@@ -215,21 +254,27 @@ bool inet_socket::select(long usec)
     // handle infinite timeout
     timeval* ptv(usec < 0 ? nullptr : &tv);
 
-    logger(LOG_DEBUG) << "selecting with timeout " << usec << " on " << *this << '\n';
+    // do the select
+    auto ready(::select(max_fd, fds, nullptr, nullptr, ptv));
+    if(ready == SOCKET_ERROR)
+    {
+        throw std::system_error(errno, std::system_category(), "select");
+    }
+
+    return ready;
+}
+
+// select on this socket
+bool inet_socket::select(long usec)
+{
+    validate();
 
     // single fd
     fd_set fds;
     FD_ZERO(&fds);
     FD_SET(this->impl->fd, &fds);
 
-    // do the select
-    auto ready(::select(this->impl->fd+1, &fds, nullptr, nullptr, ptv));
-    if(ready == SOCKET_ERROR)
-    {
-        throw(std::system_error(errno, std::system_category(), "inet_socket(S): select"));
-    }
-
-    return ready > 0;
+    return do_select(this->impl->fd+1, &fds, usec) > 0;
 }
 
 // select on multiple sockets
@@ -238,37 +283,20 @@ std::set<inet_socket> inet_socket::select(const std::set<inet_socket>& sockets, 
     // validate all passed in sockets
     std::for_each(sockets.begin(), sockets.end(), [](const inet_socket& s) { s.validate(); });
 
-    // timeout
-    timeval tv;
-    tv.tv_sec = usec / 1000000;
-    tv.tv_usec = usec % 1000000;
-
-    // handle infinite timeout
-    timeval* ptv(usec < 0 ? nullptr : &tv);
-
     // iterate through set, and add to our fd_set
     fd_set fds;
     FD_ZERO(&fds);
     std::for_each(sockets.begin(), sockets.end(), [&fds](const inet_socket& s) { FD_SET(s.impl->fd, &fds); });
 
     // set is ordered, so max fd is the last element
-    int max_fd(0);
-    if(!sockets.empty())
-    {
-        max_fd = sockets.rbegin()->impl->fd;
-    }
+    int max_fd(sockets.begin() == sockets.end() ? 0 : sockets.rbegin()->impl->fd+1);
 
     // do the select
-    auto ready(::select(max_fd+1, &fds, nullptr, nullptr, ptv));
-    if(ready == SOCKET_ERROR)
-    {
-        throw(std::system_error(errno, std::system_category(), "inet_socket(M): select"));
-    }
+    do_select(max_fd, &fds, usec);
 
     // copy sockets returned
     std::set<inet_socket> ret;
     std::copy_if(sockets.begin(), sockets.end(), std::inserter(ret, ret.end()), [&fds](const inet_socket& s) { return FD_ISSET(s.impl->fd, &fds); } );
-
     return ret;
 }
 
@@ -276,7 +304,7 @@ std::size_t inet_socket::recv(void* buf, std::size_t bytes)
 {
     validate();
 
-    logger(LOG_DEBUG) << "receiving " << bytes << " on " << *this << "...\n";
+    logger(LOG_DEBUG) << "receiving " << bytes << " on " << *this << '\n';
 
     // read bytes from a fd
 #if defined(_WIN32)
@@ -286,7 +314,7 @@ std::size_t inet_socket::recv(void* buf, std::size_t bytes)
 #endif
     if(len == SOCKET_ERROR)
     {
-        throw(std::system_error(errno, std::system_category(), "inet_socket: recv: recv"));
+        throw std::system_error(errno, std::system_category(), "recv");
     }
 
     logger(LOG_DEBUG) << "received " << len << " bytes\n";
@@ -298,7 +326,7 @@ std::size_t inet_socket::send(const void* buf, std::size_t bytes)
 {
     validate();
 
-    logger(LOG_DEBUG) << "sending " << bytes << " on " << *this << "...\n";
+    logger(LOG_DEBUG) << "sending " << bytes << " on " << *this << '\n';
 
     // write bytes to a fd
 #if defined(_WIN32)
@@ -308,7 +336,7 @@ std::size_t inet_socket::send(const void* buf, std::size_t bytes)
 #endif
     if(len == SOCKET_ERROR)
     {
-        throw(std::system_error(errno, std::system_category(), "inet_socket: send: send"));
+        throw std::system_error(errno, std::system_category(), "send");
     }
 
     logger(LOG_DEBUG) << "sent " << len << " bytes\n";
@@ -323,14 +351,12 @@ bool inet_socket::listening() const
 
     int val(0);
     socklen_t len(sizeof(val));
-    if(::getsockopt(this->impl->fd, SOL_SOCKET, SO_ACCEPTCONN, &val, &len) == SOCKET_ERROR)
+    if(::getsockopt(this->impl->fd, SOL_SOCKET, SO_ACCEPTCONN, reinterpret_cast<char*>(&val), &len) == SOCKET_ERROR)
     {
-        throw(std::system_error(errno, std::system_category(), "inet_socket: listening: getsockopt"));
+        throw std::system_error(errno, std::system_category(), "getsockopt");
     }
-    else
-    {
-        return val != 0;
-    }
+
+    return val != 0;
 }
 
 bool inet_socket::operator<(const inet_socket& other) const
@@ -361,5 +387,19 @@ std::ostream& operator<<(std::ostream& os, const inet_socket& sock)
 {
     sock.validate();
 
-    return os << "s(" << sock.impl->fd << ')';
+    sockaddr_storage addr;
+    socklen_t addrlen(sizeof(addr));
+    auto ret(::getpeername(sock.impl->fd, reinterpret_cast<sockaddr*>(&addr), &addrlen));
+    if(ret != SOCKET_ERROR)
+    {
+        // get info
+        char buffer[NI_MAXHOST];
+        auto err(::getnameinfo(reinterpret_cast<sockaddr*>(&addr), addrlen, buffer, sizeof(buffer), nullptr, 0, 0));
+        if(err == 0)
+        {
+            return os << "socket: " << sock.impl->fd << ", peer: " << buffer;
+        }
+    }
+
+    return os << "socket: " << sock.impl->fd;
 }

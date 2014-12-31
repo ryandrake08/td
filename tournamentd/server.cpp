@@ -3,7 +3,7 @@
 #include "socketstream.hpp"
 
 // listen on given port
-void server::listen(std::uint16_t port)
+void server::listen(const char* service)
 {
     // erase any existing listeners
     for(auto it : this->listeners)
@@ -14,10 +14,13 @@ void server::listen(std::uint16_t port)
     // clear set of iterators
     this->listeners.clear();
 
-    // create new socket
-    auto sock((inet_socket(port)));
+    // add socket to listen for ipv4 (unnecessary on systems supporting dual-stack sockets)
+    auto sock4((inet_socket(service, true)));
+    this->all.insert(sock4);
+    this->listeners.insert(sock4);
 
-    // add it to both sets
+    // add socket to listen for ipv6
+    auto sock((inet_socket(service)));
     this->all.insert(sock);
     this->listeners.insert(sock);
 }
