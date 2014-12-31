@@ -24,9 +24,6 @@ public:
     };
 
 private:
-    // random number generator
-    std::default_random_engine engine;
-
     // configuration: number of players per table
     std::size_t table_capacity;
 

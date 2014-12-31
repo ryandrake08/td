@@ -2,6 +2,9 @@
 #include "logger.hpp"
 #include <algorithm>
 
+// random number generator
+static std::default_random_engine engine;
+
 // ----- game structure speciailization
 
 template <>
@@ -168,9 +171,9 @@ std::vector<gameseating::player_movement> gameseating::remove_player(const playe
     }
 
     // bust player and add seat to the end of the empty list
-    this->seats.erase(player);
-    this->players_finished.push_front(player);
     this->empty_seats.push_back(seat_it->second);
+    this->seats.erase(seat_it);
+    this->players_finished.push_front(player);
 
     // try to break table or rebalance
     std::vector<gameseating::player_movement> movements;
