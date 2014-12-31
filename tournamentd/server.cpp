@@ -14,11 +14,13 @@ void server::listen(const char* service)
     // clear set of iterators
     this->listeners.clear();
 
+#if 0
     // add socket to listen for ipv4 (unnecessary on systems supporting dual-stack sockets)
     auto sock4((inet_socket(service, true)));
     this->all.insert(sock4);
     this->listeners.insert(sock4);
-
+#endif
+    
     // add socket to listen for ipv6
     auto sock((inet_socket(service)));
     this->all.insert(sock);

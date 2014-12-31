@@ -1,5 +1,6 @@
 #include "gameclock.hpp"
 #include "logger.hpp"
+#include <algorithm>
 #include <cmath>
 
 // ----- game structure speciailization

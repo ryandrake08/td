@@ -1,6 +1,7 @@
 #include "tournament.hpp"
 #include "stringcrc.hpp"
 #include "json.hpp"
+#include <algorithm>
 #include <cstddef>
 #include <stdexcept>
 
