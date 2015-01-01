@@ -55,9 +55,6 @@ class tournament
     // handler for input from existing client
     bool handle_client_input(std::iostream& client);
 
-    // handler for async game events
-    bool handle_game_event(std::ostream& client) const;
-
 public:
     // tournament API
 #if 0 // How to do these?

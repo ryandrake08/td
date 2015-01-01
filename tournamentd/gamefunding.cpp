@@ -59,6 +59,9 @@ void gamefunding::configure(const json& config)
     config.get_value("equity_currency", this->equity_currency);
     config.get_value("percent_seats_paid", this->percent_seats_paid);
     config.get_value("funding_sources", this->funding_sources);
+
+    // after reconfiguring, we'll need to recalculate
+    this->recalculate_payouts();
 }
 
 // dump configuration to JSON
