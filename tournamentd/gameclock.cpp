@@ -330,7 +330,7 @@ void gameclock::gen_blind_levels(std::size_t count, long level_duration)
     this->blind_levels.resize(count+1);
 
     // dummy round for planning phase
-    this->blind_levels[0] = {0};
+    this->blind_levels[0] = td::blind_level();
 
     // sort our vector
     std::sort(this->available_chips.begin(), this->available_chips.end(), [](const td::chip& c0, const td::chip& c1) { return c0.denomination < c1.denomination; });

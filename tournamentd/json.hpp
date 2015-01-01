@@ -11,6 +11,12 @@ class json
     cJSON* ptr;
 
 public:
+    struct serializable
+    {
+        virtual void to_json(json& obj) const = 0;
+        virtual void from_json(const json& obj) = 0;
+    };
+
     // Construct an empty object
     json();
 
@@ -28,6 +34,9 @@ public:
     // Construct from an array
     template <typename T>
     explicit json(const std::vector<T>& values);
+
+    // Construct from serializable
+    json(const serializable& value);
 
     // Copy/move construction
     json(const json& other);

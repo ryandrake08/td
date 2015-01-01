@@ -236,6 +236,12 @@ json json::load(const std::string& filename)
     return json::load(filename.c_str());
 }
 
+// Construct from serializable
+json::json(const serializable& value) : json()
+{
+    value.to_json(*this);
+}
+
 // Copy constructor duplicates
 json::json(const json& other) : ptr(check(cJSON_Duplicate(other.ptr, 1)))
 {

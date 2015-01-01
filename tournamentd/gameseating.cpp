@@ -87,7 +87,7 @@ std::size_t gameseating::plan_seating(std::size_t max_expected_players)
     {
         for(std::size_t s(0); s<this->table_capacity; s++)
         {
-            this->empty_seats.push_back(td::seat({t,s}));
+            this->empty_seats.push_back(td::seat(t,s));
         }
     }
 
@@ -120,7 +120,7 @@ td::seat gameseating::add_player(const td::player_id& player)
 
     // seat player and remove from empty list
     auto seat(this->empty_seats.front());
-    this->seats[player] = seat;
+    this->seats.insert(std::make_pair(player, seat));
     this->empty_seats.pop_front();
 
     logger(LOG_DEBUG) << "Seated player at table " << seat.table_number << ", seat " << seat.seat_number << '\n';
@@ -188,7 +188,7 @@ td::player_movement gameseating::move_player(const td::player_id& player, std::s
 
     logger(LOG_DEBUG) << "Moved player " << player << " from table " << from_seat.table_number << ", seat " << from_seat.seat_number << " to table " << to_seat.table_number << ", seat " << to_seat.seat_number << '\n';
 
-    return { player, from_seat, to_seat };
+    return td::player_movement(player, from_seat, to_seat);
 }
 
 // move a player to the table with the smallest number of players
