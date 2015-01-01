@@ -46,6 +46,13 @@ public:
     friend std::ostream& operator<<(std::ostream& os, const common_socket& sock);
 };
 
+class unix_socket : public common_socket
+{
+public:
+    // create a unix socket by either connecting or binding/listening
+    unix_socket(const char* path, bool client=false, int backlog=5);
+};
+
 class inet_socket : public common_socket
 {
 public:

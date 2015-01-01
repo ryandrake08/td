@@ -13,7 +13,7 @@ class server
 
 public:
     // listen on given port
-    void listen(const char* service);
+    void listen(const char* unix_socket_path, const char* service);
 
     // poll the server with given timeout, handling both new clients and clients with input
     bool poll(const std::function<bool(std::ostream&)>& handle_new_client, const std::function<bool(std::iostream&)>& handle_client, long usec=-1);

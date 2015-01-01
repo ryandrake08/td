@@ -59,7 +59,7 @@ program::program(const std::vector<std::string>& cmdline)
     }
 
     // listen on appropriate port
-    this->tourney.listen(service.c_str());
+    this->tourney.listen("/tmp/tournamentd.sock", service.c_str());
 }
 
 bool program::run()

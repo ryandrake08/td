@@ -80,7 +80,7 @@ public:
     std::vector<td::player_movement> bust_player(td::player_id player);
 
     // listen for clients on given port
-    void listen(const char* service);
+    void listen(const char* unix_socket_path, const char* service);
 
     // load configuration from file
     void load_configuration(const std::string& filename);

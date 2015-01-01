@@ -524,9 +524,9 @@ std::vector<td::player_movement> tournament::bust_player(td::player_id player)
 }
 
 // listen for clients on given port
-void tournament::listen(const char* service)
+void tournament::listen(const char* unix_socket_path, const char* service)
 {
-    this->game_server.listen(service);
+    this->game_server.listen(unix_socket_path, service);
 }
 
 // load configuration from file

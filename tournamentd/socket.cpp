@@ -17,6 +17,7 @@ typedef int socklen_t;
 #include <arpa/inet.h>
 #include <netinet/in.h>
 #include <sys/socket.h>
+#include <sys/un.h>
 #include <unistd.h>
 #include <netdb.h>
 typedef int SOCKET;
@@ -142,7 +143,7 @@ common_socket common_socket::accept() const
     }
 
     logger(LOG_DEBUG) << "accepted connection on " << *this << '\n';
-    
+
     return common_socket(new common_socket_impl(ret));
 }
 
@@ -306,6 +307,56 @@ std::ostream& operator<<(std::ostream& os, const common_socket& sock)
     return os << "socket: " << sock.impl->fd;
 }
 
+unix_socket::unix_socket(const char* path, bool client, int backlog)
+{
+    // create the socket
+    auto sock(::socket(PF_UNIX, SOCK_STREAM, 0));
+    if(sock == INVALID_SOCKET)
+    {
+        throw std::system_error(errno, std::system_category(), "socket");
+    }
+
+    // wrap the socket and store
+    this->impl = std::shared_ptr<common_socket_impl>(new common_socket_impl(sock));
+
+    sockaddr_un addr = {0};
+    addr.sun_family = AF_UNIX;
+    addr.sun_len = sizeof(addr);
+    std::copy_n(path, sizeof(addr.sun_path)-1, addr.sun_path);
+    ::unlink(path);
+
+    logger(LOG_DEBUG) << "creating a socket\n";
+
+    if(client)
+    {
+        logger(LOG_DEBUG) << "connecting " << *this << '\n';
+
+        // connect to remote address
+        if(::connect(sock, reinterpret_cast<sockaddr*>(&addr), sizeof(addr)) == SOCKET_ERROR)
+        {
+            throw std::system_error(errno, std::system_category(), "connect");
+        }
+    }
+    else
+    {
+        // bind to server port
+        if(::bind(sock, reinterpret_cast<sockaddr*>(&addr), sizeof(addr)) == SOCKET_ERROR)
+        {
+            throw std::system_error(errno, std::system_category(), "bind");
+        }
+
+        logger(LOG_DEBUG) << "listening on " << *this << " with backlog: " << backlog << '\n';
+
+        // begin listening on the socket
+        if(::listen(sock, backlog) == SOCKET_ERROR)
+        {
+            throw std::system_error(errno, std::system_category(), "listen");
+        }
+    }
+
+    validate();
+}
+
 inet_socket::inet_socket(const char* host, const char* service, int family) : common_socket()
 {
     // set up hints
@@ -339,7 +390,7 @@ inet_socket::inet_socket(const char* host, const char* service, int family) : co
     logger(LOG_DEBUG) << "connecting " << *this << " to host: " << host << ", service: " << service << '\n';
 
     // connect to remote address
-    if(::connect(this->impl->fd, result.ptr->ai_addr, result.ptr->ai_addrlen) == SOCKET_ERROR)
+    if(::connect(sock, result.ptr->ai_addr, result.ptr->ai_addrlen) == SOCKET_ERROR)
     {
         throw std::system_error(errno, std::system_category(), "connect");
     }
@@ -405,7 +456,7 @@ inet_socket::inet_socket(const char* service, int family, int backlog) : common_
     {
         throw std::system_error(errno, std::system_category(), "listen");
     }
-    
+
     validate();
 }
 
