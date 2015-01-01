@@ -16,13 +16,13 @@ void server::listen(const char* service)
 
 #if 0
     // add socket to listen for ipv4 (unnecessary on systems supporting dual-stack sockets)
-    auto sock4((inet_socket(service, true)));
+    auto sock4((inet4_socket(service)));
     this->all.insert(sock4);
     this->listeners.insert(sock4);
 #endif
     
     // add socket to listen for ipv6
-    auto sock((inet_socket(service)));
+    auto sock((inet6_socket(service)));
     this->all.insert(sock);
     this->listeners.insert(sock);
 }
@@ -30,7 +30,7 @@ void server::listen(const char* service)
 // poll the server with given timeout
 bool server::poll(const std::function<bool(std::ostream&)>& handle_new_client, const std::function<bool(std::iostream&)>& handle_client, long usec)
 {
-    auto selected(inet_socket::select(this->all, usec));
+    auto selected(common_socket::select(this->all, usec));
 
     // handle each selected socket
     auto it(selected.begin());

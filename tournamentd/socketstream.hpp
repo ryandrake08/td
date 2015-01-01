@@ -15,14 +15,14 @@ class basic_socketstreambuf : public std::basic_streambuf<T>
     typedef typename buf_type::int_type int_type;
     typedef typename std::basic_streambuf<char_type>::traits_type traits_type;
 
-    inet_socket sock;
+    common_socket sock;
     static const int char_size = sizeof(char_type);
     static const std::size_t SIZE = 128;
     char_type ibuf[SIZE];
     char_type obuf[SIZE];
 
 public:
-    explicit basic_socketstreambuf(const inet_socket& s) : sock(s)
+    explicit basic_socketstreambuf(const common_socket& s) : sock(s)
     {
         buf_type::setg(ibuf, ibuf, ibuf);
         buf_type::setp(obuf, obuf + (SIZE - 1));
@@ -98,7 +98,7 @@ class basic_socketstream : public std::basic_iostream<T>
 {
     basic_socketstreambuf<T> buf;
 public:
-    explicit basic_socketstream(const inet_socket& s) : std::basic_iostream<T>(&buf), buf(s) {}
+    explicit basic_socketstream(const common_socket& s) : std::basic_iostream<T>(&buf), buf(s) {}
 };
 
 typedef basic_socketstream<char> socketstream;

@@ -83,17 +83,17 @@ struct addrinfo_ptr
 
 // pimpl (fd wrapper)
 
-struct inet_socket_impl
+struct common_socket_impl
 {
     SOCKET fd;
 
     // construct with given fd
-    inet_socket_impl(SOCKET newfd) : fd(newfd)
+    common_socket_impl(SOCKET newfd) : fd(newfd)
     {
         logger(LOG_DEBUG) << "wrapped fd: " << this->fd << '\n';
     }
 
-    ~inet_socket_impl()
+    ~common_socket_impl()
     {
         logger(LOG_DEBUG) << "closing fd: " << this->fd << '\n';
 #if defined(_WIN32) // thank you, Microsoft
@@ -105,126 +105,28 @@ struct inet_socket_impl
     }
 };
 
-void inet_socket::validate() const
+void common_socket::validate() const
 {
     if(!this->impl)
     {
-        throw std::logic_error("inet_socket: invalid socket impl");
+        throw std::logic_error("common_socket: invalid socket impl");
     }
 }
 
+// empty constructor
+common_socket::common_socket()
+{
+}
+
 // create a socket with a given impl
-inet_socket::inet_socket(inet_socket_impl* imp) : impl(imp)
+common_socket::common_socket(common_socket_impl* imp) : impl(imp)
 {
     validate();
 
     logger(LOG_DEBUG) << "creating socket from existing impl: " << *this << '\n';
 }
 
-inet_socket::inet_socket(const char* host, const char* service)
-{
-    // set up hints
-    addrinfo hints = {0};
-    hints.ai_family = AF_UNSPEC;
-    hints.ai_socktype = SOCK_STREAM;
-    hints.ai_flags = 0;
-
-    logger(LOG_DEBUG) << "looking up host: " << host << ", service: " << service << '\n';
-
-    // fill in addrinfo
-    addrinfo_ptr result;
-    auto err(::getaddrinfo(host, service, &hints, &result.ptr));
-    if(err != 0)
-    {
-        throw std::system_error(err, eai_error_category(), "getaddrinfo");
-    }
-
-    logger(LOG_DEBUG) << "creating a socket\n";
-
-    // create the socket
-    auto sock(::socket(result.ptr->ai_family, result.ptr->ai_socktype, result.ptr->ai_protocol));
-    if(sock == INVALID_SOCKET)
-    {
-        throw std::system_error(errno, std::system_category(), "socket");
-    }
-
-    // wrap the socket and store
-    this->impl = std::shared_ptr<inet_socket_impl>(new inet_socket_impl(sock));
-
-    logger(LOG_DEBUG) << "connecting " << *this << " to host: " << host << ", service: " << service << '\n';
-
-    // connect to remote address
-    if(::connect(this->impl->fd, result.ptr->ai_addr, result.ptr->ai_addrlen) == SOCKET_ERROR)
-    {
-        throw std::system_error(errno, std::system_category(), "connect");
-    }
-
-    validate();
-}
-
-inet_socket::inet_socket(const char* service, bool force_v4, int backlog)
-{
-    // set up hints
-    addrinfo hints = {0};
-    hints.ai_family = force_v4 ? PF_INET : PF_INET6;
-    hints.ai_socktype = SOCK_STREAM;
-    hints.ai_flags = AI_PASSIVE;
-
-    logger(LOG_DEBUG) << "looking up service: " << service << (force_v4 ? " (IPV4)\n" : "(IPV6)\n");
-
-    // fill in addrinfo
-    addrinfo_ptr result;
-    auto err(::getaddrinfo(nullptr, service, &hints, &result.ptr));
-    if(err != 0)
-    {
-        throw std::system_error(err, eai_error_category(), "getaddrinfo");
-    }
-
-    logger(LOG_DEBUG) << "creating a socket\n";
-
-    // create the socket
-    auto sock(::socket(result.ptr->ai_family, result.ptr->ai_socktype, result.ptr->ai_protocol));
-    if(sock == INVALID_SOCKET)
-    {
-        throw std::system_error(errno, std::system_category(), "socket");
-    }
-
-    // wrap the socket and store
-    this->impl = std::shared_ptr<inet_socket_impl>(new inet_socket_impl(sock));
-
-    logger(LOG_DEBUG) << "setting SO_REUSEADDR\n";
-
-    // set SO_REUSADDR option
-    int yes(1);
-#if defined(_WIN32)
-    if(::setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, reinterpret_cast<const char*>(&yes), sizeof(yes)) == SOCKET_ERROR)
-#else
-    if(::setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, &yes, sizeof(yes)) == SOCKET_ERROR)
-#endif
-    {
-        throw std::system_error(errno, std::system_category(), "setsockopt");
-    }
-
-    logger(LOG_DEBUG) << "binding " << *this << " to service: " << service << '\n';
-
-    // bind to server port
-    if(::bind(sock, result.ptr->ai_addr, result.ptr->ai_addrlen) == SOCKET_ERROR)
-    {
-        throw std::system_error(errno, std::system_category(), "bind");
-    }
-
-    logger(LOG_DEBUG) << "listening on " << *this << " with backlog: " << backlog << '\n';
-
-    // begin listening on the socket
-    if(::listen(sock, backlog) == SOCKET_ERROR)
-    {
-        throw std::system_error(errno, std::system_category(), "listen");
-    }
-
-    validate();
-}
-
-inet_socket inet_socket::accept() const
+common_socket common_socket::accept() const
 {
     validate();
 
@@ -241,7 +143,7 @@ inet_socket inet_socket::accept() const
 
     logger(LOG_DEBUG) << "accepted connection on " << *this << '\n';
     
-    return inet_socket(new inet_socket_impl(ret));
+    return common_socket(new common_socket_impl(ret));
 }
 
 int do_select(int max_fd, fd_set* fds, long usec)
@@ -265,7 +167,7 @@ int do_select(int max_fd, fd_set* fds, long usec)
 }
 
 // select on this socket
-bool inet_socket::select(long usec)
+bool common_socket::select(long usec)
 {
     validate();
 
@@ -278,15 +180,15 @@ bool inet_socket::select(long usec)
 }
 
 // select on multiple sockets
-std::set<inet_socket> inet_socket::select(const std::set<inet_socket>& sockets, long usec)
+std::set<common_socket> common_socket::select(const std::set<common_socket>& sockets, long usec)
 {
     // validate all passed in sockets
-    std::for_each(sockets.begin(), sockets.end(), [](const inet_socket& s) { s.validate(); });
+    std::for_each(sockets.begin(), sockets.end(), [](const common_socket& s) { s.validate(); });
 
     // iterate through set, and add to our fd_set
     fd_set fds;
     FD_ZERO(&fds);
-    std::for_each(sockets.begin(), sockets.end(), [&fds](const inet_socket& s) { FD_SET(s.impl->fd, &fds); });
+    std::for_each(sockets.begin(), sockets.end(), [&fds](const common_socket& s) { FD_SET(s.impl->fd, &fds); });
 
     // set is ordered, so max fd is the last element
     int max_fd(sockets.begin() == sockets.end() ? 0 : sockets.rbegin()->impl->fd+1);
@@ -295,12 +197,12 @@ std::set<inet_socket> inet_socket::select(const std::set<inet_socket>& sockets, 
     do_select(max_fd, &fds, usec);
 
     // copy sockets returned
-    std::set<inet_socket> ret;
-    std::copy_if(sockets.begin(), sockets.end(), std::inserter(ret, ret.end()), [&fds](const inet_socket& s) { return FD_ISSET(s.impl->fd, &fds); } );
+    std::set<common_socket> ret;
+    std::copy_if(sockets.begin(), sockets.end(), std::inserter(ret, ret.end()), [&fds](const common_socket& s) { return FD_ISSET(s.impl->fd, &fds); } );
     return ret;
 }
 
-std::size_t inet_socket::recv(void* buf, std::size_t bytes)
+std::size_t common_socket::recv(void* buf, std::size_t bytes)
 {
     validate();
 
@@ -322,7 +224,7 @@ std::size_t inet_socket::recv(void* buf, std::size_t bytes)
     return static_cast<std::size_t>(len);
 }
 
-std::size_t inet_socket::send(const void* buf, std::size_t bytes)
+std::size_t common_socket::send(const void* buf, std::size_t bytes)
 {
     validate();
 
@@ -345,7 +247,7 @@ std::size_t inet_socket::send(const void* buf, std::size_t bytes)
 }
 
 // is socket listening
-bool inet_socket::listening() const
+bool common_socket::listening() const
 {
     validate();
 
@@ -359,7 +261,7 @@ bool inet_socket::listening() const
     return val != 0;
 }
 
-bool inet_socket::operator<(const inet_socket& other) const
+bool common_socket::operator<(const common_socket& other) const
 {
     validate();
     other.validate();
@@ -367,7 +269,7 @@ bool inet_socket::operator<(const inet_socket& other) const
     return this->impl->fd < other.impl->fd;
 }
 
-bool inet_socket::operator==(const inet_socket& other) const
+bool common_socket::operator==(const common_socket& other) const
 {
     validate();
     other.validate();
@@ -375,7 +277,7 @@ bool inet_socket::operator==(const inet_socket& other) const
     return this->impl->fd == other.impl->fd;
 }
 
-bool inet_socket::operator!=(const inet_socket& other) const
+bool common_socket::operator!=(const common_socket& other) const
 {
     validate();
     other.validate();
@@ -383,7 +285,7 @@ bool inet_socket::operator!=(const inet_socket& other) const
     return this->impl->fd != other.impl->fd;
 }
 
-std::ostream& operator<<(std::ostream& os, const inet_socket& sock)
+std::ostream& operator<<(std::ostream& os, const common_socket& sock)
 {
     sock.validate();
 
@@ -402,4 +304,123 @@ std::ostream& operator<<(std::ostream& os, const inet_socket& sock)
     }
 
     return os << "socket: " << sock.impl->fd;
+}
+
+inet_socket::inet_socket(const char* host, const char* service, int family) : common_socket()
+{
+    // set up hints
+    addrinfo hints = {0};
+    hints.ai_family = PF_UNSPEC;
+    hints.ai_socktype = SOCK_STREAM;
+    hints.ai_flags = 0;
+
+    logger(LOG_DEBUG) << "looking up host: " << host << ", service: " << service << '\n';
+
+    // fill in addrinfo
+    addrinfo_ptr result;
+    auto err(::getaddrinfo(host, service, &hints, &result.ptr));
+    if(err != 0)
+    {
+        throw std::system_error(err, eai_error_category(), "getaddrinfo");
+    }
+
+    logger(LOG_DEBUG) << "creating a socket\n";
+
+    // create the socket
+    auto sock(::socket(result.ptr->ai_family, result.ptr->ai_socktype, result.ptr->ai_protocol));
+    if(sock == INVALID_SOCKET)
+    {
+        throw std::system_error(errno, std::system_category(), "socket");
+    }
+
+    // wrap the socket and store
+    this->impl = std::shared_ptr<common_socket_impl>(new common_socket_impl(sock));
+
+    logger(LOG_DEBUG) << "connecting " << *this << " to host: " << host << ", service: " << service << '\n';
+
+    // connect to remote address
+    if(::connect(this->impl->fd, result.ptr->ai_addr, result.ptr->ai_addrlen) == SOCKET_ERROR)
+    {
+        throw std::system_error(errno, std::system_category(), "connect");
+    }
+
+    validate();
+}
+
+inet_socket::inet_socket(const char* service, int family, int backlog) : common_socket()
+{
+    // set up hints
+    addrinfo hints = {0};
+    hints.ai_family = family;
+    hints.ai_socktype = SOCK_STREAM;
+    hints.ai_flags = AI_PASSIVE;
+
+    logger(LOG_DEBUG) << "looking up service: " << service << '\n';
+
+    // fill in addrinfo
+    addrinfo_ptr result;
+    auto err(::getaddrinfo(nullptr, service, &hints, &result.ptr));
+    if(err != 0)
+    {
+        throw std::system_error(err, eai_error_category(), "getaddrinfo");
+    }
+
+    logger(LOG_DEBUG) << "creating a socket\n";
+
+    // create the socket
+    auto sock(::socket(result.ptr->ai_family, result.ptr->ai_socktype, result.ptr->ai_protocol));
+    if(sock == INVALID_SOCKET)
+    {
+        throw std::system_error(errno, std::system_category(), "socket");
+    }
+
+    // wrap the socket and store
+    this->impl = std::shared_ptr<common_socket_impl>(new common_socket_impl(sock));
+
+    logger(LOG_DEBUG) << "setting SO_REUSEADDR\n";
+
+    // set SO_REUSADDR option
+    int yes(1);
+#if defined(_WIN32)
+    if(::setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, reinterpret_cast<const char*>(&yes), sizeof(yes)) == SOCKET_ERROR)
+#else
+        if(::setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, &yes, sizeof(yes)) == SOCKET_ERROR)
+#endif
+        {
+            throw std::system_error(errno, std::system_category(), "setsockopt");
+        }
+
+    logger(LOG_DEBUG) << "binding " << *this << " to service: " << service << '\n';
+
+    // bind to server port
+    if(::bind(sock, result.ptr->ai_addr, result.ptr->ai_addrlen) == SOCKET_ERROR)
+    {
+        throw std::system_error(errno, std::system_category(), "bind");
+    }
+
+    logger(LOG_DEBUG) << "listening on " << *this << " with backlog: " << backlog << '\n';
+
+    // begin listening on the socket
+    if(::listen(sock, backlog) == SOCKET_ERROR)
+    {
+        throw std::system_error(errno, std::system_category(), "listen");
+    }
+    
+    validate();
+}
+
+inet4_socket::inet4_socket(const char* host, const char* service) : inet_socket(host, service, PF_INET)
+{
+}
+
+inet4_socket::inet4_socket(const char* service, int backlog) : inet_socket(service, PF_INET, backlog)
+{
+}
+
+inet6_socket::inet6_socket(const char* host, const char* service) : inet_socket(host, service, PF_INET6)
+{
+}
+
+inet6_socket::inet6_socket(const char* service, int backlog) : inet_socket(service, PF_INET6, backlog)
+{
 }

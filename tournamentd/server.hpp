@@ -7,9 +7,9 @@
 
 class server
 {
-    std::set<inet_socket> all;
-    std::set<inet_socket> listeners;
-    std::set<inet_socket> clients;
+    std::set<common_socket> all;
+    std::set<common_socket> listeners;
+    std::set<common_socket> clients;
 
 public:
     // listen on given port
