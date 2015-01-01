@@ -193,7 +193,7 @@
             "duration": 3600000
         }
     ],
-    "chips": [
+    "available_chips": [
         {
             "color": "lime",
             "denomination": 25,

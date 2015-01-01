@@ -1,25 +1,12 @@
 #pragma once
 #include "json.hpp"
 #include "types.hpp"
-#include <chrono>
 #include <string>
 #include <vector>
 
 class gameclock
 {
 public:
-    typedef std::chrono::system_clock::time_point tp;
-    typedef std::chrono::milliseconds ms;
-
-    struct blind_level
-    {
-        std::size_t little_blind;
-        std::size_t big_blind;
-        std::size_t ante;
-        long duration;
-        long break_duration;
-    };
-
     struct chip
     {
         std::string color;
@@ -31,10 +18,10 @@ public:
     double blind_increase_factor;
 
     // configuration: blind structure for this game
-    std::vector<blind_level> blind_levels;
+    std::vector<td::blind_level> blind_levels;
 
     // configuration: description of each chip (for display)
-    std::vector<chip> chips;
+    std::vector<td::chip> available_chips;
 
     // is the game running or paused?
     bool running;
@@ -44,19 +31,19 @@ public:
     std::size_t current_blind_level;
 
     // end of period (valid when running)
-    tp end_of_round;
-    tp end_of_break;
+    td::tp end_of_round;
+    td::tp end_of_break;
 
     // ms remaining
-    ms time_remaining;
-    ms break_time_remaining;
+    td::ms time_remaining;
+    td::ms break_time_remaining;
 
     // action clock
-    tp end_of_action_clock;
-    ms action_clock_remaining;
+    td::tp end_of_action_clock;
+    td::ms action_clock_remaining;
 
     // utility: start a blind level
-    void start_blind_level(std::size_t blind_level, ms offset);
+    void start_blind_level(std::size_t blind_level, td::ms offset);
 
 public:
     // initialize game clock
@@ -79,7 +66,7 @@ public:
 
     // start the game (optionally at certain time);
     void start();
-    void start(const tp& starttime);
+    void start(const td::tp& starttime);
 
     // stop the game
     void stop();
@@ -91,10 +78,10 @@ public:
     void resume();
 
     // advance to next blind level
-    std::size_t next_blind_level(ms offset=ms::zero());
+    std::size_t next_blind_level(td::ms offset=td::ms::zero());
 
     // return to previous blind level
-    std::size_t previous_blind_level(ms offset=ms::zero());
+    std::size_t previous_blind_level(td::ms offset=td::ms::zero());
 
     // update time remaining
     bool update_remaining();

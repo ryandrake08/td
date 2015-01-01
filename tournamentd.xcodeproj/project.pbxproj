@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		AD3310951A50B9A1007E545B /* tournament.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AD3310931A50B9A1007E545B /* tournament.cpp */; };
 		AD3310981A50DA88007E545B /* defaults.json in CopyFiles */ = {isa = PBXBuildFile; fileRef = AD3310971A50DA59007E545B /* defaults.json */; };
+		AD37B39F1A5506B800605351 /* types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AD37B39E1A5506B800605351 /* types.cpp */; };
 		AD73DBF51A4484D2008768BA /* server.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AD73DBF31A4484D2008768BA /* server.cpp */; };
 		ADADF8F21A4D23560016E567 /* gameclock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ADADF8EE1A4D23560016E567 /* gameclock.cpp */; };
 		ADADF8F31A4D23560016E567 /* gameseating.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ADADF8F01A4D23560016E567 /* gameseating.cpp */; };
@@ -43,6 +44,7 @@
 		AD3310941A50B9A1007E545B /* tournament.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = tournament.hpp; sourceTree = "<group>"; };
 		AD3310961A50BC1F007E545B /* stringcrc.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = stringcrc.hpp; sourceTree = "<group>"; };
 		AD3310971A50DA59007E545B /* defaults.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = defaults.json; sourceTree = SOURCE_ROOT; };
+		AD37B39E1A5506B800605351 /* types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = types.cpp; sourceTree = "<group>"; };
 		AD73DBF31A4484D2008768BA /* server.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = server.cpp; sourceTree = "<group>"; };
 		AD73DBF41A4484D2008768BA /* server.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = server.hpp; sourceTree = "<group>"; };
 		ADADF8EE1A4D23560016E567 /* gameclock.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gameclock.cpp; sourceTree = "<group>"; };
@@ -133,6 +135,7 @@
 				AD3310961A50BC1F007E545B /* stringcrc.hpp */,
 				AD3310931A50B9A1007E545B /* tournament.cpp */,
 				AD3310941A50B9A1007E545B /* tournament.hpp */,
+				AD37B39E1A5506B800605351 /* types.cpp */,
 				ADADF8F81A4D3BFA0016E567 /* types.hpp */,
 			);
 			path = tournamentd;
@@ -217,6 +220,7 @@
 				ADADF8F61A4D33960016E567 /* gamefunding.cpp in Sources */,
 				AD73DBF51A4484D2008768BA /* server.cpp in Sources */,
 				ADEFA3741A41E6C800133B33 /* logger.cpp in Sources */,
+				AD37B39F1A5506B800605351 /* types.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -285,6 +289,7 @@
 		AD1095FF1A41E67300D132E4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				OTHER_LDFLAGS = "-v";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -292,6 +297,7 @@
 		AD1096001A41E67300D132E4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				OTHER_LDFLAGS = "-v";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

@@ -3,78 +3,6 @@
 #include <algorithm>
 #include <cmath>
 
-// ----- game structure speciailization
-
-template <>
-json& json::set_value(const char* name, const std::vector<gameclock::blind_level>& values)
-{
-    std::vector<json> array;
-    for(auto value : values)
-    {
-        json obj;
-        obj.set_value("little_blind", value.little_blind);
-        obj.set_value("big_blind", value.big_blind);
-        obj.set_value("ante", value.ante);
-        obj.set_value("duration_ms", value.duration);
-        obj.set_value("break_duration_ms", value.break_duration);
-        array.push_back(obj);
-    }
-    return this->set_value(name, array);
-}
-
-template <>
-json& json::set_value(const char* name, const std::vector<gameclock::chip>& values)
-{
-    std::vector<json> array;
-    for(auto value : values)
-    {
-        json obj;
-        obj.set_value("color", value.color);
-        obj.set_value("denomination", value.denomination);
-        obj.set_value("count_available", value.count_available);
-        array.push_back(obj);
-    }
-    return this->set_value(name, array);
-}
-
-template <>
-bool json::get_value(const char *name, std::vector<gameclock::blind_level>& values) const
-{
-    std::vector<json> array;
-    if(this->get_value("funding_sources", array))
-    {
-        values.resize(array.size());
-        for(std::size_t i(0); i<array.size(); i++)
-        {
-            array[i].get_value("little_blind", values[i].little_blind);
-            array[i].get_value("big_blind", values[i].big_blind);
-            array[i].get_value("ante", values[i].ante);
-            array[i].get_value("duration_ms", values[i].duration);
-            array[i].get_value("break_duration_ms", values[i].break_duration);
-        }
-        return true;
-    }
-    return false;
-}
-
-template <>
-bool json::get_value(const char *name, std::vector<gameclock::chip>& values) const
-{
-    std::vector<json> array;
-    if(this->get_value("funding_sources", array))
-    {
-        values.resize(array.size());
-        for(std::size_t i(0); i<array.size(); i++)
-        {
-            array[i].get_value("color", values[i].color);
-            array[i].get_value("denomination", values[i].denomination);
-            array[i].get_value("count_available", values[i].count_available);
-        }
-        return true;
-    }
-    return false;
-}
-
 // initialize game clock
 gameclock::gameclock() : blind_increase_factor(1.5), running(false), current_blind_level(0), time_remaining(0), break_time_remaining(0)
 {
@@ -87,7 +15,7 @@ void gameclock::configure(const json& config)
 
     config.get_value("blind_increase_factor", this->blind_increase_factor);
     config.get_value("blind_levels", this->blind_levels);
-    config.get_value("chips", this->chips);
+    config.get_value("available_chips", this->available_chips);
 }
 
 // dump configuration to JSON
@@ -97,7 +25,7 @@ void gameclock::dump_configuration(json& config) const
 
     config.set_value("blind_increase_factor", this->blind_increase_factor);
     config.set_value("blind_levels", this->blind_levels);
-    config.set_value("chips", this->chips);
+    config.set_value("available_chips", this->available_chips);
 }
 
 // dump state to JSON
@@ -110,33 +38,33 @@ void gameclock::dump_state(json& state) const
     {
         state.set_value("current_blind_level", this->current_blind_level);
     }
-    if(this->end_of_round != tp())
+    if(this->end_of_round != td::tp())
     {
         state.set_value("time_remaining", this->time_remaining.count());
     }
-    if(this->end_of_break != tp())
+    if(this->end_of_break != td::tp())
     {
         state.set_value("break_time_remaining", this->break_time_remaining.count());
     }
-    if(this->end_of_action_clock != tp())
+    if(this->end_of_action_clock != td::tp())
     {
         state.set_value("action_clock_remaining", this->action_clock_remaining.count());
     }
 }
 
 // utility: start a blind level (optionally starting offset ms into the round)
-void gameclock::start_blind_level(std::size_t blind_level, ms offset)
+void gameclock::start_blind_level(std::size_t blind_level, td::ms offset)
 {
     if(blind_level >= this->blind_levels.size())
     {
-        throw game_logic_error("not enough blind levels configured");
+        throw td::runtime_error("not enough blind levels configured");
     }
 
     auto now(std::chrono::system_clock::now());
 
     this->current_blind_level = blind_level;
-    this->time_remaining = ms(this->blind_levels[this->current_blind_level].duration) - offset;
-    this->break_time_remaining = ms(this->blind_levels[this->current_blind_level].break_duration);
+    this->time_remaining = td::ms(this->blind_levels[this->current_blind_level].duration) - offset;
+    this->break_time_remaining = td::ms(this->blind_levels[this->current_blind_level].break_duration);
     this->end_of_round = now + this->time_remaining;
     this->end_of_break = this->end_of_round + this->break_time_remaining;
 }
@@ -158,33 +86,33 @@ void gameclock::start()
 {
     if(this->is_started())
     {
-        throw game_logic_error("tournament already started");
+        throw td::runtime_error("tournament already started");
     }
 
     if(this->blind_levels.size() < 2)
     {
-        throw game_logic_error("cannot start without blind levels configured");
+        throw td::runtime_error("cannot start without blind levels configured");
     }
 
     logger(LOG_DEBUG) << "Starting the tournament\n";
 
     // start the blind level
-    this->start_blind_level(1, ms::zero());
+    this->start_blind_level(1, td::ms::zero());
 
     // start the tournament
     this->running = true;
 }
 
-void gameclock::start(const tp& starttime)
+void gameclock::start(const td::tp& starttime)
 {
     if(this->is_started())
     {
-        throw game_logic_error("tournament already started");
+        throw td::runtime_error("tournament already started");
     }
 
     if(this->blind_levels.size() < 2)
     {
-        throw game_logic_error("cannot start without blind levels configured");
+        throw td::runtime_error("cannot start without blind levels configured");
     }
 
     logger(LOG_DEBUG) << "Starting the tournament in the future\n";
@@ -201,19 +129,19 @@ void gameclock::stop()
 {
     if(!this->is_started())
     {
-        throw game_logic_error("tournament not started");
+        throw td::runtime_error("tournament not started");
     }
 
     logger(LOG_DEBUG) << "Stopping the tournament\n";
 
     this->running = false;
     this->current_blind_level = 0;
-    this->end_of_round = tp();
-    this->end_of_break = tp();
-    this->end_of_action_clock = tp();
-    this->time_remaining = ms::zero();
-    this->break_time_remaining = ms::zero();
-    this->action_clock_remaining = ms::zero();
+    this->end_of_round = td::tp();
+    this->end_of_break = td::tp();
+    this->end_of_action_clock = td::tp();
+    this->time_remaining = td::ms::zero();
+    this->break_time_remaining = td::ms::zero();
+    this->action_clock_remaining = td::ms::zero();
 }
 
 // toggle pause
@@ -221,7 +149,7 @@ void gameclock::pause()
 {
     if(!this->is_started())
     {
-        throw game_logic_error("tournament not started");
+        throw td::runtime_error("tournament not started");
     }
 
     logger(LOG_DEBUG) << "Pausing the tournament\n";
@@ -238,7 +166,7 @@ void gameclock::resume()
 {
     if(!this->is_started())
     {
-        throw game_logic_error("tournament not started");
+        throw td::runtime_error("tournament not started");
     }
 
     logger(LOG_DEBUG) << "Resuming the tournament\n";
@@ -254,11 +182,11 @@ void gameclock::resume()
 }
 
 // advance to next blind level
-std::size_t gameclock::next_blind_level(ms offset)
+std::size_t gameclock::next_blind_level(td::ms offset)
 {
     if(!this->is_started())
     {
-        throw game_logic_error("tournament not started");
+        throw td::runtime_error("tournament not started");
     }
 
     if(this->current_blind_level + 1 < this->blind_levels.size())
@@ -272,11 +200,11 @@ std::size_t gameclock::next_blind_level(ms offset)
 }
 
 // return to prevous blind level
-std::size_t gameclock::previous_blind_level(ms offset)
+std::size_t gameclock::previous_blind_level(td::ms offset)
 {
     if(!this->is_started())
     {
-        throw game_logic_error("tournament not started");
+        throw td::runtime_error("tournament not started");
     }
 
     if(this->current_blind_level > 0)
@@ -312,31 +240,31 @@ bool gameclock::update_remaining()
         auto now(std::chrono::system_clock::now());
 
         // always update action clock if ticking
-        if(this->end_of_action_clock != tp())
+        if(this->end_of_action_clock != td::tp())
         {
-            this->action_clock_remaining = std::chrono::duration_cast<ms>(this->end_of_action_clock - now);
+            this->action_clock_remaining = std::chrono::duration_cast<td::ms>(this->end_of_action_clock - now);
         }
         else
         {
-            this->action_clock_remaining = ms::zero();
+            this->action_clock_remaining = td::ms::zero();
         }
 
         // set time remaining based on current clock
         if(now < this->end_of_round)
         {
             // within round, set time remaining
-            this->time_remaining = std::chrono::duration_cast<ms>(this->end_of_round - now);
+            this->time_remaining = std::chrono::duration_cast<td::ms>(this->end_of_round - now);
         }
         else if(now < this->end_of_break)
         {
             // within break, set time remaining to zero and set break time remaining
-            this->time_remaining = ms::zero();
-            this->break_time_remaining = std::chrono::duration_cast<ms>(this->end_of_break - now);
+            this->time_remaining = td::ms::zero();
+            this->break_time_remaining = std::chrono::duration_cast<td::ms>(this->end_of_break - now);
         }
         else
         {
             // advance to next blind
-            auto offset(std::chrono::duration_cast<ms>(this->end_of_break - now));
+            auto offset(std::chrono::duration_cast<td::ms>(this->end_of_break - now));
             this->next_blind_level(offset);
         }
         return true;
@@ -347,44 +275,45 @@ bool gameclock::update_remaining()
 // set the action clock (when someone 'needs the clock called on them'
 void gameclock::set_action_clock(long duration)
 {
-    if(this->end_of_action_clock != tp())
+    if(this->end_of_action_clock != td::tp())
     {
-        this->end_of_action_clock = std::chrono::system_clock::now() + ms(duration);
-        this->action_clock_remaining = ms(duration);
+        this->end_of_action_clock = std::chrono::system_clock::now() + td::ms(duration);
+        this->action_clock_remaining = td::ms(duration);
     }
     else
     {
-        throw game_logic_error("only one action clock at a time");
+        throw td::runtime_error("only one action clock at a time");
     }
 }
 
 // reset the action clock
 void gameclock::reset_action_clock()
 {
-    this->end_of_action_clock = tp();
-    this->action_clock_remaining = ms::zero();
+    this->end_of_action_clock = td::tp();
+    this->action_clock_remaining = td::ms::zero();
 }
 
-static constexpr bool operator<(const gameclock::chip& c0, const gameclock::chip& c1)
-{
-    return c0.denomination < c1.denomination;
-}
-
-static std::size_t calculate_round_denomination(double ideal_small, const std::vector<gameclock::chip>& chips)
+static std::size_t calculate_round_denomination(double ideal_small, const std::vector<td::chip>& chips)
 {
     // round to denomination n if ideal small blind is at least 10x denomination n-1
     static const std::size_t multiplier(10);
 
-    std::size_t chip_index(chips.size());
-    while(--chip_index > 0)
+    auto it(chips.rbegin());
+    while(std::next(it) != chips.rend())
     {
-        if(ideal_small > chips[chip_index-1].denomination * multiplier)
+        std::size_t candidate(it->denomination);
+        std::advance(it, 1);
+        std::size_t limit(it->denomination);
+
+        logger(LOG_DEBUG) << "ideal_small: " << ideal_small << ", candidate: " << candidate << ", limitx10:" << limit * multiplier << '\n';
+
+        if(ideal_small > limit * multiplier)
         {
-            return chips[chip_index].denomination;
+            return candidate;
         }
     }
 
-    return chips[0].denomination;
+    return it->denomination;
 }
 
 // generate progressive blind levels, given available chip denominations
@@ -394,30 +323,36 @@ static std::size_t calculate_round_denomination(double ideal_small, const std::v
 //  25/100/500/1000/5000
 void gameclock::gen_blind_levels(std::size_t count, long level_duration)
 {
-    if(this->chips.empty())
+    if(this->available_chips.empty())
     {
-        throw game_logic_error("tried to create a blind structure without chips defined");
+        throw td::runtime_error("tried to create a blind structure without chips defined");
     }
 
-    // sort chip denominations
-    std::sort(this->chips.begin(), this->chips.end());
-
     // resize structure
-    this->blind_levels.resize(count);
+    this->blind_levels.resize(count+1);
+
+    // dummy round for planning phase
+    this->blind_levels[0] = {0};
+
+    // sort our vector
+    std::sort(this->available_chips.begin(), this->available_chips.end(), [](const td::chip& c0, const td::chip& c1) { return c0.denomination < c1.denomination; });
 
     // starting small blind = smallest denomination
-    double ideal_small(static_cast<double>(this->chips.front().denomination));
+    double ideal_small(static_cast<double>(this->available_chips.begin()->denomination));
 
     // store last round denomination (to check when it changes)
     std::size_t last_round_denom(0);
 
-    for(auto i(0); i<count; i++)
+    for(auto i(1); i<count+1; i++)
     {
         // calculate nearest chip denomination to round to
-        const auto round_denom(calculate_round_denomination(ideal_small, this->chips));
+        const auto round_denom(calculate_round_denomination(ideal_small, this->available_chips));
+        const auto little_blind(std::ceil(ideal_small / round_denom) * round_denom);
+
+        logger(LOG_DEBUG) << "round: " << i << ", little blind will be: " << static_cast<std::size_t>(little_blind) << '\n';
 
         // round up
-        this->blind_levels[i].little_blind = std::ceil(ideal_small / round_denom) * round_denom;
+        this->blind_levels[i].little_blind = little_blind;
         this->blind_levels[i].big_blind = this->blind_levels[i].little_blind * 2;
         this->blind_levels[i].ante = 0;
         this->blind_levels[i].duration = level_duration;

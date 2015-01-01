@@ -6,22 +6,6 @@
 
 class gamefunding
 {
-public:
-    typedef std::size_t currency;
-
-    struct funding_source
-    {
-        static const std::size_t always_allow;
-
-        bool is_addon;
-        std::size_t forbid_after_blind_level;
-        std::size_t chips;
-        currency cost;
-        currency commission;
-        currency equity;
-    };
-
-private:
     // configuration: name of currency collected (USD, EUR, points)
     std::string cost_currency;
 
@@ -32,23 +16,23 @@ private:
     double percent_seats_paid;
 
     // configuration: funding rules
-    std::vector<funding_source> funding_sources;
+    std::vector<td::funding_source> funding_sources;
 
     // players who bought in at least once
-    std::unordered_set<player_id> buyins;
+    std::unordered_set<td::player_id> buyins;
 
     // payout structure
-    std::vector<currency> payouts;
+    std::vector<td::currency> payouts;
 
     // total game currency (chips) in play
     std::size_t total_chips;
 
     // total funds received
-    currency total_cost;
-    currency total_commission;
+    td::currency total_cost;
+    td::currency total_commission;
 
     // total funds to pay out
-    currency total_equity;
+    td::currency total_equity;
 
     // re-calculate payouts
     void recalculate_payouts();
@@ -70,5 +54,5 @@ public:
     void reset();
 
     // fund a player, (re-)buyin or addon
-    void fund_player(const player_id& player, const funding_source_id& src, std::size_t current_blind_level);
+    void fund_player(const td::player_id& player, const td::funding_source_id& src, std::size_t current_blind_level);
 };

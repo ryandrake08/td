@@ -23,7 +23,7 @@ bool json::get_value<datetime>(const char* name, datetime& value) const
 // ----- game structure speciailization
 
 template <>
-json& json::set_value(const char* name, const std::vector<gameseating::player_movement>& values)
+json& json::set_value(const char* name, const std::vector<td::player_movement>& values)
 {
     std::vector<json> array;
     for(auto value : values)
@@ -169,8 +169,8 @@ void tournament::handle_cmd_reset_funding(const json& in, json& out)
 
 void tournament::handle_cmd_fund_player(const json& in, json& out)
 {
-    player_id player;
-    funding_source_id source;
+    td::player_id player;
+    td::funding_source_id source;
 
     if(!in.get_value("player", player) || !in.get_value("source_id", source))
     {
@@ -196,7 +196,7 @@ void tournament::handle_cmd_plan_seating(const json& in, json& out)
 
 void tournament::handle_cmd_seat_player(const json& in, json& out)
 {
-    player_id player;
+    td::player_id player;
 
     if(!in.get_value("player", player))
     {
@@ -211,7 +211,7 @@ void tournament::handle_cmd_seat_player(const json& in, json& out)
 
 void tournament::handle_cmd_bust_player(const json& in, json& out)
 {
-    player_id player;
+    td::player_id player;
 
     if(!in.get_value("player", player))
     {
@@ -481,7 +481,7 @@ void tournament::reset_funding()
     this->game_server.broadcast(bcast.string());
 }
 
-void tournament::fund_player(player_id player, funding_source_id source)
+void tournament::fund_player(td::player_id player, td::funding_source_id source)
 {
     this->funding.fund_player(player, source, this->clock.get_current_blind_level());
 
@@ -501,7 +501,7 @@ std::size_t tournament::plan_seating(std::size_t max_expected_players)
     return ret;
 }
 
-gameseating::seat tournament::seat_player(player_id player)
+td::seat tournament::seat_player(td::player_id player)
 {
     auto ret(this->seating.add_player(player));
 
@@ -512,7 +512,7 @@ gameseating::seat tournament::seat_player(player_id player)
     return ret;
 }
 
-std::vector<gameseating::player_movement> tournament::bust_player(player_id player)
+std::vector<td::player_movement> tournament::bust_player(td::player_id player)
 {
     auto ret(this->seating.remove_player(player));
 

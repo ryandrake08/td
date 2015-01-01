@@ -5,37 +5,6 @@
 // random number generator
 static std::default_random_engine engine;
 
-// ----- game structure speciailization
-
-template <>
-json& json::set_value(const char* name, const std::unordered_map<player_id,gameseating::seat>& values)
-{
-    std::vector<json> array;
-    for(auto value : values)
-    {
-        json obj;
-        obj.set_value("player_id", value.first);
-        obj.set_value("table_number", value.second.table_number);
-        obj.set_value("seat_number", value.second.seat_number);
-        array.push_back(obj);
-    }
-    return this->set_value(name, array);
-}
-
-template <>
-json& json::set_value(const char* name, const std::deque<gameseating::seat>& values)
-{
-    std::vector<json> array;
-    for(auto value : values)
-    {
-        json obj;
-        obj.set_value("table_number", value.table_number);
-        obj.set_value("seat_number", value.seat_number);
-        array.push_back(obj);
-    }
-    return this->set_value(name, array);
-}
-
 // initialize game seating chart
 gameseating::gameseating() : table_capacity(0), tables(0)
 {
@@ -63,15 +32,15 @@ void gameseating::dump_state(json& state) const
     logger(LOG_DEBUG) << "Dumping game seating state\n";
 
     // players without seats or busted out
-    state.set_value("players_finished", json(std::vector<player_id>(this->players_finished.begin(), this->players_finished.end())));
+    state.set_value("players_finished", json(std::vector<td::player_id>(this->players_finished.begin(), this->players_finished.end())));
     state.set_value("seats", this->seats);
-    state.set_value("empty_seats", this->empty_seats);
+    state.set_value("empty_seats", std::vector<td::seat>(this->empty_seats.begin(), this->empty_seats.end()));
 }
 
-std::vector<std::vector<player_id>> gameseating::players_at_tables() const
+std::vector<std::vector<td::player_id>> gameseating::players_at_tables() const
 {
     // build up two vectors, outer = tables, inner = players per table
-    std::vector<std::vector<player_id>> ret(this->tables);
+    std::vector<std::vector<td::player_id>> ret(this->tables);
 
     for(auto seat : this->seats)
     {
@@ -93,13 +62,13 @@ std::size_t gameseating::plan_seating(std::size_t max_expected_players)
     // check arguments
     if(max_expected_players < 2)
     {
-        throw game_logic_error("expected players must be at least 2");
+        throw td::runtime_error("expected players must be at least 2");
     }
 
     // check configuration: table capacity should be sane
     if(this->table_capacity < 2)
     {
-        throw game_logic_error("table capacity must be at least 2");
+        throw td::runtime_error("table capacity must be at least 2");
     }
 
     // reset to known quantities
@@ -117,7 +86,7 @@ std::size_t gameseating::plan_seating(std::size_t max_expected_players)
     {
         for(std::size_t s(0); s<this->table_capacity; s++)
         {
-            this->empty_seats.push_back(seat({t,s}));
+            this->empty_seats.push_back(td::seat({t,s}));
         }
     }
 
@@ -131,21 +100,21 @@ std::size_t gameseating::plan_seating(std::size_t max_expected_players)
 }
 
 // add player to an existing game
-gameseating::seat gameseating::add_player(const player_id& player)
+td::seat gameseating::add_player(const td::player_id& player)
 {
     logger(LOG_DEBUG) << "Adding player " << player << " to game\n";
 
     // verify game state
     if(this->empty_seats.empty())
     {
-        throw game_logic_error("tried to add players with no empty seats");
+        throw td::runtime_error("tried to add players with no empty seats");
     }
 
     auto seat_it(this->seats.find(player));
 
     if(seat_it != this->seats.end())
     {
-        throw game_logic_error("tried to add player already seated");
+        throw td::runtime_error("tried to add player already seated");
     }
 
     // seat player and remove from empty list
@@ -159,7 +128,7 @@ gameseating::seat gameseating::add_player(const player_id& player)
 }
 
 // remove a player
-std::vector<gameseating::player_movement> gameseating::remove_player(const player_id& player)
+std::vector<td::player_movement> gameseating::remove_player(const td::player_id& player)
 {
     logger(LOG_DEBUG) << "Removing player " << player << " from game\n";
 
@@ -167,7 +136,7 @@ std::vector<gameseating::player_movement> gameseating::remove_player(const playe
 
     if(seat_it == this->seats.end())
     {
-        throw game_logic_error("tried to remove player not seated");
+        throw td::runtime_error("tried to remove player not seated");
     }
 
     // bust player and add seat to the end of the empty list
@@ -176,19 +145,19 @@ std::vector<gameseating::player_movement> gameseating::remove_player(const playe
     this->players_finished.push_front(player);
 
     // try to break table or rebalance
-    std::vector<gameseating::player_movement> movements;
+    std::vector<td::player_movement> movements;
     this->try_break_table(movements);
     this->try_rebalance(movements);
     return movements;
 }
 
 // move a player to a specific table
-gameseating::player_movement gameseating::move_player(const player_id& player, std::size_t table)
+td::player_movement gameseating::move_player(const td::player_id& player, std::size_t table)
 {
     logger(LOG_DEBUG) << "Moving player " << player << " to table " << table << '\n';
 
     // build up a list of candidate seats
-    std::vector<std::deque<seat>::iterator> candidates;
+    std::vector<std::deque<td::seat>::iterator> candidates;
     for(auto it(this->empty_seats.begin()); it != this->empty_seats.end(); it++)
     {
         if(it->table_number == table)
@@ -203,7 +172,7 @@ gameseating::player_movement gameseating::move_player(const player_id& player, s
     // we should always have at least one seat free
     if(candidates.empty())
     {
-        throw game_logic_error("tried to move player to a full table");
+        throw td::runtime_error("tried to move player to a full table");
     }
 
     // pick one at random
@@ -222,7 +191,7 @@ gameseating::player_movement gameseating::move_player(const player_id& player, s
 }
 
 // move a player to the table with the smallest number of players
-gameseating::player_movement gameseating::move_player(const player_id& player, const std::unordered_set<std::size_t>& avoid_tables)
+td::player_movement gameseating::move_player(const td::player_id& player, const std::unordered_set<std::size_t>& avoid_tables)
 {
     logger(LOG_DEBUG) << "Moving player " << player << " to a free table\n";
 
@@ -250,7 +219,7 @@ gameseating::player_movement gameseating::move_player(const player_id& player, c
     // make sure at least one candidate table
     if(table >= ppt.size())
     {
-        throw game_logic_error("tried to move player to another table but no candidate tables");
+        throw td::runtime_error("tried to move player to another table but no candidate tables");
     }
 
     return this->move_player(player, table);
@@ -264,7 +233,7 @@ static constexpr bool has_lower_size(const T& i0, const T& i1)
 
 // re-balance by moving any player from a large table to a smaller one
 // returns number of movements, or zero, if no players moved
-std::size_t gameseating::try_rebalance(std::vector<player_movement>& movements)
+std::size_t gameseating::try_rebalance(std::vector<td::player_movement>& movements)
 {
     logger(LOG_DEBUG) << "Attemptying to rebalance tables\n";
 
@@ -274,8 +243,8 @@ std::size_t gameseating::try_rebalance(std::vector<player_movement>& movements)
     auto ppt(this->players_at_tables());
 
     // find smallest and largest tables
-    auto fewest_it(std::min_element(ppt.begin(), ppt.end(), has_lower_size<std::vector<player_id>>));
-    auto most_it(std::max_element(ppt.begin(), ppt.end(), has_lower_size<std::vector<player_id>>));
+    auto fewest_it(std::min_element(ppt.begin(), ppt.end(), has_lower_size<std::vector<td::player_id>>));
+    auto most_it(std::max_element(ppt.begin(), ppt.end(), has_lower_size<std::vector<td::player_id>>));
 
     // if fewest has two fewer players than most (e.g. 6 vs 8), then rebalance
     while(fewest_it->size() < most_it->size() - 1)
@@ -302,7 +271,7 @@ std::size_t gameseating::try_rebalance(std::vector<player_movement>& movements)
 
 // break a table if possible
 // returns number of movements, or zero, if no players moved
-std::size_t gameseating::try_break_table(std::vector<player_movement>& movements)
+std::size_t gameseating::try_break_table(std::vector<td::player_movement>& movements)
 {
     logger(LOG_DEBUG) << "Attemptying to break a table\n";
 
@@ -319,7 +288,7 @@ std::size_t gameseating::try_break_table(std::vector<player_movement>& movements
             auto break_table(this->tables - 1);
 
             // get each player found to be sitting at table
-            std::vector<player_id> to_move;
+            std::vector<td::player_id> to_move;
             for(auto seat : this->seats)
             {
                 if(seat.second.table_number == break_table)
@@ -340,7 +309,7 @@ std::size_t gameseating::try_break_table(std::vector<player_movement>& movements
             this->tables--;
 
             // prune empty table from our open seat list, no need to seat people at unused tables
-            this->empty_seats.erase(std::remove_if(this->empty_seats.begin(), this->empty_seats.end(), [&break_table](const seat& seat) { return seat.table_number == break_table; }));
+            this->empty_seats.erase(std::remove_if(this->empty_seats.begin(), this->empty_seats.end(), [&break_table](const td::seat& seat) { return seat.table_number == break_table; }));
 
             logger(LOG_DEBUG) << "Broken table " << break_table << ". " << this->seats.size() << " players now at " << this->tables << " tables\n";
         }

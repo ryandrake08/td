@@ -4,47 +4,6 @@
 #include <limits>
 #include <numeric>
 
-// ----- game structure speciailization
-
-template <>
-json& json::set_value(const char* name, const std::vector<gamefunding::funding_source>& values)
-{
-    std::vector<json> array;
-    for(auto value : values)
-    {
-        json obj;
-        obj.set_value("is_addon", value.is_addon);
-        obj.set_value("forbid_after_blind_level", value.forbid_after_blind_level);
-        obj.set_value("chips", value.chips);
-        obj.set_value("cost", value.cost);
-        obj.set_value("commission", value.commission);
-        obj.set_value("equity", value.equity);
-        array.push_back(obj);
-    }
-    return this->set_value(name, array);
-}
-
-template <>
-bool json::get_value(const char *name, std::vector<gamefunding::funding_source>& values) const
-{
-    std::vector<json> array;
-    if(this->get_value("funding_sources", array))
-    {
-        values.resize(array.size());
-        for(std::size_t i(0); i<array.size(); i++)
-        {
-            array[i].get_value("is_addon", values[i].is_addon);
-            array[i].get_value("forbid_after_blind_level", values[i].forbid_after_blind_level);
-            array[i].get_value("chips", values[i].chips);
-            array[i].get_value("cost", values[i].cost);
-            array[i].get_value("commission", values[i].commission);
-            array[i].get_value("equity", values[i].equity);
-        }
-        return true;
-    }
-    return false;
-}
-
 // initialize game funding rules
 gamefunding::gamefunding() : percent_seats_paid(1.0), total_chips(0), total_cost(0), total_commission(0), total_equity(0)
 {
@@ -80,8 +39,8 @@ void gamefunding::dump_state(json& state) const
 {
     logger(LOG_DEBUG) << "Dumping game funding state\n";
 
-    state.set_value("buyins", json(std::vector<player_id>(this->buyins.begin(), this->buyins.end())));
-    state.set_value("payouts", json(std::vector<currency>(this->payouts.begin(), this->payouts.end())));
+    state.set_value("buyins", json(std::vector<td::player_id>(this->buyins.begin(), this->buyins.end())));
+    state.set_value("payouts", json(std::vector<td::currency>(this->payouts.begin(), this->payouts.end())));
     state.set_value("total_chips", this->total_chips);
     state.set_value("total_cost", this->total_cost);
     state.set_value("total_commission", this->total_commission);
@@ -102,28 +61,28 @@ void gamefunding::reset()
 }
 
 // fund a player, (re-)buyin or addon
-void gamefunding::fund_player(const player_id& player, const funding_source_id& src, std::size_t current_blind_level)
+void gamefunding::fund_player(const td::player_id& player, const td::funding_source_id& src, std::size_t current_blind_level)
 {
     if(src >= this->funding_sources.size())
     {
-        throw game_logic_error("invalid funding source");
+        throw td::runtime_error("invalid funding source");
     }
 
-    funding_source source(this->funding_sources[src]);
+    td::funding_source source(this->funding_sources[src]);
 
     if(current_blind_level > source.forbid_after_blind_level)
     {
-        throw game_logic_error("too late in the game for this funding source");
+        throw td::runtime_error("too late in the game for this funding source");
     }
 
     if(source.is_addon && this->buyins.find(player) == this->buyins.end())
     {
-        throw game_logic_error("tried to addon but not bought in yet");
+        throw td::runtime_error("tried to addon but not bought in yet");
     }
 
     if(!source.is_addon && this->buyins.find(player) != this->buyins.end())
     {
-        throw game_logic_error("player already bought in");
+        throw td::runtime_error("player already bought in");
     }
 
     logger(LOG_DEBUG) << "Funding player " << player << '\n';
@@ -168,7 +127,7 @@ void gamefunding::recalculate_payouts()
     }
 
     // next, loop through again generating payouts (rounding fractional payouts down)
-    std::transform(comp.begin(), comp.end(), this->payouts.begin(), [&](double c) { return static_cast<currency>(this->total_equity * c / total); });
+    std::transform(comp.begin(), comp.end(), this->payouts.begin(), [&](double c) { return static_cast<td::currency>(this->total_equity * c / total); });
 
     // finally, allocating remainder (from rounding) starting from first place
     auto remainder(this->total_equity - std::accumulate(this->payouts.begin(), this->payouts.end(), 0));

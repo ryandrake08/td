@@ -1,22 +1,16 @@
 #pragma once
 #include "json.hpp"
+#include "types.hpp"
 #include <string>
 #include <vector>
 
 class gameinfo
 {
-public:
-    struct player
-    {
-        std::string name;
-    };
-
-private:
     // configuration: game name
     std::string name;
 
     // configuration: list of all known players (playing or not)
-    std::vector<player> players;
+    std::vector<td::player> players;
 
 public:
     // load configuration from JSON (object or file)

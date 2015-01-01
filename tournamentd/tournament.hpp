@@ -74,10 +74,10 @@ public:
     void reset_action_clock();
     void gen_blind_levels(std::size_t count, long level_duration_ms);
     void reset_funding();
-    void fund_player(player_id player, funding_source_id source);
+    void fund_player(td::player_id player, td::funding_source_id source);
     std::size_t plan_seating(std::size_t max_expected_players);
-    gameseating::seat seat_player(player_id player);
-    std::vector<gameseating::player_movement> bust_player(player_id player);
+    td::seat seat_player(td::player_id player);
+    std::vector<td::player_movement> bust_player(td::player_id player);
 
     // listen for clients on given port
     void listen(const char* service);
