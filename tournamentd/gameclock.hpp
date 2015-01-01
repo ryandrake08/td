@@ -78,10 +78,12 @@ public:
     void resume();
 
     // advance to next blind level
-    std::size_t next_blind_level(td::ms offset=td::ms::zero());
+    // returns: true if blind level changed, false if we are at end of levels
+    bool next_blind_level(td::ms offset=td::ms::zero());
 
     // return to previous blind level
-    std::size_t previous_blind_level(td::ms offset=td::ms::zero());
+    // returns: true if blind level changed, false if blind level was just reset
+    bool previous_blind_level(td::ms offset=td::ms::zero());
 
     // update time remaining
     bool update_remaining();

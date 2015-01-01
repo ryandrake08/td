@@ -182,7 +182,7 @@ void gameclock::resume()
 }
 
 // advance to next blind level
-std::size_t gameclock::next_blind_level(td::ms offset)
+bool gameclock::next_blind_level(td::ms offset)
 {
     if(!this->is_started())
     {
@@ -194,42 +194,40 @@ std::size_t gameclock::next_blind_level(td::ms offset)
         logger(LOG_DEBUG) << "Setting next blind level from " << this->current_blind_level << " to " << this->current_blind_level + 1 << '\n';
 
         this->start_blind_level(this->current_blind_level + 1, offset);
+        return true;
     }
 
-    return this->current_blind_level;
+    return false;
 }
 
 // return to prevous blind level
-std::size_t gameclock::previous_blind_level(td::ms offset)
+bool gameclock::previous_blind_level(td::ms offset)
 {
     if(!this->is_started())
     {
         throw td::runtime_error("tournament not started");
     }
 
-    if(this->current_blind_level > 0)
+    // if elapsed time > 2 seconds, just restart current blind level
+    // TODO: configurable?
+    static auto max_elapsed_time_ms(2000);
+
+    // calculate elapsed time in this blind level
+    auto elapsed_time(this->blind_levels[this->current_blind_level].duration - this->time_remaining.count());
+    if(elapsed_time > max_elapsed_time_ms || this->current_blind_level == 1)
     {
-        // if elapsed time > 2 seconds, just restart current blind level
-        // TODO: configurable?
-        static auto max_elapsed_time_ms(2000);
+        logger(LOG_DEBUG) << "Restarting blind level " << this->current_blind_level << '\n';
 
-        // calculate elapsed time in this blind level
-        auto elapsed_time(this->blind_levels[this->current_blind_level].duration - this->time_remaining.count());
-        if(elapsed_time > max_elapsed_time_ms || this->current_blind_level == 1)
-        {
-            logger(LOG_DEBUG) << "Restarting blind level " << this->current_blind_level << '\n';
-
-            this->start_blind_level(this->current_blind_level, offset);
-        }
-        else
-        {
-            logger(LOG_DEBUG) << "Setting previous blind level from " << this->current_blind_level << " to " << this->current_blind_level - 1 << '\n';
-
-            this->start_blind_level(this->current_blind_level - 1, offset);
-        }
+        this->start_blind_level(this->current_blind_level, offset);
+        return false;
     }
+    else
+    {
+        logger(LOG_DEBUG) << "Setting previous blind level from " << this->current_blind_level << " to " << this->current_blind_level - 1 << '\n';
 
-    return this->current_blind_level;
+        this->start_blind_level(this->current_blind_level - 1, offset);
+        return true;
+    }
 }
 
 // update time remaining

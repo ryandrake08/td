@@ -171,3 +171,20 @@ json& json::set_value(const char* name, const std::unordered_map<td::player_id,t
     }
     return this->set_value(name, array);
 }
+
+template <>
+json& json::set_value(const char* name, const std::vector<td::player_movement>& values)
+{
+    std::vector<json> array;
+    for(auto value : values)
+    {
+        json obj;
+        obj.set_value("player_id", value.player);
+        obj.set_value("from_table_number", value.from_seat.table_number);
+        obj.set_value("from_seat_number", value.from_seat.seat_number);
+        obj.set_value("to_table_number", value.to_seat.table_number);
+        obj.set_value("to_seat_number", value.to_seat.seat_number);
+        array.push_back(obj);
+    }
+    return this->set_value(name, array);
+}

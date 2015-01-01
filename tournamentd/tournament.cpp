@@ -20,25 +20,6 @@ bool json::get_value<datetime>(const char* name, datetime& value) const
     return false;
 }
 
-// ----- game structure speciailization
-
-template <>
-json& json::set_value(const char* name, const std::vector<td::player_movement>& values)
-{
-    std::vector<json> array;
-    for(auto value : values)
-    {
-        json obj;
-        obj.set_value("player_id", value.player);
-        obj.set_value("from_table_number", value.from_seat.table_number);
-        obj.set_value("from_seat_number", value.from_seat.seat_number);
-        obj.set_value("to_table_number", value.to_seat.table_number);
-        obj.set_value("to_seat_number", value.to_seat.seat_number);
-        array.push_back(obj);
-    }
-    return this->set_value(name, array);
-}
-
 // ----- auth check
 
 void tournament::ensure_authorized(const json& in) const
@@ -139,16 +120,16 @@ void tournament::handle_cmd_pause_game(const json& in, json& out)
 
 void tournament::handle_cmd_set_previous_level(const json& in, json& out)
 {
-    auto current_blind_level(this->clock.previous_blind_level());
+    auto blind_level_changed(this->clock.previous_blind_level());
 
-    out.set_value("current_blind_level", current_blind_level);
+    out.set_value("blind_level_changed", blind_level_changed);
 }
 
 void tournament::handle_cmd_set_next_level(const json& in, json& out)
 {
-    auto current_blind_level(this->clock.next_blind_level());
+    auto blind_level_changed(this->clock.next_blind_level());
 
-    out.set_value("current_blind_level", current_blind_level);
+    out.set_value("blind_level_changed", blind_level_changed);
 }
 
 void tournament::handle_cmd_set_action_clock(const json& in, json& out)
@@ -204,9 +185,7 @@ void tournament::handle_cmd_plan_seating(const json& in, json& out)
         throw std::invalid_argument("must specify max_expected_players");
     }
 
-    auto tables(this->seating.plan_seating(max_expected_players));
-
-    out.set_value("tables", tables);
+    (void) this->seating.plan_seating(max_expected_players);
 }
 
 void tournament::handle_cmd_seat_player(const json& in, json& out)
@@ -220,6 +199,7 @@ void tournament::handle_cmd_seat_player(const json& in, json& out)
 
     auto seating(this->seating.add_player(player));
 
+    out.set_value("player_id", player);
     out.set_value("table_number", seating.table_number);
     out.set_value("seat_number", seating.seat_number);
 }
