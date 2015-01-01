@@ -27,6 +27,13 @@ class tournament
     // auth check
     void ensure_authorized(const json& in) const;
 
+    // broadcast helpers;
+    template <typename T>
+    void broadcast_state(const T& object) const;
+    
+    template <typename T>
+    void broadcast_configuration(const T& object) const;
+
     // command handlers available to anyone
     void handle_cmd_version(json& out) const;
     void handle_cmd_get_config(json& out) const;
@@ -56,28 +63,8 @@ class tournament
     bool handle_client_input(std::iostream& client);
 
 public:
-    // tournament API
-#if 0 // How to do these?
-    void version(json& out) const;
-    void get_config(json& out) const;
-    void get_state(json& out) const;
-#endif
+    // authorize a client code
     int authorize(int code);
-    void start_game(const datetime& start_at);
-    void start_game();
-    void stop_game();
-    void resume_game();
-    void pause_game();
-    std::size_t set_previous_level();
-    std::size_t set_next_level();
-    void set_action_clock(long duration_ms);
-    void reset_action_clock();
-    void gen_blind_levels(std::size_t count, long level_duration_ms);
-    void reset_funding();
-    void fund_player(td::player_id player, td::funding_source_id source);
-    std::size_t plan_seating(std::size_t max_expected_players);
-    td::seat seat_player(td::player_id player);
-    std::vector<td::player_movement> bust_player(td::player_id player);
 
     // listen for clients on given port
     void listen(const char* unix_socket_path, const char* service);
