@@ -11,6 +11,10 @@
 		AD37B3B61A57147800605351 /* tournament_client_osx.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD37B3AA1A57147800605351 /* tournament_client_osx.framework */; };
 		AD37B3BD1A57147800605351 /* tournament_client_tests.m in Sources */ = {isa = PBXBuildFile; fileRef = AD37B3BC1A57147800605351 /* tournament_client_tests.m */; };
 		AD37B3E41A571F4B00605351 /* tournament_client.h in Headers */ = {isa = PBXBuildFile; fileRef = AD37B3AF1A57147800605351 /* tournament_client.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AD37B3EB1A573C8300605351 /* TournamentConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = AD37B3E91A573C8300605351 /* TournamentConnection.h */; };
+		AD37B3EC1A573C8300605351 /* TournamentConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = AD37B3E91A573C8300605351 /* TournamentConnection.h */; };
+		AD37B3ED1A573C8300605351 /* TournamentConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = AD37B3EA1A573C8300605351 /* TournamentConnection.m */; };
+		AD37B3EE1A573C8300605351 /* TournamentConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = AD37B3EA1A573C8300605351 /* TournamentConnection.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,6 +35,8 @@
 		AD37B3BB1A57147800605351 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AD37B3BC1A57147800605351 /* tournament_client_tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = tournament_client_tests.m; sourceTree = "<group>"; };
 		AD37B3CB1A571EB800605351 /* tournament_client_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = tournament_client_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AD37B3E91A573C8300605351 /* TournamentConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TournamentConnection.h; sourceTree = "<group>"; };
+		AD37B3EA1A573C8300605351 /* TournamentConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TournamentConnection.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +88,8 @@
 			isa = PBXGroup;
 			children = (
 				AD37B3AF1A57147800605351 /* tournament_client.h */,
+				AD37B3E91A573C8300605351 /* TournamentConnection.h */,
+				AD37B3EA1A573C8300605351 /* TournamentConnection.m */,
 				AD37B3AD1A57147800605351 /* Supporting Files */,
 			);
 			path = tournament_client;
@@ -120,6 +128,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AD37B3B01A57147800605351 /* tournament_client.h in Headers */,
+				AD37B3EB1A573C8300605351 /* TournamentConnection.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -128,6 +137,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AD37B3E41A571F4B00605351 /* tournament_client.h in Headers */,
+				AD37B3EC1A573C8300605351 /* TournamentConnection.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -256,6 +266,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AD37B3ED1A573C8300605351 /* TournamentConnection.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -271,6 +282,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AD37B3EE1A573C8300605351 /* TournamentConnection.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
