@@ -11,8 +11,8 @@
 		AD37B3B61A57147800605351 /* tournament_client_osx.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD37B3AA1A57147800605351 /* tournament_client_osx.framework */; };
 		AD37B3BD1A57147800605351 /* tournament_client_tests.m in Sources */ = {isa = PBXBuildFile; fileRef = AD37B3BC1A57147800605351 /* tournament_client_tests.m */; };
 		AD37B3E41A571F4B00605351 /* tournament_client.h in Headers */ = {isa = PBXBuildFile; fileRef = AD37B3AF1A57147800605351 /* tournament_client.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		AD37B3EB1A573C8300605351 /* TournamentConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = AD37B3E91A573C8300605351 /* TournamentConnection.h */; };
-		AD37B3EC1A573C8300605351 /* TournamentConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = AD37B3E91A573C8300605351 /* TournamentConnection.h */; };
+		AD37B3EB1A573C8300605351 /* TournamentConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = AD37B3E91A573C8300605351 /* TournamentConnection.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AD37B3EC1A573C8300605351 /* TournamentConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = AD37B3E91A573C8300605351 /* TournamentConnection.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AD37B3ED1A573C8300605351 /* TournamentConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = AD37B3EA1A573C8300605351 /* TournamentConnection.m */; };
 		AD37B3EE1A573C8300605351 /* TournamentConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = AD37B3EA1A573C8300605351 /* TournamentConnection.m */; };
 /* End PBXBuildFile section */
@@ -300,8 +300,6 @@
 		AD37B3BE1A57147800605351 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
-				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
@@ -314,7 +312,6 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -335,8 +332,6 @@
 		AD37B3BF1A57147800605351 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
-				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
@@ -350,7 +345,6 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -505,6 +499,7 @@
 				AD37B3E01A571EB800605351 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

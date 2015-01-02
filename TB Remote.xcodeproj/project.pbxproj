@@ -1,0 +1,305 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		AD37B3FE1A574B0100605351 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AD37B3FD1A574B0100605351 /* main.m */; };
+		AD37B4011A574B0100605351 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AD37B4001A574B0100605351 /* AppDelegate.m */; };
+		AD37B4041A574B0100605351 /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD37B4031A574B0100605351 /* FirstViewController.m */; };
+		AD37B4071A574B0100605351 /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD37B4061A574B0100605351 /* SecondViewController.m */; };
+		AD37B40A1A574B0100605351 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AD37B4081A574B0100605351 /* Main.storyboard */; };
+		AD37B40C1A574B0100605351 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AD37B40B1A574B0100605351 /* Images.xcassets */; };
+		AD37B40F1A574B0100605351 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD37B40D1A574B0100605351 /* LaunchScreen.xib */; };
+		AD37B4251A5750B000605351 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD37B4241A5750B000605351 /* UIKit.framework */; };
+		AD37B4271A5750C100605351 /* tournament_client_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD37B4261A5750C100605351 /* tournament_client_ios.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		AD37B3F81A574B0100605351 /* TB Remote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TB Remote.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AD37B3FC1A574B0100605351 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AD37B3FD1A574B0100605351 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		AD37B3FF1A574B0100605351 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		AD37B4001A574B0100605351 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		AD37B4021A574B0100605351 /* FirstViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FirstViewController.h; sourceTree = "<group>"; };
+		AD37B4031A574B0100605351 /* FirstViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FirstViewController.m; sourceTree = "<group>"; };
+		AD37B4051A574B0100605351 /* SecondViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecondViewController.h; sourceTree = "<group>"; };
+		AD37B4061A574B0100605351 /* SecondViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecondViewController.m; sourceTree = "<group>"; };
+		AD37B4091A574B0100605351 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		AD37B40B1A574B0100605351 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		AD37B40E1A574B0100605351 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		AD37B4241A5750B000605351 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		AD37B4261A5750C100605351 /* tournament_client_ios.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = tournament_client_ios.framework; path = "build/Debug-iphoneos/tournament_client_ios.framework"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AD37B3F51A574B0100605351 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AD37B4251A5750B000605351 /* UIKit.framework in Frameworks */,
+				AD37B4271A5750C100605351 /* tournament_client_ios.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		AD37B3EF1A574B0100605351 = {
+			isa = PBXGroup;
+			children = (
+				AD37B3FA1A574B0100605351 /* TB Remote */,
+				AD37B4281A5750DA00605351 /* Frameworks */,
+				AD37B3F91A574B0100605351 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		AD37B3F91A574B0100605351 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AD37B3F81A574B0100605351 /* TB Remote.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		AD37B3FA1A574B0100605351 /* TB Remote */ = {
+			isa = PBXGroup;
+			children = (
+				AD37B3FF1A574B0100605351 /* AppDelegate.h */,
+				AD37B4001A574B0100605351 /* AppDelegate.m */,
+				AD37B4021A574B0100605351 /* FirstViewController.h */,
+				AD37B4031A574B0100605351 /* FirstViewController.m */,
+				AD37B4051A574B0100605351 /* SecondViewController.h */,
+				AD37B4061A574B0100605351 /* SecondViewController.m */,
+				AD37B4081A574B0100605351 /* Main.storyboard */,
+				AD37B40B1A574B0100605351 /* Images.xcassets */,
+				AD37B40D1A574B0100605351 /* LaunchScreen.xib */,
+				AD37B3FB1A574B0100605351 /* Supporting Files */,
+			);
+			path = "TB Remote";
+			sourceTree = "<group>";
+		};
+		AD37B3FB1A574B0100605351 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				AD37B3FC1A574B0100605351 /* Info.plist */,
+				AD37B3FD1A574B0100605351 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		AD37B4281A5750DA00605351 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AD37B4261A5750C100605351 /* tournament_client_ios.framework */,
+				AD37B4241A5750B000605351 /* UIKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		AD37B3F71A574B0100605351 /* TB Remote */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AD37B41E1A574B0100605351 /* Build configuration list for PBXNativeTarget "TB Remote" */;
+			buildPhases = (
+				AD37B3F41A574B0100605351 /* Sources */,
+				AD37B3F51A574B0100605351 /* Frameworks */,
+				AD37B3F61A574B0100605351 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "TB Remote";
+			productName = "TB Remote";
+			productReference = AD37B3F81A574B0100605351 /* TB Remote.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AD37B3F01A574B0100605351 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0610;
+				ORGANIZATIONNAME = "HDna Studio";
+				TargetAttributes = {
+					AD37B3F71A574B0100605351 = {
+						CreatedOnToolsVersion = 6.1;
+					};
+				};
+			};
+			buildConfigurationList = AD37B3F31A574B0100605351 /* Build configuration list for PBXProject "TB Remote" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = AD37B3EF1A574B0100605351;
+			productRefGroup = AD37B3F91A574B0100605351 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				AD37B3F71A574B0100605351 /* TB Remote */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AD37B3F61A574B0100605351 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AD37B40A1A574B0100605351 /* Main.storyboard in Resources */,
+				AD37B40F1A574B0100605351 /* LaunchScreen.xib in Resources */,
+				AD37B40C1A574B0100605351 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AD37B3F41A574B0100605351 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AD37B4071A574B0100605351 /* SecondViewController.m in Sources */,
+				AD37B4011A574B0100605351 /* AppDelegate.m in Sources */,
+				AD37B4041A574B0100605351 /* FirstViewController.m in Sources */,
+				AD37B3FE1A574B0100605351 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		AD37B4081A574B0100605351 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AD37B4091A574B0100605351 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		AD37B40D1A574B0100605351 /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AD37B40E1A574B0100605351 /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		AD37B41C1A574B0100605351 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		AD37B41D1A574B0100605351 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		AD37B41F1A574B0100605351 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "TB Remote/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		AD37B4201A574B0100605351 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "TB Remote/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AD37B3F31A574B0100605351 /* Build configuration list for PBXProject "TB Remote" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AD37B41C1A574B0100605351 /* Debug */,
+				AD37B41D1A574B0100605351 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AD37B41E1A574B0100605351 /* Build configuration list for PBXNativeTarget "TB Remote" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AD37B41F1A574B0100605351 /* Debug */,
+				AD37B4201A574B0100605351 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = AD37B3F01A574B0100605351 /* Project object */;
+}
