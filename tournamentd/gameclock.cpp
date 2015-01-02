@@ -14,8 +14,8 @@ void gameclock::configure(const json& config)
     logger(LOG_DEBUG) << "Loading game clock configuration\n";
 
     config.get_value("blind_increase_factor", this->blind_increase_factor);
-    config.get_value("blind_levels", this->blind_levels);
-    config.get_value("available_chips", this->available_chips);
+    config.get_values("blind_levels", this->blind_levels);
+    config.get_values("available_chips", this->available_chips);
 }
 
 // dump configuration to JSON
@@ -24,8 +24,8 @@ void gameclock::dump_configuration(json& config) const
     logger(LOG_DEBUG) << "Dumping game clock configuration\n";
 
     config.set_value("blind_increase_factor", this->blind_increase_factor);
-    config.set_value("blind_levels", this->blind_levels);
-    config.set_value("available_chips", this->available_chips);
+    config.set_values("blind_levels", this->blind_levels);
+    config.set_values("available_chips", this->available_chips);
 }
 
 // dump state to JSON

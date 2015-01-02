@@ -215,7 +215,7 @@ void tournament::handle_cmd_bust_player(const json& in, json& out)
 
     auto movements(this->seating.remove_player(player));
 
-    out.set_value("movements", movements);
+    out.set_values("movements", movements);
 }
 
 // handler for new client

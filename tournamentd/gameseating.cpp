@@ -33,8 +33,8 @@ void gameseating::dump_state(json& state) const
 
     // players without seats or busted out
     state.set_value("players_finished", json(std::vector<td::player_id>(this->players_finished.begin(), this->players_finished.end())));
-    state.set_value("seats", this->seats);
-    state.set_value("empty_seats", std::vector<td::seat>(this->empty_seats.begin(), this->empty_seats.end()));
+    state.set_values("seats", this->seats);
+    state.set_values("empty_seats", this->empty_seats);
     state.set_value("tables", this->tables);
 }
 

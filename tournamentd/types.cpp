@@ -1,5 +1,5 @@
 #include "types.hpp"
-#include <unordered_map>
+#include <utility>
 
 // ----- initialization
 
@@ -137,20 +137,10 @@ json::json(const td::player_movement& value) : json()
     this->set_value("to_seat_number", value.to_seat.seat_number);
 }
 
-// ----- json speciailization
-
-template <>
-json& json::set_value(const char* name, const std::unordered_map<td::player_id,td::seat>& values)
+template<>
+json::json(const std::pair<const td::player_id,td::seat>& value) : json()
 {
-    std::vector<json> array;
-    array.reserve(values.size());
-    for(const auto& value : values)
-    {
-        json obj;
-        obj.set_value("player_id", value.first);
-        obj.set_value("table_number", value.second.table_number);
-        obj.set_value("seat_number", value.second.seat_number);
-        array.push_back(obj);
-    }
-    return this->set_value(name, array);
+    this->set_value("player_id", value.first);
+    this->set_value("table_number", value.second.table_number);
+    this->set_value("seat_number", value.second.seat_number);
 }

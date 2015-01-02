@@ -60,7 +60,7 @@ public:
     template <typename T>
     bool get_value(const std::string& name, T& value) const { return get_value(name.c_str(), value); }
     template <typename T>
-    bool get_value(const char* name, std::vector<T>& values) const
+    bool get_values(const char* name, T& values) const
     {
         std::vector<json> array;
         if(this->get_value(name, array))
@@ -78,7 +78,7 @@ public:
     template <typename T>
     json& set_value(const std::string& name, const T& value) { return set_value(name.c_str(), value); }
     template <typename T>
-    json& set_value(const char* name, const std::vector<T>& values)
+    json& set_values(const char* name, const T& values)
     {
         std::vector<json> array;
         array.reserve(values.size());
