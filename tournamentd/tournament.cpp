@@ -260,7 +260,7 @@ bool tournament::handle_client_input(std::iostream& client)
                 if(arg0 != std::string::npos)
                 {
                     auto arg = input.substr(arg0, std::string::npos);
-                    in = json(arg);
+                    in = json::eval(arg);
                 }
             }
             cmd = input.substr(cmd0, cmd1);

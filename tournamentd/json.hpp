@@ -10,33 +10,24 @@ class json
 {
     cJSON* ptr;
 
-public:
-    struct serializable
-    {
-        virtual void to_json(json& obj) const = 0;
-        virtual void from_json(const json& obj) = 0;
-    };
-
-    // Construct an empty object
-    json();
-
     // Construct from raw cJSON pointer
     explicit json(cJSON* raw_ptr);
 
+    // Need to call above constructor
+    friend bool get_json_value(const cJSON* obj, json& value);
+    friend bool get_json_array_value(const cJSON* obj, std::vector<json>& value);
+
+public:
+    // Construct an empty object
+    json();
+
     // Construct from json string
-    explicit json(const char* str);
-    explicit json(const std::string& str);
+    static json eval(const char* str);
+    static json eval(const std::string& str) { return eval(str.c_str()); }
 
     // Construct from file
     static json load(const char* filename);
-    static json load(const std::string& filename);
-
-    // Construct from an array
-    template <typename T>
-    explicit json(const std::vector<T>& values);
-
-    // Construct from serializable
-    json(const serializable& value);
+    static json load(const std::string& filename) { return load(filename.c_str()); }
 
     // Copy/move construction
     json(const json& other);
@@ -48,6 +39,10 @@ public:
 
     // Destruction
     ~json();
+
+    // Templated construction from any object
+    template <typename T>
+    json(const T& value);
 
     // Print to string
     std::string string(bool pretty=false) const;
@@ -64,12 +59,33 @@ public:
     bool get_value(const char* name, T& value) const;
     template <typename T>
     bool get_value(const std::string& name, T& value) const { return get_value(name.c_str(), value); }
+    template <typename T>
+    bool get_value(const char* name, std::vector<T>& values) const
+    {
+        std::vector<json> array;
+        if(this->get_value(name, array))
+        {
+            values.resize(array.size());
+            std::copy(array.begin(), array.end(), values.begin());
+            return true;
+        }
+        return false;
+    }
 
     // Set value for name
     template <typename T>
     json& set_value(const char* name, const T& value);
     template <typename T>
     json& set_value(const std::string& name, const T& value) { return set_value(name.c_str(), value); }
+    template <typename T>
+    json& set_value(const char* name, const std::vector<T>& values)
+    {
+        std::vector<json> array;
+        array.reserve(values.size());
+        std::copy(values.begin(), values.end(), std::back_inserter(array));
+        this->set_value(name, array);
+        return *this;
+    }
 
     // I/O from streams
     void write(std::ostream& os) const;

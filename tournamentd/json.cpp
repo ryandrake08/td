@@ -114,7 +114,7 @@ static bool get_bool_value(const cJSON* obj, bool& value)
     }
 }
 
-static bool get_json_value(const cJSON* obj, json& value)
+bool get_json_value(const cJSON* obj, json& value)
 {
     if(obj != nullptr)
     {
@@ -128,7 +128,7 @@ static bool get_json_value(const cJSON* obj, json& value)
     }
 }
 
-static bool get_json_array_value(const cJSON* obj, std::vector<json>& value)
+bool get_json_array_value(const cJSON* obj, std::vector<json>& value)
 {
     if(obj != nullptr)
     {
@@ -165,56 +165,9 @@ json::json(cJSON* raw_ptr) : ptr(check(raw_ptr))
 }
 
 // Construct from json string
-json::json(const char* str) : ptr(check(cJSON_Parse(str)))
+json json::eval(const char* str)
 {
-}
-
-json::json(const std::string& str) : ptr(check(cJSON_Parse(str.c_str())))
-{
-}
-
-// Construct from an array
-template <>
-json::json(const std::vector<json>& values) : ptr(check(cJSON_CreateArray()))
-{
-    for(auto item : values)
-    {
-        cJSON_AddItemToArray(this->ptr, cJSON_Duplicate(item.ptr, 1));
-    }
-}
-
-template <>
-json::json(const std::vector<int>& values) : ptr(check(cJSON_CreateIntArray(&values[0], static_cast<int>(values.size()))))
-{
-}
-
-template <>
-json::json(const std::vector<float>& values) : ptr(check(cJSON_CreateFloatArray(&values[0], static_cast<int>(values.size()))))
-{
-}
-
-template <>
-json::json(const std::vector<double>& values) : ptr(check(cJSON_CreateDoubleArray(&values[0], static_cast<int>(values.size()))))
-{
-}
-
-template <>
-json::json(const std::vector<std::string>& values)
-{
-    std::vector<const char*> tmp(values.size());
-    // workaround for clang using lambda:
-    // should be able to pass mem_fn(&string::c_str) to transform
-    //  std::transform(values.begin(), values.end(), tmp.begin(), std::mem_fn(&std::string::c_str));
-    //  std::transform(values.begin(), values.end(), tmp.begin(), std::bind(&std::string::c_str, std::placeholders::_1));
-    std::transform(values.begin(), values.end(), tmp.begin(), [](const std::string& str) { return str.c_str(); });
-    this->ptr = check(cJSON_CreateStringArray(&tmp[0], static_cast<int>(tmp.size())));
-}
-
-template <>
-json::json(const std::vector<unsigned long>& values)
-{
-    std::vector<int> tmp(values.begin(), values.end());
-    this->ptr = check(cJSON_CreateIntArray(&tmp[0], static_cast<int>(tmp.size())));
+    return json(check(cJSON_Parse(str)));
 }
 
 // Construct from file
@@ -229,17 +182,7 @@ json json::load(const char* filename)
 
     std::string str((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
 
-    return json(str.c_str());
-}
-json json::load(const std::string& filename)
-{
-    return json::load(filename.c_str());
-}
-
-// Construct from serializable
-json::json(const serializable& value) : json()
-{
-    value.to_json(*this);
+    return eval(str.c_str());
 }
 
 // Copy constructor duplicates
@@ -291,6 +234,55 @@ json::~json()
     {
         cJSON_Delete(this->ptr);
     }
+}
+
+// Construct from arrays
+template <>
+json::json(const std::vector<json>& values) : ptr(check(cJSON_CreateArray()))
+{
+    for(const auto& item : values)
+    {
+        cJSON_AddItemToArray(this->ptr, cJSON_Duplicate(item.ptr, 1));
+    }
+}
+
+template <>
+json::json(const std::vector<int>& values) : ptr(check(cJSON_CreateIntArray(&values[0], static_cast<int>(values.size()))))
+{
+}
+
+template <>
+json::json(const std::vector<float>& values) : ptr(check(cJSON_CreateFloatArray(&values[0], static_cast<int>(values.size()))))
+{
+}
+
+template <>
+json::json(const std::vector<double>& values) : ptr(check(cJSON_CreateDoubleArray(&values[0], static_cast<int>(values.size()))))
+{
+}
+
+template <>
+json::json(const std::vector<const char*>& values) : ptr(check(cJSON_CreateStringArray(const_cast<const char**>(&values[0]), static_cast<int>(values.size()))))
+{
+}
+
+template <>
+json::json(const std::vector<std::string>& values)
+{
+    std::vector<const char*> tmp(values.size());
+    // workaround for clang using lambda:
+    // should be able to pass mem_fn(&string::c_str) to transform
+    //  std::transform(values.begin(), values.end(), tmp.begin(), std::mem_fn(&std::string::c_str));
+    //  std::transform(values.begin(), values.end(), tmp.begin(), std::bind(&std::string::c_str, std::placeholders::_1));
+    std::transform(values.begin(), values.end(), tmp.begin(), [](const std::string& str) { return str.c_str(); });
+    this->ptr = check(cJSON_CreateStringArray(&tmp[0], static_cast<int>(tmp.size())));
+}
+
+template <>
+json::json(const std::vector<unsigned long>& values)
+{
+    std::vector<int> tmp(values.begin(), values.end());
+    this->ptr = check(cJSON_CreateIntArray(&tmp[0], static_cast<int>(tmp.size())));
 }
 
 std::string json::string(bool pretty) const

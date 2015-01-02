@@ -6,14 +6,6 @@
 
 class gameclock
 {
-public:
-    struct chip
-    {
-        std::string color;
-        std::size_t denomination;
-        std::size_t count_available;
-    };
-
     // configuration: blind increase factor
     double blind_increase_factor;
 

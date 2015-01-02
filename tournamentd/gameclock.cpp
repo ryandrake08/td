@@ -326,20 +326,17 @@ void gameclock::gen_blind_levels(std::size_t count, long level_duration)
         throw td::runtime_error("tried to create a blind structure without chips defined");
     }
 
-    // resize structure
+    // resize structure, zero-initializing
     this->blind_levels.resize(count+1);
-
-    // dummy round for planning phase
-    this->blind_levels[0] = td::blind_level();
 
     // sort our vector
     std::sort(this->available_chips.begin(), this->available_chips.end(), [](const td::chip& c0, const td::chip& c1) { return c0.denomination < c1.denomination; });
 
-    // starting small blind = smallest denomination
-    double ideal_small(static_cast<double>(this->available_chips.begin()->denomination));
-
     // store last round denomination (to check when it changes)
-    std::size_t last_round_denom(0);
+    auto last_round_denom(this->available_chips.begin()->denomination);
+
+    // starting small blind = smallest denomination
+    double ideal_small(static_cast<double>(last_round_denom));
 
     for(auto i(1); i<count+1; i++)
     {
@@ -354,15 +351,10 @@ void gameclock::gen_blind_levels(std::size_t count, long level_duration)
         this->blind_levels[i].big_blind = this->blind_levels[i].little_blind * 2;
         this->blind_levels[i].ante = 0;
         this->blind_levels[i].duration = level_duration;
-
-        if(i>0 && round_denom != last_round_denom)
+        if(i > 0 && round_denom != last_round_denom)
         {
             // 5 minute break to chip up after each minimum denomination change
             this->blind_levels[i].break_duration = 300000;
-        }
-        else
-        {
-            this->blind_levels[i].break_duration = 0;
         }
 
         // next small blind should be about factor times bigger than previous one
