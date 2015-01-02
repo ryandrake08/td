@@ -2,11 +2,13 @@
 #include <stddef.h> // Oops, cJSON.h requires stddef.h
 #include "cjson/cJSON.h"
 #include <algorithm>
+#include <deque>
 #include <fstream>
 #include <limits>
 #include <stdexcept>
 #include <streambuf>
 #include <string>
+#include <unordered_set>
 #include <vector>
 
 // Verify valid ptr
@@ -280,6 +282,20 @@ json::json(const std::vector<std::string>& values)
 
 template <>
 json::json(const std::vector<unsigned long>& values)
+{
+    std::vector<int> tmp(values.begin(), values.end());
+    this->ptr = check(cJSON_CreateIntArray(&tmp[0], static_cast<int>(tmp.size())));
+}
+
+template <>
+json::json(const std::deque<unsigned long>& values)
+{
+    std::vector<int> tmp(values.begin(), values.end());
+    this->ptr = check(cJSON_CreateIntArray(&tmp[0], static_cast<int>(tmp.size())));
+}
+
+template <>
+json::json(const std::unordered_set<unsigned long>& values)
 {
     std::vector<int> tmp(values.begin(), values.end());
     this->ptr = check(cJSON_CreateIntArray(&tmp[0], static_cast<int>(tmp.size())));

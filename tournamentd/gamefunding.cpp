@@ -39,8 +39,8 @@ void gamefunding::dump_state(json& state) const
 {
     logger(LOG_DEBUG) << "Dumping game funding state\n";
 
-    state.set_value("buyins", json(std::vector<td::player_id>(this->buyins.begin(), this->buyins.end())));
-    state.set_value("payouts", json(std::vector<td::currency>(this->payouts.begin(), this->payouts.end())));
+    state.set_value("buyins", json(this->buyins));
+    state.set_value("payouts", json(this->payouts));
     state.set_value("total_chips", this->total_chips);
     state.set_value("total_cost", this->total_cost);
     state.set_value("total_commission", this->total_commission);
