@@ -4,6 +4,7 @@
 #include <system_error>
 #include <cerrno> // for errno
 #include <cassert>
+#include <cstring>
 #include <iterator>
 
 #if defined(_WIN32)
@@ -320,6 +321,19 @@ std::ostream& operator<<(std::ostream& os, const common_socket& sock)
 
 unix_socket::unix_socket(const char* path, bool client, int backlog)
 {
+    sockaddr_un addr;
+
+    // first check size of path
+    if(std::strlen(path) > sizeof(addr.sun_path)-1)
+    {
+        throw std::invalid_argument("unix_socket: path length too long");
+    }
+
+    // set up addr
+    std::strncpy(addr.sun_path, path, sizeof(addr.sun_path)-1);
+    addr.sun_family = AF_UNIX;
+    addr.sun_len = SUN_LEN(&addr);
+
     // create the socket
     auto sock(::socket(PF_UNIX, SOCK_STREAM, 0));
     if(sock == INVALID_SOCKET)
@@ -343,12 +357,7 @@ unix_socket::unix_socket(const char* path, bool client, int backlog)
         throw std::system_error(errno, std::system_category(), "setsockopt");
     }
 
-    logger(LOG_DEBUG) << "setting up unix socket and unlinking old one\n";
-
-    sockaddr_un addr = {0};
-    addr.sun_family = AF_UNIX;
-    addr.sun_len = sizeof(addr);
-    std::copy_n(path, sizeof(addr.sun_path)-1, addr.sun_path);
+    // unlink old socket path
     ::unlink(path);
 
     logger(LOG_DEBUG) << "creating a socket\n";
