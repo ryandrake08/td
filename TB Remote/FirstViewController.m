@@ -7,7 +7,7 @@
 //
 
 #import "FirstViewController.h"
-#import "tournament_client_ios/tournament_client.h"
+#import "TournamentKit_ios/TournamentKit.h"
 
 @interface FirstViewController ()
 {

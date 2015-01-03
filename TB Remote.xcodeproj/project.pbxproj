@@ -15,7 +15,7 @@
 		AD37B40C1A574B0100605351 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AD37B40B1A574B0100605351 /* Images.xcassets */; };
 		AD37B40F1A574B0100605351 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD37B40D1A574B0100605351 /* LaunchScreen.xib */; };
 		AD37B4251A5750B000605351 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD37B4241A5750B000605351 /* UIKit.framework */; };
-		AD37B4271A5750C100605351 /* tournament_client_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD37B4261A5750C100605351 /* tournament_client_ios.framework */; };
+		AD37B4271A5750C100605351 /* TournamentKit_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD37B4261A5750C100605351 /* TournamentKit_ios.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,7 +32,7 @@
 		AD37B40B1A574B0100605351 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		AD37B40E1A574B0100605351 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		AD37B4241A5750B000605351 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		AD37B4261A5750C100605351 /* tournament_client_ios.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = tournament_client_ios.framework; path = "build/Debug-iphoneos/tournament_client_ios.framework"; sourceTree = "<group>"; };
+		AD37B4261A5750C100605351 /* TournamentKit_ios.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TournamentKit_ios.framework; path = "build/Debug-iphoneos/TournamentKit_ios.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,7 +41,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AD37B4251A5750B000605351 /* UIKit.framework in Frameworks */,
-				AD37B4271A5750C100605351 /* tournament_client_ios.framework in Frameworks */,
+				AD37B4271A5750C100605351 /* TournamentKit_ios.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -94,7 +94,7 @@
 		AD37B4281A5750DA00605351 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				AD37B4261A5750C100605351 /* tournament_client_ios.framework */,
+				AD37B4261A5750C100605351 /* TournamentKit_ios.framework */,
 				AD37B4241A5750B000605351 /* UIKit.framework */,
 			);
 			name = Frameworks;

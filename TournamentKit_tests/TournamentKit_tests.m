@@ -1,6 +1,6 @@
 //
-//  tournament_client_tests.m
-//  tournament_client_tests
+//  TournamentKit_tests.m
+//  TournamentKit_tests
 //
 //  Created by Ryan Drake on 1/2/15.
 //  Copyright (c) 2015 HDna Studio. All rights reserved.
@@ -9,11 +9,11 @@
 #import <Cocoa/Cocoa.h>
 #import <XCTest/XCTest.h>
 
-@interface tournament_client_tests : XCTestCase
+@interface TournamentKit_tests : XCTestCase
 
 @end
 
-@implementation tournament_client_tests
+@implementation TournamentKit_tests
 
 - (void)setUp {
     [super setUp];

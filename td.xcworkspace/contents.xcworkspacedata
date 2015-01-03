@@ -5,7 +5,7 @@
       location = "group:TB Remote.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:tournament_client.xcodeproj">
+      location = "group:TournamentKit.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:tournamentd.xcodeproj">
