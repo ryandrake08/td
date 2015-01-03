@@ -23,6 +23,10 @@
 - (id)initWithReadStream:(CFReadStreamRef)readStream writeStream:(CFWriteStreamRef)writeStream
 {
     if((self = [super init])) {
+        // specify that the CFStream should close itself when it's done
+        (void) CFReadStreamSetProperty(readStream, kCFStreamPropertyShouldCloseNativeSocket, kCFBooleanTrue);
+        (void) CFWriteStreamSetProperty(writeStream, kCFStreamPropertyShouldCloseNativeSocket, kCFBooleanTrue);
+
         // toll-free bridge the streams
         inputStream = (NSInputStream*)readStream;
         outputStream = (NSOutputStream*)writeStream;
@@ -85,8 +89,7 @@
         return nil;
     }
 
-    int ret = connect(sock, (struct sockaddr*)&addr, addr.sun_len);
-    if(ret == -1)
+    if(connect(sock, (struct sockaddr*)&addr, addr.sun_len) == -1)
     {
         NSLog(@"Call to connect failed");
         close(sock);
