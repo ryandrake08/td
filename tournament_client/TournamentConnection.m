@@ -8,6 +8,9 @@
 
 #import "TournamentConnection.h"
 
+#include <sys/socket.h>
+#include <sys/un.h>
+
 @interface TournamentConnection()
 {
     NSInputStream* inputStream;
@@ -17,13 +20,9 @@
 
 @implementation TournamentConnection
 
-- (id)initWithHostname:(NSString*)hostname port:(UInt32)port {
-
+- (id)initWithReadStream:(CFReadStreamRef)readStream writeStream:(CFWriteStreamRef)writeStream
+{
     if((self = [super init])) {
-        CFReadStreamRef readStream;
-        CFWriteStreamRef writeStream;
-        CFStreamCreatePairWithSocketToHost(NULL, (CFStringRef)hostname, port, &readStream, &writeStream);
-
         // toll-free bridge the streams
         inputStream = (NSInputStream*)readStream;
         outputStream = (NSOutputStream*)writeStream;
@@ -40,9 +39,71 @@
     return self;
 }
 
+- (id)initWithHostname:(NSString*)hostname port:(UInt32)port {
+
+    CFReadStreamRef readStream;
+    CFWriteStreamRef writeStream;
+    CFStreamCreatePairWithSocketToHost(NULL, (CFStringRef)hostname, port, &readStream, &writeStream);
+
+    return [self initWithReadStream:readStream writeStream:writeStream];
+}
+
+- (id)initWithUnixSocketNamed:(NSString*)socketPath {
+
+    struct sockaddr_un addr;
+
+    // Check path length
+    const char* path = [socketPath cStringUsingEncoding:NSUTF8StringEncoding];
+    if(strlen(path) > sizeof(addr.sun_path)-1)
+    {
+        NSLog(@"Socket name too long");
+        return nil;
+    }
+
+    // Set up addr
+    strncpy(addr.sun_path, path, sizeof(addr.sun_path)-1);
+    addr.sun_family = AF_UNIX;
+    addr.sun_len = SUN_LEN(&addr);
+
+    // Unlink old socket path
+    unlink(path);
+
+    // Create socket
+    int sock = socket(PF_UNIX, SOCK_STREAM, 0);
+    if(sock == -1)
+    {
+        NSLog(@"Call to socket failed");
+        return nil;
+    }
+
+    // Set SO_NOSIGPIPE option
+    int yes = 1;
+    if(setsockopt(sock, SOL_SOCKET, SO_NOSIGPIPE, &yes, sizeof(yes)) == -1)
+    {
+        NSLog(@"Call to setsockopt failed");
+        close(sock);
+        return nil;
+    }
+
+    int ret = connect(sock, (struct sockaddr*)&addr, addr.sun_len);
+    if(ret == -1)
+    {
+        NSLog(@"Call to connect failed");
+        close(sock);
+        return nil;
+    }
+
+    CFReadStreamRef readStream;
+    CFWriteStreamRef writeStream;
+    CFStreamCreatePairWithSocket (kCFAllocatorDefault, sock, &readStream, &writeStream);
+
+    return [self initWithReadStream:readStream writeStream:writeStream];
+}
+
 - (void)dealloc {
 
     [inputStream release];
+    [outputStream release];
 
     [super dealloc];
 }

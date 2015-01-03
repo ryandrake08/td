@@ -10,6 +10,7 @@
 
 @interface TournamentConnection : NSObject<NSStreamDelegate>
 
+- (id)initWithUnixSocketNamed:(NSString*)socketPath;
 - (id)initWithHostname:(NSString*)hostname port:(UInt32)port;
 
 @end
