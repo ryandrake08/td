@@ -3,7 +3,7 @@
 
 // ----- initialization
 
-td::blind_level::blind_level() : little_blind(0), big_blind(0), ante(0), duration(0), break_duration()
+td::blind_level::blind_level() : little_blind(0), big_blind(0), ante(0), duration(0), break_duration(0)
 {
 }
 
@@ -37,7 +37,7 @@ td::player_movement::player_movement(player_id p, const seat& f, const seat& t) 
 
 // ----- construct from json
 
-td::blind_level::blind_level(const json& obj)
+td::blind_level::blind_level(const json& obj) : blind_level()
 {
     obj.get_value("little_blind", this->little_blind);
     obj.get_value("big_blind", this->big_blind);
@@ -46,14 +46,14 @@ td::blind_level::blind_level(const json& obj)
     obj.get_value("break_duration_ms", this->break_duration);
 }
 
-td::chip::chip(const json& obj)
+td::chip::chip(const json& obj) : chip()
 {
     obj.get_value("color", this->color);
     obj.get_value("denomination", this->denomination);
     obj.get_value("count_available", this->count_available);
 }
 
-td::funding_source::funding_source(const json& obj)
+td::funding_source::funding_source(const json& obj) : funding_source()
 {
     obj.get_value("is_addon", this->is_addon);
     obj.get_value("forbid_after_blind_level", this->forbid_after_blind_level);
@@ -63,18 +63,18 @@ td::funding_source::funding_source(const json& obj)
     obj.get_value("equity", this->equity);
 }
 
-td::player::player(const json& obj)
+td::player::player(const json& obj) : player()
 {
     obj.get_value("name", this->name);
 }
 
-td::seat::seat(const json& obj)
+td::seat::seat(const json& obj) : seat()
 {
     obj.get_value("table_number", this->table_number);
     obj.get_value("seat_number", this->seat_number);
 }
 
-td::player_movement::player_movement(const json& obj)
+td::player_movement::player_movement(const json& obj) : player_movement()
 {
     obj.get_value("player_id", this->player);
     obj.get_value("from_table_number", this->from_seat.table_number);
