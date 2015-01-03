@@ -19,7 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		AD37B3F81A574B0100605351 /* TB Remote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TB Remote.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AD37B3F81A574B0100605351 /* TBRemote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TBRemote.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD37B3FC1A574B0100605351 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AD37B3FD1A574B0100605351 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		AD37B3FF1A574B0100605351 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -51,7 +51,7 @@
 		AD37B3EF1A574B0100605351 = {
 			isa = PBXGroup;
 			children = (
-				AD37B3FA1A574B0100605351 /* TB Remote */,
+				AD37B3FA1A574B0100605351 /* TBRemote */,
 				AD37B4281A5750DA00605351 /* Frameworks */,
 				AD37B3F91A574B0100605351 /* Products */,
 			);
@@ -60,12 +60,12 @@
 		AD37B3F91A574B0100605351 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				AD37B3F81A574B0100605351 /* TB Remote.app */,
+				AD37B3F81A574B0100605351 /* TBRemote.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		AD37B3FA1A574B0100605351 /* TB Remote */ = {
+		AD37B3FA1A574B0100605351 /* TBRemote */ = {
 			isa = PBXGroup;
 			children = (
 				AD37B3FF1A574B0100605351 /* AppDelegate.h */,
@@ -79,7 +79,7 @@
 				AD37B40D1A574B0100605351 /* LaunchScreen.xib */,
 				AD37B3FB1A574B0100605351 /* Supporting Files */,
 			);
-			path = "TB Remote";
+			path = "TBRemote";
 			sourceTree = "<group>";
 		};
 		AD37B3FB1A574B0100605351 /* Supporting Files */ = {
@@ -103,9 +103,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		AD37B3F71A574B0100605351 /* TB Remote */ = {
+		AD37B3F71A574B0100605351 /* TBRemote */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = AD37B41E1A574B0100605351 /* Build configuration list for PBXNativeTarget "TB Remote" */;
+			buildConfigurationList = AD37B41E1A574B0100605351 /* Build configuration list for PBXNativeTarget "TBRemote" */;
 			buildPhases = (
 				AD37B3F41A574B0100605351 /* Sources */,
 				AD37B3F51A574B0100605351 /* Frameworks */,
@@ -115,9 +115,9 @@
 			);
 			dependencies = (
 			);
-			name = "TB Remote";
-			productName = "TB Remote";
-			productReference = AD37B3F81A574B0100605351 /* TB Remote.app */;
+			name = "TBRemote";
+			productName = "TBRemote";
+			productReference = AD37B3F81A574B0100605351 /* TBRemote.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -134,7 +134,7 @@
 					};
 				};
 			};
-			buildConfigurationList = AD37B3F31A574B0100605351 /* Build configuration list for PBXProject "TB Remote" */;
+			buildConfigurationList = AD37B3F31A574B0100605351 /* Build configuration list for PBXProject "TBRemote" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -147,7 +147,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				AD37B3F71A574B0100605351 /* TB Remote */,
+				AD37B3F71A574B0100605351 /* TBRemote */,
 			);
 		};
 /* End PBXProject section */
@@ -262,7 +262,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = "TB Remote/Info.plist";
+				INFOPLIST_FILE = "TBRemote/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -272,7 +272,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = "TB Remote/Info.plist";
+				INFOPLIST_FILE = "TBRemote/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -281,7 +281,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		AD37B3F31A574B0100605351 /* Build configuration list for PBXProject "TB Remote" */ = {
+		AD37B3F31A574B0100605351 /* Build configuration list for PBXProject "TBRemote" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				AD37B41C1A574B0100605351 /* Debug */,
@@ -290,7 +290,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		AD37B41E1A574B0100605351 /* Build configuration list for PBXNativeTarget "TB Remote" */ = {
+		AD37B41E1A574B0100605351 /* Build configuration list for PBXNativeTarget "TBRemote" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				AD37B41F1A574B0100605351 /* Debug */,
