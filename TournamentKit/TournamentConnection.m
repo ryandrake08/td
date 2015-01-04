@@ -7,25 +7,43 @@
 //
 
 #import "TournamentConnection.h"
+#import "NSData+NSData_Delimiter.h"
 
 #include <sys/socket.h>
 #include <sys/un.h>
 
 @interface TournamentConnection()
 {
+    // input and output streams
     NSInputStream* inputStream;
     NSOutputStream* outputStream;
+
+    // YES if reported connection to delegate
+    BOOL connected;
+
+    // input/output buffers
+    NSMutableData* inputBuffer;
+    NSMutableData* outputBuffer;
 }
 @end
 
 @implementation TournamentConnection
+@synthesize delegate;
+@dynamic connected;
 
 - (id)initWithReadStream:(CFReadStreamRef)readStream writeStream:(CFWriteStreamRef)writeStream
 {
     if((self = [super init])) {
+        // initially unconnected
+        connected = NO;
+
+        // initialize buffers
+        inputBuffer = [[NSMutableData alloc] init];
+        outputBuffer = [[NSMutableData alloc] init];
+
         // specify that the CFStream should close itself when it's done
-        (void) CFReadStreamSetProperty(readStream, kCFStreamPropertyShouldCloseNativeSocket, kCFBooleanTrue);
         (void) CFWriteStreamSetProperty(writeStream, kCFStreamPropertyShouldCloseNativeSocket, kCFBooleanTrue);
+        (void) CFReadStreamSetProperty(readStream, kCFStreamPropertyShouldCloseNativeSocket, kCFBooleanTrue);
 
         // toll-free bridge the streams
         inputStream = (NSInputStream*)readStream;
@@ -44,7 +62,6 @@
 }
 
 - (id)initWithHostname:(NSString*)hostname port:(UInt32)port {
-
     CFReadStreamRef readStream;
     CFWriteStreamRef writeStream;
     CFStreamCreatePairWithSocketToHost(NULL, (CFStringRef)hostname, port, &readStream, &writeStream);
@@ -53,7 +70,6 @@
 }
 
 - (id)initWithUnixSocketNamed:(NSString*)socketPath {
-
     struct sockaddr_un addr;
 
     // Check path length
@@ -104,55 +120,181 @@
 }
 
 - (void)dealloc {
+    [self close];
+    [super dealloc];
+}
 
+- (void)close {
+    // close and shut down streams
+    [inputStream close];
+    [outputStream close];
+    [inputStream removeFromRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+    [outputStream removeFromRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
     [inputStream release];
     [outputStream release];
+    inputStream = nil;
+    outputStream = nil;
 
-    [super dealloc];
+    // no longer need buffers
+    [inputBuffer release];
+    [outputBuffer release];
+
+    // mark no longer connected
+    connected = NO;
+
+    // notify delegate
+    [delegate tournamentConnectionDidClose:self];
+}
+
+- (void)flushOutputBuffer {
+    if([outputBuffer length] > 0) {
+        NSInteger bytesWritten = [outputStream write:[outputBuffer bytes] maxLength:[outputBuffer length]];
+
+        // remove written bytes
+        if(bytesWritten > 0) {
+            [outputBuffer replaceBytesInRange:NSMakeRange(0, bytesWritten) withBytes:NULL length:0];
+        }
+
+        // check error condition
+        if(bytesWritten < 0) {
+            // notify delegate
+            [delegate tournamentConnection:self error:[outputStream streamError]];
+        }
+    }
+}
+
+- (void)fillInputBuffer {
+    while([inputStream hasBytesAvailable]) {
+        // read a chunk at a time
+        uint8_t bytes[4096];
+        NSInteger bytesRead = [inputStream read:bytes maxLength:4096];
+
+        if(bytesRead < 0) {
+            // notify delegate
+            [delegate tournamentConnection:self error:[outputStream streamError]];
+            return;
+        }
+
+        if(bytesRead > 0) {
+            // append to inputBuffer
+            [inputBuffer appendBytes:bytes length:bytesRead];
+        }
+    }
+}
+
+- (void)consumeInputBuffer {
+    // search for newline delimiter
+    NSRange subRange = [inputBuffer rangeOfDataDelimitedBy:'\n'];
+
+    while(subRange.length > 0) {
+        NSData* subBuffer = [inputBuffer subdataWithRange:subRange];
+
+        // convert to JSON
+        NSError* jsonError = nil;
+        id jsonObject = [NSJSONSerialization JSONObjectWithData:subBuffer options:0 error:&jsonError];
+        if(jsonError != nil) {
+            [delegate tournamentConnection:self error:jsonError];
+        } else {
+            [delegate tournamentConnection:self didReceiveData:jsonObject];
+        }
+
+        // empty that range
+        [inputBuffer replaceBytesInRange:subRange withBytes:NULL length:0];
+
+        // search again through reduced buffer
+        subRange = [inputBuffer rangeOfDataDelimitedBy:'\n'];
+    }
+}
+
+- (BOOL)sendCommand:(NSString*)cmd {
+    // append command to output buffer
+    [outputBuffer appendBytes:[cmd UTF8String] length:[cmd lengthOfBytesUsingEncoding:NSUTF8StringEncoding]];
+    [outputBuffer appendBytes:"\n" length:sizeof("\n")];
+
+    // send, if space available
+    if([outputStream hasSpaceAvailable]) {
+        [self flushOutputBuffer];
+    }
+
+    return YES;
+}
+
+- (BOOL)sendCommand:(NSString*)cmd withData:(id)jsonObject {
+    // check object
+    if(![NSJSONSerialization isValidJSONObject:jsonObject]) {
+        return NO;
+    }
+
+    // convert json to data
+    NSError* jsonError = nil;
+    NSData* jsonData = [NSJSONSerialization dataWithJSONObject:jsonObject options:0 error:&jsonError];
+    if(jsonData == nil) {
+        // notify delegate
+        [delegate tournamentConnection:self error:jsonError];
+        return NO;
+    }
+
+    // append command to output buffer
+    [outputBuffer appendBytes:[cmd UTF8String] length:[cmd lengthOfBytesUsingEncoding:NSUTF8StringEncoding]];
+    [outputBuffer appendBytes:" " length:sizeof(" ")];
+    [outputBuffer appendData:jsonData];
+    [outputBuffer appendBytes:"\n" length:sizeof("\n")];
+
+    // send, if space available
+    if([outputStream hasSpaceAvailable]) {
+        [self flushOutputBuffer];
+    }
+
+    return YES;
+}
+
+- (BOOL)connected {
+    NSStreamStatus inputStatus = [inputStream streamStatus];
+    NSStreamStatus outputStatus = [outputStream streamStatus];
+
+    BOOL inputConnected = inputStatus == NSStreamStatusOpen || inputStatus == NSStreamStatusReading || inputStatus == NSStreamStatusAtEnd;
+    BOOL outputConnected = outputStatus == NSStreamStatusOpen || outputStatus == NSStreamStatusWriting || outputStatus == NSStreamStatusAtEnd;
+
+    return inputConnected && outputConnected;
 }
 
 - (void)stream:(NSStream*)theStream handleEvent:(NSStreamEvent)streamEvent
 {
-    NSLog(@"Handle Event - ");
     switch (streamEvent)
     {
         case NSStreamEventOpenCompleted:
-            NSLog(@"Stream opened");
+            if(connected == NO && [self connected]) {
+                connected = YES;
+                [delegate tournamentConnectionDidConnect:self];
+            }
             break;
 
         case NSStreamEventHasBytesAvailable:
-            NSLog(@"Bytes Available!");
-            if(theStream == inputStream)
-            {
-                NSLog(@"inputStream is ready.");
+            if(theStream == inputStream) {
+                // fill up, then consume the input buffer
+                [self fillInputBuffer];
+                [self consumeInputBuffer];
+            }
+            break;
 
-                uint8_t buf[1024];
-                NSInteger len = [inputStream read:buf maxLength:1024];
-
-                if(len > 0)
-                {
-                    NSMutableData* data=[[NSMutableData alloc] initWithLength:0];
-
-                    [data appendBytes: (const void *)buf length:len];
-
-                    NSString* string = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
-                    NSLog(@"Server said- %@", string);
-
-                    // TODO: Handle
-                }
+        case NSStreamEventHasSpaceAvailable:
+            if(theStream == outputStream) {
+                // flush any remaining data in the output buffer
+                [self flushOutputBuffer];
             }
             break;
 
         case NSStreamEventErrorOccurred:
-            NSLog(@"Can not connect to the host!");
+            // notify delegate
+            [delegate tournamentConnection:self error:[theStream streamError]];
             break;
 
         case NSStreamEventEndEncountered:
-            NSLog(@"End Encountered");
-            break;
+            // notify delegate
+            [delegate tournamentConnectionDidDisconnect:self];
 
-        case NSStreamEventHasSpaceAvailable:
-            NSLog(@"Space Availible");
+            // close both streams when  one receives NSStreamEventEndEncountered
+            [self close];
             break;
 
         default:

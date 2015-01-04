@@ -9,7 +9,7 @@
 #import "FirstViewController.h"
 #import "TournamentKit_ios/TournamentKit.h"
 
-@interface FirstViewController ()
+@interface FirstViewController () <TournamentConnectionDelegate>
 {
     TournamentConnection* conn;
 }
@@ -19,8 +19,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     // Do any additional setup after loading the view, typically from a nib.
     conn = [[TournamentConnection alloc] initWithHostname:@"localhost" port:25600];
+    [conn setDelegate:self];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -31,6 +33,26 @@
 - (void)dealloc {
     [conn release];
     [super dealloc];
+}
+
+- (void)tournamentConnectionDidConnect:(TournamentConnection*)tc {
+    NSLog(@"+++ tournamentConnectionDidConnect");
+}
+
+- (void)tournamentConnectionDidDisconnect:(TournamentConnection*)tc {
+    NSLog(@"+++ tournamentConnectionDidDisconnect");
+}
+
+- (void)tournamentConnectionDidClose:(TournamentConnection*)tc {
+    NSLog(@"+++ tournamentConnectionDidClose");
+}
+
+- (void)tournamentConnection:(TournamentConnection*)tc didReceiveData:(id)json {
+    NSLog(@"+++ tournamentConnectionDidReceiveData: %@", json);
+}
+
+- (void)tournamentConnection:(TournamentConnection*)tc error:(NSError*)error {
+    NSLog(@"+++ tournamentConnectionError");
 }
 
 @end
