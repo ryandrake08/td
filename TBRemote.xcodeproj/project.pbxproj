@@ -9,23 +9,25 @@
 /* Begin PBXBuildFile section */
 		AD37B3FE1A574B0100605351 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AD37B3FD1A574B0100605351 /* main.m */; };
 		AD37B4011A574B0100605351 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AD37B4001A574B0100605351 /* AppDelegate.m */; };
-		AD37B4041A574B0100605351 /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD37B4031A574B0100605351 /* FirstViewController.m */; };
+		AD37B4041A574B0100605351 /* TournamentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD37B4031A574B0100605351 /* TournamentsViewController.m */; };
 		AD37B4071A574B0100605351 /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD37B4061A574B0100605351 /* SecondViewController.m */; };
 		AD37B40A1A574B0100605351 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AD37B4081A574B0100605351 /* Main.storyboard */; };
 		AD37B40C1A574B0100605351 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AD37B40B1A574B0100605351 /* Images.xcassets */; };
 		AD37B40F1A574B0100605351 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD37B40D1A574B0100605351 /* LaunchScreen.xib */; };
 		AD37B4251A5750B000605351 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD37B4241A5750B000605351 /* UIKit.framework */; };
 		AD37B4271A5750C100605351 /* TournamentKit_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD37B4261A5750C100605351 /* TournamentKit_ios.framework */; };
+		AD466E431A58EBA600E0973E /* TournamentServer.m in Sources */ = {isa = PBXBuildFile; fileRef = AD466E421A58EBA600E0973E /* TournamentServer.m */; };
+		AD466E461A58F4B200E0973E /* TournamentDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD466E451A58F4B200E0973E /* TournamentDetailsViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		AD37B3F81A574B0100605351 /* TBRemote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TBRemote.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AD37B3F81A574B0100605351 /* TBRemote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TBRemote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD37B3FC1A574B0100605351 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AD37B3FD1A574B0100605351 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		AD37B3FF1A574B0100605351 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		AD37B4001A574B0100605351 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		AD37B4021A574B0100605351 /* FirstViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FirstViewController.h; sourceTree = "<group>"; };
-		AD37B4031A574B0100605351 /* FirstViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FirstViewController.m; sourceTree = "<group>"; };
+		AD37B4021A574B0100605351 /* TournamentsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TournamentsViewController.h; sourceTree = "<group>"; };
+		AD37B4031A574B0100605351 /* TournamentsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TournamentsViewController.m; sourceTree = "<group>"; };
 		AD37B4051A574B0100605351 /* SecondViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecondViewController.h; sourceTree = "<group>"; };
 		AD37B4061A574B0100605351 /* SecondViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecondViewController.m; sourceTree = "<group>"; };
 		AD37B4091A574B0100605351 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -33,6 +35,10 @@
 		AD37B40E1A574B0100605351 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		AD37B4241A5750B000605351 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		AD37B4261A5750C100605351 /* TournamentKit_ios.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TournamentKit_ios.framework; path = "build/Debug-iphoneos/TournamentKit_ios.framework"; sourceTree = "<group>"; };
+		AD466E411A58EBA600E0973E /* TournamentServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TournamentServer.h; sourceTree = "<group>"; };
+		AD466E421A58EBA600E0973E /* TournamentServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TournamentServer.m; sourceTree = "<group>"; };
+		AD466E441A58F4B200E0973E /* TournamentDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TournamentDetailsViewController.h; sourceTree = "<group>"; };
+		AD466E451A58F4B200E0973E /* TournamentDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TournamentDetailsViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,8 +76,12 @@
 			children = (
 				AD37B3FF1A574B0100605351 /* AppDelegate.h */,
 				AD37B4001A574B0100605351 /* AppDelegate.m */,
-				AD37B4021A574B0100605351 /* FirstViewController.h */,
-				AD37B4031A574B0100605351 /* FirstViewController.m */,
+				AD37B4021A574B0100605351 /* TournamentsViewController.h */,
+				AD37B4031A574B0100605351 /* TournamentsViewController.m */,
+				AD466E441A58F4B200E0973E /* TournamentDetailsViewController.h */,
+				AD466E451A58F4B200E0973E /* TournamentDetailsViewController.m */,
+				AD466E411A58EBA600E0973E /* TournamentServer.h */,
+				AD466E421A58EBA600E0973E /* TournamentServer.m */,
 				AD37B4051A574B0100605351 /* SecondViewController.h */,
 				AD37B4061A574B0100605351 /* SecondViewController.m */,
 				AD37B4081A574B0100605351 /* Main.storyboard */,
@@ -79,7 +89,7 @@
 				AD37B40D1A574B0100605351 /* LaunchScreen.xib */,
 				AD37B3FB1A574B0100605351 /* Supporting Files */,
 			);
-			path = "TBRemote";
+			path = TBRemote;
 			sourceTree = "<group>";
 		};
 		AD37B3FB1A574B0100605351 /* Supporting Files */ = {
@@ -115,8 +125,8 @@
 			);
 			dependencies = (
 			);
-			name = "TBRemote";
-			productName = "TBRemote";
+			name = TBRemote;
+			productName = TBRemote;
 			productReference = AD37B3F81A574B0100605351 /* TBRemote.app */;
 			productType = "com.apple.product-type.application";
 		};
@@ -172,8 +182,10 @@
 			files = (
 				AD37B4071A574B0100605351 /* SecondViewController.m in Sources */,
 				AD37B4011A574B0100605351 /* AppDelegate.m in Sources */,
-				AD37B4041A574B0100605351 /* FirstViewController.m in Sources */,
+				AD37B4041A574B0100605351 /* TournamentsViewController.m in Sources */,
 				AD37B3FE1A574B0100605351 /* main.m in Sources */,
+				AD466E461A58F4B200E0973E /* TournamentDetailsViewController.m in Sources */,
+				AD466E431A58EBA600E0973E /* TournamentServer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -262,7 +274,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = "TBRemote/Info.plist";
+				INFOPLIST_FILE = TBRemote/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -272,7 +284,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = "TBRemote/Info.plist";
+				INFOPLIST_FILE = TBRemote/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

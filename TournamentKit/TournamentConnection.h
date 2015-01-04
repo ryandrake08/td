@@ -18,8 +18,8 @@
 - (BOOL)sendCommand:(NSString*)cmd withData:(id)jsonObject;
 - (void)close;
 
-@property (assign) id <TournamentConnectionDelegate> delegate;
-@property (readonly, assign) BOOL connected;
+@property (nonatomic, assign) id <TournamentConnectionDelegate> delegate;
+@property (nonatomic, readonly, assign) BOOL connected;
 
 @end
 
