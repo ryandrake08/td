@@ -19,17 +19,20 @@ void server::listen(const char* unix_socket_path, const char* service)
     this->all.insert(socku);
     this->listeners.insert(socku);
 
+    if(service != nullptr)
+    {
 #if 0
-    // add socket to listen for ipv4 (unnecessary on systems supporting dual-stack sockets)
-    auto sock4((inet4_socket(service)));
-    this->all.insert(sock4);
-    this->listeners.insert(sock4);
+        // add socket to listen for ipv4 (unnecessary on systems supporting dual-stack sockets)
+        auto sock4((inet4_socket(service)));
+        this->all.insert(sock4);
+        this->listeners.insert(sock4);
 #endif
 
-    // add socket to listen for ipv6
-    auto sock6((inet6_socket(service)));
-    this->all.insert(sock6);
-    this->listeners.insert(sock6);
+        // add socket to listen for ipv6
+        auto sock6((inet6_socket(service)));
+        this->all.insert(sock6);
+        this->listeners.insert(sock6);
+    }
 }
 
 // poll the server with given timeout
