@@ -85,11 +85,11 @@ void tournament::handle_cmd_check_authorized(const json& in, json& out)
 
     if(this->game_auths.find(code) == this->game_auths.end())
     {
-        out.set_value("unauthorized", code);
+        out.set_value("authorized", false);
     }
     else
     {
-        out.set_value("authorized", code);
+        out.set_value("authorized", true);
     }
 }
 
@@ -274,6 +274,7 @@ bool tournament::handle_client_input(std::iostream& client)
             auto cmd1(input.find_first_of(whitespace, cmd0));
             if(cmd1 != std::string::npos)
             {
+                cmd = input.substr(cmd0, cmd1);
                 auto arg0(input.find_first_not_of(whitespace, cmd1));
                 if(arg0 != std::string::npos)
                 {
@@ -281,7 +282,6 @@ bool tournament::handle_client_input(std::iostream& client)
                     in = json::eval(arg);
                 }
             }
-            cmd = input.substr(cmd0, cmd1);
 
             // convert command to lower-case for hashing (use ::tolower, assuming ASCII-encoded input)
             std::transform(cmd.begin(), cmd.end(), cmd.begin(), ::tolower);
