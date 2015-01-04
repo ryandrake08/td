@@ -7,36 +7,25 @@
 //
 
 #import "TournamentsViewController.h"
-#import "TournamentServer.h"
 #import "TournamentKit_ios/TournamentKit.h"
 
 @interface TournamentsViewController () <TournamentConnectionDelegate>
 {
     TournamentConnection* conn;
+    TournamentServerBrowser* browser;
 }
-
-@property (nonatomic, retain) NSMutableArray* servers;
 
 @end
 
 @implementation TournamentsViewController
 
-@synthesize servers;
-
 - (void)viewDidLoad {
     [super viewDidLoad];
 
     // Initialize server list
-    servers = [[NSMutableArray alloc] init];
+    browser = [[TournamentServerBrowser alloc] init];
 
     // Do any additional setup after loading the view, typically from a nib.
-    TournamentServer* server = [[TournamentServer alloc] init];
-    server.name = @"test server";
-    server.address = @"localhost";
-    server.port = 25600;
-    [servers addObject:server];
-    [server release];
-
     conn = [[TournamentConnection alloc] initWithHostname:@"localhost" port:25600];
     [conn setDelegate:self];
 }
@@ -48,7 +37,7 @@
 
 - (void)dealloc {
     [conn release];
-    [servers release];
+    [browser release];
     [super dealloc];
 }
 
@@ -69,8 +58,8 @@
 }
 
 - (void)tournamentDetailsViewController:(TournamentDetailsViewController*)controller didAddServer:(TournamentServer*)server {
-    [self.servers addObject:server];
-    NSIndexPath* indexPath = [NSIndexPath indexPathForRow:([self.servers count] - 1) inSection:0];
+    [browser addServer:server];
+    NSIndexPath* indexPath = [NSIndexPath indexPathForRow:([browser.serverList count] - 1) inSection:0];
     [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
@@ -82,13 +71,13 @@
 }
 
 - (NSInteger)tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.servers count];
+    return [browser.serverList count];
 }
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath {
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"ServerCell"];
 
-    TournamentServer* server = (self.servers)[indexPath.row];
+    TournamentServer* server = (browser.serverList)[indexPath.row];
     cell.textLabel.text = server.name;
     cell.detailTextLabel.text = @"Connected";
 

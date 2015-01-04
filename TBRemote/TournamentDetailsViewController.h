@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TournamentServer.h"
+#import "TournamentKit_ios/TournamentKit.h"
 
 @protocol TournamentDetailsViewControllerDelegate;
 

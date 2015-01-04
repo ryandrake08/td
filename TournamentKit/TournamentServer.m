@@ -1,6 +1,6 @@
 //
 //  TournamentServer.m
-//  TBRemote
+//  TournamentKit
 //
 //  Created by Ryan Drake on 1/3/15.
 //  Copyright (c) 2015 HDna Studio. All rights reserved.
@@ -13,5 +13,6 @@
 @synthesize name;
 @synthesize address;
 @synthesize port;
+@synthesize manuallyAdded;
 
 @end

@@ -16,7 +16,6 @@
 		AD37B40F1A574B0100605351 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD37B40D1A574B0100605351 /* LaunchScreen.xib */; };
 		AD37B4251A5750B000605351 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD37B4241A5750B000605351 /* UIKit.framework */; };
 		AD37B4271A5750C100605351 /* TournamentKit_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD37B4261A5750C100605351 /* TournamentKit_ios.framework */; };
-		AD466E431A58EBA600E0973E /* TournamentServer.m in Sources */ = {isa = PBXBuildFile; fileRef = AD466E421A58EBA600E0973E /* TournamentServer.m */; };
 		AD466E461A58F4B200E0973E /* TournamentDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD466E451A58F4B200E0973E /* TournamentDetailsViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -35,8 +34,6 @@
 		AD37B40E1A574B0100605351 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		AD37B4241A5750B000605351 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		AD37B4261A5750C100605351 /* TournamentKit_ios.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TournamentKit_ios.framework; path = "build/Debug-iphoneos/TournamentKit_ios.framework"; sourceTree = "<group>"; };
-		AD466E411A58EBA600E0973E /* TournamentServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TournamentServer.h; sourceTree = "<group>"; };
-		AD466E421A58EBA600E0973E /* TournamentServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TournamentServer.m; sourceTree = "<group>"; };
 		AD466E441A58F4B200E0973E /* TournamentDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TournamentDetailsViewController.h; sourceTree = "<group>"; };
 		AD466E451A58F4B200E0973E /* TournamentDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TournamentDetailsViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -80,8 +77,6 @@
 				AD37B4031A574B0100605351 /* TournamentsViewController.m */,
 				AD466E441A58F4B200E0973E /* TournamentDetailsViewController.h */,
 				AD466E451A58F4B200E0973E /* TournamentDetailsViewController.m */,
-				AD466E411A58EBA600E0973E /* TournamentServer.h */,
-				AD466E421A58EBA600E0973E /* TournamentServer.m */,
 				AD37B4051A574B0100605351 /* SecondViewController.h */,
 				AD37B4061A574B0100605351 /* SecondViewController.m */,
 				AD37B4081A574B0100605351 /* Main.storyboard */,
@@ -185,7 +180,6 @@
 				AD37B4041A574B0100605351 /* TournamentsViewController.m in Sources */,
 				AD37B3FE1A574B0100605351 /* main.m in Sources */,
 				AD466E461A58F4B200E0973E /* TournamentDetailsViewController.m in Sources */,
-				AD466E431A58EBA600E0973E /* TournamentServer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
