@@ -13,6 +13,10 @@
 
 @property (nonatomic, readonly, retain) NSMutableArray* serverList;
 
+// manually add a server to the list
 - (void)addServer:(TournamentServer*)server;
+
+// get an indexPath to a particular list item
+- (NSUInteger)indexForServer:(TournamentServer*)server;
 
 @end

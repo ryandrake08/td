@@ -7,8 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TournamentDetailsViewController.h"
 
-@interface TournamentsViewController : UITableViewController <TournamentDetailsViewControllerDelegate, UITableViewDelegate, UITableViewDataSource>
+@interface TournamentsViewController : UITableViewController
 
 @end

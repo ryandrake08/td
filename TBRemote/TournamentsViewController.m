@@ -7,9 +7,10 @@
 //
 
 #import "TournamentsViewController.h"
+#import "TournamentDetailsViewController.h"
 #import "TournamentKit_ios/TournamentKit.h"
 
-@interface TournamentsViewController ()
+@interface TournamentsViewController () <TournamentSessionConnectionDelegate, TournamentDetailsViewControllerDelegate, UITableViewDelegate, UITableViewDataSource>
 {
     TournamentServerBrowser* browser;
 }
@@ -20,6 +21,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    // Be the session connection delegate
+    [[TournamentSession sharedSession] setConnectionDelegate:self];
 
     // Initialize server list
     browser = [[TournamentServerBrowser alloc] init];
@@ -83,7 +87,7 @@
 
     TournamentServer* server = (browser.serverList)[indexPath.row];
     cell.textLabel.text = server.name;
-    if(server == [[TournamentSession sharedSession] server]) {
+    if(server == [[TournamentSession sharedSession] currentServer]) {
         cell.detailTextLabel.text = @"Connected";
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
     } else {
@@ -100,6 +104,26 @@
     TournamentServer* server = (browser.serverList)[indexPath.row];
     [[TournamentSession sharedSession] connectToServer:server];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+#pragma mark TournamentSessionConnectionDelegate
+
+- (void)tournamentSession:(TournamentSession*)session didConnectToServer:(TournamentServer*)server {
+    NSUInteger i = [browser indexForServer:server];
+    if(i != NSNotFound) {
+        UITableViewCell* cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
+        cell.detailTextLabel.text = @"Connected";
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    }
+}
+
+- (void)tournamentSession:(TournamentSession*)session didDisconnectFromServer:(TournamentServer*)server {
+    NSUInteger i = [browser indexForServer:server];
+    if(i != NSNotFound) {
+        UITableViewCell* cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
+        cell.detailTextLabel.text = @"";
+        cell.accessoryType = UITableViewCellAccessoryNone;
+    }
 }
 
 @end

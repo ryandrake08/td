@@ -30,4 +30,8 @@
     [serverList addObject:server];
 }
 
+- (NSUInteger)indexForServer:(TournamentServer*)server {
+    return [serverList indexOfObject:server];
+}
+
 @end

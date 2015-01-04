@@ -21,8 +21,9 @@ static TournamentSession *sharedMySession = nil;
 
 @implementation TournamentSession
 
-@dynamic server;
+@synthesize connectionDelegate;
 @synthesize connection;
+@dynamic currentServer;
 
 - (void)connectLocally {
     // if we're connected remotely, disconnect
@@ -44,7 +45,7 @@ static TournamentSession *sharedMySession = nil;
     }
 }
 
-- (TournamentServer*)server {
+- (TournamentServer*)currentServer {
     return self.connection.server;
 }
 
@@ -52,15 +53,24 @@ static TournamentSession *sharedMySession = nil;
 
 - (void)tournamentConnectionDidConnect:(TournamentConnection*)tc {
     NSLog(@"+++ tournamentConnectionDidConnect");
+    NSAssert(self.connection == tc, @"Unexpected connection from %@", tc);
+    if(tc.server != nil) {
+        [connectionDelegate tournamentSession:self didConnectToServer:tc.server];
+    }
 }
 
 - (void)tournamentConnectionDidDisconnect:(TournamentConnection*)tc {
     NSLog(@"+++ tournamentConnectionDidDisconnect");
+    NSAssert(self.connection == tc, @"Unexpected disconnection from %@", tc);
+    self.connection = nil;
 }
 
 - (void)tournamentConnectionDidClose:(TournamentConnection*)tc {
     NSLog(@"+++ tournamentConnectionDidClose");
-    self.connection = nil;
+    NSAssert(self.connection == nil, @"Connection %@ closed while session retains", tc);
+    if(tc.server != nil) {
+        [connectionDelegate tournamentSession:self didDisconnectFromServer:tc.server];
+    }
 }
 
 - (void)tournamentConnection:(TournamentConnection*)tc didReceiveData:(id)json {
@@ -69,6 +79,7 @@ static TournamentSession *sharedMySession = nil;
 
 - (void)tournamentConnection:(TournamentConnection*)tc error:(NSError*)error {
     NSLog(@"+++ tournamentConnectionError: %@", [error localizedDescription]);
+    NSAssert(self.connection == tc, @"Unexpected error from %@", tc);
     self.connection = nil;
 }
 

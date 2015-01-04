@@ -11,14 +11,24 @@
 
 #define kDefaultTournamentServerPort 25600
 
+@protocol TournamentSessionConnectionDelegate;
+
 @interface TournamentSession : NSObject
 
-@property (nonatomic, readonly, retain) TournamentServer* server;
+@property (nonatomic, assign) id<TournamentSessionConnectionDelegate> connectionDelegate;
+@property (nonatomic, readonly, retain) TournamentServer* currentServer;
 
 - (void)connectLocally;
 - (void)connectToServer:(TournamentServer*)server;
 
 // Singleton instance
 + (id)sharedSession;
+
+@end
+
+@protocol TournamentSessionConnectionDelegate <NSObject>
+
+- (void)tournamentSession:(TournamentSession*)session didConnectToServer:(TournamentServer*)server;
+- (void)tournamentSession:(TournamentSession*)session didDisconnectFromServer:(TournamentServer*)server;
 
 @end

@@ -300,9 +300,6 @@
         case NSStreamEventEndEncountered:
             // notify delegate
             [delegate tournamentConnectionDidDisconnect:self];
-
-            // close both streams when  one receives NSStreamEventEndEncountered
-            [self close];
             break;
 
         default:
