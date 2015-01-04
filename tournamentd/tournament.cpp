@@ -75,6 +75,24 @@ void tournament::handle_cmd_get_state(json& out) const
     this->seating.dump_state(out);
 }
 
+void tournament::handle_cmd_check_authorized(const json& in, json& out)
+{
+    int code;
+    if(!in.get_value("authenticate", code))
+    {
+        throw std::invalid_argument("must specify authentication code");
+    }
+
+    if(this->game_auths.find(code) == this->game_auths.end())
+    {
+        out.set_value("unauthorized", code);
+    }
+    else
+    {
+        out.set_value("authorized", code);
+    }
+}
+
 // ----- command handlers available to authorized clients
 
 void tournament::handle_cmd_authorize(const json& in, json& out)
@@ -278,6 +296,10 @@ bool tournament::handle_client_input(std::iostream& client)
                 case crc32_("authorize"):
                     this->ensure_authorized(in);
                     this->handle_cmd_authorize(in, out);
+                    break;
+
+                case crc32_("check_authorized"):
+                    this->handle_cmd_check_authorized(in, out);
                     break;
 
                 case crc32_("version"):

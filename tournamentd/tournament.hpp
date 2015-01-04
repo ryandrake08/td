@@ -38,6 +38,7 @@ class tournament
     void handle_cmd_version(json& out) const;
     void handle_cmd_get_config(json& out) const;
     void handle_cmd_get_state(json& out) const;
+    void handle_cmd_check_authorized(const json& in, json& out);
 
     // command handlers available to authorized clients
     void handle_cmd_authorize(const json& in, json& out);
