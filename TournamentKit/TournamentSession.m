@@ -25,7 +25,7 @@ static TournamentSession *sharedMySession = nil;
 @synthesize connection;
 @dynamic currentServer;
 
-- (void)connectLocally {
+- (void)connectToLocal {
     // if we're connected remotely, disconnect
     if(self.connection.server != nil) {
         self.connection = nil;

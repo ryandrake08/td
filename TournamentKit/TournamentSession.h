@@ -18,7 +18,7 @@
 @property (nonatomic, assign) id<TournamentSessionConnectionDelegate> connectionDelegate;
 @property (nonatomic, readonly, retain) TournamentServer* currentServer;
 
-- (void)connectLocally;
+- (void)connectToLocal;
 - (void)connectToServer:(TournamentServer*)server;
 
 // Singleton instance
