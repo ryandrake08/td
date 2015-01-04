@@ -9,9 +9,8 @@
 #import "TournamentsViewController.h"
 #import "TournamentKit_ios/TournamentKit.h"
 
-@interface TournamentsViewController () <TournamentConnectionDelegate>
+@interface TournamentsViewController ()
 {
-    TournamentConnection* conn;
     TournamentServerBrowser* browser;
 }
 
@@ -34,10 +33,6 @@
     [browser addServer:testServer];
     [testServer release];
 #endif
-
-    // Do any additional setup after loading the view, typically from a nib.
-    conn = [[TournamentConnection alloc] initWithHostname:@"localhost" port:25600];
-    [conn setDelegate:self];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -46,7 +41,6 @@
 }
 
 - (void)dealloc {
-    [conn release];
     [browser release];
     [super dealloc];
 }
@@ -89,31 +83,23 @@
 
     TournamentServer* server = (browser.serverList)[indexPath.row];
     cell.textLabel.text = server.name;
-    cell.detailTextLabel.text = @"Connected";
+    if(server == [[TournamentSession sharedSession] server]) {
+        cell.detailTextLabel.text = @"Connected";
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    } else {
+        cell.detailTextLabel.text = @"";
+        cell.accessoryType = UITableViewCellAccessoryNone;
+    }
 
     return cell;
 }
 
-#pragma mark TournamentConnectionDelegate
+#pragma mark UITableViewDelegate
 
-- (void)tournamentConnectionDidConnect:(TournamentConnection*)tc {
-    NSLog(@"+++ tournamentConnectionDidConnect");
-}
-
-- (void)tournamentConnectionDidDisconnect:(TournamentConnection*)tc {
-    NSLog(@"+++ tournamentConnectionDidDisconnect");
-}
-
-- (void)tournamentConnectionDidClose:(TournamentConnection*)tc {
-    NSLog(@"+++ tournamentConnectionDidClose");
-}
-
-- (void)tournamentConnection:(TournamentConnection*)tc didReceiveData:(id)json {
-    NSLog(@"+++ tournamentConnectionDidReceiveData: %@", json);
-}
-
-- (void)tournamentConnection:(TournamentConnection*)tc error:(NSError*)error {
-    NSLog(@"+++ tournamentConnectionError: %@", [error localizedDescription]);
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    TournamentServer* server = (browser.serverList)[indexPath.row];
+    [[TournamentSession sharedSession] connectToServer:server];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 @end

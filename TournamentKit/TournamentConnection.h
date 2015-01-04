@@ -7,19 +7,21 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "TournamentServer.h"
 
 @protocol TournamentConnectionDelegate;
 
 @interface TournamentConnection : NSObject <NSStreamDelegate>
 
 - (id)initWithUnixSocketNamed:(NSString*)socketPath;
-- (id)initWithHostname:(NSString*)hostname port:(UInt32)port;
+- (id)initWithServer:(TournamentServer*)server;
 - (BOOL)sendCommand:(NSString*)cmd;
 - (BOOL)sendCommand:(NSString*)cmd withData:(id)jsonObject;
 - (void)close;
 
 @property (nonatomic, assign) id <TournamentConnectionDelegate> delegate;
 @property (nonatomic, readonly, assign) BOOL connected;
+@property (nonatomic, readonly, retain) TournamentServer* server;
 
 @end
 
