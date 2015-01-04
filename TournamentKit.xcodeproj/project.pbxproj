@@ -15,10 +15,10 @@
 		AD37B3EC1A573C8300605351 /* TournamentConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = AD37B3E91A573C8300605351 /* TournamentConnection.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AD37B3ED1A573C8300605351 /* TournamentConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = AD37B3EA1A573C8300605351 /* TournamentConnection.m */; };
 		AD37B3EE1A573C8300605351 /* TournamentConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = AD37B3EA1A573C8300605351 /* TournamentConnection.m */; };
-		AD466E3D1A58C15A00E0973E /* NSData+NSData_Delimiter.h in Headers */ = {isa = PBXBuildFile; fileRef = AD466E3B1A58C15A00E0973E /* NSData+NSData_Delimiter.h */; };
-		AD466E3E1A58C15A00E0973E /* NSData+NSData_Delimiter.h in Headers */ = {isa = PBXBuildFile; fileRef = AD466E3B1A58C15A00E0973E /* NSData+NSData_Delimiter.h */; };
-		AD466E3F1A58C15A00E0973E /* NSData+NSData_Delimiter.m in Sources */ = {isa = PBXBuildFile; fileRef = AD466E3C1A58C15A00E0973E /* NSData+NSData_Delimiter.m */; };
-		AD466E401A58C15A00E0973E /* NSData+NSData_Delimiter.m in Sources */ = {isa = PBXBuildFile; fileRef = AD466E3C1A58C15A00E0973E /* NSData+NSData_Delimiter.m */; };
+		AD466E3D1A58C15A00E0973E /* NSData+Delimiter.h in Headers */ = {isa = PBXBuildFile; fileRef = AD466E3B1A58C15A00E0973E /* NSData+Delimiter.h */; };
+		AD466E3E1A58C15A00E0973E /* NSData+Delimiter.h in Headers */ = {isa = PBXBuildFile; fileRef = AD466E3B1A58C15A00E0973E /* NSData+Delimiter.h */; };
+		AD466E3F1A58C15A00E0973E /* NSData+Delimiter.m in Sources */ = {isa = PBXBuildFile; fileRef = AD466E3C1A58C15A00E0973E /* NSData+Delimiter.m */; };
+		AD466E401A58C15A00E0973E /* NSData+Delimiter.m in Sources */ = {isa = PBXBuildFile; fileRef = AD466E3C1A58C15A00E0973E /* NSData+Delimiter.m */; };
 		AD466E491A5911CB00E0973E /* TournamentServerBrowser.h in Headers */ = {isa = PBXBuildFile; fileRef = AD466E471A5911CB00E0973E /* TournamentServerBrowser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AD466E4A1A5911CB00E0973E /* TournamentServerBrowser.h in Headers */ = {isa = PBXBuildFile; fileRef = AD466E471A5911CB00E0973E /* TournamentServerBrowser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AD466E4B1A5911CB00E0973E /* TournamentServerBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = AD466E481A5911CB00E0973E /* TournamentServerBrowser.m */; };
@@ -53,8 +53,8 @@
 		AD37B3CB1A571EB800605351 /* TournamentKit_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TournamentKit_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD37B3E91A573C8300605351 /* TournamentConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TournamentConnection.h; sourceTree = "<group>"; };
 		AD37B3EA1A573C8300605351 /* TournamentConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TournamentConnection.m; sourceTree = "<group>"; };
-		AD466E3B1A58C15A00E0973E /* NSData+NSData_Delimiter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+NSData_Delimiter.h"; sourceTree = "<group>"; };
-		AD466E3C1A58C15A00E0973E /* NSData+NSData_Delimiter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+NSData_Delimiter.m"; sourceTree = "<group>"; };
+		AD466E3B1A58C15A00E0973E /* NSData+Delimiter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Delimiter.h"; sourceTree = "<group>"; };
+		AD466E3C1A58C15A00E0973E /* NSData+Delimiter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Delimiter.m"; sourceTree = "<group>"; };
 		AD466E471A5911CB00E0973E /* TournamentServerBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TournamentServerBrowser.h; sourceTree = "<group>"; };
 		AD466E481A5911CB00E0973E /* TournamentServerBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TournamentServerBrowser.m; sourceTree = "<group>"; };
 		AD466E4D1A5911DC00E0973E /* TournamentServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TournamentServer.h; sourceTree = "<group>"; };
@@ -120,8 +120,8 @@
 				AD466E481A5911CB00E0973E /* TournamentServerBrowser.m */,
 				AD466E531A5918DB00E0973E /* TournamentSession.h */,
 				AD466E541A5918DB00E0973E /* TournamentSession.m */,
-				AD466E3B1A58C15A00E0973E /* NSData+NSData_Delimiter.h */,
-				AD466E3C1A58C15A00E0973E /* NSData+NSData_Delimiter.m */,
+				AD466E3B1A58C15A00E0973E /* NSData+Delimiter.h */,
+				AD466E3C1A58C15A00E0973E /* NSData+Delimiter.m */,
 				AD37B3AD1A57147800605351 /* Supporting Files */,
 			);
 			path = TournamentKit;
@@ -162,7 +162,7 @@
 				AD37B3B01A57147800605351 /* TournamentKit.h in Headers */,
 				AD37B3EB1A573C8300605351 /* TournamentConnection.h in Headers */,
 				AD466E551A5918DB00E0973E /* TournamentSession.h in Headers */,
-				AD466E3D1A58C15A00E0973E /* NSData+NSData_Delimiter.h in Headers */,
+				AD466E3D1A58C15A00E0973E /* NSData+Delimiter.h in Headers */,
 				AD466E491A5911CB00E0973E /* TournamentServerBrowser.h in Headers */,
 				AD466E4F1A5911DC00E0973E /* TournamentServer.h in Headers */,
 			);
@@ -175,7 +175,7 @@
 				AD37B3E41A571F4B00605351 /* TournamentKit.h in Headers */,
 				AD37B3EC1A573C8300605351 /* TournamentConnection.h in Headers */,
 				AD466E561A5918DB00E0973E /* TournamentSession.h in Headers */,
-				AD466E3E1A58C15A00E0973E /* NSData+NSData_Delimiter.h in Headers */,
+				AD466E3E1A58C15A00E0973E /* NSData+Delimiter.h in Headers */,
 				AD466E4A1A5911CB00E0973E /* TournamentServerBrowser.h in Headers */,
 				AD466E501A5911DC00E0973E /* TournamentServer.h in Headers */,
 			);
@@ -310,7 +310,7 @@
 				AD466E511A5911DC00E0973E /* TournamentServer.m in Sources */,
 				AD466E4B1A5911CB00E0973E /* TournamentServerBrowser.m in Sources */,
 				AD466E571A5918DB00E0973E /* TournamentSession.m in Sources */,
-				AD466E3F1A58C15A00E0973E /* NSData+NSData_Delimiter.m in Sources */,
+				AD466E3F1A58C15A00E0973E /* NSData+Delimiter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -330,7 +330,7 @@
 				AD466E521A5911DC00E0973E /* TournamentServer.m in Sources */,
 				AD466E4C1A5911CB00E0973E /* TournamentServerBrowser.m in Sources */,
 				AD466E581A5918DB00E0973E /* TournamentSession.m in Sources */,
-				AD466E401A58C15A00E0973E /* NSData+NSData_Delimiter.m in Sources */,
+				AD466E401A58C15A00E0973E /* NSData+Delimiter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

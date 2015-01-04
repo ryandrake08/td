@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 HDna Studio. All rights reserved.
 //
 
-#import "NSData+NSData_Delimiter.h"
+#import "NSData+Delimiter.h"
 
 @implementation NSData (NSData_Delimiter)
 

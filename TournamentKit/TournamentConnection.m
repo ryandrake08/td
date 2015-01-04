@@ -7,7 +7,7 @@
 //
 
 #import "TournamentConnection.h"
-#import "NSData+NSData_Delimiter.h"
+#import "NSData+Delimiter.h"
 
 #include <sys/socket.h>
 #include <sys/un.h>
