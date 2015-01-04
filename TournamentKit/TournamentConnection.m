@@ -233,6 +233,10 @@
         return NO;
     }
 
+    // convert cmd to data
+//    NSData* cmdData = [[cmd dataUsingEncoding:NSUTF8StringEncoding] subdataWithRange:NSMakeRange(0, [cmd lengthOfBytesUsingEncoding:NSUTF8StringEncoding] - 1)];
+    NSData* cmdData = [cmd dataUsingEncoding:NSUTF8StringEncoding];
+
     // convert json to data
     NSError* jsonError = nil;
     NSData* jsonData = [NSJSONSerialization dataWithJSONObject:jsonObject options:0 error:&jsonError];
@@ -243,10 +247,10 @@
     }
 
     // append command to output buffer
-    [outputBuffer appendBytes:[cmd UTF8String] length:[cmd lengthOfBytesUsingEncoding:NSUTF8StringEncoding]];
-    [outputBuffer appendBytes:" " length:sizeof(" ")];
+    [outputBuffer appendData:cmdData];
+    [outputBuffer appendBytes:" " length:1];
     [outputBuffer appendData:jsonData];
-    [outputBuffer appendBytes:"\n" length:sizeof("\n")];
+    [outputBuffer appendBytes:"\n" length:1];
 
     // send, if space available
     if([outputStream hasSpaceAvailable]) {

@@ -45,8 +45,53 @@ static TournamentSession *sharedMySession = nil;
     }
 }
 
+- (void)disconnect {
+    self.connection = nil;
+}
+
 - (TournamentServer*)currentServer {
     return self.connection.server;
+}
+
+// client identifier (used for authenticating with servers)
++ (NSNumber*)clientIdentifier {
+#if defined(DEBUG)
+    return [NSNumber numberWithInt:31337];
+#else
+    NSString* key = @"clientIdentifier";
+    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+    // if we don't already have one
+    if([defaults objectForKey:key] == nil) {
+        // generate a new identifier
+        u_int32_t cid = arc4random() % 90000 + 10000;
+        [defaults setObject:[NSNumber numberWithInteger:cid] forKey:key];
+    }
+    return [defaults objectForKey:key];
+#endif
+}
+
+#pragma mark Tournament Commands
+
+- (void)checkAuthorized {
+    NSNumber* cid = [TournamentSession clientIdentifier];
+    NSDictionary* json = [NSDictionary dictionaryWithObject:cid forKey:@"authenticate"];
+    [[self connection] sendCommand:@"check_authorized" withData:json];
+}
+
+#pragma mark Tournament Messages
+
+- (void)handleMessage:(id)json fromConnection:(TournamentConnection*)tc {
+    // handle authorization
+    id authorized = [json objectForKey:@"authorized"];
+    if(authorized) {
+        tc.server.authorized = [authorized boolValue];
+        [connectionDelegate tournamentSession:self authorizationStatusDidChange:tc.server authorized:tc.server.authorized];
+    }
+
+    id error = [json objectForKey:@"error"];
+    if(error) {
+        NSLog(@"Error from server: %@", error);
+    }
 }
 
 #pragma mark TournamentConnectionDelegate
@@ -55,7 +100,12 @@ static TournamentSession *sharedMySession = nil;
     NSLog(@"+++ tournamentConnectionDidConnect");
     NSAssert(self.connection == tc, @"Unexpected connection from %@", tc);
     if(tc.server != nil) {
-        [connectionDelegate tournamentSession:self didConnectToServer:tc.server];
+        [connectionDelegate tournamentSession:self connectionStatusDidChange:tc.server connected:YES];
+    }
+
+    // query authentication status if necessary
+    if(tc.server == nil || tc.server.authenticate) {
+        [self checkAuthorized];
     }
 }
 
@@ -69,12 +119,14 @@ static TournamentSession *sharedMySession = nil;
     NSLog(@"+++ tournamentConnectionDidClose");
     NSAssert(self.connection == nil, @"Connection %@ closed while session retains", tc);
     if(tc.server != nil) {
-        [connectionDelegate tournamentSession:self didDisconnectFromServer:tc.server];
+        [connectionDelegate tournamentSession:self connectionStatusDidChange:tc.server connected:NO];
     }
 }
 
 - (void)tournamentConnection:(TournamentConnection*)tc didReceiveData:(id)json {
-    NSLog(@"+++ tournamentConnectionDidReceiveData: %@", json);
+    NSLog(@"+++ tournamentConnectionDidReceiveData");
+    NSAssert(self.connection == tc, @"Unexpected data from %@", tc);
+    [self handleMessage:json fromConnection:tc];
 }
 
 - (void)tournamentConnection:(TournamentConnection*)tc error:(NSError*)error {

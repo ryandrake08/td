@@ -9,8 +9,12 @@
 #import "TournamentsViewController.h"
 #import "TournamentDetailsViewController.h"
 #import "TournamentKit_ios/TournamentKit.h"
+#import "UIActionSheet+Blocks.h"
 
-@interface TournamentsViewController () <TournamentSessionConnectionDelegate, TournamentDetailsViewControllerDelegate, UITableViewDelegate, UITableViewDataSource>
+@interface TournamentsViewController () <TournamentSessionConnectionDelegate,
+                                         TournamentDetailsViewControllerDelegate,
+                                         UITableViewDelegate,
+                                         UITableViewDataSource>
 {
     TournamentServerBrowser* browser;
 }
@@ -88,7 +92,11 @@
     TournamentServer* server = (browser.serverList)[indexPath.row];
     cell.textLabel.text = server.name;
     if(server == [[TournamentSession sharedSession] currentServer]) {
-        cell.detailTextLabel.text = @"Connected";
+        if(server.authorized) {
+            cell.detailTextLabel.text = NSLocalizedString(@"Admin", nil);
+        } else {
+            cell.detailTextLabel.text = NSLocalizedString(@"Connected", nil);
+        }
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
     } else {
         cell.detailTextLabel.text = @"";
@@ -102,27 +110,62 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     TournamentServer* server = (browser.serverList)[indexPath.row];
-    [[TournamentSession sharedSession] connectToServer:server];
+
+    if(server == [[TournamentSession sharedSession] currentServer]) {
+        // pop connection actionsheet
+        [UIActionSheet showInView:self.view
+                        withTitle:nil
+                cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
+           destructiveButtonTitle:NSLocalizedString(@"Leave Game", nil)
+                otherButtonTitles:nil
+                         tapBlock:^(UIActionSheet* actionSheet, NSInteger buttonIndex) {
+                             switch (buttonIndex) {
+                                 case 0:
+                                     server.authenticate = NO;
+                                     [[TournamentSession sharedSession] disconnect];
+                                     break;
+                             }
+                         }];
+    } else {
+        // pop connection actionsheet
+        [UIActionSheet showInView:self.view
+                        withTitle:nil
+                cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
+           destructiveButtonTitle:nil
+                otherButtonTitles:@[NSLocalizedString(@"Player", nil), NSLocalizedString(@"Tournament Director", nil)]
+                         tapBlock:^(UIActionSheet* actionSheet, NSInteger buttonIndex) {
+                             switch (buttonIndex) {
+                                 case 0:
+                                     server.authenticate = NO;
+                                     [[TournamentSession sharedSession] connectToServer:server];
+                                     break;
+                                 case 1:
+                                     server.authenticate = YES;
+                                     [[TournamentSession sharedSession] connectToServer:server];
+                                     break;
+                             }
+                         }];
+    }
+
+    // deselect either way
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 #pragma mark TournamentSessionConnectionDelegate
 
-- (void)tournamentSession:(TournamentSession*)session didConnectToServer:(TournamentServer*)server {
+- (void)tournamentSession:(TournamentSession*)session connectionStatusDidChange:(TournamentServer*)server connected:(BOOL)connected {
     NSUInteger i = [browser indexForServer:server];
     if(i != NSNotFound) {
-        UITableViewCell* cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
-        cell.detailTextLabel.text = @"Connected";
-        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        NSIndexPath* indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+        [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
 }
 
-- (void)tournamentSession:(TournamentSession*)session didDisconnectFromServer:(TournamentServer*)server {
+- (void)tournamentSession:(TournamentSession*)session authorizationStatusDidChange:(TournamentServer*)server authorized:(BOOL)authorized {
     NSUInteger i = [browser indexForServer:server];
     if(i != NSNotFound) {
-        UITableViewCell* cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
-        cell.detailTextLabel.text = @"";
-        cell.accessoryType = UITableViewCellAccessoryNone;
+        NSIndexPath* indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+        [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
 }
 

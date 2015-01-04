@@ -14,5 +14,7 @@
 @synthesize address;
 @synthesize port;
 @synthesize manuallyAdded;
+@synthesize authenticate;
+@synthesize authorized;
 
 @end

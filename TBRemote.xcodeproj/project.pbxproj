@@ -17,6 +17,7 @@
 		AD37B4251A5750B000605351 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD37B4241A5750B000605351 /* UIKit.framework */; };
 		AD37B4271A5750C100605351 /* TournamentKit_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD37B4261A5750C100605351 /* TournamentKit_ios.framework */; };
 		AD466E461A58F4B200E0973E /* TournamentDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD466E451A58F4B200E0973E /* TournamentDetailsViewController.m */; };
+		AD466EC61A59CC1200E0973E /* UIActionSheet+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = AD466EC51A59CC1200E0973E /* UIActionSheet+Blocks.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,8 @@
 		AD37B4261A5750C100605351 /* TournamentKit_ios.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TournamentKit_ios.framework; path = "build/Debug-iphoneos/TournamentKit_ios.framework"; sourceTree = "<group>"; };
 		AD466E441A58F4B200E0973E /* TournamentDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TournamentDetailsViewController.h; sourceTree = "<group>"; };
 		AD466E451A58F4B200E0973E /* TournamentDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TournamentDetailsViewController.m; sourceTree = "<group>"; };
+		AD466EC41A59CC1200E0973E /* UIActionSheet+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIActionSheet+Blocks.h"; sourceTree = "<group>"; };
+		AD466EC51A59CC1200E0973E /* UIActionSheet+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIActionSheet+Blocks.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +82,8 @@
 				AD466E451A58F4B200E0973E /* TournamentDetailsViewController.m */,
 				AD37B4051A574B0100605351 /* SecondViewController.h */,
 				AD37B4061A574B0100605351 /* SecondViewController.m */,
+				AD466EC41A59CC1200E0973E /* UIActionSheet+Blocks.h */,
+				AD466EC51A59CC1200E0973E /* UIActionSheet+Blocks.m */,
 				AD37B4081A574B0100605351 /* Main.storyboard */,
 				AD37B40B1A574B0100605351 /* Images.xcassets */,
 				AD37B40D1A574B0100605351 /* LaunchScreen.xib */,
@@ -176,6 +181,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AD37B4071A574B0100605351 /* SecondViewController.m in Sources */,
+				AD466EC61A59CC1200E0973E /* UIActionSheet+Blocks.m in Sources */,
 				AD37B4011A574B0100605351 /* AppDelegate.m in Sources */,
 				AD37B4041A574B0100605351 /* TournamentsViewController.m in Sources */,
 				AD37B3FE1A574B0100605351 /* main.m in Sources */,

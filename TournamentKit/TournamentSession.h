@@ -15,20 +15,28 @@
 
 @interface TournamentSession : NSObject
 
+// delegate for connection-related messages
 @property (nonatomic, assign) id<TournamentSessionConnectionDelegate> connectionDelegate;
+
+// currently connected server, or nil if either connected locally or not connected
 @property (nonatomic, readonly, retain) TournamentServer* currentServer;
 
+// connect either locally through a unix socket or to a server
 - (void)connectToLocal;
 - (void)connectToServer:(TournamentServer*)server;
+- (void)disconnect;
 
-// Singleton instance
+// client identifier (used for authenticating with servers)
++ (NSNumber*)clientIdentifier;
+
+// singleton instance
 + (id)sharedSession;
 
 @end
 
 @protocol TournamentSessionConnectionDelegate <NSObject>
 
-- (void)tournamentSession:(TournamentSession*)session didConnectToServer:(TournamentServer*)server;
-- (void)tournamentSession:(TournamentSession*)session didDisconnectFromServer:(TournamentServer*)server;
+- (void)tournamentSession:(TournamentSession*)session connectionStatusDidChange:(TournamentServer*)server connected:(BOOL)connected;
+- (void)tournamentSession:(TournamentSession*)session authorizationStatusDidChange:(TournamentServer*)server authorized:(BOOL)connected;
 
 @end
