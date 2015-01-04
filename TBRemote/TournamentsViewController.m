@@ -25,6 +25,16 @@
     // Initialize server list
     browser = [[TournamentServerBrowser alloc] init];
 
+#if defined(DEBUG)
+    // Test server for debugging
+    TournamentServer* testServer = [[TournamentServer alloc] init];
+    testServer.name = @"Local Debug";
+    testServer.address = @"localhost";
+    testServer.port = kDefaultTournamentServerPort;
+    [browser addServer:testServer];
+    [testServer release];
+#endif
+
     // Do any additional setup after loading the view, typically from a nib.
     conn = [[TournamentConnection alloc] initWithHostname:@"localhost" port:25600];
     [conn setDelegate:self];

@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+#define kDefaultTournamentServerPort 25600
+
 @interface TournamentServer : NSObject
 
 @property (nonatomic, copy) NSString* name;
