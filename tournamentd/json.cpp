@@ -120,7 +120,8 @@ bool get_json_value(const cJSON* obj, json& value)
 {
     if(obj != nullptr)
     {
-        ensure_type(obj, cJSON_Object);
+        // Uncomment this to limit this to returning only Objects
+        // ensure_type(obj, cJSON_Object);
         value = json(cJSON_Duplicate(const_cast<cJSON*>(obj), 1));
         return true;
     }

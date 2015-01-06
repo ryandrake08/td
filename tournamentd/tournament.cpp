@@ -286,6 +286,13 @@ bool tournament::handle_client_input(std::iostream& client)
             // convert command to lower-case for hashing (use ::tolower, assuming ASCII-encoded input)
             std::transform(cmd.begin(), cmd.end(), cmd.begin(), ::tolower);
 
+            // copy "echo" attribute to output, if sent. This will allow clients to correlate requests with responses
+            json echo;
+            if(in.get_value("echo", echo))
+            {
+                out.set_value("echo", echo);
+            }
+
             // call command handler
             switch(crc32(cmd))
             {
