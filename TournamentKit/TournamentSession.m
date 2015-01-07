@@ -16,6 +16,7 @@ static TournamentSession *sharedMySession = nil;
 @interface TournamentSession() <TournamentConnectionDelegate>
 
 @property (nonatomic, retain) TournamentConnection* connection;
+@property (nonatomic, assign) BOOL isAuthorized;
 
 @end
 
@@ -24,6 +25,7 @@ static TournamentSession *sharedMySession = nil;
 @synthesize connectionDelegate;
 @synthesize connection;
 @dynamic currentServer;
+@synthesize isAuthorized;
 
 - (void)connectToLocal {
     // if we're connected remotely, disconnect
@@ -184,8 +186,8 @@ static TournamentSession *sharedMySession = nil;
     // handle authorization check
     id authorized = [json objectForKey:@"authorized"];
     if(authorized) {
-        tc.server.authorized = [authorized boolValue];
-        [connectionDelegate tournamentSession:self authorizationStatusDidChange:tc.server authorized:tc.server.authorized];
+        self.isAuthorized = authorized;
+        [connectionDelegate tournamentSession:self authorizationStatusDidChange:tc.server authorized:[authorized boolValue]];
     }
 
     // handle client authorization
@@ -227,16 +229,17 @@ static TournamentSession *sharedMySession = nil;
     NSLog(@"+++ tournamentConnectionDidDisconnect");
     NSAssert(self.connection == tc, @"Unexpected disconnection from %@", tc);
     self.connection = nil;
+    self.isAuthorized = NO;
 }
 
 - (void)tournamentConnectionDidClose:(TournamentConnection*)tc {
     NSLog(@"+++ tournamentConnectionDidClose");
     NSAssert(self.connection == nil, @"Connection %@ closed while session retains", tc);
     if(tc.server) {
-        tc.server.authenticate = NO;
-        tc.server.authorized = NO;
         [connectionDelegate tournamentSession:self connectionStatusDidChange:tc.server connected:NO];
     }
+    self.connection = nil;
+    self.isAuthorized = NO;
 }
 
 - (void)tournamentConnection:(TournamentConnection*)tc didReceiveData:(id)json {
@@ -249,6 +252,7 @@ static TournamentSession *sharedMySession = nil;
     NSLog(@"+++ tournamentConnectionError: %@", [error localizedDescription]);
     NSAssert(self.connection == tc, @"Unexpected error from %@", tc);
     self.connection = nil;
+    self.isAuthorized = NO;
 }
 
 #pragma mark Singleton Methods

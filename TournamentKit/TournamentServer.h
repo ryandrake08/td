@@ -14,7 +14,5 @@
 @property (nonatomic, copy) NSString* address;
 @property (nonatomic, assign) NSInteger port;
 @property (nonatomic, assign) BOOL manuallyAdded;
-@property (nonatomic, assign) BOOL authenticate;
-@property (nonatomic, assign) BOOL authorized;
 
 @end

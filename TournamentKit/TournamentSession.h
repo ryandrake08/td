@@ -21,6 +21,9 @@
 // currently connected server, or nil if either connected locally or not connected
 @property (nonatomic, readonly, retain) TournamentServer* currentServer;
 
+// true if currently authorized with server
+@property (nonatomic, readonly, assign) BOOL isAuthorized;
+
 // connect either locally through a unix socket or to a server
 - (void)connectToLocal;
 - (void)connectToServer:(TournamentServer*)server;
