@@ -18,9 +18,6 @@
     NSInputStream* inputStream;
     NSOutputStream* outputStream;
 
-    // YES if reported connection to delegate
-    BOOL connected;
-
     // input/output buffers
     NSMutableData* inputBuffer;
     NSMutableData* outputBuffer;
@@ -38,9 +35,6 @@
 - (id)initWithReadStream:(CFReadStreamRef)readStream writeStream:(CFWriteStreamRef)writeStream
 {
     if((self = [super init])) {
-        // initially unconnected
-        connected = NO;
-
         // initialize buffers
         inputBuffer = [[NSMutableData alloc] init];
         outputBuffer = [[NSMutableData alloc] init];
@@ -146,9 +140,6 @@
     // no longer need buffers
     [inputBuffer release];
     [outputBuffer release];
-
-    // mark no longer connected
-    connected = NO;
 
     // notify delegate
     [delegate tournamentConnectionDidClose:self];
@@ -274,8 +265,9 @@
     switch (streamEvent)
     {
         case NSStreamEventOpenCompleted:
-            if(connected == NO && [self connected]) {
-                connected = YES;
+            if(theStream == outputStream) {
+                // report connection state based on output stream connection
+                // so we report connection only once
                 [delegate tournamentConnectionDidConnect:self];
             }
             break;
