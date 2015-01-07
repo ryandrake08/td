@@ -26,8 +26,22 @@
 - (void)connectToServer:(TournamentServer*)server;
 - (void)disconnect;
 
-// client identifier (used for authenticating with servers)
-+ (NSNumber*)clientIdentifier;
+// tournament commands
+- (void)checkAuthorized;
+- (void)authorize:(NSNumber*)clientId;
+- (void)startGameAt:(NSDate*)datetime;
+- (void)stopGame;
+- (void)resumeGame;
+- (void)pauseGame;
+- (void)setPreviousLevel;
+- (void)setNextLevel;
+- (void)setActonClock:(NSNumber*)milliseconds;
+- (void)genBlindLevelsCount:(NSNumber*)count withDuration:(NSNumber*)milliseconds;
+- (void)resetFunding;
+- (void)fundPlayer:(NSNumber*)playerId withFunding:(NSNumber*)sourceId;
+- (void)planSeatingFor:(NSNumber*)expectedPlayers;
+- (void)seatPlayer:(NSNumber*)playerId;
+- (void)bustPlayer:(NSNumber*)playerId;
 
 // singleton instance
 + (id)sharedSession;

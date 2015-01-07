@@ -200,7 +200,7 @@
         // convert to JSON
         NSError* jsonError = nil;
         id jsonObject = [NSJSONSerialization JSONObjectWithData:subBuffer options:0 error:&jsonError];
-        if(jsonError != nil) {
+        if(jsonError) {
             [delegate tournamentConnection:self error:jsonError];
         } else {
             [delegate tournamentConnection:self didReceiveData:jsonObject];
@@ -234,7 +234,6 @@
     }
 
     // convert cmd to data
-//    NSData* cmdData = [[cmd dataUsingEncoding:NSUTF8StringEncoding] subdataWithRange:NSMakeRange(0, [cmd lengthOfBytesUsingEncoding:NSUTF8StringEncoding] - 1)];
     NSData* cmdData = [cmd dataUsingEncoding:NSUTF8StringEncoding];
 
     // convert json to data

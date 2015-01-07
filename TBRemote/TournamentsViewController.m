@@ -154,10 +154,16 @@
 #pragma mark TournamentSessionConnectionDelegate
 
 - (void)tournamentSession:(TournamentSession*)session connectionStatusDidChange:(TournamentServer*)server connected:(BOOL)connected {
+    // update table view cell
     NSUInteger i = [browser indexForServer:server];
     if(i != NSNotFound) {
         NSIndexPath* indexPath = [NSIndexPath indexPathForRow:i inSection:0];
         [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    }
+
+    // query authentication status if necessary
+    if(server == nil || server.authenticate) {
+        [session checkAuthorized];
     }
 }
 

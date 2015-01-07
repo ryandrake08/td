@@ -27,7 +27,7 @@ static TournamentSession *sharedMySession = nil;
 
 - (void)connectToLocal {
     // if we're connected remotely, disconnect
-    if(self.connection.server != nil) {
+    if(self.connection.server) {
         self.connection = nil;
     }
 
@@ -53,6 +53,8 @@ static TournamentSession *sharedMySession = nil;
     return self.connection.server;
 }
 
+#pragma mark Internal routines
+
 // client identifier (used for authenticating with servers)
 + (NSNumber*)clientIdentifier {
 #if defined(DEBUG)
@@ -70,27 +72,144 @@ static TournamentSession *sharedMySession = nil;
 #endif
 }
 
+// uniquely identify each command sent, so we can associate it with a block handler
++ (NSNumber*)commandKey {
+    static int incrementingKey = 0;
+    return [NSNumber numberWithInt:incrementingKey++];
+}
+
 #pragma mark Tournament Commands
 
-- (void)checkAuthorized {
+// send a command through TournamentConnection
+- (void)sendCommand:(NSString*)cmd withData:(NSDictionary*)arg {
+    // add extra stuff to each command
+    NSMutableDictionary* json = [NSMutableDictionary dictionaryWithDictionary:arg];
+
+    // append to every command: authentication
     NSNumber* cid = [TournamentSession clientIdentifier];
-    NSDictionary* json = [NSDictionary dictionaryWithObject:cid forKey:@"authenticate"];
-    [[self connection] sendCommand:@"check_authorized" withData:json];
+    [json setObject:cid forKey:@"authenticate"];
+
+    // append to every command: command key
+    NSNumber* cmdkey = [TournamentSession commandKey];
+    [json setObject:cmdkey forKey:@"echo"];
+
+    // send it through connection
+    [[self connection] sendCommand:cmd withData:json];
+}
+
+- (void)checkAuthorized {
+    [self sendCommand:@"check_authorized" withData:nil];
+}
+
+- (void)authorize:(NSNumber*)clientId {
+    [self sendCommand:@"authorize" withData:@{@"authorize" : clientId}];
+}
+
+- (void)startGameAt:(NSDate*)datetime {
+    if(datetime) {
+        [self sendCommand:@"start_game" withData:@{@"start_at" : datetime}];
+    } else {
+        [self sendCommand:@"start_game" withData:nil];
+    }
+}
+
+- (void)stopGame {
+    [self sendCommand:@"stop_game" withData:nil];
+}
+
+- (void)resumeGame {
+    [self sendCommand:@"resume_game" withData:nil];
+}
+
+- (void)pauseGame {
+    [self sendCommand:@"pause_game" withData:nil];
+}
+
+- (void)setPreviousLevel {
+    [self sendCommand:@"set_previous_level" withData:nil];
+}
+
+- (void)setNextLevel {
+    [self sendCommand:@"set_next_level" withData:nil];
+}
+
+- (void)setActonClock:(NSNumber*)milliseconds {
+    if(milliseconds) {
+        [self sendCommand:@"set_action_clock" withData:@{@"duration" : milliseconds}];
+    } else {
+        [self sendCommand:@"set_action_clock" withData:nil];
+    }
+}
+
+- (void)genBlindLevelsCount:(NSNumber*)count withDuration:(NSNumber*)milliseconds {
+    [self sendCommand:@"gen_blind_levels" withData:@{@"duration" : milliseconds, @"count" : count}];
+}
+
+- (void)resetFunding {
+    [self sendCommand:@"reset_funding" withData:nil];
+}
+
+- (void)fundPlayer:(NSNumber*)playerId withFunding:(NSNumber*)sourceId {
+    [self sendCommand:@"fund_player" withData:@{@"player" : playerId, @"source_id" : sourceId}];
+}
+
+- (void)planSeatingFor:(NSNumber*)expectedPlayers {
+    [self sendCommand:@"plan_seating" withData:@{@"max_expected_players" : expectedPlayers}];
+}
+
+- (void)seatPlayer:(NSNumber*)playerId {
+    [self sendCommand:@"seat_player" withData:@{@"player" : playerId}];
+}
+
+- (void)bustPlayer:(NSNumber*)playerId {
+    [self sendCommand:@"bust_player" withData:@{@"player" : playerId}];
 }
 
 #pragma mark Tournament Messages
 
 - (void)handleMessage:(id)json fromConnection:(TournamentConnection*)tc {
-    // handle authorization
+    // handle error
+    id error = [json objectForKey:@"error"];
+    if(error) {
+        NSLog(@"Error from server: %@", error);
+        return;
+    }
+
+    // look for command key
+    NSNumber* cmdkey = [json objectForKey:@"echo"];
+    if(cmdkey) {
+        // do nothing with for now
+    }
+
+    // handle authorization check
     id authorized = [json objectForKey:@"authorized"];
     if(authorized) {
         tc.server.authorized = [authorized boolValue];
         [connectionDelegate tournamentSession:self authorizationStatusDidChange:tc.server authorized:tc.server.authorized];
     }
 
-    id error = [json objectForKey:@"error"];
-    if(error) {
-        NSLog(@"Error from server: %@", error);
+    // handle client authorization
+    id authorizedClient = [json objectForKey:@"authorized_client"];
+    if(authorizedClient) {
+        NSLog(@"+++ authorized client: %@", authorizedClient);
+    }
+
+    // handle blind level change
+    id blindLevelChanged = [json objectForKey:@"blind_level_changed"];
+    if(blindLevelChanged) {
+        NSLog(@"+++ blind level changed: %@", blindLevelChanged);
+    }
+
+    // handle seated player
+    id playerSeated = [json objectForKey:@"player_seated"];
+    if(playerSeated) {
+        NSLog(@"+++ player seated: %@", playerSeated);
+    }
+
+    // handle player movement
+    id playersMoved = [json objectForKey:@"players_moved"];
+    if(playersMoved) {
+        NSLog(@"+++ players moved: %@", playersMoved);
     }
 }
 
@@ -99,13 +218,8 @@ static TournamentSession *sharedMySession = nil;
 - (void)tournamentConnectionDidConnect:(TournamentConnection*)tc {
     NSLog(@"+++ tournamentConnectionDidConnect");
     NSAssert(self.connection == tc, @"Unexpected connection from %@", tc);
-    if(tc.server != nil) {
+    if(tc.server) {
         [connectionDelegate tournamentSession:self connectionStatusDidChange:tc.server connected:YES];
-    }
-
-    // query authentication status if necessary
-    if(tc.server == nil || tc.server.authenticate) {
-        [self checkAuthorized];
     }
 }
 
@@ -118,7 +232,9 @@ static TournamentSession *sharedMySession = nil;
 - (void)tournamentConnectionDidClose:(TournamentConnection*)tc {
     NSLog(@"+++ tournamentConnectionDidClose");
     NSAssert(self.connection == nil, @"Connection %@ closed while session retains", tc);
-    if(tc.server != nil) {
+    if(tc.server) {
+        tc.server.authenticate = NO;
+        tc.server.authorized = NO;
         [connectionDelegate tournamentSession:self connectionStatusDidChange:tc.server connected:NO];
     }
 }

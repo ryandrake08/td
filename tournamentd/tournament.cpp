@@ -105,7 +105,7 @@ void tournament::handle_cmd_authorize(const json& in, json& out)
 
     code = this->authorize(code);
     
-    out.set_value("authorized", code);
+    out.set_value("authorized_client", code);
 }
 
 void tournament::handle_cmd_start_game(const json& in, json& out)
@@ -217,9 +217,11 @@ void tournament::handle_cmd_seat_player(const json& in, json& out)
 
     auto seating(this->seating.add_player(player));
 
-    out.set_value("player_id", player);
-    out.set_value("table_number", seating.table_number);
-    out.set_value("seat_number", seating.seat_number);
+    json player_seated;
+    player_seated.set_value("player_id", player);
+    player_seated.set_value("table_number", seating.table_number);
+    player_seated.set_value("seat_number", seating.seat_number);
+    out.set_value("player_seated", player_seated);
 }
 
 void tournament::handle_cmd_bust_player(const json& in, json& out)
@@ -233,7 +235,7 @@ void tournament::handle_cmd_bust_player(const json& in, json& out)
 
     auto movements(this->seating.remove_player(player));
 
-    out.set_values("movements", movements);
+    out.set_values("players_moved", movements);
 }
 
 // handler for new client
