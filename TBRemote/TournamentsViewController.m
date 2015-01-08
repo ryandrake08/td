@@ -17,12 +17,10 @@
                                          UITableViewDataSource>
 
 @property (nonatomic, strong) TournamentServerBrowser* browser;
-@property (nonatomic, strong) TournamentServerInfo* connectedServer;
 @end
 
 @implementation TournamentsViewController
 @synthesize browser;
-@synthesize connectedServer;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -146,15 +144,10 @@
     [self reloadTableRowForServer:server];
 
     if(connected) {
-        [self setConnectedServer:server];
-
         // check authorization
         [session checkAuthorizedWithBlock:^(BOOL authorized) {
             [self reloadTableRowForServer:server];
         }];
-
-    } else if(server == [self connectedServer]) {
-        [self setConnectedServer:nil];
     }
 }
 
