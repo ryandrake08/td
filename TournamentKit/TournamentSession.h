@@ -22,7 +22,7 @@
 @property (nonatomic, readonly, strong) TournamentServerInfo* currentServer;
 
 // true if currently authorized with server
-@property (nonatomic, readonly, assign) BOOL isAuthorized;
+@property (nonatomic, readonly, assign, getter=isAuthorized) BOOL authorized;
 
 // connect either locally through a unix socket or to a server
 - (void)connectToLocal;

@@ -14,7 +14,7 @@
 @interface TournamentSession() <TournamentConnectionDelegate>
 
 @property (nonatomic, strong) TournamentConnection* connection;
-@property (nonatomic, assign) BOOL isAuthorized;
+@property (nonatomic, assign) BOOL authorized;
 
 @end
 
@@ -23,7 +23,7 @@
 @synthesize connection;
 @synthesize connectionDelegate;
 @dynamic currentServer;
-@synthesize isAuthorized;
+@synthesize authorized;
 
 - (void)connectToLocal {
     // if we're connected remotely, disconnect
@@ -182,10 +182,10 @@
     }
 
     // handle authorization check
-    id authorized = json[@"authorized"];
-    if(authorized) {
-        [self setIsAuthorized:[authorized boolValue]];
-        [[self connectionDelegate] tournamentSession:self authorizationStatusDidChange:[tc server] authorized:[authorized boolValue]];
+    id is_authorized = json[@"authorized"];
+    if(is_authorized) {
+        [self setAuthorized:[is_authorized boolValue]];
+        [[self connectionDelegate] tournamentSession:self authorizationStatusDidChange:[tc server] authorized:[self isAuthorized]];
     }
 
     // handle client authorization
@@ -227,7 +227,7 @@
     NSLog(@"+++ tournamentConnectionDidDisconnect");
     NSAssert([self connection] == tc, @"Unexpected disconnection from %@", tc);
     [self setConnection:nil];
-    [self setIsAuthorized:NO];
+    [self setAuthorized:NO];
 }
 
 - (void)tournamentConnectionDidClose:(TournamentConnection*)tc {
@@ -237,7 +237,7 @@
         [[self connectionDelegate] tournamentSession:self connectionStatusDidChange:[tc server] connected:NO];
     }
     [self setConnection:nil];
-    [self setIsAuthorized:NO];
+    [self setAuthorized:NO];
 }
 
 - (void)tournamentConnection:(TournamentConnection*)tc didReceiveData:(id)json {
@@ -250,7 +250,7 @@
     NSLog(@"+++ tournamentConnectionError: %@", [error localizedDescription]);
     NSAssert([self connection] == tc, @"Unexpected error from %@", tc);
     [self setConnection:nil];
-    [self setIsAuthorized:NO];
+    [self setAuthorized:NO];
 }
 
 #pragma mark Singleton Methods
