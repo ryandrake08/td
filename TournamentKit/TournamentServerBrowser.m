@@ -12,7 +12,7 @@
 
 @synthesize serverList;
 
-- (id)init {
+- (instancetype)init {
     if((self = [super init])) {
         serverList = [[NSMutableArray alloc] init];
     }

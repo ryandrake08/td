@@ -14,8 +14,8 @@
 @interface TournamentConnection : NSObject <NSStreamDelegate>
 
 // open a connection to the server, either local or remote
-- (id)initWithUnixSocketNamed:(NSString*)socketPath;
-- (id)initWithServer:(TournamentServer*)server;
+- (instancetype)initWithUnixSocketNamed:(NSString*)socketPath;
+- (instancetype)initWithServer:(TournamentServer*)server;
 
 // send a text command to the server
 - (BOOL)sendCommand:(NSString*)cmd;

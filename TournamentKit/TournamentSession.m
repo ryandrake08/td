@@ -58,7 +58,7 @@
 // client identifier (used for authenticating with servers)
 + (NSNumber*)clientIdentifier {
 #if defined(DEBUG)
-    return [NSNumber numberWithInt:31337];
+    return @31337;
 #else
     NSString* key = @"clientIdentifier";
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
@@ -75,7 +75,7 @@
 // uniquely identify each command sent, so we can associate it with a block handler
 + (NSNumber*)commandKey {
     static int incrementingKey = 0;
-    return [NSNumber numberWithInt:incrementingKey++];
+    return @(incrementingKey++);
 }
 
 #pragma mark Tournament Commands
@@ -87,11 +87,11 @@
 
     // append to every command: authentication
     NSNumber* cid = [TournamentSession clientIdentifier];
-    [json setObject:cid forKey:@"authenticate"];
+    json[@"authenticate"] = cid;
 
     // append to every command: command key
     NSNumber* cmdkey = [TournamentSession commandKey];
-    [json setObject:cmdkey forKey:@"echo"];
+    json[@"echo"] = cmdkey;
 
     // send it through connection
     [[self connection] sendCommand:cmd withData:json];
@@ -169,45 +169,45 @@
 
 - (void)handleMessage:(id)json fromConnection:(TournamentConnection*)tc {
     // handle error
-    id error = [json objectForKey:@"error"];
+    id error = json[@"error"];
     if(error) {
         NSLog(@"Error from server: %@", error);
         return;
     }
 
     // look for command key
-    NSNumber* cmdkey = [json objectForKey:@"echo"];
+    NSNumber* cmdkey = json[@"echo"];
     if(cmdkey) {
         // do nothing with for now
     }
 
     // handle authorization check
-    id authorized = [json objectForKey:@"authorized"];
+    id authorized = json[@"authorized"];
     if(authorized) {
         self.isAuthorized = [authorized boolValue];
         [connectionDelegate tournamentSession:self authorizationStatusDidChange:tc.server authorized:[authorized boolValue]];
     }
 
     // handle client authorization
-    id authorizedClient = [json objectForKey:@"authorized_client"];
+    id authorizedClient = json[@"authorized_client"];
     if(authorizedClient) {
         NSLog(@"+++ authorized client: %@", authorizedClient);
     }
 
     // handle blind level change
-    id blindLevelChanged = [json objectForKey:@"blind_level_changed"];
+    id blindLevelChanged = json[@"blind_level_changed"];
     if(blindLevelChanged) {
         NSLog(@"+++ blind level changed: %@", blindLevelChanged);
     }
 
     // handle seated player
-    id playerSeated = [json objectForKey:@"player_seated"];
+    id playerSeated = json[@"player_seated"];
     if(playerSeated) {
         NSLog(@"+++ player seated: %@", playerSeated);
     }
 
     // handle player movement
-    id playersMoved = [json objectForKey:@"players_moved"];
+    id playersMoved = json[@"players_moved"];
     if(playersMoved) {
         NSLog(@"+++ players moved: %@", playersMoved);
     }
@@ -255,8 +255,8 @@
 
 #pragma mark Singleton Methods
 
-+ (id)sharedSession {
-    static TournamentSession *sharedMySession = nil;
++ (instancetype)sharedSession {
+    static TournamentSession* sharedMySession = nil;
     @synchronized(self) {
         if(sharedMySession == nil)
             sharedMySession = [[super allocWithZone:NULL] init];

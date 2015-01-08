@@ -19,7 +19,7 @@
 
 @implementation TournamentDaemon
 
-- (id)init {
+- (instancetype)init {
     if((self = [super init])) {
         running = NO;
         semaphore = dispatch_semaphore_create(0);

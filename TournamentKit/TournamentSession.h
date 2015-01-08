@@ -47,7 +47,7 @@
 - (void)bustPlayer:(NSNumber*)playerId;
 
 // singleton instance
-+ (id)sharedSession;
++ (instancetype)sharedSession;
 
 @end
 

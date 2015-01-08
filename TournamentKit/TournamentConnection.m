@@ -32,7 +32,7 @@
 @dynamic connected;
 @synthesize server;
 
-- (id)initWithReadStream:(CFReadStreamRef)readStream writeStream:(CFWriteStreamRef)writeStream
+- (instancetype)initWithReadStream:(CFReadStreamRef)readStream writeStream:(CFWriteStreamRef)writeStream
 {
     if((self = [super init])) {
         // initialize buffers
@@ -44,8 +44,8 @@
         (void) CFReadStreamSetProperty(readStream, kCFStreamPropertyShouldCloseNativeSocket, kCFBooleanTrue);
 
         // toll-free bridge the streams
-        inputStream = (__bridge NSInputStream*)readStream;
-        outputStream = (__bridge NSOutputStream*)writeStream;
+        inputStream = (__bridge_transfer NSInputStream*)readStream;
+        outputStream = (__bridge_transfer NSOutputStream*)writeStream;
 
         // set up the streams
         [inputStream setDelegate:self];
@@ -59,7 +59,7 @@
     return self;
 }
 
-- (id)initWithServer:(TournamentServer *)theServer {
+- (instancetype)initWithServer:(TournamentServer *)theServer {
     CFReadStreamRef readStream;
     CFWriteStreamRef writeStream;
     CFStreamCreatePairWithSocketToHost(NULL, (__bridge CFStringRef)theServer.address, (UInt32)theServer.port, &readStream, &writeStream);
@@ -69,7 +69,7 @@
     return [self initWithReadStream:readStream writeStream:writeStream];
 }
 
-- (id)initWithUnixSocketNamed:(NSString*)socketPath {
+- (instancetype)initWithUnixSocketNamed:(NSString*)socketPath {
     struct sockaddr_un addr;
 
     // Check path length
