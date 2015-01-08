@@ -16,10 +16,10 @@
 @interface TournamentSession : NSObject
 
 // delegate for connection-related messages
-@property (nonatomic, assign) id<TournamentSessionConnectionDelegate> connectionDelegate;
+@property (nonatomic, weak) id<TournamentSessionConnectionDelegate> connectionDelegate;
 
 // currently connected server, or nil if either connected locally or not connected
-@property (nonatomic, readonly, retain) TournamentServer* currentServer;
+@property (nonatomic, readonly, strong) TournamentServer* currentServer;
 
 // true if currently authorized with server
 @property (nonatomic, readonly, assign) BOOL isAuthorized;

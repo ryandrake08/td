@@ -63,10 +63,5 @@
     dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
 }
 
-- (void)dealloc {
-    dispatch_release(semaphore);
-
-    [super dealloc];
-}
 
 @end

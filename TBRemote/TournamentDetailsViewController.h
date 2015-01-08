@@ -12,7 +12,7 @@
 @protocol TournamentDetailsViewControllerDelegate;
 
 @interface TournamentDetailsViewController : UITableViewController
-@property (nonatomic, assign) id <TournamentDetailsViewControllerDelegate> delegate;
+@property (nonatomic, weak) id <TournamentDetailsViewControllerDelegate> delegate;
 @end
 
 @protocol TournamentDetailsViewControllerDelegate <NSObject>

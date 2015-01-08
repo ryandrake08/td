@@ -27,13 +27,13 @@
 - (void)close;
 
 // delegate to receive connect, disconnect, error and data messages
-@property (nonatomic, assign) id <TournamentConnectionDelegate> delegate;
+@property (nonatomic, weak) id <TournamentConnectionDelegate> delegate;
 
 // returns true if currently connected to a server
 @property (nonatomic, readonly, assign) BOOL connected;
 
 // information about the connected remote server. nil if unconnected or connected locally
-@property (nonatomic, readonly, retain) TournamentServer* server;
+@property (nonatomic, readonly, strong) TournamentServer* server;
 
 @end
 

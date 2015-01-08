@@ -23,7 +23,7 @@
     NSMutableData* outputBuffer;
 }
 
-@property (nonatomic, retain) TournamentServer* server;
+@property (nonatomic, strong) TournamentServer* server;
 
 @end
 
@@ -44,8 +44,8 @@
         (void) CFReadStreamSetProperty(readStream, kCFStreamPropertyShouldCloseNativeSocket, kCFBooleanTrue);
 
         // toll-free bridge the streams
-        inputStream = (NSInputStream*)readStream;
-        outputStream = (NSOutputStream*)writeStream;
+        inputStream = (__bridge NSInputStream*)readStream;
+        outputStream = (__bridge NSOutputStream*)writeStream;
 
         // set up the streams
         [inputStream setDelegate:self];
@@ -62,7 +62,7 @@
 - (id)initWithServer:(TournamentServer *)theServer {
     CFReadStreamRef readStream;
     CFWriteStreamRef writeStream;
-    CFStreamCreatePairWithSocketToHost(NULL, (CFStringRef)theServer.address, (UInt32)theServer.port, &readStream, &writeStream);
+    CFStreamCreatePairWithSocketToHost(NULL, (__bridge CFStringRef)theServer.address, (UInt32)theServer.port, &readStream, &writeStream);
 
     self.server = theServer;
 
@@ -123,7 +123,6 @@
 
 - (void)dealloc {
     [self close];
-    [super dealloc];
 }
 
 - (void)close {
@@ -132,14 +131,10 @@
     [outputStream close];
     [inputStream removeFromRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
     [outputStream removeFromRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
-    [inputStream release];
-    [outputStream release];
     inputStream = nil;
     outputStream = nil;
 
     // no longer need buffers
-    [inputBuffer release];
-    [outputBuffer release];
 
     // notify delegate
     [delegate tournamentConnectionDidClose:self];

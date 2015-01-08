@@ -16,8 +16,8 @@
                                          UITableViewDelegate,
                                          UITableViewDataSource>
 
-@property (nonatomic, retain) TournamentServerBrowser* browser;
-@property (nonatomic, retain) TournamentServer* connectedServer;
+@property (nonatomic, strong) TournamentServerBrowser* browser;
+@property (nonatomic, strong) TournamentServer* connectedServer;
 @end
 
 @implementation TournamentsViewController
@@ -40,7 +40,6 @@
     testServer.address = @"localhost";
     testServer.port = kDefaultTournamentServerPort;
     [self.browser addServer:testServer];
-    [testServer release];
 #endif
 }
 
@@ -49,11 +48,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)dealloc {
-    [browser release];
-    [connectedServer release];
-    [super dealloc];
-}
 
 #pragma mark - Segues
 

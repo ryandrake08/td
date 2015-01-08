@@ -20,10 +20,6 @@
     return self;
 }
 
-- (void)dealloc {
-    [serverList release];
-    [super dealloc];
-}
 
 - (void)addServer:(TournamentServer*)server {
     server.manuallyAdded = YES;

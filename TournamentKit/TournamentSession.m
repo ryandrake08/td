@@ -11,19 +11,17 @@
 
 #define kDefaultTournamentLocalPath @"/tmp/tournamentd.sock"
 
-static TournamentSession *sharedMySession = nil;
-
 @interface TournamentSession() <TournamentConnectionDelegate>
 
-@property (nonatomic, retain) TournamentConnection* connection;
+@property (nonatomic, strong) TournamentConnection* connection;
 @property (nonatomic, assign) BOOL isAuthorized;
 
 @end
 
 @implementation TournamentSession
 
-@synthesize connectionDelegate;
 @synthesize connection;
+@synthesize connectionDelegate;
 @dynamic currentServer;
 @synthesize isAuthorized;
 
@@ -35,14 +33,14 @@ static TournamentSession *sharedMySession = nil;
 
     // at this point, if connection is not nil, we're already connected locally
     if(self.connection == nil) {
-        self.connection = [[[TournamentConnection alloc] initWithUnixSocketNamed:kDefaultTournamentLocalPath] autorelease];
+        self.connection = [[TournamentConnection alloc] initWithUnixSocketNamed:kDefaultTournamentLocalPath];
         [self.connection setDelegate:self];
     }
 }
 
 - (void)connectToServer:(TournamentServer*)theServer {
     if(self.connection.server != theServer) {
-        self.connection = [[[TournamentConnection alloc] initWithServer:theServer] autorelease];
+        self.connection = [[TournamentConnection alloc] initWithServer:theServer];
         [self.connection setDelegate:self];
     }
 }
@@ -186,7 +184,7 @@ static TournamentSession *sharedMySession = nil;
     // handle authorization check
     id authorized = [json objectForKey:@"authorized"];
     if(authorized) {
-        self.isAuthorized = authorized;
+        self.isAuthorized = [authorized boolValue];
         [connectionDelegate tournamentSession:self authorizationStatusDidChange:tc.server authorized:[authorized boolValue]];
     }
 
@@ -258,38 +256,12 @@ static TournamentSession *sharedMySession = nil;
 #pragma mark Singleton Methods
 
 + (id)sharedSession {
+    static TournamentSession *sharedMySession = nil;
     @synchronized(self) {
         if(sharedMySession == nil)
             sharedMySession = [[super allocWithZone:NULL] init];
     }
     return sharedMySession;
-}
-+ (id)allocWithZone:(NSZone *)zone {
-    return [[self sharedSession] retain];
-}
-- (id)copyWithZone:(NSZone *)zone {
-    return self;
-}
-- (id)retain {
-    return self;
-}
-- (NSUInteger)retainCount {
-    return UINT_MAX; //denotes an object that cannot be released
-}
-- (oneway void)release {
-    // never release
-}
-- (id)autorelease {
-    return self;
-}
-- (id)init {
-    if (self = [super init]) {
-    }
-    return self;
-}
-- (void)dealloc {
-    [connection release];
-    [super dealloc];
 }
 
 @end

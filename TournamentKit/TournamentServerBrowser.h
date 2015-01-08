@@ -11,7 +11,7 @@
 
 @interface TournamentServerBrowser : NSObject
 
-@property (nonatomic, readonly, retain) NSMutableArray* serverList;
+@property (nonatomic, readonly, strong) NSMutableArray* serverList;
 
 // manually add a server to the list
 - (void)addServer:(TournamentServer*)server;

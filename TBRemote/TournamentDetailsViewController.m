@@ -10,9 +10,9 @@
 
 @interface TournamentDetailsViewController ()
 
-@property (nonatomic, retain) IBOutlet UITextField* nameTextField;
-@property (nonatomic, retain) IBOutlet UITextField* addressTextField;
-@property (nonatomic, retain) IBOutlet UITextField* portTextField;
+@property (nonatomic, strong) IBOutlet UITextField* nameTextField;
+@property (nonatomic, strong) IBOutlet UITextField* addressTextField;
+@property (nonatomic, strong) IBOutlet UITextField* portTextField;
 
 - (IBAction)cancel:(id)sender;
 - (IBAction)done:(id)sender;
@@ -36,16 +36,12 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)dealloc {
-    [_nameTextField release];
-    [super dealloc];
-}
 
 - (IBAction)cancel:(id)sender {
     [self.delegate tournamentDetailsViewControllerDidCancel:self];
 }
 - (IBAction)done:(id)sender {
-    TournamentServer* server = [[[TournamentServer alloc] init] autorelease];
+    TournamentServer* server = [[TournamentServer alloc] init];
     server.name = self.nameTextField.text;
     server.address = self.addressTextField.text;
     server.port = self.portTextField.text.integerValue;
