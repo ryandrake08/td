@@ -8,13 +8,17 @@
 
 #import "TournamentServerBrowser.h"
 
-@implementation TournamentServerBrowser
+@interface TournamentServerBrowser()
+@property (nonatomic, strong) NSMutableArray* serverList;
+@end
 
+@implementation TournamentServerBrowser
 @synthesize serverList;
+@dynamic serverCount;
 
 - (instancetype)init {
     if((self = [super init])) {
-        serverList = [[NSMutableArray alloc] init];
+        serverList = [NSMutableArray array];
     }
 
     return self;
@@ -27,6 +31,16 @@
 
 - (NSUInteger)indexForServer:(TournamentServerInfo*)server {
     return [[self serverList] indexOfObject:server];
+}
+
+// get the server at given index
+- (TournamentServerInfo*)serverForIndex:(NSUInteger)index {
+    return [self serverList][index];
+}
+
+// get the number of servers
+- (NSUInteger)serverCount {
+    return [[self serverList] count];
 }
 
 @end

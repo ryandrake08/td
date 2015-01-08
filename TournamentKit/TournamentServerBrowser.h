@@ -11,12 +11,15 @@
 
 @interface TournamentServerBrowser : NSObject
 
-@property (nonatomic, readonly, strong) NSMutableArray* serverList;
+@property (nonatomic, readonly, assign) NSUInteger serverCount;
 
 // manually add a server to the list
 - (void)addServer:(TournamentServerInfo*)server;
 
-// get an indexPath to a particular list item
+// get an index to a particular list item
 - (NSUInteger)indexForServer:(TournamentServerInfo*)server;
+
+// get the server at given index
+- (TournamentServerInfo*)serverForIndex:(NSUInteger)index;
 
 @end

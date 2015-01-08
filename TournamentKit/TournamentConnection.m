@@ -40,8 +40,8 @@
 {
     if((self = [super init])) {
         // initialize buffers
-        inputBuffer = [[NSMutableData alloc] init];
-        outputBuffer = [[NSMutableData alloc] init];
+        inputBuffer = [NSMutableData data];
+        outputBuffer = [NSMutableData data];
 
         // specify that the CFStream should close itself when it's done
         (void) CFWriteStreamSetProperty(writeStream, kCFStreamPropertyShouldCloseNativeSocket, kCFBooleanTrue);
@@ -299,7 +299,7 @@
             break;
 
         default:
-            NSLog(@"Unknown event: %lu", streamEvent);
+            NSLog(@"Unknown event: %lu", (unsigned long)streamEvent);
     }
 }
 
