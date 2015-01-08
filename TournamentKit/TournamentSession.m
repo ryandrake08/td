@@ -95,8 +95,10 @@
     NSNumber* cmdkey = [TournamentSession commandKey];
     json[@"echo"] = cmdkey;
 
-    // add command key to our dictionary
-    [self blocksForCommands][cmdkey] = block;
+    // add block & command key to our dictionary, if block exists
+    if(block != nil) {
+        [self blocksForCommands][cmdkey] = block;
+    }
 
     // send it through connection
     [[self connection] sendCommand:cmd withData:json];
