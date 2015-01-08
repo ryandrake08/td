@@ -15,15 +15,17 @@
 
 @property (nonatomic, strong) TournamentConnection* connection;
 @property (nonatomic, assign) BOOL authorized;
+@property (nonatomic, strong) NSMutableDictionary* blocksForCommands;
 
 @end
 
 @implementation TournamentSession
 
-@synthesize connection;
 @synthesize connectionDelegate;
 @dynamic currentServer;
 @synthesize authorized;
+@synthesize connection;
+@synthesize blocksForCommands;
 
 - (void)connectToLocal {
     // if we're connected remotely, disconnect
@@ -81,7 +83,7 @@
 #pragma mark Tournament Commands
 
 // send a command through TournamentConnection
-- (void)sendCommand:(NSString*)cmd withData:(NSDictionary*)arg {
+- (void)sendCommand:(NSString*)cmd withData:(NSDictionary*)arg andBlock:(void(^)(id,NSString*))block {
     // add extra stuff to each command
     NSMutableDictionary* json = [NSMutableDictionary dictionaryWithDictionary:arg];
 
@@ -93,123 +95,130 @@
     NSNumber* cmdkey = [TournamentSession commandKey];
     json[@"echo"] = cmdkey;
 
+    // add command key to our dictionary
+    [self blocksForCommands][cmdkey] = block;
+
     // send it through connection
     [[self connection] sendCommand:cmd withData:json];
 }
 
-- (void)checkAuthorized {
-    [self sendCommand:@"check_authorized" withData:nil];
+- (void)checkAuthorizedWithBlock:(void(^)(BOOL))block {
+    [self sendCommand:@"check_authorized" withData:nil andBlock:^(id json, NSString* error) {
+        // TODO: Handle error
+        // handle authorization check
+        [self setAuthorized:[json[@"authorized"] boolValue]];
+        block([json[@"authorized"] boolValue]);
+    }];
 }
 
-- (void)authorize:(NSNumber*)clientId {
-    [self sendCommand:@"authorize" withData:@{@"authorize" : clientId}];
+- (void)authorize:(NSNumber*)clientId withBlock:(void(^)(NSNumber*))block {
+    [self sendCommand:@"authorize" withData:@{@"authorize" : clientId} andBlock:^(id json, NSString* error) {
+        // TODO: Handle error
+        // handle client authorization
+        block(json[@"authorized_client"]);
+    }];
 }
 
 - (void)startGameAt:(NSDate*)datetime {
     if(datetime) {
-        [self sendCommand:@"start_game" withData:@{@"start_at" : datetime}];
+        [self sendCommand:@"start_game" withData:@{@"start_at" : datetime} andBlock:nil];
     } else {
-        [self sendCommand:@"start_game" withData:nil];
+        [self sendCommand:@"start_game" withData:nil andBlock:nil];
     }
 }
 
 - (void)stopGame {
-    [self sendCommand:@"stop_game" withData:nil];
+    [self sendCommand:@"stop_game" withData:nil andBlock:nil];
 }
 
 - (void)resumeGame {
-    [self sendCommand:@"resume_game" withData:nil];
+    [self sendCommand:@"resume_game" withData:nil andBlock:nil];
 }
 
 - (void)pauseGame {
-    [self sendCommand:@"pause_game" withData:nil];
+    [self sendCommand:@"pause_game" withData:nil andBlock:nil];
 }
 
-- (void)setPreviousLevel {
-    [self sendCommand:@"set_previous_level" withData:nil];
+- (void)setPreviousLevelWithBlock:(void(^)(NSNumber*))block {
+    [self sendCommand:@"set_previous_level" withData:nil andBlock:^(id json, NSString* error) {
+        // TODO: Handle error
+        // handle blind level change
+        block(json[@"blind_level_changed"]);
+    }];
 }
 
-- (void)setNextLevel {
-    [self sendCommand:@"set_next_level" withData:nil];
+- (void)setNextLevelWithBlock:(void(^)(NSNumber*))block {
+    [self sendCommand:@"set_next_level" withData:nil andBlock:^(id json, NSString* error) {
+        // TODO: Handle error
+        // handle blind level change
+        block(json[@"blind_level_changed"]);
+    }];
 }
 
 - (void)setActonClock:(NSNumber*)milliseconds {
     if(milliseconds) {
-        [self sendCommand:@"set_action_clock" withData:@{@"duration" : milliseconds}];
+        [self sendCommand:@"set_action_clock" withData:@{@"duration" : milliseconds} andBlock:nil];
     } else {
-        [self sendCommand:@"set_action_clock" withData:nil];
+        [self sendCommand:@"set_action_clock" withData:nil andBlock:nil];
     }
 }
 
 - (void)genBlindLevelsCount:(NSNumber*)count withDuration:(NSNumber*)milliseconds {
-    [self sendCommand:@"gen_blind_levels" withData:@{@"duration" : milliseconds, @"count" : count}];
+    [self sendCommand:@"gen_blind_levels" withData:@{@"duration" : milliseconds, @"count" : count} andBlock:nil];
 }
 
 - (void)resetFunding {
-    [self sendCommand:@"reset_funding" withData:nil];
+    [self sendCommand:@"reset_funding" withData:nil andBlock:nil];
 }
 
 - (void)fundPlayer:(NSNumber*)playerId withFunding:(NSNumber*)sourceId {
-    [self sendCommand:@"fund_player" withData:@{@"player" : playerId, @"source_id" : sourceId}];
+    [self sendCommand:@"fund_player" withData:@{@"player" : playerId, @"source_id" : sourceId} andBlock:nil];
 }
 
 - (void)planSeatingFor:(NSNumber*)expectedPlayers {
-    [self sendCommand:@"plan_seating" withData:@{@"max_expected_players" : expectedPlayers}];
+    [self sendCommand:@"plan_seating" withData:@{@"max_expected_players" : expectedPlayers} andBlock:nil];
 }
 
-- (void)seatPlayer:(NSNumber*)playerId {
-    [self sendCommand:@"seat_player" withData:@{@"player" : playerId}];
+- (void)seatPlayer:(NSNumber*)playerId withBlock:(void(^)(NSNumber*,NSNumber*,NSNumber*))block {
+    [self sendCommand:@"seat_player" withData:@{@"player" : playerId} andBlock:^(id json, NSString* error) {
+        // TODO: Handle error
+        // handle seated player
+        id playerSeated = json[@"player_seated"];
+        if(playerSeated) {
+            block(playerSeated[@"player_id"], playerSeated[@"table_number"], playerSeated[@"seat_number"]);
+        } else {
+            block(nil, nil, nil);
+        }
+    }];
 }
 
-- (void)bustPlayer:(NSNumber*)playerId {
-    [self sendCommand:@"bust_player" withData:@{@"player" : playerId}];
+- (void)bustPlayer:(NSNumber*)playerId withBlock:(void(^)(NSArray*))block {
+    [self sendCommand:@"bust_player" withData:@{@"player" : playerId} andBlock:^(id json, NSString* error) {
+        // TODO: Handle error
+        // handle player movement
+        // for now, just hand back the json
+        // TODO: make this more sophisticated and populate a separate NSArray with objects
+        block(json[@"players_moved"]);
+    }];
 }
 
 #pragma mark Tournament Messages
 
 - (void)handleMessage:(id)json fromConnection:(TournamentConnection*)tc {
-    // handle error
-    id error = json[@"error"];
-    if(error) {
-        NSLog(@"Error from server: %@", error);
-        return;
-    }
-
     // look for command key
     NSNumber* cmdkey = json[@"echo"];
     if(cmdkey) {
-        // do nothing with for now
-    }
+        // look up block for command key
+        void (^block)(id,NSString*) = [self blocksForCommands][cmdkey];
+        if(block) {
+            // if it's a command with a handler block, call that block
+            block(json, json[@"error"]);
 
-    // handle authorization check
-    id is_authorized = json[@"authorized"];
-    if(is_authorized) {
-        [self setAuthorized:[is_authorized boolValue]];
-        [[self connectionDelegate] tournamentSession:self authorizationStatusDidChange:[tc server] authorized:[self isAuthorized]];
-    }
-
-    // handle client authorization
-    id authorizedClient = json[@"authorized_client"];
-    if(authorizedClient) {
-        NSLog(@"+++ authorized client: %@", authorizedClient);
-    }
-
-    // handle blind level change
-    id blindLevelChanged = json[@"blind_level_changed"];
-    if(blindLevelChanged) {
-        NSLog(@"+++ blind level changed: %@", blindLevelChanged);
-    }
-
-    // handle seated player
-    id playerSeated = json[@"player_seated"];
-    if(playerSeated) {
-        NSLog(@"+++ player seated: %@", playerSeated);
-    }
-
-    // handle player movement
-    id playersMoved = json[@"players_moved"];
-    if(playersMoved) {
-        NSLog(@"+++ players moved: %@", playersMoved);
+            // remove it from our dictionary
+            [[self blocksForCommands] removeObjectForKey:cmdkey];
+        }
+    } else {
+        // TODO: handle non-command
     }
 }
 
@@ -258,10 +267,18 @@
 + (instancetype)sharedSession {
     static TournamentSession* sharedMySession = nil;
     @synchronized(self) {
-        if(sharedMySession == nil)
-            sharedMySession = [[super allocWithZone:NULL] init];
+        if(sharedMySession == nil) {
+            sharedMySession = [[self alloc] init];
+        }
     }
     return sharedMySession;
+}
+
+- (instancetype)init {
+    if (self = [super init]) {
+        blocksForCommands = [[NSMutableDictionary alloc] init];
+    }
+    return self;
 }
 
 @end

@@ -30,21 +30,21 @@
 - (void)disconnect;
 
 // tournament commands
-- (void)checkAuthorized;
-- (void)authorize:(NSNumber*)clientId;
+- (void)checkAuthorizedWithBlock:(void(^)(BOOL))block;
+- (void)authorize:(NSNumber*)clientId withBlock:(void(^)(NSNumber*))block;
 - (void)startGameAt:(NSDate*)datetime;
 - (void)stopGame;
 - (void)resumeGame;
 - (void)pauseGame;
-- (void)setPreviousLevel;
-- (void)setNextLevel;
+- (void)setPreviousLevelWithBlock:(void(^)(NSNumber*))block;
+- (void)setNextLevelWithBlock:(void(^)(NSNumber*))block;
 - (void)setActonClock:(NSNumber*)milliseconds;
 - (void)genBlindLevelsCount:(NSNumber*)count withDuration:(NSNumber*)milliseconds;
 - (void)resetFunding;
 - (void)fundPlayer:(NSNumber*)playerId withFunding:(NSNumber*)sourceId;
 - (void)planSeatingFor:(NSNumber*)expectedPlayers;
-- (void)seatPlayer:(NSNumber*)playerId;
-- (void)bustPlayer:(NSNumber*)playerId;
+- (void)seatPlayer:(NSNumber*)playerId withBlock:(void(^)(NSNumber*,NSNumber*,NSNumber*))block;
+- (void)bustPlayer:(NSNumber*)playerId withBlock:(void(^)(NSArray*))block;
 
 // singleton instance
 + (instancetype)sharedSession;
@@ -54,6 +54,5 @@
 @protocol TournamentSessionConnectionDelegate <NSObject>
 
 - (void)tournamentSession:(TournamentSession*)session connectionStatusDidChange:(TournamentServerInfo*)server connected:(BOOL)connected;
-- (void)tournamentSession:(TournamentSession*)session authorizationStatusDidChange:(TournamentServerInfo*)server authorized:(BOOL)connected;
 
 @end

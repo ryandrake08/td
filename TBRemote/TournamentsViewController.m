@@ -133,29 +133,28 @@
 
 #pragma mark TournamentSessionConnectionDelegate
 
-- (void)tournamentSession:(TournamentSession*)session connectionStatusDidChange:(TournamentServerInfo*)server connected:(BOOL)connected {
-    // update table view cell
+- (void)reloadTableRowForServer:(TournamentServerInfo*)server {
     NSUInteger i = [[self browser] indexForServer:server];
     if(i != NSNotFound) {
         NSIndexPath* indexPath = [NSIndexPath indexPathForRow:i inSection:0];
         [[self tableView] reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
+}
+
+- (void)tournamentSession:(TournamentSession*)session connectionStatusDidChange:(TournamentServerInfo*)server connected:(BOOL)connected {
+    // update table view cell
+    [self reloadTableRowForServer:server];
 
     if(connected) {
         [self setConnectedServer:server];
 
         // check authorization
-        [session checkAuthorized];
+        [session checkAuthorizedWithBlock:^(BOOL authorized) {
+            [self reloadTableRowForServer:server];
+        }];
+
     } else if(server == [self connectedServer]) {
         [self setConnectedServer:nil];
-    }
-}
-
-- (void)tournamentSession:(TournamentSession*)session authorizationStatusDidChange:(TournamentServerInfo*)server authorized:(BOOL)authorized {
-    NSUInteger i = [[self browser] indexForServer:server];
-    if(i != NSNotFound) {
-        NSIndexPath* indexPath = [NSIndexPath indexPathForRow:i inSection:0];
-        [[self tableView] reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
 }
 
