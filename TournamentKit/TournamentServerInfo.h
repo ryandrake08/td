@@ -1,5 +1,5 @@
 //
-//  TournamentServer.h
+//  TournamentServerInfo.h
 //  TournamentKit
 //
 //  Created by Ryan Drake on 1/3/15.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface TournamentServer : NSObject
+@interface TournamentServerInfo : NSObject
 
 @property (nonatomic, copy) NSString* name;
 @property (nonatomic, copy) NSString* address;

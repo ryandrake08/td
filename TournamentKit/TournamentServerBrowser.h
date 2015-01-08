@@ -7,16 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "TournamentServer.h"
+#import "TournamentServerInfo.h"
 
 @interface TournamentServerBrowser : NSObject
 
 @property (nonatomic, readonly, strong) NSMutableArray* serverList;
 
 // manually add a server to the list
-- (void)addServer:(TournamentServer*)server;
+- (void)addServer:(TournamentServerInfo*)server;
 
 // get an indexPath to a particular list item
-- (NSUInteger)indexForServer:(TournamentServer*)server;
+- (NSUInteger)indexForServer:(TournamentServerInfo*)server;
 
 @end

@@ -23,10 +23,10 @@
 		AD466E4A1A5911CB00E0973E /* TournamentServerBrowser.h in Headers */ = {isa = PBXBuildFile; fileRef = AD466E471A5911CB00E0973E /* TournamentServerBrowser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AD466E4B1A5911CB00E0973E /* TournamentServerBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = AD466E481A5911CB00E0973E /* TournamentServerBrowser.m */; };
 		AD466E4C1A5911CB00E0973E /* TournamentServerBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = AD466E481A5911CB00E0973E /* TournamentServerBrowser.m */; };
-		AD466E4F1A5911DC00E0973E /* TournamentServer.h in Headers */ = {isa = PBXBuildFile; fileRef = AD466E4D1A5911DC00E0973E /* TournamentServer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		AD466E501A5911DC00E0973E /* TournamentServer.h in Headers */ = {isa = PBXBuildFile; fileRef = AD466E4D1A5911DC00E0973E /* TournamentServer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		AD466E511A5911DC00E0973E /* TournamentServer.m in Sources */ = {isa = PBXBuildFile; fileRef = AD466E4E1A5911DC00E0973E /* TournamentServer.m */; };
-		AD466E521A5911DC00E0973E /* TournamentServer.m in Sources */ = {isa = PBXBuildFile; fileRef = AD466E4E1A5911DC00E0973E /* TournamentServer.m */; };
+		AD466E4F1A5911DC00E0973E /* TournamentServerInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = AD466E4D1A5911DC00E0973E /* TournamentServerInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AD466E501A5911DC00E0973E /* TournamentServerInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = AD466E4D1A5911DC00E0973E /* TournamentServerInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AD466E511A5911DC00E0973E /* TournamentServerInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = AD466E4E1A5911DC00E0973E /* TournamentServerInfo.m */; };
+		AD466E521A5911DC00E0973E /* TournamentServerInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = AD466E4E1A5911DC00E0973E /* TournamentServerInfo.m */; };
 		AD466E551A5918DB00E0973E /* TournamentSession.h in Headers */ = {isa = PBXBuildFile; fileRef = AD466E531A5918DB00E0973E /* TournamentSession.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AD466E561A5918DB00E0973E /* TournamentSession.h in Headers */ = {isa = PBXBuildFile; fileRef = AD466E531A5918DB00E0973E /* TournamentSession.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AD466E571A5918DB00E0973E /* TournamentSession.m in Sources */ = {isa = PBXBuildFile; fileRef = AD466E541A5918DB00E0973E /* TournamentSession.m */; };
@@ -115,8 +115,8 @@
 		AD466E3C1A58C15A00E0973E /* NSData+Delimiter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Delimiter.m"; sourceTree = "<group>"; };
 		AD466E471A5911CB00E0973E /* TournamentServerBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TournamentServerBrowser.h; sourceTree = "<group>"; };
 		AD466E481A5911CB00E0973E /* TournamentServerBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TournamentServerBrowser.m; sourceTree = "<group>"; };
-		AD466E4D1A5911DC00E0973E /* TournamentServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TournamentServer.h; sourceTree = "<group>"; };
-		AD466E4E1A5911DC00E0973E /* TournamentServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TournamentServer.m; sourceTree = "<group>"; };
+		AD466E4D1A5911DC00E0973E /* TournamentServerInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TournamentServerInfo.h; sourceTree = "<group>"; };
+		AD466E4E1A5911DC00E0973E /* TournamentServerInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TournamentServerInfo.m; sourceTree = "<group>"; };
 		AD466E531A5918DB00E0973E /* TournamentSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TournamentSession.h; sourceTree = "<group>"; };
 		AD466E541A5918DB00E0973E /* TournamentSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TournamentSession.m; sourceTree = "<group>"; };
 		AD466E5A1A5936BB00E0973E /* cJSON.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cJSON.c; sourceTree = "<group>"; };
@@ -203,8 +203,8 @@
 				AD37B3EA1A573C8300605351 /* TournamentConnection.m */,
 				AD466EBE1A59375100E0973E /* TournamentDaemon.h */,
 				AD466EBF1A59375100E0973E /* TournamentDaemon.mm */,
-				AD466E4D1A5911DC00E0973E /* TournamentServer.h */,
-				AD466E4E1A5911DC00E0973E /* TournamentServer.m */,
+				AD466E4D1A5911DC00E0973E /* TournamentServerInfo.h */,
+				AD466E4E1A5911DC00E0973E /* TournamentServerInfo.m */,
 				AD466E471A5911CB00E0973E /* TournamentServerBrowser.h */,
 				AD466E481A5911CB00E0973E /* TournamentServerBrowser.m */,
 				AD466E531A5918DB00E0973E /* TournamentSession.h */,
@@ -310,7 +310,7 @@
 				AD466E961A5936BB00E0973E /* ivectorstream.hpp in Headers */,
 				AD466E8C1A5936BB00E0973E /* gamefunding.hpp in Headers */,
 				AD466E901A5936BB00E0973E /* gameinfo.hpp in Headers */,
-				AD466E4F1A5911DC00E0973E /* TournamentServer.h in Headers */,
+				AD466E4F1A5911DC00E0973E /* TournamentServerInfo.h in Headers */,
 				AD466E841A5936BB00E0973E /* datetime.hpp in Headers */,
 				AD466E881A5936BB00E0973E /* gameclock.hpp in Headers */,
 				AD466EC01A59375100E0973E /* TournamentDaemon.h in Headers */,
@@ -339,7 +339,7 @@
 				AD466E971A5936BB00E0973E /* ivectorstream.hpp in Headers */,
 				AD466E8D1A5936BB00E0973E /* gamefunding.hpp in Headers */,
 				AD466E911A5936BB00E0973E /* gameinfo.hpp in Headers */,
-				AD466E501A5911DC00E0973E /* TournamentServer.h in Headers */,
+				AD466E501A5911DC00E0973E /* TournamentServerInfo.h in Headers */,
 				AD466E851A5936BB00E0973E /* datetime.hpp in Headers */,
 				AD466E891A5936BB00E0973E /* gameclock.hpp in Headers */,
 				AD466EC11A59375100E0973E /* TournamentDaemon.h in Headers */,
@@ -474,7 +474,7 @@
 				AD466E8A1A5936BB00E0973E /* gamefunding.cpp in Sources */,
 				AD466EAA1A5936BB00E0973E /* server.cpp in Sources */,
 				AD37B3ED1A573C8300605351 /* TournamentConnection.m in Sources */,
-				AD466E511A5911DC00E0973E /* TournamentServer.m in Sources */,
+				AD466E511A5911DC00E0973E /* TournamentServerInfo.m in Sources */,
 				AD466E4B1A5911CB00E0973E /* TournamentServerBrowser.m in Sources */,
 				AD466E9C1A5936BB00E0973E /* logger.cpp in Sources */,
 				AD466EB61A5936BB00E0973E /* tournament.cpp in Sources */,
@@ -507,7 +507,7 @@
 				AD466E8B1A5936BB00E0973E /* gamefunding.cpp in Sources */,
 				AD466EAB1A5936BB00E0973E /* server.cpp in Sources */,
 				AD37B3EE1A573C8300605351 /* TournamentConnection.m in Sources */,
-				AD466E521A5911DC00E0973E /* TournamentServer.m in Sources */,
+				AD466E521A5911DC00E0973E /* TournamentServerInfo.m in Sources */,
 				AD466E4C1A5911CB00E0973E /* TournamentServerBrowser.m in Sources */,
 				AD466E9D1A5936BB00E0973E /* logger.cpp in Sources */,
 				AD466EB71A5936BB00E0973E /* tournament.cpp in Sources */,

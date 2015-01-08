@@ -17,7 +17,7 @@
                                          UITableViewDataSource>
 
 @property (nonatomic, strong) TournamentServerBrowser* browser;
-@property (nonatomic, strong) TournamentServer* connectedServer;
+@property (nonatomic, strong) TournamentServerInfo* connectedServer;
 @end
 
 @implementation TournamentsViewController
@@ -35,7 +35,7 @@
 
 #if defined(DEBUG)
     // Test server for debugging
-    TournamentServer* testServer = [[TournamentServer alloc] init];
+    TournamentServerInfo* testServer = [[TournamentServerInfo alloc] init];
     [testServer setName:@"Local Debug"];
     [testServer setAddress:@"localhost"];
     [testServer setPort:kDefaultTournamentServerPort ];
@@ -65,7 +65,7 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)tournamentDetailsViewController:(TournamentDetailsViewController*)controller didAddServer:(TournamentServer*)server {
+- (void)tournamentDetailsViewController:(TournamentDetailsViewController*)controller didAddServer:(TournamentServerInfo*)server {
     [[self browser] addServer:server];
     NSIndexPath* indexPath = [NSIndexPath indexPathForRow:([[[self browser] serverList] count] - 1) inSection:0];
     [[self tableView] insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -85,7 +85,7 @@
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath {
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"ServerCell"];
 
-    TournamentServer* server = [[self browser] serverList][[indexPath row]];
+    TournamentServerInfo* server = [[self browser] serverList][[indexPath row]];
     [[cell textLabel] setText:[server name]];
     if(server == [[TournamentSession sharedSession] currentServer]) {
         if([[TournamentSession sharedSession] isAuthorized]) {
@@ -105,7 +105,7 @@
 #pragma mark UITableViewDelegate
 
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
-    TournamentServer* server = [[self browser] serverList][[indexPath row]];
+    TournamentServerInfo* server = [[self browser] serverList][[indexPath row]];
 
     if(server == [[TournamentSession sharedSession] currentServer]) {
         // pop disconnection actionsheet
@@ -133,7 +133,7 @@
 
 #pragma mark TournamentSessionConnectionDelegate
 
-- (void)tournamentSession:(TournamentSession*)session connectionStatusDidChange:(TournamentServer*)server connected:(BOOL)connected {
+- (void)tournamentSession:(TournamentSession*)session connectionStatusDidChange:(TournamentServerInfo*)server connected:(BOOL)connected {
     // update table view cell
     NSUInteger i = [[self browser] indexForServer:server];
     if(i != NSNotFound) {
@@ -151,7 +151,7 @@
     }
 }
 
-- (void)tournamentSession:(TournamentSession*)session authorizationStatusDidChange:(TournamentServer*)server authorized:(BOOL)authorized {
+- (void)tournamentSession:(TournamentSession*)session authorizationStatusDidChange:(TournamentServerInfo*)server authorized:(BOOL)authorized {
     NSUInteger i = [[self browser] indexForServer:server];
     if(i != NSNotFound) {
         NSIndexPath* indexPath = [NSIndexPath indexPathForRow:i inSection:0];

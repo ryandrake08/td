@@ -30,12 +30,12 @@
     // Dispose of any resources that can be recreated.
 }
 
-
 - (IBAction)cancel:(id)sender {
     [[self delegate] tournamentDetailsViewControllerDidCancel:self];
 }
+
 - (IBAction)done:(id)sender {
-    TournamentServer* server = [[TournamentServer alloc] init];
+    TournamentServerInfo* server = [[TournamentServerInfo alloc] init];
     [server setName: [[self nameTextField] text]];
     [server setAddress: [[self addressTextField] text]];
     [server setPort: [[[self portTextField] text] integerValue]];

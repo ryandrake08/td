@@ -23,7 +23,7 @@
 @property (nonatomic, strong) NSMutableData* outputBuffer;
 
 // keep track of the server object associated with this connection
-@property (nonatomic, strong) TournamentServer* server;
+@property (nonatomic, strong) TournamentServerInfo* server;
 
 @end
 
@@ -63,7 +63,7 @@
     return self;
 }
 
-- (instancetype)initWithServer:(TournamentServer*)theServer {
+- (instancetype)initWithServer:(TournamentServerInfo*)theServer {
     CFStringRef address = (__bridge CFStringRef)[theServer address];
     UInt32 port = (UInt32)[theServer port];
     CFReadStreamRef readStream;

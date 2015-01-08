@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "TournamentServer.h"
+#import "TournamentServerInfo.h"
 
 #define kDefaultTournamentServerPort 25600
 
@@ -19,14 +19,14 @@
 @property (nonatomic, weak) id<TournamentSessionConnectionDelegate> connectionDelegate;
 
 // currently connected server, or nil if either connected locally or not connected
-@property (nonatomic, readonly, strong) TournamentServer* currentServer;
+@property (nonatomic, readonly, strong) TournamentServerInfo* currentServer;
 
 // true if currently authorized with server
 @property (nonatomic, readonly, assign) BOOL isAuthorized;
 
 // connect either locally through a unix socket or to a server
 - (void)connectToLocal;
-- (void)connectToServer:(TournamentServer*)server;
+- (void)connectToServer:(TournamentServerInfo*)server;
 - (void)disconnect;
 
 // tournament commands
@@ -53,7 +53,7 @@
 
 @protocol TournamentSessionConnectionDelegate <NSObject>
 
-- (void)tournamentSession:(TournamentSession*)session connectionStatusDidChange:(TournamentServer*)server connected:(BOOL)connected;
-- (void)tournamentSession:(TournamentSession*)session authorizationStatusDidChange:(TournamentServer*)server authorized:(BOOL)connected;
+- (void)tournamentSession:(TournamentSession*)session connectionStatusDidChange:(TournamentServerInfo*)server connected:(BOOL)connected;
+- (void)tournamentSession:(TournamentSession*)session authorizationStatusDidChange:(TournamentServerInfo*)server authorized:(BOOL)connected;
 
 @end

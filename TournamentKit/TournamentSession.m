@@ -38,7 +38,7 @@
     }
 }
 
-- (void)connectToServer:(TournamentServer*)theServer {
+- (void)connectToServer:(TournamentServerInfo*)theServer {
     if([[self connection] server] != theServer) {
         [self setConnection:[[TournamentConnection alloc] initWithServer:theServer]];
         [[self connection] setDelegate:self];
@@ -49,7 +49,7 @@
     [self setConnection:nil];
 }
 
-- (TournamentServer*)currentServer {
+- (TournamentServerInfo*)currentServer {
     return [[self connection] server];
 }
 

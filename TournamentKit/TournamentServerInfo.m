@@ -1,14 +1,14 @@
 //
-//  TournamentServer.m
+//  TournamentServerInfo.m
 //  TournamentKit
 //
 //  Created by Ryan Drake on 1/3/15.
 //  Copyright (c) 2015 HDna Studio. All rights reserved.
 //
 
-#import "TournamentServer.h"
+#import "TournamentServerInfo.h"
 
-@implementation TournamentServer
+@implementation TournamentServerInfo
 
 @synthesize name;
 @synthesize address;

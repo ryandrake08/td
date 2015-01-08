@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "TournamentServer.h"
+#import "TournamentServerInfo.h"
 
 @protocol TournamentConnectionDelegate;
 
@@ -15,7 +15,7 @@
 
 // open a connection to the server, either local or remote
 - (instancetype)initWithUnixSocketNamed:(NSString*)socketPath;
-- (instancetype)initWithServer:(TournamentServer*)server;
+- (instancetype)initWithServer:(TournamentServerInfo*)server;
 
 // send a text command to the server
 - (BOOL)sendCommand:(NSString*)cmd;
@@ -33,7 +33,7 @@
 @property (nonatomic, readonly, assign) BOOL connected;
 
 // information about the connected remote server. nil if unconnected or connected locally
-@property (nonatomic, readonly, strong) TournamentServer* server;
+@property (nonatomic, readonly, strong) TournamentServerInfo* server;
 
 @end
 

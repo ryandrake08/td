@@ -17,6 +17,6 @@
 
 @protocol TournamentDetailsViewControllerDelegate <NSObject>
 - (void)tournamentDetailsViewControllerDidCancel:(TournamentDetailsViewController*)controller;
-- (void)tournamentDetailsViewController:(TournamentDetailsViewController*)controller didAddServer:(TournamentServer*)server;
+- (void)tournamentDetailsViewController:(TournamentDetailsViewController*)controller didAddServer:(TournamentServerInfo*)server;
 @end
 
