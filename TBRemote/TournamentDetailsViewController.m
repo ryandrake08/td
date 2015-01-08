@@ -23,12 +23,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -38,14 +32,14 @@
 
 
 - (IBAction)cancel:(id)sender {
-    [self.delegate tournamentDetailsViewControllerDidCancel:self];
+    [[self delegate] tournamentDetailsViewControllerDidCancel:self];
 }
 - (IBAction)done:(id)sender {
     TournamentServer* server = [[TournamentServer alloc] init];
-    server.name = self.nameTextField.text;
-    server.address = self.addressTextField.text;
-    server.port = self.portTextField.text.integerValue;
-    [self.delegate tournamentDetailsViewController:self didAddServer:server];
+    [server setName: [[self nameTextField] text]];
+    [server setAddress: [[self addressTextField] text]];
+    [server setPort: [[[self portTextField] text] integerValue]];
+    [[self delegate] tournamentDetailsViewController:self didAddServer:server];
 }
 
 @end

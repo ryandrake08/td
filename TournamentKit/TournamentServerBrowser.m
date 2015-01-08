@@ -20,14 +20,13 @@
     return self;
 }
 
-
 - (void)addServer:(TournamentServer*)server {
-    server.manuallyAdded = YES;
-    [serverList addObject:server];
+    [server setManuallyAdded: YES];
+    [[self serverList] addObject:server];
 }
 
 - (NSUInteger)indexForServer:(TournamentServer*)server {
-    return [serverList indexOfObject:server];
+    return [[self serverList] indexOfObject:server];
 }
 
 @end

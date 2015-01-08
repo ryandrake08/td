@@ -27,30 +27,30 @@
 
 - (void)connectToLocal {
     // if we're connected remotely, disconnect
-    if(self.connection.server) {
-        self.connection = nil;
+    if([[self connection] server]) {
+        [self setConnection:nil];
     }
 
     // at this point, if connection is not nil, we're already connected locally
-    if(self.connection == nil) {
-        self.connection = [[TournamentConnection alloc] initWithUnixSocketNamed:kDefaultTournamentLocalPath];
-        [self.connection setDelegate:self];
+    if([self connection] == nil) {
+        [self setConnection:[[TournamentConnection alloc] initWithUnixSocketNamed:kDefaultTournamentLocalPath]];
+        [[self connection] setDelegate:self];
     }
 }
 
 - (void)connectToServer:(TournamentServer*)theServer {
-    if(self.connection.server != theServer) {
-        self.connection = [[TournamentConnection alloc] initWithServer:theServer];
-        [self.connection setDelegate:self];
+    if([[self connection] server] != theServer) {
+        [self setConnection:[[TournamentConnection alloc] initWithServer:theServer]];
+        [[self connection] setDelegate:self];
     }
 }
 
 - (void)disconnect {
-    self.connection = nil;
+    [self setConnection:nil];
 }
 
 - (TournamentServer*)currentServer {
-    return self.connection.server;
+    return [[self connection] server];
 }
 
 #pragma mark Internal routines
@@ -184,8 +184,8 @@
     // handle authorization check
     id authorized = json[@"authorized"];
     if(authorized) {
-        self.isAuthorized = [authorized boolValue];
-        [connectionDelegate tournamentSession:self authorizationStatusDidChange:tc.server authorized:[authorized boolValue]];
+        [self setIsAuthorized:[authorized boolValue]];
+        [[self connectionDelegate] tournamentSession:self authorizationStatusDidChange:[tc server] authorized:[authorized boolValue]];
     }
 
     // handle client authorization
@@ -217,40 +217,40 @@
 
 - (void)tournamentConnectionDidConnect:(TournamentConnection*)tc {
     NSLog(@"+++ tournamentConnectionDidConnect");
-    NSAssert(self.connection == tc, @"Unexpected connection from %@", tc);
-    if(tc.server) {
-        [connectionDelegate tournamentSession:self connectionStatusDidChange:tc.server connected:YES];
+    NSAssert([self connection] == tc, @"Unexpected connection from %@", tc);
+    if([tc server]) {
+        [[self connectionDelegate] tournamentSession:self connectionStatusDidChange:[tc server] connected:YES];
     }
 }
 
 - (void)tournamentConnectionDidDisconnect:(TournamentConnection*)tc {
     NSLog(@"+++ tournamentConnectionDidDisconnect");
-    NSAssert(self.connection == tc, @"Unexpected disconnection from %@", tc);
-    self.connection = nil;
-    self.isAuthorized = NO;
+    NSAssert([self connection] == tc, @"Unexpected disconnection from %@", tc);
+    [self setConnection:nil];
+    [self setIsAuthorized:NO];
 }
 
 - (void)tournamentConnectionDidClose:(TournamentConnection*)tc {
     NSLog(@"+++ tournamentConnectionDidClose");
-    NSAssert(self.connection == nil, @"Connection %@ closed while session retains", tc);
-    if(tc.server) {
-        [connectionDelegate tournamentSession:self connectionStatusDidChange:tc.server connected:NO];
+    NSAssert([self connection] == nil, @"Connection %@ closed while session retains", tc);
+    if([tc server]) {
+        [[self connectionDelegate] tournamentSession:self connectionStatusDidChange:[tc server] connected:NO];
     }
-    self.connection = nil;
-    self.isAuthorized = NO;
+    [self setConnection:nil];
+    [self setIsAuthorized:NO];
 }
 
 - (void)tournamentConnection:(TournamentConnection*)tc didReceiveData:(id)json {
     NSLog(@"+++ tournamentConnectionDidReceiveData");
-    NSAssert(self.connection == tc, @"Unexpected data from %@", tc);
+    NSAssert([self connection] == tc, @"Unexpected data from %@", tc);
     [self handleMessage:json fromConnection:tc];
 }
 
 - (void)tournamentConnection:(TournamentConnection*)tc error:(NSError*)error {
     NSLog(@"+++ tournamentConnectionError: %@", [error localizedDescription]);
-    NSAssert(self.connection == tc, @"Unexpected error from %@", tc);
-    self.connection = nil;
-    self.isAuthorized = NO;
+    NSAssert([self connection] == tc, @"Unexpected error from %@", tc);
+    [self setConnection:nil];
+    [self setIsAuthorized:NO];
 }
 
 #pragma mark Singleton Methods

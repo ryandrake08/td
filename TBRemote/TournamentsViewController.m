@@ -36,10 +36,10 @@
 #if defined(DEBUG)
     // Test server for debugging
     TournamentServer* testServer = [[TournamentServer alloc] init];
-    testServer.name = @"Local Debug";
-    testServer.address = @"localhost";
-    testServer.port = kDefaultTournamentServerPort;
-    [self.browser addServer:testServer];
+    [testServer setName:@"Local Debug"];
+    [testServer setAddress:@"localhost"];
+    [testServer setPort:kDefaultTournamentServerPort ];
+    [[self browser] addServer:testServer];
 #endif
 }
 
@@ -51,11 +51,11 @@
 
 #pragma mark - Segues
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"AddServer"]) {
-        UINavigationController* navigationController = segue.destinationViewController;
+- (void)prepareForSegue:(UIStoryboardSegue*)segue sender:(id)sender {
+    if ([[segue identifier] isEqualToString:@"AddServer"]) {
+        UINavigationController* navigationController = [segue destinationViewController];
         TournamentDetailsViewController* tournamentDetailsViewController = [navigationController viewControllers][0];
-        tournamentDetailsViewController.delegate = self;
+        [tournamentDetailsViewController setDelegate:self];
     }
 }
 
@@ -66,9 +66,9 @@
 }
 
 - (void)tournamentDetailsViewController:(TournamentDetailsViewController*)controller didAddServer:(TournamentServer*)server {
-    [self.browser addServer:server];
-    NSIndexPath* indexPath = [NSIndexPath indexPathForRow:([self.browser.serverList count] - 1) inSection:0];
-    [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    [[self browser] addServer:server];
+    NSIndexPath* indexPath = [NSIndexPath indexPathForRow:([[[self browser] serverList] count] - 1) inSection:0];
+    [[self tableView] insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -79,24 +79,24 @@
 }
 
 - (NSInteger)tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.browser.serverList count];
+    return [[[self browser] serverList] count];
 }
 
-- (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath {
+- (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath {
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"ServerCell"];
 
-    TournamentServer* server = (self.browser.serverList)[indexPath.row];
-    cell.textLabel.text = server.name;
+    TournamentServer* server = [[self browser] serverList][[indexPath row]];
+    [[cell textLabel] setText:[server name]];
     if(server == [[TournamentSession sharedSession] currentServer]) {
         if([[TournamentSession sharedSession] isAuthorized]) {
-            cell.detailTextLabel.text = NSLocalizedString(@"Admin", nil);
+            [[cell detailTextLabel] setText:NSLocalizedString(@"Admin", nil)];
         } else {
-            cell.detailTextLabel.text = NSLocalizedString(@"Connected", nil);
+            [[cell detailTextLabel] setText:NSLocalizedString(@"Connected", nil)];
         }
-        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        [cell setAccessoryType:UITableViewCellAccessoryCheckmark];
     } else {
-        cell.detailTextLabel.text = @"";
-        cell.accessoryType = UITableViewCellAccessoryNone;
+        [[cell detailTextLabel] setText:@""];
+        [cell setAccessoryType:UITableViewCellAccessoryNone];
     }
 
     return cell;
@@ -104,12 +104,12 @@
 
 #pragma mark UITableViewDelegate
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    TournamentServer* server = (self.browser.serverList)[indexPath.row];
+- (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
+    TournamentServer* server = [[self browser] serverList][[indexPath row]];
 
     if(server == [[TournamentSession sharedSession] currentServer]) {
         // pop disconnection actionsheet
-        [UIActionSheet showInView:self.view
+        [UIActionSheet showInView:[self view]
                         withTitle:nil
                 cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
            destructiveButtonTitle:NSLocalizedString(@"Leave Game", nil)
@@ -135,27 +135,27 @@
 
 - (void)tournamentSession:(TournamentSession*)session connectionStatusDidChange:(TournamentServer*)server connected:(BOOL)connected {
     // update table view cell
-    NSUInteger i = [self.browser indexForServer:server];
+    NSUInteger i = [[self browser] indexForServer:server];
     if(i != NSNotFound) {
         NSIndexPath* indexPath = [NSIndexPath indexPathForRow:i inSection:0];
-        [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [[self tableView] reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
 
     if(connected) {
-        self.connectedServer = server;
+        [self setConnectedServer:server];
 
         // check authorization
         [session checkAuthorized];
-    } else if(server == self.connectedServer) {
-        self.connectedServer = nil;
+    } else if(server == [self connectedServer]) {
+        [self setConnectedServer:nil];
     }
 }
 
 - (void)tournamentSession:(TournamentSession*)session authorizationStatusDidChange:(TournamentServer*)server authorized:(BOOL)authorized {
-    NSUInteger i = [self.browser indexForServer:server];
+    NSUInteger i = [[self browser] indexForServer:server];
     if(i != NSNotFound) {
         NSIndexPath* indexPath = [NSIndexPath indexPathForRow:i inSection:0];
-        [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [[self tableView] reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
 }
 
