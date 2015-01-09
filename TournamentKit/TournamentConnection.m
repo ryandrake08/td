@@ -22,9 +22,6 @@
 @property (nonatomic, strong) NSMutableData* inputBuffer;
 @property (nonatomic, strong) NSMutableData* outputBuffer;
 
-// keep track of the server object associated with this connection
-@property (nonatomic, strong) TournamentServerInfo* server;
-
 @end
 
 @implementation TournamentConnection
@@ -32,7 +29,6 @@
 @synthesize outputStream;
 @synthesize inputBuffer;
 @synthesize outputBuffer;
-@synthesize server;
 @synthesize delegate;
 @dynamic connected;
 
@@ -63,14 +59,10 @@
     return self;
 }
 
-- (instancetype)initWithServer:(TournamentServerInfo*)theServer {
-    CFStringRef address = (__bridge CFStringRef)[theServer address];
-    UInt32 port = (UInt32)[theServer port];
+- (instancetype)initWithAddress:(NSString*)address andPort:(NSInteger)port {
     CFReadStreamRef readStream;
     CFWriteStreamRef writeStream;
-    CFStreamCreatePairWithSocketToHost(NULL, address, port, &readStream, &writeStream);
-
-    [self setServer: theServer];
+    CFStreamCreatePairWithSocketToHost(NULL, (__bridge CFStringRef)address, (UInt32)port, &readStream, &writeStream);
 
     return [self initWithReadStream:readStream writeStream:writeStream];
 }
@@ -120,9 +112,7 @@
 
     CFReadStreamRef readStream;
     CFWriteStreamRef writeStream;
-    CFStreamCreatePairWithSocket (kCFAllocatorDefault, sock, &readStream, &writeStream);
-
-    [self setServer: nil];
+    CFStreamCreatePairWithSocket(kCFAllocatorDefault, sock, &readStream, &writeStream);
 
     return [self initWithReadStream:readStream writeStream:writeStream];
 }

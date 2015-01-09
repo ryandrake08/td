@@ -13,8 +13,9 @@
 
 @interface TournamentSession() <TournamentConnectionDelegate>
 
-@property (nonatomic, strong) TournamentConnection* connection;
+@property (nonatomic, strong) TournamentServerInfo* currentServer;
 @property (nonatomic, assign) BOOL authorized;
+@property (nonatomic, strong) TournamentConnection* connection;
 @property (nonatomic, strong) NSMutableDictionary* blocksForCommands;
 
 @end
@@ -22,37 +23,27 @@
 @implementation TournamentSession
 
 @synthesize connectionDelegate;
-@dynamic currentServer;
+@synthesize currentServer;
 @synthesize authorized;
 @synthesize connection;
 @synthesize blocksForCommands;
 
 - (void)connectToLocal {
-    // if we're connected remotely, disconnect
-    if([[self connection] server]) {
-        [self setConnection:nil];
-    }
-
-    // at this point, if connection is not nil, we're already connected locally
-    if([self connection] == nil) {
-        [self setConnection:[[TournamentConnection alloc] initWithUnixSocketNamed:kDefaultTournamentLocalPath]];
-        [[self connection] setDelegate:self];
-    }
+    [self setConnection:[[TournamentConnection alloc] initWithUnixSocketNamed:kDefaultTournamentLocalPath]];
+    [[self connection] setDelegate:self];
+    [self setCurrentServer:nil];
 }
 
 - (void)connectToServer:(TournamentServerInfo*)theServer {
-    if([[self connection] server] != theServer) {
-        [self setConnection:[[TournamentConnection alloc] initWithServer:theServer]];
-        [[self connection] setDelegate:self];
-    }
+    [self setConnection:[[TournamentConnection alloc] initWithAddress:[theServer address] andPort:[theServer port]]];
+    [[self connection] setDelegate:self];
+    [self setCurrentServer:theServer];
 }
 
 - (void)disconnect {
     [self setConnection:nil];
-}
-
-- (TournamentServerInfo*)currentServer {
-    return [[self connection] server];
+    [self setCurrentServer:nil];
+    [self setAuthorized:NO];
 }
 
 #pragma mark Internal routines
@@ -229,26 +220,20 @@
 - (void)tournamentConnectionDidConnect:(TournamentConnection*)tc {
     NSLog(@"+++ tournamentConnectionDidConnect");
     NSAssert([self connection] == tc, @"Unexpected connection from %@", tc);
-    if([tc server]) {
-        [[self connectionDelegate] tournamentSession:self connectionStatusDidChange:[tc server] connected:YES];
-    }
+    [[self connectionDelegate] tournamentSession:self connectionStatusDidChange:[self currentServer] connected:YES];
 }
 
 - (void)tournamentConnectionDidDisconnect:(TournamentConnection*)tc {
     NSLog(@"+++ tournamentConnectionDidDisconnect");
     NSAssert([self connection] == tc, @"Unexpected disconnection from %@", tc);
-    [self setConnection:nil];
-    [self setAuthorized:NO];
+    [self disconnect];
 }
 
 - (void)tournamentConnectionDidClose:(TournamentConnection*)tc {
     NSLog(@"+++ tournamentConnectionDidClose");
     NSAssert([self connection] == nil, @"Connection %@ closed while session retains", tc);
-    if([tc server]) {
-        [[self connectionDelegate] tournamentSession:self connectionStatusDidChange:[tc server] connected:NO];
-    }
-    [self setConnection:nil];
-    [self setAuthorized:NO];
+    [[self connectionDelegate] tournamentSession:self connectionStatusDidChange:[self currentServer] connected:NO];
+    [self disconnect];
 }
 
 - (void)tournamentConnection:(TournamentConnection*)tc didReceiveData:(id)json {
@@ -260,8 +245,7 @@
 - (void)tournamentConnection:(TournamentConnection*)tc error:(NSError*)error {
     NSLog(@"+++ tournamentConnectionError: %@", [error localizedDescription]);
     NSAssert([self connection] == tc, @"Unexpected error from %@", tc);
-    [self setConnection:nil];
-    [self setAuthorized:NO];
+    [self disconnect];
 }
 
 #pragma mark Singleton Methods
