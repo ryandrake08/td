@@ -10,7 +10,7 @@
 		AD37B3FE1A574B0100605351 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AD37B3FD1A574B0100605351 /* main.m */; };
 		AD37B4011A574B0100605351 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AD37B4001A574B0100605351 /* AppDelegate.m */; };
 		AD37B4041A574B0100605351 /* TournamentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD37B4031A574B0100605351 /* TournamentsViewController.m */; };
-		AD37B4071A574B0100605351 /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD37B4061A574B0100605351 /* SecondViewController.m */; };
+		AD37B4071A574B0100605351 /* TBRemoteClockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD37B4061A574B0100605351 /* TBRemoteClockViewController.m */; };
 		AD37B40A1A574B0100605351 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AD37B4081A574B0100605351 /* Main.storyboard */; };
 		AD37B40C1A574B0100605351 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AD37B40B1A574B0100605351 /* Images.xcassets */; };
 		AD37B40F1A574B0100605351 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD37B40D1A574B0100605351 /* LaunchScreen.xib */; };
@@ -28,8 +28,8 @@
 		AD37B4001A574B0100605351 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		AD37B4021A574B0100605351 /* TournamentsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TournamentsViewController.h; sourceTree = "<group>"; };
 		AD37B4031A574B0100605351 /* TournamentsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TournamentsViewController.m; sourceTree = "<group>"; };
-		AD37B4051A574B0100605351 /* SecondViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecondViewController.h; sourceTree = "<group>"; };
-		AD37B4061A574B0100605351 /* SecondViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecondViewController.m; sourceTree = "<group>"; };
+		AD37B4051A574B0100605351 /* TBRemoteClockViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBRemoteClockViewController.h; sourceTree = "<group>"; };
+		AD37B4061A574B0100605351 /* TBRemoteClockViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TBRemoteClockViewController.m; sourceTree = "<group>"; };
 		AD37B4091A574B0100605351 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		AD37B40B1A574B0100605351 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		AD37B40E1A574B0100605351 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -80,8 +80,8 @@
 				AD37B4031A574B0100605351 /* TournamentsViewController.m */,
 				AD466E441A58F4B200E0973E /* TournamentDetailsViewController.h */,
 				AD466E451A58F4B200E0973E /* TournamentDetailsViewController.m */,
-				AD37B4051A574B0100605351 /* SecondViewController.h */,
-				AD37B4061A574B0100605351 /* SecondViewController.m */,
+				AD37B4051A574B0100605351 /* TBRemoteClockViewController.h */,
+				AD37B4061A574B0100605351 /* TBRemoteClockViewController.m */,
 				AD466EC41A59CC1200E0973E /* UIActionSheet+Blocks.h */,
 				AD466EC51A59CC1200E0973E /* UIActionSheet+Blocks.m */,
 				AD37B4081A574B0100605351 /* Main.storyboard */,
@@ -180,7 +180,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AD37B4071A574B0100605351 /* SecondViewController.m in Sources */,
+				AD37B4071A574B0100605351 /* TBRemoteClockViewController.m in Sources */,
 				AD466EC61A59CC1200E0973E /* UIActionSheet+Blocks.m in Sources */,
 				AD37B4011A574B0100605351 /* AppDelegate.m in Sources */,
 				AD37B4041A574B0100605351 /* TournamentsViewController.m in Sources */,

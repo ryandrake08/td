@@ -1,18 +1,18 @@
 //
-//  SecondViewController.m
+//  TBRemoteClockViewController.m
 //  TBRemote
 //
 //  Created by Ryan Drake on 1/2/15.
 //  Copyright (c) 2015 HDna Studio. All rights reserved.
 //
 
-#import "SecondViewController.h"
+#import "TBRemoteClockViewController.h"
 
-@interface SecondViewController ()
+@interface TBRemoteClockViewController ()
 
 @end
 
-@implementation SecondViewController
+@implementation TBRemoteClockViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

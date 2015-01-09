@@ -1,5 +1,5 @@
 //
-//  SecondViewController.h
+//  TBRemoteClockViewController.h
 //  TBRemote
 //
 //  Created by Ryan Drake on 1/2/15.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SecondViewController : UIViewController
+@interface TBRemoteClockViewController : UIViewController
 
 
 @end
