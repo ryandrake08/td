@@ -1,25 +1,25 @@
 //
-//  TournamentsViewController.m
+//  TBTournamentsViewController.m
 //  TBRemote
 //
 //  Created by Ryan Drake on 1/2/15.
 //  Copyright (c) 2015 HDna Studio. All rights reserved.
 //
 
-#import "TournamentsViewController.h"
-#import "TournamentDetailsViewController.h"
+#import "TBTournamentsViewController.h"
+#import "TBTournamentDetailsViewController.h"
 #import "TournamentKit_ios/TournamentKit.h"
 #import "UIActionSheet+Blocks.h"
 
-@interface TournamentsViewController () <TournamentSessionConnectionDelegate,
-                                         TournamentDetailsViewControllerDelegate,
-                                         UITableViewDelegate,
-                                         UITableViewDataSource>
+@interface TBTournamentsViewController () <TournamentSessionConnectionDelegate,
+                                           TBTournamentDetailsViewControllerDelegate,
+                                           UITableViewDelegate,
+                                           UITableViewDataSource>
 
 @property (nonatomic, strong) TournamentServerBrowser* browser;
 @end
 
-@implementation TournamentsViewController
+@implementation TBTournamentsViewController
 @synthesize browser;
 
 - (void)viewDidLoad {
@@ -52,18 +52,18 @@
 - (void)prepareForSegue:(UIStoryboardSegue*)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"AddServer"]) {
         UINavigationController* navigationController = [segue destinationViewController];
-        TournamentDetailsViewController* tournamentDetailsViewController = [navigationController viewControllers][0];
+        TBTournamentDetailsViewController* tournamentDetailsViewController = [navigationController viewControllers][0];
         [tournamentDetailsViewController setDelegate:self];
     }
 }
 
-#pragma mark - TournamentDetailsViewControllerDelegate
+#pragma mark - TBTournamentDetailsViewControllerDelegate
 
-- (void)tournamentDetailsViewControllerDidCancel:(TournamentDetailsViewController*)controller {
+- (void)tournamentDetailsViewControllerDidCancel:(TBTournamentDetailsViewController*)controller {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)tournamentDetailsViewController:(TournamentDetailsViewController*)controller didAddServer:(TournamentServerInfo*)server {
+- (void)tournamentDetailsViewController:(TBTournamentDetailsViewController*)controller didAddServer:(TournamentServerInfo*)server {
     [[self browser] addServer:server];
     NSIndexPath* indexPath = [NSIndexPath indexPathForRow:([[self browser] serverCount] - 1) inSection:0];
     [[self tableView] insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];

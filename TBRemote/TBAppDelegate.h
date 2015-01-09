@@ -1,5 +1,5 @@
 //
-//  AppDelegate.h
+//  TBAppDelegate.h
 //  TBRemote
 //
 //  Created by Ryan Drake on 1/2/15.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@interface TBAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (nonatomic, strong) UIWindow* window;
 

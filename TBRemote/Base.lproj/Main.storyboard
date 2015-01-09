@@ -7,7 +7,7 @@
         <!--Tournaments-->
         <scene sceneID="dCS-BX-fAL">
             <objects>
-                <tableViewController id="lol-E6-1Ha" customClass="TournamentsViewController" sceneMemberID="viewController">
+                <tableViewController id="lol-E6-1Ha" customClass="TBTournamentsViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="bX0-DO-sYm">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -57,7 +57,7 @@
         <!--Add Tournament-->
         <scene sceneID="5f9-VT-GHt">
             <objects>
-                <tableViewController id="e9b-GH-c79" customClass="TournamentDetailsViewController" sceneMemberID="viewController">
+                <tableViewController id="e9b-GH-c79" customClass="TBTournamentDetailsViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="SLU-PB-43S">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

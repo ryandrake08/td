@@ -8,15 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		AD37B3FE1A574B0100605351 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AD37B3FD1A574B0100605351 /* main.m */; };
-		AD37B4011A574B0100605351 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AD37B4001A574B0100605351 /* AppDelegate.m */; };
-		AD37B4041A574B0100605351 /* TournamentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD37B4031A574B0100605351 /* TournamentsViewController.m */; };
+		AD37B4011A574B0100605351 /* TBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AD37B4001A574B0100605351 /* TBAppDelegate.m */; };
+		AD37B4041A574B0100605351 /* TBTournamentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD37B4031A574B0100605351 /* TBTournamentsViewController.m */; };
 		AD37B4071A574B0100605351 /* TBRemoteClockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD37B4061A574B0100605351 /* TBRemoteClockViewController.m */; };
 		AD37B40A1A574B0100605351 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AD37B4081A574B0100605351 /* Main.storyboard */; };
 		AD37B40C1A574B0100605351 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AD37B40B1A574B0100605351 /* Images.xcassets */; };
 		AD37B40F1A574B0100605351 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD37B40D1A574B0100605351 /* LaunchScreen.xib */; };
 		AD37B4251A5750B000605351 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD37B4241A5750B000605351 /* UIKit.framework */; };
 		AD37B4271A5750C100605351 /* TournamentKit_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD37B4261A5750C100605351 /* TournamentKit_ios.framework */; };
-		AD466E461A58F4B200E0973E /* TournamentDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD466E451A58F4B200E0973E /* TournamentDetailsViewController.m */; };
+		AD466E461A58F4B200E0973E /* TBTournamentDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD466E451A58F4B200E0973E /* TBTournamentDetailsViewController.m */; };
 		AD466EC61A59CC1200E0973E /* UIActionSheet+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = AD466EC51A59CC1200E0973E /* UIActionSheet+Blocks.m */; };
 /* End PBXBuildFile section */
 
@@ -24,10 +24,10 @@
 		AD37B3F81A574B0100605351 /* TBRemote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TBRemote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD37B3FC1A574B0100605351 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AD37B3FD1A574B0100605351 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		AD37B3FF1A574B0100605351 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		AD37B4001A574B0100605351 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		AD37B4021A574B0100605351 /* TournamentsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TournamentsViewController.h; sourceTree = "<group>"; };
-		AD37B4031A574B0100605351 /* TournamentsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TournamentsViewController.m; sourceTree = "<group>"; };
+		AD37B3FF1A574B0100605351 /* TBAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBAppDelegate.h; sourceTree = "<group>"; };
+		AD37B4001A574B0100605351 /* TBAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TBAppDelegate.m; sourceTree = "<group>"; };
+		AD37B4021A574B0100605351 /* TBTournamentsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBTournamentsViewController.h; sourceTree = "<group>"; };
+		AD37B4031A574B0100605351 /* TBTournamentsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TBTournamentsViewController.m; sourceTree = "<group>"; };
 		AD37B4051A574B0100605351 /* TBRemoteClockViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBRemoteClockViewController.h; sourceTree = "<group>"; };
 		AD37B4061A574B0100605351 /* TBRemoteClockViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TBRemoteClockViewController.m; sourceTree = "<group>"; };
 		AD37B4091A574B0100605351 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -35,8 +35,8 @@
 		AD37B40E1A574B0100605351 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		AD37B4241A5750B000605351 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		AD37B4261A5750C100605351 /* TournamentKit_ios.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TournamentKit_ios.framework; path = "build/Debug-iphoneos/TournamentKit_ios.framework"; sourceTree = "<group>"; };
-		AD466E441A58F4B200E0973E /* TournamentDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TournamentDetailsViewController.h; sourceTree = "<group>"; };
-		AD466E451A58F4B200E0973E /* TournamentDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TournamentDetailsViewController.m; sourceTree = "<group>"; };
+		AD466E441A58F4B200E0973E /* TBTournamentDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBTournamentDetailsViewController.h; sourceTree = "<group>"; };
+		AD466E451A58F4B200E0973E /* TBTournamentDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBTournamentDetailsViewController.m; sourceTree = "<group>"; };
 		AD466EC41A59CC1200E0973E /* UIActionSheet+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIActionSheet+Blocks.h"; sourceTree = "<group>"; };
 		AD466EC51A59CC1200E0973E /* UIActionSheet+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIActionSheet+Blocks.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -74,12 +74,12 @@
 		AD37B3FA1A574B0100605351 /* TBRemote */ = {
 			isa = PBXGroup;
 			children = (
-				AD37B3FF1A574B0100605351 /* AppDelegate.h */,
-				AD37B4001A574B0100605351 /* AppDelegate.m */,
-				AD37B4021A574B0100605351 /* TournamentsViewController.h */,
-				AD37B4031A574B0100605351 /* TournamentsViewController.m */,
-				AD466E441A58F4B200E0973E /* TournamentDetailsViewController.h */,
-				AD466E451A58F4B200E0973E /* TournamentDetailsViewController.m */,
+				AD37B3FF1A574B0100605351 /* TBAppDelegate.h */,
+				AD37B4001A574B0100605351 /* TBAppDelegate.m */,
+				AD37B4021A574B0100605351 /* TBTournamentsViewController.h */,
+				AD37B4031A574B0100605351 /* TBTournamentsViewController.m */,
+				AD466E441A58F4B200E0973E /* TBTournamentDetailsViewController.h */,
+				AD466E451A58F4B200E0973E /* TBTournamentDetailsViewController.m */,
 				AD37B4051A574B0100605351 /* TBRemoteClockViewController.h */,
 				AD37B4061A574B0100605351 /* TBRemoteClockViewController.m */,
 				AD466EC41A59CC1200E0973E /* UIActionSheet+Blocks.h */,
@@ -182,10 +182,10 @@
 			files = (
 				AD37B4071A574B0100605351 /* TBRemoteClockViewController.m in Sources */,
 				AD466EC61A59CC1200E0973E /* UIActionSheet+Blocks.m in Sources */,
-				AD37B4011A574B0100605351 /* AppDelegate.m in Sources */,
-				AD37B4041A574B0100605351 /* TournamentsViewController.m in Sources */,
+				AD37B4011A574B0100605351 /* TBAppDelegate.m in Sources */,
+				AD37B4041A574B0100605351 /* TBTournamentsViewController.m in Sources */,
 				AD37B3FE1A574B0100605351 /* main.m in Sources */,
-				AD466E461A58F4B200E0973E /* TournamentDetailsViewController.m in Sources */,
+				AD466E461A58F4B200E0973E /* TBTournamentDetailsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

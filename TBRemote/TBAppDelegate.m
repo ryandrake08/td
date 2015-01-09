@@ -1,18 +1,18 @@
 //
-//  AppDelegate.m
+//  TBAppDelegate.m
 //  TBRemote
 //
 //  Created by Ryan Drake on 1/2/15.
 //  Copyright (c) 2015 HDna Studio. All rights reserved.
 //
 
-#import "AppDelegate.h"
+#import "TBAppDelegate.h"
 
-@interface AppDelegate ()
+@interface TBAppDelegate ()
 
 @end
 
-@implementation AppDelegate
+@implementation TBAppDelegate
 
 
 - (BOOL)application:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)launchOptions {

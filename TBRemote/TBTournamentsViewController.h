@@ -1,5 +1,5 @@
 //
-//  TournamentsViewController.h
+// TBTournamentsViewController.h
 //  TBRemote
 //
 //  Created by Ryan Drake on 1/2/15.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TournamentsViewController : UITableViewController
+@interface TBTournamentsViewController : UITableViewController
 
 @end
