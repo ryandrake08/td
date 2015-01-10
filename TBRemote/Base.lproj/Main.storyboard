@@ -13,7 +13,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="checkmark" indentationWidth="10" reuseIdentifier="ServerCell" textLabel="dPn-nh-ase" detailTextLabel="aX4-FF-6wF" imageView="uwm-z9-SHX" style="IBUITableViewCellStyleValue1" id="Nxn-7t-mfF">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="checkmark" indentationWidth="10" reuseIdentifier="ServerCell" textLabel="dPn-nh-ase" detailTextLabel="aX4-FF-6wF" style="IBUITableViewCellStyleValue1" id="Nxn-7t-mfF">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Nxn-7t-mfF" id="PCB-Ut-mKT">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -24,9 +24,6 @@
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="first" id="uwm-z9-SHX">
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </imageView>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="aX4-FF-6wF">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -148,7 +145,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Clock" image="second" id="cPa-gy-q4n" userLabel="Clock"/>
+                    <tabBarItem key="tabBarItem" title="Clock" image="t_clock" id="cPa-gy-q4n" userLabel="Clock"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>
@@ -177,7 +174,7 @@
         <scene sceneID="dFh-sN-Cdp">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="y9X-XM-a2y" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Tournaments" image="first" id="Zb9-yF-xau"/>
+                    <tabBarItem key="tabBarItem" title="Tournaments" image="t_connect" id="Zb9-yF-xau"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="PH6-AE-Pg8">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -212,8 +209,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="first" width="30" height="30"/>
-        <image name="second" width="30" height="30"/>
+        <image name="t_clock" width="32" height="32"/>
+        <image name="t_connect" width="32" height="32"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
