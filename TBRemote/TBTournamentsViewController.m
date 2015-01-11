@@ -19,7 +19,6 @@
 @end
 
 @implementation TBTournamentsViewController
-@synthesize browser;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -31,14 +30,14 @@
                                            context:NULL];
 
     // Initialize server list
-    browser = [[TournamentServerBrowser alloc] init];
+    _browser = [[TournamentServerBrowser alloc] init];
 
 #if defined(DEBUG)
     // Test server for debugging
     TournamentServerInfo* testServer = [[TournamentServerInfo alloc] init];
     [testServer setName:@"Local Debug"];
     [testServer setAddress:@"localhost"];
-    [testServer setPort:kDefaultTournamentServerPort ];
+    [testServer setPort:kDefaultTournamentServerPort];
     [[self browser] addServer:testServer];
 #endif
 }

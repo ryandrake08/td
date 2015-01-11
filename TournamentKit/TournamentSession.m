@@ -33,13 +33,6 @@
 
 @implementation TournamentSession
 
-@dynamic connected;
-@synthesize currentServer;
-@synthesize authorized;
-@synthesize connection;
-@synthesize blocksForCommands;
-@synthesize tournamentConfigAndState;
-
 - (void)connectToLocal {
     [self disconnect];
     [[self connection] connectToUnixSocketNamed:kDefaultTournamentLocalPath];
@@ -282,10 +275,10 @@
 
 - (instancetype)init {
     if (self = [super init]) {
-        blocksForCommands = [[NSMutableDictionary alloc] init];
-        tournamentConfigAndState = [[NSDictionary alloc] init];
-        connection = [[TournamentConnection alloc] init];
-        [connection setDelegate:self];
+        _blocksForCommands = [[NSMutableDictionary alloc] init];
+        _tournamentConfigAndState = [[NSDictionary alloc] init];
+        _connection = [[TournamentConnection alloc] init];
+        [_connection setDelegate:self];
     }
     return self;
 }

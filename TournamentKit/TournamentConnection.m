@@ -23,18 +23,12 @@
 @end
 
 @implementation TournamentConnection
-@synthesize inputStream;
-@synthesize outputStream;
-@synthesize inputBuffer;
-@synthesize outputBuffer;
-@synthesize delegate;
-@dynamic connected;
 
 - (instancetype)init {
     if((self = [super init])) {
         // initialize buffers
-        inputBuffer = [NSMutableData data];
-        outputBuffer = [NSMutableData data];
+        _inputBuffer = [NSMutableData data];
+        _outputBuffer = [NSMutableData data];
     }
 
     return self;

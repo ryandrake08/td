@@ -13,19 +13,17 @@
 @end
 
 @implementation TournamentServerBrowser
-@synthesize serverList;
-@dynamic serverCount;
 
 - (instancetype)init {
     if((self = [super init])) {
-        serverList = [NSMutableArray array];
+        _serverList = [NSMutableArray array];
     }
 
     return self;
 }
 
 - (void)addServer:(TournamentServerInfo*)server {
-    [server setManuallyAdded: YES];
+    [server setManuallyAdded:YES];
     [[self serverList] addObject:server];
 }
 

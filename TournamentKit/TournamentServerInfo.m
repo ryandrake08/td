@@ -10,9 +10,4 @@
 
 @implementation TournamentServerInfo
 
-@synthesize name;
-@synthesize address;
-@synthesize port;
-@synthesize manuallyAdded;
-
 @end
