@@ -11,8 +11,7 @@
 #import "TournamentKit_ios/TournamentKit.h"
 #import "UIActionSheet+Blocks.h"
 
-@interface TBTournamentsViewController () <TournamentSessionConnectionDelegate,
-                                           TBTournamentDetailsViewControllerDelegate,
+@interface TBTournamentsViewController () <TBTournamentDetailsViewControllerDelegate,
                                            UITableViewDelegate,
                                            UITableViewDataSource>
 
@@ -25,9 +24,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    // Be the session connection delegate
-    [[TournamentSession sharedSession] setConnectionDelegate:self];
-
+    // register for notifications
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(connectionStatusDidChange:)
+                                                 name:TournamentConnectionStatusDidChangeNotification
+                                               object:nil];
     // Initialize server list
     browser = [[TournamentServerBrowser alloc] init];
 
@@ -44,6 +45,11 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)dealloc {
+    // unregister for notifications
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 
@@ -129,8 +135,6 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
-#pragma mark TournamentSessionConnectionDelegate
-
 - (void)reloadTableRowForServer:(TournamentServerInfo*)server {
     NSUInteger i = [[self browser] indexForServer:server];
     if(i != NSNotFound) {
@@ -139,11 +143,14 @@
     }
 }
 
-- (void)tournamentSession:(TournamentSession*)session connectionStatusDidChange:(TournamentServerInfo*)server connected:(BOOL)connected {
+- (void)connectionStatusDidChange:(NSNotification*)notification {
+    TournamentSession* session = (TournamentSession*)[notification object];
+    TournamentServerInfo* server = [notification userInfo][@"server"];
+
     // update table view cell
     [self reloadTableRowForServer:server];
 
-    if(connected) {
+    if([session isConnected]) {
         // check authorization
         [session checkAuthorizedWithBlock:^(BOOL authorized) {
             [self reloadTableRowForServer:server];

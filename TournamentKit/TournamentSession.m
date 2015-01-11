@@ -12,12 +12,15 @@
 
 #define kDefaultTournamentLocalPath @"/tmp/tournamentd.sock"
 
+// notifications
+NSString* const TournamentConnectionStatusDidChangeNotification = @"TournamentConnectionStatusDidChangeNotification";
+
 @interface TournamentSession() <TournamentConnectionDelegate>
 
 // record currently connected server
 @property (nonatomic, strong) TournamentServerInfo* currentServer;
 
-// is the current user authorized as a tournament director?
+// YES if currently authorized with server
 @property (nonatomic, assign) BOOL authorized;
 
 // the connection object, handles networking and JSON serialization
@@ -33,7 +36,7 @@
 
 @implementation TournamentSession
 
-@synthesize connectionDelegate;
+@dynamic connected;
 @synthesize currentServer;
 @synthesize authorized;
 @synthesize connection;
@@ -56,6 +59,14 @@
     [self setConnection:nil];
     [self setCurrentServer:nil];
     [self setAuthorized:NO];
+}
+
+- (BOOL) isConnected {
+    return [self connection] != nil;
+}
+
++ (NSSet*)keyPathsForValuesAffectingConnected {
+    return [NSSet setWithObjects:NSStringFromSelector(@selector(connection)), nil];
 }
 
 #pragma mark Internal routines
@@ -231,32 +242,29 @@
 #pragma mark TournamentConnectionDelegate
 
 - (void)tournamentConnectionDidConnect:(TournamentConnection*)tc {
-    NSLog(@"+++ tournamentConnectionDidConnect");
     NSAssert([self connection] == tc, @"Unexpected connection from %@", tc);
-    [[self connectionDelegate] tournamentSession:self connectionStatusDidChange:[self currentServer] connected:YES];
+    NSDictionary* userData = @{@"server" : [self currentServer]};
+    [[NSNotificationCenter defaultCenter] postNotificationName:TournamentConnectionStatusDidChangeNotification object:self userInfo:userData];
 }
 
 - (void)tournamentConnectionDidDisconnect:(TournamentConnection*)tc {
-    NSLog(@"+++ tournamentConnectionDidDisconnect");
     NSAssert([self connection] == tc, @"Unexpected disconnection from %@", tc);
     [self disconnect];
 }
 
 - (void)tournamentConnectionDidClose:(TournamentConnection*)tc {
-    NSLog(@"+++ tournamentConnectionDidClose");
     NSAssert([self connection] == nil, @"Connection %@ closed while session retains", tc);
-    [[self connectionDelegate] tournamentSession:self connectionStatusDidChange:[self currentServer] connected:NO];
+    NSDictionary* userData = @{@"server" : [self currentServer]};
     [self disconnect];
+    [[NSNotificationCenter defaultCenter] postNotificationName:TournamentConnectionStatusDidChangeNotification object:self userInfo:userData];
 }
 
 - (void)tournamentConnection:(TournamentConnection*)tc didReceiveData:(id)json {
-    NSLog(@"+++ tournamentConnectionDidReceiveData");
     NSAssert([self connection] == tc, @"Unexpected data from %@", tc);
     [self handleMessage:json fromConnection:tc];
 }
 
 - (void)tournamentConnection:(TournamentConnection*)tc error:(NSError*)error {
-    NSLog(@"+++ tournamentConnectionError: %@", [error localizedDescription]);
     NSAssert([self connection] == tc, @"Unexpected error from %@", tc);
     [self disconnect];
 }

@@ -11,17 +11,18 @@
 
 #define kDefaultTournamentServerPort 25600
 
-@protocol TournamentSessionConnectionDelegate;
+// notifications
+extern NSString* const TournamentConnectionStatusDidChangeNotification;
 
 @interface TournamentSession : NSObject
 
-// delegate for connection-related messages
-@property (nonatomic, weak) id<TournamentSessionConnectionDelegate> connectionDelegate;
+// YES if currently connected locally or to a server
+@property (nonatomic, readonly, assign, getter=isConnected) BOOL connected;
 
 // currently connected server, or nil if either connected locally or not connected
 @property (nonatomic, readonly, strong) TournamentServerInfo* currentServer;
 
-// true if currently authorized with server
+// YES if currently authorized with server
 @property (nonatomic, readonly, assign, getter=isAuthorized) BOOL authorized;
 
 // connect either locally through a unix socket or to a server
@@ -48,11 +49,5 @@
 
 // singleton instance
 + (instancetype)sharedSession;
-
-@end
-
-@protocol TournamentSessionConnectionDelegate <NSObject>
-
-- (void)tournamentSession:(TournamentSession*)session connectionStatusDidChange:(TournamentServerInfo*)server connected:(BOOL)connected;
 
 @end
