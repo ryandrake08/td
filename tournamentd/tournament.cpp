@@ -136,6 +136,11 @@ void tournament::handle_cmd_pause_game(const json& in, json& out)
     this->clock.pause();
 }
 
+void tournament::handle_cmd_toggle_pause_game(const json& in, json& out)
+{
+    this->clock.toggle_pause_resume();
+}
+
 void tournament::handle_cmd_set_previous_level(const json& in, json& out)
 {
     auto blind_level_changed(this->clock.previous_blind_level());
@@ -344,6 +349,12 @@ bool tournament::handle_client_input(std::iostream& client)
                 case crc32_("pause_game"):
                     this->ensure_authorized(in);
                     this->handle_cmd_pause_game(in, out);
+                    this->broadcast_state(this->clock);
+                    break;
+
+                case crc32_("toggle_pause_game"):
+                    this->ensure_authorized(in);
+                    this->handle_cmd_toggle_pause_game(in, out);
                     this->broadcast_state(this->clock);
                     break;
 

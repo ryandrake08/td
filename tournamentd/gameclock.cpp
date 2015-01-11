@@ -132,7 +132,7 @@ void gameclock::stop()
     this->action_clock_remaining = td::ms::zero();
 }
 
-// toggle pause
+// pause
 void gameclock::pause()
 {
     if(!this->is_started())
@@ -149,7 +149,7 @@ void gameclock::pause()
     this->running = false;
 }
 
-// toggle resume
+// resume
 void gameclock::resume()
 {
     if(!this->is_started())
@@ -167,6 +167,19 @@ void gameclock::resume()
 
     // resume
     this->running = true;
+}
+
+// toggle pause/remove
+void gameclock::toggle_pause_resume()
+{
+    if(this->running)
+    {
+        this->pause();
+    }
+    else
+    {
+        this->resume();
+    }
 }
 
 // advance to next blind level

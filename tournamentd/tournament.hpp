@@ -46,6 +46,7 @@ class tournament
     void handle_cmd_stop_game(const json& in, json& out);
     void handle_cmd_resume_game(const json& in, json& out);
     void handle_cmd_pause_game(const json& in, json& out);
+    void handle_cmd_toggle_pause_game(const json& in, json& out);
     void handle_cmd_set_previous_level(const json& in, json& out);
     void handle_cmd_set_next_level(const json& in, json& out);
     void handle_cmd_set_action_clock(const json& in, json& out);

@@ -63,11 +63,14 @@ public:
     // stop the game
     void stop();
 
-    // toggle pause
+    // pause
     void pause();
 
-    // toggle resume
+    // resume
     void resume();
+
+    // toggle pause/remove
+    void toggle_pause_resume();
 
     // advance to next blind level
     // returns: true if blind level changed, false if we are at end of levels
