@@ -129,7 +129,9 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="addressTextField" destination="UIY-rX-IRr" id="gcd-jq-jNR"/>
                         <outlet property="nameTextField" destination="7ni-WV-lDa" id="a1b-Dh-nM1"/>
+                        <outlet property="portTextField" destination="KIe-pY-hIU" id="sld-7u-Vwl"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3aZ-pI-8fU" userLabel="First Responder" sceneMemberID="firstResponder"/>
