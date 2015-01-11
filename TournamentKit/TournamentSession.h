@@ -11,9 +11,6 @@
 
 #define kDefaultTournamentServerPort 25600
 
-// notifications
-extern NSString* const TournamentConnectionStatusDidChangeNotification;
-
 @interface TournamentSession : NSObject
 
 // YES if currently connected locally or to a server

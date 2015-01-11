@@ -12,9 +12,6 @@
 
 #define kDefaultTournamentLocalPath @"/tmp/tournamentd.sock"
 
-// notifications
-NSString* const TournamentConnectionStatusDidChangeNotification = @"TournamentConnectionStatusDidChangeNotification";
-
 @interface TournamentSession() <TournamentConnectionDelegate>
 
 // record currently connected server
@@ -25,6 +22,7 @@ NSString* const TournamentConnectionStatusDidChangeNotification = @"TournamentCo
 
 // the connection object, handles networking and JSON serialization
 @property (nonatomic, strong) TournamentConnection* connection;
+@property (nonatomic, strong) TournamentConnection* tryingConnection;
 
 // mapping between unique command and block to handle the command's response
 @property (nonatomic, strong) NSMutableDictionary* blocksForCommands;
@@ -44,21 +42,23 @@ NSString* const TournamentConnectionStatusDidChangeNotification = @"TournamentCo
 @synthesize tournamentConfigAndState;
 
 - (void)connectToLocal {
-    [self setConnection:[[TournamentConnection alloc] initWithUnixSocketNamed:kDefaultTournamentLocalPath]];
-    [[self connection] setDelegate:self];
-    [self setCurrentServer:nil];
+    [self disconnect];
+    [self setTryingConnection:[[TournamentConnection alloc] initWithUnixSocketNamed:kDefaultTournamentLocalPath]];
+    [[self tryingConnection] setDelegate:self];
 }
 
 - (void)connectToServer:(TournamentServerInfo*)theServer {
-    [self setConnection:[[TournamentConnection alloc] initWithAddress:[theServer address] andPort:[theServer port]]];
-    [[self connection] setDelegate:self];
+    [self disconnect];
     [self setCurrentServer:theServer];
+    [self setTryingConnection:[[TournamentConnection alloc] initWithAddress:[theServer address] andPort:[theServer port]]];
+    [[self tryingConnection] setDelegate:self];
 }
 
 - (void)disconnect {
-    [self setConnection:nil];
-    [self setCurrentServer:nil];
     [self setAuthorized:NO];
+    [self setConnection:nil];
+    [self setTryingConnection:nil];
+    [self setCurrentServer:nil];
 }
 
 - (BOOL) isConnected {
@@ -242,9 +242,9 @@ NSString* const TournamentConnectionStatusDidChangeNotification = @"TournamentCo
 #pragma mark TournamentConnectionDelegate
 
 - (void)tournamentConnectionDidConnect:(TournamentConnection*)tc {
-    NSAssert([self connection] == tc, @"Unexpected connection from %@", tc);
-    NSDictionary* userData = @{@"server" : [self currentServer]};
-    [[NSNotificationCenter defaultCenter] postNotificationName:TournamentConnectionStatusDidChangeNotification object:self userInfo:userData];
+    NSAssert([self tryingConnection] == tc, @"Unexpected connection from %@", tc);
+    [self setTryingConnection:nil];
+    [self setConnection:tc];
 }
 
 - (void)tournamentConnectionDidDisconnect:(TournamentConnection*)tc {
@@ -253,10 +253,7 @@ NSString* const TournamentConnectionStatusDidChangeNotification = @"TournamentCo
 }
 
 - (void)tournamentConnectionDidClose:(TournamentConnection*)tc {
-    NSAssert([self connection] == nil, @"Connection %@ closed while session retains", tc);
-    NSDictionary* userData = @{@"server" : [self currentServer]};
-    [self disconnect];
-    [[NSNotificationCenter defaultCenter] postNotificationName:TournamentConnectionStatusDidChangeNotification object:self userInfo:userData];
+    NSAssert([self connection] == nil, @"Connection %@ closed while session thinks it exists", tc);
 }
 
 - (void)tournamentConnection:(TournamentConnection*)tc didReceiveData:(id)json {
@@ -265,7 +262,7 @@ NSString* const TournamentConnectionStatusDidChangeNotification = @"TournamentCo
 }
 
 - (void)tournamentConnection:(TournamentConnection*)tc error:(NSError*)error {
-    NSAssert([self connection] == tc, @"Unexpected error from %@", tc);
+    NSAssert([self connection] == tc || [self tryingConnection] == tc, @"Unexpected error from %@", tc);
     [self disconnect];
 }
 

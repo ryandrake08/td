@@ -24,11 +24,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    // register for notifications
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(connectionStatusDidChange:)
-                                                 name:TournamentConnectionStatusDidChangeNotification
-                                               object:nil];
+    // register for KVO
+    [[TournamentSession sharedSession] addObserver:self
+                                        forKeyPath:NSStringFromSelector(@selector(connected))
+                                           options:0
+                                           context:NULL];
+
     // Initialize server list
     browser = [[TournamentServerBrowser alloc] init];
 
@@ -48,8 +49,8 @@
 }
 
 - (void)dealloc {
-    // unregister for notifications
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    // unregister for KVO
+    [[TournamentSession sharedSession] removeObserver:self forKeyPath:NSStringFromSelector(@selector(connected))];
 }
 
 
@@ -89,10 +90,17 @@
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath {
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"ServerCell"];
 
-    TournamentServerInfo* server = [[self browser] serverForIndex:[indexPath row]];
-    [[cell textLabel] setText:[server name]];
-    if(server == [[TournamentSession sharedSession] currentServer]) {
-        if([[TournamentSession sharedSession] isAuthorized]) {
+    TournamentServerInfo* cellServer = [[self browser] serverForIndex:[indexPath row]];
+    TournamentServerInfo* currentServer = [[TournamentSession sharedSession] currentServer];
+    BOOL isConnected = [[TournamentSession sharedSession] isConnected];
+    BOOL isAuthorized = [[TournamentSession sharedSession] isAuthorized];
+
+    // always set name
+    [[cell textLabel] setText:[cellServer name]];
+
+    // set checkmark and accessory text if connected
+    if(cellServer == currentServer && isConnected) {
+        if(isAuthorized) {
             [[cell detailTextLabel] setText:NSLocalizedString(@"Admin", nil)];
         } else {
             [[cell detailTextLabel] setText:NSLocalizedString(@"Connected", nil)];
@@ -143,18 +151,21 @@
     }
 }
 
-- (void)connectionStatusDidChange:(NSNotification*)notification {
-    TournamentSession* session = (TournamentSession*)[notification object];
-    TournamentServerInfo* server = [notification userInfo][@"server"];
+- (void)observeValueForKeyPath:(NSString*)keyPath ofObject:(id)session change:(NSDictionary*)change context:(void*)context {
+    if ([session isKindOfClass:[TournamentSession class]]) {
+        if ([keyPath isEqualToString:NSStringFromSelector(@selector(connected))]) {
+            TournamentServerInfo* server = [session currentServer];
 
-    // update table view cell
-    [self reloadTableRowForServer:server];
-
-    if([session isConnected]) {
-        // check authorization
-        [session checkAuthorizedWithBlock:^(BOOL authorized) {
+            // update table view cell
             [self reloadTableRowForServer:server];
-        }];
+
+            if([session isConnected]) {
+                // check authorization
+                [session checkAuthorizedWithBlock:^(BOOL authorized) {
+                    [self reloadTableRowForServer:server];
+                }];
+            }
+        }
     }
 }
 
