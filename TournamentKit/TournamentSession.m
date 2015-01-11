@@ -8,15 +8,26 @@
 
 #import "TournamentSession.h"
 #import "TournamentConnection.h"
+#import "NSDictionary+Merge.h"
 
 #define kDefaultTournamentLocalPath @"/tmp/tournamentd.sock"
 
 @interface TournamentSession() <TournamentConnectionDelegate>
 
+// record currently connected server
 @property (nonatomic, strong) TournamentServerInfo* currentServer;
+
+// is the current user authorized as a tournament director?
 @property (nonatomic, assign) BOOL authorized;
+
+// the connection object, handles networking and JSON serialization
 @property (nonatomic, strong) TournamentConnection* connection;
+
+// mapping between unique command and block to handle the command's response
 @property (nonatomic, strong) NSMutableDictionary* blocksForCommands;
+
+// tournament configuration and state
+@property (nonatomic, strong) NSDictionary* tournamentConfigAndState;
 
 @end
 
@@ -27,6 +38,7 @@
 @synthesize authorized;
 @synthesize connection;
 @synthesize blocksForCommands;
+@synthesize tournamentConfigAndState;
 
 - (void)connectToLocal {
     [self setConnection:[[TournamentConnection alloc] initWithUnixSocketNamed:kDefaultTournamentLocalPath]];
@@ -211,7 +223,8 @@
             [[self blocksForCommands] removeObjectForKey:cmdkey];
         }
     } else {
-        // TODO: handle non-command
+        // non-command: merge with current
+        [[self tournamentConfigAndState] dictionaryByMergingWith:json];
     }
 }
 
@@ -263,6 +276,7 @@
 - (instancetype)init {
     if (self = [super init]) {
         blocksForCommands = [[NSMutableDictionary alloc] init];
+        tournamentConfigAndState = [[NSDictionary alloc] init];
     }
     return self;
 }

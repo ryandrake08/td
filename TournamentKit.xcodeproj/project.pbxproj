@@ -89,6 +89,10 @@
 		AD466EC11A59375100E0973E /* TournamentDaemon.h in Headers */ = {isa = PBXBuildFile; fileRef = AD466EBE1A59375100E0973E /* TournamentDaemon.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AD466EC21A59375100E0973E /* TournamentDaemon.mm in Sources */ = {isa = PBXBuildFile; fileRef = AD466EBF1A59375100E0973E /* TournamentDaemon.mm */; };
 		AD466EC31A59375100E0973E /* TournamentDaemon.mm in Sources */ = {isa = PBXBuildFile; fileRef = AD466EBF1A59375100E0973E /* TournamentDaemon.mm */; };
+		ADD5239D1A62217200C8033A /* NSDictionary+Merge.h in Headers */ = {isa = PBXBuildFile; fileRef = ADD5239B1A62217200C8033A /* NSDictionary+Merge.h */; };
+		ADD5239E1A62217200C8033A /* NSDictionary+Merge.h in Headers */ = {isa = PBXBuildFile; fileRef = ADD5239B1A62217200C8033A /* NSDictionary+Merge.h */; };
+		ADD5239F1A62217200C8033A /* NSDictionary+Merge.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD5239C1A62217200C8033A /* NSDictionary+Merge.m */; };
+		ADD523A01A62217200C8033A /* NSDictionary+Merge.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD5239C1A62217200C8033A /* NSDictionary+Merge.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -148,6 +152,8 @@
 		AD466E7A1A5936BB00E0973E /* types.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = types.hpp; sourceTree = "<group>"; };
 		AD466EBE1A59375100E0973E /* TournamentDaemon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TournamentDaemon.h; sourceTree = "<group>"; };
 		AD466EBF1A59375100E0973E /* TournamentDaemon.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TournamentDaemon.mm; sourceTree = "<group>"; };
+		ADD5239B1A62217200C8033A /* NSDictionary+Merge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Merge.h"; sourceTree = "<group>"; };
+		ADD5239C1A62217200C8033A /* NSDictionary+Merge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Merge.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -211,6 +217,8 @@
 				AD466E541A5918DB00E0973E /* TournamentSession.m */,
 				AD466E3B1A58C15A00E0973E /* NSData+Delimiter.h */,
 				AD466E3C1A58C15A00E0973E /* NSData+Delimiter.m */,
+				ADD5239B1A62217200C8033A /* NSDictionary+Merge.h */,
+				ADD5239C1A62217200C8033A /* NSDictionary+Merge.m */,
 				AD37B3AD1A57147800605351 /* Supporting Files */,
 				AD466E7B1A5936BB00E0973E /* tournamentd */,
 			);
@@ -298,6 +306,7 @@
 				AD466EB81A5936BB00E0973E /* tournament.hpp in Headers */,
 				AD37B3EB1A573C8300605351 /* TournamentConnection.h in Headers */,
 				AD466E941A5936BB00E0973E /* gameseating.hpp in Headers */,
+				ADD5239D1A62217200C8033A /* NSDictionary+Merge.h in Headers */,
 				AD466EB41A5936BB00E0973E /* stringcrc.hpp in Headers */,
 				AD466E551A5918DB00E0973E /* TournamentSession.h in Headers */,
 				AD466E3D1A58C15A00E0973E /* NSData+Delimiter.h in Headers */,
@@ -327,6 +336,7 @@
 				AD466EB91A5936BB00E0973E /* tournament.hpp in Headers */,
 				AD37B3EC1A573C8300605351 /* TournamentConnection.h in Headers */,
 				AD466E951A5936BB00E0973E /* gameseating.hpp in Headers */,
+				ADD5239E1A62217200C8033A /* NSDictionary+Merge.h in Headers */,
 				AD466EB51A5936BB00E0973E /* stringcrc.hpp in Headers */,
 				AD466E561A5918DB00E0973E /* TournamentSession.h in Headers */,
 				AD466E3E1A58C15A00E0973E /* NSData+Delimiter.h in Headers */,
@@ -483,6 +493,7 @@
 				AD466E8E1A5936BB00E0973E /* gameinfo.cpp in Sources */,
 				AD466E861A5936BB00E0973E /* gameclock.cpp in Sources */,
 				AD466E571A5918DB00E0973E /* TournamentSession.m in Sources */,
+				ADD5239F1A62217200C8033A /* NSDictionary+Merge.m in Sources */,
 				AD466EC21A59375100E0973E /* TournamentDaemon.mm in Sources */,
 				AD466E821A5936BB00E0973E /* datetime.cpp in Sources */,
 				AD466E3F1A58C15A00E0973E /* NSData+Delimiter.m in Sources */,
@@ -516,6 +527,7 @@
 				AD466E8F1A5936BB00E0973E /* gameinfo.cpp in Sources */,
 				AD466E871A5936BB00E0973E /* gameclock.cpp in Sources */,
 				AD466E581A5918DB00E0973E /* TournamentSession.m in Sources */,
+				ADD523A01A62217200C8033A /* NSDictionary+Merge.m in Sources */,
 				AD466EC31A59375100E0973E /* TournamentDaemon.mm in Sources */,
 				AD466E831A5936BB00E0973E /* datetime.cpp in Sources */,
 				AD466E401A58C15A00E0973E /* NSData+Delimiter.m in Sources */,

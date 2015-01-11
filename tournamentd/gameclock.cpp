@@ -34,22 +34,10 @@ void gameclock::dump_state(json& state) const
     logger(LOG_DEBUG) << "Dumping game clock state\n";
 
     state.set_value("running", this->running);
-    if(this->current_blind_level != 0)
-    {
-        state.set_value("current_blind_level", this->current_blind_level);
-    }
-    if(this->end_of_round != td::tp())
-    {
-        state.set_value("time_remaining", this->time_remaining.count());
-    }
-    if(this->end_of_break != td::tp())
-    {
-        state.set_value("break_time_remaining", this->break_time_remaining.count());
-    }
-    if(this->end_of_action_clock != td::tp())
-    {
-        state.set_value("action_clock_remaining", this->action_clock_remaining.count());
-    }
+    state.set_value("current_blind_level", this->current_blind_level);
+    state.set_value("time_remaining", this->time_remaining.count());
+    state.set_value("break_time_remaining", this->break_time_remaining.count());
+    state.set_value("action_clock_remaining", this->action_clock_remaining.count());
 }
 
 // utility: start a blind level (optionally starting offset ms into the round)
