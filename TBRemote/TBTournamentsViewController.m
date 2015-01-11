@@ -26,7 +26,7 @@
 
     // register for KVO
     [[TournamentSession sharedSession] addObserver:self
-                                        forKeyPath:NSStringFromSelector(@selector(connected))
+                                        forKeyPath:NSStringFromSelector(@selector(isConnected))
                                            options:0
                                            context:NULL];
 
@@ -50,7 +50,7 @@
 
 - (void)dealloc {
     // unregister for KVO
-    [[TournamentSession sharedSession] removeObserver:self forKeyPath:NSStringFromSelector(@selector(connected))];
+    [[TournamentSession sharedSession] removeObserver:self forKeyPath:NSStringFromSelector(@selector(isConnected))];
 }
 
 
@@ -153,7 +153,7 @@
 
 - (void)observeValueForKeyPath:(NSString*)keyPath ofObject:(id)session change:(NSDictionary*)change context:(void*)context {
     if ([session isKindOfClass:[TournamentSession class]]) {
-        if ([keyPath isEqualToString:NSStringFromSelector(@selector(connected))]) {
+        if ([keyPath isEqualToString:NSStringFromSelector(@selector(isConnected))]) {
             TournamentServerInfo* server = [session currentServer];
 
             // update table view cell

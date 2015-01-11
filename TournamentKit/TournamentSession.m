@@ -22,7 +22,6 @@
 
 // the connection object, handles networking and JSON serialization
 @property (nonatomic, strong) TournamentConnection* connection;
-@property (nonatomic, strong) TournamentConnection* tryingConnection;
 
 // mapping between unique command and block to handle the command's response
 @property (nonatomic, strong) NSMutableDictionary* blocksForCommands;
@@ -43,30 +42,31 @@
 
 - (void)connectToLocal {
     [self disconnect];
-    [self setTryingConnection:[[TournamentConnection alloc] initWithUnixSocketNamed:kDefaultTournamentLocalPath]];
-    [[self tryingConnection] setDelegate:self];
+    [[self connection] connectToUnixSocketNamed:kDefaultTournamentLocalPath];
 }
 
 - (void)connectToServer:(TournamentServerInfo*)theServer {
     [self disconnect];
     [self setCurrentServer:theServer];
-    [self setTryingConnection:[[TournamentConnection alloc] initWithAddress:[theServer address] andPort:[theServer port]]];
-    [[self tryingConnection] setDelegate:self];
+    [[self connection] connectToAddress:[theServer address] andPort:[theServer port]];
 }
 
 - (void)disconnect {
     [self setAuthorized:NO];
-    [self setConnection:nil];
-    [self setTryingConnection:nil];
+    [[self connection] close];
     [self setCurrentServer:nil];
 }
 
 - (BOOL) isConnected {
-    return [self connection] != nil;
+    return [[self connection] isConnected];
 }
 
-+ (NSSet*)keyPathsForValuesAffectingConnected {
-    return [NSSet setWithObjects:NSStringFromSelector(@selector(connection)), nil];
++ (BOOL)automaticallyNotifiesObserversForKey:(NSString*)key {
+    if([key isEqualToString:NSStringFromSelector(@selector(connection))]) {
+        return NO;
+    } else {
+        return YES;
+    }
 }
 
 #pragma mark Internal routines
@@ -242,9 +242,9 @@
 #pragma mark TournamentConnectionDelegate
 
 - (void)tournamentConnectionDidConnect:(TournamentConnection*)tc {
-    NSAssert([self tryingConnection] == tc, @"Unexpected connection from %@", tc);
-    [self setTryingConnection:nil];
-    [self setConnection:tc];
+    NSAssert([self connection] == tc, @"Unexpected connection from %@", tc);
+    [self willChangeValueForKey:NSStringFromSelector(@selector(isConnected))];
+    [self didChangeValueForKey:NSStringFromSelector(@selector(isConnected))];
 }
 
 - (void)tournamentConnectionDidDisconnect:(TournamentConnection*)tc {
@@ -253,7 +253,9 @@
 }
 
 - (void)tournamentConnectionDidClose:(TournamentConnection*)tc {
-    NSAssert([self connection] == nil, @"Connection %@ closed while session thinks it exists", tc);
+    NSAssert([self connection] == tc, @"Unexpected close from %@", tc);
+    [self willChangeValueForKey:NSStringFromSelector(@selector(isConnected))];
+    [self didChangeValueForKey:NSStringFromSelector(@selector(isConnected))];
 }
 
 - (void)tournamentConnection:(TournamentConnection*)tc didReceiveData:(id)json {
@@ -262,7 +264,7 @@
 }
 
 - (void)tournamentConnection:(TournamentConnection*)tc error:(NSError*)error {
-    NSAssert([self connection] == tc || [self tryingConnection] == tc, @"Unexpected error from %@", tc);
+    NSAssert([self connection] == tc, @"Unexpected error from %@", tc);
     [self disconnect];
 }
 
@@ -282,6 +284,8 @@
     if (self = [super init]) {
         blocksForCommands = [[NSMutableDictionary alloc] init];
         tournamentConfigAndState = [[NSDictionary alloc] init];
+        connection = [[TournamentConnection alloc] init];
+        [connection setDelegate:self];
     }
     return self;
 }

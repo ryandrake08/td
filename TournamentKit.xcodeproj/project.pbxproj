@@ -93,6 +93,10 @@
 		ADD5239E1A62217200C8033A /* NSDictionary+Merge.h in Headers */ = {isa = PBXBuildFile; fileRef = ADD5239B1A62217200C8033A /* NSDictionary+Merge.h */; };
 		ADD5239F1A62217200C8033A /* NSDictionary+Merge.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD5239C1A62217200C8033A /* NSDictionary+Merge.m */; };
 		ADD523A01A62217200C8033A /* NSDictionary+Merge.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD5239C1A62217200C8033A /* NSDictionary+Merge.m */; };
+		ADD523A31A62DCD800C8033A /* CFStreamCreatePairWithUnixSocket.c in Sources */ = {isa = PBXBuildFile; fileRef = ADD523A11A62DCD800C8033A /* CFStreamCreatePairWithUnixSocket.c */; };
+		ADD523A41A62DCD800C8033A /* CFStreamCreatePairWithUnixSocket.c in Sources */ = {isa = PBXBuildFile; fileRef = ADD523A11A62DCD800C8033A /* CFStreamCreatePairWithUnixSocket.c */; };
+		ADD523A51A62DCD800C8033A /* CFStreamCreatePairWithUnixSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = ADD523A21A62DCD800C8033A /* CFStreamCreatePairWithUnixSocket.h */; };
+		ADD523A61A62DCD800C8033A /* CFStreamCreatePairWithUnixSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = ADD523A21A62DCD800C8033A /* CFStreamCreatePairWithUnixSocket.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -154,6 +158,8 @@
 		AD466EBF1A59375100E0973E /* TournamentDaemon.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TournamentDaemon.mm; sourceTree = "<group>"; };
 		ADD5239B1A62217200C8033A /* NSDictionary+Merge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Merge.h"; sourceTree = "<group>"; };
 		ADD5239C1A62217200C8033A /* NSDictionary+Merge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Merge.m"; sourceTree = "<group>"; };
+		ADD523A11A62DCD800C8033A /* CFStreamCreatePairWithUnixSocket.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = CFStreamCreatePairWithUnixSocket.c; sourceTree = "<group>"; };
+		ADD523A21A62DCD800C8033A /* CFStreamCreatePairWithUnixSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFStreamCreatePairWithUnixSocket.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -219,6 +225,8 @@
 				AD466E3C1A58C15A00E0973E /* NSData+Delimiter.m */,
 				ADD5239B1A62217200C8033A /* NSDictionary+Merge.h */,
 				ADD5239C1A62217200C8033A /* NSDictionary+Merge.m */,
+				ADD523A21A62DCD800C8033A /* CFStreamCreatePairWithUnixSocket.h */,
+				ADD523A11A62DCD800C8033A /* CFStreamCreatePairWithUnixSocket.c */,
 				AD37B3AD1A57147800605351 /* Supporting Files */,
 				AD466E7B1A5936BB00E0973E /* tournamentd */,
 			);
@@ -308,6 +316,7 @@
 				AD466E941A5936BB00E0973E /* gameseating.hpp in Headers */,
 				ADD5239D1A62217200C8033A /* NSDictionary+Merge.h in Headers */,
 				AD466EB41A5936BB00E0973E /* stringcrc.hpp in Headers */,
+				ADD523A51A62DCD800C8033A /* CFStreamCreatePairWithUnixSocket.h in Headers */,
 				AD466E551A5918DB00E0973E /* TournamentSession.h in Headers */,
 				AD466E3D1A58C15A00E0973E /* NSData+Delimiter.h in Headers */,
 				AD466EB21A5936BB00E0973E /* socketstream.hpp in Headers */,
@@ -338,6 +347,7 @@
 				AD466E951A5936BB00E0973E /* gameseating.hpp in Headers */,
 				ADD5239E1A62217200C8033A /* NSDictionary+Merge.h in Headers */,
 				AD466EB51A5936BB00E0973E /* stringcrc.hpp in Headers */,
+				ADD523A61A62DCD800C8033A /* CFStreamCreatePairWithUnixSocket.h in Headers */,
 				AD466E561A5918DB00E0973E /* TournamentSession.h in Headers */,
 				AD466E3E1A58C15A00E0973E /* NSData+Delimiter.h in Headers */,
 				AD466EB31A5936BB00E0973E /* socketstream.hpp in Headers */,
@@ -496,6 +506,7 @@
 				ADD5239F1A62217200C8033A /* NSDictionary+Merge.m in Sources */,
 				AD466EC21A59375100E0973E /* TournamentDaemon.mm in Sources */,
 				AD466E821A5936BB00E0973E /* datetime.cpp in Sources */,
+				ADD523A31A62DCD800C8033A /* CFStreamCreatePairWithUnixSocket.c in Sources */,
 				AD466E3F1A58C15A00E0973E /* NSData+Delimiter.m in Sources */,
 				AD466EAE1A5936BB00E0973E /* socket.cpp in Sources */,
 				AD466E981A5936BB00E0973E /* json.cpp in Sources */,
@@ -530,6 +541,7 @@
 				ADD523A01A62217200C8033A /* NSDictionary+Merge.m in Sources */,
 				AD466EC31A59375100E0973E /* TournamentDaemon.mm in Sources */,
 				AD466E831A5936BB00E0973E /* datetime.cpp in Sources */,
+				ADD523A41A62DCD800C8033A /* CFStreamCreatePairWithUnixSocket.c in Sources */,
 				AD466E401A58C15A00E0973E /* NSData+Delimiter.m in Sources */,
 				AD466EAF1A5936BB00E0973E /* socket.cpp in Sources */,
 				AD466E991A5936BB00E0973E /* json.cpp in Sources */,

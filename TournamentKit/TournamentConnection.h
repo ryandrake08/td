@@ -13,8 +13,8 @@
 @interface TournamentConnection : NSObject <NSStreamDelegate>
 
 // open a connection to the server, either local or remote
-- (instancetype)initWithUnixSocketNamed:(NSString*)socketPath;
-- (instancetype)initWithAddress:(NSString*)address andPort:(NSInteger)port;
+- (void)connectToUnixSocketNamed:(NSString*)socketPath;
+- (void)connectToAddress:(NSString*)address andPort:(NSInteger)port;
 
 // send a text command to the server
 - (BOOL)sendCommand:(NSString*)cmd;
@@ -29,7 +29,7 @@
 @property (nonatomic, weak) id <TournamentConnectionDelegate> delegate;
 
 // returns true if currently connected to a server
-@property (nonatomic, readonly, assign) BOOL connected;
+@property (nonatomic, readonly, assign, getter=isConnected) BOOL connected;
 
 @end
 
