@@ -4,7 +4,7 @@
 #include <cmath>
 
 // initialize game clock
-gameclock::gameclock() : blind_increase_factor(1.5), running(false), current_blind_level(0), time_remaining(0), break_time_remaining(0)
+gameclock::gameclock() : blind_increase_factor(1.5), running(false), current_blind_level(0), time_remaining(0), break_time_remaining(0), elapsed(0)
 {
 }
 
@@ -89,6 +89,9 @@ void gameclock::start()
 
     // start the tournament
     this->running = true;
+
+    // set elapsed time
+    this->elapsed = td::ms::zero();
 }
 
 void gameclock::start(const td::tp& starttime)
@@ -110,6 +113,9 @@ void gameclock::start(const td::tp& starttime)
 
     // set break end time
     this->end_of_break = starttime;
+
+    // set elapsed time
+    this->elapsed = td::ms::zero();
 }
 
 // stop the game

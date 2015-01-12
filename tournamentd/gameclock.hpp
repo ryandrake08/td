@@ -34,6 +34,9 @@ class gameclock
     td::tp end_of_action_clock;
     td::ms action_clock_remaining;
 
+    // elapsed time
+    td::ms elapsed;
+
     // utility: start a blind level
     void start_blind_level(std::size_t blind_level, td::ms offset);
 

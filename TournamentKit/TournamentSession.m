@@ -140,7 +140,9 @@
         // TODO: Handle error
         // handle authorization check
         [self setAuthorized:[json[@"authorized"] boolValue]];
-        block([json[@"authorized"] boolValue]);
+        if(block != nil) {
+            block([json[@"authorized"] boolValue]);
+        }
     }];
 }
 
@@ -148,7 +150,9 @@
     [self sendCommand:@"authorize" withData:@{@"authorize" : clientId} andBlock:^(id json, NSString* error) {
         // TODO: Handle error
         // handle client authorization
-        block(json[@"authorized_client"]);
+        if(block != nil) {
+            block(json[@"authorized_client"]);
+        }
     }];
 }
 
@@ -172,11 +176,17 @@
     [self sendCommand:@"pause_game" withData:nil andBlock:nil];
 }
 
+- (void)togglePauseGame {
+    [self sendCommand:@"toggle_pause_game" withData:nil andBlock:nil];
+}
+
 - (void)setPreviousLevelWithBlock:(void(^)(NSNumber*))block {
     [self sendCommand:@"set_previous_level" withData:nil andBlock:^(id json, NSString* error) {
         // TODO: Handle error
         // handle blind level change
-        block(json[@"blind_level_changed"]);
+        if(block != nil) {
+            block(json[@"blind_level_changed"]);
+        }
     }];
 }
 
@@ -184,7 +194,9 @@
     [self sendCommand:@"set_next_level" withData:nil andBlock:^(id json, NSString* error) {
         // TODO: Handle error
         // handle blind level change
-        block(json[@"blind_level_changed"]);
+        if(block != nil) {
+            block(json[@"blind_level_changed"]);
+        }
     }];
 }
 
@@ -218,9 +230,13 @@
         // handle seated player
         id playerSeated = json[@"player_seated"];
         if(playerSeated) {
-            block(playerSeated[@"player_id"], playerSeated[@"table_number"], playerSeated[@"seat_number"]);
+            if(block != nil) {
+                block(playerSeated[@"player_id"], playerSeated[@"table_number"], playerSeated[@"seat_number"]);
+            }
         } else {
-            block(nil, nil, nil);
+            if(block != nil) {
+                block(nil, nil, nil);
+            }
         }
     }];
 }
@@ -231,7 +247,9 @@
         // handle player movement
         // for now, just hand back the json
         // TODO: make this more sophisticated and populate a separate NSArray with objects
-        block(json[@"players_moved"]);
+        if(block != nil) {
+            block(json[@"players_moved"]);
+        }
     }];
 }
 
@@ -380,7 +398,7 @@
 
 - (void)tournamentConnection:(TournamentConnection*)tc error:(NSError*)error {
     NSAssert([self connection] == tc, @"Unexpected error from %@", tc);
-    [self disconnect];
+//    [self disconnect];
 }
 
 #pragma mark Singleton Methods

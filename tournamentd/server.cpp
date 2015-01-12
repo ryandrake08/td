@@ -89,6 +89,6 @@ void server::broadcast(const std::string& message) const
     {
         // handle client i/o
         socketstream ss(client);
-        ss << message;
+        ss << message << std::endl;
     }
 }

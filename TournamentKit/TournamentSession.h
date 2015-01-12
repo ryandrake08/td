@@ -62,6 +62,7 @@
 - (void)stopGame;
 - (void)resumeGame;
 - (void)pauseGame;
+- (void)togglePauseGame;
 - (void)setPreviousLevelWithBlock:(void(^)(NSNumber*))block;
 - (void)setNextLevelWithBlock:(void(^)(NSNumber*))block;
 - (void)setActonClock:(NSNumber*)milliseconds;

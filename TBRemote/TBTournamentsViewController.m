@@ -142,6 +142,8 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
+#pragma mark KVO
+
 - (void)reloadTableRowForServer:(TournamentServerInfo*)server {
     NSUInteger i = [[self browser] indexForServer:server];
     if(i != NSNotFound) {
