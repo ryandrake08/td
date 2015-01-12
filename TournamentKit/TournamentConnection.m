@@ -13,12 +13,12 @@
 @interface TournamentConnection()
 
 // input and output streams
-@property (nonatomic, strong) NSInputStream* inputStream;
-@property (nonatomic, strong) NSOutputStream* outputStream;
+@property (nonatomic) NSInputStream* inputStream;
+@property (nonatomic) NSOutputStream* outputStream;
 
 // input/output buffers
-@property (nonatomic, strong) NSMutableData* inputBuffer;
-@property (nonatomic, strong) NSMutableData* outputBuffer;
+@property (nonatomic) NSMutableData* inputBuffer;
+@property (nonatomic) NSMutableData* outputBuffer;
 
 @end
 

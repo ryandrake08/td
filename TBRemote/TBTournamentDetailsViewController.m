@@ -10,9 +10,9 @@
 
 @interface TBTournamentDetailsViewController ()
 
-@property (nonatomic, strong) IBOutlet UITextField* nameTextField;
-@property (nonatomic, strong) IBOutlet UITextField* addressTextField;
-@property (nonatomic, strong) IBOutlet UITextField* portTextField;
+@property (nonatomic) IBOutlet UITextField* nameTextField;
+@property (nonatomic) IBOutlet UITextField* addressTextField;
+@property (nonatomic) IBOutlet UITextField* portTextField;
 
 - (IBAction)cancel:(id)sender;
 - (IBAction)done:(id)sender;

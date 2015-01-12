@@ -17,7 +17,7 @@
 @property (nonatomic, readonly, assign, getter=isConnected) BOOL connected;
 
 // currently connected server, or nil if either connected locally or not connected
-@property (nonatomic, readonly, strong) TournamentServerInfo* currentServer;
+@property (nonatomic, readonly) TournamentServerInfo* currentServer;
 
 // YES if currently authorized with server
 @property (nonatomic, readonly, assign, getter=isAuthorized) BOOL authorized;

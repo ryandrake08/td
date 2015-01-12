@@ -15,7 +15,7 @@
                                            UITableViewDelegate,
                                            UITableViewDataSource>
 
-@property (nonatomic, strong) TournamentServerBrowser* browser;
+@property (nonatomic) TournamentServerBrowser* browser;
 @end
 
 @implementation TBTournamentsViewController

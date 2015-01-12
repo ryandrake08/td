@@ -15,19 +15,19 @@
 @interface TournamentSession() <TournamentConnectionDelegate>
 
 // record currently connected server
-@property (nonatomic, strong) TournamentServerInfo* currentServer;
+@property (nonatomic) TournamentServerInfo* currentServer;
 
 // YES if currently authorized with server
 @property (nonatomic, assign) BOOL authorized;
 
 // the connection object, handles networking and JSON serialization
-@property (nonatomic, strong) TournamentConnection* connection;
+@property (nonatomic) TournamentConnection* connection;
 
 // mapping between unique command and block to handle the command's response
-@property (nonatomic, strong) NSMutableDictionary* blocksForCommands;
+@property (nonatomic) NSMutableDictionary* blocksForCommands;
 
 // tournament configuration and state
-@property (nonatomic, strong) NSDictionary* tournamentConfigAndState;
+@property (nonatomic) NSDictionary* tournamentConfigAndState;
 
 @end
 

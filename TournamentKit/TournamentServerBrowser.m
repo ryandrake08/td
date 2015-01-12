@@ -9,7 +9,7 @@
 #import "TournamentServerBrowser.h"
 
 @interface TournamentServerBrowser()
-@property (nonatomic, strong) NSMutableArray* serverList;
+@property (nonatomic) NSMutableArray* serverList;
 @end
 
 @implementation TournamentServerBrowser
