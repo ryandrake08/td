@@ -8,7 +8,6 @@
 
 #import "TournamentSession.h"
 #import "TournamentConnection.h"
-#import "NSDictionary+Merge.h"
 
 #define kDefaultTournamentLocalPath @"/tmp/tournamentd.sock"
 
@@ -26,8 +25,33 @@
 // mapping between unique command and block to handle the command's response
 @property (nonatomic) NSMutableDictionary* blocksForCommands;
 
-// tournament configuration and state
-@property (nonatomic) NSDictionary* tournamentConfigAndState;
+// tournament configuration
+@property (nonatomic) NSString* name;
+@property (nonatomic) NSArray* players;
+@property (nonatomic) NSArray* blindLevels;
+@property (nonatomic) NSArray* availableChips;
+@property (nonatomic) NSString* costCurrency;
+@property (nonatomic) NSString* equityCurrency;
+@property (nonatomic) NSNumber* percentSeatsPaid;
+@property (nonatomic) NSArray* fundingSources;
+@property (nonatomic) NSNumber* tableCapacity;
+
+// tournament state
+@property (nonatomic, getter=isRunning) NSNumber* running;
+@property (nonatomic) NSNumber* currentBlindLevel;
+@property (nonatomic) NSNumber* timeRemaining;
+@property (nonatomic) NSNumber* breakTimeRemaining;
+@property (nonatomic) NSNumber* actionClockTimeRemaining;
+@property (nonatomic) NSSet* buyins;
+@property (nonatomic) NSArray* payouts;
+@property (nonatomic) NSNumber* totalChips;
+@property (nonatomic) NSNumber* totalCost;
+@property (nonatomic) NSNumber* totalCommission;
+@property (nonatomic) NSNumber* totalEquity;
+@property (nonatomic) NSArray* seats;
+@property (nonatomic) NSArray* playersFinished;
+@property (nonatomic) NSArray* emptySeats;
+@property (nonatomic) NSNumber* tables;
 
 @end
 
@@ -227,8 +251,106 @@
             [[self blocksForCommands] removeObjectForKey:cmdkey];
         }
     } else {
-        // non-command: merge with current
-        [[self tournamentConfigAndState] dictionaryByMergingWith:json];
+        // non-command: configuration or state to update, split into calls to set properties
+        id value;
+
+        // tournament configuration
+        if((value = json[@"name"])) {
+            [self setName:value];
+        }
+
+        if((value = json[@"players"])) {
+            [self setPlayers:value];
+        }
+
+        if((value = json[@"blind_levels"])) {
+            [self setBlindLevels:value];
+        }
+
+        if((value = json[@"available_chips"])) {
+            [self setAvailableChips:value];
+        }
+
+        if((value = json[@"cost_currency"])) {
+            [self setCostCurrency:value];
+        }
+
+        if((value = json[@"equity_currency"])) {
+            [self setEquityCurrency:value];
+        }
+
+        if((value = json[@"percent_seats_paid"])) {
+            [self setPercentSeatsPaid:value];
+        }
+
+        if((value = json[@"funding_sources"])) {
+            [self setFundingSources:value];
+        }
+
+        if((value = json[@"table_capacity"])) {
+            [self setTableCapacity:value];
+        }
+
+        // tournament state
+        if((value = json[@"running"])) {
+            [self setRunning:value];
+        }
+
+        if((value = json[@"current_blind_level"])) {
+            [self setCurrentBlindLevel:value];
+        }
+
+        if((value = json[@"time_remaining"])) {
+            [self setTimeRemaining:value];
+        }
+
+        if((value = json[@"break_time_remaining"])) {
+            [self setBreakTimeRemaining:value];
+        }
+
+        if((value = json[@"action_clock_remaining"])) {
+            [self setActionClockTimeRemaining:value];
+        }
+
+        if((value = json[@"buyins"])) {
+            [self setBuyins:value];
+        }
+
+        if((value = json[@"payouts"])) {
+            [self setPayouts:value];
+        }
+
+        if((value = json[@"total_chips"])) {
+            [self setTotalChips:value];
+        }
+
+        if((value = json[@"total_cost"])) {
+            [self setTotalCost:value];
+        }
+
+        if((value = json[@"total_commission"])) {
+            [self setTotalCommission:value];
+        }
+
+        if((value = json[@"total_equity"])) {
+            [self setTotalEquity:value];
+        }
+
+        if((value = json[@"seats"])) {
+            [self setSeats:value];
+        }
+
+        if((value = json[@"players_finished"])) {
+            [self setPlayersFinished:value];
+        }
+
+        if((value = json[@"empty_seats"])) {
+            [self setEmptySeats:value];
+        }
+
+        if((value = json[@"tables"])) {
+            [self setTables:value];
+        }
     }
 }
 
@@ -276,7 +398,6 @@
 - (instancetype)init {
     if (self = [super init]) {
         _blocksForCommands = [[NSMutableDictionary alloc] init];
-        _tournamentConfigAndState = [[NSDictionary alloc] init];
         _connection = [[TournamentConnection alloc] init];
         [_connection setDelegate:self];
     }
