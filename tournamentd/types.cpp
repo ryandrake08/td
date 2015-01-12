@@ -42,8 +42,8 @@ td::blind_level::blind_level(const json& obj) : blind_level()
     obj.get_value("little_blind", this->little_blind);
     obj.get_value("big_blind", this->big_blind);
     obj.get_value("ante", this->ante);
-    obj.get_value("duration_ms", this->duration);
-    obj.get_value("break_duration_ms", this->break_duration);
+    obj.get_value("duration", this->duration);
+    obj.get_value("break_duration", this->break_duration);
 }
 
 td::chip::chip(const json& obj) : chip()
@@ -91,8 +91,8 @@ json::json(const td::blind_level& value) : json()
     this->set_value("little_blind", value.little_blind);
     this->set_value("big_blind", value.big_blind);
     this->set_value("ante", value.ante);
-    this->set_value("duration_ms", value.duration);
-    this->set_value("break_duration_ms", value.break_duration);
+    this->set_value("duration", value.duration);
+    this->set_value("break_duration", value.break_duration);
 }
 
 template<>
