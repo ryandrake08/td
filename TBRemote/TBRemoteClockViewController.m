@@ -8,8 +8,9 @@
 
 #import "TBRemoteClockViewController.h"
 #import "TournamentKit_ios/TournamentKit.h"
+#import "TBActionClockView.h"
 
-@interface TBRemoteClockViewController ()
+@interface TBRemoteClockViewController () <TBActionClockDelegate>
 
 @property (nonatomic) NSNumberFormatter* decimalFormatter;
 
@@ -23,6 +24,8 @@
 @property (nonatomic, weak) IBOutlet UIButton* pauseResumeButton;
 @property (nonatomic, weak) IBOutlet UIButton* nextRoundButton;
 @property (nonatomic, weak) IBOutlet UIButton* callClockButton;
+@property (nonatomic, weak) IBOutlet TBActionClockView* actionClockView;
+
 
 - (IBAction)previousRoundTapped:(UIButton*)sender;
 - (IBAction)pauseResumeTapped:(UIButton*)sender;
@@ -52,6 +55,7 @@
     [[TournamentSession sharedSession] addObserver:self forKeyPath:NSStringFromSelector(@selector(breakTimeRemaining)) options:0 context:NULL];
     [[TournamentSession sharedSession] addObserver:self forKeyPath:NSStringFromSelector(@selector(totalChips)) options:0 context:NULL];
     [[TournamentSession sharedSession] addObserver:self forKeyPath:NSStringFromSelector(@selector(seats)) options:0 context:NULL];
+    [[TournamentSession sharedSession] addObserver:self forKeyPath:NSStringFromSelector(@selector(actionClockTimeRemaining)) options:0 context:NULL];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -81,6 +85,7 @@
     [[TournamentSession sharedSession] removeObserver:self forKeyPath:NSStringFromSelector(@selector(breakTimeRemaining))];
     [[TournamentSession sharedSession] removeObserver:self forKeyPath:NSStringFromSelector(@selector(totalChips))];
     [[TournamentSession sharedSession] removeObserver:self forKeyPath:NSStringFromSelector(@selector(seats))];
+    [[TournamentSession sharedSession] removeObserver:self forKeyPath:NSStringFromSelector(@selector(actionClockTimeRemaining))];
 }
 
 #pragma mark Formatters
@@ -218,6 +223,16 @@
     }
 }
 
+- (void)updateActionClock {
+    NSUInteger actionClockTimeRemaining = [[[TournamentSession sharedSession] actionClockTimeRemaining] unsignedIntegerValue];
+    if(actionClockTimeRemaining == 0) {
+        [[self actionClockView] setHidden:YES];
+    } else {
+        [[self actionClockView] setHidden:NO];
+        [[self actionClockView] setSeconds:actionClockTimeRemaining / 1000.0];
+    }
+}
+
 #pragma mark KVO
 
 - (void)observeValueForKeyPath:(NSString*)keyPath ofObject:(id)session change:(NSDictionary*)change context:(void*)context {
@@ -250,6 +265,10 @@
 
         if([keyPath isEqualToString:NSStringFromSelector(@selector(totalChips))]) {
             [self updateAverageStack];
+        }
+
+        if([keyPath isEqualToString:NSStringFromSelector(@selector(actionClockTimeRemaining))]) {
+            [self updateActionClock];
         }
     }
 }
@@ -289,6 +308,12 @@
             [[TournamentSession sharedSession] setActionClock:nil];
         }
     }
+}
+
+# pragma mark TBActionClockViewDelegate
+
+- (CGFloat)analogClock:(TBActionClockView*)clock graduationLengthForIndex:(NSInteger)index {
+    return index % 5 == 0 ? 10.0 : 5.0;
 }
 
 @end

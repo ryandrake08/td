@@ -247,7 +247,15 @@ bool gameclock::update_remaining()
         // always update action clock if ticking
         if(this->end_of_action_clock != td::tp())
         {
-            this->action_clock_remaining = std::chrono::duration_cast<td::ms>(this->end_of_action_clock - now);
+            if(this->end_of_action_clock > now)
+            {
+                this->action_clock_remaining = std::chrono::duration_cast<td::ms>(this->end_of_action_clock - now);
+            }
+            else
+            {
+                this->end_of_action_clock = td::tp();
+                this->action_clock_remaining = td::ms::zero();
+            }
         }
         else
         {
@@ -280,7 +288,7 @@ bool gameclock::update_remaining()
 // set the action clock (when someone 'needs the clock called on them'
 void gameclock::set_action_clock(long duration)
 {
-    if(this->end_of_action_clock != td::tp())
+    if(this->end_of_action_clock == td::tp())
     {
         this->end_of_action_clock = std::chrono::system_clock::now() + td::ms(duration);
         this->action_clock_remaining = td::ms(duration);
