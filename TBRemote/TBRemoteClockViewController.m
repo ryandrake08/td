@@ -19,6 +19,10 @@
 @property (nonatomic, weak) IBOutlet UILabel* nextRoundLabel;
 @property (nonatomic, weak) IBOutlet UILabel* playersLeftLabel;
 @property (nonatomic, weak) IBOutlet UILabel* averageStackLabel;
+@property (nonatomic, weak) IBOutlet UIButton* previousRoundButton;
+@property (nonatomic, weak) IBOutlet UIButton* pauseResumeButton;
+@property (nonatomic, weak) IBOutlet UIButton* nextRoundButton;
+@property (nonatomic, weak) IBOutlet UIButton* callClockButton;
 
 - (IBAction)previousRoundTapped:(UIButton*)sender;
 - (IBAction)pauseResumeTapped:(UIButton*)sender;
@@ -29,6 +33,8 @@
 
 @implementation TBRemoteClockViewController
 
+#define kActionClockRequestTime 60000
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 
@@ -37,6 +43,8 @@
     [[self decimalFormatter] setNumberStyle:NSNumberFormatterDecimalStyle];
 
     // register for KVO
+    [[TournamentSession sharedSession] addObserver:self forKeyPath:NSStringFromSelector(@selector(isConnected)) options:0 context:NULL];
+    [[TournamentSession sharedSession] addObserver:self forKeyPath:NSStringFromSelector(@selector(isAuthorized)) options:0 context:NULL];
     [[TournamentSession sharedSession] addObserver:self forKeyPath:NSStringFromSelector(@selector(blindLevels)) options:0 context:NULL];
     [[TournamentSession sharedSession] addObserver:self forKeyPath:NSStringFromSelector(@selector(isRunning)) options:0 context:NULL];
     [[TournamentSession sharedSession] addObserver:self forKeyPath:NSStringFromSelector(@selector(currentBlindLevel)) options:0 context:NULL];
@@ -44,8 +52,13 @@
     [[TournamentSession sharedSession] addObserver:self forKeyPath:NSStringFromSelector(@selector(breakTimeRemaining)) options:0 context:NULL];
     [[TournamentSession sharedSession] addObserver:self forKeyPath:NSStringFromSelector(@selector(totalChips)) options:0 context:NULL];
     [[TournamentSession sharedSession] addObserver:self forKeyPath:NSStringFromSelector(@selector(seats)) options:0 context:NULL];
+}
 
-    // set up initial values for labels
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+
+    // set up initial values for buttons and labels
+    [self updateButtons];
     [self updateClock];
     [self updateBlinds];
     [self updatePlayers];
@@ -60,6 +73,8 @@
 - (void)dealloc {
     // unregister for KVO
     [[TournamentSession sharedSession] removeObserver:self forKeyPath:NSStringFromSelector(@selector(isConnected))];
+    [[TournamentSession sharedSession] removeObserver:self forKeyPath:NSStringFromSelector(@selector(isAuthorized))];
+    [[TournamentSession sharedSession] removeObserver:self forKeyPath:NSStringFromSelector(@selector(blindLevels))];
     [[TournamentSession sharedSession] removeObserver:self forKeyPath:NSStringFromSelector(@selector(isRunning))];
     [[TournamentSession sharedSession] removeObserver:self forKeyPath:NSStringFromSelector(@selector(currentBlindLevel))];
     [[TournamentSession sharedSession] removeObserver:self forKeyPath:NSStringFromSelector(@selector(timeRemaining))];
@@ -108,6 +123,35 @@
 }
 
 #pragma mark Update
+
+- (void)updateButtons {
+    BOOL connected = [[TournamentSession sharedSession] isConnected];
+    BOOL authorized = [[TournamentSession sharedSession] isAuthorized];
+    if(connected && authorized) {
+        [[self previousRoundButton] setHidden:NO];
+        [[self pauseResumeButton] setHidden:NO];
+        [[self nextRoundButton] setHidden:NO];
+        [[self callClockButton] setHidden:NO];
+    } else {
+        [[self previousRoundButton] setHidden:YES];
+        [[self pauseResumeButton] setHidden:YES];
+        [[self nextRoundButton] setHidden:YES];
+        [[self callClockButton] setHidden:YES];
+    }
+
+    NSUInteger currentBlindLevel = [[[TournamentSession sharedSession] currentBlindLevel] unsignedIntegerValue];
+    if(currentBlindLevel == 0) {
+        [[self previousRoundButton] setEnabled:NO];
+        [[self pauseResumeButton] setEnabled:YES];
+        [[self nextRoundButton] setEnabled:NO];
+        [[self callClockButton] setEnabled:NO];
+    } else {
+        [[self previousRoundButton] setEnabled:YES];
+        [[self pauseResumeButton] setEnabled:YES];
+        [[self nextRoundButton] setEnabled:YES];
+        [[self callClockButton] setEnabled:YES];
+    }
+}
 
 - (void)updateClock {
     BOOL running = [[[TournamentSession sharedSession] isRunning] boolValue];
@@ -185,9 +229,18 @@
             [self updateBlinds];
         }
 
-        if([keyPath isEqualToString:NSStringFromSelector(@selector(blindLevels))] ||
-           [keyPath isEqualToString:NSStringFromSelector(@selector(currentBlindLevel))]) {
+        if([keyPath isEqualToString:NSStringFromSelector(@selector(blindLevels))]) {
             [self updateBlinds];
+        }
+
+        if([keyPath isEqualToString:NSStringFromSelector(@selector(currentBlindLevel))]) {
+            [self updateButtons];
+            [self updateBlinds];
+        }
+
+        if([keyPath isEqualToString:NSStringFromSelector(@selector(isConnected))] ||
+           [keyPath isEqualToString:NSStringFromSelector(@selector(isAuthorized))]) {
+            [self updateButtons];
         }
 
         if([keyPath isEqualToString:NSStringFromSelector(@selector(seats))]) {
@@ -227,6 +280,15 @@
 }
 
 - (IBAction)callClockTapped:(UIButton*)sender {
+    NSUInteger currentBlindLevel = [[[TournamentSession sharedSession] currentBlindLevel] unsignedIntegerValue];
+    if(currentBlindLevel != 0) {
+        NSUInteger remaining = [[[TournamentSession sharedSession] actionClockTimeRemaining] unsignedIntegerValue];
+        if(remaining == 0) {
+            [[TournamentSession sharedSession] setActionClock:[NSNumber numberWithUnsignedInteger:kActionClockRequestTime]];
+        } else {
+            [[TournamentSession sharedSession] setActionClock:nil];
+        }
+    }
 }
 
 @end

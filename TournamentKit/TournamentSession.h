@@ -65,7 +65,7 @@
 - (void)togglePauseGame;
 - (void)setPreviousLevelWithBlock:(void(^)(NSNumber*))block;
 - (void)setNextLevelWithBlock:(void(^)(NSNumber*))block;
-- (void)setActonClock:(NSNumber*)milliseconds;
+- (void)setActionClock:(NSNumber*)milliseconds;
 - (void)genBlindLevelsCount:(NSNumber*)count withDuration:(NSNumber*)milliseconds;
 - (void)resetFunding;
 - (void)fundPlayer:(NSNumber*)playerId withFunding:(NSNumber*)sourceId;

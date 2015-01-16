@@ -200,7 +200,7 @@
     }];
 }
 
-- (void)setActonClock:(NSNumber*)milliseconds {
+- (void)setActionClock:(NSNumber*)milliseconds {
     if(milliseconds) {
         [self sendCommand:@"set_action_clock" withData:@{@"duration" : milliseconds} andBlock:nil];
     } else {
