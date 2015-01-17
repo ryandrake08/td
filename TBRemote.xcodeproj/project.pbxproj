@@ -19,7 +19,7 @@
 		AD37B4251A5750B000605351 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD37B4241A5750B000605351 /* UIKit.framework */; };
 		AD466E461A58F4B200E0973E /* TBTournamentDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD466E451A58F4B200E0973E /* TBTournamentDetailsViewController.m */; };
 		AD466EC61A59CC1200E0973E /* UIActionSheet+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = AD466EC51A59CC1200E0973E /* UIActionSheet+Blocks.m */; };
-		ADFA14DF1A6ACDF700611E6B /* TournamentKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADFA14DE1A6ACDF700611E6B /* TournamentKit.framework */; };
+		ADFA14E11A6ACF3E00611E6B /* libTournamentKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADFA14E01A6ACF3E00611E6B /* libTournamentKit.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +45,7 @@
 		AD466EC41A59CC1200E0973E /* UIActionSheet+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIActionSheet+Blocks.h"; sourceTree = "<group>"; };
 		AD466EC51A59CC1200E0973E /* UIActionSheet+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIActionSheet+Blocks.m"; sourceTree = "<group>"; };
 		ADFA14DE1A6ACDF700611E6B /* TournamentKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TournamentKit.framework; path = "../../Library/Developer/Xcode/DerivedData/td-gthwrjjcxccbyaganrpuaqshoxjq/Build/Products/Debug/TournamentKit.framework"; sourceTree = "<group>"; };
+		ADFA14E01A6ACF3E00611E6B /* libTournamentKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libTournamentKit.a; path = "build/Debug-iphoneos/libTournamentKit.a"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,7 +53,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ADFA14DF1A6ACDF700611E6B /* TournamentKit.framework in Frameworks */,
+				ADFA14E11A6ACF3E00611E6B /* libTournamentKit.a in Frameworks */,
 				AD37B4251A5750B000605351 /* UIKit.framework in Frameworks */,
 				AD1CF5361A68D6A000FA8F45 /* CoreGraphics.framework in Frameworks */,
 			);
@@ -113,6 +114,7 @@
 		AD37B4281A5750DA00605351 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				ADFA14E01A6ACF3E00611E6B /* libTournamentKit.a */,
 				ADFA14DE1A6ACDF700611E6B /* TournamentKit.framework */,
 				AD1CF5371A68D6F300FA8F45 /* QuartzCore.framework */,
 				AD1CF5351A68D6A000FA8F45 /* CoreGraphics.framework */,
@@ -226,8 +228,6 @@
 		AD37B41C1A574B0100605351 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
-				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
@@ -241,7 +241,6 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -262,8 +261,6 @@
 		AD37B41D1A574B0100605351 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
-				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
@@ -277,7 +274,6 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -294,9 +290,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = TBRemote/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -305,6 +302,7 @@
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
+					"-lc++",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -314,9 +312,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = TBRemote/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -325,6 +324,7 @@
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
+					"-lc++",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
