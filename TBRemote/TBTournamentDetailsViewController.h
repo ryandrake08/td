@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TournamentKit_ios/TournamentKit.h"
+#import "TournamentKit/TournamentKit.h"
 
 @protocol TBTournamentDetailsViewControllerDelegate;
 

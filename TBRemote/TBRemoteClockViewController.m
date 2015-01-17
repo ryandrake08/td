@@ -7,7 +7,7 @@
 //
 
 #import "TBRemoteClockViewController.h"
-#import "TournamentKit_ios/TournamentKit.h"
+#import "TournamentKit/TournamentKit.h"
 #import "TBActionClockView.h"
 
 @interface TBRemoteClockViewController () <TBActionClockDelegate>

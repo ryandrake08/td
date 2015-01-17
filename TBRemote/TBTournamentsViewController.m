@@ -8,7 +8,7 @@
 
 #import "TBTournamentsViewController.h"
 #import "TBTournamentDetailsViewController.h"
-#import "TournamentKit_ios/TournamentKit.h"
+#import "TournamentKit/TournamentKit.h"
 #import "UIActionSheet+Blocks.h"
 
 @interface TBTournamentsViewController () <TBTournamentDetailsViewControllerDelegate,

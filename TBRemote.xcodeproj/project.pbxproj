@@ -19,7 +19,7 @@
 		AD37B4251A5750B000605351 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD37B4241A5750B000605351 /* UIKit.framework */; };
 		AD466E461A58F4B200E0973E /* TBTournamentDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD466E451A58F4B200E0973E /* TBTournamentDetailsViewController.m */; };
 		AD466EC61A59CC1200E0973E /* UIActionSheet+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = AD466EC51A59CC1200E0973E /* UIActionSheet+Blocks.m */; };
-		AD7FD7AF1A6AC7110047EB17 /* TournamentKit_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD7FD7AE1A6AC7110047EB17 /* TournamentKit_ios.framework */; };
+		ADFA14DF1A6ACDF700611E6B /* TournamentKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADFA14DE1A6ACDF700611E6B /* TournamentKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,8 +44,7 @@
 		AD466E451A58F4B200E0973E /* TBTournamentDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBTournamentDetailsViewController.m; sourceTree = "<group>"; };
 		AD466EC41A59CC1200E0973E /* UIActionSheet+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIActionSheet+Blocks.h"; sourceTree = "<group>"; };
 		AD466EC51A59CC1200E0973E /* UIActionSheet+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIActionSheet+Blocks.m"; sourceTree = "<group>"; };
-		AD7FD7921A6ABE260047EB17 /* libTournamentKit_ios_static.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libTournamentKit_ios_static.a; path = "build/Debug-iphoneos/libTournamentKit_ios_static.a"; sourceTree = "<group>"; };
-		AD7FD7AE1A6AC7110047EB17 /* TournamentKit_ios.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TournamentKit_ios.framework; path = "build/Debug-iphoneos/TournamentKit_ios.framework"; sourceTree = "<group>"; };
+		ADFA14DE1A6ACDF700611E6B /* TournamentKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TournamentKit.framework; path = "../../Library/Developer/Xcode/DerivedData/td-gthwrjjcxccbyaganrpuaqshoxjq/Build/Products/Debug/TournamentKit.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,7 +52,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AD7FD7AF1A6AC7110047EB17 /* TournamentKit_ios.framework in Frameworks */,
+				ADFA14DF1A6ACDF700611E6B /* TournamentKit.framework in Frameworks */,
 				AD37B4251A5750B000605351 /* UIKit.framework in Frameworks */,
 				AD1CF5361A68D6A000FA8F45 /* CoreGraphics.framework in Frameworks */,
 			);
@@ -114,8 +113,7 @@
 		AD37B4281A5750DA00605351 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				AD7FD7AE1A6AC7110047EB17 /* TournamentKit_ios.framework */,
-				AD7FD7921A6ABE260047EB17 /* libTournamentKit_ios_static.a */,
+				ADFA14DE1A6ACDF700611E6B /* TournamentKit.framework */,
 				AD1CF5371A68D6F300FA8F45 /* QuartzCore.framework */,
 				AD1CF5351A68D6A000FA8F45 /* CoreGraphics.framework */,
 				AD37B4241A5750B000605351 /* UIKit.framework */,

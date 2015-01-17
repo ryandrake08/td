@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		AD37B3B01A57147800605351 /* TournamentKit.h in Headers */ = {isa = PBXBuildFile; fileRef = AD37B3AF1A57147800605351 /* TournamentKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		AD37B3B61A57147800605351 /* TournamentKit_osx.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD37B3AA1A57147800605351 /* TournamentKit_osx.framework */; };
 		AD37B3BD1A57147800605351 /* TournamentKit_tests.m in Sources */ = {isa = PBXBuildFile; fileRef = AD37B3BC1A57147800605351 /* TournamentKit_tests.m */; };
 		AD37B3E41A571F4B00605351 /* TournamentKit.h in Headers */ = {isa = PBXBuildFile; fileRef = AD37B3AF1A57147800605351 /* TournamentKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AD37B3EB1A573C8300605351 /* TournamentConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = AD37B3E91A573C8300605351 /* TournamentConnection.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -114,6 +113,7 @@
 		AD7FD7AB1A6AC6D60047EB17 /* TournamentServerInfo.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AD466E4D1A5911DC00E0973E /* TournamentServerInfo.h */; };
 		AD7FD7AC1A6AC6D60047EB17 /* TournamentServerBrowser.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AD466E471A5911CB00E0973E /* TournamentServerBrowser.h */; };
 		AD7FD7AD1A6AC6D60047EB17 /* TournamentSession.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AD466E531A5918DB00E0973E /* TournamentSession.h */; };
+		AD7FD7B01A6ACC1A0047EB17 /* TournamentKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD37B3CB1A571EB800605351 /* TournamentKit.framework */; };
 		ADD523A31A62DCD800C8033A /* CFStreamCreatePairWithUnixSocket.c in Sources */ = {isa = PBXBuildFile; fileRef = ADD523A11A62DCD800C8033A /* CFStreamCreatePairWithUnixSocket.c */; };
 		ADD523A41A62DCD800C8033A /* CFStreamCreatePairWithUnixSocket.c in Sources */ = {isa = PBXBuildFile; fileRef = ADD523A11A62DCD800C8033A /* CFStreamCreatePairWithUnixSocket.c */; };
 		ADD523A51A62DCD800C8033A /* CFStreamCreatePairWithUnixSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = ADD523A21A62DCD800C8033A /* CFStreamCreatePairWithUnixSocket.h */; };
@@ -149,13 +149,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		AD37B3AA1A57147800605351 /* TournamentKit_osx.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TournamentKit_osx.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AD37B3AA1A57147800605351 /* TournamentKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TournamentKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD37B3AE1A57147800605351 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AD37B3AF1A57147800605351 /* TournamentKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TournamentKit.h; sourceTree = "<group>"; };
 		AD37B3B51A57147800605351 /* TournamentKit_tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TournamentKit_tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD37B3BB1A57147800605351 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AD37B3BC1A57147800605351 /* TournamentKit_tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TournamentKit_tests.m; sourceTree = "<group>"; };
-		AD37B3CB1A571EB800605351 /* TournamentKit_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TournamentKit_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AD37B3CB1A571EB800605351 /* TournamentKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TournamentKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD37B3E91A573C8300605351 /* TournamentConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TournamentConnection.h; sourceTree = "<group>"; };
 		AD37B3EA1A573C8300605351 /* TournamentConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TournamentConnection.m; sourceTree = "<group>"; };
 		AD466E3B1A58C15A00E0973E /* NSData+Delimiter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Delimiter.h"; sourceTree = "<group>"; };
@@ -195,7 +195,7 @@
 		AD466E7A1A5936BB00E0973E /* types.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = types.hpp; sourceTree = "<group>"; };
 		AD466EBE1A59375100E0973E /* TournamentDaemon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TournamentDaemon.h; sourceTree = "<group>"; };
 		AD466EBF1A59375100E0973E /* TournamentDaemon.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TournamentDaemon.mm; sourceTree = "<group>"; };
-		AD7FD7791A6AB7910047EB17 /* libTournamentKit_ios_static.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libTournamentKit_ios_static.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		AD7FD7791A6AB7910047EB17 /* libTournamentKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libTournamentKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADD523A11A62DCD800C8033A /* CFStreamCreatePairWithUnixSocket.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = CFStreamCreatePairWithUnixSocket.c; sourceTree = "<group>"; };
 		ADD523A21A62DCD800C8033A /* CFStreamCreatePairWithUnixSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFStreamCreatePairWithUnixSocket.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -212,7 +212,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AD37B3B61A57147800605351 /* TournamentKit_osx.framework in Frameworks */,
+				AD7FD7B01A6ACC1A0047EB17 /* TournamentKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -245,10 +245,10 @@
 		AD37B3AB1A57147800605351 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				AD37B3AA1A57147800605351 /* TournamentKit_osx.framework */,
+				AD37B3AA1A57147800605351 /* TournamentKit.framework */,
 				AD37B3B51A57147800605351 /* TournamentKit_tests.xctest */,
-				AD37B3CB1A571EB800605351 /* TournamentKit_ios.framework */,
-				AD7FD7791A6AB7910047EB17 /* libTournamentKit_ios_static.a */,
+				AD37B3CB1A571EB800605351 /* TournamentKit.framework */,
+				AD7FD7791A6AB7910047EB17 /* libTournamentKit.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -426,7 +426,7 @@
 			);
 			name = TournamentKit_osx;
 			productName = TournamentKit;
-			productReference = AD37B3AA1A57147800605351 /* TournamentKit_osx.framework */;
+			productReference = AD37B3AA1A57147800605351 /* TournamentKit.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		AD37B3B41A57147800605351 /* TournamentKit_tests */ = {
@@ -462,7 +462,7 @@
 			);
 			name = TournamentKit_ios;
 			productName = TournamentKit_ios;
-			productReference = AD37B3CB1A571EB800605351 /* TournamentKit_ios.framework */;
+			productReference = AD37B3CB1A571EB800605351 /* TournamentKit.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		AD7FD7781A6AB7910047EB17 /* TournamentKit_ios_static */ = {
@@ -479,7 +479,7 @@
 			);
 			name = TournamentKit_ios_static;
 			productName = TournamentKit_ios_static;
-			productReference = AD7FD7791A6AB7910047EB17 /* libTournamentKit_ios_static.a */;
+			productReference = AD7FD7791A6AB7910047EB17 /* libTournamentKit.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
@@ -726,7 +726,7 @@
 				INFOPLIST_FILE = TournamentKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 			};
@@ -744,7 +744,7 @@
 				INFOPLIST_FILE = TournamentKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 			};
@@ -764,7 +764,7 @@
 				);
 				INFOPLIST_FILE = TournamentKit_tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "$(PROJECT_NAME)_tests";
 			};
 			name = Debug;
 		};
@@ -778,7 +778,7 @@
 				);
 				INFOPLIST_FILE = TournamentKit_tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "$(PROJECT_NAME)_tests";
 			};
 			name = Release;
 		};
@@ -793,7 +793,7 @@
 				INFOPLIST_FILE = TournamentKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -812,7 +812,7 @@
 				INFOPLIST_FILE = TournamentKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -827,7 +827,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 			};
@@ -837,7 +837,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				VALIDATE_PRODUCT = YES;
