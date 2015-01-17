@@ -110,19 +110,19 @@
 - (NSString*)formatDuration:(NSUInteger)duration {
     if(duration < 60000) {
         // SS.MSS
-        NSUInteger s = duration / 1000 % 60;
-        NSUInteger ms = duration % 1000;
+        unsigned long s = duration / 1000 % 60;
+        unsigned long ms = duration % 1000;
         return [NSString stringWithFormat:@"%lu.%03lu", s, ms];
     } else if(duration < 3600000) {
         // MM:SS
-        NSUInteger m = duration / 60000;
-        NSUInteger s = duration / 1000 % 60;
+        unsigned long m = duration / 60000;
+        unsigned long s = duration / 1000 % 60;
         return [NSString stringWithFormat:@"%lu:%02lu", m, s];
     } else {
         // HH:MM:SS
-        NSUInteger h = duration / 3600000;
-        NSUInteger m = duration / 60000 % 60;
-        NSUInteger s = duration / 1000 % 60;
+        unsigned long h = duration / 3600000;
+        unsigned long m = duration / 60000 % 60;
+        unsigned long s = duration / 1000 % 60;
         return [NSString stringWithFormat:@"%lu:%02lu:%02lu", h, m, s];
     }
 }
