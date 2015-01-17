@@ -398,7 +398,7 @@
 
 - (void)tournamentConnection:(TournamentConnection*)tc error:(NSError*)error {
     NSAssert([self connection] == tc, @"Unexpected error from %@", tc);
-//    [self disconnect];
+    [self disconnect];
 }
 
 #pragma mark Singleton Methods
