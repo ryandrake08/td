@@ -40,18 +40,26 @@
 
     // DEFAULT VALUES
     _seconds = 0;
-    _handRadians = 0;
+    _handRadians = -M_PI_2;
 
     _enableShadows = YES;
     _enableGraduations = YES;
     _enableDigit = YES;
+    _enableArc = YES;
 
-    _faceBackgroundColor = [UIColor colorWithRed:0 green:122.0/255.0 blue:255/255 alpha:1];
+    _faceBackgroundColor = [UIColor grayColor];
     _faceBackgroundAlpha = 0.95;
 
     _borderColor = [UIColor blackColor];
     _borderAlpha = 1.0;
     _borderWidth = 3.0;
+
+    _arcBackgroundColor = [UIColor colorWithRed:0 green:122.0/255.0 blue:255/255 alpha:1];
+    _arcBackgroundAlpha = 1.0;
+    _arcBorderColor = [UIColor whiteColor];
+    _arcBorderAlpha = 1.0;
+    _arcBorderWidth = 1.0;
+    _arcFillsIn = YES;
 
     _handColor = [UIColor whiteColor];
     _handAlpha = 1.0;
@@ -68,7 +76,7 @@
 
 - (void)setSeconds:(double)seconds {
     _seconds = seconds;
-    _handRadians = self.seconds * 6 * M_PI / 180;
+    _handRadians = (self.seconds * 6 * M_PI / 180) - M_PI_2;
 
     [self setNeedsDisplay];
 }
@@ -77,6 +85,9 @@
     // Center point
     CGPoint center = CGPointMake(self.frame.size.width / 2, self.frame.size.height / 2);
 
+    // Face raduis (out to the center of the border)
+    CGFloat radius = center.x - rect.origin.x - self.borderWidth/2;
+
     // CLOCK'S FACE
     CGContextRef ctx = UIGraphicsGetCurrentContext();
     CGContextAddEllipseInRect(ctx, rect);
@@ -84,12 +95,33 @@
     CGContextSetAlpha(ctx, self.faceBackgroundAlpha);
     CGContextFillPath(ctx);
 
+    // ARC FACE
+    if(self.enableArc) {
+        CGContextMoveToPoint(ctx, center.x, center.y);
+        CGContextAddArc(ctx, center.x, center.y, radius, -M_PI_2, _handRadians, self.arcFillsIn ? 1 : 0);
+        CGContextSetFillColorWithColor(ctx, self.arcBackgroundColor.CGColor);
+        CGContextSetAlpha(ctx, self.arcBackgroundAlpha);
+        CGContextFillPath(ctx);
+    }
+
     // CLOCK'S BORDER
     CGContextAddEllipseInRect(ctx, CGRectMake(rect.origin.x + self.borderWidth/2, rect.origin.y + self.borderWidth/2, rect.size.width - self.borderWidth, rect.size.height - self.borderWidth));
     CGContextSetStrokeColorWithColor(ctx, self.borderColor.CGColor);
     CGContextSetAlpha(ctx, self.borderAlpha);
     CGContextSetLineWidth(ctx,self.borderWidth);
     CGContextStrokePath(ctx);
+
+    // ARC'S BORDER
+    if(self.enableArc) {
+        CGContextMoveToPoint(ctx, center.x, center.y);
+        CGContextAddLineToPoint(ctx, center.x, center.y - radius);
+        CGContextAddArc(ctx, center.x, center.y, radius, -M_PI_2, _handRadians, self.arcFillsIn ? 1 : 0);
+        CGContextAddLineToPoint(ctx, center.x, center.y);
+        CGContextSetStrokeColorWithColor(ctx, self.arcBorderColor.CGColor);
+        CGContextSetAlpha(ctx, self.arcBorderAlpha);
+        CGContextSetLineWidth(ctx,self.borderWidth);
+        CGContextStrokePath(ctx);
+    }
 
     // CLOCK'S GRADUATION
     if (self.enableGraduations == YES) {
@@ -135,20 +167,18 @@
     }
 
     // HAND DRAWING
-    if(YES) {
-        // point that is the top of the hand (closes to the edge of the clock)
-        CGPoint top = CGPointMake(center.x + self.handLength * sin(_handRadians), center.y - self.handLength * cos(_handRadians));
+    // point that is the top of the hand (closes to the edge of the clock)
+    CGPoint top = CGPointMake(center.x + self.handLength * cos(_handRadians), center.y + self.handLength * sin(_handRadians));
 
-        // point at the bottom of the hand, a total distance offsetLength away from
-        // the center of rotation.
-        CGPoint bottom = CGPointMake(center.x - self.handOffsideLength * sin(_handRadians), center.y + self.handOffsideLength * cos(_handRadians));
+    // point at the bottom of the hand, a total distance offsetLength away from
+    // the center of rotation.
+    CGPoint bottom = CGPointMake(center.x - self.handOffsideLength * cos(_handRadians), center.y - self.handOffsideLength * sin(_handRadians));
 
-        CGContextSetStrokeColorWithColor(ctx, self.handColor.CGColor);
-        CGContextSetLineWidth(ctx, self.handWidth);
-        CGContextMoveToPoint(ctx, bottom.x, bottom.y);
-        CGContextAddLineToPoint(ctx, top.x, top.y);
-        CGContextStrokePath(ctx);
-    }
+    CGContextSetStrokeColorWithColor(ctx, self.handColor.CGColor);
+    CGContextSetLineWidth(ctx, self.handWidth);
+    CGContextMoveToPoint(ctx, bottom.x, bottom.y);
+    CGContextAddLineToPoint(ctx, top.x, top.y);
+    CGContextStrokePath(ctx);
 
     // DIGIT DRAWING
     if (self.enableDigit == YES) {

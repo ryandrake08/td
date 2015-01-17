@@ -38,8 +38,11 @@
 /// If set to YES, the graduation on the clock will be visible. See the methods bellow to costumize the graduations. Default value is YES.
 @property (nonatomic) BOOL enableGraduations;
 
-/// If set to YES, the digits (5-60) will be displayed on the face of the clock. Default value is NO.
+/// If set to YES, the digits (5-60) will be displayed on the face of the clock. Default value is YES.
 @property (nonatomic) BOOL enableDigit;
+
+/// If set to YES, the countdown arc will be displayed on the face of the clock. Default value is YES.
+@property (nonatomic) BOOL enableArc;
 
 
 //----- CLOCK'S FACE CUSTOMIZATION -----//
@@ -68,6 +71,26 @@
 /// The offset for the position of the digits on the clock's face. A value >0 will make the digits appear further away from the center of the clock. A valut <0 will make them closer to the center of the clock. Default value is 0.0.
 @property (nonatomic) CGFloat digitOffset;
 
+
+//----- ARC CUSTOMIZATION -----//
+
+/// The background color of the countdown arc
+@property (strong, nonatomic) UIColor* arcBackgroundColor;
+
+/// The alpha of the countdown arc.
+@property (nonatomic) CGFloat arcBackgroundAlpha;
+
+/// The color of the countdown arc's border.
+@property (strong, nonatomic) UIColor* arcBorderColor;
+
+/// The alpha of the countdown arc's border.
+@property (nonatomic) CGFloat arcBorderAlpha;
+
+/// The width of the countdown arc's border.
+@property (nonatomic) CGFloat arcBorderWidth;
+
+/// If YES, arc fills in as clock counts down to zero. Default value is YES.
+@property (nonatomic) BOOL arcFillsIn;
 
 //----- HAND CUSTOMIZATION -----//
 
