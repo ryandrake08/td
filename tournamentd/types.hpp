@@ -44,6 +44,8 @@ namespace td
     };
 
     // attributes of each funding source (buy-in, addon, etc.)
+    // note: cost, commission and equity are not floating point
+    // use minor currency unit (cents for USD, etc.)
     struct funding_source
     {
         bool is_addon;

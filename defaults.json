@@ -219,8 +219,8 @@
             "count_available": 40
         }
     ],
-    "cost_currency": "USDx100",
-    "equity_currency": "points",
+    "cost_currency": "USD",
+    "equity_currency": "XXX",
     "percent_seats_paid": 0.25,
     "funding_sources": [
         {

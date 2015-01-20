@@ -6,10 +6,10 @@
 
 class gamefunding
 {
-    // configuration: name of currency collected (USD, EUR, points)
+    // configuration: name of currency collected (use ISO 4217: USD, EUR, XPT for points)
     std::string cost_currency;
 
-    // configuration: name of currency distributed (USD, EUR, points)
+    // configuration: name of currency distributed (use ISO 4217: USD, EUR, XPT for points)
     std::string equity_currency;
 
     // configuration: rough percentage of seats that get paid (0.0-1.0)
@@ -27,11 +27,11 @@ class gamefunding
     // total game currency (chips) in play
     unsigned long total_chips;
 
-    // total funds received
+    // total funds received and paid out
+    // note: cost, commission and equity are not floating point
+    // use minor currency unit (cents for USD, etc.)
     unsigned long total_cost;
     unsigned long total_commission;
-
-    // total funds to pay out
     unsigned long total_equity;
 
     // re-calculate payouts
