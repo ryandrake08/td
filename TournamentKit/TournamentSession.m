@@ -208,8 +208,8 @@
     }
 }
 
-- (void)genBlindLevelsCount:(NSNumber*)count withDuration:(NSNumber*)milliseconds {
-    [self sendCommand:@"gen_blind_levels" withData:@{@"duration" : milliseconds, @"count" : count} andBlock:nil];
+- (void)genBlindLevels:(NSNumber*)count withDuration:(NSNumber*)durationMs breakDuration:(NSNumber*)breakDurationMs blindIncreaseFactor:(NSNumber*)increaseFactor {
+    [self sendCommand:@"gen_blind_levels"withData:@{@"count" : count, @"duration" : durationMs, @"break_duration" : breakDurationMs, @"blind_increase_factor" : increaseFactor, } andBlock:nil];
 }
 
 - (void)resetFunding {

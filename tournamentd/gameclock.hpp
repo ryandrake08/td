@@ -6,9 +6,6 @@
 
 class gameclock
 {
-    // configuration: blind increase factor
-    double blind_increase_factor;
-
     // configuration: blind structure for this game
     std::vector<td::blind_level> blind_levels;
 
@@ -93,5 +90,5 @@ public:
     void reset_action_clock();
 
     // generate progressive blind levels, given available chip denominations
-    void gen_blind_levels(std::size_t count, long level_duration);
+    void gen_blind_levels(std::size_t count, long level_duration, long chip_up_break_duration, double blind_increase_factor);
 };

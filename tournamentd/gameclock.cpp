@@ -4,7 +4,7 @@
 #include <cmath>
 
 // initialize game clock
-gameclock::gameclock() : blind_increase_factor(1.5), running(false), current_blind_level(0), time_remaining(0), break_time_remaining(0), elapsed(0)
+gameclock::gameclock() : running(false), current_blind_level(0), time_remaining(0), break_time_remaining(0), elapsed(0)
 {
 }
 
@@ -13,7 +13,6 @@ void gameclock::configure(const json& config)
 {
     logger(LOG_DEBUG) << "Loading game clock configuration\n";
 
-    config.get_value("blind_increase_factor", this->blind_increase_factor);
     config.get_values("blind_levels", this->blind_levels);
     config.get_values("available_chips", this->available_chips);
 }
@@ -23,7 +22,6 @@ void gameclock::dump_configuration(json& config) const
 {
     logger(LOG_DEBUG) << "Dumping game clock configuration\n";
 
-    config.set_value("blind_increase_factor", this->blind_increase_factor);
     config.set_values("blind_levels", this->blind_levels);
     config.set_values("available_chips", this->available_chips);
 }
@@ -330,11 +328,14 @@ static std::size_t calculate_round_denomination(double ideal_small, const std::v
 }
 
 // generate progressive blind levels, given available chip denominations
+// level_duration: uniform duraiton for each level
+// chip_up_break_duration: if not zero, add a break whenever we can chip up
+// blind_increase_factor: amount to multiply to increase blinds each round (1.5 is usually good here)
 // this was tuned to produce a sensible result for the following chip denomination sets:
 //  1/5/25/100/500
 //  5/25/100/500/1000
 //  25/100/500/1000/5000
-void gameclock::gen_blind_levels(std::size_t count, long level_duration)
+void gameclock::gen_blind_levels(std::size_t count, long level_duration, long chip_up_break_duration, double blind_increase_factor)
 {
     if(this->available_chips.empty())
     {
@@ -369,10 +370,10 @@ void gameclock::gen_blind_levels(std::size_t count, long level_duration)
         if(i > 0 && round_denom != last_round_denom)
         {
             // 5 minute break to chip up after each minimum denomination change
-            this->blind_levels[i].break_duration = 300000;
+            this->blind_levels[i].break_duration = chip_up_break_duration;
         }
 
         // next small blind should be about factor times bigger than previous one
-        ideal_small *= this->blind_increase_factor;
+        ideal_small *= blind_increase_factor;
     }
 }

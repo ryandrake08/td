@@ -172,13 +172,18 @@ void tournament::handle_cmd_gen_blind_levels(const json& in, json& out)
 {
     std::size_t count;
     long duration;
+    long break_duration;
+    double blind_increase_factor;
 
-    if(!in.get_value("duration", duration) || !in.get_value("count", count))
+    if(!in.get_value("count", count) ||
+       !in.get_value("duration", duration) ||
+       !in.get_value("break_duration", break_duration) ||
+       !in.get_value("blind_increase_factor", blind_increase_factor))
     {
         throw std::invalid_argument("must specify count and duration");
     }
 
-    this->clock.gen_blind_levels(count, duration);
+    this->clock.gen_blind_levels(count, duration, break_duration, blind_increase_factor);
 }
 
 void tournament::handle_cmd_reset_funding(const json& in, json& out)

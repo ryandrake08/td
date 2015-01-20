@@ -1,7 +1,6 @@
 {
     "name": "default",
     "players": [],
-    "blind_increase_factor": 1.5,
     "blind_levels": [
         {},
         {
