@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:Tournament Buddy.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:TBRemote.xcodeproj">
    </FileRef>
    <FileRef

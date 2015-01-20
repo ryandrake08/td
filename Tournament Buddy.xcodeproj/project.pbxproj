@@ -1,0 +1,294 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		AD8E684A1A6C606700E5A4D8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8E68491A6C606700E5A4D8 /* AppDelegate.m */; };
+		AD8E684C1A6C606700E5A4D8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8E684B1A6C606700E5A4D8 /* main.m */; };
+		AD8E684F1A6C606700E5A4D8 /* Document.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8E684E1A6C606700E5A4D8 /* Document.m */; };
+		AD8E68521A6C606700E5A4D8 /* Document.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD8E68501A6C606700E5A4D8 /* Document.xib */; };
+		AD8E68541A6C606700E5A4D8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AD8E68531A6C606700E5A4D8 /* Images.xcassets */; };
+		AD8E68571A6C606700E5A4D8 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD8E68551A6C606700E5A4D8 /* MainMenu.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		AD8E68431A6C606700E5A4D8 /* Tournament Buddy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Tournament Buddy.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AD8E68471A6C606700E5A4D8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AD8E68481A6C606700E5A4D8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		AD8E68491A6C606700E5A4D8 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		AD8E684B1A6C606700E5A4D8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		AD8E684D1A6C606700E5A4D8 /* Document.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Document.h; sourceTree = "<group>"; };
+		AD8E684E1A6C606700E5A4D8 /* Document.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Document.m; sourceTree = "<group>"; };
+		AD8E68511A6C606700E5A4D8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/Document.xib; sourceTree = "<group>"; };
+		AD8E68531A6C606700E5A4D8 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		AD8E68561A6C606700E5A4D8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AD8E68401A6C606700E5A4D8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		AD8E683A1A6C606700E5A4D8 = {
+			isa = PBXGroup;
+			children = (
+				AD8E68451A6C606700E5A4D8 /* Tournament Buddy */,
+				AD8E68441A6C606700E5A4D8 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		AD8E68441A6C606700E5A4D8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AD8E68431A6C606700E5A4D8 /* Tournament Buddy.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		AD8E68451A6C606700E5A4D8 /* Tournament Buddy */ = {
+			isa = PBXGroup;
+			children = (
+				AD8E68481A6C606700E5A4D8 /* AppDelegate.h */,
+				AD8E68491A6C606700E5A4D8 /* AppDelegate.m */,
+				AD8E684D1A6C606700E5A4D8 /* Document.h */,
+				AD8E684E1A6C606700E5A4D8 /* Document.m */,
+				AD8E68501A6C606700E5A4D8 /* Document.xib */,
+				AD8E68531A6C606700E5A4D8 /* Images.xcassets */,
+				AD8E68551A6C606700E5A4D8 /* MainMenu.xib */,
+				AD8E68461A6C606700E5A4D8 /* Supporting Files */,
+			);
+			path = "Tournament Buddy";
+			sourceTree = "<group>";
+		};
+		AD8E68461A6C606700E5A4D8 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				AD8E68471A6C606700E5A4D8 /* Info.plist */,
+				AD8E684B1A6C606700E5A4D8 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		AD8E68421A6C606700E5A4D8 /* Tournament Buddy */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AD8E68661A6C606700E5A4D8 /* Build configuration list for PBXNativeTarget "Tournament Buddy" */;
+			buildPhases = (
+				AD8E683F1A6C606700E5A4D8 /* Sources */,
+				AD8E68401A6C606700E5A4D8 /* Frameworks */,
+				AD8E68411A6C606700E5A4D8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Tournament Buddy";
+			productName = "Tournament Buddy";
+			productReference = AD8E68431A6C606700E5A4D8 /* Tournament Buddy.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AD8E683B1A6C606700E5A4D8 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0610;
+				ORGANIZATIONNAME = "HDna Studio";
+				TargetAttributes = {
+					AD8E68421A6C606700E5A4D8 = {
+						CreatedOnToolsVersion = 6.1;
+					};
+				};
+			};
+			buildConfigurationList = AD8E683E1A6C606700E5A4D8 /* Build configuration list for PBXProject "Tournament Buddy" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = AD8E683A1A6C606700E5A4D8;
+			productRefGroup = AD8E68441A6C606700E5A4D8 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				AD8E68421A6C606700E5A4D8 /* Tournament Buddy */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AD8E68411A6C606700E5A4D8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AD8E68521A6C606700E5A4D8 /* Document.xib in Resources */,
+				AD8E68541A6C606700E5A4D8 /* Images.xcassets in Resources */,
+				AD8E68571A6C606700E5A4D8 /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AD8E683F1A6C606700E5A4D8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AD8E684F1A6C606700E5A4D8 /* Document.m in Sources */,
+				AD8E684C1A6C606700E5A4D8 /* main.m in Sources */,
+				AD8E684A1A6C606700E5A4D8 /* AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		AD8E68501A6C606700E5A4D8 /* Document.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AD8E68511A6C606700E5A4D8 /* Base */,
+			);
+			name = Document.xib;
+			sourceTree = "<group>";
+		};
+		AD8E68551A6C606700E5A4D8 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AD8E68561A6C606700E5A4D8 /* Base */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		AD8E68641A6C606700E5A4D8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		AD8E68651A6C606700E5A4D8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		AD8E68671A6C606700E5A4D8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "Tournament Buddy/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		AD8E68681A6C606700E5A4D8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "Tournament Buddy/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AD8E683E1A6C606700E5A4D8 /* Build configuration list for PBXProject "Tournament Buddy" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AD8E68641A6C606700E5A4D8 /* Debug */,
+				AD8E68651A6C606700E5A4D8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AD8E68661A6C606700E5A4D8 /* Build configuration list for PBXNativeTarget "Tournament Buddy" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AD8E68671A6C606700E5A4D8 /* Debug */,
+				AD8E68681A6C606700E5A4D8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = AD8E683B1A6C606700E5A4D8 /* Project object */;
+}
