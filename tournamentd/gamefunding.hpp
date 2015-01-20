@@ -22,17 +22,17 @@ class gamefunding
     std::unordered_set<td::player_id> buyins;
 
     // payout structure
-    std::vector<td::currency> payouts;
+    std::vector<unsigned long> payouts;
 
     // total game currency (chips) in play
-    std::size_t total_chips;
+    unsigned long total_chips;
 
     // total funds received
-    td::currency total_cost;
-    td::currency total_commission;
+    unsigned long total_cost;
+    unsigned long total_commission;
 
     // total funds to pay out
-    td::currency total_equity;
+    unsigned long total_equity;
 
     // re-calculate payouts
     void recalculate_payouts();

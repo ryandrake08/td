@@ -127,7 +127,7 @@ void gamefunding::recalculate_payouts()
     }
 
     // next, loop through again generating payouts (rounding fractional payouts down)
-    std::transform(comp.begin(), comp.end(), this->payouts.begin(), [&](double c) { return static_cast<td::currency>(this->total_equity * c / total); });
+    std::transform(comp.begin(), comp.end(), this->payouts.begin(), [&](double c) { return static_cast<unsigned long>(this->total_equity * c / total); });
 
     // finally, allocating remainder (from rounding) starting from first place
     auto remainder(this->total_equity - std::accumulate(this->payouts.begin(), this->payouts.end(), 0));

@@ -39,7 +39,7 @@ void gameclock::dump_state(json& state) const
 }
 
 // utility: start a blind level (optionally starting offset ms into the round)
-void gameclock::start_blind_level(std::size_t blind_level, td::ms offset)
+void gameclock::start_blind_level(std::size_t blind_level, duration_t offset)
 {
     if(blind_level >= this->blind_levels.size())
     {
@@ -49,8 +49,8 @@ void gameclock::start_blind_level(std::size_t blind_level, td::ms offset)
     auto now(std::chrono::system_clock::now());
 
     this->current_blind_level = blind_level;
-    this->time_remaining = td::ms(this->blind_levels[this->current_blind_level].duration) - offset;
-    this->break_time_remaining = td::ms(this->blind_levels[this->current_blind_level].break_duration);
+    this->time_remaining = duration_t(this->blind_levels[this->current_blind_level].duration) - offset;
+    this->break_time_remaining = duration_t(this->blind_levels[this->current_blind_level].break_duration);
     this->end_of_round = now + this->time_remaining;
     this->end_of_break = this->end_of_round + this->break_time_remaining;
 }
@@ -83,16 +83,16 @@ void gameclock::start()
     logger(LOG_DEBUG) << "Starting the tournament\n";
 
     // start the blind level
-    this->start_blind_level(1, td::ms::zero());
+    this->start_blind_level(1, duration_t::zero());
 
     // start the tournament
     this->running = true;
 
     // set elapsed time
-    this->elapsed = td::ms::zero();
+    this->elapsed = duration_t::zero();
 }
 
-void gameclock::start(const td::tp& starttime)
+void gameclock::start(const time_point_t& starttime)
 {
     if(this->is_started())
     {
@@ -113,7 +113,7 @@ void gameclock::start(const td::tp& starttime)
     this->end_of_break = starttime;
 
     // set elapsed time
-    this->elapsed = td::ms::zero();
+    this->elapsed = duration_t::zero();
 }
 
 // stop the game
@@ -128,12 +128,12 @@ void gameclock::stop()
 
     this->running = false;
     this->current_blind_level = 0;
-    this->end_of_round = td::tp();
-    this->end_of_break = td::tp();
-    this->end_of_action_clock = td::tp();
-    this->time_remaining = td::ms::zero();
-    this->break_time_remaining = td::ms::zero();
-    this->action_clock_remaining = td::ms::zero();
+    this->end_of_round = time_point_t();
+    this->end_of_break = time_point_t();
+    this->end_of_action_clock = time_point_t();
+    this->time_remaining = duration_t::zero();
+    this->break_time_remaining = duration_t::zero();
+    this->action_clock_remaining = duration_t::zero();
 }
 
 // pause
@@ -187,7 +187,7 @@ void gameclock::toggle_pause_resume()
 }
 
 // advance to next blind level
-bool gameclock::next_blind_level(td::ms offset)
+bool gameclock::next_blind_level(duration_t offset)
 {
     if(!this->is_started())
     {
@@ -206,7 +206,7 @@ bool gameclock::next_blind_level(td::ms offset)
 }
 
 // return to prevous blind level
-bool gameclock::previous_blind_level(td::ms offset)
+bool gameclock::previous_blind_level(duration_t offset)
 {
     if(!this->is_started())
     {
@@ -243,39 +243,39 @@ bool gameclock::update_remaining()
         auto now(std::chrono::system_clock::now());
 
         // always update action clock if ticking
-        if(this->end_of_action_clock != td::tp())
+        if(this->end_of_action_clock != time_point_t())
         {
             if(this->end_of_action_clock > now)
             {
-                this->action_clock_remaining = std::chrono::duration_cast<td::ms>(this->end_of_action_clock - now);
+                this->action_clock_remaining = std::chrono::duration_cast<duration_t>(this->end_of_action_clock - now);
             }
             else
             {
-                this->end_of_action_clock = td::tp();
-                this->action_clock_remaining = td::ms::zero();
+                this->end_of_action_clock = time_point_t();
+                this->action_clock_remaining = duration_t::zero();
             }
         }
         else
         {
-            this->action_clock_remaining = td::ms::zero();
+            this->action_clock_remaining = duration_t::zero();
         }
 
         // set time remaining based on current clock
         if(now < this->end_of_round)
         {
             // within round, set time remaining
-            this->time_remaining = std::chrono::duration_cast<td::ms>(this->end_of_round - now);
+            this->time_remaining = std::chrono::duration_cast<duration_t>(this->end_of_round - now);
         }
         else if(now < this->end_of_break)
         {
             // within break, set time remaining to zero and set break time remaining
-            this->time_remaining = td::ms::zero();
-            this->break_time_remaining = std::chrono::duration_cast<td::ms>(this->end_of_break - now);
+            this->time_remaining = duration_t::zero();
+            this->break_time_remaining = std::chrono::duration_cast<duration_t>(this->end_of_break - now);
         }
         else
         {
             // advance to next blind
-            auto offset(std::chrono::duration_cast<td::ms>(this->end_of_break - now));
+            auto offset(std::chrono::duration_cast<duration_t>(this->end_of_break - now));
             this->next_blind_level(offset);
         }
         return true;
@@ -286,10 +286,10 @@ bool gameclock::update_remaining()
 // set the action clock (when someone 'needs the clock called on them'
 void gameclock::set_action_clock(long duration)
 {
-    if(this->end_of_action_clock == td::tp())
+    if(this->end_of_action_clock == time_point_t())
     {
-        this->end_of_action_clock = std::chrono::system_clock::now() + td::ms(duration);
-        this->action_clock_remaining = td::ms(duration);
+        this->end_of_action_clock = std::chrono::system_clock::now() + duration_t(duration);
+        this->action_clock_remaining = duration_t(duration);
     }
     else
     {
@@ -300,11 +300,11 @@ void gameclock::set_action_clock(long duration)
 // reset the action clock
 void gameclock::reset_action_clock()
 {
-    this->end_of_action_clock = td::tp();
-    this->action_clock_remaining = td::ms::zero();
+    this->end_of_action_clock = time_point_t();
+    this->action_clock_remaining = duration_t::zero();
 }
 
-static std::size_t calculate_round_denomination(double ideal_small, const std::vector<td::chip>& chips)
+static unsigned long calculate_round_denomination(double ideal_small, const std::vector<td::chip>& chips)
 {
     // round to denomination n if ideal small blind is at least 10x denomination n-1
     static const std::size_t multiplier(10);
@@ -312,9 +312,9 @@ static std::size_t calculate_round_denomination(double ideal_small, const std::v
     auto it(chips.rbegin());
     while(std::next(it) != chips.rend())
     {
-        std::size_t candidate(it->denomination);
+        auto candidate(it->denomination);
         std::advance(it, 1);
-        std::size_t limit(it->denomination);
+        auto limit(it->denomination);
 
         logger(LOG_DEBUG) << "ideal_small: " << ideal_small << ", candidate: " << candidate << ", limitx10:" << limit * multiplier << '\n';
 
@@ -358,9 +358,9 @@ void gameclock::gen_blind_levels(std::size_t count, long level_duration, long ch
     {
         // calculate nearest chip denomination to round to
         const auto round_denom(calculate_round_denomination(ideal_small, this->available_chips));
-        const auto little_blind(std::ceil(ideal_small / round_denom) * round_denom);
+        const auto little_blind(static_cast<unsigned long>(std::ceil(ideal_small / round_denom) * round_denom));
 
-        logger(LOG_DEBUG) << "round: " << i << ", little blind will be: " << static_cast<std::size_t>(little_blind) << '\n';
+        logger(LOG_DEBUG) << "round: " << i << ", little blind will be: " << little_blind << '\n';
 
         // round up
         this->blind_levels[i].little_blind = little_blind;

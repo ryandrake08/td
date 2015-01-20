@@ -19,21 +19,12 @@ namespace td
     // index into the funding_source vector
     typedef std::size_t funding_source_id;
 
-    // represents a point in time
-    typedef std::chrono::system_clock::time_point tp;
-
-    // represents a time duration
-    typedef std::chrono::milliseconds ms;
-
-    // used only for currency (buyin and payout)
-    typedef std::size_t currency;
-
     // attributes of a single blind level
     struct blind_level
     {
-        std::size_t little_blind;
-        std::size_t big_blind;
-        std::size_t ante;
+        unsigned long little_blind;
+        unsigned long big_blind;
+        unsigned long ante;
         long duration;
         long break_duration;
 
@@ -45,8 +36,8 @@ namespace td
     struct chip
     {
         std::string color;
-        std::size_t denomination;
-        std::size_t count_available;
+        unsigned long denomination;
+        unsigned long count_available;
 
         chip();
         chip(const json& obj);
@@ -57,10 +48,10 @@ namespace td
     {
         bool is_addon;
         std::size_t forbid_after_blind_level;
-        std::size_t chips;
-        currency cost;
-        currency commission;
-        currency equity;
+        unsigned long chips;
+        unsigned long cost;
+        unsigned long commission;
+        unsigned long equity;
 
         funding_source();
         funding_source(const json& obj);

@@ -19,23 +19,29 @@ class gameclock
     // Note: blind level 0 is reserved for setup/planning
     std::size_t current_blind_level;
 
+    // represents a point in time
+    typedef std::chrono::system_clock::time_point time_point_t;
+
+    // represents a time duration
+    typedef std::chrono::milliseconds duration_t;
+
     // end of period (valid when running)
-    td::tp end_of_round;
-    td::tp end_of_break;
+    time_point_t end_of_round;
+    time_point_t end_of_break;
 
     // ms remaining
-    td::ms time_remaining;
-    td::ms break_time_remaining;
+    duration_t time_remaining;
+    duration_t break_time_remaining;
 
     // action clock
-    td::tp end_of_action_clock;
-    td::ms action_clock_remaining;
+    time_point_t end_of_action_clock;
+    duration_t action_clock_remaining;
 
     // elapsed time
-    td::ms elapsed;
+    duration_t elapsed;
 
     // utility: start a blind level
-    void start_blind_level(std::size_t blind_level, td::ms offset);
+    void start_blind_level(std::size_t blind_level, duration_t offset);
 
 public:
     // initialize game clock
@@ -58,7 +64,7 @@ public:
 
     // start the game (optionally at certain time);
     void start();
-    void start(const td::tp& starttime);
+    void start(const time_point_t& starttime);
 
     // stop the game
     void stop();
@@ -74,11 +80,11 @@ public:
 
     // advance to next blind level
     // returns: true if blind level changed, false if we are at end of levels
-    bool next_blind_level(td::ms offset=td::ms::zero());
+    bool next_blind_level(duration_t offset=duration_t::zero());
 
     // return to previous blind level
     // returns: true if blind level changed, false if blind level was just reset
-    bool previous_blind_level(td::ms offset=td::ms::zero());
+    bool previous_blind_level(duration_t offset=duration_t::zero());
 
     // update time remaining
     bool update_remaining();
