@@ -4,8 +4,24 @@
 #include <cmath>
 
 // initialize game clock
-gameclock::gameclock() : running(false), current_blind_level(0), time_remaining(0), break_time_remaining(0), elapsed(0)
+gameclock::gameclock() : running(false), current_blind_level(0), time_remaining(0), break_time_remaining(0), action_clock_remaining(0), elapsed(0)
 {
+}
+
+// reset game state
+void gameclock::reset()
+{
+    logger(LOG_DEBUG) << "Resetting all clock information\n";
+
+    this->running = false;
+    this->current_blind_level = 0;
+    this->end_of_round = time_point_t();
+    this->end_of_break = time_point_t();
+    this->end_of_action_clock = time_point_t();
+    this->time_remaining = duration_t::zero();
+    this->break_time_remaining = duration_t::zero();
+    this->action_clock_remaining = duration_t::zero();
+    this->elapsed = duration_t::zero();
 }
 
 // load configuration from JSON (object or file)
@@ -13,8 +29,16 @@ void gameclock::configure(const json& config)
 {
     logger(LOG_DEBUG) << "Loading game clock configuration\n";
 
+    if(this->current_blind_level > 0)
+    {
+        logger(LOG_WARNING) << "Re-configuring clock while in play\n";
+    }
+
     config.get_values("blind_levels", this->blind_levels);
     config.get_values("available_chips", this->available_chips);
+
+    // reset game state
+    this->reset();
 }
 
 // dump configuration to JSON
@@ -126,14 +150,7 @@ void gameclock::stop()
 
     logger(LOG_DEBUG) << "Stopping the tournament\n";
 
-    this->running = false;
-    this->current_blind_level = 0;
-    this->end_of_round = time_point_t();
-    this->end_of_break = time_point_t();
-    this->end_of_action_clock = time_point_t();
-    this->time_remaining = duration_t::zero();
-    this->break_time_remaining = duration_t::zero();
-    this->action_clock_remaining = duration_t::zero();
+    this->reset();
 }
 
 // pause

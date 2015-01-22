@@ -108,6 +108,20 @@ void tournament::handle_cmd_authorize(const json& in, json& out)
     out.set_value("authorized_client", code);
 }
 
+void tournament::handle_cmd_configure(const json& in, json& out)
+{
+    int code;
+    if(!in.get_value("authorize", code))
+    {
+        throw std::invalid_argument("must specify a code to authorize");
+    }
+
+    this->game_info.configure(in);
+    this->clock.configure(in);
+    this->funding.configure(in);
+    this->seating.configure(in);
+}
+
 void tournament::handle_cmd_start_game(const json& in, json& out)
 {
     datetime start_at;
@@ -184,11 +198,6 @@ void tournament::handle_cmd_gen_blind_levels(const json& in, json& out)
     }
 
     this->clock.gen_blind_levels(count, duration, break_duration, blind_increase_factor);
-}
-
-void tournament::handle_cmd_reset_funding(const json& in, json& out)
-{
-    this->funding.reset();
 }
 
 void tournament::handle_cmd_fund_player(const json& in, json& out)
@@ -333,6 +342,11 @@ bool tournament::handle_client_input(std::iostream& client)
                     this->handle_cmd_get_state(out);
                     break;
 
+                case crc32_("configure"):
+                    this->ensure_authorized(in);
+                    this->handle_cmd_configure(in, out);
+                    break;
+
                 case crc32_("start_game"):
                     this->ensure_authorized(in);
                     this->handle_cmd_start_game(in, out);
@@ -385,12 +399,6 @@ bool tournament::handle_client_input(std::iostream& client)
                     this->ensure_authorized(in);
                     this->handle_cmd_gen_blind_levels(in, out);
                     this->broadcast_configuration(this->clock);
-                    break;
-
-                case crc32_("reset_funding"):
-                    this->ensure_authorized(in);
-                    this->handle_cmd_reset_funding(in, out);
-                    this->broadcast_state(this->funding);
                     break;
 
                 case crc32_("fund_player"):

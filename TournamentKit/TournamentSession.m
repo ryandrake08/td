@@ -212,10 +212,6 @@
     [self sendCommand:@"gen_blind_levels"withData:@{@"count" : count, @"duration" : durationMs, @"break_duration" : breakDurationMs, @"blind_increase_factor" : increaseFactor, } andBlock:nil];
 }
 
-- (void)resetFunding {
-    [self sendCommand:@"reset_funding" withData:nil andBlock:nil];
-}
-
 - (void)fundPlayer:(NSNumber*)playerId withFunding:(NSNumber*)sourceId {
     [self sendCommand:@"fund_player" withData:@{@"player" : playerId, @"source_id" : sourceId} andBlock:nil];
 }

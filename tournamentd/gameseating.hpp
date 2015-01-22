@@ -24,6 +24,9 @@ class gameseating
     // number of tables total
     std::size_t tables;
 
+    // reset game state
+    void reset();
+
     // utility: arrange tables with lists of players
     std::vector<std::vector<td::player_id>> players_at_tables() const;
 

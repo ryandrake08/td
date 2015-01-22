@@ -42,6 +42,7 @@ class tournament
 
     // command handlers available to authorized clients
     void handle_cmd_authorize(const json& in, json& out);
+    void handle_cmd_configure(const json& in, json& out);
     void handle_cmd_start_game(const json& in, json& out);
     void handle_cmd_stop_game(const json& in, json& out);
     void handle_cmd_resume_game(const json& in, json& out);

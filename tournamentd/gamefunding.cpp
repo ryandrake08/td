@@ -9,18 +9,36 @@ gamefunding::gamefunding() : percent_seats_paid(1.0), total_chips(0), total_cost
 {
 }
 
+// reset game state
+void gamefunding::reset()
+{
+    logger(LOG_DEBUG) << "Resetting all funding information\n";
+
+    buyins.clear();
+    payouts.clear();
+    total_chips = 0;
+    total_cost = 0;
+    total_commission = 0;
+    total_equity = 0;
+}
+
 // load configuration from JSON (object or file)
 void gamefunding::configure(const json& config)
 {
     logger(LOG_DEBUG) << "Loading game funding configuration\n";
 
+    bool recalculate(false);
+
     config.get_value("cost_currency", this->cost_currency);
     config.get_value("equity_currency", this->equity_currency);
-    config.get_value("percent_seats_paid", this->percent_seats_paid);
-    config.get_values("funding_sources", this->funding_sources);
+    recalculate = recalculate || config.get_value("percent_seats_paid", this->percent_seats_paid);
+    recalculate = recalculate || config.get_values("funding_sources", this->funding_sources);
 
-    // after reconfiguring, we'll need to recalculate
-    this->recalculate_payouts();
+    if(recalculate)
+    {
+        // after reconfiguring, we'll need to recalculate
+        this->recalculate_payouts();
+    }
 }
 
 // dump configuration to JSON
@@ -45,19 +63,6 @@ void gamefunding::dump_state(json& state) const
     state.set_value("total_cost", this->total_cost);
     state.set_value("total_commission", this->total_commission);
     state.set_value("total_equity", this->total_equity);
-}
-
-// reset funding information back to zero
-void gamefunding::reset()
-{
-    logger(LOG_DEBUG) << "Resetting all funding information\n";
-
-    this->buyins.clear();
-    this->payouts.clear();
-    this->total_chips = 0;
-    this->total_cost = 0;
-    this->total_commission = 0;
-    this->total_equity = 0;
 }
 
 // fund a player, (re-)buyin or addon

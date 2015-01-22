@@ -10,12 +10,37 @@ gameseating::gameseating() : table_capacity(0), tables(0)
 {
 }
 
+// reset game state
+void gameseating::reset()
+{
+    logger(LOG_DEBUG) << "Resetting all seating information\n";
+
+    seats.clear();
+    players_finished.clear();
+    empty_seats.clear();
+    tables = 0;
+}
+
 // load configuration from JSON (object or file)
 void gameseating::configure(const json& config)
 {
     logger(LOG_DEBUG) << "Loading game seating configuration\n";
 
-    config.get_value("table_capacity", this->table_capacity);
+    if(config.get_value("table_capacity", this->table_capacity))
+    {
+        if(!this->seats.empty())
+        {
+            logger(LOG_WARNING) << "Re-configuring seating while in play will un-seat all players\n";
+        }
+        
+        // if seats are already set up, replan based on new table capacity
+        std::size_t total_seats = this->seats.size() + this->empty_seats.size();
+        if(total_seats >= 2)
+        {
+            // re-plan seating, if needed
+            this->plan_seating(total_seats);
+        }
+    }
 }
 
 // dump configuration to JSON

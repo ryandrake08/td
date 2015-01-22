@@ -34,6 +34,9 @@ class gamefunding
     unsigned long total_commission;
     unsigned long total_equity;
 
+    // reset game state
+    void reset();
+
     // re-calculate payouts
     void recalculate_payouts();
 
@@ -49,9 +52,6 @@ public:
 
     // dump state to JSON
     void dump_state(json& state) const;
-
-    // reset funding information back to zero
-    void reset();
 
     // fund a player, (re-)buyin or addon
     void fund_player(const td::player_id& player, const td::funding_source_id& src, std::size_t current_blind_level);

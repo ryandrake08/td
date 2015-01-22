@@ -40,6 +40,9 @@ class gameclock
     // elapsed time
     duration_t elapsed;
 
+    // reset game state
+    void reset();
+
     // utility: start a blind level
     void start_blind_level(std::size_t blind_level, duration_t offset);
 
