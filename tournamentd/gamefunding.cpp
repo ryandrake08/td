@@ -27,14 +27,11 @@ void gamefunding::configure(const json& config)
 {
     logger(LOG_DEBUG) << "Loading game funding configuration\n";
 
-    bool recalculate(false);
-
     config.get_value("cost_currency", this->cost_currency);
     config.get_value("equity_currency", this->equity_currency);
-    recalculate = recalculate || config.get_value("percent_seats_paid", this->percent_seats_paid);
-    recalculate = recalculate || config.get_values("funding_sources", this->funding_sources);
+    config.get_values("funding_sources", this->funding_sources);
 
-    if(recalculate)
+    if(config.get_value("percent_seats_paid", this->percent_seats_paid))
     {
         // after reconfiguring, we'll need to recalculate
         this->recalculate_payouts();
@@ -45,7 +42,7 @@ void gamefunding::configure(const json& config)
     {
         if(!this->buyins.empty())
         {
-            logger(LOG_WARNING) << "Re-coniguring players list while in play is not advised, may confuse list of buyins\n";
+            logger(LOG_WARNING) << "Re-coniguring players list while in play is not advised, deleted players may still be in the game\n";
         }
     }
 }

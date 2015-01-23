@@ -47,7 +47,7 @@ void gameseating::configure(const json& config)
     {
         if(!this->seats.empty() || !this->players_finished.empty())
         {
-            logger(LOG_WARNING) << "Re-coniguring players list while in play is not advised, may confuse seating plan\n";
+            logger(LOG_WARNING) << "Re-coniguring players list while in play is not advised, deleted players may still be in the game\n";
         }
     }
 }

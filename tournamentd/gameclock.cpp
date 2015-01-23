@@ -29,13 +29,15 @@ void gameclock::configure(const json& config)
 {
     logger(LOG_DEBUG) << "Loading game clock configuration\n";
 
-    if(this->current_blind_level > 0)
-    {
-        logger(LOG_WARNING) << "Re-configuring clock while in play\n";
-    }
-
-    config.get_values("blind_levels", this->blind_levels);
     config.get_values("available_chips", this->available_chips);
+
+    if(config.get_values("blind_levels", this->blind_levels))
+    {
+        if(this->current_blind_level > 0)
+        {
+            logger(LOG_WARNING) << "Re-configuring blind levels while in play\n";
+        }
+    }
 
     // reset game state
     this->reset();
