@@ -1,5 +1,6 @@
 #include "datetime.hpp"
 #include <iomanip>
+#include <sstream>
 
 #if defined(_WIN32)
 #define gmtime_r(a,b) gmtime((a))
@@ -118,6 +119,23 @@ static std::ostream& operator<<(std::ostream& os, const std::tm* date_time)
     {
         return os;
     }
+}
+
+// Renderers
+std::string datetime::gmtime() const
+{
+    std::tm tm(this->gmtime(tm));
+    std::stringstream ss;
+    ss << &tm;
+    return ss.str();
+}
+
+std::string datetime::localtime() const
+{
+    std::tm tm(this->localtime(tm));
+    std::stringstream ss;
+    ss << &tm;
+    return ss.str();
 }
 
 std::ostream& operator<<(std::ostream& os, const datetime& t)

@@ -2,7 +2,7 @@
 #include "json.hpp"
 #include "types.hpp"
 #include <string>
-#include <vector>
+#include <unordered_map>
 
 class gameinfo
 {
@@ -10,7 +10,7 @@ class gameinfo
     std::string name;
 
     // configuration: list of all known players (playing or not)
-    std::vector<td::player> players;
+    std::unordered_map<td::player_id,td::player> players;
 
 public:
     // load configuration from JSON (object or file)

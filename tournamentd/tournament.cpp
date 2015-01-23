@@ -20,6 +20,13 @@ bool json::get_value<datetime>(const char* name, datetime& value) const
     return false;
 }
 
+template <>
+json& json::set_value(const char* name, const datetime& value)
+{
+    this->set_value(name, value.gmtime());
+    return *this;
+}
+
 // ----- auth check
 
 void tournament::ensure_authorized(const json& in) const

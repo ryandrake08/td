@@ -25,6 +25,10 @@ public:
     static datetime from_gm(const char* iso8601);
     static datetime from_local(const char* iso8601);
 
+    // Renderers
+    std::string gmtime() const;
+    std::string localtime() const;
+
     // Operators
     bool operator!=(const datetime& other) const;
     bool operator<(const datetime& other) const;

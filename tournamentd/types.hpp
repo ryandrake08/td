@@ -4,6 +4,7 @@
 #include <stdexcept>
 #include <string>
 #include "json.hpp"
+#include "datetime.hpp"
 
 namespace td
 {
@@ -13,7 +14,7 @@ namespace td
         explicit runtime_error(const char* what_arg) : std::runtime_error(what_arg) {}
     };
 
-    // index into the player vector
+    // key into the player map
     typedef std::size_t player_id;
 
     // index into the funding_source vector
@@ -63,6 +64,7 @@ namespace td
     struct player
     {
         std::string name;
+        datetime added_at;
 
         player();
         player(const json& obj);
@@ -89,5 +91,22 @@ namespace td
         player_movement();
         player_movement(const json& obj);
         player_movement(player_id p, const seat& f, const seat& t);
+    };
+}
+
+namespace std
+{
+    template<>
+    struct hash<td::player>
+    {
+        typedef td::player argument_type;
+        typedef std::size_t result_type;
+
+        result_type operator()(argument_type const& s) const
+        {
+            result_type const h1 ( std::hash<std::string>()(s.name) );
+            result_type const h2 ( std::hash<std::time_t>()(s.added_at) );
+            return h1 ^ (h2 << 1);
+        }
     };
 }

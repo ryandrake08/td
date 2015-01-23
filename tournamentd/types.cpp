@@ -15,7 +15,7 @@ td::funding_source::funding_source() : is_addon(false), forbid_after_blind_level
 {
 }
 
-td::player::player()
+td::player::player() : added_at(datetime::now())
 {
 }
 
@@ -66,6 +66,7 @@ td::funding_source::funding_source(const json& obj) : funding_source()
 td::player::player(const json& obj) : player()
 {
     obj.get_value("name", this->name);
+    obj.get_value("added_at", this->added_at);
 }
 
 td::seat::seat(const json& obj) : seat()
@@ -118,6 +119,7 @@ template<>
 json::json(const td::player& value) : json()
 {
     this->set_value("name", value.name);
+    this->set_value("added_at", value.added_at);
 }
 
 template<>
@@ -143,4 +145,12 @@ json::json(const std::pair<const td::player_id,td::seat>& value) : json()
     this->set_value("player_id", value.first);
     this->set_value("table_number", value.second.table_number);
     this->set_value("seat_number", value.second.seat_number);
+}
+
+template<>
+json::json(const std::pair<const td::player_id,td::player>& value) : json()
+{
+    this->set_value("player_id", value.first);
+    this->set_value("name", value.second.name);
+    this->set_value("added_at", value.second.added_at);
 }
