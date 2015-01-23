@@ -30,7 +30,7 @@ void gameseating::configure(const json& config)
     {
         if(!this->seats.empty())
         {
-            logger(LOG_WARNING) << "Re-configuring seating while in play will un-seat all players\n";
+            logger(LOG_WARNING) << "Re-configuring table capacity while in play will clear seating plan\n";
         }
         
         // if seats are already set up, replan based on new table capacity
@@ -39,6 +39,15 @@ void gameseating::configure(const json& config)
         {
             // re-plan seating, if needed
             this->plan_seating(total_seats);
+        }
+    }
+
+    // check if we're changing the players list
+    if(config.has_object("players"))
+    {
+        if(!this->seats.empty() || !this->players_finished.empty())
+        {
+            logger(LOG_WARNING) << "Re-coniguring players list while in play is not advised, may confuse seating plan\n";
         }
     }
 }

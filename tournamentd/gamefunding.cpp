@@ -39,6 +39,15 @@ void gamefunding::configure(const json& config)
         // after reconfiguring, we'll need to recalculate
         this->recalculate_payouts();
     }
+
+    // check if we're changing the players list
+    if(config.has_object("players"))
+    {
+        if(!this->buyins.empty())
+        {
+            logger(LOG_WARNING) << "Re-coniguring players list while in play is not advised, may confuse list of buyins\n";
+        }
+    }
 }
 
 // dump configuration to JSON
