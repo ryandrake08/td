@@ -14,11 +14,6 @@ void server::listen(const char* unix_socket_path, const char* inet_service)
     // clear set of iterators
     this->listeners.clear();
 
-    // add unix socket
-    unix_socket socku(unix_socket_path);
-    this->all.insert(socku);
-    this->listeners.insert(socku);
-
     if(inet_service != nullptr)
     {
 #if 0
@@ -33,6 +28,11 @@ void server::listen(const char* unix_socket_path, const char* inet_service)
         this->all.insert(sock6);
         this->listeners.insert(sock6);
     }
+
+    // add unix socket
+    unix_socket socku(unix_socket_path);
+    this->all.insert(socku);
+    this->listeners.insert(socku);
 }
 
 // poll the server with given timeout
