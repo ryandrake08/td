@@ -72,7 +72,4 @@
 - (void)seatPlayer:(NSNumber*)playerId withBlock:(void(^)(NSNumber*,NSNumber*,NSNumber*))block;
 - (void)bustPlayer:(NSNumber*)playerId withBlock:(void(^)(NSArray*))block;
 
-// singleton instance
-+ (instancetype)sharedSession;
-
 @end

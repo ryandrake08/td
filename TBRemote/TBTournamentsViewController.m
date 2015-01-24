@@ -10,12 +10,15 @@
 #import "TBTournamentDetailsViewController.h"
 #import "TournamentKit/TournamentKit.h"
 #import "UIActionSheet+Blocks.h"
+#import "TBAppDelegate.h"
 
 @interface TBTournamentsViewController () <TBTournamentDetailsViewControllerDelegate,
                                            UITableViewDelegate,
                                            UITableViewDataSource>
 
 @property (nonatomic) TournamentServerBrowser* browser;
+@property (nonatomic) TournamentSession* session;
+
 @end
 
 @implementation TBTournamentsViewController
@@ -23,11 +26,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    // get model
+    _session = [(TBAppDelegate*)[[UIApplication sharedApplication] delegate] session];
+
     // register for KVO
-    [[TournamentSession sharedSession] addObserver:self
-                                        forKeyPath:NSStringFromSelector(@selector(isConnected))
-                                           options:0
-                                           context:NULL];
+    [[self session] addObserver:self forKeyPath:NSStringFromSelector(@selector(isConnected)) options:0 context:NULL];
 
     // Initialize server list
     _browser = [[TournamentServerBrowser alloc] init];
@@ -49,7 +52,7 @@
 
 - (void)dealloc {
     // unregister for KVO
-    [[TournamentSession sharedSession] removeObserver:self forKeyPath:NSStringFromSelector(@selector(isConnected))];
+    [[self session] removeObserver:self forKeyPath:NSStringFromSelector(@selector(isConnected))];
 }
 
 
@@ -90,9 +93,9 @@
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"ServerCell"];
 
     TournamentServerInfo* cellServer = [[self browser] serverForIndex:[indexPath row]];
-    TournamentServerInfo* currentServer = [[TournamentSession sharedSession] currentServer];
-    BOOL isConnected = [[TournamentSession sharedSession] isConnected];
-    BOOL isAuthorized = [[TournamentSession sharedSession] isAuthorized];
+    TournamentServerInfo* currentServer = [[self session] currentServer];
+    BOOL isConnected = [[self session] isConnected];
+    BOOL isAuthorized = [[self session] isAuthorized];
 
     // always set name
     [[cell textLabel] setText:[cellServer name]];
@@ -118,7 +121,7 @@
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
     TournamentServerInfo* server = [[self browser] serverForIndex:[indexPath row]];
 
-    if(server == [[TournamentSession sharedSession] currentServer]) {
+    if(server == [[self session] currentServer]) {
         // pop disconnection actionsheet
         [UIActionSheet showInView:[self view]
                         withTitle:nil
@@ -128,14 +131,14 @@
                          tapBlock:^(UIActionSheet* actionSheet, NSInteger buttonIndex) {
                              switch (buttonIndex) {
                                  case 0:
-                                     [[TournamentSession sharedSession] disconnect];
+                                     [[self session] disconnect];
                                      break;
                              }
                          }];
     } else {
         // connect
         // TODO: activity indicator?
-        [[TournamentSession sharedSession] connectToServer:server];
+        [[self session] connectToServer:server];
     }
 
     // deselect either way

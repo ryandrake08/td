@@ -7,10 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TournamentKit/TournamentKit.h"
 
 @interface TBAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (nonatomic) UIWindow* window;
+
+// the tournament session (model) object
+@property (nonatomic) TournamentSession* session;
 
 @end
 

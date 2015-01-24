@@ -57,6 +57,15 @@
 
 @implementation TournamentSession
 
+- (instancetype)init {
+    if (self = [super init]) {
+        _blocksForCommands = [[NSMutableDictionary alloc] init];
+        _connection = [[TournamentConnection alloc] init];
+        [_connection setDelegate:self];
+    }
+    return self;
+}
+
 - (void)connectToLocal {
     [self disconnect];
     [[self connection] connectToUnixSocketNamed:kDefaultTournamentLocalPath];
@@ -395,27 +404,6 @@
 - (void)tournamentConnection:(TournamentConnection*)tc error:(NSError*)error {
     NSAssert([self connection] == tc, @"Unexpected error from %@", tc);
     [self disconnect];
-}
-
-#pragma mark Singleton Methods
-
-+ (instancetype)sharedSession {
-    static TournamentSession* sharedMySession = nil;
-    @synchronized(self) {
-        if(sharedMySession == nil) {
-            sharedMySession = [[self alloc] init];
-        }
-    }
-    return sharedMySession;
-}
-
-- (instancetype)init {
-    if (self = [super init]) {
-        _blocksForCommands = [[NSMutableDictionary alloc] init];
-        _connection = [[TournamentConnection alloc] init];
-        [_connection setDelegate:self];
-    }
-    return self;
 }
 
 @end
