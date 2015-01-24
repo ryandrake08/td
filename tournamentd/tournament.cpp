@@ -453,10 +453,10 @@ int tournament::authorize(int code)
     return code;
 }
 
-// listen for clients on given port
-void tournament::listen(const char* service)
+// listen for clients on given unix socket path and optional internet service
+void tournament::listen(const char* unix_socket_path, const char* inet_service)
 {
-    this->game_server.listen("/tmp/tournamentd", service);
+    this->game_server.listen(unix_socket_path, inet_service);
 }
 
 // load configuration from file

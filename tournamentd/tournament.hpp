@@ -69,8 +69,8 @@ public:
     // authorize a client code
     int authorize(int code);
 
-    // listen for clients on given port
-    void listen(const char* service);
+    // listen for clients on given unix socket path and optional internet service
+    void listen(const char* unix_socket_path, const char* inet_service=nullptr);
 
     // load configuration from file
     void load_configuration(const std::string& filename);

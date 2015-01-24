@@ -8,6 +8,7 @@
 
 #import "TournamentKit.h"
 #import "TournamentDaemon.h"
+#import "TournamentSession.h"
 
 #include "tournament.hpp"
 
@@ -29,15 +30,19 @@
     return self;
 }
 
-- (void)startWithService:(NSString*)service authCode:(int)code {
-    NSString* name = [NSString stringWithFormat:kDefaultTournamentLocalPath, service];
-
+- (void)startWithService:(NSString*)service authCode:(NSNumber*)code {
+    NSString* localServer = [TournamentSession localServerForService:service];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        // bring parameters over from objective-c
+        auto auth_code = [code intValue];
+        auto local_server = [localServer cStringUsingEncoding:NSUTF8StringEncoding];
+        auto inet_service = [service cStringUsingEncoding:NSUTF8StringEncoding];
+
         running = YES;
 
         tournament tourney;
-        tourney.authorize(code);
-        tourney.listen([name cStringUsingEncoding:NSUTF8StringEncoding], [service cStringUsingEncoding:NSUTF8StringEncoding]);
+        tourney.authorize(auth_code);
+        tourney.listen(local_server, inet_service);
 
         while(running)
         {

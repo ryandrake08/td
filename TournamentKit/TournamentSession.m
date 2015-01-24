@@ -65,10 +65,18 @@
     return self;
 }
 
+// build a local server name given service
++ (NSString*)localServerForService:(NSString*)service {
+    if(service) {
+        return [NSString stringWithFormat:@"/tmp/tournamentd.%@.sock", service];
+    } else {
+        return @"/tmp/tournamentd.sock";
+    }
+}
+
 - (void)connectToLocalService:(NSString*)service {
     [self disconnect];
-    NSString* name = [NSString stringWithFormat:kDefaultTournamentLocalPath, service];
-    [[self connection] connectToUnixSocketNamed:name];
+    [[self connection] connectToUnixSocketNamed:[[self class] localServerForService:service]];
 }
 
 - (void)connectToServer:(TournamentServerInfo*)theServer {
