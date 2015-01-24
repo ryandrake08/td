@@ -13,7 +13,7 @@
 @interface TournamentSession() <TournamentConnectionDelegate>
 
 // record currently connected server
-@property (nonatomic) TournamentServerInfo* currentServer;
+@property (nonatomic) NSNetService* currentServer;
 
 // YES if currently authorized with server
 @property (nonatomic, assign) BOOL authorized;
@@ -65,24 +65,16 @@
     return self;
 }
 
-// build a local server name given service
-+ (NSString*)localServerForService:(NSString*)service {
-    if(service) {
-        return [NSString stringWithFormat:@"/tmp/tournamentd.%@.sock", service];
-    } else {
-        return @"/tmp/tournamentd.sock";
-    }
+- (void)connectToLocalPath:(NSString*)path {
+    [self disconnect];
+    [[self connection] connectToUnixSocketNamed:path];
+    // TODO: handle error
 }
 
-- (void)connectToLocalService:(NSString*)service {
+- (void)connectToService:(NSNetService*)service {
     [self disconnect];
-    [[self connection] connectToUnixSocketNamed:[[self class] localServerForService:service]];
-}
-
-- (void)connectToServer:(TournamentServerInfo*)theServer {
-    [self disconnect];
-    [self setCurrentServer:theServer];
-    [[self connection] connectToAddress:[theServer address] andPort:[theServer port]];
+    [self setCurrentServer:service];
+    [[self connection] connectToService:service];
 }
 
 - (void)disconnect {

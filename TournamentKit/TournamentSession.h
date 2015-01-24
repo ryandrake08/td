@@ -7,14 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "TournamentServerInfo.h"
 
 #define kDefaultTournamentServerPort 25600
 
 @interface TournamentSession : NSObject
 
 // currently connected server, or nil if either connected locally or not connected
-@property (nonatomic, readonly) TournamentServerInfo* currentServer;
+@property (nonatomic, readonly) NSNetService* currentServer;
 
 // YES if currently connected locally or to a server
 @property (nonatomic, readonly, assign, getter=isConnected) BOOL connected;
@@ -50,12 +49,9 @@
 @property (nonatomic, readonly) NSArray* emptySeats;
 @property (nonatomic, readonly) NSNumber* tables;
 
-// build a local server name given service
-+ (NSString*)localServerForService:(NSString*)service;
-
 // connect either locally through a unix socket or to a server
-- (void)connectToLocalService:(NSString*)service;
-- (void)connectToServer:(TournamentServerInfo*)server;
+- (void)connectToLocalPath:(NSString*)path;
+- (void)connectToService:(NSNetService*)service;
 - (void)disconnect;
 
 // tournament commands

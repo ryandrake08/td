@@ -4,11 +4,12 @@
 
 program::program(const std::vector<std::string>& cmdline)
 {
-    std::string service;
+    std::string name("tournamentd");
+    int service = 0;
 
 #if defined(DEBUG)
     // debug only: default to listening on inet service
-    service = "25600";
+    service = 25600;
     
     // debug only: always accept this code
     this->tourney.authorize(31337);
@@ -36,11 +37,11 @@ program::program(const std::vector<std::string>& cmdline)
                 if(++it != cmdline.end())
                 {
                     // parse port number
-                    service = *it;
+                    service = std::stoi(*it);
                 }
                 else
                 {
-                    service = "25600";
+                    service = 25600;
                 }
                 break;
 
@@ -50,6 +51,14 @@ program::program(const std::vector<std::string>& cmdline)
                 {
                     // parse client code
                     this->tourney.authorize(std::stoi(*it));
+                }
+                break;
+
+            case crc32_("-n"):
+            case crc32_("--name"):
+                if(++it != cmdline.end())
+                {
+                    name = *it;
                 }
                 break;
 
@@ -66,7 +75,7 @@ program::program(const std::vector<std::string>& cmdline)
         }
     }
 
-    if(service.empty())
+    if(service == 0)
     {
         // listen only on a default unix socket
         this->tourney.listen("/tmp/tournamentd.sock");
@@ -78,7 +87,10 @@ program::program(const std::vector<std::string>& cmdline)
         ss << "/tmp/tournamentd." << service << ".sock";
 
         // listen on both unix socket and service
-        this->tourney.listen(ss.str().c_str(), service.c_str());
+        this->tourney.listen(ss.str().c_str(), std::to_string(service).c_str());
+
+        // publish
+        this->publisher.publish(name, service);
     }
 }
 

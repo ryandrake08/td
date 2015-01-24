@@ -2,10 +2,12 @@
 #include <string>
 #include <vector>
 #include "tournament.hpp"
+#include "bonjour.hpp"
 
 class program
 {
     tournament tourney;
+    bonjour_publisher publisher;
 
 public:
     // Create a program, given command line options

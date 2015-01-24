@@ -11,12 +11,23 @@
 #import "TournamentSession.h"
 
 #include "tournament.hpp"
+#include <sstream>
 
 @interface TournamentDaemon ()
 {
+    // flag to control whether or not daemon is running
     BOOL running;
+
+    // semaphore to wait on indicating daemon is fully stopped
     dispatch_semaphore_t semaphore;
+
+    // listening port
+    int port;
+
+    // published Bonjour service
+    NSNetService* netService;
 }
+
 @end
 
 @implementation TournamentDaemon
@@ -25,25 +36,51 @@
     if((self = [super init])) {
         running = NO;
         semaphore = dispatch_semaphore_create(0);
+        netService = nil;
+        port = 0;
     }
 
     return self;
 }
 
-- (void)startWithService:(NSString*)service authCode:(NSNumber*)code {
-    NSString* localServer = [TournamentSession localServerForService:service];
+// start the daemon, pre-authorizing given client code, returning local unix socket path
+- (NSString*)startWithAuthCode:(NSNumber*)code {
+
+    // set up tournament and authorize
+    __block tournament tourney;
+    tourney.authorize([code intValue]);
+
+    // start at default port, and increment until we find one that binds
+    int try_service = kDefaultTournamentServerPort;
+    while(true)
+    {
+        // build unique unix socket name using service name
+        std::ostringstream local_server, inet_service;
+        local_server << "/tmp/tournamentd." << try_service << ".sock";
+        inet_service << try_service;
+
+        try
+        {
+            // try to listen to this service
+            tourney.listen(local_server.str().c_str(), inet_service.str().c_str());
+        }
+        catch(const std::system_error& e)
+        {
+            // EADDRINUSE: failed to bind, probably another server on this port
+            if(e.code().value() == EADDRINUSE)
+            {
+                try_service++;
+                continue;
+            }
+
+            // re-throw anything not
+            throw;
+        }
+    }
+
+    // server is listening. mark as running and run in background
+    running = YES;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        // bring parameters over from objective-c
-        auto auth_code = [code intValue];
-        auto local_server = [localServer cStringUsingEncoding:NSUTF8StringEncoding];
-        auto inet_service = [service cStringUsingEncoding:NSUTF8StringEncoding];
-
-        running = YES;
-
-        tournament tourney;
-        tourney.authorize(auth_code);
-        tourney.listen(local_server, inet_service);
-
         while(running)
         {
             try
@@ -63,13 +100,36 @@
 
         dispatch_semaphore_signal(semaphore);
     });
+
+    // return the unix socket path, for subsequent local connection
+    return [NSString stringWithFormat:@"/tmp/tournamentd.%d.sock", try_service];
 }
 
+// publish over Bojour using name
+- (void)publishWithName:(NSString*)name {
+    // stop NetService
+    [netService stop];
+
+    if(name && port) {
+        // set up and publish NetService
+        netService = [[NSNetService alloc] initWithDomain:@"local." type:@"_tournbuddy._tcp." name:name port:port];
+        [netService publish];
+    }
+}
+
+// stop the daemon (and stop publishing if doing so)
 - (void)stop {
+    // stop NetService
+    [netService stop];
+
+    // clear port
+    port = 0;
+
+    // signal block execution to stop
     running = NO;
-    // Wait for a block execution
+
+    // wait for a block execution
     dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
 }
-
 
 @end

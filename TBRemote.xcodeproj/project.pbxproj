@@ -17,8 +17,8 @@
 		AD37B40C1A574B0100605351 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AD37B40B1A574B0100605351 /* Images.xcassets */; };
 		AD37B40F1A574B0100605351 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD37B40D1A574B0100605351 /* LaunchScreen.xib */; };
 		AD37B4251A5750B000605351 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD37B4241A5750B000605351 /* UIKit.framework */; };
-		AD466E461A58F4B200E0973E /* TBTournamentDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD466E451A58F4B200E0973E /* TBTournamentDetailsViewController.m */; };
 		AD466EC61A59CC1200E0973E /* UIActionSheet+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = AD466EC51A59CC1200E0973E /* UIActionSheet+Blocks.m */; };
+		ADF9B9051A74881B00F2729F /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADF9B9041A74881B00F2729F /* CFNetwork.framework */; };
 		ADFA14E11A6ACF3E00611E6B /* libTournamentKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADFA14E01A6ACF3E00611E6B /* libTournamentKit.a */; };
 /* End PBXBuildFile section */
 
@@ -40,10 +40,9 @@
 		AD37B40B1A574B0100605351 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		AD37B40E1A574B0100605351 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		AD37B4241A5750B000605351 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		AD466E441A58F4B200E0973E /* TBTournamentDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBTournamentDetailsViewController.h; sourceTree = "<group>"; };
-		AD466E451A58F4B200E0973E /* TBTournamentDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBTournamentDetailsViewController.m; sourceTree = "<group>"; };
 		AD466EC41A59CC1200E0973E /* UIActionSheet+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIActionSheet+Blocks.h"; sourceTree = "<group>"; };
 		AD466EC51A59CC1200E0973E /* UIActionSheet+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIActionSheet+Blocks.m"; sourceTree = "<group>"; };
+		ADF9B9041A74881B00F2729F /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		ADFA14DE1A6ACDF700611E6B /* TournamentKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TournamentKit.framework; path = "../../Library/Developer/Xcode/DerivedData/td-gthwrjjcxccbyaganrpuaqshoxjq/Build/Products/Debug/TournamentKit.framework"; sourceTree = "<group>"; };
 		ADFA14E01A6ACF3E00611E6B /* libTournamentKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libTournamentKit.a; path = "build/Debug-iphoneos/libTournamentKit.a"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -56,6 +55,7 @@
 				ADFA14E11A6ACF3E00611E6B /* libTournamentKit.a in Frameworks */,
 				AD37B4251A5750B000605351 /* UIKit.framework in Frameworks */,
 				AD1CF5361A68D6A000FA8F45 /* CoreGraphics.framework in Frameworks */,
+				ADF9B9051A74881B00F2729F /* CFNetwork.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -88,8 +88,6 @@
 				AD37B4001A574B0100605351 /* TBAppDelegate.m */,
 				AD37B4021A574B0100605351 /* TBTournamentsViewController.h */,
 				AD37B4031A574B0100605351 /* TBTournamentsViewController.m */,
-				AD466E441A58F4B200E0973E /* TBTournamentDetailsViewController.h */,
-				AD466E451A58F4B200E0973E /* TBTournamentDetailsViewController.m */,
 				AD37B4051A574B0100605351 /* TBRemoteClockViewController.h */,
 				AD37B4061A574B0100605351 /* TBRemoteClockViewController.m */,
 				AD466EC41A59CC1200E0973E /* UIActionSheet+Blocks.h */,
@@ -114,6 +112,7 @@
 		AD37B4281A5750DA00605351 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				ADF9B9041A74881B00F2729F /* CFNetwork.framework */,
 				ADFA14E01A6ACF3E00611E6B /* libTournamentKit.a */,
 				ADFA14DE1A6ACDF700611E6B /* TournamentKit.framework */,
 				AD1CF5371A68D6F300FA8F45 /* QuartzCore.framework */,
@@ -199,7 +198,6 @@
 				AD1CF5341A68B45A00FA8F45 /* TBActionClockView.m in Sources */,
 				AD37B4041A574B0100605351 /* TBTournamentsViewController.m in Sources */,
 				AD37B3FE1A574B0100605351 /* main.m in Sources */,
-				AD466E461A58F4B200E0973E /* TBTournamentDetailsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

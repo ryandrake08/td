@@ -7,18 +7,17 @@
 //
 
 #import "TBTournamentsViewController.h"
-#import "TBTournamentDetailsViewController.h"
 #import "TournamentKit/TournamentKit.h"
 #import "UIActionSheet+Blocks.h"
 #import "TBAppDelegate.h"
 
-@interface TBTournamentsViewController () <TBTournamentDetailsViewControllerDelegate,
-                                           UITableViewDelegate,
-                                           UITableViewDataSource>
+@interface TBTournamentsViewController () <UITableViewDelegate,
+                                           UITableViewDataSource,
+                                           NSNetServiceBrowserDelegate>
 
-@property (nonatomic) TournamentServerBrowser* browser;
 @property (nonatomic) TournamentSession* session;
-
+@property (nonatomic) NSMutableArray* serviceList;
+@property (nonatomic) NSNetServiceBrowser* serviceBrowser;
 @end
 
 @implementation TBTournamentsViewController
@@ -29,20 +28,18 @@
     // get model
     _session = [(TBAppDelegate*)[[UIApplication sharedApplication] delegate] session];
 
+    // create service list
+    _serviceList = [[NSMutableArray alloc] init];
+
+    // initialize service browser
+    _serviceBrowser = [[NSNetServiceBrowser alloc] init];
+
+    // configure Service browser
+    [self.serviceBrowser setDelegate:self];
+    [self.serviceBrowser searchForServicesOfType:@"_tournbuddy._tcp." inDomain:@"local."];
+
     // register for KVO
     [[self session] addObserver:self forKeyPath:NSStringFromSelector(@selector(isConnected)) options:0 context:NULL];
-
-    // Initialize server list
-    _browser = [[TournamentServerBrowser alloc] init];
-
-#if defined(DEBUG)
-    // Test server for debugging
-    TournamentServerInfo* testServer = [[TournamentServerInfo alloc] init];
-    [testServer setName:@"Local Debug"];
-    [testServer setAddress:@"localhost"];
-    [testServer setPort:kDefaultTournamentServerPort];
-    [[self browser] addServer:testServer];
-#endif
 }
 
 - (void)didReceiveMemoryWarning {
@@ -51,33 +48,15 @@
 }
 
 - (void)dealloc {
+    // stop service browser
+    [[self serviceBrowser] stop];
+    [[self serviceBrowser] setDelegate:nil];
+    [self setServiceBrowser:nil];
+
     // unregister for KVO
     [[self session] removeObserver:self forKeyPath:NSStringFromSelector(@selector(isConnected))];
 }
 
-
-#pragma mark - Segues
-
-- (void)prepareForSegue:(UIStoryboardSegue*)segue sender:(id)sender {
-    if ([[segue identifier] isEqualToString:@"AddServer"]) {
-        UINavigationController* navigationController = [segue destinationViewController];
-        TBTournamentDetailsViewController* tournamentDetailsViewController = [navigationController viewControllers][0];
-        [tournamentDetailsViewController setDelegate:self];
-    }
-}
-
-#pragma mark - TBTournamentDetailsViewControllerDelegate
-
-- (void)tournamentDetailsViewControllerDidCancel:(TBTournamentDetailsViewController*)controller {
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (void)tournamentDetailsViewController:(TBTournamentDetailsViewController*)controller didAddServer:(TournamentServerInfo*)server {
-    [[self browser] addServer:server];
-    NSIndexPath* indexPath = [NSIndexPath indexPathForRow:([[self browser] serverCount] - 1) inSection:0];
-    [[self tableView] insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
 
 #pragma mark UITableViewDataSource
 
@@ -86,14 +65,14 @@
 }
 
 - (NSInteger)tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section {
-    return [[self browser] serverCount];
+    return [[self serviceList] count];
 }
 
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath {
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"ServerCell"];
 
-    TournamentServerInfo* cellServer = [[self browser] serverForIndex:[indexPath row]];
-    TournamentServerInfo* currentServer = [[self session] currentServer];
+    NSNetService* cellServer = [[self serviceList] objectAtIndex:[indexPath row]];
+    NSNetService* currentServer = [[self session] currentServer];
     BOOL isConnected = [[self session] isConnected];
     BOOL isAuthorized = [[self session] isAuthorized];
 
@@ -119,9 +98,9 @@
 #pragma mark UITableViewDelegate
 
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
-    TournamentServerInfo* server = [[self browser] serverForIndex:[indexPath row]];
+    NSNetService* service = [[self serviceList] objectAtIndex:[indexPath row]];
 
-    if(server == [[self session] currentServer]) {
+    if(service == [[self session] currentServer]) {
         // pop disconnection actionsheet
         [UIActionSheet showInView:[self view]
                         withTitle:nil
@@ -137,18 +116,35 @@
                          }];
     } else {
         // connect
-        // TODO: activity indicator?
-        [[self session] connectToServer:server];
+        [[self session] connectToService:service];
     }
 
     // deselect either way
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
+#pragma mark NSNetServiceDelegate
+
+- (void)netServiceBrowser:(NSNetServiceBrowser*)serviceBrowser didFindService:(NSNetService*)service moreComing:(BOOL)moreComing {
+    [[self serviceList] addObject:service];
+
+    if(!moreComing) {
+        [[self tableView] reloadData];
+    }
+}
+
+- (void)netServiceBrowser:(NSNetServiceBrowser*)serviceBrowser didRemoveService:(NSNetService*)service moreComing:(BOOL)moreComing {
+    [[self serviceList] removeObject:service];
+
+    if(!moreComing) {
+        [[self tableView] reloadData];
+    }
+}
+
 #pragma mark KVO
 
-- (void)reloadTableRowForServer:(TournamentServerInfo*)server {
-    NSUInteger i = [[self browser] indexForServer:server];
+- (void)reloadTableRowForServer:(NSNetService*)service {
+    NSUInteger i = [[self serviceList] indexOfObject:service];
     if(i != NSNotFound) {
         NSIndexPath* indexPath = [NSIndexPath indexPathForRow:i inSection:0];
         [[self tableView] reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -158,15 +154,15 @@
 - (void)observeValueForKeyPath:(NSString*)keyPath ofObject:(id)session change:(NSDictionary*)change context:(void*)context {
     if ([session isKindOfClass:[TournamentSession class]]) {
         if ([keyPath isEqualToString:NSStringFromSelector(@selector(isConnected))]) {
-            TournamentServerInfo* server = [session currentServer];
+            NSNetService* service = [session currentServer];
 
             // update table view cell
-            [self reloadTableRowForServer:server];
+            [self reloadTableRowForServer:service];
 
             if([session isConnected]) {
                 // check authorization
                 [session checkAuthorizedWithBlock:^(BOOL authorized) {
-                    [self reloadTableRowForServer:server];
+                    [self reloadTableRowForServer:service];
                 }];
             }
         }

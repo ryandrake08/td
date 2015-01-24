@@ -18,14 +18,6 @@
 		AD466E3E1A58C15A00E0973E /* NSData+Delimiter.h in Headers */ = {isa = PBXBuildFile; fileRef = AD466E3B1A58C15A00E0973E /* NSData+Delimiter.h */; };
 		AD466E3F1A58C15A00E0973E /* NSData+Delimiter.m in Sources */ = {isa = PBXBuildFile; fileRef = AD466E3C1A58C15A00E0973E /* NSData+Delimiter.m */; };
 		AD466E401A58C15A00E0973E /* NSData+Delimiter.m in Sources */ = {isa = PBXBuildFile; fileRef = AD466E3C1A58C15A00E0973E /* NSData+Delimiter.m */; };
-		AD466E491A5911CB00E0973E /* TournamentServerBrowser.h in Headers */ = {isa = PBXBuildFile; fileRef = AD466E471A5911CB00E0973E /* TournamentServerBrowser.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		AD466E4A1A5911CB00E0973E /* TournamentServerBrowser.h in Headers */ = {isa = PBXBuildFile; fileRef = AD466E471A5911CB00E0973E /* TournamentServerBrowser.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		AD466E4B1A5911CB00E0973E /* TournamentServerBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = AD466E481A5911CB00E0973E /* TournamentServerBrowser.m */; };
-		AD466E4C1A5911CB00E0973E /* TournamentServerBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = AD466E481A5911CB00E0973E /* TournamentServerBrowser.m */; };
-		AD466E4F1A5911DC00E0973E /* TournamentServerInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = AD466E4D1A5911DC00E0973E /* TournamentServerInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		AD466E501A5911DC00E0973E /* TournamentServerInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = AD466E4D1A5911DC00E0973E /* TournamentServerInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		AD466E511A5911DC00E0973E /* TournamentServerInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = AD466E4E1A5911DC00E0973E /* TournamentServerInfo.m */; };
-		AD466E521A5911DC00E0973E /* TournamentServerInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = AD466E4E1A5911DC00E0973E /* TournamentServerInfo.m */; };
 		AD466E551A5918DB00E0973E /* TournamentSession.h in Headers */ = {isa = PBXBuildFile; fileRef = AD466E531A5918DB00E0973E /* TournamentSession.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AD466E561A5918DB00E0973E /* TournamentSession.h in Headers */ = {isa = PBXBuildFile; fileRef = AD466E531A5918DB00E0973E /* TournamentSession.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AD466E571A5918DB00E0973E /* TournamentSession.m in Sources */ = {isa = PBXBuildFile; fileRef = AD466E541A5918DB00E0973E /* TournamentSession.m */; };
@@ -90,8 +82,6 @@
 		AD466EC31A59375100E0973E /* TournamentDaemon.mm in Sources */ = {isa = PBXBuildFile; fileRef = AD466EBF1A59375100E0973E /* TournamentDaemon.mm */; };
 		AD7FD7941A6ABF370047EB17 /* TournamentConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = AD37B3EA1A573C8300605351 /* TournamentConnection.m */; };
 		AD7FD7951A6ABF370047EB17 /* TournamentDaemon.mm in Sources */ = {isa = PBXBuildFile; fileRef = AD466EBF1A59375100E0973E /* TournamentDaemon.mm */; };
-		AD7FD7961A6ABF370047EB17 /* TournamentServerInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = AD466E4E1A5911DC00E0973E /* TournamentServerInfo.m */; };
-		AD7FD7971A6ABF370047EB17 /* TournamentServerBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = AD466E481A5911CB00E0973E /* TournamentServerBrowser.m */; };
 		AD7FD7981A6ABF370047EB17 /* TournamentSession.m in Sources */ = {isa = PBXBuildFile; fileRef = AD466E541A5918DB00E0973E /* TournamentSession.m */; };
 		AD7FD7991A6ABF370047EB17 /* NSData+Delimiter.m in Sources */ = {isa = PBXBuildFile; fileRef = AD466E3C1A58C15A00E0973E /* NSData+Delimiter.m */; };
 		AD7FD79A1A6ABF370047EB17 /* CFStreamCreatePairWithUnixSocket.c in Sources */ = {isa = PBXBuildFile; fileRef = ADD523A11A62DCD800C8033A /* CFStreamCreatePairWithUnixSocket.c */; };
@@ -110,14 +100,15 @@
 		AD7FD7A81A6AC6D60047EB17 /* TournamentKit.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AD37B3AF1A57147800605351 /* TournamentKit.h */; };
 		AD7FD7A91A6AC6D60047EB17 /* TournamentConnection.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AD37B3E91A573C8300605351 /* TournamentConnection.h */; };
 		AD7FD7AA1A6AC6D60047EB17 /* TournamentDaemon.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AD466EBE1A59375100E0973E /* TournamentDaemon.h */; };
-		AD7FD7AB1A6AC6D60047EB17 /* TournamentServerInfo.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AD466E4D1A5911DC00E0973E /* TournamentServerInfo.h */; };
-		AD7FD7AC1A6AC6D60047EB17 /* TournamentServerBrowser.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AD466E471A5911CB00E0973E /* TournamentServerBrowser.h */; };
 		AD7FD7AD1A6AC6D60047EB17 /* TournamentSession.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AD466E531A5918DB00E0973E /* TournamentSession.h */; };
 		AD7FD7B01A6ACC1A0047EB17 /* TournamentKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD37B3CB1A571EB800605351 /* TournamentKit.framework */; };
 		ADD523A31A62DCD800C8033A /* CFStreamCreatePairWithUnixSocket.c in Sources */ = {isa = PBXBuildFile; fileRef = ADD523A11A62DCD800C8033A /* CFStreamCreatePairWithUnixSocket.c */; };
 		ADD523A41A62DCD800C8033A /* CFStreamCreatePairWithUnixSocket.c in Sources */ = {isa = PBXBuildFile; fileRef = ADD523A11A62DCD800C8033A /* CFStreamCreatePairWithUnixSocket.c */; };
 		ADD523A51A62DCD800C8033A /* CFStreamCreatePairWithUnixSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = ADD523A21A62DCD800C8033A /* CFStreamCreatePairWithUnixSocket.h */; };
 		ADD523A61A62DCD800C8033A /* CFStreamCreatePairWithUnixSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = ADD523A21A62DCD800C8033A /* CFStreamCreatePairWithUnixSocket.h */; };
+		ADF9B9001A7485E600F2729F /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADF9B8FF1A7485E600F2729F /* CFNetwork.framework */; };
+		ADF9B9021A7485ED00F2729F /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADF9B9011A7485ED00F2729F /* CFNetwork.framework */; };
+		ADF9B9031A7485F400F2729F /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADF9B8FF1A7485E600F2729F /* CFNetwork.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -140,8 +131,6 @@
 				AD7FD7A81A6AC6D60047EB17 /* TournamentKit.h in CopyFiles */,
 				AD7FD7A91A6AC6D60047EB17 /* TournamentConnection.h in CopyFiles */,
 				AD7FD7AA1A6AC6D60047EB17 /* TournamentDaemon.h in CopyFiles */,
-				AD7FD7AB1A6AC6D60047EB17 /* TournamentServerInfo.h in CopyFiles */,
-				AD7FD7AC1A6AC6D60047EB17 /* TournamentServerBrowser.h in CopyFiles */,
 				AD7FD7AD1A6AC6D60047EB17 /* TournamentSession.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -160,10 +149,6 @@
 		AD37B3EA1A573C8300605351 /* TournamentConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TournamentConnection.m; sourceTree = "<group>"; };
 		AD466E3B1A58C15A00E0973E /* NSData+Delimiter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Delimiter.h"; sourceTree = "<group>"; };
 		AD466E3C1A58C15A00E0973E /* NSData+Delimiter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Delimiter.m"; sourceTree = "<group>"; };
-		AD466E471A5911CB00E0973E /* TournamentServerBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TournamentServerBrowser.h; sourceTree = "<group>"; };
-		AD466E481A5911CB00E0973E /* TournamentServerBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TournamentServerBrowser.m; sourceTree = "<group>"; };
-		AD466E4D1A5911DC00E0973E /* TournamentServerInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TournamentServerInfo.h; sourceTree = "<group>"; };
-		AD466E4E1A5911DC00E0973E /* TournamentServerInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TournamentServerInfo.m; sourceTree = "<group>"; };
 		AD466E531A5918DB00E0973E /* TournamentSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TournamentSession.h; sourceTree = "<group>"; };
 		AD466E541A5918DB00E0973E /* TournamentSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TournamentSession.m; sourceTree = "<group>"; };
 		AD466E5A1A5936BB00E0973E /* cJSON.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cJSON.c; sourceTree = "<group>"; };
@@ -198,6 +183,8 @@
 		AD7FD7791A6AB7910047EB17 /* libTournamentKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libTournamentKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADD523A11A62DCD800C8033A /* CFStreamCreatePairWithUnixSocket.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = CFStreamCreatePairWithUnixSocket.c; sourceTree = "<group>"; };
 		ADD523A21A62DCD800C8033A /* CFStreamCreatePairWithUnixSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFStreamCreatePairWithUnixSocket.h; sourceTree = "<group>"; };
+		ADF9B8FF1A7485E600F2729F /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.1.sdk/System/Library/Frameworks/CFNetwork.framework; sourceTree = DEVELOPER_DIR; };
+		ADF9B9011A7485ED00F2729F /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/CFNetwork.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -205,6 +192,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ADF9B9021A7485ED00F2729F /* CFNetwork.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -220,6 +208,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ADF9B9001A7485E600F2729F /* CFNetwork.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -227,6 +216,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ADF9B9031A7485F400F2729F /* CFNetwork.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -236,6 +226,8 @@
 		AD37B3A01A57147800605351 = {
 			isa = PBXGroup;
 			children = (
+				ADF9B9011A7485ED00F2729F /* CFNetwork.framework */,
+				ADF9B8FF1A7485E600F2729F /* CFNetwork.framework */,
 				AD37B3AC1A57147800605351 /* TournamentKit */,
 				AD37B3B91A57147800605351 /* TournamentKit_tests */,
 				AD37B3AB1A57147800605351 /* Products */,
@@ -261,10 +253,6 @@
 				AD37B3EA1A573C8300605351 /* TournamentConnection.m */,
 				AD466EBE1A59375100E0973E /* TournamentDaemon.h */,
 				AD466EBF1A59375100E0973E /* TournamentDaemon.mm */,
-				AD466E4D1A5911DC00E0973E /* TournamentServerInfo.h */,
-				AD466E4E1A5911DC00E0973E /* TournamentServerInfo.m */,
-				AD466E471A5911CB00E0973E /* TournamentServerBrowser.h */,
-				AD466E481A5911CB00E0973E /* TournamentServerBrowser.m */,
 				AD466E531A5918DB00E0973E /* TournamentSession.h */,
 				AD466E541A5918DB00E0973E /* TournamentSession.m */,
 				AD466E3B1A58C15A00E0973E /* NSData+Delimiter.h */,
@@ -363,7 +351,6 @@
 				AD466E551A5918DB00E0973E /* TournamentSession.h in Headers */,
 				AD466E3D1A58C15A00E0973E /* NSData+Delimiter.h in Headers */,
 				AD466EB21A5936BB00E0973E /* socketstream.hpp in Headers */,
-				AD466E491A5911CB00E0973E /* TournamentServerBrowser.h in Headers */,
 				AD466EAC1A5936BB00E0973E /* server.hpp in Headers */,
 				AD466E9A1A5936BB00E0973E /* json.hpp in Headers */,
 				AD466E9E1A5936BB00E0973E /* logger.hpp in Headers */,
@@ -371,7 +358,6 @@
 				AD466E961A5936BB00E0973E /* ivectorstream.hpp in Headers */,
 				AD466E8C1A5936BB00E0973E /* gamefunding.hpp in Headers */,
 				AD466E901A5936BB00E0973E /* gameinfo.hpp in Headers */,
-				AD466E4F1A5911DC00E0973E /* TournamentServerInfo.h in Headers */,
 				AD466E841A5936BB00E0973E /* datetime.hpp in Headers */,
 				AD466E881A5936BB00E0973E /* gameclock.hpp in Headers */,
 				AD466EC01A59375100E0973E /* TournamentDaemon.h in Headers */,
@@ -393,7 +379,6 @@
 				AD466E561A5918DB00E0973E /* TournamentSession.h in Headers */,
 				AD466E3E1A58C15A00E0973E /* NSData+Delimiter.h in Headers */,
 				AD466EB31A5936BB00E0973E /* socketstream.hpp in Headers */,
-				AD466E4A1A5911CB00E0973E /* TournamentServerBrowser.h in Headers */,
 				AD466EAD1A5936BB00E0973E /* server.hpp in Headers */,
 				AD466E9B1A5936BB00E0973E /* json.hpp in Headers */,
 				AD466E9F1A5936BB00E0973E /* logger.hpp in Headers */,
@@ -401,7 +386,6 @@
 				AD466E971A5936BB00E0973E /* ivectorstream.hpp in Headers */,
 				AD466E8D1A5936BB00E0973E /* gamefunding.hpp in Headers */,
 				AD466E911A5936BB00E0973E /* gameinfo.hpp in Headers */,
-				AD466E501A5911DC00E0973E /* TournamentServerInfo.h in Headers */,
 				AD466E851A5936BB00E0973E /* datetime.hpp in Headers */,
 				AD466E891A5936BB00E0973E /* gameclock.hpp in Headers */,
 				AD466EC11A59375100E0973E /* TournamentDaemon.h in Headers */,
@@ -557,8 +541,6 @@
 				AD466E8A1A5936BB00E0973E /* gamefunding.cpp in Sources */,
 				AD466EAA1A5936BB00E0973E /* server.cpp in Sources */,
 				AD37B3ED1A573C8300605351 /* TournamentConnection.m in Sources */,
-				AD466E511A5911DC00E0973E /* TournamentServerInfo.m in Sources */,
-				AD466E4B1A5911CB00E0973E /* TournamentServerBrowser.m in Sources */,
 				AD466E9C1A5936BB00E0973E /* logger.cpp in Sources */,
 				AD466EB61A5936BB00E0973E /* tournament.cpp in Sources */,
 				AD466E7E1A5936BB00E0973E /* cJSON.c in Sources */,
@@ -591,8 +573,6 @@
 				AD466E8B1A5936BB00E0973E /* gamefunding.cpp in Sources */,
 				AD466EAB1A5936BB00E0973E /* server.cpp in Sources */,
 				AD37B3EE1A573C8300605351 /* TournamentConnection.m in Sources */,
-				AD466E521A5911DC00E0973E /* TournamentServerInfo.m in Sources */,
-				AD466E4C1A5911CB00E0973E /* TournamentServerBrowser.m in Sources */,
 				AD466E9D1A5936BB00E0973E /* logger.cpp in Sources */,
 				AD466EB71A5936BB00E0973E /* tournament.cpp in Sources */,
 				AD466E7F1A5936BB00E0973E /* cJSON.c in Sources */,
@@ -614,7 +594,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AD7FD7971A6ABF370047EB17 /* TournamentServerBrowser.m in Sources */,
 				AD7FD7951A6ABF370047EB17 /* TournamentDaemon.mm in Sources */,
 				AD7FD7A31A6ABFDB0047EB17 /* server.cpp in Sources */,
 				AD7FD7A61A6ABFDB0047EB17 /* types.cpp in Sources */,
@@ -624,7 +603,6 @@
 				AD7FD7A41A6ABFDB0047EB17 /* socket.cpp in Sources */,
 				AD7FD79E1A6ABFDB0047EB17 /* gamefunding.cpp in Sources */,
 				AD7FD7991A6ABF370047EB17 /* NSData+Delimiter.m in Sources */,
-				AD7FD7961A6ABF370047EB17 /* TournamentServerInfo.m in Sources */,
 				AD7FD79F1A6ABFDB0047EB17 /* gameinfo.cpp in Sources */,
 				AD7FD79B1A6ABFDB0047EB17 /* cJSON.c in Sources */,
 				AD7FD7A01A6ABFDB0047EB17 /* gameseating.cpp in Sources */,

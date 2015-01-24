@@ -23,6 +23,9 @@
 		ADEFA3781A41E6C800133B33 /* program.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ADEFA3691A41E6C700133B33 /* program.cpp */; };
 		ADEFA3791A41E6C800133B33 /* socket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ADEFA36B1A41E6C800133B33 /* socket.cpp */; };
 		ADEFA37E1A41EAD100133B33 /* gameinfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ADEFA37C1A41EAD100133B33 /* gameinfo.cpp */; };
+		ADF9B8FA1A745DD200F2729F /* bonjour.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ADF9B8F81A745DD200F2729F /* bonjour.cpp */; };
+		ADF9B8FC1A746A7200F2729F /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADF9B8FB1A746A7200F2729F /* CFNetwork.framework */; };
+		ADF9B8FE1A746A7E00F2729F /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADF9B8FD1A746A7E00F2729F /* CoreFoundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -73,6 +76,10 @@
 		ADEFA36D1A41E6C800133B33 /* socketstream.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = socketstream.hpp; sourceTree = "<group>"; };
 		ADEFA37C1A41EAD100133B33 /* gameinfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gameinfo.cpp; sourceTree = "<group>"; };
 		ADEFA37D1A41EAD100133B33 /* gameinfo.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = gameinfo.hpp; sourceTree = "<group>"; };
+		ADF9B8F81A745DD200F2729F /* bonjour.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bonjour.cpp; sourceTree = "<group>"; };
+		ADF9B8F91A745DD200F2729F /* bonjour.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = bonjour.hpp; sourceTree = "<group>"; };
+		ADF9B8FB1A746A7200F2729F /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		ADF9B8FD1A746A7E00F2729F /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +87,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ADF9B8FE1A746A7E00F2729F /* CoreFoundation.framework in Frameworks */,
+				ADF9B8FC1A746A7200F2729F /* CFNetwork.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -89,6 +98,8 @@
 		AD1095EE1A41E67300D132E4 = {
 			isa = PBXGroup;
 			children = (
+				ADF9B8FD1A746A7E00F2729F /* CoreFoundation.framework */,
+				ADF9B8FB1A746A7200F2729F /* CFNetwork.framework */,
 				AD1095F91A41E67300D132E4 /* tournamentd */,
 				AD1095F81A41E67300D132E4 /* Products */,
 			);
@@ -107,6 +118,8 @@
 			children = (
 				AD3310971A50DA59007E545B /* defaults.json */,
 				ADEFA35B1A41E6C700133B33 /* cjson */,
+				ADF9B8F81A745DD200F2729F /* bonjour.cpp */,
+				ADF9B8F91A745DD200F2729F /* bonjour.hpp */,
 				ADEFA35E1A41E6C700133B33 /* datetime.cpp */,
 				ADEFA35F1A41E6C700133B33 /* datetime.hpp */,
 				ADADF8EE1A4D23560016E567 /* gameclock.cpp */,
@@ -217,6 +230,7 @@
 				ADADF8F21A4D23560016E567 /* gameclock.cpp in Sources */,
 				ADEFA3751A41E6C800133B33 /* main.cpp in Sources */,
 				ADEFA3791A41E6C800133B33 /* socket.cpp in Sources */,
+				ADF9B8FA1A745DD200F2729F /* bonjour.cpp in Sources */,
 				ADADF8F61A4D33960016E567 /* gamefunding.cpp in Sources */,
 				AD73DBF51A4484D2008768BA /* server.cpp in Sources */,
 				ADEFA3741A41E6C800133B33 /* logger.cpp in Sources */,

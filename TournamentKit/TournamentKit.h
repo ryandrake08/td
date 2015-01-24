@@ -15,6 +15,4 @@ FOUNDATION_EXPORT double TournamentKitVersionNumber;
 FOUNDATION_EXPORT const unsigned char TournamentKitVersionString[];
 
 #import "TournamentConnection.h"
-#import "TournamentServerInfo.h"
-#import "TournamentServerBrowser.h"
 #import "TournamentSession.h"

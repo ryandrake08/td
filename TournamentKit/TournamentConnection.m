@@ -34,35 +34,49 @@
     return self;
 }
 
-- (void)setupReadStream:(CFReadStreamRef)readStream writeStream:(CFWriteStreamRef)writeStream
-{
-    // toll-free bridge the streams
-    [self setInputStream:(__bridge_transfer NSInputStream*)readStream];
-    [self setOutputStream:(__bridge_transfer NSOutputStream*)writeStream];
+- (BOOL)setupInputStream:(NSInputStream*)readStream outputStream:(NSOutputStream*)writeStream {
+    if(readStream == nil || writeStream == nil) {
+        return NO;
+    }
 
     // set up the streams
-    [[self inputStream] setDelegate:self];
-    [[self outputStream] setDelegate:self];
-    [[self inputStream] scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
-    [[self outputStream] scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
-    [[self inputStream] open];
-    [[self outputStream] open];
+    [readStream setDelegate:self];
+    [writeStream setDelegate:self];
+    [readStream scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+    [writeStream scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+    [readStream open];
+    [writeStream open];
+
+    return YES;
 }
 
-- (void)connectToAddress:(NSString*)address andPort:(NSInteger)port {
+- (BOOL)connectToService:(NSNetService*)netService {
+    [netService getInputStream:&_inputStream outputStream:&_outputStream];
+    return [self setupInputStream:[self inputStream] outputStream:[self outputStream]];
+}
+
+- (BOOL)connectToAddress:(NSString*)address andPort:(NSInteger)port {
     CFReadStreamRef readStream;
     CFWriteStreamRef writeStream;
     CFStreamCreatePairWithSocketToHost(kCFAllocatorDefault, (__bridge CFStringRef)address, (UInt32)port, &readStream, &writeStream);
 
-    [self setupReadStream:readStream writeStream:writeStream];
+    // toll-free bridge the streams
+    [self setInputStream:(__bridge_transfer NSInputStream*)readStream];
+    [self setOutputStream:(__bridge_transfer NSOutputStream*)writeStream];
+
+    return [self setupInputStream:[self inputStream] outputStream:[self outputStream]];
 }
 
-- (void)connectToUnixSocketNamed:(NSString*)socketPath {
+- (BOOL)connectToUnixSocketNamed:(NSString*)socketPath {
     CFReadStreamRef readStream;
     CFWriteStreamRef writeStream;
     CFStreamCreatePairWithUnixSocket(kCFAllocatorDefault, (__bridge CFStringRef)socketPath, &readStream, &writeStream);
 
-    [self setupReadStream:readStream writeStream:writeStream];
+    // toll-free bridge the streams
+    [self setInputStream:(__bridge_transfer NSInputStream*)readStream];
+    [self setOutputStream:(__bridge_transfer NSOutputStream*)writeStream];
+
+    return [self setupInputStream:[self inputStream] outputStream:[self outputStream]];
 }
 
 - (void)dealloc {
