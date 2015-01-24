@@ -66,3 +66,8 @@ bool program::run()
 {
     return this->tourney.run();
 }
+
+bool program::sigusr2()
+{
+    return false;
+}

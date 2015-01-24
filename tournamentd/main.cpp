@@ -8,10 +8,6 @@
 #include <system_error>
 #include <vector>
 
-#if !defined(SIGUSR1) && defined(SIGBREAK)
-#define SIGUSR1 SIGBREAK
-#endif
-
 class runloop
 {
     // Signal handling
@@ -29,7 +25,12 @@ public:
         // Initialize signal handlers
         (void) signal(SIGINT, signal_handler);
         (void) signal(SIGTERM, signal_handler);
+#if defined(SIGUSR1)
         (void) signal(SIGUSR1, signal_handler);
+#endif
+#if defined(SIGUSR2)
+        (void) signal(SIGUSR2, signal_handler);
+#endif
     }
 
     ~runloop()
@@ -37,7 +38,12 @@ public:
         // Shutdown signal handlers
         (void) signal(SIGINT, SIG_DFL);
         (void) signal(SIGTERM, SIG_DFL);
+#if defined(SIGUSR1)
         (void) signal(SIGUSR1, SIG_DFL);
+#endif
+#if defined(SIGUSR2)
+        (void) signal(SIGUSR2, SIG_DFL);
+#endif
     }
 
     int run(int argc, const char* const argv[])
@@ -46,7 +52,7 @@ public:
         std::vector<std::string> cmdline;
         std::copy(&argv[0], &argv[argc], std::back_inserter(cmdline));
 
-        bool restarting;
+        bool restarting(false);
         do
         {
             program c(cmdline);
@@ -58,7 +64,7 @@ public:
                     auto ret(c.run());
                     if(ret)
                     {
-                        return EXIT_FAILURE;
+                        return EXIT_SUCCESS;
                     }
                 }
                 catch(const std::system_error& e)
@@ -69,13 +75,32 @@ public:
                         throw;
                     }
                 }
+
+#if defined(SIGUSR2)
+                // Notify program of SIGUSR2 so it can take some custom action (on systems that support SIGUSR2)
+                if(signal_caught == SIGUSR2)
+                {
+                    if(c.sigusr2())
+                    {
+                        return EXIT_SUCCESS;
+                    }
+
+                    // Clear signal_caught to continue calling run loop
+                    signal_caught = 0;
+                }
+#endif
             }
 
-            // Restart gracefully on SIGUSR1
-            restarting = signal_caught == SIGUSR1;
+#if defined(SIGUSR1)
+            // Restart gracefully on SIGUSR1 (on systems that support SIGUSR1)
+            if(signal_caught == SIGUSR1)
+            {
+                restarting = true;
 
-            // Clear signal_caught for next time
-            signal_caught = 0;
+                // Clear signal_caught for next time
+                signal_caught = 0;
+            }
+#endif
         }
         while(restarting);
         return EXIT_SUCCESS;
