@@ -357,9 +357,6 @@ unix_socket::unix_socket(const char* path, bool client, int backlog)
         throw std::system_error(errno, std::system_category(), "setsockopt");
     }
 
-    // unlink old socket path
-    ::unlink(path);
-
     logger(LOG_DEBUG) << "creating a socket\n";
 
     if(client)
@@ -374,6 +371,9 @@ unix_socket::unix_socket(const char* path, bool client, int backlog)
     }
     else
     {
+        // unlink old socket path, if it exists
+        ::unlink(path);
+        
         // bind to server port
         if(::bind(sock, reinterpret_cast<sockaddr*>(&addr), sizeof(addr)) == SOCKET_ERROR)
         {
