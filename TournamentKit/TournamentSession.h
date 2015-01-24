@@ -51,7 +51,7 @@
 @property (nonatomic, readonly) NSNumber* tables;
 
 // connect either locally through a unix socket or to a server
-- (void)connectToLocal;
+- (void)connectToLocalService:(NSString*)service;
 - (void)connectToServer:(TournamentServerInfo*)server;
 - (void)disconnect;
 

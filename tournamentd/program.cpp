@@ -1,5 +1,6 @@
 #include "program.hpp"
 #include "stringcrc.hpp"
+#include <sstream>
 
 program::program(const std::vector<std::string>& cmdline)
 {
@@ -51,15 +52,19 @@ program::program(const std::vector<std::string>& cmdline)
                 std::cerr << "Unknown option: " << *it << "\n"
                              "Usage: tournamentd [options]\n"
                              " -c, --conf FILE\tInitialize configuration from file\n"
-                             " -p, --port NUMBER\tListen on given port (default: 23000)\n"
+                             " -p, --port NUMBER\tListen on given port (default: 25600)\n"
                              " -a, --auth LIST\tPre-authorize client authentication code\n";
                 std::exit(EXIT_FAILURE);
                 break;
         }
     }
 
-    // listen on appropriate port
-    this->tourney.listen("/tmp/tournamentd.sock", service.c_str());
+    // build unix socket name
+    std::stringstream ss;
+    ss << "/tmp/tournamentd." << service << ".sock";
+
+    // listen on unix socket and inet port
+    this->tourney.listen(ss.str().c_str(), service.c_str());
 }
 
 bool program::run()

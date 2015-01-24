@@ -10,7 +10,7 @@
 
 @interface TournamentDaemon : NSObject
 
-- (void)startWithAuthCode:(int)code;
+- (void)startWithService:(NSString*)service authCode:(int)code;
 - (void)stop;
 
 @end

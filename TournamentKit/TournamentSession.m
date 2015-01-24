@@ -6,10 +6,9 @@
 //  Copyright (c) 2015 HDna Studio. All rights reserved.
 //
 
+#import "TournamentKit.h"
 #import "TournamentSession.h"
 #import "TournamentConnection.h"
-
-#define kDefaultTournamentLocalPath @"/tmp/tournamentd.sock"
 
 @interface TournamentSession() <TournamentConnectionDelegate>
 
@@ -66,9 +65,10 @@
     return self;
 }
 
-- (void)connectToLocal {
+- (void)connectToLocalService:(NSString*)service {
     [self disconnect];
-    [[self connection] connectToUnixSocketNamed:kDefaultTournamentLocalPath];
+    NSString* name = [NSString stringWithFormat:kDefaultTournamentLocalPath, service];
+    [[self connection] connectToUnixSocketNamed:name];
 }
 
 - (void)connectToServer:(TournamentServerInfo*)theServer {

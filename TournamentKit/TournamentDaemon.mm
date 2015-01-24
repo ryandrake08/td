@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 HDna Studio. All rights reserved.
 //
 
+#import "TournamentKit.h"
 #import "TournamentDaemon.h"
 
 #include "tournament.hpp"
@@ -28,13 +29,15 @@
     return self;
 }
 
-- (void)startWithAuthCode:(int)code {
+- (void)startWithService:(NSString*)service authCode:(int)code {
+    NSString* name = [NSString stringWithFormat:kDefaultTournamentLocalPath, service];
+
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         running = YES;
 
         tournament tourney;
         tourney.authorize(code);
-        tourney.listen("/tmp/tournamentd.sock", "25600");
+        tourney.listen([name cStringUsingEncoding:NSUTF8StringEncoding], [service cStringUsingEncoding:NSUTF8StringEncoding]);
 
         while(running)
         {

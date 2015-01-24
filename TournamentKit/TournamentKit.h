@@ -18,3 +18,5 @@ FOUNDATION_EXPORT const unsigned char TournamentKitVersionString[];
 #import "TournamentServerInfo.h"
 #import "TournamentServerBrowser.h"
 #import "TournamentSession.h"
+
+#define kDefaultTournamentLocalPath @"/tmp/tournamentd.%@.sock"
