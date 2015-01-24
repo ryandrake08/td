@@ -1,9 +1,10 @@
 #include "server.hpp"
 #include "logger.hpp"
 #include "socketstream.hpp"
+#include <sstream>
 
 // listen on given port
-void server::listen(const char* unix_socket_path, const char* service)
+void server::listen(const char* unix_socket_prefix, const char* service)
 {
     // erase any existing listeners
     for(auto it : this->listeners)
@@ -14,8 +15,17 @@ void server::listen(const char* unix_socket_path, const char* service)
     // clear set of iterators
     this->listeners.clear();
 
+    // build unix socket name
+    std::ostringstream ss(unix_socket_prefix, std::ostringstream::ate);
+    if(service != nullptr)
+    {
+        ss << "." << service;
+    }
+    ss << ".sock";
+    auto unix_socket_name(ss.str().c_str());
+
     // add unix socket
-    auto socku((unix_socket(unix_socket_path)));
+    unix_socket socku(unix_socket_name);
     this->all.insert(socku);
     this->listeners.insert(socku);
 
@@ -23,13 +33,13 @@ void server::listen(const char* unix_socket_path, const char* service)
     {
 #if 0
         // add socket to listen for ipv4 (unnecessary on systems supporting dual-stack sockets)
-        auto sock4((inet4_socket(service)));
+        inet4_socket sock4(service);
         this->all.insert(sock4);
         this->listeners.insert(sock4);
 #endif
 
         // add socket to listen for ipv6
-        auto sock6((inet6_socket(service)));
+        inet6_socket sock6(service);
         this->all.insert(sock6);
         this->listeners.insert(sock6);
     }

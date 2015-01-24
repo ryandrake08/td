@@ -70,7 +70,7 @@ public:
     int authorize(int code);
 
     // listen for clients on given port
-    void listen(const char* unix_socket_path, const char* service);
+    void listen(const char* service);
 
     // load configuration from file
     void load_configuration(const std::string& filename);

@@ -1,6 +1,5 @@
 #include "program.hpp"
 #include "stringcrc.hpp"
-#include <sstream>
 
 program::program(const std::vector<std::string>& cmdline)
 {
@@ -59,12 +58,8 @@ program::program(const std::vector<std::string>& cmdline)
         }
     }
 
-    // build unix socket name
-    std::ostringstream ss;
-    ss << "/tmp/tournamentd." << service << ".sock";
-
-    // listen on unix socket and inet port
-    this->tourney.listen(ss.str().c_str(), service.c_str());
+    // listen on given port
+    this->tourney.listen(service.c_str());
 }
 
 bool program::run()
