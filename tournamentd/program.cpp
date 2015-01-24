@@ -60,7 +60,7 @@ program::program(const std::vector<std::string>& cmdline)
     }
 
     // build unix socket name
-    std::stringstream ss;
+    std::ostringstream ss;
     ss << "/tmp/tournamentd." << service << ".sock";
 
     // listen on unix socket and inet port
