@@ -8,11 +8,11 @@
 
 #import "TBTournamentsViewController.h"
 #import "TournamentKit/TournamentKit.h"
-#import "UIActionSheet+Blocks.h"
 #import "TBAppDelegate.h"
 
 @interface TBTournamentsViewController () <UITableViewDelegate,
                                            UITableViewDataSource,
+                                           UIActionSheetDelegate,
                                            NSNetServiceBrowserDelegate>
 
 @property (nonatomic) TournamentSession* session;
@@ -102,18 +102,12 @@
 
     if(service == [[self session] currentServer]) {
         // pop disconnection actionsheet
-        [UIActionSheet showInView:[self view]
-                        withTitle:nil
-                cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
-           destructiveButtonTitle:NSLocalizedString(@"Leave Game", nil)
-                otherButtonTitles:nil
-                         tapBlock:^(UIActionSheet* actionSheet, NSInteger buttonIndex) {
-                             switch (buttonIndex) {
-                                 case 0:
-                                     [[self session] disconnect];
-                                     break;
-                             }
-                         }];
+        UIActionSheet* actionSheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                                 delegate:self
+                                                        cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
+                                                   destructiveButtonTitle:NSLocalizedString(@"Leave Game", nil)
+                                                        otherButtonTitles:nil];
+        [actionSheet showInView:[self view]];
     } else {
         // connect
         [[self session] connectToService:service];
@@ -121,6 +115,14 @@
 
     // deselect either way
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+#pragma mark UIActionSheetDelegate
+
+- (void)actionSheet:(UIActionSheet*)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if(buttonIndex == 0) {
+        [[self session] disconnect];
+    }
 }
 
 #pragma mark NSNetServiceDelegate
