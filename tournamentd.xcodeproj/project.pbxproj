@@ -24,8 +24,8 @@
 		ADEFA3791A41E6C800133B33 /* socket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ADEFA36B1A41E6C800133B33 /* socket.cpp */; };
 		ADEFA37E1A41EAD100133B33 /* gameinfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ADEFA37C1A41EAD100133B33 /* gameinfo.cpp */; };
 		ADF9B8FA1A745DD200F2729F /* bonjour.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ADF9B8F81A745DD200F2729F /* bonjour.cpp */; };
-		ADF9B8FC1A746A7200F2729F /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADF9B8FB1A746A7200F2729F /* CFNetwork.framework */; };
-		ADF9B8FE1A746A7E00F2729F /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADF9B8FD1A746A7E00F2729F /* CoreFoundation.framework */; };
+		ADF9B9081A75442900F2729F /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADF9B8FD1A746A7E00F2729F /* CoreFoundation.framework */; };
+		ADF9B9091A75443400F2729F /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADF9B8FB1A746A7200F2729F /* CFNetwork.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -87,8 +87,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ADF9B8FE1A746A7E00F2729F /* CoreFoundation.framework in Frameworks */,
-				ADF9B8FC1A746A7200F2729F /* CFNetwork.framework in Frameworks */,
+				ADF9B9081A75442900F2729F /* CoreFoundation.framework in Frameworks */,
+				ADF9B9091A75443400F2729F /* CFNetwork.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -98,9 +98,8 @@
 		AD1095EE1A41E67300D132E4 = {
 			isa = PBXGroup;
 			children = (
-				ADF9B8FD1A746A7E00F2729F /* CoreFoundation.framework */,
-				ADF9B8FB1A746A7200F2729F /* CFNetwork.framework */,
 				AD1095F91A41E67300D132E4 /* tournamentd */,
+				ADF9B9071A7543EB00F2729F /* Frameworks */,
 				AD1095F81A41E67300D132E4 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -161,6 +160,15 @@
 				ADEFA35D1A41E6C700133B33 /* cJSON.h */,
 			);
 			path = cjson;
+			sourceTree = "<group>";
+		};
+		ADF9B9071A7543EB00F2729F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				ADF9B8FD1A746A7E00F2729F /* CoreFoundation.framework */,
+				ADF9B8FB1A746A7200F2729F /* CFNetwork.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

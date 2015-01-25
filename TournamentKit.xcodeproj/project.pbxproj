@@ -226,10 +226,9 @@
 		AD37B3A01A57147800605351 = {
 			isa = PBXGroup;
 			children = (
-				ADF9B9011A7485ED00F2729F /* CFNetwork.framework */,
-				ADF9B8FF1A7485E600F2729F /* CFNetwork.framework */,
 				AD37B3AC1A57147800605351 /* TournamentKit */,
 				AD37B3B91A57147800605351 /* TournamentKit_tests */,
+				ADF9B9061A7543D900F2729F /* Frameworks */,
 				AD37B3AB1A57147800605351 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -331,6 +330,15 @@
 			);
 			name = tournamentd;
 			path = ../tournamentd;
+			sourceTree = "<group>";
+		};
+		ADF9B9061A7543D900F2729F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				ADF9B9011A7485ED00F2729F /* CFNetwork.framework */,
+				ADF9B8FF1A7485E600F2729F /* CFNetwork.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		AD1CF5341A68B45A00FA8F45 /* TBActionClockView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD1CF5331A68B45A00FA8F45 /* TBActionClockView.m */; };
-		AD1CF5361A68D6A000FA8F45 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD1CF5351A68D6A000FA8F45 /* CoreGraphics.framework */; };
 		AD37B3FE1A574B0100605351 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AD37B3FD1A574B0100605351 /* main.m */; };
 		AD37B4011A574B0100605351 /* TBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AD37B4001A574B0100605351 /* TBAppDelegate.m */; };
 		AD37B4041A574B0100605351 /* TBTournamentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD37B4031A574B0100605351 /* TBTournamentsViewController.m */; };
@@ -18,6 +17,7 @@
 		AD37B40F1A574B0100605351 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD37B40D1A574B0100605351 /* LaunchScreen.xib */; };
 		AD37B4251A5750B000605351 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD37B4241A5750B000605351 /* UIKit.framework */; };
 		ADF9B9051A74881B00F2729F /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADF9B9041A74881B00F2729F /* CFNetwork.framework */; };
+		ADF9B90A1A75448200F2729F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD1CF5351A68D6A000FA8F45 /* CoreGraphics.framework */; };
 		ADFA14E11A6ACF3E00611E6B /* libTournamentKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADFA14E01A6ACF3E00611E6B /* libTournamentKit.a */; };
 /* End PBXBuildFile section */
 
@@ -25,7 +25,6 @@
 		AD1CF5321A68B45A00FA8F45 /* TBActionClockView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBActionClockView.h; sourceTree = "<group>"; };
 		AD1CF5331A68B45A00FA8F45 /* TBActionClockView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBActionClockView.m; sourceTree = "<group>"; };
 		AD1CF5351A68D6A000FA8F45 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		AD1CF5371A68D6F300FA8F45 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		AD37B3F81A574B0100605351 /* TBRemote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TBRemote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD37B3FC1A574B0100605351 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AD37B3FD1A574B0100605351 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -51,7 +50,7 @@
 			files = (
 				ADFA14E11A6ACF3E00611E6B /* libTournamentKit.a in Frameworks */,
 				AD37B4251A5750B000605351 /* UIKit.framework in Frameworks */,
-				AD1CF5361A68D6A000FA8F45 /* CoreGraphics.framework in Frameworks */,
+				ADF9B90A1A75448200F2729F /* CoreGraphics.framework in Frameworks */,
 				ADF9B9051A74881B00F2729F /* CFNetwork.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -107,12 +106,11 @@
 		AD37B4281A5750DA00605351 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				ADF9B9041A74881B00F2729F /* CFNetwork.framework */,
 				ADFA14E01A6ACF3E00611E6B /* libTournamentKit.a */,
-				ADFA14DE1A6ACDF700611E6B /* TournamentKit.framework */,
-				AD1CF5371A68D6F300FA8F45 /* QuartzCore.framework */,
-				AD1CF5351A68D6A000FA8F45 /* CoreGraphics.framework */,
 				AD37B4241A5750B000605351 /* UIKit.framework */,
+				ADF9B9041A74881B00F2729F /* CFNetwork.framework */,
+				ADFA14DE1A6ACDF700611E6B /* TournamentKit.framework */,
+				AD1CF5351A68D6A000FA8F45 /* CoreGraphics.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
