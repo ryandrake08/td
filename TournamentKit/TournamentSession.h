@@ -8,12 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-#define kDefaultTournamentServerPort 25600
-
 @interface TournamentSession : NSObject
 
 // currently connected server, or nil if either connected locally or not connected
-@property (nonatomic, readonly) NSNetService* currentServer;
+@property (nonatomic, readonly) NSNetService* currentService;
 
 // YES if currently connected locally or to a server
 @property (nonatomic, readonly, assign, getter=isConnected) BOOL connected;

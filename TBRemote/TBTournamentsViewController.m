@@ -69,18 +69,18 @@
 }
 
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath {
-    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"ServerCell"];
+    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"ServiceCell"];
 
-    NSNetService* cellServer = [[self serviceList] objectAtIndex:[indexPath row]];
-    NSNetService* currentServer = [[self session] currentServer];
+    NSNetService* cellService = [[self serviceList] objectAtIndex:[indexPath row]];
+    NSNetService* currentService = [[self session] currentService];
     BOOL isConnected = [[self session] isConnected];
     BOOL isAuthorized = [[self session] isAuthorized];
 
     // always set name
-    [[cell textLabel] setText:[cellServer name]];
+    [[cell textLabel] setText:[cellService name]];
 
     // set checkmark and accessory text if connected
-    if(cellServer == currentServer && isConnected) {
+    if(cellService == currentService && isConnected) {
         if(isAuthorized) {
             [[cell detailTextLabel] setText:NSLocalizedString(@"Admin", nil)];
         } else {
@@ -100,7 +100,7 @@
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
     NSNetService* service = [[self serviceList] objectAtIndex:[indexPath row]];
 
-    if(service == [[self session] currentServer]) {
+    if(service == [[self session] currentService]) {
         // pop disconnection actionsheet
         UIActionSheet* actionSheet = [[UIActionSheet alloc] initWithTitle:nil
                                                                  delegate:self
@@ -145,7 +145,7 @@
 
 #pragma mark KVO
 
-- (void)reloadTableRowForServer:(NSNetService*)service {
+- (void)reloadTableRowForService:(NSNetService*)service {
     NSUInteger i = [[self serviceList] indexOfObject:service];
     if(i != NSNotFound) {
         NSIndexPath* indexPath = [NSIndexPath indexPathForRow:i inSection:0];
@@ -156,15 +156,15 @@
 - (void)observeValueForKeyPath:(NSString*)keyPath ofObject:(id)session change:(NSDictionary*)change context:(void*)context {
     if ([session isKindOfClass:[TournamentSession class]]) {
         if ([keyPath isEqualToString:NSStringFromSelector(@selector(isConnected))]) {
-            NSNetService* service = [session currentServer];
+            NSNetService* service = [session currentService];
 
             // update table view cell
-            [self reloadTableRowForServer:service];
+            [self reloadTableRowForService:service];
 
             if([session isConnected]) {
                 // check authorization
                 [session checkAuthorizedWithBlock:^(BOOL authorized) {
-                    [self reloadTableRowForServer:service];
+                    [self reloadTableRowForService:service];
                 }];
             }
         }

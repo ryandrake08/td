@@ -14,7 +14,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="checkmark" indentationWidth="10" reuseIdentifier="ServerCell" textLabel="dPn-nh-ase" detailTextLabel="aX4-FF-6wF" style="IBUITableViewCellStyleValue1" id="Nxn-7t-mfF">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="checkmark" indentationWidth="10" reuseIdentifier="ServiceCell" textLabel="dPn-nh-ase" detailTextLabel="aX4-FF-6wF" style="IBUITableViewCellStyleValue1" id="Nxn-7t-mfF">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Nxn-7t-mfF" id="PCB-Ut-mKT">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -40,13 +40,7 @@
                             <outlet property="delegate" destination="lol-E6-1Ha" id="LFs-Qq-IcN"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Tournaments" id="225-37-Q9V">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="4GK-QE-p9Z">
-                            <connections>
-                                <segue destination="Hps-FJ-OBs" kind="modal" identifier="AddServer" id="8Z6-7l-ZBL"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Tournaments" id="225-37-Q9V"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2vN-x9-yez" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -241,21 +235,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IME-Dq-Th5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="400" y="-394.75999999999999"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="I8f-xC-PXW">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Hps-FJ-OBs" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="dvh-W9-cn3">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="sfh-cl-5wU" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1310" y="-395"/>
         </scene>
     </scenes>
     <resources>

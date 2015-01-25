@@ -6,14 +6,13 @@
 //  Copyright (c) 2015 HDna Studio. All rights reserved.
 //
 
-#import "TournamentKit.h"
 #import "TournamentSession.h"
 #import "TournamentConnection.h"
 
 @interface TournamentSession() <TournamentConnectionDelegate>
 
 // record currently connected server
-@property (nonatomic) NSNetService* currentServer;
+@property (nonatomic) NSNetService* currentService;
 
 // YES if currently authorized with server
 @property (nonatomic, assign) BOOL authorized;
@@ -73,14 +72,14 @@
 
 - (void)connectToService:(NSNetService*)service {
     [self disconnect];
-    [self setCurrentServer:service];
+    [self setCurrentService:service];
     [[self connection] connectToService:service];
 }
 
 - (void)disconnect {
     [self setAuthorized:NO];
     [[self connection] close];
-    [self setCurrentServer:nil];
+    [self setCurrentService:nil];
 }
 
 - (BOOL) isConnected {

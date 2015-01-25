@@ -6,12 +6,12 @@
 //  Copyright (c) 2015 HDna Studio. All rights reserved.
 //
 
-#import "TournamentKit.h"
 #import "TournamentDaemon.h"
-#import "TournamentSession.h"
 
 #include "tournament.hpp"
 #include <sstream>
+
+#define kDefaultTournamentListenPort 25600
 
 @interface TournamentDaemon ()
 {
@@ -51,7 +51,7 @@
     tourney.authorize([code intValue]);
 
     // start at default port, and increment until we find one that binds
-    int try_service = kDefaultTournamentServerPort;
+    int try_service = kDefaultTournamentListenPort;
     while(true)
     {
         // build unique unix socket name using service name
