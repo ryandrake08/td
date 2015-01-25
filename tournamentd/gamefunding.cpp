@@ -79,7 +79,7 @@ void gamefunding::fund_player(const td::player_id& player, const td::funding_sou
         throw td::runtime_error("invalid funding source");
     }
 
-    td::funding_source source(this->funding_sources[src]);
+    const td::funding_source& source(this->funding_sources[src]);
 
     if(current_blind_level > source.forbid_after_blind_level)
     {
@@ -91,18 +91,10 @@ void gamefunding::fund_player(const td::player_id& player, const td::funding_sou
         throw td::runtime_error("tried to addon but not bought in yet");
     }
 
-    if(!source.is_addon && this->buyins.find(player) != this->buyins.end())
-    {
-        throw td::runtime_error("player already bought in");
-    }
+    logger(LOG_DEBUG) << "Funding player " << player << " with " << source.name << '\n';
 
-    logger(LOG_DEBUG) << "Funding player " << player << '\n';
-
-    // buy in player
-    if(!source.is_addon)
-    {
-        this->buyins.insert(player);
-    }
+    //add player to buyin set
+    this->buyins.insert(player);
 
     // update totals
     this->total_chips += source.chips;

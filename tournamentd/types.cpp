@@ -55,6 +55,7 @@ td::chip::chip(const json& obj) : chip()
 
 td::funding_source::funding_source(const json& obj) : funding_source()
 {
+    obj.get_value("name", this->name);
     obj.get_value("is_addon", this->is_addon);
     obj.get_value("forbid_after_blind_level", this->forbid_after_blind_level);
     obj.get_value("chips", this->chips);
@@ -107,6 +108,7 @@ json::json(const td::chip& value) : json()
 template<>
 json::json(const td::funding_source& value) : json()
 {
+    this->set_value("name", value.name);
     this->set_value("is_addon", value.is_addon);
     this->set_value("forbid_after_blind_level", value.forbid_after_blind_level);
     this->set_value("chips", value.chips);

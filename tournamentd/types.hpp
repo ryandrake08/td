@@ -49,6 +49,7 @@ namespace td
     // use minor currency unit (cents for USD, etc.)
     struct funding_source
     {
+        std::string name;
         bool is_addon;
         std::size_t forbid_after_blind_level;
         unsigned long chips;
