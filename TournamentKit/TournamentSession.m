@@ -24,7 +24,6 @@
 @property (nonatomic) NSMutableDictionary* blocksForCommands;
 
 // tournament configuration
-@property (nonatomic) NSString* name;
 @property (nonatomic) NSArray* players;
 @property (nonatomic) NSArray* blindLevels;
 @property (nonatomic) NSArray* availableChips;
@@ -277,10 +276,6 @@
         id value;
 
         // tournament configuration
-        if((value = json[@"name"])) {
-            [self setName:value];
-        }
-
         if((value = json[@"players"])) {
             [self setPlayers:value];
         }

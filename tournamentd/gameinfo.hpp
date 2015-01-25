@@ -1,14 +1,10 @@
 #pragma once
 #include "json.hpp"
 #include "types.hpp"
-#include <string>
 #include <unordered_map>
 
 class gameinfo
 {
-    // configuration: game name
-    std::string name;
-
     // configuration: list of all known players (playing or not)
     std::unordered_map<td::player_id,td::player> players;
 

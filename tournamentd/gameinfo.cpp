@@ -6,8 +6,6 @@ void gameinfo::configure(const json& config)
 {
     logger(LOG_DEBUG) << "Loading tournament configuration\n";
 
-    config.get_value("name", this->name);
-
     // special handling for players, read into vector, then convert to map
     std::vector<td::player> players_vector;
     if(config.get_values("players", players_vector))
@@ -25,6 +23,5 @@ void gameinfo::dump_configuration(json& config) const
 {
     logger(LOG_DEBUG) << "Dumping tournament configuration\n";
 
-    config.set_value("name", this->name);
     config.set_values("players", this->players);
 }
