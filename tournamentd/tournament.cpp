@@ -40,19 +40,17 @@ void tournament::ensure_authorized(const json& in) const
 
 // ----- broadcast helpers
 
-template <typename T>
-void tournament::broadcast_state(const T& object) const
+void tournament::broadcast_state() const
 {
     json bcast;
-    object.dump_state(bcast);
+    game_info.dump_state(bcast);
     this->game_server.broadcast(bcast.string());
 }
 
-template <typename T>
-void tournament::broadcast_configuration(const T& object) const
+void tournament::broadcast_configuration() const
 {
     json bcast;
-    object.dump_configuration(bcast);
+    game_info.dump_configuration(bcast);
     this->game_server.broadcast(bcast.string());
 }
 
@@ -70,16 +68,11 @@ void tournament::handle_cmd_version(json& out) const
 void tournament::handle_cmd_get_config(json& out) const
 {
     this->game_info.dump_configuration(out);
-    this->clock.dump_configuration(out);
-    this->funding.dump_configuration(out);
-    this->seating.dump_configuration(out);
 }
 
 void tournament::handle_cmd_get_state(json& out) const
 {
-    this->clock.dump_state(out);
-    this->funding.dump_state(out);
-    this->seating.dump_state(out);
+    this->game_info.dump_state(out);
 }
 
 void tournament::handle_cmd_check_authorized(const json& in, json& out)
@@ -124,9 +117,6 @@ void tournament::handle_cmd_configure(const json& in, json& out)
     }
 
     this->game_info.configure(in);
-    this->clock.configure(in);
-    this->funding.configure(in);
-    this->seating.configure(in);
 }
 
 void tournament::handle_cmd_start_game(const json& in, json& out)
@@ -134,44 +124,44 @@ void tournament::handle_cmd_start_game(const json& in, json& out)
     datetime start_at;
     if(in.get_value("start_at", start_at))
     {
-        this->clock.start(start_at);
+        this->game_info.start(start_at);
     }
     else
     {
-        this->clock.start();
+        this->game_info.start();
     }
 }
 
 void tournament::handle_cmd_stop_game(const json& in, json& out)
 {
-    this->clock.stop();
+    this->game_info.stop();
 }
 
 void tournament::handle_cmd_resume_game(const json& in, json& out)
 {
-    this->clock.resume();
+    this->game_info.resume();
 }
 
 void tournament::handle_cmd_pause_game(const json& in, json& out)
 {
-    this->clock.pause();
+    this->game_info.pause();
 }
 
 void tournament::handle_cmd_toggle_pause_game(const json& in, json& out)
 {
-    this->clock.toggle_pause_resume();
+    this->game_info.toggle_pause_resume();
 }
 
 void tournament::handle_cmd_set_previous_level(const json& in, json& out)
 {
-    auto blind_level_changed(this->clock.previous_blind_level());
+    auto blind_level_changed(this->game_info.previous_blind_level());
 
     out.set_value("blind_level_changed", blind_level_changed);
 }
 
 void tournament::handle_cmd_set_next_level(const json& in, json& out)
 {
-    auto blind_level_changed(this->clock.next_blind_level());
+    auto blind_level_changed(this->game_info.next_blind_level());
 
     out.set_value("blind_level_changed", blind_level_changed);
 }
@@ -181,11 +171,11 @@ void tournament::handle_cmd_set_action_clock(const json& in, json& out)
     long duration;
     if(in.get_value("duration", duration))
     {
-        this->clock.set_action_clock(duration);
+        this->game_info.set_action_clock(duration);
     }
     else
     {
-        this->clock.reset_action_clock();
+        this->game_info.reset_action_clock();
     }
 }
 
@@ -204,7 +194,7 @@ void tournament::handle_cmd_gen_blind_levels(const json& in, json& out)
         throw std::invalid_argument("must specify count and duration");
     }
 
-    this->clock.gen_blind_levels(count, duration, break_duration, blind_increase_factor);
+    this->game_info.gen_blind_levels(count, duration, break_duration, blind_increase_factor);
 }
 
 void tournament::handle_cmd_fund_player(const json& in, json& out)
@@ -217,7 +207,7 @@ void tournament::handle_cmd_fund_player(const json& in, json& out)
         throw std::invalid_argument("must specify player and source");
     }
 
-    this->funding.fund_player(player, source, this->clock.get_current_blind_level());
+    this->game_info.fund_player(player, source, this->game_info.get_current_blind_level());
 }
 
 void tournament::handle_cmd_plan_seating(const json& in, json& out)
@@ -229,7 +219,7 @@ void tournament::handle_cmd_plan_seating(const json& in, json& out)
         throw std::invalid_argument("must specify max_expected_players");
     }
 
-    (void) this->seating.plan_seating(max_expected_players);
+    (void) this->game_info.plan_seating(max_expected_players);
 }
 
 void tournament::handle_cmd_seat_player(const json& in, json& out)
@@ -241,7 +231,7 @@ void tournament::handle_cmd_seat_player(const json& in, json& out)
         throw std::invalid_argument("must specify player");
     }
 
-    auto seating(this->seating.add_player(player));
+    auto seating(this->game_info.add_player(player));
 
     json player_seated;
     player_seated.set_value("player_id", player);
@@ -259,7 +249,7 @@ void tournament::handle_cmd_bust_player(const json& in, json& out)
         throw std::invalid_argument("must specify player");
     }
 
-    auto movements(this->seating.remove_player(player));
+    auto movements(this->game_info.remove_player(player));
 
     out.set_values("players_moved", movements);
 }
@@ -357,79 +347,79 @@ bool tournament::handle_client_input(std::iostream& client)
                 case crc32_("start_game"):
                     this->ensure_authorized(in);
                     this->handle_cmd_start_game(in, out);
-                    this->broadcast_state(this->clock);
+                    this->broadcast_state();
                     break;
 
                 case crc32_("stop_game"):
                     this->ensure_authorized(in);
                     this->handle_cmd_stop_game(in, out);
-                    this->broadcast_state(this->clock);
+                    this->broadcast_state();
                     break;
 
                 case crc32_("resume_game"):
                     this->ensure_authorized(in);
                     this->handle_cmd_resume_game(in, out);
-                    this->broadcast_state(this->clock);
+                    this->broadcast_state();
                     break;
 
                 case crc32_("pause_game"):
                     this->ensure_authorized(in);
                     this->handle_cmd_pause_game(in, out);
-                    this->broadcast_state(this->clock);
+                    this->broadcast_state();
                     break;
 
                 case crc32_("toggle_pause_game"):
                     this->ensure_authorized(in);
                     this->handle_cmd_toggle_pause_game(in, out);
-                    this->broadcast_state(this->clock);
+                    this->broadcast_state();
                     break;
 
                 case crc32_("set_previous_level"):
                     this->ensure_authorized(in);
                     this->handle_cmd_set_previous_level(in, out);
-                    this->broadcast_state(this->clock);
+                    this->broadcast_state();
                     break;
 
                 case crc32_("set_next_level"):
                     this->ensure_authorized(in);
                     this->handle_cmd_set_next_level(in, out);
-                    this->broadcast_state(this->clock);
+                    this->broadcast_state();
                     break;
 
                 case crc32_("set_action_clock"):
                     this->ensure_authorized(in);
                     this->handle_cmd_set_action_clock(in, out);
-                    this->broadcast_state(this->clock);
+                    this->broadcast_state();
                     break;
 
                 case crc32_("gen_blind_levels"):
                     this->ensure_authorized(in);
                     this->handle_cmd_gen_blind_levels(in, out);
-                    this->broadcast_configuration(this->clock);
+                    this->broadcast_configuration();
                     break;
 
                 case crc32_("fund_player"):
                     this->ensure_authorized(in);
                     this->handle_cmd_fund_player(in, out);
-                    this->broadcast_state(this->funding);
+                    this->broadcast_state();
                     break;
 
                 case crc32_("plan_seating"):
                     this->ensure_authorized(in);
                     this->handle_cmd_plan_seating(in, out);
-                    this->broadcast_state(this->seating);
+                    this->broadcast_state();
                     break;
 
                 case crc32_("seat_player"):
                     this->ensure_authorized(in);
                     this->handle_cmd_seat_player(in, out);
-                    this->broadcast_state(this->seating);
+                    this->broadcast_state();
                     break;
 
                 case crc32_("bust_player"):
                     this->ensure_authorized(in);
                     this->handle_cmd_bust_player(in, out);
-                    this->broadcast_state(this->seating);
+                    this->broadcast_state();
                     break;
 
                 default:
@@ -464,9 +454,6 @@ void tournament::load_configuration(const std::string& filename)
 {
     auto config(json::load(filename));
     this->game_info.configure(config);
-    this->clock.configure(config);
-    this->funding.configure(config);
-    this->seating.configure(config);
 }
 
 bool tournament::run()
@@ -476,12 +463,10 @@ bool tournament::run()
     static const auto handler(std::bind(&tournament::handle_client_input, this, std::placeholders::_1));
 
     // update the clock, and report to clients if anything changed
-    if(this->clock.update_remaining())
+    if(this->game_info.update_remaining())
     {
         // send to clients
-        json out;
-        this->clock.dump_state(out);
-        this->game_server.broadcast(out.string());
+        this->broadcast_state();
     }
 
     // poll clients for commands, waiting at most 50ms

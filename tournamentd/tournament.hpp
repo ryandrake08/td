@@ -1,9 +1,6 @@
 #pragma once
 #include "datetime.hpp"
 #include "gameinfo.hpp"
-#include "gameclock.hpp"
-#include "gamefunding.hpp"
-#include "gameseating.hpp"
 #include "server.hpp"
 #include "types.hpp"
 #include <string>
@@ -12,11 +9,8 @@
 
 class tournament
 {
-    // game objects
+    // game object
     gameinfo game_info;
-    gameclock clock;
-    gamefunding funding;
-    gameseating seating;
 
     // server to handle remote connections
     server game_server;
@@ -28,11 +22,8 @@ class tournament
     void ensure_authorized(const json& in) const;
 
     // broadcast helpers;
-    template <typename T>
-    void broadcast_state(const T& object) const;
-    
-    template <typename T>
-    void broadcast_configuration(const T& object) const;
+    void broadcast_state() const;
+    void broadcast_configuration() const;
 
     // command handlers available to anyone
     void handle_cmd_version(json& out) const;

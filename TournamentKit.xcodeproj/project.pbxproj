@@ -30,22 +30,10 @@
 		AD466E831A5936BB00E0973E /* datetime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AD466E5D1A5936BB00E0973E /* datetime.cpp */; };
 		AD466E841A5936BB00E0973E /* datetime.hpp in Headers */ = {isa = PBXBuildFile; fileRef = AD466E5E1A5936BB00E0973E /* datetime.hpp */; };
 		AD466E851A5936BB00E0973E /* datetime.hpp in Headers */ = {isa = PBXBuildFile; fileRef = AD466E5E1A5936BB00E0973E /* datetime.hpp */; };
-		AD466E861A5936BB00E0973E /* gameclock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AD466E5F1A5936BB00E0973E /* gameclock.cpp */; };
-		AD466E871A5936BB00E0973E /* gameclock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AD466E5F1A5936BB00E0973E /* gameclock.cpp */; };
-		AD466E881A5936BB00E0973E /* gameclock.hpp in Headers */ = {isa = PBXBuildFile; fileRef = AD466E601A5936BB00E0973E /* gameclock.hpp */; };
-		AD466E891A5936BB00E0973E /* gameclock.hpp in Headers */ = {isa = PBXBuildFile; fileRef = AD466E601A5936BB00E0973E /* gameclock.hpp */; };
-		AD466E8A1A5936BB00E0973E /* gamefunding.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AD466E611A5936BB00E0973E /* gamefunding.cpp */; };
-		AD466E8B1A5936BB00E0973E /* gamefunding.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AD466E611A5936BB00E0973E /* gamefunding.cpp */; };
-		AD466E8C1A5936BB00E0973E /* gamefunding.hpp in Headers */ = {isa = PBXBuildFile; fileRef = AD466E621A5936BB00E0973E /* gamefunding.hpp */; };
-		AD466E8D1A5936BB00E0973E /* gamefunding.hpp in Headers */ = {isa = PBXBuildFile; fileRef = AD466E621A5936BB00E0973E /* gamefunding.hpp */; };
 		AD466E8E1A5936BB00E0973E /* gameinfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AD466E631A5936BB00E0973E /* gameinfo.cpp */; };
 		AD466E8F1A5936BB00E0973E /* gameinfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AD466E631A5936BB00E0973E /* gameinfo.cpp */; };
 		AD466E901A5936BB00E0973E /* gameinfo.hpp in Headers */ = {isa = PBXBuildFile; fileRef = AD466E641A5936BB00E0973E /* gameinfo.hpp */; };
 		AD466E911A5936BB00E0973E /* gameinfo.hpp in Headers */ = {isa = PBXBuildFile; fileRef = AD466E641A5936BB00E0973E /* gameinfo.hpp */; };
-		AD466E921A5936BB00E0973E /* gameseating.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AD466E651A5936BB00E0973E /* gameseating.cpp */; };
-		AD466E931A5936BB00E0973E /* gameseating.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AD466E651A5936BB00E0973E /* gameseating.cpp */; };
-		AD466E941A5936BB00E0973E /* gameseating.hpp in Headers */ = {isa = PBXBuildFile; fileRef = AD466E661A5936BB00E0973E /* gameseating.hpp */; };
-		AD466E951A5936BB00E0973E /* gameseating.hpp in Headers */ = {isa = PBXBuildFile; fileRef = AD466E661A5936BB00E0973E /* gameseating.hpp */; };
 		AD466E961A5936BB00E0973E /* ivectorstream.hpp in Headers */ = {isa = PBXBuildFile; fileRef = AD466E671A5936BB00E0973E /* ivectorstream.hpp */; };
 		AD466E971A5936BB00E0973E /* ivectorstream.hpp in Headers */ = {isa = PBXBuildFile; fileRef = AD466E671A5936BB00E0973E /* ivectorstream.hpp */; };
 		AD466E981A5936BB00E0973E /* json.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AD466E681A5936BB00E0973E /* json.cpp */; };
@@ -87,10 +75,7 @@
 		AD7FD79A1A6ABF370047EB17 /* CFStreamCreatePairWithUnixSocket.c in Sources */ = {isa = PBXBuildFile; fileRef = ADD523A11A62DCD800C8033A /* CFStreamCreatePairWithUnixSocket.c */; };
 		AD7FD79B1A6ABFDB0047EB17 /* cJSON.c in Sources */ = {isa = PBXBuildFile; fileRef = AD466E5A1A5936BB00E0973E /* cJSON.c */; };
 		AD7FD79C1A6ABFDB0047EB17 /* datetime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AD466E5D1A5936BB00E0973E /* datetime.cpp */; };
-		AD7FD79D1A6ABFDB0047EB17 /* gameclock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AD466E5F1A5936BB00E0973E /* gameclock.cpp */; };
-		AD7FD79E1A6ABFDB0047EB17 /* gamefunding.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AD466E611A5936BB00E0973E /* gamefunding.cpp */; };
 		AD7FD79F1A6ABFDB0047EB17 /* gameinfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AD466E631A5936BB00E0973E /* gameinfo.cpp */; };
-		AD7FD7A01A6ABFDB0047EB17 /* gameseating.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AD466E651A5936BB00E0973E /* gameseating.cpp */; };
 		AD7FD7A11A6ABFDB0047EB17 /* json.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AD466E681A5936BB00E0973E /* json.cpp */; };
 		AD7FD7A21A6ABFDB0047EB17 /* logger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AD466E6A1A5936BB00E0973E /* logger.cpp */; };
 		AD7FD7A31A6ABFDB0047EB17 /* server.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AD466E711A5936BB00E0973E /* server.cpp */; };
@@ -155,14 +140,8 @@
 		AD466E5B1A5936BB00E0973E /* cJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cJSON.h; sourceTree = "<group>"; };
 		AD466E5D1A5936BB00E0973E /* datetime.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = datetime.cpp; sourceTree = "<group>"; };
 		AD466E5E1A5936BB00E0973E /* datetime.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = datetime.hpp; sourceTree = "<group>"; };
-		AD466E5F1A5936BB00E0973E /* gameclock.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gameclock.cpp; sourceTree = "<group>"; };
-		AD466E601A5936BB00E0973E /* gameclock.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = gameclock.hpp; sourceTree = "<group>"; };
-		AD466E611A5936BB00E0973E /* gamefunding.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gamefunding.cpp; sourceTree = "<group>"; };
-		AD466E621A5936BB00E0973E /* gamefunding.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = gamefunding.hpp; sourceTree = "<group>"; };
 		AD466E631A5936BB00E0973E /* gameinfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gameinfo.cpp; sourceTree = "<group>"; };
 		AD466E641A5936BB00E0973E /* gameinfo.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = gameinfo.hpp; sourceTree = "<group>"; };
-		AD466E651A5936BB00E0973E /* gameseating.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gameseating.cpp; sourceTree = "<group>"; };
-		AD466E661A5936BB00E0973E /* gameseating.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = gameseating.hpp; sourceTree = "<group>"; };
 		AD466E671A5936BB00E0973E /* ivectorstream.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ivectorstream.hpp; sourceTree = "<group>"; };
 		AD466E681A5936BB00E0973E /* json.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = json.cpp; sourceTree = "<group>"; };
 		AD466E691A5936BB00E0973E /* json.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = json.hpp; sourceTree = "<group>"; };
@@ -304,14 +283,8 @@
 				AD466E5C1A5936BB00E0973E /* cjson */,
 				AD466E5D1A5936BB00E0973E /* datetime.cpp */,
 				AD466E5E1A5936BB00E0973E /* datetime.hpp */,
-				AD466E5F1A5936BB00E0973E /* gameclock.cpp */,
-				AD466E601A5936BB00E0973E /* gameclock.hpp */,
-				AD466E611A5936BB00E0973E /* gamefunding.cpp */,
-				AD466E621A5936BB00E0973E /* gamefunding.hpp */,
 				AD466E631A5936BB00E0973E /* gameinfo.cpp */,
 				AD466E641A5936BB00E0973E /* gameinfo.hpp */,
-				AD466E651A5936BB00E0973E /* gameseating.cpp */,
-				AD466E661A5936BB00E0973E /* gameseating.hpp */,
 				AD466E671A5936BB00E0973E /* ivectorstream.hpp */,
 				AD466E681A5936BB00E0973E /* json.cpp */,
 				AD466E691A5936BB00E0973E /* json.hpp */,
@@ -353,7 +326,6 @@
 				AD466EBC1A5936BB00E0973E /* types.hpp in Headers */,
 				AD466EB81A5936BB00E0973E /* tournament.hpp in Headers */,
 				AD37B3EB1A573C8300605351 /* TournamentConnection.h in Headers */,
-				AD466E941A5936BB00E0973E /* gameseating.hpp in Headers */,
 				AD466EB41A5936BB00E0973E /* stringcrc.hpp in Headers */,
 				ADD523A51A62DCD800C8033A /* CFStreamCreatePairWithUnixSocket.h in Headers */,
 				AD466E551A5918DB00E0973E /* TournamentSession.h in Headers */,
@@ -364,10 +336,8 @@
 				AD466E9E1A5936BB00E0973E /* logger.hpp in Headers */,
 				AD466E801A5936BB00E0973E /* cJSON.h in Headers */,
 				AD466E961A5936BB00E0973E /* ivectorstream.hpp in Headers */,
-				AD466E8C1A5936BB00E0973E /* gamefunding.hpp in Headers */,
 				AD466E901A5936BB00E0973E /* gameinfo.hpp in Headers */,
 				AD466E841A5936BB00E0973E /* datetime.hpp in Headers */,
-				AD466E881A5936BB00E0973E /* gameclock.hpp in Headers */,
 				AD466EC01A59375100E0973E /* TournamentDaemon.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -381,7 +351,6 @@
 				AD466EBD1A5936BB00E0973E /* types.hpp in Headers */,
 				AD466EB91A5936BB00E0973E /* tournament.hpp in Headers */,
 				AD37B3EC1A573C8300605351 /* TournamentConnection.h in Headers */,
-				AD466E951A5936BB00E0973E /* gameseating.hpp in Headers */,
 				AD466EB51A5936BB00E0973E /* stringcrc.hpp in Headers */,
 				ADD523A61A62DCD800C8033A /* CFStreamCreatePairWithUnixSocket.h in Headers */,
 				AD466E561A5918DB00E0973E /* TournamentSession.h in Headers */,
@@ -392,10 +361,8 @@
 				AD466E9F1A5936BB00E0973E /* logger.hpp in Headers */,
 				AD466E811A5936BB00E0973E /* cJSON.h in Headers */,
 				AD466E971A5936BB00E0973E /* ivectorstream.hpp in Headers */,
-				AD466E8D1A5936BB00E0973E /* gamefunding.hpp in Headers */,
 				AD466E911A5936BB00E0973E /* gameinfo.hpp in Headers */,
 				AD466E851A5936BB00E0973E /* datetime.hpp in Headers */,
-				AD466E891A5936BB00E0973E /* gameclock.hpp in Headers */,
 				AD466EC11A59375100E0973E /* TournamentDaemon.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -546,15 +513,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AD466E8A1A5936BB00E0973E /* gamefunding.cpp in Sources */,
 				AD466EAA1A5936BB00E0973E /* server.cpp in Sources */,
 				AD37B3ED1A573C8300605351 /* TournamentConnection.m in Sources */,
 				AD466E9C1A5936BB00E0973E /* logger.cpp in Sources */,
 				AD466EB61A5936BB00E0973E /* tournament.cpp in Sources */,
 				AD466E7E1A5936BB00E0973E /* cJSON.c in Sources */,
-				AD466E921A5936BB00E0973E /* gameseating.cpp in Sources */,
 				AD466E8E1A5936BB00E0973E /* gameinfo.cpp in Sources */,
-				AD466E861A5936BB00E0973E /* gameclock.cpp in Sources */,
 				AD466E571A5918DB00E0973E /* TournamentSession.m in Sources */,
 				AD466EC21A59375100E0973E /* TournamentDaemon.mm in Sources */,
 				AD466E821A5936BB00E0973E /* datetime.cpp in Sources */,
@@ -578,15 +542,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AD466E8B1A5936BB00E0973E /* gamefunding.cpp in Sources */,
 				AD466EAB1A5936BB00E0973E /* server.cpp in Sources */,
 				AD37B3EE1A573C8300605351 /* TournamentConnection.m in Sources */,
 				AD466E9D1A5936BB00E0973E /* logger.cpp in Sources */,
 				AD466EB71A5936BB00E0973E /* tournament.cpp in Sources */,
 				AD466E7F1A5936BB00E0973E /* cJSON.c in Sources */,
-				AD466E931A5936BB00E0973E /* gameseating.cpp in Sources */,
 				AD466E8F1A5936BB00E0973E /* gameinfo.cpp in Sources */,
-				AD466E871A5936BB00E0973E /* gameclock.cpp in Sources */,
 				AD466E581A5918DB00E0973E /* TournamentSession.m in Sources */,
 				AD466EC31A59375100E0973E /* TournamentDaemon.mm in Sources */,
 				AD466E831A5936BB00E0973E /* datetime.cpp in Sources */,
@@ -605,15 +566,12 @@
 				AD7FD7951A6ABF370047EB17 /* TournamentDaemon.mm in Sources */,
 				AD7FD7A31A6ABFDB0047EB17 /* server.cpp in Sources */,
 				AD7FD7A61A6ABFDB0047EB17 /* types.cpp in Sources */,
-				AD7FD79D1A6ABFDB0047EB17 /* gameclock.cpp in Sources */,
 				AD7FD7A51A6ABFDB0047EB17 /* tournament.cpp in Sources */,
 				AD7FD79A1A6ABF370047EB17 /* CFStreamCreatePairWithUnixSocket.c in Sources */,
 				AD7FD7A41A6ABFDB0047EB17 /* socket.cpp in Sources */,
-				AD7FD79E1A6ABFDB0047EB17 /* gamefunding.cpp in Sources */,
 				AD7FD7991A6ABF370047EB17 /* NSData+Delimiter.m in Sources */,
 				AD7FD79F1A6ABFDB0047EB17 /* gameinfo.cpp in Sources */,
 				AD7FD79B1A6ABFDB0047EB17 /* cJSON.c in Sources */,
-				AD7FD7A01A6ABFDB0047EB17 /* gameseating.cpp in Sources */,
 				AD7FD79C1A6ABFDB0047EB17 /* datetime.cpp in Sources */,
 				AD7FD7A11A6ABFDB0047EB17 /* json.cpp in Sources */,
 				AD7FD7A21A6ABFDB0047EB17 /* logger.cpp in Sources */,
