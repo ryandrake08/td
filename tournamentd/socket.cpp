@@ -93,6 +93,21 @@ struct common_socket_impl
     common_socket_impl(SOCKET newfd) : fd(newfd)
     {
         logger(LOG_DEBUG) << "wrapped fd: " << this->fd << '\n';
+
+#if defined(SO_NOSIGPIPE)
+        logger(LOG_DEBUG) << "setting SO_NOSIGPIPE\n";
+
+        // set SO_NOSIGPIPE option
+        int yes(1);
+#if defined(_WIN32)
+        if(::setsockopt(newfd, SOL_SOCKET, SO_NOSIGPIPE, reinterpret_cast<const char*>(&yes), sizeof(yes)) == SOCKET_ERROR)
+#else
+        if(::setsockopt(newfd, SOL_SOCKET, SO_NOSIGPIPE, &yes, sizeof(yes)) == SOCKET_ERROR)
+#endif
+        {
+            throw std::system_error(errno, std::system_category(), "setsockopt");
+        }
+#endif
     }
 
     ~common_socket_impl()
@@ -144,18 +159,6 @@ common_socket common_socket::accept() const
     }
 
     logger(LOG_DEBUG) << "accepted connection on " << *this << '\n';
-
-    // set SO_NOSIGPIPE option
-    int yes(1);
-#if defined(_WIN32)
-    if(::setsockopt(sock, SOL_SOCKET, SO_NOSIGPIPE, reinterpret_cast<const char*>(&yes), sizeof(yes)) == SOCKET_ERROR)
-#else
-    if(::setsockopt(sock, SOL_SOCKET, SO_NOSIGPIPE, &yes, sizeof(yes)) == SOCKET_ERROR)
-#endif
-    {
-        throw std::system_error(errno, std::system_category(), "setsockopt");
-    }
-
     return common_socket(new common_socket_impl(sock));
 }
 
@@ -344,21 +347,6 @@ unix_socket::unix_socket(const char* path, bool client, int backlog)
     // wrap the socket and store
     this->impl = std::shared_ptr<common_socket_impl>(new common_socket_impl(sock));
 
-    logger(LOG_DEBUG) << "setting SO_NOSIGPIPE\n";
-
-    // set SO_NOSIGPIPE option
-    int yes(1);
-#if defined(_WIN32)
-    if(::setsockopt(sock, SOL_SOCKET, SO_NOSIGPIPE, reinterpret_cast<const char*>(&yes), sizeof(yes)) == SOCKET_ERROR)
-#else
-    if(::setsockopt(sock, SOL_SOCKET, SO_NOSIGPIPE, &yes, sizeof(yes)) == SOCKET_ERROR)
-#endif
-    {
-        throw std::system_error(errno, std::system_category(), "setsockopt");
-    }
-
-    logger(LOG_DEBUG) << "creating a socket\n";
-
     if(client)
     {
         logger(LOG_DEBUG) << "connecting " << *this << '\n';
@@ -422,19 +410,6 @@ inet_socket::inet_socket(const char* host, const char* service, int family) : co
     // wrap the socket and store
     this->impl = std::shared_ptr<common_socket_impl>(new common_socket_impl(sock));
 
-    logger(LOG_DEBUG) << "setting SO_NOSIGPIPE\n";
-
-    // set SO_NOSIGPIPE option
-    int yes(1);
-#if defined(_WIN32)
-    if(::setsockopt(sock, SOL_SOCKET, SO_NOSIGPIPE, reinterpret_cast<const char*>(&yes), sizeof(yes)) == SOCKET_ERROR)
-#else
-    if(::setsockopt(sock, SOL_SOCKET, SO_NOSIGPIPE, &yes, sizeof(yes)) == SOCKET_ERROR)
-#endif
-    {
-        throw std::system_error(errno, std::system_category(), "setsockopt");
-    }
-
     logger(LOG_DEBUG) << "connecting " << *this << " to host: " << host << ", service: " << service << '\n';
 
     // connect to remote address
@@ -476,22 +451,10 @@ inet_socket::inet_socket(const char* service, int family, int backlog) : common_
     // wrap the socket and store
     this->impl = std::shared_ptr<common_socket_impl>(new common_socket_impl(sock));
 
-    logger(LOG_DEBUG) << "setting SO_NOSIGPIPE\n";
-
-    // set SO_NOSIGPIPE option
-    int yes(1);
-#if defined(_WIN32)
-    if(::setsockopt(sock, SOL_SOCKET, SO_NOSIGPIPE, reinterpret_cast<const char*>(&yes), sizeof(yes)) == SOCKET_ERROR)
-#else
-    if(::setsockopt(sock, SOL_SOCKET, SO_NOSIGPIPE, &yes, sizeof(yes)) == SOCKET_ERROR)
-#endif
-    {
-        throw std::system_error(errno, std::system_category(), "setsockopt");
-    }
-    
     logger(LOG_DEBUG) << "setting SO_REUSEADDR\n";
 
     // set SO_REUSADDR option
+    int yes(1);
 #if defined(_WIN32)
     if(::setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, reinterpret_cast<const char*>(&yes), sizeof(yes)) == SOCKET_ERROR)
 #else

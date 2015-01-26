@@ -1,5 +1,5 @@
 LIBOUT = libpoker_tournament.a
-LIBOBJS = datetime.o gameclock.o gamefunding.o gameinfo.o gameseating.o json.o logger.o process.o program.o server.o socket.o tournament.o cjson/cJSON.o
+LIBOBJS = datetime.o gameinfo.o json.o logger.o program.o server.o socket.o tournament.o cjson/cJSON.o
 TESTOBJS = test.o tests.o
 SERVEROBJS = main.o program.o
 

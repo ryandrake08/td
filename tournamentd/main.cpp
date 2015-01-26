@@ -31,6 +31,7 @@ public:
 #if defined(SIGUSR2)
         (void) signal(SIGUSR2, signal_handler);
 #endif
+        (void) signal(SIGPIPE, SIG_IGN);
     }
 
     ~runloop()
@@ -44,6 +45,7 @@ public:
 #if defined(SIGUSR2)
         (void) signal(SIGUSR2, SIG_DFL);
 #endif
+        (void) signal(SIGPIPE, SIG_DFL);
     }
 
     int run(int argc, const char* const argv[])
