@@ -19,25 +19,25 @@ program::program(const std::vector<std::string>& cmdline)
 #endif
 
     // parse command-line
-    for(auto it(cmdline.begin()+1); it != cmdline.end(); it++)
+    for(auto it(cmdline.begin()+1); it != cmdline.end();)
     {
-        switch(crc32(*it))
+        switch(crc32(*it++))
         {
             case crc32_("-c"):
             case crc32_("--conf"):
-                if(++it != cmdline.end())
+                if(it != cmdline.end())
                 {
                     // load supplied config
-                    this->tourney.load_configuration(*it);
+                    this->tourney.load_configuration(*it++);
                 }
                 break;
 
             case crc32_("-p"):
             case crc32_("--port"):
-                if(++it != cmdline.end())
+                if(it != cmdline.end())
                 {
                     // parse port number
-                    service = std::stoi(*it);
+                    service = std::stoi(*it++);
                 }
                 else
                 {
@@ -47,18 +47,18 @@ program::program(const std::vector<std::string>& cmdline)
 
             case crc32_("-a"):
             case crc32_("--auth"):
-                if(++it != cmdline.end())
+                if(it != cmdline.end())
                 {
                     // parse client code
-                    this->tourney.authorize(std::stoi(*it));
+                    this->tourney.authorize(std::stoi(*it++));
                 }
                 break;
 
             case crc32_("-n"):
             case crc32_("--name"):
-                if(++it != cmdline.end())
+                if(it != cmdline.end())
                 {
-                    name = *it;
+                    name = *it++;
                 }
                 break;
 
@@ -69,7 +69,8 @@ program::program(const std::vector<std::string>& cmdline)
                              "Usage: tournamentd [options]\n"
                              " -c, --conf FILE\tInitialize configuration from file\n"
                              " -p, --port [NUMBER]\tListen on given port (default: 25600)\n"
-                             " -a, --auth LIST\tPre-authorize client authentication code\n";
+                             " -a, --auth LIST\tPre-authorize client authentication code\n"
+                             " -n, --name NAME\tPublish Bonjour service with given name (default: tournamentd)\n";
                 std::exit(EXIT_FAILURE);
                 break;
         }
