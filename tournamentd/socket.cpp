@@ -335,7 +335,9 @@ unix_socket::unix_socket(const char* path, bool client, int backlog)
     // set up addr
     std::strncpy(addr.sun_path, path, sizeof(addr.sun_path)-1);
     addr.sun_family = AF_UNIX;
+#if defined(__APPLE__)
     addr.sun_len = SUN_LEN(&addr);
+#endif
 
     // create the socket
     auto sock(::socket(PF_UNIX, SOCK_STREAM, 0));
