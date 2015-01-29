@@ -35,6 +35,14 @@ td::player_movement::player_movement(player_id p, const seat& f, const seat& t) 
 {
 }
 
+td::player_chips::player_chips() : denomination(0), chips(0)
+{
+}
+
+td::player_chips::player_chips(unsigned long d, unsigned long c) : denomination(d), chips(c)
+{
+}
+
 // ----- construct from json
 
 td::blind_level::blind_level(const json& obj) : blind_level()
@@ -139,6 +147,13 @@ json::json(const td::player_movement& value) : json()
     this->set_value("from_seat_number", value.from_seat.seat_number);
     this->set_value("to_table_number", value.to_seat.table_number);
     this->set_value("to_seat_number", value.to_seat.seat_number);
+}
+
+template<>
+json::json(const td::player_chips& value) : json()
+{
+    this->set_value("denomination", value.denomination);
+    this->set_value("chips", value.chips);
 }
 
 template<>

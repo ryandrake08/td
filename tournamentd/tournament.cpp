@@ -75,7 +75,7 @@ void tournament::handle_cmd_get_state(json& out) const
     this->game_info.dump_state(out);
 }
 
-void tournament::handle_cmd_check_authorized(const json& in, json& out)
+void tournament::handle_cmd_check_authorized(const json& in, json& out) const
 {
     int code;
     if(!in.get_value("authenticate", code))
@@ -91,6 +91,25 @@ void tournament::handle_cmd_check_authorized(const json& in, json& out)
     {
         out.set_value("authorized", true);
     }
+}
+
+void tournament::handle_cmd_chips_for_buyin(const json& in, json& out) const
+{
+    td::funding_source_id source;
+    if(!in.get_value("source_id", source))
+    {
+        throw std::invalid_argument("must specify source");
+    }
+
+    std::size_t max_expected_players;
+    if(!in.get_value("max_expected_players", max_expected_players))
+    {
+        throw std::invalid_argument("must specify max_expected_players");
+    }
+
+    auto chips(this->game_info.chips_for_buyin(source, max_expected_players));
+
+    out.set_values("chips_for_buyin", chips);
 }
 
 // ----- command handlers available to authorized clients
@@ -337,6 +356,10 @@ bool tournament::handle_client_input(std::iostream& client)
 
                 case crc32_("get_state"):
                     this->handle_cmd_get_state(out);
+                    break;
+
+                case crc32_("chips_for_buyin"):
+                    this->handle_cmd_chips_for_buyin(in, out);
                     break;
 
                 case crc32_("configure"):

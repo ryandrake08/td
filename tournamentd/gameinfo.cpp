@@ -34,7 +34,16 @@ void gameinfo::configure(const json& config)
     config.get_value("cost_currency", this->cost_currency);
     config.get_value("equity_currency", this->equity_currency);
     config.get_values("funding_sources", this->funding_sources);
-    config.get_values("available_chips", this->available_chips);
+
+    if(config.get_values("available_chips", this->available_chips))
+    {
+        // always sort chips by denomination
+        std::sort(this->available_chips.begin(), this->available_chips.end(),
+                  [](const td::chip& c0, const td::chip& c1)
+                  {
+                      return c0.denomination < c1.denomination;
+                  });
+    }
 
     // special handling for players, read into vector, then convert to map
     std::vector<td::player> players_vector;
@@ -438,6 +447,153 @@ void gameinfo::fund_player(const td::player_id& player, const td::funding_source
     this->recalculate_payouts();
 }
 
+// return the maximum number of chips available per player for a given denomination
+unsigned long gameinfo::max_chips_for(unsigned long denomination, std::size_t players_count) const
+{
+    if(players_count == 0)
+    {
+        throw std::invalid_argument("players_count must be non-zero");
+    }
+
+    // find denomination in available_chips
+    auto it(std::find_if(this->available_chips.begin(), this->available_chips.end(), [denomination](const td::chip& c) { return c.denomination == denomination; }));
+    if(it == this->available_chips.end())
+    {
+        throw td::runtime_error("denomination not found in chip set");
+    }
+
+    return it->count_available / players_count;
+}
+
+// calculate number of chips per denomination for this funding source, given totals and number of players
+// this was tuned to produce a sensible result for the following chip denomination sets:
+//  1/5/25/100/500
+//  5/25/100/500/1000
+//  25/100/500/1000/5000
+std::vector<td::player_chips> gameinfo::chips_for_buyin(const td::funding_source_id& src, std::size_t max_expected_players) const
+{
+    if(src >= this->funding_sources.size())
+    {
+        throw td::runtime_error("invalid funding source");
+    }
+
+    const td::funding_source& source(this->funding_sources[src]);
+
+    if(this->blind_levels.size() < 2)
+    {
+        throw td::runtime_error("tried to calculate chips for a buyin without blind levels defined");
+    }
+
+    if(this->available_chips.empty())
+    {
+        throw td::runtime_error("tried to calculate chips for a buyin without chips defined");
+    }
+
+    // ensure our smallest available chip can play the smallest small blind
+    if(this->available_chips[0].denomination > this->blind_levels[1].little_blind)
+    {
+        throw td::runtime_error("smallest chip available is larger than the smallest little blind");
+    }
+
+    // counts for each denomination
+    std::unordered_map<unsigned long,unsigned long> q;
+
+    // step 1: fund using highest denominaton chips available
+    long remain(source.chips);
+    auto cit(this->available_chips.rbegin());
+    while(remain)
+    {
+        // find highest denomination chip less than what remains
+        while(cit->denomination > remain)
+        {
+            cit++;
+        }
+
+        auto d(cit->denomination);
+
+        // add chips and remove from remainder
+        auto count(remain / d);
+        while(count+q[d] > this->max_chips_for(d, max_expected_players)) count--;
+        q[d] += count;
+        remain -= count*d;
+
+        logger(LOG_DEBUG) << "Initial chips: T" << d << ": " << q[d] << '\n';
+    }
+
+    // check that we can represent buyin with our chip set
+    if(remain != 0)
+    {
+        throw td::runtime_error("buyin is not a multiple of the smallest chip available");
+    }
+
+    remain = 0;
+    auto moved_a_chip(false);
+
+    do
+    {
+        moved_a_chip = false;
+
+        // step 2: loop through and shoot for stacks of at least 8
+        const unsigned long target(8);
+        for(auto cit1(this->available_chips.rbegin()), cit0(cit1+1); cit0 != this->available_chips.rend(); cit1++, cit0++)
+        {
+            auto d0(cit0->denomination);
+            auto d1(cit1->denomination);
+
+            // while no remainder, and lower denomination chips less than target and higher denomination chips remain
+            while((remain == 0) && (q[d1] > 0) && (q[d0] < target))
+            {
+                // remove higher denomination chip and add to remiander
+                q[d1]--;
+                remain += d1;
+
+                // add lower denomination chips and remove from remainder
+                auto count(remain / d0);
+                if(count+q[d0] > this->max_chips_for(d0, max_expected_players))
+                {
+                    // put it back if we exceed our available quantity
+                    q[d1]++;
+                    remain -= d1;
+                    // and stop trying this denomination
+                    break;
+                }
+                else
+                {
+                    q[d0] += count;
+                    remain -= count*d0;
+                    logger(LOG_DEBUG) << "Move chips: T" << d1 << ": 1 -> T" << d0 << ": " << count << '\n';
+                }
+
+                logger(LOG_DEBUG) << "Current chips: T" << d1 << ": " << q[d1] << '\n';
+                logger(LOG_DEBUG) << "Current chips: T" << d0 << ": " << q[d0] << '\n';
+                logger(LOG_DEBUG) << "Remaining value: T" << remain << '\n';
+            }
+        }
+
+        // step 3: keep doing the above until no chips left to move
+    }
+    while(moved_a_chip);
+
+    // check that we can represent buyin with our chip set
+    if(remain != 0)
+    {
+        logger(LOG_DEBUG) << "Done moving, remaining value: T" << remain << '\n';
+        return std::vector<td::player_chips>();
+    }
+
+    // convert to vector to return
+    std::vector<td::player_chips> ret;
+    for(auto p : q)
+    {
+        if(p.second)
+        {
+            ret.push_back(td::player_chips(p.first, p.second));
+        }
+    }
+
+    return ret;
+}
+
 // re-calculate payouts
 void gameinfo::recalculate_payouts()
 {
@@ -779,9 +935,6 @@ void gameinfo::gen_blind_levels(std::size_t count, long level_duration, long chi
 
     // resize structure, zero-initializing
     this->blind_levels.resize(count+1);
-
-    // sort our vector
-    std::sort(this->available_chips.begin(), this->available_chips.end(), [](const td::chip& c0, const td::chip& c1) { return c0.denomination < c1.denomination; });
 
     // store last round denomination (to check when it changes)
     auto last_round_denom(this->available_chips.begin()->denomination);

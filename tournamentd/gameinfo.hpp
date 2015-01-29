@@ -102,6 +102,9 @@ class gameinfo
     // utility: arrange tables with lists of players
     std::vector<std::vector<td::player_id>> players_at_tables() const;
 
+    // return the maximum number of chips available per player for a given denomination
+    unsigned long max_chips_for(unsigned long denomination, std::size_t players_count) const;
+
     // move a player to a specific table
     // returns player's original seat and new seat
     td::player_movement move_player(const td::player_id& player, std::size_t table);
@@ -155,6 +158,9 @@ public:
     
     // fund a player, (re-)buyin or addon
     void fund_player(const td::player_id& player, const td::funding_source_id& src, std::size_t current_blind_level);
+
+    // calculate number of chips per denomination for this funding source, given totals and number of players
+    std::vector<td::player_chips> chips_for_buyin(const td::funding_source_id& src, std::size_t max_expected_players) const;
 
     // ----- clock -----
 

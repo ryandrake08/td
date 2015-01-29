@@ -93,6 +93,17 @@ namespace td
         player_movement(const json& obj);
         player_movement(player_id p, const seat& f, const seat& t);
     };
+
+    // represents a quantity of chips distributed to each player
+    struct player_chips
+    {
+        unsigned long denomination;
+        unsigned long chips;
+
+        player_chips();
+        player_chips(const json& obj);
+        player_chips(unsigned long d, unsigned long c);
+    };
 }
 
 namespace std
