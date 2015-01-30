@@ -25,9 +25,6 @@ void CFStreamCreatePairWithUnixSocket(CFAllocatorRef alloc, CFStringRef name, CF
     addr.sun_family = AF_UNIX;
     addr.sun_len = SUN_LEN(&addr);
 
-    // Unlink old socket path
-    unlink(path);
-
     // Create socket
     int sock = socket(PF_UNIX, SOCK_STREAM, 0);
     if(sock == -1)

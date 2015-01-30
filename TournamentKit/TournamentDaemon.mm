@@ -51,8 +51,9 @@
     tourney.authorize([code intValue]);
 
     // start at default port, and increment until we find one that binds
-    int try_service = kDefaultTournamentListenPort;
-    while(true)
+    int try_service(kDefaultTournamentListenPort);
+    bool trying(true);
+    while(trying)
     {
         // build unique unix socket name using service name
         std::ostringstream local_server, inet_service;
@@ -63,6 +64,7 @@
         {
             // try to listen to this service
             tourney.listen(local_server.str().c_str(), inet_service.str().c_str());
+            trying = false;
         }
         catch(const std::system_error& e)
         {
