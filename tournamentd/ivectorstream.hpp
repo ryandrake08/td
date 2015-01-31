@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <streambuf>
+#include <vector>
 
 // streambuf for manipulating a vector-based buffer
 

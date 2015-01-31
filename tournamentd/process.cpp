@@ -50,7 +50,7 @@ process::~process() throw()
 
         logger(LOG_INFO) << "kill: " << killed << '\n';
 
-        auto wp(waitpid(this->pimpl->pid, 0, 0));
+        auto wp(waitpid(this->pimpl->pid, nullptr, 0));
 
         logger(LOG_INFO) << "waitpid: " << wp << '\n';
         logger(LOG_INFO) << "killed " << this->pimpl->pid << '\n';

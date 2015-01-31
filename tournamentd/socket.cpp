@@ -29,17 +29,17 @@ static const int SOCKET_ERROR = -1;
 class eai_error_category : public std::error_category
 {
 public:
-    virtual const char* name() const throw()
+    virtual const char* name() const throw() override
     {
         return "eai";
     }
 
-    virtual bool equivalent (const std::error_code& code, int condition) const throw()
+    virtual bool equivalent (const std::error_code& code, int condition) const throw() override
     {
         return *this==code.category() && static_cast<int>(default_error_condition(code.value()).value())==condition;
     }
 
-    virtual std::string message(int ev) const
+    virtual std::string message(int ev) const override
     {
         return gai_strerror(ev);
     }

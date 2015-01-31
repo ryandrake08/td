@@ -1,9 +1,12 @@
 #pragma once
 
+#include <cstddef>
+#include <cstdint>
+
 // ----- string hashing (for selecting on command strings)
 
 // CRC32 Table (zlib polynomial)
-static constexpr uint32_t crc_table[256] = {
+static constexpr std::uint32_t crc_table[256] = {
     0x00000000L, 0x77073096L, 0xee0e612cL, 0x990951baL, 0x076dc419L, 0x706af48fL, 0xe963a535L, 0x9e6495a3L, 0x0edb8832L, 0x79dcb8a4L,
     0xe0d5e91eL, 0x97d2d988L, 0x09b64c2bL, 0x7eb17cbdL, 0xe7b82d07L, 0x90bf1d91L, 0x1db71064L, 0x6ab020f2L, 0xf3b97148L, 0x84be41deL,
     0x1adad47dL, 0x6ddde4ebL, 0xf4d4b551L, 0x83d385c7L, 0x136c9856L, 0x646ba8c0L, 0xfd62f97aL, 0x8a65c9ecL, 0x14015c4fL, 0x63066cd9L,
@@ -33,12 +36,12 @@ static constexpr uint32_t crc_table[256] = {
 };
 
 template<std::size_t idx>
-static constexpr uint32_t do_crc32(const char* str)
+static constexpr std::uint32_t do_crc32(const char* str)
 {
     return (do_crc32<idx-1>(str) >> 8) ^ crc_table[(do_crc32<idx-1>(str) ^ str[idx]) & 0x000000ff];
 }
 template<>
-constexpr uint32_t do_crc32<std::size_t(-1)>(const char* str)
+constexpr std::uint32_t do_crc32<std::size_t(-1)>(const char* str)
 {
     return ~0U;
 }
@@ -46,12 +49,12 @@ constexpr uint32_t do_crc32<std::size_t(-1)>(const char* str)
 #define crc32_(x) (do_crc32<sizeof(x) - 2>(x) ^ ~0U)
 
 // iterative (runtime) version
-static uint32_t crc32(const std::string& buf)
+static std::uint32_t crc32(const std::string& buf)
 {
     const uint8_t* p(reinterpret_cast<const uint8_t*>(buf.c_str()));
     std::size_t size(buf.size());
 
-    uint32_t crc(~0U);
+    std::uint32_t crc(~0U);
 
     while (size--)
     {
