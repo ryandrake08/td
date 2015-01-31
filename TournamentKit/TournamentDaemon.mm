@@ -16,8 +16,8 @@
     // flag to control whether or not daemon is running
     BOOL running;
 
-    // semaphore to wait on indicating daemon is fully stopped
-    dispatch_semaphore_t semaphore;
+    // dispatch group to wait on indicating daemon is fully stopped
+    dispatch_group_t group;
 
     // listening port
     int port;
@@ -33,7 +33,7 @@
 - (instancetype)init {
     if((self = [super init])) {
         running = NO;
-        semaphore = dispatch_semaphore_create(0);
+        group = dispatch_group_create();
         netService = nil;
         port = 0;
     }
@@ -51,7 +51,7 @@
 
     // server is listening. mark as running and run in background
     running = YES;
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    dispatch_group_async(group, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         while(running)
         {
             try
@@ -68,8 +68,6 @@
                 }
             }
         }
-
-        dispatch_semaphore_signal(semaphore);
     });
 
     // store the port
@@ -103,7 +101,7 @@
     running = NO;
 
     // wait for a block execution
-    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+    dispatch_group_wait(group, DISPATCH_TIME_FOREVER);
 }
 
 @end
