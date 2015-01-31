@@ -93,6 +93,47 @@
     }
 }
 
+#pragma mark Serialization
+
+// get current configuration
+- (id)currentConfiguration {
+    NSMutableDictionary* json = [NSMutableDictionary dictionary];
+
+    if([self players]) {
+        json[@"players"] = [self players];
+    }
+
+    if([self blindLevels]) {
+        json[@"blind_levels"] = [self blindLevels];
+    }
+
+    if([self availableChips]) {
+        json[@"available_chips"] = [self availableChips];
+    }
+
+    if([self costCurrency]) {
+        json[@"cost_currency"] = [self costCurrency];
+    }
+
+    if([self equityCurrency]) {
+        json[@"equity_currency"] = [self equityCurrency];
+    }
+
+    if([self percentSeatsPaid]) {
+        json[@"percent_seats_paid"] = [self percentSeatsPaid];
+    }
+
+    if([self fundingSources]) {
+        json[@"funding_sources"] = [self fundingSources];
+    }
+
+    if([self tableCapacity]) {
+        json[@"table_capacity"] = [self tableCapacity];
+    }
+
+    return json;
+}
+
 #pragma mark Internal routines
 
 // client identifier (used for authenticating with servers)
@@ -161,6 +202,20 @@
             block(json[@"authorized_client"]);
         }
     }];
+}
+
+- (void)getConfigWithBlock:(void(^)(id))block {
+    [self sendCommand:@"get_config" withData:nil andBlock:^(id json, NSString* error) {
+        // TODO: Handle error
+        // handle config response
+        if(block != nil) {
+            block(json);
+        }
+    }];
+}
+
+- (void)configure:(id)config {
+    [self sendCommand:@"configure" withData:config andBlock:nil];
 }
 
 - (void)startGameAt:(NSDate*)datetime {
@@ -262,6 +317,9 @@
     // look for command key
     NSNumber* cmdkey = json[@"echo"];
     if(cmdkey) {
+        // remove command key response
+        [json removeObjectForKey:@"echo"];
+
         // look up block for command key
         void (^block)(id,NSString*) = [self blocksForCommands][cmdkey];
         if(block) {
@@ -271,103 +329,103 @@
             // remove it from our dictionary
             [[self blocksForCommands] removeObjectForKey:cmdkey];
         }
-    } else {
-        // non-command: configuration or state to update, split into calls to set properties
-        id value;
+    }
 
-        // tournament configuration
-        if((value = json[@"players"])) {
-            [self setPlayers:value];
-        }
+    // any configuration or state to update, split into calls to set properties
+    id value;
 
-        if((value = json[@"blind_levels"])) {
-            [self setBlindLevels:value];
-        }
+    // tournament configuration
+    if((value = json[@"players"])) {
+        [self setPlayers:value];
+    }
 
-        if((value = json[@"available_chips"])) {
-            [self setAvailableChips:value];
-        }
+    if((value = json[@"blind_levels"])) {
+        [self setBlindLevels:value];
+    }
 
-        if((value = json[@"cost_currency"])) {
-            [self setCostCurrency:value];
-        }
+    if((value = json[@"available_chips"])) {
+        [self setAvailableChips:value];
+    }
 
-        if((value = json[@"equity_currency"])) {
-            [self setEquityCurrency:value];
-        }
+    if((value = json[@"cost_currency"])) {
+        [self setCostCurrency:value];
+    }
 
-        if((value = json[@"percent_seats_paid"])) {
-            [self setPercentSeatsPaid:value];
-        }
+    if((value = json[@"equity_currency"])) {
+        [self setEquityCurrency:value];
+    }
 
-        if((value = json[@"funding_sources"])) {
-            [self setFundingSources:value];
-        }
+    if((value = json[@"percent_seats_paid"])) {
+        [self setPercentSeatsPaid:value];
+    }
 
-        if((value = json[@"table_capacity"])) {
-            [self setTableCapacity:value];
-        }
+    if((value = json[@"funding_sources"])) {
+        [self setFundingSources:value];
+    }
 
-        // tournament state
-        if((value = json[@"running"])) {
-            [self setRunning:value];
-        }
+    if((value = json[@"table_capacity"])) {
+        [self setTableCapacity:value];
+    }
 
-        if((value = json[@"current_blind_level"])) {
-            [self setCurrentBlindLevel:value];
-        }
+    // tournament state
+    if((value = json[@"running"])) {
+        [self setRunning:value];
+    }
 
-        if((value = json[@"time_remaining"])) {
-            [self setTimeRemaining:value];
-        }
+    if((value = json[@"current_blind_level"])) {
+        [self setCurrentBlindLevel:value];
+    }
 
-        if((value = json[@"break_time_remaining"])) {
-            [self setBreakTimeRemaining:value];
-        }
+    if((value = json[@"time_remaining"])) {
+        [self setTimeRemaining:value];
+    }
 
-        if((value = json[@"action_clock_remaining"])) {
-            [self setActionClockTimeRemaining:value];
-        }
+    if((value = json[@"break_time_remaining"])) {
+        [self setBreakTimeRemaining:value];
+    }
 
-        if((value = json[@"buyins"])) {
-            [self setBuyins:value];
-        }
+    if((value = json[@"action_clock_remaining"])) {
+        [self setActionClockTimeRemaining:value];
+    }
 
-        if((value = json[@"payouts"])) {
-            [self setPayouts:value];
-        }
+    if((value = json[@"buyins"])) {
+        [self setBuyins:value];
+    }
 
-        if((value = json[@"total_chips"])) {
-            [self setTotalChips:value];
-        }
+    if((value = json[@"payouts"])) {
+        [self setPayouts:value];
+    }
 
-        if((value = json[@"total_cost"])) {
-            [self setTotalCost:value];
-        }
+    if((value = json[@"total_chips"])) {
+        [self setTotalChips:value];
+    }
 
-        if((value = json[@"total_commission"])) {
-            [self setTotalCommission:value];
-        }
+    if((value = json[@"total_cost"])) {
+        [self setTotalCost:value];
+    }
 
-        if((value = json[@"total_equity"])) {
-            [self setTotalEquity:value];
-        }
+    if((value = json[@"total_commission"])) {
+        [self setTotalCommission:value];
+    }
 
-        if((value = json[@"seats"])) {
-            [self setSeats:value];
-        }
+    if((value = json[@"total_equity"])) {
+        [self setTotalEquity:value];
+    }
 
-        if((value = json[@"players_finished"])) {
-            [self setPlayersFinished:value];
-        }
+    if((value = json[@"seats"])) {
+        [self setSeats:value];
+    }
 
-        if((value = json[@"empty_seats"])) {
-            [self setEmptySeats:value];
-        }
+    if((value = json[@"players_finished"])) {
+        [self setPlayersFinished:value];
+    }
 
-        if((value = json[@"tables"])) {
-            [self setTables:value];
-        }
+    if((value = json[@"empty_seats"])) {
+        [self setEmptySeats:value];
+    }
+
+    if((value = json[@"tables"])) {
+        [self setTables:value];
     }
 }
 

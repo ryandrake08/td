@@ -155,7 +155,7 @@
         if(jsonError) {
             [[self delegate] tournamentConnection:self error:jsonError];
         } else {
-            [[self delegate] tournamentConnection:self didReceiveData:jsonObject];
+            [[self delegate] tournamentConnection:self didReceiveData:[jsonObject mutableCopy]];
         }
 
         // empty that range

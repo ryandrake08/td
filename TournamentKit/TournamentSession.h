@@ -46,14 +46,22 @@
 @property (nonatomic, readonly) NSArray* emptySeats;
 @property (nonatomic, readonly) NSNumber* tables;
 
+// client identifier (used for authenticating with servers)
++ (NSNumber*)clientIdentifier;
+
 // connect either locally through a unix socket or to a server
 - (void)connectToLocalPath:(NSString*)path;
 - (void)connectToService:(NSNetService*)service;
 - (void)disconnect;
 
+// get current configuration
+- (id)currentConfiguration;
+
 // tournament commands
 - (void)checkAuthorizedWithBlock:(void(^)(BOOL))block;
 - (void)authorize:(NSNumber*)clientId withBlock:(void(^)(NSNumber*))block;
+- (void)getConfigWithBlock:(void(^)(id))block;
+- (void)configure:(id)config;
 - (void)startGameAt:(NSDate*)datetime;
 - (void)stopGame;
 - (void)resumeGame;

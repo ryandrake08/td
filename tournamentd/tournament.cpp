@@ -130,12 +130,6 @@ void tournament::handle_cmd_authorize(const json& in, json& out)
 
 void tournament::handle_cmd_configure(const json& in, json& out)
 {
-    int code;
-    if(!in.get_value("authorize", code))
-    {
-        throw std::invalid_argument("must specify a code to authorize");
-    }
-
     this->game_info.configure(in);
 }
 
