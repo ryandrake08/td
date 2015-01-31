@@ -64,6 +64,9 @@ public:
     // listen for clients on given unix socket path and optional internet service
     void listen(const char* unix_socket_path, const char* inet_service=nullptr);
 
+    // listen for clients on any available service, returning the unix socket path and port
+    std::pair<std::string, int> listen();
+
     // load configuration from file
     void load_configuration(const std::string& filename);
 

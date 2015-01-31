@@ -5,12 +5,8 @@
 program::program(const std::vector<std::string>& cmdline)
 {
     std::string name("tournamentd");
-    int service = 0;
 
 #if defined(DEBUG)
-    // debug only: default to listening on inet service
-    service = 25600;
-    
     // debug only: always accept this code
     this->tourney.authorize(31337);
 
@@ -29,19 +25,6 @@ program::program(const std::vector<std::string>& cmdline)
                 {
                     // load supplied config
                     this->tourney.load_configuration(*it++);
-                }
-                break;
-
-            case crc32_("-p"):
-            case crc32_("--port"):
-                if(it != cmdline.end())
-                {
-                    // parse port number
-                    service = std::stoi(*it++);
-                }
-                else
-                {
-                    service = 25600;
                 }
                 break;
 
@@ -68,7 +51,6 @@ program::program(const std::vector<std::string>& cmdline)
                 std::cerr << "Unknown option: " << *it << "\n"
                              "Usage: tournamentd [options]\n"
                              " -c, --conf FILE\tInitialize configuration from file\n"
-                             " -p, --port [NUMBER]\tListen on given port (default: 25600)\n"
                              " -a, --auth LIST\tPre-authorize client authentication code\n"
                              " -n, --name NAME\tPublish Bonjour service with given name (default: tournamentd)\n";
                 std::exit(EXIT_FAILURE);
@@ -76,23 +58,8 @@ program::program(const std::vector<std::string>& cmdline)
         }
     }
 
-    if(service == 0)
-    {
-        // listen only on a default unix socket
-        this->tourney.listen("/tmp/tournamentd.sock");
-    }
-    else
-    {
-        // build unique unix socket name using service name
-        std::ostringstream ss;
-        ss << "/tmp/tournamentd." << service << ".sock";
-
-        // listen on both unix socket and service
-        this->tourney.listen(ss.str().c_str(), std::to_string(service).c_str());
-
-        // publish
-        this->publisher.publish(name, service);
-    }
+    // listen and publish
+    this->publisher.publish(name, this->tourney.listen().second);
 }
 
 bool program::run()

@@ -11,8 +11,6 @@
 #include "tournament.hpp"
 #include <sstream>
 
-#define kDefaultTournamentListenPort 25600
-
 @interface TournamentDaemon ()
 {
     // flag to control whether or not daemon is running
@@ -49,36 +47,7 @@
     // set up tournament and authorize
     __block tournament tourney;
     tourney.authorize([code intValue]);
-
-    // start at default port, and increment until we find one that binds
-    int try_service(kDefaultTournamentListenPort);
-    bool trying(true);
-    while(trying)
-    {
-        // build unique unix socket name using service name
-        std::ostringstream local_server, inet_service;
-        local_server << "/tmp/tournamentd." << try_service << ".sock";
-        inet_service << try_service;
-
-        try
-        {
-            // try to listen to this service
-            tourney.listen(local_server.str().c_str(), inet_service.str().c_str());
-            trying = false;
-        }
-        catch(const std::system_error& e)
-        {
-            // EADDRINUSE: failed to bind, probably another server on this port
-            if(e.code().value() == EADDRINUSE)
-            {
-                try_service++;
-                continue;
-            }
-
-            // re-throw anything not
-            throw;
-        }
-    }
+    auto service(tourney.listen());
 
     // server is listening. mark as running and run in background
     running = YES;
@@ -103,8 +72,11 @@
         dispatch_semaphore_signal(semaphore);
     });
 
+    // store the port
+    port = service.second;
+
     // return the unix socket path, for subsequent local connection
-    return [NSString stringWithFormat:@"/tmp/tournamentd.%d.sock", try_service];
+    return [NSString stringWithUTF8String:service.first.c_str()];
 }
 
 // publish over Bojour using name

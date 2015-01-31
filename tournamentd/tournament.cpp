@@ -3,6 +3,7 @@
 #include "json.hpp"
 #include <algorithm>
 #include <cstddef>
+#include <sstream>
 #include <stdexcept>
 
 // ----- read datetime from json (specialize here to not pollute json or datetime classes with each other)
@@ -365,6 +366,7 @@ bool tournament::handle_client_input(std::iostream& client)
                 case crc32_("configure"):
                     this->ensure_authorized(in);
                     this->handle_cmd_configure(in, out);
+                    this->broadcast_configuration();
                     break;
 
                 case crc32_("start_game"):
@@ -470,6 +472,44 @@ int tournament::authorize(int code)
 void tournament::listen(const char* unix_socket_path, const char* inet_service)
 {
     this->game_server.listen(unix_socket_path, inet_service);
+}
+
+#if !defined(DEFAULT_PORT)
+#define DEFAULT_PORT 25600
+#endif
+
+// listen for clients on any available service, returning the unix socket path and port
+std::pair<std::string, int> tournament::listen()
+{
+    // start at default port, and increment until we find one that binds
+    for(int port(DEFAULT_PORT); port < DEFAULT_PORT+100; port++)
+    {
+        // build unique unix socket name using service name
+        std::ostringstream local_server, inet_service;
+        local_server << "/tmp/tournamentd." << port << ".sock";
+        inet_service << port;
+
+        try
+        {
+            // try to listen to this service
+            this->listen(local_server.str().c_str(), inet_service.str().c_str());
+            return std::make_pair(local_server.str(), port);
+        }
+        catch(const std::system_error& e)
+        {
+            // EADDRINUSE: failed to bind, probably another server on this port
+            if(e.code().value() == EADDRINUSE)
+            {
+                continue;
+            }
+
+            // re-throw anything not
+            throw;
+        }
+    }
+
+    // fail
+    return std::pair<std::string,int>();
 }
 
 // load configuration from file
