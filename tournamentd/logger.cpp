@@ -26,7 +26,7 @@ std::ostream& logger_internal::get_stream(const char* function, logger_level lev
     if((1 << level) & this->mask)
     {
         static const char* level_string[] = { " DEBUG ", " INFO ", " WARNING ", " ERROR " };
-        return std::clog << datetime::now() << level_string[level] << function << ": ";
+        return std::clog << datetime::local << datetime::now() << level_string[level] << function << ": ";
     }
     else
     {
