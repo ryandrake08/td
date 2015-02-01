@@ -13,6 +13,16 @@
 		AD8E68521A6C606700E5A4D8 /* Document.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD8E68501A6C606700E5A4D8 /* Document.xib */; };
 		AD8E68541A6C606700E5A4D8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AD8E68531A6C606700E5A4D8 /* Images.xcassets */; };
 		AD8E68571A6C606700E5A4D8 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD8E68551A6C606700E5A4D8 /* MainMenu.xib */; };
+		AD98D95C1A7B290500DA6B8B /* TBFundingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD98D95A1A7B290500DA6B8B /* TBFundingView.xib */; };
+		AD98D95E1A7B2DDA00DA6B8B /* TBChipsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD98D95D1A7B2DDA00DA6B8B /* TBChipsView.xib */; };
+		AD98D9611A7B330B00DA6B8B /* TBChipsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD98D9601A7B330B00DA6B8B /* TBChipsViewController.m */; };
+		AD98D9651A7B331A00DA6B8B /* TBFundingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD98D9631A7B331A00DA6B8B /* TBFundingViewController.m */; };
+		AD98D96A1A7B33F100DA6B8B /* TBPlayersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD98D9681A7B33F100DA6B8B /* TBPlayersViewController.m */; };
+		AD98D96B1A7B33F100DA6B8B /* TBPlayersView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD98D9691A7B33F100DA6B8B /* TBPlayersView.xib */; };
+		AD98D96F1A7B342000DA6B8B /* TBRoundsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD98D96D1A7B342000DA6B8B /* TBRoundsViewController.m */; };
+		AD98D9701A7B342000DA6B8B /* TBRoundsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD98D96E1A7B342000DA6B8B /* TBRoundsView.xib */; };
+		AD98D9741A7B343600DA6B8B /* TBSeatingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD98D9721A7B343600DA6B8B /* TBSeatingViewController.m */; };
+		AD98D9751A7B343600DA6B8B /* TBSeatingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD98D9731A7B343600DA6B8B /* TBSeatingView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +36,21 @@
 		AD8E68511A6C606700E5A4D8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/Document.xib; sourceTree = "<group>"; };
 		AD8E68531A6C606700E5A4D8 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		AD8E68561A6C606700E5A4D8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		AD98D95A1A7B290500DA6B8B /* TBFundingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TBFundingView.xib; sourceTree = "<group>"; };
+		AD98D95D1A7B2DDA00DA6B8B /* TBChipsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TBChipsView.xib; sourceTree = "<group>"; };
+		AD98D95F1A7B330B00DA6B8B /* TBChipsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBChipsViewController.h; sourceTree = "<group>"; };
+		AD98D9601A7B330B00DA6B8B /* TBChipsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBChipsViewController.m; sourceTree = "<group>"; };
+		AD98D9621A7B331A00DA6B8B /* TBFundingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBFundingViewController.h; sourceTree = "<group>"; };
+		AD98D9631A7B331A00DA6B8B /* TBFundingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBFundingViewController.m; sourceTree = "<group>"; };
+		AD98D9671A7B33F100DA6B8B /* TBPlayersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBPlayersViewController.h; sourceTree = "<group>"; };
+		AD98D9681A7B33F100DA6B8B /* TBPlayersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBPlayersViewController.m; sourceTree = "<group>"; };
+		AD98D9691A7B33F100DA6B8B /* TBPlayersView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TBPlayersView.xib; sourceTree = "<group>"; };
+		AD98D96C1A7B342000DA6B8B /* TBRoundsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBRoundsViewController.h; sourceTree = "<group>"; };
+		AD98D96D1A7B342000DA6B8B /* TBRoundsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBRoundsViewController.m; sourceTree = "<group>"; };
+		AD98D96E1A7B342000DA6B8B /* TBRoundsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TBRoundsView.xib; sourceTree = "<group>"; };
+		AD98D9711A7B343600DA6B8B /* TBSeatingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBSeatingViewController.h; sourceTree = "<group>"; };
+		AD98D9721A7B343600DA6B8B /* TBSeatingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBSeatingViewController.m; sourceTree = "<group>"; };
+		AD98D9731A7B343600DA6B8B /* TBSeatingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TBSeatingView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +91,21 @@
 				AD8E68531A6C606700E5A4D8 /* Images.xcassets */,
 				AD8E68551A6C606700E5A4D8 /* MainMenu.xib */,
 				AD8E68461A6C606700E5A4D8 /* Supporting Files */,
+				AD98D95F1A7B330B00DA6B8B /* TBChipsViewController.h */,
+				AD98D9601A7B330B00DA6B8B /* TBChipsViewController.m */,
+				AD98D95D1A7B2DDA00DA6B8B /* TBChipsView.xib */,
+				AD98D9621A7B331A00DA6B8B /* TBFundingViewController.h */,
+				AD98D9631A7B331A00DA6B8B /* TBFundingViewController.m */,
+				AD98D95A1A7B290500DA6B8B /* TBFundingView.xib */,
+				AD98D9671A7B33F100DA6B8B /* TBPlayersViewController.h */,
+				AD98D9681A7B33F100DA6B8B /* TBPlayersViewController.m */,
+				AD98D9691A7B33F100DA6B8B /* TBPlayersView.xib */,
+				AD98D96C1A7B342000DA6B8B /* TBRoundsViewController.h */,
+				AD98D96D1A7B342000DA6B8B /* TBRoundsViewController.m */,
+				AD98D96E1A7B342000DA6B8B /* TBRoundsView.xib */,
+				AD98D9711A7B343600DA6B8B /* TBSeatingViewController.h */,
+				AD98D9721A7B343600DA6B8B /* TBSeatingViewController.m */,
+				AD98D9731A7B343600DA6B8B /* TBSeatingView.xib */,
 			);
 			path = "Tournament Buddy";
 			sourceTree = "<group>";
@@ -137,8 +177,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				AD8E68521A6C606700E5A4D8 /* Document.xib in Resources */,
+				AD98D95E1A7B2DDA00DA6B8B /* TBChipsView.xib in Resources */,
 				AD8E68541A6C606700E5A4D8 /* Images.xcassets in Resources */,
+				AD98D95C1A7B290500DA6B8B /* TBFundingView.xib in Resources */,
+				AD98D9751A7B343600DA6B8B /* TBSeatingView.xib in Resources */,
+				AD98D9701A7B342000DA6B8B /* TBRoundsView.xib in Resources */,
 				AD8E68571A6C606700E5A4D8 /* MainMenu.xib in Resources */,
+				AD98D96B1A7B33F100DA6B8B /* TBPlayersView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -149,8 +194,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AD98D9651A7B331A00DA6B8B /* TBFundingViewController.m in Sources */,
+				AD98D96A1A7B33F100DA6B8B /* TBPlayersViewController.m in Sources */,
+				AD98D96F1A7B342000DA6B8B /* TBRoundsViewController.m in Sources */,
 				AD8E684F1A6C606700E5A4D8 /* Document.m in Sources */,
+				AD98D9741A7B343600DA6B8B /* TBSeatingViewController.m in Sources */,
 				AD8E684C1A6C606700E5A4D8 /* main.m in Sources */,
+				AD98D9611A7B330B00DA6B8B /* TBChipsViewController.m in Sources */,
 				AD8E684A1A6C606700E5A4D8 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
