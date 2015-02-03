@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AD83B82E1A80AC72002BBC39 /* TBFundingTableCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD83B82D1A80AC72002BBC39 /* TBFundingTableCellView.m */; };
 		AD8E684A1A6C606700E5A4D8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8E68491A6C606700E5A4D8 /* AppDelegate.m */; };
 		AD8E684C1A6C606700E5A4D8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8E684B1A6C606700E5A4D8 /* main.m */; };
 		AD8E684F1A6C606700E5A4D8 /* Document.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8E684E1A6C606700E5A4D8 /* Document.m */; };
@@ -23,9 +24,12 @@
 		AD98D9701A7B342000DA6B8B /* TBRoundsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD98D96E1A7B342000DA6B8B /* TBRoundsView.xib */; };
 		AD98D9741A7B343600DA6B8B /* TBSeatingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD98D9721A7B343600DA6B8B /* TBSeatingViewController.m */; };
 		AD98D9751A7B343600DA6B8B /* TBSeatingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD98D9731A7B343600DA6B8B /* TBSeatingView.xib */; };
+		ADE4E1281A7DFFD000FC9EFC /* TBTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE4E1271A7DFFD000FC9EFC /* TBTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AD83B82C1A80AC72002BBC39 /* TBFundingTableCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBFundingTableCellView.h; sourceTree = "<group>"; };
+		AD83B82D1A80AC72002BBC39 /* TBFundingTableCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBFundingTableCellView.m; sourceTree = "<group>"; };
 		AD8E68431A6C606700E5A4D8 /* Tournament Buddy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Tournament Buddy.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD8E68471A6C606700E5A4D8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AD8E68481A6C606700E5A4D8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -51,6 +55,8 @@
 		AD98D9711A7B343600DA6B8B /* TBSeatingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBSeatingViewController.h; sourceTree = "<group>"; };
 		AD98D9721A7B343600DA6B8B /* TBSeatingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBSeatingViewController.m; sourceTree = "<group>"; };
 		AD98D9731A7B343600DA6B8B /* TBSeatingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TBSeatingView.xib; sourceTree = "<group>"; };
+		ADE4E1261A7DFFD000FC9EFC /* TBTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBTableViewController.h; sourceTree = "<group>"; };
+		ADE4E1271A7DFFD000FC9EFC /* TBTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +74,7 @@
 			isa = PBXGroup;
 			children = (
 				AD8E68451A6C606700E5A4D8 /* Tournament Buddy */,
+				AD8E68461A6C606700E5A4D8 /* Supporting Files */,
 				AD8E68441A6C606700E5A4D8 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -90,10 +97,11 @@
 				AD8E68501A6C606700E5A4D8 /* Document.xib */,
 				AD8E68531A6C606700E5A4D8 /* Images.xcassets */,
 				AD8E68551A6C606700E5A4D8 /* MainMenu.xib */,
-				AD8E68461A6C606700E5A4D8 /* Supporting Files */,
 				AD98D95F1A7B330B00DA6B8B /* TBChipsViewController.h */,
 				AD98D9601A7B330B00DA6B8B /* TBChipsViewController.m */,
 				AD98D95D1A7B2DDA00DA6B8B /* TBChipsView.xib */,
+				AD83B82C1A80AC72002BBC39 /* TBFundingTableCellView.h */,
+				AD83B82D1A80AC72002BBC39 /* TBFundingTableCellView.m */,
 				AD98D9621A7B331A00DA6B8B /* TBFundingViewController.h */,
 				AD98D9631A7B331A00DA6B8B /* TBFundingViewController.m */,
 				AD98D95A1A7B290500DA6B8B /* TBFundingView.xib */,
@@ -106,6 +114,8 @@
 				AD98D9711A7B343600DA6B8B /* TBSeatingViewController.h */,
 				AD98D9721A7B343600DA6B8B /* TBSeatingViewController.m */,
 				AD98D9731A7B343600DA6B8B /* TBSeatingView.xib */,
+				ADE4E1261A7DFFD000FC9EFC /* TBTableViewController.h */,
+				ADE4E1271A7DFFD000FC9EFC /* TBTableViewController.m */,
 			);
 			path = "Tournament Buddy";
 			sourceTree = "<group>";
@@ -117,6 +127,7 @@
 				AD8E684B1A6C606700E5A4D8 /* main.m */,
 			);
 			name = "Supporting Files";
+			path = "Tournament Buddy";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -195,10 +206,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				AD98D9651A7B331A00DA6B8B /* TBFundingViewController.m in Sources */,
+				AD83B82E1A80AC72002BBC39 /* TBFundingTableCellView.m in Sources */,
 				AD98D96A1A7B33F100DA6B8B /* TBPlayersViewController.m in Sources */,
 				AD98D96F1A7B342000DA6B8B /* TBRoundsViewController.m in Sources */,
 				AD8E684F1A6C606700E5A4D8 /* Document.m in Sources */,
 				AD98D9741A7B343600DA6B8B /* TBSeatingViewController.m in Sources */,
+				ADE4E1281A7DFFD000FC9EFC /* TBTableViewController.m in Sources */,
 				AD8E684C1A6C606700E5A4D8 /* main.m in Sources */,
 				AD98D9611A7B330B00DA6B8B /* TBChipsViewController.m in Sources */,
 				AD8E684A1A6C606700E5A4D8 /* AppDelegate.m in Sources */,

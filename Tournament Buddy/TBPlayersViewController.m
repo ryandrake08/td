@@ -14,6 +14,14 @@
 
 @implementation TBPlayersViewController
 
+// initializer
+- (instancetype)initWithSession:(TournamentSession*)sess {
+    self = [super initWithNibName:@"TBPlayersView" session:sess];
+    if(self) {
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do view setup here.

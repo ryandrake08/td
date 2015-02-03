@@ -6,8 +6,11 @@
 //  Copyright (c) 2015 HDna Studio. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
+#import "TBTableViewController.h"
 
-@interface TBSeatingViewController : NSViewController
+@interface TBSeatingViewController : TBTableViewController
+
+// initializer
+- (instancetype)initWithSession:(TournamentSession*)sess;
 
 @end

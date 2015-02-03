@@ -110,19 +110,19 @@
     NSInteger itemIndex = [tabView indexOfTabViewItemWithIdentifier:[tabViewItem identifier]];
     switch (itemIndex) {
         case 0:
-            newController = [[TBFundingViewController alloc] initWithNibName:@"TBFundingView" bundle:nil];
+            newController = [[TBFundingViewController alloc] initWithSession:[self session]];
             break;
         case 1:
-            newController = [[TBPlayersViewController alloc] initWithNibName:@"TBPlayersView" bundle:nil];
+            newController = [[TBPlayersViewController alloc] initWithSession:[self session]];
             break;
         case 2:
-            newController = [[TBChipsViewController alloc] initWithNibName:@"TBChipsView" bundle:nil];
+            newController = [[TBChipsViewController alloc] initWithSession:[self session]];
             break;
         case 3:
-            newController = [[TBRoundsViewController alloc] initWithNibName:@"TBRoundsView" bundle:nil];
+            newController = [[TBRoundsViewController alloc] initWithSession:[self session]];
             break;
         case 4:
-            newController = [[TBSeatingViewController alloc] initWithNibName:@"TBSeatingView" bundle:nil];
+            newController = [[TBSeatingViewController alloc] initWithSession:[self session]];
             break;
     }
 
