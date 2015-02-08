@@ -7,7 +7,9 @@
 //
 
 #import "TBFundingViewController.h"
-#import "TBFundingTableCellView.h"
+
+@implementation TBFundingTableCellView
+@end
 
 @interface TBFundingViewController () <NSTableViewDataSource, NSTableViewDelegate>
 
