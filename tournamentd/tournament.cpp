@@ -516,8 +516,8 @@ void tournament::load_configuration(const std::string& filename)
 bool tournament::run()
 {
     // various handler callback function objects
-    static const auto greeter(std::bind(&tournament::handle_new_client, this, std::placeholders::_1));
-    static const auto handler(std::bind(&tournament::handle_client_input, this, std::placeholders::_1));
+    auto greeter(std::bind(&tournament::handle_new_client, this, std::placeholders::_1));
+    auto handler(std::bind(&tournament::handle_client_input, this, std::placeholders::_1));
 
     // update the clock, and report to clients if anything changed
     if(this->game_info.update_remaining())
