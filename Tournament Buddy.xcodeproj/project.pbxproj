@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AD4930511A87D48B008B1DCD /* TournamentKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD4930501A87D48B008B1DCD /* TournamentKit.framework */; };
 		AD8E684A1A6C606700E5A4D8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8E68491A6C606700E5A4D8 /* AppDelegate.m */; };
 		AD8E684C1A6C606700E5A4D8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8E684B1A6C606700E5A4D8 /* main.m */; };
 		AD8E684F1A6C606700E5A4D8 /* Document.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8E684E1A6C606700E5A4D8 /* Document.m */; };
@@ -27,6 +28,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AD4930501A87D48B008B1DCD /* TournamentKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TournamentKit.framework; path = "../../Library/Developer/Xcode/DerivedData/td-gthwrjjcxccbyaganrpuaqshoxjq/Build/Products/Debug/TournamentKit.framework"; sourceTree = "<group>"; };
 		AD8E68431A6C606700E5A4D8 /* Tournament Buddy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Tournament Buddy.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD8E68471A6C606700E5A4D8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AD8E68481A6C606700E5A4D8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -61,6 +63,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AD4930511A87D48B008B1DCD /* TournamentKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,6 +73,7 @@
 		AD8E683A1A6C606700E5A4D8 = {
 			isa = PBXGroup;
 			children = (
+				AD4930501A87D48B008B1DCD /* TournamentKit.framework */,
 				AD8E68451A6C606700E5A4D8 /* Tournament Buddy */,
 				AD8E68461A6C606700E5A4D8 /* Supporting Files */,
 				AD8E68441A6C606700E5A4D8 /* Products */,
@@ -307,6 +311,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/td-gthwrjjcxccbyaganrpuaqshoxjq/Build/Products/Debug",
+				);
 				INFOPLIST_FILE = "Tournament Buddy/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -318,6 +326,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/td-gthwrjjcxccbyaganrpuaqshoxjq/Build/Products/Debug",
+				);
 				INFOPLIST_FILE = "Tournament Buddy/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
