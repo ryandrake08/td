@@ -11,6 +11,8 @@
 #import "TBActionClockView.h"
 #import "TBAppDelegate.h"
 
+#import "NSObject+FBKVOController.h"
+
 @interface TBRemoteClockViewController () <TBActionClockDelegate>
 
 @property (nonatomic) TournamentSession* session;
@@ -52,16 +54,36 @@
     [[self decimalFormatter] setNumberStyle:NSNumberFormatterDecimalStyle];
 
     // register for KVO
-    [[self session] addObserver:self forKeyPath:NSStringFromSelector(@selector(isConnected)) options:0 context:NULL];
-    [[self session] addObserver:self forKeyPath:NSStringFromSelector(@selector(isAuthorized)) options:0 context:NULL];
-    [[self session] addObserver:self forKeyPath:NSStringFromSelector(@selector(blindLevels)) options:0 context:NULL];
-    [[self session] addObserver:self forKeyPath:NSStringFromSelector(@selector(isRunning)) options:0 context:NULL];
-    [[self session] addObserver:self forKeyPath:NSStringFromSelector(@selector(currentBlindLevel)) options:0 context:NULL];
-    [[self session] addObserver:self forKeyPath:NSStringFromSelector(@selector(timeRemaining)) options:0 context:NULL];
-    [[self session] addObserver:self forKeyPath:NSStringFromSelector(@selector(breakTimeRemaining)) options:0 context:NULL];
-    [[self session] addObserver:self forKeyPath:NSStringFromSelector(@selector(totalChips)) options:0 context:NULL];
-    [[self session] addObserver:self forKeyPath:NSStringFromSelector(@selector(seats)) options:0 context:NULL];
-    [[self session] addObserver:self forKeyPath:NSStringFromSelector(@selector(actionClockTimeRemaining)) options:0 context:NULL];
+    [[self KVOController] observe:[self session] keyPaths:@[@"isConnected", @"isAuthorized"] options:0 block:^(id observer, id object, NSDictionary *change) {
+        [observer updateButtons];
+    }];
+
+    [[self KVOController] observe:[self session] keyPath:@"blindLevels" options:0 block:^(id observer, id object, NSDictionary *change) {
+        [observer updateBlinds];
+    }];
+
+    [[self KVOController] observe:[self session] keyPath:@"currentBlindLevel" options:0 block:^(id observer, id object, NSDictionary *change) {
+        [observer updateButtons];
+        [observer updateBlinds];
+    }];
+
+    [[self KVOController] observe:[self session] keyPaths:@[@"isRunning", @"timeRemaining", @"breakTimeRemaining"] options:0 block:^(id observer, id object, NSDictionary *change) {
+        [observer updateClock];
+        [observer updateBlinds];
+    }];
+
+    [[self KVOController] observe:[self session] keyPath:@"seats" options:0 block:^(id observer, id object, NSDictionary *change) {
+        [observer updatePlayers];
+        [observer updateAverageStack];
+    }];
+
+    [[self KVOController] observe:[self session] keyPath:@"totalChips" options:0 block:^(id observer, id object, NSDictionary *change) {
+        [observer updateAverageStack];
+    }];
+
+    [[self KVOController] observe:[self session] keyPath:@"actionClockTimeRemaining" options:0 block:^(id observer, id object, NSDictionary *change) {
+        [observer updateActionClock];
+    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -78,20 +100,6 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (void)dealloc {
-    // unregister for KVO
-    [[self session] removeObserver:self forKeyPath:NSStringFromSelector(@selector(isConnected))];
-    [[self session] removeObserver:self forKeyPath:NSStringFromSelector(@selector(isAuthorized))];
-    [[self session] removeObserver:self forKeyPath:NSStringFromSelector(@selector(blindLevels))];
-    [[self session] removeObserver:self forKeyPath:NSStringFromSelector(@selector(isRunning))];
-    [[self session] removeObserver:self forKeyPath:NSStringFromSelector(@selector(currentBlindLevel))];
-    [[self session] removeObserver:self forKeyPath:NSStringFromSelector(@selector(timeRemaining))];
-    [[self session] removeObserver:self forKeyPath:NSStringFromSelector(@selector(breakTimeRemaining))];
-    [[self session] removeObserver:self forKeyPath:NSStringFromSelector(@selector(totalChips))];
-    [[self session] removeObserver:self forKeyPath:NSStringFromSelector(@selector(seats))];
-    [[self session] removeObserver:self forKeyPath:NSStringFromSelector(@selector(actionClockTimeRemaining))];
 }
 
 #pragma mark Formatters
@@ -236,46 +244,6 @@
     } else {
         [[self actionClockView] setHidden:NO];
         [[self actionClockView] setSeconds:actionClockTimeRemaining / 1000.0];
-    }
-}
-
-#pragma mark KVO
-
-- (void)observeValueForKeyPath:(NSString*)keyPath ofObject:(id)session change:(NSDictionary*)change context:(void*)context {
-    if ([session isKindOfClass:[TournamentSession class]]) {
-        if([keyPath isEqualToString:NSStringFromSelector(@selector(isRunning))] ||
-           [keyPath isEqualToString:NSStringFromSelector(@selector(timeRemaining))] ||
-           [keyPath isEqualToString:NSStringFromSelector(@selector(breakTimeRemaining))]) {
-            [self updateClock];
-            [self updateBlinds];
-        }
-
-        if([keyPath isEqualToString:NSStringFromSelector(@selector(blindLevels))]) {
-            [self updateBlinds];
-        }
-
-        if([keyPath isEqualToString:NSStringFromSelector(@selector(currentBlindLevel))]) {
-            [self updateButtons];
-            [self updateBlinds];
-        }
-
-        if([keyPath isEqualToString:NSStringFromSelector(@selector(isConnected))] ||
-           [keyPath isEqualToString:NSStringFromSelector(@selector(isAuthorized))]) {
-            [self updateButtons];
-        }
-
-        if([keyPath isEqualToString:NSStringFromSelector(@selector(seats))]) {
-            [self updatePlayers];
-            [self updateAverageStack];
-        }
-
-        if([keyPath isEqualToString:NSStringFromSelector(@selector(totalChips))]) {
-            [self updateAverageStack];
-        }
-
-        if([keyPath isEqualToString:NSStringFromSelector(@selector(actionClockTimeRemaining))]) {
-            [self updateActionClock];
-        }
     }
 }
 

@@ -10,6 +10,8 @@
 #import "TournamentKit/TournamentKit.h"
 #import "TBAppDelegate.h"
 
+#import "NSObject+FBKVOController.h"
+
 @interface TBTournamentsViewController () <UITableViewDelegate,
                                            UITableViewDataSource,
                                            UIActionSheetDelegate,
@@ -39,7 +41,19 @@
     [self.serviceBrowser searchForServicesOfType:@"_tournbuddy._tcp." inDomain:@"local."];
 
     // register for KVO
-    [[self session] addObserver:self forKeyPath:NSStringFromSelector(@selector(isConnected)) options:0 context:NULL];
+    [[self KVOController] observe:[self session] keyPath:NSStringFromSelector(@selector(isConnected)) options:0 block:^(id observer, id object, NSDictionary *change) {
+        NSNetService* service = [object currentService];
+
+        // update table view cell
+        [observer reloadTableRowForService:service];
+
+        if([object isConnected]) {
+            // check authorization
+            [object checkAuthorizedWithBlock:^(BOOL authorized) {
+                [observer reloadTableRowForService:service];
+            }];
+        }
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -52,9 +66,6 @@
     [[self serviceBrowser] stop];
     [[self serviceBrowser] setDelegate:nil];
     [self setServiceBrowser:nil];
-
-    // unregister for KVO
-    [[self session] removeObserver:self forKeyPath:NSStringFromSelector(@selector(isConnected))];
 }
 
 
@@ -117,6 +128,14 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
+- (void)reloadTableRowForService:(NSNetService*)service {
+    NSUInteger i = [[self serviceList] indexOfObject:service];
+    if(i != NSNotFound) {
+        NSIndexPath* indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+        [[self tableView] reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    }
+}
+
 #pragma mark UIActionSheetDelegate
 
 - (void)actionSheet:(UIActionSheet*)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
@@ -140,34 +159,6 @@
 
     if(!moreComing) {
         [[self tableView] reloadData];
-    }
-}
-
-#pragma mark KVO
-
-- (void)reloadTableRowForService:(NSNetService*)service {
-    NSUInteger i = [[self serviceList] indexOfObject:service];
-    if(i != NSNotFound) {
-        NSIndexPath* indexPath = [NSIndexPath indexPathForRow:i inSection:0];
-        [[self tableView] reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-    }
-}
-
-- (void)observeValueForKeyPath:(NSString*)keyPath ofObject:(id)session change:(NSDictionary*)change context:(void*)context {
-    if ([session isKindOfClass:[TournamentSession class]]) {
-        if ([keyPath isEqualToString:NSStringFromSelector(@selector(isConnected))]) {
-            NSNetService* service = [session currentService];
-
-            // update table view cell
-            [self reloadTableRowForService:service];
-
-            if([session isConnected]) {
-                // check authorization
-                [session checkAuthorizedWithBlock:^(BOOL authorized) {
-                    [self reloadTableRowForService:service];
-                }];
-            }
-        }
     }
 }
 

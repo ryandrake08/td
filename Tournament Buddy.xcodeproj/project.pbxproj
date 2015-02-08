@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		AD4930511A87D48B008B1DCD /* TournamentKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD4930501A87D48B008B1DCD /* TournamentKit.framework */; };
+		AD4930641A87F19A008B1DCD /* FBKVOController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD4930611A87F19A008B1DCD /* FBKVOController.m */; };
+		AD4930651A87F19A008B1DCD /* NSObject+FBKVOController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD4930631A87F19A008B1DCD /* NSObject+FBKVOController.m */; };
 		AD8E684A1A6C606700E5A4D8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8E68491A6C606700E5A4D8 /* AppDelegate.m */; };
 		AD8E684C1A6C606700E5A4D8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8E684B1A6C606700E5A4D8 /* main.m */; };
 		AD8E684F1A6C606700E5A4D8 /* Document.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8E684E1A6C606700E5A4D8 /* Document.m */; };
@@ -29,6 +31,10 @@
 
 /* Begin PBXFileReference section */
 		AD4930501A87D48B008B1DCD /* TournamentKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TournamentKit.framework; path = "../../Library/Developer/Xcode/DerivedData/td-gthwrjjcxccbyaganrpuaqshoxjq/Build/Products/Debug/TournamentKit.framework"; sourceTree = "<group>"; };
+		AD4930601A87F19A008B1DCD /* FBKVOController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBKVOController.h; sourceTree = "<group>"; };
+		AD4930611A87F19A008B1DCD /* FBKVOController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBKVOController.m; sourceTree = "<group>"; };
+		AD4930621A87F19A008B1DCD /* NSObject+FBKVOController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+FBKVOController.h"; sourceTree = "<group>"; };
+		AD4930631A87F19A008B1DCD /* NSObject+FBKVOController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+FBKVOController.m"; sourceTree = "<group>"; };
 		AD8E68431A6C606700E5A4D8 /* Tournament Buddy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Tournament Buddy.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD8E68471A6C606700E5A4D8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AD8E68481A6C606700E5A4D8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -122,6 +128,10 @@
 		AD8E68461A6C606700E5A4D8 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				AD4930601A87F19A008B1DCD /* FBKVOController.h */,
+				AD4930611A87F19A008B1DCD /* FBKVOController.m */,
+				AD4930621A87F19A008B1DCD /* NSObject+FBKVOController.h */,
+				AD4930631A87F19A008B1DCD /* NSObject+FBKVOController.m */,
 				AD8E68471A6C606700E5A4D8 /* Info.plist */,
 				AD8E684B1A6C606700E5A4D8 /* main.m */,
 			);
@@ -208,6 +218,8 @@
 				AD98D96A1A7B33F100DA6B8B /* TBPlayersViewController.m in Sources */,
 				AD98D96F1A7B342000DA6B8B /* TBRoundsViewController.m in Sources */,
 				AD8E684F1A6C606700E5A4D8 /* Document.m in Sources */,
+				AD4930641A87F19A008B1DCD /* FBKVOController.m in Sources */,
+				AD4930651A87F19A008B1DCD /* NSObject+FBKVOController.m in Sources */,
 				AD98D9741A7B343600DA6B8B /* TBSeatingViewController.m in Sources */,
 				ADE4E1281A7DFFD000FC9EFC /* TBTableViewController.m in Sources */,
 				AD8E684C1A6C606700E5A4D8 /* main.m in Sources */,

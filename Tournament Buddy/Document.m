@@ -14,6 +14,8 @@
 #import "TBRoundsViewController.h"
 #import "TBSeatingViewController.h"
 
+#import "NSObject+FBKVOController.h"
+
 @interface Document () <NSTabViewDelegate>
 
 // UI
@@ -38,7 +40,14 @@
         NSString* path = [[self server] startWithAuthCode:[TournamentSession clientIdentifier]];
 
         // register for KVO
-        [[self session] addObserver:self forKeyPath:NSStringFromSelector(@selector(isConnected)) options:0 context:NULL];
+        [[self KVOController] observe:[self session] keyPath:@"isConnected" options:0 block:^(id observer, id object, NSDictionary *change) {
+            if([object isConnected]) {
+                // check authorization
+                [object checkAuthorizedWithBlock:^(BOOL authorized) {
+                    NSLog(@"Connected and authorized locally");
+                }];
+            }
+        }];
 
         // Start the session, connecting locally
         [[self session] connectToLocalPath:path];
@@ -47,7 +56,6 @@
 }
 
 - (void)close {
-    [[self session] removeObserver:self forKeyPath:NSStringFromSelector(@selector(isConnected))];
     [[self session] disconnect];
     [[self server] stop];
     [super close];
@@ -84,21 +92,6 @@
     id jsonObject = [NSJSONSerialization JSONObjectWithData:data options:0 error:outError];
     [[self session] configure:jsonObject];
     return YES;
-}
-
-#pragma mark KVO
-
-- (void)observeValueForKeyPath:(NSString*)keyPath ofObject:(id)session change:(NSDictionary*)change context:(void*)context {
-    if([session isKindOfClass:[TournamentSession class]]) {
-        if([keyPath isEqualToString:NSStringFromSelector(@selector(isConnected))]) {
-            if([session isConnected]) {
-                // check authorization
-                [session checkAuthorizedWithBlock:^(BOOL authorized) {
-                    NSLog(@"Connected and authorized locally");
-                }];
-            }
-        }
-    }
 }
 
 #pragma mark Tabs
