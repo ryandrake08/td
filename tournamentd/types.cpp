@@ -11,7 +11,7 @@ td::chip::chip() : denomination(0), count_available(0)
 {
 }
 
-td::funding_source::funding_source() : is_addon(false), forbid_after_blind_level(0), chips(0), cost(0), commission(0), equity(0)
+td::funding_source::funding_source() : is_addon(false), forbid_after_blind_level(std::numeric_limits<std::size_t>::max()), chips(0), cost(0), commission(0), equity(0)
 {
 }
 
@@ -118,7 +118,10 @@ json::json(const td::funding_source& value) : json()
 {
     this->set_value("name", value.name);
     this->set_value("is_addon", value.is_addon);
-    this->set_value("forbid_after_blind_level", value.forbid_after_blind_level);
+    if(value.forbid_after_blind_level != std::numeric_limits<std::size_t>::max())
+    {
+        this->set_value("forbid_after_blind_level", value.forbid_after_blind_level);
+    }
     this->set_value("chips", value.chips);
     this->set_value("cost", value.cost);
     this->set_value("commission", value.commission);
