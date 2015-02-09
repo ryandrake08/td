@@ -96,11 +96,11 @@ static bool get_bool_value(const cJSON* obj, bool& value)
     {
         if((obj->type & 0xff) == cJSON_True)
         {
-            return true;
+            value = true;
         }
         else if((obj->type & 0xff) == cJSON_False)
         {
-            return false;
+            value = false;
         }
         else
         {
