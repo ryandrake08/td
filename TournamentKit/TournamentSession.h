@@ -26,6 +26,7 @@
 @property (nonatomic, readonly) NSString* costCurrency;
 @property (nonatomic, readonly) NSString* equityCurrency;
 @property (nonatomic, readonly) NSNumber* percentSeatsPaid;
+@property (nonatomic, readonly) NSNumber* roundPayouts;
 @property (nonatomic, readonly) NSArray* fundingSources;
 @property (nonatomic, readonly) NSNumber* tableCapacity;
 

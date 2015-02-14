@@ -228,33 +228,34 @@
     "cost_currency": "USD",
     "equity_currency": "XXX",
     "percent_seats_paid": 0.25,
+    "round_payouts": true,
     "funding_sources": [
         {
             "name": "Main Buy-in",
             "is_addon": false,
             "forbid_after_blind_level": 0,
             "chips": 5000,
-            "cost": 3000,
-            "commission": 0,
-            "equity": 5
+            "cost": 30.00,
+            "commission": 0.00,
+            "equity": 5.00
         },
         {
             "name": "Travel add-on",
             "is_addon": true,
             "forbid_after_blind_level": 0,
             "chips": 500,
-            "cost": 500,
-            "commission": 0,
-            "equity": 0
+            "cost": 5.00,
+            "commission": 0.00,
+            "equity": 0.00
         },
         {
             "name": "Early arrival add-on",
             "is_addon": true,
             "forbid_after_blind_level": 0,
             "chips": 500,
-            "cost": 0,
-            "commission": 0,
-            "equity": 0
+            "cost": 0.00,
+            "commission": 0.00,
+            "equity": 0.00
         }
     ],
     "table_capacity": 8

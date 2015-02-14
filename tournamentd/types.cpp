@@ -11,7 +11,7 @@ td::chip::chip() : denomination(0), count_available(0)
 {
 }
 
-td::funding_source::funding_source() : is_addon(false), forbid_after_blind_level(std::numeric_limits<std::size_t>::max()), chips(0), cost(0), commission(0), equity(0)
+td::funding_source::funding_source() : is_addon(false), forbid_after_blind_level(std::numeric_limits<std::size_t>::max()), chips(0), cost(0.0), commission(0.0), equity(0.0)
 {
 }
 

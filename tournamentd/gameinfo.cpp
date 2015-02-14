@@ -12,11 +12,12 @@ static std::default_random_engine engine;
 gameinfo::gameinfo() :
     table_capacity(0),
     percent_seats_paid(1.0),
+    round_payouts(false),
     tables(0),
     total_chips(0),
-    total_cost(0),
-    total_commission(0),
-    total_equity(0),
+    total_cost(0.0),
+    total_commission(0.0),
+    total_equity(0.0),
     running(false),
     current_blind_level(0),
     time_remaining(0),
@@ -77,10 +78,13 @@ void gameinfo::configure(const json& config)
         }
     }
 
-    if(config.get_value("percent_seats_paid", this->percent_seats_paid))
+    auto recalculate(false);
+    recalculate = recalculate || config.get_value("round_payouts", this->round_payouts);
+    recalculate = recalculate || config.get_value("percent_seats_paid", this->percent_seats_paid);
+    if(recalculate)
     {
         // after reconfiguring, we'll need to recalculate
-        this->recalculate_payouts();
+        this->recalculate_payouts(this->round_payouts);
     }
 
     if(config.get_values("blind_levels", this->blind_levels))
@@ -444,7 +448,7 @@ void gameinfo::fund_player(const td::player_id& player, const td::funding_source
     this->total_equity += source.equity;
 
     // automatically recalculate
-    this->recalculate_payouts();
+    this->recalculate_payouts(this->round_payouts);
 }
 
 // return the maximum number of chips available per player for a given denomination
@@ -595,7 +599,7 @@ std::vector<td::player_chips> gameinfo::chips_for_buyin(const td::funding_source
 }
 
 // re-calculate payouts
-void gameinfo::recalculate_payouts()
+void gameinfo::recalculate_payouts(bool round)
 {
     // first, calculate how many places pay, given configuration and number of players bought in
     std::size_t seats_paid(static_cast<std::size_t>(this->buyins.size() * this->percent_seats_paid + 0.5));
@@ -605,26 +609,33 @@ void gameinfo::recalculate_payouts()
     // resize our payout structure
     this->payouts.resize(seats_paid);
 
-    // ratio for each seat is comp[seat]:total
-    std::vector<double> comp(seats_paid);
-    double total(0.0);
-
-    // generate proportional payouts based on harmonic series, 1/N / sum(1/k)
-    for(auto n(0); n<seats_paid; n++)
+    if(!this->payouts.empty())
     {
-        double c(1.0/(n+1));
-        comp[n] = c;
-        total += c;
-    }
+        // ratio for each seat is comp[seat]:total
+        std::vector<double> comp(seats_paid);
+        double total(0.0);
 
-    // next, loop through again generating payouts (rounding fractional payouts down)
-    std::transform(comp.begin(), comp.end(), this->payouts.begin(), [&](double c) { return static_cast<unsigned long>(this->total_equity * c / total); });
+        // generate proportional payouts based on harmonic series, 1/N / sum(1/k)
+        for(auto n(0); n<seats_paid; n++)
+        {
+            double c(1.0/(n+1));
+            comp[n] = c;
+            total += c;
+        }
 
-    // finally, allocating remainder (from rounding) starting from first place
-    auto remainder(this->total_equity - std::accumulate(this->payouts.begin(), this->payouts.end(), 0));
-    for(auto n(0); n<remainder; n++)
-    {
-        this->payouts[n]++;
+        // next, loop through again generating payouts
+        if(round)
+        {
+            std::transform(comp.begin(), comp.end(), this->payouts.begin(), [&](double c) { return std::round(this->total_equity * c / total); });
+
+            // remainder (either positive or negative) adjusts first place
+            auto remainder(this->total_equity - std::accumulate(this->payouts.begin(), this->payouts.end(), 0.0));
+            this->payouts[0] += remainder;
+        }
+        else
+        {
+            std::transform(comp.begin(), comp.end(), this->payouts.begin(), [&](double c) { return this->total_equity * c / total; });
+        }
     }
 }
 

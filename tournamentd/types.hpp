@@ -45,17 +45,15 @@ namespace td
     };
 
     // attributes of each funding source (buy-in, addon, etc.)
-    // note: cost, commission and equity are not floating point
-    // use minor currency unit (cents for USD, etc.)
     struct funding_source
     {
         std::string name;
         bool is_addon;
         std::size_t forbid_after_blind_level;
         unsigned long chips;
-        unsigned long cost;
-        unsigned long commission;
-        unsigned long equity;
+        double cost;
+        double commission;
+        double equity;
 
         funding_source();
         funding_source(const json& obj);

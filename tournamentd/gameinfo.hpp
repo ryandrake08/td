@@ -27,6 +27,9 @@ class gameinfo
     // configuration: rough percentage of seats that get paid (0.0-1.0)
     double percent_seats_paid;
 
+    // configuration: round to whole numbers when calculating payouts?
+    bool round_payouts;
+
     // configuration: funding rules
     std::vector<td::funding_source> funding_sources;
     
@@ -54,17 +57,15 @@ class gameinfo
     std::unordered_set<td::player_id> buyins;
 
     // payout structure
-    std::vector<unsigned long> payouts;
+    std::vector<double> payouts;
 
     // total game currency (chips) in play
     unsigned long total_chips;
 
     // total funds received and paid out
-    // note: cost, commission and equity are not floating point
-    // use minor currency unit (cents for USD, etc.)
-    unsigned long total_cost;
-    unsigned long total_commission;
-    unsigned long total_equity;
+    double total_cost;
+    double total_commission;
+    double total_equity;
     
     // is the game running or paused?
     bool running;
@@ -122,7 +123,7 @@ class gameinfo
     std::size_t try_break_table(std::vector<td::player_movement>& movements);
     
     // re-calculate payouts
-    void recalculate_payouts();
+    void recalculate_payouts(bool round);
 
     // utility: start a blind level
     void start_blind_level(std::size_t blind_level, duration_t offset);
