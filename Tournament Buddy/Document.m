@@ -25,6 +25,7 @@
 // Model
 @property TournamentDaemon* server;
 @property TournamentSession* session;
+@property NSMutableDictionary* configuration;
 
 @end
 
@@ -48,6 +49,8 @@
                 }];
             }
         }];
+
+        [[self KVOController] observe:self keyPath:@"configuration" options:0 action:@selector(syncWithSession)];
 
         // Start the session, connecting locally
         [[self session] connectToLocalPath:path];
@@ -83,41 +86,30 @@
     return @"Document";
 }
 
+- (void)syncWithSession {
+    [[self session] configure:[self configuration] withBlock:^(id json) {
+        _configuration = json;
+    }];
+}
+
 - (NSData*)dataOfType:(NSString*)typeName error:(NSError**)outError {
-    id jsonObject = [[self session] currentConfiguration];
-    return [NSJSONSerialization dataWithJSONObject:jsonObject options:0 error:outError];
+    [self syncWithSession];
+    return [NSJSONSerialization dataWithJSONObject:[self configuration] options:0 error:outError];
 }
 
 - (BOOL)readFromData:(NSData*)data ofType:(NSString*)typeName error:(NSError**)outError {
-    id jsonObject = [NSJSONSerialization JSONObjectWithData:data options:0 error:outError];
-    [[self session] configure:jsonObject];
+    [self setConfiguration:[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:outError]];
     return YES;
 }
 
 #pragma mark Tabs
 
 - (BOOL)tabView:(NSTabView*)tabView shouldSelectTabViewItem:(NSTabViewItem*)tabViewItem {
-    NSViewController* newController = nil;
-
     // assume a different identifier has been assigned to each tab view item in IB
     NSInteger itemIndex = [tabView indexOfTabViewItemWithIdentifier:[tabViewItem identifier]];
-    switch (itemIndex) {
-        case 0:
-            newController = [[TBFundingViewController alloc] initWithSession:[self session]];
-            break;
-        case 1:
-            newController = [[TBPlayersViewController alloc] initWithSession:[self session]];
-            break;
-        case 2:
-            newController = [[TBChipsViewController alloc] initWithSession:[self session]];
-            break;
-        case 3:
-            newController = [[TBRoundsViewController alloc] initWithSession:[self session]];
-            break;
-        case 4:
-            newController = [[TBSeatingViewController alloc] initWithSession:[self session]];
-            break;
-    }
+    NSArray* tableNibs = @[@"TBFundingView", @"TBPlayersView", @"TBChipsView", @"TBRoundsView", @"TBSeatingView"];
+
+    NSViewController* newController = [[TBTableViewController alloc] initWithNibName:[tableNibs objectAtIndex:itemIndex ] configuration:[self configuration]];
 
     if (newController != nil) {
         [tabViewItem setView:newController.view];
@@ -130,6 +122,5 @@
         return NO;
     }
 }
-
 
 @end

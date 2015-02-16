@@ -11,10 +11,10 @@
 @implementation TBTableViewController
 
 // initializer
-- (instancetype)initWithNibName:(NSString*)nibName session:(TournamentSession*)sess {
+- (instancetype)initWithNibName:(NSString*)nibName configuration:(NSMutableDictionary*)config {
     self = [super initWithNibName:nibName bundle:nil];
     if (self) {
-        _session = sess;
+        _configuration = config;
     }
     return self;
 }

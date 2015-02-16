@@ -62,7 +62,7 @@
 - (void)checkAuthorizedWithBlock:(void(^)(BOOL))block;
 - (void)authorize:(NSNumber*)clientId withBlock:(void(^)(NSNumber*))block;
 - (void)getConfigWithBlock:(void(^)(id))block;
-- (void)configure:(id)config;
+- (void)configure:(id)config withBlock:(void(^)(id))block;
 - (void)startGameAt:(NSDate*)datetime;
 - (void)stopGame;
 - (void)resumeGame;

@@ -24,7 +24,7 @@
 @property (nonatomic) NSMutableDictionary* blocksForCommands;
 
 // tournament configuration
-@property (nonatomic) NSArray* players;
+@property (nonatomic) NSMutableArray* players;
 @property (nonatomic) NSArray* blindLevels;
 @property (nonatomic) NSArray* availableChips;
 @property (nonatomic) NSString* costCurrency;
@@ -219,8 +219,14 @@
     }];
 }
 
-- (void)configure:(id)config {
-    [self sendCommand:@"configure" withData:config andBlock:nil];
+- (void)configure:(id)config withBlock:(void(^)(id))block {
+    [self sendCommand:@"configure" withData:config andBlock:^(id json, NSString* error) {
+        // TODO: Handle error
+        // handle config response
+        if(block != nil) {
+            block(json);
+        }
+    }];
 }
 
 - (void)startGameAt:(NSDate*)datetime {

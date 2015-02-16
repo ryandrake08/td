@@ -131,6 +131,7 @@ void tournament::handle_cmd_authorize(const json& in, json& out)
 void tournament::handle_cmd_configure(const json& in, json& out)
 {
     this->game_info.configure(in);
+    this->game_info.dump_configuration(out);
 }
 
 void tournament::handle_cmd_start_game(const json& in, json& out)

@@ -8,21 +8,5 @@
 
 #import "TBTableViewController.h"
 
-@interface TBFundingTableCellView : NSTableCellView
-
-@property IBOutlet NSTextField* costField;
-@property IBOutlet NSTextField* feeField;
-@property IBOutlet NSTextField* equityField;
-@property IBOutlet NSTextField* chipsField;
-@property IBOutlet NSPopUpButton* typeButton;
-@property IBOutlet NSButton* allowedButton;
-@property IBOutlet NSPopUpButton* untilButton;
-
-@end
-
-@interface TBFundingViewController : TBTableViewController
-
-// initializer
-- (instancetype)initWithSession:(TournamentSession*)sess;
-
+@interface TBFundingViewController : TBTableViewController <NSTableViewDataSource, NSTableViewDelegate>
 @end

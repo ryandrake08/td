@@ -9,8 +9,4 @@
 #import "TBTableViewController.h"
 
 @interface TBRoundsViewController : TBTableViewController
-
-// initializer
-- (instancetype)initWithSession:(TournamentSession*)sess;
-
 @end

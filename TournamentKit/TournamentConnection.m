@@ -151,7 +151,7 @@
 
         // convert to JSON
         NSError* jsonError = nil;
-        id jsonObject = [NSJSONSerialization JSONObjectWithData:subBuffer options:0 error:&jsonError];
+        id jsonObject = [NSJSONSerialization JSONObjectWithData:subBuffer options:NSJSONReadingMutableContainers error:&jsonError];
         if(jsonError) {
             [[self delegate] tournamentConnection:self error:jsonError];
         } else {

@@ -10,6 +10,7 @@
 		AD4930511A87D48B008B1DCD /* TournamentKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD4930501A87D48B008B1DCD /* TournamentKit.framework */; };
 		AD4930641A87F19A008B1DCD /* FBKVOController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD4930611A87F19A008B1DCD /* FBKVOController.m */; };
 		AD4930651A87F19A008B1DCD /* NSObject+FBKVOController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD4930631A87F19A008B1DCD /* NSObject+FBKVOController.m */; };
+		AD49306E1A885E1A008B1DCD /* TBFundingTableCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD49306D1A885E1A008B1DCD /* TBFundingTableCellView.m */; };
 		AD8E684A1A6C606700E5A4D8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8E68491A6C606700E5A4D8 /* AppDelegate.m */; };
 		AD8E684C1A6C606700E5A4D8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8E684B1A6C606700E5A4D8 /* main.m */; };
 		AD8E684F1A6C606700E5A4D8 /* Document.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8E684E1A6C606700E5A4D8 /* Document.m */; };
@@ -35,6 +36,8 @@
 		AD4930611A87F19A008B1DCD /* FBKVOController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBKVOController.m; sourceTree = "<group>"; };
 		AD4930621A87F19A008B1DCD /* NSObject+FBKVOController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+FBKVOController.h"; sourceTree = "<group>"; };
 		AD4930631A87F19A008B1DCD /* NSObject+FBKVOController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+FBKVOController.m"; sourceTree = "<group>"; };
+		AD49306C1A885E1A008B1DCD /* TBFundingTableCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBFundingTableCellView.h; sourceTree = "<group>"; };
+		AD49306D1A885E1A008B1DCD /* TBFundingTableCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBFundingTableCellView.m; sourceTree = "<group>"; };
 		AD8E68431A6C606700E5A4D8 /* Tournament Buddy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Tournament Buddy.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD8E68471A6C606700E5A4D8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AD8E68481A6C606700E5A4D8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -107,6 +110,8 @@
 				AD98D95F1A7B330B00DA6B8B /* TBChipsViewController.h */,
 				AD98D9601A7B330B00DA6B8B /* TBChipsViewController.m */,
 				AD98D95D1A7B2DDA00DA6B8B /* TBChipsView.xib */,
+				AD49306C1A885E1A008B1DCD /* TBFundingTableCellView.h */,
+				AD49306D1A885E1A008B1DCD /* TBFundingTableCellView.m */,
 				AD98D9621A7B331A00DA6B8B /* TBFundingViewController.h */,
 				AD98D9631A7B331A00DA6B8B /* TBFundingViewController.m */,
 				AD98D95A1A7B290500DA6B8B /* TBFundingView.xib */,
@@ -217,6 +222,7 @@
 				AD98D9651A7B331A00DA6B8B /* TBFundingViewController.m in Sources */,
 				AD98D96A1A7B33F100DA6B8B /* TBPlayersViewController.m in Sources */,
 				AD98D96F1A7B342000DA6B8B /* TBRoundsViewController.m in Sources */,
+				AD49306E1A885E1A008B1DCD /* TBFundingTableCellView.m in Sources */,
 				AD8E684F1A6C606700E5A4D8 /* Document.m in Sources */,
 				AD4930641A87F19A008B1DCD /* FBKVOController.m in Sources */,
 				AD4930651A87F19A008B1DCD /* NSObject+FBKVOController.m in Sources */,

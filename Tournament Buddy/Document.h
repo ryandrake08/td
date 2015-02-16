@@ -10,6 +10,5 @@
 
 @interface Document : NSDocument
 
-
 @end
 
