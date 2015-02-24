@@ -6,7 +6,6 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="TBFundingViewController">
             <connections>
-                <outlet property="tableView" destination="n9f-OZ-oem" id="Njk-AK-tpA"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="aVB-Tv-n4d"/>
             </connections>
         </customObject>
@@ -55,7 +54,7 @@
                                                 <rect key="frame" x="1" y="1" width="635" height="63"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" id="Tuz-Wx-yMt">
+                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" id="Tuz-Wx-yMt" userLabel="Name">
                                                         <rect key="frame" x="26" y="43" width="213" height="17"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" title="Table View Cell" id="EtV-4i-XDm">
@@ -67,41 +66,6 @@
                                                             <binding destination="g2k-DY-PZy" name="value" keyPath="objectValue.name" id="Mkp-l6-OSt"/>
                                                         </connections>
                                                     </textField>
-                                                    <popUpButton verticalHuggingPriority="750" id="5oJ-0Q-CaC">
-                                                        <rect key="frame" x="243" y="36" width="97" height="26"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                        <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="5Po-jG-8BF">
-                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                            <font key="font" metaFont="menu"/>
-                                                            <menu key="menu" id="CXs-V4-wSl">
-                                                                <items>
-                                                                    <menuItem title="Buy In" keyEquivalent="b" id="b6h-Lc-ylr">
-                                                                        <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
-                                                                    </menuItem>
-                                                                    <menuItem title="Re-buy" keyEquivalent="r" id="ffX-BO-qHp">
-                                                                        <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
-                                                                    </menuItem>
-                                                                    <menuItem title="Add-on" keyEquivalent="a" id="dwf-DU-IBN">
-                                                                        <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
-                                                                    </menuItem>
-                                                                </items>
-                                                            </menu>
-                                                        </popUpButtonCell>
-                                                        <connections>
-                                                            <action selector="typeButtonDidChange:" target="g2k-DY-PZy" id="9U7-95-qrG"/>
-                                                        </connections>
-                                                    </popUpButton>
-                                                    <button id="IW4-Pg-d0L">
-                                                        <rect key="frame" x="343" y="40" width="143" height="18"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                        <buttonCell key="cell" type="check" title="Forbid After:" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="nuk-dX-93O">
-                                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                            <font key="font" metaFont="system"/>
-                                                        </buttonCell>
-                                                        <connections>
-                                                            <action selector="forbidButtonDidChange:" target="g2k-DY-PZy" id="3aH-WM-how"/>
-                                                        </connections>
-                                                    </button>
                                                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" id="xHk-VU-6Sq">
                                                         <rect key="frame" x="3" y="43" width="17" height="17"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -197,7 +161,7 @@
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
                                                     </textField>
-                                                    <textField verticalHuggingPriority="750" id="1Po-Mx-C2U">
+                                                    <textField verticalHuggingPriority="750" id="1Po-Mx-C2U" userLabel="Chips Value">
                                                         <rect key="frame" x="3" y="3" width="78" height="22"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" alignment="right" title="10,000" id="Ng6-A1-M0z">
@@ -212,6 +176,41 @@
                                                             <binding destination="g2k-DY-PZy" name="value" keyPath="objectValue.chips" id="y0a-hd-iJJ"/>
                                                         </connections>
                                                     </textField>
+                                                    <popUpButton verticalHuggingPriority="750" id="5oJ-0Q-CaC" userLabel="Type">
+                                                        <rect key="frame" x="243" y="36" width="97" height="26"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                        <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="5Po-jG-8BF">
+                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                            <font key="font" metaFont="menu"/>
+                                                            <menu key="menu" id="CXs-V4-wSl">
+                                                                <items>
+                                                                    <menuItem title="Buy In" keyEquivalent="b" id="b6h-Lc-ylr">
+                                                                        <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                                                    </menuItem>
+                                                                    <menuItem title="Re-buy" keyEquivalent="r" id="ffX-BO-qHp">
+                                                                        <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                                                    </menuItem>
+                                                                    <menuItem title="Add-on" keyEquivalent="a" id="dwf-DU-IBN">
+                                                                        <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                                                    </menuItem>
+                                                                </items>
+                                                            </menu>
+                                                        </popUpButtonCell>
+                                                        <connections>
+                                                            <action selector="typeButtonDidChange:" target="g2k-DY-PZy" id="9U7-95-qrG"/>
+                                                        </connections>
+                                                    </popUpButton>
+                                                    <button id="IW4-Pg-d0L">
+                                                        <rect key="frame" x="343" y="40" width="143" height="18"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                        <buttonCell key="cell" type="check" title="Forbid After:" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="nuk-dX-93O">
+                                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                            <font key="font" metaFont="system"/>
+                                                        </buttonCell>
+                                                        <connections>
+                                                            <action selector="forbidButtonDidChange:" target="g2k-DY-PZy" id="3aH-WM-how"/>
+                                                        </connections>
+                                                    </button>
                                                     <popUpButton verticalHuggingPriority="750" id="tsN-Ff-csU" userLabel="Until Round">
                                                         <rect key="frame" x="343" y="11" width="144" height="26"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -232,10 +231,6 @@
                                                     </popUpButton>
                                                 </subviews>
                                                 <connections>
-                                                    <outlet property="chipsField" destination="1Po-Mx-C2U" id="qxU-hF-3he"/>
-                                                    <outlet property="costField" destination="xTr-TC-3Hl" id="T8b-2z-SAk"/>
-                                                    <outlet property="equityField" destination="FxW-AN-4e6" id="lus-uv-z8Q"/>
-                                                    <outlet property="feeField" destination="ig5-xE-2BK" id="6U5-xm-1VL"/>
                                                     <outlet property="forbidButton" destination="IW4-Pg-d0L" id="UdF-AM-88f"/>
                                                     <outlet property="imageView" destination="xHk-VU-6Sq" id="sRe-Fv-9Db"/>
                                                     <outlet property="textField" destination="Tuz-Wx-yMt" id="oTr-3n-4dS"/>

@@ -68,6 +68,13 @@
 		AD466EC11A59375100E0973E /* TournamentDaemon.h in Headers */ = {isa = PBXBuildFile; fileRef = AD466EBE1A59375100E0973E /* TournamentDaemon.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AD466EC21A59375100E0973E /* TournamentDaemon.mm in Sources */ = {isa = PBXBuildFile; fileRef = AD466EBF1A59375100E0973E /* TournamentDaemon.mm */; };
 		AD466EC31A59375100E0973E /* TournamentDaemon.mm in Sources */ = {isa = PBXBuildFile; fileRef = AD466EBF1A59375100E0973E /* TournamentDaemon.mm */; };
+		AD643D291A9437D800181DEA /* TBColor+CSS.h in Headers */ = {isa = PBXBuildFile; fileRef = AD643D211A942DD500181DEA /* TBColor+CSS.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AD643D2A1A9437D900181DEA /* TBColor+CSS.h in Headers */ = {isa = PBXBuildFile; fileRef = AD643D211A942DD500181DEA /* TBColor+CSS.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AD643D2B1A9437E500181DEA /* TBColor+CSS.m in Sources */ = {isa = PBXBuildFile; fileRef = AD643D221A942DD500181DEA /* TBColor+CSS.m */; };
+		AD643D2D1A9437E900181DEA /* TBColor+CSS.m in Sources */ = {isa = PBXBuildFile; fileRef = AD643D221A942DD500181DEA /* TBColor+CSS.m */; };
+		AD643D2E1A9437E900181DEA /* TBColor+CSS.m in Sources */ = {isa = PBXBuildFile; fileRef = AD643D221A942DD500181DEA /* TBColor+CSS.m */; };
+		AD643D301A943A3800181DEA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD643D2F1A943A3800181DEA /* Cocoa.framework */; };
+		AD643D321A943A6000181DEA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD643D311A943A6000181DEA /* UIKit.framework */; };
 		AD7FD7941A6ABF370047EB17 /* TournamentConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = AD37B3EA1A573C8300605351 /* TournamentConnection.m */; };
 		AD7FD7951A6ABF370047EB17 /* TournamentDaemon.mm in Sources */ = {isa = PBXBuildFile; fileRef = AD466EBF1A59375100E0973E /* TournamentDaemon.mm */; };
 		AD7FD7981A6ABF370047EB17 /* TournamentSession.m in Sources */ = {isa = PBXBuildFile; fileRef = AD466E541A5918DB00E0973E /* TournamentSession.m */; };
@@ -159,6 +166,10 @@
 		AD466E7A1A5936BB00E0973E /* types.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = types.hpp; sourceTree = "<group>"; };
 		AD466EBE1A59375100E0973E /* TournamentDaemon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TournamentDaemon.h; sourceTree = "<group>"; };
 		AD466EBF1A59375100E0973E /* TournamentDaemon.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TournamentDaemon.mm; sourceTree = "<group>"; };
+		AD643D211A942DD500181DEA /* TBColor+CSS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TBColor+CSS.h"; sourceTree = "<group>"; };
+		AD643D221A942DD500181DEA /* TBColor+CSS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TBColor+CSS.m"; sourceTree = "<group>"; };
+		AD643D2F1A943A3800181DEA /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
+		AD643D311A943A6000181DEA /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.1.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		AD7FD7791A6AB7910047EB17 /* libTournamentKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libTournamentKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADD523A11A62DCD800C8033A /* CFStreamCreatePairWithUnixSocket.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = CFStreamCreatePairWithUnixSocket.c; sourceTree = "<group>"; };
 		ADD523A21A62DCD800C8033A /* CFStreamCreatePairWithUnixSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFStreamCreatePairWithUnixSocket.h; sourceTree = "<group>"; };
@@ -171,6 +182,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AD643D301A943A3800181DEA /* Cocoa.framework in Frameworks */,
 				ADF9B9021A7485ED00F2729F /* CFNetwork.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -187,6 +199,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AD643D321A943A6000181DEA /* UIKit.framework in Frameworks */,
 				ADF9B9001A7485E600F2729F /* CFNetwork.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -233,6 +246,8 @@
 				AD466EBF1A59375100E0973E /* TournamentDaemon.mm */,
 				AD466E531A5918DB00E0973E /* TournamentSession.h */,
 				AD466E541A5918DB00E0973E /* TournamentSession.m */,
+				AD643D211A942DD500181DEA /* TBColor+CSS.h */,
+				AD643D221A942DD500181DEA /* TBColor+CSS.m */,
 				AD466E3B1A58C15A00E0973E /* NSData+Delimiter.h */,
 				AD466E3C1A58C15A00E0973E /* NSData+Delimiter.m */,
 				ADD523A21A62DCD800C8033A /* CFStreamCreatePairWithUnixSocket.h */,
@@ -308,6 +323,8 @@
 		ADF9B9061A7543D900F2729F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AD643D311A943A6000181DEA /* UIKit.framework */,
+				AD643D2F1A943A3800181DEA /* Cocoa.framework */,
 				ADF9B9011A7485ED00F2729F /* CFNetwork.framework */,
 				ADF9B8FF1A7485E600F2729F /* CFNetwork.framework */,
 			);
@@ -329,6 +346,7 @@
 				AD466EB41A5936BB00E0973E /* stringcrc.hpp in Headers */,
 				ADD523A51A62DCD800C8033A /* CFStreamCreatePairWithUnixSocket.h in Headers */,
 				AD466E551A5918DB00E0973E /* TournamentSession.h in Headers */,
+				AD643D2A1A9437D900181DEA /* TBColor+CSS.h in Headers */,
 				AD466E3D1A58C15A00E0973E /* NSData+Delimiter.h in Headers */,
 				AD466EB21A5936BB00E0973E /* socketstream.hpp in Headers */,
 				AD466EAC1A5936BB00E0973E /* server.hpp in Headers */,
@@ -354,6 +372,7 @@
 				AD466EB51A5936BB00E0973E /* stringcrc.hpp in Headers */,
 				ADD523A61A62DCD800C8033A /* CFStreamCreatePairWithUnixSocket.h in Headers */,
 				AD466E561A5918DB00E0973E /* TournamentSession.h in Headers */,
+				AD643D291A9437D800181DEA /* TBColor+CSS.h in Headers */,
 				AD466E3E1A58C15A00E0973E /* NSData+Delimiter.h in Headers */,
 				AD466EB31A5936BB00E0973E /* socketstream.hpp in Headers */,
 				AD466EAD1A5936BB00E0973E /* server.hpp in Headers */,
@@ -520,6 +539,7 @@
 				AD466E7E1A5936BB00E0973E /* cJSON.c in Sources */,
 				AD466E8E1A5936BB00E0973E /* gameinfo.cpp in Sources */,
 				AD466E571A5918DB00E0973E /* TournamentSession.m in Sources */,
+				AD643D2B1A9437E500181DEA /* TBColor+CSS.m in Sources */,
 				AD466EC21A59375100E0973E /* TournamentDaemon.mm in Sources */,
 				AD466E821A5936BB00E0973E /* datetime.cpp in Sources */,
 				ADD523A31A62DCD800C8033A /* CFStreamCreatePairWithUnixSocket.c in Sources */,
@@ -549,6 +569,7 @@
 				AD466E7F1A5936BB00E0973E /* cJSON.c in Sources */,
 				AD466E8F1A5936BB00E0973E /* gameinfo.cpp in Sources */,
 				AD466E581A5918DB00E0973E /* TournamentSession.m in Sources */,
+				AD643D2D1A9437E900181DEA /* TBColor+CSS.m in Sources */,
 				AD466EC31A59375100E0973E /* TournamentDaemon.mm in Sources */,
 				AD466E831A5936BB00E0973E /* datetime.cpp in Sources */,
 				ADD523A41A62DCD800C8033A /* CFStreamCreatePairWithUnixSocket.c in Sources */,
@@ -570,6 +591,7 @@
 				AD7FD79A1A6ABF370047EB17 /* CFStreamCreatePairWithUnixSocket.c in Sources */,
 				AD7FD7A41A6ABFDB0047EB17 /* socket.cpp in Sources */,
 				AD7FD7991A6ABF370047EB17 /* NSData+Delimiter.m in Sources */,
+				AD643D2E1A9437E900181DEA /* TBColor+CSS.m in Sources */,
 				AD7FD79F1A6ABFDB0047EB17 /* gameinfo.cpp in Sources */,
 				AD7FD79B1A6ABFDB0047EB17 /* cJSON.c in Sources */,
 				AD7FD79C1A6ABFDB0047EB17 /* datetime.cpp in Sources */,
@@ -670,6 +692,7 @@
 				INFOPLIST_FILE = TournamentKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				OTHER_LDFLAGS = "-v";
 				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -688,6 +711,7 @@
 				INFOPLIST_FILE = TournamentKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				OTHER_LDFLAGS = "-v";
 				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;

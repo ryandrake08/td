@@ -10,14 +10,6 @@
 
 @interface TBFundingTableCellView : NSTableCellView
 
-@property IBOutlet NSTextField* costField;
-@property IBOutlet NSTextField* feeField;
-@property IBOutlet NSTextField* equityField;
-@property IBOutlet NSTextField* chipsField;
-@property IBOutlet NSPopUpButton* typeButton;
-@property IBOutlet NSButton* forbidButton;
-@property IBOutlet NSPopUpButton* untilButton;
-
 - (void)setBlindLevels:(NSUInteger)levels;
 
 @end

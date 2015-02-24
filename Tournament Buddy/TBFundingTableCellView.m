@@ -12,6 +12,14 @@
 #define kFundingTypeIndexRebuy 1
 #define kFundingTypeIndexAddon 2
 
+@interface TBFundingTableCellView ()
+
+@property IBOutlet NSPopUpButton* typeButton;
+@property IBOutlet NSButton* forbidButton;
+@property IBOutlet NSPopUpButton* untilButton;
+
+@end
+
 @implementation TBFundingTableCellView
 
 - (void)setObjectValue:(id)objectValue {
