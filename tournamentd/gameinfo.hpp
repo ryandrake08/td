@@ -13,7 +13,7 @@ class gameinfo
     // ----- configuration -----
 
     // configuration: list of all known players (playing or not)
-    std::unordered_map<td::player_id,td::player> players;
+    std::unordered_map<td::player_id_t,td::player> players;
 
     // configuration: number of players per table
     std::size_t table_capacity;
@@ -42,10 +42,10 @@ class gameinfo
     // ----- state -----
 
     // players seated in the game
-    std::unordered_map<td::player_id,td::seat> seats;
+    std::unordered_map<td::player_id_t,td::seat> seats;
 
     // players without seats or busted out
-    std::deque<td::player_id> players_finished;
+    std::deque<td::player_id_t> players_finished;
 
     // empty seats
     std::deque<td::seat> empty_seats;
@@ -54,7 +54,7 @@ class gameinfo
     std::size_t tables;
 
     // players who bought in at least once
-    std::unordered_set<td::player_id> buyins;
+    std::unordered_set<td::player_id_t> buyins;
 
     // payout structure
     std::vector<double> payouts;
@@ -101,18 +101,18 @@ class gameinfo
     void reset();
 
     // utility: arrange tables with lists of players
-    std::vector<std::vector<td::player_id>> players_at_tables() const;
+    std::vector<std::vector<td::player_id_t>> players_at_tables() const;
 
     // return the maximum number of chips available per player for a given denomination
     unsigned long max_chips_for(unsigned long denomination, std::size_t players_count) const;
 
     // move a player to a specific table
     // returns player's original seat and new seat
-    td::player_movement move_player(const td::player_id& player, std::size_t table);
+    td::player_movement move_player(const td::player_id_t& player_id, std::size_t table);
 
     // move a player to the table with the smallest number of players, optionally avoiding a particular table
     // returns player's movement
-    td::player_movement move_player(const td::player_id& player, const std::unordered_set<std::size_t>& avoid_tables);
+    td::player_movement move_player(const td::player_id_t& player_id, const std::unordered_set<std::size_t>& avoid_tables);
 
     // re-balance by moving any player from a large table to a smaller one
     // returns number of movements, or zero, if no players moved
@@ -149,19 +149,19 @@ public:
 
     // add player to an existing game
     // returns player's seat
-    td::seat add_player(const td::player_id& player);
+    td::seat add_player(const td::player_id_t& player_id);
 
     // remove a player from the game
     // returns any player movements that happened
-    std::vector<td::player_movement> remove_player(const td::player_id& player);
+    std::vector<td::player_movement> remove_player(const td::player_id_t& player_id);
 
     // ----- funding -----
     
     // fund a player, (re-)buyin or addon
-    void fund_player(const td::player_id& player, const td::funding_source_id& src, std::size_t current_blind_level);
+    void fund_player(const td::player_id_t& player_id, const td::funding_source_id_t& src, std::size_t current_blind_level);
 
     // calculate number of chips per denomination for this funding source, given totals and number of players
-    std::vector<td::player_chips> chips_for_buyin(const td::funding_source_id& src, std::size_t max_expected_players) const;
+    std::vector<td::player_chips> chips_for_buyin(const td::funding_source_id_t& src, std::size_t max_expected_players) const;
 
     // ----- clock -----
 

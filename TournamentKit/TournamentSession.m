@@ -286,7 +286,7 @@
 }
 
 - (void)fundPlayer:(NSNumber*)playerId withFunding:(NSNumber*)sourceId {
-    [self sendCommand:@"fund_player" withData:@{@"player" : playerId, @"source_id" : sourceId} andBlock:nil];
+    [self sendCommand:@"fund_player" withData:@{@"player_id" : playerId, @"source_id" : sourceId} andBlock:nil];
 }
 
 - (void)planSeatingFor:(NSNumber*)expectedPlayers {
@@ -294,7 +294,7 @@
 }
 
 - (void)seatPlayer:(NSNumber*)playerId withBlock:(void(^)(NSNumber*,NSNumber*,NSNumber*))block {
-    [self sendCommand:@"seat_player" withData:@{@"player" : playerId} andBlock:^(id json, NSString* error) {
+    [self sendCommand:@"seat_player" withData:@{@"player_id" : playerId} andBlock:^(id json, NSString* error) {
         // TODO: Handle error
         // handle seated player
         id playerSeated = json[@"player_seated"];
@@ -311,7 +311,7 @@
 }
 
 - (void)bustPlayer:(NSNumber*)playerId withBlock:(void(^)(NSArray*))block {
-    [self sendCommand:@"bust_player" withData:@{@"player" : playerId} andBlock:^(id json, NSString* error) {
+    [self sendCommand:@"bust_player" withData:@{@"player_id" : playerId} andBlock:^(id json, NSString* error) {
         // TODO: Handle error
         // handle player movement
         // for now, just hand back the json

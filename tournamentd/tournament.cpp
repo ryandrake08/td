@@ -96,7 +96,7 @@ void tournament::handle_cmd_check_authorized(const json& in, json& out) const
 
 void tournament::handle_cmd_chips_for_buyin(const json& in, json& out) const
 {
-    td::funding_source_id source;
+    td::funding_source_id_t source;
     if(!in.get_value("source_id", source))
     {
         throw std::invalid_argument("must specify source");
@@ -214,15 +214,15 @@ void tournament::handle_cmd_gen_blind_levels(const json& in, json& out)
 
 void tournament::handle_cmd_fund_player(const json& in, json& out)
 {
-    td::player_id player;
-    td::funding_source_id source;
+    td::player_id_t player_id;
+    td::funding_source_id_t source_id;
 
-    if(!in.get_value("player", player) || !in.get_value("source_id", source))
+    if(!in.get_value("player_id", player_id) || !in.get_value("source_id", source_id))
     {
         throw std::invalid_argument("must specify player and source");
     }
 
-    this->game_info.fund_player(player, source, this->game_info.get_current_blind_level());
+    this->game_info.fund_player(player_id, source_id, this->game_info.get_current_blind_level());
 }
 
 void tournament::handle_cmd_plan_seating(const json& in, json& out)
@@ -239,17 +239,17 @@ void tournament::handle_cmd_plan_seating(const json& in, json& out)
 
 void tournament::handle_cmd_seat_player(const json& in, json& out)
 {
-    td::player_id player;
+    td::player_id_t player_id;
 
-    if(!in.get_value("player", player))
+    if(!in.get_value("player_id", player_id))
     {
         throw std::invalid_argument("must specify player");
     }
 
-    auto seating(this->game_info.add_player(player));
+    auto seating(this->game_info.add_player(player_id));
 
     json player_seated;
-    player_seated.set_value("player_id", player);
+    player_seated.set_value("player_id", player_id);
     player_seated.set_value("table_number", seating.table_number);
     player_seated.set_value("seat_number", seating.seat_number);
     out.set_value("player_seated", player_seated);
@@ -257,14 +257,14 @@ void tournament::handle_cmd_seat_player(const json& in, json& out)
 
 void tournament::handle_cmd_bust_player(const json& in, json& out)
 {
-    td::player_id player;
+    td::player_id_t player_id;
 
-    if(!in.get_value("player", player))
+    if(!in.get_value("player_id", player_id))
     {
         throw std::invalid_argument("must specify player");
     }
 
-    auto movements(this->game_info.remove_player(player));
+    auto movements(this->game_info.remove_player(player_id));
 
     out.set_values("players_moved", movements);
 }

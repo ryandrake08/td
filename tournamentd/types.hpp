@@ -15,10 +15,10 @@ namespace td
     };
 
     // key into the player map
-    typedef std::size_t player_id;
+    typedef std::size_t player_id_t;
 
     // index into the funding_source vector
-    typedef std::size_t funding_source_id;
+    typedef std::size_t funding_source_id_t;
 
     // attributes of a single blind level
     struct blind_level
@@ -83,13 +83,13 @@ namespace td
     // represents a player's movement from one seat to another
     struct player_movement
     {
-        player_id player;
+        player_id_t player_id;
         seat from_seat;
         seat to_seat;
 
         player_movement();
         player_movement(const json& obj);
-        player_movement(player_id p, const seat& f, const seat& t);
+        player_movement(player_id_t p, const seat& f, const seat& t);
     };
 
     // represents a quantity of chips distributed to each player
