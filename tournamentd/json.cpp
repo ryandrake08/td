@@ -51,7 +51,7 @@ static bool get_int_value(const cJSON* obj, T& value)
     if(obj != nullptr)
     {
         ensure_type(obj, cJSON_Number);
-        value = bounds_checking_cast<int,T>(obj->valueint);
+        value = bounds_checking_cast<long long int,T>(obj->valueint);
         return true;
     }
     else

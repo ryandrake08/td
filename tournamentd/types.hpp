@@ -62,6 +62,7 @@ namespace td
     // attributes of each player
     struct player
     {
+        player_id_t player_id;
         std::string name;
         datetime added_at;
 
@@ -101,22 +102,5 @@ namespace td
         player_chips();
         player_chips(const json& obj);
         player_chips(unsigned long d, unsigned long c);
-    };
-}
-
-namespace std
-{
-    template<>
-    struct hash<td::player>
-    {
-        typedef td::player argument_type;
-        typedef std::size_t result_type;
-
-        result_type operator()(argument_type const& s) const
-        {
-            result_type const h1 ( std::hash<std::string>()(s.name) );
-            result_type const h2 ( std::hash<std::time_t>()(s.added_at) );
-            return h1 ^ (h2 << 1);
-        }
     };
 }

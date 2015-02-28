@@ -1,5 +1,10 @@
 #include "types.hpp"
+#include <random>
 #include <utility>
+#include <cassert>
+
+// random number generator
+static std::default_random_engine engine;
 
 // ----- initialization
 
@@ -15,7 +20,7 @@ td::funding_source::funding_source() : is_addon(false), forbid_after_blind_level
 {
 }
 
-td::player::player() : added_at(datetime::now())
+td::player::player() : added_at(datetime::now()), player_id(std::uniform_int_distribution<unsigned long>()(engine))
 {
 }
 
@@ -74,6 +79,7 @@ td::funding_source::funding_source(const json& obj) : funding_source()
 
 td::player::player(const json& obj) : player()
 {
+    obj.get_value("player_id", this->player_id);
     obj.get_value("name", this->name);
     obj.get_value("added_at", this->added_at);
 }
@@ -131,6 +137,7 @@ json::json(const td::funding_source& value) : json()
 template<>
 json::json(const td::player& value) : json()
 {
+    this->set_value("player_id", value.player_id);
     this->set_value("name", value.name);
     this->set_value("added_at", value.added_at);
 }
@@ -168,9 +175,7 @@ json::json(const std::pair<const td::player_id_t,td::seat>& value) : json()
 }
 
 template<>
-json::json(const std::pair<const td::player_id_t,td::player>& value) : json()
+json::json(const std::pair<const td::player_id_t,td::player>& value) : json(value.second)
 {
-    this->set_value("player_id", value.first);
-    this->set_value("name", value.second.name);
-    this->set_value("added_at", value.second.added_at);
+    assert(value.first == value.second.player_id);
 }

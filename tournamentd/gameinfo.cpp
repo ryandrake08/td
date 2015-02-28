@@ -4,6 +4,7 @@
 #include <cmath>
 #include <limits>
 #include <numeric>
+#include <random>
 
 // random number generator
 static std::default_random_engine engine;
@@ -58,7 +59,7 @@ void gameinfo::configure(const json& config)
         this->players.clear();
         for(auto player : players_vector)
         {
-            this->players.emplace(std::hash<td::player>()(player), player);
+            this->players.emplace(player.player_id, player);
         }
     }
 
