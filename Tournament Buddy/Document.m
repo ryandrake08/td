@@ -107,9 +107,12 @@
 - (BOOL)tabView:(NSTabView*)tabView shouldSelectTabViewItem:(NSTabViewItem*)tabViewItem {
     // assume a different identifier has been assigned to each tab view item in IB
     NSInteger itemIndex = [tabView indexOfTabViewItemWithIdentifier:[tabViewItem identifier]];
-    NSArray* tableNibs = @[@"TBFundingView", @"TBPlayersView", @"TBChipsView", @"TBRoundsView", @"TBSeatingView"];
 
-    NSViewController* newController = [[TBTableViewController alloc] initWithNibName:[tableNibs objectAtIndex:itemIndex ] configuration:[self configuration]];
+    // could be considered both clever and janky
+    NSArray* tableNibs = @[@"TBFundingView", @"TBPlayersView", @"TBChipsView", @"TBRoundsView", @"TBSeatingView"];
+    NSString* nib = [tableNibs objectAtIndex:itemIndex];
+    NSString* className = [nib stringByAppendingString:@"Controller"];
+    NSViewController* newController = [[NSClassFromString(className) alloc] initWithNibName:[tableNibs objectAtIndex:itemIndex] configuration:[self configuration]];
 
     if (newController != nil) {
         [tabViewItem setView:newController.view];
