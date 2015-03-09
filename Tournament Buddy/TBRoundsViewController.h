@@ -8,5 +8,5 @@
 
 #import "TBTableViewController.h"
 
-@interface TBRoundsViewController : TBTableViewController
+@interface TBRoundsViewController : TBTableViewController <NSTableViewDataSource, NSTableViewDelegate>
 @end

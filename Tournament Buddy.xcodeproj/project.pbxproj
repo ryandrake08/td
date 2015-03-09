@@ -30,6 +30,7 @@
 		AD98D9701A7B342000DA6B8B /* TBRoundsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD98D96E1A7B342000DA6B8B /* TBRoundsView.xib */; };
 		AD98D9741A7B343600DA6B8B /* TBSeatingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD98D9721A7B343600DA6B8B /* TBSeatingViewController.m */; };
 		AD98D9751A7B343600DA6B8B /* TBSeatingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD98D9731A7B343600DA6B8B /* TBSeatingView.xib */; };
+		ADA128181AACF2BD00DACDBA /* TBRoundsTableCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA128171AACF2BD00DACDBA /* TBRoundsTableCellView.m */; };
 		ADE4E1281A7DFFD000FC9EFC /* TBTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE4E1271A7DFFD000FC9EFC /* TBTableViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -70,6 +71,8 @@
 		AD98D9711A7B343600DA6B8B /* TBSeatingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBSeatingViewController.h; sourceTree = "<group>"; };
 		AD98D9721A7B343600DA6B8B /* TBSeatingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBSeatingViewController.m; sourceTree = "<group>"; };
 		AD98D9731A7B343600DA6B8B /* TBSeatingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TBSeatingView.xib; sourceTree = "<group>"; };
+		ADA128161AACF2BD00DACDBA /* TBRoundsTableCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBRoundsTableCellView.h; sourceTree = "<group>"; };
+		ADA128171AACF2BD00DACDBA /* TBRoundsTableCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBRoundsTableCellView.m; sourceTree = "<group>"; };
 		ADE4E1261A7DFFD000FC9EFC /* TBTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBTableViewController.h; sourceTree = "<group>"; };
 		ADE4E1271A7DFFD000FC9EFC /* TBTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -129,6 +132,8 @@
 				AD98D9671A7B33F100DA6B8B /* TBPlayersViewController.h */,
 				AD98D9681A7B33F100DA6B8B /* TBPlayersViewController.m */,
 				AD98D9691A7B33F100DA6B8B /* TBPlayersView.xib */,
+				ADA128161AACF2BD00DACDBA /* TBRoundsTableCellView.h */,
+				ADA128171AACF2BD00DACDBA /* TBRoundsTableCellView.m */,
 				AD98D96C1A7B342000DA6B8B /* TBRoundsViewController.h */,
 				AD98D96D1A7B342000DA6B8B /* TBRoundsViewController.m */,
 				AD98D96E1A7B342000DA6B8B /* TBRoundsView.xib */,
@@ -232,6 +237,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AD98D9651A7B331A00DA6B8B /* TBFundingViewController.m in Sources */,
+				ADA128181AACF2BD00DACDBA /* TBRoundsTableCellView.m in Sources */,
 				AD98D96A1A7B33F100DA6B8B /* TBPlayersViewController.m in Sources */,
 				AD98D96F1A7B342000DA6B8B /* TBRoundsViewController.m in Sources */,
 				AD49306E1A885E1A008B1DCD /* TBFundingTableCellView.m in Sources */,
