@@ -10,4 +10,6 @@
 
 @interface TBRoundsTableCellView : NSTableCellView
 
+- (void)setRoundNumber:(NSInteger)round;
+
 @end
