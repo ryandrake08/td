@@ -12,3 +12,4 @@ db
 *.vcxproj.filters
 */Debug*
 */Release*
+Defaults.tournbuddy
