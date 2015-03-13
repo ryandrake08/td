@@ -97,12 +97,13 @@
                                                         <rect key="frame" x="51" y="-2" width="50" height="22"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" alignment="right" title="2:00" id="ZQP-ts-Fc1">
+                                                            <numberFormatter key="formatter" formatterBehavior="default10_4" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="0" maximumIntegerDigits="42" id="45n-mi-pPn" customClass="TBDurationNumberFormatter"/>
                                                             <font key="font" metaFont="system" size="16"/>
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
                                                         <connections>
-                                                            <action selector="durationFieldDidChange:" target="ztA-Wo-rC2" id="rcr-na-sF6"/>
+                                                            <binding destination="ztA-Wo-rC2" name="value" keyPath="objectValue.duration" id="2gR-NV-kDl"/>
                                                         </connections>
                                                     </textField>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="VHr-KQ-9NG">
@@ -177,12 +178,12 @@
                                                         <rect key="frame" x="374" y="-2" width="65" height="22"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" alignment="right" title="2:00" id="pYX-xM-Ydj">
+                                                            <numberFormatter key="formatter" formatterBehavior="default10_4" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="0" maximumIntegerDigits="42" id="j9g-U4-EaJ" customClass="TBDurationNumberFormatter"/>
                                                             <font key="font" metaFont="system" size="16"/>
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
                                                         <connections>
-                                                            <action selector="breakDurationFieldDidChange:" target="ztA-Wo-rC2" id="6xA-Vl-yLh"/>
                                                             <binding destination="ztA-Wo-rC2" name="value" keyPath="objectValue.break_duration" id="CIw-31-lxT"/>
                                                         </connections>
                                                     </textField>

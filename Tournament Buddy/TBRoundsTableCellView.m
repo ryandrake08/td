@@ -24,32 +24,11 @@
     [super setObjectValue:objectValue];
 
     if([self objectValue]) {
-
         BOOL isBreak = [[[self objectValue] objectForKey:@"break_duration"] boolValue];
         [[self breakButton] setState:isBreak ? NSOnState : NSOffState];
         [[self breakDurationField] setHidden:!isBreak];
         [[self breakMessageButton] setHidden:!isBreak];
         [[self breakLabel] setHidden:!isBreak];
-
-        // Handle duration
-        NSNumber* durationNumber = [[self objectValue] objectForKey:@"duration"];
-        if(durationNumber) {
-            NSInteger duration = [durationNumber integerValue];
-            NSInteger minutes = (duration / 60000) % 60;
-            NSInteger hours = (duration / 3600000);
-            NSString* value = [NSString stringWithFormat:@"%02ld:%02ld", (long)hours, (long)minutes];
-            [[self durationField] setStringValue:value];
-        }
-
-        // Handle break duration
-        NSNumber* breakDurationNumber = [[self objectValue] objectForKey:@"break_duration"];
-        if(breakDurationNumber) {
-            NSInteger duration = [breakDurationNumber integerValue];
-            NSInteger minutes = (duration / 60000) % 60;
-            NSInteger hours = (duration / 3600000);
-            NSString* value = [NSString stringWithFormat:@"%02ld:%02ld", (long)hours, (long)minutes];
-            [[self breakDurationField] setStringValue:value];
-        }
     }
 }
 
@@ -58,27 +37,6 @@
 }
 
 #pragma mark Controls
-
-+ (NSNumber*)durationForTextField:(NSTextField*)field {
-    NSString* value = [field stringValue];
-    NSScanner* scanner = [NSScanner scannerWithString:value];
-    NSInteger hours, minutes;
-    [scanner scanInteger:&hours];
-    [scanner scanString:@":" intoString:NULL];
-    [scanner scanInteger:&minutes];
-    NSInteger duration = hours * 3600000 + minutes * 60000;
-    return [NSNumber numberWithInteger:duration];
-}
-
-- (IBAction)durationFieldDidChange:(id)sender {
-    NSNumber* number = [[self class] durationForTextField:sender];
-    [[self objectValue] setObject:number forKey:@"duration"];
-}
-
-- (IBAction)breakDurationFieldDidChange:(id)sender {
-    NSNumber* number = [[self class] durationForTextField:sender];
-    [[self objectValue] setObject:number forKey:@"break_duration"];
-}
 
 - (IBAction)breakButtonDidChange:(id)sender {
     NSButton* button = sender;
