@@ -50,7 +50,11 @@
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                         <connections>
-                                                            <action selector="colorValueDidChange:" target="gpO-mK-b9b" id="fKs-NO-FvS"/>
+                                                            <binding destination="gpO-mK-b9b" name="value" keyPath="objectValue.color" id="IQR-h1-tTG">
+                                                                <dictionary key="options">
+                                                                    <string key="NSValueTransformerName">TBColorValueTransformer</string>
+                                                                </dictionary>
+                                                            </binding>
                                                         </connections>
                                                     </colorWell>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="Vz2-zW-UM3" userLabel="Value">
