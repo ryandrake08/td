@@ -136,10 +136,10 @@ void gameinfo::dump_state(json& state) const
     state.set_value("elapsed", this->elapsed.count());
 }
 
-std::vector<std::vector<td::player_id_t>> gameinfo::players_at_tables() const
+std::vector<std::vector<td::player_id_t> > gameinfo::players_at_tables() const
 {
     // build up two vectors, outer = tables, inner = players per table
-    std::vector<std::vector<td::player_id_t>> ret(this->tables);
+    std::vector<std::vector<td::player_id_t> > ret(this->tables);
 
     for(auto seat : this->seats)
     {
@@ -342,8 +342,8 @@ std::size_t gameinfo::try_rebalance(std::vector<td::player_movement>& movements)
     auto ppt(this->players_at_tables());
 
     // find smallest and largest tables
-    auto fewest_it(std::min_element(ppt.begin(), ppt.end(), has_lower_size<std::vector<td::player_id_t>>));
-    auto most_it(std::max_element(ppt.begin(), ppt.end(), has_lower_size<std::vector<td::player_id_t>>));
+    auto fewest_it(std::min_element(ppt.begin(), ppt.end(), has_lower_size<std::vector<td::player_id_t> >));
+    auto most_it(std::max_element(ppt.begin(), ppt.end(), has_lower_size<std::vector<td::player_id_t> >));
 
     // if fewest has two fewer players than most (e.g. 6 vs 8), then rebalance
     while(fewest_it->size() < most_it->size() - 1)

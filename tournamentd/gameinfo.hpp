@@ -100,7 +100,7 @@ class gameinfo
     void reset();
 
     // utility: arrange tables with lists of players
-    std::vector<std::vector<td::player_id_t>> players_at_tables() const;
+    std::vector<std::vector<td::player_id_t> > players_at_tables() const;
 
     // return the maximum number of chips available per player for a given denomination
     unsigned long max_chips_for(unsigned long denomination, std::size_t players_count) const;
