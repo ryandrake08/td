@@ -73,8 +73,6 @@
 		AD643D2B1A9437E500181DEA /* TBColor+CSS.m in Sources */ = {isa = PBXBuildFile; fileRef = AD643D221A942DD500181DEA /* TBColor+CSS.m */; };
 		AD643D2D1A9437E900181DEA /* TBColor+CSS.m in Sources */ = {isa = PBXBuildFile; fileRef = AD643D221A942DD500181DEA /* TBColor+CSS.m */; };
 		AD643D2E1A9437E900181DEA /* TBColor+CSS.m in Sources */ = {isa = PBXBuildFile; fileRef = AD643D221A942DD500181DEA /* TBColor+CSS.m */; };
-		AD643D301A943A3800181DEA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD643D2F1A943A3800181DEA /* Cocoa.framework */; };
-		AD643D321A943A6000181DEA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD643D311A943A6000181DEA /* UIKit.framework */; };
 		AD7FD7941A6ABF370047EB17 /* TournamentConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = AD37B3EA1A573C8300605351 /* TournamentConnection.m */; };
 		AD7FD7951A6ABF370047EB17 /* TournamentDaemon.mm in Sources */ = {isa = PBXBuildFile; fileRef = AD466EBF1A59375100E0973E /* TournamentDaemon.mm */; };
 		AD7FD7981A6ABF370047EB17 /* TournamentSession.m in Sources */ = {isa = PBXBuildFile; fileRef = AD466E541A5918DB00E0973E /* TournamentSession.m */; };
@@ -94,13 +92,14 @@
 		AD7FD7AA1A6AC6D60047EB17 /* TournamentDaemon.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AD466EBE1A59375100E0973E /* TournamentDaemon.h */; };
 		AD7FD7AD1A6AC6D60047EB17 /* TournamentSession.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AD466E531A5918DB00E0973E /* TournamentSession.h */; };
 		AD7FD7B01A6ACC1A0047EB17 /* TournamentKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD37B3CB1A571EB800605351 /* TournamentKit.framework */; };
+		ADA121C01B004FE30083D8AB /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADA121BF1B004FE30083D8AB /* Cocoa.framework */; };
+		ADA121C21B004FF10083D8AB /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADA121C11B004FF10083D8AB /* CFNetwork.framework */; };
+		ADA121C41B0050080083D8AB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADA121C31B0050080083D8AB /* UIKit.framework */; };
+		ADA121C61B00500D0083D8AB /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADA121C51B00500D0083D8AB /* CFNetwork.framework */; };
 		ADD523A31A62DCD800C8033A /* CFStreamCreatePairWithUnixSocket.c in Sources */ = {isa = PBXBuildFile; fileRef = ADD523A11A62DCD800C8033A /* CFStreamCreatePairWithUnixSocket.c */; };
 		ADD523A41A62DCD800C8033A /* CFStreamCreatePairWithUnixSocket.c in Sources */ = {isa = PBXBuildFile; fileRef = ADD523A11A62DCD800C8033A /* CFStreamCreatePairWithUnixSocket.c */; };
 		ADD523A51A62DCD800C8033A /* CFStreamCreatePairWithUnixSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = ADD523A21A62DCD800C8033A /* CFStreamCreatePairWithUnixSocket.h */; };
 		ADD523A61A62DCD800C8033A /* CFStreamCreatePairWithUnixSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = ADD523A21A62DCD800C8033A /* CFStreamCreatePairWithUnixSocket.h */; };
-		ADF9B9001A7485E600F2729F /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADF9B8FF1A7485E600F2729F /* CFNetwork.framework */; };
-		ADF9B9021A7485ED00F2729F /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADF9B9011A7485ED00F2729F /* CFNetwork.framework */; };
-		ADF9B9031A7485F400F2729F /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADF9B8FF1A7485E600F2729F /* CFNetwork.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -168,13 +167,13 @@
 		AD466EBF1A59375100E0973E /* TournamentDaemon.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TournamentDaemon.mm; sourceTree = "<group>"; };
 		AD643D211A942DD500181DEA /* TBColor+CSS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TBColor+CSS.h"; sourceTree = "<group>"; };
 		AD643D221A942DD500181DEA /* TBColor+CSS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TBColor+CSS.m"; sourceTree = "<group>"; };
-		AD643D2F1A943A3800181DEA /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
-		AD643D311A943A6000181DEA /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.1.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		AD7FD7791A6AB7910047EB17 /* libTournamentKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libTournamentKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		ADA121BF1B004FE30083D8AB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		ADA121C11B004FF10083D8AB /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		ADA121C31B0050080083D8AB /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		ADA121C51B00500D0083D8AB /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/CFNetwork.framework; sourceTree = DEVELOPER_DIR; };
 		ADD523A11A62DCD800C8033A /* CFStreamCreatePairWithUnixSocket.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = CFStreamCreatePairWithUnixSocket.c; sourceTree = "<group>"; };
 		ADD523A21A62DCD800C8033A /* CFStreamCreatePairWithUnixSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFStreamCreatePairWithUnixSocket.h; sourceTree = "<group>"; };
-		ADF9B8FF1A7485E600F2729F /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.1.sdk/System/Library/Frameworks/CFNetwork.framework; sourceTree = DEVELOPER_DIR; };
-		ADF9B9011A7485ED00F2729F /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/CFNetwork.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -182,8 +181,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AD643D301A943A3800181DEA /* Cocoa.framework in Frameworks */,
-				ADF9B9021A7485ED00F2729F /* CFNetwork.framework in Frameworks */,
+				ADA121C01B004FE30083D8AB /* Cocoa.framework in Frameworks */,
+				ADA121C21B004FF10083D8AB /* CFNetwork.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -199,8 +198,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AD643D321A943A6000181DEA /* UIKit.framework in Frameworks */,
-				ADF9B9001A7485E600F2729F /* CFNetwork.framework in Frameworks */,
+				ADA121C41B0050080083D8AB /* UIKit.framework in Frameworks */,
+				ADA121C61B00500D0083D8AB /* CFNetwork.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -208,7 +207,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ADF9B9031A7485F400F2729F /* CFNetwork.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -323,10 +321,10 @@
 		ADF9B9061A7543D900F2729F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				AD643D311A943A6000181DEA /* UIKit.framework */,
-				AD643D2F1A943A3800181DEA /* Cocoa.framework */,
-				ADF9B9011A7485ED00F2729F /* CFNetwork.framework */,
-				ADF9B8FF1A7485E600F2729F /* CFNetwork.framework */,
+				ADA121C51B00500D0083D8AB /* CFNetwork.framework */,
+				ADA121C31B0050080083D8AB /* UIKit.framework */,
+				ADA121C11B004FF10083D8AB /* CFNetwork.framework */,
+				ADA121BF1B004FE30083D8AB /* Cocoa.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -643,6 +641,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				ONLY_ACTIVE_ARCH = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -675,6 +675,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -760,6 +762,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = TournamentKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SDKROOT = iphoneos;
@@ -779,6 +782,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = TournamentKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SDKROOT = iphoneos;

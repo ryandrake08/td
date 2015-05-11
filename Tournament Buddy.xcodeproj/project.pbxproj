@@ -95,12 +95,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		AD8E683A1A6C606700E5A4D8 = {
+		AD51C5341AFFC9210084B25E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				AD4930501A87D48B008B1DCD /* TournamentKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		AD8E683A1A6C606700E5A4D8 = {
+			isa = PBXGroup;
+			children = (
 				AD8E68451A6C606700E5A4D8 /* Tournament Buddy */,
-				AD8E68461A6C606700E5A4D8 /* Supporting Files */,
+				AD51C5341AFFC9210084B25E /* Frameworks */,
 				AD8E68441A6C606700E5A4D8 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -152,6 +159,7 @@
 				AD98D9731A7B343600DA6B8B /* TBSeatingView.xib */,
 				ADE4E1261A7DFFD000FC9EFC /* TBTableViewController.h */,
 				ADE4E1271A7DFFD000FC9EFC /* TBTableViewController.m */,
+				AD8E68461A6C606700E5A4D8 /* Supporting Files */,
 			);
 			path = "Tournament Buddy";
 			sourceTree = "<group>";
@@ -167,7 +175,6 @@
 				AD8E684B1A6C606700E5A4D8 /* main.m */,
 			);
 			name = "Supporting Files";
-			path = "Tournament Buddy";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -367,6 +374,7 @@
 				);
 				INFOPLIST_FILE = "Tournament Buddy/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -382,6 +390,7 @@
 				);
 				INFOPLIST_FILE = "Tournament Buddy/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
