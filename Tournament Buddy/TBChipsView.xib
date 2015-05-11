@@ -106,9 +106,6 @@
                                                         </connections>
                                                     </textField>
                                                 </subviews>
-                                                <connections>
-                                                    <outlet property="colorWell" destination="2xd-Fe-T5J" id="Dbs-tj-xNb"/>
-                                                </connections>
                                             </tableCellView>
                                         </prototypeCellViews>
                                     </tableColumn>
