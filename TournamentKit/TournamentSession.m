@@ -310,6 +310,10 @@
     }];
 }
 
+- (void)unseatPlayer:(NSNumber*)playerId {
+    [self sendCommand:@"unseat_player" withData:@{@"player_id" : playerId} andBlock:nil];
+}
+
 - (void)bustPlayer:(NSNumber*)playerId withBlock:(void(^)(NSArray*))block {
     [self sendCommand:@"bust_player" withData:@{@"player_id" : playerId} andBlock:^(id json, NSString* error) {
         // TODO: Handle error

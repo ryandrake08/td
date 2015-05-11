@@ -255,6 +255,18 @@ void tournament::handle_cmd_seat_player(const json& in, json& out)
     out.set_value("player_seated", player_seated);
 }
 
+void tournament::handle_cmd_unseat_player(const json& in, json& out)
+{
+    td::player_id_t player_id;
+
+    if(!in.get_value("player_id", player_id))
+    {
+        throw std::invalid_argument("must specify player");
+    }
+
+    this->game_info.remove_player(player_id);
+}
+
 void tournament::handle_cmd_bust_player(const json& in, json& out)
 {
     td::player_id_t player_id;
@@ -264,7 +276,7 @@ void tournament::handle_cmd_bust_player(const json& in, json& out)
         throw std::invalid_argument("must specify player");
     }
 
-    auto movements(this->game_info.remove_player(player_id));
+    auto movements(this->game_info.bust_player(player_id));
 
     out.set_values("players_moved", movements);
 }
@@ -739,6 +751,26 @@ bool tournament::handle_client_input(std::iostream& client)
                     this->broadcast_state();
                     break;
 
+                    /*
+                     command:
+                        unseat_player
+
+                     purpose:
+                        Unseat a player without busting him (as if player was never in)
+
+                     input:
+                        authenticate (integer): Valid authentication code for a tournament admin
+                        player_id (player id): Player to unseat
+
+                     output:
+                        (none)
+                     */
+                case crc32_("unseat_player"):
+                    this->ensure_authorized(in);
+                    this->handle_cmd_unseat_player(in, out);
+                    this->broadcast_state();
+                    break;
+                    
                     /*
                      command:
                         bust_player

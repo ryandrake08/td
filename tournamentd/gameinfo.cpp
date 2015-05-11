@@ -227,7 +227,7 @@ td::seat gameinfo::add_player(const td::player_id_t& player_id)
 }
 
 // remove a player
-std::vector<td::player_movement> gameinfo::remove_player(const td::player_id_t& player_id)
+void gameinfo::remove_player(const td::player_id_t& player_id)
 {
     logger(LOG_DEBUG) << "Removing player " << player_id << " from game\n";
 
@@ -238,9 +238,20 @@ std::vector<td::player_movement> gameinfo::remove_player(const td::player_id_t& 
         throw td::runtime_error("tried to remove player not seated");
     }
 
-    // bust player and add seat to the end of the empty list
+    // remove player and add seat to the end of the empty list
     this->empty_seats.push_back(seat_it->second);
     this->seats.erase(seat_it);
+}
+
+// remove a player
+std::vector<td::player_movement> gameinfo::bust_player(const td::player_id_t& player_id)
+{
+    // remove the player
+    this->remove_player(player_id);
+
+    logger(LOG_DEBUG) << "Busting player " << player_id << '\n';
+
+    // add to the busted out list
     this->players_finished.push_front(player_id);
 
     // try to break table or rebalance

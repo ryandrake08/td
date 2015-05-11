@@ -150,9 +150,12 @@ public:
     // returns player's seat
     td::seat add_player(const td::player_id_t& player_id);
 
-    // remove a player from the game
+    // remove a player from the game (as though player never existed in the game)
+    void remove_player(const td::player_id_t& player_id);
+
+    // remove a player from the game, busting him out
     // returns any player movements that happened
-    std::vector<td::player_movement> remove_player(const td::player_id_t& player_id);
+    std::vector<td::player_movement> bust_player(const td::player_id_t& player_id);
 
     // ----- funding -----
     

@@ -49,6 +49,7 @@ class tournament
     void handle_cmd_fund_player(const json& in, json& out);
     void handle_cmd_plan_seating(const json& in, json& out);
     void handle_cmd_seat_player(const json& in, json& out);
+    void handle_cmd_unseat_player(const json& in, json& out);
     void handle_cmd_bust_player(const json& in, json& out);
 
     // handler for new client
