@@ -112,7 +112,7 @@
     NSArray* tableNibs = @[@"TBFundingView", @"TBPlayersView", @"TBChipsView", @"TBRoundsView", @"TBSeatingView"];
     NSString* nib = [tableNibs objectAtIndex:itemIndex];
     NSString* className = [nib stringByAppendingString:@"Controller"];
-    NSViewController* newController = [[NSClassFromString(className) alloc] initWithNibName:[tableNibs objectAtIndex:itemIndex] configuration:[self configuration]];
+    NSViewController* newController = [[NSClassFromString(className) alloc] initWithNibName:nib configuration:[self configuration]];
 
     if (newController != nil) {
         [tabViewItem setView:newController.view];
