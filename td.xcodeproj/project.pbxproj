@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9441F79F1B3C4B9D002E73D1 /* FBKVOController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9441F79C1B3C4B9D002E73D1 /* FBKVOController.m */; };
+		9441F7A01B3C4B9D002E73D1 /* FBKVOController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9441F79C1B3C4B9D002E73D1 /* FBKVOController.m */; };
+		9441F7A11B3C4B9D002E73D1 /* NSObject+FBKVOController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9441F79E1B3C4B9D002E73D1 /* NSObject+FBKVOController.m */; };
+		9441F7A21B3C4B9D002E73D1 /* NSObject+FBKVOController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9441F79E1B3C4B9D002E73D1 /* NSObject+FBKVOController.m */; };
 		9476F4681B3C385400A158F8 /* TBActionClockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4541B3C385400A158F8 /* TBActionClockView.m */; };
 		9476F4691B3C385400A158F8 /* TBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4561B3C385400A158F8 /* TBAppDelegate.m */; };
 		9476F46A1B3C385400A158F8 /* TBTournamentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4581B3C385400A158F8 /* TBTournamentsViewController.m */; };
@@ -14,8 +18,6 @@
 		9476F46C1B3C385400A158F8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9476F45C1B3C385400A158F8 /* Main.storyboard */; };
 		9476F46D1B3C385400A158F8 /* TBRemote.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9476F45D1B3C385400A158F8 /* TBRemote.xcassets */; };
 		9476F46E1B3C385400A158F8 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9476F45F1B3C385400A158F8 /* LaunchScreen.xib */; };
-		9476F46F1B3C385400A158F8 /* FBKVOController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4611B3C385400A158F8 /* FBKVOController.m */; };
-		9476F4701B3C385400A158F8 /* NSObject+FBKVOController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4631B3C385400A158F8 /* NSObject+FBKVOController.m */; };
 		9476F4721B3C385400A158F8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4651B3C385400A158F8 /* main.m */; };
 		9476F4761B3C3D6700A158F8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9476F4751B3C3D6700A158F8 /* UIKit.framework */; };
 		9476F4781B3C3D6E00A158F8 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9476F4771B3C3D6E00A158F8 /* CoreGraphics.framework */; };
@@ -70,8 +72,6 @@
 		AD0A75A51AA22028009E90A3 /* TBPlayersTableCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD0A75A41AA22028009E90A3 /* TBPlayersTableCellView.m */; };
 		AD0EC5051AB331460071BD18 /* TBDurationNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = AD0EC5041AB331460071BD18 /* TBDurationNumberFormatter.m */; };
 		AD0EC5081AB33AA30071BD18 /* TBColorValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = AD0EC5071AB33AA30071BD18 /* TBColorValueTransformer.m */; };
-		AD4930641A87F19A008B1DCD /* FBKVOController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD4930611A87F19A008B1DCD /* FBKVOController.m */; };
-		AD4930651A87F19A008B1DCD /* NSObject+FBKVOController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD4930631A87F19A008B1DCD /* NSObject+FBKVOController.m */; };
 		AD49306E1A885E1A008B1DCD /* TBFundingTableCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD49306D1A885E1A008B1DCD /* TBFundingTableCellView.m */; };
 		AD60911D1A94EBB600AAF891 /* TBChipsTableCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD60911C1A94EBB600AAF891 /* TBChipsTableCellView.m */; };
 		AD8E684A1A6C606700E5A4D8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8E68491A6C606700E5A4D8 /* AppDelegate.m */; };
@@ -108,6 +108,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		9441F79B1B3C4B9D002E73D1 /* FBKVOController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBKVOController.h; sourceTree = "<group>"; };
+		9441F79C1B3C4B9D002E73D1 /* FBKVOController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBKVOController.m; sourceTree = "<group>"; };
+		9441F79D1B3C4B9D002E73D1 /* NSObject+FBKVOController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+FBKVOController.h"; sourceTree = "<group>"; };
+		9441F79E1B3C4B9D002E73D1 /* NSObject+FBKVOController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+FBKVOController.m"; sourceTree = "<group>"; };
 		9476F42A1B3C37D000A158F8 /* TBRemote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TBRemote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9476F4531B3C385400A158F8 /* TBActionClockView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBActionClockView.h; sourceTree = "<group>"; };
 		9476F4541B3C385400A158F8 /* TBActionClockView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBActionClockView.m; sourceTree = "<group>"; };
@@ -120,10 +124,6 @@
 		9476F45B1B3C385400A158F8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9476F45D1B3C385400A158F8 /* TBRemote.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = TBRemote.xcassets; sourceTree = "<group>"; };
 		9476F45E1B3C385400A158F8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		9476F4601B3C385400A158F8 /* FBKVOController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBKVOController.h; sourceTree = "<group>"; };
-		9476F4611B3C385400A158F8 /* FBKVOController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBKVOController.m; sourceTree = "<group>"; };
-		9476F4621B3C385400A158F8 /* NSObject+FBKVOController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+FBKVOController.h"; sourceTree = "<group>"; };
-		9476F4631B3C385400A158F8 /* NSObject+FBKVOController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+FBKVOController.m"; sourceTree = "<group>"; };
 		9476F4641B3C385400A158F8 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9476F4651B3C385400A158F8 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		9476F4751B3C3D6700A158F8 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -180,10 +180,6 @@
 		AD0EC5041AB331460071BD18 /* TBDurationNumberFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBDurationNumberFormatter.m; sourceTree = "<group>"; };
 		AD0EC5061AB33AA30071BD18 /* TBColorValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBColorValueTransformer.h; sourceTree = "<group>"; };
 		AD0EC5071AB33AA30071BD18 /* TBColorValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBColorValueTransformer.m; sourceTree = "<group>"; };
-		AD4930601A87F19A008B1DCD /* FBKVOController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBKVOController.h; sourceTree = "<group>"; };
-		AD4930611A87F19A008B1DCD /* FBKVOController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBKVOController.m; sourceTree = "<group>"; };
-		AD4930621A87F19A008B1DCD /* NSObject+FBKVOController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+FBKVOController.h"; sourceTree = "<group>"; };
-		AD4930631A87F19A008B1DCD /* NSObject+FBKVOController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+FBKVOController.m"; sourceTree = "<group>"; };
 		AD49306C1A885E1A008B1DCD /* TBFundingTableCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBFundingTableCellView.h; sourceTree = "<group>"; };
 		AD49306D1A885E1A008B1DCD /* TBFundingTableCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBFundingTableCellView.m; sourceTree = "<group>"; };
 		AD60911B1A94EBB600AAF891 /* TBChipsTableCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBChipsTableCellView.h; sourceTree = "<group>"; };
@@ -252,10 +248,6 @@
 		9476F4661B3C385400A158F8 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				9476F4601B3C385400A158F8 /* FBKVOController.h */,
-				9476F4611B3C385400A158F8 /* FBKVOController.m */,
-				9476F4621B3C385400A158F8 /* NSObject+FBKVOController.h */,
-				9476F4631B3C385400A158F8 /* NSObject+FBKVOController.m */,
 				9476F4641B3C385400A158F8 /* Info.plist */,
 				9476F4651B3C385400A158F8 /* main.m */,
 			);
@@ -274,18 +266,11 @@
 				9476F4591B3C385400A158F8 /* TBRemoteClockViewController.h */,
 				9476F45A1B3C385400A158F8 /* TBRemoteClockViewController.m */,
 				9476F45C1B3C385400A158F8 /* Main.storyboard */,
-				9476F45D1B3C385400A158F8 /* TBRemote.xcassets */,
 				9476F45F1B3C385400A158F8 /* LaunchScreen.xib */,
+				9476F45D1B3C385400A158F8 /* TBRemote.xcassets */,
 				9476F4661B3C385400A158F8 /* Supporting Files */,
 			);
 			path = TBRemote;
-			sourceTree = "<group>";
-		};
-		9476F4891B3C3EA700A158F8 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		9476F4A11B3C3EA700A158F8 /* TournamentKit */ = {
@@ -304,7 +289,10 @@
 				9476F4851B3C3EA700A158F8 /* NSData+Delimiter.m */,
 				9476F4861B3C3EA700A158F8 /* CFStreamCreatePairWithUnixSocket.h */,
 				9476F4871B3C3EA700A158F8 /* CFStreamCreatePairWithUnixSocket.c */,
-				9476F4891B3C3EA700A158F8 /* Supporting Files */,
+				9441F79B1B3C4B9D002E73D1 /* FBKVOController.h */,
+				9441F79C1B3C4B9D002E73D1 /* FBKVOController.m */,
+				9441F79D1B3C4B9D002E73D1 /* NSObject+FBKVOController.h */,
+				9441F79E1B3C4B9D002E73D1 /* NSObject+FBKVOController.m */,
 			);
 			path = TournamentKit;
 			sourceTree = "<group>";
@@ -395,7 +383,6 @@
 				AD8E684D1A6C606700E5A4D8 /* Document.h */,
 				AD8E684E1A6C606700E5A4D8 /* Document.m */,
 				AD8E68501A6C606700E5A4D8 /* Document.xib */,
-				AD8E68531A6C606700E5A4D8 /* TBMac.xcassets */,
 				AD8E68551A6C606700E5A4D8 /* MainMenu.xib */,
 				AD60911B1A94EBB600AAF891 /* TBChipsTableCellView.h */,
 				AD60911C1A94EBB600AAF891 /* TBChipsTableCellView.m */,
@@ -426,6 +413,7 @@
 				AD98D9731A7B343600DA6B8B /* TBSeatingView.xib */,
 				ADE4E1261A7DFFD000FC9EFC /* TBTableViewController.h */,
 				ADE4E1271A7DFFD000FC9EFC /* TBTableViewController.m */,
+				AD8E68531A6C606700E5A4D8 /* TBMac.xcassets */,
 				AD8E68461A6C606700E5A4D8 /* Supporting Files */,
 			);
 			path = "Tournament Buddy";
@@ -434,10 +422,6 @@
 		AD8E68461A6C606700E5A4D8 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				AD4930601A87F19A008B1DCD /* FBKVOController.h */,
-				AD4930611A87F19A008B1DCD /* FBKVOController.m */,
-				AD4930621A87F19A008B1DCD /* NSObject+FBKVOController.h */,
-				AD4930631A87F19A008B1DCD /* NSObject+FBKVOController.m */,
 				AD8E68471A6C606700E5A4D8 /* Info.plist */,
 				AD8E684B1A6C606700E5A4D8 /* main.m */,
 			);
@@ -518,7 +502,7 @@
 					};
 				};
 			};
-			buildConfigurationList = AD8E683E1A6C606700E5A4D8 /* Build configuration list for PBXProject "Tournament Buddy" */;
+			buildConfigurationList = AD8E683E1A6C606700E5A4D8 /* Build configuration list for PBXProject "td" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -572,7 +556,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9476F4701B3C385400A158F8 /* NSObject+FBKVOController.m in Sources */,
 				9476F4691B3C385400A158F8 /* TBAppDelegate.m in Sources */,
 				9476F4AB1B3C3EA700A158F8 /* NSData+Delimiter.m in Sources */,
 				949D70A01B3C440E008D5CD1 /* types.cpp in Sources */,
@@ -589,9 +572,10 @@
 				949D70A21B3C441F008D5CD1 /* socket.cpp in Sources */,
 				9476F4A91B3C3EA700A158F8 /* TBColor+CSS.m in Sources */,
 				949D709C1B3C440E008D5CD1 /* gameinfo.cpp in Sources */,
+				9441F7A21B3C4B9D002E73D1 /* NSObject+FBKVOController.m in Sources */,
+				9441F7A01B3C4B9D002E73D1 /* FBKVOController.m in Sources */,
 				9476F4A31B3C3EA700A158F8 /* TournamentConnection.m in Sources */,
 				949D709E1B3C440E008D5CD1 /* logger.cpp in Sources */,
-				9476F46F1B3C385400A158F8 /* FBKVOController.m in Sources */,
 				949D709B1B3C440E008D5CD1 /* datetime.cpp in Sources */,
 				9476F4A51B3C3EA700A158F8 /* TournamentDaemon.mm in Sources */,
 			);
@@ -633,15 +617,15 @@
 				AD49306E1A885E1A008B1DCD /* TBFundingTableCellView.m in Sources */,
 				AD8E684F1A6C606700E5A4D8 /* Document.m in Sources */,
 				949D70981B3C440D008D5CD1 /* logger.cpp in Sources */,
-				AD4930641A87F19A008B1DCD /* FBKVOController.m in Sources */,
 				949D70951B3C440D008D5CD1 /* datetime.cpp in Sources */,
-				AD4930651A87F19A008B1DCD /* NSObject+FBKVOController.m in Sources */,
 				949D70961B3C440D008D5CD1 /* gameinfo.cpp in Sources */,
 				949D70A31B3C441F008D5CD1 /* socket.cpp in Sources */,
 				AD98D9741A7B343600DA6B8B /* TBSeatingViewController.m in Sources */,
+				9441F79F1B3C4B9D002E73D1 /* FBKVOController.m in Sources */,
 				ADE4E1281A7DFFD000FC9EFC /* TBTableViewController.m in Sources */,
 				AD8E684C1A6C606700E5A4D8 /* main.m in Sources */,
 				AD0A75A51AA22028009E90A3 /* TBPlayersTableCellView.m in Sources */,
+				9441F7A11B3C4B9D002E73D1 /* NSObject+FBKVOController.m in Sources */,
 				949D70A51B3C442F008D5CD1 /* cJSON.c in Sources */,
 				9476F4AA1B3C3EA700A158F8 /* NSData+Delimiter.m in Sources */,
 				9476F4A41B3C3EA700A158F8 /* TournamentDaemon.mm in Sources */,
@@ -856,7 +840,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		AD8E683E1A6C606700E5A4D8 /* Build configuration list for PBXProject "Tournament Buddy" */ = {
+		AD8E683E1A6C606700E5A4D8 /* Build configuration list for PBXProject "td" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				AD8E68641A6C606700E5A4D8 /* Debug */,
