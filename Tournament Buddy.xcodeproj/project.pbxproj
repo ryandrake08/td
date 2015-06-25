@@ -7,7 +7,65 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		943672CF1B3BC8550061AEE9 /* TournamentKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 943672CE1B3BC8550061AEE9 /* TournamentKit.framework */; };
+		9476F4681B3C385400A158F8 /* TBActionClockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4541B3C385400A158F8 /* TBActionClockView.m */; };
+		9476F4691B3C385400A158F8 /* TBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4561B3C385400A158F8 /* TBAppDelegate.m */; };
+		9476F46A1B3C385400A158F8 /* TBTournamentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4581B3C385400A158F8 /* TBTournamentsViewController.m */; };
+		9476F46B1B3C385400A158F8 /* TBRemoteClockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F45A1B3C385400A158F8 /* TBRemoteClockViewController.m */; };
+		9476F46C1B3C385400A158F8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9476F45C1B3C385400A158F8 /* Main.storyboard */; };
+		9476F46D1B3C385400A158F8 /* TBRemote.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9476F45D1B3C385400A158F8 /* TBRemote.xcassets */; };
+		9476F46E1B3C385400A158F8 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9476F45F1B3C385400A158F8 /* LaunchScreen.xib */; };
+		9476F46F1B3C385400A158F8 /* FBKVOController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4611B3C385400A158F8 /* FBKVOController.m */; };
+		9476F4701B3C385400A158F8 /* NSObject+FBKVOController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4631B3C385400A158F8 /* NSObject+FBKVOController.m */; };
+		9476F4721B3C385400A158F8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4651B3C385400A158F8 /* main.m */; };
+		9476F4761B3C3D6700A158F8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9476F4751B3C3D6700A158F8 /* UIKit.framework */; };
+		9476F4781B3C3D6E00A158F8 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9476F4771B3C3D6E00A158F8 /* CoreGraphics.framework */; };
+		9476F47A1B3C3D7400A158F8 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9476F4791B3C3D7400A158F8 /* CFNetwork.framework */; };
+		9476F4A21B3C3EA700A158F8 /* TournamentConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F47D1B3C3EA700A158F8 /* TournamentConnection.m */; };
+		9476F4A31B3C3EA700A158F8 /* TournamentConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F47D1B3C3EA700A158F8 /* TournamentConnection.m */; };
+		9476F4A41B3C3EA700A158F8 /* TournamentDaemon.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9476F47F1B3C3EA700A158F8 /* TournamentDaemon.mm */; };
+		9476F4A51B3C3EA700A158F8 /* TournamentDaemon.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9476F47F1B3C3EA700A158F8 /* TournamentDaemon.mm */; };
+		9476F4A61B3C3EA700A158F8 /* TournamentSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4811B3C3EA700A158F8 /* TournamentSession.m */; };
+		9476F4A71B3C3EA700A158F8 /* TournamentSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4811B3C3EA700A158F8 /* TournamentSession.m */; };
+		9476F4A81B3C3EA700A158F8 /* TBColor+CSS.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4831B3C3EA700A158F8 /* TBColor+CSS.m */; };
+		9476F4A91B3C3EA700A158F8 /* TBColor+CSS.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4831B3C3EA700A158F8 /* TBColor+CSS.m */; };
+		9476F4AA1B3C3EA700A158F8 /* NSData+Delimiter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4851B3C3EA700A158F8 /* NSData+Delimiter.m */; };
+		9476F4AB1B3C3EA700A158F8 /* NSData+Delimiter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4851B3C3EA700A158F8 /* NSData+Delimiter.m */; };
+		9476F4AC1B3C3EA700A158F8 /* CFStreamCreatePairWithUnixSocket.c in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4871B3C3EA700A158F8 /* CFStreamCreatePairWithUnixSocket.c */; };
+		9476F4AD1B3C3EA700A158F8 /* CFStreamCreatePairWithUnixSocket.c in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4871B3C3EA700A158F8 /* CFStreamCreatePairWithUnixSocket.c */; };
+		9476F4EC1B3C3F8300A158F8 /* cJSON.c in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4CE1B3C3F8300A158F8 /* cJSON.c */; };
+		9476F4ED1B3C3F8300A158F8 /* bonjour.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4D11B3C3F8300A158F8 /* bonjour.cpp */; };
+		9476F4EE1B3C3F8300A158F8 /* datetime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4D31B3C3F8300A158F8 /* datetime.cpp */; };
+		9476F4EF1B3C3F8300A158F8 /* gameinfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4D51B3C3F8300A158F8 /* gameinfo.cpp */; };
+		9476F4F01B3C3F8300A158F8 /* json.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4D81B3C3F8300A158F8 /* json.cpp */; };
+		9476F4F11B3C3F8300A158F8 /* logger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4DA1B3C3F8300A158F8 /* logger.cpp */; };
+		9476F4F21B3C3F8300A158F8 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4DC1B3C3F8300A158F8 /* main.cpp */; };
+		9476F4F31B3C3F8300A158F8 /* process.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4DD1B3C3F8300A158F8 /* process.cpp */; };
+		9476F4F41B3C3F8300A158F8 /* program.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4DF1B3C3F8300A158F8 /* program.cpp */; };
+		9476F4F51B3C3F8300A158F8 /* server.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E11B3C3F8300A158F8 /* server.cpp */; };
+		9476F4F61B3C3F8300A158F8 /* socket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E31B3C3F8300A158F8 /* socket.cpp */; };
+		9476F4F71B3C3F8300A158F8 /* tournament.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E71B3C3F8300A158F8 /* tournament.cpp */; };
+		9476F4F81B3C3F8300A158F8 /* types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E91B3C3F8300A158F8 /* types.cpp */; };
+		9476F4FA1B3C403F00A158F8 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9476F4F91B3C403F00A158F8 /* CFNetwork.framework */; };
+		9476F4FC1B3C404400A158F8 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9476F4FB1B3C404400A158F8 /* CoreFoundation.framework */; };
+		9476F4FD1B3C406400A158F8 /* defaults.json in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9476F4CD1B3C3F8300A158F8 /* defaults.json */; };
+		949D70941B3C43DB008D5CD1 /* tournament.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E71B3C3F8300A158F8 /* tournament.cpp */; };
+		949D70951B3C440D008D5CD1 /* datetime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4D31B3C3F8300A158F8 /* datetime.cpp */; };
+		949D70961B3C440D008D5CD1 /* gameinfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4D51B3C3F8300A158F8 /* gameinfo.cpp */; };
+		949D70971B3C440D008D5CD1 /* json.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4D81B3C3F8300A158F8 /* json.cpp */; };
+		949D70981B3C440D008D5CD1 /* logger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4DA1B3C3F8300A158F8 /* logger.cpp */; };
+		949D70991B3C440D008D5CD1 /* server.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E11B3C3F8300A158F8 /* server.cpp */; };
+		949D709A1B3C440D008D5CD1 /* types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E91B3C3F8300A158F8 /* types.cpp */; };
+		949D709B1B3C440E008D5CD1 /* datetime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4D31B3C3F8300A158F8 /* datetime.cpp */; };
+		949D709C1B3C440E008D5CD1 /* gameinfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4D51B3C3F8300A158F8 /* gameinfo.cpp */; };
+		949D709D1B3C440E008D5CD1 /* json.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4D81B3C3F8300A158F8 /* json.cpp */; };
+		949D709E1B3C440E008D5CD1 /* logger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4DA1B3C3F8300A158F8 /* logger.cpp */; };
+		949D709F1B3C440E008D5CD1 /* server.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E11B3C3F8300A158F8 /* server.cpp */; };
+		949D70A01B3C440E008D5CD1 /* types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E91B3C3F8300A158F8 /* types.cpp */; };
+		949D70A11B3C4411008D5CD1 /* tournament.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E71B3C3F8300A158F8 /* tournament.cpp */; };
+		949D70A21B3C441F008D5CD1 /* socket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E31B3C3F8300A158F8 /* socket.cpp */; };
+		949D70A31B3C441F008D5CD1 /* socket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E31B3C3F8300A158F8 /* socket.cpp */; };
+		949D70A41B3C442F008D5CD1 /* cJSON.c in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4CE1B3C3F8300A158F8 /* cJSON.c */; };
+		949D70A51B3C442F008D5CD1 /* cJSON.c in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4CE1B3C3F8300A158F8 /* cJSON.c */; };
 		AD0A75A31AA22012009E90A3 /* TBPlayersTableCellView.h in Resources */ = {isa = PBXBuildFile; fileRef = AD0A75A21AA22012009E90A3 /* TBPlayersTableCellView.h */; };
 		AD0A75A51AA22028009E90A3 /* TBPlayersTableCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD0A75A41AA22028009E90A3 /* TBPlayersTableCellView.m */; };
 		AD0EC5051AB331460071BD18 /* TBDurationNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = AD0EC5041AB331460071BD18 /* TBDurationNumberFormatter.m */; };
@@ -20,7 +78,7 @@
 		AD8E684C1A6C606700E5A4D8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8E684B1A6C606700E5A4D8 /* main.m */; };
 		AD8E684F1A6C606700E5A4D8 /* Document.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8E684E1A6C606700E5A4D8 /* Document.m */; };
 		AD8E68521A6C606700E5A4D8 /* Document.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD8E68501A6C606700E5A4D8 /* Document.xib */; };
-		AD8E68541A6C606700E5A4D8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AD8E68531A6C606700E5A4D8 /* Images.xcassets */; };
+		AD8E68541A6C606700E5A4D8 /* TBMac.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AD8E68531A6C606700E5A4D8 /* TBMac.xcassets */; };
 		AD8E68571A6C606700E5A4D8 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD8E68551A6C606700E5A4D8 /* MainMenu.xib */; };
 		AD98D95C1A7B290500DA6B8B /* TBFundingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD98D95A1A7B290500DA6B8B /* TBFundingView.xib */; };
 		AD98D95E1A7B2DDA00DA6B8B /* TBChipsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD98D95D1A7B2DDA00DA6B8B /* TBChipsView.xib */; };
@@ -36,8 +94,86 @@
 		ADE4E1281A7DFFD000FC9EFC /* TBTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE4E1271A7DFFD000FC9EFC /* TBTableViewController.m */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		9476F4C41B3C3F3D00A158F8 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 12;
+			dstPath = "";
+			dstSubfolderSpec = 16;
+			files = (
+				9476F4FD1B3C406400A158F8 /* defaults.json in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
-		943672CE1B3BC8550061AEE9 /* TournamentKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TournamentKit.framework; path = "../../Library/Developer/Xcode/DerivedData/td-flumvotfoxivlcejdluutehqbfxw/Build/Products/Debug/TournamentKit.framework"; sourceTree = "<group>"; };
+		9476F42A1B3C37D000A158F8 /* TBRemote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TBRemote.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9476F4531B3C385400A158F8 /* TBActionClockView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBActionClockView.h; sourceTree = "<group>"; };
+		9476F4541B3C385400A158F8 /* TBActionClockView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBActionClockView.m; sourceTree = "<group>"; };
+		9476F4551B3C385400A158F8 /* TBAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBAppDelegate.h; sourceTree = "<group>"; };
+		9476F4561B3C385400A158F8 /* TBAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBAppDelegate.m; sourceTree = "<group>"; };
+		9476F4571B3C385400A158F8 /* TBTournamentsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBTournamentsViewController.h; sourceTree = "<group>"; };
+		9476F4581B3C385400A158F8 /* TBTournamentsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBTournamentsViewController.m; sourceTree = "<group>"; };
+		9476F4591B3C385400A158F8 /* TBRemoteClockViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBRemoteClockViewController.h; sourceTree = "<group>"; };
+		9476F45A1B3C385400A158F8 /* TBRemoteClockViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBRemoteClockViewController.m; sourceTree = "<group>"; };
+		9476F45B1B3C385400A158F8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		9476F45D1B3C385400A158F8 /* TBRemote.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = TBRemote.xcassets; sourceTree = "<group>"; };
+		9476F45E1B3C385400A158F8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		9476F4601B3C385400A158F8 /* FBKVOController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBKVOController.h; sourceTree = "<group>"; };
+		9476F4611B3C385400A158F8 /* FBKVOController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBKVOController.m; sourceTree = "<group>"; };
+		9476F4621B3C385400A158F8 /* NSObject+FBKVOController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+FBKVOController.h"; sourceTree = "<group>"; };
+		9476F4631B3C385400A158F8 /* NSObject+FBKVOController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+FBKVOController.m"; sourceTree = "<group>"; };
+		9476F4641B3C385400A158F8 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9476F4651B3C385400A158F8 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		9476F4751B3C3D6700A158F8 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		9476F4771B3C3D6E00A158F8 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
+		9476F4791B3C3D7400A158F8 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/CFNetwork.framework; sourceTree = DEVELOPER_DIR; };
+		9476F47B1B3C3EA700A158F8 /* TournamentKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TournamentKit.h; sourceTree = "<group>"; };
+		9476F47C1B3C3EA700A158F8 /* TournamentConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TournamentConnection.h; sourceTree = "<group>"; };
+		9476F47D1B3C3EA700A158F8 /* TournamentConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TournamentConnection.m; sourceTree = "<group>"; };
+		9476F47E1B3C3EA700A158F8 /* TournamentDaemon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TournamentDaemon.h; sourceTree = "<group>"; };
+		9476F47F1B3C3EA700A158F8 /* TournamentDaemon.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TournamentDaemon.mm; sourceTree = "<group>"; };
+		9476F4801B3C3EA700A158F8 /* TournamentSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TournamentSession.h; sourceTree = "<group>"; };
+		9476F4811B3C3EA700A158F8 /* TournamentSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TournamentSession.m; sourceTree = "<group>"; };
+		9476F4821B3C3EA700A158F8 /* TBColor+CSS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TBColor+CSS.h"; sourceTree = "<group>"; };
+		9476F4831B3C3EA700A158F8 /* TBColor+CSS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TBColor+CSS.m"; sourceTree = "<group>"; };
+		9476F4841B3C3EA700A158F8 /* NSData+Delimiter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Delimiter.h"; sourceTree = "<group>"; };
+		9476F4851B3C3EA700A158F8 /* NSData+Delimiter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Delimiter.m"; sourceTree = "<group>"; };
+		9476F4861B3C3EA700A158F8 /* CFStreamCreatePairWithUnixSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFStreamCreatePairWithUnixSocket.h; sourceTree = "<group>"; };
+		9476F4871B3C3EA700A158F8 /* CFStreamCreatePairWithUnixSocket.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = CFStreamCreatePairWithUnixSocket.c; sourceTree = "<group>"; };
+		9476F4C61B3C3F3D00A158F8 /* tournamentd */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = tournamentd; sourceTree = BUILT_PRODUCTS_DIR; };
+		9476F4CD1B3C3F8300A158F8 /* defaults.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = defaults.json; path = ../defaults.json; sourceTree = "<group>"; };
+		9476F4CE1B3C3F8300A158F8 /* cJSON.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cJSON.c; sourceTree = "<group>"; };
+		9476F4CF1B3C3F8300A158F8 /* cJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cJSON.h; sourceTree = "<group>"; };
+		9476F4D11B3C3F8300A158F8 /* bonjour.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bonjour.cpp; sourceTree = "<group>"; };
+		9476F4D21B3C3F8300A158F8 /* bonjour.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = bonjour.hpp; sourceTree = "<group>"; };
+		9476F4D31B3C3F8300A158F8 /* datetime.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = datetime.cpp; sourceTree = "<group>"; };
+		9476F4D41B3C3F8300A158F8 /* datetime.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = datetime.hpp; sourceTree = "<group>"; };
+		9476F4D51B3C3F8300A158F8 /* gameinfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gameinfo.cpp; sourceTree = "<group>"; };
+		9476F4D61B3C3F8300A158F8 /* gameinfo.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = gameinfo.hpp; sourceTree = "<group>"; };
+		9476F4D71B3C3F8300A158F8 /* ivectorstream.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ivectorstream.hpp; sourceTree = "<group>"; };
+		9476F4D81B3C3F8300A158F8 /* json.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = json.cpp; sourceTree = "<group>"; };
+		9476F4D91B3C3F8300A158F8 /* json.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = json.hpp; sourceTree = "<group>"; };
+		9476F4DA1B3C3F8300A158F8 /* logger.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = logger.cpp; sourceTree = "<group>"; };
+		9476F4DB1B3C3F8300A158F8 /* logger.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = logger.hpp; sourceTree = "<group>"; };
+		9476F4DC1B3C3F8300A158F8 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		9476F4DD1B3C3F8300A158F8 /* process.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = process.cpp; sourceTree = "<group>"; };
+		9476F4DE1B3C3F8300A158F8 /* process.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = process.hpp; sourceTree = "<group>"; };
+		9476F4DF1B3C3F8300A158F8 /* program.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = program.cpp; sourceTree = "<group>"; };
+		9476F4E01B3C3F8300A158F8 /* program.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = program.hpp; sourceTree = "<group>"; };
+		9476F4E11B3C3F8300A158F8 /* server.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = server.cpp; sourceTree = "<group>"; };
+		9476F4E21B3C3F8300A158F8 /* server.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = server.hpp; sourceTree = "<group>"; };
+		9476F4E31B3C3F8300A158F8 /* socket.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = socket.cpp; sourceTree = "<group>"; };
+		9476F4E41B3C3F8300A158F8 /* socket.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = socket.hpp; sourceTree = "<group>"; };
+		9476F4E51B3C3F8300A158F8 /* socketstream.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = socketstream.hpp; sourceTree = "<group>"; };
+		9476F4E61B3C3F8300A158F8 /* stringcrc.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = stringcrc.hpp; sourceTree = "<group>"; };
+		9476F4E71B3C3F8300A158F8 /* tournament.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tournament.cpp; sourceTree = "<group>"; };
+		9476F4E81B3C3F8300A158F8 /* tournament.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = tournament.hpp; sourceTree = "<group>"; };
+		9476F4E91B3C3F8300A158F8 /* types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = types.cpp; sourceTree = "<group>"; };
+		9476F4EA1B3C3F8300A158F8 /* types.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = types.hpp; sourceTree = "<group>"; };
+		9476F4F91B3C403F00A158F8 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		9476F4FB1B3C404400A158F8 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		AD0A75A21AA22012009E90A3 /* TBPlayersTableCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBPlayersTableCellView.h; sourceTree = "<group>"; };
 		AD0A75A41AA22028009E90A3 /* TBPlayersTableCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBPlayersTableCellView.m; sourceTree = "<group>"; };
 		AD0EC5031AB331460071BD18 /* TBDurationNumberFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBDurationNumberFormatter.h; sourceTree = "<group>"; };
@@ -60,7 +196,7 @@
 		AD8E684D1A6C606700E5A4D8 /* Document.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Document.h; sourceTree = "<group>"; };
 		AD8E684E1A6C606700E5A4D8 /* Document.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Document.m; sourceTree = "<group>"; };
 		AD8E68511A6C606700E5A4D8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/Document.xib; sourceTree = "<group>"; };
-		AD8E68531A6C606700E5A4D8 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		AD8E68531A6C606700E5A4D8 /* TBMac.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = TBMac.xcassets; sourceTree = "<group>"; };
 		AD8E68561A6C606700E5A4D8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		AD98D95A1A7B290500DA6B8B /* TBFundingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TBFundingView.xib; sourceTree = "<group>"; };
 		AD98D95D1A7B2DDA00DA6B8B /* TBChipsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TBChipsView.xib; sourceTree = "<group>"; };
@@ -84,21 +220,147 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		9476F4271B3C37D000A158F8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9476F4761B3C3D6700A158F8 /* UIKit.framework in Frameworks */,
+				9476F4781B3C3D6E00A158F8 /* CoreGraphics.framework in Frameworks */,
+				9476F47A1B3C3D7400A158F8 /* CFNetwork.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9476F4C31B3C3F3D00A158F8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9476F4FC1B3C404400A158F8 /* CoreFoundation.framework in Frameworks */,
+				9476F4FA1B3C403F00A158F8 /* CFNetwork.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		AD8E68401A6C606700E5A4D8 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				943672CF1B3BC8550061AEE9 /* TournamentKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9476F4661B3C385400A158F8 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				9476F4601B3C385400A158F8 /* FBKVOController.h */,
+				9476F4611B3C385400A158F8 /* FBKVOController.m */,
+				9476F4621B3C385400A158F8 /* NSObject+FBKVOController.h */,
+				9476F4631B3C385400A158F8 /* NSObject+FBKVOController.m */,
+				9476F4641B3C385400A158F8 /* Info.plist */,
+				9476F4651B3C385400A158F8 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		9476F4671B3C385400A158F8 /* TBRemote */ = {
+			isa = PBXGroup;
+			children = (
+				9476F4531B3C385400A158F8 /* TBActionClockView.h */,
+				9476F4541B3C385400A158F8 /* TBActionClockView.m */,
+				9476F4551B3C385400A158F8 /* TBAppDelegate.h */,
+				9476F4561B3C385400A158F8 /* TBAppDelegate.m */,
+				9476F4571B3C385400A158F8 /* TBTournamentsViewController.h */,
+				9476F4581B3C385400A158F8 /* TBTournamentsViewController.m */,
+				9476F4591B3C385400A158F8 /* TBRemoteClockViewController.h */,
+				9476F45A1B3C385400A158F8 /* TBRemoteClockViewController.m */,
+				9476F45C1B3C385400A158F8 /* Main.storyboard */,
+				9476F45D1B3C385400A158F8 /* TBRemote.xcassets */,
+				9476F45F1B3C385400A158F8 /* LaunchScreen.xib */,
+				9476F4661B3C385400A158F8 /* Supporting Files */,
+			);
+			path = TBRemote;
+			sourceTree = "<group>";
+		};
+		9476F4891B3C3EA700A158F8 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		9476F4A11B3C3EA700A158F8 /* TournamentKit */ = {
+			isa = PBXGroup;
+			children = (
+				9476F47B1B3C3EA700A158F8 /* TournamentKit.h */,
+				9476F47C1B3C3EA700A158F8 /* TournamentConnection.h */,
+				9476F47D1B3C3EA700A158F8 /* TournamentConnection.m */,
+				9476F47E1B3C3EA700A158F8 /* TournamentDaemon.h */,
+				9476F47F1B3C3EA700A158F8 /* TournamentDaemon.mm */,
+				9476F4801B3C3EA700A158F8 /* TournamentSession.h */,
+				9476F4811B3C3EA700A158F8 /* TournamentSession.m */,
+				9476F4821B3C3EA700A158F8 /* TBColor+CSS.h */,
+				9476F4831B3C3EA700A158F8 /* TBColor+CSS.m */,
+				9476F4841B3C3EA700A158F8 /* NSData+Delimiter.h */,
+				9476F4851B3C3EA700A158F8 /* NSData+Delimiter.m */,
+				9476F4861B3C3EA700A158F8 /* CFStreamCreatePairWithUnixSocket.h */,
+				9476F4871B3C3EA700A158F8 /* CFStreamCreatePairWithUnixSocket.c */,
+				9476F4891B3C3EA700A158F8 /* Supporting Files */,
+			);
+			path = TournamentKit;
+			sourceTree = "<group>";
+		};
+		9476F4D01B3C3F8300A158F8 /* cjson */ = {
+			isa = PBXGroup;
+			children = (
+				9476F4CE1B3C3F8300A158F8 /* cJSON.c */,
+				9476F4CF1B3C3F8300A158F8 /* cJSON.h */,
+			);
+			path = cjson;
+			sourceTree = "<group>";
+		};
+		9476F4EB1B3C3F8300A158F8 /* tournamentd */ = {
+			isa = PBXGroup;
+			children = (
+				9476F4CD1B3C3F8300A158F8 /* defaults.json */,
+				9476F4D01B3C3F8300A158F8 /* cjson */,
+				9476F4D11B3C3F8300A158F8 /* bonjour.cpp */,
+				9476F4D21B3C3F8300A158F8 /* bonjour.hpp */,
+				9476F4D31B3C3F8300A158F8 /* datetime.cpp */,
+				9476F4D41B3C3F8300A158F8 /* datetime.hpp */,
+				9476F4D51B3C3F8300A158F8 /* gameinfo.cpp */,
+				9476F4D61B3C3F8300A158F8 /* gameinfo.hpp */,
+				9476F4D71B3C3F8300A158F8 /* ivectorstream.hpp */,
+				9476F4D81B3C3F8300A158F8 /* json.cpp */,
+				9476F4D91B3C3F8300A158F8 /* json.hpp */,
+				9476F4DA1B3C3F8300A158F8 /* logger.cpp */,
+				9476F4DB1B3C3F8300A158F8 /* logger.hpp */,
+				9476F4DC1B3C3F8300A158F8 /* main.cpp */,
+				9476F4DD1B3C3F8300A158F8 /* process.cpp */,
+				9476F4DE1B3C3F8300A158F8 /* process.hpp */,
+				9476F4DF1B3C3F8300A158F8 /* program.cpp */,
+				9476F4E01B3C3F8300A158F8 /* program.hpp */,
+				9476F4E11B3C3F8300A158F8 /* server.cpp */,
+				9476F4E21B3C3F8300A158F8 /* server.hpp */,
+				9476F4E31B3C3F8300A158F8 /* socket.cpp */,
+				9476F4E41B3C3F8300A158F8 /* socket.hpp */,
+				9476F4E51B3C3F8300A158F8 /* socketstream.hpp */,
+				9476F4E61B3C3F8300A158F8 /* stringcrc.hpp */,
+				9476F4E71B3C3F8300A158F8 /* tournament.cpp */,
+				9476F4E81B3C3F8300A158F8 /* tournament.hpp */,
+				9476F4E91B3C3F8300A158F8 /* types.cpp */,
+				9476F4EA1B3C3F8300A158F8 /* types.hpp */,
+			);
+			path = tournamentd;
+			sourceTree = "<group>";
+		};
 		AD51C5341AFFC9210084B25E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				943672CE1B3BC8550061AEE9 /* TournamentKit.framework */,
+				9476F4F91B3C403F00A158F8 /* CFNetwork.framework */,
+				9476F4FB1B3C404400A158F8 /* CoreFoundation.framework */,
+				9476F4791B3C3D7400A158F8 /* CFNetwork.framework */,
+				9476F4771B3C3D6E00A158F8 /* CoreGraphics.framework */,
+				9476F4751B3C3D6700A158F8 /* UIKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -107,6 +369,9 @@
 			isa = PBXGroup;
 			children = (
 				AD8E68451A6C606700E5A4D8 /* Tournament Buddy */,
+				9476F4671B3C385400A158F8 /* TBRemote */,
+				9476F4A11B3C3EA700A158F8 /* TournamentKit */,
+				9476F4EB1B3C3F8300A158F8 /* tournamentd */,
 				AD51C5341AFFC9210084B25E /* Frameworks */,
 				AD8E68441A6C606700E5A4D8 /* Products */,
 			);
@@ -116,6 +381,8 @@
 			isa = PBXGroup;
 			children = (
 				AD8E68431A6C606700E5A4D8 /* Tournament Buddy.app */,
+				9476F42A1B3C37D000A158F8 /* TBRemote.app */,
+				9476F4C61B3C3F3D00A158F8 /* tournamentd */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -128,7 +395,7 @@
 				AD8E684D1A6C606700E5A4D8 /* Document.h */,
 				AD8E684E1A6C606700E5A4D8 /* Document.m */,
 				AD8E68501A6C606700E5A4D8 /* Document.xib */,
-				AD8E68531A6C606700E5A4D8 /* Images.xcassets */,
+				AD8E68531A6C606700E5A4D8 /* TBMac.xcassets */,
 				AD8E68551A6C606700E5A4D8 /* MainMenu.xib */,
 				AD60911B1A94EBB600AAF891 /* TBChipsTableCellView.h */,
 				AD60911C1A94EBB600AAF891 /* TBChipsTableCellView.m */,
@@ -180,6 +447,40 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		9476F4291B3C37D000A158F8 /* TBRemote */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9476F4511B3C37D000A158F8 /* Build configuration list for PBXNativeTarget "TBRemote" */;
+			buildPhases = (
+				9476F4261B3C37D000A158F8 /* Sources */,
+				9476F4271B3C37D000A158F8 /* Frameworks */,
+				9476F4281B3C37D000A158F8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TBRemote;
+			productName = TBRemote;
+			productReference = 9476F42A1B3C37D000A158F8 /* TBRemote.app */;
+			productType = "com.apple.product-type.application";
+		};
+		9476F4C51B3C3F3D00A158F8 /* tournamentd */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9476F4CA1B3C3F3D00A158F8 /* Build configuration list for PBXNativeTarget "tournamentd" */;
+			buildPhases = (
+				9476F4C21B3C3F3D00A158F8 /* Sources */,
+				9476F4C31B3C3F3D00A158F8 /* Frameworks */,
+				9476F4C41B3C3F3D00A158F8 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = tournamentd;
+			productName = tournamentd;
+			productReference = 9476F4C61B3C3F3D00A158F8 /* tournamentd */;
+			productType = "com.apple.product-type.tool";
+		};
 		AD8E68421A6C606700E5A4D8 /* Tournament Buddy */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = AD8E68661A6C606700E5A4D8 /* Build configuration list for PBXNativeTarget "Tournament Buddy" */;
@@ -206,6 +507,12 @@
 				LastUpgradeCheck = 0610;
 				ORGANIZATIONNAME = "HDna Studio";
 				TargetAttributes = {
+					9476F4291B3C37D000A158F8 = {
+						CreatedOnToolsVersion = 6.3.2;
+					};
+					9476F4C51B3C3F3D00A158F8 = {
+						CreatedOnToolsVersion = 6.3.2;
+					};
 					AD8E68421A6C606700E5A4D8 = {
 						CreatedOnToolsVersion = 6.1;
 					};
@@ -225,11 +532,23 @@
 			projectRoot = "";
 			targets = (
 				AD8E68421A6C606700E5A4D8 /* Tournament Buddy */,
+				9476F4291B3C37D000A158F8 /* TBRemote */,
+				9476F4C51B3C3F3D00A158F8 /* tournamentd */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		9476F4281B3C37D000A158F8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9476F46C1B3C385400A158F8 /* Main.storyboard in Resources */,
+				9476F46E1B3C385400A158F8 /* LaunchScreen.xib in Resources */,
+				9476F46D1B3C385400A158F8 /* TBRemote.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		AD8E68411A6C606700E5A4D8 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -237,7 +556,7 @@
 				AD8E68521A6C606700E5A4D8 /* Document.xib in Resources */,
 				AD0A75A31AA22012009E90A3 /* TBPlayersTableCellView.h in Resources */,
 				AD98D95E1A7B2DDA00DA6B8B /* TBChipsView.xib in Resources */,
-				AD8E68541A6C606700E5A4D8 /* Images.xcassets in Resources */,
+				AD8E68541A6C606700E5A4D8 /* TBMac.xcassets in Resources */,
 				AD98D95C1A7B290500DA6B8B /* TBFundingView.xib in Resources */,
 				AD98D9751A7B343600DA6B8B /* TBSeatingView.xib in Resources */,
 				AD98D9701A7B342000DA6B8B /* TBRoundsView.xib in Resources */,
@@ -249,33 +568,113 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		9476F4261B3C37D000A158F8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9476F4701B3C385400A158F8 /* NSObject+FBKVOController.m in Sources */,
+				9476F4691B3C385400A158F8 /* TBAppDelegate.m in Sources */,
+				9476F4AB1B3C3EA700A158F8 /* NSData+Delimiter.m in Sources */,
+				949D70A01B3C440E008D5CD1 /* types.cpp in Sources */,
+				949D70A11B3C4411008D5CD1 /* tournament.cpp in Sources */,
+				949D709D1B3C440E008D5CD1 /* json.cpp in Sources */,
+				9476F46B1B3C385400A158F8 /* TBRemoteClockViewController.m in Sources */,
+				949D70A41B3C442F008D5CD1 /* cJSON.c in Sources */,
+				9476F4A71B3C3EA700A158F8 /* TournamentSession.m in Sources */,
+				949D709F1B3C440E008D5CD1 /* server.cpp in Sources */,
+				9476F4681B3C385400A158F8 /* TBActionClockView.m in Sources */,
+				9476F46A1B3C385400A158F8 /* TBTournamentsViewController.m in Sources */,
+				9476F4721B3C385400A158F8 /* main.m in Sources */,
+				9476F4AD1B3C3EA700A158F8 /* CFStreamCreatePairWithUnixSocket.c in Sources */,
+				949D70A21B3C441F008D5CD1 /* socket.cpp in Sources */,
+				9476F4A91B3C3EA700A158F8 /* TBColor+CSS.m in Sources */,
+				949D709C1B3C440E008D5CD1 /* gameinfo.cpp in Sources */,
+				9476F4A31B3C3EA700A158F8 /* TournamentConnection.m in Sources */,
+				949D709E1B3C440E008D5CD1 /* logger.cpp in Sources */,
+				9476F46F1B3C385400A158F8 /* FBKVOController.m in Sources */,
+				949D709B1B3C440E008D5CD1 /* datetime.cpp in Sources */,
+				9476F4A51B3C3EA700A158F8 /* TournamentDaemon.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9476F4C21B3C3F3D00A158F8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9476F4EE1B3C3F8300A158F8 /* datetime.cpp in Sources */,
+				9476F4F41B3C3F8300A158F8 /* program.cpp in Sources */,
+				9476F4EC1B3C3F8300A158F8 /* cJSON.c in Sources */,
+				9476F4ED1B3C3F8300A158F8 /* bonjour.cpp in Sources */,
+				9476F4F71B3C3F8300A158F8 /* tournament.cpp in Sources */,
+				9476F4F31B3C3F8300A158F8 /* process.cpp in Sources */,
+				9476F4F11B3C3F8300A158F8 /* logger.cpp in Sources */,
+				9476F4F21B3C3F8300A158F8 /* main.cpp in Sources */,
+				9476F4F01B3C3F8300A158F8 /* json.cpp in Sources */,
+				9476F4F51B3C3F8300A158F8 /* server.cpp in Sources */,
+				9476F4F81B3C3F8300A158F8 /* types.cpp in Sources */,
+				9476F4EF1B3C3F8300A158F8 /* gameinfo.cpp in Sources */,
+				9476F4F61B3C3F8300A158F8 /* socket.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		AD8E683F1A6C606700E5A4D8 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9476F4AC1B3C3EA700A158F8 /* CFStreamCreatePairWithUnixSocket.c in Sources */,
 				AD98D9651A7B331A00DA6B8B /* TBFundingViewController.m in Sources */,
+				949D70971B3C440D008D5CD1 /* json.cpp in Sources */,
 				ADA128181AACF2BD00DACDBA /* TBRoundsTableCellView.m in Sources */,
+				9476F4A81B3C3EA700A158F8 /* TBColor+CSS.m in Sources */,
+				949D70941B3C43DB008D5CD1 /* tournament.cpp in Sources */,
 				AD98D96A1A7B33F100DA6B8B /* TBPlayersViewController.m in Sources */,
+				9476F4A61B3C3EA700A158F8 /* TournamentSession.m in Sources */,
 				AD98D96F1A7B342000DA6B8B /* TBRoundsViewController.m in Sources */,
 				AD49306E1A885E1A008B1DCD /* TBFundingTableCellView.m in Sources */,
 				AD8E684F1A6C606700E5A4D8 /* Document.m in Sources */,
+				949D70981B3C440D008D5CD1 /* logger.cpp in Sources */,
 				AD4930641A87F19A008B1DCD /* FBKVOController.m in Sources */,
+				949D70951B3C440D008D5CD1 /* datetime.cpp in Sources */,
 				AD4930651A87F19A008B1DCD /* NSObject+FBKVOController.m in Sources */,
+				949D70961B3C440D008D5CD1 /* gameinfo.cpp in Sources */,
+				949D70A31B3C441F008D5CD1 /* socket.cpp in Sources */,
 				AD98D9741A7B343600DA6B8B /* TBSeatingViewController.m in Sources */,
 				ADE4E1281A7DFFD000FC9EFC /* TBTableViewController.m in Sources */,
 				AD8E684C1A6C606700E5A4D8 /* main.m in Sources */,
 				AD0A75A51AA22028009E90A3 /* TBPlayersTableCellView.m in Sources */,
+				949D70A51B3C442F008D5CD1 /* cJSON.c in Sources */,
+				9476F4AA1B3C3EA700A158F8 /* NSData+Delimiter.m in Sources */,
+				9476F4A41B3C3EA700A158F8 /* TournamentDaemon.mm in Sources */,
 				AD98D9611A7B330B00DA6B8B /* TBChipsViewController.m in Sources */,
+				949D70991B3C440D008D5CD1 /* server.cpp in Sources */,
 				AD8E684A1A6C606700E5A4D8 /* AppDelegate.m in Sources */,
+				9476F4A21B3C3EA700A158F8 /* TournamentConnection.m in Sources */,
 				AD0EC5081AB33AA30071BD18 /* TBColorValueTransformer.m in Sources */,
 				AD60911D1A94EBB600AAF891 /* TBChipsTableCellView.m in Sources */,
 				AD0EC5051AB331460071BD18 /* TBDurationNumberFormatter.m in Sources */,
+				949D709A1B3C440D008D5CD1 /* types.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		9476F45C1B3C385400A158F8 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9476F45B1B3C385400A158F8 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		9476F45F1B3C385400A158F8 /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9476F45E1B3C385400A158F8 /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
 		AD8E68501A6C606700E5A4D8 /* Document.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -295,6 +694,54 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		9476F44D1B3C37D000A158F8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = TBRemote/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		9476F44E1B3C37D000A158F8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = TBRemote/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		9476F4CB1B3C3F3D00A158F8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		9476F4CC1B3C3F3D00A158F8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
 		AD8E68641A6C606700E5A4D8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -311,8 +758,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -320,7 +767,6 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -328,7 +774,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = macosx;
+				USER_HEADER_SEARCH_PATHS = .;
 			};
 			name = Debug;
 		};
@@ -348,7 +794,6 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "-";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -359,7 +804,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				SDKROOT = macosx;
+				USER_HEADER_SEARCH_PATHS = .;
+				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
@@ -372,6 +818,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
@@ -384,12 +831,31 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		9476F4511B3C37D000A158F8 /* Build configuration list for PBXNativeTarget "TBRemote" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9476F44D1B3C37D000A158F8 /* Debug */,
+				9476F44E1B3C37D000A158F8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9476F4CA1B3C3F3D00A158F8 /* Build configuration list for PBXNativeTarget "tournamentd" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9476F4CB1B3C3F3D00A158F8 /* Debug */,
+				9476F4CC1B3C3F3D00A158F8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		AD8E683E1A6C606700E5A4D8 /* Build configuration list for PBXProject "Tournament Buddy" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

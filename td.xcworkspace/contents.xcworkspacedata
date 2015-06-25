@@ -4,13 +4,4 @@
    <FileRef
       location = "group:Tournament Buddy.xcodeproj">
    </FileRef>
-   <FileRef
-      location = "group:TBRemote.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:TournamentKit.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:tournamentd.xcodeproj">
-   </FileRef>
 </Workspace>

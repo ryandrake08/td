@@ -1,6 +1,7 @@
 #include "CFStreamCreatePairWithUnixSocket.h"
 
 #include <CFNetwork/CFSocketStream.h>
+#include <CoreFoundation/CFNumber.h>
 
 #include <stdio.h>
 #include <string.h>
