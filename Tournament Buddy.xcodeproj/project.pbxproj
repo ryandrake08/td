@@ -7,11 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		943672CF1B3BC8550061AEE9 /* TournamentKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 943672CE1B3BC8550061AEE9 /* TournamentKit.framework */; };
 		AD0A75A31AA22012009E90A3 /* TBPlayersTableCellView.h in Resources */ = {isa = PBXBuildFile; fileRef = AD0A75A21AA22012009E90A3 /* TBPlayersTableCellView.h */; };
 		AD0A75A51AA22028009E90A3 /* TBPlayersTableCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD0A75A41AA22028009E90A3 /* TBPlayersTableCellView.m */; };
 		AD0EC5051AB331460071BD18 /* TBDurationNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = AD0EC5041AB331460071BD18 /* TBDurationNumberFormatter.m */; };
 		AD0EC5081AB33AA30071BD18 /* TBColorValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = AD0EC5071AB33AA30071BD18 /* TBColorValueTransformer.m */; };
-		AD4930511A87D48B008B1DCD /* TournamentKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD4930501A87D48B008B1DCD /* TournamentKit.framework */; };
 		AD4930641A87F19A008B1DCD /* FBKVOController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD4930611A87F19A008B1DCD /* FBKVOController.m */; };
 		AD4930651A87F19A008B1DCD /* NSObject+FBKVOController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD4930631A87F19A008B1DCD /* NSObject+FBKVOController.m */; };
 		AD49306E1A885E1A008B1DCD /* TBFundingTableCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD49306D1A885E1A008B1DCD /* TBFundingTableCellView.m */; };
@@ -37,13 +37,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		943672CE1B3BC8550061AEE9 /* TournamentKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TournamentKit.framework; path = "../../Library/Developer/Xcode/DerivedData/td-flumvotfoxivlcejdluutehqbfxw/Build/Products/Debug/TournamentKit.framework"; sourceTree = "<group>"; };
 		AD0A75A21AA22012009E90A3 /* TBPlayersTableCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBPlayersTableCellView.h; sourceTree = "<group>"; };
 		AD0A75A41AA22028009E90A3 /* TBPlayersTableCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBPlayersTableCellView.m; sourceTree = "<group>"; };
 		AD0EC5031AB331460071BD18 /* TBDurationNumberFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBDurationNumberFormatter.h; sourceTree = "<group>"; };
 		AD0EC5041AB331460071BD18 /* TBDurationNumberFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBDurationNumberFormatter.m; sourceTree = "<group>"; };
 		AD0EC5061AB33AA30071BD18 /* TBColorValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBColorValueTransformer.h; sourceTree = "<group>"; };
 		AD0EC5071AB33AA30071BD18 /* TBColorValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBColorValueTransformer.m; sourceTree = "<group>"; };
-		AD4930501A87D48B008B1DCD /* TournamentKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TournamentKit.framework; path = "../../Library/Developer/Xcode/DerivedData/td-gthwrjjcxccbyaganrpuaqshoxjq/Build/Products/Debug/TournamentKit.framework"; sourceTree = "<group>"; };
 		AD4930601A87F19A008B1DCD /* FBKVOController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBKVOController.h; sourceTree = "<group>"; };
 		AD4930611A87F19A008B1DCD /* FBKVOController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBKVOController.m; sourceTree = "<group>"; };
 		AD4930621A87F19A008B1DCD /* NSObject+FBKVOController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+FBKVOController.h"; sourceTree = "<group>"; };
@@ -88,7 +88,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AD4930511A87D48B008B1DCD /* TournamentKit.framework in Frameworks */,
+				943672CF1B3BC8550061AEE9 /* TournamentKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -98,7 +98,7 @@
 		AD51C5341AFFC9210084B25E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				AD4930501A87D48B008B1DCD /* TournamentKit.framework */,
+				943672CE1B3BC8550061AEE9 /* TournamentKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -368,10 +368,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/td-gthwrjjcxccbyaganrpuaqshoxjq/Build/Products/Debug",
-				);
 				INFOPLIST_FILE = "Tournament Buddy/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
@@ -384,10 +380,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/td-gthwrjjcxccbyaganrpuaqshoxjq/Build/Products/Debug",
-				);
 				INFOPLIST_FILE = "Tournament Buddy/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		943672CD1B3BC82D0061AEE9 /* libTournamentKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 943672CC1B3BC82D0061AEE9 /* libTournamentKit.a */; };
 		AD1CF5341A68B45A00FA8F45 /* TBActionClockView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD1CF5331A68B45A00FA8F45 /* TBActionClockView.m */; };
 		AD37B3FE1A574B0100605351 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AD37B3FD1A574B0100605351 /* main.m */; };
 		AD37B4011A574B0100605351 /* TBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AD37B4001A574B0100605351 /* TBAppDelegate.m */; };
@@ -18,12 +19,12 @@
 		AD37B4251A5750B000605351 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD37B4241A5750B000605351 /* UIKit.framework */; };
 		AD49306A1A87F63D008B1DCD /* FBKVOController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD4930671A87F63D008B1DCD /* FBKVOController.m */; };
 		AD49306B1A87F63D008B1DCD /* NSObject+FBKVOController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD4930691A87F63D008B1DCD /* NSObject+FBKVOController.m */; };
-		ADA121C81B0051410083D8AB /* libTournamentKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADA121C71B0051410083D8AB /* libTournamentKit.a */; };
 		ADF9B9051A74881B00F2729F /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADF9B9041A74881B00F2729F /* CFNetwork.framework */; };
 		ADF9B90A1A75448200F2729F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD1CF5351A68D6A000FA8F45 /* CoreGraphics.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		943672CC1B3BC82D0061AEE9 /* libTournamentKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libTournamentKit.a; path = "build/Debug-iphoneos/libTournamentKit.a"; sourceTree = "<group>"; };
 		AD1CF5321A68B45A00FA8F45 /* TBActionClockView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBActionClockView.h; sourceTree = "<group>"; };
 		AD1CF5331A68B45A00FA8F45 /* TBActionClockView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBActionClockView.m; sourceTree = "<group>"; };
 		AD1CF5351A68D6A000FA8F45 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -44,9 +45,7 @@
 		AD4930671A87F63D008B1DCD /* FBKVOController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBKVOController.m; sourceTree = "<group>"; };
 		AD4930681A87F63D008B1DCD /* NSObject+FBKVOController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+FBKVOController.h"; sourceTree = "<group>"; };
 		AD4930691A87F63D008B1DCD /* NSObject+FBKVOController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+FBKVOController.m"; sourceTree = "<group>"; };
-		ADA121C71B0051410083D8AB /* libTournamentKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libTournamentKit.a; path = "build/Debug-iphoneos/libTournamentKit.a"; sourceTree = "<group>"; };
 		ADF9B9041A74881B00F2729F /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
-		ADFA14DE1A6ACDF700611E6B /* TournamentKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TournamentKit.framework; path = "../../Library/Developer/Xcode/DerivedData/td-gthwrjjcxccbyaganrpuaqshoxjq/Build/Products/Debug/TournamentKit.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,7 +53,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ADA121C81B0051410083D8AB /* libTournamentKit.a in Frameworks */,
+				943672CD1B3BC82D0061AEE9 /* libTournamentKit.a in Frameworks */,
 				AD37B4251A5750B000605351 /* UIKit.framework in Frameworks */,
 				ADF9B90A1A75448200F2729F /* CoreGraphics.framework in Frameworks */,
 				ADF9B9051A74881B00F2729F /* CFNetwork.framework in Frameworks */,
@@ -116,10 +115,9 @@
 		AD37B4281A5750DA00605351 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				ADA121C71B0051410083D8AB /* libTournamentKit.a */,
+				943672CC1B3BC82D0061AEE9 /* libTournamentKit.a */,
 				AD37B4241A5750B000605351 /* UIKit.framework */,
 				ADF9B9041A74881B00F2729F /* CFNetwork.framework */,
-				ADFA14DE1A6ACDF700611E6B /* TournamentKit.framework */,
 				AD1CF5351A68D6A000FA8F45 /* CoreGraphics.framework */,
 			);
 			name = Frameworks;
@@ -293,15 +291,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = TBRemote/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(BUILT_PRODUCTS_DIR)",
-					"$(PROJECT_DIR)/build/Debug-iphoneos",
-				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -316,15 +308,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = TBRemote/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(BUILT_PRODUCTS_DIR)",
-					"$(PROJECT_DIR)/build/Debug-iphoneos",
-				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
