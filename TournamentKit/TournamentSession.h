@@ -47,6 +47,13 @@
 @property (nonatomic, readonly) NSArray* emptySeats;
 @property (nonatomic, readonly) NSNumber* tables;
 
+// derived tournament state
+@property (nonatomic, readonly) NSString* clockText;
+@property (nonatomic, readonly) NSString* currentRoundText;
+@property (nonatomic, readonly) NSString* nextRoundText;
+@property (nonatomic, readonly) NSString* playersLeftText;
+@property (nonatomic, readonly) NSString* averageStackText;
+
 // client identifier (used for authenticating with servers)
 + (NSNumber*)clientIdentifier;
 

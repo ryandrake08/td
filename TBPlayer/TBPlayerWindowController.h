@@ -7,9 +7,12 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "TBResizeTextField.h"
+#import "TournamentKit/TournamentKit.h"
 
 @interface TBPlayerWindowController : NSWindowController
 
-@property (weak) IBOutlet NSImageView *backgroundImageView;
+// the tournament session (model) object
+@property TournamentSession* session;
 
 @end

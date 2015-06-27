@@ -8,6 +8,23 @@
 
 /* Begin PBXBuildFile section */
 		943B00C71B3F15AA00CE55D4 /* TBResizeTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 943B00C61B3F15AA00CE55D4 /* TBResizeTextField.m */; };
+		943B00C81B3F427700CE55D4 /* TournamentConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F47D1B3C3EA700A158F8 /* TournamentConnection.m */; };
+		943B00C91B3F427700CE55D4 /* TournamentDaemon.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9476F47F1B3C3EA700A158F8 /* TournamentDaemon.mm */; };
+		943B00CA1B3F427700CE55D4 /* TournamentSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4811B3C3EA700A158F8 /* TournamentSession.m */; };
+		943B00CB1B3F427700CE55D4 /* TBColor+CSS.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4831B3C3EA700A158F8 /* TBColor+CSS.m */; };
+		943B00CC1B3F427700CE55D4 /* NSData+Delimiter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4851B3C3EA700A158F8 /* NSData+Delimiter.m */; };
+		943B00CD1B3F427700CE55D4 /* CFStreamCreatePairWithUnixSocket.c in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4871B3C3EA700A158F8 /* CFStreamCreatePairWithUnixSocket.c */; };
+		943B00CE1B3F427700CE55D4 /* FBKVOController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9441F79C1B3C4B9D002E73D1 /* FBKVOController.m */; };
+		943B00CF1B3F427700CE55D4 /* NSObject+FBKVOController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9441F79E1B3C4B9D002E73D1 /* NSObject+FBKVOController.m */; };
+		943B00D01B3F429500CE55D4 /* datetime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4D31B3C3F8300A158F8 /* datetime.cpp */; };
+		943B00D11B3F429500CE55D4 /* gameinfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4D51B3C3F8300A158F8 /* gameinfo.cpp */; };
+		943B00D21B3F429500CE55D4 /* json.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4D81B3C3F8300A158F8 /* json.cpp */; };
+		943B00D31B3F429500CE55D4 /* logger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4DA1B3C3F8300A158F8 /* logger.cpp */; };
+		943B00D41B3F429500CE55D4 /* server.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E11B3C3F8300A158F8 /* server.cpp */; };
+		943B00D51B3F429500CE55D4 /* socket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E31B3C3F8300A158F8 /* socket.cpp */; };
+		943B00D61B3F429500CE55D4 /* tournament.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E71B3C3F8300A158F8 /* tournament.cpp */; };
+		943B00D71B3F429500CE55D4 /* types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E91B3C3F8300A158F8 /* types.cpp */; };
+		943B00D81B3F43FC00CE55D4 /* cJSON.c in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4CE1B3C3F8300A158F8 /* cJSON.c */; };
 		9441F79F1B3C4B9D002E73D1 /* FBKVOController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9441F79C1B3C4B9D002E73D1 /* FBKVOController.m */; };
 		9441F7A01B3C4B9D002E73D1 /* FBKVOController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9441F79C1B3C4B9D002E73D1 /* FBKVOController.m */; };
 		9441F7A11B3C4B9D002E73D1 /* NSObject+FBKVOController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9441F79E1B3C4B9D002E73D1 /* NSObject+FBKVOController.m */; };
@@ -641,10 +658,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				943B00CF1B3F427700CE55D4 /* NSObject+FBKVOController.m in Sources */,
+				943B00D41B3F429500CE55D4 /* server.cpp in Sources */,
 				946288B71B3E578D0016FA36 /* TBPlayerWindowController.m in Sources */,
+				943B00D01B3F429500CE55D4 /* datetime.cpp in Sources */,
+				943B00CB1B3F427700CE55D4 /* TBColor+CSS.m in Sources */,
 				944FF4BB1B3D04CA000362ED /* main.m in Sources */,
+				943B00C91B3F427700CE55D4 /* TournamentDaemon.mm in Sources */,
+				943B00CA1B3F427700CE55D4 /* TournamentSession.m in Sources */,
+				943B00D61B3F429500CE55D4 /* tournament.cpp in Sources */,
+				943B00CD1B3F427700CE55D4 /* CFStreamCreatePairWithUnixSocket.c in Sources */,
+				943B00D21B3F429500CE55D4 /* json.cpp in Sources */,
+				943B00CC1B3F427700CE55D4 /* NSData+Delimiter.m in Sources */,
+				943B00D11B3F429500CE55D4 /* gameinfo.cpp in Sources */,
+				943B00D31B3F429500CE55D4 /* logger.cpp in Sources */,
 				944FF4B91B3D04CA000362ED /* AppDelegate.m in Sources */,
+				943B00CE1B3F427700CE55D4 /* FBKVOController.m in Sources */,
 				943B00C71B3F15AA00CE55D4 /* TBResizeTextField.m in Sources */,
+				943B00D51B3F429500CE55D4 /* socket.cpp in Sources */,
+				943B00D81B3F43FC00CE55D4 /* cJSON.c in Sources */,
+				943B00C81B3F427700CE55D4 /* TournamentConnection.m in Sources */,
+				943B00D71B3F429500CE55D4 /* types.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,16 +7,25 @@
 //
 
 #import "AppDelegate.h"
+#import "TournamentKit/TournamentKit.h"
 #import "TBPlayerWindowController.h"
 
 @interface AppDelegate ()
-@property (strong) TBPlayerWindowController* windowController;
+
+@property TBPlayerWindowController* windowController;
+
+// the tournament session (model) object
+@property TournamentSession* session;
+
 @end
 
 @implementation AppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification*)aNotification {
+    _session = [[TournamentSession alloc] init];
+    
     _windowController = [[TBPlayerWindowController alloc] initWithWindowNibName:@"TBPlayerWindowController"];
+    [_windowController setSession:_session];
     [_windowController showWindow:nil];
     [_windowController.window makeKeyAndOrderFront:nil];
 }

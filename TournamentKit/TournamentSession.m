@@ -23,6 +23,9 @@
 // mapping between unique command and block to handle the command's response
 @property (nonatomic) NSMutableDictionary* blocksForCommands;
 
+// number formatter
+@property (nonatomic) NSNumberFormatter* decimalFormatter;
+
 // tournament configuration
 @property (nonatomic) NSMutableArray* players;
 @property (nonatomic) NSArray* blindLevels;
@@ -51,6 +54,13 @@
 @property (nonatomic) NSArray* emptySeats;
 @property (nonatomic) NSNumber* tables;
 
+// derived tournament state
+@property (nonatomic) NSString* clockText;
+@property (nonatomic) NSString* currentRoundText;
+@property (nonatomic) NSString* nextRoundText;
+@property (nonatomic) NSString* playersLeftText;
+@property (nonatomic) NSString* averageStackText;
+
 @end
 
 @implementation TournamentSession
@@ -60,6 +70,10 @@
         _blocksForCommands = [[NSMutableDictionary alloc] init];
         _connection = [[TournamentConnection alloc] init];
         [_connection setDelegate:self];
+
+        // Make formatter
+        _decimalFormatter = [[NSNumberFormatter alloc] init];
+        [[self decimalFormatter] setNumberStyle:NSNumberFormatterDecimalStyle];
     }
     return self;
 }
@@ -190,41 +204,53 @@
 
 - (void)checkAuthorizedWithBlock:(void(^)(BOOL))block {
     [self sendCommand:@"check_authorized" withData:nil andBlock:^(id json, NSString* error) {
-        // TODO: Handle error
-        // handle authorization check
-        [self setAuthorized:[json[@"authorized"] boolValue]];
-        if(block != nil) {
-            block([json[@"authorized"] boolValue]);
+        if(error != nil) {
+            NSLog(@"checkAuthorizedWithBlock: %@\n", error);
+        } else {
+            // handle authorization check
+            [self setAuthorized:[json[@"authorized"] boolValue]];
+            if(block != nil) {
+                block([json[@"authorized"] boolValue]);
+            }
         }
     }];
 }
 
 - (void)authorize:(NSNumber*)clientId withBlock:(void(^)(NSNumber*))block {
     [self sendCommand:@"authorize" withData:@{@"authorize" : clientId} andBlock:^(id json, NSString* error) {
-        // TODO: Handle error
-        // handle client authorization
-        if(block != nil) {
-            block(json[@"authorized_client"]);
+        if(error != nil) {
+            NSLog(@"authorizeWithBlock: %@\n", error);
+        } else {
+            // handle client authorization
+            if(block != nil) {
+                block(json[@"authorized_client"]);
+            }
         }
     }];
 }
 
 - (void)getConfigWithBlock:(void(^)(id))block {
     [self sendCommand:@"get_config" withData:nil andBlock:^(id json, NSString* error) {
-        // TODO: Handle error
-        // handle config response
-        if(block != nil) {
-            block(json);
+        if(error != nil) {
+            NSLog(@"getConfigWithBlock: %@\n", error);
+        } else {
+            // handle config response
+            if(block != nil) {
+                block(json);
+            }
         }
     }];
 }
 
 - (void)configure:(id)config withBlock:(void(^)(id))block {
     [self sendCommand:@"configure" withData:config andBlock:^(id json, NSString* error) {
-        // TODO: Handle error
-        // handle config response
-        if(block != nil) {
-            block(json);
+        if(error != nil) {
+            NSLog(@"configureWithBlock: %@\n", error);
+        } else {
+            // handle config response
+            if(block != nil) {
+                block(json);
+            }
         }
     }];
 }
@@ -255,20 +281,26 @@
 
 - (void)setPreviousLevelWithBlock:(void(^)(NSNumber*))block {
     [self sendCommand:@"set_previous_level" withData:nil andBlock:^(id json, NSString* error) {
-        // TODO: Handle error
-        // handle blind level change
-        if(block != nil) {
-            block(json[@"blind_level_changed"]);
+        if(error != nil) {
+            NSLog(@"setPreviousLevelWithBlock: %@\n", error);
+        } else {
+            // handle blind level change
+            if(block != nil) {
+                block(json[@"blind_level_changed"]);
+            }
         }
     }];
 }
 
 - (void)setNextLevelWithBlock:(void(^)(NSNumber*))block {
     [self sendCommand:@"set_next_level" withData:nil andBlock:^(id json, NSString* error) {
-        // TODO: Handle error
-        // handle blind level change
-        if(block != nil) {
-            block(json[@"blind_level_changed"]);
+        if(error != nil) {
+            NSLog(@"setNextLevelWithBlock: %@\n", error);
+        } else {
+            // handle blind level change
+            if(block != nil) {
+                block(json[@"blind_level_changed"]);
+            }
         }
     }];
 }
@@ -295,16 +327,19 @@
 
 - (void)seatPlayer:(NSNumber*)playerId withBlock:(void(^)(NSNumber*,NSNumber*,NSNumber*))block {
     [self sendCommand:@"seat_player" withData:@{@"player_id" : playerId} andBlock:^(id json, NSString* error) {
-        // TODO: Handle error
-        // handle seated player
-        id playerSeated = json[@"player_seated"];
-        if(playerSeated) {
-            if(block != nil) {
-                block(playerSeated[@"player_id"], playerSeated[@"table_number"], playerSeated[@"seat_number"]);
-            }
+        if(error != nil) {
+            NSLog(@"seatPlayerWithBlock: %@\n", error);
         } else {
-            if(block != nil) {
-                block(nil, nil, nil);
+            // handle seated player
+            id playerSeated = json[@"player_seated"];
+            if(playerSeated) {
+                if(block != nil) {
+                    block(playerSeated[@"player_id"], playerSeated[@"table_number"], playerSeated[@"seat_number"]);
+                }
+            } else {
+                if(block != nil) {
+                    block(nil, nil, nil);
+                }
             }
         }
     }];
@@ -316,14 +351,123 @@
 
 - (void)bustPlayer:(NSNumber*)playerId withBlock:(void(^)(NSArray*))block {
     [self sendCommand:@"bust_player" withData:@{@"player_id" : playerId} andBlock:^(id json, NSString* error) {
-        // TODO: Handle error
-        // handle player movement
-        // for now, just hand back the json
-        // TODO: make this more sophisticated and populate a separate NSArray with objects
-        if(block != nil) {
-            block(json[@"players_moved"]);
+        if(error != nil) {
+            NSLog(@"bustPlayerWithBlock: %@\n", error);
+        } else {
+            // handle player movement
+            // for now, just hand back the json
+            // TODO: make this more sophisticated and populate a separate NSArray with objects
+            if(block != nil) {
+                block(json[@"players_moved"]);
+            }
         }
     }];
+}
+
+#pragma mark Formatters
+
+- (NSString*)formatBlindLevel:(NSDictionary*)level {
+    NSNumber* bigBlind = level[@"big_blind"];
+    NSNumber* littleBlind = level[@"little_blind"];
+    NSNumber* ante = level[@"ante"];
+
+    if([ante unsignedIntegerValue] > 0) {
+        return [NSString localizedStringWithFormat:@"%@/%@ A:%@",
+                [[self decimalFormatter] stringFromNumber:littleBlind],
+                [[self decimalFormatter] stringFromNumber:bigBlind],
+                [[self decimalFormatter] stringFromNumber:ante]];
+    } else {
+        return [NSString localizedStringWithFormat:@"%@/%@",
+                [[self decimalFormatter] stringFromNumber:littleBlind],
+                [[self decimalFormatter] stringFromNumber:bigBlind]];
+    }
+}
+
+- (NSString*)formatDuration:(NSUInteger)duration {
+    if(duration < 60000) {
+        // SS.MSS
+        unsigned long s = duration / 1000 % 60;
+        unsigned long ms = duration % 1000;
+        return [NSString stringWithFormat:@"%lu.%03lu", s, ms];
+    } else if(duration < 3600000) {
+        // MM:SS
+        unsigned long m = duration / 60000;
+        unsigned long s = duration / 1000 % 60;
+        return [NSString stringWithFormat:@"%lu:%02lu", m, s];
+    } else {
+        // HH:MM:SS
+        unsigned long h = duration / 3600000;
+        unsigned long m = duration / 60000 % 60;
+        unsigned long s = duration / 1000 % 60;
+        return [NSString stringWithFormat:@"%lu:%02lu:%02lu", h, m, s];
+    }
+}
+
+#pragma mark Derived Tournament State
+
+- (void)updateClock {
+    BOOL running = [[self isRunning] boolValue];
+    NSUInteger timeRemaining = [[self timeRemaining] unsignedIntegerValue];
+    NSUInteger breakTimeRemaining = [[self breakTimeRemaining] unsignedIntegerValue];
+
+    if(running) {
+        if(timeRemaining == 0 && breakTimeRemaining != 0) {
+            // on break
+            [self setClockText:[self formatDuration:breakTimeRemaining]];
+        } else {
+            [self setClockText:[self formatDuration:timeRemaining]];
+        }
+    } else {
+        [self setClockText:NSLocalizedString(@"PAUSED", nil)];
+    }
+}
+
+- (void)updateBlinds {
+    NSUInteger currentBlindLevel = [[self currentBlindLevel] unsignedIntegerValue];
+    NSArray* blindLevels = [self blindLevels];
+    NSUInteger timeRemaining = [[self timeRemaining] unsignedIntegerValue];
+    NSUInteger breakTimeRemaining = [[self breakTimeRemaining] unsignedIntegerValue];
+
+    if(currentBlindLevel == 0) {
+        [self setCurrentRoundText:NSLocalizedString(@"PLANNING", nil)];
+    } else {
+        if(timeRemaining == 0 && breakTimeRemaining != 0) {
+            [self setCurrentRoundText:NSLocalizedString(@"BREAK", nil)];
+        } else if(currentBlindLevel < [blindLevels count]) {
+            NSDictionary* thisBlindLevel = blindLevels[currentBlindLevel];
+            [self setCurrentRoundText:[self formatBlindLevel:thisBlindLevel]];
+        }
+
+        if(currentBlindLevel+1 < [blindLevels count]) {
+            NSDictionary* nextBlindLevel = blindLevels[currentBlindLevel+1];
+            [self setNextRoundText:[self formatBlindLevel:nextBlindLevel]];
+        }
+    }
+}
+
+- (void)updatePlayers {
+    NSArray* seats = [self seats];
+
+    if([seats count] > 0) {
+        NSNumber* numSeats = [NSNumber numberWithUnsignedInteger:[seats count]];
+        NSString* numSeatsText = [[self decimalFormatter] stringFromNumber:numSeats];
+        [self setPlayersLeftText:numSeatsText];
+    } else {
+        [self setPlayersLeftText:@"-"];
+    }
+}
+
+- (void)updateAverageStack {
+    NSArray* seats = [self seats];
+    NSUInteger totalChips = [[self totalChips] unsignedIntegerValue];
+
+    if([seats count] > 0) {
+        NSNumber* avgChips = [NSNumber numberWithUnsignedInteger:totalChips / [seats count]];
+        NSString* avgChipsText = [[self decimalFormatter] stringFromNumber:avgChips];
+        [self setAverageStackText:avgChipsText];
+    } else {
+        [self setAverageStackText:@"-"];
+    }
 }
 
 #pragma mark Tournament Messages
@@ -356,6 +500,7 @@
 
     if((value = json[@"blind_levels"])) {
         [self setBlindLevels:value];
+        [self updateBlinds];
     }
 
     if((value = json[@"available_chips"])) {
@@ -389,18 +534,25 @@
     // tournament state
     if((value = json[@"running"])) {
         [self setRunning:value];
+        [self updateClock];
+        [self updateBlinds];
     }
 
     if((value = json[@"current_blind_level"])) {
         [self setCurrentBlindLevel:value];
+        [self updateBlinds];
     }
 
     if((value = json[@"time_remaining"])) {
         [self setTimeRemaining:value];
+        [self updateClock];
+        [self updateBlinds];
     }
 
     if((value = json[@"break_time_remaining"])) {
         [self setBreakTimeRemaining:value];
+        [self updateClock];
+        [self updateBlinds];
     }
 
     if((value = json[@"action_clock_remaining"])) {
@@ -417,6 +569,7 @@
 
     if((value = json[@"total_chips"])) {
         [self setTotalChips:value];
+        [self updateAverageStack];
     }
 
     if((value = json[@"total_cost"])) {
@@ -433,6 +586,8 @@
 
     if((value = json[@"seats"])) {
         [self setSeats:value];
+        [self updatePlayers];
+        [self updateAverageStack];
     }
 
     if((value = json[@"players_finished"])) {
