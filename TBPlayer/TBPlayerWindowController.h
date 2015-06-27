@@ -10,4 +10,6 @@
 
 @interface TBPlayerWindowController : NSWindowController
 
+@property (weak) IBOutlet NSImageView *backgroundImageView;
+
 @end
