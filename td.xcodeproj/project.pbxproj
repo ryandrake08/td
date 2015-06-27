@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		943B00C71B3F15AA00CE55D4 /* TBResizeTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 943B00C61B3F15AA00CE55D4 /* TBResizeTextField.m */; };
 		9441F79F1B3C4B9D002E73D1 /* FBKVOController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9441F79C1B3C4B9D002E73D1 /* FBKVOController.m */; };
 		9441F7A01B3C4B9D002E73D1 /* FBKVOController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9441F79C1B3C4B9D002E73D1 /* FBKVOController.m */; };
 		9441F7A11B3C4B9D002E73D1 /* NSObject+FBKVOController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9441F79E1B3C4B9D002E73D1 /* NSObject+FBKVOController.m */; };
@@ -114,6 +115,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		943B00C51B3F15AA00CE55D4 /* TBResizeTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBResizeTextField.h; sourceTree = "<group>"; };
+		943B00C61B3F15AA00CE55D4 /* TBResizeTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBResizeTextField.m; sourceTree = "<group>"; };
 		9441F79B1B3C4B9D002E73D1 /* FBKVOController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBKVOController.h; sourceTree = "<group>"; };
 		9441F79C1B3C4B9D002E73D1 /* FBKVOController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBKVOController.m; sourceTree = "<group>"; };
 		9441F79D1B3C4B9D002E73D1 /* NSObject+FBKVOController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+FBKVOController.h"; sourceTree = "<group>"; };
@@ -276,6 +279,8 @@
 				946288B41B3E578D0016FA36 /* TBPlayerWindowController.h */,
 				946288B51B3E578D0016FA36 /* TBPlayerWindowController.m */,
 				946288B61B3E578D0016FA36 /* TBPlayerWindowController.xib */,
+				943B00C51B3F15AA00CE55D4 /* TBResizeTextField.h */,
+				943B00C61B3F15AA00CE55D4 /* TBResizeTextField.m */,
 				944FF4BC1B3D04CA000362ED /* TBPlayer.xcassets */,
 				944FF4BE1B3D04CA000362ED /* MainMenu.xib */,
 				944FF4B51B3D04CA000362ED /* Supporting Files */,
@@ -639,6 +644,7 @@
 				946288B71B3E578D0016FA36 /* TBPlayerWindowController.m in Sources */,
 				944FF4BB1B3D04CA000362ED /* main.m in Sources */,
 				944FF4B91B3D04CA000362ED /* AppDelegate.m in Sources */,
+				943B00C71B3F15AA00CE55D4 /* TBResizeTextField.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
