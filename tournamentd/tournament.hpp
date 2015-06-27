@@ -58,15 +58,15 @@ class tournament
     // handler for input from existing client
     bool handle_client_input(std::iostream& client);
 
+    // listen for clients on given unix socket path and optional internet service
+    void listen(const char* unix_socket_path, const char* inet_service=nullptr);
+
 public:
     // authorize a client code
     int authorize(int code);
 
-    // listen for clients on given unix socket path and optional internet service
-    void listen(const char* unix_socket_path, const char* inet_service=nullptr);
-
     // listen for clients on any available service, returning the unix socket path and port
-    std::pair<std::string, int> listen();
+    std::pair<std::string, int> listen(const std::string& unix_socket_path);
 
     // load configuration from file
     void load_configuration(const std::string& filename);

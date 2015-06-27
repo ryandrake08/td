@@ -823,14 +823,14 @@ void tournament::listen(const char* unix_socket_path, const char* inet_service)
 #endif
 
 // listen for clients on any available service, returning the unix socket path and port
-std::pair<std::string, int> tournament::listen()
+std::pair<std::string, int> tournament::listen(const std::string& unix_socket_path)
 {
     // start at default port, and increment until we find one that binds
     for(int port(DEFAULT_PORT); port < DEFAULT_PORT+100; port++)
     {
         // build unique unix socket name using service name
         std::ostringstream local_server, inet_service;
-        local_server << "/tmp/tournamentd." << port << ".sock";
+        local_server << unix_socket_path << "tournamentd." << port << ".sock";
         inet_service << port;
 
         try

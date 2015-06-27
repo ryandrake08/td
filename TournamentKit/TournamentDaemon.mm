@@ -44,10 +44,13 @@
 // start the daemon, pre-authorizing given client code, returning local unix socket path
 - (NSString*)startWithAuthCode:(NSNumber*)code {
 
+    // place unix sockets in temp directory
+    std::string tmppath = [NSTemporaryDirectory() UTF8String];
+
     // set up tournament and authorize
     __block tournament tourney;
     tourney.authorize([code intValue]);
-    auto service(tourney.listen());
+    auto service(tourney.listen(tmppath));
 
     // server is listening. mark as running and run in background
     running = YES;

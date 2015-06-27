@@ -59,7 +59,7 @@ program::program(const std::vector<std::string>& cmdline)
     }
 
     // listen and publish
-    this->publisher.publish(name, this->tourney.listen().second);
+    this->publisher.publish(name, this->tourney.listen(P_tmpdir).second);
 }
 
 bool program::run()
