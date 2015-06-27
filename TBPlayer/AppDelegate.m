@@ -7,16 +7,18 @@
 //
 
 #import "AppDelegate.h"
+#import "TBPlayerWindowController.h"
 
 @interface AppDelegate ()
-
-@property (weak) IBOutlet NSWindow *window;
+@property (strong) TBPlayerWindowController* windowController;
 @end
 
 @implementation AppDelegate
 
-- (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-    // Insert code here to initialize your application
+- (void)applicationDidFinishLaunching:(NSNotification*)aNotification {
+    _windowController = [[TBPlayerWindowController alloc] initWithWindowNibName:@"TBPlayerWindowController"];
+    [_windowController showWindow:nil];
+    [_windowController.window makeKeyAndOrderFront:nil];
 }
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
