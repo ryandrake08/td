@@ -1,4 +1,5 @@
 {
+    "name" : "Default Tournament",
     "players": [
         {
             "name": "player1"

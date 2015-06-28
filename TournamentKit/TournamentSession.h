@@ -20,6 +20,7 @@
 @property (nonatomic, readonly, assign, getter=isAuthorized) BOOL authorized;
 
 // tournament configuration
+@property (nonatomic, readonly) NSString* name;
 @property (nonatomic, readonly) NSArray* players;
 @property (nonatomic, readonly) NSArray* blindLevels;
 @property (nonatomic, readonly) NSArray* availableChips;

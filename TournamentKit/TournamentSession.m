@@ -27,6 +27,7 @@
 @property (nonatomic) NSNumberFormatter* decimalFormatter;
 
 // tournament configuration
+@property (nonatomic) NSString* name;
 @property (nonatomic) NSMutableArray* players;
 @property (nonatomic) NSArray* blindLevels;
 @property (nonatomic) NSArray* availableChips;
@@ -113,6 +114,10 @@
 // get current configuration
 - (id)currentConfiguration {
     NSMutableDictionary* json = [NSMutableDictionary dictionary];
+
+    if([self name]) {
+        json[@"name"] = [self name];
+    }
 
     if([self players]) {
         json[@"players"] = [self players];
@@ -495,6 +500,10 @@
     id value;
 
     // tournament configuration
+    if((value = json[@"name"])) {
+        [self setName:value];
+    }
+
     if((value = json[@"players"])) {
         [self setPlayers:value];
     }

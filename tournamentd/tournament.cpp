@@ -423,6 +423,7 @@ bool tournament::handle_client_input(std::iostream& client)
                         (none)
 
                      output:
+                        name (string): Human-readable name of this tournament
                         players (array): Each player eligible for this tournament
                         table_capacity (integer): Number of seats per table
                         cost_currency (string): Currency name for buyins, re-buys, etc. ISO 4217: USD, EUR, XPT for points
@@ -495,6 +496,7 @@ bool tournament::handle_client_input(std::iostream& client)
 
                      input:
                         authenticate (integer): Valid authentication code for a tournament admin
+                        name (optional, string): Human-readable name for this tournament
                         players (optional, array): Each player eligible for this tournament
                         table_capacity (optional, integer): Number of seats per table
                         cost_currency (optional, string): Currency name for buyins, re-buys, etc. ISO 4217: USD, EUR, XPT for points

@@ -33,6 +33,7 @@ void gameinfo::configure(const json& config)
 {
     logger(LOG_DEBUG) << "Loading tournament configuration\n";
 
+    config.get_value("name", this->name);
     config.get_value("cost_currency", this->cost_currency);
     config.get_value("equity_currency", this->equity_currency);
     config.get_values("funding_sources", this->funding_sources);
@@ -103,6 +104,7 @@ void gameinfo::dump_configuration(json& config) const
 {
     logger(LOG_DEBUG) << "Dumping tournament configuration\n";
 
+    config.set_value("name", this->name);
     config.set_values("players", this->players);
     config.set_value("table_capacity", this->table_capacity);
     config.set_value("cost_currency", this->cost_currency);

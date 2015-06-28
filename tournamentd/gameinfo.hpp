@@ -11,6 +11,9 @@ class gameinfo
 {
     // ----- configuration -----
 
+    // configuration: human-readable name of this tournament
+    std::string name;
+    
     // configuration: list of all known players (playing or not)
     std::unordered_map<td::player_id_t,td::player> players;
 
