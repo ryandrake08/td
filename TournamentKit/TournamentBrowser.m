@@ -45,8 +45,14 @@
 - (NSArray*)localServiceList {
     // first check for unix sockets
     NSArray* directoryContents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:NSTemporaryDirectory() error:nil];
-    NSPredicate* predicate = [NSPredicate predicateWithFormat:@"SELF LIKE *tournamentd.*.sock"];
-    return [directoryContents filteredArrayUsingPredicate:predicate];
+    NSPredicate* predicate = [NSPredicate predicateWithFormat:@"SELF LIKE '*tournamentd.*.sock'"];
+    NSArray* tournamentContents = [directoryContents filteredArrayUsingPredicate:predicate];
+
+    NSMutableArray* fullPaths = [[NSMutableArray alloc] init];
+    for(NSString* filename in tournamentContents) {
+        [fullPaths addObject:[NSTemporaryDirectory() stringByAppendingPathComponent:filename]];
+    }
+    return fullPaths;
 }
 
 - (NSArray*)remoteServiceList {

@@ -47,7 +47,7 @@
     _session = [(TBAppDelegate*)[[UIApplication sharedApplication] delegate] session];
 
     // register for KVO
-    [[self KVOController] observe:[self session] keyPaths:@[@"isConnected", @"isAuthorized", @"currentBlindLevel"] options:0 block:^(id observer, id object, NSDictionary *change) {
+    [[self KVOController] observe:[self session] keyPaths:@[@"isConnected", @"authorized", @"currentBlindLevel"] options:0 block:^(id observer, id object, NSDictionary *change) {
         [observer updateButtons];
     }];
 

@@ -36,8 +36,17 @@
     [super windowDidLoad];
     
     // register for KVO
-    [[self KVOController] observe:[self session] keyPaths:@[@"isConnected", @"isAuthorized", @"currentBlindLevel"] options:0 block:^(id observer, id object, NSDictionary *change) {
+    [[self KVOController] observe:[self session] keyPaths:@[@"isConnected", @"authorized"] options:0 block:^(id observer, id object, NSDictionary *change) {
         [observer updateButtons];
+    }];
+
+    [[self KVOController] observe:[self session] keyPath:@"currentBlindLevel" options:0 block:^(id observer, id object, NSDictionary *change) {
+        [observer updateButtons];
+        if([[object currentBlindLevel] isEqualToNumber:[NSNumber numberWithInt:0]]) {
+            [[observer currentRoundNumberLabel] setStringValue:@"-"];
+        } else {
+           [[observer currentRoundNumberLabel] setStringValue:[NSString stringWithFormat:@"%@", [object currentBlindLevel]]];
+        }
     }];
 
     [[self KVOController] observe:[self session] keyPath:@"clockText" options:0 block:^(id observer, id object, NSDictionary *change) {

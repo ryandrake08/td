@@ -430,6 +430,7 @@
 
     if(currentBlindLevel == 0) {
         [self setCurrentRoundText:NSLocalizedString(@"PLANNING", nil)];
+        [self setNextRoundText:NSLocalizedString(@"-", nil)];
     } else {
         if(timeRemaining == 0 && breakTimeRemaining != 0) {
             [self setCurrentRoundText:NSLocalizedString(@"BREAK", nil)];
@@ -609,6 +610,9 @@
     NSAssert([self connection] == tc, @"Unexpected connection from %@", tc);
     [self willChangeValueForKey:NSStringFromSelector(@selector(isConnected))];
     [self didChangeValueForKey:NSStringFromSelector(@selector(isConnected))];
+
+    // always check if we're authorized right away
+    [self checkAuthorizedWithBlock:nil];
 }
 
 - (void)tournamentConnectionDidDisconnect:(TournamentConnection*)tc {

@@ -11,7 +11,8 @@
                 <outlet property="backgroundImageView" destination="a0P-Zo-OBW" id="Whv-de-PmQ"/>
                 <outlet property="callClockButton" destination="aTi-c8-Bym" id="erw-jD-PQy"/>
                 <outlet property="clockLabel" destination="CDw-40-LG5" id="ril-6h-0nO"/>
-                <outlet property="currentRoundNumberLabel" destination="HG3-0K-cbX" id="mSo-kF-4iB"/>
+                <outlet property="currentRoundLabel" destination="bqH-Qi-teu" id="NdZ-Y0-9g4"/>
+                <outlet property="currentRoundNumberLabel" destination="HG3-0K-cbX" id="ylX-u7-R3q"/>
                 <outlet property="nextRoundButton" destination="Wmc-gF-h6T" id="Tdd-nk-MsE"/>
                 <outlet property="nextRoundLabel" destination="ffa-40-JOt" id="v7d-Gt-ssS"/>
                 <outlet property="pauseResumeButton" destination="J2a-Oa-eEY" id="MwS-kP-xgI"/>
@@ -135,11 +136,11 @@
                         </subviews>
                     </customView>
                     <customView id="zql-0O-xSY">
-                        <rect key="frame" x="256" y="0.0" width="512" height="672.00000762729519"/>
+                        <rect key="frame" x="256" y="0.0" width="512" height="672"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <customView id="6oh-Wj-Ac7">
-                                <rect key="frame" x="104" y="607.00000762729519" width="304" height="64"/>
+                                <rect key="frame" x="104" y="607" width="304" height="64"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
                                     <button hidden="YES" id="qCm-e2-QUv">
@@ -189,7 +190,7 @@
                                 </subviews>
                             </customView>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="CDw-40-LG5" customClass="TBResizeTextField">
-                                <rect key="frame" x="0.0" y="416" width="512" height="192.00000240861942"/>
+                                <rect key="frame" x="0.0" y="416" width="512" height="191.99999570365782"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="01:23:45" placeholderString="" usesSingleLineMode="YES" id="f7C-Sd-FCb">
                                     <font key="font" metaFont="system" size="128"/>
