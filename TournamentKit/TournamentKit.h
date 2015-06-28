@@ -14,6 +14,7 @@ FOUNDATION_EXPORT double TournamentKitVersionNumber;
 //! Project version string for TournamentKit.
 FOUNDATION_EXPORT const unsigned char TournamentKitVersionString[];
 
+#import "TournamentBrowser.h"
 #import "TournamentConnection.h"
 #import "TournamentSession.h"
 #import "TournamentDaemon.h"

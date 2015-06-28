@@ -812,31 +812,25 @@ int tournament::authorize(int code)
     return code;
 }
 
-// listen for clients on given unix socket path and optional internet service
-void tournament::listen(const char* unix_socket_path, const char* inet_service)
-{
-    this->game_server.listen(unix_socket_path, inet_service);
-}
-
 #if !defined(DEFAULT_PORT)
 #define DEFAULT_PORT 25600
 #endif
 
 // listen for clients on any available service, returning the unix socket path and port
-std::pair<std::string, int> tournament::listen(const std::string& unix_socket_path)
+std::pair<std::string, int> tournament::listen(const char*  unix_socket_directory)
 {
     // start at default port, and increment until we find one that binds
     for(int port(DEFAULT_PORT); port < DEFAULT_PORT+100; port++)
     {
         // build unique unix socket name using service name
         std::ostringstream local_server, inet_service;
-        local_server << unix_socket_path << "tournamentd." << port << ".sock";
+        local_server << unix_socket_directory << "tournamentd." << port << ".sock";
         inet_service << port;
 
         try
         {
             // try to listen to this service
-            this->listen(local_server.str().c_str(), inet_service.str().c_str());
+            this->game_server.listen(local_server.str().c_str(), inet_service.str().c_str());
             return std::make_pair(local_server.str(), port);
         }
         catch(const std::system_error& e)

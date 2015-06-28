@@ -135,14 +135,14 @@
                         </subviews>
                     </customView>
                     <customView id="zql-0O-xSY">
-                        <rect key="frame" x="256" y="0.0" width="512" height="672.00000353799055"/>
+                        <rect key="frame" x="256" y="0.0" width="512" height="672.00000762729519"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <customView id="6oh-Wj-Ac7">
-                                <rect key="frame" x="104" y="607.00000353799055" width="304" height="64"/>
+                                <rect key="frame" x="104" y="607.00000762729519" width="304" height="64"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
-                                    <button id="qCm-e2-QUv">
+                                    <button hidden="YES" id="qCm-e2-QUv">
                                         <rect key="frame" x="0.0" y="-1" width="64" height="64"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="bevel" title="Previous Round" bezelStyle="regularSquare" image="b_previous" imagePosition="only" alignment="center" alternateImage="h_previous" imageScaling="proportionallyUpOrDown" inset="2" id="KOQ-T8-OdB">
@@ -153,7 +153,7 @@
                                             <action selector="previousRoundTapped:" target="-2" id="tGz-O5-rnl"/>
                                         </connections>
                                     </button>
-                                    <button id="J2a-Oa-eEY">
+                                    <button hidden="YES" id="J2a-Oa-eEY">
                                         <rect key="frame" x="80" y="-1" width="64" height="64"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="bevel" title="Play / Pause" bezelStyle="regularSquare" image="b_play_pause" imagePosition="only" alignment="center" alternateImage="h_play_pause" imageScaling="proportionallyUpOrDown" inset="2" id="q7e-fy-4Lr">
@@ -164,7 +164,7 @@
                                             <action selector="pauseResumeTapped:" target="-2" id="Rgw-yI-ZMa"/>
                                         </connections>
                                     </button>
-                                    <button id="Wmc-gF-h6T">
+                                    <button hidden="YES" id="Wmc-gF-h6T">
                                         <rect key="frame" x="160" y="-1" width="64" height="64"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="bevel" title="Next Round" bezelStyle="regularSquare" image="b_next" imagePosition="only" alignment="center" alternateImage="h_next" imageScaling="proportionallyUpOrDown" inset="2" id="jfQ-Zp-A8n">
@@ -175,7 +175,7 @@
                                             <action selector="nextRoundTapped:" target="-2" id="HHl-4V-B5U"/>
                                         </connections>
                                     </button>
-                                    <button id="aTi-c8-Bym">
+                                    <button hidden="YES" id="aTi-c8-Bym">
                                         <rect key="frame" x="240" y="-1" width="64" height="64"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="bevel" title="Call Clock" bezelStyle="regularSquare" image="b_call_clock" imagePosition="only" alignment="center" alternateImage="h_call_clock" imageScaling="proportionallyUpOrDown" inset="2" id="YrG-QO-UVI">
@@ -189,7 +189,7 @@
                                 </subviews>
                             </customView>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="CDw-40-LG5" customClass="TBResizeTextField">
-                                <rect key="frame" x="0.0" y="416" width="512" height="192.00000111726024"/>
+                                <rect key="frame" x="0.0" y="416" width="512" height="192.00000240861942"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="01:23:45" placeholderString="" usesSingleLineMode="YES" id="f7C-Sd-FCb">
                                     <font key="font" metaFont="system" size="128"/>

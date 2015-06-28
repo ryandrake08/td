@@ -15,11 +15,10 @@
 @interface TBTournamentsViewController () <UITableViewDelegate,
                                            UITableViewDataSource,
                                            UIActionSheetDelegate,
-                                           NSNetServiceBrowserDelegate>
+                                           TournamentBrowserDelegate>
 
 @property (nonatomic) TournamentSession* session;
-@property (nonatomic) NSMutableArray* serviceList;
-@property (nonatomic) NSNetServiceBrowser* serviceBrowser;
+@property (nonatomic) TournamentBrowser* tournamentBrowser;
 @end
 
 @implementation TBTournamentsViewController
@@ -30,15 +29,8 @@
     // get model
     _session = [(TBAppDelegate*)[[UIApplication sharedApplication] delegate] session];
 
-    // create service list
-    _serviceList = [[NSMutableArray alloc] init];
-
-    // initialize service browser
-    _serviceBrowser = [[NSNetServiceBrowser alloc] init];
-
-    // configure Service browser
-    [self.serviceBrowser setDelegate:self];
-    [self.serviceBrowser searchForServicesOfType:@"_tournbuddy._tcp." inDomain:@"local."];
+    // initialize tournament browser
+    _tournamentBrowser = [[TournamentBrowser alloc] initWithDelegate:self];
 
     // register for KVO
     [[self KVOController] observe:[self session] keyPath:NSStringFromSelector(@selector(isConnected)) options:0 block:^(id observer, id object, NSDictionary *change) {
@@ -63,9 +55,7 @@
 
 - (void)dealloc {
     // stop service browser
-    [[self serviceBrowser] stop];
-    [[self serviceBrowser] setDelegate:nil];
-    [self setServiceBrowser:nil];
+    [self setTournamentBrowser:nil];
 }
 
 
@@ -76,13 +66,13 @@
 }
 
 - (NSInteger)tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section {
-    return [[self serviceList] count];
+    return [[[self tournamentBrowser] remoteServiceList] count];
 }
 
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath {
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"ServiceCell"];
 
-    NSNetService* cellService = [[self serviceList] objectAtIndex:[indexPath row]];
+    NSNetService* cellService = [[[self tournamentBrowser] remoteServiceList] objectAtIndex:[indexPath row]];
     NSNetService* currentService = [[self session] currentService];
     BOOL isConnected = [[self session] isConnected];
     BOOL isAuthorized = [[self session] isAuthorized];
@@ -109,7 +99,7 @@
 #pragma mark UITableViewDelegate
 
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
-    NSNetService* service = [[self serviceList] objectAtIndex:[indexPath row]];
+    NSNetService* service = [[[self tournamentBrowser] remoteServiceList] objectAtIndex:[indexPath row]];
 
     if(service == [[self session] currentService]) {
         // pop disconnection actionsheet
@@ -129,7 +119,7 @@
 }
 
 - (void)reloadTableRowForService:(NSNetService*)service {
-    NSUInteger i = [[self serviceList] indexOfObject:service];
+    NSUInteger i = [[[self tournamentBrowser] remoteServiceList] indexOfObject:service];
     if(i != NSNotFound) {
         NSIndexPath* indexPath = [NSIndexPath indexPathForRow:i inSection:0];
         [[self tableView] reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -144,22 +134,10 @@
     }
 }
 
-#pragma mark NSNetServiceDelegate
+#pragma mark TournamentBroswerDelegate
 
-- (void)netServiceBrowser:(NSNetServiceBrowser*)serviceBrowser didFindService:(NSNetService*)service moreComing:(BOOL)moreComing {
-    [[self serviceList] addObject:service];
-
-    if(!moreComing) {
-        [[self tableView] reloadData];
-    }
-}
-
-- (void)netServiceBrowser:(NSNetServiceBrowser*)serviceBrowser didRemoveService:(NSNetService*)service moreComing:(BOOL)moreComing {
-    [[self serviceList] removeObject:service];
-
-    if(!moreComing) {
-        [[self tableView] reloadData];
-    }
+- (void)tournamentBrowser:(TournamentBrowser*)tournamentBroswer didUpdateRemoteServices:(NSArray*)services {
+    [[self tableView] reloadData];
 }
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "TournamentDaemon.h"
+#import "TournamentService.h"
 
 #include "tournament.hpp"
 #include <sstream>
@@ -44,13 +45,10 @@
 // start the daemon, pre-authorizing given client code, returning local unix socket path
 - (NSString*)startWithAuthCode:(NSNumber*)code {
 
-    // place unix sockets in temp directory
-    std::string tmppath = [NSTemporaryDirectory() UTF8String];
-
     // set up tournament and authorize
     __block tournament tourney;
     tourney.authorize([code intValue]);
-    auto service(tourney.listen(tmppath));
+    auto service(tourney.listen([NSTemporaryDirectory() UTF8String]));
 
     // server is listening. mark as running and run in background
     running = YES;
@@ -87,7 +85,7 @@
 
     if(name && port) {
         // set up and publish NetService
-        netService = [[NSNetService alloc] initWithDomain:@"local." type:@"_tournbuddy._tcp." name:name port:port];
+        netService = [[NSNetService alloc] initWithDomain:kTournamentServiceDomain type:kTournamentServiceType name:name port:port];
         [netService publish];
     }
 }

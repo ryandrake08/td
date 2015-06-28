@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		943970181B3F9DB700BB0413 /* TournamentBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 943970171B3F9DB700BB0413 /* TournamentBrowser.m */; };
+		943970191B3F9DB700BB0413 /* TournamentBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 943970171B3F9DB700BB0413 /* TournamentBrowser.m */; };
+		9439701A1B3F9DB700BB0413 /* TournamentBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 943970171B3F9DB700BB0413 /* TournamentBrowser.m */; };
 		943B00C71B3F15AA00CE55D4 /* TBResizeTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 943B00C61B3F15AA00CE55D4 /* TBResizeTextField.m */; };
 		943B00C81B3F427700CE55D4 /* TournamentConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F47D1B3C3EA700A158F8 /* TournamentConnection.m */; };
 		943B00C91B3F427700CE55D4 /* TournamentDaemon.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9476F47F1B3C3EA700A158F8 /* TournamentDaemon.mm */; };
@@ -132,6 +135,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		943970161B3F9DB700BB0413 /* TournamentBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TournamentBrowser.h; sourceTree = "<group>"; };
+		943970171B3F9DB700BB0413 /* TournamentBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TournamentBrowser.m; sourceTree = "<group>"; };
+		9439701B1B3FA61C00BB0413 /* TournamentService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TournamentService.h; sourceTree = "<group>"; };
 		943B00C51B3F15AA00CE55D4 /* TBResizeTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBResizeTextField.h; sourceTree = "<group>"; };
 		943B00C61B3F15AA00CE55D4 /* TBResizeTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBResizeTextField.m; sourceTree = "<group>"; };
 		9441F79B1B3C4B9D002E73D1 /* FBKVOController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBKVOController.h; sourceTree = "<group>"; };
@@ -346,10 +352,13 @@
 			isa = PBXGroup;
 			children = (
 				9476F47B1B3C3EA700A158F8 /* TournamentKit.h */,
+				943970161B3F9DB700BB0413 /* TournamentBrowser.h */,
+				943970171B3F9DB700BB0413 /* TournamentBrowser.m */,
 				9476F47C1B3C3EA700A158F8 /* TournamentConnection.h */,
 				9476F47D1B3C3EA700A158F8 /* TournamentConnection.m */,
 				9476F47E1B3C3EA700A158F8 /* TournamentDaemon.h */,
 				9476F47F1B3C3EA700A158F8 /* TournamentDaemon.mm */,
+				9439701B1B3FA61C00BB0413 /* TournamentService.h */,
 				9476F4801B3C3EA700A158F8 /* TournamentSession.h */,
 				9476F4811B3C3EA700A158F8 /* TournamentSession.m */,
 				9476F4821B3C3EA700A158F8 /* TBColor+CSS.h */,
@@ -675,6 +684,7 @@
 				944FF4B91B3D04CA000362ED /* AppDelegate.m in Sources */,
 				943B00CE1B3F427700CE55D4 /* FBKVOController.m in Sources */,
 				943B00C71B3F15AA00CE55D4 /* TBResizeTextField.m in Sources */,
+				943970191B3F9DB700BB0413 /* TournamentBrowser.m in Sources */,
 				943B00D51B3F429500CE55D4 /* socket.cpp in Sources */,
 				943B00D81B3F43FC00CE55D4 /* cJSON.c in Sources */,
 				943B00C81B3F427700CE55D4 /* TournamentConnection.m in Sources */,
@@ -696,6 +706,7 @@
 				9476F4A71B3C3EA700A158F8 /* TournamentSession.m in Sources */,
 				949D709F1B3C440E008D5CD1 /* server.cpp in Sources */,
 				9476F4681B3C385400A158F8 /* TBActionClockView.m in Sources */,
+				9439701A1B3F9DB700BB0413 /* TournamentBrowser.m in Sources */,
 				9476F46A1B3C385400A158F8 /* TBTournamentsViewController.m in Sources */,
 				9476F4721B3C385400A158F8 /* main.m in Sources */,
 				9476F4AD1B3C3EA700A158F8 /* CFStreamCreatePairWithUnixSocket.c in Sources */,
@@ -763,6 +774,7 @@
 				949D70991B3C440D008D5CD1 /* server.cpp in Sources */,
 				AD8E684A1A6C606700E5A4D8 /* AppDelegate.m in Sources */,
 				9476F4A21B3C3EA700A158F8 /* TournamentConnection.m in Sources */,
+				943970181B3F9DB700BB0413 /* TournamentBrowser.m in Sources */,
 				AD0EC5081AB33AA30071BD18 /* TBColorValueTransformer.m in Sources */,
 				AD60911D1A94EBB600AAF891 /* TBChipsTableCellView.m in Sources */,
 				AD0EC5051AB331460071BD18 /* TBDurationNumberFormatter.m in Sources */,
