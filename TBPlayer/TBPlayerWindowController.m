@@ -16,7 +16,9 @@
 @property (weak) IBOutlet TBResizeTextField* tournamentNameLabel;
 @property (weak) IBOutlet TBResizeTextField* tournamentFundingLabel;
 @property (weak) IBOutlet TBResizeTextField* clockLabel;
+@property (weak) IBOutlet TBResizeTextField* currentGameLabel;
 @property (weak) IBOutlet TBResizeTextField* currentRoundLabel;
+@property (weak) IBOutlet TBResizeTextField* nextGameLabel;
 @property (weak) IBOutlet TBResizeTextField* nextRoundLabel;
 @property (weak) IBOutlet TBResizeTextField* currentRoundNumberLabel;
 @property (weak) IBOutlet TBResizeTextField* playersLeftLabel;
@@ -53,10 +55,18 @@
         [[observer clockLabel] setStringValue:[object clockText]];
     }];
 
+    [[self KVOController] observe:[self session] keyPath:@"currentGameText" options:0 block:^(id observer, id object, NSDictionary *change) {
+        [[observer currentGameLabel] setStringValue:[object currentGameText]];
+    }];
+
     [[self KVOController] observe:[self session] keyPath:@"currentRoundText" options:0 block:^(id observer, id object, NSDictionary *change) {
         [[observer currentRoundLabel] setStringValue:[object currentRoundText]];
     }];
 
+    [[self KVOController] observe:[self session] keyPath:@"nextGameText" options:0 block:^(id observer, id object, NSDictionary *change) {
+        [[observer nextGameLabel] setStringValue:[object nextGameText]];
+    }];
+    
     [[self KVOController] observe:[self session] keyPath:@"nextRoundText" options:0 block:^(id observer, id object, NSDictionary *change) {
         [[observer nextRoundLabel] setStringValue:[object nextRoundText]];
     }];

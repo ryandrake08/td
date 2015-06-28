@@ -11,8 +11,10 @@
                 <outlet property="backgroundImageView" destination="a0P-Zo-OBW" id="Whv-de-PmQ"/>
                 <outlet property="callClockButton" destination="aTi-c8-Bym" id="erw-jD-PQy"/>
                 <outlet property="clockLabel" destination="CDw-40-LG5" id="ril-6h-0nO"/>
+                <outlet property="currentGameLabel" destination="oEh-Uu-smb" id="E6s-0l-hex"/>
                 <outlet property="currentRoundLabel" destination="bqH-Qi-teu" id="NdZ-Y0-9g4"/>
                 <outlet property="currentRoundNumberLabel" destination="HG3-0K-cbX" id="ylX-u7-R3q"/>
+                <outlet property="nextGameLabel" destination="OMf-if-HTW" id="rI3-Ne-AKe"/>
                 <outlet property="nextRoundButton" destination="Wmc-gF-h6T" id="Tdd-nk-MsE"/>
                 <outlet property="nextRoundLabel" destination="ffa-40-JOt" id="v7d-Gt-ssS"/>
                 <outlet property="pauseResumeButton" destination="J2a-Oa-eEY" id="MwS-kP-xgI"/>

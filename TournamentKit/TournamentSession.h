@@ -50,7 +50,9 @@
 
 // derived tournament state
 @property (nonatomic, readonly) NSString* clockText;
+@property (nonatomic, readonly) NSString* currentGameText;
 @property (nonatomic, readonly) NSString* currentRoundText;
+@property (nonatomic, readonly) NSString* nextGameText;
 @property (nonatomic, readonly) NSString* nextRoundText;
 @property (nonatomic, readonly) NSString* playersLeftText;
 @property (nonatomic, readonly) NSString* averageStackText;

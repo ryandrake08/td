@@ -52,6 +52,7 @@ td::player_chips::player_chips(unsigned long d, unsigned long c) : denomination(
 
 td::blind_level::blind_level(const json& obj) : blind_level()
 {
+    obj.get_value("game_name", this->game_name);
     obj.get_value("little_blind", this->little_blind);
     obj.get_value("big_blind", this->big_blind);
     obj.get_value("ante", this->ante);
@@ -104,6 +105,7 @@ td::player_movement::player_movement(const json& obj) : player_movement()
 template<>
 json::json(const td::blind_level& value) : json()
 {
+    this->set_value("game_name", value.game_name);
     this->set_value("little_blind", value.little_blind);
     this->set_value("big_blind", value.big_blind);
     this->set_value("ante", value.ante);

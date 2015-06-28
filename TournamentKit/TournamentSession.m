@@ -57,7 +57,9 @@
 
 // derived tournament state
 @property (nonatomic) NSString* clockText;
+@property (nonatomic) NSString* currentGameText;
 @property (nonatomic) NSString* currentRoundText;
+@property (nonatomic) NSString* nextGameText;
 @property (nonatomic) NSString* nextRoundText;
 @property (nonatomic) NSString* playersLeftText;
 @property (nonatomic) NSString* averageStackText;
@@ -434,18 +436,23 @@
     NSUInteger breakTimeRemaining = [[self breakTimeRemaining] unsignedIntegerValue];
 
     if(currentBlindLevel == 0) {
+        [self setCurrentGameText:@""];
         [self setCurrentRoundText:NSLocalizedString(@"PLANNING", nil)];
+        [self setNextGameText:@""];
         [self setNextRoundText:NSLocalizedString(@"-", nil)];
     } else {
         if(timeRemaining == 0 && breakTimeRemaining != 0) {
+            [self setCurrentGameText:@""];
             [self setCurrentRoundText:NSLocalizedString(@"BREAK", nil)];
         } else if(currentBlindLevel < [blindLevels count]) {
             NSDictionary* thisBlindLevel = blindLevels[currentBlindLevel];
+            [self setCurrentGameText:thisBlindLevel[@"game_name"]];
             [self setCurrentRoundText:[self formatBlindLevel:thisBlindLevel]];
         }
 
         if(currentBlindLevel+1 < [blindLevels count]) {
             NSDictionary* nextBlindLevel = blindLevels[currentBlindLevel+1];
+            [self setNextGameText:nextBlindLevel[@"game_name"]];
             [self setNextRoundText:[self formatBlindLevel:nextBlindLevel]];
         }
     }
