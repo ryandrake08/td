@@ -14,10 +14,9 @@
 
 - (instancetype)initWithDelegate:(id <TournamentBrowserDelegate>)delegate;
 
-// list of known unix sockets (NSString* path)
+// list of known services (TournamentService* )
+- (NSArray*)serviceList;
 - (NSArray*)localServiceList;
-
-// list of known services (NSNetService*)
 - (NSArray*)remoteServiceList;
 
 // delegate
@@ -28,6 +27,6 @@
 @protocol TournamentBrowserDelegate <NSObject>
 
 // called after a new list of remote services has been received
-- (void)tournamentBrowser:(TournamentBrowser*)tournamentBroswer didUpdateRemoteServices:(NSArray*)services;
+- (void)tournamentBrowser:(TournamentBrowser*)tournamentBroswer didUpdateServices:(NSArray*)services;
 
 @end

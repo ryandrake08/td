@@ -48,35 +48,31 @@
 - (void)updateMenuWithBrowser:(TournamentBrowser*)browser {
     NSMenu* connectMenu = [[NSMenu alloc] initWithTitle:NSLocalizedString(@"Connect", nil)];
 
-    if([[browser localServiceList] count]) {
-        NSMenuItem* headerItem = [connectMenu addItemWithTitle:NSLocalizedString(@"Local Tournaments", nil) action:nil keyEquivalent:@""];
-        [headerItem setEnabled:NO];
-        for(NSString* name in [browser localServiceList]) {
-            NSMenuItem* serviceItem = [connectMenu addItemWithTitle:[name lastPathComponent]
-                                                             action:@selector(connectToLocal:)
-                                                      keyEquivalent:@""];
-            [serviceItem setTarget:self];
-            [serviceItem setRepresentedObject:name];
+    // split services into local and remote
+    NSArray* localServices = [browser localServiceList];
+    if([localServices count]) {
+        [connectMenu addItemWithTitle:NSLocalizedString(@"On this Mac", nil) action:nil keyEquivalent:@""];
+        for(TournamentService* service in localServices) {
+            NSMenuItem* item = [connectMenu addItemWithTitle:[service name] action:@selector(connectToTournamentMenuItem:) keyEquivalent:@""];
+            [item setTarget:self];
+            [item setRepresentedObject:service];
         }
         [connectMenu addItem:[NSMenuItem separatorItem]];
     }
 
-    if([[browser remoteServiceList] count]) {
-        NSMenuItem* headerItem = [connectMenu addItemWithTitle:NSLocalizedString(@"Remote Tournaments", nil) action:nil keyEquivalent:@""];
-        [headerItem setEnabled:NO];
-        for(NSNetService* service in [browser remoteServiceList]) {
-            NSMenuItem* serviceItem = [connectMenu addItemWithTitle:[service name]
-                                                             action:@selector(connectToRemote:)
-                                                      keyEquivalent:@""];
-            [serviceItem setTarget:self];
-            [serviceItem setRepresentedObject:service];
+    NSArray* remoteServices = [browser remoteServiceList];
+    if([remoteServices count]) {
+        [connectMenu addItemWithTitle:NSLocalizedString(@"On the Network", nil) action:nil keyEquivalent:@""];
+        for(TournamentService* service in remoteServices) {
+            NSMenuItem* item = [connectMenu addItemWithTitle:[service name] action:@selector(connectToTournamentMenuItem:) keyEquivalent:@""];
+            [item setTarget:self];
+            [item setRepresentedObject:service];
         }
         [connectMenu addItem:[NSMenuItem separatorItem]];
     }
 
-    NSMenuItem* connectToServiceItem = [connectMenu addItemWithTitle:NSLocalizedString(@"Connect to Service...", @"")
-                                                              action:@selector(connectToTournament:)
-                                                       keyEquivalent:@"C"];
+    // always include manual connection
+    NSMenuItem* connectToServiceItem = [connectMenu addItemWithTitle:NSLocalizedString(@"Connect to Service...", @"") action:@selector(connectToTournament:) keyEquivalent:@"C"];
     [connectToServiceItem setTarget:self];
     [connectToServiceItem setKeyEquivalentModifierMask:NSCommandKeyMask|NSShiftKeyMask];
 
@@ -84,12 +80,8 @@
     [[self connectMenuItem] setSubmenu:connectMenu];
 }
 
-- (IBAction)connectToLocal:(id)sender {
-    [[self session] connectToLocalPath:[sender representedObject]];
-}
-
-- (IBAction)connectToRemote:(id)sender {
-    [[self session] connectToService:[sender representedObject]];
+- (void)connectToTournamentMenuItem:(id)sender {
+    [[self session] connect:[sender representedObject]];
 }
 
 - (IBAction)connectToTournament:(id)sender {
@@ -97,7 +89,7 @@
 
 #pragma mark TournamentBroswerDelegate
 
-- (void)tournamentBrowser:(TournamentBrowser*)tournamentBroswer didUpdateRemoteServices:(NSArray*)services {
+- (void)tournamentBrowser:(TournamentBrowser*)tournamentBroswer didUpdateServices:(NSArray*)services {
     [self updateMenuWithBrowser:tournamentBroswer];
 }
 

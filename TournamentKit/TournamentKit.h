@@ -16,6 +16,7 @@ FOUNDATION_EXPORT const unsigned char TournamentKitVersionString[];
 
 #import "TournamentBrowser.h"
 #import "TournamentConnection.h"
+#import "TournamentService.h"
 #import "TournamentSession.h"
 #import "TournamentDaemon.h"
 #import "TBColor+CSS.h"

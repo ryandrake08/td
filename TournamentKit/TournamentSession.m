@@ -87,10 +87,21 @@
     // TODO: handle error
 }
 
+- (void)connectToAddress:(NSString *)address port:(NSInteger)port {
+    [self disconnect];
+    [[self connection] connectToAddress:address andPort:port];
+    // TODO: handle error
+}
+
 - (void)connectToService:(NSNetService*)service {
     [self disconnect];
     [self setCurrentService:service];
     [[self connection] connectToService:service];
+}
+
+- (void)connect:(TournamentService*)tournament {
+    [self disconnect];
+    [tournament connectTo:[self connection]];
 }
 
 - (void)disconnect {
@@ -235,6 +246,20 @@
         }
     }];
 }
+
+- (void)getStateWithBlock:(void(^)(id))block {
+    [self sendCommand:@"get_state" withData:nil andBlock:^(id json, NSString* error) {
+        if(error != nil) {
+            NSLog(@"getStateWithBlock: %@\n", error);
+        } else {
+            // handle config response
+            if(block != nil) {
+                block(json);
+            }
+        }
+    }];
+}
+
 
 - (void)getConfigWithBlock:(void(^)(id))block {
     [self sendCommand:@"get_config" withData:nil andBlock:^(id json, NSString* error) {

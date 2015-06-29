@@ -35,7 +35,7 @@
 @end
 
 @protocol TournamentConnectionDelegate <NSObject>
-
+@optional
 - (void)tournamentConnectionDidConnect:(TournamentConnection*)tc;
 - (void)tournamentConnectionDidDisconnect:(TournamentConnection*)tc;
 - (void)tournamentConnectionDidClose:(TournamentConnection*)tc;

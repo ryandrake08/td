@@ -98,7 +98,9 @@
         [[self outputStream] close];
 
         // notify delegate
-        [[self delegate] tournamentConnectionDidClose:self];
+        if([[self delegate] respondsToSelector:@selector(tournamentConnectionDidClose:)]) {
+            [[self delegate] tournamentConnectionDidClose:self];
+        }
     }
 
     // set to nil
@@ -118,7 +120,9 @@
         // check error condition
         if(bytesWritten < 0) {
             // notify delegate
-            [[self delegate] tournamentConnection:self error:[[self outputStream] streamError]];
+            if([[self delegate] respondsToSelector:@selector(tournamentConnection:error:)]) {
+                [[self delegate] tournamentConnection:self error:[[self outputStream] streamError]];
+            }
         }
     }
 }
@@ -131,7 +135,9 @@
 
         if(bytesRead < 0) {
             // notify delegate
-            [[self delegate] tournamentConnection:self error:[[self outputStream] streamError]];
+            if([[self delegate] respondsToSelector:@selector(tournamentConnection:error:)]) {
+                [[self delegate] tournamentConnection:self error:[[self outputStream] streamError]];
+            }
             return;
         }
 
@@ -152,14 +158,19 @@
         // convert to JSON
         NSError* jsonError = nil;
         id jsonObject = [NSJSONSerialization JSONObjectWithData:subBuffer options:NSJSONReadingMutableContainers error:&jsonError];
-        if(jsonError) {
-            [[self delegate] tournamentConnection:self error:jsonError];
-        } else {
-            [[self delegate] tournamentConnection:self didReceiveData:[jsonObject mutableCopy]];
-        }
 
         // empty that range
         [[self inputBuffer] replaceBytesInRange:subRange withBytes:NULL length:0];
+
+        if(jsonError) {
+            if([[self delegate] respondsToSelector:@selector(tournamentConnection:error:)]) {
+                [[self delegate] tournamentConnection:self error:jsonError];
+            }
+        } else {
+            if([[self delegate] respondsToSelector:@selector(tournamentConnection:didReceiveData:)]) {
+                [[self delegate] tournamentConnection:self didReceiveData:[jsonObject mutableCopy]];
+            }
+        }
 
         // search again through reduced buffer
         subRange = [[self inputBuffer] rangeOfDataDelimitedBy:'\n'];
@@ -193,7 +204,9 @@
     NSData* jsonData = [NSJSONSerialization dataWithJSONObject:jsonObject options:0 error:&jsonError];
     if(jsonData == nil) {
         // notify delegate
-        [[self delegate] tournamentConnection:self error:jsonError];
+        if([[self delegate] respondsToSelector:@selector(tournamentConnection:error:)]) {
+            [[self delegate] tournamentConnection:self error:jsonError];
+        }
         return NO;
     }
 
@@ -229,7 +242,9 @@
             if(theStream == [self outputStream]) {
                 // report connection state based on output stream connection
                 // so we report connection only once
-                [[self delegate] tournamentConnectionDidConnect:self];
+                if([[self delegate] respondsToSelector:@selector(tournamentConnectionDidConnect:)]) {
+                    [[self delegate] tournamentConnectionDidConnect:self];
+                }
             }
             break;
 
@@ -250,12 +265,16 @@
 
         case NSStreamEventErrorOccurred:
             // notify delegate
-            [[self delegate] tournamentConnection:self error:[theStream streamError]];
+            if([[self delegate] respondsToSelector:@selector(tournamentConnection:error:)]) {
+                [[self delegate] tournamentConnection:self error:[theStream streamError]];
+            }
             break;
 
         case NSStreamEventEndEncountered:
             // notify delegate
-            [[self delegate] tournamentConnectionDidDisconnect:self];
+            if([[self delegate] respondsToSelector:@selector(tournamentConnectionDidDisconnect:)]) {
+                [[self delegate] tournamentConnectionDidDisconnect:self];
+            }
             break;
 
         default:

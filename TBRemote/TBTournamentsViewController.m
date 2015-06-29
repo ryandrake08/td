@@ -19,6 +19,7 @@
 
 @property (nonatomic) TournamentSession* session;
 @property (nonatomic) TournamentBrowser* tournamentBrowser;
+@property (nonatomic) NSArray* netServices;
 @end
 
 @implementation TBTournamentsViewController
@@ -28,6 +29,9 @@
 
     // get model
     _session = [(TBAppDelegate*)[[UIApplication sharedApplication] delegate] session];
+
+    // store all potential services
+    _netServices = [[NSArray alloc] init];
 
     // initialize tournament browser
     _tournamentBrowser = [[TournamentBrowser alloc] initWithDelegate:self];
@@ -66,13 +70,13 @@
 }
 
 - (NSInteger)tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section {
-    return [[[self tournamentBrowser] remoteServiceList] count];
+    return [[self netServices] count];
 }
 
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath {
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"ServiceCell"];
 
-    NSNetService* cellService = [[[self tournamentBrowser] remoteServiceList] objectAtIndex:[indexPath row]];
+    NSNetService* cellService = [self netServices][[indexPath row]];
     NSNetService* currentService = [[self session] currentService];
     BOOL isConnected = [[self session] isConnected];
     BOOL isAuthorized = [[self session] isAuthorized];
@@ -99,9 +103,10 @@
 #pragma mark UITableViewDelegate
 
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
-    NSNetService* service = [[[self tournamentBrowser] remoteServiceList] objectAtIndex:[indexPath row]];
+    NSNetService* cellService = [self netServices][[indexPath row]];
+    NSNetService* currentService = [[self session] currentService];
 
-    if(service == [[self session] currentService]) {
+    if(cellService == currentService) {
         // pop disconnection actionsheet
         UIActionSheet* actionSheet = [[UIActionSheet alloc] initWithTitle:nil
                                                                  delegate:self
@@ -111,7 +116,7 @@
         [actionSheet showInView:[self view]];
     } else {
         // connect
-        [[self session] connectToService:service];
+        [[self session] connectToService:cellService];
     }
 
     // deselect either way
@@ -119,7 +124,7 @@
 }
 
 - (void)reloadTableRowForService:(NSNetService*)service {
-    NSUInteger i = [[[self tournamentBrowser] remoteServiceList] indexOfObject:service];
+    NSUInteger i = [[self netServices] indexOfObject:service];
     if(i != NSNotFound) {
         NSIndexPath* indexPath = [NSIndexPath indexPathForRow:i inSection:0];
         [[self tableView] reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -136,7 +141,17 @@
 
 #pragma mark TournamentBroswerDelegate
 
-- (void)tournamentBrowser:(TournamentBrowser*)tournamentBroswer didUpdateRemoteServices:(NSArray*)services {
+- (void)tournamentBrowser:(TournamentBrowser*)tournamentBroswer didUpdateServices:(NSArray*)services {
+    // filter out all but real NSNetServices
+    NSMutableArray* newArray = [[NSMutableArray alloc] init];
+    for(TournamentService* ts in services) {
+        if([ts netService] != nil) {
+            [newArray addObject:[ts netService]];
+        }
+    }
+    [self setNetServices:newArray];
+
+    // reload
     [[self tableView] reloadData];
 }
 

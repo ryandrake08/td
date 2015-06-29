@@ -193,11 +193,15 @@
                     <connections>
                         <outlet property="actionClockView" destination="IA3-yz-VIu" id="j6L-2c-Emc"/>
                         <outlet property="averageStackLabel" destination="wk4-aU-Il4" id="PGy-WO-dEq"/>
+                        <outlet property="callClockButton" destination="UCF-p4-Ts5" id="tto-Zf-LvU"/>
                         <outlet property="clockLabel" destination="RO1-wU-xnn" id="0aR-57-1gI"/>
                         <outlet property="currentRoundLabel" destination="coU-Ka-5Z6" id="STe-kd-wPT"/>
                         <outlet property="elapsedLabel" destination="S8U-f5-Txd" id="OWu-bp-Vtx"/>
+                        <outlet property="nextRoundButton" destination="hF3-Nm-DOd" id="Sem-8e-Ot5"/>
                         <outlet property="nextRoundLabel" destination="Ehq-cE-jLi" id="X7c-7L-MeA"/>
+                        <outlet property="pauseResumeButton" destination="wXL-bH-oa0" id="DPf-mp-EO0"/>
                         <outlet property="playersLeftLabel" destination="2mV-DQ-6Ba" id="W4r-Wt-U64"/>
+                        <outlet property="previousRoundButton" destination="PO5-uu-YPd" id="WXM-Up-aJf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>

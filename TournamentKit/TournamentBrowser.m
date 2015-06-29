@@ -8,14 +8,15 @@
 
 #import "TournamentBrowser.h"
 #import "TournamentService.h"
+#import "NSObject+FBKVOController.h"
 
 @interface TournamentBrowser () <NSNetServiceBrowserDelegate>
 
 // service browser
 @property (nonatomic, strong) NSNetServiceBrowser* serviceBrowser;
 
-// list of known services
-@property (nonatomic, strong) NSMutableArray* mutableServiceList;
+// list of known tournaments
+@property (nonatomic, strong) NSMutableArray* mutableList;
 
 @end
 
@@ -23,8 +24,8 @@
 
 - (instancetype)initWithDelegate:(id<TournamentBrowserDelegate>)delegate {
     if (self = [super init]) {
-        // create service list
-        _mutableServiceList = [[NSMutableArray alloc] init];
+        // create lists
+        _mutableList = [[NSMutableArray alloc] init];
 
         // set delegate
         _delegate = delegate;
@@ -33,6 +34,19 @@
         _serviceBrowser = [[NSNetServiceBrowser alloc] init];
         [[self serviceBrowser] setDelegate:self];
         [[self serviceBrowser] searchForServicesOfType:kTournamentServiceType inDomain:kTournamentServiceDomain];
+
+        // get list of unix sockets
+        NSArray* directoryContents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:NSTemporaryDirectory() error:nil];
+        NSPredicate* predicate = [NSPredicate predicateWithFormat:@"SELF LIKE '*tournamentd.*.sock'"];
+        NSArray* tournamentContents = [directoryContents filteredArrayUsingPredicate:predicate];
+
+        // add a tournament for each
+        for(NSString* filename in tournamentContents) {
+            NSString* fullPath = [NSTemporaryDirectory() stringByAppendingPathComponent:filename];
+            TournamentService* tournament = [[TournamentService alloc] initWithUnixSocket:fullPath];
+            [[self mutableList] addObject:tournament];
+        }
+
     }
     return self;
 }
@@ -42,36 +56,47 @@
     [[self serviceBrowser] setDelegate:nil];
 }
 
-- (NSArray*)localServiceList {
-    // first check for unix sockets
-    NSArray* directoryContents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:NSTemporaryDirectory() error:nil];
-    NSPredicate* predicate = [NSPredicate predicateWithFormat:@"SELF LIKE '*tournamentd.*.sock'"];
-    NSArray* tournamentContents = [directoryContents filteredArrayUsingPredicate:predicate];
+- (NSArray*)serviceList {
+    return [self mutableList];
+}
 
-    NSMutableArray* fullPaths = [[NSMutableArray alloc] init];
-    for(NSString* filename in tournamentContents) {
-        [fullPaths addObject:[NSTemporaryDirectory() stringByAppendingPathComponent:filename]];
-    }
-    return fullPaths;
+- (NSArray*)localServiceList {
+    NSPredicate* localOnly = [NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
+        return ![evaluatedObject isRemote];
+    }];
+    return [[self mutableList] filteredArrayUsingPredicate:localOnly];
 }
 
 - (NSArray*)remoteServiceList {
-    return [self mutableServiceList];
+    NSPredicate* remoteOnly = [NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
+        return [evaluatedObject isRemote];
+    }];
+    return [[self mutableList] filteredArrayUsingPredicate:remoteOnly];
 }
 
 #pragma mark NSNetServiceDelegate
 
 - (void)netServiceBrowser:(NSNetServiceBrowser*)serviceBrowser didFindService:(NSNetService*)service moreComing:(BOOL)moreComing {
-    [[self mutableServiceList] addObject:service];
+    // add a tournament
+    TournamentService* tournament = [[TournamentService alloc] initWithNetService:service];
+    [[self mutableList] addObject:tournament];
+
+    // notify delegate
     if(!moreComing) {
-        [[self delegate] tournamentBrowser:self didUpdateRemoteServices:[self mutableServiceList]];
+        [[self delegate] tournamentBrowser:self didUpdateServices:[self mutableList]];
     }
 }
 
 - (void)netServiceBrowser:(NSNetServiceBrowser*)serviceBrowser didRemoveService:(NSNetService*)service moreComing:(BOOL)moreComing {
-    [[self mutableServiceList] removeObject:service];
+    for(TournamentService* tournament in [self mutableList]) {
+        if([[tournament netService] isEqual:service]) {
+            [[self mutableList] removeObject:tournament];
+        }
+    }
+
+    // notify delegate
     if(!moreComing) {
-        [[self delegate] tournamentBrowser:self didUpdateRemoteServices:[self mutableServiceList]];
+        [[self delegate] tournamentBrowser:self didUpdateServices:[self mutableList]];
     }
 }
 

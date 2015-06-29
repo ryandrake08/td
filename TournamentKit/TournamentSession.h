@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "TournamentService.h"
 
 @interface TournamentSession : NSObject
 
@@ -62,7 +63,9 @@
 
 // connect either locally through a unix socket or to a server
 - (void)connectToLocalPath:(NSString*)path;
+- (void)connectToAddress:(NSString*)address port:(NSInteger)port;
 - (void)connectToService:(NSNetService*)service;
+- (void)connect:(TournamentService*)tournament;
 - (void)disconnect;
 
 // get current configuration
@@ -71,6 +74,7 @@
 // tournament commands
 - (void)checkAuthorizedWithBlock:(void(^)(BOOL))block;
 - (void)authorize:(NSNumber*)clientId withBlock:(void(^)(NSNumber*))block;
+- (void)getStateWithBlock:(void(^)(id))block;
 - (void)getConfigWithBlock:(void(^)(id))block;
 - (void)configure:(id)config withBlock:(void(^)(id))block;
 - (void)startGameAt:(NSDate*)datetime;
