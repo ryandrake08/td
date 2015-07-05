@@ -98,6 +98,8 @@
 		949D70A31B3C441F008D5CD1 /* socket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E31B3C3F8300A158F8 /* socket.cpp */; };
 		949D70A41B3C442F008D5CD1 /* cJSON.c in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4CE1B3C3F8300A158F8 /* cJSON.c */; };
 		949D70A51B3C442F008D5CD1 /* cJSON.c in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4CE1B3C3F8300A158F8 /* cJSON.c */; };
+		94C1F3271B4995BB001985CA /* TBActionClockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94C1F3261B4995BB001985CA /* TBActionClockView.m */; };
+		94C1F32A1B499E39001985CA /* NSFont+LineHeight.m in Sources */ = {isa = PBXBuildFile; fileRef = 94C1F3291B499E39001985CA /* NSFont+LineHeight.m */; };
 		AD0A75A31AA22012009E90A3 /* TBPlayersTableCellView.h in Resources */ = {isa = PBXBuildFile; fileRef = AD0A75A21AA22012009E90A3 /* TBPlayersTableCellView.h */; };
 		AD0A75A51AA22028009E90A3 /* TBPlayersTableCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD0A75A41AA22028009E90A3 /* TBPlayersTableCellView.m */; };
 		AD0EC5051AB331460071BD18 /* TBDurationNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = AD0EC5041AB331460071BD18 /* TBDurationNumberFormatter.m */; };
@@ -220,6 +222,10 @@
 		9476F4EA1B3C3F8300A158F8 /* types.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = types.hpp; sourceTree = "<group>"; };
 		9476F4F91B3C403F00A158F8 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		9476F4FB1B3C404400A158F8 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		94C1F3251B4995BB001985CA /* TBActionClockView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBActionClockView.h; sourceTree = "<group>"; };
+		94C1F3261B4995BB001985CA /* TBActionClockView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBActionClockView.m; sourceTree = "<group>"; };
+		94C1F3281B499E39001985CA /* NSFont+LineHeight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSFont+LineHeight.h"; sourceTree = "<group>"; };
+		94C1F3291B499E39001985CA /* NSFont+LineHeight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSFont+LineHeight.m"; sourceTree = "<group>"; };
 		AD0A75A21AA22012009E90A3 /* TBPlayersTableCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBPlayersTableCellView.h; sourceTree = "<group>"; };
 		AD0A75A41AA22028009E90A3 /* TBPlayersTableCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBPlayersTableCellView.m; sourceTree = "<group>"; };
 		AD0EC5031AB331460071BD18 /* TBDurationNumberFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBDurationNumberFormatter.h; sourceTree = "<group>"; };
@@ -303,11 +309,15 @@
 			children = (
 				944FF4B71B3D04CA000362ED /* AppDelegate.h */,
 				944FF4B81B3D04CA000362ED /* AppDelegate.m */,
+				94C1F3251B4995BB001985CA /* TBActionClockView.h */,
+				94C1F3261B4995BB001985CA /* TBActionClockView.m */,
 				946288B41B3E578D0016FA36 /* TBPlayerWindowController.h */,
 				946288B51B3E578D0016FA36 /* TBPlayerWindowController.m */,
 				946288B61B3E578D0016FA36 /* TBPlayerWindowController.xib */,
 				943B00C51B3F15AA00CE55D4 /* TBResizeTextField.h */,
 				943B00C61B3F15AA00CE55D4 /* TBResizeTextField.m */,
+				94C1F3281B499E39001985CA /* NSFont+LineHeight.h */,
+				94C1F3291B499E39001985CA /* NSFont+LineHeight.m */,
 				944FF4BC1B3D04CA000362ED /* TBPlayer.xcassets */,
 				944FF4BE1B3D04CA000362ED /* MainMenu.xib */,
 				944FF4B51B3D04CA000362ED /* Supporting Files */,
@@ -673,6 +683,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				943B00CF1B3F427700CE55D4 /* NSObject+FBKVOController.m in Sources */,
+				94C1F3271B4995BB001985CA /* TBActionClockView.m in Sources */,
+				94C1F32A1B499E39001985CA /* NSFont+LineHeight.m in Sources */,
 				943B00D41B3F429500CE55D4 /* server.cpp in Sources */,
 				946288B71B3E578D0016FA36 /* TBPlayerWindowController.m in Sources */,
 				943B00D01B3F429500CE55D4 /* datetime.cpp in Sources */,

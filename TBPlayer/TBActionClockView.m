@@ -8,6 +8,7 @@
 //
 
 #import "TBActionClockView.h"
+#import "NSFont+LineHeight.h"
 
 @interface TBActionClockView () {
     double _handRadians;
@@ -47,38 +48,39 @@
     _enableDigit = YES;
     _enableArc = YES;
 
-    _faceBackgroundColor = [UIColor grayColor];
+    _faceBackgroundColor = [NSColor grayColor];
     _faceBackgroundAlpha = 0.95;
 
-    _borderColor = [UIColor blackColor];
+    _borderColor = [NSColor blackColor];
     _borderAlpha = 1.0;
     _borderWidth = 3.0;
 
-    _arcBackgroundColor = [UIColor colorWithRed:0 green:122.0/255.0 blue:255/255 alpha:1];
+    _arcBackgroundColor = [NSColor colorWithRed:0 green:122.0/255.0 blue:255/255 alpha:1];
     _arcBackgroundAlpha = 1.0;
-    _arcBorderColor = [UIColor whiteColor];
+    _arcBorderColor = [NSColor whiteColor];
     _arcBorderAlpha = 1.0;
     _arcBorderWidth = 1.0;
     _arcFillsIn = YES;
 
-    _handColor = [UIColor whiteColor];
+    _handColor = [NSColor whiteColor];
     _handAlpha = 1.0;
     _handWidth = 1.0;
     _handLength = 60.0;
     _handOffsideLength = 20.0;
 
-    _digitColor = [UIColor whiteColor];
-    _digitFont  = [UIFont fontWithName:@"HelveticaNeue-Thin" size:17];
+    _digitColor = [NSColor whiteColor];
+    _digitFont  = [NSFont fontWithName:@"HelveticaNeue-Thin" size:17];
     _digitOffset = 0.0;
 
-    self.backgroundColor = [UIColor clearColor];
+    [self setWantsLayer:YES];
+    [[self layer] setBackgroundColor:[[NSColor clearColor] CGColor]];
 }
 
 - (void)setSeconds:(double)seconds {
     _seconds = seconds;
-    _handRadians = (self.seconds * 6 * M_PI / 180) - M_PI_2;
+    _handRadians = (5 * M_PI_2) - (self.seconds * 6 * M_PI / 180);
 
-    [self setNeedsDisplay];
+    [self setNeedsDisplay:YES];
 }
 
 - (void)drawRect:(CGRect)rect {
@@ -89,7 +91,7 @@
     CGFloat radius = center.x - rect.origin.x - self.borderWidth/2;
 
     // CLOCK'S FACE
-    CGContextRef ctx = UIGraphicsGetCurrentContext();
+    CGContextRef ctx = [[NSGraphicsContext currentContext] graphicsPort];
     CGContextAddEllipseInRect(ctx, rect);
     CGContextSetFillColorWithColor(ctx, self.faceBackgroundColor.CGColor);
     CGContextSetAlpha(ctx, self.faceBackgroundAlpha);
@@ -98,7 +100,7 @@
     // ARC FACE
     if(self.enableArc) {
         CGContextMoveToPoint(ctx, center.x, center.y);
-        CGContextAddArc(ctx, center.x, center.y, radius, -M_PI_2, _handRadians, self.arcFillsIn ? 1 : 0);
+        CGContextAddArc(ctx, center.x, center.y, radius, M_PI_2, _handRadians, self.arcFillsIn ? 1 : 0);
         CGContextSetFillColorWithColor(ctx, self.arcBackgroundColor.CGColor);
         CGContextSetAlpha(ctx, self.arcBackgroundAlpha);
         CGContextFillPath(ctx);
@@ -114,8 +116,8 @@
     // ARC'S BORDER
     if(self.enableArc) {
         CGContextMoveToPoint(ctx, center.x, center.y);
-        CGContextAddLineToPoint(ctx, center.x, center.y - radius);
-        CGContextAddArc(ctx, center.x, center.y, radius, -M_PI_2, _handRadians, self.arcFillsIn ? 1 : 0);
+        CGContextAddLineToPoint(ctx, center.x, center.y + radius);
+        CGContextAddArc(ctx, center.x, center.y, radius, M_PI_2, _handRadians, self.arcFillsIn ? 1 : 0);
         CGContextAddLineToPoint(ctx, center.x, center.y);
         CGContextSetStrokeColorWithColor(ctx, self.arcBorderColor.CGColor);
         CGContextSetAlpha(ctx, self.arcBorderAlpha);
@@ -125,7 +127,7 @@
 
     // CLOCK'S GRADUATION
     if (self.enableGraduations == YES) {
-        UIColor* graduationColor = [UIColor whiteColor];
+        NSColor* graduationColor = [NSColor whiteColor];
         CGFloat graduationAlpha = 1.0;
         CGFloat graduationWidth = 1.0;
         CGFloat graduationLength = 5.0;
@@ -189,7 +191,7 @@
         for(unsigned i = 0; i < 12; i ++){
             NSString *secondNumber = [NSString stringWithFormat:@"%@%d", i==0 ? @" ": @"", (i + 1) * 5];
             CGFloat labelX = center.x + (markingDistanceFromCenter - lineHeight/2.0f) * cos((M_PI/180) * (i+offset) * 30 + M_PI);
-            CGFloat labelY = center.y + - 1 * (markingDistanceFromCenter - lineHeight/2.0f) * sin((M_PI/180) * (i+offset) * 30);
+            CGFloat labelY = center.y + (markingDistanceFromCenter - lineHeight/2.0f) * sin((M_PI/180) * (i+offset) * 30);
             CGRect rect = CGRectMake(labelX - lineHeight/2.0f, labelY - lineHeight/2.0f, lineHeight, lineHeight);
             [secondNumber drawInRect:rect withAttributes:@{NSForegroundColorAttributeName: self.digitColor, NSFontAttributeName: self.digitFont}];
         }

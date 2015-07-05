@@ -7,6 +7,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="TBPlayerWindowController">
             <connections>
+                <outlet property="actionClockView" destination="YIC-Dz-dR6" id="lnc-go-IPp"/>
                 <outlet property="averageStackLabel" destination="EZ3-Z0-lqe" id="1ls-7s-nnq"/>
                 <outlet property="backgroundImageView" destination="a0P-Zo-OBW" id="Whv-de-PmQ"/>
                 <outlet property="callClockButton" destination="aTi-c8-Bym" id="erw-jD-PQy"/>
@@ -43,7 +44,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" id="3Dq-eq-RTL"/>
                     </imageView>
-                    <customView id="8iU-hh-7yP">
+                    <customView id="8iU-hh-7yP" userLabel="Top Pane">
                         <rect key="frame" x="0.0" y="672" width="1024" height="96"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                         <subviews>
@@ -77,7 +78,7 @@
                             </textField>
                         </subviews>
                     </customView>
-                    <customView id="TM9-KQ-WKc">
+                    <customView id="TM9-KQ-WKc" userLabel="Left Pane">
                         <rect key="frame" x="0.0" y="0.0" width="256" height="672"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         <subviews>
@@ -137,12 +138,12 @@
                             </textField>
                         </subviews>
                     </customView>
-                    <customView id="zql-0O-xSY">
-                        <rect key="frame" x="256" y="0.0" width="512" height="672"/>
+                    <customView id="zql-0O-xSY" userLabel="Center Pane">
+                        <rect key="frame" x="256" y="0.0" width="512" height="672.00000371688463"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <customView id="6oh-Wj-Ac7">
-                                <rect key="frame" x="104" y="607" width="304" height="64"/>
+                                <rect key="frame" x="104" y="607.00000371688463" width="304" height="64"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
                                     <button hidden="YES" id="qCm-e2-QUv">
@@ -192,7 +193,7 @@
                                 </subviews>
                             </customView>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="CDw-40-LG5" customClass="TBResizeTextField">
-                                <rect key="frame" x="0.0" y="416" width="512" height="191.99999570365782"/>
+                                <rect key="frame" x="0.0" y="416" width="512" height="192.00000117375299"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="01:23:45" placeholderString="" usesSingleLineMode="YES" id="f7C-Sd-FCb">
                                     <font key="font" metaFont="system" size="128"/>
@@ -291,9 +292,13 @@
                             </textField>
                         </subviews>
                     </customView>
-                    <customView id="du6-bL-Okn">
+                    <customView id="du6-bL-Okn" userLabel="Right Pane">
                         <rect key="frame" x="768" y="0.0" width="256" height="672"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                    </customView>
+                    <customView hidden="YES" id="YIC-Dz-dR6" userLabel="Action Clock" customClass="TBActionClockView">
+                        <rect key="frame" x="128" y="0.0" width="768" height="768"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     </customView>
                 </subviews>
             </view>

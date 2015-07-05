@@ -7,7 +7,7 @@
 //
 
 #import "TBPlayerWindowController.h"
-
+#import "TBActionClockView.h"
 #import "NSObject+FBKVOController.h"
 
 @interface TBPlayerWindowController ()
@@ -27,6 +27,7 @@
 @property (weak) IBOutlet NSButton* pauseResumeButton;
 @property (weak) IBOutlet NSButton* nextRoundButton;
 @property (weak) IBOutlet NSButton* callClockButton;
+@property (weak) IBOutlet TBActionClockView *actionClockView;
 
 @end
 
@@ -116,7 +117,6 @@
 }
 
 - (void)updateActionClock {
-#if 0
     NSUInteger actionClockTimeRemaining = [[[self session] actionClockTimeRemaining] unsignedIntegerValue];
     if(actionClockTimeRemaining == 0) {
         [[self actionClockView] setHidden:YES];
@@ -124,7 +124,6 @@
         [[self actionClockView] setHidden:NO];
         [[self actionClockView] setSeconds:actionClockTimeRemaining / 1000.0];
     }
-#endif
 }
 
 #pragma mark Actions
@@ -162,6 +161,12 @@
             [[self session] setActionClock:nil];
         }
     }
+}
+
+# pragma mark TBActionClockViewDelegate
+
+- (CGFloat)analogClock:(TBActionClockView*)clock graduationLengthForIndex:(NSInteger)index {
+    return index % 5 == 0 ? 10.0 : 5.0;
 }
 
 @end
