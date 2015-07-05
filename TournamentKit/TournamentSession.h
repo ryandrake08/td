@@ -39,6 +39,7 @@
 @property (nonatomic, readonly) NSNumber* breakTimeRemaining;
 @property (nonatomic, readonly) NSNumber* actionClockTimeRemaining;
 @property (nonatomic, readonly) NSSet* buyins;
+@property (nonatomic, readonly) NSArray* entries;
 @property (nonatomic, readonly) NSArray* payouts;
 @property (nonatomic, readonly) NSNumber* totalChips;
 @property (nonatomic, readonly) NSNumber* totalCost;
@@ -56,6 +57,7 @@
 @property (nonatomic, readonly) NSString* nextGameText;
 @property (nonatomic, readonly) NSString* nextRoundText;
 @property (nonatomic, readonly) NSString* playersLeftText;
+@property (nonatomic, readonly) NSString* entriesText;
 @property (nonatomic, readonly) NSString* averageStackText;
 
 // client identifier (used for authenticating with servers)

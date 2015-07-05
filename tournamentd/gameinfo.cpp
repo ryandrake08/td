@@ -52,7 +52,7 @@ void gameinfo::configure(const json& config)
     std::vector<td::player> players_vector;
     if(config.get_values("players", players_vector))
     {
-        if(!this->seats.empty() || !this->players_finished.empty() || !this->buyins.empty())
+        if(!this->seats.empty() || !this->players_finished.empty() || !this->buyins.empty() || !this->entries.empty())
         {
             logger(LOG_WARNING) << "Re-coniguring players list while in play is not advised, deleted players may still be in the game\n";
         }
@@ -125,6 +125,7 @@ void gameinfo::dump_state(json& state) const
     state.set_values("empty_seats", this->empty_seats);
     state.set_value("tables", this->tables);
     state.set_value("buyins", json(this->buyins));
+    state.set_value("entries", json(this->entries));
     state.set_value("payouts", json(this->payouts));
     state.set_value("total_chips", this->total_chips);
     state.set_value("total_cost", this->total_cost);
@@ -452,8 +453,13 @@ void gameinfo::fund_player(const td::player_id_t& player_id, const td::funding_s
 
     logger(LOG_DEBUG) << "Funding player " << player_id << " with " << source.name << '\n';
 
-    //add player to buyin set
-    this->buyins.insert(player_id);
+    if(!source.is_addon) {
+        // add player to buyin set
+        this->buyins.insert(player_id);
+
+        // add to entries
+        this->entries.push_back(player_id);
+    }
 
     // update totals
     this->total_chips += source.chips;

@@ -22,6 +22,7 @@
 @property (weak) IBOutlet TBResizeTextField* nextRoundLabel;
 @property (weak) IBOutlet TBResizeTextField* currentRoundNumberLabel;
 @property (weak) IBOutlet TBResizeTextField* playersLeftLabel;
+@property (weak) IBOutlet TBResizeTextField* entriesLabel;
 @property (weak) IBOutlet TBResizeTextField* averageStackLabel;
 @property (weak) IBOutlet NSButton* previousRoundButton;
 @property (weak) IBOutlet NSButton* pauseResumeButton;
@@ -74,6 +75,10 @@
 
     [[self KVOController] observe:[self session] keyPath:@"playersLeftText" options:0 block:^(id observer, id object, NSDictionary *change) {
         [[observer playersLeftLabel] setStringValue:[object playersLeftText]];
+    }];
+
+    [[self KVOController] observe:[self session] keyPath:@"entriesText" options:0 block:^(id observer, id object, NSDictionary *change) {
+        [[observer entriesLabel] setStringValue:[object entriesText]];
     }];
 
     [[self KVOController] observe:[self session] keyPath:@"averageStackText" options:0 block:^(id observer, id object, NSDictionary *change) {

@@ -8,13 +8,14 @@
         <customObject id="-2" userLabel="File's Owner" customClass="TBPlayerWindowController">
             <connections>
                 <outlet property="actionClockView" destination="YIC-Dz-dR6" id="lnc-go-IPp"/>
-                <outlet property="averageStackLabel" destination="EZ3-Z0-lqe" id="1ls-7s-nnq"/>
+                <outlet property="averageStackLabel" destination="4e4-de-GFt" id="Ykr-lO-HvS"/>
                 <outlet property="backgroundImageView" destination="a0P-Zo-OBW" id="Whv-de-PmQ"/>
                 <outlet property="callClockButton" destination="aTi-c8-Bym" id="erw-jD-PQy"/>
                 <outlet property="clockLabel" destination="CDw-40-LG5" id="ril-6h-0nO"/>
                 <outlet property="currentGameLabel" destination="oEh-Uu-smb" id="E6s-0l-hex"/>
                 <outlet property="currentRoundLabel" destination="bqH-Qi-teu" id="NdZ-Y0-9g4"/>
                 <outlet property="currentRoundNumberLabel" destination="HG3-0K-cbX" id="ylX-u7-R3q"/>
+                <outlet property="entriesLabel" destination="EZ3-Z0-lqe" id="Xor-sQ-8E2"/>
                 <outlet property="nextGameLabel" destination="OMf-if-HTW" id="rI3-Ne-AKe"/>
                 <outlet property="nextRoundButton" destination="Wmc-gF-h6T" id="Tdd-nk-MsE"/>
                 <outlet property="nextRoundLabel" destination="ffa-40-JOt" id="v7d-Gt-ssS"/>
@@ -121,7 +122,7 @@
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="AZb-dO-CHz" customClass="TBResizeTextField">
                                 <rect key="frame" x="0.0" y="448" width="256" height="32"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Average Stack" placeholderString="" usesSingleLineMode="YES" id="Y4c-D9-ILW">
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Entries" placeholderString="" usesSingleLineMode="YES" id="Y4c-D9-ILW">
                                     <font key="font" metaFont="system" size="24"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -136,18 +137,36 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="Wau-nO-jwD" customClass="TBResizeTextField">
+                                <rect key="frame" x="0.0" y="352" width="256" height="32"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Average Stack" placeholderString="" usesSingleLineMode="YES" id="3Zj-xi-9eT">
+                                    <font key="font" metaFont="system" size="24"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="4e4-de-GFt" customClass="TBResizeTextField">
+                                <rect key="frame" x="0.0" y="288" width="256" height="64"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="1" placeholderString="" usesSingleLineMode="YES" id="EBC-vx-ffR">
+                                    <font key="font" metaFont="system" size="48"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
                         </subviews>
                     </customView>
                     <customView id="zql-0O-xSY" userLabel="Center Pane">
-                        <rect key="frame" x="256" y="0.0" width="512" height="672.00000371688463"/>
+                        <rect key="frame" x="256" y="0.0" width="512" height="672"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <customView id="6oh-Wj-Ac7">
-                                <rect key="frame" x="104" y="607.00000371688463" width="304" height="64"/>
+                                <rect key="frame" x="104" y="607" width="304" height="64"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
                                     <button hidden="YES" id="qCm-e2-QUv">
-                                        <rect key="frame" x="0.0" y="-1" width="64" height="64"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="64" height="64"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="bevel" title="Previous Round" bezelStyle="regularSquare" image="b_previous" imagePosition="only" alignment="center" alternateImage="h_previous" imageScaling="proportionallyUpOrDown" inset="2" id="KOQ-T8-OdB">
                                             <behavior key="behavior" lightByContents="YES"/>
@@ -158,7 +177,7 @@
                                         </connections>
                                     </button>
                                     <button hidden="YES" id="J2a-Oa-eEY">
-                                        <rect key="frame" x="80" y="-1" width="64" height="64"/>
+                                        <rect key="frame" x="80" y="0.0" width="64" height="64"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="bevel" title="Play / Pause" bezelStyle="regularSquare" image="b_play_pause" imagePosition="only" alignment="center" alternateImage="h_play_pause" imageScaling="proportionallyUpOrDown" inset="2" id="q7e-fy-4Lr">
                                             <behavior key="behavior" lightByContents="YES"/>
@@ -169,7 +188,7 @@
                                         </connections>
                                     </button>
                                     <button hidden="YES" id="Wmc-gF-h6T">
-                                        <rect key="frame" x="160" y="-1" width="64" height="64"/>
+                                        <rect key="frame" x="160" y="0.0" width="64" height="64"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="bevel" title="Next Round" bezelStyle="regularSquare" image="b_next" imagePosition="only" alignment="center" alternateImage="h_next" imageScaling="proportionallyUpOrDown" inset="2" id="jfQ-Zp-A8n">
                                             <behavior key="behavior" lightByContents="YES"/>
@@ -180,7 +199,7 @@
                                         </connections>
                                     </button>
                                     <button hidden="YES" id="aTi-c8-Bym">
-                                        <rect key="frame" x="240" y="-1" width="64" height="64"/>
+                                        <rect key="frame" x="240" y="0.0" width="64" height="64"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="bevel" title="Call Clock" bezelStyle="regularSquare" image="b_call_clock" imagePosition="only" alignment="center" alternateImage="h_call_clock" imageScaling="proportionallyUpOrDown" inset="2" id="YrG-QO-UVI">
                                             <behavior key="behavior" lightByContents="YES"/>
@@ -193,7 +212,7 @@
                                 </subviews>
                             </customView>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="CDw-40-LG5" customClass="TBResizeTextField">
-                                <rect key="frame" x="0.0" y="416" width="512" height="192.00000117375299"/>
+                                <rect key="frame" x="0.0" y="416" width="512" height="191.99999757926957"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="01:23:45" placeholderString="" usesSingleLineMode="YES" id="f7C-Sd-FCb">
                                     <font key="font" metaFont="system" size="128"/>

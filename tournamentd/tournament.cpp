@@ -453,6 +453,7 @@ bool tournament::handle_client_input(std::iostream& client)
                         empty_seats (array): Empty seat assignments
                         tables (integer): Number of tables currently playing
                         buyins (array): Player ids who have bought in at least once
+                        entries (array): Player ids for each buyin or rebuy
                         payouts (array): Payout amounts for each place
                         total_chips (integer): Count of all tournament chips in play
                         total_cost (float): Sum total of all buyins, rebuys and addons

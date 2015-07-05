@@ -62,6 +62,7 @@
 @property (nonatomic) NSString* nextGameText;
 @property (nonatomic) NSString* nextRoundText;
 @property (nonatomic) NSString* playersLeftText;
+@property (nonatomic) NSString* entriesText;
 @property (nonatomic) NSString* averageStackText;
 
 @end
@@ -495,6 +496,18 @@
     }
 }
 
+- (void)updateEntries {
+    NSArray* entries = [self entries];
+
+    if([entries count] > 0) {
+        NSNumber* numEntries = [NSNumber numberWithUnsignedInteger:[entries count]];
+        NSString* numEntriesText = [[self decimalFormatter] stringFromNumber:numEntries];
+        [self setEntriesText:numEntriesText];
+    } else {
+        [self setEntriesText:@"-"];
+    }
+}
+
 - (void)updateAverageStack {
     NSArray* seats = [self seats];
     NSUInteger totalChips = [[self totalChips] unsignedIntegerValue];
@@ -630,6 +643,10 @@
         [self setSeats:value];
         [self updatePlayers];
         [self updateAverageStack];
+    }
+
+    if((value = json[@"entries"])) {
+        [self updateEntries];
     }
 
     if((value = json[@"players_finished"])) {

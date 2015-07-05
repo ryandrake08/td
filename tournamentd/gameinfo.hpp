@@ -58,6 +58,9 @@ class gameinfo
     // players who bought in at least once
     std::unordered_set<td::player_id_t> buyins;
 
+    // list of each entry (buyin or rebuy)
+    std::deque<td::player_id_t> entries;
+
     // payout structure
     std::vector<double> payouts;
 
