@@ -8,6 +8,7 @@
 
 #import "TBPlayerWindowController.h"
 #import "TBActionClockView.h"
+#import "TBResizeTextField.h"
 #import "NSObject+FBKVOController.h"
 
 @interface TBPlayerWindowController ()
@@ -42,6 +43,10 @@
     // register for KVO
     [[self KVOController] observe:[self session] keyPaths:@[@"isConnected", @"authorized"] options:0 block:^(id observer, id object, NSDictionary *change) {
         [observer updateButtons];
+    }];
+
+    [[self KVOController] observe:[self session] keyPath:@"name" options:0 block:^(id observer, id object, NSDictionary *change) {
+        [[observer tournamentNameLabel] setStringValue:[object name]];
     }];
 
     [[self KVOController] observe:[self session] keyPath:@"currentBlindLevel" options:0 block:^(id observer, id object, NSDictionary *change) {

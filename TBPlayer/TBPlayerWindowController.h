@@ -7,7 +7,6 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "TBResizeTextField.h"
 #import "TournamentKit/TournamentKit.h"
 
 @interface TBPlayerWindowController : NSWindowController
