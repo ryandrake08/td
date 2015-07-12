@@ -45,6 +45,7 @@
 @property (nonatomic) NSNumber* breakTimeRemaining;
 @property (nonatomic) NSNumber* actionClockTimeRemaining;
 @property (nonatomic) NSSet* buyins;
+@property (nonatomic) NSArray* entries;
 @property (nonatomic) NSArray* payouts;
 @property (nonatomic) NSNumber* totalChips;
 @property (nonatomic) NSNumber* totalCost;
@@ -443,15 +444,21 @@
     NSUInteger timeRemaining = [[self timeRemaining] unsignedIntegerValue];
     NSUInteger breakTimeRemaining = [[self breakTimeRemaining] unsignedIntegerValue];
 
+    // calculate new value
+    NSString* newText = NSLocalizedString(@"PAUSED", nil);
+
     if(running) {
         if(timeRemaining == 0 && breakTimeRemaining != 0) {
             // on break
-            [self setClockText:[self formatDuration:breakTimeRemaining]];
+            newText = [self formatDuration:breakTimeRemaining];
         } else {
-            [self setClockText:[self formatDuration:timeRemaining]];
+            newText = [self formatDuration:timeRemaining];
         }
-    } else {
-        [self setClockText:NSLocalizedString(@"PAUSED", nil)];
+    }
+
+    // set if different
+    if(![newText isEqual:[self clockText]]) {
+        [self setClockText:newText];
     }
 }
 
@@ -461,50 +468,74 @@
     NSUInteger timeRemaining = [[self timeRemaining] unsignedIntegerValue];
     NSUInteger breakTimeRemaining = [[self breakTimeRemaining] unsignedIntegerValue];
 
-    if(currentBlindLevel == 0) {
-        [self setCurrentGameText:@""];
-        [self setCurrentRoundText:NSLocalizedString(@"PLANNING", nil)];
-        [self setNextGameText:@""];
-        [self setNextRoundText:NSLocalizedString(@"-", nil)];
-    } else {
+    // calculate new values
+    NSString* newCurrentGameText = @"";
+    NSString* newCurrentRoundText = @"-";
+    NSString* newNextGameText = @"";
+    NSString* newNextRoundText = @"-";
+
+    if(currentBlindLevel > 0) {
         if(timeRemaining == 0 && breakTimeRemaining != 0) {
-            [self setCurrentGameText:@""];
-            [self setCurrentRoundText:NSLocalizedString(@"BREAK", nil)];
+            newCurrentRoundText = NSLocalizedString(@"BREAK", nil);
         } else if(currentBlindLevel < [blindLevels count]) {
             NSDictionary* thisBlindLevel = blindLevels[currentBlindLevel];
-            [self setCurrentGameText:thisBlindLevel[@"game_name"]];
-            [self setCurrentRoundText:[self formatBlindLevel:thisBlindLevel]];
+            newCurrentGameText = thisBlindLevel[@"game_name"];
+            newCurrentRoundText = [self formatBlindLevel:thisBlindLevel];
         }
 
         if(currentBlindLevel+1 < [blindLevels count]) {
             NSDictionary* nextBlindLevel = blindLevels[currentBlindLevel+1];
-            [self setNextGameText:nextBlindLevel[@"game_name"]];
-            [self setNextRoundText:[self formatBlindLevel:nextBlindLevel]];
+            newNextGameText = nextBlindLevel[@"game_name"];
+            newNextRoundText = [self formatBlindLevel:nextBlindLevel];
         }
+    }
+
+    // set if different
+    if(![newCurrentGameText isEqual:[self currentGameText]]) {
+        [self setCurrentGameText:newCurrentGameText];
+    }
+    if(![newCurrentRoundText isEqual:[self currentRoundText]]) {
+        [self setCurrentRoundText:newCurrentRoundText];
+    }
+    if(![newNextGameText isEqual:[self nextGameText]]) {
+        [self setNextGameText:newNextGameText];
+    }
+    if(![newNextRoundText isEqual:[self nextRoundText]]) {
+        [self setNextRoundText:newNextRoundText];
     }
 }
 
 - (void)updatePlayers {
     NSArray* seats = [self seats];
 
+    // calculate new value
+    NSString* newText = @"-";
+
     if([seats count] > 0) {
         NSNumber* numSeats = [NSNumber numberWithUnsignedInteger:[seats count]];
-        NSString* numSeatsText = [[self decimalFormatter] stringFromNumber:numSeats];
-        [self setPlayersLeftText:numSeatsText];
-    } else {
-        [self setPlayersLeftText:@"-"];
+        newText = [[self decimalFormatter] stringFromNumber:numSeats];
+    }
+
+    // set if different
+    if(![newText isEqual:[self playersLeftText]]) {
+        [self setPlayersLeftText:newText];
     }
 }
 
 - (void)updateEntries {
     NSArray* entries = [self entries];
 
+    // calculate new value
+    NSString* newText = @"-";
+
     if([entries count] > 0) {
         NSNumber* numEntries = [NSNumber numberWithUnsignedInteger:[entries count]];
-        NSString* numEntriesText = [[self decimalFormatter] stringFromNumber:numEntries];
-        [self setEntriesText:numEntriesText];
-    } else {
-        [self setEntriesText:@"-"];
+        newText = [[self decimalFormatter] stringFromNumber:numEntries];
+    }
+
+    // set if different
+    if(![newText isEqual:[self entriesText]]) {
+        [self setEntriesText:newText];
     }
 }
 
@@ -512,12 +543,18 @@
     NSArray* seats = [self seats];
     NSUInteger totalChips = [[self totalChips] unsignedIntegerValue];
 
+    // calculate new value
+    NSString* newText = @"-";
+
     if([seats count] > 0) {
         NSNumber* avgChips = [NSNumber numberWithUnsignedInteger:totalChips / [seats count]];
-        NSString* avgChipsText = [[self decimalFormatter] stringFromNumber:avgChips];
-        [self setAverageStackText:avgChipsText];
-    } else {
+        newText = [[self decimalFormatter] stringFromNumber:avgChips];
         [self setAverageStackText:@"-"];
+    }
+
+    // set if different
+    if(![newText isEqual:[self averageStackText]]) {
+        [self setAverageStackText:newText];
     }
 }
 
@@ -545,119 +582,120 @@
     id value;
 
     // tournament configuration
-    if((value = json[@"name"])) {
+    if((value = json[@"name"]) && ![value isEqual:[self name]]) {
         [self setName:value];
     }
 
-    if((value = json[@"players"])) {
+    if((value = json[@"players"]) && ![value isEqual:[self players]]) {
         [self setPlayers:value];
     }
 
-    if((value = json[@"blind_levels"])) {
+    if((value = json[@"blind_levels"]) && ![value isEqual:[self blindLevels]]) {
         [self setBlindLevels:value];
         [self updateBlinds];
     }
 
-    if((value = json[@"available_chips"])) {
+    if((value = json[@"available_chips"]) && ![value isEqual:[self availableChips]]) {
         [self setAvailableChips:value];
     }
 
-    if((value = json[@"cost_currency"])) {
+    if((value = json[@"cost_currency"]) && ![value isEqual:[self costCurrency]]) {
         [self setCostCurrency:value];
     }
 
-    if((value = json[@"equity_currency"])) {
+    if((value = json[@"equity_currency"]) && ![value isEqual:[self equityCurrency]]) {
         [self setEquityCurrency:value];
     }
 
-    if((value = json[@"percent_seats_paid"])) {
+    if((value = json[@"percent_seats_paid"]) && ![value isEqual:[self percentSeatsPaid]]) {
         [self setPercentSeatsPaid:value];
     }
 
-    if((value = json[@"round_payouts"])) {
+    if((value = json[@"round_payouts"]) && ![value isEqual:[self roundPayouts]]) {
         [self setRoundPayouts:value];
     }
 
-    if((value = json[@"funding_sources"])) {
+    if((value = json[@"funding_sources"]) && ![value isEqual:[self fundingSources]]) {
         [self setFundingSources:value];
     }
 
-    if((value = json[@"table_capacity"])) {
+    if((value = json[@"table_capacity"]) && ![value isEqual:[self tableCapacity]]) {
         [self setTableCapacity:value];
     }
 
     // tournament state
-    if((value = json[@"running"])) {
+    if((value = json[@"running"]) && ![value isEqual:[self isRunning]]) {
         [self setRunning:value];
         [self updateClock];
         [self updateBlinds];
     }
 
-    if((value = json[@"current_blind_level"])) {
+    if((value = json[@"current_blind_level"]) && ![value isEqual:[self currentBlindLevel]]) {
         [self setCurrentBlindLevel:value];
         [self updateBlinds];
     }
 
-    if((value = json[@"time_remaining"])) {
+    if((value = json[@"time_remaining"]) && ![value isEqual:[self timeRemaining]]) {
         [self setTimeRemaining:value];
         [self updateClock];
         [self updateBlinds];
     }
 
-    if((value = json[@"break_time_remaining"])) {
+    if((value = json[@"break_time_remaining"]) && ![value isEqual:[self breakTimeRemaining]]) {
         [self setBreakTimeRemaining:value];
         [self updateClock];
         [self updateBlinds];
     }
 
-    if((value = json[@"action_clock_remaining"])) {
+    if((value = json[@"action_clock_remaining"]) && ![value isEqual:[self actionClockTimeRemaining]]) {
         [self setActionClockTimeRemaining:value];
     }
 
-    if((value = json[@"buyins"])) {
+    if((value = json[@"buyins"]) && ![value isEqual:[self buyins]]) {
         [self setBuyins:value];
     }
 
-    if((value = json[@"payouts"])) {
+    if((value = json[@"payouts"]) && ![value isEqual:[self payouts]]) {
         [self setPayouts:value];
     }
 
-    if((value = json[@"total_chips"])) {
+    if((value = json[@"total_chips"]) && ![value isEqual:[self totalChips]]) {
         [self setTotalChips:value];
         [self updateAverageStack];
     }
 
-    if((value = json[@"total_cost"])) {
+    if((value = json[@"total_cost"]) && ![value isEqual:[self totalCost]]) {
         [self setTotalCost:value];
     }
 
-    if((value = json[@"total_commission"])) {
+    if((value = json[@"total_commission"]) && ![value isEqual:[self totalCommission]]) {
         [self setTotalCommission:value];
     }
 
-    if((value = json[@"total_equity"])) {
+    if((value = json[@"total_equity"]) && ![value isEqual:[self totalEquity]]) {
         [self setTotalEquity:value];
     }
 
-    if((value = json[@"seats"])) {
+    if((value = json[@"seats"]) && ![value isEqual:[self seats]]) {
         [self setSeats:value];
         [self updatePlayers];
         [self updateAverageStack];
     }
 
-    if((value = json[@"entries"])) {
+    if((value = json[@"entries"]) && ![value isEqual:[self entries]]) {
+        [self setEntries:value];
         [self updateEntries];
     }
 
-    if((value = json[@"players_finished"])) {
+    if((value = json[@"players_finished"]) && ![value isEqual:[self playersFinished]]) {
         [self setPlayersFinished:value];
     }
 
-    if((value = json[@"empty_seats"])) {
+    if((value = json[@"empty_seats"]) && ![value isEqual:[self emptySeats]]) {
         [self setEmptySeats:value];
     }
 
-    if((value = json[@"tables"])) {
+    if((value = json[@"tables"]) && ![value isEqual:[self tables]]) {
         [self setTables:value];
     }
 }

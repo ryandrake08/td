@@ -47,40 +47,55 @@
     _session = [(TBAppDelegate*)[[UIApplication sharedApplication] delegate] session];
 
     // register for KVO
-    [[self KVOController] observe:[self session] keyPaths:@[@"isConnected", @"authorized", @"currentBlindLevel"] options:0 block:^(id observer, id object, NSDictionary *change) {
-        [observer updateButtons];
+    [[self KVOController] observe:[self session] keyPaths:@[@"isConnected", @"authorized", @"currentBlindLevel"] options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
+        if([[observer session] isConnected] && [[observer session] isAuthorized]) {
+            [[observer previousRoundButton] setHidden:NO];
+            [[observer pauseResumeButton] setHidden:NO];
+            [[observer nextRoundButton] setHidden:NO];
+            [[observer callClockButton] setHidden:NO];
+        } else {
+            [[observer previousRoundButton] setHidden:YES];
+            [[observer pauseResumeButton] setHidden:YES];
+            [[observer nextRoundButton] setHidden:YES];
+            [[observer callClockButton] setHidden:YES];
+        }
+
+        if([[[observer session] currentBlindLevel] unsignedIntegerValue] == 0) {
+            [[observer previousRoundButton] setEnabled:NO];
+            [[observer pauseResumeButton] setEnabled:YES];
+            [[observer nextRoundButton] setEnabled:NO];
+            [[observer callClockButton] setEnabled:NO];
+        } else {
+            [[observer previousRoundButton] setEnabled:YES];
+            [[observer pauseResumeButton] setEnabled:YES];
+            [[observer nextRoundButton] setEnabled:YES];
+            [[observer callClockButton] setEnabled:YES];
+        }
     }];
 
-    [[self KVOController] observe:[self session] keyPath:@"clockText" options:0 block:^(id observer, id object, NSDictionary *change) {
+    [[self KVOController] observe:[self session] keyPath:@"clockText" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
         [[observer clockLabel] setText:[object clockText]];
     }];
 
-    [[self KVOController] observe:[self session] keyPath:@"currentRoundText" options:0 block:^(id observer, id object, NSDictionary *change) {
+    [[self KVOController] observe:[self session] keyPath:@"currentRoundText" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
         [[observer currentRoundLabel] setText:[object currentRoundText]];
     }];
 
-    [[self KVOController] observe:[self session] keyPath:@"nextRoundText" options:0 block:^(id observer, id object, NSDictionary *change) {
+    [[self KVOController] observe:[self session] keyPath:@"nextRoundText" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
         [[observer nextRoundLabel] setText:[object nextRoundText]];
     }];
 
-    [[self KVOController] observe:[self session] keyPath:@"playersLeftText" options:0 block:^(id observer, id object, NSDictionary *change) {
+    [[self KVOController] observe:[self session] keyPath:@"playersLeftText" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
         [[observer playersLeftLabel] setText:[object playersLeftText]];
     }];
 
-    [[self KVOController] observe:[self session] keyPath:@"averageStackText" options:0 block:^(id observer, id object, NSDictionary *change) {
+    [[self KVOController] observe:[self session] keyPath:@"averageStackText" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
         [[observer averageStackLabel] setText:[object averageStackText]];
     }];
 
-    [[self KVOController] observe:[self session] keyPath:@"actionClockTimeRemaining" options:0 block:^(id observer, id object, NSDictionary *change) {
+    [[self KVOController] observe:[self session] keyPath:@"actionClockTimeRemaining" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
         [observer updateActionClock];
     }];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-
-    // set up initial values for buttons and labels
-    [self updateButtons];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -89,35 +104,6 @@
 }
 
 #pragma mark Update
-
-- (void)updateButtons {
-    BOOL connected = [[self session] isConnected];
-    BOOL authorized = [[self session] isAuthorized];
-    if(connected && authorized) {
-        [[self previousRoundButton] setHidden:NO];
-        [[self pauseResumeButton] setHidden:NO];
-        [[self nextRoundButton] setHidden:NO];
-        [[self callClockButton] setHidden:NO];
-    } else {
-        [[self previousRoundButton] setHidden:YES];
-        [[self pauseResumeButton] setHidden:YES];
-        [[self nextRoundButton] setHidden:YES];
-        [[self callClockButton] setHidden:YES];
-    }
-
-    NSUInteger currentBlindLevel = [[[self session] currentBlindLevel] unsignedIntegerValue];
-    if(currentBlindLevel == 0) {
-        [[self previousRoundButton] setEnabled:NO];
-        [[self pauseResumeButton] setEnabled:YES];
-        [[self nextRoundButton] setEnabled:NO];
-        [[self callClockButton] setEnabled:NO];
-    } else {
-        [[self previousRoundButton] setEnabled:YES];
-        [[self pauseResumeButton] setEnabled:YES];
-        [[self nextRoundButton] setEnabled:YES];
-        [[self callClockButton] setEnabled:YES];
-    }
-}
 
 - (void)updateActionClock {
     NSUInteger actionClockTimeRemaining = [[[self session] actionClockTimeRemaining] unsignedIntegerValue];
