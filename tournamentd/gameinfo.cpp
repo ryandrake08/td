@@ -860,28 +860,23 @@ bool gameinfo::previous_blind_level(duration_t offset)
 // update time remaining
 bool gameinfo::update_remaining()
 {
+    auto updated(false);
+    auto now(std::chrono::system_clock::now());
+
+    // always update action clock if ticking
+    if(this->end_of_action_clock != time_point_t() && this->end_of_action_clock > now)
+    {
+        this->action_clock_remaining = std::chrono::duration_cast<duration_t>(this->end_of_action_clock - now);
+        updated = true;
+    }
+    else
+    {
+        this->end_of_action_clock = time_point_t();
+        this->action_clock_remaining = duration_t::zero();
+    }
+
     if(this->running)
     {
-        auto now(std::chrono::system_clock::now());
-
-        // always update action clock if ticking
-        if(this->end_of_action_clock != time_point_t())
-        {
-            if(this->end_of_action_clock > now)
-            {
-                this->action_clock_remaining = std::chrono::duration_cast<duration_t>(this->end_of_action_clock - now);
-            }
-            else
-            {
-                this->end_of_action_clock = time_point_t();
-                this->action_clock_remaining = duration_t::zero();
-            }
-        }
-        else
-        {
-            this->action_clock_remaining = duration_t::zero();
-        }
-
         // set time remaining based on current clock
         if(now < this->end_of_round)
         {
@@ -900,9 +895,10 @@ bool gameinfo::update_remaining()
             auto offset(std::chrono::duration_cast<duration_t>(this->end_of_break - now));
             this->next_blind_level(offset);
         }
-        return true;
+        updated = true;
     }
-    return false;
+
+    return updated;
 }
 
 // set the action clock (when someone 'needs the clock called on them'
