@@ -16,6 +16,7 @@ CGContextRef TBGraphicsGetCurrentContext() {
     return [[NSGraphicsContext currentContext] graphicsPort];
 #endif
 }
+
 @interface TBActionClockView () {
     double _handRadians;
 }
@@ -83,11 +84,7 @@ CGContextRef TBGraphicsGetCurrentContext() {
 
 - (void)setSeconds:(double)seconds {
     _seconds = seconds;
-#if TARGET_OS_IPHONE
-    _handRadians = (self.seconds * 6 * M_PI / 180) - M_PI_2;
-#else
     _handRadians = (5 * M_PI_2) - (self.seconds * 6 * M_PI / 180);
-#endif
 
     [self setNeedsDisplay];
 }
@@ -99,14 +96,15 @@ CGContextRef TBGraphicsGetCurrentContext() {
     // Face radius (out to the center of the border)
     CGFloat radius = center.x - rect.origin.x - self.borderWidth/2;
 
+    // Set up graphics context (flip Y coordinates on iOS)
+    CGContextRef ctx = TBGraphicsGetCurrentContext();
+    CGContextSaveGState(ctx);
 #if TARGET_OS_IPHONE
-    CGFloat flip = -1.0f;
-#else
-    CGFloat flip = 1.0f;
+    CGContextTranslateCTM(ctx, 0.0, self.frame.size.height);
+    CGContextScaleCTM(ctx, 1.0, -1.0);
 #endif
 
     // CLOCK'S FACE
-    CGContextRef ctx = TBGraphicsGetCurrentContext();
     CGContextAddEllipseInRect(ctx, rect);
     CGContextSetFillColorWithColor(ctx, self.faceBackgroundColor.CGColor);
     CGContextSetAlpha(ctx, self.faceBackgroundAlpha);
@@ -115,7 +113,7 @@ CGContextRef TBGraphicsGetCurrentContext() {
     // ARC FACE
     if(self.enableArc) {
         CGContextMoveToPoint(ctx, center.x, center.y);
-        CGContextAddArc(ctx, center.x, center.y, radius, flip * M_PI_2, _handRadians, self.arcFillsIn ? 1 : 0);
+        CGContextAddArc(ctx, center.x, center.y, radius, M_PI_2, _handRadians, self.arcFillsIn ? 1 : 0);
         CGContextSetFillColorWithColor(ctx, self.arcBackgroundColor.CGColor);
         CGContextSetAlpha(ctx, self.arcBackgroundAlpha);
         CGContextFillPath(ctx);
@@ -131,8 +129,8 @@ CGContextRef TBGraphicsGetCurrentContext() {
     // ARC'S BORDER
     if(self.enableArc) {
         CGContextMoveToPoint(ctx, center.x, center.y);
-        CGContextAddLineToPoint(ctx, center.x, center.y + flip * radius);
-        CGContextAddArc(ctx, center.x, center.y, radius, flip * M_PI_2, _handRadians, self.arcFillsIn ? 1 : 0);
+        CGContextAddLineToPoint(ctx, center.x, center.y + radius);
+        CGContextAddArc(ctx, center.x, center.y, radius, M_PI_2, _handRadians, self.arcFillsIn ? 1 : 0);
         CGContextAddLineToPoint(ctx, center.x, center.y);
         CGContextSetStrokeColorWithColor(ctx, self.arcBorderColor.CGColor);
         CGContextSetAlpha(ctx, self.arcBorderAlpha);
@@ -206,10 +204,25 @@ CGContextRef TBGraphicsGetCurrentContext() {
         for(unsigned i = 0; i < 12; i ++){
             NSString *secondNumber = [NSString stringWithFormat:@"%@%d", i==0 ? @" ": @"", (i + 1) * 5];
             CGFloat labelX = center.x + (markingDistanceFromCenter - lineHeight/2.0f) * cos((M_PI/180) * (i+offset) * 30 + M_PI);
-            CGFloat labelY = center.y + flip * (markingDistanceFromCenter - lineHeight/2.0f) * sin((M_PI/180) * (i+offset) * 30);
+            CGFloat labelY = center.y + (markingDistanceFromCenter - lineHeight/2.0f) * sin((M_PI/180) * (i+offset) * 30);
             CGRect rect = CGRectMake(labelX - lineHeight/2.0f, labelY - lineHeight/2.0f, lineHeight, lineHeight);
+
+            // Un-flip text local coordinates for drawing on iOS
+            CGContextSaveGState(ctx);
+#if TARGET_OS_IPHONE
+            CGContextTranslateCTM(ctx, labelX, labelY);
+            CGContextScaleCTM(ctx, 1.0, -1.0);
+            CGContextTranslateCTM(ctx, -labelX, -labelY);
+#endif
+            // Draw text
             [secondNumber drawInRect:rect withAttributes:@{NSForegroundColorAttributeName: self.digitColor, NSFontAttributeName: self.digitFont}];
+
+            // Restore coordinate system
+            CGContextRestoreGState(ctx);
         }
     }
+
+    // Restore coordinate system
+    CGContextRestoreGState(ctx);
 }
 @end
