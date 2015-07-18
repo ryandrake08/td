@@ -6,15 +6,7 @@
 //  Copyright (c) 2015 HDna Studio. All rights reserved.
 //
 
-#import <TargetConditionals.h>
-
-#if TARGET_OS_IPHONE
-#import <UIKit/UIKit.h>
-#define TBColor UIColor
-#else
-#import <Cocoa/Cocoa.h>
-#define TBColor NSColor
-#endif
+#import "TBCommon.h"
 
 @interface TBColor (TBColor_CSS)
 

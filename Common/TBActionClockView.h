@@ -8,13 +8,13 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
 #import <CoreGraphics/CoreGraphics.h>
+#import "TBCommon.h"
 
 @protocol TBActionClockDelegate;
 
-/// TBActionClock is an UIView subclass that gives you an easy way to create beautiful, interactive analog clocks for iOS.
-@interface TBActionClockView : UIView
+/// TBActionClock is an TBView subclass that gives you an easy way to create beautiful, interactive analog clocks for iOS.
+@interface TBActionClockView : TBView
 
 
 //------------------------------------------------------------------------------------//
@@ -48,13 +48,13 @@
 //----- CLOCK'S FACE CUSTOMIZATION -----//
 
 /// The background color of the clock's face.
-@property (strong, nonatomic) UIColor* faceBackgroundColor;
+@property (strong, nonatomic) TBColor* faceBackgroundColor;
 
 /// The alpha of the clock's face.
 @property (nonatomic) CGFloat faceBackgroundAlpha;
 
 /// The color of the clock's border.
-@property (strong, nonatomic) UIColor* borderColor;
+@property (strong, nonatomic) TBColor* borderColor;
 
 /// The alpha of the clock's border.
 @property (nonatomic) CGFloat borderAlpha;
@@ -63,10 +63,10 @@
 @property (nonatomic) CGFloat borderWidth;
 
 /// The font of the digits appearing inside the clock
-@property (strong, nonatomic) UIFont* digitFont;
+@property (strong, nonatomic) TBFont* digitFont;
 
 /// The color of the digits appearing inside the clock
-@property (strong, nonatomic) UIColor* digitColor;
+@property (strong, nonatomic) TBColor* digitColor;
 
 /// The offset for the position of the digits on the clock's face. A value >0 will make the digits appear further away from the center of the clock. A valut <0 will make them closer to the center of the clock. Default value is 0.0.
 @property (nonatomic) CGFloat digitOffset;
@@ -75,13 +75,13 @@
 //----- ARC CUSTOMIZATION -----//
 
 /// The background color of the countdown arc
-@property (strong, nonatomic) UIColor* arcBackgroundColor;
+@property (strong, nonatomic) TBColor* arcBackgroundColor;
 
 /// The alpha of the countdown arc.
 @property (nonatomic) CGFloat arcBackgroundAlpha;
 
 /// The color of the countdown arc's border.
-@property (strong, nonatomic) UIColor* arcBorderColor;
+@property (strong, nonatomic) TBColor* arcBorderColor;
 
 /// The alpha of the countdown arc's border.
 @property (nonatomic) CGFloat arcBorderAlpha;
@@ -95,7 +95,7 @@
 //----- HAND CUSTOMIZATION -----//
 
 /// The color of the clock's hand. Default value is whiteColor.
-@property (strong, nonatomic) UIColor* handColor;
+@property (strong, nonatomic) TBColor* handColor;
 
 /// The alpha of the clock's hand. Default value is 1.0.
 @property (nonatomic) CGFloat handAlpha;
@@ -122,7 +122,7 @@
  @param clock The clock object requesting the graduation color.
  @param index The index from 0 to 59 of a given graduation. The first value for the index is 0.
  @return The color of the graduation at the specific index. */
-- (UIColor*)analogClock:(TBActionClockView*)clock graduationColorForIndex:(NSInteger)index;
+- (TBColor*)analogClock:(TBActionClockView*)clock graduationColorForIndex:(NSInteger)index;
 
 /** The alpha of the graduation line at a given index. This is called for each graduation on the clock.
  @param clock The clock object requesting the graduation alpha.

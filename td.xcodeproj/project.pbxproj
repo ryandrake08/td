@@ -17,11 +17,6 @@
 		943B00C81B3F427700CE55D4 /* TournamentConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F47D1B3C3EA700A158F8 /* TournamentConnection.m */; };
 		943B00C91B3F427700CE55D4 /* TournamentDaemon.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9476F47F1B3C3EA700A158F8 /* TournamentDaemon.mm */; };
 		943B00CA1B3F427700CE55D4 /* TournamentSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4811B3C3EA700A158F8 /* TournamentSession.m */; };
-		943B00CB1B3F427700CE55D4 /* TBColor+CSS.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4831B3C3EA700A158F8 /* TBColor+CSS.m */; };
-		943B00CC1B3F427700CE55D4 /* NSData+Delimiter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4851B3C3EA700A158F8 /* NSData+Delimiter.m */; };
-		943B00CD1B3F427700CE55D4 /* CFStreamCreatePairWithUnixSocket.c in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4871B3C3EA700A158F8 /* CFStreamCreatePairWithUnixSocket.c */; };
-		943B00CE1B3F427700CE55D4 /* FBKVOController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9441F79C1B3C4B9D002E73D1 /* FBKVOController.m */; };
-		943B00CF1B3F427700CE55D4 /* NSObject+FBKVOController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9441F79E1B3C4B9D002E73D1 /* NSObject+FBKVOController.m */; };
 		943B00D01B3F429500CE55D4 /* datetime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4D31B3C3F8300A158F8 /* datetime.cpp */; };
 		943B00D11B3F429500CE55D4 /* gameinfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4D51B3C3F8300A158F8 /* gameinfo.cpp */; };
 		943B00D21B3F429500CE55D4 /* json.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4D81B3C3F8300A158F8 /* json.cpp */; };
@@ -31,17 +26,12 @@
 		943B00D61B3F429500CE55D4 /* tournament.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E71B3C3F8300A158F8 /* tournament.cpp */; };
 		943B00D71B3F429500CE55D4 /* types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E91B3C3F8300A158F8 /* types.cpp */; };
 		943B00D81B3F43FC00CE55D4 /* cJSON.c in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4CE1B3C3F8300A158F8 /* cJSON.c */; };
-		9441F79F1B3C4B9D002E73D1 /* FBKVOController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9441F79C1B3C4B9D002E73D1 /* FBKVOController.m */; };
-		9441F7A01B3C4B9D002E73D1 /* FBKVOController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9441F79C1B3C4B9D002E73D1 /* FBKVOController.m */; };
-		9441F7A11B3C4B9D002E73D1 /* NSObject+FBKVOController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9441F79E1B3C4B9D002E73D1 /* NSObject+FBKVOController.m */; };
-		9441F7A21B3C4B9D002E73D1 /* NSObject+FBKVOController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9441F79E1B3C4B9D002E73D1 /* NSObject+FBKVOController.m */; };
 		944FF4B91B3D04CA000362ED /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 944FF4B81B3D04CA000362ED /* AppDelegate.m */; };
 		944FF4BB1B3D04CA000362ED /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 944FF4BA1B3D04CA000362ED /* main.m */; };
 		944FF4BD1B3D04CA000362ED /* TBPlayer.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 944FF4BC1B3D04CA000362ED /* TBPlayer.xcassets */; };
 		944FF4C01B3D04CA000362ED /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 944FF4BE1B3D04CA000362ED /* MainMenu.xib */; };
 		946288B71B3E578D0016FA36 /* TBPlayerWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 946288B51B3E578D0016FA36 /* TBPlayerWindowController.m */; };
 		946288B81B3E578D0016FA36 /* TBPlayerWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 946288B61B3E578D0016FA36 /* TBPlayerWindowController.xib */; };
-		9476F4681B3C385400A158F8 /* TBActionClockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4541B3C385400A158F8 /* TBActionClockView.m */; };
 		9476F4691B3C385400A158F8 /* TBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4561B3C385400A158F8 /* TBAppDelegate.m */; };
 		9476F46A1B3C385400A158F8 /* TBTournamentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4581B3C385400A158F8 /* TBTournamentsViewController.m */; };
 		9476F46B1B3C385400A158F8 /* TBRemoteClockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F45A1B3C385400A158F8 /* TBRemoteClockViewController.m */; };
@@ -58,12 +48,6 @@
 		9476F4A51B3C3EA700A158F8 /* TournamentDaemon.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9476F47F1B3C3EA700A158F8 /* TournamentDaemon.mm */; };
 		9476F4A61B3C3EA700A158F8 /* TournamentSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4811B3C3EA700A158F8 /* TournamentSession.m */; };
 		9476F4A71B3C3EA700A158F8 /* TournamentSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4811B3C3EA700A158F8 /* TournamentSession.m */; };
-		9476F4A81B3C3EA700A158F8 /* TBColor+CSS.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4831B3C3EA700A158F8 /* TBColor+CSS.m */; };
-		9476F4A91B3C3EA700A158F8 /* TBColor+CSS.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4831B3C3EA700A158F8 /* TBColor+CSS.m */; };
-		9476F4AA1B3C3EA700A158F8 /* NSData+Delimiter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4851B3C3EA700A158F8 /* NSData+Delimiter.m */; };
-		9476F4AB1B3C3EA700A158F8 /* NSData+Delimiter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4851B3C3EA700A158F8 /* NSData+Delimiter.m */; };
-		9476F4AC1B3C3EA700A158F8 /* CFStreamCreatePairWithUnixSocket.c in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4871B3C3EA700A158F8 /* CFStreamCreatePairWithUnixSocket.c */; };
-		9476F4AD1B3C3EA700A158F8 /* CFStreamCreatePairWithUnixSocket.c in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4871B3C3EA700A158F8 /* CFStreamCreatePairWithUnixSocket.c */; };
 		9476F4EC1B3C3F8300A158F8 /* cJSON.c in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4CE1B3C3F8300A158F8 /* cJSON.c */; };
 		9476F4ED1B3C3F8300A158F8 /* bonjour.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4D11B3C3F8300A158F8 /* bonjour.cpp */; };
 		9476F4EE1B3C3F8300A158F8 /* datetime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4D31B3C3F8300A158F8 /* datetime.cpp */; };
@@ -98,8 +82,23 @@
 		949D70A31B3C441F008D5CD1 /* socket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E31B3C3F8300A158F8 /* socket.cpp */; };
 		949D70A41B3C442F008D5CD1 /* cJSON.c in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4CE1B3C3F8300A158F8 /* cJSON.c */; };
 		949D70A51B3C442F008D5CD1 /* cJSON.c in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4CE1B3C3F8300A158F8 /* cJSON.c */; };
-		94C1F3271B4995BB001985CA /* TBActionClockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94C1F3261B4995BB001985CA /* TBActionClockView.m */; };
-		94C1F32A1B499E39001985CA /* NSFont+LineHeight.m in Sources */ = {isa = PBXBuildFile; fileRef = 94C1F3291B499E39001985CA /* NSFont+LineHeight.m */; };
+		94FDEADC1B5AE2560026B25D /* TBColor+CSS.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEADB1B5AE2560026B25D /* TBColor+CSS.m */; };
+		94FDEAE51B5AE2D60026B25D /* CFStreamCreatePairWithUnixSocket.c in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEADD1B5AE2D60026B25D /* CFStreamCreatePairWithUnixSocket.c */; };
+		94FDEAE61B5AE2D60026B25D /* CFStreamCreatePairWithUnixSocket.c in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEADD1B5AE2D60026B25D /* CFStreamCreatePairWithUnixSocket.c */; };
+		94FDEAE71B5AE2D60026B25D /* CFStreamCreatePairWithUnixSocket.c in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEADD1B5AE2D60026B25D /* CFStreamCreatePairWithUnixSocket.c */; };
+		94FDEAE81B5AE2D60026B25D /* FBKVOController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEAE01B5AE2D60026B25D /* FBKVOController.m */; };
+		94FDEAE91B5AE2D60026B25D /* FBKVOController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEAE01B5AE2D60026B25D /* FBKVOController.m */; };
+		94FDEAEA1B5AE2D60026B25D /* FBKVOController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEAE01B5AE2D60026B25D /* FBKVOController.m */; };
+		94FDEAEB1B5AE2D60026B25D /* NSData+Delimiter.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEAE21B5AE2D60026B25D /* NSData+Delimiter.m */; };
+		94FDEAEC1B5AE2D60026B25D /* NSData+Delimiter.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEAE21B5AE2D60026B25D /* NSData+Delimiter.m */; };
+		94FDEAED1B5AE2D60026B25D /* NSData+Delimiter.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEAE21B5AE2D60026B25D /* NSData+Delimiter.m */; };
+		94FDEAEE1B5AE2D60026B25D /* NSObject+FBKVOController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEAE41B5AE2D60026B25D /* NSObject+FBKVOController.m */; };
+		94FDEAEF1B5AE2D60026B25D /* NSObject+FBKVOController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEAE41B5AE2D60026B25D /* NSObject+FBKVOController.m */; };
+		94FDEAF01B5AE2D60026B25D /* NSObject+FBKVOController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEAE41B5AE2D60026B25D /* NSObject+FBKVOController.m */; };
+		94FDEAF51B5AE7390026B25D /* NSFont+LineHeight.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEAF41B5AE7390026B25D /* NSFont+LineHeight.m */; };
+		94FDEAF81B5AE7920026B25D /* NSView+BackgroundColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEAF71B5AE7920026B25D /* NSView+BackgroundColor.m */; };
+		94FDEAFA1B5AEB0B0026B25D /* TBActionClockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEAF91B5AEB0B0026B25D /* TBActionClockView.m */; };
+		94FDEAFB1B5AEB0B0026B25D /* TBActionClockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEAF91B5AEB0B0026B25D /* TBActionClockView.m */; };
 		AD0A75A31AA22012009E90A3 /* TBPlayersTableCellView.h in Resources */ = {isa = PBXBuildFile; fileRef = AD0A75A21AA22012009E90A3 /* TBPlayersTableCellView.h */; };
 		AD0A75A51AA22028009E90A3 /* TBPlayersTableCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD0A75A41AA22028009E90A3 /* TBPlayersTableCellView.m */; };
 		AD0EC5051AB331460071BD18 /* TBDurationNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = AD0EC5041AB331460071BD18 /* TBDurationNumberFormatter.m */; };
@@ -146,10 +145,6 @@
 		9439701C1B405DC000BB0413 /* TournamentService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TournamentService.m; sourceTree = "<group>"; };
 		943B00C51B3F15AA00CE55D4 /* TBResizeTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBResizeTextField.h; sourceTree = "<group>"; };
 		943B00C61B3F15AA00CE55D4 /* TBResizeTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBResizeTextField.m; sourceTree = "<group>"; };
-		9441F79B1B3C4B9D002E73D1 /* FBKVOController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBKVOController.h; sourceTree = "<group>"; };
-		9441F79C1B3C4B9D002E73D1 /* FBKVOController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBKVOController.m; sourceTree = "<group>"; };
-		9441F79D1B3C4B9D002E73D1 /* NSObject+FBKVOController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+FBKVOController.h"; sourceTree = "<group>"; };
-		9441F79E1B3C4B9D002E73D1 /* NSObject+FBKVOController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+FBKVOController.m"; sourceTree = "<group>"; };
 		944FF4B31B3D04CA000362ED /* TBPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TBPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		944FF4B61B3D04CA000362ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		944FF4B71B3D04CA000362ED /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -161,8 +156,6 @@
 		946288B51B3E578D0016FA36 /* TBPlayerWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBPlayerWindowController.m; sourceTree = "<group>"; };
 		946288B61B3E578D0016FA36 /* TBPlayerWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TBPlayerWindowController.xib; sourceTree = "<group>"; };
 		9476F42A1B3C37D000A158F8 /* TBRemote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TBRemote.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		9476F4531B3C385400A158F8 /* TBActionClockView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBActionClockView.h; sourceTree = "<group>"; };
-		9476F4541B3C385400A158F8 /* TBActionClockView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBActionClockView.m; sourceTree = "<group>"; };
 		9476F4551B3C385400A158F8 /* TBAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBAppDelegate.h; sourceTree = "<group>"; };
 		9476F4561B3C385400A158F8 /* TBAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBAppDelegate.m; sourceTree = "<group>"; };
 		9476F4571B3C385400A158F8 /* TBTournamentsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBTournamentsViewController.h; sourceTree = "<group>"; };
@@ -184,12 +177,6 @@
 		9476F47F1B3C3EA700A158F8 /* TournamentDaemon.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TournamentDaemon.mm; sourceTree = "<group>"; };
 		9476F4801B3C3EA700A158F8 /* TournamentSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TournamentSession.h; sourceTree = "<group>"; };
 		9476F4811B3C3EA700A158F8 /* TournamentSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TournamentSession.m; sourceTree = "<group>"; };
-		9476F4821B3C3EA700A158F8 /* TBColor+CSS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TBColor+CSS.h"; sourceTree = "<group>"; };
-		9476F4831B3C3EA700A158F8 /* TBColor+CSS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TBColor+CSS.m"; sourceTree = "<group>"; };
-		9476F4841B3C3EA700A158F8 /* NSData+Delimiter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Delimiter.h"; sourceTree = "<group>"; };
-		9476F4851B3C3EA700A158F8 /* NSData+Delimiter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Delimiter.m"; sourceTree = "<group>"; };
-		9476F4861B3C3EA700A158F8 /* CFStreamCreatePairWithUnixSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFStreamCreatePairWithUnixSocket.h; sourceTree = "<group>"; };
-		9476F4871B3C3EA700A158F8 /* CFStreamCreatePairWithUnixSocket.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = CFStreamCreatePairWithUnixSocket.c; sourceTree = "<group>"; };
 		9476F4C61B3C3F3D00A158F8 /* tournamentd */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = tournamentd; sourceTree = BUILT_PRODUCTS_DIR; };
 		9476F4CD1B3C3F8300A158F8 /* defaults.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = defaults.json; path = ../defaults.json; sourceTree = "<group>"; };
 		9476F4CE1B3C3F8300A158F8 /* cJSON.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cJSON.c; sourceTree = "<group>"; };
@@ -222,10 +209,23 @@
 		9476F4EA1B3C3F8300A158F8 /* types.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = types.hpp; sourceTree = "<group>"; };
 		9476F4F91B3C403F00A158F8 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		9476F4FB1B3C404400A158F8 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
-		94C1F3251B4995BB001985CA /* TBActionClockView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBActionClockView.h; sourceTree = "<group>"; };
-		94C1F3261B4995BB001985CA /* TBActionClockView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBActionClockView.m; sourceTree = "<group>"; };
-		94C1F3281B499E39001985CA /* NSFont+LineHeight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSFont+LineHeight.h"; sourceTree = "<group>"; };
-		94C1F3291B499E39001985CA /* NSFont+LineHeight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSFont+LineHeight.m"; sourceTree = "<group>"; };
+		94FDEADA1B5AE2560026B25D /* TBColor+CSS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TBColor+CSS.h"; sourceTree = "<group>"; };
+		94FDEADB1B5AE2560026B25D /* TBColor+CSS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TBColor+CSS.m"; sourceTree = "<group>"; };
+		94FDEADD1B5AE2D60026B25D /* CFStreamCreatePairWithUnixSocket.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = CFStreamCreatePairWithUnixSocket.c; sourceTree = "<group>"; };
+		94FDEADE1B5AE2D60026B25D /* CFStreamCreatePairWithUnixSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFStreamCreatePairWithUnixSocket.h; sourceTree = "<group>"; };
+		94FDEADF1B5AE2D60026B25D /* FBKVOController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBKVOController.h; sourceTree = "<group>"; };
+		94FDEAE01B5AE2D60026B25D /* FBKVOController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBKVOController.m; sourceTree = "<group>"; };
+		94FDEAE11B5AE2D60026B25D /* NSData+Delimiter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Delimiter.h"; sourceTree = "<group>"; };
+		94FDEAE21B5AE2D60026B25D /* NSData+Delimiter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Delimiter.m"; sourceTree = "<group>"; };
+		94FDEAE31B5AE2D60026B25D /* NSObject+FBKVOController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+FBKVOController.h"; sourceTree = "<group>"; };
+		94FDEAE41B5AE2D60026B25D /* NSObject+FBKVOController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+FBKVOController.m"; sourceTree = "<group>"; };
+		94FDEAF11B5AE3960026B25D /* TBCommon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBCommon.h; sourceTree = "<group>"; };
+		94FDEAF21B5AE4440026B25D /* TBActionClockView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBActionClockView.h; sourceTree = "<group>"; };
+		94FDEAF31B5AE7390026B25D /* NSFont+LineHeight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSFont+LineHeight.h"; sourceTree = "<group>"; };
+		94FDEAF41B5AE7390026B25D /* NSFont+LineHeight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSFont+LineHeight.m"; sourceTree = "<group>"; };
+		94FDEAF61B5AE7920026B25D /* NSView+BackgroundColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSView+BackgroundColor.h"; sourceTree = "<group>"; };
+		94FDEAF71B5AE7920026B25D /* NSView+BackgroundColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSView+BackgroundColor.m"; sourceTree = "<group>"; };
+		94FDEAF91B5AEB0B0026B25D /* TBActionClockView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBActionClockView.m; sourceTree = "<group>"; };
 		AD0A75A21AA22012009E90A3 /* TBPlayersTableCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBPlayersTableCellView.h; sourceTree = "<group>"; };
 		AD0A75A41AA22028009E90A3 /* TBPlayersTableCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBPlayersTableCellView.m; sourceTree = "<group>"; };
 		AD0EC5031AB331460071BD18 /* TBDurationNumberFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBDurationNumberFormatter.h; sourceTree = "<group>"; };
@@ -309,17 +309,13 @@
 			children = (
 				944FF4B71B3D04CA000362ED /* AppDelegate.h */,
 				944FF4B81B3D04CA000362ED /* AppDelegate.m */,
-				94C1F3251B4995BB001985CA /* TBActionClockView.h */,
-				94C1F3261B4995BB001985CA /* TBActionClockView.m */,
 				946288B41B3E578D0016FA36 /* TBPlayerWindowController.h */,
 				946288B51B3E578D0016FA36 /* TBPlayerWindowController.m */,
 				946288B61B3E578D0016FA36 /* TBPlayerWindowController.xib */,
 				943B00C51B3F15AA00CE55D4 /* TBResizeTextField.h */,
 				943B00C61B3F15AA00CE55D4 /* TBResizeTextField.m */,
-				94C1F3281B499E39001985CA /* NSFont+LineHeight.h */,
-				94C1F3291B499E39001985CA /* NSFont+LineHeight.m */,
-				944FF4BC1B3D04CA000362ED /* TBPlayer.xcassets */,
 				944FF4BE1B3D04CA000362ED /* MainMenu.xib */,
+				944FF4BC1B3D04CA000362ED /* TBPlayer.xcassets */,
 				944FF4B51B3D04CA000362ED /* Supporting Files */,
 			);
 			path = TBPlayer;
@@ -346,8 +342,6 @@
 		9476F4671B3C385400A158F8 /* TBRemote */ = {
 			isa = PBXGroup;
 			children = (
-				9476F4531B3C385400A158F8 /* TBActionClockView.h */,
-				9476F4541B3C385400A158F8 /* TBActionClockView.m */,
 				9476F4551B3C385400A158F8 /* TBAppDelegate.h */,
 				9476F4561B3C385400A158F8 /* TBAppDelegate.m */,
 				9476F4571B3C385400A158F8 /* TBTournamentsViewController.h */,
@@ -376,16 +370,6 @@
 				9439701C1B405DC000BB0413 /* TournamentService.m */,
 				9476F4801B3C3EA700A158F8 /* TournamentSession.h */,
 				9476F4811B3C3EA700A158F8 /* TournamentSession.m */,
-				9476F4821B3C3EA700A158F8 /* TBColor+CSS.h */,
-				9476F4831B3C3EA700A158F8 /* TBColor+CSS.m */,
-				9476F4841B3C3EA700A158F8 /* NSData+Delimiter.h */,
-				9476F4851B3C3EA700A158F8 /* NSData+Delimiter.m */,
-				9476F4861B3C3EA700A158F8 /* CFStreamCreatePairWithUnixSocket.h */,
-				9476F4871B3C3EA700A158F8 /* CFStreamCreatePairWithUnixSocket.c */,
-				9441F79B1B3C4B9D002E73D1 /* FBKVOController.h */,
-				9441F79C1B3C4B9D002E73D1 /* FBKVOController.m */,
-				9441F79D1B3C4B9D002E73D1 /* NSObject+FBKVOController.h */,
-				9441F79E1B3C4B9D002E73D1 /* NSObject+FBKVOController.m */,
 			);
 			path = TournamentKit;
 			sourceTree = "<group>";
@@ -434,6 +418,30 @@
 			path = tournamentd;
 			sourceTree = "<group>";
 		};
+		94FDEAD91B5AD29B0026B25D /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				94FDEADD1B5AE2D60026B25D /* CFStreamCreatePairWithUnixSocket.c */,
+				94FDEADE1B5AE2D60026B25D /* CFStreamCreatePairWithUnixSocket.h */,
+				94FDEADF1B5AE2D60026B25D /* FBKVOController.h */,
+				94FDEAE01B5AE2D60026B25D /* FBKVOController.m */,
+				94FDEAE11B5AE2D60026B25D /* NSData+Delimiter.h */,
+				94FDEAE21B5AE2D60026B25D /* NSData+Delimiter.m */,
+				94FDEAF31B5AE7390026B25D /* NSFont+LineHeight.h */,
+				94FDEAF41B5AE7390026B25D /* NSFont+LineHeight.m */,
+				94FDEAE31B5AE2D60026B25D /* NSObject+FBKVOController.h */,
+				94FDEAE41B5AE2D60026B25D /* NSObject+FBKVOController.m */,
+				94FDEAF61B5AE7920026B25D /* NSView+BackgroundColor.h */,
+				94FDEAF71B5AE7920026B25D /* NSView+BackgroundColor.m */,
+				94FDEAF21B5AE4440026B25D /* TBActionClockView.h */,
+				94FDEAF91B5AEB0B0026B25D /* TBActionClockView.m */,
+				94FDEADA1B5AE2560026B25D /* TBColor+CSS.h */,
+				94FDEADB1B5AE2560026B25D /* TBColor+CSS.m */,
+				94FDEAF11B5AE3960026B25D /* TBCommon.h */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
 		AD51C5341AFFC9210084B25E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -449,6 +457,7 @@
 		AD8E683A1A6C606700E5A4D8 = {
 			isa = PBXGroup;
 			children = (
+				94FDEAD91B5AD29B0026B25D /* Common */,
 				AD8E68451A6C606700E5A4D8 /* Tournament Buddy */,
 				944FF4B41B3D04CA000362ED /* TBPlayer */,
 				9476F4671B3C385400A158F8 /* TBRemote */,
@@ -682,24 +691,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				943B00CF1B3F427700CE55D4 /* NSObject+FBKVOController.m in Sources */,
-				94C1F3271B4995BB001985CA /* TBActionClockView.m in Sources */,
-				94C1F32A1B499E39001985CA /* NSFont+LineHeight.m in Sources */,
+				94FDEAE61B5AE2D60026B25D /* CFStreamCreatePairWithUnixSocket.c in Sources */,
 				943B00D41B3F429500CE55D4 /* server.cpp in Sources */,
 				946288B71B3E578D0016FA36 /* TBPlayerWindowController.m in Sources */,
 				943B00D01B3F429500CE55D4 /* datetime.cpp in Sources */,
-				943B00CB1B3F427700CE55D4 /* TBColor+CSS.m in Sources */,
 				944FF4BB1B3D04CA000362ED /* main.m in Sources */,
 				943B00C91B3F427700CE55D4 /* TournamentDaemon.mm in Sources */,
+				94FDEAE91B5AE2D60026B25D /* FBKVOController.m in Sources */,
+				94FDEAFA1B5AEB0B0026B25D /* TBActionClockView.m in Sources */,
 				943B00CA1B3F427700CE55D4 /* TournamentSession.m in Sources */,
 				943B00D61B3F429500CE55D4 /* tournament.cpp in Sources */,
-				943B00CD1B3F427700CE55D4 /* CFStreamCreatePairWithUnixSocket.c in Sources */,
+				94FDEAF51B5AE7390026B25D /* NSFont+LineHeight.m in Sources */,
+				94FDEAF81B5AE7920026B25D /* NSView+BackgroundColor.m in Sources */,
 				943B00D21B3F429500CE55D4 /* json.cpp in Sources */,
-				943B00CC1B3F427700CE55D4 /* NSData+Delimiter.m in Sources */,
+				94FDEAEF1B5AE2D60026B25D /* NSObject+FBKVOController.m in Sources */,
 				943B00D11B3F429500CE55D4 /* gameinfo.cpp in Sources */,
+				94FDEAEC1B5AE2D60026B25D /* NSData+Delimiter.m in Sources */,
 				943B00D31B3F429500CE55D4 /* logger.cpp in Sources */,
 				944FF4B91B3D04CA000362ED /* AppDelegate.m in Sources */,
-				943B00CE1B3F427700CE55D4 /* FBKVOController.m in Sources */,
 				9439701E1B405DC000BB0413 /* TournamentService.m in Sources */,
 				943B00C71B3F15AA00CE55D4 /* TBResizeTextField.m in Sources */,
 				943970191B3F9DB700BB0413 /* TournamentBrowser.m in Sources */,
@@ -715,25 +724,24 @@
 			buildActionMask = 2147483647;
 			files = (
 				9476F4691B3C385400A158F8 /* TBAppDelegate.m in Sources */,
-				9476F4AB1B3C3EA700A158F8 /* NSData+Delimiter.m in Sources */,
 				949D70A01B3C440E008D5CD1 /* types.cpp in Sources */,
 				949D70A11B3C4411008D5CD1 /* tournament.cpp in Sources */,
 				9439701F1B405DC000BB0413 /* TournamentService.m in Sources */,
 				949D709D1B3C440E008D5CD1 /* json.cpp in Sources */,
+				94FDEAE71B5AE2D60026B25D /* CFStreamCreatePairWithUnixSocket.c in Sources */,
 				9476F46B1B3C385400A158F8 /* TBRemoteClockViewController.m in Sources */,
 				949D70A41B3C442F008D5CD1 /* cJSON.c in Sources */,
 				9476F4A71B3C3EA700A158F8 /* TournamentSession.m in Sources */,
 				949D709F1B3C440E008D5CD1 /* server.cpp in Sources */,
-				9476F4681B3C385400A158F8 /* TBActionClockView.m in Sources */,
 				9439701A1B3F9DB700BB0413 /* TournamentBrowser.m in Sources */,
+				94FDEAF01B5AE2D60026B25D /* NSObject+FBKVOController.m in Sources */,
 				9476F46A1B3C385400A158F8 /* TBTournamentsViewController.m in Sources */,
 				9476F4721B3C385400A158F8 /* main.m in Sources */,
-				9476F4AD1B3C3EA700A158F8 /* CFStreamCreatePairWithUnixSocket.c in Sources */,
+				94FDEAED1B5AE2D60026B25D /* NSData+Delimiter.m in Sources */,
 				949D70A21B3C441F008D5CD1 /* socket.cpp in Sources */,
-				9476F4A91B3C3EA700A158F8 /* TBColor+CSS.m in Sources */,
 				949D709C1B3C440E008D5CD1 /* gameinfo.cpp in Sources */,
-				9441F7A21B3C4B9D002E73D1 /* NSObject+FBKVOController.m in Sources */,
-				9441F7A01B3C4B9D002E73D1 /* FBKVOController.m in Sources */,
+				94FDEAFB1B5AEB0B0026B25D /* TBActionClockView.m in Sources */,
+				94FDEAEA1B5AE2D60026B25D /* FBKVOController.m in Sources */,
 				9476F4A31B3C3EA700A158F8 /* TournamentConnection.m in Sources */,
 				949D709E1B3C440E008D5CD1 /* logger.cpp in Sources */,
 				949D709B1B3C440E008D5CD1 /* datetime.cpp in Sources */,
@@ -765,29 +773,29 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9476F4AC1B3C3EA700A158F8 /* CFStreamCreatePairWithUnixSocket.c in Sources */,
 				AD98D9651A7B331A00DA6B8B /* TBFundingViewController.m in Sources */,
 				949D70971B3C440D008D5CD1 /* json.cpp in Sources */,
 				ADA128181AACF2BD00DACDBA /* TBRoundsTableCellView.m in Sources */,
-				9476F4A81B3C3EA700A158F8 /* TBColor+CSS.m in Sources */,
 				949D70941B3C43DB008D5CD1 /* tournament.cpp in Sources */,
 				AD98D96A1A7B33F100DA6B8B /* TBPlayersViewController.m in Sources */,
 				9476F4A61B3C3EA700A158F8 /* TournamentSession.m in Sources */,
 				AD98D96F1A7B342000DA6B8B /* TBRoundsViewController.m in Sources */,
 				AD49306E1A885E1A008B1DCD /* TBFundingTableCellView.m in Sources */,
+				94FDEAE81B5AE2D60026B25D /* FBKVOController.m in Sources */,
 				AD8E684F1A6C606700E5A4D8 /* Document.m in Sources */,
 				949D70981B3C440D008D5CD1 /* logger.cpp in Sources */,
 				949D70951B3C440D008D5CD1 /* datetime.cpp in Sources */,
 				949D70961B3C440D008D5CD1 /* gameinfo.cpp in Sources */,
+				94FDEAE51B5AE2D60026B25D /* CFStreamCreatePairWithUnixSocket.c in Sources */,
+				94FDEAEB1B5AE2D60026B25D /* NSData+Delimiter.m in Sources */,
 				949D70A31B3C441F008D5CD1 /* socket.cpp in Sources */,
 				AD98D9741A7B343600DA6B8B /* TBSeatingViewController.m in Sources */,
-				9441F79F1B3C4B9D002E73D1 /* FBKVOController.m in Sources */,
+				94FDEADC1B5AE2560026B25D /* TBColor+CSS.m in Sources */,
+				94FDEAEE1B5AE2D60026B25D /* NSObject+FBKVOController.m in Sources */,
 				ADE4E1281A7DFFD000FC9EFC /* TBTableViewController.m in Sources */,
 				AD8E684C1A6C606700E5A4D8 /* main.m in Sources */,
 				AD0A75A51AA22028009E90A3 /* TBPlayersTableCellView.m in Sources */,
-				9441F7A11B3C4B9D002E73D1 /* NSObject+FBKVOController.m in Sources */,
 				949D70A51B3C442F008D5CD1 /* cJSON.c in Sources */,
-				9476F4AA1B3C3EA700A158F8 /* NSData+Delimiter.m in Sources */,
 				9476F4A41B3C3EA700A158F8 /* TournamentDaemon.mm in Sources */,
 				AD98D9611A7B330B00DA6B8B /* TBChipsViewController.m in Sources */,
 				949D70991B3C440D008D5CD1 /* server.cpp in Sources */,

@@ -7,12 +7,12 @@
 //
 
 #import "TBColorValueTransformer.h"
-#import "TournamentKit/TournamentKit.h"
+#import "TBColor+CSS.h"
 
 @implementation TBColorValueTransformer
 
 + (Class)transformedValueClass {
-    return [NSColor class];
+    return [TBColor class];
 }
 
 + (BOOL)allowsReverseTransformation {
@@ -21,7 +21,7 @@
 
 - (id)transformedValue:(id)value {
     if([value isKindOfClass:[NSString class]]) {
-        return [NSColor colorWithName:value];
+        return [TBColor colorWithName:value];
     }
     return nil;
 }
