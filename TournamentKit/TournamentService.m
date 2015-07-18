@@ -31,7 +31,7 @@
         _dict = [[NSMutableDictionary alloc] init];
         _dict[@"address"] = address;
         _dict[@"port"] = [NSNumber numberWithInteger:port];
-        _dict[@"name"] = [NSString stringWithFormat:@"%@:%li", address, port];
+        _dict[@"name"] = [NSString stringWithFormat:@"%@:%li", address, (long)port];
     }
     return self;
 }
