@@ -28,7 +28,7 @@
 
 // tournament configuration
 @property (nonatomic) NSString* name;
-@property (nonatomic) NSMutableArray* players;
+@property (nonatomic) NSArray* players;
 @property (nonatomic) NSArray* blindLevels;
 @property (nonatomic) NSArray* availableChips;
 @property (nonatomic) NSString* costCurrency;
