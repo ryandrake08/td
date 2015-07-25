@@ -106,21 +106,48 @@ td::player_movement::player_movement(const json& obj) : player_movement()
 template<>
 json::json(const td::blind_level& value) : json()
 {
-    this->set_value("game_name", value.game_name);
-    this->set_value("little_blind", value.little_blind);
-    this->set_value("big_blind", value.big_blind);
-    this->set_value("ante", value.ante);
-    this->set_value("duration", value.duration);
-    this->set_value("break_duration", value.break_duration);
-    this->set_value("reason", value.reason);
+    if(!value.game_name.empty())
+    {
+        this->set_value("game_name", value.game_name);
+    }
+    if(value.little_blind)
+    {
+        this->set_value("little_blind", value.little_blind);
+    }
+    if(value.big_blind)
+    {
+        this->set_value("big_blind", value.big_blind);
+    }
+    if(value.ante)
+    {
+        this->set_value("ante", value.ante);
+    }
+    if(value.duration)
+    {
+        this->set_value("duration", value.duration);
+    }
+    if(value.break_duration)
+    {
+        this->set_value("break_duration", value.break_duration);
+    }
+    if(!value.reason.empty())
+    {
+        this->set_value("reason", value.reason);
+    }
 }
 
 template<>
 json::json(const td::chip& value) : json()
 {
-    this->set_value("color", value.color);
+    if(!value.color.empty())
+    {
+        this->set_value("color", value.color);
+    }
     this->set_value("denomination", value.denomination);
-    this->set_value("count_available", value.count_available);
+    if(value.count_available)
+    {
+        this->set_value("count_available", value.count_available);
+    }
 }
 
 template<>
