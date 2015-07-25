@@ -26,6 +26,18 @@ gameinfo::gameinfo() :
     action_clock_remaining(0),
     elapsed(0)
 {
+    validate();
+}
+
+void gameinfo::validate()
+{
+    // ensure we have at least one blind level, the setup level
+    if(this->blind_levels.empty())
+    {
+        this->blind_levels.push_back(td::blind_level());
+    }
+    // and ensure it's called "Setup"
+    this->blind_levels.front().game_name = "Setup";
 }
 
 // load configuration from JSON (object or file)
@@ -97,6 +109,8 @@ void gameinfo::configure(const json& config)
             this->stop();
         }
     }
+
+    validate();
 }
 
 // dump configuration to JSON
