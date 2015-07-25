@@ -29,6 +29,7 @@ namespace td
         unsigned long ante;
         long duration;
         long break_duration;
+        std::string reason;
 
         blind_level();
         blind_level(const json& obj);
