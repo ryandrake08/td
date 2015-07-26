@@ -9,4 +9,5 @@
 #import "TBTableViewController.h"
 
 @interface TBPlayersViewController : TBTableViewController
+
 @end

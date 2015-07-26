@@ -9,4 +9,5 @@
 #import "TBTableViewController.h"
 
 @interface TBChipsViewController : TBTableViewController
+
 @end

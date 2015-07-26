@@ -8,5 +8,6 @@
 
 #import "TBTableViewController.h"
 
-@interface TBFundingViewController : TBTableViewController <NSTableViewDataSource, NSTableViewDelegate>
+@interface TBFundingViewController : TBTableViewController
+
 @end
