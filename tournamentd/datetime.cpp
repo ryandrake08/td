@@ -111,7 +111,7 @@ static std::ostream& operator<<(std::ostream& os, const std::tm* date_time)
 {
     const std::size_t size(1024);
     char buffer[size] = {0};
-    if(std::strftime(buffer, size, "%Y-%m-%d %H:%M:%S", date_time) != 0)
+    if(std::strftime(buffer, size, "%Y-%m-%dT%H:%M:%S", date_time) != 0)
     {
         return os << buffer;
     }

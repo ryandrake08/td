@@ -16,15 +16,15 @@
             <rect key="frame" x="0.0" y="0.0" width="640" height="375"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="cjc-wV-JGQ">
+                <scrollView autohidesScrollers="YES" horizontalLineScroll="29" horizontalPageScroll="10" verticalLineScroll="29" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="cjc-wV-JGQ">
                     <rect key="frame" x="0.0" y="20" width="640" height="355"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <clipView key="contentView" id="AfP-2H-Pn9">
                         <rect key="frame" x="1" y="17" width="638" height="337"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="firstColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" autosaveColumns="NO" rowSizeStyle="automatic" headerView="Xwo-Am-moo" viewBased="YES" id="Cmf-jN-97o">
-                                <rect key="frame" x="0.0" y="0.0" width="638" height="337"/>
+                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="firstColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" autosaveColumns="NO" rowHeight="27" rowSizeStyle="automatic" headerView="Xwo-Am-moo" viewBased="YES" id="Cmf-jN-97o">
+                                <rect key="frame" x="0.0" y="0.0" width="638" height="0.0"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -44,11 +44,11 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView id="A4h-DW-slB">
-                                                <rect key="frame" x="1" y="1" width="504" height="17"/>
+                                                <rect key="frame" x="1" y="1" width="504" height="27"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" id="zrI-4e-tPp" userLabel="Player Name">
-                                                        <rect key="frame" x="0.0" y="0.0" width="504" height="17"/>
+                                                        <rect key="frame" x="0.0" y="5" width="504" height="17"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" alignment="left" title="Table View Cell" placeholderString="Player Name" id="XYV-n8-ZSs">
                                                             <font key="font" metaFont="systemBold"/>
@@ -80,26 +80,29 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView id="bOG-cw-pfl">
-                                                <rect key="frame" x="465.5" y="1" width="128" height="17"/>
+                                                <rect key="frame" x="508" y="1" width="128" height="27"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="5jT-p0-6lw">
-                                                        <rect key="frame" x="0.0" y="0.0" width="128" height="17"/>
+                                                    <datePicker verticalHuggingPriority="750" id="cRZ-gh-GXE">
+                                                        <rect key="frame" x="0.0" y="2" width="128" height="27"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" placeholderString="Signup Date" id="bN1-z0-Vvp">
-                                                            <dateFormatter key="formatter" dateStyle="short" id="yHR-8h-ZXN"/>
+                                                        <datePickerCell key="cell" alignment="left" id="aee-m8-741">
                                                             <font key="font" metaFont="system"/>
+                                                            <date key="date" timeIntervalSinceReferenceDate="-31593600">
+                                                                <!--2000-01-01 08:00:00 +0000-->
+                                                            </date>
+                                                            <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                        </textFieldCell>
+                                                        </datePickerCell>
                                                         <connections>
-                                                            <binding destination="bOG-cw-pfl" name="value" keyPath="objectValue.added_at" id="PmB-bW-uKq"/>
+                                                            <binding destination="bOG-cw-pfl" name="value" keyPath="objectValue.added_at" id="ZUA-cU-2Bp">
+                                                                <dictionary key="options">
+                                                                    <string key="NSValueTransformerName">TBDateStringTransformer</string>
+                                                                </dictionary>
+                                                            </binding>
                                                         </connections>
-                                                    </textField>
+                                                    </datePicker>
                                                 </subviews>
-                                                <connections>
-                                                    <outlet property="textField" destination="5jT-p0-6lw" id="U7v-rm-cuc"/>
-                                                </connections>
                                             </tableCellView>
                                         </prototypeCellViews>
                                     </tableColumn>

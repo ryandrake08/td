@@ -159,7 +159,7 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="64" height="17"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" title="Table View Cell" placeholderString="25" id="dnc-PE-N2K">
-                                                            <numberFormatter key="formatter" formatterBehavior="default10_4" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="0" maximumIntegerDigits="42" id="BEv-Xx-1wk">
+                                                            <numberFormatter key="formatter" formatterBehavior="custom10_4" minimumIntegerDigits="0" maximumIntegerDigits="2000000000" maximumFractionDigits="2" id="BEv-Xx-1wk">
                                                                 <real key="minimum" value="0.0"/>
                                                             </numberFormatter>
                                                             <font key="font" metaFont="system"/>
@@ -198,7 +198,7 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="64" height="17"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" title="Table View Cell" placeholderString="50" id="4Fm-Yh-Qkx">
-                                                            <numberFormatter key="formatter" formatterBehavior="default10_4" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="0" maximumIntegerDigits="42" id="ulg-od-5jg">
+                                                            <numberFormatter key="formatter" formatterBehavior="custom10_4" minimumIntegerDigits="0" maximumIntegerDigits="2000000000" maximumFractionDigits="2" decimalSeparator="." groupingSeparator="," id="ulg-od-5jg">
                                                                 <real key="minimum" value="0.0"/>
                                                             </numberFormatter>
                                                             <font key="font" metaFont="system"/>
@@ -237,7 +237,7 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="64" height="17"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" title="Table View Cell" placeholderString="0" id="8oK-0K-TFI">
-                                                            <numberFormatter key="formatter" formatterBehavior="default10_4" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="0" maximumIntegerDigits="42" id="c82-cJ-aIL">
+                                                            <numberFormatter key="formatter" formatterBehavior="custom10_4" minimumIntegerDigits="0" maximumIntegerDigits="2000000000" maximumFractionDigits="2" id="c82-cJ-aIL">
                                                                 <real key="minimum" value="0.0"/>
                                                             </numberFormatter>
                                                             <font key="font" metaFont="system"/>

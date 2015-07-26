@@ -10,7 +10,7 @@
 
 @interface TBTableViewController : NSViewController
 
-@property NSMutableDictionary* configuration;
+@property (strong) NSMutableDictionary* configuration;
 
 // initializer
 - (instancetype)initWithNibName:(NSString*)nibName configuration:(NSMutableDictionary*)config;

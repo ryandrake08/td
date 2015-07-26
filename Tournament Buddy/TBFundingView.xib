@@ -24,7 +24,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="firstColumnOnly" columnSelection="YES" autosaveColumns="NO" rowHeight="26" rowSizeStyle="automatic" headerView="SOR-EG-EJf" viewBased="YES" id="n9f-OZ-oem">
-                                <rect key="frame" x="0.0" y="0.0" width="894" height="337"/>
+                                <rect key="frame" x="0.0" y="0.0" width="894" height="0.0"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -129,7 +129,7 @@
                                                         <rect key="frame" x="0.0" y="5" width="64" height="17"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" alignment="left" title="Table View Cell" placeholderString="Cost" id="aqP-cm-2eN">
-                                                            <numberFormatter key="formatter" formatterBehavior="custom10_4" numberStyle="currency" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" minimumFractionDigits="2" maximumFractionDigits="2" id="2b4-Xz-BGD">
+                                                            <numberFormatter key="formatter" formatterBehavior="custom10_4" numberStyle="currency" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="2" id="2b4-Xz-BGD">
                                                                 <real key="minimum" value="0.0"/>
                                                                 <metadata>
                                                                     <real key="inspectorSampleValue" value="1"/>
@@ -168,7 +168,7 @@
                                                         <rect key="frame" x="0.0" y="5" width="64" height="17"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" alignment="left" title="Table View Cell" placeholderString="Fee" id="88h-PX-2Sg">
-                                                            <numberFormatter key="formatter" formatterBehavior="custom10_4" numberStyle="currency" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" minimumFractionDigits="2" maximumFractionDigits="2" id="kZN-yc-Z8Z">
+                                                            <numberFormatter key="formatter" formatterBehavior="custom10_4" numberStyle="currency" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="2" id="kZN-yc-Z8Z">
                                                                 <real key="minimum" value="0.0"/>
                                                                 <metadata>
                                                                     <real key="inspectorSampleValue" value="1"/>
@@ -207,7 +207,7 @@
                                                         <rect key="frame" x="0.0" y="5" width="64" height="17"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" alignment="left" title="Table View Cell" placeholderString="Equity" id="asL-e8-nIq">
-                                                            <numberFormatter key="formatter" formatterBehavior="custom10_4" numberStyle="currency" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" minimumFractionDigits="2" maximumFractionDigits="2" id="Heg-09-aVJ">
+                                                            <numberFormatter key="formatter" formatterBehavior="custom10_4" numberStyle="currency" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="2" id="Heg-09-aVJ">
                                                                 <real key="minimum" value="0.0"/>
                                                                 <metadata>
                                                                     <real key="inspectorSampleValue" value="1"/>

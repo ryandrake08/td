@@ -32,6 +32,7 @@
 		944FF4C01B3D04CA000362ED /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 944FF4BE1B3D04CA000362ED /* MainMenu.xib */; };
 		946288B71B3E578D0016FA36 /* TBPlayerWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 946288B51B3E578D0016FA36 /* TBPlayerWindowController.m */; };
 		946288B81B3E578D0016FA36 /* TBPlayerWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 946288B61B3E578D0016FA36 /* TBPlayerWindowController.xib */; };
+		9466A2E41B64C202003A26A1 /* TBDateStringTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9466A2E31B64C202003A26A1 /* TBDateStringTransformer.m */; };
 		9476F4691B3C385400A158F8 /* TBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4561B3C385400A158F8 /* TBAppDelegate.m */; };
 		9476F46A1B3C385400A158F8 /* TBTournamentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4581B3C385400A158F8 /* TBTournamentsViewController.m */; };
 		9476F46B1B3C385400A158F8 /* TBRemoteClockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F45A1B3C385400A158F8 /* TBRemoteClockViewController.m */; };
@@ -152,6 +153,8 @@
 		946288B41B3E578D0016FA36 /* TBPlayerWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBPlayerWindowController.h; sourceTree = "<group>"; };
 		946288B51B3E578D0016FA36 /* TBPlayerWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBPlayerWindowController.m; sourceTree = "<group>"; };
 		946288B61B3E578D0016FA36 /* TBPlayerWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TBPlayerWindowController.xib; sourceTree = "<group>"; };
+		9466A2E21B64C202003A26A1 /* TBDateStringTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBDateStringTransformer.h; sourceTree = "<group>"; };
+		9466A2E31B64C202003A26A1 /* TBDateStringTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBDateStringTransformer.m; sourceTree = "<group>"; };
 		9476F42A1B3C37D000A158F8 /* TBRemote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TBRemote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9476F4551B3C385400A158F8 /* TBAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBAppDelegate.h; sourceTree = "<group>"; };
 		9476F4561B3C385400A158F8 /* TBAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBAppDelegate.m; sourceTree = "<group>"; };
@@ -484,6 +487,8 @@
 				AD98D95D1A7B2DDA00DA6B8B /* TBChipsView.xib */,
 				AD0EC5061AB33AA30071BD18 /* TBColorValueTransformer.h */,
 				AD0EC5071AB33AA30071BD18 /* TBColorValueTransformer.m */,
+				9466A2E21B64C202003A26A1 /* TBDateStringTransformer.h */,
+				9466A2E31B64C202003A26A1 /* TBDateStringTransformer.m */,
 				AD0EC5031AB331460071BD18 /* TBDurationNumberFormatter.h */,
 				AD0EC5041AB331460071BD18 /* TBDurationNumberFormatter.m */,
 				AD98D9621A7B331A00DA6B8B /* TBFundingViewController.h */,
@@ -776,6 +781,7 @@
 				94FDEADC1B5AE2560026B25D /* TBColor+CSS.m in Sources */,
 				94FDEAEE1B5AE2D60026B25D /* NSObject+FBKVOController.m in Sources */,
 				ADE4E1281A7DFFD000FC9EFC /* TBTableViewController.m in Sources */,
+				9466A2E41B64C202003A26A1 /* TBDateStringTransformer.m in Sources */,
 				AD8E684C1A6C606700E5A4D8 /* main.m in Sources */,
 				AD0A75A51AA22028009E90A3 /* TBPlayersTableCellView.m in Sources */,
 				949D70A51B3C442F008D5CD1 /* cJSON.c in Sources */,

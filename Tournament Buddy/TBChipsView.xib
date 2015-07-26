@@ -84,6 +84,9 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="96" height="17"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" title="Table View Cell" placeholderString="Chip Value" id="MoU-fq-wou">
+                                                            <numberFormatter key="formatter" formatterBehavior="custom10_4" minimumIntegerDigits="0" maximumIntegerDigits="2000000000" maximumFractionDigits="2" id="VDk-GP-b5C">
+                                                                <real key="minimum" value="0.0"/>
+                                                            </numberFormatter>
                                                             <font key="font" metaFont="system"/>
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -120,6 +123,9 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="485" height="17"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" title="Table View Cell" placeholderString="Number Available" id="vAJ-o8-85d">
+                                                            <numberFormatter key="formatter" formatterBehavior="custom10_4" allowsFloats="NO" minimumIntegerDigits="0" maximumIntegerDigits="42" id="SuM-mk-AfW">
+                                                                <real key="minimum" value="0.0"/>
+                                                            </numberFormatter>
                                                             <font key="font" metaFont="system"/>
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
