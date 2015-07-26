@@ -8,19 +8,14 @@
 
 #import "Document.h"
 #import "TournamentKit/TournamentKit.h"
-#import "TBChipsViewController.h"
-#import "TBFundingViewController.h"
-#import "TBPlayersViewController.h"
-#import "TBRoundsViewController.h"
-#import "TBSeatingViewController.h"
-
+#import "TBTableViewController.h"
 #import "NSObject+FBKVOController.h"
 
 @interface Document () <NSTabViewDelegate>
 
 // UI
 @property IBOutlet NSTabView* tabView;
-@property NSViewController* currentViewController;
+@property NSMutableDictionary* viewControllers;
 
 // Model
 @property TournamentDaemon* server;
@@ -36,6 +31,7 @@
     if (self) {
         _server = [[TournamentDaemon alloc] init];
         _session = [[TournamentSession alloc] init];
+        _viewControllers = [[NSMutableDictionary alloc] init];
 
         // Start serving using this device's auth key
         NSString* path = [[self server] startWithAuthCode:[TournamentSession clientIdentifier]];
@@ -93,38 +89,46 @@
 }
 
 - (NSData*)dataOfType:(NSString*)typeName error:(NSError**)outError {
+    // serialize json configuration to NSData
     return [NSJSONSerialization dataWithJSONObject:[self configuration] options:0 error:outError];
 }
 
 - (BOOL)readFromData:(NSData*)data ofType:(NSString*)typeName error:(NSError**)outError {
+    // view controllers will need to be re-built (with different configuration object)
+    [[self viewControllers] removeAllObjects];
+
+    // deserialize json configuration
     [self setConfiguration:[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:outError]];
-    return YES;
+    return *outError == nil;
 }
 
 #pragma mark Tabs
 
 - (BOOL)tabView:(NSTabView*)tabView shouldSelectTabViewItem:(NSTabViewItem*)tabViewItem {
-    // assume a different identifier has been assigned to each tab view item in IB
-    NSInteger itemIndex = [tabView indexOfTabViewItemWithIdentifier:[tabViewItem identifier]];
+    // these tab view items' identifiers are keys and also identify their class
+    NSString* nib = [tabViewItem identifier];
 
-    // could be considered both clever and janky
-    NSArray* tableNibs = @[@"TBFundingView", @"TBPlayersView", @"TBChipsView", @"TBRoundsView", @"TBSeatingView"];
-    NSString* nib = [tableNibs objectAtIndex:itemIndex];
-    NSString* className = [nib stringByAppendingString:@"Controller"];
-    NSViewController* newController = [[NSClassFromString(className) alloc] initWithNibName:nib configuration:[self configuration]];
+    NSViewController* controller = [self viewControllers][nib];
+    if(controller == nil) {
+        // create a clontroller for this view
+        NSString* className = [nib stringByAppendingString:@"Controller"];
+        controller = [[NSClassFromString(className) alloc] initWithNibName:nib configuration:[self configuration]];
+        if(controller == nil) {
+            // report error to user here
+            NSLog(@"Can't load view for tab %@", nib);
+            return NO;
+        }
 
-    if (newController != nil) {
-        // configure session when switching tabs (for now)
-        [self configureSession];
-
-        [tabViewItem setView:newController.view];
-        [self setCurrentViewController:newController];
-        return YES;
-    } else {
-        // report error to user here
-        NSLog(@"Can't load view for tab %ld", (long)itemIndex);
-        return NO;
+        // cache in dictionary for later
+        [self viewControllers][nib] = controller;
     }
+
+    // configure session when switching tabs (for now)
+    [self configureSession];
+
+    // set the view
+    [tabViewItem setView:controller.view];
+    return YES;
 }
 
 @end
