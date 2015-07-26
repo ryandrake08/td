@@ -12,7 +12,7 @@
 
 // initializer
 - (instancetype)initWithNibName:(NSString*)nibName configuration:(NSMutableDictionary*)config {
-    self = [super initWithNibName:nibName bundle:nil];
+    self = [self initWithNibName:nibName bundle:nil];
     if (self) {
         _configuration = config;
     }

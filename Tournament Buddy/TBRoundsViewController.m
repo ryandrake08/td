@@ -7,39 +7,52 @@
 //
 
 #import "TBRoundsViewController.h"
-#import "TBRoundsTableCellView.h"
 
-@interface RoundsArrayController : NSArrayController
+// TBRoundsTableCellView to simply handle the break button check box
+@interface TBRoundsTableCellView : NSTableCellView
 
 @end
 
-@implementation RoundsArrayController
+@implementation TBRoundsTableCellView
 
-- (id)arrangedObjects {
-    NSArray* a = [super arrangedObjects];
-    if ([a count]) {
-        return [a subarrayWithRange:NSMakeRange(1, [a count]-1)];
+- (IBAction)breakButtonDidChange:(id)sender {
+    if([sender state] == NSOnState) {
+        [[self objectValue] setObject:@0 forKey:@"break_duration"];
     } else {
-        return a;
+        [[self objectValue] removeObjectForKey:@"break_duration"];
+        [[self objectValue] removeObjectForKey:@"reason"];
     }
 }
+@end
+
+@interface TBRoundsViewController ()  <NSTableViewDataSource>
+
+@property (strong) IBOutlet NSArrayController* arrayController;
 
 @end
 
 @implementation TBRoundsViewController
 
-#pragma mark NSTableView
+- (void)viewDidLoad {
+    [[self arrayController] setFilterPredicate:[NSPredicate predicateWithFormat: @"%K != %@", @"game_name", @"Setup"]];
+}
 
-- (NSView*)tableView:(NSTableView*)tableView viewForTableColumn:(NSTableColumn*)tableColumn row:(NSInteger)row {
-    // Retrieve to get the @"MyView" from the pool or,
-    // if no version is available in the pool, load the Interface Builder version
-    TBRoundsTableCellView* result = [tableView makeViewWithIdentifier:[tableColumn identifier] owner:self];
+#pragma mark NSTableViewDataSource
 
-    // Set up the cell's members
-    [result setRoundNumber:row+1];
-
-    // Return the result
-    return result;
+- (id)tableView:(NSTableView*)aTableView objectValueForTableColumn:(NSTableColumn*)aTableColumn row:(NSInteger)rowIndex {
+    if([[aTableColumn identifier] isEqualToString:@"Round"]) {
+        return [NSNumber numberWithInteger:rowIndex+1];
+    } else if([[aTableColumn identifier] isEqualToString:@"Start Time"]) {
+        long totalDuration = 0;
+        for(NSInteger i=0; i<rowIndex; i++) {
+            NSDictionary* object = [[self arrayController] arrangedObjects][i];
+            long duration = [object[@"duration"] longValue];
+            long breakDuration = [object[@"break_duration"] longValue];
+            totalDuration += duration + breakDuration;
+        }
+        return [NSNumber numberWithInteger:totalDuration];
+    }
+    return nil;
 }
 
 @end

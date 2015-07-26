@@ -8,5 +8,5 @@
 
 #import "TBTableViewController.h"
 
-@interface TBChipsViewController : TBTableViewController <NSTableViewDataSource, NSTableViewDelegate>
+@interface TBChipsViewController : TBTableViewController
 @end
