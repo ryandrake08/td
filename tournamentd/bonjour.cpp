@@ -34,12 +34,16 @@ class bonjour_impl
 public:
     bonjour_impl(const std::string& name, int port)
     {
+        // describe net service
         CFStringRef theDomain = CFSTR("local.");
         CFStringRef serviceType = CFSTR("_tournbuddy._tcp");
         CFStringRef serviceName = CFStringCreateWithCString(kCFAllocatorDefault, name.c_str(), kCFStringEncodingUTF8);
 
         // create net service
         netService = CFNetServiceCreate(nullptr, theDomain, serviceType, serviceName, port);
+
+        // release serviceName
+        CFRelease(serviceName);
 
         CFNetServiceClientContext clientContext = { 0, nullptr, nullptr, nullptr, nullptr };
         CFNetServiceSetClient(netService, registerCallback, &clientContext);
