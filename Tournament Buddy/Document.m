@@ -50,7 +50,8 @@
             }
         }];
 
-        [[self KVOController] observe:self keyPath:@"configuration" options:0 action:@selector(syncWithSession)];
+        // pass whole-configuration changes to session
+        [[self KVOController] observe:self keyPath:@"configuration" options:0 action:@selector(configureSession)];
 
         // Start the session, connecting locally
         [[self session] connectToLocalPath:path];
@@ -59,6 +60,7 @@
 }
 
 - (void)close {
+    [[self KVOController] unobserveAll];
     [[self session] disconnect];
     [[self server] stop];
     [super close];
@@ -86,14 +88,11 @@
     return @"Document";
 }
 
-- (void)syncWithSession {
-    [[self session] configure:[self configuration] withBlock:^(id json) {
-        _configuration = json;
-    }];
+- (void)configureSession {
+    [[self session] configure:[self configuration] withBlock:nil];
 }
 
 - (NSData*)dataOfType:(NSString*)typeName error:(NSError**)outError {
-    [self syncWithSession];
     return [NSJSONSerialization dataWithJSONObject:[self configuration] options:0 error:outError];
 }
 
@@ -115,8 +114,10 @@
     NSViewController* newController = [[NSClassFromString(className) alloc] initWithNibName:nib configuration:[self configuration]];
 
     if (newController != nil) {
+        // configure session when switching tabs (for now)
+        [self configureSession];
+
         [tabViewItem setView:newController.view];
-        // newController.view.frame = tabView.contentRect;
         [self setCurrentViewController:newController];
         return YES;
     } else {
