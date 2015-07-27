@@ -7,6 +7,8 @@
 //
 
 #import "TBFundingViewController.h"
+#import "NSObject+FBKVOController.h"
+#import "TBCurrencyNumberFormatter.h"
 
 // TBFundingTableCellView to handle custom bindings
 @interface TBFundingTableCellView : NSTableCellView
@@ -78,7 +80,27 @@
 
 @end
 
+@interface TBFundingViewController () <NSTableViewDelegate>
+
+@property (strong) IBOutlet TBCurrencyNumberFormatter* costFormatter;
+@property (strong) IBOutlet TBCurrencyNumberFormatter* equityFormatter;
+
+@end
+
 @implementation TBFundingViewController
+
+- (void)viewDidLoad {
+    // register for KVO
+    [[[self costFormatter] KVOController] observe:[self configuration] keyPath:@"cost_currency" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
+        [observer setCurrencyCode:object[@"cost_currency"]];
+        [[self tableView] reloadData];
+    }];
+
+    [[[self equityFormatter] KVOController] observe:[self configuration] keyPath:@"equity_currency" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
+        [observer setCurrencyCode:object[@"equity_currency"]];
+        [[self tableView] reloadData];
+    }];
+}
 
 - (NSArray*)rounds {
     NSMutableArray* roundList = [[NSMutableArray alloc] initWithObjects:NSLocalizedString(@"Tournament Start", nil), nil];
@@ -91,6 +113,18 @@
     }
 
     return roundList;
+}
+
+#pragma mark NSTableViewDelegate
+
+- (NSView *)tableView:(NSTableView*)aTableView viewForTableColumn:(NSTableColumn*)aTableColumn row:(NSInteger)rowIndex {
+    NSTableCellView* result = [aTableView makeViewWithIdentifier:aTableColumn.identifier owner:self];
+    if([[aTableColumn identifier] isEqualToString:@"Cost"] || [[aTableColumn identifier] isEqualToString:@"Fee"]) {
+        [[result textField] setFormatter:[self costFormatter]];
+    } else if([[aTableColumn identifier] isEqualToString:@"Equity"]) {
+        [[result textField] setFormatter:[self equityFormatter]];
+    }
+    return result;
 }
 
 @end

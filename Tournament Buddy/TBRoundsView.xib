@@ -7,7 +7,8 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="TBRoundsViewController">
             <connections>
-                <outlet property="arrayController" destination="cmv-jZ-zO9" id="2gm-RX-I8F"/>
+                <outlet property="arrayController" destination="cmv-jZ-zO9" id="UZg-dR-jXV"/>
+                <outlet property="tableView" destination="eil-cl-Ozd" id="phV-VI-5Dm"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
         </customObject>
@@ -159,8 +160,11 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="64" height="17"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" title="Table View Cell" placeholderString="25" id="dnc-PE-N2K">
-                                                            <numberFormatter key="formatter" formatterBehavior="custom10_4" minimumIntegerDigits="0" maximumIntegerDigits="2000000000" maximumFractionDigits="2" id="BEv-Xx-1wk">
+                                                            <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="BEv-Xx-1wk">
                                                                 <real key="minimum" value="0.0"/>
+                                                                <metadata>
+                                                                    <real key="inspectorSampleValue" value="1"/>
+                                                                </metadata>
                                                             </numberFormatter>
                                                             <font key="font" metaFont="system"/>
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -198,8 +202,11 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="64" height="17"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" title="Table View Cell" placeholderString="50" id="4Fm-Yh-Qkx">
-                                                            <numberFormatter key="formatter" formatterBehavior="custom10_4" minimumIntegerDigits="0" maximumIntegerDigits="2000000000" maximumFractionDigits="2" decimalSeparator="." groupingSeparator="," id="ulg-od-5jg">
+                                                            <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="ulg-od-5jg">
                                                                 <real key="minimum" value="0.0"/>
+                                                                <metadata>
+                                                                    <real key="inspectorSampleValue" value="1"/>
+                                                                </metadata>
                                                             </numberFormatter>
                                                             <font key="font" metaFont="system"/>
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -237,8 +244,11 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="64" height="17"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" title="Table View Cell" placeholderString="0" id="8oK-0K-TFI">
-                                                            <numberFormatter key="formatter" formatterBehavior="custom10_4" minimumIntegerDigits="0" maximumIntegerDigits="2000000000" maximumFractionDigits="2" id="c82-cJ-aIL">
+                                                            <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="c82-cJ-aIL">
                                                                 <real key="minimum" value="0.0"/>
+                                                                <metadata>
+                                                                    <real key="inspectorSampleValue" value="1"/>
+                                                                </metadata>
                                                             </numberFormatter>
                                                             <font key="font" metaFont="system"/>
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>

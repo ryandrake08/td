@@ -20,10 +20,10 @@ class gameinfo
     // configuration: number of players per table
     std::size_t table_capacity;
 
-    // configuration: name of currency collected (use ISO 4217: USD, EUR, XPT for points)
+    // configuration: name of currency collected (use ISO 4217: USD, EUR, XXX for points)
     std::string cost_currency;
 
-    // configuration: name of currency distributed (use ISO 4217: USD, EUR, XPT for points)
+    // configuration: name of currency distributed (use ISO 4217: USD, EUR, XXX for points)
     std::string equity_currency;
 
     // configuration: rough percentage of seats that get paid (0.0-1.0)

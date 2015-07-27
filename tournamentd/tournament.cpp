@@ -426,8 +426,8 @@ bool tournament::handle_client_input(std::iostream& client)
                         name (string): Human-readable name of this tournament
                         players (array): Each player eligible for this tournament
                         table_capacity (integer): Number of seats per table
-                        cost_currency (string): Currency name for buyins, re-buys, etc. ISO 4217: USD, EUR, XPT for points
-                        equity_currency (string): Currency name for equity/payouts. ISO 4217: USD, EUR, XPT for points
+                        cost_currency (string): Currency name for buyins, re-buys, etc. ISO 4217: USD, EUR, XXX for points
+                        equity_currency (string): Currency name for equity/payouts. ISO 4217: USD, EUR, XXX for points
                         percent_seats_paid (float): Proportion of players (buyins) paid out
                         funding_sources (array): Each valid source of funding for this tournament
                         blind_levels (array): Discription of each blind level
@@ -500,8 +500,8 @@ bool tournament::handle_client_input(std::iostream& client)
                         name (optional, string): Human-readable name for this tournament
                         players (optional, array): Each player eligible for this tournament
                         table_capacity (optional, integer): Number of seats per table
-                        cost_currency (optional, string): Currency name for buyins, re-buys, etc. ISO 4217: USD, EUR, XPT for points
-                        equity_currency (optional, string): Currency name for equity/payouts. ISO 4217: USD, EUR, XPT for points
+                        cost_currency (optional, string): Currency name for buyins, re-buys, etc. ISO 4217: USD, EUR, XXX for points
+                        equity_currency (optional, string): Currency name for equity/payouts. ISO 4217: USD, EUR, XXX for points
                         percent_seats_paid (optional, float): Proportion of players (buyins) paid out
                         funding_sources (optional, array): Each valid source of funding for this tournament
                         blind_levels (optional, array): Discription of each blind level

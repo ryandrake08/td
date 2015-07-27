@@ -30,6 +30,7 @@
 		944FF4BB1B3D04CA000362ED /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 944FF4BA1B3D04CA000362ED /* main.m */; };
 		944FF4BD1B3D04CA000362ED /* TBPlayer.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 944FF4BC1B3D04CA000362ED /* TBPlayer.xcassets */; };
 		944FF4C01B3D04CA000362ED /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 944FF4BE1B3D04CA000362ED /* MainMenu.xib */; };
+		94562E5D1B65C6730017C692 /* TBCurrencyNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 94562E5C1B65C6730017C692 /* TBCurrencyNumberFormatter.m */; };
 		946288B71B3E578D0016FA36 /* TBPlayerWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 946288B51B3E578D0016FA36 /* TBPlayerWindowController.m */; };
 		946288B81B3E578D0016FA36 /* TBPlayerWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 946288B61B3E578D0016FA36 /* TBPlayerWindowController.xib */; };
 		9466A2E41B64C202003A26A1 /* TBDateStringTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9466A2E31B64C202003A26A1 /* TBDateStringTransformer.m */; };
@@ -148,6 +149,8 @@
 		944FF4BA1B3D04CA000362ED /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		944FF4BC1B3D04CA000362ED /* TBPlayer.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = TBPlayer.xcassets; sourceTree = "<group>"; };
 		944FF4BF1B3D04CA000362ED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		94562E5B1B65C6730017C692 /* TBCurrencyNumberFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBCurrencyNumberFormatter.h; path = "Tournament Buddy/TBCurrencyNumberFormatter.h"; sourceTree = SOURCE_ROOT; };
+		94562E5C1B65C6730017C692 /* TBCurrencyNumberFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TBCurrencyNumberFormatter.m; path = "Tournament Buddy/TBCurrencyNumberFormatter.m"; sourceTree = SOURCE_ROOT; };
 		946288B41B3E578D0016FA36 /* TBPlayerWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBPlayerWindowController.h; sourceTree = "<group>"; };
 		946288B51B3E578D0016FA36 /* TBPlayerWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBPlayerWindowController.m; sourceTree = "<group>"; };
 		946288B61B3E578D0016FA36 /* TBPlayerWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TBPlayerWindowController.xib; sourceTree = "<group>"; };
@@ -481,6 +484,8 @@
 				AD98D95F1A7B330B00DA6B8B /* TBChipsViewController.h */,
 				AD98D9601A7B330B00DA6B8B /* TBChipsViewController.m */,
 				AD98D95D1A7B2DDA00DA6B8B /* TBChipsView.xib */,
+				94562E5B1B65C6730017C692 /* TBCurrencyNumberFormatter.h */,
+				94562E5C1B65C6730017C692 /* TBCurrencyNumberFormatter.m */,
 				AD0EC5061AB33AA30071BD18 /* TBColorValueTransformer.h */,
 				AD0EC5071AB33AA30071BD18 /* TBColorValueTransformer.m */,
 				9466A2E21B64C202003A26A1 /* TBDateStringTransformer.h */,
@@ -761,6 +766,7 @@
 				949D70941B3C43DB008D5CD1 /* tournament.cpp in Sources */,
 				AD98D96A1A7B33F100DA6B8B /* TBPlayersViewController.m in Sources */,
 				9476F4A61B3C3EA700A158F8 /* TournamentSession.m in Sources */,
+				94562E5D1B65C6730017C692 /* TBCurrencyNumberFormatter.m in Sources */,
 				AD98D96F1A7B342000DA6B8B /* TBRoundsViewController.m in Sources */,
 				94FDEAE81B5AE2D60026B25D /* FBKVOController.m in Sources */,
 				AD8E684F1A6C606700E5A4D8 /* Document.m in Sources */,

@@ -7,6 +7,8 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="TBChipsViewController">
             <connections>
+                <outlet property="arrayController" destination="hco-pa-9cV" id="foh-hM-Os1"/>
+                <outlet property="tableView" destination="Etm-Cf-W2n" id="ojV-ih-Qh8"/>
                 <outlet property="view" destination="c22-O7-iKe" id="YBa-V6-mZj"/>
             </connections>
         </customObject>
@@ -84,7 +86,7 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="96" height="17"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" title="Table View Cell" placeholderString="Chip Value" id="MoU-fq-wou">
-                                                            <numberFormatter key="formatter" formatterBehavior="custom10_4" minimumIntegerDigits="0" maximumIntegerDigits="2000000000" maximumFractionDigits="2" id="VDk-GP-b5C">
+                                                            <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="VDk-GP-b5C">
                                                                 <real key="minimum" value="0.0"/>
                                                             </numberFormatter>
                                                             <font key="font" metaFont="system"/>
@@ -123,7 +125,7 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="485" height="17"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" title="Table View Cell" placeholderString="Number Available" id="vAJ-o8-85d">
-                                                            <numberFormatter key="formatter" formatterBehavior="custom10_4" allowsFloats="NO" minimumIntegerDigits="0" maximumIntegerDigits="42" id="SuM-mk-AfW">
+                                                            <numberFormatter key="formatter" formatterBehavior="default10_4" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="0" maximumIntegerDigits="42" id="SuM-mk-AfW">
                                                                 <real key="minimum" value="0.0"/>
                                                             </numberFormatter>
                                                             <font key="font" metaFont="system"/>

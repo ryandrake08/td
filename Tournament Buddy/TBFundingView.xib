@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
-        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="TBFundingViewController">
             <connections>
+                <outlet property="arrayController" destination="ZWh-lB-mFY" id="eBV-Xm-fRW"/>
+                <outlet property="costFormatter" destination="2b4-Xz-BGD" id="iyt-ob-0QC"/>
+                <outlet property="equityFormatter" destination="Heg-09-aVJ" id="VgI-d7-ESD"/>
+                <outlet property="tableView" destination="n9f-OZ-oem" id="EMT-Mw-cUM"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="aVB-Tv-n4d"/>
             </connections>
         </customObject>
@@ -60,6 +63,9 @@
                                                         </connections>
                                                     </textField>
                                                 </subviews>
+                                                <connections>
+                                                    <outlet property="textField" destination="Tuz-Wx-yMt" id="UHh-7Q-mM6"/>
+                                                </connections>
                                             </tableCellView>
                                         </prototypeCellViews>
                                     </tableColumn>
@@ -108,7 +114,7 @@
                                             </tableCellView>
                                         </prototypeCellViews>
                                     </tableColumn>
-                                    <tableColumn width="56" maxWidth="56" id="caX-3j-KCt">
+                                    <tableColumn identifier="Cost" width="56" maxWidth="56" id="caX-3j-KCt">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Cost">
                                             <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -129,12 +135,6 @@
                                                         <rect key="frame" x="0.0" y="5" width="56" height="17"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" alignment="left" title="Table View Cell" placeholderString="Cost" id="aqP-cm-2eN">
-                                                            <numberFormatter key="formatter" formatterBehavior="custom10_4" numberStyle="currency" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="2" id="2b4-Xz-BGD">
-                                                                <real key="minimum" value="0.0"/>
-                                                                <metadata>
-                                                                    <real key="inspectorSampleValue" value="1"/>
-                                                                </metadata>
-                                                            </numberFormatter>
                                                             <font key="font" metaFont="system"/>
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -144,10 +144,13 @@
                                                         </connections>
                                                     </textField>
                                                 </subviews>
+                                                <connections>
+                                                    <outlet property="textField" destination="xTr-TC-3Hl" id="VD0-f4-bG3"/>
+                                                </connections>
                                             </tableCellView>
                                         </prototypeCellViews>
                                     </tableColumn>
-                                    <tableColumn width="56" maxWidth="56" id="ZZi-BB-WWn">
+                                    <tableColumn identifier="Fee" width="56" maxWidth="56" id="ZZi-BB-WWn">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Fee">
                                             <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -168,12 +171,6 @@
                                                         <rect key="frame" x="0.0" y="5" width="56" height="17"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" alignment="left" title="Table View Cell" placeholderString="Fee" id="88h-PX-2Sg">
-                                                            <numberFormatter key="formatter" formatterBehavior="custom10_4" numberStyle="currency" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="2" id="kZN-yc-Z8Z">
-                                                                <real key="minimum" value="0.0"/>
-                                                                <metadata>
-                                                                    <real key="inspectorSampleValue" value="1"/>
-                                                                </metadata>
-                                                            </numberFormatter>
                                                             <font key="font" metaFont="system"/>
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -183,10 +180,13 @@
                                                         </connections>
                                                     </textField>
                                                 </subviews>
+                                                <connections>
+                                                    <outlet property="textField" destination="ig5-xE-2BK" id="34f-J1-Gbu"/>
+                                                </connections>
                                             </tableCellView>
                                         </prototypeCellViews>
                                     </tableColumn>
-                                    <tableColumn width="56" maxWidth="56" id="ElJ-HQ-ak1">
+                                    <tableColumn identifier="Equity" width="56" maxWidth="56" id="ElJ-HQ-ak1">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Equity">
                                             <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -207,12 +207,6 @@
                                                         <rect key="frame" x="0.0" y="5" width="56" height="17"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" alignment="left" title="Table View Cell" placeholderString="Equity" id="asL-e8-nIq">
-                                                            <numberFormatter key="formatter" formatterBehavior="custom10_4" numberStyle="currency" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="2" id="Heg-09-aVJ">
-                                                                <real key="minimum" value="0.0"/>
-                                                                <metadata>
-                                                                    <real key="inspectorSampleValue" value="1"/>
-                                                                </metadata>
-                                                            </numberFormatter>
                                                             <font key="font" metaFont="system"/>
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -222,6 +216,9 @@
                                                         </connections>
                                                     </textField>
                                                 </subviews>
+                                                <connections>
+                                                    <outlet property="textField" destination="FxW-AN-4e6" id="j2W-Vq-9TF"/>
+                                                </connections>
                                             </tableCellView>
                                         </prototypeCellViews>
                                     </tableColumn>
@@ -246,7 +243,7 @@
                                                         <rect key="frame" x="0.0" y="5" width="56" height="17"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" alignment="left" title="Table View Cell" placeholderString="Chip Count" id="Ng6-A1-M0z">
-                                                            <numberFormatter key="formatter" formatterBehavior="custom10_4" numberStyle="decimal" allowsFloats="NO" minimumIntegerDigits="0" maximumIntegerDigits="42" id="GPs-t1-CJJ">
+                                                            <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="GPs-t1-CJJ">
                                                                 <real key="minimum" value="0.0"/>
                                                             </numberFormatter>
                                                             <font key="font" metaFont="system"/>
@@ -258,6 +255,9 @@
                                                         </connections>
                                                     </textField>
                                                 </subviews>
+                                                <connections>
+                                                    <outlet property="textField" destination="1Po-Mx-C2U" id="TrL-QD-NDX"/>
+                                                </connections>
                                             </tableCellView>
                                         </prototypeCellViews>
                                     </tableColumn>
@@ -384,6 +384,48 @@
                         </menu>
                     </popUpButtonCell>
                 </popUpButton>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="0dj-li-b57">
+                    <rect key="frame" x="97" y="2" width="150" height="17"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Cost/Fee currency:" id="KjY-J7-xAy">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" id="4jU-nb-mEs">
+                    <rect key="frame" x="253" y="2" width="60" height="17"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="USD" drawsBackground="YES" id="NXf-ml-kFf">
+                        <font key="font" metaFont="system" size="10"/>
+                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                    <connections>
+                        <binding destination="-2" name="value" keyPath="configuration.cost_currency" id="t8q-Ni-JVz"/>
+                    </connections>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="yyS-xd-gwl">
+                    <rect key="frame" x="319" y="2" width="150" height="17"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Equity currency:" id="Fvu-Pr-pKS">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" id="G6Y-SS-zNg">
+                    <rect key="frame" x="475" y="2" width="60" height="17"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="USD" drawsBackground="YES" id="g57-1T-J5k">
+                        <font key="font" metaFont="system" size="10"/>
+                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                    <connections>
+                        <binding destination="-2" name="value" keyPath="configuration.equity_currency" id="kZM-58-Y6Y"/>
+                    </connections>
+                </textField>
             </subviews>
             <point key="canvasLocation" x="17" y="246.5"/>
         </customView>
@@ -400,6 +442,18 @@
                 <binding destination="-2" name="contentArray" keyPath="configuration.funding_sources" id="mVs-qj-OP5"/>
             </connections>
         </arrayController>
+        <numberFormatter formatterBehavior="default10_4" numberStyle="currency" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" minimumFractionDigits="2" maximumFractionDigits="2" id="2b4-Xz-BGD" userLabel="Cost Formatter" customClass="TBCurrencyNumberFormatter">
+            <real key="minimum" value="0.0"/>
+            <metadata>
+                <real key="inspectorSampleValue" value="1"/>
+            </metadata>
+        </numberFormatter>
+        <numberFormatter formatterBehavior="custom10_4" numberStyle="currency" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" minimumFractionDigits="2" maximumFractionDigits="2" id="Heg-09-aVJ" userLabel="Equity Formatter" customClass="TBCurrencyNumberFormatter">
+            <real key="minimum" value="0.0"/>
+            <metadata>
+                <real key="inspectorSampleValue" value="1"/>
+            </metadata>
+        </numberFormatter>
     </objects>
     <resources>
         <image name="NSActionTemplate" width="14" height="14"/>
