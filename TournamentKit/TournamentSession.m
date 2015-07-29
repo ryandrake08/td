@@ -65,6 +65,7 @@
 @property (nonatomic) NSString* playersLeftText;
 @property (nonatomic) NSString* entriesText;
 @property (nonatomic) NSString* averageStackText;
+@property (nonatomic) NSDictionary* playersLookup;
 
 @end
 
@@ -558,6 +559,16 @@
     }
 }
 
+- (void)updatePlayersLookup {
+    // all player_id
+    NSMutableArray* keys = [NSMutableArray array];
+    for(NSDictionary* player in [self players]) {
+        [keys addObject:player[@"player_id"]];
+    }
+    // create the player_id -> player lookup table
+    [self setPlayersLookup:[NSDictionary dictionaryWithObjects:[self players] forKeys:keys]];
+}
+
 #pragma mark Tournament Messages
 
 - (void)handleMessage:(id)json fromConnection:(TournamentConnection*)tc {
@@ -588,6 +599,7 @@
 
     if((value = json[@"players"]) && ![value isEqual:[self players]]) {
         [self setPlayers:value];
+        [self updatePlayersLookup];
     }
 
     if((value = json[@"blind_levels"]) && ![value isEqual:[self blindLevels]]) {
