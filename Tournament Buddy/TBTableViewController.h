@@ -7,6 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "TournamentKit/TournamentKit.h"
 
 @interface TBTableViewController : NSViewController
 
@@ -17,7 +18,7 @@
 // global configuration
 @property (strong) NSMutableDictionary* configuration;
 
-// initializer
-- (instancetype)initWithNibName:(NSString*)nibName configuration:(NSMutableDictionary*)config;
+// global session
+@property (strong) TournamentSession* session;
 
 @end

@@ -10,13 +10,4 @@
 
 @implementation TBTableViewController
 
-// initializer
-- (instancetype)initWithNibName:(NSString*)nibName configuration:(NSMutableDictionary*)config {
-    self = [self initWithNibName:nibName bundle:nil];
-    if (self) {
-        _configuration = config;
-    }
-    return self;
-}
-
 @end

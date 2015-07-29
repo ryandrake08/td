@@ -108,16 +108,20 @@
     // these tab view items' identifiers are keys and also identify their class
     NSString* nib = [tabViewItem identifier];
 
-    NSViewController* controller = [self viewControllers][nib];
+    TBTableViewController* controller = [self viewControllers][nib];
     if(controller == nil) {
         // create a clontroller for this view
         NSString* className = [nib stringByAppendingString:@"Controller"];
-        controller = [[NSClassFromString(className) alloc] initWithNibName:nib configuration:[self configuration]];
+        controller = [[NSClassFromString(className) alloc] initWithNibName:nib bundle:nil];
         if(controller == nil) {
             // report error to user here
             NSLog(@"Can't load view for tab %@", nib);
             return NO;
         }
+
+        // set configuration and session
+        [controller setConfiguration: [self configuration]];
+        [controller setSession:[self session]];
 
         // cache in dictionary for later
         [self viewControllers][nib] = controller;
