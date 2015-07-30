@@ -77,6 +77,20 @@ void gameinfo::configure(const json& config)
         }
     }
 
+    // special handling for manual_payouts, read into vector, then convert to map
+    std::vector<td::manual_payout> manual_payouts_vector;
+    if(config.get_values("manual_payouts", manual_payouts_vector))
+    {
+        this->manual_payouts.clear();
+        for(auto manual_payout : manual_payouts_vector)
+        {
+            this->manual_payouts.emplace(manual_payout.buyins_count, manual_payout.payouts);
+        }
+
+        // manual payout might have been added/changed. try recalculating
+        this->recalculate_payouts();
+    }
+
     if(config.get_value("table_capacity", this->table_capacity))
     {
         if(!this->seats.empty())
@@ -129,6 +143,7 @@ void gameinfo::dump_configuration(json& config) const
     config.set_values("funding_sources", this->funding_sources);
     config.set_values("blind_levels", this->blind_levels);
     config.set_values("available_chips", this->available_chips);
+    config.set_values("manual_payouts", this->manual_payouts);
 }
 
 // dump state to JSON
@@ -637,6 +652,19 @@ std::vector<td::player_chips> gameinfo::chips_for_buyin(const td::funding_source
 // re-calculate payouts
 void gameinfo::recalculate_payouts()
 {
+    // manual payout:
+    // look for a manual payout given this number of buyins (TODO: should this use number of players instead?)
+    auto manual_payout_it(this->manual_payouts.find(this->buyins.size()));
+    if(manual_payout_it != this->manual_payouts.end())
+    {
+        logger(LOG_DEBUG) << "Applying manual payout: " << manual_payout_it->second.size() << " seats will be paid\n";
+
+        // use found payout structure
+        this->payouts = manual_payout_it->second;
+        return;
+    }
+
+    // automatic calculation, if no manual payout found:
     // first, calculate how many places pay, given configuration and number of players bought in
     std::size_t seats_paid(static_cast<std::size_t>(this->buyins.size() * this->percent_seats_paid + 0.5));
     bool round(this->round_payouts);

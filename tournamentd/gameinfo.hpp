@@ -43,6 +43,9 @@ class gameinfo
 
     // configuration: description of each chip (for display)
     std::vector<td::chip> available_chips;
+
+    // manually generated payout structures
+    std::unordered_map<size_t, std::vector<double>> manual_payouts;
     
     // ----- state -----
 

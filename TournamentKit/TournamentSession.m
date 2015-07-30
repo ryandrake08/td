@@ -38,6 +38,7 @@
 @property (nonatomic) NSNumber* payoutFlatness;
 @property (nonatomic) NSArray* fundingSources;
 @property (nonatomic) NSNumber* tableCapacity;
+@property (nonatomic) NSArray* manualPayouts;
 
 // tournament state
 @property (nonatomic, getter=isRunning) NSNumber* running;
@@ -163,6 +164,10 @@
 
     if([self tableCapacity]) {
         json[@"table_capacity"] = [self tableCapacity];
+    }
+
+    if([self manualPayouts]) {
+        json[@"manual_payouts"] = [self manualPayouts];
     }
 
     return json;
@@ -694,6 +699,10 @@
 
     if((value = json[@"table_capacity"]) && ![value isEqual:[self tableCapacity]]) {
         [self setTableCapacity:value];
+    }
+
+    if((value = json[@"manual_payouts"]) && ![value isEqual:[self manualPayouts]]) {
+        [self setManualPayouts:value];
     }
 
     // tournament state

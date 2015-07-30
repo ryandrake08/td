@@ -144,7 +144,33 @@ bool get_json_array_value(const cJSON* obj, std::vector<json>& value)
             {
                 throw std::out_of_range("array item does not exist: " + std::to_string(i));
             }
-            value[i] = json(cJSON_Duplicate(const_cast<cJSON*>(item), 1));
+            get_json_value(item, value[i]);
+        }
+
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+bool get_array_of_double_value(const cJSON* obj, std::vector<double>& value)
+{
+    if(obj != nullptr)
+    {
+        ensure_type(obj, cJSON_Array);
+        auto size(cJSON_GetArraySize(const_cast<cJSON*>(obj)));
+        value.resize(size);
+
+        for(int i=0; i<size; i++)
+        {
+            auto item(cJSON_GetArrayItem(const_cast<cJSON*>(obj), i));
+            if(item == nullptr)
+            {
+                throw std::out_of_range("array item does not exist: " + std::to_string(i));
+            }
+            get_double_value(item, value[i]);
         }
 
         return true;
@@ -387,6 +413,12 @@ bool json::get_value(const char* name, std::vector<json>& value) const
     return ::get_json_array_value(cJSON_GetObjectItem(this->ptr, name), value);
 }
 
+template <>
+bool json::get_value(const char* name, std::vector<double>& value) const
+{
+    return ::get_array_of_double_value(cJSON_GetObjectItem(this->ptr, name), value);
+}
+
 // Specialized setters
 template <>
 json& json::set_value(const char* name, const int& value)
@@ -457,12 +489,6 @@ json& json::set_value(const char* name, const json& value)
 {
     cJSON_AddItemToObject(this->ptr, name, cJSON_Duplicate(value.ptr, 1));
     return *this;
-}
-
-template <>
-json& json::set_value(const char* name, const std::vector<json>& values)
-{
-    return this->set_value(name, json(values));
 }
 
 // I/O from streams

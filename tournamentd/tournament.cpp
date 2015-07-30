@@ -434,6 +434,7 @@ bool tournament::handle_client_input(std::iostream& client)
                         funding_sources (array): Each valid source of funding for this tournament
                         blind_levels (array): Discription of each blind level
                         available_chips (array): Discription of each chip color and denomination
+                        manual_payouts (array): Manual payout definitions: number of players and an array of payouts
                      */
                 case crc32_("get_config"):
                     this->handle_cmd_get_config(out);
@@ -510,6 +511,7 @@ bool tournament::handle_client_input(std::iostream& client)
                         funding_sources (optional, array): Each valid source of funding for this tournament
                         blind_levels (optional, array): Discription of each blind level
                         available_chips (optional, array): Discription of each chip color and denomination
+                        manual_payouts (optional, array): Manual payout definitions: number of players and an array of payouts
 
                      output:
                         (none)

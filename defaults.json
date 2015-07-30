@@ -313,5 +313,251 @@
             "equity": 0.00
         }
     ],
-    "table_capacity": 8
+    "table_capacity": 8,
+    "manual_payouts": [
+        {
+            "buyins_count": 10,
+            "payouts": [25,16,9]
+        },
+        {
+            "buyins_count": 11,
+            "payouts": [27,18,10]
+        },
+        {
+            "buyins_count": 12,
+            "payouts": [29,20,11]
+        },
+        {
+            "buyins_count": 13,
+            "payouts": [31,22,12]
+        },
+        {
+            "buyins_count": 14,
+            "payouts": [32,23,12,3]
+        },
+        {
+            "buyins_count": 15,
+            "payouts": [34,24,13,4]
+        },
+        {
+            "buyins_count": 16,
+            "payouts": [36,25,14,5]
+        },
+        {
+            "buyins_count": 17,
+            "payouts": [38,26,15,6]
+        },
+        {
+            "buyins_count": 18,
+            "payouts": [39,27,16,6,2]
+        },
+        {
+            "buyins_count": 19,
+            "payouts": [40,28,17,7,3]
+        },
+        {
+            "buyins_count": 20,
+            "payouts": [41,29,18,8,4]
+        },
+        {
+            "buyins_count": 21,
+            "payouts": [42,30,19,9,5]
+        },
+        {
+            "buyins_count": 22,
+            "payouts": [43,31,20,9,5,2]
+        },
+        {
+            "buyins_count": 23,
+            "payouts": [44,32,21,10,6,2]
+        },
+        {
+            "buyins_count": 24,
+            "payouts": [45,33,22,10,7,3]
+        },
+        {
+            "buyins_count": 25,
+            "payouts": [46,34,23,12,7,3]
+        },
+        {
+            "buyins_count": 26,
+            "payouts": [47,34,23,14,8,4]
+        },
+        {
+            "buyins_count": 27,
+            "payouts": [48,35,24,15,8,5]
+        },
+        {
+            "buyins_count": 28,
+            "payouts": [49,36,25,16,9,5]
+        },
+        {
+            "buyins_count": 29,
+            "payouts": [50,37,27,16,9,6]
+        },
+        {
+            "buyins_count": 30,
+            "payouts": [51,38,27,16,10,6,2]
+        },
+        {
+            "buyins_count": 31,
+            "payouts": [52,39,27,17,10,7,3]
+        },
+        {
+            "buyins_count": 32,
+            "payouts": [53,40,28,17,11,7,4]
+        },
+        {
+            "buyins_count": 33,
+            "payouts": [54,41,29,18,11,8,4]
+        },
+        {
+            "buyins_count": 34,
+            "payouts": [55,42,29,18,12,8,4,2]
+        },
+        {
+            "buyins_count": 35,
+            "payouts": [56,43,30,18,12,8,5,3]
+        },
+        {
+            "buyins_count": 36,
+            "payouts": [57,44,30,18,12,9,5,3,2]
+        },
+        {
+            "buyins_count": 37,
+            "payouts": [58,45,30,18,13,9,6,4,2]
+        },
+        {
+            "buyins_count": 38,
+            "payouts": [59,46,31,19,13,9,6,4,3]
+        },
+        {
+            "buyins_count": 39,
+            "payouts": [61,47,31,20,13,9,6,5,3]
+        },
+        {
+            "buyins_count": 40,
+            "payouts": [62,48,31,21,14,10,6,5,3]
+        },
+        {
+            "buyins_count": 41,
+            "payouts": [63,49,31,22,14,10,7,5,4]
+        },
+        {
+            "buyins_count": 42,
+            "payouts": [64,49,31,22,14,11,7,5,4,3]
+        },
+        {
+            "buyins_count": 43,
+            "payouts": [65,50,32,23,15,11,7,5,4,3]
+        },
+        {
+            "buyins_count": 44,
+            "payouts": [66,51,33,23,15,11,8,6,4,3]
+        },
+        {
+            "buyins_count": 45,
+            "payouts": [67,52,34,24,15,11,8,6,5,3]
+        },
+        {
+            "buyins_count": 46,
+            "payouts": [68,52,34,24,16,11,8,6,5,4,2]
+        },
+        {
+            "buyins_count": 47,
+            "payouts": [69,53,34,25,16,11,8,7,5,4,3]
+        },
+        {
+            "buyins_count": 48,
+            "payouts": [69,54,35,25,16,12,9,7,6,4,3]
+        },
+        {
+            "buyins_count": 49,
+            "payouts": [70,55,35,25,16,12,10,8,6,5,3]
+        },
+        {
+            "buyins_count": 50,
+            "payouts": [70,55,36,26,16,12,10,8,6,5,4,2]
+        },
+        {
+            "buyins_count": 51,
+            "payouts": [72,56,36,26,17,12,10,8,6,5,4,3]
+        },
+        {
+            "buyins_count": 52,
+            "payouts": [72,56,37,27,18,13,11,8,6,5,4,3]
+        },
+        {
+            "buyins_count": 53,
+            "payouts": [73,57,37,27,18,13,11,9,7,6,4,3]
+        },
+        {
+            "buyins_count": 54,
+            "payouts": [74,57,38,27,18,13,11,9,7,6,5,3,2]
+        },
+        {
+            "buyins_count": 55,
+            "payouts": [74,57,38,27,20,14,11,9,7,6,5,4,3]
+        },
+        {
+            "buyins_count": 56,
+            "payouts": [74,58,39,28,20,15,12,9,7,6,5,4,3]
+        },
+        {
+            "buyins_count": 57,
+            "payouts": [76,58,39,28,20,16,12,10,8,6,5,4,3]
+        },
+        {
+            "buyins_count": 58,
+            "payouts": [76,58,39,28,21,17,13,10,8,6,5,4,3,2]
+        },
+        {
+            "buyins_count": 59,
+            "payouts": [77,60,40,29,21,17,13,10,8,6,5,4,3,2]
+        },
+        {
+            "buyins_count": 60,
+            "payouts": [77,60,41,30,22,18,14,10,8,6,5,4,3,2]
+        },
+        {
+            "buyins_count": 61,
+            "payouts": [78,60,42,30,22,18,14,10,9,7,6,4,3,2]
+        },
+        {
+            "buyins_count": 62,
+            "payouts": [78,60,43,31,23,19,15,10,9,7,6,4,3,2]
+        },
+        {
+            "buyins_count": 63,
+            "payouts": [80,62,44,31,23,19,15,10,9,7,6,4,3,2]
+        },
+        {
+            "buyins_count": 64,
+            "payouts": [81,63,44,31,23,19,15,10,9,7,6,5,4,3]
+        },
+        {
+            "buyins_count": 65,
+            "payouts": [82,63,44,31,23,19,15,11,9,7,7,5,4,3,2]
+        },
+        {
+            "buyins_count": 66,
+            "payouts": [82,63,44,31,23,19,16,12,10,8,7,6,4,3,2]
+        },
+        {
+            "buyins_count": 67,
+            "payouts": [83,63,44,32,24,20,16,12,10,8,7,6,5,3,2]
+        },
+        {
+            "buyins_count": 68,
+            "payouts": [84,64,45,32,24,20,17,13,10,8,7,6,5,3,2]
+        },
+        {
+            "buyins_count": 69,
+            "payouts": [85,65,46,33,24,20,17,13,10,8,7,6,5,4,2]
+        },
+        {
+            "buyins_count": 70,
+            "payouts": [85,65,46,33,25,21,18,13,11,8,7,6,5,4,3]
+        }
+    ]
 }

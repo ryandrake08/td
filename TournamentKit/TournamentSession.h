@@ -32,6 +32,7 @@
 @property (nonatomic, readonly) NSNumber* payoutFlatness;
 @property (nonatomic, readonly) NSArray* fundingSources;
 @property (nonatomic, readonly) NSNumber* tableCapacity;
+@property (nonatomic, readonly) NSArray* manualPayouts;
 
 // tournament state
 @property (nonatomic, readonly, getter=isRunning) NSNumber* running;

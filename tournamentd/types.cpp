@@ -48,6 +48,14 @@ td::player_chips::player_chips(unsigned long d, unsigned long c) : denomination(
 {
 }
 
+td::manual_payout::manual_payout() : buyins_count(0)
+{
+}
+
+td::manual_payout::manual_payout(size_t c, const std::vector<double>& p) : buyins_count(c), payouts(p)
+{
+}
+
 // ----- construct from json
 
 td::blind_level::blind_level(const json& obj) : blind_level()
@@ -99,6 +107,12 @@ td::player_movement::player_movement(const json& obj) : player_movement()
     obj.get_value("from_seat_number", this->from_seat.seat_number);
     obj.get_value("to_table_number", this->to_seat.table_number);
     obj.get_value("to_seat_number", this->to_seat.seat_number);
+}
+
+td::manual_payout::manual_payout(const json& obj) : manual_payout()
+{
+    obj.get_value("buyins_count", this->buyins_count);
+    obj.get_value("payouts", this->payouts);
 }
 
 // ----- construct json from object
@@ -209,4 +223,11 @@ template<>
 json::json(const std::pair<const td::player_id_t,td::player>& value) : json(value.second)
 {
     assert(value.first == value.second.player_id);
+}
+
+template<>
+json::json(const std::pair<const size_t,std::vector<double>>& value) : json()
+{
+    this->set_value("buyins_count", value.first);
+    this->set_value("payouts", value.second);
 }

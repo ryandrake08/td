@@ -105,4 +105,15 @@ namespace td
         player_chips(const json& obj);
         player_chips(unsigned long d, unsigned long c);
     };
+
+    // represents a manually built payout structure
+    struct manual_payout
+    {
+        size_t buyins_count;
+        std::vector<double> payouts;
+
+        manual_payout();
+        manual_payout(const json& obj);
+        manual_payout(size_t b, const std::vector<double>& p);
+    };
 }

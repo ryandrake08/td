@@ -76,6 +76,8 @@ public:
     template <typename T>
     json& set_value(const char* name, const T& value);
     template <typename T>
+    json& set_value(const char* name, const std::vector<T>& values) { return set_value(name, json(values)); }
+    template <typename T>
     json& set_value(const std::string& name, const T& value) { return set_value(name.c_str(), value); }
     template <typename T>
     json& set_values(const char* name, const T& values)
