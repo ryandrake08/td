@@ -733,19 +733,7 @@
     }
 
     if((value = json[@"seats"]) && ![value isEqual:[self seats]]) {
-        // inject player names into seat assignment dictionary, to aid the UI
-        NSMutableArray* newArray = [NSMutableArray array];
-        for(id obj in value) {
-            NSNumber* playerId = obj[@"player_id"];
-            if(playerId) {
-                NSMutableDictionary* newObj = [NSMutableDictionary dictionaryWithDictionary:obj];
-                newObj[@"player_name"] = [self playersLookup][playerId];
-                [newArray addObject:newObj];
-            } else {
-                [newArray addObject:obj];
-            }
-        };
-        [self setSeats:newArray];
+        [self setSeats:value];
     }
 
     if((value = json[@"entries"]) && ![value isEqual:[self entries]]) {

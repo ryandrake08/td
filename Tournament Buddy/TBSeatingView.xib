@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="8152.3" systemVersion="15A242" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="8152.3"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="TBSeatingViewController">
             <connections>
                 <outlet property="finishedArrayController" destination="5pr-IM-GVE" id="a7V-BM-oG6"/>
                 <outlet property="playersArrayController" destination="KzY-6k-W2t" id="lq6-bi-Y9L"/>
-                <outlet property="seatsArrayController" destination="aRG-V8-JW3" id="gE3-aJ-Jv1"/>
+                <outlet property="seatsDictionaryController" destination="Bak-ru-Ah6" id="yqY-NM-5bz"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
         </customObject>
@@ -203,7 +203,7 @@
                                             </tableColumn>
                                         </tableColumns>
                                         <connections>
-                                            <binding destination="aRG-V8-JW3" name="content" keyPath="arrangedObjects" id="JUp-5I-lng"/>
+                                            <binding destination="Bak-ru-Ah6" name="content" keyPath="arrangedObjects.value" id="Mwt-pl-q5Q"/>
                                         </connections>
                                     </tableView>
                                 </subviews>
@@ -242,7 +242,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <tableView identifier="playersTable" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowHeight="26" rowSizeStyle="automatic" headerView="K74-yc-j1u" viewBased="YES" id="Z8A-fm-qLk">
-                                        <rect key="frame" x="0.0" y="0.0" width="254" height="654"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="254" height="0.0"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <animations/>
                                         <size key="intercellSpacing" width="3" height="2"/>
@@ -300,7 +300,7 @@
                                                 </textFieldCell>
                                                 <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                 <prototypeCellViews>
-                                                    <tableCellView id="oAf-io-akB">
+                                                    <tableCellView id="oAf-io-akB" customClass="TBPlayersAvailableTableCellView">
                                                         <rect key="frame" x="120" y="1" width="132" height="26"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <subviews>
@@ -312,6 +312,10 @@
                                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                     <font key="font" metaFont="system"/>
                                                                 </buttonCell>
+                                                                <connections>
+                                                                    <action selector="seatedButtonDidChange:" target="oAf-io-akB" id="ohk-ab-rkn"/>
+                                                                    <binding destination="oAf-io-akB" name="value" keyPath="objectValue.seated" id="Gzx-Yz-Slq"/>
+                                                                </connections>
                                                             </button>
                                                             <popUpButton verticalHuggingPriority="750" id="vPf-IC-P6v">
                                                                 <rect key="frame" x="23" y="1" width="109" height="26"/>
@@ -328,6 +332,13 @@
                                                                         </items>
                                                                     </menu>
                                                                 </popUpButtonCell>
+                                                                <connections>
+                                                                    <binding destination="oAf-io-akB" name="hidden" keyPath="objectValue.seated" id="0jP-3W-ftJ">
+                                                                        <dictionary key="options">
+                                                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                                                        </dictionary>
+                                                                    </binding>
+                                                                </connections>
                                                             </popUpButton>
                                                         </subviews>
                                                         <animations/>
@@ -379,7 +390,7 @@
                                 <rect key="frame" x="1" y="17" width="254" height="654"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <tableView identifier="finishedTable" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="TWN-pN-jQV" viewBased="YES" id="rqa-aT-Sfh">
+                                    <tableView identifier="resultsTable" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="TWN-pN-jQV" viewBased="YES" id="rqa-aT-Sfh">
                                         <rect key="frame" x="0.0" y="0.0" width="265" height="0.0"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <animations/>
@@ -533,27 +544,23 @@
             </subviews>
             <animations/>
         </customView>
-        <arrayController objectClassName="NSDictionary" id="KzY-6k-W2t">
+        <arrayController objectClassName="NSDictionary" id="KzY-6k-W2t" userLabel="Players Array Controller">
             <declaredKeys>
                 <string>player_id</string>
                 <string>name</string>
                 <string>added_at</string>
+                <string>seated</string>
             </declaredKeys>
             <connections>
-                <binding destination="-2" name="contentArray" keyPath="configuration.players" id="5gX-Fu-bcx"/>
+                <binding destination="-2" name="contentArray" keyPath="self.players" id="cT6-z9-RkC"/>
             </connections>
         </arrayController>
-        <arrayController objectClassName="NSDictionary" id="aRG-V8-JW3">
-            <declaredKeys>
-                <string>player_id</string>
-                <string>seat_number</string>
-                <string>table_number</string>
-            </declaredKeys>
+        <dictionaryController objectClassName="_NSControllerKeyValuePair" id="Bak-ru-Ah6" userLabel="Seats Dictionary Controller">
             <connections>
-                <binding destination="-2" name="contentArray" keyPath="session.seats" id="2cC-sK-WXa"/>
+                <binding destination="-2" name="contentDictionary" keyPath="self.seats" id="4i3-Le-7Qx"/>
             </connections>
-        </arrayController>
-        <arrayController objectClassName="NSDictionary" id="5pr-IM-GVE">
+        </dictionaryController>
+        <arrayController objectClassName="NSDictionary" id="5pr-IM-GVE" userLabel="Results Array Controller">
             <declaredKeys>
                 <string>place</string>
                 <string>player</string>
