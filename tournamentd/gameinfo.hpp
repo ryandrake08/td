@@ -32,6 +32,9 @@ class gameinfo
     // configuration: round to whole numbers when calculating payouts?
     bool round_payouts;
 
+    // configuration: payout structure flatness
+    double payout_flatness;
+
     // configuration: funding rules
     std::vector<td::funding_source> funding_sources;
     
@@ -128,7 +131,7 @@ class gameinfo
     std::size_t try_break_table(std::vector<td::player_movement>& movements);
     
     // re-calculate payouts
-    void recalculate_payouts(bool round);
+    void recalculate_payouts();
 
     // utility: start a blind level
     void start_blind_level(std::size_t blind_level, duration_t offset);

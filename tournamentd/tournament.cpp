@@ -429,6 +429,8 @@ bool tournament::handle_client_input(std::iostream& client)
                         cost_currency (string): Currency name for buyins, re-buys, etc. ISO 4217: USD, EUR, XXX for points
                         equity_currency (string): Currency name for equity/payouts. ISO 4217: USD, EUR, XXX for points
                         percent_seats_paid (float): Proportion of players (buyins) paid out
+                        round_payouts (bool): Round payoffs to integer values
+                        payout_flatness (float): How "flat" to make the payout structure
                         funding_sources (array): Each valid source of funding for this tournament
                         blind_levels (array): Discription of each blind level
                         available_chips (array): Discription of each chip color and denomination
@@ -503,6 +505,8 @@ bool tournament::handle_client_input(std::iostream& client)
                         cost_currency (optional, string): Currency name for buyins, re-buys, etc. ISO 4217: USD, EUR, XXX for points
                         equity_currency (optional, string): Currency name for equity/payouts. ISO 4217: USD, EUR, XXX for points
                         percent_seats_paid (optional, float): Proportion of players (buyins) paid out
+                        round_payouts (optional, bool): Round payoffs to integer values
+                        payout_flatness (optinoal, float): How "flat" to make the payout structure
                         funding_sources (optional, array): Each valid source of funding for this tournament
                         blind_levels (optional, array): Discription of each blind level
                         available_chips (optional, array): Discription of each chip color and denomination

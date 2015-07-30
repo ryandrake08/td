@@ -14,6 +14,7 @@ gameinfo::gameinfo() :
     table_capacity(0),
     percent_seats_paid(1.0),
     round_payouts(false),
+    payout_flatness(1.0),
     tables(0),
     total_chips(0),
     total_cost(0.0),
@@ -95,10 +96,11 @@ void gameinfo::configure(const json& config)
     auto recalculate(false);
     recalculate = recalculate || config.get_value("round_payouts", this->round_payouts);
     recalculate = recalculate || config.get_value("percent_seats_paid", this->percent_seats_paid);
+    recalculate = recalculate || config.get_value("payout_flatness", this->payout_flatness);
     if(recalculate)
     {
         // after reconfiguring, we'll need to recalculate
-        this->recalculate_payouts(this->round_payouts);
+        this->recalculate_payouts();
     }
 
     if(config.get_values("blind_levels", this->blind_levels))
@@ -482,7 +484,7 @@ void gameinfo::fund_player(const td::player_id_t& player_id, const td::funding_s
     this->total_equity += source.equity;
 
     // automatically recalculate
-    this->recalculate_payouts(this->round_payouts);
+    this->recalculate_payouts();
 }
 
 // return the maximum number of chips available per player for a given denomination
@@ -633,10 +635,12 @@ std::vector<td::player_chips> gameinfo::chips_for_buyin(const td::funding_source
 }
 
 // re-calculate payouts
-void gameinfo::recalculate_payouts(bool round)
+void gameinfo::recalculate_payouts()
 {
     // first, calculate how many places pay, given configuration and number of players bought in
     std::size_t seats_paid(static_cast<std::size_t>(this->buyins.size() * this->percent_seats_paid + 0.5));
+    bool round(this->round_payouts);
+    double f(this->payout_flatness);
 
     logger(LOG_DEBUG) << "Recalculating payouts: " << seats_paid << " seats will be paid\n";
 
@@ -649,10 +653,10 @@ void gameinfo::recalculate_payouts(bool round)
         std::vector<double> comp(seats_paid);
         double total(0.0);
 
-        // generate proportional payouts based on harmonic series, 1/N / sum(1/k)
+        // generate proportional payouts based on harmonic series, N^-f / sum(1/k)
         for(auto n(0); n<seats_paid; n++)
         {
-            double c(1.0/(n+1));
+            double c(std::pow(n+1,-f));
             comp[n] = c;
             total += c;
         }

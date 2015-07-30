@@ -35,6 +35,7 @@
 @property (nonatomic) NSString* equityCurrency;
 @property (nonatomic) NSNumber* percentSeatsPaid;
 @property (nonatomic) NSNumber* roundPayouts;
+@property (nonatomic) NSNumber* payoutFlatness;
 @property (nonatomic) NSArray* fundingSources;
 @property (nonatomic) NSNumber* tableCapacity;
 
@@ -150,6 +151,10 @@
 
     if([self roundPayouts]) {
         json[@"round_payouts"] = [self roundPayouts];
+    }
+
+    if([self payoutFlatness]) {
+        json[@"payout_flatness"] = [self payoutFlatness];
     }
 
     if([self fundingSources]) {
@@ -677,6 +682,10 @@
 
     if((value = json[@"round_payouts"]) && ![value isEqual:[self roundPayouts]]) {
         [self setRoundPayouts:value];
+    }
+
+    if((value = json[@"payout_flatness"]) && ![value isEqual:[self payoutFlatness]]) {
+        [self setPayoutFlatness:value];
     }
 
     if((value = json[@"funding_sources"]) && ![value isEqual:[self fundingSources]]) {

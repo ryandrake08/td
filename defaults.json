@@ -283,6 +283,7 @@
     "equity_currency": "XXX",
     "percent_seats_paid": 0.25,
     "round_payouts": true,
+    "payout_flatness": 0.85,
     "funding_sources": [
         {
             "name": "Main Buy-in",
