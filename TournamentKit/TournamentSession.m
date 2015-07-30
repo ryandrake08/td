@@ -56,18 +56,6 @@
 @property (nonatomic) NSArray* emptySeats;
 @property (nonatomic) NSNumber* tables;
 
-// derived tournament state
-@property (nonatomic) NSString* clockText;
-@property (nonatomic) NSString* currentGameText;
-@property (nonatomic) NSString* currentRoundText;
-@property (nonatomic) NSString* nextGameText;
-@property (nonatomic) NSString* nextRoundText;
-@property (nonatomic) NSString* playersLeftText;
-@property (nonatomic) NSString* entriesText;
-@property (nonatomic) NSString* averageStackText;
-@property (nonatomic) NSDictionary* playersLookup;
-@property (nonatomic) NSArray* results;
-
 @end
 
 @implementation TournamentSession
@@ -441,16 +429,50 @@
 
 #pragma mark Derived Tournament State
 
-- (void)updateClock {
-    BOOL running = [[self isRunning] boolValue];
++ (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key {
+
+    NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
+
+    if([key isEqualToString:@"onBreak"]) {
+        keyPaths = [keyPaths setByAddingObjectsFromArray:@[@"timeRemaining", @"breakTimeRemaining"]];
+    } else if([key isEqualToString:@"clockText"]) {
+        keyPaths = [keyPaths setByAddingObjectsFromArray:@[@"running", @"onBreak", @"timeRemaining", @"breakTimeRemaining"]];
+    } else if([key isEqualToString:@"currentGameText"]) {
+        keyPaths = [keyPaths setByAddingObjectsFromArray:@[@"currentBlindLevel", @"blindLevels", @"onBreak"]];
+    } else if([key isEqualToString:@"currentRoundText"]) {
+        keyPaths = [keyPaths setByAddingObjectsFromArray:@[@"currentBlindLevel", @"blindLevels", @"onBreak"]];
+    } else if([key isEqualToString:@"nextGameText"]) {
+        keyPaths = [keyPaths setByAddingObjectsFromArray:@[@"currentBlindLevel", @"blindLevels"]];
+    } else if([key isEqualToString:@"nextRoundText"]) {
+        keyPaths = [keyPaths setByAddingObjectsFromArray:@[@"currentBlindLevel", @"blindLevels"]];
+    } else if([key isEqualToString:@"playersLeftText"]) {
+        keyPaths = [keyPaths setByAddingObjectsFromArray:@[@"seats"]];
+    } else if([key isEqualToString:@"entriesText"]) {
+        keyPaths = [keyPaths setByAddingObjectsFromArray:@[@"entries"]];
+    } else if([key isEqualToString:@"averageStackText"]) {
+        keyPaths = [keyPaths setByAddingObjectsFromArray:@[@"seats", @"totalChips"]];
+    } else if([key isEqualToString:@"results"]) {
+        keyPaths = [keyPaths setByAddingObjectsFromArray:@[@"players", @"payouts", @"seats", @"playersFinished"]];
+    } else if([key isEqualToString:@"playersLookup"]) {
+        keyPaths = [keyPaths setByAddingObjectsFromArray:@[@"players"]];
+    }
+
+    return keyPaths;
+}
+
+- (BOOL)isOnBreak {
+    return [[self timeRemaining] unsignedIntegerValue] == 0 && [[self breakTimeRemaining] unsignedIntegerValue] != 0;
+}
+
+- (NSString*)clockText {
     NSUInteger timeRemaining = [[self timeRemaining] unsignedIntegerValue];
     NSUInteger breakTimeRemaining = [[self breakTimeRemaining] unsignedIntegerValue];
 
     // calculate new value
     NSString* newText = NSLocalizedString(@"PAUSED", nil);
 
-    if(running) {
-        if(timeRemaining == 0 && breakTimeRemaining != 0) {
+    if([[self isRunning] boolValue]) {
+        if([self isOnBreak]) {
             // on break
             newText = [self formatDuration:breakTimeRemaining];
         } else {
@@ -458,56 +480,72 @@
         }
     }
 
-    // set if different
-    if(![newText isEqual:[self clockText]]) {
-        [self setClockText:newText];
-    }
+    return newText;
 }
 
-- (void)updateBlinds {
+- (NSString*)currentGameText {
     NSUInteger currentBlindLevel = [[self currentBlindLevel] unsignedIntegerValue];
     NSArray* blindLevels = [self blindLevels];
-    NSUInteger timeRemaining = [[self timeRemaining] unsignedIntegerValue];
-    NSUInteger breakTimeRemaining = [[self breakTimeRemaining] unsignedIntegerValue];
 
     // calculate new values
-    NSString* newCurrentGameText = @"";
-    NSString* newCurrentRoundText = @"-";
-    NSString* newNextGameText = @"";
-    NSString* newNextRoundText = @"-";
+    NSString* newText = @"";
 
-    if(currentBlindLevel > 0) {
-        if(timeRemaining == 0 && breakTimeRemaining != 0) {
-            newCurrentRoundText = NSLocalizedString(@"BREAK", nil);
-        } else if(currentBlindLevel < [blindLevels count]) {
-            NSDictionary* thisBlindLevel = blindLevels[currentBlindLevel];
-            newCurrentGameText = thisBlindLevel[@"game_name"];
-            newCurrentRoundText = [self formatBlindLevel:thisBlindLevel];
-        }
-
-        if(currentBlindLevel+1 < [blindLevels count]) {
-            NSDictionary* nextBlindLevel = blindLevels[currentBlindLevel+1];
-            newNextGameText = nextBlindLevel[@"game_name"];
-            newNextRoundText = [self formatBlindLevel:nextBlindLevel];
+    if(currentBlindLevel > 0 && currentBlindLevel < [blindLevels count]) {
+        if(![self isOnBreak]) {
+            newText = blindLevels[currentBlindLevel][@"game_name"];
         }
     }
 
-    // set if different
-    if(![newCurrentGameText isEqual:[self currentGameText]]) {
-        [self setCurrentGameText:newCurrentGameText];
-    }
-    if(![newCurrentRoundText isEqual:[self currentRoundText]]) {
-        [self setCurrentRoundText:newCurrentRoundText];
-    }
-    if(![newNextGameText isEqual:[self nextGameText]]) {
-        [self setNextGameText:newNextGameText];
-    }
-    if(![newNextRoundText isEqual:[self nextRoundText]]) {
-        [self setNextRoundText:newNextRoundText];
-    }
+    return newText;
 }
 
-- (void)updatePlayers {
+- (NSString*)currentRoundText {
+    NSUInteger currentBlindLevel = [[self currentBlindLevel] unsignedIntegerValue];
+    NSArray* blindLevels = [self blindLevels];
+
+    // calculate new values
+    NSString* newText = @"-";
+
+    if(currentBlindLevel > 0 && currentBlindLevel < [blindLevels count]) {
+        if([self isOnBreak]) {
+            newText = NSLocalizedString(@"BREAK", nil);
+        } else {
+            newText = [self formatBlindLevel:blindLevels[currentBlindLevel]];
+        }
+    }
+
+    return newText;
+}
+
+- (NSString*)nextGameText {
+    NSUInteger currentBlindLevel = [[self currentBlindLevel] unsignedIntegerValue];
+    NSArray* blindLevels = [self blindLevels];
+
+    // calculate new values
+    NSString* newText = @"";
+
+    if(currentBlindLevel > 0 && currentBlindLevel+1 < [blindLevels count]) {
+        newText = blindLevels[currentBlindLevel+1][@"game_name"];
+    }
+
+    return newText;
+}
+
+- (NSString*)nextRoundText {
+    NSUInteger currentBlindLevel = [[self currentBlindLevel] unsignedIntegerValue];
+    NSArray* blindLevels = [self blindLevels];
+
+    // calculate new values
+    NSString* newText = @"-";
+
+    if(currentBlindLevel > 0 && currentBlindLevel+1 < [blindLevels count]) {
+        newText = [self formatBlindLevel:blindLevels[currentBlindLevel+1]];
+    }
+
+    return newText;
+}
+
+- (NSString*)playersLeftText {
     NSArray* seats = [self seats];
 
     // calculate new value
@@ -518,13 +556,10 @@
         newText = [[self decimalFormatter] stringFromNumber:numSeats];
     }
 
-    // set if different
-    if(![newText isEqual:[self playersLeftText]]) {
-        [self setPlayersLeftText:newText];
-    }
+    return newText;
 }
 
-- (void)updateEntries {
+- (NSString*)entriesText {
     NSArray* entries = [self entries];
 
     // calculate new value
@@ -535,13 +570,10 @@
         newText = [[self decimalFormatter] stringFromNumber:numEntries];
     }
 
-    // set if different
-    if(![newText isEqual:[self entriesText]]) {
-        [self setEntriesText:newText];
-    }
+    return newText;
 }
 
-- (void)updateAverageStack {
+- (NSString*)averageStackText {
     NSArray* seats = [self seats];
     NSUInteger totalChips = [[self totalChips] unsignedIntegerValue];
 
@@ -551,26 +583,12 @@
     if([seats count] > 0) {
         NSNumber* avgChips = [NSNumber numberWithUnsignedInteger:totalChips / [seats count]];
         newText = [[self decimalFormatter] stringFromNumber:avgChips];
-        [self setAverageStackText:@"-"];
     }
 
-    // set if different
-    if(![newText isEqual:[self averageStackText]]) {
-        [self setAverageStackText:newText];
-    }
+    return newText;
 }
 
-- (void)updatePlayersLookup {
-    // all player_id
-    NSMutableArray* keys = [NSMutableArray array];
-    for(NSDictionary* player in [self players]) {
-        [keys addObject:player[@"player_id"]];
-    }
-    // create the player_id -> player lookup table
-    [self setPlayersLookup:[NSDictionary dictionaryWithObjects:[self players] forKeys:keys]];
-}
-
-- (void)updateResults {
+- (NSArray*)results {
     NSMutableArray* newResults;
 
     // payouts with empty player field, for seated players
@@ -590,22 +608,19 @@
         [newResults addObject:item];
     }
 
-    [self setResults:newResults];
+    return newResults;
 }
 
-- (NSArray*)addPlayerNamesToArray:(NSArray*)array {
-    NSMutableArray* newArray = [NSMutableArray array];
-    [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        NSNumber* playerId = obj[@"player_id"];
-        if(playerId) {
-            NSMutableDictionary* newObj = [NSMutableDictionary dictionaryWithDictionary:obj];
-            newObj[@"player_name"] = [self playersLookup][playerId];
-            [newArray addObject:newObj];
-        } else {
-            [newArray addObject:obj];
-        }
-    }];
-    return newArray;
+- (NSDictionary*)playersLookup {
+    NSMutableArray* keys = [NSMutableArray array];
+
+    // all player_id
+    for(NSDictionary* player in [self players]) {
+        [keys addObject:player[@"player_id"]];
+    }
+
+    // create the player_id -> player lookup table
+    return [NSDictionary dictionaryWithObjects:[self players] forKeys:keys];
 }
 
 #pragma mark Tournament Messages
@@ -638,13 +653,10 @@
 
     if((value = json[@"players"]) && ![value isEqual:[self players]]) {
         [self setPlayers:value];
-        [self updatePlayersLookup];
-        [self updateResults];
     }
 
     if((value = json[@"blind_levels"]) && ![value isEqual:[self blindLevels]]) {
         [self setBlindLevels:value];
-        [self updateBlinds];
     }
 
     if((value = json[@"available_chips"]) && ![value isEqual:[self availableChips]]) {
@@ -678,25 +690,18 @@
     // tournament state
     if((value = json[@"running"]) && ![value isEqual:[self isRunning]]) {
         [self setRunning:value];
-        [self updateClock];
-        [self updateBlinds];
     }
 
     if((value = json[@"current_blind_level"]) && ![value isEqual:[self currentBlindLevel]]) {
         [self setCurrentBlindLevel:value];
-        [self updateBlinds];
     }
 
     if((value = json[@"time_remaining"]) && ![value isEqual:[self timeRemaining]]) {
         [self setTimeRemaining:value];
-        [self updateClock];
-        [self updateBlinds];
     }
 
     if((value = json[@"break_time_remaining"]) && ![value isEqual:[self breakTimeRemaining]]) {
         [self setBreakTimeRemaining:value];
-        [self updateClock];
-        [self updateBlinds];
     }
 
     if((value = json[@"action_clock_remaining"]) && ![value isEqual:[self actionClockTimeRemaining]]) {
@@ -709,12 +714,10 @@
 
     if((value = json[@"payouts"]) && ![value isEqual:[self payouts]]) {
         [self setPayouts:value];
-        [self updateResults];
     }
 
     if((value = json[@"total_chips"]) && ![value isEqual:[self totalChips]]) {
         [self setTotalChips:value];
-        [self updateAverageStack];
     }
 
     if((value = json[@"total_cost"]) && ![value isEqual:[self totalCost]]) {
@@ -731,20 +734,26 @@
 
     if((value = json[@"seats"]) && ![value isEqual:[self seats]]) {
         // inject player names into seat assignment dictionary, to aid the UI
-        [self setSeats:[self addPlayerNamesToArray:value]];
-        [self updatePlayers];
-        [self updateAverageStack];
-        [self updateResults];
+        NSMutableArray* newArray = [NSMutableArray array];
+        for(id obj in value) {
+            NSNumber* playerId = obj[@"player_id"];
+            if(playerId) {
+                NSMutableDictionary* newObj = [NSMutableDictionary dictionaryWithDictionary:obj];
+                newObj[@"player_name"] = [self playersLookup][playerId];
+                [newArray addObject:newObj];
+            } else {
+                [newArray addObject:obj];
+            }
+        };
+        [self setSeats:newArray];
     }
 
     if((value = json[@"entries"]) && ![value isEqual:[self entries]]) {
         [self setEntries:value];
-        [self updateEntries];
     }
 
     if((value = json[@"players_finished"]) && ![value isEqual:[self playersFinished]]) {
         [self setPlayersFinished:value];
-        [self updateResults];
     }
 
     if((value = json[@"empty_seats"]) && ![value isEqual:[self emptySeats]]) {
