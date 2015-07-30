@@ -38,8 +38,6 @@
 
 @implementation TBRemoteClockViewController
 
-#define kActionClockRequestTime 60000
-
 - (void)viewDidLoad {
     [super viewDidLoad];
 

@@ -20,8 +20,6 @@
 
 #pragma mark Actions
 
-#define kActionClockRequestTime 60000
-
 - (IBAction)previousRoundTapped:(NSButton*)sender {
     NSUInteger currentBlindLevel = [[[self session] currentBlindLevel] unsignedIntegerValue];
     if(currentBlindLevel != 0) {

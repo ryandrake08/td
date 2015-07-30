@@ -19,3 +19,6 @@ FOUNDATION_EXPORT const unsigned char TournamentKitVersionString[];
 #import "TournamentService.h"
 #import "TournamentSession.h"
 #import "TournamentDaemon.h"
+
+// Standard 1 minute countdown
+#define kActionClockRequestTime 60000

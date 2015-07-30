@@ -35,8 +35,6 @@
 
 @implementation TBPlayerWindowController
 
-#define kActionClockRequestTime 60000
-
 - (void)windowDidLoad {
     [super windowDidLoad];
     
