@@ -2,10 +2,31 @@
     "name" : "Default Tournament",
     "players": [
         {
-            "name": "player1"
+            "name": "Ace"
         },
         {
-            "name": "player2"
+            "name": "Dave"
+        },
+        {
+            "name": "Rick"
+        },
+        {
+            "name": "Vivek"
+        },
+        {
+            "name": "Cliff"
+        },
+        {
+            "name": "Travis"
+        },
+        {
+            "name": "Danny"
+        },
+        {
+            "name": "Big Daddy"
+        },
+        {
+            "name": "Jason"
         }
     ],
     "blind_levels": [

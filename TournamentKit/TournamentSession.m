@@ -66,6 +66,7 @@
 @property (nonatomic) NSString* entriesText;
 @property (nonatomic) NSString* averageStackText;
 @property (nonatomic) NSDictionary* playersLookup;
+@property (nonatomic) NSArray* results;
 
 @end
 
@@ -569,6 +570,44 @@
     [self setPlayersLookup:[NSDictionary dictionaryWithObjects:[self players] forKeys:keys]];
 }
 
+- (void)updateResults {
+    NSMutableArray* newResults;
+
+    // payouts with empty player field, for seated players
+    for(NSUInteger i=0; i<[[self seats] count]; i++) {
+        NSNumber* place = [NSNumber numberWithUnsignedInteger:i];
+        NSDictionary* item = [NSDictionary dictionaryWithObjectsAndKeys:place, @"place", [NSNull null], @"player", [self payouts][i], @"payout", nil];
+        [newResults addObject:item];
+    }
+
+    // include actual player for busted players
+    for(NSUInteger i=0; i<[[self playersFinished] count]; i++) {
+        NSUInteger j = [[self seats] count]+i;
+        NSNumber* place = [NSNumber numberWithUnsignedInteger:j];
+        NSNumber* finished = [self playersFinished][i];
+        NSDictionary* player = [self playersLookup][finished];
+        NSDictionary* item = [NSDictionary dictionaryWithObjectsAndKeys:place, @"place", player, @"player", [self payouts][j], @"payout", nil];
+        [newResults addObject:item];
+    }
+
+    [self setResults:newResults];
+}
+
+- (NSArray*)addPlayerNamesToArray:(NSArray*)array {
+    NSMutableArray* newArray = [NSMutableArray array];
+    [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        NSNumber* playerId = obj[@"player_id"];
+        if(playerId) {
+            NSMutableDictionary* newObj = [NSMutableDictionary dictionaryWithDictionary:obj];
+            newObj[@"player_name"] = [self playersLookup][playerId];
+            [newArray addObject:newObj];
+        } else {
+            [newArray addObject:obj];
+        }
+    }];
+    return newArray;
+}
+
 #pragma mark Tournament Messages
 
 - (void)handleMessage:(id)json fromConnection:(TournamentConnection*)tc {
@@ -600,6 +639,7 @@
     if((value = json[@"players"]) && ![value isEqual:[self players]]) {
         [self setPlayers:value];
         [self updatePlayersLookup];
+        [self updateResults];
     }
 
     if((value = json[@"blind_levels"]) && ![value isEqual:[self blindLevels]]) {
@@ -669,6 +709,7 @@
 
     if((value = json[@"payouts"]) && ![value isEqual:[self payouts]]) {
         [self setPayouts:value];
+        [self updateResults];
     }
 
     if((value = json[@"total_chips"]) && ![value isEqual:[self totalChips]]) {
@@ -689,9 +730,11 @@
     }
 
     if((value = json[@"seats"]) && ![value isEqual:[self seats]]) {
-        [self setSeats:value];
+        // inject player names into seat assignment dictionary, to aid the UI
+        [self setSeats:[self addPlayerNamesToArray:value]];
         [self updatePlayers];
         [self updateAverageStack];
+        [self updateResults];
     }
 
     if((value = json[@"entries"]) && ![value isEqual:[self entries]]) {
@@ -701,6 +744,7 @@
 
     if((value = json[@"players_finished"]) && ![value isEqual:[self playersFinished]]) {
         [self setPlayersFinished:value];
+        [self updateResults];
     }
 
     if((value = json[@"empty_seats"]) && ![value isEqual:[self emptySeats]]) {
