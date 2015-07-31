@@ -40,7 +40,7 @@
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </view>
                             </tabViewItem>
-                            <tabViewItem label="Chips" identifier="TBChipsView" id="6Fw-zn-MbR">
+                            <tabViewItem label="Equipment" identifier="TBChipsView" id="6Fw-zn-MbR">
                                 <view key="view" id="a8v-dh-fnd">
                                     <rect key="frame" x="10" y="33" width="634" height="450"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
