@@ -306,24 +306,17 @@ json::json(const std::vector<std::string>& values)
 }
 
 template <>
-json::json(const std::vector<unsigned long>& values)
+json::json(const std::deque<int>& values)
 {
-    std::vector<double> tmp(values.begin(), values.end());
-    this->ptr = check(cJSON_CreateDoubleArray(&tmp[0], static_cast<int>(tmp.size())));
+    std::vector<int> tmp(values.begin(), values.end());
+    this->ptr = check(cJSON_CreateIntArray(&tmp[0], static_cast<int>(tmp.size())));
 }
 
 template <>
-json::json(const std::deque<unsigned long>& values)
+json::json(const std::unordered_set<int>& values)
 {
-    std::vector<double> tmp(values.begin(), values.end());
-    this->ptr = check(cJSON_CreateDoubleArray(&tmp[0], static_cast<int>(tmp.size())));
-}
-
-template <>
-json::json(const std::unordered_set<unsigned long>& values)
-{
-    std::vector<double> tmp(values.begin(), values.end());
-    this->ptr = check(cJSON_CreateDoubleArray(&tmp[0], static_cast<int>(tmp.size())));
+    std::vector<int> tmp(values.begin(), values.end());
+    this->ptr = check(cJSON_CreateIntArray(&tmp[0], static_cast<int>(tmp.size())));
 }
 
 std::string json::string(bool pretty) const

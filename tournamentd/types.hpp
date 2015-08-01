@@ -15,10 +15,10 @@ namespace td
     };
 
     // key into the player map
-    typedef std::size_t player_id_t;
+    typedef int player_id_t;
 
     // index into the funding_source vector
-    typedef std::size_t funding_source_id_t;
+    typedef int funding_source_id_t;
 
     // attributes of a single blind level
     struct blind_level
