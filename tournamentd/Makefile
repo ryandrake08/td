@@ -7,6 +7,10 @@ CFLAGS = -g
 CXXFLAGS = -g -std=c++11
 LDFLAGS = -L/usr/local/lib
 
+ifeq ($(shell uname -s),Darwin)
+	LDFLAGS += -framework CoreFoundation -framework CFNetwork
+endif
+
 tournamentd: $(SERVEROBJS) $(LIBOUT)
 	$(CXX) -o $@ $^ $(LDFLAGS)
 
