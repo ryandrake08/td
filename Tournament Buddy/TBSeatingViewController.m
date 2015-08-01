@@ -15,8 +15,10 @@
 @property (strong) IBOutlet NSDictionaryController* seatsDictionaryController;
 @property (strong) IBOutlet NSArrayController* finishedArrayController;
 
+@property (weak) IBOutlet NSTextField *maxPlayersTextField;
+
 // Derived game state
-@property (strong) NSDictionary* seats;
+@property (strong) NSArray* seats;
 @property (strong) NSArray* players;
 
 @end
@@ -27,29 +29,31 @@
     // inject seated flag into our own player array
     NSMutableArray* newArray = [NSMutableArray array];
     for(id obj in [[self session] players]) {
-        NSMutableDictionary* newObj = [NSMutableDictionary dictionaryWithDictionary:obj];
         NSNumber* playerId = obj[@"player_id"];
-        id seat = [self seats][playerId];
-        newObj[@"seated"] = [NSNumber numberWithBool:playerId != nil && seat != nil];
-        [newArray addObject:newObj];
+        if(playerId) {
+            NSMutableDictionary* newObj = [NSMutableDictionary dictionaryWithDictionary:obj];
+            BOOL seated = [[[self session] seatedPlayers] containsObject:playerId];
+            newObj[@"seated"] = [NSNumber numberWithBool:seated];
+            [newArray addObject:newObj];
+        }
     }
     [self setPlayers:newArray];
 }
 
 - (void)updateSeats {
-    // inject player names into our own seat assignment dictionary
-    NSMutableDictionary* newDict = [NSMutableDictionary dictionary];
+    // inject players into our own seats array
+    NSMutableArray* newArray = [NSMutableArray array];
     for(id obj in [[self session] seats]) {
         NSNumber* playerId = obj[@"player_id"];
         if(playerId) {
             NSMutableDictionary* newObj = [NSMutableDictionary dictionaryWithDictionary:obj];
-            newObj[@"player_name"] = [[self session] playersLookup][playerId];
-            newDict[playerId] = newObj;
+            newObj[@"player"] = [[self session] playersLookup][playerId];
+            [newArray addObject:newObj];
         }
     }
-    [self setSeats:newDict];
+    [self setSeats:newArray];
 
-    // also need to update seatef flag for players
+    // also need to update seated flag for players
     [self updatePlayers];
 }
 
@@ -69,6 +73,11 @@
     } else {
         [[self session] unseatPlayer:playerId withBlock:nil];
     }
+}
+
+- (IBAction)planSeatingTapped:(id)sender {
+    NSNumber* maxPlayers = [NSNumber numberWithInteger:[[self maxPlayersTextField] integerValue]];
+    [[self session] planSeatingFor:maxPlayers];
 }
 
 - (IBAction)previousRoundTapped:(NSButton*)sender {

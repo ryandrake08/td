@@ -483,6 +483,8 @@
         keyPaths = [keyPaths setByAddingObjectsFromArray:@[@"players", @"payouts", @"seats", @"playersFinished"]];
     } else if([key isEqualToString:@"playersLookup"]) {
         keyPaths = [keyPaths setByAddingObjectsFromArray:@[@"players"]];
+    } else if([key isEqualToString:@"seatedPlayers"]) {
+        keyPaths = [keyPaths setByAddingObjectsFromArray:@[@"seats"]];
     }
 
     return keyPaths;
@@ -625,22 +627,37 @@
 
     // payouts with empty player field, for seated players
     for(NSUInteger i=0; i<[[self seats] count]; i++) {
-        NSNumber* place = [NSNumber numberWithUnsignedInteger:i];
-        NSDictionary* item = [NSDictionary dictionaryWithObjectsAndKeys:place, @"place", [NSNull null], @"player", [self payouts][i], @"payout", nil];
-        [newResults addObject:item];
+        NSNumber* place = [NSNumber numberWithUnsignedInteger:i+1];
+        if([[self payouts] count] > i) {
+            NSNumber* payout = [self payouts][i];
+            NSDictionary* item = [NSDictionary dictionaryWithObjectsAndKeys:place, @"place", [NSNull null], @"player", payout, @"payout", nil];
+            [newResults addObject:item];
+        }
     }
 
     // include actual player for busted players
     for(NSUInteger i=0; i<[[self playersFinished] count]; i++) {
         NSUInteger j = [[self seats] count]+i;
-        NSNumber* place = [NSNumber numberWithUnsignedInteger:j];
-        NSNumber* finished = [self playersFinished][i];
-        NSDictionary* player = [self playersLookup][finished];
-        NSDictionary* item = [NSDictionary dictionaryWithObjectsAndKeys:place, @"place", player, @"player", [self payouts][j], @"payout", nil];
-        [newResults addObject:item];
+        NSNumber* place = [NSNumber numberWithUnsignedInteger:j+1];
+        if([[self payouts] count] > j) {
+            NSNumber* payout = [self payouts][j];
+            NSNumber* finished = [self playersFinished][i];
+            NSDictionary* player = [self playersLookup][finished];
+            NSDictionary* item = [NSDictionary dictionaryWithObjectsAndKeys:place, @"place", player, @"player", payout, @"payout", nil];
+            [newResults addObject:item];
+        }
     }
 
     return newResults;
+}
+
+- (NSSet*)seatedPlayers {
+    NSMutableSet* newSet = [NSMutableSet set];
+    for(id seat in [self seats]) {
+        [newSet addObject:seat[@"player_id"]];
+    }
+
+    return newSet;
 }
 
 - (NSDictionary*)playersLookup {
