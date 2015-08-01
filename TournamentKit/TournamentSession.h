@@ -53,6 +53,7 @@
 @property (nonatomic, readonly) NSNumber* tables;
 
 // derived tournament state
+@property (nonatomic, readonly, getter=isPlanned) BOOL planned;
 @property (nonatomic, readonly, getter=isOnBreak) BOOL onBreak;
 @property (nonatomic, readonly) NSString* clockText;
 @property (nonatomic, readonly) NSString* currentGameText;

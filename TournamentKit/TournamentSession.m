@@ -459,7 +459,9 @@
 
     NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
 
-    if([key isEqualToString:@"onBreak"]) {
+    if([key isEqualToString:@"planned"]) {
+        keyPaths = [keyPaths setByAddingObjectsFromArray:@[@"tables"]];
+    } else if([key isEqualToString:@"onBreak"]) {
         keyPaths = [keyPaths setByAddingObjectsFromArray:@[@"timeRemaining", @"breakTimeRemaining"]];
     } else if([key isEqualToString:@"clockText"]) {
         keyPaths = [keyPaths setByAddingObjectsFromArray:@[@"running", @"onBreak", @"timeRemaining", @"breakTimeRemaining"]];
@@ -484,6 +486,10 @@
     }
 
     return keyPaths;
+}
+
+- (BOOL)isPlanned {
+    return [[self tables] intValue] > 0;
 }
 
 - (BOOL)isOnBreak {
