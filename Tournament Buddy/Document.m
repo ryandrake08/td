@@ -84,7 +84,13 @@
 }
 
 - (void)configureSession {
-    [[self session] configure:[self configuration] withBlock:nil];
+    NSLog(@"Configuring session");
+    [[self session] configure:[self configuration] withBlock:^(id json) {
+        if(![json isEqual:[self configuration]]) {
+            NSLog(@"Configuration from session not equal to document. Replacing...");
+            [[self configuration] setDictionary:json];
+        }
+    }];
 }
 
 - (NSData*)dataOfType:(NSString*)typeName error:(NSError**)outError {
@@ -103,28 +109,31 @@
 - (BOOL)tabView:(NSTabView*)tabView shouldSelectTabViewItem:(NSTabViewItem*)tabViewItem {
     // these tab view items' identifiers are keys and also identify their class
     NSString* nib = [tabViewItem identifier];
-
-    // create a controller for this view
     NSString* className = [nib stringByAppendingString:@"Controller"];
-    TBTableViewController* controller = [[NSClassFromString(className) alloc] initWithNibName:nib bundle:nil];
-    if(controller == nil) {
-        // report error to user here
-        NSLog(@"Can't load view for tab %@", nib);
-        return NO;
+
+    if(![[[self currentViewController] className] isEqual:className]) {
+        // create a controller for this view
+        TBTableViewController* controller = [[NSClassFromString(className) alloc] initWithNibName:nib bundle:nil];
+        if(controller == nil) {
+            // report error to user here
+            NSLog(@"Can't load view for tab %@", nib);
+            return NO;
+        }
+
+        // set configuration and session
+        [controller setConfiguration: [self configuration]];
+        [controller setSession:[self session]];
+
+        // set the current controller
+        [self setCurrentViewController:controller];
+
+        // configure session when switching tabs (for now)
+        [self configureSession];
+
+        // set the view
+        [tabViewItem setView:controller.view];
     }
 
-    // set configuration and session
-    [controller setConfiguration: [self configuration]];
-    [controller setSession:[self session]];
-
-    // set the current controller
-    [self setCurrentViewController:controller];
-
-    // configure session when switching tabs (for now)
-    [self configureSession];
-
-    // set the view
-    [tabViewItem setView:controller.view];
     return YES;
 }
 
