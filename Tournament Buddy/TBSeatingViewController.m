@@ -9,17 +9,18 @@
 #import "TBSeatingViewController.h"
 #import "NSObject+FBKVOController.h"
 
-@interface TBSeatingViewController () <NSTableViewDelegate>
+@interface TBSeatingViewController () <NSTableViewDelegate, NSTextFieldDelegate>
 
 @property (strong) IBOutlet NSArrayController* playersArrayController;
 @property (strong) IBOutlet NSDictionaryController* seatsDictionaryController;
 @property (strong) IBOutlet NSArrayController* finishedArrayController;
 
-@property (weak) IBOutlet NSTextField *maxPlayersTextField;
-
 // Derived game state
 @property (strong) NSArray* seats;
 @property (strong) NSArray* players;
+
+// Keep track of last seating plan size, to avoid setting again
+@property NSInteger lastMaxPlayers;
 
 @end
 
@@ -46,9 +47,12 @@
     for(id obj in [[self session] seats]) {
         NSNumber* playerId = obj[@"player_id"];
         if(playerId) {
-            NSMutableDictionary* newObj = [NSMutableDictionary dictionaryWithDictionary:obj];
-            newObj[@"player"] = [[self session] playersLookup][playerId];
-            [newArray addObject:newObj];
+            NSDictionary* player = [[self session] playersLookup][playerId];
+            if(player) {
+                NSMutableDictionary* newObj = [NSMutableDictionary dictionaryWithDictionary:obj];
+                newObj[@"player"] = player;
+                [newArray addObject:newObj];
+            }
         }
     }
     [self setSeats:newArray];
@@ -63,6 +67,16 @@
     [[self KVOController] observe:[self session] keyPath:@"players" options:NSKeyValueObservingOptionInitial action:@selector(updatePlayers)];
 }
 
+#pragma mark NSTextFieldDelegate
+
+- (void)controlTextDidEndEditing:(NSNotification*)notification {
+    NSInteger maxPlayers = [[notification object] integerValue];
+    if(maxPlayers > 1 && maxPlayers != [self lastMaxPlayers]) {
+        [[self session] planSeatingFor:[NSNumber numberWithInteger:maxPlayers]];
+        [self setLastMaxPlayers:maxPlayers];
+    }
+}
+
 #pragma mark Actions
 
 - (IBAction)seatedButtonDidChange:(id)sender {
@@ -73,11 +87,6 @@
     } else {
         [[self session] unseatPlayer:playerId withBlock:nil];
     }
-}
-
-- (IBAction)planSeatingTapped:(id)sender {
-    NSNumber* maxPlayers = [NSNumber numberWithInteger:[[self maxPlayersTextField] integerValue]];
-    [[self session] planSeatingFor:maxPlayers];
 }
 
 - (IBAction)previousRoundTapped:(NSButton*)sender {

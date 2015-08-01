@@ -8,7 +8,6 @@
         <customObject id="-2" userLabel="File's Owner" customClass="TBSeatingViewController">
             <connections>
                 <outlet property="finishedArrayController" destination="5pr-IM-GVE" id="a7V-BM-oG6"/>
-                <outlet property="maxPlayersTextField" destination="WQZ-wu-RGH" id="PiF-HD-beG"/>
                 <outlet property="playersArrayController" destination="KzY-6k-W2t" id="lq6-bi-Y9L"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
@@ -86,7 +85,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <tableView identifier="seatsTable" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="sequential" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="h7c-ks-BWc" viewBased="YES" id="am5-fF-rIk">
-                                        <rect key="frame" x="0.0" y="0.0" width="510" height="582"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="510" height="0.0"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <animations/>
                                         <size key="intercellSpacing" width="3" height="2"/>
@@ -294,7 +293,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <tableView identifier="playersTable" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="sequential" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowHeight="18" rowSizeStyle="automatic" headerView="K74-yc-j1u" viewBased="YES" id="Z8A-fm-qLk">
-                                        <rect key="frame" x="0.0" y="0.0" width="254" height="654"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="254" height="0.0"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <animations/>
                                         <size key="intercellSpacing" width="3" height="2"/>
@@ -432,7 +431,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <tableView identifier="resultsTable" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="TWN-pN-jQV" viewBased="YES" id="rqa-aT-Sfh">
-                                        <rect key="frame" x="0.0" y="0.0" width="254" height="654"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="249" height="0.0"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <animations/>
                                         <size key="intercellSpacing" width="3" height="2"/>
@@ -632,14 +631,16 @@
                                 <textField verticalHuggingPriority="750" id="WQZ-wu-RGH">
                                     <rect key="frame" x="136" y="0.0" width="31" height="22"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="center" placeholderString="10" drawsBackground="YES" id="jad-Rk-RQm">
-                                        <numberFormatter key="formatter" formatterBehavior="default10_4" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="0" maximumIntegerDigits="42" id="xWA-RU-6Rb"/>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="center" placeholderString="" drawsBackground="YES" id="jad-Rk-RQm">
+                                        <numberFormatter key="formatter" formatterBehavior="default10_4" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="0" maximumIntegerDigits="42" id="xWA-RU-6Rb">
+                                            <real key="minimum" value="2"/>
+                                        </numberFormatter>
                                         <font key="font" metaFont="system"/>
                                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                     <connections>
-                                        <action selector="planSeatingTapped:" target="-2" id="hcd-6E-o3y"/>
+                                        <outlet property="delegate" destination="-2" id="UuY-vq-sEB"/>
                                     </connections>
                                 </textField>
                             </subviews>
