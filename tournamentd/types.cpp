@@ -20,7 +20,7 @@ td::funding_source::funding_source() : is_addon(false), forbid_after_blind_level
 {
 }
 
-td::player::player() : added_at(datetime::now()), player_id(std::uniform_int_distribution<unsigned long>()(engine))
+td::player::player() : added_at(datetime::now()), player_id(std::uniform_int_distribution<td::player_id_t>(0, std::numeric_limits<long>::max())(engine))
 {
 }
 
