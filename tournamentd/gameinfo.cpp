@@ -73,6 +73,7 @@ void gameinfo::configure(const json& config)
         this->players.clear();
         for(auto player : players_vector)
         {
+            logger(LOG_DEBUG) << "Configuring player " << player.player_id << " (" << player.name << ")\n";
             this->players.emplace(player.player_id, player);
         }
     }
@@ -226,7 +227,7 @@ std::size_t gameinfo::plan_seating(std::size_t max_expected_players)
     // randomize it
     std::shuffle(this->empty_seats.begin(), this->empty_seats.end(), engine);
 
-    logger(LOG_DEBUG) << "Created " << this->seats.size() << " empty seats\n";
+    logger(LOG_DEBUG) << "Created " << this->empty_seats.size() << " empty seats\n";
 
     // return number of tables needed
     return this->tables;
@@ -235,7 +236,14 @@ std::size_t gameinfo::plan_seating(std::size_t max_expected_players)
 // add player to an existing game
 td::seat gameinfo::add_player(const td::player_id_t& player_id)
 {
-    logger(LOG_DEBUG) << "Adding player " << player_id << " to game\n";
+    auto player_it(players.find(player_id));
+    if(player_it == players.end())
+    {
+        logger(LOG_ERROR) << "Failed to look up player " << player_id << '\n';
+        throw td::runtime_error("failed to look up player");
+    }
+
+    logger(LOG_DEBUG) << "Adding player " << player_id << " (" << player_it->second.name << ") to game\n";
 
     // verify game state
     if(this->empty_seats.empty())
@@ -255,7 +263,7 @@ td::seat gameinfo::add_player(const td::player_id_t& player_id)
     this->seats.insert(std::make_pair(player_id, seat));
     this->empty_seats.pop_front();
 
-    logger(LOG_DEBUG) << "Seated player at table " << seat.table_number << ", seat " << seat.seat_number << '\n';
+    logger(LOG_DEBUG) << "Seated player " << player_id << " at table " << seat.table_number << ", seat " << seat.seat_number << '\n';
 
     return seat;
 }
@@ -263,7 +271,14 @@ td::seat gameinfo::add_player(const td::player_id_t& player_id)
 // remove a player
 td::seat gameinfo::remove_player(const td::player_id_t& player_id)
 {
-    logger(LOG_DEBUG) << "Removing player " << player_id << " from game\n";
+    auto player_it(players.find(player_id));
+    if(player_it == players.end())
+    {
+        logger(LOG_ERROR) << "Failed to look up player " << player_id << '\n';
+        throw td::runtime_error("failed to look up player");
+    }
+
+    logger(LOG_DEBUG) << "Removing player " << player_id << " (" << player_it->second.name << ") from game\n";
 
     auto seat_it(this->seats.find(player_id));
 
@@ -286,7 +301,14 @@ std::vector<td::player_movement> gameinfo::bust_player(const td::player_id_t& pl
     // remove the player
     this->remove_player(player_id);
 
-    logger(LOG_DEBUG) << "Busting player " << player_id << '\n';
+    auto player_it(players.find(player_id));
+    if(player_it == players.end())
+    {
+        logger(LOG_ERROR) << "Failed to look up player " << player_id << '\n';
+        throw td::runtime_error("failed to look up player");
+    }
+
+    logger(LOG_DEBUG) << "Busting player " << player_id << " (" << player_it->second.name << ")\n";
 
     // add to the busted out list
     this->players_finished.push_front(player_id);
@@ -301,7 +323,14 @@ std::vector<td::player_movement> gameinfo::bust_player(const td::player_id_t& pl
 // move a player to a specific table
 td::player_movement gameinfo::move_player(const td::player_id_t& player_id, std::size_t table)
 {
-    logger(LOG_DEBUG) << "Moving player " << player_id << " to table " << table << '\n';
+    auto player_it(players.find(player_id));
+    if(player_it == players.end())
+    {
+        logger(LOG_ERROR) << "Failed to look up player " << player_id << '\n';
+        throw td::runtime_error("failed to look up player");
+    }
+
+    logger(LOG_DEBUG) << "Moving player " << player_id << " (" << player_it->second.name << ") to table " << table << '\n';
 
     // build up a list of candidate seats
     std::vector<std::deque<td::seat>::iterator> candidates;
@@ -340,7 +369,14 @@ td::player_movement gameinfo::move_player(const td::player_id_t& player_id, std:
 // move a player to the table with the smallest number of players
 td::player_movement gameinfo::move_player(const td::player_id_t& player_id, const std::unordered_set<std::size_t>& avoid_tables)
 {
-    logger(LOG_DEBUG) << "Moving player " << player_id << " to a free table\n";
+    auto player_it(players.find(player_id));
+    if(player_it == players.end())
+    {
+        logger(LOG_ERROR) << "Failed to look up player " << player_id << '\n';
+        throw td::runtime_error("failed to look up player");
+    }
+
+    logger(LOG_DEBUG) << "Moving player " << player_id << " (" << player_it->second.name << ") to a free table\n";
 
     // build players-per-table vector
     auto ppt(this->players_at_tables());
@@ -485,7 +521,14 @@ void gameinfo::fund_player(const td::player_id_t& player_id, const td::funding_s
         throw td::runtime_error("tried to addon but not bought in yet");
     }
 
-    logger(LOG_DEBUG) << "Funding player " << player_id << " with " << source.name << '\n';
+    auto player_it(players.find(player_id));
+    if(player_it == players.end())
+    {
+        logger(LOG_ERROR) << "Failed to look up player " << player_id << '\n';
+        throw td::runtime_error("failed to look up player");
+    }
+
+    logger(LOG_DEBUG) << "Funding player " << player_id << " (" << player_it->second.name << ") with " << source.name << '\n';
 
     if(!source.is_addon) {
         // add player to buyin set
