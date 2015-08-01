@@ -264,7 +264,13 @@ void tournament::handle_cmd_unseat_player(const json& in, json& out)
         throw std::invalid_argument("must specify player");
     }
 
-    this->game_info.remove_player(player_id);
+    auto seating(this->game_info.remove_player(player_id));
+
+    json player_unseated;
+    player_unseated.set_value("player_id", player_id);
+    player_unseated.set_value("table_number", seating.table_number);
+    player_unseated.set_value("seat_number", seating.seat_number);
+    out.set_value("player_unseated", player_unseated);
 }
 
 void tournament::handle_cmd_bust_player(const json& in, json& out)

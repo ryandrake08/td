@@ -9,27 +9,7 @@
 #import "TBSeatingViewController.h"
 #import "NSObject+FBKVOController.h"
 
-// TBPlayersAvailableTableCellView to handle custom bindings
-@interface TBPlayersAvailableTableCellView : NSTableCellView
-
-@end
-
-@implementation TBPlayersAvailableTableCellView
-
-- (IBAction)seatedButtonDidChange:(id)sender {
-    NSNumber* playerId = [self objectValue][@"player_id"];
-    if([sender state] == NSOnState) {
-        // TODO: get session and seat player
-        //[[self session] seatPlayer:playerId withBlock:nil];
-    } else {
-        // TODO: get session and unseat player
-        //[[self session] unseatPlayer:playerId];
-    }
-}
-
-@end
-
-@interface TBSeatingViewController ()
+@interface TBSeatingViewController () <NSTableViewDelegate>
 
 @property (strong) IBOutlet NSArrayController* playersArrayController;
 @property (strong) IBOutlet NSDictionaryController* seatsDictionaryController;
@@ -80,6 +60,16 @@
 }
 
 #pragma mark Actions
+
+- (IBAction)seatedButtonDidChange:(id)sender {
+    NSTableCellView* cell = (NSTableCellView*)[sender superview];
+    NSNumber* playerId = [cell objectValue][@"player_id"];
+    if([sender state] == NSOnState) {
+        [[self session] seatPlayer:playerId withBlock:nil];
+    } else {
+        [[self session] unseatPlayer:playerId withBlock:nil];
+    }
+}
 
 - (IBAction)previousRoundTapped:(NSButton*)sender {
     NSUInteger currentBlindLevel = [[[self session] currentBlindLevel] unsignedIntegerValue];

@@ -379,8 +379,24 @@
     }];
 }
 
-- (void)unseatPlayer:(NSNumber*)playerId {
-    [self sendCommand:@"unseat_player" withData:@{@"player_id" : playerId} andBlock:nil];
+- (void)unseatPlayer:(NSNumber*)playerId withBlock:(void(^)(NSNumber*,NSNumber*,NSNumber*))block {
+    [self sendCommand:@"unseat_player" withData:@{@"player_id" : playerId} andBlock:^(id json, NSString* error) {
+        if(error != nil) {
+            NSLog(@"unseatPlayerWithBlock: %@\n", error);
+        } else {
+            // handle seated player
+            id playerUnseated = json[@"player_unseated"];
+            if(playerUnseated) {
+                if(block != nil) {
+                    block(playerUnseated[@"player_id"], playerUnseated[@"table_number"], playerUnseated[@"seat_number"]);
+                }
+            } else {
+                if(block != nil) {
+                    block(nil, nil, nil);
+                }
+            }
+        }
+    }];
 }
 
 - (void)bustPlayer:(NSNumber*)playerId withBlock:(void(^)(NSArray*))block {

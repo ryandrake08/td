@@ -96,7 +96,7 @@
 - (void)fundPlayer:(NSNumber*)playerId withFunding:(NSNumber*)sourceId;
 - (void)planSeatingFor:(NSNumber*)expectedPlayers;
 - (void)seatPlayer:(NSNumber*)playerId withBlock:(void(^)(NSNumber*,NSNumber*,NSNumber*))block;
-- (void)unseatPlayer:(NSNumber*)playerId;
+- (void)unseatPlayer:(NSNumber*)playerId withBlock:(void(^)(NSNumber*,NSNumber*,NSNumber*))block;
 - (void)bustPlayer:(NSNumber*)playerId withBlock:(void(^)(NSArray*))block;
 
 @end

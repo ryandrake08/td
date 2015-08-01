@@ -161,12 +161,12 @@ public:
     // returns number of tables needed
     std::size_t plan_seating(std::size_t max_expected_players);
 
-    // add player to an existing game
+    // add player to an existing game, returning player's seat
     // returns player's seat
     td::seat add_player(const td::player_id_t& player_id);
 
-    // remove a player from the game (as though player never existed in the game)
-    void remove_player(const td::player_id_t& player_id);
+    // remove a player from the game (as though player never existed in the game), returning seat removed from
+    td::seat remove_player(const td::player_id_t& player_id);
 
     // remove a player from the game, busting him out
     // returns any player movements that happened

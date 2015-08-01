@@ -261,7 +261,7 @@ td::seat gameinfo::add_player(const td::player_id_t& player_id)
 }
 
 // remove a player
-void gameinfo::remove_player(const td::player_id_t& player_id)
+td::seat gameinfo::remove_player(const td::player_id_t& player_id)
 {
     logger(LOG_DEBUG) << "Removing player " << player_id << " from game\n";
 
@@ -273,8 +273,11 @@ void gameinfo::remove_player(const td::player_id_t& player_id)
     }
 
     // remove player and add seat to the end of the empty list
-    this->empty_seats.push_back(seat_it->second);
+    auto seat(seat_it->second);
+    this->empty_seats.push_back(seat);
     this->seats.erase(seat_it);
+
+    return seat;
 }
 
 // remove a player
