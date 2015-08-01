@@ -303,522 +303,526 @@ bool tournament::handle_new_client(std::ostream& client) const
 // handler for input from existing client
 bool tournament::handle_client_input(std::iostream& client)
 {
+    bool ret(false);
+
     // get a line of input
     std::string input;
-    std::getline(client, input);
-
-    // find start of command
-    static const char* whitespace(" \t\r\n");
-    auto cmd0(input.find_first_not_of(whitespace));
-    if(cmd0 != std::string::npos)
+    while(std::getline(client, input))
     {
-        // build up output
-        json out;
-
-        try
+        // find start of command
+        static const char* whitespace(" \t\r\n");
+        auto cmd0(input.find_first_not_of(whitespace));
+        if(cmd0 != std::string::npos)
         {
-            // parse command and argument
-            std::string cmd;
-            json in;
+            // build up output
+            json out;
 
-            // find end of command
-            auto cmd1(input.find_first_of(whitespace, cmd0));
-            if(cmd1 != std::string::npos)
+            try
             {
-                cmd = input.substr(cmd0, cmd1);
-                auto arg0(input.find_first_not_of(whitespace, cmd1));
-                if(arg0 != std::string::npos)
+                // parse command and argument
+                std::string cmd;
+                json in;
+
+                // find end of command
+                auto cmd1(input.find_first_of(whitespace, cmd0));
+                if(cmd1 != std::string::npos)
                 {
-                    auto arg = input.substr(arg0, std::string::npos);
-                    in = json::eval(arg);
+                    cmd = input.substr(cmd0, cmd1);
+                    auto arg0(input.find_first_not_of(whitespace, cmd1));
+                    if(arg0 != std::string::npos)
+                    {
+                        auto arg = input.substr(arg0, std::string::npos);
+                        in = json::eval(arg);
+                    }
+                }
+
+                // convert command to lower-case for hashing (use ::tolower, assuming ASCII-encoded input)
+                std::transform(cmd.begin(), cmd.end(), cmd.begin(), ::tolower);
+
+                // copy "echo" attribute to output, if sent. This will allow clients to correlate requests with responses
+                json echo;
+                if(in.get_value("echo", echo))
+                {
+                    out.set_value("echo", echo);
+                }
+
+                // call command handler
+                switch(crc32(cmd))
+                {
+                        /*
+                         command:
+                            quit (or exit)
+
+                         purpose:
+                            Disconnect client cleanly
+                         
+                         input:
+                            (none)
+                         
+                         output:
+                            (none)
+                        */
+                    case crc32_("quit"):
+                    case crc32_("exit"):
+                        ret = true;
+                        break;
+
+                        /*
+                         command:
+                            authorize
+
+                         purpose:
+                            Authorize a code to administer the tournament
+
+                         input:
+                            authenticate (integer): Valid authentication code for a tournament admin
+                            authorize (integer): New authentication code to give admin powers to
+
+                         output:
+                            authorized_client (integer): Authentication code that is now valid for administration
+                         */
+                    case crc32_("authorize"):
+                        this->ensure_authorized(in);
+                        this->handle_cmd_authorize(in, out);
+                        break;
+
+                        /*
+                         command:
+                            check_authorized
+
+                         purpose:
+                            Check whether a code is authorized to administer the tournament
+
+                         input:
+                            authenticate (integer): Authentication code to check
+
+                         output:
+                            authorized (bool): True if code is valid for administration (warning this can be exploited, should turn this off)
+                         */
+                    case crc32_("check_authorized"):
+                        this->handle_cmd_check_authorized(in, out);
+                        break;
+
+                        /*
+                         command:
+                            version
+                         
+                         purpose:
+                            Dump the server's version info
+
+                         input:
+                            (none)
+
+                         output:
+                            server_name (string): "tournamentd"
+                            server_version (string): Description of server's API version
+                        */
+                    case crc32_("version"):
+                        this->handle_cmd_version(out);
+                        break;
+
+                        /*
+                         command:
+                            get_config
+
+                         purpose:
+                            Dump the server's current configuration
+
+                         input:
+                            (none)
+
+                         output:
+                            name (string): Human-readable name of this tournament
+                            players (array): Each player eligible for this tournament
+                            table_capacity (integer): Number of seats per table
+                            cost_currency (string): Currency name for buyins, re-buys, etc. ISO 4217: USD, EUR, XXX for points
+                            equity_currency (string): Currency name for equity/payouts. ISO 4217: USD, EUR, XXX for points
+                            percent_seats_paid (float): Proportion of players (buyins) paid out
+                            round_payouts (bool): Round payoffs to integer values
+                            payout_flatness (float): How "flat" to make the payout structure
+                            funding_sources (array): Each valid source of funding for this tournament
+                            blind_levels (array): Discription of each blind level
+                            available_chips (array): Discription of each chip color and denomination
+                            manual_payouts (array): Manual payout definitions: number of players and an array of payouts
+                         */
+                    case crc32_("get_config"):
+                        this->handle_cmd_get_config(out);
+                        break;
+
+                        /*
+                         command:
+                            get_state
+
+                         purpose:
+                            Dump the server's current game state
+
+                         input:
+                            (none)
+
+                         output:
+                            seats (array): Seat assignment for each player id
+                            players_finished (array): Player ids without seats (busted)
+                            empty_seats (array): Empty seat assignments
+                            tables (integer): Number of tables currently playing
+                            buyins (array): Player ids who have bought in at least once
+                            entries (array): Player ids for each buyin or rebuy
+                            payouts (array): Payout amounts for each place
+                            total_chips (integer): Count of all tournament chips in play
+                            total_cost (float): Sum total of all buyins, rebuys and addons
+                            total_commission (float): Sum total of all entry fees
+                            total_equity (float): Sum total of all payouts
+                            running (bool): True if the tournament is unpaused
+                            current_blind_level (integer): Current blind level. 0 = planning stage
+                            time_remaining (integer): Time remaining in current level (milliseconds)
+                            break_time_remaining (integer): Time remaining in current break (milliseconds)
+                            action_clock_remaining (integer): Time remaining on action clock (milliseconds)
+                            elapsed (integer): Tournament time elapsed (milliseconds)
+                         */
+                    case crc32_("get_state"):
+                        this->handle_cmd_get_state(out);
+                        break;
+
+                        /*
+                         command:
+                            chips_for_buyin
+
+                         purpose:
+                            Given configured chip set and expected number of players, calculate the quantity of each chip needed for starting stack
+
+                         input:
+                            source_id (funding source id): Funding source to calculate for
+                            max_expected_players (integer): Number of players expected in the tournament
+
+                         output:
+                            chips_for_buyin (array): Quantities for each chip denomination
+                         */
+                    case crc32_("chips_for_buyin"):
+                        this->handle_cmd_chips_for_buyin(in, out);
+                        break;
+
+                        /*
+                         command:
+                            configure
+
+                         purpose:
+                            Load a configuration into the tournament
+
+                         input:
+                            authenticate (integer): Valid authentication code for a tournament admin
+                            name (optional, string): Human-readable name for this tournament
+                            players (optional, array): Each player eligible for this tournament
+                            table_capacity (optional, integer): Number of seats per table
+                            cost_currency (optional, string): Currency name for buyins, re-buys, etc. ISO 4217: USD, EUR, XXX for points
+                            equity_currency (optional, string): Currency name for equity/payouts. ISO 4217: USD, EUR, XXX for points
+                            percent_seats_paid (optional, float): Proportion of players (buyins) paid out
+                            round_payouts (optional, bool): Round payoffs to integer values
+                            payout_flatness (optinoal, float): How "flat" to make the payout structure
+                            funding_sources (optional, array): Each valid source of funding for this tournament
+                            blind_levels (optional, array): Discription of each blind level
+                            available_chips (optional, array): Discription of each chip color and denomination
+                            manual_payouts (optional, array): Manual payout definitions: number of players and an array of payouts
+
+                         output:
+                            (none)
+                         */
+                    case crc32_("configure"):
+                        this->ensure_authorized(in);
+                        this->handle_cmd_configure(in, out);
+                        this->broadcast_configuration();
+                        break;
+
+                        /*
+                         command:
+                            start_game
+
+                         purpose:
+                            Start the tournament
+
+                         input:
+                            authenticate (integer): Valid authentication code for a tournament admin
+                            start_at (optional, date): Time to start the tournament
+
+                         output:
+                            (none)
+                         */
+                    case crc32_("start_game"):
+                        this->ensure_authorized(in);
+                        this->handle_cmd_start_game(in, out);
+                        this->broadcast_state();
+                        break;
+
+                        /*
+                         command:
+                            stop_game
+
+                         purpose:
+                            Stop the tournament
+
+                         input:
+                            authenticate (integer): Valid authentication code for a tournament admin
+
+                         output:
+                            (none)
+                         */
+                    case crc32_("stop_game"):
+                        this->ensure_authorized(in);
+                        this->handle_cmd_stop_game(in, out);
+                        this->broadcast_state();
+                        break;
+
+                        /*
+                         command:
+                            resume_game
+
+                         purpose:
+                            Resume a paused tournament
+
+                         input:
+                            authenticate (integer): Valid authentication code for a tournament admin
+
+                         output:
+                            (none)
+                         */
+                    case crc32_("resume_game"):
+                        this->ensure_authorized(in);
+                        this->handle_cmd_resume_game(in, out);
+                        this->broadcast_state();
+                        break;
+
+                        /*
+                         command:
+                            pause_game
+
+                         purpose:
+                            Pause the tournament
+
+                         input:
+                            authenticate (integer): Valid authentication code for a tournament admin
+
+                         output:
+                            (none)
+                         */
+                    case crc32_("pause_game"):
+                        this->ensure_authorized(in);
+                        this->handle_cmd_pause_game(in, out);
+                        this->broadcast_state();
+                        break;
+
+                        /*
+                         command:
+                            toggle_pause_game
+
+                         purpose:
+                            Pause the tournament if running, unpause if not
+
+                         input:
+                            authenticate (integer): Valid authentication code for a tournament admin
+
+                         output:
+                            (none)
+                         */
+                    case crc32_("toggle_pause_game"):
+                        this->ensure_authorized(in);
+                        this->handle_cmd_toggle_pause_game(in, out);
+                        this->broadcast_state();
+                        break;
+
+                        /*
+                         command:
+                            set_previous_level
+
+                         purpose:
+                            Set the tournament back one level (unless tournament is in the first round, or it's been <2 seconds since set back)
+
+                         input:
+                            authenticate (integer): Valid authentication code for a tournament admin
+
+                         output:
+                            blind_level_changed (bool): True if the blind level actually changed
+                         */
+                    case crc32_("set_previous_level"):
+                        this->ensure_authorized(in);
+                        this->handle_cmd_set_previous_level(in, out);
+                        this->broadcast_state();
+                        break;
+
+                        /*
+                         command:
+                            set_next_level
+
+                         purpose:
+                            Set the tournament forward one level (unless tournament is in the last round)
+
+                         input:
+                            authenticate (integer): Valid authentication code for a tournament admin
+
+                         output:
+                            blind_level_changed (bool): True if the blind level actually changed
+                         */
+                    case crc32_("set_next_level"):
+                        this->ensure_authorized(in);
+                        this->handle_cmd_set_next_level(in, out);
+                        this->broadcast_state();
+                        break;
+
+                        /*
+                         command:
+                            set_action_clock
+
+                         purpose:
+                            Call the clock on a player, starting a countdown timer
+
+                         input:
+                            authenticate (integer): Valid authentication code for a tournament admin
+                            duration (optional, integer): Duration of countdown (milliseconds). If not set, clears the countdown
+
+                         output:
+                            (none)
+                         */
+                    case crc32_("set_action_clock"):
+                        this->ensure_authorized(in);
+                        this->handle_cmd_set_action_clock(in, out);
+                        this->broadcast_state();
+                        break;
+
+                        /*
+                         command:
+                            gen_blind_levels
+
+                         purpose:
+                            Generate progressive blind levels, given available chip denominations
+
+                         input:
+                            authenticate (integer): Valid authentication code for a tournament admin
+                            count (integer): Number of blind levels to generate
+                            duration (integer): Uniform duraiton for each level (milliseconds)
+                            break_duration (integer): If not zero, add a break whenever we can chip up
+                            blind_increase_factor (float): Approx. amount to multiply to increase blinds each round (1.5 is usually good here)
+
+                         output:
+                            (none)
+                         */
+                    case crc32_("gen_blind_levels"):
+                        this->ensure_authorized(in);
+                        this->handle_cmd_gen_blind_levels(in, out);
+                        this->broadcast_configuration();
+                        break;
+
+                        /*
+                         command:
+                            fund_player
+
+                         purpose:
+                            Accept a buyin, rebuy, or addon for a player
+
+                         input:
+                            authenticate (integer): Valid authentication code for a tournament admin
+                            player_id (player id): Player to fund
+                            source_id (funding source id): Chosen funding source
+
+                         output:
+                            (none)
+                         */
+                    case crc32_("fund_player"):
+                        this->ensure_authorized(in);
+                        this->handle_cmd_fund_player(in, out);
+                        this->broadcast_state();
+                        break;
+
+                        /*
+                         command:
+                            plan_seating
+
+                         purpose:
+                            Generate an empty, random seating plan, given number of players
+
+                         input:
+                            authenticate (integer): Valid authentication code for a tournament admin
+                            max_expected_players (integer): Maximum number of players expected
+
+                         output:
+                            (none)
+                         */
+                    case crc32_("plan_seating"):
+                        this->ensure_authorized(in);
+                        this->handle_cmd_plan_seating(in, out);
+                        this->broadcast_state();
+                        break;
+
+                        /*
+                         command:
+                            seat_player
+
+                         purpose:
+                            Seat a player in the next available seat
+
+                         input:
+                            authenticate (integer): Valid authentication code for a tournament admin
+                            player_id (player id): Player to seat
+
+                         output:
+                            player_seated (object): Player, seat, and table numbers
+                         */
+                    case crc32_("seat_player"):
+                        this->ensure_authorized(in);
+                        this->handle_cmd_seat_player(in, out);
+                        this->broadcast_state();
+                        break;
+
+                        /*
+                         command:
+                            unseat_player
+
+                         purpose:
+                            Unseat a player without busting him (as if player was never in)
+
+                         input:
+                            authenticate (integer): Valid authentication code for a tournament admin
+                            player_id (player id): Player to unseat
+
+                         output:
+                            (none)
+                         */
+                    case crc32_("unseat_player"):
+                        this->ensure_authorized(in);
+                        this->handle_cmd_unseat_player(in, out);
+                        this->broadcast_state();
+                        break;
+                        
+                        /*
+                         command:
+                            bust_player
+
+                         purpose:
+                            Bust a player out of the tournament
+
+                         input:
+                            authenticate (integer): Valid authentication code for a tournament admin
+                            player_id (player id): Player to bust
+
+                         output:
+                            players_moved (array): Any player movements that have to happen (rebalancing)
+                         */
+                    case crc32_("bust_player"):
+                        this->ensure_authorized(in);
+                        this->handle_cmd_bust_player(in, out);
+                        this->broadcast_state();
+                        break;
+
+                    default:
+                        throw std::runtime_error("unknown command");
                 }
             }
-
-            // convert command to lower-case for hashing (use ::tolower, assuming ASCII-encoded input)
-            std::transform(cmd.begin(), cmd.end(), cmd.begin(), ::tolower);
-
-            // copy "echo" attribute to output, if sent. This will allow clients to correlate requests with responses
-            json echo;
-            if(in.get_value("echo", echo))
+            catch(const std::exception& e)
             {
-                out.set_value("echo", echo);
+                out.set_value("error", e.what());
             }
 
-            // call command handler
-            switch(crc32(cmd))
-            {
-                    /*
-                     command:
-                        quit (or exit)
-
-                     purpose:
-                        Disconnect client cleanly
-                     
-                     input:
-                        (none)
-                     
-                     output:
-                        (none)
-                    */
-                case crc32_("quit"):
-                case crc32_("exit"):
-                    return true;
-
-                    /*
-                     command:
-                        authorize
-
-                     purpose:
-                        Authorize a code to administer the tournament
-
-                     input:
-                        authenticate (integer): Valid authentication code for a tournament admin
-                        authorize (integer): New authentication code to give admin powers to
-
-                     output:
-                        authorized_client (integer): Authentication code that is now valid for administration
-                     */
-                case crc32_("authorize"):
-                    this->ensure_authorized(in);
-                    this->handle_cmd_authorize(in, out);
-                    break;
-
-                    /*
-                     command:
-                        check_authorized
-
-                     purpose:
-                        Check whether a code is authorized to administer the tournament
-
-                     input:
-                        authenticate (integer): Authentication code to check
-
-                     output:
-                        authorized (bool): True if code is valid for administration (warning this can be exploited, should turn this off)
-                     */
-                case crc32_("check_authorized"):
-                    this->handle_cmd_check_authorized(in, out);
-                    break;
-
-                    /*
-                     command:
-                        version
-                     
-                     purpose:
-                        Dump the server's version info
-
-                     input:
-                        (none)
-
-                     output:
-                        server_name (string): "tournamentd"
-                        server_version (string): Description of server's API version
-                    */
-                case crc32_("version"):
-                    this->handle_cmd_version(out);
-                    break;
-
-                    /*
-                     command:
-                        get_config
-
-                     purpose:
-                        Dump the server's current configuration
-
-                     input:
-                        (none)
-
-                     output:
-                        name (string): Human-readable name of this tournament
-                        players (array): Each player eligible for this tournament
-                        table_capacity (integer): Number of seats per table
-                        cost_currency (string): Currency name for buyins, re-buys, etc. ISO 4217: USD, EUR, XXX for points
-                        equity_currency (string): Currency name for equity/payouts. ISO 4217: USD, EUR, XXX for points
-                        percent_seats_paid (float): Proportion of players (buyins) paid out
-                        round_payouts (bool): Round payoffs to integer values
-                        payout_flatness (float): How "flat" to make the payout structure
-                        funding_sources (array): Each valid source of funding for this tournament
-                        blind_levels (array): Discription of each blind level
-                        available_chips (array): Discription of each chip color and denomination
-                        manual_payouts (array): Manual payout definitions: number of players and an array of payouts
-                     */
-                case crc32_("get_config"):
-                    this->handle_cmd_get_config(out);
-                    break;
-
-                    /*
-                     command:
-                        get_state
-
-                     purpose:
-                        Dump the server's current game state
-
-                     input:
-                        (none)
-
-                     output:
-                        seats (array): Seat assignment for each player id
-                        players_finished (array): Player ids without seats (busted)
-                        empty_seats (array): Empty seat assignments
-                        tables (integer): Number of tables currently playing
-                        buyins (array): Player ids who have bought in at least once
-                        entries (array): Player ids for each buyin or rebuy
-                        payouts (array): Payout amounts for each place
-                        total_chips (integer): Count of all tournament chips in play
-                        total_cost (float): Sum total of all buyins, rebuys and addons
-                        total_commission (float): Sum total of all entry fees
-                        total_equity (float): Sum total of all payouts
-                        running (bool): True if the tournament is unpaused
-                        current_blind_level (integer): Current blind level. 0 = planning stage
-                        time_remaining (integer): Time remaining in current level (milliseconds)
-                        break_time_remaining (integer): Time remaining in current break (milliseconds)
-                        action_clock_remaining (integer): Time remaining on action clock (milliseconds)
-                        elapsed (integer): Tournament time elapsed (milliseconds)
-                     */
-                case crc32_("get_state"):
-                    this->handle_cmd_get_state(out);
-                    break;
-
-                    /*
-                     command:
-                        chips_for_buyin
-
-                     purpose:
-                        Given configured chip set and expected number of players, calculate the quantity of each chip needed for starting stack
-
-                     input:
-                        source_id (funding source id): Funding source to calculate for
-                        max_expected_players (integer): Number of players expected in the tournament
-
-                     output:
-                        chips_for_buyin (array): Quantities for each chip denomination
-                     */
-                case crc32_("chips_for_buyin"):
-                    this->handle_cmd_chips_for_buyin(in, out);
-                    break;
-
-                    /*
-                     command:
-                        configure
-
-                     purpose:
-                        Load a configuration into the tournament
-
-                     input:
-                        authenticate (integer): Valid authentication code for a tournament admin
-                        name (optional, string): Human-readable name for this tournament
-                        players (optional, array): Each player eligible for this tournament
-                        table_capacity (optional, integer): Number of seats per table
-                        cost_currency (optional, string): Currency name for buyins, re-buys, etc. ISO 4217: USD, EUR, XXX for points
-                        equity_currency (optional, string): Currency name for equity/payouts. ISO 4217: USD, EUR, XXX for points
-                        percent_seats_paid (optional, float): Proportion of players (buyins) paid out
-                        round_payouts (optional, bool): Round payoffs to integer values
-                        payout_flatness (optinoal, float): How "flat" to make the payout structure
-                        funding_sources (optional, array): Each valid source of funding for this tournament
-                        blind_levels (optional, array): Discription of each blind level
-                        available_chips (optional, array): Discription of each chip color and denomination
-                        manual_payouts (optional, array): Manual payout definitions: number of players and an array of payouts
-
-                     output:
-                        (none)
-                     */
-                case crc32_("configure"):
-                    this->ensure_authorized(in);
-                    this->handle_cmd_configure(in, out);
-                    this->broadcast_configuration();
-                    break;
-
-                    /*
-                     command:
-                        start_game
-
-                     purpose:
-                        Start the tournament
-
-                     input:
-                        authenticate (integer): Valid authentication code for a tournament admin
-                        start_at (optional, date): Time to start the tournament
-
-                     output:
-                        (none)
-                     */
-                case crc32_("start_game"):
-                    this->ensure_authorized(in);
-                    this->handle_cmd_start_game(in, out);
-                    this->broadcast_state();
-                    break;
-
-                    /*
-                     command:
-                        stop_game
-
-                     purpose:
-                        Stop the tournament
-
-                     input:
-                        authenticate (integer): Valid authentication code for a tournament admin
-
-                     output:
-                        (none)
-                     */
-                case crc32_("stop_game"):
-                    this->ensure_authorized(in);
-                    this->handle_cmd_stop_game(in, out);
-                    this->broadcast_state();
-                    break;
-
-                    /*
-                     command:
-                        resume_game
-
-                     purpose:
-                        Resume a paused tournament
-
-                     input:
-                        authenticate (integer): Valid authentication code for a tournament admin
-
-                     output:
-                        (none)
-                     */
-                case crc32_("resume_game"):
-                    this->ensure_authorized(in);
-                    this->handle_cmd_resume_game(in, out);
-                    this->broadcast_state();
-                    break;
-
-                    /*
-                     command:
-                        pause_game
-
-                     purpose:
-                        Pause the tournament
-
-                     input:
-                        authenticate (integer): Valid authentication code for a tournament admin
-
-                     output:
-                        (none)
-                     */
-                case crc32_("pause_game"):
-                    this->ensure_authorized(in);
-                    this->handle_cmd_pause_game(in, out);
-                    this->broadcast_state();
-                    break;
-
-                    /*
-                     command:
-                        toggle_pause_game
-
-                     purpose:
-                        Pause the tournament if running, unpause if not
-
-                     input:
-                        authenticate (integer): Valid authentication code for a tournament admin
-
-                     output:
-                        (none)
-                     */
-                case crc32_("toggle_pause_game"):
-                    this->ensure_authorized(in);
-                    this->handle_cmd_toggle_pause_game(in, out);
-                    this->broadcast_state();
-                    break;
-
-                    /*
-                     command:
-                        set_previous_level
-
-                     purpose:
-                        Set the tournament back one level (unless tournament is in the first round, or it's been <2 seconds since set back)
-
-                     input:
-                        authenticate (integer): Valid authentication code for a tournament admin
-
-                     output:
-                        blind_level_changed (bool): True if the blind level actually changed
-                     */
-                case crc32_("set_previous_level"):
-                    this->ensure_authorized(in);
-                    this->handle_cmd_set_previous_level(in, out);
-                    this->broadcast_state();
-                    break;
-
-                    /*
-                     command:
-                        set_next_level
-
-                     purpose:
-                        Set the tournament forward one level (unless tournament is in the last round)
-
-                     input:
-                        authenticate (integer): Valid authentication code for a tournament admin
-
-                     output:
-                        blind_level_changed (bool): True if the blind level actually changed
-                     */
-                case crc32_("set_next_level"):
-                    this->ensure_authorized(in);
-                    this->handle_cmd_set_next_level(in, out);
-                    this->broadcast_state();
-                    break;
-
-                    /*
-                     command:
-                        set_action_clock
-
-                     purpose:
-                        Call the clock on a player, starting a countdown timer
-
-                     input:
-                        authenticate (integer): Valid authentication code for a tournament admin
-                        duration (optional, integer): Duration of countdown (milliseconds). If not set, clears the countdown
-
-                     output:
-                        (none)
-                     */
-                case crc32_("set_action_clock"):
-                    this->ensure_authorized(in);
-                    this->handle_cmd_set_action_clock(in, out);
-                    this->broadcast_state();
-                    break;
-
-                    /*
-                     command:
-                        gen_blind_levels
-
-                     purpose:
-                        Generate progressive blind levels, given available chip denominations
-
-                     input:
-                        authenticate (integer): Valid authentication code for a tournament admin
-                        count (integer): Number of blind levels to generate
-                        duration (integer): Uniform duraiton for each level (milliseconds)
-                        break_duration (integer): If not zero, add a break whenever we can chip up
-                        blind_increase_factor (float): Approx. amount to multiply to increase blinds each round (1.5 is usually good here)
-
-                     output:
-                        (none)
-                     */
-                case crc32_("gen_blind_levels"):
-                    this->ensure_authorized(in);
-                    this->handle_cmd_gen_blind_levels(in, out);
-                    this->broadcast_configuration();
-                    break;
-
-                    /*
-                     command:
-                        fund_player
-
-                     purpose:
-                        Accept a buyin, rebuy, or addon for a player
-
-                     input:
-                        authenticate (integer): Valid authentication code for a tournament admin
-                        player_id (player id): Player to fund
-                        source_id (funding source id): Chosen funding source
-
-                     output:
-                        (none)
-                     */
-                case crc32_("fund_player"):
-                    this->ensure_authorized(in);
-                    this->handle_cmd_fund_player(in, out);
-                    this->broadcast_state();
-                    break;
-
-                    /*
-                     command:
-                        plan_seating
-
-                     purpose:
-                        Generate an empty, random seating plan, given number of players
-
-                     input:
-                        authenticate (integer): Valid authentication code for a tournament admin
-                        max_expected_players (integer): Maximum number of players expected
-
-                     output:
-                        (none)
-                     */
-                case crc32_("plan_seating"):
-                    this->ensure_authorized(in);
-                    this->handle_cmd_plan_seating(in, out);
-                    this->broadcast_state();
-                    break;
-
-                    /*
-                     command:
-                        seat_player
-
-                     purpose:
-                        Seat a player in the next available seat
-
-                     input:
-                        authenticate (integer): Valid authentication code for a tournament admin
-                        player_id (player id): Player to seat
-
-                     output:
-                        player_seated (object): Player, seat, and table numbers
-                     */
-                case crc32_("seat_player"):
-                    this->ensure_authorized(in);
-                    this->handle_cmd_seat_player(in, out);
-                    this->broadcast_state();
-                    break;
-
-                    /*
-                     command:
-                        unseat_player
-
-                     purpose:
-                        Unseat a player without busting him (as if player was never in)
-
-                     input:
-                        authenticate (integer): Valid authentication code for a tournament admin
-                        player_id (player id): Player to unseat
-
-                     output:
-                        (none)
-                     */
-                case crc32_("unseat_player"):
-                    this->ensure_authorized(in);
-                    this->handle_cmd_unseat_player(in, out);
-                    this->broadcast_state();
-                    break;
-                    
-                    /*
-                     command:
-                        bust_player
-
-                     purpose:
-                        Bust a player out of the tournament
-
-                     input:
-                        authenticate (integer): Valid authentication code for a tournament admin
-                        player_id (player id): Player to bust
-
-                     output:
-                        players_moved (array): Any player movements that have to happen (rebalancing)
-                     */
-                case crc32_("bust_player"):
-                    this->ensure_authorized(in);
-                    this->handle_cmd_bust_player(in, out);
-                    this->broadcast_state();
-                    break;
-
-                default:
-                    throw std::runtime_error("unknown command");
-            }
+            client << out << std::endl;
         }
-        catch(const std::exception& e)
-        {
-            out.set_value("error", e.what());
-        }
-
-        client << out << std::endl;
     }
 
-    return false;
+    return ret;
 }
 
 int tournament::authorize(int code)

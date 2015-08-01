@@ -17,7 +17,7 @@ class basic_socketstreambuf : public std::basic_streambuf<T>
 
     common_socket sock;
     static const int char_size = sizeof(char_type);
-    static const std::size_t SIZE = 4096;
+    static const std::size_t SIZE = 8192;
     char_type ibuf[SIZE];
     char_type obuf[SIZE];
 

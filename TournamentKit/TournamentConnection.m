@@ -10,6 +10,8 @@
 #import "NSData+Delimiter.h"
 #include "CFStreamCreatePairWithUnixSocket.h"
 
+#define kReadBufferSize 8192
+
 @interface TournamentConnection()
 
 // input and output streams
@@ -109,7 +111,7 @@
 }
 
 - (void)flushOutputBuffer {
-    if([[self outputBuffer] length] > 0) {
+    while([[self outputBuffer] length] > 0 && [[self outputStream] hasSpaceAvailable]) {
         NSInteger bytesWritten = [[self outputStream] write:[[self outputBuffer] bytes] maxLength:[[self outputBuffer] length]];
 
         // remove written bytes
@@ -130,8 +132,8 @@
 - (void)fillInputBuffer {
     while([[self inputStream] hasBytesAvailable]) {
         // read a chunk at a time
-        uint8_t bytes[4096];
-        NSInteger bytesRead = [[self inputStream] read:bytes maxLength:4096];
+        uint8_t bytes[kReadBufferSize];
+        NSInteger bytesRead = [[self inputStream] read:bytes maxLength:kReadBufferSize];
 
         if(bytesRead < 0) {
             // notify delegate
