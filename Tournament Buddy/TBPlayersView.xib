@@ -65,7 +65,7 @@
                                             </tableCellView>
                                         </prototypeCellViews>
                                         <connections>
-                                            <binding destination="o7i-4f-c3R" name="value" keyPath="arrangedObjects.configuration.players" id="NO1-J4-3Oc"/>
+                                            <binding destination="o7i-4f-c3R" name="value" keyPath="arrangedObjects.name" id="sYv-xB-RL9"/>
                                         </connections>
                                     </tableColumn>
                                     <tableColumn width="128" maxWidth="128" id="OcW-Nb-rtE">
@@ -107,12 +107,11 @@
                                                 </subviews>
                                             </tableCellView>
                                         </prototypeCellViews>
+                                        <connections>
+                                            <binding destination="o7i-4f-c3R" name="value" keyPath="arrangedObjects.added_at" id="BRf-Yj-arz"/>
+                                        </connections>
                                     </tableColumn>
                                 </tableColumns>
-                                <connections>
-                                    <binding destination="o7i-4f-c3R" name="content" keyPath="arrangedObjects" id="Ttf-xI-nG0"/>
-                                    <binding destination="o7i-4f-c3R" name="selectionIndexes" keyPath="selectionIndexes" previousBinding="Ttf-xI-nG0" id="Bcb-3w-wDv"/>
-                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>

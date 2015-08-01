@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
+        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
     </dependencies>
     <objects>
@@ -68,6 +69,9 @@
                                                 </connections>
                                             </tableCellView>
                                         </prototypeCellViews>
+                                        <connections>
+                                            <binding destination="ZWh-lB-mFY" name="value" keyPath="arrangedObjects.name" id="Bkg-Jy-5p7"/>
+                                        </connections>
                                     </tableColumn>
                                     <tableColumn identifier="" width="112" maxWidth="112" id="ORm-7E-O7q">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Type">
@@ -113,6 +117,9 @@
                                                 </subviews>
                                             </tableCellView>
                                         </prototypeCellViews>
+                                        <connections>
+                                            <binding destination="ZWh-lB-mFY" name="value" keyPath="arrangedObjects" id="rQd-0I-3RP"/>
+                                        </connections>
                                     </tableColumn>
                                     <tableColumn identifier="Cost" width="56" maxWidth="56" id="caX-3j-KCt">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Cost">
@@ -149,6 +156,9 @@
                                                 </connections>
                                             </tableCellView>
                                         </prototypeCellViews>
+                                        <connections>
+                                            <binding destination="ZWh-lB-mFY" name="value" keyPath="arrangedObjects.cost" id="xlr-r8-2nk"/>
+                                        </connections>
                                     </tableColumn>
                                     <tableColumn identifier="Fee" width="56" maxWidth="56" id="ZZi-BB-WWn">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Fee">
@@ -185,6 +195,9 @@
                                                 </connections>
                                             </tableCellView>
                                         </prototypeCellViews>
+                                        <connections>
+                                            <binding destination="ZWh-lB-mFY" name="value" keyPath="arrangedObjects.commission" id="dLT-pT-G28"/>
+                                        </connections>
                                     </tableColumn>
                                     <tableColumn identifier="Equity" width="56" maxWidth="56" id="ElJ-HQ-ak1">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Equity">
@@ -221,6 +234,9 @@
                                                 </connections>
                                             </tableCellView>
                                         </prototypeCellViews>
+                                        <connections>
+                                            <binding destination="ZWh-lB-mFY" name="value" keyPath="arrangedObjects.equity" id="dOd-Pa-xbi"/>
+                                        </connections>
                                     </tableColumn>
                                     <tableColumn width="56" maxWidth="56" id="Uvh-Rz-Buf">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Chips">
@@ -260,6 +276,9 @@
                                                 </connections>
                                             </tableCellView>
                                         </prototypeCellViews>
+                                        <connections>
+                                            <binding destination="ZWh-lB-mFY" name="value" keyPath="arrangedObjects.chips" id="O4d-Ob-Oml"/>
+                                        </connections>
                                     </tableColumn>
                                     <tableColumn width="192" maxWidth="192" id="ygT-Hl-nmT">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Forbid After">
@@ -310,17 +329,19 @@
                                                             </menu>
                                                         </popUpButtonCell>
                                                         <connections>
+                                                            <binding destination="Sm9-1Z-FA0" name="hidden" keyPath="isBuyin" id="d9l-P7-eT8"/>
                                                             <binding destination="-2" name="contentValues" keyPath="self.rounds" id="O2z-Ob-lce"/>
                                                         </connections>
                                                     </popUpButton>
                                                 </subviews>
                                             </tableCellView>
                                         </prototypeCellViews>
+                                        <connections>
+                                            <binding destination="ZWh-lB-mFY" name="value" keyPath="arrangedObjects" id="dTF-kQ-7aM"/>
+                                        </connections>
                                     </tableColumn>
                                 </tableColumns>
                                 <connections>
-                                    <binding destination="ZWh-lB-mFY" name="content" keyPath="arrangedObjects" id="VrL-F6-yFm"/>
-                                    <binding destination="ZWh-lB-mFY" name="selectionIndexes" keyPath="selectionIndexes" previousBinding="VrL-F6-yFm" id="Gqq-b8-QrN"/>
                                     <outlet property="dataSource" destination="-2" id="Pmf-1s-RFS"/>
                                     <outlet property="delegate" destination="-2" id="Iok-7c-MJA"/>
                                 </connections>

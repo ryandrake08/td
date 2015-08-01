@@ -26,7 +26,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView appearanceType="vibrantLight" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" autosaveColumns="NO" rowSizeStyle="automatic" headerView="Cmd-Qb-2kX" viewBased="YES" id="Etm-Cf-W2n">
-                                <rect key="frame" x="0.0" y="0.0" width="638" height="337"/>
+                                <rect key="frame" x="0.0" y="0.0" width="638" height="0.0"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -64,6 +64,9 @@
                                                 </subviews>
                                             </tableCellView>
                                         </prototypeCellViews>
+                                        <connections>
+                                            <binding destination="hco-pa-9cV" name="value" keyPath="arrangedObjects.color" id="jZp-bT-P8d"/>
+                                        </connections>
                                     </tableColumn>
                                     <tableColumn width="96" maxWidth="128" id="jtP-5u-DlR">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Denomination">
@@ -103,6 +106,9 @@
                                                 </connections>
                                             </tableCellView>
                                         </prototypeCellViews>
+                                        <connections>
+                                            <binding destination="hco-pa-9cV" name="value" keyPath="arrangedObjects.denomination" id="MsS-MS-TYY"/>
+                                        </connections>
                                     </tableColumn>
                                     <tableColumn width="485" maxWidth="1000000000" id="NLN-xc-cAo">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Available">
@@ -142,11 +148,12 @@
                                                 </connections>
                                             </tableCellView>
                                         </prototypeCellViews>
+                                        <connections>
+                                            <binding destination="hco-pa-9cV" name="value" keyPath="arrangedObjects.count_available" id="Z5H-HF-qhx"/>
+                                        </connections>
                                     </tableColumn>
                                 </tableColumns>
                                 <connections>
-                                    <binding destination="hco-pa-9cV" name="content" keyPath="arrangedObjects" id="Of3-Kz-AT7"/>
-                                    <binding destination="hco-pa-9cV" name="selectionIndexes" keyPath="selectionIndexes" previousBinding="Of3-Kz-AT7" id="gPN-cU-fcb"/>
                                     <outlet property="dataSource" destination="-2" id="vN3-5O-trk"/>
                                     <outlet property="delegate" destination="-2" id="XkL-NG-3Q8"/>
                                 </connections>
