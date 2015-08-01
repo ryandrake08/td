@@ -15,7 +15,7 @@ namespace td
     };
 
     // key into the player map
-    typedef int player_id_t;
+    typedef std::string player_id_t;
 
     // index into the funding_source vector
     typedef int funding_source_id_t;

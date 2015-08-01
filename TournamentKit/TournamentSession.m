@@ -351,7 +351,7 @@
     [self sendCommand:@"gen_blind_levels"withData:@{@"count" : count, @"duration" : durationMs, @"break_duration" : breakDurationMs, @"blind_increase_factor" : increaseFactor, } andBlock:nil];
 }
 
-- (void)fundPlayer:(NSNumber*)playerId withFunding:(NSNumber*)sourceId {
+- (void)fundPlayer:(id)playerId withFunding:(NSNumber*)sourceId {
     [self sendCommand:@"fund_player" withData:@{@"player_id" : playerId, @"source_id" : sourceId} andBlock:nil];
 }
 
@@ -359,7 +359,7 @@
     [self sendCommand:@"plan_seating" withData:@{@"max_expected_players" : expectedPlayers} andBlock:nil];
 }
 
-- (void)seatPlayer:(NSNumber*)playerId withBlock:(void(^)(NSNumber*,NSNumber*,NSNumber*))block {
+- (void)seatPlayer:(id)playerId withBlock:(void(^)(id,NSNumber*,NSNumber*))block {
     [self sendCommand:@"seat_player" withData:@{@"player_id" : playerId} andBlock:^(id json, NSString* error) {
         if(error != nil) {
             NSLog(@"seatPlayerWithBlock: %@\n", error);
@@ -379,7 +379,7 @@
     }];
 }
 
-- (void)unseatPlayer:(NSNumber*)playerId withBlock:(void(^)(NSNumber*,NSNumber*,NSNumber*))block {
+- (void)unseatPlayer:(id)playerId withBlock:(void(^)(id,NSNumber*,NSNumber*))block {
     [self sendCommand:@"unseat_player" withData:@{@"player_id" : playerId} andBlock:^(id json, NSString* error) {
         if(error != nil) {
             NSLog(@"unseatPlayerWithBlock: %@\n", error);
@@ -399,7 +399,7 @@
     }];
 }
 
-- (void)bustPlayer:(NSNumber*)playerId withBlock:(void(^)(NSArray*))block {
+- (void)bustPlayer:(id)playerId withBlock:(void(^)(NSArray*))block {
     [self sendCommand:@"bust_player" withData:@{@"player_id" : playerId} andBlock:^(id json, NSString* error) {
         if(error != nil) {
             NSLog(@"bustPlayerWithBlock: %@\n", error);
@@ -669,7 +669,9 @@
     }
 
     // create the player_id -> player lookup table
-    return [NSDictionary dictionaryWithObjects:[self players] forKeys:keys];
+    id dict = [NSDictionary dictionaryWithObjects:[self players] forKeys:keys];
+
+    return dict;
 }
 
 #pragma mark Tournament Messages

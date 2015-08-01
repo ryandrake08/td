@@ -95,10 +95,10 @@
 - (void)setNextLevelWithBlock:(void(^)(NSNumber*))block;
 - (void)setActionClock:(NSNumber*)milliseconds;
 - (void)genBlindLevels:(NSNumber*)count withDuration:(NSNumber*)durationMs breakDuration:(NSNumber*)breakDurationMs blindIncreaseFactor:(NSNumber*)increaseFactor;
-- (void)fundPlayer:(NSNumber*)playerId withFunding:(NSNumber*)sourceId;
+- (void)fundPlayer:(id)playerId withFunding:(NSNumber*)sourceId;
 - (void)planSeatingFor:(NSNumber*)expectedPlayers;
-- (void)seatPlayer:(NSNumber*)playerId withBlock:(void(^)(NSNumber*,NSNumber*,NSNumber*))block;
-- (void)unseatPlayer:(NSNumber*)playerId withBlock:(void(^)(NSNumber*,NSNumber*,NSNumber*))block;
-- (void)bustPlayer:(NSNumber*)playerId withBlock:(void(^)(NSArray*))block;
+- (void)seatPlayer:(id)playerId withBlock:(void(^)(id playerId,NSNumber* tableNumber,NSNumber* seatNumber))block;
+- (void)unseatPlayer:(id)playerId withBlock:(void(^)(id playerId,NSNumber* tableNumber,NSNumber* seatNumber))block;
+- (void)bustPlayer:(id)playerId withBlock:(void(^)(NSArray*))block;
 
 @end

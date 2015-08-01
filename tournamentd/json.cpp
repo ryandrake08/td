@@ -306,6 +306,16 @@ json::json(const std::vector<std::string>& values)
 }
 
 template <>
+json::json(const std::deque<std::string>& values) : json(std::vector<std::string>(values.begin(), values.end()))
+{
+}
+
+template <>
+json::json(const std::unordered_set<std::string>& values) : json(std::vector<std::string>(values.begin(), values.end()))
+{
+}
+
+template <>
 json::json(const std::deque<int>& values)
 {
     std::vector<int> tmp(values.begin(), values.end());

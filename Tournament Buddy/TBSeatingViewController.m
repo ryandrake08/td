@@ -30,7 +30,7 @@
     // inject seated flag into our own player array
     NSMutableArray* newArray = [NSMutableArray array];
     for(id obj in [[self session] players]) {
-        NSNumber* playerId = obj[@"player_id"];
+        id playerId = obj[@"player_id"];
         if(playerId) {
             NSMutableDictionary* newObj = [NSMutableDictionary dictionaryWithDictionary:obj];
             BOOL seated = [[[self session] seatedPlayers] containsObject:playerId];
@@ -45,7 +45,7 @@
     // inject players into our own seats array
     NSMutableArray* newArray = [NSMutableArray array];
     for(id obj in [[self session] seats]) {
-        NSNumber* playerId = obj[@"player_id"];
+        id playerId = obj[@"player_id"];
         if(playerId) {
             NSDictionary* player = [[self session] playersLookup][playerId];
             if(player) {
@@ -81,7 +81,7 @@
 
 - (IBAction)seatedButtonDidChange:(id)sender {
     NSTableCellView* cell = (NSTableCellView*)[sender superview];
-    NSNumber* playerId = [cell objectValue][@"player_id"];
+    id playerId = [cell objectValue][@"player_id"];
     if([sender state] == NSOnState) {
         [[self session] seatPlayer:playerId withBlock:nil];
     } else {
