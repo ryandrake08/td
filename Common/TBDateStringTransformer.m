@@ -22,14 +22,14 @@
 
 - (id)transformedValue:(id)value {
     if([value isKindOfClass:[NSString class]]) {
-        return [[NSDateFormatter iso8601DateFormatter] dateFromString:value];
+        return [[NSDateFormatter dateFormatterWithISO8601Format] dateFromString:value];
     }
     return nil;
 }
 
 - (id)reverseTransformedValue:(id)value {
     if([value isKindOfClass:[NSDate class]]) {
-        return [[NSDateFormatter iso8601DateFormatter] stringFromDate:value];
+        return [[NSDateFormatter dateFormatterWithISO8601Format] stringFromDate:value];
     }
     return nil;
 }

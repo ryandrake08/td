@@ -10,6 +10,6 @@
 
 @interface NSDateFormatter (ISO8601)
 
-+ (NSDateFormatter*)iso8601DateFormatter;
++ (NSDateFormatter*)dateFormatterWithISO8601Format;
 
 @end

@@ -10,11 +10,16 @@
 
 @implementation NSDateFormatter (ISO8601)
 
-+ (NSDateFormatter*)iso8601DateFormatter {
-    NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setLocale:[NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"]];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss"];
-    return dateFormatter;
++ (NSDateFormatter*)dateFormatterWithISO8601Format {
+    return [[NSDateFormatter alloc] initWithISO8601Format];
+}
+
+- (instancetype)initWithISO8601Format {
+    if((self = [self init])) {
+        [self setLocale:[NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"]];
+        [self setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss"];
+    }
+    return self;
 }
 
 @end
