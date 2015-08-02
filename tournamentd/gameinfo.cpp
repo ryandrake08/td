@@ -32,6 +32,8 @@ gameinfo::gameinfo() :
 
 void gameinfo::validate()
 {
+    logger(LOG_INFO) << "validating game configuration / state\n";
+
     // ensure we have at least one blind level, the setup level
     if(this->blind_levels.empty())
     {
@@ -44,7 +46,7 @@ void gameinfo::validate()
 // load configuration from JSON (object or file)
 void gameinfo::configure(const json& config)
 {
-    logger(LOG_DEBUG) << "Loading tournament configuration\n";
+    logger(LOG_INFO) << "loading tournament configuration\n";
 
     config.get_value("name", this->name);
     config.get_value("cost_currency", this->cost_currency);
@@ -67,13 +69,12 @@ void gameinfo::configure(const json& config)
     {
         if(!this->seats.empty() || !this->players_finished.empty() || !this->buyins.empty() || !this->entries.empty())
         {
-            logger(LOG_WARNING) << "Re-coniguring players list while in play is not advised, deleted players may still be in the game\n";
+            logger(LOG_WARNING) << "re-coniguring players list while in play is not advised, deleted players may still be in the game\n";
         }
 
         this->players.clear();
         for(auto player : players_vector)
         {
-            logger(LOG_DEBUG) << "Configuring player " << player.player_id << " (" << player.name << ")\n";
             this->players.emplace(player.player_id, player);
         }
     }
@@ -96,7 +97,7 @@ void gameinfo::configure(const json& config)
     {
         if(!this->seats.empty())
         {
-            logger(LOG_WARNING) << "Re-configuring table capacity will clear seating plan\n";
+            logger(LOG_WARNING) << "re-configuring table capacity will clear seating plan\n";
         }
 
         // if seats are already set up, replan based on new table capacity
@@ -122,7 +123,7 @@ void gameinfo::configure(const json& config)
     {
         if(this->is_started())
         {
-            logger(LOG_WARNING) << "Re-configuring blind levels while in play will stop the game\n";
+            logger(LOG_WARNING) << "re-configuring blind levels while in play will stop the game\n";
             this->stop();
         }
     }
@@ -133,7 +134,7 @@ void gameinfo::configure(const json& config)
 // dump configuration to JSON
 void gameinfo::dump_configuration(json& config) const
 {
-    logger(LOG_DEBUG) << "Dumping tournament configuration\n";
+    logger(LOG_INFO) << "dumping tournament configuration\n";
 
     config.set_value("name", this->name);
     config.set_values("players", this->players);
@@ -150,7 +151,7 @@ void gameinfo::dump_configuration(json& config) const
 // dump state to JSON
 void gameinfo::dump_state(json& state) const
 {
-    logger(LOG_DEBUG) << "Dumping tournament state\n";
+    logger(LOG_INFO) << "dumping tournament state\n";
 
     state.set_values("seats", this->seats);
     state.set_value("players_finished", json(this->players_finished));
@@ -183,7 +184,7 @@ std::vector<std::vector<td::player_id_t> > gameinfo::players_at_tables() const
 
     for(std::size_t i(0); i<ret.size(); i++)
     {
-        logger(LOG_DEBUG) << "Table " << i << " has " << ret[i].size() << " players\n";
+        logger(LOG_INFO) << "table " << i << " has " << ret[i].size() << " players\n";
     }
 
     return ret;
@@ -191,7 +192,7 @@ std::vector<std::vector<td::player_id_t> > gameinfo::players_at_tables() const
 
 std::size_t gameinfo::plan_seating(std::size_t max_expected_players)
 {
-    logger(LOG_DEBUG) << "Planning tournament for " << max_expected_players << " players\n";
+    logger(LOG_INFO) << "planning tournament for " << max_expected_players << " players\n";
 
     // check arguments
     if(max_expected_players < 2)
@@ -213,7 +214,7 @@ std::size_t gameinfo::plan_seating(std::size_t max_expected_players)
     // figure out how many tables needed
     this->tables = ((max_expected_players-1) / this->table_capacity) + 1;
 
-    logger(LOG_DEBUG) << "Tables needed: " << this->tables << "\n";
+    logger(LOG_INFO) << "tables needed: " << this->tables << "\n";
 
     // build up seat list
     for(std::size_t t(0); t<this->tables; t++)
@@ -227,7 +228,7 @@ std::size_t gameinfo::plan_seating(std::size_t max_expected_players)
     // randomize it
     std::shuffle(this->empty_seats.begin(), this->empty_seats.end(), engine);
 
-    logger(LOG_DEBUG) << "Created " << this->empty_seats.size() << " empty seats\n";
+    logger(LOG_INFO) << "created " << this->empty_seats.size() << " empty seats\n";
 
     // return number of tables needed
     return this->tables;
@@ -239,11 +240,10 @@ td::seat gameinfo::add_player(const td::player_id_t& player_id)
     auto player_it(players.find(player_id));
     if(player_it == players.end())
     {
-        logger(LOG_ERROR) << "Failed to look up player " << player_id << '\n';
         throw td::protocol_error("failed to look up player");
     }
 
-    logger(LOG_DEBUG) << "Adding player " << player_id << " (" << player_it->second.name << ") to game\n";
+    logger(LOG_INFO) << "adding player " << player_id << " (" << player_it->second.name << ") to game\n";
 
     // verify game state
     if(this->empty_seats.empty())
@@ -263,7 +263,7 @@ td::seat gameinfo::add_player(const td::player_id_t& player_id)
     this->seats.insert(std::make_pair(player_id, seat));
     this->empty_seats.pop_front();
 
-    logger(LOG_DEBUG) << "Seated player " << player_id << " at table " << seat.table_number << ", seat " << seat.seat_number << '\n';
+    logger(LOG_INFO) << "seated player " << player_id << " at table " << seat.table_number << ", seat " << seat.seat_number << '\n';
 
     return seat;
 }
@@ -274,11 +274,10 @@ td::seat gameinfo::remove_player(const td::player_id_t& player_id)
     auto player_it(players.find(player_id));
     if(player_it == players.end())
     {
-        logger(LOG_ERROR) << "Failed to look up player " << player_id << '\n';
         throw td::protocol_error("failed to look up player");
     }
 
-    logger(LOG_DEBUG) << "Removing player " << player_id << " (" << player_it->second.name << ") from game\n";
+    logger(LOG_INFO) << "removing player " << player_id << " (" << player_it->second.name << ") from game\n";
 
     auto seat_it(this->seats.find(player_id));
 
@@ -304,11 +303,10 @@ std::vector<td::player_movement> gameinfo::bust_player(const td::player_id_t& pl
     auto player_it(players.find(player_id));
     if(player_it == players.end())
     {
-        logger(LOG_ERROR) << "Failed to look up player " << player_id << '\n';
         throw td::protocol_error("failed to look up player");
     }
 
-    logger(LOG_DEBUG) << "Busting player " << player_id << " (" << player_it->second.name << ")\n";
+    logger(LOG_INFO) << "busting player " << player_id << " (" << player_it->second.name << ")\n";
 
     // add to the busted out list
     this->players_finished.push_front(player_id);
@@ -326,11 +324,10 @@ td::player_movement gameinfo::move_player(const td::player_id_t& player_id, std:
     auto player_it(players.find(player_id));
     if(player_it == players.end())
     {
-        logger(LOG_ERROR) << "Failed to look up player " << player_id << '\n';
         throw td::protocol_error("failed to look up player");
     }
 
-    logger(LOG_DEBUG) << "Moving player " << player_id << " (" << player_it->second.name << ") to table " << table << '\n';
+    logger(LOG_INFO) << "moving player " << player_id << " (" << player_it->second.name << ") to table " << table << '\n';
 
     // build up a list of candidate seats
     std::vector<std::deque<td::seat>::iterator> candidates;
@@ -343,7 +340,7 @@ td::player_movement gameinfo::move_player(const td::player_id_t& player_id, std:
         }
     }
 
-    logger(LOG_DEBUG) << "Choosing from " << candidates.size() << " free seats\n";
+    logger(LOG_INFO) << "choosing from " << candidates.size() << " free seats\n";
 
     // we should always have at least one seat free
     if(candidates.empty())
@@ -361,7 +358,7 @@ td::player_movement gameinfo::move_player(const td::player_id_t& player_id, std:
     this->empty_seats.push_back(from_seat);
     player_seat_it->second = to_seat;
 
-    logger(LOG_DEBUG) << "Moved player " << player_id << " from table " << from_seat.table_number << ", seat " << from_seat.seat_number << " to table " << to_seat.table_number << ", seat " << to_seat.seat_number << '\n';
+    logger(LOG_INFO) << "moved player " << player_id << " from table " << from_seat.table_number << ", seat " << from_seat.seat_number << " to table " << to_seat.table_number << ", seat " << to_seat.seat_number << '\n';
 
     return td::player_movement(player_id, from_seat, to_seat);
 }
@@ -372,11 +369,10 @@ td::player_movement gameinfo::move_player(const td::player_id_t& player_id, cons
     auto player_it(players.find(player_id));
     if(player_it == players.end())
     {
-        logger(LOG_ERROR) << "Failed to look up player " << player_id << '\n';
         throw td::protocol_error("failed to look up player");
     }
 
-    logger(LOG_DEBUG) << "Moving player " << player_id << " (" << player_it->second.name << ") to a free table\n";
+    logger(LOG_INFO) << "moving player " << player_id << " (" << player_it->second.name << ") to a free table\n";
 
     // build players-per-table vector
     auto ppt(this->players_at_tables());
@@ -418,7 +414,7 @@ static constexpr bool has_lower_size(const T& i0, const T& i1)
 // returns number of movements, or zero, if no players moved
 std::size_t gameinfo::try_rebalance(std::vector<td::player_movement>& movements)
 {
-    logger(LOG_DEBUG) << "Attemptying to rebalance tables\n";
+    logger(LOG_INFO) << "attemptying to rebalance tables\n";
 
     std::size_t ret(0);
 
@@ -432,7 +428,7 @@ std::size_t gameinfo::try_rebalance(std::vector<td::player_movement>& movements)
     // if fewest has two fewer players than most (e.g. 6 vs 8), then rebalance
     while(fewest_it->size() < most_it->size() - 1)
     {
-        logger(LOG_DEBUG) << "Largest table has " << most_it->size() << " players and smallest table has " << fewest_it->size() << " players\n";
+        logger(LOG_INFO) << "largest table has " << most_it->size() << " players and smallest table has " << fewest_it->size() << " players\n";
 
         // pick a random player at the table with the most players
         auto index(std::uniform_int_distribution<std::size_t>(0, most_it->size()-1)(engine));
@@ -456,7 +452,7 @@ std::size_t gameinfo::try_rebalance(std::vector<td::player_movement>& movements)
 // returns number of movements, or zero, if no players moved
 std::size_t gameinfo::try_break_table(std::vector<td::player_movement>& movements)
 {
-    logger(LOG_DEBUG) << "Attemptying to break a table\n";
+    logger(LOG_INFO) << "attemptying to break a table\n";
 
     std::size_t ret(0);
 
@@ -465,7 +461,7 @@ std::size_t gameinfo::try_break_table(std::vector<td::player_movement>& movement
         // break tables while (player_count-1) div table_capacity < tables
         while((this->seats.size() - 1) / this->table_capacity < this->tables)
         {
-            logger(LOG_DEBUG) << "Breaking a table. " << this->seats.size() << " players remain at " << this->tables << " tables of " << this->table_capacity << " capacity\n";
+            logger(LOG_INFO) << "breaking a table. " << this->seats.size() << " players remain at " << this->tables << " tables of " << this->table_capacity << " capacity\n";
 
             // always break the highest-numbered table
             auto break_table(this->tables - 1);
@@ -494,7 +490,7 @@ std::size_t gameinfo::try_break_table(std::vector<td::player_movement>& movement
             // prune empty table from our open seat list, no need to seat people at unused tables
             this->empty_seats.erase(std::remove_if(this->empty_seats.begin(), this->empty_seats.end(), [&break_table](const td::seat& seat) { return seat.table_number == break_table; }));
             
-            logger(LOG_DEBUG) << "Broken table " << break_table << ". " << this->seats.size() << " players now at " << this->tables << " tables\n";
+            logger(LOG_INFO) << "broken table " << break_table << ". " << this->seats.size() << " players now at " << this->tables << " tables\n";
         }
     }
     
@@ -524,11 +520,10 @@ void gameinfo::fund_player(const td::player_id_t& player_id, const td::funding_s
     auto player_it(players.find(player_id));
     if(player_it == players.end())
     {
-        logger(LOG_ERROR) << "Failed to look up player " << player_id << '\n';
         throw td::protocol_error("failed to look up player");
     }
 
-    logger(LOG_DEBUG) << "Funding player " << player_id << " (" << player_it->second.name << ") with " << source.name << '\n';
+    logger(LOG_INFO) << "funding player " << player_id << " (" << player_it->second.name << ") with " << source.name << '\n';
 
     if(!source.is_addon) {
         // add player to buyin set
@@ -618,7 +613,7 @@ std::vector<td::player_chips> gameinfo::chips_for_buyin(const td::funding_source
         q[d] += count;
         remain -= count*d;
 
-        logger(LOG_DEBUG) << "Initial chips: T" << d << ": " << q[d] << '\n';
+        logger(LOG_INFO) << "initial chips: T" << d << ": " << q[d] << '\n';
     }
 
     // check that we can represent buyin with our chip set
@@ -662,12 +657,12 @@ std::vector<td::player_chips> gameinfo::chips_for_buyin(const td::funding_source
                 {
                     q[d0] += count;
                     remain -= count*d0;
-                    logger(LOG_DEBUG) << "Move chips: T" << d1 << ": 1 -> T" << d0 << ": " << count << '\n';
+                    logger(LOG_DEBUG) << "move chips: T" << d1 << ": 1 -> T" << d0 << ": " << count << '\n';
                 }
 
-                logger(LOG_DEBUG) << "Current chips: T" << d1 << ": " << q[d1] << '\n';
-                logger(LOG_DEBUG) << "Current chips: T" << d0 << ": " << q[d0] << '\n';
-                logger(LOG_DEBUG) << "Remaining value: T" << remain << '\n';
+                logger(LOG_DEBUG) << "current chips: T" << d1 << ": " << q[d1] << '\n';
+                logger(LOG_DEBUG) << "current chips: T" << d0 << ": " << q[d0] << '\n';
+                logger(LOG_DEBUG) << "remaining value: T" << remain << '\n';
             }
         }
 
@@ -678,7 +673,7 @@ std::vector<td::player_chips> gameinfo::chips_for_buyin(const td::funding_source
     // check that we can represent buyin with our chip set
     if(remain != 0)
     {
-        logger(LOG_DEBUG) << "Done moving, remaining value: T" << remain << '\n';
+        logger(LOG_INFO) << "done moving, remaining value: T" << remain << '\n';
         return std::vector<td::player_chips>();
     }
 
@@ -703,7 +698,7 @@ void gameinfo::recalculate_payouts()
     auto manual_payout_it(this->manual_payouts.find(this->buyins.size()));
     if(manual_payout_it != this->manual_payouts.end())
     {
-        logger(LOG_DEBUG) << "Applying manual payout: " << manual_payout_it->second.size() << " seats will be paid\n";
+        logger(LOG_INFO) << "applying manual payout: " << manual_payout_it->second.size() << " seats will be paid\n";
 
         // use found payout structure
         this->payouts = manual_payout_it->second;
@@ -716,7 +711,7 @@ void gameinfo::recalculate_payouts()
     bool round(this->round_payouts);
     double f(this->payout_flatness);
 
-    logger(LOG_DEBUG) << "Recalculating payouts: " << seats_paid << " seats will be paid\n";
+    logger(LOG_INFO) << "recalculating payouts: " << seats_paid << " seats will be paid\n";
 
     // resize our payout structure
     this->payouts.resize(seats_paid);
@@ -793,7 +788,7 @@ void gameinfo::start()
         throw td::protocol_error("cannot start without blind levels configured");
     }
 
-    logger(LOG_DEBUG) << "Starting the tournament\n";
+    logger(LOG_INFO) << "starting the tournament\n";
 
     // start the blind level
     this->start_blind_level(1, duration_t::zero());
@@ -817,7 +812,7 @@ void gameinfo::start(const time_point_t& starttime)
         throw td::protocol_error("cannot start without blind levels configured");
     }
 
-    logger(LOG_DEBUG) << "Starting the tournament in the future\n";
+    logger(LOG_INFO) << "starting the tournament in the future:" << datetime(starttime) << '\n';
 
     // start the tournament
     this->running = true;
@@ -837,7 +832,7 @@ void gameinfo::stop()
         throw td::protocol_error("tournament not started");
     }
 
-    logger(LOG_DEBUG) << "Stopping the tournament\n";
+    logger(LOG_INFO) << "stopping the tournament\n";
 
     this->running = false;
     this->current_blind_level = 0;
@@ -858,7 +853,7 @@ void gameinfo::pause()
         throw td::protocol_error("tournament not started");
     }
 
-    logger(LOG_DEBUG) << "Pausing the tournament\n";
+    logger(LOG_INFO) << "pausing the tournament\n";
 
     // update time remaining
     this->update_remaining();
@@ -875,7 +870,7 @@ void gameinfo::resume()
         throw td::protocol_error("tournament not started");
     }
 
-    logger(LOG_DEBUG) << "Resuming the tournament\n";
+    logger(LOG_INFO) << "resuming the tournament\n";
 
     auto now(std::chrono::system_clock::now());
 
@@ -910,7 +905,7 @@ bool gameinfo::next_blind_level(duration_t offset)
 
     if(this->current_blind_level + 1 < this->blind_levels.size())
     {
-        logger(LOG_DEBUG) << "Setting next blind level from " << this->current_blind_level << " to " << this->current_blind_level + 1 << '\n';
+        logger(LOG_INFO) << "setting next blind level from " << this->current_blind_level << " to " << this->current_blind_level + 1 << '\n';
 
         this->start_blind_level(this->current_blind_level + 1, offset);
         return true;
@@ -935,14 +930,14 @@ bool gameinfo::previous_blind_level(duration_t offset)
     auto elapsed_time(this->blind_levels[this->current_blind_level].duration - this->time_remaining.count());
     if(elapsed_time > max_elapsed_time_ms || this->current_blind_level == 1)
     {
-        logger(LOG_DEBUG) << "Restarting blind level " << this->current_blind_level << '\n';
+        logger(LOG_INFO) << "restarting blind level " << this->current_blind_level << '\n';
 
         this->start_blind_level(this->current_blind_level, offset);
         return false;
     }
     else
     {
-        logger(LOG_DEBUG) << "Setting previous blind level from " << this->current_blind_level << " to " << this->current_blind_level - 1 << '\n';
+        logger(LOG_INFO) << "setting previous blind level from " << this->current_blind_level << " to " << this->current_blind_level - 1 << '\n';
 
         this->start_blind_level(this->current_blind_level - 1, offset);
         return true;
@@ -1052,6 +1047,8 @@ void gameinfo::gen_blind_levels(std::size_t count, long level_duration, long chi
         throw td::protocol_error("tried to create a blind structure without chips defined");
     }
 
+    logger(LOG_INFO) << "generating " << count << " blind levels\n";
+    
     // resize structure, zero-initializing
     this->blind_levels.resize(count+1);
 

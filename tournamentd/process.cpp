@@ -37,7 +37,7 @@ process::process(const char* file, const char* const argv[], unsigned int sleep_
                 sleep(sleep_s);
             }
 
-            logger(LOG_INFO) << "fork " << pid << ", exec " << file << ", sleep " << sleep_s << " seconds\n";
+            logger(LOG_DEBUG) << "fork " << pid << ", exec " << file << ", sleep " << sleep_s << " seconds\n";
         }
     }
 }
@@ -48,12 +48,12 @@ process::~process() throw()
     {
         auto killed(kill(this->pimpl->pid, SIGTERM));
 
-        logger(LOG_INFO) << "kill: " << killed << '\n';
+        logger(LOG_DEBUG) << "kill: " << killed << '\n';
 
         auto wp(waitpid(this->pimpl->pid, nullptr, 0));
 
-        logger(LOG_INFO) << "waitpid: " << wp << '\n';
-        logger(LOG_INFO) << "killed " << this->pimpl->pid << '\n';
+        logger(LOG_DEBUG) << "waitpid: " << wp << '\n';
+        logger(LOG_DEBUG) << "killed " << this->pimpl->pid << '\n';
 
         delete pimpl;
     }

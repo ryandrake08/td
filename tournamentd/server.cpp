@@ -48,7 +48,7 @@ bool server::poll(const std::function<bool(std::ostream&)>& handle_new_client, c
 
         if(this->listeners.find(*sock) != this->listeners.end())
         {
-            logger(LOG_DEBUG) << "new client connection\n";
+            logger(LOG_INFO) << "new client connection\n";
 
             // accept new client from listening socket
             auto client(sock->accept());
@@ -64,7 +64,7 @@ bool server::poll(const std::function<bool(std::ostream&)>& handle_new_client, c
         }
         else
         {
-            logger(LOG_DEBUG) << "handling client communication\n";
+            logger(LOG_INFO) << "handling client communication\n";
 
             auto client(*sock);
 
@@ -72,7 +72,7 @@ bool server::poll(const std::function<bool(std::ostream&)>& handle_new_client, c
             socketstream ss(*sock);
             if(handle_client(ss) || !ss.good())
             {
-                logger(LOG_DEBUG) << "closing client connection\n";
+                logger(LOG_INFO) << "closing client connection\n";
                 this->clients.erase(client);
                 this->all.erase(client);
             }

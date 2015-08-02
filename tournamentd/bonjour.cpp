@@ -66,6 +66,8 @@ public:
 
     ~bonjour_impl()
     {
+        logger(LOG_INFO) << "shutting down bonjour\n";
+
         CFNetServiceUnscheduleFromRunLoop(netService, CFRunLoopGetCurrent(), kCFRunLoopCommonModes);
         CFNetServiceSetClient(netService, nullptr, nullptr);
         CFNetServiceCancel(netService);
