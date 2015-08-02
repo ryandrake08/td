@@ -27,7 +27,7 @@
     do {
         newFont = tryFont;
         tryFont = [NSFont fontWithName:[[self font] fontName] size:i++];
-        strSize = [[self stringValue] sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:tryFont, NSFontAttributeName, nil]];
+        strSize = [[self stringValue] sizeWithAttributes:@{NSFontAttributeName:tryFont}];
     } while(strSize.width < self.frame.size.width && strSize.height < self.frame.size.height);
 
     if(newFont != nil) {

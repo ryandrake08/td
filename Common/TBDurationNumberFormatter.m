@@ -31,8 +31,7 @@
        [scanner scanInteger:&minutes] &&
        [scanner isAtEnd]) {
         if(obj) {
-            NSInteger duration = hours * 3600000 + minutes * 60000;
-            *obj = [NSNumber numberWithInteger:duration];
+            *obj = @(hours * 3600000 + minutes * 60000);
             return YES;
         }
     } else {

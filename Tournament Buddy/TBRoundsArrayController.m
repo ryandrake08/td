@@ -20,9 +20,9 @@
     NSDictionary* last = [[self content] lastObject];
     if(last != nil) {
         game_name = last[@"game_name"];
-        little_blind = [NSNumber numberWithInt:[last[@"little_blind"] intValue] * 2];
-        big_blind = [NSNumber numberWithInt:[last[@"big_blind"] intValue] * 2];
-        ante = [NSNumber numberWithInt:[last[@"ante"] intValue] * 2];
+        little_blind = @([last[@"little_blind"] intValue] * 2);
+        big_blind = @([last[@"big_blind"] intValue] * 2);
+        ante = @([last[@"ante"] intValue] * 2);
         duration = last[@"duration"];
     }
 

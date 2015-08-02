@@ -34,7 +34,7 @@
         if(playerId) {
             NSMutableDictionary* newObj = [NSMutableDictionary dictionaryWithDictionary:obj];
             BOOL seated = [[[self session] seatedPlayers] containsObject:playerId];
-            newObj[@"seated"] = [NSNumber numberWithBool:seated];
+            newObj[@"seated"] = @(seated);
             [newArray addObject:newObj];
         }
     }
@@ -72,7 +72,7 @@
 - (void)controlTextDidEndEditing:(NSNotification*)notification {
     NSInteger maxPlayers = [[notification object] integerValue];
     if(maxPlayers > 1 && maxPlayers != [self lastMaxPlayers]) {
-        [[self session] planSeatingFor:[NSNumber numberWithInteger:maxPlayers]];
+        [[self session] planSeatingFor:@(maxPlayers)];
         [self setLastMaxPlayers:maxPlayers];
     }
 }
@@ -117,7 +117,7 @@
     if(currentBlindLevel != 0) {
         NSUInteger remaining = [[[self session] actionClockTimeRemaining] unsignedIntegerValue];
         if(remaining == 0) {
-            [[self session] setActionClock:[NSNumber numberWithUnsignedInteger:kActionClockRequestTime]];
+            [[self session] setActionClock:@kActionClockRequestTime];
         } else {
             [[self session] setActionClock:nil];
         }

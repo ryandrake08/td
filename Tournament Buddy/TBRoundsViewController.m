@@ -35,7 +35,7 @@
 
 - (id)tableView:(NSTableView*)aTableView objectValueForTableColumn:(NSTableColumn*)aTableColumn row:(NSInteger)rowIndex {
     if([[aTableColumn identifier] isEqualToString:@"Round"]) {
-        return [NSNumber numberWithInteger:rowIndex+1];
+        return @(rowIndex+1);
     } else if([[aTableColumn identifier] isEqualToString:@"Start Time"]) {
         long totalDuration = 0;
         for(NSInteger i=0; i<rowIndex; i++) {
@@ -44,7 +44,7 @@
             long breakDuration = [object[@"break_duration"] longValue];
             totalDuration += duration + breakDuration;
         }
-        return [NSNumber numberWithInteger:totalDuration];
+        return @(totalDuration);
     }
     return nil;
 }

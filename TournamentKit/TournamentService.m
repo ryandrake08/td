@@ -30,7 +30,7 @@
     if (self = [super init]) {
         _dict = [[NSMutableDictionary alloc] init];
         _dict[@"address"] = address;
-        _dict[@"port"] = [NSNumber numberWithInteger:port];
+        _dict[@"port"] = @(port);
         _dict[@"name"] = [NSString stringWithFormat:@"%@:%li", address, (long)port];
     }
     return self;

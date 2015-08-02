@@ -186,7 +186,7 @@
     if([defaults objectForKey:key] == nil) {
         // generate a new identifier
         u_int32_t cid = arc4random() % 90000 + 10000;
-        [defaults setObject:[NSNumber numberWithInteger:cid] forKey:key];
+        [defaults setObject:@(cid) forKey:key];
     }
     return [defaults objectForKey:key];
 #endif
@@ -588,8 +588,7 @@
     NSString* newText = @"-";
 
     if([seats count] > 0) {
-        NSNumber* numSeats = [NSNumber numberWithUnsignedInteger:[seats count]];
-        newText = [[self decimalFormatter] stringFromNumber:numSeats];
+        newText = [[self decimalFormatter] stringFromNumber:@([seats count])];
     }
 
     return newText;
@@ -602,8 +601,7 @@
     NSString* newText = @"-";
 
     if([entries count] > 0) {
-        NSNumber* numEntries = [NSNumber numberWithUnsignedInteger:[entries count]];
-        newText = [[self decimalFormatter] stringFromNumber:numEntries];
+        newText = [[self decimalFormatter] stringFromNumber:@([entries count])];
     }
 
     return newText;
@@ -617,8 +615,7 @@
     NSString* newText = @"-";
 
     if([seats count] > 0) {
-        NSNumber* avgChips = [NSNumber numberWithUnsignedInteger:totalChips / [seats count]];
-        newText = [[self decimalFormatter] stringFromNumber:avgChips];
+        newText = [[self decimalFormatter] stringFromNumber:@(totalChips / [seats count])];
     }
 
     return newText;
@@ -629,10 +626,12 @@
 
     // payouts with empty player field, for seated players
     for(NSUInteger i=0; i<[[self seats] count]; i++) {
-        NSNumber* place = [NSNumber numberWithUnsignedInteger:i+1];
         if([[self payouts] count] > i) {
-            NSNumber* payout = [self payouts][i];
-            NSDictionary* item = [NSDictionary dictionaryWithObjectsAndKeys:place, @"place", [NSNull null], @"player", payout, @"payout", nil];
+            NSDictionary* item = @{
+                @"place":@(i+1),
+                @"player":[NSNull null],
+                @"payout":[self payouts][i]
+            };
             [newResults addObject:item];
         }
     }
@@ -640,12 +639,13 @@
     // include actual player for busted players
     for(NSUInteger i=0; i<[[self playersFinished] count]; i++) {
         NSUInteger j = [[self seats] count]+i;
-        NSNumber* place = [NSNumber numberWithUnsignedInteger:j+1];
         if([[self payouts] count] > j) {
-            NSNumber* payout = [self payouts][j];
             NSNumber* finished = [self playersFinished][i];
-            NSDictionary* player = [self playersLookup][finished];
-            NSDictionary* item = [NSDictionary dictionaryWithObjectsAndKeys:place, @"place", player, @"player", payout, @"payout", nil];
+            NSDictionary* item =  @{
+                @"place":@(j+1),
+                @"player":[self playersLookup][finished],
+                @"payout":[self payouts][j]
+            };
             [newResults addObject:item];
         }
     }

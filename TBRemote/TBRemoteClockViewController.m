@@ -143,7 +143,7 @@
     if(currentBlindLevel != 0) {
         NSUInteger remaining = [[[self session] actionClockTimeRemaining] unsignedIntegerValue];
         if(remaining == 0) {
-            [[self session] setActionClock:[NSNumber numberWithUnsignedInteger:kActionClockRequestTime]];
+            [[self session] setActionClock:@kActionClockRequestTime];
         } else {
             [[self session] setActionClock:nil];
         }
