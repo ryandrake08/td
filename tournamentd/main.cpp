@@ -61,21 +61,9 @@ public:
 
             while(signal_caught == 0)
             {
-                try
+                if(c.run())
                 {
-                    auto ret(c.run());
-                    if(ret)
-                    {
-                        return EXIT_SUCCESS;
-                    }
-                }
-                catch(const std::system_error& e)
-                {
-                    // EINTR: select() was interrupted. Just retry
-                    if(e.code().value() != EINTR)
-                    {
-                        throw;
-                    }
+                    return EXIT_SUCCESS;
                 }
 
 #if defined(SIGUSR2)

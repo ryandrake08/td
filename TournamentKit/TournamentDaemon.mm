@@ -55,19 +55,7 @@
     dispatch_group_async(group, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         while(running)
         {
-            try
-            {
-                auto quit = tourney.run();
-                running = running && !quit;
-            }
-            catch(const std::system_error& e)
-            {
-                // EINTR: select() was interrupted. Just retry
-                if(e.code().value() != EINTR)
-                {
-                    throw;
-                }
-            }
+            running = running && !tourney.run();
         }
     });
 

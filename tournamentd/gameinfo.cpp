@@ -196,13 +196,13 @@ std::size_t gameinfo::plan_seating(std::size_t max_expected_players)
     // check arguments
     if(max_expected_players < 2)
     {
-        throw td::runtime_error("expected players must be at least 2");
+        throw td::protocol_error("expected players must be at least 2");
     }
 
     // check configuration: table capacity should be sane
     if(this->table_capacity < 2)
     {
-        throw td::runtime_error("table capacity must be at least 2");
+        throw td::protocol_error("table capacity must be at least 2");
     }
 
     // reset to known quantities
@@ -240,7 +240,7 @@ td::seat gameinfo::add_player(const td::player_id_t& player_id)
     if(player_it == players.end())
     {
         logger(LOG_ERROR) << "Failed to look up player " << player_id << '\n';
-        throw td::runtime_error("failed to look up player");
+        throw td::protocol_error("failed to look up player");
     }
 
     logger(LOG_DEBUG) << "Adding player " << player_id << " (" << player_it->second.name << ") to game\n";
@@ -248,14 +248,14 @@ td::seat gameinfo::add_player(const td::player_id_t& player_id)
     // verify game state
     if(this->empty_seats.empty())
     {
-        throw td::runtime_error("tried to add players with no empty seats");
+        throw td::protocol_error("tried to add players with no empty seats");
     }
 
     auto seat_it(this->seats.find(player_id));
 
     if(seat_it != this->seats.end())
     {
-        throw td::runtime_error("tried to add player already seated");
+        throw td::protocol_error("tried to add player already seated");
     }
 
     // seat player and remove from empty list
@@ -275,7 +275,7 @@ td::seat gameinfo::remove_player(const td::player_id_t& player_id)
     if(player_it == players.end())
     {
         logger(LOG_ERROR) << "Failed to look up player " << player_id << '\n';
-        throw td::runtime_error("failed to look up player");
+        throw td::protocol_error("failed to look up player");
     }
 
     logger(LOG_DEBUG) << "Removing player " << player_id << " (" << player_it->second.name << ") from game\n";
@@ -284,7 +284,7 @@ td::seat gameinfo::remove_player(const td::player_id_t& player_id)
 
     if(seat_it == this->seats.end())
     {
-        throw td::runtime_error("tried to remove player not seated");
+        throw td::protocol_error("tried to remove player not seated");
     }
 
     // remove player and add seat to the end of the empty list
@@ -305,7 +305,7 @@ std::vector<td::player_movement> gameinfo::bust_player(const td::player_id_t& pl
     if(player_it == players.end())
     {
         logger(LOG_ERROR) << "Failed to look up player " << player_id << '\n';
-        throw td::runtime_error("failed to look up player");
+        throw td::protocol_error("failed to look up player");
     }
 
     logger(LOG_DEBUG) << "Busting player " << player_id << " (" << player_it->second.name << ")\n";
@@ -327,7 +327,7 @@ td::player_movement gameinfo::move_player(const td::player_id_t& player_id, std:
     if(player_it == players.end())
     {
         logger(LOG_ERROR) << "Failed to look up player " << player_id << '\n';
-        throw td::runtime_error("failed to look up player");
+        throw td::protocol_error("failed to look up player");
     }
 
     logger(LOG_DEBUG) << "Moving player " << player_id << " (" << player_it->second.name << ") to table " << table << '\n';
@@ -348,7 +348,7 @@ td::player_movement gameinfo::move_player(const td::player_id_t& player_id, std:
     // we should always have at least one seat free
     if(candidates.empty())
     {
-        throw td::runtime_error("tried to move player to a full table");
+        throw td::protocol_error("tried to move player to a full table");
     }
 
     // pick one at random
@@ -373,7 +373,7 @@ td::player_movement gameinfo::move_player(const td::player_id_t& player_id, cons
     if(player_it == players.end())
     {
         logger(LOG_ERROR) << "Failed to look up player " << player_id << '\n';
-        throw td::runtime_error("failed to look up player");
+        throw td::protocol_error("failed to look up player");
     }
 
     logger(LOG_DEBUG) << "Moving player " << player_id << " (" << player_it->second.name << ") to a free table\n";
@@ -402,7 +402,7 @@ td::player_movement gameinfo::move_player(const td::player_id_t& player_id, cons
     // make sure at least one candidate table
     if(table >= ppt.size())
     {
-        throw td::runtime_error("tried to move player to another table but no candidate tables");
+        throw td::protocol_error("tried to move player to another table but no candidate tables");
     }
 
     return this->move_player(player_id, table);
@@ -506,26 +506,26 @@ void gameinfo::fund_player(const td::player_id_t& player_id, const td::funding_s
 {
     if(src >= this->funding_sources.size())
     {
-        throw td::runtime_error("invalid funding source");
+        throw td::protocol_error("invalid funding source");
     }
 
     const td::funding_source& source(this->funding_sources[src]);
 
     if(current_blind_level > source.forbid_after_blind_level)
     {
-        throw td::runtime_error("too late in the game for this funding source");
+        throw td::protocol_error("too late in the game for this funding source");
     }
 
     if(source.is_addon && this->buyins.find(player_id) == this->buyins.end())
     {
-        throw td::runtime_error("tried to addon but not bought in yet");
+        throw td::protocol_error("tried to addon but not bought in yet");
     }
 
     auto player_it(players.find(player_id));
     if(player_it == players.end())
     {
         logger(LOG_ERROR) << "Failed to look up player " << player_id << '\n';
-        throw td::runtime_error("failed to look up player");
+        throw td::protocol_error("failed to look up player");
     }
 
     logger(LOG_DEBUG) << "Funding player " << player_id << " (" << player_it->second.name << ") with " << source.name << '\n';
@@ -553,14 +553,14 @@ unsigned long gameinfo::max_chips_for(unsigned long denomination, std::size_t pl
 {
     if(players_count == 0)
     {
-        throw std::invalid_argument("players_count must be non-zero");
+        throw td::protocol_error("players_count must be non-zero");
     }
 
     // find denomination in available_chips
     auto it(std::find_if(this->available_chips.begin(), this->available_chips.end(), [denomination](const td::chip& c) { return c.denomination == denomination; }));
     if(it == this->available_chips.end())
     {
-        throw td::runtime_error("denomination not found in chip set");
+        throw td::protocol_error("denomination not found in chip set");
     }
 
     return it->count_available / players_count;
@@ -575,25 +575,25 @@ std::vector<td::player_chips> gameinfo::chips_for_buyin(const td::funding_source
 {
     if(src >= this->funding_sources.size())
     {
-        throw td::runtime_error("invalid funding source");
+        throw td::protocol_error("invalid funding source");
     }
 
     const td::funding_source& source(this->funding_sources[src]);
 
     if(this->blind_levels.size() < 2)
     {
-        throw td::runtime_error("tried to calculate chips for a buyin without blind levels defined");
+        throw td::protocol_error("tried to calculate chips for a buyin without blind levels defined");
     }
 
     if(this->available_chips.empty())
     {
-        throw td::runtime_error("tried to calculate chips for a buyin without chips defined");
+        throw td::protocol_error("tried to calculate chips for a buyin without chips defined");
     }
 
     // ensure our smallest available chip can play the smallest small blind
     if(this->available_chips[0].denomination > this->blind_levels[1].little_blind)
     {
-        throw td::runtime_error("smallest chip available is larger than the smallest little blind");
+        throw td::protocol_error("smallest chip available is larger than the smallest little blind");
     }
 
     // counts for each denomination
@@ -624,7 +624,7 @@ std::vector<td::player_chips> gameinfo::chips_for_buyin(const td::funding_source
     // check that we can represent buyin with our chip set
     if(remain != 0)
     {
-        throw td::runtime_error("buyin is not a multiple of the smallest chip available");
+        throw td::protocol_error("buyin is not a multiple of the smallest chip available");
     }
 
     remain = 0;
@@ -756,7 +756,7 @@ void gameinfo::start_blind_level(std::size_t blind_level, duration_t offset)
 {
     if(blind_level >= this->blind_levels.size())
     {
-        throw td::runtime_error("not enough blind levels configured");
+        throw td::protocol_error("not enough blind levels configured");
     }
 
     auto now(std::chrono::system_clock::now());
@@ -785,12 +785,12 @@ void gameinfo::start()
 {
     if(this->is_started())
     {
-        throw td::runtime_error("tournament already started");
+        throw td::protocol_error("tournament already started");
     }
 
     if(this->blind_levels.size() < 2)
     {
-        throw td::runtime_error("cannot start without blind levels configured");
+        throw td::protocol_error("cannot start without blind levels configured");
     }
 
     logger(LOG_DEBUG) << "Starting the tournament\n";
@@ -809,12 +809,12 @@ void gameinfo::start(const time_point_t& starttime)
 {
     if(this->is_started())
     {
-        throw td::runtime_error("tournament already started");
+        throw td::protocol_error("tournament already started");
     }
 
     if(this->blind_levels.size() < 2)
     {
-        throw td::runtime_error("cannot start without blind levels configured");
+        throw td::protocol_error("cannot start without blind levels configured");
     }
 
     logger(LOG_DEBUG) << "Starting the tournament in the future\n";
@@ -834,7 +834,7 @@ void gameinfo::stop()
 {
     if(!this->is_started())
     {
-        throw td::runtime_error("tournament not started");
+        throw td::protocol_error("tournament not started");
     }
 
     logger(LOG_DEBUG) << "Stopping the tournament\n";
@@ -855,7 +855,7 @@ void gameinfo::pause()
 {
     if(!this->is_started())
     {
-        throw td::runtime_error("tournament not started");
+        throw td::protocol_error("tournament not started");
     }
 
     logger(LOG_DEBUG) << "Pausing the tournament\n";
@@ -872,7 +872,7 @@ void gameinfo::resume()
 {
     if(!this->is_started())
     {
-        throw td::runtime_error("tournament not started");
+        throw td::protocol_error("tournament not started");
     }
 
     logger(LOG_DEBUG) << "Resuming the tournament\n";
@@ -905,7 +905,7 @@ bool gameinfo::next_blind_level(duration_t offset)
 {
     if(!this->is_started())
     {
-        throw td::runtime_error("tournament not started");
+        throw td::protocol_error("tournament not started");
     }
 
     if(this->current_blind_level + 1 < this->blind_levels.size())
@@ -924,7 +924,7 @@ bool gameinfo::previous_blind_level(duration_t offset)
 {
     if(!this->is_started())
     {
-        throw td::runtime_error("tournament not started");
+        throw td::protocol_error("tournament not started");
     }
 
     // if elapsed time > 2 seconds, just restart current blind level
@@ -1003,7 +1003,7 @@ void gameinfo::set_action_clock(long duration)
     }
     else
     {
-        throw td::runtime_error("only one action clock at a time");
+        throw td::protocol_error("only one action clock at a time");
     }
 }
 
@@ -1049,7 +1049,7 @@ void gameinfo::gen_blind_levels(std::size_t count, long level_duration, long chi
 {
     if(this->available_chips.empty())
     {
-        throw td::runtime_error("tried to create a blind structure without chips defined");
+        throw td::protocol_error("tried to create a blind structure without chips defined");
     }
 
     // resize structure, zero-initializing

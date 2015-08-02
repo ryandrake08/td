@@ -8,10 +8,10 @@
 
 namespace td
 {
-    class runtime_error : public std::runtime_error
+    class protocol_error : public std::runtime_error
     {
     public:
-        explicit runtime_error(const char* what_arg) : std::runtime_error(what_arg) {}
+        explicit protocol_error(const char* what_arg) : std::runtime_error(what_arg) {}
     };
 
     // key into the player map

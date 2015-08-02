@@ -1,6 +1,7 @@
 #include "tournament.hpp"
 #include "stringcrc.hpp"
 #include "json.hpp"
+#include "logger.hpp"
 #include <algorithm>
 #include <cstddef>
 #include <sstream>
@@ -35,7 +36,7 @@ void tournament::ensure_authorized(const json& in) const
     int code;
     if(!in.get_value("authenticate", code) || this->game_auths.find(code) == this->game_auths.end())
     {
-        throw std::runtime_error("unauthorized");
+        throw td::protocol_error("unauthorized");
     }
 }
 
@@ -81,7 +82,7 @@ void tournament::handle_cmd_check_authorized(const json& in, json& out) const
     int code;
     if(!in.get_value("authenticate", code))
     {
-        throw std::invalid_argument("must specify authentication code");
+        throw td::protocol_error("must specify authentication code");
     }
 
     if(this->game_auths.find(code) == this->game_auths.end())
@@ -99,13 +100,13 @@ void tournament::handle_cmd_chips_for_buyin(const json& in, json& out) const
     td::funding_source_id_t source;
     if(!in.get_value("source_id", source))
     {
-        throw std::invalid_argument("must specify source");
+        throw td::protocol_error("must specify source");
     }
 
     std::size_t max_expected_players;
     if(!in.get_value("max_expected_players", max_expected_players))
     {
-        throw std::invalid_argument("must specify max_expected_players");
+        throw td::protocol_error("must specify max_expected_players");
     }
 
     auto chips(this->game_info.chips_for_buyin(source, max_expected_players));
@@ -120,7 +121,7 @@ void tournament::handle_cmd_authorize(const json& in, json& out)
     int code;
     if(!in.get_value("authorize", code))
     {
-        throw std::invalid_argument("must specify a code to authorize");
+        throw td::protocol_error("must specify a code to authorize");
     }
 
     code = this->authorize(code);
@@ -206,7 +207,7 @@ void tournament::handle_cmd_gen_blind_levels(const json& in, json& out)
        !in.get_value("break_duration", break_duration) ||
        !in.get_value("blind_increase_factor", blind_increase_factor))
     {
-        throw std::invalid_argument("must specify count and duration");
+        throw td::protocol_error("must specify count and duration");
     }
 
     this->game_info.gen_blind_levels(count, duration, break_duration, blind_increase_factor);
@@ -219,7 +220,7 @@ void tournament::handle_cmd_fund_player(const json& in, json& out)
 
     if(!in.get_value("player_id", player_id) || !in.get_value("source_id", source_id))
     {
-        throw std::invalid_argument("must specify player and source");
+        throw td::protocol_error("must specify player and source");
     }
 
     this->game_info.fund_player(player_id, source_id, this->game_info.get_current_blind_level());
@@ -231,7 +232,7 @@ void tournament::handle_cmd_plan_seating(const json& in, json& out)
 
     if(!in.get_value("max_expected_players", max_expected_players))
     {
-        throw std::invalid_argument("must specify max_expected_players");
+        throw td::protocol_error("must specify max_expected_players");
     }
 
     (void) this->game_info.plan_seating(max_expected_players);
@@ -243,7 +244,7 @@ void tournament::handle_cmd_seat_player(const json& in, json& out)
 
     if(!in.get_value("player_id", player_id))
     {
-        throw std::invalid_argument("must specify player");
+        throw td::protocol_error("must specify player");
     }
 
     auto seating(this->game_info.add_player(player_id));
@@ -261,7 +262,7 @@ void tournament::handle_cmd_unseat_player(const json& in, json& out)
 
     if(!in.get_value("player_id", player_id))
     {
-        throw std::invalid_argument("must specify player");
+        throw td::protocol_error("must specify player");
     }
 
     auto seating(this->game_info.remove_player(player_id));
@@ -279,7 +280,7 @@ void tournament::handle_cmd_bust_player(const json& in, json& out)
 
     if(!in.get_value("player_id", player_id))
     {
-        throw std::invalid_argument("must specify player");
+        throw td::protocol_error("must specify player");
     }
 
     auto movements(this->game_info.bust_player(player_id));
@@ -810,12 +811,13 @@ bool tournament::handle_client_input(std::iostream& client)
                         break;
 
                     default:
-                        throw std::runtime_error("unknown command");
+                        throw td::protocol_error("unknown command");
                 }
             }
-            catch(const std::exception& e)
+            catch(const td::protocol_error& e)
             {
                 out.set_value("error", e.what());
+                logger(LOG_WARNING) << "caught protocol error while processing command: " << e.what() << '\n';
             }
 
             client << out << std::endl;
@@ -878,17 +880,36 @@ void tournament::load_configuration(const std::string& filename)
 
 bool tournament::run()
 {
-    // various handler callback function objects
-    auto greeter(std::bind(&tournament::handle_new_client, this, std::placeholders::_1));
-    auto handler(std::bind(&tournament::handle_client_input, this, std::placeholders::_1));
-
-    // update the clock, and report to clients if anything changed
-    if(this->game_info.update_remaining())
+    try
     {
-        // send to clients
-        this->broadcast_state();
+        // various handler callback function objects
+        auto greeter(std::bind(&tournament::handle_new_client, this, std::placeholders::_1));
+        auto handler(std::bind(&tournament::handle_client_input, this, std::placeholders::_1));
+
+        // update the clock, and report to clients if anything changed
+        if(this->game_info.update_remaining())
+        {
+            // send to clients
+            this->broadcast_state();
+        }
+
+        // poll clients for commands, waiting at most 50ms
+        return this->game_server.poll(greeter, handler, 50000);
+    }
+    catch(const std::system_error& e)
+    {
+        // EINTR: select() was interrupted. Just retry
+        if(e.code().value() != EINTR)
+        {
+            logger(LOG_ERROR) << "caught system_error: " << e.what() << '\n';
+            throw;
+        }
+    }
+    catch(const std::exception& e)
+    {
+        logger(LOG_ERROR) << "unhandled exception: " << e.what() << '\n';
+        throw;
     }
 
-    // poll clients for commands, waiting at most 50ms
-    return this->game_server.poll(greeter, handler, 50000);
+    return false;
 }

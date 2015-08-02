@@ -1,4 +1,5 @@
 #include "bonjour.hpp"
+#include "logger.hpp"
 #include <system_error>
 
 #if defined(__APPLE__)
@@ -34,6 +35,8 @@ class bonjour_impl
 public:
     bonjour_impl(const std::string& name, int port)
     {
+        logger(LOG_INFO) << "setting up bonjour service for " << name << " with port " << port << '\n';
+
         // describe net service
         CFStringRef theDomain = CFSTR("local.");
         CFStringRef serviceType = CFSTR("_tournbuddy._tcp");
