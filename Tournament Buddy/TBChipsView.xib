@@ -7,7 +7,6 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="TBChipsViewController">
             <connections>
-                <outlet property="arrayController" destination="hco-pa-9cV" id="foh-hM-Os1"/>
                 <outlet property="tableView" destination="Etm-Cf-W2n" id="ojV-ih-Qh8"/>
                 <outlet property="view" destination="c22-O7-iKe" id="YBa-V6-mZj"/>
             </connections>

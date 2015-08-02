@@ -17,7 +17,7 @@
                                            UIActionSheetDelegate,
                                            TournamentBrowserDelegate>
 
-@property (nonatomic) IBOutlet TournamentSession* session;
+@property (nonatomic) TournamentSession* session;
 @property (nonatomic) IBOutlet TournamentBrowser* tournamentBrowser;
 @property (nonatomic) NSArray* netServices;
 @end

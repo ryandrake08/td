@@ -7,7 +7,6 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="TBPlayersViewController">
             <connections>
-                <outlet property="arrayController" destination="o7i-4f-c3R" id="lpM-ag-eAS"/>
                 <outlet property="tableView" destination="Cmf-jN-97o" id="aR3-pc-ZCq"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>

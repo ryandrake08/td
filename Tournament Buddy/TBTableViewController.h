@@ -11,9 +11,8 @@
 
 @interface TBTableViewController : NSViewController
 
-// always have a reference to the tableView and arrayController
+// always have a reference to the tableView
 @property (strong) IBOutlet NSTableView* tableView;
-@property (strong) IBOutlet NSArrayController* arrayController;
 
 // global configuration
 @property (strong) NSMutableDictionary* configuration;

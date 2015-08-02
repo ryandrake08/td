@@ -29,11 +29,6 @@
 @property (nonatomic, weak) IBOutlet UIButton* callClockButton;
 @property (nonatomic, weak) IBOutlet TBActionClockView* actionClockView;
 
-- (IBAction)previousRoundTapped:(UIButton*)sender;
-- (IBAction)pauseResumeTapped:(UIButton*)sender;
-- (IBAction)nextRoundTapped:(UIButton*)sender;
-- (IBAction)callClockTapped:(UIButton*)sender;
-
 @end
 
 @implementation TBRemoteClockViewController
