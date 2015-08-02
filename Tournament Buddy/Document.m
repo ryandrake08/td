@@ -15,7 +15,13 @@
 
 // UI
 @property (strong) IBOutlet NSTabView* tabView;
-@property (strong) TBTableViewController* currentViewController;
+
+// Controllers
+@property (strong) IBOutlet TBTableViewController* chipsViewController;
+@property (strong) IBOutlet TBTableViewController* fundingViewController;
+@property (strong) IBOutlet TBTableViewController* playersViewController;
+@property (strong) IBOutlet TBTableViewController* roundsViewController;
+@property (strong) IBOutlet TBTableViewController* seatingViewController;
 
 // Model
 @property (strong) TournamentDaemon* server;
@@ -32,6 +38,25 @@
         _server = [[TournamentDaemon alloc] init];
         _session = [[TournamentSession alloc] init];
         _configuration = [[NSMutableDictionary alloc] init];
+
+        // Start serving using this device's auth key
+        NSString* path = [[self server] startWithAuthCode:[TournamentSession clientIdentifier]];
+
+        // register for KVO
+        [[self KVOController] observe:[self session] keyPath:@"isConnected" options:0 block:^(id observer, id object, NSDictionary *change) {
+            if([object isConnected]) {
+                // check authorization
+                [object checkAuthorizedWithBlock:^(BOOL authorized) {
+                    NSLog(@"Connected and authorized locally");
+                }];
+            }
+        }];
+
+        // pass whole-configuration changes to session
+        [[self KVOController] observe:self keyPath:@"configuration" options:0 action:@selector(configureSession)];
+
+        // Start the session, connecting locally
+        [[self session] connectToLocalPath:path];
     }
     return self;
 }
@@ -46,31 +71,9 @@
 - (void)windowControllerDidLoadNib:(NSWindowController*)aController {
     [super windowControllerDidLoadNib:aController];
 
-    // Start serving using this device's auth key
-    NSString* path = [[self server] startWithAuthCode:[TournamentSession clientIdentifier]];
-
-    // register for KVO
-    [[self KVOController] observe:[self session] keyPath:@"isConnected" options:0 block:^(id observer, id object, NSDictionary *change) {
-        if([object isConnected]) {
-            // check authorization
-            [object checkAuthorizedWithBlock:^(BOOL authorized) {
-                NSLog(@"Connected and authorized locally");
-            }];
-        }
-    }];
-
-    // pass whole-configuration changes to session
-    [[self KVOController] observe:self keyPath:@"configuration" options:0 action:@selector(configureSession)];
-
-    // Start the session, connecting locally
-    [[self session] connectToLocalPath:path];
-
-    // set tab view delegate
-    [[self tabView] setDelegate:self];
-
     // get view controller for the tab selected in IB
     NSTabViewItem* selectedItem = [[self tabView] selectedTabViewItem];
-    [self tabView:[self tabView] shouldSelectTabViewItem:selectedItem];
+    [self tabView:[self tabView] didSelectTabViewItem:selectedItem];
 }
 
 + (BOOL)autosavesInPlace {
@@ -106,35 +109,23 @@
 
 #pragma mark Tabs
 
-- (BOOL)tabView:(NSTabView*)tabView shouldSelectTabViewItem:(NSTabViewItem*)tabViewItem {
-    // these tab view items' identifiers are keys and also identify their class
-    NSString* nib = [tabViewItem identifier];
-    NSString* className = [nib stringByAppendingString:@"Controller"];
+- (void)tabView:(NSTabView*)tabView didSelectTabViewItem:(NSTabViewItem*)tabViewItem {
+    // these tab view items' identifiers correspond cleverly to their instance variables
+    TBTableViewController* controller = [self valueForKey:[tabViewItem identifier]];
 
-    if(![[[self currentViewController] className] isEqual:className]) {
-        // create a controller for this view
-        TBTableViewController* controller = [[NSClassFromString(className) alloc] initWithNibName:nib bundle:nil];
-        if(controller == nil) {
-            // report error to user here
-            NSLog(@"Can't load view for tab %@", nib);
-            return NO;
-        }
-
-        // set configuration and session
+    // set configuration and session
+    if([controller configuration] == nil) {
         [controller setConfiguration: [self configuration]];
+    }
+    if([controller session] == nil) {
         [controller setSession:[self session]];
-
-        // set the current controller
-        [self setCurrentViewController:controller];
-
-        // configure session when switching tabs (for now)
-        [self configureSession];
-
-        // set the view
-        [tabViewItem setView:controller.view];
     }
 
-    return YES;
+    // configure session when switching tabs (for now)
+    [self configureSession];
+
+    // set the view
+    [tabViewItem setView:controller.view];
 }
 
 @end

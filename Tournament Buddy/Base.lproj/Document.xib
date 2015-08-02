@@ -7,6 +7,11 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="Document">
             <connections>
+                <outlet property="chipsViewController" destination="0w9-H0-QYp" id="S3k-KA-aZH"/>
+                <outlet property="fundingViewController" destination="kTR-ex-YyA" id="Ezj-je-6bd"/>
+                <outlet property="playersViewController" destination="RWr-h0-BDJ" id="KxL-Zp-qT0"/>
+                <outlet property="roundsViewController" destination="Yrp-fN-rSR" id="r6G-57-dG1"/>
+                <outlet property="seatingViewController" destination="9AW-fC-DmK" id="wcO-4b-Wpg"/>
                 <outlet property="tabView" destination="ykJ-Q4-UC5" id="aIK-hF-t1k"/>
                 <outlet property="window" destination="xOd-HO-29H" id="JIz-fz-R2o"/>
             </connections>
@@ -28,37 +33,40 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <font key="font" metaFont="system"/>
                         <tabViewItems>
-                            <tabViewItem label="Funding" identifier="TBFundingView" id="NEg-Dw-azH">
+                            <tabViewItem label="Funding" identifier="fundingViewController" id="NEg-Dw-azH">
                                 <view key="view" id="dLq-sn-Twu">
                                     <rect key="frame" x="10" y="33" width="634" height="450"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </view>
                             </tabViewItem>
-                            <tabViewItem label="Players" identifier="TBPlayersView" id="ZQe-fD-0pT">
+                            <tabViewItem label="Players" identifier="playersViewController" id="ZQe-fD-0pT">
                                 <view key="view" id="oZk-LE-Ijm">
                                     <rect key="frame" x="10" y="33" width="634" height="450"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </view>
                             </tabViewItem>
-                            <tabViewItem label="Equipment" identifier="TBChipsView" id="6Fw-zn-MbR">
+                            <tabViewItem label="Equipment" identifier="chipsViewController" id="6Fw-zn-MbR">
                                 <view key="view" id="a8v-dh-fnd">
                                     <rect key="frame" x="10" y="33" width="634" height="450"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </view>
                             </tabViewItem>
-                            <tabViewItem label="Rounds" identifier="TBRoundsView" id="br0-ny-PBD">
+                            <tabViewItem label="Rounds" identifier="roundsViewController" id="br0-ny-PBD">
                                 <view key="view" id="21O-lK-u7R">
                                     <rect key="frame" x="10" y="33" width="634" height="450"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </view>
                             </tabViewItem>
-                            <tabViewItem label="Seating" identifier="TBSeatingView" id="byU-xx-gSP">
+                            <tabViewItem label="Seating" identifier="seatingViewController" id="byU-xx-gSP">
                                 <view key="view" id="EZX-jD-ykX">
                                     <rect key="frame" x="10" y="33" width="634" height="450"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </view>
                             </tabViewItem>
                         </tabViewItems>
+                        <connections>
+                            <outlet property="delegate" destination="-2" id="2ep-7n-KYB"/>
+                        </connections>
                     </tabView>
                 </subviews>
             </view>
@@ -67,5 +75,10 @@
             </connections>
             <point key="canvasLocation" x="291" y="385"/>
         </window>
+        <viewController nibName="TBChipsView" id="0w9-H0-QYp" customClass="TBChipsViewController"/>
+        <viewController nibName="TBFundingView" id="kTR-ex-YyA" customClass="TBFundingViewController"/>
+        <viewController nibName="TBPlayersView" id="RWr-h0-BDJ" customClass="TBPlayersViewController"/>
+        <viewController nibName="TBRoundsView" id="Yrp-fN-rSR" customClass="TBRoundsViewController"/>
+        <viewController nibName="TBSeatingView" id="9AW-fC-DmK" customClass="TBSeatingViewController"/>
     </objects>
 </document>
