@@ -55,7 +55,8 @@
     dispatch_group_async(group, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         while(running)
         {
-            running = running && !tourney.run();
+            auto quit = tourney.run();
+            running = running && !quit;
         }
     });
 
