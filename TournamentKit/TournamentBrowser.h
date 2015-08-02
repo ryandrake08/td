@@ -20,7 +20,7 @@
 - (NSArray*)remoteServiceList;
 
 // delegate
-@property (nonatomic, weak) id <TournamentBrowserDelegate> delegate;
+@property (nonatomic, weak) IBOutlet id <TournamentBrowserDelegate> delegate;
 
 @end
 

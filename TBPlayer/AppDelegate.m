@@ -14,24 +14,20 @@
 
 @property (weak) IBOutlet NSMenuItem* connectMenuItem;
 
-@property TBPlayerWindowController* windowController;
+// the main window controller
+@property (strong) TBPlayerWindowController* windowController;
 
 // the tournament session (model) object
-@property TournamentSession* session;
+@property (strong) IBOutlet TournamentSession* session;
 
 // a tournament broswer
-@property TournamentBrowser* browser;
+@property (strong) IBOutlet TournamentBrowser* browser;
 
 @end
 
 @implementation AppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification*)aNotification {
-    // create a session
-    _session = [[TournamentSession alloc] init];
-
-    // create a browser
-    _browser = [[TournamentBrowser alloc] initWithDelegate:self];
     [self updateMenuWithBrowser:[self browser]];
 
     // set up the windowController
