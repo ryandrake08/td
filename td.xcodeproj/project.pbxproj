@@ -33,6 +33,7 @@
 		9454106B1B6E47B7001E3373 /* TBChipsArrayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9454106A1B6E47B7001E3373 /* TBChipsArrayController.m */; };
 		9454106E1B6E47C5001E3373 /* TBFundingArrayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9454106D1B6E47C5001E3373 /* TBFundingArrayController.m */; };
 		945410711B6E47D5001E3373 /* TBRoundsArrayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 945410701B6E47D5001E3373 /* TBRoundsArrayController.m */; };
+		945410741B6E5C56001E3373 /* NSDateFormatter+ISO8601.m in Sources */ = {isa = PBXBuildFile; fileRef = 945410731B6E5C56001E3373 /* NSDateFormatter+ISO8601.m */; };
 		94562E661B65D8CA0017C692 /* TBColorValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 94562E5F1B65D8CA0017C692 /* TBColorValueTransformer.m */; };
 		94562E671B65D8CA0017C692 /* TBCurrencyNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 94562E611B65D8CA0017C692 /* TBCurrencyNumberFormatter.m */; };
 		94562E681B65D8CA0017C692 /* TBDateStringTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 94562E631B65D8CA0017C692 /* TBDateStringTransformer.m */; };
@@ -160,6 +161,8 @@
 		9454106D1B6E47C5001E3373 /* TBFundingArrayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBFundingArrayController.m; sourceTree = "<group>"; };
 		9454106F1B6E47D5001E3373 /* TBRoundsArrayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBRoundsArrayController.h; sourceTree = "<group>"; };
 		945410701B6E47D5001E3373 /* TBRoundsArrayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBRoundsArrayController.m; sourceTree = "<group>"; };
+		945410721B6E5C56001E3373 /* NSDateFormatter+ISO8601.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDateFormatter+ISO8601.h"; sourceTree = "<group>"; };
+		945410731B6E5C56001E3373 /* NSDateFormatter+ISO8601.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+ISO8601.m"; sourceTree = "<group>"; };
 		94562E5E1B65D8CA0017C692 /* TBColorValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBColorValueTransformer.h; sourceTree = "<group>"; };
 		94562E5F1B65D8CA0017C692 /* TBColorValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBColorValueTransformer.m; sourceTree = "<group>"; };
 		94562E601B65D8CA0017C692 /* TBCurrencyNumberFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBCurrencyNumberFormatter.h; sourceTree = "<group>"; };
@@ -432,6 +435,8 @@
 				94FDEAE01B5AE2D60026B25D /* FBKVOController.m */,
 				94FDEAE11B5AE2D60026B25D /* NSData+Delimiter.h */,
 				94FDEAE21B5AE2D60026B25D /* NSData+Delimiter.m */,
+				945410721B6E5C56001E3373 /* NSDateFormatter+ISO8601.h */,
+				945410731B6E5C56001E3373 /* NSDateFormatter+ISO8601.m */,
 				94FDEAF31B5AE7390026B25D /* NSFont+LineHeight.h */,
 				94FDEAF41B5AE7390026B25D /* NSFont+LineHeight.m */,
 				94FDEAE31B5AE2D60026B25D /* NSObject+FBKVOController.h */,
@@ -810,6 +815,7 @@
 				949D70A51B3C442F008D5CD1 /* cJSON.c in Sources */,
 				9476F4A41B3C3EA700A158F8 /* TournamentDaemon.mm in Sources */,
 				AD98D9611A7B330B00DA6B8B /* TBChipsViewController.m in Sources */,
+				945410741B6E5C56001E3373 /* NSDateFormatter+ISO8601.m in Sources */,
 				945410681B6E478A001E3373 /* TBPlayersArrayController.m in Sources */,
 				949D70991B3C440D008D5CD1 /* server.cpp in Sources */,
 				9439701D1B405DC000BB0413 /* TournamentService.m in Sources */,

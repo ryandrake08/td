@@ -8,6 +8,7 @@
 
 #import "TBDateStringTransformer.h"
 #import "TBColor+CSS.h"
+#import "NSDateFormatter+ISO8601.h"
 
 @implementation TBDateStringTransformer
 
@@ -21,20 +22,14 @@
 
 - (id)transformedValue:(id)value {
     if([value isKindOfClass:[NSString class]]) {
-        NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setLocale:[NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"]];
-        [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss"];
-        return [dateFormatter dateFromString:value];
+        return [[NSDateFormatter iso8601DateFormatter] dateFromString:value];
     }
     return nil;
 }
 
 - (id)reverseTransformedValue:(id)value {
     if([value isKindOfClass:[NSDate class]]) {
-        NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setLocale:[NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"]];
-        [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss"];
-        return [dateFormatter stringFromDate:value];
+        return [[NSDateFormatter iso8601DateFormatter] stringFromDate:value];
     }
     return nil;
 }
