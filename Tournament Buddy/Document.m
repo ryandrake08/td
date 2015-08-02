@@ -110,6 +110,7 @@
 
 - (NSData*)dataOfType:(NSString*)typeName error:(NSError**)outError {
     // serialize json configuration to NSData
+    [self configureSession];
     return [NSJSONSerialization dataWithJSONObject:[self configuration] options:0 error:outError];
 }
 
