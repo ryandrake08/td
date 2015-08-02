@@ -102,19 +102,6 @@
     }];
 }
 
-- (NSArray*)rounds {
-    NSMutableArray* roundList = [[NSMutableArray alloc] initWithObjects:NSLocalizedString(@"Tournament Start", nil), nil];
-
-    NSInteger blindLevels = [[self configuration][@"blind_levels"] count];
-    if(blindLevels > 1) {
-        for(NSInteger i=1; i<blindLevels; i++) {
-            [roundList addObject:[NSString localizedStringWithFormat:@"Round %ld", i]];
-        }
-    }
-
-    return roundList;
-}
-
 #pragma mark NSTableViewDelegate
 
 - (NSView *)tableView:(NSTableView*)aTableView viewForTableColumn:(NSTableColumn*)aTableColumn row:(NSInteger)rowIndex {

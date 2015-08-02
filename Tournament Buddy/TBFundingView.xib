@@ -329,8 +329,8 @@
                                                             </menu>
                                                         </popUpButtonCell>
                                                         <connections>
+                                                            <binding destination="-2" name="contentValues" keyPath="self.configuration.blindLevelNames" id="Ice-WU-zoB"/>
                                                             <binding destination="Sm9-1Z-FA0" name="hidden" keyPath="isBuyin" id="d9l-P7-eT8"/>
-                                                            <binding destination="-2" name="contentValues" keyPath="self.rounds" id="O2z-Ob-lce"/>
                                                         </connections>
                                                     </popUpButton>
                                                 </subviews>
