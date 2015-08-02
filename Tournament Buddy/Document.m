@@ -10,6 +10,7 @@
 #import "TournamentKit/TournamentKit.h"
 #import "TBTableViewController.h"
 #import "NSObject+FBKVOController.h"
+#import "NSString+CamelCase.h"
 
 @interface Document () <NSTabViewDelegate>
 
@@ -87,13 +88,24 @@
 }
 
 - (void)configureSession {
-    NSLog(@"Configuring session");
-    [[self session] configure:[self configuration] withBlock:^(id json) {
-        if(![json isEqual:[self configuration]]) {
-            NSLog(@"Configuration from session not equal to document. Replacing...");
-            [[self configuration] setDictionary:json];
+    // only send parts of configuration that changed
+    NSMutableDictionary* configToSend = [[self configuration] mutableCopy];
+    NSMutableArray* keysToRemove = [NSMutableArray array];
+    [configToSend enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL* stop) {
+        NSString* propertyName = [key asCamelCaseFromUnderscore];
+        if([obj isEqual:[[self session] valueForKey:propertyName]]) {
+            [keysToRemove addObject:key];
         }
     }];
+    [configToSend removeObjectsForKeys:keysToRemove];
+
+    if([configToSend count] > 0) {
+        [[self session] configure:configToSend withBlock:^(id json) {
+            if(![json isEqual:[self configuration]]) {
+                [[self configuration] setDictionary:json];
+            }
+        }];
+    }
 }
 
 - (NSData*)dataOfType:(NSString*)typeName error:(NSError**)outError {
