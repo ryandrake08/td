@@ -12,7 +12,10 @@
 
 @interface TournamentBrowser : NSObject
 
-- (instancetype)initWithDelegate:(id <TournamentBrowserDelegate>)delegate;
+- (instancetype)init;
+
+// start searching for tournaments
+- (void)search;
 
 // list of known services (TournamentService* )
 - (NSArray*)serviceList;

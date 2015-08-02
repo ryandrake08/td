@@ -17,8 +17,8 @@
                                            UIActionSheetDelegate,
                                            TournamentBrowserDelegate>
 
-@property (nonatomic) TournamentSession* session;
-@property (nonatomic) TournamentBrowser* tournamentBrowser;
+@property (nonatomic) IBOutlet TournamentSession* session;
+@property (nonatomic) IBOutlet TournamentBrowser* tournamentBrowser;
 @property (nonatomic) NSArray* netServices;
 @end
 
@@ -30,11 +30,8 @@
     // get model
     _session = [(TBAppDelegate*)[[UIApplication sharedApplication] delegate] session];
 
-    // store all potential services
-    _netServices = [[NSArray alloc] init];
-
     // initialize tournament browser
-    _tournamentBrowser = [[TournamentBrowser alloc] initWithDelegate:self];
+    [_tournamentBrowser search];
 
     // register for KVO
     [[self KVOController] observe:[self session] keyPath:NSStringFromSelector(@selector(isConnected)) options:0 block:^(id observer, id object, NSDictionary *change) {

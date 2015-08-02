@@ -45,8 +45,16 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Tournaments" id="225-37-Q9V"/>
+                    <connections>
+                        <outlet property="tournamentBrowser" destination="F3x-vh-5AN" id="ehT-FH-7pZ"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2vN-x9-yez" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <customObject id="F3x-vh-5AN" customClass="TournamentBrowser">
+                    <connections>
+                        <outlet property="delegate" destination="lol-E6-1Ha" id="kOw-IC-dBr"/>
+                    </connections>
+                </customObject>
             </objects>
             <point key="canvasLocation" x="1562" y="-416.99999999999994"/>
         </scene>

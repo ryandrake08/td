@@ -22,18 +22,14 @@
 
 @implementation TournamentBrowser
 
-- (instancetype)initWithDelegate:(id<TournamentBrowserDelegate>)delegate {
+- (instancetype)init {
     if (self = [super init]) {
         // create lists
         _mutableList = [[NSMutableArray alloc] init];
 
-        // set delegate
-        _delegate = delegate;
-
         // initialize service browser
         _serviceBrowser = [[NSNetServiceBrowser alloc] init];
         [[self serviceBrowser] setDelegate:self];
-        [[self serviceBrowser] searchForServicesOfType:kTournamentServiceType inDomain:kTournamentServiceDomain];
 
         // get list of unix sockets
         NSArray* directoryContents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:NSTemporaryDirectory() error:nil];
@@ -54,6 +50,13 @@
 - (void)dealloc {
     [[self serviceBrowser] stop];
     [[self serviceBrowser] setDelegate:nil];
+}
+
+- (void)search {
+    if([self delegate] == nil) {
+        NSLog(@"TournamentBrowser searching with no delegate");
+    }
+    [[self serviceBrowser] searchForServicesOfType:kTournamentServiceType inDomain:kTournamentServiceDomain];
 }
 
 - (NSArray*)serviceList {

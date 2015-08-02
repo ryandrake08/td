@@ -14,6 +14,7 @@
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customObject id="Voe-Tx-rLC" customClass="AppDelegate">
             <connections>
+                <outlet property="browser" destination="Uad-xH-dpr" id="luQ-hf-QL7"/>
                 <outlet property="connectMenuItem" destination="dMs-cI-mzQ" id="iOv-Vy-3OV"/>
                 <outlet property="session" destination="Xql-hh-Nkj" id="oTC-8A-vKZ"/>
             </connections>

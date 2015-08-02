@@ -30,6 +30,9 @@
 - (void)applicationDidFinishLaunching:(NSNotification*)aNotification {
     [self updateMenuWithBrowser:[self browser]];
 
+    // start searching for tournaments
+    [[self browser] search];
+
     // set up the windowController
     _windowController = [[TBPlayerWindowController alloc] initWithWindowNibName:@"TBPlayerWindowController"];
     [_windowController setSession:_session];
