@@ -8,7 +8,7 @@
 
 #import "TBCommon.h"
 
-@interface TBColor (TBColor_CSS)
+@interface TBColor (CSS)
 
 // Return a random color
 + (NSString*)randomColorName;

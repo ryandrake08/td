@@ -1,5 +1,5 @@
 //
-//  NSView+NSView_BackgroundColor.h
+//  NSView+BackgroundColor.h
 //  td
 //
 //  Created by Ryan Drake on 7/18/15.
@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface NSView (NSView_BackgroundColor)
+@interface NSView (BackgroundColor)
 
 @property NSColor* backgroundColor;
 

@@ -1,5 +1,5 @@
 //
-//  NSView+NSView_BackgroundColor.m
+//  NSView+BackgroundColor.m
 //  td
 //
 //  Created by Ryan Drake on 7/18/15.
@@ -8,7 +8,7 @@
 
 #import "NSView+BackgroundColor.h"
 
-@implementation NSView (NSView_BackgroundColor)
+@implementation NSView (BackgroundColor)
 
 - (NSColor*)backgroundColor {
     return [NSColor colorWithCGColor:[[self layer] backgroundColor]];

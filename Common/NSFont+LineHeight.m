@@ -8,7 +8,7 @@
 
 #import "NSFont+LineHeight.h"
 
-@implementation NSFont (NSFont_LineHeight)
+@implementation NSFont (LineHeight)
 
 - (CGFloat)lineHeight {
     return [self boundingRectForFont].size.height;

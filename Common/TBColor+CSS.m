@@ -8,7 +8,7 @@
 
 #import "TBColor+CSS.h"
 
-@implementation TBColor (TBColor_CSS)
+@implementation TBColor (CSS)
 
 // Static cache of looked up color names. Used with +colorWithName:
 static NSMutableDictionary* colorNameCache = nil;

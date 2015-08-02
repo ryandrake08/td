@@ -1,5 +1,5 @@
 //
-//  NSData+NSData_Delimiter.h
+//  NSData+Delimiter.h
 //  TournamentKit
 //
 //  Created by Ryan Drake on 1/3/15.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NSData (NSData_Delimiter)
+@interface NSData (Delimiter)
 
 - (NSRange)rangeOfDataDelimitedBy:(uint8_t)delimiter;
 - (NSRange)rangeOfDataDelimetedBy:(uint8_t)delimiter range:(NSRange)searchRange;

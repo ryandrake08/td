@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface NSFont (NSFont_LineHeight)
+@interface NSFont (LineHeight)
 
 @property (readonly) CGFloat lineHeight;
 

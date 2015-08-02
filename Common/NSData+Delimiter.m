@@ -1,5 +1,5 @@
 //
-//  NSData+NSData_Delimiter.m
+//  NSData+Delimiter.m
 //  TournamentKit
 //
 //  Created by Ryan Drake on 1/3/15.
@@ -8,7 +8,7 @@
 
 #import "NSData+Delimiter.h"
 
-@implementation NSData (NSData_Delimiter)
+@implementation NSData (Delimiter)
 
 - (NSRange)rangeOfDataDelimitedBy:(uint8_t)delimiter {
     return [self rangeOfDataDelimetedBy:delimiter range:NSMakeRange(0, [self length])];
