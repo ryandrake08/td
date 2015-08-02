@@ -10,7 +10,7 @@
 
 @interface TournamentService () <TournamentConnectionDelegate>
 
-@property (nonatomic, strong) NSMutableDictionary* dict;
+@property (nonatomic, strong) NSDictionary* dict;
 
 @end
 
@@ -19,28 +19,21 @@
 // initialize with either a NetService, address/port, or unix socket
 - (instancetype)initWithNetService:(NSNetService*)service {
     if (self = [super init]) {
-        _dict = [[NSMutableDictionary alloc] init];
-        _dict[@"service"] = service;
-        _dict[@"name"] = [service name];
+        _dict = @{@"service":service, @"name":[service name]};
     }
     return self;
 }
 
 - (instancetype)initWithAddress:(NSString*)address andPort:(NSInteger)port {
     if (self = [super init]) {
-        _dict = [[NSMutableDictionary alloc] init];
-        _dict[@"address"] = address;
-        _dict[@"port"] = @(port);
-        _dict[@"name"] = [NSString stringWithFormat:@"%@:%li", address, (long)port];
+        _dict = @{@"address":address, @"port":@(port), @"name":[NSString stringWithFormat:@"%@:%li", address, (long)port]};
     }
     return self;
 }
 
 - (instancetype)initWithUnixSocket:(NSString*)path {
     if (self = [super init]) {
-        _dict = [[NSMutableDictionary alloc] init];
-        _dict[@"path"] = path;
-        _dict[@"name"] = [path lastPathComponent];
+        _dict = @{@"path":path, @"name":[path lastPathComponent]};
     }
     return self;
 }
