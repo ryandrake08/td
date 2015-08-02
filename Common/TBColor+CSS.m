@@ -171,6 +171,11 @@ static NSDictionary* cssHexCodes = nil;
     cssHexCodes = [[NSDictionary alloc] initWithObjects:[cssColorNames allKeys] forKeys:[cssColorNames allValues]];
 }
 
++ (NSString*)randomColorName {
+    NSUInteger randomIndex = arc4random() % [cssColorNames count];
+    return [cssColorNames allKeys][randomIndex];
+}
+
 + (TBColor*)colorWithRGBHex:(UInt32)hex {
     int r = (hex >> 16) & 0xFF;
     int g = (hex >> 8) & 0xFF;

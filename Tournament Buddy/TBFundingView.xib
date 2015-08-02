@@ -450,7 +450,7 @@
             </subviews>
             <point key="canvasLocation" x="17" y="246.5"/>
         </customView>
-        <arrayController id="ZWh-lB-mFY">
+        <arrayController id="ZWh-lB-mFY" customClass="TBFundingArrayController">
             <declaredKeys>
                 <string>name</string>
                 <string>chips</string>

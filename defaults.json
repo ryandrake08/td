@@ -2,31 +2,49 @@
     "name" : "Default Tournament",
     "players": [
         {
-            "name": "Ace"
+            "player_id": "4F6A8615-A448-4AA4-A376-C67856C22E9A",
+            "name": "Ace",
+            "added_at": "2015-07-01T00:00:00"
         },
         {
-            "name": "Dave"
+            "player_id": "F588CE0D-150A-445C-907C-3E7C3A60E86E",
+            "name": "Dave",
+            "added_at": "2015-07-02T00:00:00"
         },
         {
-            "name": "Rick"
+            "player_id": "02E22A18-9A1C-4555-83AB-53264F916716",
+            "name": "Rick",
+            "added_at": "2015-07-03T00:00:00"
         },
         {
-            "name": "Vivek"
+            "player_id": "82EA9D8F-1E89-4CEA-A5E4-16E27F96C4D2",
+            "name": "Vivek",
+            "added_at": "2015-07-04T00:00:00"
         },
         {
-            "name": "Cliff"
+            "player_id": "E539F56E-5261-489E-836E-3F05FE5ED2EA",
+            "name": "Cliff",
+            "added_at": "2015-07-05T00:00:00"
         },
         {
-            "name": "Travis"
+            "player_id": "E74AAA24-FB8D-4C88-A691-9A942B7E43B7",
+            "name": "Travis",
+            "added_at": "2015-07-06T00:00:00"
         },
         {
-            "name": "Danny"
+            "player_id": "4BDC47C1-1C19-4ABE-BD22-8E1005740BB6",
+            "name": "Danny",
+            "added_at": "2015-07-07T00:00:00"
         },
         {
-            "name": "Big Daddy"
+            "player_id": "2D124D6F-57F5-4DBA-9DDD-785B99FC586C",
+            "name": "Big Daddy",
+            "added_at": "2015-07-08T00:00:00"
         },
         {
-            "name": "Jason"
+            "player_id": "2EC43570-CCA5-4214-8651-F322A08B7FDC",
+            "name": "Jason",
+            "added_at": "2015-07-09T00:00:00"
         }
     ],
     "blind_levels": [

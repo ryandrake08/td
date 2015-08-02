@@ -10,6 +10,9 @@
 
 @interface TBColor (TBColor_CSS)
 
+// Return a random color
++ (NSString*)randomColorName;
+
 // Lookup a color using css 3/svg color name, or RGB hex
 + (TBColor*)colorWithName:(NSString*)colorName;
 

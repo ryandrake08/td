@@ -231,7 +231,7 @@
             </subviews>
             <point key="canvasLocation" x="310" y="310.5"/>
         </customView>
-        <arrayController id="hco-pa-9cV">
+        <arrayController id="hco-pa-9cV" customClass="TBChipsArrayController">
             <declaredKeys>
                 <string>color</string>
                 <string>denomination</string>

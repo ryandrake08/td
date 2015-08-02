@@ -162,10 +162,11 @@
             </subviews>
             <point key="canvasLocation" x="731" y="533.5"/>
         </customView>
-        <arrayController id="o7i-4f-c3R">
+        <arrayController id="o7i-4f-c3R" customClass="TBPlayersArrayController">
             <declaredKeys>
                 <string>name</string>
                 <string>added_at</string>
+                <string>player_id</string>
             </declaredKeys>
             <connections>
                 <binding destination="-2" name="contentArray" keyPath="configuration.players" id="55h-mg-RTm"/>
