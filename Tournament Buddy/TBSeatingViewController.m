@@ -11,10 +11,6 @@
 
 @interface TBSeatingViewController () <NSTableViewDelegate, NSTextFieldDelegate>
 
-@property (strong) IBOutlet NSArrayController* playersArrayController;
-@property (strong) IBOutlet NSDictionaryController* seatsDictionaryController;
-@property (strong) IBOutlet NSArrayController* finishedArrayController;
-
 // Derived game state
 @property (strong) NSArray* seats;
 @property (strong) NSArray* players;

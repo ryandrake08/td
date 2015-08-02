@@ -7,8 +7,6 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="TBSeatingViewController">
             <connections>
-                <outlet property="finishedArrayController" destination="5pr-IM-GVE" id="a7V-BM-oG6"/>
-                <outlet property="playersArrayController" destination="KzY-6k-W2t" id="lq6-bi-Y9L"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
         </customObject>

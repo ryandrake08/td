@@ -17,7 +17,4 @@
 // global configuration
 @property (strong) NSMutableDictionary* configuration;
 
-// global session
-@property (strong) TournamentSession* session;
-
 @end

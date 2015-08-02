@@ -10,4 +10,6 @@
 
 @interface TBSeatingViewController : TBTableViewController
 
+@property (strong) TournamentSession* session;
+
 @end

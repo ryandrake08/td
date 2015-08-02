@@ -7,22 +7,16 @@
 //
 
 #import "Document.h"
+#import "TBConfigurationWindowController.h"
+#import "TBSeatingViewController.h"
 #import "TournamentKit/TournamentKit.h"
-#import "TBTableViewController.h"
 #import "NSObject+FBKVOController.h"
-#import "NSString+CamelCase.h"
 
-@interface Document () <NSTabViewDelegate>
+@interface Document ()
 
 // UI
-@property (strong) IBOutlet NSTabView* tabView;
-
-// Controllers
-@property (strong) IBOutlet TBTableViewController* chipsViewController;
-@property (strong) IBOutlet TBTableViewController* fundingViewController;
-@property (strong) IBOutlet TBTableViewController* playersViewController;
-@property (strong) IBOutlet TBTableViewController* roundsViewController;
-@property (strong) IBOutlet TBTableViewController* seatingViewController;
+@property (strong) IBOutlet TBSeatingViewController* viewController;
+@property (strong) IBOutlet TBConfigurationWindowController* configurationWindowController;
 
 // Model
 @property (strong) TournamentDaemon* server;
@@ -40,9 +34,6 @@
         _session = [[TournamentSession alloc] init];
         _configuration = [[NSMutableDictionary alloc] init];
 
-        // Start serving using this device's auth key
-        NSString* path = [[self server] startWithAuthCode:[TournamentSession clientIdentifier]];
-
         // register for KVO
         [[self KVOController] observe:[self session] keyPath:@"isConnected" options:0 block:^(id observer, id object, NSDictionary *change) {
             if([object isConnected]) {
@@ -53,8 +44,8 @@
             }
         }];
 
-        // pass whole-configuration changes to session
-        [[self KVOController] observe:self keyPath:@"configuration" options:0 action:@selector(configureSession)];
+        // Start serving using this device's auth key
+        NSString* path = [[self server] startWithAuthCode:[TournamentSession clientIdentifier]];
 
         // Start the session, connecting locally
         [[self session] connectToLocalPath:path];
@@ -63,6 +54,7 @@
 }
 
 - (void)close {
+    [[self configurationWindowController] close];
     [[self KVOController] unobserveAll];
     [[self session] disconnect];
     [[self server] stop];
@@ -72,9 +64,17 @@
 - (void)windowControllerDidLoadNib:(NSWindowController*)aController {
     [super windowControllerDidLoadNib:aController];
 
-    // get view controller for the tab selected in IB
-    NSTabViewItem* selectedItem = [[self tabView] selectedTabViewItem];
-    [self tabView:[self tabView] didSelectTabViewItem:selectedItem];
+    // setup main view
+    [[self viewController] setConfiguration:[self configuration]];
+    [[self viewController] setSession:[self session]];
+    [[aController window] setContentView:[[self viewController] view]];
+
+    // setup configuration view
+    TBConfigurationWindowController* configurationWindow = [[TBConfigurationWindowController alloc] initWithWindowNibName:@"TBConfigurationWindow"];
+    [self setConfigurationWindowController:configurationWindow];
+    [[self configurationWindowController] setSession:[self session]];
+    [[self configurationWindowController] setConfiguration:[self configuration]];
+    [[self configurationWindowController] showWindow:self];
 }
 
 + (BOOL)autosavesInPlace {
@@ -87,58 +87,23 @@
     return @"Document";
 }
 
-- (void)configureSession {
-    // only send parts of configuration that changed
-    NSMutableDictionary* configToSend = [[self configuration] mutableCopy];
-    NSMutableArray* keysToRemove = [NSMutableArray array];
-    [configToSend enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL* stop) {
-        NSString* propertyName = [key asCamelCaseFromUnderscore];
-        if([obj isEqual:[[self session] valueForKey:propertyName]]) {
-            [keysToRemove addObject:key];
-        }
-    }];
-    [configToSend removeObjectsForKeys:keysToRemove];
-
-    if([configToSend count] > 0) {
-        [[self session] configure:configToSend withBlock:^(id json) {
-            if(![json isEqual:[self configuration]]) {
-                [[self configuration] setDictionary:json];
-            }
-        }];
-    }
-}
-
 - (NSData*)dataOfType:(NSString*)typeName error:(NSError**)outError {
     // serialize json configuration to NSData
-    [self configureSession];
     return [NSJSONSerialization dataWithJSONObject:[self configuration] options:0 error:outError];
 }
 
 - (BOOL)readFromData:(NSData*)data ofType:(NSString*)typeName error:(NSError**)outError {
     // deserialize json configuration
     [[self configuration] setDictionary:[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:outError]];
+
+    // send to session
+    [[self session] configure:[self configuration] withBlock:^(id json) {
+        if(![json isEqual:[self configuration]]) {
+            [[self configuration] setDictionary:json];
+        }
+    }];
+
     return *outError == nil;
-}
-
-#pragma mark Tabs
-
-- (void)tabView:(NSTabView*)tabView didSelectTabViewItem:(NSTabViewItem*)tabViewItem {
-    // these tab view items' identifiers correspond cleverly to their instance variables
-    TBTableViewController* controller = [self valueForKey:[tabViewItem identifier]];
-
-    // set configuration and session
-    if([controller configuration] == nil) {
-        [controller setConfiguration: [self configuration]];
-    }
-    if([controller session] == nil) {
-        [controller setSession:[self session]];
-    }
-
-    // configure session when switching tabs (for now)
-    [self configureSession];
-
-    // set the view
-    [tabViewItem setView:controller.view];
 }
 
 @end

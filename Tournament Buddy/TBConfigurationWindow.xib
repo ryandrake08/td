@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="TBConfigurationWindowController">
+            <connections>
+                <outlet property="chipsViewController" destination="rI8-Xq-gYV" id="pTY-eM-JaH"/>
+                <outlet property="fundingViewController" destination="jJR-gM-aDd" id="2xY-nE-CnW"/>
+                <outlet property="playersViewController" destination="gsZ-K1-gq4" id="EUP-cq-ZnD"/>
+                <outlet property="roundsViewController" destination="Xh7-Uj-lrU" id="PG5-no-JXn"/>
+                <outlet property="tabView" destination="ZrO-ww-z2K" id="QTI-ca-Hfn"/>
+                <outlet property="window" destination="F0z-JX-Cv5" id="gIp-Ho-8D9"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <window title="Tournament Configuration" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" animationBehavior="default" id="F0z-JX-Cv5">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="196" y="240" width="640" height="480"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
+            <view key="contentView" id="se5-gp-TjO">
+                <rect key="frame" x="0.0" y="0.0" width="640" height="480"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <tabView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZrO-ww-z2K" userLabel="Tabs">
+                        <rect key="frame" x="-7" y="-8" width="654" height="496"/>
+                        <font key="font" metaFont="system"/>
+                        <tabViewItems>
+                            <tabViewItem label="Funding" identifier="fundingViewController" id="6gk-2K-Afe">
+                                <view key="view" id="52L-8U-88c">
+                                    <rect key="frame" x="10" y="33" width="634" height="450"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                            </tabViewItem>
+                            <tabViewItem label="Players" identifier="playersViewController" id="KUZ-FF-WbT">
+                                <view key="view" id="hfE-Ga-1xn">
+                                    <rect key="frame" x="10" y="33" width="634" height="450"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                            </tabViewItem>
+                            <tabViewItem label="Equipment" identifier="chipsViewController" id="YfX-7j-TxT">
+                                <view key="view" id="AfU-js-iOJ">
+                                    <rect key="frame" x="10" y="33" width="634" height="450"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                            </tabViewItem>
+                            <tabViewItem label="Rounds" identifier="roundsViewController" id="hOI-iU-Mum">
+                                <view key="view" id="kFu-Qn-N0V">
+                                    <rect key="frame" x="10" y="33" width="634" height="450"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                            </tabViewItem>
+                        </tabViewItems>
+                        <connections>
+                            <outlet property="delegate" destination="-2" id="Zp5-D2-GLN"/>
+                        </connections>
+                    </tabView>
+                </subviews>
+            </view>
+            <connections>
+                <outlet property="delegate" destination="-2" id="2Bo-Xl-Ykx"/>
+            </connections>
+        </window>
+        <viewController nibName="TBChipsView" id="rI8-Xq-gYV" customClass="TBChipsViewController"/>
+        <viewController nibName="TBFundingView" id="jJR-gM-aDd" customClass="TBFundingViewController"/>
+        <viewController nibName="TBPlayersView" id="gsZ-K1-gq4" customClass="TBPlayersViewController"/>
+        <viewController nibName="TBRoundsView" id="Xh7-Uj-lrU" customClass="TBRoundsViewController"/>
+    </objects>
+</document>
