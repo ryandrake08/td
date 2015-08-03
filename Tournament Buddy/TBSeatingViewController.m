@@ -119,8 +119,10 @@
 - (IBAction)displayButtonDidChange:(id)sender {
     if([[[self playerWindowController] window] isVisible]) {
         [[self playerWindowController] close];
+        [[self playerWindowController] exitFullScreenModeIfPossible];
     } else {
         [[self playerWindowController] showWindow:self];
+        [[self playerWindowController] enterFullScreenModeIfPossible];
     }
 }
 
