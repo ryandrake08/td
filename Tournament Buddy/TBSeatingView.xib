@@ -14,7 +14,7 @@
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="Hz6-mo-xeY">
             <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <customView id="ess-Kk-aH9" userLabel="Center Pane">
                     <rect key="frame" x="256" y="0.0" width="512" height="672"/>
@@ -76,14 +76,14 @@
                             <animations/>
                         </customView>
                         <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="Ykp-fd-HyL">
-                            <rect key="frame" x="0.0" y="0.0" width="512" height="600"/>
+                            <rect key="frame" x="0.0" y="0.0" width="512" height="608"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <clipView key="contentView" id="RF3-Kz-bSk">
-                                <rect key="frame" x="1" y="17" width="510" height="582"/>
+                                <rect key="frame" x="1" y="17" width="510" height="590"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <tableView identifier="seatsTable" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="sequential" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="h7c-ks-BWc" viewBased="YES" id="am5-fF-rIk">
-                                        <rect key="frame" x="0.0" y="0.0" width="510" height="0.0"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="510" height="590"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <animations/>
                                         <size key="intercellSpacing" width="3" height="2"/>
