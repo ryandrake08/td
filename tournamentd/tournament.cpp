@@ -308,7 +308,7 @@ bool tournament::handle_client_input(std::iostream& client)
 
     // get a line of input
     std::string input;
-    while(std::getline(client, input))
+    if(std::getline(client, input))
     {
         // find start of command
         static const char* whitespace(" \t\r\n");
