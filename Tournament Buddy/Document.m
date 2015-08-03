@@ -55,6 +55,10 @@
             }
         }];
 
+        [[self KVOController] observe:[self session] keyPath:@"name" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
+            [[self server] publishWithName:[object name]];
+        }];
+
         // Start serving using this device's auth key
         NSString* path = [[self server] startWithAuthCode:[TournamentSession clientIdentifier]];
 
