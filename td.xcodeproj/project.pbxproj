@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		941916DA1B6F1FD3001253CA /* TBPlayerWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 946288B61B3E578D0016FA36 /* TBPlayerWindow.xib */; };
+		941916DB1B6F1FD7001253CA /* TBPlayerWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 946288B51B3E578D0016FA36 /* TBPlayerWindowController.m */; };
+		941916DC1B6F215F001253CA /* TBActionClockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEAF91B5AEB0B0026B25D /* TBActionClockView.m */; };
 		943970181B3F9DB700BB0413 /* TournamentBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 943970171B3F9DB700BB0413 /* TournamentBrowser.m */; };
 		943970191B3F9DB700BB0413 /* TournamentBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 943970171B3F9DB700BB0413 /* TournamentBrowser.m */; };
 		9439701A1B3F9DB700BB0413 /* TournamentBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 943970171B3F9DB700BB0413 /* TournamentBrowser.m */; };
@@ -43,7 +46,7 @@
 		94562E691B65D8CA0017C692 /* TBDurationNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 94562E651B65D8CA0017C692 /* TBDurationNumberFormatter.m */; };
 		94562E6C1B65D9420017C692 /* TBResizeTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 94562E6B1B65D9420017C692 /* TBResizeTextField.m */; };
 		946288B71B3E578D0016FA36 /* TBPlayerWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 946288B51B3E578D0016FA36 /* TBPlayerWindowController.m */; };
-		946288B81B3E578D0016FA36 /* TBPlayerWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 946288B61B3E578D0016FA36 /* TBPlayerWindowController.xib */; };
+		946288B81B3E578D0016FA36 /* TBPlayerWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 946288B61B3E578D0016FA36 /* TBPlayerWindow.xib */; };
 		9476F4691B3C385400A158F8 /* TBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4561B3C385400A158F8 /* TBAppDelegate.m */; };
 		9476F46A1B3C385400A158F8 /* TBTournamentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4581B3C385400A158F8 /* TBTournamentsViewController.m */; };
 		9476F46B1B3C385400A158F8 /* TBRemoteClockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F45A1B3C385400A158F8 /* TBRemoteClockViewController.m */; };
@@ -183,7 +186,7 @@
 		94562E6B1B65D9420017C692 /* TBResizeTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBResizeTextField.m; sourceTree = "<group>"; };
 		946288B41B3E578D0016FA36 /* TBPlayerWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBPlayerWindowController.h; sourceTree = "<group>"; };
 		946288B51B3E578D0016FA36 /* TBPlayerWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBPlayerWindowController.m; sourceTree = "<group>"; };
-		946288B61B3E578D0016FA36 /* TBPlayerWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TBPlayerWindowController.xib; sourceTree = "<group>"; };
+		946288B61B3E578D0016FA36 /* TBPlayerWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TBPlayerWindow.xib; sourceTree = "<group>"; };
 		9476F42A1B3C37D000A158F8 /* TBRemote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TBRemote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9476F4551B3C385400A158F8 /* TBAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBAppDelegate.h; sourceTree = "<group>"; };
 		9476F4561B3C385400A158F8 /* TBAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBAppDelegate.m; sourceTree = "<group>"; };
@@ -328,7 +331,7 @@
 				944FF4B81B3D04CA000362ED /* AppDelegate.m */,
 				946288B41B3E578D0016FA36 /* TBPlayerWindowController.h */,
 				946288B51B3E578D0016FA36 /* TBPlayerWindowController.m */,
-				946288B61B3E578D0016FA36 /* TBPlayerWindowController.xib */,
+				946288B61B3E578D0016FA36 /* TBPlayerWindow.xib */,
 				944FF4BE1B3D04CA000362ED /* MainMenu.xib */,
 				944FF4BC1B3D04CA000362ED /* TBPlayer.xcassets */,
 				944FF4B51B3D04CA000362ED /* Supporting Files */,
@@ -682,7 +685,7 @@
 			files = (
 				944FF4BD1B3D04CA000362ED /* TBPlayer.xcassets in Resources */,
 				944FF4C01B3D04CA000362ED /* MainMenu.xib in Resources */,
-				946288B81B3E578D0016FA36 /* TBPlayerWindowController.xib in Resources */,
+				946288B81B3E578D0016FA36 /* TBPlayerWindow.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -708,6 +711,7 @@
 				AD98D9701A7B342000DA6B8B /* TBRoundsView.xib in Resources */,
 				AD8E68571A6C606700E5A4D8 /* MainMenu.xib in Resources */,
 				9454107C1B6EC5DD001E3373 /* TBConfigurationWindow.xib in Resources */,
+				941916DA1B6F1FD3001253CA /* TBPlayerWindow.xib in Resources */,
 				AD98D96B1A7B33F100DA6B8B /* TBPlayersView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -809,6 +813,7 @@
 				9476F4A61B3C3EA700A158F8 /* TournamentSession.m in Sources */,
 				AD98D96F1A7B342000DA6B8B /* TBRoundsViewController.m in Sources */,
 				94FDEAE81B5AE2D60026B25D /* FBKVOController.m in Sources */,
+				941916DB1B6F1FD7001253CA /* TBPlayerWindowController.m in Sources */,
 				9454106B1B6E47B7001E3373 /* TBChipsArrayController.m in Sources */,
 				945410771B6E9A17001E3373 /* NSString+CamelCase.m in Sources */,
 				AD8E684F1A6C606700E5A4D8 /* Document.m in Sources */,
@@ -831,6 +836,7 @@
 				9476F4A41B3C3EA700A158F8 /* TournamentDaemon.mm in Sources */,
 				AD98D9611A7B330B00DA6B8B /* TBChipsViewController.m in Sources */,
 				945410741B6E5C56001E3373 /* NSDateFormatter+ISO8601.m in Sources */,
+				941916DC1B6F215F001253CA /* TBActionClockView.m in Sources */,
 				945410681B6E478A001E3373 /* TBPlayersArrayController.m in Sources */,
 				949D70991B3C440D008D5CD1 /* server.cpp in Sources */,
 				9439701D1B405DC000BB0413 /* TournamentService.m in Sources */,

@@ -83,7 +83,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <tableView identifier="seatsTable" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="sequential" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="h7c-ks-BWc" viewBased="YES" id="am5-fF-rIk">
-                                        <rect key="frame" x="0.0" y="0.0" width="510" height="590"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="510" height="0.0"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <animations/>
                                         <size key="intercellSpacing" width="3" height="2"/>
@@ -597,7 +597,7 @@
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <subviews>
                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="OXQ-wF-kBC" customClass="TBResizeTextField">
-                            <rect key="frame" x="-2" y="32" width="1028" height="64"/>
+                            <rect key="frame" x="194" y="32" width="636" height="64"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Non-Rebuy Tournament" placeholderString="" usesSingleLineMode="YES" id="Fsc-nw-UaT">
                                 <font key="font" metaFont="system" size="48"/>
@@ -613,6 +613,17 @@
                                 <binding destination="-2" name="value" keyPath="self.configuration.name" id="cxj-yD-ZLh"/>
                             </connections>
                         </textField>
+                        <button id="dwQ-0e-6S6">
+                            <rect key="frame" x="834" y="46" width="172" height="32"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                            <buttonCell key="cell" type="bevel" title="Display Screen" alternateTitle="Screen Display" bezelStyle="regularSquare" image="b_display" imagePosition="right" alignment="center" alternateImage="h_display" borderStyle="border" imageScaling="proportionallyUpOrDown" inset="2" id="HD9-a5-uA6">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="displayButtonDidChange:" target="-2" id="WTw-g8-4x7"/>
+                            </connections>
+                        </button>
                         <customView id="unN-Mh-wS1">
                             <rect key="frame" x="429" y="11" width="167" height="22"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -643,6 +654,17 @@
                                 </textField>
                             </subviews>
                         </customView>
+                        <button id="jmB-Eg-9Jn">
+                            <rect key="frame" x="18" y="46" width="172" height="32"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <buttonCell key="cell" type="bevel" title="Setup Tournament" alternateTitle="Tournament Setup" bezelStyle="regularSquare" image="b_configure" imagePosition="left" alignment="center" alternateImage="h_configure" borderStyle="border" imageScaling="proportionallyUpOrDown" inset="2" id="ju5-Bs-dMB">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                                <connections>
+                                    <action selector="configureButtonDidChange:" target="-2" id="ABT-OZ-ltU"/>
+                                </connections>
+                            </buttonCell>
+                        </button>
                     </subviews>
                     <animations/>
                 </customView>
@@ -678,10 +700,14 @@
     </objects>
     <resources>
         <image name="b_call_clock" width="64" height="64"/>
+        <image name="b_configure" width="64" height="64"/>
+        <image name="b_display" width="64" height="64"/>
         <image name="b_next" width="64" height="64"/>
         <image name="b_play_pause" width="64" height="64"/>
         <image name="b_previous" width="64" height="64"/>
         <image name="h_call_clock" width="64" height="64"/>
+        <image name="h_configure" width="64" height="64"/>
+        <image name="h_display" width="64" height="64"/>
         <image name="h_next" width="64" height="64"/>
         <image name="h_play_pause" width="64" height="64"/>
         <image name="h_previous" width="64" height="64"/>

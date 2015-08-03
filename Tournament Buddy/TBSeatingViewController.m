@@ -8,12 +8,14 @@
 
 #import "TBSeatingViewController.h"
 #import "TBConfigurationWindowController.h"
+#import "TBPlayerWindowController.h"
 #import "NSObject+FBKVOController.h"
 
 @interface TBSeatingViewController () <NSTableViewDelegate, NSTextFieldDelegate>
 
 // Configuration window
 @property (strong) TBConfigurationWindowController* configurationWindowController;
+@property (strong) TBPlayerWindowController* playerWindowController;
 
 // Derived game state
 @property (strong) NSArray* seats;
@@ -70,7 +72,12 @@
     [self setConfigurationWindowController:[[TBConfigurationWindowController alloc] initWithWindowNibName:@"TBConfigurationWindow"]];
     [[self configurationWindowController] setSession:[self session]];
     [[self configurationWindowController] setConfiguration:[self configuration]];
-    [[self configurationWindowController] showWindow:self];
+    [[[self configurationWindowController] window] close];
+
+    // setup player window
+    [self setPlayerWindowController:[[TBPlayerWindowController alloc] initWithWindowNibName:@"TBPlayerWindow"]];
+    [[self playerWindowController] setSession:[self session]];
+    [[[self playerWindowController] window] close];
 
     // register for KVO
     [[self KVOController] observe:[self session] keyPath:@"seats" options:NSKeyValueObservingOptionInitial action:@selector(updateSeats)];
@@ -86,6 +93,7 @@
 
 - (void)dealloc {
     [[self configurationWindowController] close];
+    [[self playerWindowController] close];
 }
 
 #pragma mark NSTextFieldDelegate
@@ -99,6 +107,23 @@
 }
 
 #pragma mark Actions
+
+- (IBAction)configureButtonDidChange:(id)sender {
+    if([[[self configurationWindowController] window] isVisible]) {
+        [[self configurationWindowController] close];
+    } else {
+        [[self configurationWindowController] showWindow:self];
+    }
+}
+
+- (IBAction)displayButtonDidChange:(id)sender {
+    if([[[self playerWindowController] window] isVisible]) {
+        [[self playerWindowController] close];
+    } else {
+        [[self playerWindowController] showWindow:self];
+    }
+}
+
 
 - (IBAction)seatedButtonDidChange:(id)sender {
     NSTableCellView* cell = (NSTableCellView*)[sender superview];

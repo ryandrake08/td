@@ -34,7 +34,7 @@
     [[self browser] search];
 
     // set up the windowController
-    _windowController = [[TBPlayerWindowController alloc] initWithWindowNibName:@"TBPlayerWindowController"];
+    _windowController = [[TBPlayerWindowController alloc] initWithWindowNibName:@"TBPlayerWindow"];
     [_windowController setSession:_session];
     [_windowController showWindow:nil];
     [_windowController.window makeKeyAndOrderFront:nil];
