@@ -93,19 +93,6 @@
     }];
 }
 
-- (void)enterFullScreenModeIfPossible {
-    NSArray* screens = [NSScreen screens];
-    if([screens count] > 1) {
-        [[[self window] contentView] enterFullScreenMode:screens[1] withOptions:nil];
-    }
-}
-
-- (void)exitFullScreenModeIfPossible {
-    if([[[self window] contentView] isInFullScreenMode]) {
-        [[[self window] contentView] exitFullScreenModeWithOptions:nil];
-    }
-}
-
 #pragma mark Update
 
 - (void)updateButtons {

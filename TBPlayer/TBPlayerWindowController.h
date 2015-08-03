@@ -14,8 +14,4 @@
 // the tournament session (model) object
 @property TournamentSession* session;
 
-// enter and exit full screen
-- (void)enterFullScreenModeIfPossible;
-- (void)exitFullScreenModeIfPossible;
-
 @end
