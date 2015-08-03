@@ -62,6 +62,10 @@
 }
 
 - (void)viewDidLoad {
+    if([NSViewController instancesRespondToSelector:@selector(viewDidLoad)]) {
+        [super viewDidLoad];
+    }
+
     // setup configuration window
     [self setConfigurationWindowController:[[TBConfigurationWindowController alloc] initWithWindowNibName:@"TBConfigurationWindow"]];
     [[self configurationWindowController] setSession:[self session]];
@@ -71,6 +75,13 @@
     // register for KVO
     [[self KVOController] observe:[self session] keyPath:@"seats" options:NSKeyValueObservingOptionInitial action:@selector(updateSeats)];
     [[self KVOController] observe:[self session] keyPath:@"players" options:NSKeyValueObservingOptionInitial action:@selector(updatePlayers)];
+}
+
+- (void)loadView {
+    [super loadView];
+    if(![NSViewController instancesRespondToSelector:@selector(viewDidLoad)]) {
+        [self viewDidLoad];
+    }
 }
 
 - (void)dealloc {

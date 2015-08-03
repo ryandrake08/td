@@ -90,6 +90,10 @@
 @implementation TBFundingViewController
 
 - (void)viewDidLoad {
+    if([NSViewController instancesRespondToSelector:@selector(viewDidLoad)]) {
+        [super viewDidLoad];
+    }
+
     // register for KVO
     [[[self costFormatter] KVOController] observe:[self configuration] keyPath:@"cost_currency" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
         [observer setCurrencyCode:object[@"cost_currency"]];
@@ -100,6 +104,13 @@
         [observer setCurrencyCode:object[@"equity_currency"]];
         [[self tableView] reloadData];
     }];
+}
+
+- (void)loadView {
+    [super loadView];
+    if(![NSViewController instancesRespondToSelector:@selector(viewDidLoad)]) {
+        [self viewDidLoad];
+    }
 }
 
 #pragma mark NSTableViewDelegate

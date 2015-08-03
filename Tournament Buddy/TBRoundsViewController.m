@@ -34,7 +34,18 @@
 @implementation TBRoundsViewController
 
 - (void)viewDidLoad {
+    if([NSViewController instancesRespondToSelector:@selector(viewDidLoad)]) {
+        [super viewDidLoad];
+    }
+
     [[self arrayController] setFilterPredicate:[NSPredicate predicateWithFormat: @"%K != %@", @"game_name", @"Setup"]];
+}
+
+- (void)loadView {
+    [super loadView];
+    if(![NSViewController instancesRespondToSelector:@selector(viewDidLoad)]) {
+        [self viewDidLoad];
+    }
 }
 
 #pragma mark NSTableViewDataSource
