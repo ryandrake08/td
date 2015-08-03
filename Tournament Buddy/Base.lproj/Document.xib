@@ -7,7 +7,6 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="Document">
             <connections>
-                <outlet property="viewController" destination="4TN-wz-tGF" id="5JQ-aB-WNO"/>
                 <outlet property="window" destination="xOd-HO-29H" id="JIz-fz-R2o"/>
             </connections>
         </customObject>
@@ -28,6 +27,5 @@
             </connections>
             <point key="canvasLocation" x="291" y="385"/>
         </window>
-        <viewController nibName="TBSeatingView" id="4TN-wz-tGF" customClass="TBSeatingViewController"/>
     </objects>
 </document>

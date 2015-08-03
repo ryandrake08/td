@@ -7,9 +7,13 @@
 //
 
 #import "TBSeatingViewController.h"
+#import "TBConfigurationWindowController.h"
 #import "NSObject+FBKVOController.h"
 
 @interface TBSeatingViewController () <NSTableViewDelegate, NSTextFieldDelegate>
+
+// Configuration window
+@property (strong) TBConfigurationWindowController* configurationWindowController;
 
 // Derived game state
 @property (strong) NSArray* seats;
@@ -58,9 +62,19 @@
 }
 
 - (void)viewDidLoad {
+    // setup configuration window
+    [self setConfigurationWindowController:[[TBConfigurationWindowController alloc] initWithWindowNibName:@"TBConfigurationWindow"]];
+    [[self configurationWindowController] setSession:[self session]];
+    [[self configurationWindowController] setConfiguration:[self configuration]];
+    [[self configurationWindowController] showWindow:self];
+
     // register for KVO
     [[self KVOController] observe:[self session] keyPath:@"seats" options:NSKeyValueObservingOptionInitial action:@selector(updateSeats)];
     [[self KVOController] observe:[self session] keyPath:@"players" options:NSKeyValueObservingOptionInitial action:@selector(updatePlayers)];
+}
+
+- (void)dealloc {
+    [[self configurationWindowController] close];
 }
 
 #pragma mark NSTextFieldDelegate

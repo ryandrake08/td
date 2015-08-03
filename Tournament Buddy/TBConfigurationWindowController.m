@@ -17,9 +17,9 @@
 @property (strong) IBOutlet NSTabView* tabView;
 
 // Controllers
+@property (strong) IBOutlet TBTableViewController* playersViewController;
 @property (strong) IBOutlet TBTableViewController* chipsViewController;
 @property (strong) IBOutlet TBTableViewController* fundingViewController;
-@property (strong) IBOutlet TBTableViewController* playersViewController;
 @property (strong) IBOutlet TBTableViewController* roundsViewController;
 
 @end
@@ -38,6 +38,8 @@
 }
 
 - (void)configureSession {
+    NSLog(@"Synchronizing session");
+
     // only send parts of configuration that changed
     NSMutableDictionary* configToSend = [[self configuration] mutableCopy];
     NSMutableArray* keysToRemove = [NSMutableArray array];
@@ -49,9 +51,12 @@
     }];
     [configToSend removeObjectsForKeys:keysToRemove];
 
+    NSLog(@"Sending %ld configuration items", (long)[configToSend count]);
+
     if([configToSend count] > 0) {
         [[self session] configure:configToSend withBlock:^(id json) {
             if(![json isEqual:[self configuration]]) {
+                NSLog(@"Document differs from session");
                 [[self configuration] setDictionary:json];
             }
         }];
@@ -75,9 +80,6 @@
     if([controller configuration] == nil) {
         [controller setConfiguration: [self configuration]];
     }
-
-    // configure session when switching tabs (for now)
-    [self configureSession];
 
     // set the view
     [tabViewItem setView:controller.view];

@@ -7,21 +7,19 @@
 //
 
 #import "Document.h"
-#import "TBConfigurationWindowController.h"
 #import "TBSeatingViewController.h"
 #import "TournamentKit/TournamentKit.h"
 #import "NSObject+FBKVOController.h"
 
 @interface Document ()
 
-// UI
-@property (strong) IBOutlet TBSeatingViewController* viewController;
-@property (strong) IBOutlet TBConfigurationWindowController* configurationWindowController;
-
 // Model
 @property (strong) TournamentDaemon* server;
 @property (strong) TournamentSession* session;
 @property (strong) NSMutableDictionary* configuration;
+
+// UI
+@property (strong) TBSeatingViewController* viewController;
 
 @end
 
@@ -34,12 +32,25 @@
         _session = [[TournamentSession alloc] init];
         _configuration = [[NSMutableDictionary alloc] init];
 
+        _viewController = [[TBSeatingViewController alloc] initWithNibName:@"TBSeatingView" bundle:nil];
+        [_viewController setSession:_session];
+        [_viewController setConfiguration:_configuration];
+
         // register for KVO
         [[self KVOController] observe:[self session] keyPath:@"isConnected" options:0 block:^(id observer, id object, NSDictionary *change) {
             if([object isConnected]) {
                 // check authorization
                 [object checkAuthorizedWithBlock:^(BOOL authorized) {
                     NSLog(@"Connected and authorized locally");
+
+                    // on connection, send entire configuration to session, unconditionally, and then replace with whatever the session has
+                    NSLog(@"Synchronizing session unconditionally");
+                    [[self session] configure:[self configuration] withBlock:^(id json) {
+                        if(![json isEqual:[self configuration]]) {
+                            NSLog(@"Document differs from session");
+                            [[self configuration] setDictionary:json];
+                        }
+                    }];
                 }];
             }
         }];
@@ -54,7 +65,6 @@
 }
 
 - (void)close {
-    [[self configurationWindowController] close];
     [[self KVOController] unobserveAll];
     [[self session] disconnect];
     [[self server] stop];
@@ -64,17 +74,8 @@
 - (void)windowControllerDidLoadNib:(NSWindowController*)aController {
     [super windowControllerDidLoadNib:aController];
 
-    // setup main view
-    [[self viewController] setConfiguration:[self configuration]];
-    [[self viewController] setSession:[self session]];
+    // show main view
     [[aController window] setContentView:[[self viewController] view]];
-
-    // setup configuration view
-    TBConfigurationWindowController* configurationWindow = [[TBConfigurationWindowController alloc] initWithWindowNibName:@"TBConfigurationWindow"];
-    [self setConfigurationWindowController:configurationWindow];
-    [[self configurationWindowController] setSession:[self session]];
-    [[self configurationWindowController] setConfiguration:[self configuration]];
-    [[self configurationWindowController] showWindow:self];
 }
 
 + (BOOL)autosavesInPlace {
@@ -95,14 +96,6 @@
 - (BOOL)readFromData:(NSData*)data ofType:(NSString*)typeName error:(NSError**)outError {
     // deserialize json configuration
     [[self configuration] setDictionary:[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:outError]];
-
-    // send to session
-    [[self session] configure:[self configuration] withBlock:^(id json) {
-        if(![json isEqual:[self configuration]]) {
-            [[self configuration] setDictionary:json];
-        }
-    }];
-
     return *outError == nil;
 }
 
