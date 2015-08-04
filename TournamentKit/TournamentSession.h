@@ -64,7 +64,7 @@
 @property (nonatomic, readonly) NSString* entriesText;
 @property (nonatomic, readonly) NSString* averageStackText;
 @property (nonatomic, readonly) NSArray* results;
-@property (nonatomic, readonly) NSSet* seatedPlayers;
+@property (nonatomic, readonly) NSArray* seatedPlayers;
 @property (nonatomic, readonly) NSArray* blindLevelNames;
 @property (nonatomic, readonly) NSDictionary* playersLookup;
 

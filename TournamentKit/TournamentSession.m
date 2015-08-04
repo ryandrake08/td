@@ -484,7 +484,7 @@
     } else if([key isEqualToString:@"playersLookup"]) {
         keyPaths = [keyPaths setByAddingObjectsFromArray:@[@"players"]];
     } else if([key isEqualToString:@"seatedPlayers"]) {
-        keyPaths = [keyPaths setByAddingObjectsFromArray:@[@"seats"]];
+        keyPaths = [keyPaths setByAddingObjectsFromArray:@[@"seats",@"players"]];
     } else if([key isEqualToString:@"blindLevelNames"]) {
         keyPaths = [keyPaths setByAddingObjectsFromArray:@[@"blindLevels"]];
     }
@@ -653,13 +653,37 @@
     return newResults;
 }
 
-- (NSSet*)seatedPlayers {
-    NSMutableSet* newSet = [NSMutableSet set];
+- (NSArray*)seatedPlayers {
+    NSMutableDictionary* newDict = [[NSMutableDictionary alloc] init];
+    // first, add seated players
     for(id seat in [self seats]) {
-        [newSet addObject:seat[@"player_id"]];
+        id playerId = seat[@"player_id"];
+        if(playerId) {
+            NSDictionary* player = [self playersLookup][playerId];
+            if(player) {
+                // Add the player record to the seat dictionary
+                NSMutableDictionary* seatAndPlayer = [[NSMutableDictionary alloc] initWithDictionary:seat];
+                [seatAndPlayer setObject:player forKey:@"player"];
+                [newDict setObject:seatAndPlayer forKey:playerId];
+            } else {
+                NSLog(@"Seated player %@ not in player array", seat);
+            }
+        }
     }
 
-    return newSet;
+    // then, add any other players (not seated)
+    for(id player in [self players]) {
+        id playerId = player[@"player_id"];
+        if(playerId) {
+            NSDictionary* seat = [newDict objectForKey:playerId];
+            if(seat == nil) {
+                // not seated
+                NSMutableDictionary* seatAndPlayer = [[NSMutableDictionary alloc] initWithObjectsAndKeys:player, @"player", nil];
+                [newDict setObject:seatAndPlayer forKey:playerId];
+            }
+        }
+    }
+    return [newDict allValues];
 }
 
 - (NSArray*)blindLevelNames {

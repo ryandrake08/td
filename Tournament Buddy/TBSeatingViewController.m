@@ -17,9 +17,8 @@
 @property (strong) TBConfigurationWindowController* configurationWindowController;
 @property (strong) TBPlayerWindowController* playerWindowController;
 
-// Derived game state
-@property (strong) NSArray* seats;
-@property (strong) NSArray* players;
+// Seats dictionary controller
+@property (strong) IBOutlet NSArrayController* seatsController;
 
 // Keep track of last seating plan size, to avoid setting again
 @property NSInteger lastMaxPlayers;
@@ -28,45 +27,13 @@
 
 @implementation TBSeatingViewController
 
-- (void)updatePlayers {
-    // inject seated flag into our own player array
-    NSMutableArray* newArray = [NSMutableArray array];
-    for(id obj in [[self session] players]) {
-        id playerId = obj[@"player_id"];
-        if(playerId) {
-            NSMutableDictionary* newObj = [NSMutableDictionary dictionaryWithDictionary:obj];
-            BOOL seated = [[[self session] seatedPlayers] containsObject:playerId];
-            newObj[@"seated"] = @(seated);
-            [newArray addObject:newObj];
-        }
-    }
-    [self setPlayers:newArray];
-}
-
-- (void)updateSeats {
-    // inject players into our own seats array
-    NSMutableArray* newArray = [NSMutableArray array];
-    for(id obj in [[self session] seats]) {
-        id playerId = obj[@"player_id"];
-        if(playerId) {
-            NSDictionary* player = [[self session] playersLookup][playerId];
-            if(player) {
-                NSMutableDictionary* newObj = [NSMutableDictionary dictionaryWithDictionary:obj];
-                newObj[@"player"] = player;
-                [newArray addObject:newObj];
-            }
-        }
-    }
-    [self setSeats:newArray];
-
-    // also need to update seated flag for players
-    [self updatePlayers];
-}
-
 - (void)viewDidLoad {
     if([NSViewController instancesRespondToSelector:@selector(viewDidLoad)]) {
         [super viewDidLoad];
     }
+
+    // filter predicate to not show empty seats
+    [[self seatsController] setFilterPredicate:[NSPredicate predicateWithFormat: @"seat_number != nil"]];
 
     // setup configuration window
     [self setConfigurationWindowController:[[TBConfigurationWindowController alloc] initWithWindowNibName:@"TBConfigurationWindow"]];
@@ -78,10 +45,6 @@
     [self setPlayerWindowController:[[TBPlayerWindowController alloc] initWithWindowNibName:@"TBPlayerWindow"]];
     [[self playerWindowController] setSession:[self session]];
     [[[self playerWindowController] window] close];
-
-    // register for KVO
-    [[self KVOController] observe:[self session] keyPath:@"seats" options:NSKeyValueObservingOptionInitial action:@selector(updateSeats)];
-    [[self KVOController] observe:[self session] keyPath:@"players" options:NSKeyValueObservingOptionInitial action:@selector(updatePlayers)];
 }
 
 - (void)loadView {
@@ -132,7 +95,8 @@
 
 - (IBAction)seatedButtonDidChange:(id)sender {
     NSTableCellView* cell = (NSTableCellView*)[sender superview];
-    id playerId = [cell objectValue][@"player_id"];
+    id ov = [cell objectValue];
+    id playerId = ov[@"player"][@"player_id"];
     if([sender state] == NSOnState) {
         [[self session] seatPlayer:playerId withBlock:nil];
     } else {
