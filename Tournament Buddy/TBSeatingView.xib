@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="8152.3" systemVersion="15A244d" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="8152.3"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="TBSeatingViewController">
@@ -83,7 +83,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <tableView identifier="seatsTable" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="sequential" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="h7c-ks-BWc" viewBased="YES" id="am5-fF-rIk">
-                                        <rect key="frame" x="0.0" y="0.0" width="510" height="0.0"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="510" height="590"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <animations/>
                                         <size key="intercellSpacing" width="3" height="2"/>
@@ -110,6 +110,7 @@
                                                             <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="yaF-xA-BTN">
                                                                 <rect key="frame" x="0.0" y="0.0" width="40" height="17"/>
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                                                <animations/>
                                                                 <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="7Wy-Pk-DZH">
                                                                     <font key="font" metaFont="system"/>
                                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -120,6 +121,7 @@
                                                                 </connections>
                                                             </textField>
                                                         </subviews>
+                                                        <animations/>
                                                         <connections>
                                                             <outlet property="textField" destination="yaF-xA-BTN" id="gKx-ZG-mDO"/>
                                                         </connections>
@@ -291,7 +293,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <tableView identifier="playersTable" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="sequential" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowHeight="18" rowSizeStyle="automatic" headerView="K74-yc-j1u" viewBased="YES" id="Z8A-fm-qLk">
-                                        <rect key="frame" x="0.0" y="0.0" width="254" height="0.0"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="254" height="654"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <animations/>
                                         <size key="intercellSpacing" width="3" height="2"/>
@@ -599,6 +601,7 @@
                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="OXQ-wF-kBC" customClass="TBResizeTextField">
                             <rect key="frame" x="194" y="32" width="636" height="64"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                            <animations/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Non-Rebuy Tournament" placeholderString="" usesSingleLineMode="YES" id="Fsc-nw-UaT">
                                 <font key="font" metaFont="system" size="48"/>
                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -616,6 +619,7 @@
                         <button id="dwQ-0e-6S6">
                             <rect key="frame" x="834" y="46" width="172" height="32"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                            <animations/>
                             <buttonCell key="cell" type="bevel" title="Display Screen" alternateTitle="Screen Display" bezelStyle="regularSquare" image="b_display" imagePosition="right" alignment="center" alternateImage="h_display" borderStyle="border" imageScaling="proportionallyUpOrDown" inset="2" id="HD9-a5-uA6">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
@@ -631,6 +635,7 @@
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="fLl-jV-fSg">
                                     <rect key="frame" x="-2" y="3" width="132" height="17"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <animations/>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Maximum Players:" id="v6k-pw-WFT">
                                         <font key="font" metaFont="system"/>
                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -640,6 +645,7 @@
                                 <textField verticalHuggingPriority="750" id="WQZ-wu-RGH">
                                     <rect key="frame" x="136" y="0.0" width="31" height="22"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <animations/>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="center" placeholderString="" drawsBackground="YES" id="jad-Rk-RQm">
                                         <numberFormatter key="formatter" formatterBehavior="default10_4" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="0" maximumIntegerDigits="42" id="xWA-RU-6Rb">
                                             <real key="minimum" value="2"/>
@@ -649,14 +655,16 @@
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                     <connections>
-                                        <outlet property="delegate" destination="-2" id="UuY-vq-sEB"/>
+                                        <action selector="maxPlayersTextDidChange:" target="-2" id="fDp-0S-jY1"/>
                                     </connections>
                                 </textField>
                             </subviews>
+                            <animations/>
                         </customView>
                         <button id="jmB-Eg-9Jn">
                             <rect key="frame" x="18" y="46" width="172" height="32"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <animations/>
                             <buttonCell key="cell" type="bevel" title="Setup Tournament" alternateTitle="Tournament Setup" bezelStyle="regularSquare" image="b_configure" imagePosition="left" alignment="center" alternateImage="h_configure" borderStyle="border" imageScaling="proportionallyUpOrDown" inset="2" id="ju5-Bs-dMB">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>

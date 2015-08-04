@@ -11,7 +11,7 @@
 #import "TBPlayerWindowController.h"
 #import "NSObject+FBKVOController.h"
 
-@interface TBSeatingViewController () <NSTableViewDelegate, NSTextFieldDelegate>
+@interface TBSeatingViewController () <NSTableViewDelegate>
 
 // Configuration window
 @property (strong) TBConfigurationWindowController* configurationWindowController;
@@ -96,16 +96,6 @@
     [[self playerWindowController] close];
 }
 
-#pragma mark NSTextFieldDelegate
-
-- (void)controlTextDidEndEditing:(NSNotification*)notification {
-    NSInteger maxPlayers = [[notification object] integerValue];
-    if(maxPlayers > 1 && maxPlayers != [self lastMaxPlayers]) {
-        [[self session] planSeatingFor:@(maxPlayers)];
-        [self setLastMaxPlayers:maxPlayers];
-    }
-}
-
 #pragma mark Actions
 
 - (IBAction)configureButtonDidChange:(id)sender {
@@ -132,6 +122,13 @@
     }
 }
 
+- (IBAction)maxPlayersTextDidChange:(id)sender {
+    NSInteger maxPlayers = [sender integerValue];
+    if(maxPlayers > 1 && maxPlayers != [self lastMaxPlayers]) {
+        [[self session] planSeatingFor:@(maxPlayers)];
+        [self setLastMaxPlayers:maxPlayers];
+    }
+}
 
 - (IBAction)seatedButtonDidChange:(id)sender {
     NSTableCellView* cell = (NSTableCellView*)[sender superview];
