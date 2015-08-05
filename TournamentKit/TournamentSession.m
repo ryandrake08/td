@@ -622,14 +622,13 @@
 }
 
 - (NSArray*)results {
-    NSMutableArray* newResults;
+    NSMutableArray* newResults = [[NSMutableArray alloc] init];
 
     // payouts with empty player field, for seated players
     for(NSUInteger i=0; i<[[self seats] count]; i++) {
         if([[self payouts] count] > i) {
             NSDictionary* item = @{
                 @"place":@(i+1),
-                @"player":[NSNull null],
                 @"payout":[self payouts][i]
             };
             [newResults addObject:item];
