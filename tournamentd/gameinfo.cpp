@@ -517,6 +517,11 @@ void gameinfo::fund_player(const td::player_id_t& player_id, const td::funding_s
         throw td::protocol_error("tried a non-buyin funding source but not bought in yet");
     }
 
+    if(source.type == td::rebuy && this->current_blind_level < 1)
+    {
+        throw td::protocol_error("tried re-buying before tournamnet start");
+    }
+
     auto player_it(players.find(player_id));
     if(player_it == players.end())
     {
