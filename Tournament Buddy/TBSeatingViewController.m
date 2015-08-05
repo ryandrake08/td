@@ -80,14 +80,18 @@
     id seatedPlayer = [cell objectValue];
 
     // add funding sources
-    [[[self session] fundingSources] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL* stop) {
-        id context = @{@"player_id":seatedPlayer[@"player_id"], @"funding_id":@(idx)};
+    [[[self session] fundingSources] enumerateObjectsUsingBlock:^(id source, NSUInteger idx, BOOL* stop) {
+        NSNumber* last = source[@"forbid_after_blind_level"];
+        NSNumber* current = [[self session] currentBlindLevel];
+        if(last == nil || !([last compare:current] == NSOrderedAscending)) {
+            id context = @{@"player_id":seatedPlayer[@"player_id"], @"funding_id":@(idx)};
 
-        // create a menu item for this funding option
-        NSMenuItem* item = [[NSMenuItem alloc] initWithTitle:obj[@"name"] action:@selector(fundPlayerFromMenuItem:) keyEquivalent:@""];
-        [item setTarget:self];
-        [item setRepresentedObject:context];
-        [menu addItem:item];
+            // create a menu item for this funding option
+            NSMenuItem* item = [[NSMenuItem alloc] initWithTitle:source[@"name"] action:@selector(fundPlayerFromMenuItem:) keyEquivalent:@""];
+            [item setTarget:self];
+            [item setRepresentedObject:context];
+            [menu addItem:item];
+        }
     }];
 }
 
