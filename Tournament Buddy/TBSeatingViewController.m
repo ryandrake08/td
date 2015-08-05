@@ -11,7 +11,7 @@
 #import "TBPlayerWindowController.h"
 #import "NSObject+FBKVOController.h"
 
-@interface TBSeatingViewController () <NSTableViewDelegate>
+@interface TBSeatingViewController () <NSTableViewDelegate, NSMenuDelegate>
 
 // Configuration window
 @property (strong) TBConfigurationWindowController* configurationWindowController;
@@ -57,6 +57,38 @@
 - (void)dealloc {
     [[self configurationWindowController] close];
     [[self playerWindowController] close];
+}
+
+#pragma mark NSMenuDelegate
+
+- (void)fundPlayerFromMenuItem:(NSMenuItem*)sender {
+    NSDictionary* context = [sender representedObject];
+    [[self session] fundPlayer:context[@"player_id"] withFunding:context[@"funding_id"]];
+}
+
+- (void)menuNeedsUpdate:(NSMenu*)menu {
+    // delete all previous objects from menu
+    [menu removeAllItems];
+
+    // find the clicked tableView cell
+    NSTableView* tableView = [self tableView];
+    NSInteger row = [tableView clickedRow];
+    NSInteger col = [tableView clickedColumn];
+    NSTableCellView* cell = [tableView viewAtColumn:col row:row makeIfNecessary:YES];
+
+    // its object is the model object for this player
+    id seatedPlayer = [cell objectValue];
+
+    // add funding sources
+    [[[self session] fundingSources] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL* stop) {
+        id context = @{@"player_id":seatedPlayer[@"player_id"], @"funding_id":@(idx)};
+
+        // create a menu item for this funding option
+        NSMenuItem* item = [[NSMenuItem alloc] initWithTitle:obj[@"name"] action:@selector(fundPlayerFromMenuItem:) keyEquivalent:@""];
+        [item setTarget:self];
+        [item setRepresentedObject:context];
+        [menu addItem:item];
+    }];
 }
 
 #pragma mark Actions

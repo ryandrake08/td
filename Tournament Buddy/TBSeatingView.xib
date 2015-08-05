@@ -8,6 +8,7 @@
         <customObject id="-2" userLabel="File's Owner" customClass="TBSeatingViewController">
             <connections>
                 <outlet property="seatsController" destination="So1-EM-ZfO" id="4iY-Gj-Uv9"/>
+                <outlet property="tableView" destination="am5-fF-rIk" id="4ZN-kb-ivW"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
         </customObject>
@@ -248,8 +249,15 @@
                                                         </connections>
                                                     </tableCellView>
                                                 </prototypeCellViews>
+                                                <connections>
+                                                    <binding destination="So1-EM-ZfO" name="value" keyPath="arrangedObjects" id="XVU-fs-Tz6"/>
+                                                </connections>
                                             </tableColumn>
                                         </tableColumns>
+                                        <connections>
+                                            <outlet property="delegate" destination="-2" id="HoT-bc-4NL"/>
+                                            <outlet property="menu" destination="k3e-4i-cwU" id="pIZ-PZ-JH4"/>
+                                        </connections>
                                     </tableView>
                                 </subviews>
                                 <animations/>
@@ -703,6 +711,23 @@
                 <binding destination="-2" name="contentArray" keyPath="session.results" id="4Z4-gf-qpv"/>
             </connections>
         </arrayController>
+        <menu id="k3e-4i-cwU">
+            <items>
+                <menuItem title="Item 1" id="9HH-9M-fNb">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+                <menuItem title="Item 2" id="pKb-d6-07h">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+                <menuItem title="Item 3" id="ULL-OV-glC">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+            </items>
+            <connections>
+                <outlet property="delegate" destination="-2" id="8FG-4N-1wR"/>
+            </connections>
+            <point key="canvasLocation" x="268" y="-172.5"/>
+        </menu>
     </objects>
     <resources>
         <image name="b_call_clock" width="64" height="64"/>
