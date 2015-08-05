@@ -85,7 +85,7 @@
                                         </textFieldCell>
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
-                                            <tableCellView id="g2k-DY-PZy" customClass="TBFundingTableCellView">
+                                            <tableCellView id="g2k-DY-PZy">
                                                 <rect key="frame" x="196" y="1" width="112" height="26"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
@@ -110,14 +110,14 @@
                                                             </menu>
                                                         </popUpButtonCell>
                                                         <connections>
-                                                            <binding destination="g2k-DY-PZy" name="selectedTag" keyPath="typeButtonSelectedTag" id="dEU-v9-nHu"/>
+                                                            <binding destination="g2k-DY-PZy" name="selectedTag" keyPath="objectValue.type" id="MGk-Xn-CFZ"/>
                                                         </connections>
                                                     </popUpButton>
                                                 </subviews>
                                             </tableCellView>
                                         </prototypeCellViews>
                                         <connections>
-                                            <binding destination="ZWh-lB-mFY" name="value" keyPath="arrangedObjects" id="rQd-0I-3RP"/>
+                                            <binding destination="ZWh-lB-mFY" name="value" keyPath="arrangedObjects.type" id="qzh-9i-iII"/>
                                         </connections>
                                     </tableColumn>
                                     <tableColumn identifier="Cost" width="56" maxWidth="56" id="caX-3j-KCt">
@@ -304,8 +304,7 @@
                                                             <font key="font" metaFont="system"/>
                                                         </buttonCell>
                                                         <connections>
-                                                            <action selector="forbidButtonDidChange:" target="Sm9-1Z-FA0" id="F9I-bG-rfd"/>
-                                                            <binding destination="Sm9-1Z-FA0" name="hidden" keyPath="isBuyin" id="hKQ-IN-AVQ"/>
+                                                            <action selector="forbidButtonDidChange:" target="Sm9-1Z-FA0" id="DXM-Vf-dhg"/>
                                                             <binding destination="Sm9-1Z-FA0" name="value" keyPath="objectValue.forbid_after_blind_level" id="df9-Au-kCb">
                                                                 <dictionary key="options">
                                                                     <string key="NSValueTransformerName">NSIsNotNil</string>
@@ -328,15 +327,20 @@
                                                             </menu>
                                                         </popUpButtonCell>
                                                         <connections>
-                                                            <binding destination="Sm9-1Z-FA0" name="hidden" keyPath="isBuyin" id="d9l-P7-eT8"/>
-                                                            <binding destination="-2" name="contentValues" keyPath="self.configuration.blindLevelNames" id="Ice-WU-zoB"/>
+                                                            <binding destination="-2" name="contentValues" keyPath="self.blindLevelNames" id="EWN-47-kPP"/>
+                                                            <binding destination="Sm9-1Z-FA0" name="hidden" keyPath="objectValue.forbid_after_blind_level" id="Wcd-oe-jgy">
+                                                                <dictionary key="options">
+                                                                    <string key="NSValueTransformerName">NSIsNil</string>
+                                                                </dictionary>
+                                                            </binding>
+                                                            <binding destination="Sm9-1Z-FA0" name="selectedIndex" keyPath="objectValue.forbid_after_blind_level" previousBinding="EWN-47-kPP" id="91f-Cb-cVJ"/>
                                                         </connections>
                                                     </popUpButton>
                                                 </subviews>
                                             </tableCellView>
                                         </prototypeCellViews>
                                         <connections>
-                                            <binding destination="ZWh-lB-mFY" name="value" keyPath="arrangedObjects" id="dTF-kQ-7aM"/>
+                                            <binding destination="ZWh-lB-mFY" name="value" keyPath="arrangedObjects.forbid_after_blind_level" id="xLE-So-cVY"/>
                                         </connections>
                                     </tableColumn>
                                 </tableColumns>

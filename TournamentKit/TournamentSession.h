@@ -65,7 +65,6 @@
 @property (nonatomic, readonly) NSString* averageStackText;
 @property (nonatomic, readonly) NSArray* results;
 @property (nonatomic, readonly) NSArray* seatedPlayers;
-@property (nonatomic, readonly) NSArray* blindLevelNames;
 @property (nonatomic, readonly) NSDictionary* playersLookup;
 
 // client identifier (used for authenticating with servers)

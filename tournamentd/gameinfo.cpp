@@ -512,9 +512,9 @@ void gameinfo::fund_player(const td::player_id_t& player_id, const td::funding_s
         throw td::protocol_error("too late in the game for this funding source");
     }
 
-    if(source.is_addon && this->buyins.find(player_id) == this->buyins.end())
+    if(source.type != td::buyin && this->buyins.find(player_id) == this->buyins.end())
     {
-        throw td::protocol_error("tried to addon but not bought in yet");
+        throw td::protocol_error("tried a non-buyin funding source but not bought in yet");
     }
 
     auto player_it(players.find(player_id));
@@ -525,7 +525,7 @@ void gameinfo::fund_player(const td::player_id_t& player_id, const td::funding_s
 
     logger(LOG_INFO) << "funding player " << player_id << " (" << player_it->second.name << ") with " << source.name << '\n';
 
-    if(!source.is_addon) {
+    if(source.type == td::buyin) {
         // add player to buyin set
         this->buyins.insert(player_id);
 

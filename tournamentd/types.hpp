@@ -20,6 +20,9 @@ namespace td
     // index into the funding_source vector
     typedef int funding_source_id_t;
 
+    // type of funding source (buyin, rebuy, addon)
+    enum funding_source_type_t { buyin, rebuy, addon };
+
     // attributes of a single blind level
     struct blind_level
     {
@@ -50,7 +53,7 @@ namespace td
     struct funding_source
     {
         std::string name;
-        bool is_addon;
+        funding_source_type_t type;
         std::size_t forbid_after_blind_level;
         unsigned long chips;
         double cost;

@@ -12,13 +12,13 @@
 
 - (id)newObject {
     NSString* name = @"New Rebuy";
-    NSNumber* is_addon = @NO;
+    NSNumber* type = @1;
     NSNumber* chips = @5000;
     NSNumber* cost = @10;
     NSNumber* commission = @0;
     NSNumber* equity = @10;
 
-    return [[NSMutableDictionary alloc] initWithObjectsAndKeys:name, @"name", is_addon, @"is_addon", chips, @"chips", cost, @"cost", commission, @"commission", equity, @"equity", nil];
+    return [[NSMutableDictionary alloc] initWithObjectsAndKeys:name, @"name", type, @"type", chips, @"chips", cost, @"cost", commission, @"commission", equity, @"equity", nil];
 }
 
 @end

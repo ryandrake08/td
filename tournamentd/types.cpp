@@ -16,7 +16,7 @@ td::chip::chip() : denomination(0), count_available(0)
 {
 }
 
-td::funding_source::funding_source() : is_addon(false), forbid_after_blind_level(std::numeric_limits<std::size_t>::max()), chips(0), cost(0.0), commission(0.0), equity(0.0)
+td::funding_source::funding_source() : type(td::buyin), forbid_after_blind_level(std::numeric_limits<std::size_t>::max()), chips(0), cost(0.0), commission(0.0), equity(0.0)
 {
 }
 
@@ -79,7 +79,7 @@ td::chip::chip(const json& obj) : chip()
 td::funding_source::funding_source(const json& obj) : funding_source()
 {
     obj.get_value("name", this->name);
-    obj.get_value("is_addon", this->is_addon);
+    int type; obj.get_value("type", type); this->type = static_cast<td::funding_source_type_t>(type);
     obj.get_value("forbid_after_blind_level", this->forbid_after_blind_level);
     obj.get_value("chips", this->chips);
     obj.get_value("cost", this->cost);
@@ -168,7 +168,7 @@ template<>
 json::json(const td::funding_source& value) : json()
 {
     this->set_value("name", value.name);
-    this->set_value("is_addon", value.is_addon);
+    this->set_value("type", static_cast<int>(value.type));
     if(value.forbid_after_blind_level != std::numeric_limits<std::size_t>::max())
     {
         this->set_value("forbid_after_blind_level", value.forbid_after_blind_level);

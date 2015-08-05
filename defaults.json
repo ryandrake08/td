@@ -305,7 +305,7 @@
     "funding_sources": [
         {
             "name": "Main Buy-in",
-            "is_addon": false,
+            "type": 0,
             "forbid_after_blind_level": 0,
             "chips": 5000,
             "cost": 30.00,
@@ -314,7 +314,7 @@
         },
         {
             "name": "Travel add-on",
-            "is_addon": true,
+            "type": 2,
             "forbid_after_blind_level": 0,
             "chips": 500,
             "cost": 5.00,
@@ -323,7 +323,7 @@
         },
         {
             "name": "Early arrival add-on",
-            "is_addon": true,
+            "type": 2,
             "forbid_after_blind_level": 0,
             "chips": 500,
             "cost": 0.00,

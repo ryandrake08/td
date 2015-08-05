@@ -485,8 +485,6 @@
         keyPaths = [keyPaths setByAddingObjectsFromArray:@[@"players"]];
     } else if([key isEqualToString:@"seatedPlayers"]) {
         keyPaths = [keyPaths setByAddingObjectsFromArray:@[@"seats",@"players"]];
-    } else if([key isEqualToString:@"blindLevelNames"]) {
-        keyPaths = [keyPaths setByAddingObjectsFromArray:@[@"blindLevels"]];
     }
 
     return keyPaths;
@@ -683,17 +681,6 @@
         }
     }
     return [newDict allValues];
-}
-
-- (NSArray*)blindLevelNames {
-    NSMutableArray* blindLevelList = [[NSMutableArray alloc] initWithObjects:NSLocalizedString(@"Tournament Start", nil), nil];
-
-    NSInteger blindLevels = [[self blindLevels] count];
-    for(NSInteger i=1; i<blindLevels; i++) {
-        [blindLevelList addObject:[NSString localizedStringWithFormat:@"Round %ld", i]];
-    }
-
-    return blindLevelList;
 }
 
 - (NSDictionary*)playersLookup {
