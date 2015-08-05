@@ -66,6 +66,13 @@
     [[self session] fundPlayer:context[@"player_id"] withFunding:context[@"funding_id"]];
 }
 
+- (void)bustPlayerFromMenuItem:(NSMenuItem*)sender {
+    NSNumber* playerId = [sender representedObject];
+    [[self session] bustPlayer:playerId withBlock:^(NSArray* movements) {
+        NSLog(@"%@", movements);
+    }];
+}
+
 - (void)menuNeedsUpdate:(NSMenu*)menu {
     // delete all previous objects from menu
     [menu removeAllItems];
@@ -78,6 +85,9 @@
 
     // its object is the model object for this player
     id seatedPlayer = [cell objectValue];
+
+    // current blind level
+    NSNumber* current = [[self session] currentBlindLevel];
 
     // add funding sources
     [[[self session] fundingSources] enumerateObjectsUsingBlock:^(id source, NSUInteger idx, BOOL* stop) {
@@ -93,6 +103,14 @@
             [menu addItem:item];
         }
     }];
+
+    if([current integerValue] > 0) {
+        // add bust function
+        NSMenuItem* item = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Bust Player", @"Bust the player out of the tournamnet") action:@selector(bustPlayerFromMenuItem:) keyEquivalent:@""];
+        [item setTarget:self];
+        [item setRepresentedObject:seatedPlayer[@"player_id"]];
+        [menu addItem:item];
+    }
 }
 
 #pragma mark Actions
