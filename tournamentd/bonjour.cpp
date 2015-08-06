@@ -90,5 +90,5 @@ public:
 
 void bonjour_publisher::publish(const std::string& name, int port)
 {
-    this->impl = std::shared_ptr<bonjour_impl>(new bonjour_impl(name, port));
+    this->impl = std::unique_ptr<bonjour_impl>(new bonjour_impl(name, port));
 }
