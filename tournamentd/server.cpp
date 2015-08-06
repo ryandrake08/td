@@ -6,7 +6,7 @@
 void server::listen(const char* unix_socket_path, const char* inet_service)
 {
     // erase any existing listeners
-    for(auto it : this->listeners)
+    for(auto& it : this->listeners)
     {
         this->all.erase(it);
     }
@@ -66,15 +66,13 @@ bool server::poll(const std::function<bool(std::ostream&)>& handle_new_client, c
         {
             logger(LOG_INFO) << "handling client communication\n";
 
-            auto client(*sock);
-
             // handle client i/o
             socketstream ss(*sock);
             if(handle_client(ss) || !ss.good())
             {
                 logger(LOG_INFO) << "closing client connection\n";
-                this->clients.erase(client);
-                this->all.erase(client);
+                this->clients.erase(*sock);
+                this->all.erase(*sock);
             }
         }
     }
@@ -85,7 +83,7 @@ bool server::poll(const std::function<bool(std::ostream&)>& handle_new_client, c
 // broadcast message to all clients
 void server::broadcast(const std::string& message) const
 {
-    for(auto client : this->clients)
+    for(auto& client : this->clients)
     {
         // handle client i/o
         socketstream ss(client);

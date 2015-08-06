@@ -73,7 +73,7 @@ void gameinfo::configure(const json& config)
         }
 
         this->players.clear();
-        for(auto player : players_vector)
+        for(auto& player : players_vector)
         {
             this->players.emplace(player.player_id, player);
         }
@@ -84,7 +84,7 @@ void gameinfo::configure(const json& config)
     if(config.get_values("manual_payouts", manual_payouts_vector))
     {
         this->manual_payouts.clear();
-        for(auto manual_payout : manual_payouts_vector)
+        for(auto& manual_payout : manual_payouts_vector)
         {
             this->manual_payouts.emplace(manual_payout.buyins_count, manual_payout.payouts);
         }
@@ -177,7 +177,7 @@ std::vector<std::vector<td::player_id_t> > gameinfo::players_at_tables() const
     // build up two vectors, outer = tables, inner = players per table
     std::vector<std::vector<td::player_id_t> > ret(this->tables);
 
-    for(auto seat : this->seats)
+    for(auto& seat : this->seats)
     {
         ret[seat.second.table_number].push_back(seat.first);
     }
@@ -330,13 +330,13 @@ td::player_movement gameinfo::move_player(const td::player_id_t& player_id, std:
     logger(LOG_INFO) << "moving player " << player_id << " (" << player_it->second.name << ") to table " << table << '\n';
 
     // build up a list of candidate seats
-    std::vector<std::deque<td::seat>::iterator> candidates;
-    for(auto it(this->empty_seats.begin()); it != this->empty_seats.end(); it++)
+    std::vector<td::seat> candidates;
+    for(auto& seat : this->empty_seats)
     {
-        if(it->table_number == table)
+        if(seat.table_number == table)
         {
             // store iterator itself
-            candidates.push_back(it);
+            candidates.push_back(seat);
         }
     }
 
@@ -350,7 +350,7 @@ td::player_movement gameinfo::move_player(const td::player_id_t& player_id, std:
 
     // pick one at random
     auto index(std::uniform_int_distribution<std::size_t>(0, candidates.size()-1)(engine));
-    auto to_seat(*candidates[index]);
+    auto to_seat(candidates[index]);
 
     // move player
     auto player_seat_it(this->seats.find(player_id));
@@ -468,7 +468,7 @@ std::size_t gameinfo::try_break_table(std::vector<td::player_movement>& movement
 
             // get each player found to be sitting at table
             std::vector<td::player_id_t> to_move;
-            for(auto seat : this->seats)
+            for(auto& seat : this->seats)
             {
                 if(seat.second.table_number == break_table)
                 {
@@ -478,7 +478,7 @@ std::size_t gameinfo::try_break_table(std::vector<td::player_movement>& movement
 
             // move each player in list
             const std::unordered_set<std::size_t> avoid = {break_table};
-            for(auto player : to_move)
+            for(auto& player : to_move)
             {
                 movements.push_back(this->move_player(player, avoid));
                 ret++;
@@ -684,7 +684,7 @@ std::vector<td::player_chips> gameinfo::chips_for_buyin(const td::funding_source
 
     // convert to vector to return
     std::vector<td::player_chips> ret;
-    for(auto p : q)
+    for(auto& p : q)
     {
         if(p.second)
         {

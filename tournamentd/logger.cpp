@@ -15,7 +15,7 @@ logger_internal::logger_internal() : mask(-1)
 void logger_internal::set_enabled(std::initializer_list<logger_level> logs)
 {
     this->mask = 0;
-    for(auto level : logs)
+    for(auto& level : logs)
     {
         this->mask |= 1 >> level;
     }
