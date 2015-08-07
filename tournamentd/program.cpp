@@ -15,7 +15,7 @@ program::program(const std::vector<std::string>& cmdline)
 #endif
 
     // parse command-line
-    for(auto& it(cmdline.begin()+1); it != cmdline.end();)
+    for(auto it(cmdline.begin()+1); it != cmdline.end();)
     {
         switch(crc32(*it++))
         {

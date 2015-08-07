@@ -88,6 +88,9 @@ public:
 };
 #endif
 
+bonjour_publisher::bonjour_publisher() = default;
+bonjour_publisher::~bonjour_publisher() = default;
+
 void bonjour_publisher::publish(const std::string& name, int port)
 {
     this->impl = std::unique_ptr<bonjour_impl>(new bonjour_impl(name, port));
