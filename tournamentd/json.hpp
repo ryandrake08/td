@@ -44,15 +44,16 @@ public:
     template <typename T>
     json(const T& value);
 
+    // Templated construction from container of any object - create vector, implicitly converting each element to json
+    template <typename T>
+    json(const T& it, const T& end) : json(std::vector<json>(it, end)) {}
+
+    // Templated conversion to any object
+    template <typename T>
+    bool to(T& value) const;
+
     // Print to string
     std::string string(bool pretty=false) const;
-
-    // Is this json a cJSON_Object?
-    bool is_object() const;
-
-    // Does this object contain a given child object?
-    bool has_object(const char* name) const;
-    bool has_object(const std::string& name) const { return has_object(name.c_str()); }
 
     // Get value for name
     template <typename T>
@@ -73,21 +74,7 @@ public:
     }
 
     // Set value for name
-    template <typename T>
-    json& set_value(const char* name, const T& value);
-    template <typename T>
-    json& set_value(const char* name, const std::vector<T>& values) { return set_value(name, json(values)); }
-    template <typename T>
-    json& set_value(const std::string& name, const T& value) { return set_value(name.c_str(), value); }
-    template <typename T>
-    json& set_values(const char* name, const T& values)
-    {
-        std::vector<json> array;
-        array.reserve(values.size());
-        std::copy(values.begin(), values.end(), std::back_inserter(array));
-        this->set_value(name, array);
-        return *this;
-    }
+    json& set_value(const char* name, const json& value);
 
     // I/O from streams
     void write(std::ostream& os) const;

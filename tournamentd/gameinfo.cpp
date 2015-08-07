@@ -137,15 +137,15 @@ void gameinfo::dump_configuration(json& config) const
     logger(LOG_INFO) << "dumping tournament configuration\n";
 
     config.set_value("name", this->name);
-    config.set_values("players", this->players);
+    config.set_value("players", json(this->players.begin(), this->players.end()));
     config.set_value("table_capacity", this->table_capacity);
     config.set_value("cost_currency", this->cost_currency);
     config.set_value("equity_currency", this->equity_currency);
     config.set_value("percent_seats_paid", this->percent_seats_paid);
-    config.set_values("funding_sources", this->funding_sources);
-    config.set_values("blind_levels", this->blind_levels);
-    config.set_values("available_chips", this->available_chips);
-    config.set_values("manual_payouts", this->manual_payouts);
+    config.set_value("funding_sources", json(this->funding_sources.begin(), this->funding_sources.end()));
+    config.set_value("blind_levels", json(this->blind_levels.begin(), this->blind_levels.end()));
+    config.set_value("available_chips", json(this->available_chips.begin(), this->available_chips.end()));
+    config.set_value("manual_payouts", json(this->manual_payouts.begin(), this->manual_payouts.end()));
 }
 
 // dump state to JSON
@@ -153,12 +153,12 @@ void gameinfo::dump_state(json& state) const
 {
     logger(LOG_INFO) << "dumping tournament state\n";
 
-    state.set_values("seats", this->seats);
-    state.set_value("players_finished", json(this->players_finished));
-    state.set_values("empty_seats", this->empty_seats);
+    state.set_value("seats", json(this->seats.begin(), this->seats.end()));
+    state.set_value("players_finished", json(this->players_finished.begin(), this->players_finished.end()));
+    state.set_value("empty_seats", json(this->empty_seats.begin(), this->empty_seats.end()));
     state.set_value("tables", this->tables);
-    state.set_value("buyins", json(this->buyins));
-    state.set_value("entries", json(this->entries));
+    state.set_value("buyins", json(this->buyins.begin(), this->buyins.end()));
+    state.set_value("entries", json(this->entries.begin(), this->entries.end()));
     state.set_value("payouts", json(this->payouts));
     state.set_value("total_chips", this->total_chips);
     state.set_value("total_cost", this->total_cost);

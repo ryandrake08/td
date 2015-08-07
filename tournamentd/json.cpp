@@ -289,6 +289,57 @@ json::~json()
     }
 }
 
+// Construct from primatives
+template <>
+json::json(const int& value) : ptr(check(cJSON_CreateInt(bounds_checking_cast<int,long long int>(value))))
+{
+}
+
+template <>
+json::json(const unsigned int& value) : ptr(check(cJSON_CreateInt(bounds_checking_cast<unsigned int,long long int>(value))))
+{
+}
+
+template <>
+json::json(const long& value) : ptr(check(cJSON_CreateInt(bounds_checking_cast<long,long long int>(value))))
+{
+}
+
+template <>
+json::json(const unsigned long& value) : ptr(check(cJSON_CreateInt(bounds_checking_cast<unsigned long,long long int>(value))))
+{
+}
+
+template <>
+json::json(const long long& value) : ptr(check(cJSON_CreateInt(value)))
+{
+}
+
+template <>
+json::json(const unsigned long long& value) : ptr(check(cJSON_CreateInt(bounds_checking_cast<unsigned long long,double>(value))))
+{
+}
+
+template <>
+json::json(const double& value) : ptr(check(cJSON_CreateDouble(value)))
+{
+}
+
+template <>
+json::json(const char* const& value) : ptr(check(cJSON_CreateString(value)))
+{
+}
+
+template <>
+json::json(const std::string& value) : ptr(check(cJSON_CreateString(value.c_str())))
+{
+}
+
+template <>
+json::json(const bool& value) : ptr(check(cJSON_CreateBool(value != 0)))
+{
+}
+
 // Construct from arrays
 template <>
 json::json(const std::vector<json>& values) : ptr(check(cJSON_CreateArray()))
@@ -331,29 +382,22 @@ json::json(const std::vector<std::string>& values)
     this->ptr = check(cJSON_CreateStringArray(&tmp[0], static_cast<int>(tmp.size())));
 }
 
+// Templated conversion to any object
 template <>
-json::json(const std::deque<std::string>& values) : json(std::vector<std::string>(values.begin(), values.end()))
+bool json::to(int& value) const
 {
+    if(this->ptr != nullptr)
+    {
+        ensure_type(this->ptr, cJSON_Number);
+        value = bounds_checking_cast<long long int,int>(this->ptr->valueint);
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
 
-template <>
-json::json(const std::unordered_set<std::string>& values) : json(std::vector<std::string>(values.begin(), values.end()))
-{
-}
-
-template <>
-json::json(const std::deque<int>& values)
-{
-    std::vector<int> tmp(values.begin(), values.end());
-    this->ptr = check(cJSON_CreateIntArray(&tmp[0], static_cast<int>(tmp.size())));
-}
-
-template <>
-json::json(const std::unordered_set<int>& values)
-{
-    std::vector<int> tmp(values.begin(), values.end());
-    this->ptr = check(cJSON_CreateIntArray(&tmp[0], static_cast<int>(tmp.size())));
-}
 
 std::string json::string(bool pretty) const
 {
@@ -373,18 +417,6 @@ std::string json::string(bool pretty) const
     }
 
     return ret;
-}
-
-// Is this json a cJSON_Object?
-bool json::is_object() const
-{
-    return (this->ptr->type & 0xff) == cJSON_Object;
-}
-
-// Does this object contain a given child object?
-bool json::has_object(const char* name) const
-{
-    return cJSON_GetObjectItem(this->ptr, name) != nullptr;
 }
 
 // Specialized getters
@@ -455,71 +487,6 @@ bool json::get_value(const char* name, std::vector<double>& value) const
 }
 
 // Specialized setters
-template <>
-json& json::set_value(const char* name, const int& value)
-{
-    cJSON_AddNumberToObject(this->ptr, name, (bounds_checking_cast<int,double>(value)));
-    return *this;
-}
-
-template <>
-json& json::set_value(const char* name, const long& value)
-{
-    cJSON_AddNumberToObject(this->ptr, name, (bounds_checking_cast<long,double>(value)));
-    return *this;
-}
-
-template <>
-json& json::set_value(const char* name, const unsigned int& value)
-{
-    cJSON_AddNumberToObject(this->ptr, name, (bounds_checking_cast<unsigned int,double>(value)));
-    return *this;
-}
-
-template <>
-json& json::set_value(const char* name, const unsigned long& value)
-{
-    cJSON_AddNumberToObject(this->ptr, name, (bounds_checking_cast<unsigned long,double>(value)));
-    return *this;
-}
-
-template <>
-json& json::set_value(const char* name, const long long& value)
-{
-    cJSON_AddNumberToObject(this->ptr, name, (bounds_checking_cast<long long,double>(value)));
-    return *this;
-}
-
-
-template <>
-json& json::set_value(const char* name, const std::string& value)
-{
-    cJSON_AddStringToObject(this->ptr, name, value.c_str());
-    return *this;
-}
-
-template <>
-json& json::set_value(const char* name, const char* const& value)
-{
-    cJSON_AddStringToObject(this->ptr, name, value);
-    return *this;
-}
-
-template <>
-json& json::set_value(const char* name, const double& value)
-{
-    cJSON_AddNumberToObject(this->ptr, name, value);
-    return *this;
-}
-
-template <>
-json& json::set_value(const char* name, const bool& value)
-{
-    cJSON_AddBoolToObject(this->ptr, name, value);
-    return *this;
-}
-
-template <>
 json& json::set_value(const char* name, const json& value)
 {
     cJSON_AddItemToObject(this->ptr, name, cJSON_Duplicate(value.ptr, 1));

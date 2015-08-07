@@ -23,10 +23,8 @@ bool json::get_value<datetime>(const char* name, datetime& value) const
 }
 
 template <>
-json& json::set_value(const char* name, const datetime& value)
+json::json(const datetime& value) : json(value.gmtime())
 {
-    this->set_value(name, value.gmtime());
-    return *this;
 }
 
 // ----- auth check
@@ -111,7 +109,7 @@ void tournament::handle_cmd_chips_for_buyin(const json& in, json& out) const
 
     auto chips(this->game_info.chips_for_buyin(source, max_expected_players));
 
-    out.set_values("chips_for_buyin", chips);
+    out.set_value("chips_for_buyin", json(chips.begin(), chips.end()));
 }
 
 // ----- command handlers available to authorized clients
@@ -129,7 +127,7 @@ void tournament::handle_cmd_authorize(const json& in, json& out)
         this->game_auths.insert(mycode);
     }
 
-    out.set_value("authorized_clients", json::json(this->game_auths));
+    out.set_value("authorized_clients", auths_vector);
 }
 
 void tournament::handle_cmd_configure(const json& in, json& out)
@@ -288,7 +286,7 @@ void tournament::handle_cmd_bust_player(const json& in, json& out)
 
     auto movements(this->game_info.bust_player(player_id));
 
-    out.set_values("players_moved", movements);
+    out.set_value("players_moved", json(movements.begin(), movements.end()));
 }
 
 // handler for new client
