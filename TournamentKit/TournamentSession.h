@@ -82,7 +82,7 @@
 
 // tournament commands
 - (void)checkAuthorizedWithBlock:(void(^)(BOOL))block;
-- (void)authorize:(NSNumber*)clientId withBlock:(void(^)(NSNumber*))block;
+- (void)authorize:(NSArray*)clientIds withBlock:(void(^)(NSArray*))block;
 - (void)getStateWithBlock:(void(^)(id))block;
 - (void)getConfigWithBlock:(void(^)(id))block;
 - (void)configure:(id)config withBlock:(void(^)(id))block;

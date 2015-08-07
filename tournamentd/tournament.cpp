@@ -118,15 +118,18 @@ void tournament::handle_cmd_chips_for_buyin(const json& in, json& out) const
 
 void tournament::handle_cmd_authorize(const json& in, json& out)
 {
-    int code;
-    if(!in.get_value("authorize", code))
+    // read auth codes
+    int mycode;
+    std::vector<int> auths_vector;
+    if(in.get_value("authorize", auths_vector) && in.get_value("authenticate", mycode))
     {
-        throw td::protocol_error("must specify a code to authorize");
+        this->game_auths = std::unordered_set<int>(auths_vector.begin(), auths_vector.end());
+
+        // always make sure caller is in the authorization list
+        this->game_auths.insert(mycode);
     }
 
-    code = this->authorize(code);
-    
-    out.set_value("authorized_client", code);
+    out.set_value("authorized_clients", json::json(this->game_auths));
 }
 
 void tournament::handle_cmd_configure(const json& in, json& out)
@@ -373,14 +376,14 @@ bool tournament::handle_client_input(std::iostream& client)
                             authorize
 
                          purpose:
-                            Authorize a code to administer the tournament
+                            Authorize codes to administer the tournament
 
                          input:
                             authenticate (integer): Valid authentication code for a tournament admin
-                            authorize (integer): New authentication code to give admin powers to
+                            authorize (array): Authentication codes to give admin powers to
 
                          output:
-                            authorized_client (integer): Authentication code that is now valid for administration
+                            authorized_clients (array): Authentication codes that are valid for administration
                          */
                     case crc32_("authorize"):
                         this->ensure_authorized(in);

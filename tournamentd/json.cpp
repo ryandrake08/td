@@ -155,6 +155,32 @@ bool get_json_array_value(const cJSON* obj, std::vector<json>& value)
     }
 }
 
+bool get_array_of_int_value(const cJSON* obj, std::vector<int>& value)
+{
+    if(obj != nullptr)
+    {
+        ensure_type(obj, cJSON_Array);
+        auto size(cJSON_GetArraySize(const_cast<cJSON*>(obj)));
+        value.resize(size);
+
+        for(int i=0; i<size; i++)
+        {
+            auto item(cJSON_GetArrayItem(const_cast<cJSON*>(obj), i));
+            if(item == nullptr)
+            {
+                throw std::out_of_range("array item does not exist: " + std::to_string(i));
+            }
+            get_int_value(item, value[i]);
+        }
+
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
 bool get_array_of_double_value(const cJSON* obj, std::vector<double>& value)
 {
     if(obj != nullptr)
@@ -414,6 +440,12 @@ template <>
 bool json::get_value(const char* name, std::vector<json>& value) const
 {
     return ::get_json_array_value(cJSON_GetObjectItem(this->ptr, name), value);
+}
+
+template <>
+bool json::get_value(const char* name, std::vector<int>& value) const
+{
+    return ::get_array_of_int_value(cJSON_GetObjectItem(this->ptr, name), value);
 }
 
 template <>

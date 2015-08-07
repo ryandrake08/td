@@ -236,14 +236,14 @@
     }];
 }
 
-- (void)authorize:(NSNumber*)clientId withBlock:(void(^)(NSNumber*))block {
-    [self sendCommand:@"authorize" withData:@{@"authorize" : clientId} andBlock:^(id json, NSString* error) {
+- (void)authorize:(NSArray*)clientIds withBlock:(void(^)(NSArray*))block {
+    [self sendCommand:@"authorize" withData:@{@"authorize" : clientIds} andBlock:^(id json, NSString* error) {
         if(error != nil) {
             NSLog(@"authorizeWithBlock: %@\n", error);
         } else {
             // handle client authorization
             if(block != nil) {
-                block(json[@"authorized_client"]);
+                block(json[@"authorized_clients"]);
             }
         }
     }];
