@@ -74,7 +74,7 @@ public:
     }
 
     // Set value for name
-    json& set_value(const char* name, const json& value);
+    void set_value(const char* name, const json& value);
 
     // I/O from streams
     void write(std::ostream& os) const;

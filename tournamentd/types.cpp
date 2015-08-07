@@ -229,5 +229,5 @@ template<>
 json::json(const std::pair<const size_t,std::vector<double>>& value) : json()
 {
     this->set_value("buyins_count", value.first);
-    this->set_value("payouts", value.second);
+    this->set_value("payouts", json(value.second.begin(), value.second.end()));
 }

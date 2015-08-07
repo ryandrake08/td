@@ -159,7 +159,7 @@ void gameinfo::dump_state(json& state) const
     state.set_value("tables", this->tables);
     state.set_value("buyins", json(this->buyins.begin(), this->buyins.end()));
     state.set_value("entries", json(this->entries.begin(), this->entries.end()));
-    state.set_value("payouts", json(this->payouts));
+    state.set_value("payouts", json(this->payouts.begin(), this->payouts.end()));
     state.set_value("total_chips", this->total_chips);
     state.set_value("total_cost", this->total_cost);
     state.set_value("total_commission", this->total_commission);

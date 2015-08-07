@@ -127,7 +127,7 @@ void tournament::handle_cmd_authorize(const json& in, json& out)
         this->game_auths.insert(mycode);
     }
 
-    out.set_value("authorized_clients", auths_vector);
+    out.set_value("authorized_clients", json(this->game_auths.begin(), this->game_auths.end()));
 }
 
 void tournament::handle_cmd_configure(const json& in, json& out)

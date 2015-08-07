@@ -350,38 +350,6 @@ json::json(const std::vector<json>& values) : ptr(check(cJSON_CreateArray()))
     }
 }
 
-template <>
-json::json(const std::vector<int>& values) : ptr(check(cJSON_CreateIntArray(&values[0], static_cast<int>(values.size()))))
-{
-}
-
-template <>
-json::json(const std::vector<float>& values) : ptr(check(cJSON_CreateFloatArray(&values[0], static_cast<int>(values.size()))))
-{
-}
-
-template <>
-json::json(const std::vector<double>& values) : ptr(check(cJSON_CreateDoubleArray(&values[0], static_cast<int>(values.size()))))
-{
-}
-
-template <>
-json::json(const std::vector<const char*>& values) : ptr(check(cJSON_CreateStringArray(const_cast<const char**>(&values[0]), static_cast<int>(values.size()))))
-{
-}
-
-template <>
-json::json(const std::vector<std::string>& values)
-{
-    std::vector<const char*> tmp(values.size());
-    // workaround for clang using lambda:
-    // should be able to pass mem_fn(&string::c_str) to transform
-    //  std::transform(values.begin(), values.end(), tmp.begin(), std::mem_fn(&std::string::c_str));
-    //  std::transform(values.begin(), values.end(), tmp.begin(), std::bind(&std::string::c_str, std::placeholders::_1));
-    std::transform(values.begin(), values.end(), tmp.begin(), [](const std::string& str) { return str.c_str(); });
-    this->ptr = check(cJSON_CreateStringArray(&tmp[0], static_cast<int>(tmp.size())));
-}
-
 // Templated conversion to any object
 template <>
 bool json::to(int& value) const
@@ -487,10 +455,9 @@ bool json::get_value(const char* name, std::vector<double>& value) const
 }
 
 // Specialized setters
-json& json::set_value(const char* name, const json& value)
+void json::set_value(const char* name, const json& value)
 {
     cJSON_AddItemToObject(this->ptr, name, cJSON_Duplicate(value.ptr, 1));
-    return *this;
 }
 
 // I/O from streams
