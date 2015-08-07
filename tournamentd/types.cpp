@@ -112,10 +112,23 @@ td::player_movement::player_movement(const json& obj) : player_movement()
 td::manual_payout::manual_payout(const json& obj) : manual_payout()
 {
     obj.get_value("buyins_count", this->buyins_count);
-    obj.get_value("payouts", this->payouts);
+    obj.get_values("payouts", this->payouts);
+}
+
+// ----- return object from json
+
+template <>
+datetime json::value() const
+{
+    return datetime::from_gm(this->value<std::string>());
 }
 
 // ----- construct json from object
+
+template <>
+json::json(const datetime& value) : json(value.gmtime())
+{
+}
 
 template<>
 json::json(const td::blind_level& value) : json()

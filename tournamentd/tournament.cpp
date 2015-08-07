@@ -7,26 +7,6 @@
 #include <sstream>
 #include <stdexcept>
 
-// ----- read datetime from json (specialize here to not pollute json or datetime classes with each other)
-
-template <>
-bool json::get_value<datetime>(const char* name, datetime& value) const
-{
-    std::string str;
-    if(this->get_value(name, str))
-    {
-        value = datetime::from_gm(str);
-        return true;
-    }
-
-    return false;
-}
-
-template <>
-json::json(const datetime& value) : json(value.gmtime())
-{
-}
-
 // ----- auth check
 
 void tournament::ensure_authorized(const json& in) const
@@ -119,7 +99,7 @@ void tournament::handle_cmd_authorize(const json& in, json& out)
     // read auth codes
     int mycode;
     std::vector<int> auths_vector;
-    if(in.get_value("authorize", auths_vector) && in.get_value("authenticate", mycode))
+    if(in.get_values("authorize", auths_vector) && in.get_value("authenticate", mycode))
     {
         this->game_auths = std::unordered_set<int>(auths_vector.begin(), auths_vector.end());
 

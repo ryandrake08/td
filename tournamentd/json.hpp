@@ -13,10 +13,6 @@ class json
     // Construct from raw cJSON pointer
     explicit json(cJSON* raw_ptr);
 
-    // Need to call above constructor
-    friend bool get_json_value(const cJSON* obj, json& value);
-    friend bool get_json_array_value(const cJSON* obj, std::vector<json>& value);
-
 public:
     // Construct an empty object
     json();
@@ -46,28 +42,41 @@ public:
 
     // Templated construction from container of any object - create vector, implicitly converting each element to json
     template <typename T>
-    json(const T& it, const T& end) : json(std::vector<json>(it, end)) {}
+    explicit json(const T& it, const T& end) : json(std::vector<json>(it, end)) {}
 
     // Templated conversion to any object
     template <typename T>
-    bool to(T& value) const;
+    T value() const;
+    template <typename T>
+    operator T() const { return this->value<T>(); }
 
     // Print to string
     std::string string(bool pretty=false) const;
 
-    // Get value for name
+    // Get json value for name
+    bool get_value(const char* name, json& value) const;
+
+    // Get value for name by way of an intermediate json item
     template <typename T>
-    bool get_value(const char* name, T& value) const;
-    template <typename T>
-    bool get_value(const std::string& name, T& value) const { return get_value(name.c_str(), value); }
+    bool get_value(const char* name, T& value) const
+    {
+        json item;
+        if(this->get_value(name, item))
+        {
+            value = item.value<T>();
+            return true;
+        }
+        return false;
+    }
+
+    // Get collection for name, by way of intermediate json items
     template <typename T>
     bool get_values(const char* name, T& values) const
     {
         std::vector<json> array;
         if(this->get_value(name, array))
         {
-            values.resize(array.size());
-            std::copy(array.begin(), array.end(), values.begin());
+            values = T(array.begin(), array.end());
             return true;
         }
         return false;
@@ -75,10 +84,6 @@ public:
 
     // Set value for name
     void set_value(const char* name, const json& value);
-
-    // I/O from streams
-    void write(std::ostream& os) const;
-    void read(std::istream& is);
 };
 
 // Stream operators
