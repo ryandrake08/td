@@ -1,12 +1,13 @@
 #pragma once
-
-class process_impl;
+#include <memory>
 
 // Wrapper for execvp that forks and executes a process
 class process
 {
+    struct impl;
+
     // Using pimpl pattern to hide implementation details
-    process_impl* pimpl;
+    std::unique_ptr<impl> pimpl;
 
 public:
     process(const char* file, const char* const argv[], unsigned int sleep_s=0);

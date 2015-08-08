@@ -2,11 +2,11 @@
 #include <memory>
 #include <string>
 
-class bonjour_impl;
-
 class bonjour_publisher
 {
-    std::unique_ptr<bonjour_impl> impl;
+    class impl;
+
+    std::unique_ptr<impl> pimpl;
 
 public:
     // empty destructor, so we can use unique_ptr above

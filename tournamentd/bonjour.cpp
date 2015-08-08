@@ -5,7 +5,7 @@
 #if defined(__APPLE__)
 #include <CFNetwork/CFNetwork.h>
 
-class bonjour_impl
+class bonjour_publisher::impl
 {
     class cf_error_category : public std::error_category
     {
@@ -33,7 +33,7 @@ class bonjour_impl
     }
 
 public:
-    bonjour_impl(const std::string& name, int port)
+    impl(const std::string& name, int port)
     {
         logger(LOG_INFO) << "setting up bonjour service for " << name << " with port " << port << '\n';
 
@@ -64,7 +64,7 @@ public:
         }
     }
 
-    ~bonjour_impl()
+    ~impl()
     {
         logger(LOG_INFO) << "shutting down bonjour\n";
 
@@ -75,14 +75,14 @@ public:
     }
 };
 #else
-class bonjour_impl
+class bonjour::impl
 {
 public:
-    bonjour_impl(const std::string& name, int port)
+    impl(const std::string& name, int port)
     {
     }
 
-    ~bonjour_impl()
+    ~impl()
     {
     }
 };
@@ -93,5 +93,5 @@ bonjour_publisher::~bonjour_publisher() = default;
 
 void bonjour_publisher::publish(const std::string& name, int port)
 {
-    this->impl = std::unique_ptr<bonjour_impl>(new bonjour_impl(name, port));
+    this->pimpl = std::unique_ptr<impl>(new impl(name, port));
 }

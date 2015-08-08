@@ -85,12 +85,12 @@ struct addrinfo_ptr
 
 // pimpl (fd wrapper)
 
-struct common_socket_impl
+struct common_socket::impl
 {
     SOCKET fd;
 
     // construct with given fd
-    common_socket_impl(SOCKET newfd) : fd(newfd)
+    impl(SOCKET newfd) : fd(newfd)
     {
         logger(LOG_DEBUG) << "wrapped fd: " << this->fd << '\n';
 
@@ -110,7 +110,7 @@ struct common_socket_impl
 #endif
     }
 
-    ~common_socket_impl()
+    ~impl()
     {
         logger(LOG_DEBUG) << "closing fd: " << this->fd << '\n';
 #if defined(_WIN32) // thank you, Microsoft
@@ -124,7 +124,7 @@ struct common_socket_impl
 
 void common_socket::validate() const
 {
-    if(!this->impl)
+    if(!this->pimpl)
     {
         throw std::logic_error("common_socket: invalid socket impl");
     }
@@ -135,8 +135,8 @@ common_socket::common_socket()
 {
 }
 
-// create a socket with a given impl
-common_socket::common_socket(common_socket_impl* imp) : impl(imp)
+// create a socket with a given impl (needed for accept)
+common_socket::common_socket(impl* imp) : pimpl(imp)
 {
     validate();
 
@@ -152,14 +152,14 @@ common_socket common_socket::accept() const
     // accept connection
     sockaddr_storage addr;
     socklen_t addrlen(sizeof(addr));
-    auto sock(::accept(this->impl->fd, reinterpret_cast<sockaddr*>(&addr), &addrlen));
+    auto sock(::accept(this->pimpl->fd, reinterpret_cast<sockaddr*>(&addr), &addrlen));
     if(sock == SOCKET_ERROR)
     {
         throw std::system_error(errno, std::system_category(), "accept");
     }
 
     logger(LOG_DEBUG) << "accepted connection on " << *this << '\n';
-    return common_socket(new common_socket_impl(sock));
+    return common_socket(new impl(sock));
 }
 
 int do_select(int max_fd, fd_set* fds, long usec)
@@ -190,9 +190,9 @@ bool common_socket::select(long usec)
     // single fd
     fd_set fds;
     FD_ZERO(&fds);
-    FD_SET(this->impl->fd, &fds);
+    FD_SET(this->pimpl->fd, &fds);
 
-    return do_select(this->impl->fd+1, &fds, usec) > 0;
+    return do_select(this->pimpl->fd+1, &fds, usec) > 0;
 }
 
 // select on multiple sockets
@@ -204,17 +204,17 @@ std::set<common_socket> common_socket::select(const std::set<common_socket>& soc
     // iterate through set, and add to our fd_set
     fd_set fds;
     FD_ZERO(&fds);
-    std::for_each(sockets.begin(), sockets.end(), [&fds](const common_socket& s) { FD_SET(s.impl->fd, &fds); });
+    std::for_each(sockets.begin(), sockets.end(), [&fds](const common_socket& s) { FD_SET(s.pimpl->fd, &fds); });
 
     // set is ordered, so max fd is the last element
-    int max_fd(sockets.begin() == sockets.end() ? 0 : sockets.rbegin()->impl->fd+1);
+    int max_fd(sockets.begin() == sockets.end() ? 0 : sockets.rbegin()->pimpl->fd+1);
 
     // do the select
     do_select(max_fd, &fds, usec);
 
     // copy sockets returned
     std::set<common_socket> ret;
-    std::copy_if(sockets.begin(), sockets.end(), std::inserter(ret, ret.end()), [&fds](const common_socket& s) { return FD_ISSET(s.impl->fd, &fds); } );
+    std::copy_if(sockets.begin(), sockets.end(), std::inserter(ret, ret.end()), [&fds](const common_socket& s) { return FD_ISSET(s.pimpl->fd, &fds); } );
     return ret;
 }
 
@@ -226,9 +226,9 @@ std::size_t common_socket::recv(void* buf, std::size_t bytes)
 
     // read bytes from a fd
 #if defined(_WIN32)
-    auto len(::recv(this->impl->fd, reinterpret_cast<char*>(buf), bytes, 0));
+    auto len(::recv(this->pimpl->fd, reinterpret_cast<char*>(buf), bytes, 0));
 #else
-    auto len(::recv(this->impl->fd, buf, bytes, 0));
+    auto len(::recv(this->pimpl->fd, buf, bytes, 0));
 #endif
     if(len == SOCKET_ERROR)
     {
@@ -248,9 +248,9 @@ std::size_t common_socket::send(const void* buf, std::size_t bytes)
 
     // write bytes to a fd
 #if defined(_WIN32)
-    auto len(::send(this->impl->fd, reinterpret_cast<const char*>(buf), bytes, 0));
+    auto len(::send(this->pimpl->fd, reinterpret_cast<const char*>(buf), bytes, 0));
 #else
-    auto len(::send(this->impl->fd, buf, bytes, 0));
+    auto len(::send(this->pimpl->fd, buf, bytes, 0));
 #endif
     if(len == SOCKET_ERROR)
     {
@@ -269,7 +269,7 @@ bool common_socket::listening() const
 
     int val(0);
     socklen_t len(sizeof(val));
-    if(::getsockopt(this->impl->fd, SOL_SOCKET, SO_ACCEPTCONN, reinterpret_cast<char*>(&val), &len) == SOCKET_ERROR)
+    if(::getsockopt(this->pimpl->fd, SOL_SOCKET, SO_ACCEPTCONN, reinterpret_cast<char*>(&val), &len) == SOCKET_ERROR)
     {
         throw std::system_error(errno, std::system_category(), "getsockopt");
     }
@@ -282,7 +282,7 @@ bool common_socket::operator<(const common_socket& other) const
     validate();
     other.validate();
 
-    return this->impl->fd < other.impl->fd;
+    return this->pimpl->fd < other.pimpl->fd;
 }
 
 bool common_socket::operator==(const common_socket& other) const
@@ -290,7 +290,7 @@ bool common_socket::operator==(const common_socket& other) const
     validate();
     other.validate();
 
-    return this->impl->fd == other.impl->fd;
+    return this->pimpl->fd == other.pimpl->fd;
 }
 
 bool common_socket::operator!=(const common_socket& other) const
@@ -298,7 +298,7 @@ bool common_socket::operator!=(const common_socket& other) const
     validate();
     other.validate();
 
-    return this->impl->fd != other.impl->fd;
+    return this->pimpl->fd != other.pimpl->fd;
 }
 
 std::ostream& operator<<(std::ostream& os, const common_socket& sock)
@@ -307,7 +307,7 @@ std::ostream& operator<<(std::ostream& os, const common_socket& sock)
 
     sockaddr_storage addr;
     socklen_t addrlen(sizeof(addr));
-    auto ret(::getpeername(sock.impl->fd, reinterpret_cast<sockaddr*>(&addr), &addrlen));
+    auto ret(::getpeername(sock.pimpl->fd, reinterpret_cast<sockaddr*>(&addr), &addrlen));
     if(ret != SOCKET_ERROR)
     {
         // get info
@@ -315,11 +315,11 @@ std::ostream& operator<<(std::ostream& os, const common_socket& sock)
         auto err(::getnameinfo(reinterpret_cast<sockaddr*>(&addr), addrlen, buffer, sizeof(buffer), nullptr, 0, 0));
         if(err == 0)
         {
-            return os << "socket: " << sock.impl->fd << ", peer: " << buffer;
+            return os << "socket: " << sock.pimpl->fd << ", peer: " << buffer;
         }
     }
 
-    return os << "socket: " << sock.impl->fd;
+    return os << "socket: " << sock.pimpl->fd;
 }
 
 unix_socket::unix_socket(const char* path, bool client, int backlog)
@@ -347,7 +347,7 @@ unix_socket::unix_socket(const char* path, bool client, int backlog)
     }
 
     // wrap the socket and store
-    this->impl = std::shared_ptr<common_socket_impl>(new common_socket_impl(sock));
+    this->pimpl = std::shared_ptr<impl>(new impl(sock));
 
     if(client)
     {
@@ -410,7 +410,7 @@ inet_socket::inet_socket(const char* host, const char* service, int family) : co
     }
 
     // wrap the socket and store
-    this->impl = std::shared_ptr<common_socket_impl>(new common_socket_impl(sock));
+    this->pimpl = std::shared_ptr<impl>(new impl(sock));
 
     logger(LOG_DEBUG) << "connecting " << *this << " to host: " << host << ", service: " << service << '\n';
 
@@ -451,7 +451,7 @@ inet_socket::inet_socket(const char* service, int family, int backlog) : common_
     }
 
     // wrap the socket and store
-    this->impl = std::shared_ptr<common_socket_impl>(new common_socket_impl(sock));
+    this->pimpl = std::shared_ptr<impl>(new impl(sock));
 
     logger(LOG_DEBUG) << "setting SO_REUSEADDR\n";
 

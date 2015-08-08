@@ -4,12 +4,12 @@
 #include <memory>
 #include <set>
 
-struct common_socket_impl;
-
 class common_socket
 {
 protected:
-    std::shared_ptr<common_socket_impl> impl;
+    struct impl;
+
+    std::shared_ptr<impl> pimpl;
 
     // ensure socket has a valid impl
     void validate() const;
@@ -17,8 +17,8 @@ protected:
     // empty constructor
     common_socket();
 
-    // create a socket with a given impl
-    common_socket(common_socket_impl* imp);
+    // create a socket with a given impl (needed for accept)
+    common_socket(impl* imp);
 
 public:
     // create a new socket by accepting on a listening socket
