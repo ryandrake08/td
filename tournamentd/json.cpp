@@ -98,8 +98,6 @@ json& json::operator=(const json& other)
         // Duplicate other one
         this->ptr = check(cJSON_Duplicate(other.ptr, 1));
     }
-
-    check(this->ptr);
     return *this;
 }
 
