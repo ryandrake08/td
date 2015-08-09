@@ -484,7 +484,7 @@
     } else if([key isEqualToString:@"playersLookup"]) {
         keyPaths = [keyPaths setByAddingObjectsFromArray:@[@"players"]];
     } else if([key isEqualToString:@"seatedPlayers"]) {
-        keyPaths = [keyPaths setByAddingObjectsFromArray:@[@"seats",@"players"]];
+        keyPaths = [keyPaths setByAddingObjectsFromArray:@[@"seats",@"players",@"buyins"]];
     }
 
     return keyPaths;
@@ -656,11 +656,13 @@
     for(id seat in [self seats]) {
         id playerId = seat[@"player_id"];
         if(playerId) {
+            BOOL buyin = [[self buyins] containsObject:playerId];
             NSDictionary* player = [self playersLookup][playerId];
             if(player) {
                 // Add the player record to the seat dictionary
                 NSMutableDictionary* seatAndPlayer = [[NSMutableDictionary alloc] initWithDictionary:seat];
-                [seatAndPlayer setObject:player forKey:@"player"];
+                seatAndPlayer[@"player"] = player;
+                seatAndPlayer[@"buyin"] = @(buyin);
                 [newDict setObject:seatAndPlayer forKey:playerId];
             } else {
                 NSLog(@"Seated player %@ not in player array", seat);
@@ -672,10 +674,13 @@
     for(id player in [self players]) {
         id playerId = player[@"player_id"];
         if(playerId) {
+            BOOL buyin = [[self buyins] containsObject:playerId];
             NSDictionary* seat = [newDict objectForKey:playerId];
             if(seat == nil) {
                 // not seated
-                NSMutableDictionary* seatAndPlayer = [[NSMutableDictionary alloc] initWithObjectsAndKeys:player, @"player", nil];
+                NSMutableDictionary* seatAndPlayer = [[NSMutableDictionary alloc] init];
+                seatAndPlayer[@"player"] = player;
+                seatAndPlayer[@"buyin"] = @(buyin);
                 [newDict setObject:seatAndPlayer forKey:playerId];
             }
         }

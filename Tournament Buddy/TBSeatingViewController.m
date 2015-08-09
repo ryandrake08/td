@@ -17,8 +17,10 @@
 @property (strong) TBConfigurationWindowController* configurationWindowController;
 @property (strong) TBPlayerWindowController* playerWindowController;
 
-// Seats dictionary controller
+// Array controllers
+@property (strong) IBOutlet NSArrayController* playersController;
 @property (strong) IBOutlet NSArrayController* seatsController;
+@property (strong) IBOutlet NSArrayController* resultsController;
 
 // Keep track of last seating plan size, to avoid setting again
 @property NSInteger lastMaxPlayers;
@@ -34,6 +36,17 @@
 
     // filter predicate to not show empty seats
     [[self seatsController] setFilterPredicate:[NSPredicate predicateWithFormat: @"seat_number != nil"]];
+
+    // setup sort descriptors
+    NSSortDescriptor* playerNameSort = [[NSSortDescriptor alloc] initWithKey:@"player.name" ascending:YES];
+    NSSortDescriptor* tableNumberSort = [[NSSortDescriptor alloc] initWithKey:@"table_number" ascending:YES];
+    NSSortDescriptor* seatNumberSort = [[NSSortDescriptor alloc] initWithKey:@"seat_number" ascending:YES];
+    NSSortDescriptor* placeSort = [[NSSortDescriptor alloc] initWithKey:@"place" ascending:YES];
+
+    // set sort descriptors for arrays
+    [[self playersController] setSortDescriptors:@[playerNameSort]];
+    [[self seatsController] setSortDescriptors:@[tableNumberSort, seatNumberSort]];
+    [[self resultsController] setSortDescriptors:@[placeSort]];
 
     // setup configuration window
     [self setConfigurationWindowController:[[TBConfigurationWindowController alloc] initWithWindowNibName:@"TBConfigurationWindow"]];
@@ -59,7 +72,7 @@
     [[self playerWindowController] close];
 }
 
-#pragma mark NSMenuDelegate
+#pragma mark Menu and MenuItem utility
 
 - (void)fundPlayerFromMenuItem:(NSMenuItem*)sender {
     NSDictionary* context = [sender representedObject];
@@ -73,16 +86,7 @@
     }];
 }
 
-- (void)menuNeedsUpdate:(NSMenu*)menu {
-    // delete all previous objects from menu
-    [menu removeAllItems];
-
-    // find the clicked tableView cell
-    NSTableView* tableView = [self tableView];
-    NSInteger row = [tableView clickedRow];
-    NSInteger col = [tableView clickedColumn];
-    NSTableCellView* cell = [tableView viewAtColumn:col row:row makeIfNecessary:YES];
-
+- (void)updateActionMenu:(NSMenu*)menu forTableCellView:(NSTableCellView*)cell {
     // its object is the model object for this player
     id seatedPlayer = [cell objectValue];
 
@@ -105,11 +109,31 @@
     }];
 
     if([current integerValue] > 0) {
+        [menu addItem:[NSMenuItem separatorItem]];
+        
         // add bust function
         NSMenuItem* item = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Bust Player", @"Bust the player out of the tournamnet") action:@selector(bustPlayerFromMenuItem:) keyEquivalent:@""];
         [item setTarget:self];
         [item setRepresentedObject:seatedPlayer[@"player_id"]];
         [menu addItem:item];
+    }
+}
+
+#pragma mark NSMenuDelegate
+
+- (void)menuNeedsUpdate:(NSMenu*)menu {
+    // delete all previous objects from menu
+    [menu removeAllItems];
+
+    // find the clicked tableView cell
+    NSTableView* tableView = [self tableView];
+    NSInteger row = [tableView clickedRow];
+    NSInteger col = [tableView clickedColumn];
+    if(row != -1 && col != -1) {
+        NSTableCellView* cell = [tableView viewAtColumn:col row:row makeIfNecessary:YES];
+
+        // update menu content
+        [self updateActionMenu:menu forTableCellView:cell];
     }
 }
 
@@ -145,6 +169,20 @@
         [[self session] planSeatingFor:@(maxPlayers)];
         [self setLastMaxPlayers:maxPlayers];
     }
+}
+
+- (IBAction)manageButtonClicked:(id)sender {
+    NSTableCellView* cell = (NSTableCellView*)[sender superview];
+    NSMenu* menu = [[NSMenu alloc] initWithTitle:NSLocalizedString(@"Manage", @"Manage user")];
+
+    // delete all previous objects from menu
+    [menu removeAllItems];
+
+    // update menu content
+    [self updateActionMenu:menu forTableCellView:cell];
+
+    // show menu
+    [NSMenu popUpContextMenu:menu withEvent:[NSApp currentEvent] forView:sender];
 }
 
 - (IBAction)seatedButtonDidChange:(id)sender {
