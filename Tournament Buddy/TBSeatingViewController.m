@@ -33,9 +33,11 @@
 // Image to use for buyin icon
 @property (strong) NSImage* currencyImage;
 
-// Right pane
+// UI elements
 @property (weak) IBOutlet NSView* rightPaneView;
 @property (weak) IBOutlet NSView* controlsView;
+@property (weak) IBOutlet NSTableView* playersTableView;
+@property (weak) IBOutlet NSTableView* seatsTableView;
 
 @end
 
@@ -96,6 +98,16 @@
 - (void)dealloc {
     [[self configurationWindowController] close];
     [[self playerWindowController] close];
+}
+
+- (void)selectSeatForPlayerId:(NSString*)playerId {
+    [[[self seatsController] arrangedObjects] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        if([obj[@"player_id"] isEqualToString:playerId]) {
+            [[self seatsController] setSelectionIndex:idx];
+            [[self seatsTableView] scrollRowToVisible:idx];
+            *stop = YES;
+        }
+    }];
 }
 
 #pragma mark Menu and MenuItem utility
@@ -172,7 +184,7 @@
     [menu removeAllItems];
 
     // find the clicked tableView cell
-    NSTableView* tableView = [self tableView];
+    NSTableView* tableView = [self seatsTableView];
     NSInteger row = [tableView clickedRow];
     NSInteger col = [tableView clickedColumn];
     if(row != -1 && col != -1) {
@@ -237,9 +249,21 @@
     id playerId = ov[@"player"][@"player_id"];
     if([sender state] == NSOnState) {
         [[self session] seatPlayer:playerId withBlock:nil];
+        // select that seat
+        [self performSelector:@selector(selectSeatForPlayerId:) withObject:playerId afterDelay:0.0];
     } else {
         [[self session] unseatPlayer:playerId withBlock:nil];
     }
 }
 
+- (IBAction)playerChangeSelected:(id)sender {
+    NSInteger selectedRow = [sender selectedRow];
+    if (selectedRow != -1) {
+        // get selected object
+        NSArray* selectedObjects = [[self playersController] selectedObjects];
+        NSString* playerId = selectedObjects[0][@"player_id"];
+        // select that seat
+        [self selectSeatForPlayerId:playerId];
+    }
+}
 @end

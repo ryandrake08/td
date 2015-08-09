@@ -10,10 +10,11 @@
                 <outlet property="controlsView" destination="QAJ-nH-Nac" id="lvT-ib-X7D"/>
                 <outlet property="controlsViewController" destination="2MS-Uw-QgI" id="RCB-9Y-yS3"/>
                 <outlet property="playersController" destination="WZV-7A-cfq" id="sHG-16-SxA"/>
+                <outlet property="playersTableView" destination="Z8A-fm-qLk" id="2SS-03-cWS"/>
                 <outlet property="resultsViewController" destination="7My-Uu-ey1" id="On6-ew-qkL"/>
                 <outlet property="rightPaneView" destination="PuZ-r1-TWO" id="4XF-Zr-5wH"/>
                 <outlet property="seatsController" destination="So1-EM-ZfO" id="4iY-Gj-Uv9"/>
-                <outlet property="tableView" destination="am5-fF-rIk" id="4ZN-kb-ivW"/>
+                <outlet property="seatsTableView" destination="am5-fF-rIk" id="kev-tQ-4Bb"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
         </customObject>
@@ -35,11 +36,11 @@
                         <scrollView autohidesScrollers="YES" horizontalLineScroll="36" horizontalPageScroll="10" verticalLineScroll="36" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="Ykp-fd-HyL">
                             <rect key="frame" x="0.0" y="0.0" width="512" height="608"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                            <clipView key="contentView" id="RF3-Kz-bSk">
+                            <clipView key="contentView" drawsBackground="NO" id="RF3-Kz-bSk">
                                 <rect key="frame" x="1" y="17" width="510" height="590"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <tableView identifier="seatsTable" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="sequential" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowHeight="34" rowSizeStyle="automatic" headerView="h7c-ks-BWc" viewBased="YES" id="am5-fF-rIk">
+                                    <tableView identifier="seatsTable" appearanceType="vibrantLight" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="sequential" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowHeight="34" rowSizeStyle="automatic" headerView="h7c-ks-BWc" viewBased="YES" id="am5-fF-rIk">
                                         <rect key="frame" x="0.0" y="0.0" width="513" height="0.0"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <animations/>
@@ -64,7 +65,7 @@
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <subviews>
                                                             <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="yaF-xA-BTN">
-                                                                <rect key="frame" x="0.0" y="6.5" width="45" height="17"/>
+                                                                <rect key="frame" x="0.0" y="9.5" width="45" height="17"/>
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                                 <animations/>
                                                                 <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" title="1" id="7Wy-Pk-DZH">
@@ -108,7 +109,7 @@
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <subviews>
                                                             <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="htj-o7-hrf">
-                                                                <rect key="frame" x="0.0" y="6.5" width="45" height="17"/>
+                                                                <rect key="frame" x="0.0" y="9.5" width="45" height="17"/>
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                                 <animations/>
                                                                 <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" title="1" id="Bd8-uI-IYh">
@@ -153,7 +154,7 @@
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <subviews>
                                                             <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="8Ba-5L-OFD">
-                                                                <rect key="frame" x="0.0" y="6.5" width="274" height="17"/>
+                                                                <rect key="frame" x="0.0" y="9.5" width="274" height="17"/>
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                                 <animations/>
                                                                 <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Player Name" id="sC7-n0-SIy">
@@ -254,7 +255,7 @@
                                     </tableView>
                                 </subviews>
                                 <animations/>
-                                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                <nil key="backgroundColor"/>
                             </clipView>
                             <animations/>
                             <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="8Jh-c8-Vhj">
@@ -294,8 +295,8 @@
                                 <rect key="frame" x="0.0" y="0.0" width="256" height="672"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <tableView identifier="playersTable" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="sequential" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowHeight="18" rowSizeStyle="automatic" viewBased="YES" id="Z8A-fm-qLk">
-                                        <rect key="frame" x="0.0" y="0.0" width="256" height="672"/>
+                                    <tableView identifier="playersTable" appearanceType="vibrantLight" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="sequential" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowHeight="18" rowSizeStyle="automatic" viewBased="YES" id="Z8A-fm-qLk">
+                                        <rect key="frame" x="0.0" y="0.0" width="256" height="0.0"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <animations/>
                                         <size key="intercellSpacing" width="3" height="2"/>
@@ -364,7 +365,7 @@
                                                                 <rect key="frame" x="1" y="0.0" width="58" height="18"/>
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                                 <animations/>
-                                                                <buttonCell key="cell" type="check" title="Seat" bezelStyle="regularSquare" imagePosition="left" inset="2" id="6ds-Xc-jMS">
+                                                                <buttonCell key="cell" type="check" title="Seat" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="6ds-Xc-jMS">
                                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                     <font key="font" metaFont="system"/>
                                                                 </buttonCell>
@@ -392,12 +393,13 @@
                                             </tableColumn>
                                         </tableColumns>
                                         <connections>
+                                            <action selector="playerChangeSelected:" target="-2" id="mkp-HZ-Zea"/>
                                             <outlet property="delegate" destination="-2" id="gin-cN-vHg"/>
                                         </connections>
                                     </tableView>
                                 </subviews>
                                 <animations/>
-                                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                <nil key="backgroundColor"/>
                             </clipView>
                             <animations/>
                             <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="pDR-4U-4AV">

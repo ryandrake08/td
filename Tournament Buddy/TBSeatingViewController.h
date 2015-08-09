@@ -8,8 +8,12 @@
 
 #import "TBTableViewController.h"
 
-@interface TBSeatingViewController : TBTableViewController
+@interface TBSeatingViewController : NSViewController
 
+// global configuration
+@property (strong) NSMutableDictionary* configuration;
+
+// global session
 @property (strong) TournamentSession* session;
 
 @end
