@@ -416,6 +416,11 @@
                                                                 </buttonCell>
                                                                 <connections>
                                                                     <action selector="seatedButtonDidChange:" target="-2" id="tdj-vd-SPg"/>
+                                                                    <binding destination="oAf-io-akB" name="enabled" keyPath="objectValue.buyin" id="YyG-S2-rQC">
+                                                                        <dictionary key="options">
+                                                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                                                        </dictionary>
+                                                                    </binding>
                                                                     <binding destination="oAf-io-akB" name="value" keyPath="objectValue.seat_number" id="j23-nX-xiU">
                                                                         <dictionary key="options">
                                                                             <string key="NSValueTransformerName">NSIsNotNil</string>

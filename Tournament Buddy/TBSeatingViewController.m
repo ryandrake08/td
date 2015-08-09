@@ -86,7 +86,15 @@
     }];
 }
 
+- (void)unseatPlayerFromMenuItem:(NSMenuItem*)sender {
+    NSNumber* playerId = [sender representedObject];
+    [[self session] unseatPlayer:playerId withBlock:nil];
+}
+
 - (void)updateActionMenu:(NSMenu*)menu forTableCellView:(NSTableCellView*)cell {
+    // use manual enabling
+    [menu setAutoenablesItems:NO];
+
     // its object is the model object for this player
     id seatedPlayer = [cell objectValue];
 
@@ -95,28 +103,35 @@
 
     // add funding sources
     [[[self session] fundingSources] enumerateObjectsUsingBlock:^(id source, NSUInteger idx, BOOL* stop) {
-        NSNumber* last = source[@"forbid_after_blind_level"];
-        NSNumber* current = [[self session] currentBlindLevel];
-        if(last == nil || !([last compare:current] == NSOrderedAscending)) {
-            id context = @{@"player_id":seatedPlayer[@"player_id"], @"funding_id":@(idx)};
+        id context = @{@"player_id":seatedPlayer[@"player_id"], @"funding_id":@(idx)};
 
-            // create a menu item for this funding option
-            NSMenuItem* item = [[NSMenuItem alloc] initWithTitle:source[@"name"] action:@selector(fundPlayerFromMenuItem:) keyEquivalent:@""];
-            [item setTarget:self];
-            [item setRepresentedObject:context];
-            [menu addItem:item];
-        }
+        // enable if we can still use this source
+        NSNumber* last = source[@"forbid_after_blind_level"];
+
+        // create a menu item for this funding option
+        NSMenuItem* item = [[NSMenuItem alloc] initWithTitle:source[@"name"] action:@selector(fundPlayerFromMenuItem:) keyEquivalent:@""];
+        [item setRepresentedObject:context];
+        [item setTarget:self];
+        [item setEnabled:(last == nil || !([last compare:current] == NSOrderedAscending))];
+        [menu addItem:item];
     }];
 
-    if([current integerValue] > 0) {
-        [menu addItem:[NSMenuItem separatorItem]];
-        
-        // add bust function
-        NSMenuItem* item = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Bust Player", @"Bust the player out of the tournamnet") action:@selector(bustPlayerFromMenuItem:) keyEquivalent:@""];
-        [item setTarget:self];
-        [item setRepresentedObject:seatedPlayer[@"player_id"]];
-        [menu addItem:item];
-    }
+    NSMenuItem* item = [NSMenuItem separatorItem];
+    [menu addItem:item];
+
+    // add bust function
+    item = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Bust Player", @"Bust the player out of the tournamnet") action:@selector(bustPlayerFromMenuItem:) keyEquivalent:@""];
+    [item setRepresentedObject:seatedPlayer[@"player_id"]];
+    [item setTarget:self];
+    [item setEnabled:([current integerValue] > 0) && ([seatedPlayer[@"buyin"] boolValue])];
+    [menu addItem:item];
+
+    // add unseat function
+    item = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Unseat Player", @"Remove player without impacting results") action:@selector(unseatPlayerFromMenuItem:) keyEquivalent:@""];
+    [item setTarget:self];
+    [item setRepresentedObject:seatedPlayer[@"player_id"]];
+    [item setEnabled:(![seatedPlayer[@"buyin"] boolValue])];
+    [menu addItem:item];
 }
 
 #pragma mark NSMenuDelegate
