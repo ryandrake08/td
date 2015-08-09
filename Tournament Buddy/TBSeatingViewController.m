@@ -108,8 +108,13 @@
         // enable if we can still use this source
         NSNumber* last = source[@"forbid_after_blind_level"];
 
+        // shortcut key
+        NSString* keyEquiv = @"";
+        if(idx < 9) {
+            keyEquiv = [@(idx+1) stringValue];
+        }
         // create a menu item for this funding option
-        NSMenuItem* item = [[NSMenuItem alloc] initWithTitle:source[@"name"] action:@selector(fundPlayerFromMenuItem:) keyEquivalent:@""];
+        NSMenuItem* item = [[NSMenuItem alloc] initWithTitle:source[@"name"] action:@selector(fundPlayerFromMenuItem:) keyEquivalent:keyEquiv];
         [item setRepresentedObject:context];
         [item setTarget:self];
         [item setEnabled:(last == nil || !([last compare:current] == NSOrderedAscending))];
@@ -120,14 +125,14 @@
     [menu addItem:item];
 
     // add bust function
-    item = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Bust Player", @"Bust the player out of the tournamnet") action:@selector(bustPlayerFromMenuItem:) keyEquivalent:@""];
+    item = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Bust Player", @"Bust the player out of the tournamnet") action:@selector(bustPlayerFromMenuItem:) keyEquivalent:@"b"];
     [item setRepresentedObject:seatedPlayer[@"player_id"]];
     [item setTarget:self];
     [item setEnabled:([current integerValue] > 0) && ([seatedPlayer[@"buyin"] boolValue])];
     [menu addItem:item];
 
     // add unseat function
-    item = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Unseat Player", @"Remove player without impacting results") action:@selector(unseatPlayerFromMenuItem:) keyEquivalent:@""];
+    item = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Unseat Player", @"Remove player without impacting results") action:@selector(unseatPlayerFromMenuItem:) keyEquivalent:@"u"];
     [item setTarget:self];
     [item setRepresentedObject:seatedPlayer[@"player_id"]];
     [item setEnabled:(![seatedPlayer[@"buyin"] boolValue])];
