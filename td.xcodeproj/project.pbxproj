@@ -55,6 +55,8 @@
 		9462A3E01B77324700B29002 /* TBControlsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9462A3DD1B77324700B29002 /* TBControlsViewController.m */; };
 		9462A3E11B77324700B29002 /* TBControlsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9462A3DE1B77324700B29002 /* TBControlsView.xib */; };
 		9462A3E21B77324700B29002 /* TBControlsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9462A3DE1B77324700B29002 /* TBControlsView.xib */; };
+		9462A3E31B77376000B29002 /* NSFont+LineHeight.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEAF41B5AE7390026B25D /* NSFont+LineHeight.m */; };
+		9462A3E41B77376000B29002 /* NSView+BackgroundColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEAF71B5AE7920026B25D /* NSView+BackgroundColor.m */; };
 		9476F4691B3C385400A158F8 /* TBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4561B3C385400A158F8 /* TBAppDelegate.m */; };
 		9476F46A1B3C385400A158F8 /* TBTournamentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4581B3C385400A158F8 /* TBTournamentsViewController.m */; };
 		9476F46B1B3C385400A158F8 /* TBRemoteClockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F45A1B3C385400A158F8 /* TBRemoteClockViewController.m */; };
@@ -844,6 +846,7 @@
 				9476F4A61B3C3EA700A158F8 /* TournamentSession.m in Sources */,
 				AD98D96F1A7B342000DA6B8B /* TBRoundsViewController.m in Sources */,
 				94FDEAE81B5AE2D60026B25D /* FBKVOController.m in Sources */,
+				9462A3E31B77376000B29002 /* NSFont+LineHeight.m in Sources */,
 				941916DB1B6F1FD7001253CA /* TBPlayerWindowController.m in Sources */,
 				9454106B1B6E47B7001E3373 /* TBChipsArrayController.m in Sources */,
 				945410771B6E9A17001E3373 /* NSString+CamelCase.m in Sources */,
@@ -868,6 +871,7 @@
 				AD98D9611A7B330B00DA6B8B /* TBChipsViewController.m in Sources */,
 				945410741B6E5C56001E3373 /* NSDateFormatter+ISO8601.m in Sources */,
 				941916DC1B6F215F001253CA /* TBActionClockView.m in Sources */,
+				9462A3E41B77376000B29002 /* NSView+BackgroundColor.m in Sources */,
 				945410681B6E478A001E3373 /* TBPlayersArrayController.m in Sources */,
 				949D70991B3C440D008D5CD1 /* server.cpp in Sources */,
 				9439701D1B405DC000BB0413 /* TournamentService.m in Sources */,

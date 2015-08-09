@@ -11,7 +11,12 @@
 @implementation NSView (BackgroundColor)
 
 - (NSColor*)backgroundColor {
-    return [NSColor colorWithCGColor:[[self layer] backgroundColor]];
+    CGColorRef cgBackgroundColor = [[self layer] backgroundColor];
+    if(cgBackgroundColor != NULL) {
+        return [NSColor colorWithCGColor:[[self layer] backgroundColor]];
+    } else {
+        return nil;
+    }
 }
 
 - (void)setBackgroundColor:(NSColor*)backgroundColor {
