@@ -365,13 +365,13 @@ td::player_movement gameinfo::move_player(const td::player_id_t& player_id, std:
     logger(LOG_INFO) << "moving player " << player_id << " (" << player_it->second.name << ") to table " << table << '\n';
 
     // build up a list of candidate seats
-    std::vector<td::seat> candidates;
-    for(auto& seat : this->empty_seats)
+    std::vector<std::deque<td::seat>::iterator> candidates;
+    for(auto seat_it(this->empty_seats.begin()); seat_it != this->empty_seats.end(); seat_it++)
     {
-        if(seat.table_number == table)
+        if(seat_it->table_number == table)
         {
             // store iterator itself
-            candidates.push_back(seat);
+            candidates.push_back(seat_it);
         }
     }
 
@@ -385,17 +385,18 @@ td::player_movement gameinfo::move_player(const td::player_id_t& player_id, std:
 
     // pick one at random
     auto index(std::uniform_int_distribution<std::size_t>(0, candidates.size()-1)(engine));
-    auto to_seat(candidates[index]);
+    auto to_seat_it(candidates[index]);
 
     // move player
     auto player_seat_it(this->seats.find(player_id));
     auto from_seat(player_seat_it->second);
+    player_seat_it->second = *to_seat_it;
     this->empty_seats.push_back(from_seat);
-    player_seat_it->second = to_seat;
+    this->empty_seats.erase(to_seat_it);
 
-    logger(LOG_INFO) << "moved player " << player_id << " from table " << from_seat.table_number << ", seat " << from_seat.seat_number << " to table " << to_seat.table_number << ", seat " << to_seat.seat_number << '\n';
+    logger(LOG_INFO) << "moved player " << player_id << " from table " << from_seat.table_number << ", seat " << from_seat.seat_number << " to table " << player_seat_it->second.table_number << ", seat " << player_seat_it->second.seat_number << '\n';
 
-    return td::player_movement(player_id, from_seat, to_seat);
+    return td::player_movement(player_id, from_seat, player_seat_it->second);
 }
 
 // move a player to the table with the smallest number of players
@@ -428,15 +429,16 @@ td::player_movement gameinfo::move_player(const td::player_id_t& player_id, cons
         {
             smallest_table = table;
         }
+        table++;
     }
 
     // make sure at least one candidate table
-    if(table >= ppt.size())
+    if(smallest_table >= ppt.size())
     {
         throw td::protocol_error("tried to move player to another table but no candidate tables");
     }
 
-    return this->move_player(player_id, table);
+    return this->move_player(player_id, smallest_table);
 }
 
 template <typename T>
@@ -494,7 +496,7 @@ std::size_t gameinfo::try_break_table(std::vector<td::player_movement>& movement
     if(this->tables > 1)
     {
         // break tables while (player_count-1) div table_capacity < tables
-        while((this->seats.size() - 1) / this->table_capacity < this->tables)
+        while(this->seats.size() <= this->table_capacity * (this->tables-1))
         {
             logger(LOG_INFO) << "breaking a table. " << this->seats.size() << " players remain at " << this->tables << " tables of " << this->table_capacity << " capacity\n";
 
