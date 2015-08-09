@@ -7,6 +7,8 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="TBSeatingViewController">
             <connections>
+                <outlet property="controlsView" destination="QAJ-nH-Nac" id="lvT-ib-X7D"/>
+                <outlet property="controlsViewController" destination="2MS-Uw-QgI" id="RCB-9Y-yS3"/>
                 <outlet property="playersController" destination="WZV-7A-cfq" id="sHG-16-SxA"/>
                 <outlet property="resultsViewController" destination="7My-Uu-ey1" id="On6-ew-qkL"/>
                 <outlet property="rightPaneView" destination="PuZ-r1-TWO" id="4XF-Zr-5wH"/>
@@ -28,56 +30,6 @@
                         <customView id="QAJ-nH-Nac">
                             <rect key="frame" x="104" y="608" width="304" height="64"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <subviews>
-                                <button id="71t-y8-uVl">
-                                    <rect key="frame" x="0.0" y="0.0" width="64" height="64"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <animations/>
-                                    <buttonCell key="cell" type="bevel" title="Previous Round" bezelStyle="regularSquare" image="b_previous" imagePosition="only" alignment="center" alternateImage="h_previous" imageScaling="proportionallyUpOrDown" inset="2" id="WId-HN-C8f">
-                                        <behavior key="behavior" lightByContents="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                    <connections>
-                                        <action selector="previousRoundTapped:" target="-2" id="obi-27-2R3"/>
-                                    </connections>
-                                </button>
-                                <button id="PPG-5G-DIB">
-                                    <rect key="frame" x="80" y="0.0" width="64" height="64"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <animations/>
-                                    <buttonCell key="cell" type="bevel" title="Play / Pause" bezelStyle="regularSquare" image="b_play_pause" imagePosition="only" alignment="center" alternateImage="h_play_pause" imageScaling="proportionallyUpOrDown" inset="2" id="gAh-h5-aU4">
-                                        <behavior key="behavior" lightByContents="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                    <connections>
-                                        <action selector="pauseResumeTapped:" target="-2" id="Xut-Bl-WLO"/>
-                                    </connections>
-                                </button>
-                                <button id="Jeu-EL-MEj">
-                                    <rect key="frame" x="160" y="0.0" width="64" height="64"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <animations/>
-                                    <buttonCell key="cell" type="bevel" title="Next Round" bezelStyle="regularSquare" image="b_next" imagePosition="only" alignment="center" alternateImage="h_next" imageScaling="proportionallyUpOrDown" inset="2" id="oP3-Z6-KUI">
-                                        <behavior key="behavior" lightByContents="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                    <connections>
-                                        <action selector="nextRoundTapped:" target="-2" id="DzD-id-7Cr"/>
-                                    </connections>
-                                </button>
-                                <button id="eXd-Ut-SYA">
-                                    <rect key="frame" x="240" y="0.0" width="64" height="64"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <animations/>
-                                    <buttonCell key="cell" type="bevel" title="Call Clock" bezelStyle="regularSquare" image="b_call_clock" imagePosition="only" alignment="center" alternateImage="h_call_clock" imageScaling="proportionallyUpOrDown" inset="2" id="5BS-Ld-69A">
-                                        <behavior key="behavior" lightByContents="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                    <connections>
-                                        <action selector="callClockTapped:" target="-2" id="IUG-7t-jVd"/>
-                                    </connections>
-                                </button>
-                            </subviews>
                             <animations/>
                         </customView>
                         <scrollView autohidesScrollers="YES" horizontalLineScroll="36" horizontalPageScroll="10" verticalLineScroll="36" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="Ykp-fd-HyL">
@@ -597,21 +549,14 @@
             <point key="canvasLocation" x="320" y="30.5"/>
         </menu>
         <viewController nibName="TBResultsView" id="7My-Uu-ey1" customClass="TBResultsViewController"/>
+        <viewController nibName="TBControlsView" id="2MS-Uw-QgI" customClass="TBControlsViewController"/>
     </objects>
     <resources>
         <image name="NSListViewTemplate" width="14" height="10"/>
-        <image name="b_call_clock" width="64" height="64"/>
         <image name="b_configure" width="64" height="64"/>
         <image name="b_display" width="64" height="64"/>
-        <image name="b_next" width="64" height="64"/>
         <image name="b_note_dollar" width="64" height="64"/>
-        <image name="b_play_pause" width="64" height="64"/>
-        <image name="b_previous" width="64" height="64"/>
-        <image name="h_call_clock" width="64" height="64"/>
         <image name="h_configure" width="64" height="64"/>
         <image name="h_display" width="64" height="64"/>
-        <image name="h_next" width="64" height="64"/>
-        <image name="h_play_pause" width="64" height="64"/>
-        <image name="h_previous" width="64" height="64"/>
     </resources>
 </document>

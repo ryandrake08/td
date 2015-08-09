@@ -10,11 +10,13 @@
 #import "TBActionClockView.h"
 #import "TBResizeTextField.h"
 #import "TBResultsViewController.h"
+#import "TBControlsViewController.h"
 #import "NSObject+FBKVOController.h"
 
 @interface TBPlayerWindowController ()
 
 @property (strong) IBOutlet TBResultsViewController* resultsViewController;
+@property (strong) IBOutlet TBControlsViewController* controlsViewController;
 
 @property (weak) IBOutlet NSImageView* backgroundImageView;
 @property (weak) IBOutlet TBResizeTextField* tournamentNameLabel;
@@ -28,12 +30,9 @@
 @property (weak) IBOutlet TBResizeTextField* playersLeftLabel;
 @property (weak) IBOutlet TBResizeTextField* entriesLabel;
 @property (weak) IBOutlet TBResizeTextField* averageStackLabel;
-@property (weak) IBOutlet NSButton* previousRoundButton;
-@property (weak) IBOutlet NSButton* pauseResumeButton;
-@property (weak) IBOutlet NSButton* nextRoundButton;
-@property (weak) IBOutlet NSButton* callClockButton;
 @property (weak) IBOutlet TBActionClockView* actionClockView;
 @property (weak) IBOutlet NSView* rightPaneView;
+@property (weak) IBOutlet NSView* controlsView;
 
 @end
 
@@ -43,16 +42,11 @@
     [super windowDidLoad];
     
     // register for KVO
-    [[self KVOController] observe:[self session] keyPaths:@[@"isConnected", @"authorized"] options:0 block:^(id observer, id object, NSDictionary *change) {
-        [observer updateButtons];
-    }];
-
     [[self KVOController] observe:[self session] keyPath:@"name" options:0 block:^(id observer, id object, NSDictionary *change) {
         [[observer tournamentNameLabel] setStringValue:[object name]];
     }];
 
     [[self KVOController] observe:[self session] keyPath:@"currentBlindLevel" options:0 block:^(id observer, id object, NSDictionary *change) {
-        [observer updateButtons];
         if([[object currentBlindLevel] intValue] == 0) {
             [[observer currentRoundNumberLabel] setStringValue:@"-"];
         } else {
@@ -96,41 +90,14 @@
         [observer updateActionClock];
     }];
 
-    // add subivew
+    // add subivews
     [[self resultsViewController] setSession:[self session]];
     [[self rightPaneView] addSubview:[[self resultsViewController] view]];
+    [[self controlsViewController] setSession:[self session]];
+    [[self controlsView] addSubview:[[self controlsViewController] view]];
 }
 
 #pragma mark Update
-
-- (void)updateButtons {
-    BOOL connected = [[self session] isConnected];
-    BOOL authorized = [[self session] isAuthorized];
-    if(connected && authorized) {
-        [[self previousRoundButton] setHidden:NO];
-        [[self pauseResumeButton] setHidden:NO];
-        [[self nextRoundButton] setHidden:NO];
-        [[self callClockButton] setHidden:NO];
-    } else {
-        [[self previousRoundButton] setHidden:YES];
-        [[self pauseResumeButton] setHidden:YES];
-        [[self nextRoundButton] setHidden:YES];
-        [[self callClockButton] setHidden:YES];
-    }
-
-    NSUInteger currentBlindLevel = [[[self session] currentBlindLevel] unsignedIntegerValue];
-    if(currentBlindLevel == 0) {
-        [[self previousRoundButton] setEnabled:NO];
-        [[self pauseResumeButton] setEnabled:YES];
-        [[self nextRoundButton] setEnabled:NO];
-        [[self callClockButton] setEnabled:NO];
-    } else {
-        [[self previousRoundButton] setEnabled:YES];
-        [[self pauseResumeButton] setEnabled:YES];
-        [[self nextRoundButton] setEnabled:YES];
-        [[self callClockButton] setEnabled:YES];
-    }
-}
 
 - (void)updateActionClock {
     NSUInteger actionClockTimeRemaining = [[[self session] actionClockTimeRemaining] unsignedIntegerValue];
@@ -139,43 +106,6 @@
     } else {
         [[self actionClockView] setHidden:NO];
         [[self actionClockView] setSeconds:actionClockTimeRemaining / 1000.0];
-    }
-}
-
-#pragma mark Actions
-
-- (IBAction)previousRoundTapped:(NSButton*)sender {
-    NSUInteger currentBlindLevel = [[[self session] currentBlindLevel] unsignedIntegerValue];
-    if(currentBlindLevel != 0) {
-        [[self session] setPreviousLevelWithBlock:nil];
-    }
-}
-
-- (IBAction)pauseResumeTapped:(NSButton*)sender {
-    NSUInteger currentBlindLevel = [[[self session] currentBlindLevel] unsignedIntegerValue];
-    if(currentBlindLevel != 0) {
-        [[self session] togglePauseGame];
-    } else {
-        [[self session] startGameAt:nil];
-    }
-}
-
-- (IBAction)nextRoundTapped:(NSButton*)sender {
-    NSUInteger currentBlindLevel = [[[self session] currentBlindLevel] unsignedIntegerValue];
-    if(currentBlindLevel != 0) {
-        [[self session] setNextLevelWithBlock:nil];
-    }
-}
-
-- (IBAction)callClockTapped:(NSButton*)sender {
-    NSUInteger currentBlindLevel = [[[self session] currentBlindLevel] unsignedIntegerValue];
-    if(currentBlindLevel != 0) {
-        NSUInteger remaining = [[[self session] actionClockTimeRemaining] unsignedIntegerValue];
-        if(remaining == 0) {
-            [[self session] setActionClock:@kActionClockRequestTime];
-        } else {
-            [[self session] setActionClock:nil];
-        }
     }
 }
 

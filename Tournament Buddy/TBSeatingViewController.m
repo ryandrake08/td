@@ -9,6 +9,7 @@
 #import "TBSeatingViewController.h"
 #import "TBConfigurationWindowController.h"
 #import "TBPlayerWindowController.h"
+#import "TBControlsViewController.h"
 #import "TBResultsViewController.h"
 #import "NSObject+FBKVOController.h"
 
@@ -20,6 +21,7 @@
 
 // View controllers
 @property (strong) IBOutlet TBResultsViewController* resultsViewController;
+@property (strong) IBOutlet TBControlsViewController* controlsViewController;
 
 // Array controllers
 @property (strong) IBOutlet NSArrayController* playersController;
@@ -32,7 +34,8 @@
 @property (strong) NSImage* currencyImage;
 
 // Right pane
-@property (weak) IBOutlet NSView *rightPaneView;
+@property (weak) IBOutlet NSView* rightPaneView;
+@property (weak) IBOutlet NSView* controlsView;
 
 @end
 
@@ -79,6 +82,8 @@
     // add subivew
     [[self resultsViewController] setSession:[self session]];
     [[self rightPaneView] addSubview:[[self resultsViewController] view]];
+    [[self controlsViewController] setSession:[self session]];
+    [[self controlsView] addSubview:[[self controlsViewController] view]];
 }
 
 - (void)loadView {
@@ -234,41 +239,6 @@
         [[self session] seatPlayer:playerId withBlock:nil];
     } else {
         [[self session] unseatPlayer:playerId withBlock:nil];
-    }
-}
-
-- (IBAction)previousRoundTapped:(NSButton*)sender {
-    NSUInteger currentBlindLevel = [[[self session] currentBlindLevel] unsignedIntegerValue];
-    if(currentBlindLevel != 0) {
-        [[self session] setPreviousLevelWithBlock:nil];
-    }
-}
-
-- (IBAction)pauseResumeTapped:(NSButton*)sender {
-    NSUInteger currentBlindLevel = [[[self session] currentBlindLevel] unsignedIntegerValue];
-    if(currentBlindLevel != 0) {
-        [[self session] togglePauseGame];
-    } else {
-        [[self session] startGameAt:nil];
-    }
-}
-
-- (IBAction)nextRoundTapped:(NSButton*)sender {
-    NSUInteger currentBlindLevel = [[[self session] currentBlindLevel] unsignedIntegerValue];
-    if(currentBlindLevel != 0) {
-        [[self session] setNextLevelWithBlock:nil];
-    }
-}
-
-- (IBAction)callClockTapped:(NSButton*)sender {
-    NSUInteger currentBlindLevel = [[[self session] currentBlindLevel] unsignedIntegerValue];
-    if(currentBlindLevel != 0) {
-        NSUInteger remaining = [[[self session] actionClockTimeRemaining] unsignedIntegerValue];
-        if(remaining == 0) {
-            [[self session] setActionClock:@kActionClockRequestTime];
-        } else {
-            [[self session] setActionClock:nil];
-        }
     }
 }
 
