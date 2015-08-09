@@ -134,7 +134,7 @@ void gameinfo::configure(const json& config)
 // dump configuration to JSON
 void gameinfo::dump_configuration(json& config) const
 {
-    logger(LOG_INFO) << "dumping tournament configuration\n";
+    logger(LOG_DEBUG) << "dumping tournament configuration\n";
 
     config.set_value("name", this->name);
     config.set_value("players", json(this->players.begin(), this->players.end()));
@@ -151,7 +151,7 @@ void gameinfo::dump_configuration(json& config) const
 // dump state to JSON
 void gameinfo::dump_state(json& state) const
 {
-    logger(LOG_INFO) << "dumping tournament state\n";
+    logger(LOG_DEBUG) << "dumping tournament state\n";
 
     state.set_value("seats", json(this->seats.begin(), this->seats.end()));
     state.set_value("players_finished", json(this->players_finished.begin(), this->players_finished.end()));
@@ -184,7 +184,7 @@ std::vector<std::vector<td::player_id_t> > gameinfo::players_at_tables() const
 
     for(std::size_t i(0); i<ret.size(); i++)
     {
-        logger(LOG_INFO) << "table " << i << " has " << ret[i].size() << " players\n";
+        logger(LOG_DEBUG) << "table " << i << " has " << ret[i].size() << " players\n";
     }
 
     return ret;

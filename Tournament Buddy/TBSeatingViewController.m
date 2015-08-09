@@ -120,7 +120,17 @@
 - (void)bustPlayerFromMenuItem:(NSMenuItem*)sender {
     NSNumber* playerId = [sender representedObject];
     [[self session] bustPlayer:playerId withBlock:^(NSArray* movements) {
-        NSLog(@"%@", movements);
+        NSLog(@"Player Movements:");
+        for(NSDictionary* movement in movements) {
+            NSString* playerId = movement[@"player_id"];
+            NSDictionary* player = [[self session] playersLookup][playerId];
+            NSLog(@"%@ moves from table %d, seat %d to table %d, seat %d",
+                  player[@"name"],
+                  [movement[@"from_table_number"] intValue]+1,
+                  [movement[@"from_seat_number"] intValue]+1,
+                  [movement[@"to_table_number"] intValue]+1,
+                  [movement[@"to_seat_number"] intValue]+1);
+        }
     }];
 }
 

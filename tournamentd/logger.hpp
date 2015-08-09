@@ -11,6 +11,7 @@
 # endif
 #endif
 #define logger(...) logger_internal::instance().get_stream(__func__, __VA_ARGS__)
+#define logger_enable(...) logger_internal::instance().set_enabled({__VA_ARGS__})
 
 enum logger_level
 {
