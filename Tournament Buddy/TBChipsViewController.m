@@ -8,6 +8,31 @@
 
 #import "TBChipsViewController.h"
 
+@interface TBChipsViewController ()
+
+@property (strong) IBOutlet NSArrayController* arrayController;
+
+@end
+
 @implementation TBChipsViewController
+
+- (void)viewDidLoad {
+    if([NSViewController instancesRespondToSelector:@selector(viewDidLoad)]) {
+        [super viewDidLoad];
+    }
+
+    // setup sort descriptors
+    NSSortDescriptor* denominationSort = [[NSSortDescriptor alloc] initWithKey:@"denomination" ascending:YES];
+
+    // set sort descriptors for arrays
+    [[self arrayController] setSortDescriptors:@[denominationSort]];
+}
+
+- (void)loadView {
+    [super loadView];
+    if(![NSViewController instancesRespondToSelector:@selector(viewDidLoad)]) {
+        [self viewDidLoad];
+    }
+}
 
 @end

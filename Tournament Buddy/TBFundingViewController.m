@@ -29,6 +29,9 @@
 
 @interface TBFundingViewController () <NSTableViewDelegate>
 
+@property (strong) IBOutlet NSArrayController* arrayController;
+
+// number formatters
 @property (strong) IBOutlet TBCurrencyNumberFormatter* costFormatter;
 @property (strong) IBOutlet TBCurrencyNumberFormatter* equityFormatter;
 
@@ -40,6 +43,13 @@
     if([NSViewController instancesRespondToSelector:@selector(viewDidLoad)]) {
         [super viewDidLoad];
     }
+
+    // setup sort descriptors
+    NSSortDescriptor* nameSort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
+    NSSortDescriptor* typeSort = [[NSSortDescriptor alloc] initWithKey:@"type" ascending:YES];
+
+    // set sort descriptors for arrays
+    [[self arrayController] setSortDescriptors:@[typeSort, nameSort]];
 
     // register for KVO
     [[[self costFormatter] KVOController] observe:[self configuration] keyPath:@"cost_currency" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {

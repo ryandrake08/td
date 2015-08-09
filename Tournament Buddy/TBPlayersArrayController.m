@@ -18,7 +18,7 @@
 
 - (id)newObject {
     NSString* player_id = [[NSUUID UUID] UUIDString];
-    NSString* name = @"NewPlayer";
+    NSString* name = @"[New Player Name]";
     NSString* added_at = [[NSDateFormatter dateFormatterWithISO8601Format] stringFromDate:[NSDate date]];
 
     return [[NSMutableDictionary alloc] initWithObjectsAndKeys:player_id, @"player_id", name, @"name", added_at, @"added_at", nil];

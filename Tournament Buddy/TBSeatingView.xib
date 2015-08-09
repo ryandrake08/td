@@ -87,7 +87,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <tableView identifier="seatsTable" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="sequential" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowHeight="34" rowSizeStyle="automatic" headerView="h7c-ks-BWc" viewBased="YES" id="am5-fF-rIk">
-                                        <rect key="frame" x="0.0" y="0.0" width="513" height="590"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="513" height="0.0"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <animations/>
                                         <size key="intercellSpacing" width="3" height="2"/>
@@ -735,12 +735,12 @@
                 <binding destination="-2" name="contentArray" keyPath="self.session.seatedPlayers" id="AZS-uQ-O6i"/>
             </connections>
         </arrayController>
-        <arrayController id="So1-EM-ZfO" userLabel="Seats Array Controller">
+        <arrayController automaticallyRearrangesObjects="YES" id="So1-EM-ZfO" userLabel="Seats Array Controller">
             <connections>
                 <binding destination="-2" name="contentArray" keyPath="self.session.seatedPlayers" id="8YT-0S-THN"/>
             </connections>
         </arrayController>
-        <arrayController objectClassName="NSDictionary" id="5pr-IM-GVE" userLabel="Results Array Controller">
+        <arrayController objectClassName="NSDictionary" automaticallyRearrangesObjects="YES" id="5pr-IM-GVE" userLabel="Results Array Controller">
             <declaredKeys>
                 <string>place</string>
                 <string>player</string>

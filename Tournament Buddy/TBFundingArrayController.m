@@ -11,8 +11,8 @@
 @implementation TBFundingArrayController
 
 - (id)newObject {
-    NSString* name = @"New Rebuy";
-    NSNumber* type = @1;
+    NSString* name = @"[New Buyin, Rebuy or Addon]";
+    NSNumber* type = @2;
     NSNumber* chips = @5000;
     NSNumber* cost = @10;
     NSNumber* commission = @0;

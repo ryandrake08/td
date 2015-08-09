@@ -7,6 +7,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="TBFundingViewController">
             <connections>
+                <outlet property="arrayController" destination="ZWh-lB-mFY" id="hJ0-cr-QZp"/>
                 <outlet property="costFormatter" destination="2b4-Xz-BGD" id="iyt-ob-0QC"/>
                 <outlet property="equityFormatter" destination="Heg-09-aVJ" id="VgI-d7-ESD"/>
                 <outlet property="tableView" destination="n9f-OZ-oem" id="EMT-Mw-cUM"/>
@@ -327,13 +328,13 @@
                                                             </menu>
                                                         </popUpButtonCell>
                                                         <connections>
-                                                            <binding destination="-2" name="contentValues" keyPath="self.blindLevelNames" id="EWN-47-kPP"/>
+                                                            <binding destination="Sm9-1Z-FA0" name="selectedIndex" keyPath="objectValue.forbid_after_blind_level" previousBinding="EWN-47-kPP" id="91f-Cb-cVJ"/>
                                                             <binding destination="Sm9-1Z-FA0" name="hidden" keyPath="objectValue.forbid_after_blind_level" id="Wcd-oe-jgy">
                                                                 <dictionary key="options">
                                                                     <string key="NSValueTransformerName">NSIsNil</string>
                                                                 </dictionary>
                                                             </binding>
-                                                            <binding destination="Sm9-1Z-FA0" name="selectedIndex" keyPath="objectValue.forbid_after_blind_level" previousBinding="EWN-47-kPP" id="91f-Cb-cVJ"/>
+                                                            <binding destination="-2" name="contentValues" keyPath="self.blindLevelNames" id="EWN-47-kPP"/>
                                                         </connections>
                                                     </popUpButton>
                                                 </subviews>
@@ -453,7 +454,7 @@
             </subviews>
             <point key="canvasLocation" x="17" y="246.5"/>
         </customView>
-        <arrayController id="ZWh-lB-mFY" customClass="TBFundingArrayController">
+        <arrayController automaticallyRearrangesObjects="YES" id="ZWh-lB-mFY" customClass="TBFundingArrayController">
             <declaredKeys>
                 <string>name</string>
                 <string>chips</string>
