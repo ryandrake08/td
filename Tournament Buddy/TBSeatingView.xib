@@ -247,6 +247,7 @@
                                                                     <font key="font" metaFont="system"/>
                                                                 </buttonCell>
                                                                 <connections>
+                                                                    <binding destination="-2" name="alternateImage" keyPath="self.currencyImage" id="4Yr-Lg-nHC"/>
                                                                     <binding destination="ywV-rK-qmp" name="value" keyPath="objectValue.buyin" id="uV5-89-3Bv"/>
                                                                 </connections>
                                                             </button>

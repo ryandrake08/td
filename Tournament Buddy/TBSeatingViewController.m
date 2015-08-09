@@ -25,6 +25,9 @@
 // Keep track of last seating plan size, to avoid setting again
 @property NSInteger lastMaxPlayers;
 
+// Image to use for buyin icon
+@property (strong) NSImage* currencyImage;
+
 @end
 
 @implementation TBSeatingViewController
@@ -58,6 +61,16 @@
     [self setPlayerWindowController:[[TBPlayerWindowController alloc] initWithWindowNibName:@"TBPlayerWindow"]];
     [[self playerWindowController] setSession:[self session]];
     [[[self playerWindowController] window] close];
+
+    // register for KVO
+    [[self KVOController] observe:[self session] keyPath:@"costCurrency" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
+        NSDictionary* currencyImages = @{@"EUR":@"b_note_euro",@"INR":@"b_note_rupee",@"EGP":@"b_note_sterling",@"FKP":@"b_note_sterling",@"GIP":@"b_note_sterling",@"GGP":@"b_note_sterling",@"IMP":@"b_note_sterling",@"JEP":@"b_note_sterling",@"LBP":@"b_note_sterling",@"SHP":@"b_note_sterling",@"SYP":@"b_note_sterling",@"GBP":@"b_note_sterling",@"JPY":@"b_note_yen_yuan",@"CNY":@"b_note_yen_yuan"};
+        NSString* imageName = currencyImages[[object costCurrency]];
+        if(imageName == nil) {
+            imageName = @"b_note_dollar";
+        }
+        [self setCurrencyImage:[NSImage imageNamed:imageName]];
+    }];
 }
 
 - (void)loadView {
