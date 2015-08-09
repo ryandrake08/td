@@ -10,6 +10,7 @@
 #import "TBConfigurationWindowController.h"
 #import "TBPlayerWindowController.h"
 #import "TBControlsViewController.h"
+#import "TBMovementWindowController.h"
 #import "TBResultsViewController.h"
 #import "NSObject+FBKVOController.h"
 
@@ -18,6 +19,7 @@
 // Configuration window
 @property (strong) TBConfigurationWindowController* configurationWindowController;
 @property (strong) TBPlayerWindowController* playerWindowController;
+@property (strong) TBMovementWindowController* movementWindowController;
 
 // View controllers
 @property (strong) IBOutlet TBResultsViewController* resultsViewController;
@@ -71,6 +73,10 @@
     [[self playerWindowController] setSession:[self session]];
     [[[self playerWindowController] window] close];
 
+    // setup movement window
+    [self setMovementWindowController:[[TBMovementWindowController alloc] initWithWindowNibName:@"TBMovementWindow"]];
+    [[[self movementWindowController] window] close];
+
     // register for KVO
     [[self KVOController] observe:[self session] keyPath:@"costCurrency" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
         NSDictionary* currencyImages = @{@"EUR":@"b_note_euro",@"INR":@"b_note_rupee",@"EGP":@"b_note_sterling",@"FKP":@"b_note_sterling",@"GIP":@"b_note_sterling",@"GGP":@"b_note_sterling",@"IMP":@"b_note_sterling",@"JEP":@"b_note_sterling",@"LBP":@"b_note_sterling",@"SHP":@"b_note_sterling",@"SYP":@"b_note_sterling",@"GBP":@"b_note_sterling",@"JPY":@"b_note_yen_yuan",@"CNY":@"b_note_yen_yuan"};
@@ -120,16 +126,18 @@
 - (void)bustPlayerFromMenuItem:(NSMenuItem*)sender {
     NSNumber* playerId = [sender representedObject];
     [[self session] bustPlayer:playerId withBlock:^(NSArray* movements) {
-        NSLog(@"Player Movements:");
-        for(NSDictionary* movement in movements) {
-            NSString* playerId = movement[@"player_id"];
-            NSDictionary* player = [[self session] playersLookup][playerId];
-            NSLog(@"%@ moves from table %d, seat %d to table %d, seat %d",
-                  player[@"name"],
-                  [movement[@"from_table_number"] intValue]+1,
-                  [movement[@"from_seat_number"] intValue]+1,
-                  [movement[@"to_table_number"] intValue]+1,
-                  [movement[@"to_seat_number"] intValue]+1);
+        if([movements count] > 0) {
+            for(NSDictionary* movement in movements) {
+                // inject player
+                NSMutableDictionary* newMovement = [[NSMutableDictionary alloc] initWithDictionary:movement];
+                NSString* playerId = movement[@"player_id"];
+                NSDictionary* player = [[self session] playersLookup][playerId];
+                newMovement[@"player"] = player;
+                [[[self movementWindowController] arrayController] addObject:newMovement];
+            }
+
+            // show window
+            [[self movementWindowController] showWindow:self];
         }
     }];
 }
