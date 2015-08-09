@@ -57,6 +57,9 @@
 		9462A3E21B77324700B29002 /* TBControlsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9462A3DE1B77324700B29002 /* TBControlsView.xib */; };
 		9462A3E31B77376000B29002 /* NSFont+LineHeight.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEAF41B5AE7390026B25D /* NSFont+LineHeight.m */; };
 		9462A3E41B77376000B29002 /* NSView+BackgroundColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEAF71B5AE7920026B25D /* NSView+BackgroundColor.m */; };
+		9462A3E71B77CB3B00B29002 /* TTTOrdinalNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9462A3E61B77CB3B00B29002 /* TTTOrdinalNumberFormatter.m */; };
+		9462A3E81B77CB3B00B29002 /* TTTOrdinalNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9462A3E61B77CB3B00B29002 /* TTTOrdinalNumberFormatter.m */; };
+		9462A3E91B77CB3B00B29002 /* TTTOrdinalNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9462A3E61B77CB3B00B29002 /* TTTOrdinalNumberFormatter.m */; };
 		9476F4691B3C385400A158F8 /* TBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4561B3C385400A158F8 /* TBAppDelegate.m */; };
 		9476F46A1B3C385400A158F8 /* TBTournamentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4581B3C385400A158F8 /* TBTournamentsViewController.m */; };
 		9476F46B1B3C385400A158F8 /* TBRemoteClockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F45A1B3C385400A158F8 /* TBRemoteClockViewController.m */; };
@@ -204,6 +207,8 @@
 		9462A3DC1B77324700B29002 /* TBControlsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBControlsViewController.h; sourceTree = "<group>"; };
 		9462A3DD1B77324700B29002 /* TBControlsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBControlsViewController.m; sourceTree = "<group>"; };
 		9462A3DE1B77324700B29002 /* TBControlsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TBControlsView.xib; sourceTree = "<group>"; };
+		9462A3E51B77CB3B00B29002 /* TTTOrdinalNumberFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTOrdinalNumberFormatter.h; sourceTree = "<group>"; };
+		9462A3E61B77CB3B00B29002 /* TTTOrdinalNumberFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTOrdinalNumberFormatter.m; sourceTree = "<group>"; };
 		9476F42A1B3C37D000A158F8 /* TBRemote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TBRemote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9476F4551B3C385400A158F8 /* TBAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBAppDelegate.h; sourceTree = "<group>"; };
 		9476F4561B3C385400A158F8 /* TBAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBAppDelegate.m; sourceTree = "<group>"; };
@@ -497,6 +502,8 @@
 				94562E6B1B65D9420017C692 /* TBResizeTextField.m */,
 				94ED000F1B76E1E6003CF19B /* TBTableSeatNumberTransformer.h */,
 				94ED00101B76E1E6003CF19B /* TBTableSeatNumberTransformer.m */,
+				9462A3E51B77CB3B00B29002 /* TTTOrdinalNumberFormatter.h */,
+				9462A3E61B77CB3B00B29002 /* TTTOrdinalNumberFormatter.m */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -766,6 +773,7 @@
 				94FDEAFA1B5AEB0B0026B25D /* TBActionClockView.m in Sources */,
 				943B00CA1B3F427700CE55D4 /* TournamentSession.m in Sources */,
 				943B00D61B3F429500CE55D4 /* tournament.cpp in Sources */,
+				9462A3E81B77CB3B00B29002 /* TTTOrdinalNumberFormatter.m in Sources */,
 				94FDEAF51B5AE7390026B25D /* NSFont+LineHeight.m in Sources */,
 				94562E6C1B65D9420017C692 /* TBResizeTextField.m in Sources */,
 				94FDEAF81B5AE7920026B25D /* NSView+BackgroundColor.m in Sources */,
@@ -788,6 +796,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9462A3E91B77CB3B00B29002 /* TTTOrdinalNumberFormatter.m in Sources */,
 				9476F4691B3C385400A158F8 /* TBAppDelegate.m in Sources */,
 				949D70A01B3C440E008D5CD1 /* types.cpp in Sources */,
 				949D70A11B3C4411008D5CD1 /* tournament.cpp in Sources */,
@@ -862,6 +871,7 @@
 				949D70A31B3C441F008D5CD1 /* socket.cpp in Sources */,
 				AD98D9741A7B343600DA6B8B /* TBSeatingViewController.m in Sources */,
 				94FDEADC1B5AE2560026B25D /* TBColor+CSS.m in Sources */,
+				9462A3E71B77CB3B00B29002 /* TTTOrdinalNumberFormatter.m in Sources */,
 				94FDEAEE1B5AE2D60026B25D /* NSObject+FBKVOController.m in Sources */,
 				ADE4E1281A7DFFD000FC9EFC /* TBTableViewController.m in Sources */,
 				AD8E684C1A6C606700E5A4D8 /* main.m in Sources */,

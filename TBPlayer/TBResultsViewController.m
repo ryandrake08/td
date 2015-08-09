@@ -10,6 +10,18 @@
 #import "NSObject+FBKVOController.h"
 #import "TBCurrencyNumberFormatter.h"
 
+// TBResultsTableCellView to simply handle the break button check box
+@interface TBResultsTableCellView : NSTableCellView
+
+@property (weak) IBOutlet NSTextField* placeTextField;
+@property (weak) IBOutlet NSTextField* payoutTextField;
+
+@end
+
+@implementation TBResultsTableCellView
+
+@end
+
 @interface TBResultsViewController () <NSTableViewDelegate>
 
 @property (strong) IBOutlet NSTableView* tableView;
@@ -46,10 +58,8 @@
 #pragma mark NSTableViewDelegate
 
 - (NSView *)tableView:(NSTableView*)aTableView viewForTableColumn:(NSTableColumn*)aTableColumn row:(NSInteger)rowIndex {
-    NSTableCellView* result = [aTableView makeViewWithIdentifier:aTableColumn.identifier owner:self];
-    if([[aTableColumn identifier] isEqualToString:@"Payout"]) {
-        [[result textField] setFormatter:[self equityFormatter]];
-    }
+    TBResultsTableCellView* result = [aTableView makeViewWithIdentifier:aTableColumn.identifier owner:self];
+    [[result payoutTextField] setFormatter:[self equityFormatter]];
     return result;
 }
 
