@@ -62,6 +62,8 @@
 		9462A3E91B77CB3B00B29002 /* TTTOrdinalNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9462A3E61B77CB3B00B29002 /* TTTOrdinalNumberFormatter.m */; };
 		9462A3ED1B77F40500B29002 /* TBMovementWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9462A3EB1B77F40500B29002 /* TBMovementWindowController.m */; };
 		9462A3EE1B77F40500B29002 /* TBMovementWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9462A3EC1B77F40500B29002 /* TBMovementWindow.xib */; };
+		9462A3F11B781A9A00B29002 /* RSVerticallyCenteredTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9462A3F01B781A9A00B29002 /* RSVerticallyCenteredTextFieldCell.m */; };
+		9462A3F21B781A9A00B29002 /* RSVerticallyCenteredTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9462A3F01B781A9A00B29002 /* RSVerticallyCenteredTextFieldCell.m */; };
 		9476F4691B3C385400A158F8 /* TBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4561B3C385400A158F8 /* TBAppDelegate.m */; };
 		9476F46A1B3C385400A158F8 /* TBTournamentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4581B3C385400A158F8 /* TBTournamentsViewController.m */; };
 		9476F46B1B3C385400A158F8 /* TBRemoteClockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F45A1B3C385400A158F8 /* TBRemoteClockViewController.m */; };
@@ -214,6 +216,8 @@
 		9462A3EA1B77F40500B29002 /* TBMovementWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMovementWindowController.h; sourceTree = "<group>"; };
 		9462A3EB1B77F40500B29002 /* TBMovementWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMovementWindowController.m; sourceTree = "<group>"; };
 		9462A3EC1B77F40500B29002 /* TBMovementWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TBMovementWindow.xib; sourceTree = "<group>"; };
+		9462A3EF1B781A9A00B29002 /* RSVerticallyCenteredTextFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSVerticallyCenteredTextFieldCell.h; sourceTree = "<group>"; };
+		9462A3F01B781A9A00B29002 /* RSVerticallyCenteredTextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSVerticallyCenteredTextFieldCell.m; sourceTree = "<group>"; };
 		9476F42A1B3C37D000A158F8 /* TBRemote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TBRemote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9476F4551B3C385400A158F8 /* TBAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBAppDelegate.h; sourceTree = "<group>"; };
 		9476F4561B3C385400A158F8 /* TBAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBAppDelegate.m; sourceTree = "<group>"; };
@@ -491,6 +495,8 @@
 				945410761B6E9A17001E3373 /* NSString+CamelCase.m */,
 				94FDEAF61B5AE7920026B25D /* NSView+BackgroundColor.h */,
 				94FDEAF71B5AE7920026B25D /* NSView+BackgroundColor.m */,
+				9462A3EF1B781A9A00B29002 /* RSVerticallyCenteredTextFieldCell.h */,
+				9462A3F01B781A9A00B29002 /* RSVerticallyCenteredTextFieldCell.m */,
 				94FDEAF21B5AE4440026B25D /* TBActionClockView.h */,
 				94FDEAF91B5AEB0B0026B25D /* TBActionClockView.m */,
 				94FDEADA1B5AE2560026B25D /* TBColor+CSS.h */,
@@ -786,6 +792,7 @@
 				94FDEAF51B5AE7390026B25D /* NSFont+LineHeight.m in Sources */,
 				94562E6C1B65D9420017C692 /* TBResizeTextField.m in Sources */,
 				94FDEAF81B5AE7920026B25D /* NSView+BackgroundColor.m in Sources */,
+				9462A3F21B781A9A00B29002 /* RSVerticallyCenteredTextFieldCell.m in Sources */,
 				943B00D21B3F429500CE55D4 /* json.cpp in Sources */,
 				94FDEAEF1B5AE2D60026B25D /* NSObject+FBKVOController.m in Sources */,
 				943B00D11B3F429500CE55D4 /* gameinfo.cpp in Sources */,
@@ -899,6 +906,7 @@
 				9454107B1B6EC5DD001E3373 /* TBConfigurationWindowController.m in Sources */,
 				94562E671B65D8CA0017C692 /* TBCurrencyNumberFormatter.m in Sources */,
 				9476F4A21B3C3EA700A158F8 /* TournamentConnection.m in Sources */,
+				9462A3F11B781A9A00B29002 /* RSVerticallyCenteredTextFieldCell.m in Sources */,
 				94ED00111B76E1E6003CF19B /* TBTableSeatNumberTransformer.m in Sources */,
 				9462A3D81B77252500B29002 /* TBResultsViewController.m in Sources */,
 				9454106E1B6E47C5001E3373 /* TBFundingArrayController.m in Sources */,
