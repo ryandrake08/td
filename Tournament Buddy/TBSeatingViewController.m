@@ -9,6 +9,7 @@
 #import "TBSeatingViewController.h"
 #import "TBConfigurationWindowController.h"
 #import "TBPlayerWindowController.h"
+#import "TBResultsViewController.h"
 #import "NSObject+FBKVOController.h"
 
 @interface TBSeatingViewController () <NSTableViewDelegate, NSMenuDelegate>
@@ -17,16 +18,21 @@
 @property (strong) TBConfigurationWindowController* configurationWindowController;
 @property (strong) TBPlayerWindowController* playerWindowController;
 
+// View controllers
+@property (strong) IBOutlet TBResultsViewController* resultsViewController;
+
 // Array controllers
 @property (strong) IBOutlet NSArrayController* playersController;
 @property (strong) IBOutlet NSArrayController* seatsController;
-@property (strong) IBOutlet NSArrayController* resultsController;
 
 // Keep track of last seating plan size, to avoid setting again
 @property NSInteger lastMaxPlayers;
 
 // Image to use for buyin icon
 @property (strong) NSImage* currencyImage;
+
+// Right pane
+@property (weak) IBOutlet NSView *rightPaneView;
 
 @end
 
@@ -44,12 +50,10 @@
     NSSortDescriptor* playerNameSort = [[NSSortDescriptor alloc] initWithKey:@"player.name" ascending:YES];
     NSSortDescriptor* tableNumberSort = [[NSSortDescriptor alloc] initWithKey:@"table_number" ascending:YES];
     NSSortDescriptor* seatNumberSort = [[NSSortDescriptor alloc] initWithKey:@"seat_number" ascending:YES];
-    NSSortDescriptor* placeSort = [[NSSortDescriptor alloc] initWithKey:@"place" ascending:YES];
 
     // set sort descriptors for arrays
     [[self playersController] setSortDescriptors:@[playerNameSort]];
     [[self seatsController] setSortDescriptors:@[tableNumberSort, seatNumberSort]];
-    [[self resultsController] setSortDescriptors:@[placeSort]];
 
     // setup configuration window
     [self setConfigurationWindowController:[[TBConfigurationWindowController alloc] initWithWindowNibName:@"TBConfigurationWindow"]];
@@ -71,6 +75,10 @@
         }
         [self setCurrencyImage:[NSImage imageNamed:imageName]];
     }];
+
+    // add subivew
+    [[self resultsViewController] setSession:[self session]];
+    [[self rightPaneView] addSubview:[[self resultsViewController] view]];
 }
 
 - (void)loadView {

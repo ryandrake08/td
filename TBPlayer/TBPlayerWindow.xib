@@ -22,6 +22,8 @@
                 <outlet property="pauseResumeButton" destination="J2a-Oa-eEY" id="MwS-kP-xgI"/>
                 <outlet property="playersLeftLabel" destination="CPj-w0-8dz" id="tdx-vh-GvG"/>
                 <outlet property="previousRoundButton" destination="qCm-e2-QUv" id="2Ga-YL-VaC"/>
+                <outlet property="resultsViewController" destination="2cd-jS-L59" id="eBq-wR-Hxp"/>
+                <outlet property="rightPaneView" destination="du6-bL-Okn" id="7ns-A3-9Cb"/>
                 <outlet property="tournamentFundingLabel" destination="vb7-Xl-URz" id="etw-KD-RIx"/>
                 <outlet property="tournamentNameLabel" destination="Gsw-KR-maF" id="lS3-VF-LKu"/>
                 <outlet property="window" destination="F0z-JX-Cv5" id="gIp-Ho-8D9"/>
@@ -182,7 +184,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <customView id="6oh-Wj-Ac7">
-                                <rect key="frame" x="104" y="607.9999974568683" width="304" height="64"/>
+                                <rect key="frame" x="104" y="607.99999757926946" width="304" height="64"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
                                     <button hidden="YES" id="qCm-e2-QUv">
@@ -232,7 +234,7 @@
                                 </subviews>
                             </customView>
                             <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="CDw-40-LG5" customClass="TBResizeTextField">
-                                <rect key="frame" x="-2" y="415.9999974568683" width="516" height="192"/>
+                                <rect key="frame" x="-2" y="415.99999757926946" width="516" height="192"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="01:23:45" placeholderString="" usesSingleLineMode="YES" id="f7C-Sd-FCb">
                                     <font key="font" metaFont="system" size="128"/>
@@ -345,6 +347,7 @@
                 <outlet property="delegate" destination="-2" id="0bl-1N-AYu"/>
             </connections>
         </window>
+        <viewController nibName="TBResultsView" id="2cd-jS-L59" customClass="TBResultsViewController"/>
     </objects>
     <resources>
         <image name="b_call_clock" width="64" height="64"/>

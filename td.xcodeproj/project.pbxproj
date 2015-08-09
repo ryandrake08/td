@@ -47,6 +47,10 @@
 		94562E6C1B65D9420017C692 /* TBResizeTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 94562E6B1B65D9420017C692 /* TBResizeTextField.m */; };
 		946288B71B3E578D0016FA36 /* TBPlayerWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 946288B51B3E578D0016FA36 /* TBPlayerWindowController.m */; };
 		946288B81B3E578D0016FA36 /* TBPlayerWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 946288B61B3E578D0016FA36 /* TBPlayerWindow.xib */; };
+		9462A3D81B77252500B29002 /* TBResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9462A3D61B77252500B29002 /* TBResultsViewController.m */; };
+		9462A3D91B77252500B29002 /* TBResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9462A3D61B77252500B29002 /* TBResultsViewController.m */; };
+		9462A3DA1B77252500B29002 /* TBResultsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9462A3D71B77252500B29002 /* TBResultsView.xib */; };
+		9462A3DB1B77252500B29002 /* TBResultsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9462A3D71B77252500B29002 /* TBResultsView.xib */; };
 		9476F4691B3C385400A158F8 /* TBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4561B3C385400A158F8 /* TBAppDelegate.m */; };
 		9476F46A1B3C385400A158F8 /* TBTournamentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4581B3C385400A158F8 /* TBTournamentsViewController.m */; };
 		9476F46B1B3C385400A158F8 /* TBRemoteClockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F45A1B3C385400A158F8 /* TBRemoteClockViewController.m */; };
@@ -188,6 +192,9 @@
 		946288B41B3E578D0016FA36 /* TBPlayerWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBPlayerWindowController.h; sourceTree = "<group>"; };
 		946288B51B3E578D0016FA36 /* TBPlayerWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBPlayerWindowController.m; sourceTree = "<group>"; };
 		946288B61B3E578D0016FA36 /* TBPlayerWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TBPlayerWindow.xib; sourceTree = "<group>"; };
+		9462A3D51B77252500B29002 /* TBResultsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBResultsViewController.h; sourceTree = "<group>"; };
+		9462A3D61B77252500B29002 /* TBResultsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBResultsViewController.m; sourceTree = "<group>"; };
+		9462A3D71B77252500B29002 /* TBResultsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TBResultsView.xib; sourceTree = "<group>"; };
 		9476F42A1B3C37D000A158F8 /* TBRemote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TBRemote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9476F4551B3C385400A158F8 /* TBAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBAppDelegate.h; sourceTree = "<group>"; };
 		9476F4561B3C385400A158F8 /* TBAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBAppDelegate.m; sourceTree = "<group>"; };
@@ -335,6 +342,9 @@
 				946288B41B3E578D0016FA36 /* TBPlayerWindowController.h */,
 				946288B51B3E578D0016FA36 /* TBPlayerWindowController.m */,
 				946288B61B3E578D0016FA36 /* TBPlayerWindow.xib */,
+				9462A3D51B77252500B29002 /* TBResultsViewController.h */,
+				9462A3D61B77252500B29002 /* TBResultsViewController.m */,
+				9462A3D71B77252500B29002 /* TBResultsView.xib */,
 				944FF4BE1B3D04CA000362ED /* MainMenu.xib */,
 				944FF4BC1B3D04CA000362ED /* TBPlayer.xcassets */,
 				944FF4B51B3D04CA000362ED /* Supporting Files */,
@@ -688,6 +698,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9462A3DB1B77252500B29002 /* TBResultsView.xib in Resources */,
 				944FF4BD1B3D04CA000362ED /* TBPlayer.xcassets in Resources */,
 				944FF4C01B3D04CA000362ED /* MainMenu.xib in Resources */,
 				946288B81B3E578D0016FA36 /* TBPlayerWindow.xib in Resources */,
@@ -711,6 +722,7 @@
 				AD8E68521A6C606700E5A4D8 /* Document.xib in Resources */,
 				AD98D95E1A7B2DDA00DA6B8B /* TBChipsView.xib in Resources */,
 				AD8E68541A6C606700E5A4D8 /* TBMac.xcassets in Resources */,
+				9462A3DA1B77252500B29002 /* TBResultsView.xib in Resources */,
 				AD98D95C1A7B290500DA6B8B /* TBFundingView.xib in Resources */,
 				AD98D9751A7B343600DA6B8B /* TBSeatingView.xib in Resources */,
 				AD98D9701A7B342000DA6B8B /* TBRoundsView.xib in Resources */,
@@ -730,6 +742,7 @@
 			files = (
 				94FDEAE61B5AE2D60026B25D /* CFStreamCreatePairWithUnixSocket.c in Sources */,
 				943B00D41B3F429500CE55D4 /* server.cpp in Sources */,
+				9462A3D91B77252500B29002 /* TBResultsViewController.m in Sources */,
 				946288B71B3E578D0016FA36 /* TBPlayerWindowController.m in Sources */,
 				943B00D01B3F429500CE55D4 /* datetime.cpp in Sources */,
 				944FF4BB1B3D04CA000362ED /* main.m in Sources */,
@@ -850,6 +863,7 @@
 				94562E671B65D8CA0017C692 /* TBCurrencyNumberFormatter.m in Sources */,
 				9476F4A21B3C3EA700A158F8 /* TournamentConnection.m in Sources */,
 				94ED00111B76E1E6003CF19B /* TBTableSeatNumberTransformer.m in Sources */,
+				9462A3D81B77252500B29002 /* TBResultsViewController.m in Sources */,
 				9454106E1B6E47C5001E3373 /* TBFundingArrayController.m in Sources */,
 				943970181B3F9DB700BB0413 /* TournamentBrowser.m in Sources */,
 				949D709A1B3C440D008D5CD1 /* types.cpp in Sources */,

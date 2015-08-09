@@ -9,9 +9,12 @@
 #import "TBPlayerWindowController.h"
 #import "TBActionClockView.h"
 #import "TBResizeTextField.h"
+#import "TBResultsViewController.h"
 #import "NSObject+FBKVOController.h"
 
 @interface TBPlayerWindowController ()
+
+@property (strong) IBOutlet TBResultsViewController* resultsViewController;
 
 @property (weak) IBOutlet NSImageView* backgroundImageView;
 @property (weak) IBOutlet TBResizeTextField* tournamentNameLabel;
@@ -29,7 +32,8 @@
 @property (weak) IBOutlet NSButton* pauseResumeButton;
 @property (weak) IBOutlet NSButton* nextRoundButton;
 @property (weak) IBOutlet NSButton* callClockButton;
-@property (weak) IBOutlet TBActionClockView *actionClockView;
+@property (weak) IBOutlet TBActionClockView* actionClockView;
+@property (weak) IBOutlet NSView* rightPaneView;
 
 @end
 
@@ -91,6 +95,10 @@
     [[self KVOController] observe:[self session] keyPath:@"actionClockTimeRemaining" options:0 block:^(id observer, id object, NSDictionary *change) {
         [observer updateActionClock];
     }];
+
+    // add subivew
+    [[self resultsViewController] setSession:[self session]];
+    [[self rightPaneView] addSubview:[[self resultsViewController] view]];
 }
 
 #pragma mark Update
