@@ -623,28 +623,23 @@
     NSMutableArray* newResults = [[NSMutableArray alloc] init];
 
     // payouts with empty player field, for seated players
-    for(NSUInteger i=0; i<[[self seats] count]; i++) {
-        if([[self payouts] count] > i) {
-            NSDictionary* item = @{
-                @"place":@(i+1),
-                @"payout":[self payouts][i]
-            };
-            [newResults addObject:item];
+    for(NSUInteger j=0; j<[[self seats] count]; j++) {
+        NSMutableDictionary* item = [NSMutableDictionary dictionaryWithObjectsAndKeys:@(j+1), @"place", nil];
+        if([[self payouts] count] > j) {
+            item[@"payout"] = [self payouts][j];
         }
+        [newResults addObject:item];
     }
 
     // include actual player for busted players
     for(NSUInteger i=0; i<[[self playersFinished] count]; i++) {
         NSUInteger j = [[self seats] count]+i;
+        NSNumber* finished = [self playersFinished][i];
+        NSMutableDictionary* item = [NSMutableDictionary dictionaryWithObjectsAndKeys:@(j+1), @"place", [self playersLookup][finished], @"player", nil];
         if([[self payouts] count] > j) {
-            NSNumber* finished = [self playersFinished][i];
-            NSDictionary* item =  @{
-                @"place":@(j+1),
-                @"player":[self playersLookup][finished],
-                @"payout":[self payouts][j]
-            };
-            [newResults addObject:item];
+            item[@"payout"] = [self payouts][j];
         }
+        [newResults addObject:item];
     }
 
     return newResults;
