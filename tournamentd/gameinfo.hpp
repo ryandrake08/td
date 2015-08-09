@@ -108,9 +108,6 @@ class gameinfo
     
     // ----- utility -----
 
-    // reset game state
-    void reset();
-
     // utility: arrange tables with lists of players
     std::vector<std::vector<td::player_id_t> > players_at_tables() const;
 
@@ -179,6 +176,9 @@ public:
 
     // calculate number of chips per denomination for this funding source, given totals and number of players
     std::vector<td::player_chips> chips_for_buyin(const td::funding_source_id_t& src, std::size_t max_expected_players) const;
+
+    // reset game state
+    void reset_funding();
 
     // ----- clock -----
 

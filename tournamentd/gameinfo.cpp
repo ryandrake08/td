@@ -206,6 +206,10 @@ std::size_t gameinfo::plan_seating(std::size_t max_expected_players)
         throw td::protocol_error("table capacity must be at least 2");
     }
 
+    // also reset funding and game state
+    this->stop();
+    this->reset_funding();
+
     // reset to known quantities
     this->seats.clear();
     this->players_finished.clear();
@@ -315,6 +319,37 @@ std::vector<td::player_movement> gameinfo::bust_player(const td::player_id_t& pl
     std::vector<td::player_movement> movements;
     this->try_break_table(movements);
     this->try_rebalance(movements);
+
+    // if only one bought-in playsers still seated
+    auto in_the_game = [this](const std::pair<td::player_id_t,td::seat>& s) { return this->buyins.find(s.first) != this->buyins.end(); };
+    auto count_players_in_game(std::count_if(this->seats.begin(), this->seats.end(), in_the_game));
+    if(count_players_in_game == 1)
+    {
+        auto last_player_it(std::find_if(this->seats.begin(), this->seats.end(), in_the_game));
+        auto last_player_id(last_player_it->first);
+
+        // remove the player
+        this->remove_player(last_player_id);
+
+        auto player_it(players.find(last_player_id));
+        if(player_it == players.end())
+        {
+            throw td::protocol_error("failed to look up player");
+        }
+
+        logger(LOG_INFO) << "winning player " << last_player_id << " (" << player_it->second.name << ")\n";
+
+        // add to the busted out list
+        this->players_finished.push_front(last_player_id);
+
+        // get rid of all other players
+        std::for_each(this->seats.begin(), this->seats.end(), [this](const std::pair<td::player_id_t,td::seat>& s) { this->empty_seats.push_back(s.second); });
+        this->seats.clear();
+
+        // stop the game
+        this->stop();
+    }
+
     return movements;
 }
 
@@ -426,7 +461,7 @@ std::size_t gameinfo::try_rebalance(std::vector<td::player_movement>& movements)
     auto most_it(std::max_element(ppt.begin(), ppt.end(), has_lower_size<std::vector<td::player_id_t> >));
 
     // if fewest has two fewer players than most (e.g. 6 vs 8), then rebalance
-    while(fewest_it->size() < most_it->size() - 1)
+    while(!most_it->empty() && fewest_it->size() < most_it->size() - 1)
     {
         logger(LOG_INFO) << "largest table has " << most_it->size() << " players and smallest table has " << fewest_it->size() << " players\n";
 
@@ -751,6 +786,25 @@ void gameinfo::recalculate_payouts()
     }
 }
 
+void gameinfo::reset_funding()
+{
+    logger(LOG_INFO) << "resetting tournament funding to zero\n";
+
+    // cannot plan seating while game is in progress
+    if(this->current_blind_level > 0)
+    {
+        throw td::protocol_error("cannot reset funding while tournament is running");
+    }
+
+    this->buyins.clear();
+    this->entries.clear();
+    this->payouts.clear();
+    this->total_chips = 0;
+    this->total_cost = 0;
+    this->total_commission = 0;
+    this->total_equity = 0;
+}
+
 // utility: start a blind level (optionally starting offset ms into the round)
 void gameinfo::start_blind_level(std::size_t blind_level, duration_t offset)
 {
@@ -832,11 +886,6 @@ void gameinfo::start(const time_point_t& starttime)
 // stop the game
 void gameinfo::stop()
 {
-    if(!this->is_started())
-    {
-        throw td::protocol_error("tournament not started");
-    }
-
     logger(LOG_INFO) << "stopping the tournament\n";
 
     this->running = false;

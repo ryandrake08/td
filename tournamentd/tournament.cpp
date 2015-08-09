@@ -194,6 +194,11 @@ void tournament::handle_cmd_gen_blind_levels(const json& in, json& out)
     this->game_info.gen_blind_levels(count, duration, break_duration, blind_increase_factor);
 }
 
+void tournament::handle_cmd_reset_funding(const json &in, json &out)
+{
+    this->game_info.reset_funding();
+}
+
 void tournament::handle_cmd_fund_player(const json& in, json& out)
 {
     td::player_id_t player_id;
@@ -688,6 +693,25 @@ bool tournament::handle_client_input(std::iostream& client)
                         this->ensure_authorized(in);
                         this->handle_cmd_gen_blind_levels(in, out);
                         this->broadcast_configuration();
+                        break;
+
+                        /*
+                         command:
+                            reset_funding
+
+                         purpose:
+                            Zero out all buyins, entries, cash and chips
+
+                         input:
+                            authenticate (integer): Valid authentication code for a tournament admin
+
+                         output:
+                            (none)
+                         */
+                    case crc32_("reset_funding"):
+                        this->ensure_authorized(in);
+                        this->handle_cmd_reset_funding(in, out);
+                        this->broadcast_state();
                         break;
 
                         /*
