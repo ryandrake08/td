@@ -94,12 +94,12 @@ void tournament::handle_cmd_chips_for_buyin(const json& in, json& out) const
 
 // ----- command handlers available to authorized clients
 
-void tournament::handle_cmd_authorize(const json& in, json& out)
+void tournament::handle_cmd_configure(const json& in, json& out)
 {
-    // read auth codes
+    // read auth codes from input
     int mycode;
     std::vector<int> auths_vector;
-    if(in.get_values("authorize", auths_vector) && in.get_value("authenticate", mycode))
+    if(in.get_values("authorized_clients", auths_vector) && in.get_value("authenticate", mycode))
     {
         this->game_auths = std::unordered_set<int>(auths_vector.begin(), auths_vector.end());
 
@@ -107,13 +107,12 @@ void tournament::handle_cmd_authorize(const json& in, json& out)
         this->game_auths.insert(mycode);
     }
 
-    out.set_value("authorized_clients", json(this->game_auths.begin(), this->game_auths.end()));
-}
-
-void tournament::handle_cmd_configure(const json& in, json& out)
-{
+    // configure
     this->game_info.configure(in);
     this->game_info.dump_configuration(out);
+
+    // inject auth codes back into output
+    out.set_value("authorized_clients", json(this->game_auths.begin(), this->game_auths.end()));
 }
 
 void tournament::handle_cmd_start_game(const json& in, json& out)
@@ -352,25 +351,6 @@ bool tournament::handle_client_input(std::iostream& client)
                     case crc32_("quit"):
                     case crc32_("exit"):
                         ret = true;
-                        break;
-
-                        /*
-                         command:
-                            authorize
-
-                         purpose:
-                            Authorize codes to administer the tournament
-
-                         input:
-                            authenticate (integer): Valid authentication code for a tournament admin
-                            authorize (array): Authentication codes to give admin powers to
-
-                         output:
-                            authorized_clients (array): Authentication codes that are valid for administration
-                         */
-                    case crc32_("authorize"):
-                        this->ensure_authorized(in);
-                        this->handle_cmd_authorize(in, out);
                         break;
 
                         /*

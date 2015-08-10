@@ -21,6 +21,7 @@
 @property (nonatomic, readonly, assign, getter=isAuthorized) BOOL authorized;
 
 // tournament configuration
+@property (nonatomic, readonly) NSArray* authorizedClients;
 @property (nonatomic, readonly) NSString* name;
 @property (nonatomic, readonly) NSArray* players;
 @property (nonatomic, readonly) NSArray* blindLevels;
@@ -77,12 +78,8 @@
 - (void)connect:(TournamentService*)tournament;
 - (void)disconnect;
 
-// get current configuration
-- (id)currentConfiguration;
-
 // tournament commands
 - (void)checkAuthorizedWithBlock:(void(^)(BOOL))block;
-- (void)authorize:(NSArray*)clientIds withBlock:(void(^)(NSArray*))block;
 - (void)getStateWithBlock:(void(^)(id))block;
 - (void)getConfigWithBlock:(void(^)(id))block;
 - (void)configure:(id)config withBlock:(void(^)(id))block;

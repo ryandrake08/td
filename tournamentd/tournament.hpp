@@ -33,7 +33,6 @@ class tournament
     void handle_cmd_chips_for_buyin(const json& in, json& out) const;
 
     // command handlers available to authorized clients
-    void handle_cmd_authorize(const json& in, json& out);
     void handle_cmd_configure(const json& in, json& out);
     void handle_cmd_start_game(const json& in, json& out);
     void handle_cmd_stop_game(const json& in, json& out);

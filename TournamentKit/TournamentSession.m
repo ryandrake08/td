@@ -27,6 +27,7 @@
 @property (nonatomic) NSNumberFormatter* decimalFormatter;
 
 // tournament configuration
+@property (nonatomic) NSArray* authorizedClients;
 @property (nonatomic) NSString* name;
 @property (nonatomic) NSArray* players;
 @property (nonatomic) NSArray* blindLevels;
@@ -116,70 +117,10 @@
     }
 }
 
-#pragma mark Serialization
-
-// get current configuration
-- (id)currentConfiguration {
-    NSMutableDictionary* json = [NSMutableDictionary dictionary];
-
-    if([self name]) {
-        json[@"name"] = [self name];
-    }
-
-    if([self players]) {
-        json[@"players"] = [self players];
-    }
-
-    if([self blindLevels]) {
-        json[@"blind_levels"] = [self blindLevels];
-    }
-
-    if([self availableChips]) {
-        json[@"available_chips"] = [self availableChips];
-    }
-
-    if([self costCurrency]) {
-        json[@"cost_currency"] = [self costCurrency];
-    }
-
-    if([self equityCurrency]) {
-        json[@"equity_currency"] = [self equityCurrency];
-    }
-
-    if([self percentSeatsPaid]) {
-        json[@"percent_seats_paid"] = [self percentSeatsPaid];
-    }
-
-    if([self roundPayouts]) {
-        json[@"round_payouts"] = [self roundPayouts];
-    }
-
-    if([self payoutFlatness]) {
-        json[@"payout_flatness"] = [self payoutFlatness];
-    }
-
-    if([self fundingSources]) {
-        json[@"funding_sources"] = [self fundingSources];
-    }
-
-    if([self tableCapacity]) {
-        json[@"table_capacity"] = [self tableCapacity];
-    }
-
-    if([self manualPayouts]) {
-        json[@"manual_payouts"] = [self manualPayouts];
-    }
-
-    return json;
-}
-
 #pragma mark Internal routines
 
 // client identifier (used for authenticating with servers)
 + (NSNumber*)clientIdentifier {
-#if defined(DEBUG)
-    return @31337;
-#else
     NSString* key = @"clientIdentifier";
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
     // if we don't already have one
@@ -189,7 +130,6 @@
         [defaults setObject:@(cid) forKey:key];
     }
     return [defaults objectForKey:key];
-#endif
 }
 
 // uniquely identify each command sent, so we can associate it with a block handler
@@ -231,19 +171,6 @@
             [self setAuthorized:[json[@"authorized"] boolValue]];
             if(block != nil) {
                 block([json[@"authorized"] boolValue]);
-            }
-        }
-    }];
-}
-
-- (void)authorize:(NSArray*)clientIds withBlock:(void(^)(NSArray*))block {
-    [self sendCommand:@"authorize" withData:@{@"authorize" : clientIds} andBlock:^(id json, NSString* error) {
-        if(error != nil) {
-            NSLog(@"authorizeWithBlock: %@\n", error);
-        } else {
-            // handle client authorization
-            if(block != nil) {
-                block(json[@"authorized_clients"]);
             }
         }
     }];
@@ -721,6 +648,10 @@
     id value;
 
     // tournament configuration
+    if((value = json[@"authorized_clients"]) && ![value isEqual:[self authorizedClients]]) {
+        [self setAuthorizedClients:value];
+    }
+
     if((value = json[@"name"]) && ![value isEqual:[self name]]) {
         [self setName:value];
     }
