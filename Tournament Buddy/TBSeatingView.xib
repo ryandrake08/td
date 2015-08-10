@@ -64,15 +64,20 @@
                                                         <rect key="frame" x="1" y="1" width="48" height="48"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <subviews>
-                                                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="yaF-xA-BTN">
+                                                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="yaF-xA-BTN" customClass="TBResizeTextField">
                                                                 <rect key="frame" x="0.0" y="6" width="48" height="32"/>
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                                 <animations/>
-                                                                <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" title="1" id="7Wy-Pk-DZH">
+                                                                <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" title="1" id="7Wy-Pk-DZH" customClass="RSVerticallyCenteredTextFieldCell">
                                                                     <font key="font" metaFont="system" size="28"/>
                                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                 </textFieldCell>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="minFontSize">
+                                                                        <real key="value" value="14"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                </userDefinedRuntimeAttributes>
                                                                 <connections>
                                                                     <binding destination="i6T-jH-168" name="value" keyPath="objectValue.table_number" id="NZQ-XY-7R8">
                                                                         <dictionary key="options">
@@ -113,15 +118,20 @@
                                                         <rect key="frame" x="52" y="1" width="48" height="48"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <subviews>
-                                                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="htj-o7-hrf">
+                                                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="htj-o7-hrf" customClass="TBResizeTextField">
                                                                 <rect key="frame" x="0.0" y="15.5" width="48" height="32"/>
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                                 <animations/>
-                                                                <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" title="1" id="Bd8-uI-IYh">
+                                                                <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" title="1" id="Bd8-uI-IYh" customClass="RSVerticallyCenteredTextFieldCell">
                                                                     <font key="font" metaFont="system" size="28"/>
                                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                 </textFieldCell>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="minFontSize">
+                                                                        <real key="value" value="14"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                </userDefinedRuntimeAttributes>
                                                                 <connections>
                                                                     <binding destination="gJQ-GH-2wj" name="value" keyPath="objectValue.seat_number" id="A6p-0F-jgS">
                                                                         <dictionary key="options">
@@ -453,7 +463,7 @@
                             <rect key="frame" x="194" y="32" width="636" height="64"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                             <animations/>
-                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Non-Rebuy Tournament" placeholderString="" usesSingleLineMode="YES" id="Fsc-nw-UaT">
+                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Non-Rebuy Tournament" placeholderString="" usesSingleLineMode="YES" id="Fsc-nw-UaT" customClass="RSVerticallyCenteredTextFieldCell">
                                 <font key="font" metaFont="system" size="48"/>
                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>

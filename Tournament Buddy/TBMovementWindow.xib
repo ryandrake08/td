@@ -30,7 +30,7 @@
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="none" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowHeight="96" rowSizeStyle="automatic" viewBased="YES" id="bvm-Xq-IJz">
-                                    <rect key="frame" x="0.0" y="0.0" width="254" height="670"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="254" height="0.0"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
@@ -55,7 +55,7 @@
                                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="v9V-uK-aJV" customClass="TBResizeTextField">
                                                             <rect key="frame" x="0.0" y="64" width="222" height="32"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
-                                                            <textFieldCell key="cell" lineBreakMode="truncatingTail" refusesFirstResponder="YES" sendsActionOnEndEditing="YES" title="Player Name" id="ceO-H7-pp3">
+                                                            <textFieldCell key="cell" lineBreakMode="truncatingTail" refusesFirstResponder="YES" sendsActionOnEndEditing="YES" title="Player Name" id="ceO-H7-pp3" customClass="RSVerticallyCenteredTextFieldCell">
                                                                 <font key="font" metaFont="system" size="24"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -106,14 +106,19 @@
                                                                 <font key="font" metaFont="system" size="16"/>
                                                             </buttonCell>
                                                         </button>
-                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="rN0-9b-Iyc">
+                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="rN0-9b-Iyc" customClass="TBResizeTextField">
                                                             <rect key="frame" x="0.0" y="26" width="48" height="32"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="8" id="g4F-VL-Fju">
+                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="8" id="g4F-VL-Fju" customClass="RSVerticallyCenteredTextFieldCell">
                                                                 <font key="font" metaFont="system" size="28"/>
                                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="minFontSize">
+                                                                    <real key="value" value="14"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                            </userDefinedRuntimeAttributes>
                                                             <connections>
                                                                 <binding destination="4FF-0k-cu7" name="value" keyPath="objectValue.from_table_number" id="MSp-Lu-cXW">
                                                                     <dictionary key="options">
@@ -122,14 +127,19 @@
                                                                 </binding>
                                                             </connections>
                                                         </textField>
-                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="MLr-DK-mtH">
+                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="MLr-DK-mtH" customClass="TBResizeTextField">
                                                             <rect key="frame" x="158" y="26" width="48" height="32"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="8" id="Rc8-F3-aeM">
+                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="8" id="Rc8-F3-aeM" customClass="RSVerticallyCenteredTextFieldCell">
                                                                 <font key="font" metaFont="system" size="28"/>
                                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="minFontSize">
+                                                                    <real key="value" value="14"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                            </userDefinedRuntimeAttributes>
                                                             <connections>
                                                                 <binding destination="4FF-0k-cu7" name="value" keyPath="objectValue.to_table_number" id="Cbt-Ir-6qB">
                                                                     <dictionary key="options">
@@ -138,14 +148,19 @@
                                                                 </binding>
                                                             </connections>
                                                         </textField>
-                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="Wcg-xY-8t5">
+                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="Wcg-xY-8t5" customClass="TBResizeTextField">
                                                             <rect key="frame" x="48" y="36" width="48" height="32"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="8" id="fjY-4x-fw7">
+                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="8" id="fjY-4x-fw7" customClass="RSVerticallyCenteredTextFieldCell">
                                                                 <font key="font" metaFont="system" size="28"/>
                                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="minFontSize">
+                                                                    <real key="value" value="14"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                            </userDefinedRuntimeAttributes>
                                                             <connections>
                                                                 <binding destination="4FF-0k-cu7" name="value" keyPath="objectValue.from_seat_number" id="Znp-Pk-xNF">
                                                                     <dictionary key="options">
@@ -154,14 +169,19 @@
                                                                 </binding>
                                                             </connections>
                                                         </textField>
-                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="0Z7-E1-clo">
+                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="0Z7-E1-clo" customClass="TBResizeTextField">
                                                             <rect key="frame" x="206" y="36" width="48" height="32"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="8" id="NXY-PD-BbC">
+                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="8" id="NXY-PD-BbC" customClass="RSVerticallyCenteredTextFieldCell">
                                                                 <font key="font" metaFont="system" size="28"/>
                                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="minFontSize">
+                                                                    <real key="value" value="14"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                            </userDefinedRuntimeAttributes>
                                                             <connections>
                                                                 <binding destination="4FF-0k-cu7" name="value" keyPath="objectValue.to_seat_number" id="3So-Vh-Dub">
                                                                     <dictionary key="options">

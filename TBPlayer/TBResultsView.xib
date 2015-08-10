@@ -58,7 +58,7 @@
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="tBH-zd-Qfa" userLabel="Place" customClass="TBResizeTextField">
                                                 <rect key="frame" x="0.0" y="64" width="120" height="32"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="1st" id="uMO-d0-nj1">
+                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="1st" id="uMO-d0-nj1" customClass="RSVerticallyCenteredTextFieldCell">
                                                     <numberFormatter key="formatter" formatterBehavior="default10_4" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="0" maximumIntegerDigits="42" id="WU4-Gm-2eg" customClass="TTTOrdinalNumberFormatter"/>
                                                     <font key="font" metaFont="system" size="26"/>
                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -71,7 +71,7 @@
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="DVs-Wb-gIl">
                                                 <rect key="frame" x="120" y="64" width="16" height="32"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="justified" title=":" id="dEz-FL-MTv">
+                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="justified" title=":" id="dEz-FL-MTv" customClass="RSVerticallyCenteredTextFieldCell">
                                                     <font key="font" metaFont="system" size="26"/>
                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -80,7 +80,7 @@
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="KiW-cG-76R" userLabel="Payout" customClass="TBResizeTextField">
                                                 <rect key="frame" x="136" y="64" width="120" height="32"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES"/>
-                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="$100" id="lND-wM-YZ7">
+                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="$100" id="lND-wM-YZ7" customClass="RSVerticallyCenteredTextFieldCell">
                                                     <font key="font" metaFont="system" size="26"/>
                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -90,9 +90,9 @@
                                                 </connections>
                                             </textField>
                                             <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="gHw-gL-z79" userLabel="Player" customClass="TBResizeTextField">
-                                                <rect key="frame" x="0.0" y="0.0" width="256" height="64"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="257.99999995600001" height="64"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Player Name" usesSingleLineMode="YES" id="RWp-9J-wCc">
+                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Player Name" usesSingleLineMode="YES" id="RWp-9J-wCc" customClass="RSVerticallyCenteredTextFieldCell">
                                                     <font key="font" metaFont="system" size="18"/>
                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
