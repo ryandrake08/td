@@ -103,4 +103,10 @@
     return *outError == nil;
 }
 
+- (NSPrintOperation*)printOperationWithSettings:(NSDictionary*)ps error:(NSError**)outError {
+    NSPrintInfo* printInfo = [self printInfo];
+    NSPrintOperation* printOp = [NSPrintOperation printOperationWithView:[[self viewController] view] printInfo:printInfo];
+    return printOp;
+}
+
 @end
