@@ -21,6 +21,7 @@
 @property (strong) IBOutlet TBTableViewController* chipsViewController;
 @property (strong) IBOutlet TBTableViewController* fundingViewController;
 @property (strong) IBOutlet TBTableViewController* roundsViewController;
+@property (strong) IBOutlet TBTableViewController* authsViewController;
 
 @end
 

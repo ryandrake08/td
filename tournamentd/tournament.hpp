@@ -16,7 +16,7 @@ class tournament
     server game_server;
 
     // accepted authorization codes
-    std::unordered_set<int> game_auths;
+    std::unordered_map<int,td::authorized_client> game_auths;
 
     // auth check
     void ensure_authorized(const json& in) const;

@@ -98,13 +98,19 @@ void tournament::handle_cmd_configure(const json& in, json& out)
 {
     // read auth codes from input
     int mycode;
-    std::vector<int> auths_vector;
+    std::vector<td::authorized_client> auths_vector;
     if(in.get_values("authorized_clients", auths_vector) && in.get_value("authenticate", mycode))
     {
-        this->game_auths = std::unordered_set<int>(auths_vector.begin(), auths_vector.end());
+        this->game_auths.clear();
+        for(auto& auth : auths_vector)
+        {
+            logger(LOG_DEBUG) << "Authorizing code " << auth.code << " named \"" << auth.name << "\"\n";
+            this->game_auths.emplace(auth.code, auth);
+        }
 
         // always make sure caller is in the authorization list
-        this->game_auths.insert(mycode);
+        logger(LOG_DEBUG) << "Authorizing myself (code " << mycode << ")\n";
+        this->game_auths.emplace(mycode, mycode);
     }
 
     // configure
@@ -814,7 +820,7 @@ bool tournament::handle_client_input(std::iostream& client)
 
 int tournament::authorize(int code)
 {
-    this->game_auths.insert(code);
+    this->game_auths.emplace(code, code);
     return code;
 }
 

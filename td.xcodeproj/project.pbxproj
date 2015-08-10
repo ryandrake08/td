@@ -64,6 +64,10 @@
 		9462A3EE1B77F40500B29002 /* TBMovementWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9462A3EC1B77F40500B29002 /* TBMovementWindow.xib */; };
 		9462A3F11B781A9A00B29002 /* RSVerticallyCenteredTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9462A3F01B781A9A00B29002 /* RSVerticallyCenteredTextFieldCell.m */; };
 		9462A3F21B781A9A00B29002 /* RSVerticallyCenteredTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9462A3F01B781A9A00B29002 /* RSVerticallyCenteredTextFieldCell.m */; };
+		9462A3F61B7864E900B29002 /* TBAuthsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9462A3F41B7864E900B29002 /* TBAuthsViewController.m */; };
+		9462A3F81B7864E900B29002 /* TBAuthsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9462A3F51B7864E900B29002 /* TBAuthsView.xib */; };
+		9462A3F91B7864E900B29002 /* TBAuthsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9462A3F51B7864E900B29002 /* TBAuthsView.xib */; };
+		9462A3FC1B78650000B29002 /* TBAuthsArrayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9462A3FB1B78650000B29002 /* TBAuthsArrayController.m */; };
 		9476F4691B3C385400A158F8 /* TBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4561B3C385400A158F8 /* TBAppDelegate.m */; };
 		9476F46A1B3C385400A158F8 /* TBTournamentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4581B3C385400A158F8 /* TBTournamentsViewController.m */; };
 		9476F46B1B3C385400A158F8 /* TBRemoteClockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F45A1B3C385400A158F8 /* TBRemoteClockViewController.m */; };
@@ -218,6 +222,11 @@
 		9462A3EC1B77F40500B29002 /* TBMovementWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TBMovementWindow.xib; sourceTree = "<group>"; };
 		9462A3EF1B781A9A00B29002 /* RSVerticallyCenteredTextFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSVerticallyCenteredTextFieldCell.h; sourceTree = "<group>"; };
 		9462A3F01B781A9A00B29002 /* RSVerticallyCenteredTextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSVerticallyCenteredTextFieldCell.m; sourceTree = "<group>"; };
+		9462A3F31B7864E900B29002 /* TBAuthsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBAuthsViewController.h; sourceTree = "<group>"; };
+		9462A3F41B7864E900B29002 /* TBAuthsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBAuthsViewController.m; sourceTree = "<group>"; };
+		9462A3F51B7864E900B29002 /* TBAuthsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TBAuthsView.xib; sourceTree = "<group>"; };
+		9462A3FA1B78650000B29002 /* TBAuthsArrayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBAuthsArrayController.h; sourceTree = "<group>"; };
+		9462A3FB1B78650000B29002 /* TBAuthsArrayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBAuthsArrayController.m; sourceTree = "<group>"; };
 		9476F42A1B3C37D000A158F8 /* TBRemote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TBRemote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9476F4551B3C385400A158F8 /* TBAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBAppDelegate.h; sourceTree = "<group>"; };
 		9476F4561B3C385400A158F8 /* TBAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBAppDelegate.m; sourceTree = "<group>"; };
@@ -565,6 +574,11 @@
 				AD8E684E1A6C606700E5A4D8 /* Document.m */,
 				AD8E68501A6C606700E5A4D8 /* Document.xib */,
 				AD8E68551A6C606700E5A4D8 /* MainMenu.xib */,
+				9462A3FA1B78650000B29002 /* TBAuthsArrayController.h */,
+				9462A3FB1B78650000B29002 /* TBAuthsArrayController.m */,
+				9462A3F31B7864E900B29002 /* TBAuthsViewController.h */,
+				9462A3F41B7864E900B29002 /* TBAuthsViewController.m */,
+				9462A3F51B7864E900B29002 /* TBAuthsView.xib */,
 				945410691B6E47B7001E3373 /* TBChipsArrayController.h */,
 				9454106A1B6E47B7001E3373 /* TBChipsArrayController.m */,
 				AD98D95F1A7B330B00DA6B8B /* TBChipsViewController.h */,
@@ -731,6 +745,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9462A3F91B7864E900B29002 /* TBAuthsView.xib in Resources */,
 				9462A3DB1B77252500B29002 /* TBResultsView.xib in Resources */,
 				944FF4BD1B3D04CA000362ED /* TBPlayer.xcassets in Resources */,
 				9462A3E21B77324700B29002 /* TBControlsView.xib in Resources */,
@@ -755,6 +770,7 @@
 			files = (
 				AD8E68521A6C606700E5A4D8 /* Document.xib in Resources */,
 				AD98D95E1A7B2DDA00DA6B8B /* TBChipsView.xib in Resources */,
+				9462A3F81B7864E900B29002 /* TBAuthsView.xib in Resources */,
 				AD8E68541A6C606700E5A4D8 /* TBMac.xcassets in Resources */,
 				9462A3DA1B77252500B29002 /* TBResultsView.xib in Resources */,
 				AD98D95C1A7B290500DA6B8B /* TBFundingView.xib in Resources */,
@@ -865,6 +881,7 @@
 			files = (
 				AD98D9651A7B331A00DA6B8B /* TBFundingViewController.m in Sources */,
 				949D70971B3C440D008D5CD1 /* json.cpp in Sources */,
+				9462A3F61B7864E900B29002 /* TBAuthsViewController.m in Sources */,
 				949D70941B3C43DB008D5CD1 /* tournament.cpp in Sources */,
 				AD98D96A1A7B33F100DA6B8B /* TBPlayersViewController.m in Sources */,
 				94E16F221B6C99840070F1BA /* TBResizeTextField.m in Sources */,
@@ -875,6 +892,7 @@
 				941916DB1B6F1FD7001253CA /* TBPlayerWindowController.m in Sources */,
 				9454106B1B6E47B7001E3373 /* TBChipsArrayController.m in Sources */,
 				945410771B6E9A17001E3373 /* NSString+CamelCase.m in Sources */,
+				9462A3FC1B78650000B29002 /* TBAuthsArrayController.m in Sources */,
 				AD8E684F1A6C606700E5A4D8 /* Document.m in Sources */,
 				949D70981B3C440D008D5CD1 /* logger.cpp in Sources */,
 				949D70951B3C440D008D5CD1 /* datetime.cpp in Sources */,

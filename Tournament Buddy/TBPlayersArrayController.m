@@ -10,10 +10,6 @@
 #import "NSDateFormatter+ISO8601.h"
 
 // Custom array controller, fills in a new player object
-@interface TBPlayersArrayController ()
-
-@end
-
 @implementation TBPlayersArrayController
 
 - (id)newObject {

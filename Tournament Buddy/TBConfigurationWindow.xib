@@ -7,10 +7,11 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="TBConfigurationWindowController">
             <connections>
+                <outlet property="authsViewController" destination="XnM-ZS-VZB" id="GsH-wh-mpy"/>
                 <outlet property="chipsViewController" destination="rI8-Xq-gYV" id="pTY-eM-JaH"/>
                 <outlet property="fundingViewController" destination="jJR-gM-aDd" id="2xY-nE-CnW"/>
                 <outlet property="playersViewController" destination="gsZ-K1-gq4" id="EUP-cq-ZnD"/>
-                <outlet property="roundsViewController" destination="Xh7-Uj-lrU" id="PG5-no-JXn"/>
+                <outlet property="roundsViewController" destination="Xh7-Uj-lrU" id="OLf-z6-Ddt"/>
                 <outlet property="tabView" destination="ZrO-ww-z2K" id="QTI-ca-Hfn"/>
                 <outlet property="window" destination="F0z-JX-Cv5" id="gIp-Ho-8D9"/>
             </connections>
@@ -56,6 +57,12 @@
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </view>
                             </tabViewItem>
+                            <tabViewItem label="Devices" identifier="authsViewController" id="TgQ-J1-7EB">
+                                <view key="view" id="vdh-3g-kRH">
+                                    <rect key="frame" x="10" y="33" width="634" height="450"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                            </tabViewItem>
                         </tabViewItems>
                         <connections>
                             <outlet property="delegate" destination="-2" id="Zp5-D2-GLN"/>
@@ -71,5 +78,6 @@
         <viewController nibName="TBFundingView" id="jJR-gM-aDd" customClass="TBFundingViewController"/>
         <viewController nibName="TBPlayersView" id="gsZ-K1-gq4" customClass="TBPlayersViewController"/>
         <viewController nibName="TBRoundsView" id="Xh7-Uj-lrU" customClass="TBRoundsViewController"/>
+        <viewController nibName="TBAuthsView" id="XnM-ZS-VZB" customClass="TBAuthsViewController"/>
     </objects>
 </document>

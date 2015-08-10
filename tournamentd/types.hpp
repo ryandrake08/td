@@ -23,6 +23,17 @@ namespace td
     // type of funding source (buyin, rebuy, addon)
     enum funding_source_type_t { buyin, rebuy, addon };
 
+    // attributes of an authorized client
+    struct authorized_client
+    {
+        int code;
+        std::string name;
+        datetime added_at;
+
+        authorized_client(int c);
+        authorized_client(const json& obj);
+    };
+
     // attributes of a single blind level
     struct blind_level
     {

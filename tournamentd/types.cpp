@@ -8,6 +8,10 @@ static std::default_random_engine engine;
 
 // ----- initialization
 
+td::authorized_client::authorized_client(int c) : code(c), added_at(datetime::now())
+{
+}
+
 td::blind_level::blind_level() : little_blind(0), big_blind(0), ante(0), duration(0), break_duration(0)
 {
 }
@@ -57,6 +61,13 @@ td::manual_payout::manual_payout(size_t c, const std::vector<double>& p) : buyin
 }
 
 // ----- construct from json
+
+td::authorized_client::authorized_client(const json& obj)
+{
+    obj.get_value("code", this->code);
+    obj.get_value("name", this->name);
+    obj.get_value("added_at", this->added_at);
+}
 
 td::blind_level::blind_level(const json& obj) : blind_level()
 {
@@ -128,6 +139,20 @@ datetime json::value() const
 template <>
 json::json(const datetime& value) : json(value.gmtime())
 {
+}
+
+template<>
+json::json(const td::authorized_client& value) : json()
+{
+    this->set_value("code", value.code);
+    if(!value.name.empty())
+    {
+        this->set_value("name", value.name);
+    }
+    if(value.added_at != datetime())
+    {
+        this->set_value("added_at", value.added_at);
+    }
 }
 
 template<>
@@ -230,6 +255,12 @@ json::json(const std::pair<const td::player_id_t,td::seat>& value) : json()
     this->set_value("player_id", value.first);
     this->set_value("table_number", value.second.table_number);
     this->set_value("seat_number", value.second.seat_number);
+}
+
+template<>
+json::json(const std::pair<const int,td::authorized_client>& value) : json(value.second)
+{
+    assert(value.first == value.second.code);
 }
 
 template<>
