@@ -31,43 +31,19 @@
     [super windowDidLoad];
 
     // pass whole-configuration changes to session
-    [[self KVOController] observe:self keyPath:@"configuration" options:0 action:@selector(configureSession)];
+    [[self KVOController] observe:self keyPath:@"configuration" options:0 block:^(id observer, id object, NSDictionary *change) {
+        [[self session] selectiveConfigureAndUpdate:[self configuration]];
+    }];
 
     // get view controller for the tab selected in IB
     NSTabViewItem* selectedItem = [[self tabView] selectedTabViewItem];
     [self tabView:[self tabView] didSelectTabViewItem:selectedItem];
 }
 
-- (void)configureSession {
-    NSLog(@"Synchronizing session");
-
-    // only send parts of configuration that changed
-    NSMutableDictionary* configToSend = [[self configuration] mutableCopy];
-    NSMutableArray* keysToRemove = [NSMutableArray array];
-    [configToSend enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL* stop) {
-        NSString* propertyName = [key asCamelCaseFromUnderscore];
-        if([obj isEqual:[[self session] valueForKey:propertyName]]) {
-            [keysToRemove addObject:key];
-        }
-    }];
-    [configToSend removeObjectsForKeys:keysToRemove];
-
-    NSLog(@"Sending %ld configuration items", (long)[configToSend count]);
-
-    if([configToSend count] > 0) {
-        [[self session] configure:configToSend withBlock:^(id json) {
-            if(![json isEqual:[self configuration]]) {
-                NSLog(@"Document differs from session");
-                [[self configuration] setDictionary:json];
-            }
-        }];
-    }
-}
-
 #pragma mark NSWindowDelegate
 
 - (BOOL)windowShouldClose:(id)sender {
-    [self configureSession];
+    [[self session] selectiveConfigureAndUpdate:[self configuration]];
     return YES;
 }
 

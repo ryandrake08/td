@@ -78,6 +78,9 @@
 - (void)connect:(TournamentService*)tournament;
 - (void)disconnect;
 
+// configure the session with configuration by sending only changed keys
+- (void)selectiveConfigureAndUpdate:(NSMutableDictionary*)config;
+
 // tournament commands
 - (void)checkAuthorizedWithBlock:(void(^)(BOOL))block;
 - (void)getStateWithBlock:(void(^)(id))block;

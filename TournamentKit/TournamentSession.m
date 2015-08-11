@@ -8,6 +8,7 @@
 
 #import "TournamentSession.h"
 #import "TournamentConnection.h"
+#import "NSString+CamelCase.h"
 
 @interface TournamentSession() <TournamentConnectionDelegate>
 
@@ -114,6 +115,33 @@
         return NO;
     } else {
         return YES;
+    }
+}
+
+// configure the session with configuration by sending only changed keys
+- (void)selectiveConfigureAndUpdate:(NSMutableDictionary*)config {
+    NSLog(@"Synchronizing session");
+
+    // only send parts of configuration that changed
+    NSMutableDictionary* configToSend = [config mutableCopy];
+    NSMutableArray* keysToRemove = [NSMutableArray array];
+    [configToSend enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL* stop) {
+        NSString* propertyName = [key asCamelCaseFromUnderscore];
+        if([obj isEqual:[self valueForKey:propertyName]]) {
+            [keysToRemove addObject:key];
+        }
+    }];
+    [configToSend removeObjectsForKeys:keysToRemove];
+
+    NSLog(@"Sending %ld configuration items", (long)[configToSend count]);
+
+    if([configToSend count] > 0) {
+        [self configure:configToSend withBlock:^(id json) {
+            if(![json isEqual:config]) {
+                NSLog(@"Sent and received configurations differ");
+                [config setDictionary:json];
+            }
+        }];
     }
 }
 
