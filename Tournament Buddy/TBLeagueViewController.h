@@ -1,5 +1,5 @@
 //
-//  TBPlayersViewController.h
+//  TBLeagueViewController.h
 //  Tournament Buddy
 //
 //  Created by Ryan Drake on 1/29/15.
@@ -8,6 +8,6 @@
 
 #import "TBTableViewController.h"
 
-@interface TBPlayersViewController : TBTableViewController
+@interface TBLeagueViewController : TBTableViewController
 
 @end

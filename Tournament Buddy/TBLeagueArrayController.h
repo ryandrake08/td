@@ -1,5 +1,5 @@
 //
-//  TBPlayersArrayController.h
+//  TBLeagueArrayController.h
 //  td
 //
 //  Created by Ryan Drake on 8/2/15.
@@ -8,6 +8,6 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface TBPlayersArrayController : NSArrayController
+@interface TBLeagueArrayController : NSArrayController
 
 @end

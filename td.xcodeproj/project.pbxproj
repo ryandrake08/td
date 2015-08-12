@@ -32,7 +32,7 @@
 		944FF4BB1B3D04CA000362ED /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 944FF4BA1B3D04CA000362ED /* main.m */; };
 		944FF4BD1B3D04CA000362ED /* TBPlayer.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 944FF4BC1B3D04CA000362ED /* TBPlayer.xcassets */; };
 		944FF4C01B3D04CA000362ED /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 944FF4BE1B3D04CA000362ED /* MainMenu.xib */; };
-		945410681B6E478A001E3373 /* TBPlayersArrayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 945410671B6E478A001E3373 /* TBPlayersArrayController.m */; };
+		945410681B6E478A001E3373 /* TBLeagueArrayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 945410671B6E478A001E3373 /* TBLeagueArrayController.m */; };
 		9454106B1B6E47B7001E3373 /* TBChipsArrayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9454106A1B6E47B7001E3373 /* TBChipsArrayController.m */; };
 		9454106E1B6E47C5001E3373 /* TBFundingArrayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9454106D1B6E47C5001E3373 /* TBFundingArrayController.m */; };
 		945410711B6E47D5001E3373 /* TBRoundsArrayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 945410701B6E47D5001E3373 /* TBRoundsArrayController.m */; };
@@ -139,8 +139,8 @@
 		AD98D95E1A7B2DDA00DA6B8B /* TBChipsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD98D95D1A7B2DDA00DA6B8B /* TBChipsView.xib */; };
 		AD98D9611A7B330B00DA6B8B /* TBChipsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD98D9601A7B330B00DA6B8B /* TBChipsViewController.m */; };
 		AD98D9651A7B331A00DA6B8B /* TBFundingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD98D9631A7B331A00DA6B8B /* TBFundingViewController.m */; };
-		AD98D96A1A7B33F100DA6B8B /* TBPlayersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD98D9681A7B33F100DA6B8B /* TBPlayersViewController.m */; };
-		AD98D96B1A7B33F100DA6B8B /* TBPlayersView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD98D9691A7B33F100DA6B8B /* TBPlayersView.xib */; };
+		AD98D96A1A7B33F100DA6B8B /* TBLeagueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD98D9681A7B33F100DA6B8B /* TBLeagueViewController.m */; };
+		AD98D96B1A7B33F100DA6B8B /* TBLeagueView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD98D9691A7B33F100DA6B8B /* TBLeagueView.xib */; };
 		AD98D96F1A7B342000DA6B8B /* TBRoundsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD98D96D1A7B342000DA6B8B /* TBRoundsViewController.m */; };
 		AD98D9701A7B342000DA6B8B /* TBRoundsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD98D96E1A7B342000DA6B8B /* TBRoundsView.xib */; };
 		AD98D9741A7B343600DA6B8B /* TBSeatingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD98D9721A7B343600DA6B8B /* TBSeatingViewController.m */; };
@@ -182,8 +182,8 @@
 		944FF4BA1B3D04CA000362ED /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		944FF4BC1B3D04CA000362ED /* TBPlayer.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = TBPlayer.xcassets; sourceTree = "<group>"; };
 		944FF4BF1B3D04CA000362ED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		945410661B6E478A001E3373 /* TBPlayersArrayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBPlayersArrayController.h; sourceTree = "<group>"; };
-		945410671B6E478A001E3373 /* TBPlayersArrayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBPlayersArrayController.m; sourceTree = "<group>"; };
+		945410661B6E478A001E3373 /* TBLeagueArrayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBLeagueArrayController.h; sourceTree = "<group>"; };
+		945410671B6E478A001E3373 /* TBLeagueArrayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBLeagueArrayController.m; sourceTree = "<group>"; };
 		945410691B6E47B7001E3373 /* TBChipsArrayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBChipsArrayController.h; sourceTree = "<group>"; };
 		9454106A1B6E47B7001E3373 /* TBChipsArrayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBChipsArrayController.m; sourceTree = "<group>"; };
 		9454106C1B6E47C5001E3373 /* TBFundingArrayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBFundingArrayController.h; sourceTree = "<group>"; };
@@ -311,9 +311,9 @@
 		AD98D9601A7B330B00DA6B8B /* TBChipsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBChipsViewController.m; sourceTree = "<group>"; };
 		AD98D9621A7B331A00DA6B8B /* TBFundingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBFundingViewController.h; sourceTree = "<group>"; };
 		AD98D9631A7B331A00DA6B8B /* TBFundingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBFundingViewController.m; sourceTree = "<group>"; };
-		AD98D9671A7B33F100DA6B8B /* TBPlayersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBPlayersViewController.h; sourceTree = "<group>"; };
-		AD98D9681A7B33F100DA6B8B /* TBPlayersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBPlayersViewController.m; sourceTree = "<group>"; };
-		AD98D9691A7B33F100DA6B8B /* TBPlayersView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TBPlayersView.xib; sourceTree = "<group>"; };
+		AD98D9671A7B33F100DA6B8B /* TBLeagueViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBLeagueViewController.h; sourceTree = "<group>"; };
+		AD98D9681A7B33F100DA6B8B /* TBLeagueViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBLeagueViewController.m; sourceTree = "<group>"; };
+		AD98D9691A7B33F100DA6B8B /* TBLeagueView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TBLeagueView.xib; sourceTree = "<group>"; };
 		AD98D96C1A7B342000DA6B8B /* TBRoundsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBRoundsViewController.h; sourceTree = "<group>"; };
 		AD98D96D1A7B342000DA6B8B /* TBRoundsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBRoundsViewController.m; sourceTree = "<group>"; };
 		AD98D96E1A7B342000DA6B8B /* TBRoundsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TBRoundsView.xib; sourceTree = "<group>"; };
@@ -593,11 +593,11 @@
 				9462A3EA1B77F40500B29002 /* TBMovementWindowController.h */,
 				9462A3EB1B77F40500B29002 /* TBMovementWindowController.m */,
 				9462A3EC1B77F40500B29002 /* TBMovementWindow.xib */,
-				945410661B6E478A001E3373 /* TBPlayersArrayController.h */,
-				945410671B6E478A001E3373 /* TBPlayersArrayController.m */,
-				AD98D9671A7B33F100DA6B8B /* TBPlayersViewController.h */,
-				AD98D9681A7B33F100DA6B8B /* TBPlayersViewController.m */,
-				AD98D9691A7B33F100DA6B8B /* TBPlayersView.xib */,
+				945410661B6E478A001E3373 /* TBLeagueArrayController.h */,
+				945410671B6E478A001E3373 /* TBLeagueArrayController.m */,
+				AD98D9671A7B33F100DA6B8B /* TBLeagueViewController.h */,
+				AD98D9681A7B33F100DA6B8B /* TBLeagueViewController.m */,
+				AD98D9691A7B33F100DA6B8B /* TBLeagueView.xib */,
 				ADCECE781B7B0D9D00767DA6 /* TBResultsViewController.h */,
 				ADCECE791B7B0D9D00767DA6 /* TBResultsViewController.m */,
 				ADCECE771B7B0D9D00767DA6 /* TBResultsView.xib */,
@@ -782,7 +782,7 @@
 				ADCECE7A1B7B0D9D00767DA6 /* TBControlsView.xib in Resources */,
 				ADCECE7C1B7B0D9D00767DA6 /* TBResultsView.xib in Resources */,
 				941916DA1B6F1FD3001253CA /* TBPlayerWindow.xib in Resources */,
-				AD98D96B1A7B33F100DA6B8B /* TBPlayersView.xib in Resources */,
+				AD98D96B1A7B33F100DA6B8B /* TBLeagueView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -885,7 +885,7 @@
 				949D70971B3C440D008D5CD1 /* json.cpp in Sources */,
 				9462A3F61B7864E900B29002 /* TBAuthsViewController.m in Sources */,
 				949D70941B3C43DB008D5CD1 /* tournament.cpp in Sources */,
-				AD98D96A1A7B33F100DA6B8B /* TBPlayersViewController.m in Sources */,
+				AD98D96A1A7B33F100DA6B8B /* TBLeagueViewController.m in Sources */,
 				94E16F221B6C99840070F1BA /* TBResizeTextField.m in Sources */,
 				9476F4A61B3C3EA700A158F8 /* TournamentSession.m in Sources */,
 				AD98D96F1A7B342000DA6B8B /* TBRoundsViewController.m in Sources */,
@@ -920,7 +920,7 @@
 				945410741B6E5C56001E3373 /* NSDateFormatter+ISO8601.m in Sources */,
 				941916DC1B6F215F001253CA /* TBActionClockView.m in Sources */,
 				9462A3E41B77376000B29002 /* NSView+BackgroundColor.m in Sources */,
-				945410681B6E478A001E3373 /* TBPlayersArrayController.m in Sources */,
+				945410681B6E478A001E3373 /* TBLeagueArrayController.m in Sources */,
 				949D70991B3C440D008D5CD1 /* server.cpp in Sources */,
 				9439701D1B405DC000BB0413 /* TournamentService.m in Sources */,
 				AD8E684A1A6C606700E5A4D8 /* AppDelegate.m in Sources */,

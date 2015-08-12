@@ -10,7 +10,7 @@
                 <outlet property="authsViewController" destination="XnM-ZS-VZB" id="GsH-wh-mpy"/>
                 <outlet property="chipsViewController" destination="rI8-Xq-gYV" id="pTY-eM-JaH"/>
                 <outlet property="fundingViewController" destination="jJR-gM-aDd" id="2xY-nE-CnW"/>
-                <outlet property="playersViewController" destination="gsZ-K1-gq4" id="EUP-cq-ZnD"/>
+                <outlet property="leagueViewController" destination="gsZ-K1-gq4" id="fAM-Wp-NwI"/>
                 <outlet property="roundsViewController" destination="Xh7-Uj-lrU" id="OLf-z6-Ddt"/>
                 <outlet property="tabView" destination="ZrO-ww-z2K" id="QTI-ca-Hfn"/>
                 <outlet property="window" destination="F0z-JX-Cv5" id="gIp-Ho-8D9"/>
@@ -29,12 +29,12 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <tabView id="ZrO-ww-z2K" userLabel="Tabs">
-                        <rect key="frame" x="-7" y="-8" width="654" height="496"/>
+                        <rect key="frame" x="-7" y="-10" width="654" height="496"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <animations/>
                         <font key="font" metaFont="system"/>
                         <tabViewItems>
-                            <tabViewItem label="Players" identifier="playersViewController" id="KUZ-FF-WbT">
+                            <tabViewItem label="Players" identifier="leagueViewController" id="KUZ-FF-WbT">
                                 <view key="view" id="hfE-Ga-1xn">
                                     <rect key="frame" x="10" y="33" width="268" height="0.0"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -80,7 +80,7 @@
         </window>
         <viewController nibName="TBChipsView" id="rI8-Xq-gYV" customClass="TBChipsViewController"/>
         <viewController nibName="TBFundingView" id="jJR-gM-aDd" customClass="TBFundingViewController"/>
-        <viewController nibName="TBPlayersView" id="gsZ-K1-gq4" customClass="TBPlayersViewController"/>
+        <viewController nibName="TBLeagueView" id="gsZ-K1-gq4" customClass="TBLeagueViewController"/>
         <viewController nibName="TBRoundsView" id="Xh7-Uj-lrU" customClass="TBRoundsViewController"/>
         <viewController nibName="TBAuthsView" id="XnM-ZS-VZB" customClass="TBAuthsViewController"/>
     </objects>

@@ -1,16 +1,16 @@
 //
-//  TBPlayersArrayController.m
+//  TBLeagueArrayController.m
 //  td
 //
 //  Created by Ryan Drake on 8/2/15.
 //  Copyright (c) 2015 HDna Studio. All rights reserved.
 //
 
-#import "TBPlayersArrayController.h"
+#import "TBLeagueArrayController.h"
 #import "NSDateFormatter+ISO8601.h"
 
 // Custom array controller, fills in a new player object
-@implementation TBPlayersArrayController
+@implementation TBLeagueArrayController
 
 - (id)newObject {
     NSString* player_id = [[NSUUID UUID] UUIDString];

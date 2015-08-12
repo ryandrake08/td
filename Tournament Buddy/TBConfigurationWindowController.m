@@ -16,7 +16,7 @@
 @property (strong) IBOutlet NSTabView* tabView;
 
 // Controllers
-@property (strong) IBOutlet TBTableViewController* playersViewController;
+@property (strong) IBOutlet TBTableViewController* leagueViewController;
 @property (strong) IBOutlet TBTableViewController* chipsViewController;
 @property (strong) IBOutlet TBTableViewController* fundingViewController;
 @property (strong) IBOutlet TBTableViewController* roundsViewController;
