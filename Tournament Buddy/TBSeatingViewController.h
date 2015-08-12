@@ -6,15 +6,8 @@
 //  Copyright (c) 2015 HDna Studio. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
-#import "TournamentKit/TournamentKit.h"
+#import "TBTableViewController.h"
 
-@interface TBSeatingViewController : NSViewController
-
-// global configuration
-@property (strong) NSMutableDictionary* configuration;
-
-// global session
-@property (strong) TournamentSession* session;
+@interface TBSeatingViewController : TBTableViewController
 
 @end

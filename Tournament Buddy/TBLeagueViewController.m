@@ -7,6 +7,7 @@
 //
 
 #import "TBLeagueViewController.h"
+#import "NSObject+FBKVOController.h"
 
 @implementation TBLeagueViewController
 
@@ -16,6 +17,12 @@
     // setup sort descriptors
     NSSortDescriptor* nameSort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
     [[self arrayController] setSortDescriptors:@[nameSort]];
+
+    // register for KVO on arrangedObjects
+    NSArray* keyPaths = @[@"arrangedObjects"];
+    [[self KVOController] observe:[self arrayController] keyPaths:keyPaths options:0 block:^(id observer, id object, NSDictionary *change) {
+        [[self session] selectiveConfigureAndUpdate:[self configuration]];
+    }];
 }
 
 @end

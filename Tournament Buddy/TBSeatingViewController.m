@@ -12,9 +12,10 @@
 #import "TBControlsViewController.h"
 #import "TBMovementWindowController.h"
 #import "TBResultsViewController.h"
+#import "TBPlayersViewController.h"
 #import "NSObject+FBKVOController.h"
 
-@interface TBSeatingViewController () <NSTableViewDelegate, NSMenuDelegate>
+@interface TBSeatingViewController () <NSTableViewDelegate, NSMenuDelegate, TBPlayersViewDelegate>
 
 // Configuration window
 @property (strong) TBConfigurationWindowController* configurationWindowController;
@@ -22,12 +23,9 @@
 @property (strong) TBMovementWindowController* movementWindowController;
 
 // View controllers
+@property (strong) IBOutlet TBPlayersViewController* playersViewController;
 @property (strong) IBOutlet TBResultsViewController* resultsViewController;
 @property (strong) IBOutlet TBControlsViewController* controlsViewController;
-
-// Array controllers
-@property (strong) IBOutlet NSArrayController* playersController;
-@property (strong) IBOutlet NSArrayController* seatsController;
 
 // Keep track of last seating plan size, to avoid setting again
 @property NSInteger lastMaxPlayers;
@@ -36,31 +34,26 @@
 @property (strong) NSImage* currencyImage;
 
 // UI elements
+@property (weak) IBOutlet NSView* leftPaneView;
 @property (weak) IBOutlet NSView* rightPaneView;
 @property (weak) IBOutlet NSView* controlsView;
-@property (weak) IBOutlet NSTableView* playersTableView;
-@property (weak) IBOutlet NSTableView* seatsTableView;
 
 @end
 
 @implementation TBSeatingViewController
 
 - (void)viewDidLoad {
-    if([NSViewController instancesRespondToSelector:@selector(viewDidLoad)]) {
-        [super viewDidLoad];
-    }
+    [super viewDidLoad];
 
     // filter predicate to not show empty seats
-    [[self seatsController] setFilterPredicate:[NSPredicate predicateWithFormat: @"seat_number != nil"]];
+    [[self arrayController] setFilterPredicate:[NSPredicate predicateWithFormat: @"seat_number != nil"]];
 
     // setup sort descriptors
-    NSSortDescriptor* playerNameSort = [[NSSortDescriptor alloc] initWithKey:@"player.name" ascending:YES];
     NSSortDescriptor* tableNumberSort = [[NSSortDescriptor alloc] initWithKey:@"table_number" ascending:YES];
     NSSortDescriptor* seatNumberSort = [[NSSortDescriptor alloc] initWithKey:@"seat_number" ascending:YES];
 
     // set sort descriptors for arrays
-    [[self playersController] setSortDescriptors:@[playerNameSort]];
-    [[self seatsController] setSortDescriptors:@[tableNumberSort, seatNumberSort]];
+    [[self arrayController] setSortDescriptors:@[tableNumberSort, seatNumberSort]];
 
     // setup configuration window
     [self setConfigurationWindowController:[[TBConfigurationWindowController alloc] initWithWindowNibName:@"TBConfigurationWindow"]];
@@ -87,18 +80,18 @@
         [self setCurrencyImage:[NSImage imageNamed:imageName]];
     }];
 
-    // add subivew
+    // set self as player view delegate
+    [[self playersViewController] setDelegate:self];
+
+    // add subivews
+    [[self playersViewController] setSession:[self session]];
+    [[self leftPaneView] addSubview:[[self playersViewController] view]];
+
     [[self resultsViewController] setSession:[self session]];
     [[self rightPaneView] addSubview:[[self resultsViewController] view]];
+
     [[self controlsViewController] setSession:[self session]];
     [[self controlsView] addSubview:[[self controlsViewController] view]];
-}
-
-- (void)loadView {
-    [super loadView];
-    if(![NSViewController instancesRespondToSelector:@selector(viewDidLoad)]) {
-        [self viewDidLoad];
-    }
 }
 
 - (void)dealloc {
@@ -107,10 +100,10 @@
 }
 
 - (void)selectSeatForPlayerId:(NSString*)playerId {
-    [[[self seatsController] arrangedObjects] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+    [[[self arrayController] arrangedObjects] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         if([obj[@"player_id"] isEqualToString:playerId]) {
-            [[self seatsController] setSelectionIndex:idx];
-            [[self seatsTableView] scrollRowToVisible:idx];
+            [[self arrayController] setSelectionIndex:idx];
+            [[self tableView] scrollRowToVisible:idx];
             *stop = YES;
         }
     }];
@@ -202,11 +195,10 @@
     [menu removeAllItems];
 
     // find the clicked tableView cell
-    NSTableView* tableView = [self seatsTableView];
-    NSInteger row = [tableView clickedRow];
-    NSInteger col = [tableView clickedColumn];
+    NSInteger row = [[self tableView] clickedRow];
+    NSInteger col = [[self tableView] clickedColumn];
     if(row != -1 && col != -1) {
-        NSTableCellView* cell = [tableView viewAtColumn:col row:row makeIfNecessary:YES];
+        NSTableCellView* cell = [[self tableView] viewAtColumn:col row:row makeIfNecessary:YES];
 
         // update menu content
         [self updateActionMenu:menu forTableCellView:cell];
@@ -261,27 +253,4 @@
     [NSMenu popUpContextMenu:menu withEvent:[NSApp currentEvent] forView:sender];
 }
 
-- (IBAction)seatedButtonDidChange:(id)sender {
-    NSTableCellView* cell = (NSTableCellView*)[sender superview];
-    id ov = [cell objectValue];
-    id playerId = ov[@"player"][@"player_id"];
-    if([sender state] == NSOnState) {
-        [[self session] seatPlayer:playerId withBlock:nil];
-        // select that seat
-        [self performSelector:@selector(selectSeatForPlayerId:) withObject:playerId afterDelay:0.0];
-    } else {
-        [[self session] unseatPlayer:playerId withBlock:nil];
-    }
-}
-
-- (IBAction)playerChangeSelected:(id)sender {
-    NSInteger selectedRow = [sender selectedRow];
-    if (selectedRow != -1) {
-        // get selected object
-        NSArray* selectedObjects = [[self playersController] selectedObjects];
-        NSString* playerId = selectedObjects[0][@"player_id"];
-        // select that seat
-        [self selectSeatForPlayerId:playerId];
-    }
-}
 @end

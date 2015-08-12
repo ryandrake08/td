@@ -9,6 +9,7 @@
 #import "TBFundingViewController.h"
 #import "NSObject+FBKVOController.h"
 #import "TBCurrencyNumberFormatter.h"
+#import "NSObject+FBKVOController.h"
 
 // TBFundingTableCellView to handle custom bindings
 @interface TBFundingTableCellView : NSTableCellView
@@ -58,6 +59,12 @@
         [[self session] selectiveConfigureAndUpdate:[self configuration]];
         [observer setCurrencyCode:object[@"equity_currency"]];
         [[self tableView] reloadData];
+    }];
+
+    // register for KVO on arrangedObjects
+    NSArray* keyPaths = @[@"arrangedObjects"];
+    [[self KVOController] observe:[self arrayController] keyPaths:keyPaths options:0 block:^(id observer, id object, NSDictionary *change) {
+        [[self session] selectiveConfigureAndUpdate:[self configuration]];
     }];
 }
 

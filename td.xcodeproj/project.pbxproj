@@ -154,6 +154,8 @@
 		ADCECE801B7B0DBF00767DA6 /* TBResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADCECE791B7B0D9D00767DA6 /* TBResultsViewController.m */; };
 		ADCECE811B7B0DBF00767DA6 /* TBResultsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = ADCECE771B7B0D9D00767DA6 /* TBResultsView.xib */; };
 		ADCECE821B7B0E6100767DA6 /* TBTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE4E1271A7DFFD000FC9EFC /* TBTableViewController.m */; };
+		ADCECE861B7B101500767DA6 /* TBPlayersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADCECE841B7B101500767DA6 /* TBPlayersViewController.m */; };
+		ADCECE871B7B101500767DA6 /* TBPlayersView.xib in Resources */ = {isa = PBXBuildFile; fileRef = ADCECE851B7B101500767DA6 /* TBPlayersView.xib */; };
 		ADE4E1281A7DFFD000FC9EFC /* TBTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE4E1271A7DFFD000FC9EFC /* TBTableViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -326,6 +328,9 @@
 		ADCECE771B7B0D9D00767DA6 /* TBResultsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TBResultsView.xib; sourceTree = "<group>"; };
 		ADCECE781B7B0D9D00767DA6 /* TBResultsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBResultsViewController.h; sourceTree = "<group>"; };
 		ADCECE791B7B0D9D00767DA6 /* TBResultsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBResultsViewController.m; sourceTree = "<group>"; };
+		ADCECE831B7B101500767DA6 /* TBPlayersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBPlayersViewController.h; sourceTree = "<group>"; };
+		ADCECE841B7B101500767DA6 /* TBPlayersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBPlayersViewController.m; sourceTree = "<group>"; };
+		ADCECE851B7B101500767DA6 /* TBPlayersView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TBPlayersView.xib; sourceTree = "<group>"; };
 		ADE4E1261A7DFFD000FC9EFC /* TBTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBTableViewController.h; sourceTree = "<group>"; };
 		ADE4E1271A7DFFD000FC9EFC /* TBTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -598,6 +603,9 @@
 				AD98D9671A7B33F100DA6B8B /* TBLeagueViewController.h */,
 				AD98D9681A7B33F100DA6B8B /* TBLeagueViewController.m */,
 				AD98D9691A7B33F100DA6B8B /* TBLeagueView.xib */,
+				ADCECE831B7B101500767DA6 /* TBPlayersViewController.h */,
+				ADCECE841B7B101500767DA6 /* TBPlayersViewController.m */,
+				ADCECE851B7B101500767DA6 /* TBPlayersView.xib */,
 				ADCECE781B7B0D9D00767DA6 /* TBResultsViewController.h */,
 				ADCECE791B7B0D9D00767DA6 /* TBResultsViewController.m */,
 				ADCECE771B7B0D9D00767DA6 /* TBResultsView.xib */,
@@ -774,6 +782,7 @@
 				9462A3F81B7864E900B29002 /* TBAuthsView.xib in Resources */,
 				AD8E68541A6C606700E5A4D8 /* TBMac.xcassets in Resources */,
 				AD98D95C1A7B290500DA6B8B /* TBFundingView.xib in Resources */,
+				ADCECE871B7B101500767DA6 /* TBPlayersView.xib in Resources */,
 				AD98D9751A7B343600DA6B8B /* TBSeatingView.xib in Resources */,
 				AD98D9701A7B342000DA6B8B /* TBRoundsView.xib in Resources */,
 				9462A3EE1B77F40500B29002 /* TBMovementWindow.xib in Resources */,
@@ -929,6 +938,7 @@
 				9476F4A21B3C3EA700A158F8 /* TournamentConnection.m in Sources */,
 				9462A3F11B781A9A00B29002 /* RSVerticallyCenteredTextFieldCell.m in Sources */,
 				94ED00111B76E1E6003CF19B /* TBTableSeatNumberTransformer.m in Sources */,
+				ADCECE861B7B101500767DA6 /* TBPlayersViewController.m in Sources */,
 				9454106E1B6E47C5001E3373 /* TBFundingArrayController.m in Sources */,
 				943970181B3F9DB700BB0413 /* TournamentBrowser.m in Sources */,
 				949D709A1B3C440D008D5CD1 /* types.cpp in Sources */,
