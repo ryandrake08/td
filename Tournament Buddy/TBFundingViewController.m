@@ -38,9 +38,7 @@
 @implementation TBFundingViewController
 
 - (void)viewDidLoad {
-    if([NSViewController instancesRespondToSelector:@selector(viewDidLoad)]) {
-        [super viewDidLoad];
-    }
+    [super viewDidLoad];
 
     // setup sort descriptors
     NSSortDescriptor* nameSort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
@@ -61,13 +59,6 @@
         [observer setCurrencyCode:object[@"equity_currency"]];
         [[self tableView] reloadData];
     }];
-}
-
-- (void)loadView {
-    [super loadView];
-    if(![NSViewController instancesRespondToSelector:@selector(viewDidLoad)]) {
-        [self viewDidLoad];
-    }
 }
 
 - (NSArray*)blindLevelNames {
