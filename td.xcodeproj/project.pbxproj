@@ -156,6 +156,9 @@
 		ADCECE821B7B0E6100767DA6 /* TBTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE4E1271A7DFFD000FC9EFC /* TBTableViewController.m */; };
 		ADCECE861B7B101500767DA6 /* TBPlayersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADCECE841B7B101500767DA6 /* TBPlayersViewController.m */; };
 		ADCECE871B7B101500767DA6 /* TBPlayersView.xib in Resources */ = {isa = PBXBuildFile; fileRef = ADCECE851B7B101500767DA6 /* TBPlayersView.xib */; };
+		ADE299AF1B7B994200F1393B /* TBSound.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE299AE1B7B994200F1393B /* TBSound.m */; };
+		ADE299B01B7B9BCA00F1393B /* TBSound.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE299AE1B7B994200F1393B /* TBSound.m */; };
+		ADE299B11B7B9BCB00F1393B /* TBSound.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE299AE1B7B994200F1393B /* TBSound.m */; };
 		ADE4E1281A7DFFD000FC9EFC /* TBTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE4E1271A7DFFD000FC9EFC /* TBTableViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -331,6 +334,8 @@
 		ADCECE831B7B101500767DA6 /* TBPlayersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBPlayersViewController.h; sourceTree = "<group>"; };
 		ADCECE841B7B101500767DA6 /* TBPlayersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBPlayersViewController.m; sourceTree = "<group>"; };
 		ADCECE851B7B101500767DA6 /* TBPlayersView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TBPlayersView.xib; sourceTree = "<group>"; };
+		ADE299AD1B7B994200F1393B /* TBSound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBSound.h; sourceTree = "<group>"; };
+		ADE299AE1B7B994200F1393B /* TBSound.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBSound.m; sourceTree = "<group>"; };
 		ADE4E1261A7DFFD000FC9EFC /* TBTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBTableViewController.h; sourceTree = "<group>"; };
 		ADE4E1271A7DFFD000FC9EFC /* TBTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -520,6 +525,8 @@
 				94562E651B65D8CA0017C692 /* TBDurationNumberFormatter.m */,
 				94562E6A1B65D9420017C692 /* TBResizeTextField.h */,
 				94562E6B1B65D9420017C692 /* TBResizeTextField.m */,
+				ADE299AD1B7B994200F1393B /* TBSound.h */,
+				ADE299AE1B7B994200F1393B /* TBSound.m */,
 				94ED000F1B76E1E6003CF19B /* TBTableSeatNumberTransformer.h */,
 				94ED00101B76E1E6003CF19B /* TBTableSeatNumberTransformer.m */,
 				9462A3E51B77CB3B00B29002 /* TTTOrdinalNumberFormatter.h */,
@@ -822,6 +829,7 @@
 				94FDEAEF1B5AE2D60026B25D /* NSObject+FBKVOController.m in Sources */,
 				943B00D11B3F429500CE55D4 /* gameinfo.cpp in Sources */,
 				ADCECE7E1B7B0DBB00767DA6 /* TBControlsViewController.m in Sources */,
+				ADE299B01B7B9BCA00F1393B /* TBSound.m in Sources */,
 				94FDEAEC1B5AE2D60026B25D /* NSData+Delimiter.m in Sources */,
 				943B00D31B3F429500CE55D4 /* logger.cpp in Sources */,
 				944FF4B91B3D04CA000362ED /* AppDelegate.m in Sources */,
@@ -840,6 +848,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9462A3E91B77CB3B00B29002 /* TTTOrdinalNumberFormatter.m in Sources */,
+				ADE299B11B7B9BCB00F1393B /* TBSound.m in Sources */,
 				9476F4691B3C385400A158F8 /* TBAppDelegate.m in Sources */,
 				949D70A01B3C440E008D5CD1 /* types.cpp in Sources */,
 				949D70A11B3C4411008D5CD1 /* tournament.cpp in Sources */,
@@ -939,6 +948,7 @@
 				9462A3F11B781A9A00B29002 /* RSVerticallyCenteredTextFieldCell.m in Sources */,
 				94ED00111B76E1E6003CF19B /* TBTableSeatNumberTransformer.m in Sources */,
 				ADCECE861B7B101500767DA6 /* TBPlayersViewController.m in Sources */,
+				ADE299AF1B7B994200F1393B /* TBSound.m in Sources */,
 				9454106E1B6E47C5001E3373 /* TBFundingArrayController.m in Sources */,
 				943970181B3F9DB700BB0413 /* TournamentBrowser.m in Sources */,
 				949D709A1B3C440D008D5CD1 /* types.cpp in Sources */,
