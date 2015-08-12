@@ -24,8 +24,6 @@
 
 @interface TBResultsViewController () <NSTableViewDelegate>
 
-@property (strong) IBOutlet NSTableView* tableView;
-@property (strong) IBOutlet NSArrayController* resultsController;
 @property (strong) IBOutlet TBCurrencyNumberFormatter* equityFormatter;
 
 @end
@@ -33,26 +31,17 @@
 @implementation TBResultsViewController
 
 - (void)viewDidLoad {
-    if([NSViewController instancesRespondToSelector:@selector(viewDidLoad)]) {
-        [super viewDidLoad];
-    }
+    [super viewDidLoad];
 
     // setup sort descriptor
     NSSortDescriptor* placeSort = [[NSSortDescriptor alloc] initWithKey:@"place" ascending:YES];
-    [[self resultsController] setSortDescriptors:@[placeSort]];
+    [[self arrayController] setSortDescriptors:@[placeSort]];
 
     // register for KVO
     [[[self equityFormatter] KVOController] observe:[self session] keyPath:@"equityCurrency" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
         [observer setCurrencyCode:[object equityCurrency]];
         [[self tableView] reloadData];
     }];
-}
-
-- (void)loadView {
-    [super loadView];
-    if(![NSViewController instancesRespondToSelector:@selector(viewDidLoad)]) {
-        [self viewDidLoad];
-    }
 }
 
 #pragma mark NSTableViewDelegate
