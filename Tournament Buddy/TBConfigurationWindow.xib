@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="8152.3" systemVersion="15A257" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="8152.3"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="TBConfigurationWindowController">
@@ -31,36 +31,42 @@
                     <tabView id="ZrO-ww-z2K" userLabel="Tabs">
                         <rect key="frame" x="-7" y="-8" width="654" height="496"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <animations/>
                         <font key="font" metaFont="system"/>
                         <tabViewItems>
                             <tabViewItem label="Players" identifier="playersViewController" id="KUZ-FF-WbT">
                                 <view key="view" id="hfE-Ga-1xn">
                                     <rect key="frame" x="10" y="33" width="268" height="0.0"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <animations/>
                                 </view>
                             </tabViewItem>
                             <tabViewItem label="Equipment" identifier="chipsViewController" id="YfX-7j-TxT">
                                 <view key="view" id="AfU-js-iOJ">
                                     <rect key="frame" x="10" y="33" width="634" height="450"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <animations/>
                                 </view>
                             </tabViewItem>
                             <tabViewItem label="Funding" identifier="fundingViewController" id="6gk-2K-Afe">
                                 <view key="view" id="52L-8U-88c">
                                     <rect key="frame" x="10" y="33" width="634" height="450"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <animations/>
                                 </view>
                             </tabViewItem>
                             <tabViewItem label="Rounds" identifier="roundsViewController" id="hOI-iU-Mum">
                                 <view key="view" id="kFu-Qn-N0V">
                                     <rect key="frame" x="10" y="33" width="634" height="450"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <animations/>
                                 </view>
                             </tabViewItem>
                             <tabViewItem label="Devices" identifier="authsViewController" id="TgQ-J1-7EB">
                                 <view key="view" id="vdh-3g-kRH">
                                     <rect key="frame" x="10" y="33" width="634" height="450"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <animations/>
                                 </view>
                             </tabViewItem>
                         </tabViewItems>
@@ -69,10 +75,8 @@
                         </connections>
                     </tabView>
                 </subviews>
+                <animations/>
             </view>
-            <connections>
-                <outlet property="delegate" destination="-2" id="2Bo-Xl-Ykx"/>
-            </connections>
         </window>
         <viewController nibName="TBChipsView" id="rI8-Xq-gYV" customClass="TBChipsViewController"/>
         <viewController nibName="TBFundingView" id="jJR-gM-aDd" customClass="TBFundingViewController"/>

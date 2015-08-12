@@ -6,7 +6,8 @@
 //  Copyright (c) 2015 HDna Studio. All rights reserved.
 //
 
-#import "TBTableViewController.h"
+#import <Cocoa/Cocoa.h>
+#import "TournamentKit/TournamentKit.h"
 
 @interface TBSeatingViewController : NSViewController
 

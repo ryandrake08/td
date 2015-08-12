@@ -9,9 +9,8 @@
 #import "TBConfigurationWindowController.h"
 #import "TBTableViewController.h"
 #import "NSString+CamelCase.h"
-#import "NSObject+FBKVOController.h"
 
-@interface TBConfigurationWindowController () <NSWindowDelegate, NSTabViewDelegate>
+@interface TBConfigurationWindowController () <NSTabViewDelegate>
 
 // UI
 @property (strong) IBOutlet NSTabView* tabView;
@@ -30,21 +29,9 @@
 - (void)windowDidLoad {
     [super windowDidLoad];
 
-    // pass whole-configuration changes to session
-    [[self KVOController] observe:self keyPath:@"configuration" options:0 block:^(id observer, id object, NSDictionary *change) {
-        [[self session] selectiveConfigureAndUpdate:[self configuration]];
-    }];
-
     // get view controller for the tab selected in IB
     NSTabViewItem* selectedItem = [[self tabView] selectedTabViewItem];
     [self tabView:[self tabView] didSelectTabViewItem:selectedItem];
-}
-
-#pragma mark NSWindowDelegate
-
-- (BOOL)windowShouldClose:(id)sender {
-    [[self session] selectiveConfigureAndUpdate:[self configuration]];
-    return YES;
 }
 
 #pragma mark NSTabViewDelegate
@@ -56,6 +43,9 @@
     // set configuration and session
     if([controller configuration] == nil) {
         [controller setConfiguration: [self configuration]];
+    }
+    if([controller session] == nil) {
+        [controller setSession:[self session]];
     }
 
     // set the view

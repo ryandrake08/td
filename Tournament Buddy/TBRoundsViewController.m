@@ -25,12 +25,6 @@
 }
 @end
 
-@interface TBRoundsViewController ()
-
-@property (strong) IBOutlet NSArrayController* arrayController;
-
-@end
-
 @implementation TBRoundsViewController
 
 - (void)viewDidLoad {

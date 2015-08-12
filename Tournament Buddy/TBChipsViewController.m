@@ -7,12 +7,7 @@
 //
 
 #import "TBChipsViewController.h"
-
-@interface TBChipsViewController ()
-
-@property (strong) IBOutlet NSArrayController* arrayController;
-
-@end
+#import "NSObject+FBKVOController.h"
 
 @implementation TBChipsViewController
 
@@ -26,6 +21,11 @@
 
     // set sort descriptors for arrays
     [[self arrayController] setSortDescriptors:@[denominationSort]];
+
+    // register for KVO
+    [[self KVOController] observe:[self configuration] keyPath:@"table_capacity" options:0 block:^(id observer, id object, NSDictionary *change) {
+        [[self session] selectiveConfigureAndUpdate:[self configuration]];
+    }];
 }
 
 - (void)loadView {

@@ -8,12 +8,6 @@
 
 #import "TBAuthsViewController.h"
 
-@interface TBAuthsViewController ()
-
-@property (strong) IBOutlet NSArrayController* arrayController;
-
-@end
-
 @implementation TBAuthsViewController
 
 - (void)viewDidLoad {

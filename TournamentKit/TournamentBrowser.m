@@ -8,7 +8,6 @@
 
 #import "TournamentBrowser.h"
 #import "TournamentService.h"
-#import "NSObject+FBKVOController.h"
 
 @interface TournamentBrowser () <NSNetServiceBrowserDelegate>
 

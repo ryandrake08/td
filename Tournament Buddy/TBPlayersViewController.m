@@ -8,12 +8,6 @@
 
 #import "TBPlayersViewController.h"
 
-@interface TBPlayersViewController ()
-
-@property (strong) IBOutlet NSArrayController* arrayController;
-
-@end
-
 @implementation TBPlayersViewController
 
 - (void)viewDidLoad {
