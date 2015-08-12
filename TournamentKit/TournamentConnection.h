@@ -30,7 +30,7 @@
 @property (nonatomic, weak) id <TournamentConnectionDelegate> delegate;
 
 // returns true if currently connected to a server
-@property (nonatomic, readonly, assign, getter=isConnected) BOOL connected;
+@property (nonatomic, readonly, getter=isConnected) BOOL connected;
 
 @end
 

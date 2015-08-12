@@ -16,12 +16,12 @@
 - (BOOL)connectTo:(TournamentConnection*)connection;
 
 // is this a remote service?
-- (BOOL)isRemote;
+@property (nonatomic, readonly, getter=isRemote) BOOL remote;
 
 // service name
-- (NSString*)name;
+@property (nonatomic, copy, readonly) NSString* name;
 
 // retrieve the netService, if applicable
-- (NSNetService*)netService;
+@property (nonatomic, strong, readonly) NSNetService* netService;
 
 @end

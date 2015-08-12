@@ -20,7 +20,7 @@
 
 - (IBAction)forbidButtonDidChange:(id)sender {
     if([sender state] == NSOnState) {
-        [[self objectValue] setObject:@0 forKey:@"forbid_after_blind_level"];
+        [self objectValue][@"forbid_after_blind_level"] = @0;
     } else {
         [[self objectValue] removeObjectForKey:@"forbid_after_blind_level"];
     }

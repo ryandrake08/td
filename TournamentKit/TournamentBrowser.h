@@ -18,9 +18,9 @@
 - (void)search;
 
 // list of known services (TournamentService* )
-- (NSArray*)serviceList;
-- (NSArray*)localServiceList;
-- (NSArray*)remoteServiceList;
+@property (nonatomic, readonly, copy) NSArray* serviceList;
+@property (nonatomic, readonly, copy) NSArray* localServiceList;
+@property (nonatomic, readonly, copy) NSArray* remoteServiceList;
 
 // delegate
 @property (nonatomic, weak) IBOutlet id <TournamentBrowserDelegate> delegate;

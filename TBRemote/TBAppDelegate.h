@@ -11,10 +11,10 @@
 
 @interface TBAppDelegate : UIResponder <UIApplicationDelegate>
 
-@property (nonatomic) UIWindow* window;
+@property (strong) UIWindow* window;
 
 // the tournament session (model) object
-@property (nonatomic) TournamentSession* session;
+@property (strong) TournamentSession* session;
 
 @end
 

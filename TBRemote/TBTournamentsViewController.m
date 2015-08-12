@@ -17,9 +17,9 @@
                                            UIActionSheetDelegate,
                                            TournamentBrowserDelegate>
 
-@property (nonatomic) TournamentSession* session;
-@property (nonatomic) IBOutlet TournamentBrowser* tournamentBrowser;
-@property (nonatomic) NSArray* netServices;
+@property (nonatomic, strong) TournamentSession* session;
+@property (nonatomic, strong) IBOutlet TournamentBrowser* tournamentBrowser;
+@property (nonatomic, copy) NSArray* netServices;
 @end
 
 @implementation TBTournamentsViewController

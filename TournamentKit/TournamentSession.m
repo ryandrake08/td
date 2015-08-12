@@ -13,52 +13,52 @@
 @interface TournamentSession() <TournamentConnectionDelegate>
 
 // record currently connected server
-@property (nonatomic) NSNetService* currentService;
+@property (nonatomic, strong) NSNetService* currentService;
 
 // YES if currently authorized with server
 @property (nonatomic, assign) BOOL authorized;
 
 // the connection object, handles networking and JSON serialization
-@property (nonatomic) TournamentConnection* connection;
+@property (nonatomic, strong) TournamentConnection* connection;
 
 // mapping between unique command and block to handle the command's response
-@property (nonatomic) NSMutableDictionary* blocksForCommands;
+@property (nonatomic, strong) NSMutableDictionary* blocksForCommands;
 
 // number formatter
-@property (nonatomic) NSNumberFormatter* decimalFormatter;
+@property (nonatomic, strong) NSNumberFormatter* decimalFormatter;
 
 // tournament configuration
-@property (nonatomic) NSArray* authorizedClients;
-@property (nonatomic) NSString* name;
-@property (nonatomic) NSArray* players;
-@property (nonatomic) NSArray* blindLevels;
-@property (nonatomic) NSArray* availableChips;
-@property (nonatomic) NSString* costCurrency;
-@property (nonatomic) NSString* equityCurrency;
-@property (nonatomic) NSNumber* percentSeatsPaid;
-@property (nonatomic) NSNumber* roundPayouts;
-@property (nonatomic) NSNumber* payoutFlatness;
-@property (nonatomic) NSArray* fundingSources;
-@property (nonatomic) NSNumber* tableCapacity;
-@property (nonatomic) NSArray* manualPayouts;
+@property (nonatomic, strong) NSArray* authorizedClients;
+@property (nonatomic, strong) NSString* name;
+@property (nonatomic, strong) NSArray* players;
+@property (nonatomic, strong) NSArray* blindLevels;
+@property (nonatomic, strong) NSArray* availableChips;
+@property (nonatomic, strong) NSString* costCurrency;
+@property (nonatomic, strong) NSString* equityCurrency;
+@property (nonatomic, strong) NSNumber* percentSeatsPaid;
+@property (nonatomic, strong) NSNumber* roundPayouts;
+@property (nonatomic, strong) NSNumber* payoutFlatness;
+@property (nonatomic, strong) NSArray* fundingSources;
+@property (nonatomic, strong) NSNumber* tableCapacity;
+@property (nonatomic, strong) NSArray* manualPayouts;
 
 // tournament state
-@property (nonatomic, getter=isRunning) NSNumber* running;
-@property (nonatomic) NSNumber* currentBlindLevel;
-@property (nonatomic) NSNumber* timeRemaining;
-@property (nonatomic) NSNumber* breakTimeRemaining;
-@property (nonatomic) NSNumber* actionClockTimeRemaining;
-@property (nonatomic) NSSet* buyins;
-@property (nonatomic) NSArray* entries;
-@property (nonatomic) NSArray* payouts;
-@property (nonatomic) NSNumber* totalChips;
-@property (nonatomic) NSNumber* totalCost;
-@property (nonatomic) NSNumber* totalCommission;
-@property (nonatomic) NSNumber* totalEquity;
-@property (nonatomic) NSArray* seats;
-@property (nonatomic) NSArray* playersFinished;
-@property (nonatomic) NSArray* emptySeats;
-@property (nonatomic) NSNumber* tables;
+@property (nonatomic, strong, getter=isRunning) NSNumber* running;
+@property (nonatomic, strong) NSNumber* currentBlindLevel;
+@property (nonatomic, strong) NSNumber* timeRemaining;
+@property (nonatomic, strong) NSNumber* breakTimeRemaining;
+@property (nonatomic, strong) NSNumber* actionClockTimeRemaining;
+@property (nonatomic, strong) NSSet* buyins;
+@property (nonatomic, strong) NSArray* entries;
+@property (nonatomic, strong) NSArray* payouts;
+@property (nonatomic, strong) NSNumber* totalChips;
+@property (nonatomic, strong) NSNumber* totalCost;
+@property (nonatomic, strong) NSNumber* totalCommission;
+@property (nonatomic, strong) NSNumber* totalEquity;
+@property (nonatomic, strong) NSArray* seats;
+@property (nonatomic, strong) NSArray* playersFinished;
+@property (nonatomic, strong) NSArray* emptySeats;
+@property (nonatomic, strong) NSNumber* tables;
 
 @end
 
@@ -613,7 +613,7 @@
                 NSMutableDictionary* seatAndPlayer = [[NSMutableDictionary alloc] initWithDictionary:seat];
                 seatAndPlayer[@"player"] = player;
                 seatAndPlayer[@"buyin"] = @(buyin);
-                [newDict setObject:seatAndPlayer forKey:playerId];
+                newDict[playerId] = seatAndPlayer;
             } else {
                 NSLog(@"Seated player %@ not in player array", seat);
             }
@@ -625,13 +625,13 @@
         id playerId = player[@"player_id"];
         if(playerId) {
             BOOL buyin = [[self buyins] containsObject:playerId];
-            NSDictionary* seat = [newDict objectForKey:playerId];
+            NSDictionary* seat = newDict[playerId];
             if(seat == nil) {
                 // not seated
                 NSMutableDictionary* seatAndPlayer = [[NSMutableDictionary alloc] init];
                 seatAndPlayer[@"player"] = player;
                 seatAndPlayer[@"buyin"] = @(buyin);
-                [newDict setObject:seatAndPlayer forKey:playerId];
+                newDict[playerId] = seatAndPlayer;
             }
         }
     }

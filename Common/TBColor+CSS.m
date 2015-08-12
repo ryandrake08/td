@@ -202,7 +202,8 @@ static NSDictionary* cssHexCodes = nil;
     TBColor* color;
     @synchronized(colorNameCache) {
         // Look for the color in the cache
-        color = [colorNameCache objectForKey:[colorName lowercaseString]];
+        NSString* lowerColorName = [colorName lowercaseString];
+        color = colorNameCache[lowerColorName];
 
         if((id)color == [NSNull null]) {
             // If it wasn't there previously, it's still not there now
@@ -211,7 +212,7 @@ static NSDictionary* cssHexCodes = nil;
 
         if(!color) {
             // Color not in cache, so search for it now in the css list
-            NSString* colorHex = [cssColorNames objectForKey:[colorName lowercaseString]];
+            NSString* colorHex = cssColorNames[[colorName lowercaseString]];
             color = [TBColor colorWithHexString:colorHex];
         }
 
@@ -221,7 +222,7 @@ static NSDictionary* cssHexCodes = nil;
         }
 
         // Set the value in cache, storing NSNull on failure
-        [colorNameCache setObject:(color ?: (id)[NSNull null]) forKey:colorName];
+        colorNameCache[colorName] = (color ?: (id)[NSNull null]);
     }
     
     return color;
@@ -239,7 +240,7 @@ static NSDictionary* cssHexCodes = nil;
 
 - (NSString*)name {
     NSString* hexName = [self hexString];
-    NSString* colorName = [cssHexCodes objectForKey:hexName];
+    NSString* colorName = cssHexCodes[hexName];
     if(colorName) {
         return colorName;
     } else {

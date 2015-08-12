@@ -15,7 +15,7 @@
 
 @interface TBRemoteClockViewController () <TBActionClockDelegate>
 
-@property (nonatomic) TournamentSession* session;
+@property (nonatomic, strong) TournamentSession* session;
 
 @property (nonatomic, weak) IBOutlet UILabel* elapsedLabel;
 @property (nonatomic, weak) IBOutlet UILabel* clockLabel;

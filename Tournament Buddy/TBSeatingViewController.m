@@ -224,7 +224,7 @@
         // move to second screen if possible
         NSArray* screens = [NSScreen screens];
         if([screens count] > 1) {
-            NSScreen* screen = [[NSScreen screens] objectAtIndex:1];
+            NSScreen* screen = [NSScreen screens][1];
             [[[self playerWindowController] window] setFrame: [screen frame] display:YES animate:NO];
             [[[self playerWindowController] window] makeKeyAndOrderFront:screen];
         }

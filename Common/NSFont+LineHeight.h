@@ -10,6 +10,6 @@
 
 @interface NSFont (LineHeight)
 
-@property (readonly) CGFloat lineHeight;
+@property (nonatomic, assign, readonly) CGFloat lineHeight;
 
 @end

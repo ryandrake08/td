@@ -10,7 +10,7 @@
 
 @interface NSString (CamelCase)
 
-- (NSString*)asCamelCaseFromUnderscore;
-- (NSString*)asUnderscoreFromCamelCase;
+@property (nonatomic, readonly, copy) NSString* asCamelCaseFromUnderscore;
+@property (nonatomic, readonly, copy) NSString* asUnderscoreFromCamelCase;
 
 @end

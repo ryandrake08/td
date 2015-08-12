@@ -18,7 +18,7 @@
 
 - (IBAction)breakButtonDidChange:(id)sender {
     if([sender state] == NSOnState) {
-        [[self objectValue] setObject:@0 forKey:@"break_duration"];
+        [self objectValue][@"break_duration"] = @0;
     } else {
         [[self objectValue] removeObjectForKey:@"break_duration"];
         [[self objectValue] removeObjectForKey:@"reason"];

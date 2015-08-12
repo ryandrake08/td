@@ -64,7 +64,7 @@
     port = service.second;
 
     // return the unix socket path, for subsequent local connection
-    return [NSString stringWithUTF8String:service.first.c_str()];
+    return @(service.first.c_str());
 }
 
 // publish over Bojour using name

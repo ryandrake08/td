@@ -30,7 +30,7 @@
 //------------------------------------------------------------------------------------//
 
 /// The seconds property. Used to set up the second hand. Default value is 0.
-@property (nonatomic, assign) double seconds;
+@property (nonatomic) double seconds;
 
 /// If set to YES, the hands will cast a shadow. Default value is YES.
 @property (nonatomic) BOOL enableShadows;
@@ -48,13 +48,13 @@
 //----- CLOCK'S FACE CUSTOMIZATION -----//
 
 /// The background color of the clock's face.
-@property (strong, nonatomic) TBColor* faceBackgroundColor;
+@property (nonatomic, strong) TBColor* faceBackgroundColor;
 
 /// The alpha of the clock's face.
 @property (nonatomic) CGFloat faceBackgroundAlpha;
 
 /// The color of the clock's border.
-@property (strong, nonatomic) TBColor* borderColor;
+@property (nonatomic, strong) TBColor* borderColor;
 
 /// The alpha of the clock's border.
 @property (nonatomic) CGFloat borderAlpha;
@@ -63,10 +63,10 @@
 @property (nonatomic) CGFloat borderWidth;
 
 /// The font of the digits appearing inside the clock
-@property (strong, nonatomic) TBFont* digitFont;
+@property (nonatomic, strong) TBFont* digitFont;
 
 /// The color of the digits appearing inside the clock
-@property (strong, nonatomic) TBColor* digitColor;
+@property (nonatomic, strong) TBColor* digitColor;
 
 /// The offset for the position of the digits on the clock's face. A value >0 will make the digits appear further away from the center of the clock. A valut <0 will make them closer to the center of the clock. Default value is 0.0.
 @property (nonatomic) CGFloat digitOffset;
@@ -75,13 +75,13 @@
 //----- ARC CUSTOMIZATION -----//
 
 /// The background color of the countdown arc
-@property (strong, nonatomic) TBColor* arcBackgroundColor;
+@property (nonatomic, strong) TBColor* arcBackgroundColor;
 
 /// The alpha of the countdown arc.
 @property (nonatomic) CGFloat arcBackgroundAlpha;
 
 /// The color of the countdown arc's border.
-@property (strong, nonatomic) TBColor* arcBorderColor;
+@property (nonatomic, strong) TBColor* arcBorderColor;
 
 /// The alpha of the countdown arc's border.
 @property (nonatomic) CGFloat arcBorderAlpha;
@@ -95,7 +95,7 @@
 //----- HAND CUSTOMIZATION -----//
 
 /// The color of the clock's hand. Default value is whiteColor.
-@property (strong, nonatomic) TBColor* handColor;
+@property (nonatomic, strong) TBColor* handColor;
 
 /// The alpha of the clock's hand. Default value is 1.0.
 @property (nonatomic) CGFloat handAlpha;
