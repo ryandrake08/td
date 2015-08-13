@@ -420,6 +420,8 @@
         keyPaths = [keyPaths setByAddingObjectsFromArray:@[@"timeRemaining", @"breakTimeRemaining"]];
     } else if([key isEqualToString:@"clockText"]) {
         keyPaths = [keyPaths setByAddingObjectsFromArray:@[@"running", @"onBreak", @"timeRemaining", @"breakTimeRemaining"]];
+    } else if([key isEqualToString:@"currentRoundNumberText"]) {
+        keyPaths = [keyPaths setByAddingObjectsFromArray:@[@"currentBlindLevel", @"blindLevels"]];
     } else if([key isEqualToString:@"currentGameText"]) {
         keyPaths = [keyPaths setByAddingObjectsFromArray:@[@"currentBlindLevel", @"blindLevels", @"onBreak"]];
     } else if([key isEqualToString:@"currentRoundText"]) {
@@ -440,6 +442,8 @@
         keyPaths = [keyPaths setByAddingObjectsFromArray:@[@"players"]];
     } else if([key isEqualToString:@"seatedPlayers"]) {
         keyPaths = [keyPaths setByAddingObjectsFromArray:@[@"seats",@"players",@"buyins"]];
+    } else if([key isEqualToString:@"buyinText"]) {
+        keyPaths = [keyPaths setByAddingObjectsFromArray:@[@"fundingSources"]];
     }
 
     return keyPaths;
@@ -467,6 +471,20 @@
         } else {
             newText = [self formatDuration:timeRemaining];
         }
+    }
+
+    return newText;
+}
+
+- (NSString*)currentRoundNumberText {
+    NSUInteger currentBlindLevel = [[self currentBlindLevel] unsignedIntegerValue];
+    NSArray* blindLevels = [self blindLevels];
+
+    // calculate new values
+    NSString* newText = @"-";
+
+    if(currentBlindLevel > 0 && currentBlindLevel < [blindLevels count]) {
+        newText = [NSString stringWithFormat:@"%@", [self currentBlindLevel]];
     }
 
     return newText;
@@ -569,6 +587,22 @@
 
     if([seats count] > 0) {
         newText = [[self decimalFormatter] stringFromNumber:@(totalChips / [seats count])];
+    }
+
+    return newText;
+}
+
+- (NSString*)buyinText {
+    NSArray* fundingSources = [self fundingSources];
+
+    // calculate new value
+    NSString* newText = NSLocalizedString(@"No buyin", @"No buyin configured");
+
+    for(NSDictionary* obj in fundingSources) {
+        if([obj[@"type"] isEqualTo:kFundingTypeBuyin]) {
+            newText = obj[@"name"];
+            break;
+        }
     }
 
     return newText;

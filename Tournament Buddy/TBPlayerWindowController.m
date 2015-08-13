@@ -15,21 +15,12 @@
 
 @interface TBPlayerWindowController ()
 
+// View controllers
 @property (strong) IBOutlet TBResultsViewController* resultsViewController;
 @property (strong) IBOutlet TBControlsViewController* controlsViewController;
 
+// UI elements
 @property (weak) IBOutlet NSImageView* backgroundImageView;
-@property (weak) IBOutlet TBResizeTextField* tournamentNameLabel;
-@property (weak) IBOutlet TBResizeTextField* tournamentFundingLabel;
-@property (weak) IBOutlet TBResizeTextField* clockLabel;
-@property (weak) IBOutlet TBResizeTextField* currentGameLabel;
-@property (weak) IBOutlet TBResizeTextField* currentRoundLabel;
-@property (weak) IBOutlet TBResizeTextField* nextGameLabel;
-@property (weak) IBOutlet TBResizeTextField* nextRoundLabel;
-@property (weak) IBOutlet TBResizeTextField* currentRoundNumberLabel;
-@property (weak) IBOutlet TBResizeTextField* playersLeftLabel;
-@property (weak) IBOutlet TBResizeTextField* entriesLabel;
-@property (weak) IBOutlet TBResizeTextField* averageStackLabel;
 @property (weak) IBOutlet TBActionClockView* actionClockView;
 @property (weak) IBOutlet NSView* rightPaneView;
 @property (weak) IBOutlet NSView* controlsView;
@@ -42,52 +33,9 @@
     [super windowDidLoad];
     
     // register for KVO
-    [[self KVOController] observe:[self session] keyPath:@"name" options:0 block:^(id observer, id object, NSDictionary *change) {
-        [[observer tournamentNameLabel] setStringValue:[object name]];
-    }];
-
-    [[self KVOController] observe:[self session] keyPath:@"currentBlindLevel" options:0 block:^(id observer, id object, NSDictionary *change) {
-        if([[object currentBlindLevel] intValue] == 0) {
-            [[observer currentRoundNumberLabel] setStringValue:@"-"];
-        } else {
-           [[observer currentRoundNumberLabel] setStringValue:[NSString stringWithFormat:@"%@", [object currentBlindLevel]]];
-        }
-    }];
-
-    [[self KVOController] observe:[self session] keyPath:@"clockText" options:0 block:^(id observer, id object, NSDictionary *change) {
-        [[observer clockLabel] setStringValue:[object clockText]];
-    }];
-
-    [[self KVOController] observe:[self session] keyPath:@"currentGameText" options:0 block:^(id observer, id object, NSDictionary *change) {
-        [[observer currentGameLabel] setStringValue:[object currentGameText]];
-    }];
-
-    [[self KVOController] observe:[self session] keyPath:@"currentRoundText" options:0 block:^(id observer, id object, NSDictionary *change) {
-        [[observer currentRoundLabel] setStringValue:[object currentRoundText]];
-    }];
-
-    [[self KVOController] observe:[self session] keyPath:@"nextGameText" options:0 block:^(id observer, id object, NSDictionary *change) {
-        [[observer nextGameLabel] setStringValue:[object nextGameText]];
-    }];
-    
-    [[self KVOController] observe:[self session] keyPath:@"nextRoundText" options:0 block:^(id observer, id object, NSDictionary *change) {
-        [[observer nextRoundLabel] setStringValue:[object nextRoundText]];
-    }];
-
-    [[self KVOController] observe:[self session] keyPath:@"playersLeftText" options:0 block:^(id observer, id object, NSDictionary *change) {
-        [[observer playersLeftLabel] setStringValue:[object playersLeftText]];
-    }];
-
-    [[self KVOController] observe:[self session] keyPath:@"entriesText" options:0 block:^(id observer, id object, NSDictionary *change) {
-        [[observer entriesLabel] setStringValue:[object entriesText]];
-    }];
-
-    [[self KVOController] observe:[self session] keyPath:@"averageStackText" options:0 block:^(id observer, id object, NSDictionary *change) {
-        [[observer averageStackLabel] setStringValue:[object averageStackText]];
-    }];
-
     [[self KVOController] observe:[self session] keyPath:@"actionClockTimeRemaining" options:0 block:^(id observer, id object, NSDictionary *change) {
-        [observer updateActionClock];
+        NSUInteger actionClockTimeRemaining = [[[self session] actionClockTimeRemaining] unsignedIntegerValue];
+        [[self actionClockView] setSeconds:actionClockTimeRemaining / 1000.0];
     }];
 
     // add subivews
@@ -97,19 +45,7 @@
     [[self controlsView] addSubview:[[self controlsViewController] view]];
 }
 
-#pragma mark Update
-
-- (void)updateActionClock {
-    NSUInteger actionClockTimeRemaining = [[[self session] actionClockTimeRemaining] unsignedIntegerValue];
-    if(actionClockTimeRemaining == 0) {
-        [[self actionClockView] setHidden:YES];
-    } else {
-        [[self actionClockView] setHidden:NO];
-        [[self actionClockView] setSeconds:actionClockTimeRemaining / 1000.0];
-    }
-}
-
-# pragma mark TBActionClockViewDelegate
+#pragma mark TBActionClockViewDelegate
 
 - (CGFloat)analogClock:(TBActionClockView*)clock graduationLengthForIndex:(NSInteger)index {
     return index % 5 == 0 ? 10.0 : 5.0;

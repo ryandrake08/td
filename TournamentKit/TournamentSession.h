@@ -9,6 +9,11 @@
 #import <Foundation/Foundation.h>
 #import "TournamentService.h"
 
+// Funding types (sync with enum funding_source_type_t in types.hpp)
+#define kFundingTypeBuyin @0
+#define kFundingTypeRebuy @1
+#define kFundingTypeAddon @2
+
 @interface TournamentSession : NSObject
 
 // currently connected server, or nil if either connected locally or not connected
@@ -57,6 +62,7 @@
 @property (nonatomic, readonly, getter=isPlanned) BOOL planned;
 @property (nonatomic, readonly, getter=isOnBreak) BOOL onBreak;
 @property (nonatomic, strong, readonly) NSString* clockText;
+@property (nonatomic, strong, readonly) NSString* currentRoundNumberText;
 @property (nonatomic, strong, readonly) NSString* currentGameText;
 @property (nonatomic, strong, readonly) NSString* currentRoundText;
 @property (nonatomic, strong, readonly) NSString* nextGameText;
@@ -64,6 +70,7 @@
 @property (nonatomic, strong, readonly) NSString* playersLeftText;
 @property (nonatomic, strong, readonly) NSString* entriesText;
 @property (nonatomic, strong, readonly) NSString* averageStackText;
+@property (nonatomic, strong, readonly) NSString* buyinText;
 @property (nonatomic, strong, readonly) NSArray* results;
 @property (nonatomic, strong, readonly) NSArray* seatedPlayers;
 @property (nonatomic, strong, readonly) NSDictionary* playersLookup;

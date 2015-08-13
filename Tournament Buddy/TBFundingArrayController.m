@@ -7,12 +7,13 @@
 //
 
 #import "TBFundingArrayController.h"
+#import "TournamentSession.h"
 
 @implementation TBFundingArrayController
 
 - (id)newObject {
     NSString* name = @"[New Buyin, Rebuy or Addon]";
-    NSNumber* type = @2;
+    NSNumber* type = kFundingTypeAddon;
     NSNumber* chips = @5000;
     NSNumber* cost = @10;
     NSNumber* commission = @0;
