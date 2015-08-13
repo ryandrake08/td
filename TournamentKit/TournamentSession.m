@@ -602,10 +602,10 @@
 
     // calculate new value
     for(NSDictionary* obj in fundingSources) {
-        if([obj[@"type"] isEqualTo:kFundingTypeBuyin]) {
+        if([obj[@"type"] isEqualToNumber:kFundingTypeBuyin]) {
             NSMutableString* newText = [NSMutableString stringWithString:obj[@"name"]];
             NSString* costText = [[self costFormatter] stringFromNumber:obj[@"cost"]];
-            if(obj[@"commission"] && ![obj[@"commission"] isEqualTo:@0]) {
+            if(obj[@"commission"] && ![obj[@"commission"] isEqualToNumber:@0]) {
                 NSString* commissionText = [[self costFormatter] stringFromNumber:obj[@"commission"]];
                 [newText appendFormat:@": %@+%@", costText, commissionText];
             } else {
