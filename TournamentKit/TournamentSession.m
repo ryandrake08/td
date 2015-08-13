@@ -9,6 +9,7 @@
 #import "TournamentSession.h"
 #import "TournamentConnection.h"
 #import "NSString+CamelCase.h"
+#import "TBCurrencyNumberFormatter.h"
 
 @interface TournamentSession() <TournamentConnectionDelegate>
 
@@ -444,6 +445,10 @@
         keyPaths = [keyPaths setByAddingObjectsFromArray:@[@"seats",@"players",@"buyins"]];
     } else if([key isEqualToString:@"buyinText"]) {
         keyPaths = [keyPaths setByAddingObjectsFromArray:@[@"fundingSources"]];
+    } else if([key isEqualToString:@"costFormatter"]) {
+        keyPaths = [keyPaths setByAddingObjectsFromArray:@[@"costCurrency"]];
+    } else if([key isEqualToString:@"equityFormatter"]) {
+        keyPaths = [keyPaths setByAddingObjectsFromArray:@[@"equityCurrencyb"]];
     }
 
     return keyPaths;
@@ -596,16 +601,21 @@
     NSArray* fundingSources = [self fundingSources];
 
     // calculate new value
-    NSString* newText = NSLocalizedString(@"No buyin", @"No buyin configured");
-
     for(NSDictionary* obj in fundingSources) {
         if([obj[@"type"] isEqualTo:kFundingTypeBuyin]) {
-            newText = obj[@"name"];
-            break;
+            NSMutableString* newText = [NSMutableString stringWithString:obj[@"name"]];
+            NSString* costText = [[self costFormatter] stringFromNumber:obj[@"cost"]];
+            if(obj[@"commission"] && ![obj[@"commission"] isEqualTo:@0]) {
+                NSString* commissionText = [[self costFormatter] stringFromNumber:obj[@"commission"]];
+                [newText appendFormat:@": %@+%@", costText, commissionText];
+            } else {
+                [newText appendFormat:@": %@", costText];
+            }
+            return newText;
         }
     }
 
-    return newText;
+    return NSLocalizedString(@"No buyin", @"No buyin configured");
 }
 
 - (NSArray*)results {
@@ -684,6 +694,24 @@
     id dict = [NSDictionary dictionaryWithObjects:[self players] forKeys:keys];
 
     return dict;
+}
+
+#pragma mark Number Formatters
+
+- (NSNumberFormatter*)costFormatter {
+    TBCurrencyNumberFormatter* formatter = [[TBCurrencyNumberFormatter alloc] init];
+    [formatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+    [formatter setMinimumFractionDigits:0];
+    [formatter setCurrencyCode:[self costCurrency]];
+    return formatter;
+}
+
+- (NSNumberFormatter*)equityFormatter {
+    TBCurrencyNumberFormatter* formatter = [[TBCurrencyNumberFormatter alloc] init];
+    [formatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+    [formatter setMinimumFractionDigits:0];
+    [formatter setCurrencyCode:[self equityCurrency]];
+    return formatter;
 }
 
 #pragma mark Tournament Messages
