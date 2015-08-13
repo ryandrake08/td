@@ -13,6 +13,7 @@
 #import "TBMovementWindowController.h"
 #import "TBResultsViewController.h"
 #import "TBPlayersViewController.h"
+#import "TBSound.h"
 #import "NSObject+FBKVOController.h"
 
 @interface TBSeatingViewController () <NSTableViewDelegate, NSMenuDelegate, TBPlayersViewDelegate>
@@ -37,6 +38,9 @@
 @property (weak) IBOutlet NSView* leftPaneView;
 @property (weak) IBOutlet NSView* rightPaneView;
 @property (weak) IBOutlet NSView* controlsView;
+
+// Sounds
+@property (strong) TBSound* rebalanceSound;
 
 @end
 
@@ -69,6 +73,9 @@
     // setup movement window
     [self setMovementWindowController:[[TBMovementWindowController alloc] initWithWindowNibName:@"TBMovementWindow"]];
     [[[self movementWindowController] window] close];
+
+    // alloc sounds
+    [self setRebalanceSound:[[TBSound alloc] initWithResource:@"s_rebalance" extension:@"caf"]];
 
     // register for KVO
     [[self KVOController] observe:[self session] keyPath:@"costCurrency" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
@@ -128,6 +135,9 @@
                 newMovement[@"player"] = player;
                 [[[self movementWindowController] arrayController] addObject:newMovement];
             }
+
+            // alert sound
+            [[self rebalanceSound] play];
 
             // show window
             [[self movementWindowController] showWindow:self];

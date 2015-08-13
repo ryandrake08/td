@@ -106,6 +106,16 @@
 		949D70A31B3C441F008D5CD1 /* socket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E31B3C3F8300A158F8 /* socket.cpp */; };
 		949D70A41B3C442F008D5CD1 /* cJSON.c in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4CE1B3C3F8300A158F8 /* cJSON.c */; };
 		949D70A51B3C442F008D5CD1 /* cJSON.c in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4CE1B3C3F8300A158F8 /* cJSON.c */; };
+		94D04ECD1B7C59EB004F4245 /* s_break.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04EC81B7C59EB004F4245 /* s_break.caf */; };
+		94D04ECE1B7C59EB004F4245 /* s_break.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04EC81B7C59EB004F4245 /* s_break.caf */; };
+		94D04ECF1B7C59EB004F4245 /* s_next.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04EC91B7C59EB004F4245 /* s_next.caf */; };
+		94D04ED01B7C59EB004F4245 /* s_next.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04EC91B7C59EB004F4245 /* s_next.caf */; };
+		94D04ED11B7C59EB004F4245 /* s_rebalance.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04ECA1B7C59EB004F4245 /* s_rebalance.caf */; };
+		94D04ED21B7C59EB004F4245 /* s_rebalance.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04ECA1B7C59EB004F4245 /* s_rebalance.caf */; };
+		94D04ED31B7C59EB004F4245 /* s_start.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04ECB1B7C59EB004F4245 /* s_start.caf */; };
+		94D04ED41B7C59EB004F4245 /* s_start.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04ECB1B7C59EB004F4245 /* s_start.caf */; };
+		94D04ED51B7C59EB004F4245 /* s_warning.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04ECC1B7C59EB004F4245 /* s_warning.caf */; };
+		94D04ED61B7C59EB004F4245 /* s_warning.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04ECC1B7C59EB004F4245 /* s_warning.caf */; };
 		94E16F221B6C99840070F1BA /* TBResizeTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 94562E6B1B65D9420017C692 /* TBResizeTextField.m */; };
 		94ED00111B76E1E6003CF19B /* TBTableSeatNumberTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 94ED00101B76E1E6003CF19B /* TBTableSeatNumberTransformer.m */; };
 		94FDEADC1B5AE2560026B25D /* TBColor+CSS.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEADB1B5AE2560026B25D /* TBColor+CSS.m */; };
@@ -278,6 +288,11 @@
 		9476F4EA1B3C3F8300A158F8 /* types.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = types.hpp; sourceTree = "<group>"; };
 		9476F4F91B3C403F00A158F8 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		9476F4FB1B3C404400A158F8 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		94D04EC81B7C59EB004F4245 /* s_break.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = s_break.caf; sourceTree = "<group>"; };
+		94D04EC91B7C59EB004F4245 /* s_next.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = s_next.caf; sourceTree = "<group>"; };
+		94D04ECA1B7C59EB004F4245 /* s_rebalance.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = s_rebalance.caf; sourceTree = "<group>"; };
+		94D04ECB1B7C59EB004F4245 /* s_start.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = s_start.caf; sourceTree = "<group>"; };
+		94D04ECC1B7C59EB004F4245 /* s_warning.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = s_warning.caf; sourceTree = "<group>"; };
 		94ED000F1B76E1E6003CF19B /* TBTableSeatNumberTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBTableSeatNumberTransformer.h; sourceTree = "<group>"; };
 		94ED00101B76E1E6003CF19B /* TBTableSeatNumberTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBTableSeatNumberTransformer.m; sourceTree = "<group>"; };
 		94FDEADA1B5AE2560026B25D /* TBColor+CSS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TBColor+CSS.h"; sourceTree = "<group>"; };
@@ -486,6 +501,18 @@
 			path = tournamentd;
 			sourceTree = "<group>";
 		};
+		94D04EC71B7C59EB004F4245 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				94D04EC81B7C59EB004F4245 /* s_break.caf */,
+				94D04EC91B7C59EB004F4245 /* s_next.caf */,
+				94D04ECA1B7C59EB004F4245 /* s_rebalance.caf */,
+				94D04ECB1B7C59EB004F4245 /* s_start.caf */,
+				94D04ECC1B7C59EB004F4245 /* s_warning.caf */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		94FDEAD91B5AD29B0026B25D /* Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -547,6 +574,7 @@
 		AD8E683A1A6C606700E5A4D8 = {
 			isa = PBXGroup;
 			children = (
+				94D04EC71B7C59EB004F4245 /* Resources */,
 				94FDEAD91B5AD29B0026B25D /* Common */,
 				AD8E68451A6C606700E5A4D8 /* Tournament Buddy */,
 				944FF4B41B3D04CA000362ED /* TBPlayer */,
@@ -764,9 +792,14 @@
 				ADE299B81B7B9EE800F1393B /* TBPlayerWindow.xib in Resources */,
 				9462A3F91B7864E900B29002 /* TBAuthsView.xib in Resources */,
 				ADCECE7F1B7B0DBB00767DA6 /* TBControlsView.xib in Resources */,
+				94D04ED01B7C59EB004F4245 /* s_next.caf in Resources */,
 				944FF4BD1B3D04CA000362ED /* TBPlayer.xcassets in Resources */,
 				ADCECE811B7B0DBF00767DA6 /* TBResultsView.xib in Resources */,
+				94D04ED61B7C59EB004F4245 /* s_warning.caf in Resources */,
 				944FF4C01B3D04CA000362ED /* MainMenu.xib in Resources */,
+				94D04ECE1B7C59EB004F4245 /* s_break.caf in Resources */,
+				94D04ED21B7C59EB004F4245 /* s_rebalance.caf in Resources */,
+				94D04ED41B7C59EB004F4245 /* s_start.caf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -789,11 +822,16 @@
 				9462A3F81B7864E900B29002 /* TBAuthsView.xib in Resources */,
 				AD8E68541A6C606700E5A4D8 /* TBMac.xcassets in Resources */,
 				AD98D95C1A7B290500DA6B8B /* TBFundingView.xib in Resources */,
+				94D04ED51B7C59EB004F4245 /* s_warning.caf in Resources */,
 				ADCECE871B7B101500767DA6 /* TBPlayersView.xib in Resources */,
 				AD98D9751A7B343600DA6B8B /* TBSeatingView.xib in Resources */,
 				AD98D9701A7B342000DA6B8B /* TBRoundsView.xib in Resources */,
+				94D04ED11B7C59EB004F4245 /* s_rebalance.caf in Resources */,
 				9462A3EE1B77F40500B29002 /* TBMovementWindow.xib in Resources */,
 				AD8E68571A6C606700E5A4D8 /* MainMenu.xib in Resources */,
+				94D04ECD1B7C59EB004F4245 /* s_break.caf in Resources */,
+				94D04ED31B7C59EB004F4245 /* s_start.caf in Resources */,
+				94D04ECF1B7C59EB004F4245 /* s_next.caf in Resources */,
 				9454107C1B6EC5DD001E3373 /* TBConfigurationWindow.xib in Resources */,
 				ADCECE7A1B7B0D9D00767DA6 /* TBControlsView.xib in Resources */,
 				ADE299B51B7B9ED100F1393B /* TBPlayerWindow.xib in Resources */,
