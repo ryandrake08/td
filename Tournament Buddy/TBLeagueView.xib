@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="8152.3" systemVersion="15A257" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="8152.3"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="TBLeagueViewController">
@@ -17,15 +18,15 @@
             <rect key="frame" x="0.0" y="0.0" width="640" height="375"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <scrollView autohidesScrollers="YES" horizontalLineScroll="29" horizontalPageScroll="10" verticalLineScroll="29" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="cjc-wV-JGQ">
+                <scrollView autohidesScrollers="YES" horizontalLineScroll="31" horizontalPageScroll="10" verticalLineScroll="31" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="cjc-wV-JGQ">
                     <rect key="frame" x="0.0" y="20" width="640" height="355"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <clipView key="contentView" id="AfP-2H-Pn9">
                         <rect key="frame" x="1" y="17" width="638" height="337"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="firstColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" autosaveColumns="NO" rowHeight="27" rowSizeStyle="automatic" headerView="Xwo-Am-moo" viewBased="YES" id="Cmf-jN-97o">
-                                <rect key="frame" x="0.0" y="0.0" width="638" height="337"/>
+                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="firstColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" autosaveColumns="NO" rowHeight="29" rowSizeStyle="automatic" headerView="Xwo-Am-moo" viewBased="YES" id="Cmf-jN-97o">
+                                <rect key="frame" x="0.0" y="0.0" width="638" height="0.0"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <animations/>
                                 <size key="intercellSpacing" width="3" height="2"/>
@@ -46,11 +47,11 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView id="A4h-DW-slB">
-                                                <rect key="frame" x="1" y="1" width="504" height="27"/>
+                                                <rect key="frame" x="1" y="1" width="504" height="29"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" id="zrI-4e-tPp" userLabel="Player Name">
-                                                        <rect key="frame" x="0.0" y="5" width="504" height="17"/>
+                                                        <rect key="frame" x="0.0" y="7" width="504" height="17"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                         <animations/>
                                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" alignment="left" title="Table View Cell" placeholderString="Player Name" id="XYV-n8-ZSs">
@@ -84,11 +85,11 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView id="bOG-cw-pfl">
-                                                <rect key="frame" x="508" y="1" width="128" height="27"/>
+                                                <rect key="frame" x="508" y="1" width="128" height="29"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <datePicker verticalHuggingPriority="750" id="cRZ-gh-GXE">
-                                                        <rect key="frame" x="0.0" y="2" width="128" height="27"/>
+                                                        <rect key="frame" x="0.0" y="4" width="128" height="27"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                         <animations/>
                                                         <datePickerCell key="cell" alignment="left" id="aee-m8-741">

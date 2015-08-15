@@ -20,14 +20,14 @@
             <rect key="frame" x="0.0" y="0.0" width="640" height="375"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <scrollView autohidesScrollers="YES" horizontalLineScroll="28" horizontalPageScroll="10" verticalLineScroll="28" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="vsn-W9-hge">
+                <scrollView autohidesScrollers="YES" horizontalLineScroll="31" horizontalPageScroll="10" verticalLineScroll="31" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="vsn-W9-hge">
                     <rect key="frame" x="0.0" y="20" width="640" height="355"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <clipView key="contentView" drawsBackground="NO" id="mHv-8H-3eA">
                         <rect key="frame" x="1" y="17" width="638" height="337"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="firstColumnOnly" columnSelection="YES" autosaveColumns="NO" rowHeight="26" rowSizeStyle="automatic" headerView="SOR-EG-EJf" viewBased="YES" id="n9f-OZ-oem">
+                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="firstColumnOnly" columnSelection="YES" autosaveColumns="NO" rowHeight="29" rowSizeStyle="automatic" headerView="SOR-EG-EJf" viewBased="YES" id="n9f-OZ-oem">
                                 <rect key="frame" x="0.0" y="0.0" width="638" height="0.0"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
@@ -48,11 +48,11 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView id="v4G-pi-8L3">
-                                                <rect key="frame" x="1" y="1" width="89" height="26"/>
+                                                <rect key="frame" x="1" y="1" width="89" height="29"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" id="Tuz-Wx-yMt" userLabel="Name">
-                                                        <rect key="frame" x="0.0" y="5" width="85" height="17"/>
+                                                        <rect key="frame" x="0.0" y="7" width="85" height="17"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" title="Table View Cell" placeholderString="Name (e.g. Early Bird Addon)" id="EtV-4i-XDm">
                                                             <font key="font" metaFont="systemBold"/>
@@ -87,11 +87,11 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView id="g2k-DY-PZy">
-                                                <rect key="frame" x="196" y="1" width="112" height="26"/>
+                                                <rect key="frame" x="93" y="1" width="112" height="29"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <popUpButton verticalHuggingPriority="750" id="5oJ-0Q-CaC" userLabel="Type">
-                                                        <rect key="frame" x="0.0" y="0.0" width="104" height="26"/>
+                                                        <rect key="frame" x="0.0" y="1.5" width="104" height="26"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                         <popUpButtonCell key="cell" type="push" title="Add-on" bezelStyle="rounded" imagePosition="left" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="border" tag="2" imageScaling="proportionallyDown" inset="2" selectedItem="dwf-DU-IBN" id="5Po-jG-8BF">
                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -135,11 +135,11 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView id="CYi-hL-Ch3">
-                                                <rect key="frame" x="311" y="1" width="56" height="26"/>
+                                                <rect key="frame" x="208" y="1" width="56" height="29"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" id="xTr-TC-3Hl" userLabel="Cost Value">
-                                                        <rect key="frame" x="0.0" y="5" width="56" height="17"/>
+                                                        <rect key="frame" x="0.0" y="7" width="56" height="17"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" alignment="left" title="Table View Cell" placeholderString="Cost" id="aqP-cm-2eN">
                                                             <font key="font" metaFont="system"/>
@@ -174,11 +174,11 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView id="gjc-Qx-bHl">
-                                                <rect key="frame" x="370" y="1" width="56" height="26"/>
+                                                <rect key="frame" x="267" y="1" width="56" height="29"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" id="ig5-xE-2BK" userLabel="Fee Value">
-                                                        <rect key="frame" x="0.0" y="5" width="56" height="17"/>
+                                                        <rect key="frame" x="0.0" y="7" width="56" height="17"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" alignment="left" title="Table View Cell" placeholderString="Fee" id="88h-PX-2Sg">
                                                             <font key="font" metaFont="system"/>
@@ -213,11 +213,11 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView id="HwY-hW-bUI">
-                                                <rect key="frame" x="429" y="1" width="56" height="26"/>
+                                                <rect key="frame" x="326" y="1" width="56" height="29"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" id="FxW-AN-4e6" userLabel="Equity Value">
-                                                        <rect key="frame" x="0.0" y="5" width="56" height="17"/>
+                                                        <rect key="frame" x="0.0" y="7" width="56" height="17"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" alignment="left" title="Table View Cell" placeholderString="Equity" id="asL-e8-nIq">
                                                             <font key="font" metaFont="system"/>
@@ -252,11 +252,11 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView id="DiR-si-Lw4">
-                                                <rect key="frame" x="488" y="1" width="56" height="26"/>
+                                                <rect key="frame" x="385" y="1" width="56" height="29"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" id="1Po-Mx-C2U" userLabel="Chips Value">
-                                                        <rect key="frame" x="0.0" y="5" width="56" height="17"/>
+                                                        <rect key="frame" x="0.0" y="7" width="56" height="17"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" alignment="left" title="Table View Cell" placeholderString="Chip Count" id="Ng6-A1-M0z">
                                                             <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="GPs-t1-CJJ">
@@ -294,11 +294,11 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView id="Sm9-1Z-FA0" customClass="TBFundingTableCellView">
-                                                <rect key="frame" x="441" y="1" width="192" height="26"/>
+                                                <rect key="frame" x="444" y="1" width="192" height="29"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <button id="IW4-Pg-d0L">
-                                                        <rect key="frame" x="0.0" y="0.0" width="22" height="26"/>
+                                                        <rect key="frame" x="0.0" y="1.5" width="22" height="26"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                         <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="nuk-dX-93O">
                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -314,7 +314,7 @@
                                                         </connections>
                                                     </button>
                                                     <popUpButton verticalHuggingPriority="750" id="tsN-Ff-csU" userLabel="Until Round">
-                                                        <rect key="frame" x="26" y="0.0" width="166" height="26"/>
+                                                        <rect key="frame" x="26" y="1.5" width="166" height="26"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                         <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="PtV-cN-mJm">
                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
