@@ -448,7 +448,7 @@ bool tournament::handle_client_input(std::iostream& client)
                             current_blind_level (integer): Current blind level. 0 = planning stage
                             time_remaining (integer): Time remaining in current level (milliseconds)
                             break_time_remaining (integer): Time remaining in current break (milliseconds)
-                            action_clock_remaining (integer): Time remaining on action clock (milliseconds)
+                            action_clock_time_remaining (integer): Time remaining on action clock (milliseconds)
                             elapsed (integer): Tournament time elapsed (milliseconds)
                          */
                     case crc32_("get_state"):

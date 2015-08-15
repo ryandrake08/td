@@ -66,6 +66,10 @@
         }
     }];
 
+    [[self KVOController] observe:[self session] keyPath:@"elapsedTimeText" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
+        [[observer elapsedLabel] setText:[object elapsedTimeText]];
+    }];
+
     [[self KVOController] observe:[self session] keyPath:@"clockText" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
         [[observer clockLabel] setText:[object clockText]];
     }];

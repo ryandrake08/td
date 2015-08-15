@@ -182,6 +182,32 @@
                                     <binding destination="-2" name="value" keyPath="self.session.averageStackText" id="rDM-Ta-5O4"/>
                                 </connections>
                             </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="ZNS-JQ-PON" customClass="TBResizeTextField">
+                                <rect key="frame" x="-2" y="256" width="260" height="32"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Elapsed Time" placeholderString="" usesSingleLineMode="YES" id="Xku-km-Q5P">
+                                    <font key="font" metaFont="system" size="24"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="K8v-Yz-PAh" customClass="TBResizeTextField">
+                                <rect key="frame" x="-2" y="192" width="260" height="64"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="01:23:45" placeholderString="" usesSingleLineMode="YES" id="Xi1-K8-bQc">
+                                    <font key="font" metaFont="system" size="48"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="minFontSize">
+                                        <real key="value" value="24"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <binding destination="-2" name="value" keyPath="self.session.elapsedTimeText" id="36C-wB-JO6"/>
+                                </connections>
+                            </textField>
                         </subviews>
                     </customView>
                     <customView id="zql-0O-xSY" userLabel="Center Pane">
@@ -189,11 +215,11 @@
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
                         <subviews>
                             <customView id="6oh-Wj-Ac7">
-                                <rect key="frame" x="104" y="607.99999791145763" width="304" height="64"/>
+                                <rect key="frame" x="104" y="607.99999514847934" width="304" height="64"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                             </customView>
                             <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="CDw-40-LG5" customClass="TBResizeTextField">
-                                <rect key="frame" x="-2" y="415.99999791145763" width="516" height="192"/>
+                                <rect key="frame" x="-2" y="415.99999514847934" width="516" height="192"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="01:23:45" placeholderString="" usesSingleLineMode="YES" id="f7C-Sd-FCb">
                                     <font key="font" metaFont="system" size="128"/>

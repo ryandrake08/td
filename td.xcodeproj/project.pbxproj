@@ -106,6 +106,8 @@
 		949D70A31B3C441F008D5CD1 /* socket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E31B3C3F8300A158F8 /* socket.cpp */; };
 		949D70A41B3C442F008D5CD1 /* cJSON.c in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4CE1B3C3F8300A158F8 /* cJSON.c */; };
 		949D70A51B3C442F008D5CD1 /* cJSON.c in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4CE1B3C3F8300A158F8 /* cJSON.c */; };
+		94BB5FFA1B7F9F1600B33929 /* NSString+CamelCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 945410761B6E9A17001E3373 /* NSString+CamelCase.m */; };
+		94BB5FFB1B7F9F1600B33929 /* NSString+CamelCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 945410761B6E9A17001E3373 /* NSString+CamelCase.m */; };
 		94D04ECD1B7C59EB004F4245 /* s_break.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04EC81B7C59EB004F4245 /* s_break.caf */; };
 		94D04ECE1B7C59EB004F4245 /* s_break.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04EC81B7C59EB004F4245 /* s_break.caf */; };
 		94D04ECF1B7C59EB004F4245 /* s_next.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04EC91B7C59EB004F4245 /* s_next.caf */; };
@@ -864,6 +866,7 @@
 				94562E6C1B65D9420017C692 /* TBResizeTextField.m in Sources */,
 				94FDEAF81B5AE7920026B25D /* NSView+BackgroundColor.m in Sources */,
 				9462A3F21B781A9A00B29002 /* RSVerticallyCenteredTextFieldCell.m in Sources */,
+				94BB5FFA1B7F9F1600B33929 /* NSString+CamelCase.m in Sources */,
 				943B00D21B3F429500CE55D4 /* json.cpp in Sources */,
 				94FDEAEF1B5AE2D60026B25D /* NSObject+FBKVOController.m in Sources */,
 				943B00D11B3F429500CE55D4 /* gameinfo.cpp in Sources */,
@@ -909,6 +912,7 @@
 				949D70A21B3C441F008D5CD1 /* socket.cpp in Sources */,
 				949D709C1B3C440E008D5CD1 /* gameinfo.cpp in Sources */,
 				94FDEAFB1B5AEB0B0026B25D /* TBActionClockView.m in Sources */,
+				94BB5FFB1B7F9F1600B33929 /* NSString+CamelCase.m in Sources */,
 				94FDEAEA1B5AE2D60026B25D /* FBKVOController.m in Sources */,
 				9476F4A31B3C3EA700A158F8 /* TournamentConnection.m in Sources */,
 				949D709E1B3C440E008D5CD1 /* logger.cpp in Sources */,

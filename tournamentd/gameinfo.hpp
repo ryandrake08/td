@@ -101,10 +101,11 @@ class gameinfo
 
     // action clock
     time_point_t end_of_action_clock;
-    duration_t action_clock_remaining;
+    duration_t action_clock_time_remaining;
 
     // elapsed time
-    duration_t elapsed;
+    time_point_t tournament_start;
+    duration_t elapsed_time;
     
     // ----- utility -----
 

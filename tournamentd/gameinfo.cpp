@@ -22,10 +22,10 @@ gameinfo::gameinfo() :
     total_equity(0.0),
     running(false),
     current_blind_level(0),
-    time_remaining(0),
-    break_time_remaining(0),
-    action_clock_remaining(0),
-    elapsed(0)
+    time_remaining(duration_t::zero()),
+    break_time_remaining(duration_t::zero()),
+    action_clock_time_remaining(duration_t::zero()),
+    elapsed_time(duration_t::zero())
 {
     validate();
 }
@@ -168,8 +168,8 @@ void gameinfo::dump_state(json& state) const
     state.set_value("current_blind_level", this->current_blind_level);
     state.set_value("time_remaining", this->time_remaining.count());
     state.set_value("break_time_remaining", this->break_time_remaining.count());
-    state.set_value("action_clock_remaining", this->action_clock_remaining.count());
-    state.set_value("elapsed", this->elapsed.count());
+    state.set_value("action_clock_time_remaining", this->action_clock_time_remaining.count());
+    state.set_value("elapsed_time", this->elapsed_time.count());
 }
 
 std::vector<std::vector<td::player_id_t> > gameinfo::players_at_tables() const
@@ -849,6 +849,8 @@ void gameinfo::start()
         throw td::protocol_error("cannot start without blind levels configured");
     }
 
+    auto starttime(std::chrono::system_clock::now());
+
     logger(LOG_INFO) << "starting the tournament\n";
 
     // start the blind level
@@ -857,8 +859,11 @@ void gameinfo::start()
     // start the tournament
     this->running = true;
 
+    // set tournament start time
+    this->tournament_start = starttime;
+
     // set elapsed time
-    this->elapsed = duration_t::zero();
+    this->elapsed_time = duration_t::zero();
 }
 
 void gameinfo::start(const time_point_t& starttime)
@@ -881,8 +886,11 @@ void gameinfo::start(const time_point_t& starttime)
     // set break end time
     this->end_of_break = starttime;
 
+    // set tournament start time
+    this->tournament_start = starttime;
+
     // set elapsed time
-    this->elapsed = duration_t::zero();
+    this->elapsed_time = duration_t::zero();
 }
 
 // stop the game
@@ -897,8 +905,9 @@ void gameinfo::stop()
     this->end_of_action_clock = time_point_t();
     this->time_remaining = duration_t::zero();
     this->break_time_remaining = duration_t::zero();
-    this->action_clock_remaining = duration_t::zero();
-    this->elapsed = duration_t::zero();
+    this->action_clock_time_remaining = duration_t::zero();
+    this->tournament_start = time_point_t();
+    this->elapsed_time = duration_t::zero();
 }
 
 // pause
@@ -983,8 +992,8 @@ bool gameinfo::previous_blind_level(duration_t offset)
     static auto max_elapsed_time_ms(2000);
 
     // calculate elapsed time in this blind level
-    auto elapsed_time(this->blind_levels[this->current_blind_level].duration - this->time_remaining.count());
-    if(elapsed_time > max_elapsed_time_ms || this->current_blind_level == 1)
+    auto blind_level_elapsed_time(this->blind_levels[this->current_blind_level].duration - this->time_remaining.count());
+    if(blind_level_elapsed_time > max_elapsed_time_ms || this->current_blind_level == 1)
     {
         logger(LOG_INFO) << "restarting blind level " << this->current_blind_level << '\n';
 
@@ -1006,16 +1015,23 @@ bool gameinfo::update_remaining()
     auto updated(false);
     auto now(std::chrono::system_clock::now());
 
+    // update elapsed_time if we are past the tournament start
+    if(this->tournament_start != time_point_t() && this->tournament_start < now)
+    {
+        this->elapsed_time = std::chrono::duration_cast<duration_t>(now - this->tournament_start);
+        updated = true;
+    }
+
     // always update action clock if ticking
     if(this->end_of_action_clock != time_point_t() && this->end_of_action_clock > now)
     {
-        this->action_clock_remaining = std::chrono::duration_cast<duration_t>(this->end_of_action_clock - now);
+        this->action_clock_time_remaining = std::chrono::duration_cast<duration_t>(this->end_of_action_clock - now);
         updated = true;
     }
     else
     {
         this->end_of_action_clock = time_point_t();
-        this->action_clock_remaining = duration_t::zero();
+        this->action_clock_time_remaining = duration_t::zero();
     }
 
     if(this->running)
@@ -1050,7 +1066,7 @@ void gameinfo::set_action_clock(long duration)
     if(this->end_of_action_clock == time_point_t())
     {
         this->end_of_action_clock = std::chrono::system_clock::now() + duration_t(duration);
-        this->action_clock_remaining = duration_t(duration);
+        this->action_clock_time_remaining = duration_t(duration);
     }
     else
     {
@@ -1062,7 +1078,7 @@ void gameinfo::set_action_clock(long duration)
 void gameinfo::reset_action_clock()
 {
     this->end_of_action_clock = time_point_t();
-    this->action_clock_remaining = duration_t::zero();
+    this->action_clock_time_remaining = duration_t::zero();
 }
 
 static unsigned long calculate_round_denomination(double ideal_small, const std::vector<td::chip>& chips)

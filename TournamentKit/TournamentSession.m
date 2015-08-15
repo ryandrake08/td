@@ -29,6 +29,8 @@
 @property (nonatomic, strong) NSNumberFormatter* decimalFormatter;
 
 // tournament configuration
+@property (nonatomic, strong) NSString* serverName;
+@property (nonatomic, strong) NSString* serverVersion;
 @property (nonatomic, strong) NSArray* authorizedClients;
 @property (nonatomic, strong) NSString* name;
 @property (nonatomic, strong) NSArray* players;
@@ -60,6 +62,7 @@
 @property (nonatomic, strong) NSArray* playersFinished;
 @property (nonatomic, strong) NSArray* emptySeats;
 @property (nonatomic, strong) NSNumber* tables;
+@property (nonatomic, strong) NSNumber* elapsedTime;
 
 @end
 
@@ -421,6 +424,8 @@
         keyPaths = [keyPaths setByAddingObjectsFromArray:@[@"timeRemaining", @"breakTimeRemaining"]];
     } else if([key isEqualToString:@"clockText"]) {
         keyPaths = [keyPaths setByAddingObjectsFromArray:@[@"running", @"onBreak", @"timeRemaining", @"breakTimeRemaining"]];
+    } else if([key isEqualToString:@"elapsedTimeText"]) {
+        keyPaths = [keyPaths setByAddingObjectsFromArray:@[@"elapsedTime"]];
     } else if([key isEqualToString:@"currentRoundNumberText"]) {
         keyPaths = [keyPaths setByAddingObjectsFromArray:@[@"currentBlindLevel", @"blindLevels"]];
     } else if([key isEqualToString:@"currentGameText"]) {
@@ -479,6 +484,11 @@
     }
 
     return newText;
+}
+
+- (NSString*)elapsedTimeText {
+    NSUInteger elapsedTime = [[self elapsedTime] unsignedIntegerValue];
+    return [self formatDuration:elapsedTime];
 }
 
 - (NSString*)currentRoundNumberText {
@@ -732,127 +742,18 @@
             // remove it from our dictionary
             [[self blocksForCommands] removeObjectForKey:cmdkey];
         }
-    }
-
-    // any configuration or state to update, split into calls to set properties
-    id value;
-
-    // tournament configuration
-    if((value = json[@"authorized_clients"]) && ![value isEqual:[self authorizedClients]]) {
-        [self setAuthorizedClients:value];
-    }
-
-    if((value = json[@"name"]) && ![value isEqual:[self name]]) {
-        [self setName:value];
-    }
-
-    if((value = json[@"players"]) && ![value isEqual:[self players]]) {
-        [self setPlayers:value];
-    }
-
-    if((value = json[@"blind_levels"]) && ![value isEqual:[self blindLevels]]) {
-        [self setBlindLevels:value];
-    }
-
-    if((value = json[@"available_chips"]) && ![value isEqual:[self availableChips]]) {
-        [self setAvailableChips:value];
-    }
-
-    if((value = json[@"cost_currency"]) && ![value isEqual:[self costCurrency]]) {
-        [self setCostCurrency:value];
-    }
-
-    if((value = json[@"equity_currency"]) && ![value isEqual:[self equityCurrency]]) {
-        [self setEquityCurrency:value];
-    }
-
-    if((value = json[@"percent_seats_paid"]) && ![value isEqual:[self percentSeatsPaid]]) {
-        [self setPercentSeatsPaid:value];
-    }
-
-    if((value = json[@"round_payouts"]) && ![value isEqual:[self roundPayouts]]) {
-        [self setRoundPayouts:value];
-    }
-
-    if((value = json[@"payout_flatness"]) && ![value isEqual:[self payoutFlatness]]) {
-        [self setPayoutFlatness:value];
-    }
-
-    if((value = json[@"funding_sources"]) && ![value isEqual:[self fundingSources]]) {
-        [self setFundingSources:value];
-    }
-
-    if((value = json[@"table_capacity"]) && ![value isEqual:[self tableCapacity]]) {
-        [self setTableCapacity:value];
-    }
-
-    if((value = json[@"manual_payouts"]) && ![value isEqual:[self manualPayouts]]) {
-        [self setManualPayouts:value];
-    }
-
-    // tournament state
-    if((value = json[@"running"]) && ![value isEqual:[self isRunning]]) {
-        [self setRunning:value];
-    }
-
-    if((value = json[@"current_blind_level"]) && ![value isEqual:[self currentBlindLevel]]) {
-        [self setCurrentBlindLevel:value];
-    }
-
-    if((value = json[@"time_remaining"]) && ![value isEqual:[self timeRemaining]]) {
-        [self setTimeRemaining:value];
-    }
-
-    if((value = json[@"break_time_remaining"]) && ![value isEqual:[self breakTimeRemaining]]) {
-        [self setBreakTimeRemaining:value];
-    }
-
-    if((value = json[@"action_clock_remaining"]) && ![value isEqual:[self actionClockTimeRemaining]]) {
-        [self setActionClockTimeRemaining:value];
-    }
-
-    if((value = json[@"buyins"]) && ![value isEqual:[self buyins]]) {
-        [self setBuyins:value];
-    }
-
-    if((value = json[@"payouts"]) && ![value isEqual:[self payouts]]) {
-        [self setPayouts:value];
-    }
-
-    if((value = json[@"total_chips"]) && ![value isEqual:[self totalChips]]) {
-        [self setTotalChips:value];
-    }
-
-    if((value = json[@"total_cost"]) && ![value isEqual:[self totalCost]]) {
-        [self setTotalCost:value];
-    }
-
-    if((value = json[@"total_commission"]) && ![value isEqual:[self totalCommission]]) {
-        [self setTotalCommission:value];
-    }
-
-    if((value = json[@"total_equity"]) && ![value isEqual:[self totalEquity]]) {
-        [self setTotalEquity:value];
-    }
-
-    if((value = json[@"seats"]) && ![value isEqual:[self seats]]) {
-        [self setSeats:value];
-    }
-
-    if((value = json[@"entries"]) && ![value isEqual:[self entries]]) {
-        [self setEntries:value];
-    }
-
-    if((value = json[@"players_finished"]) && ![value isEqual:[self playersFinished]]) {
-        [self setPlayersFinished:value];
-    }
-
-    if((value = json[@"empty_seats"]) && ![value isEqual:[self emptySeats]]) {
-        [self setEmptySeats:value];
-    }
-
-    if((value = json[@"tables"]) && ![value isEqual:[self tables]]) {
-        [self setTables:value];
+    } else {
+        // any configuration or state to update, split into calls to set properties
+        [json enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+            @try {
+                if(![obj isEqual:[self valueForKey:[key asCamelCaseFromUnderscore]]]) {
+                    [self setValue:obj forKey:[key asCamelCaseFromUnderscore]];
+                }
+            }
+            @catch (NSException* exception) {
+                NSLog(@"Session has no key %@", key);
+            }
+        }];
     }
 }
 

@@ -26,6 +26,8 @@
 @property (nonatomic, readonly, getter=isAuthorized) BOOL authorized;
 
 // tournament configuration
+@property (nonatomic, strong, readonly) NSString* serverName;
+@property (nonatomic, strong, readonly) NSString* serverVersion;
 @property (nonatomic, strong, readonly) NSArray* authorizedClients;
 @property (nonatomic, strong, readonly) NSString* name;
 @property (nonatomic, strong, readonly) NSArray* players;
@@ -57,6 +59,7 @@
 @property (nonatomic, strong, readonly) NSArray* playersFinished;
 @property (nonatomic, strong, readonly) NSArray* emptySeats;
 @property (nonatomic, strong, readonly) NSNumber* tables;
+@property (nonatomic, strong, readonly) NSNumber* elapsedTime;
 
 // derived tournament state
 @property (nonatomic, readonly, getter=isPlanned) BOOL planned;
@@ -74,6 +77,7 @@
 @property (nonatomic, strong, readonly) NSArray* results;
 @property (nonatomic, strong, readonly) NSArray* seatedPlayers;
 @property (nonatomic, strong, readonly) NSDictionary* playersLookup;
+@property (nonatomic, strong, readonly) NSString* elapsedTimeText;
 
 // number formatters
 @property (nonatomic, strong, readonly) NSNumberFormatter* costFormatter;
