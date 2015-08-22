@@ -8,7 +8,24 @@
 
 #import "TBChipsViewController.h"
 #import "NSObject+FBKVOController.h"
-#import "NSObject+FBKVOController.h"
+#import "TBColor+CSS.h"
+
+// TBChipsArrayController implements a new object
+@interface TBChipsArrayController : NSArrayController
+
+@end
+
+@implementation TBChipsArrayController
+
+- (id)newObject {
+    NSString* color = [TBColor randomColorName];
+    NSNumber* denomination = @1;
+    NSNumber* count_available = @100;
+
+    return [[NSMutableDictionary alloc] initWithObjectsAndKeys:color, @"color", denomination, @"denomination", count_available, @"count_available", nil];
+}
+
+@end
 
 @implementation TBChipsViewController
 

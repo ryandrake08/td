@@ -11,6 +11,26 @@
 #import "TBCurrencyNumberFormatter.h"
 #import "NSObject+FBKVOController.h"
 
+// TBFundingArrayController implements a new object
+@interface TBFundingArrayController : NSArrayController
+
+@end
+
+@implementation TBFundingArrayController
+
+- (id)newObject {
+    NSString* name = @"[New Buyin, Rebuy or Addon]";
+    NSNumber* type = kFundingTypeAddon;
+    NSNumber* chips = @5000;
+    NSNumber* cost = @10;
+    NSNumber* commission = @0;
+    NSNumber* equity = @10;
+
+    return [[NSMutableDictionary alloc] initWithObjectsAndKeys:name, @"name", type, @"type", chips, @"chips", cost, @"cost", commission, @"commission", equity, @"equity", nil];
+}
+
+@end
+
 // TBFundingTableCellView to handle custom bindings
 @interface TBFundingTableCellView : NSTableCellView
 
