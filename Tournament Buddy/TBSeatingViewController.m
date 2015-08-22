@@ -59,21 +59,6 @@
     // set sort descriptors for arrays
     [[self arrayController] setSortDescriptors:@[tableNumberSort, seatNumberSort]];
 
-    // setup configuration window
-    [self setConfigurationWindowController:[[TBConfigurationWindowController alloc] initWithWindowNibName:@"TBConfigurationWindow"]];
-    [[self configurationWindowController] setSession:[self session]];
-    [[self configurationWindowController] setConfiguration:[self configuration]];
-    [[[self configurationWindowController] window] close];
-
-    // setup player window
-    [self setPlayerWindowController:[[TBPlayerWindowController alloc] initWithWindowNibName:@"TBPlayerWindow"]];
-    [[self playerWindowController] setSession:[self session]];
-    [[[self playerWindowController] window] close];
-
-    // setup movement window
-    [self setMovementWindowController:[[TBMovementWindowController alloc] initWithWindowNibName:@"TBMovementWindow"]];
-    [[[self movementWindowController] window] close];
-
     // alloc sounds
     [self setRebalanceSound:[[TBSound alloc] initWithResource:@"s_rebalance" extension:@"caf"]];
 
@@ -101,7 +86,8 @@
     [[self controlsView] addSubview:[[self controlsViewController] view]];
 }
 
-- (void)dealloc {
+- (void)viewWillDisappear {
+    [[self movementWindowController] close];
     [[self configurationWindowController] close];
     [[self playerWindowController] close];
 }
@@ -127,6 +113,11 @@
     NSNumber* playerId = [sender representedObject];
     [[self session] bustPlayer:playerId withBlock:^(NSArray* movements) {
         if([movements count] > 0) {
+            // setup movement window if needed
+            if([self movementWindowController] == nil) {
+                [self setMovementWindowController:[[TBMovementWindowController alloc] initWithWindowNibName:@"TBMovementWindow"]];
+            }
+
             for(NSDictionary* movement in movements) {
                 // inject player
                 NSMutableDictionary* newMovement = [[NSMutableDictionary alloc] initWithDictionary:movement];
@@ -221,6 +212,13 @@
     if([[[self configurationWindowController] window] isVisible]) {
         [[self configurationWindowController] close];
     } else {
+        // setup configuration window if needed
+        if([self configurationWindowController] == nil) {
+            [self setConfigurationWindowController:[[TBConfigurationWindowController alloc] initWithWindowNibName:@"TBConfigurationWindow"]];
+            [[self configurationWindowController] setSession:[self session]];
+            [[self configurationWindowController] setConfiguration:[self configuration]];
+        }
+
         [[self configurationWindowController] showWindow:self];
     }
 }
@@ -229,6 +227,12 @@
     if([[[self playerWindowController] window] isVisible]) {
         [[self playerWindowController] close];
     } else {
+        // setup player window if needed
+        if([self playerWindowController] == nil) {
+            [self setPlayerWindowController:[[TBPlayerWindowController alloc] initWithWindowNibName:@"TBPlayerWindow"]];
+            [[self playerWindowController] setSession:[self session]];
+        }
+
         [[self playerWindowController] showWindow:self];
 
         // move to second screen if possible
