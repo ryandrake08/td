@@ -7,7 +7,6 @@
 //
 
 #import "TBChipsViewController.h"
-#import "NSObject+FBKVOController.h"
 #import "TBColor+CSS.h"
 
 // TBChipsArrayController implements a new object
@@ -35,17 +34,6 @@
     // setup sort descriptors
     NSSortDescriptor* denominationSort = [[NSSortDescriptor alloc] initWithKey:@"denomination" ascending:YES];
     [[self arrayController] setSortDescriptors:@[denominationSort]];
-
-    // register for KVO
-    [[self KVOController] observe:[self configuration] keyPath:@"table_capacity" options:0 block:^(id observer, id object, NSDictionary *change) {
-        [[self session] selectiveConfigureAndUpdate:[self configuration]];
-    }];
-
-    // register for KVO on arrangedObjects
-    NSArray* keyPaths = @[@"arrangedObjects"];
-    [[self KVOController] observe:[self arrayController] keyPaths:keyPaths options:0 block:^(id observer, id object, NSDictionary *change) {
-        [[self session] selectiveConfigureAndUpdate:[self configuration]];
-    }];
 }
 
 @end

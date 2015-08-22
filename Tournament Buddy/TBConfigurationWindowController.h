@@ -12,7 +12,6 @@
 @interface TBConfigurationWindowController : NSWindowController
 
 // Configuration and session
-@property (strong) NSMutableDictionary* configuration;
-@property (strong) TournamentSession* session;
+@property (nonatomic, copy) NSMutableDictionary* configuration;
 
 @end

@@ -34,22 +34,35 @@
     [self tabView:[self tabView] didSelectTabViewItem:selectedItem];
 }
 
+- (void)setConfiguration:(NSMutableDictionary *)configuration {
+    if(_configuration != configuration) {
+        _configuration = [configuration mutableCopy];
+    }
+}
+
 #pragma mark NSTabViewDelegate
 
 - (void)tabView:(NSTabView*)tabView didSelectTabViewItem:(NSTabViewItem*)tabViewItem {
     // these tab view items' identifiers correspond cleverly to their instance variables
     TBTableViewController* controller = [self valueForKey:[tabViewItem identifier]];
 
-    // set configuration and session
+    // set configuration
     if([controller configuration] == nil) {
-        [controller setConfiguration: [self configuration]];
-    }
-    if([controller session] == nil) {
-        [controller setSession:[self session]];
+        [controller setConfiguration:[self configuration]];
     }
 
     // set the view
     [tabViewItem setView:controller.view];
+}
+
+#pragma mark Actions
+
+- (IBAction)cancelButtonDidChange:(id)sender {
+    [self.window.sheetParent endSheet:self.window returnCode:NSModalResponseCancel];
+}
+
+- (IBAction)doneButtonDidChange:(id)sender {
+    [self.window.sheetParent endSheet:self.window returnCode:NSModalResponseOK];
 }
 
 @end

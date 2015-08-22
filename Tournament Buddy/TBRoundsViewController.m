@@ -7,7 +7,6 @@
 //
 
 #import "TBRoundsViewController.h"
-#import "NSObject+FBKVOController.h"
 
 // TBRoundsArrayController implements a new object
 @interface TBRoundsArrayController : NSArrayController
@@ -62,12 +61,6 @@
     // set up filter predicate
     NSPredicate* predicate = [NSPredicate predicateWithFormat: @"%K != %@", @"game_name", @"Setup"];
     [[self arrayController] setFilterPredicate:predicate];
-
-    // register for KVO on arrangedObjects
-    NSArray* keyPaths = @[@"arrangedObjects"];
-    [[self KVOController] observe:[self arrayController] keyPaths:keyPaths options:0 block:^(id observer, id object, NSDictionary *change) {
-        [[self session] selectiveConfigureAndUpdate:[self configuration]];
-    }];
 }
 
 #pragma mark NSTableViewDataSource

@@ -215,11 +215,32 @@
         // setup configuration window if needed
         if([self configurationWindowController] == nil) {
             [self setConfigurationWindowController:[[TBConfigurationWindowController alloc] initWithWindowNibName:@"TBConfigurationWindow"]];
-            [[self configurationWindowController] setSession:[self session]];
             [[self configurationWindowController] setConfiguration:[self configuration]];
         }
 
-        [[self configurationWindowController] showWindow:self];
+        // display as a sheet
+        [[[self view] window] beginSheet:[[self configurationWindowController] window] completionHandler:^(NSModalResponse returnCode) {
+            NSLog(@"Configuration sheet closed");
+
+            switch (returnCode) {
+                case NSModalResponseOK:
+                    NSLog(@"Done button was pressed");
+                    
+                    // replace configuration
+                    [[self configuration] setDictionary:[[self configurationWindowController] configuration]];
+
+                    // then configure session
+                    [[self session] selectiveConfigureAndUpdate:[self configuration]];
+                    break;
+                case NSModalResponseCancel:
+                    NSLog(@"Cancel button was pressed");
+                    break;
+
+                default:
+                    break;
+            }
+            
+        }];
     }
 }
 
