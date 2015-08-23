@@ -107,7 +107,7 @@
                                                             </buttonCell>
                                                         </button>
                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="rN0-9b-Iyc" customClass="TBResizeTextField">
-                                                            <rect key="frame" x="0.0" y="26" width="48" height="32"/>
+                                                            <rect key="frame" x="0.0" y="25" width="48" height="32"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="8" id="g4F-VL-Fju" customClass="RSVerticallyCenteredTextFieldCell">
                                                                 <font key="font" metaFont="system" size="28"/>
@@ -128,7 +128,7 @@
                                                             </connections>
                                                         </textField>
                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="MLr-DK-mtH" customClass="TBResizeTextField">
-                                                            <rect key="frame" x="158" y="26" width="48" height="32"/>
+                                                            <rect key="frame" x="158" y="25" width="48" height="32"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="8" id="Rc8-F3-aeM" customClass="RSVerticallyCenteredTextFieldCell">
                                                                 <font key="font" metaFont="system" size="28"/>
@@ -149,7 +149,7 @@
                                                             </connections>
                                                         </textField>
                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="Wcg-xY-8t5" customClass="TBResizeTextField">
-                                                            <rect key="frame" x="48" y="36" width="48" height="32"/>
+                                                            <rect key="frame" x="48" y="35" width="48" height="32"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="8" id="fjY-4x-fw7" customClass="RSVerticallyCenteredTextFieldCell">
                                                                 <font key="font" metaFont="system" size="28"/>
@@ -170,7 +170,7 @@
                                                             </connections>
                                                         </textField>
                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="0Z7-E1-clo" customClass="TBResizeTextField">
-                                                            <rect key="frame" x="206" y="36" width="48" height="32"/>
+                                                            <rect key="frame" x="206" y="35" width="48" height="32"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="8" id="NXY-PD-BbC" customClass="RSVerticallyCenteredTextFieldCell">
                                                                 <font key="font" metaFont="system" size="28"/>

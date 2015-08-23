@@ -65,7 +65,7 @@
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <subviews>
                                                             <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="yaF-xA-BTN" customClass="TBResizeTextField">
-                                                                <rect key="frame" x="0.0" y="6" width="48" height="32"/>
+                                                                <rect key="frame" x="0.0" y="5" width="48" height="32"/>
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                                 <animations/>
                                                                 <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" title="1" id="7Wy-Pk-DZH" customClass="RSVerticallyCenteredTextFieldCell">
@@ -120,7 +120,7 @@
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <subviews>
                                                             <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="htj-o7-hrf" customClass="TBResizeTextField">
-                                                                <rect key="frame" x="0.0" y="15.5" width="48" height="32"/>
+                                                                <rect key="frame" x="0.0" y="14.5" width="48" height="32"/>
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                                 <animations/>
                                                                 <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" title="1" id="Bd8-uI-IYh" customClass="RSVerticallyCenteredTextFieldCell">
