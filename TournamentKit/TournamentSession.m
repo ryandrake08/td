@@ -123,7 +123,7 @@
 }
 
 // configure the session with configuration by sending only changed keys
-- (void)selectiveConfigureAndUpdate:(NSMutableDictionary*)config {
+- (void)selectiveConfigure:(NSDictionary*)config andUpdate:(NSMutableDictionary*)newConfig {
     NSLog(@"Synchronizing session");
 
     // only send parts of configuration that changed
@@ -143,7 +143,7 @@
         [self configure:configToSend withBlock:^(id json) {
             if(![json isEqual:config]) {
                 NSLog(@"Sent and received configurations differ");
-                [config setDictionary:json];
+                [newConfig setDictionary:json];
             }
         }];
     }

@@ -94,7 +94,7 @@
 - (void)disconnect;
 
 // configure the session with configuration by sending only changed keys
-- (void)selectiveConfigureAndUpdate:(NSMutableDictionary*)config;
+- (void)selectiveConfigure:(NSDictionary*)config andUpdate:(NSMutableDictionary*)newConfig;
 
 // tournament commands
 - (void)checkAuthorizedWithBlock:(void(^)(BOOL))block;

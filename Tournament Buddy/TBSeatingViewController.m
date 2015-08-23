@@ -225,12 +225,8 @@
             switch (returnCode) {
                 case NSModalResponseOK:
                     NSLog(@"Done button was pressed");
-                    
-                    // replace configuration
-                    [[self configuration] setDictionary:[[self configurationWindowController] configuration]];
-
-                    // then configure session
-                    [[self session] selectiveConfigureAndUpdate:[self configuration]];
+                    // configure session and replace current configuration
+                    [[self session] selectiveConfigure:[[self configurationWindowController] configuration] andUpdate:[self configuration]];
                     break;
                 case NSModalResponseCancel:
                     NSLog(@"Cancel button was pressed");
