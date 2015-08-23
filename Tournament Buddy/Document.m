@@ -8,6 +8,8 @@
 
 #import "Document.h"
 #import "TBSeatingViewController.h"
+#import "TBResultsViewController.h"
+#import "TBPlayersViewController.h"
 #import "TBConfigurationWindowController.h"
 #import "TBPlayerWindowController.h"
 #import "TournamentKit/TournamentKit.h"
@@ -20,8 +22,12 @@
 @property (strong) TournamentSession* session;
 @property (strong) NSMutableDictionary* configuration;
 
-// UI
-@property (strong) TBSeatingViewController* viewController;
+// View Controllers
+@property (strong) IBOutlet TBSeatingViewController* seatingViewController;
+@property (strong) IBOutlet TBPlayersViewController* playersViewController;
+@property (strong) IBOutlet TBResultsViewController* resultsViewController;
+
+// WIndow Controllers
 @property (strong) TBConfigurationWindowController* configurationWindowController;
 @property (strong) TBPlayerWindowController* playerWindowController;
 
@@ -29,6 +35,10 @@
 @property (weak) IBOutlet NSPopUpButton* maxPlayersButton;
 @property (weak) IBOutlet NSTextField* tournamentNameField;
 @property (weak) IBOutlet NSToolbarItem* tournamentNameItem;
+@property (weak) IBOutlet NSView* leftPaneView;
+@property (weak) IBOutlet NSView* rightPaneView;
+@property (weak) IBOutlet NSView* centerPaneView;
+
 
 // Keep track of last seating plan size, to avoid setting again
 @property (assign) NSInteger lastMaxPlayers;
@@ -43,10 +53,6 @@
         _server = [[TournamentDaemon alloc] init];
         _session = [[TournamentSession alloc] init];
         _configuration = [[NSMutableDictionary alloc] init];
-
-        _viewController = [[TBSeatingViewController alloc] initWithNibName:@"TBSeatingView" bundle:nil];
-        [_viewController setSession:_session];
-        [_viewController setConfiguration:_configuration];
 
         // register for KVO
         [[self KVOController] observe:[self session] keyPath:@"isConnected" options:0 block:^(id observer, id object, NSDictionary *change) {
@@ -90,8 +96,16 @@
 - (void)windowControllerDidLoadNib:(NSWindowController*)aController {
     [super windowControllerDidLoadNib:aController];
 
-    // show main view
-    [[aController window] setContentView:[[self viewController] view]];
+    // add subivews
+    [[self seatingViewController] setSession:[self session]];
+    [[self centerPaneView] addSubview:[[self seatingViewController] view]];
+
+    [[self playersViewController] setDelegate:[self seatingViewController]];
+    [[self playersViewController] setSession:[self session]];
+    [[self leftPaneView] addSubview:[[self playersViewController] view]];
+
+    [[self resultsViewController] setSession:[self session]];
+    [[self rightPaneView] addSubview:[[self resultsViewController] view]];
 
     // whenever tournament name changes, do some stuff
     [[self KVOController] observe:[self session] keyPath:@"name" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
@@ -162,7 +176,7 @@
 
 - (NSPrintOperation*)printOperationWithSettings:(NSDictionary*)ps error:(NSError**)outError {
     NSPrintInfo* printInfo = [self printInfo];
-    NSPrintOperation* printOp = [NSPrintOperation printOperationWithView:[[self viewController] view] printInfo:printInfo];
+    NSPrintOperation* printOp = [NSPrintOperation printOperationWithView:[[self seatingViewController] view] printInfo:printInfo];
     return printOp;
 }
 

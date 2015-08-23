@@ -7,7 +7,13 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="Document">
             <connections>
+                <outlet property="centerPaneView" destination="avI-PZ-fLe" id="wDE-uo-3I1"/>
+                <outlet property="leftPaneView" destination="5IA-WE-Vdf" id="6gq-TX-3ok"/>
                 <outlet property="maxPlayersButton" destination="XIt-CZ-SXu" id="RtO-fz-diC"/>
+                <outlet property="playersViewController" destination="caP-4Z-QN9" id="LZv-ht-aHE"/>
+                <outlet property="resultsViewController" destination="3fG-XD-Yqj" id="QfS-fj-7jo"/>
+                <outlet property="rightPaneView" destination="f7K-dU-sgd" id="NtD-7x-N7M"/>
+                <outlet property="seatingViewController" destination="17T-40-hqo" id="ETq-kY-rb7"/>
                 <outlet property="tournamentNameField" destination="bNj-fJ-naS" id="tdO-uI-DI7"/>
                 <outlet property="tournamentNameItem" destination="Nof-xM-Y12" id="SpD-ry-vY4"/>
                 <outlet property="window" destination="xOd-HO-29H" id="JIz-fz-R2o"/>
@@ -24,6 +30,20 @@
             <view key="contentView" id="gIp-Ho-8D9">
                 <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                 <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <customView id="f7K-dU-sgd" userLabel="Right Pane">
+                        <rect key="frame" x="768" y="0.0" width="256" height="768"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" heightSizable="YES"/>
+                    </customView>
+                    <customView id="avI-PZ-fLe" userLabel="Center Pane">
+                        <rect key="frame" x="256" y="0.0" width="512" height="768"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
+                    </customView>
+                    <customView id="5IA-WE-Vdf" userLabel="Left Pane">
+                        <rect key="frame" x="0.0" y="0.0" width="256" height="768"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
+                    </customView>
+                </subviews>
             </view>
             <toolbar key="toolbar" implicitIdentifier="1A059E8D-FDB2-4EBE-BADD-148181524512" autosavesConfiguration="NO" displayMode="iconAndLabel" sizeMode="regular" id="0oW-bd-6uA">
                 <allowedToolbarItems>
@@ -163,11 +183,9 @@
             </connections>
             <point key="canvasLocation" x="291" y="385"/>
         </window>
-        <customView id="LcS-K1-RcL">
-            <rect key="frame" x="0.0" y="0.0" width="163" height="96"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-        </customView>
-        <toolbarItem implicitItemIdentifier="NSToolbarSeparatorItem" id="yqR-Xp-OSb"/>
+        <viewController nibName="TBSeatingView" id="17T-40-hqo" customClass="TBSeatingViewController"/>
+        <viewController nibName="TBResultsView" id="3fG-XD-Yqj" customClass="TBResultsViewController"/>
+        <viewController nibName="TBPlayersView" id="caP-4Z-QN9" customClass="TBPlayersViewController"/>
     </objects>
     <resources>
         <image name="b_call_clock" width="64" height="64"/>

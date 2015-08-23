@@ -8,26 +8,16 @@
 
 #import "TBSeatingViewController.h"
 #import "TBMovementWindowController.h"
-#import "TBResultsViewController.h"
-#import "TBPlayersViewController.h"
 #import "TBSound.h"
 #import "NSObject+FBKVOController.h"
 
-@interface TBSeatingViewController () <NSTableViewDelegate, NSMenuDelegate, TBPlayersViewDelegate>
+@interface TBSeatingViewController () <NSTableViewDelegate, NSMenuDelegate>
 
 // Configuration window
 @property (strong) TBMovementWindowController* movementWindowController;
 
-// View controllers
-@property (strong) IBOutlet TBPlayersViewController* playersViewController;
-@property (strong) IBOutlet TBResultsViewController* resultsViewController;
-
 // Image to use for buyin icon
 @property (strong) NSImage* currencyImage;
-
-// UI elements
-@property (weak) IBOutlet NSView* leftPaneView;
-@property (weak) IBOutlet NSView* rightPaneView;
 
 // Sounds
 @property (strong) TBSound* rebalanceSound;
@@ -52,7 +42,7 @@
     // alloc sounds
     [self setRebalanceSound:[[TBSound alloc] initWithResource:@"s_rebalance" extension:@"caf"]];
 
-    // register for KVO
+    // update currency image if game currency changes
     [[self KVOController] observe:[self session] keyPath:@"costCurrency" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
         NSDictionary* currencyImages = @{@"EUR":@"b_note_euro",@"INR":@"b_note_rupee",@"EGP":@"b_note_sterling",@"FKP":@"b_note_sterling",@"GIP":@"b_note_sterling",@"GGP":@"b_note_sterling",@"IMP":@"b_note_sterling",@"JEP":@"b_note_sterling",@"LBP":@"b_note_sterling",@"SHP":@"b_note_sterling",@"SYP":@"b_note_sterling",@"GBP":@"b_note_sterling",@"JPY":@"b_note_yen_yuan",@"CNY":@"b_note_yen_yuan"};
         NSString* imageName = currencyImages[[object costCurrency]];
@@ -61,21 +51,13 @@
         }
         [self setCurrencyImage:[NSImage imageNamed:imageName]];
     }];
-
-    // set self as player view delegate
-    [[self playersViewController] setDelegate:self];
-
-    // add subivews
-    [[self playersViewController] setSession:[self session]];
-    [[self leftPaneView] addSubview:[[self playersViewController] view]];
-
-    [[self resultsViewController] setSession:[self session]];
-    [[self rightPaneView] addSubview:[[self resultsViewController] view]];
 }
 
 - (void)viewWillDisappear {
     [[self movementWindowController] close];
 }
+
+#pragma mark TBPlayersViewDelegate
 
 - (void)selectSeatForPlayerId:(NSString*)playerId {
     [[[self arrayController] arrangedObjects] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {

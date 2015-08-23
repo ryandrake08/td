@@ -7,7 +7,8 @@
 //
 
 #import "TBTableViewController.h"
+#import "TBPlayersViewController.h"
 
-@interface TBSeatingViewController : TBTableViewController
+@interface TBSeatingViewController : TBTableViewController <TBPlayersViewDelegate>
 
 @end
