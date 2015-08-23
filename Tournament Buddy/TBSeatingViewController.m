@@ -7,9 +7,6 @@
 //
 
 #import "TBSeatingViewController.h"
-#import "TBConfigurationWindowController.h"
-#import "TBPlayerWindowController.h"
-#import "TBControlsViewController.h"
 #import "TBMovementWindowController.h"
 #import "TBResultsViewController.h"
 #import "TBPlayersViewController.h"
@@ -19,17 +16,11 @@
 @interface TBSeatingViewController () <NSTableViewDelegate, NSMenuDelegate, TBPlayersViewDelegate>
 
 // Configuration window
-@property (strong) TBConfigurationWindowController* configurationWindowController;
-@property (strong) TBPlayerWindowController* playerWindowController;
 @property (strong) TBMovementWindowController* movementWindowController;
 
 // View controllers
 @property (strong) IBOutlet TBPlayersViewController* playersViewController;
 @property (strong) IBOutlet TBResultsViewController* resultsViewController;
-@property (strong) IBOutlet TBControlsViewController* controlsViewController;
-
-// Keep track of last seating plan size, to avoid setting again
-@property NSInteger lastMaxPlayers;
 
 // Image to use for buyin icon
 @property (strong) NSImage* currencyImage;
@@ -37,7 +28,6 @@
 // UI elements
 @property (weak) IBOutlet NSView* leftPaneView;
 @property (weak) IBOutlet NSView* rightPaneView;
-@property (weak) IBOutlet NSView* controlsView;
 
 // Sounds
 @property (strong) TBSound* rebalanceSound;
@@ -81,15 +71,10 @@
 
     [[self resultsViewController] setSession:[self session]];
     [[self rightPaneView] addSubview:[[self resultsViewController] view]];
-
-    [[self controlsViewController] setSession:[self session]];
-    [[self controlsView] addSubview:[[self controlsViewController] view]];
 }
 
 - (void)viewWillDisappear {
     [[self movementWindowController] close];
-    [[self configurationWindowController] close];
-    [[self playerWindowController] close];
 }
 
 - (void)selectSeatForPlayerId:(NSString*)playerId {
@@ -207,68 +192,6 @@
 }
 
 #pragma mark Actions
-
-- (IBAction)configureButtonDidChange:(id)sender {
-    if([[[self configurationWindowController] window] isVisible]) {
-        [[self configurationWindowController] close];
-    } else {
-        // setup configuration window if needed
-        if([self configurationWindowController] == nil) {
-            [self setConfigurationWindowController:[[TBConfigurationWindowController alloc] initWithWindowNibName:@"TBConfigurationWindow"]];
-            [[self configurationWindowController] setConfiguration:[self configuration]];
-        }
-
-        // display as a sheet
-        [[[self view] window] beginSheet:[[self configurationWindowController] window] completionHandler:^(NSModalResponse returnCode) {
-            NSLog(@"Configuration sheet closed");
-
-            switch (returnCode) {
-                case NSModalResponseOK:
-                    NSLog(@"Done button was pressed");
-                    // configure session and replace current configuration
-                    [[self session] selectiveConfigure:[[self configurationWindowController] configuration] andUpdate:[self configuration]];
-                    break;
-                case NSModalResponseCancel:
-                    NSLog(@"Cancel button was pressed");
-                    break;
-
-                default:
-                    break;
-            }
-            
-        }];
-    }
-}
-
-- (IBAction)displayButtonDidChange:(id)sender {
-    if([[[self playerWindowController] window] isVisible]) {
-        [[self playerWindowController] close];
-    } else {
-        // setup player window if needed
-        if([self playerWindowController] == nil) {
-            [self setPlayerWindowController:[[TBPlayerWindowController alloc] initWithWindowNibName:@"TBPlayerWindow"]];
-            [[self playerWindowController] setSession:[self session]];
-        }
-
-        [[self playerWindowController] showWindow:self];
-
-        // move to second screen if possible
-        NSArray* screens = [NSScreen screens];
-        if([screens count] > 1) {
-            NSScreen* screen = [NSScreen screens][1];
-            [[[self playerWindowController] window] setFrame: [screen frame] display:YES animate:NO];
-            [[[self playerWindowController] window] makeKeyAndOrderFront:screen];
-        }
-    }
-}
-
-- (IBAction)maxPlayersTextDidChange:(id)sender {
-    NSInteger maxPlayers = [sender integerValue];
-    if(maxPlayers > 1 && maxPlayers != [self lastMaxPlayers]) {
-        [[self session] planSeatingFor:@(maxPlayers)];
-        [self setLastMaxPlayers:maxPlayers];
-    }
-}
 
 - (IBAction)manageButtonClicked:(id)sender {
     NSTableCellView* cell = (NSTableCellView*)[sender superview];

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
@@ -7,6 +7,9 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="Document">
             <connections>
+                <outlet property="maxPlayersButton" destination="XIt-CZ-SXu" id="RtO-fz-diC"/>
+                <outlet property="tournamentNameField" destination="bNj-fJ-naS" id="tdO-uI-DI7"/>
+                <outlet property="tournamentNameItem" destination="Nof-xM-Y12" id="SpD-ry-vY4"/>
                 <outlet property="window" destination="xOd-HO-29H" id="JIz-fz-R2o"/>
             </connections>
         </customObject>
@@ -22,10 +25,157 @@
                 <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                 <autoresizingMask key="autoresizingMask"/>
             </view>
+            <toolbar key="toolbar" implicitIdentifier="1A059E8D-FDB2-4EBE-BADD-148181524512" autosavesConfiguration="NO" displayMode="iconAndLabel" sizeMode="regular" id="0oW-bd-6uA">
+                <allowedToolbarItems>
+                    <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="kf3-UG-2JF"/>
+                    <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="o3e-sc-jd7"/>
+                    <toolbarItem implicitItemIdentifier="9303F932-10EA-45FF-9112-5E2190AFB751" label="Re-Plan" paletteLabel="Re-Plan" tag="-1" image="b_restart" id="jWe-np-DZo">
+                        <connections>
+                            <action selector="restartTapped:" target="-2" id="FlW-si-vnt"/>
+                        </connections>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="1A9ED53F-D961-4530-B9F3-14B1711F604F" label="" paletteLabel="Play" tag="-1" image="b_play_pause" id="lk1-6E-Wrm">
+                        <connections>
+                            <action selector="pauseResumeTapped:" target="-2" id="gez-oO-K7F"/>
+                        </connections>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="B1B14777-FD69-489B-A9D7-090175E2D5B6" label="" paletteLabel="Previous" tag="-1" image="b_previous" id="FwS-5q-gXv">
+                        <connections>
+                            <action selector="previousRoundTapped:" target="-2" id="RPV-jV-p69"/>
+                        </connections>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="6BD4A895-D4A7-4A94-82B8-2FD6B0B73A71" label="" paletteLabel="Next" tag="-1" image="b_next" id="cuz-kD-nuA">
+                        <connections>
+                            <action selector="nextRoundTapped:" target="-2" id="0mm-um-h7j"/>
+                        </connections>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="438871C3-164E-4F2B-B7B4-48BBCC6BABE9" label="" paletteLabel="Call Clock" tag="-1" image="b_call_clock" id="u4q-03-EKe">
+                        <connections>
+                            <action selector="callClockTapped:" target="-2" id="a7f-q5-sSO"/>
+                        </connections>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="0B2B8D14-0973-41DA-8224-1B3C07A95872" label="Setup" paletteLabel="Setup" tag="-1" image="b_configure" id="itU-pm-cfi">
+                        <connections>
+                            <action selector="configureButtonDidChange:" target="-2" id="rW3-mx-EQE"/>
+                        </connections>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="4A9598AD-BDEB-4F5A-9AB0-A1F06B53CF6C" label="Display" paletteLabel="Display" tag="-1" image="b_display" id="bji-sb-V1g">
+                        <connections>
+                            <action selector="displayButtonDidChange:" target="-2" id="yEL-QD-93o"/>
+                        </connections>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="522A409F-5876-4785-BD35-965C2982F9F2" label="" paletteLabel="Tournament Name" id="Nof-xM-Y12" userLabel="Tournament Name">
+                        <nil key="toolTip"/>
+                        <size key="minSize" width="38" height="17"/>
+                        <size key="maxSize" width="128" height="17"/>
+                        <textField key="view" horizontalHuggingPriority="251" verticalHuggingPriority="750" id="bNj-fJ-naS">
+                            <rect key="frame" x="0.0" y="14" width="38" height="17"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" title="Name" id="b9M-jI-hem">
+                                <font key="font" metaFont="systemBold" size="15"/>
+                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            </textFieldCell>
+                            <connections>
+                                <action selector="tournamentNameWasChanged:" target="-2" id="vlb-zv-tm3"/>
+                                <binding destination="-2" name="value" keyPath="self.configuration.name" id="mMQ-b2-A9y"/>
+                            </connections>
+                        </textField>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="44CCE851-EE82-40B6-9AB6-80E30308113B" label="Players" paletteLabel="Players" tag="-1" id="5oR-Nd-TWJ">
+                        <nil key="toolTip"/>
+                        <size key="minSize" width="32" height="32"/>
+                        <size key="maxSize" width="48" height="96"/>
+                        <customView key="view" id="by4-UZ-8cd">
+                            <rect key="frame" x="23" y="14" width="48" height="32"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <subviews>
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="Eqa-99-rBs">
+                                    <rect key="frame" x="0.0" y="20" width="48" height="13"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Plan for" id="jIO-Jz-mXp">
+                                        <font key="font" metaFont="system" size="10"/>
+                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                                <popUpButton verticalHuggingPriority="750" id="XIt-CZ-SXu">
+                                    <rect key="frame" x="0.0" y="0.0" width="48" height="19"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <popUpButtonCell key="cell" type="roundRect" bezelStyle="roundedRect" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="njO-bP-gU3">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="cellTitle"/>
+                                        <menu key="menu" id="qJx-Q7-l7z">
+                                            <items>
+                                                <menuItem title="100" id="i5l-0H-LJ4"/>
+                                            </items>
+                                        </menu>
+                                    </popUpButtonCell>
+                                    <connections>
+                                        <action selector="maxPlayersTextDidChange:" target="-2" id="NTL-p8-kSz"/>
+                                    </connections>
+                                </popUpButton>
+                            </subviews>
+                        </customView>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="5A542159-C189-4BF5-BC14-D2EFB4171C3A" label="" paletteLabel="Timer" id="Ch1-hX-nFY">
+                        <nil key="toolTip"/>
+                        <size key="minSize" width="98" height="32"/>
+                        <size key="maxSize" width="98" height="32"/>
+                        <textField key="view" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="8t2-yA-r5v" customClass="TBResizeTextField">
+                            <rect key="frame" x="-2" y="0.0" width="98" height="32"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
+                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="01:23:45" placeholderString="" usesSingleLineMode="YES" id="9pa-nU-X5Q">
+                                <font key="font" metaFont="system" size="22"/>
+                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            </textFieldCell>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="minFontSize">
+                                    <real key="value" value="12"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <binding destination="-2" name="value" keyPath="self.session.clockText" id="hlJ-gc-JZI"/>
+                            </connections>
+                        </textField>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="NSToolbarSeparatorItem" id="h6p-0t-euE"/>
+                </allowedToolbarItems>
+                <defaultToolbarItems>
+                    <toolbarItem reference="Nof-xM-Y12"/>
+                    <toolbarItem reference="o3e-sc-jd7"/>
+                    <toolbarItem reference="h6p-0t-euE"/>
+                    <toolbarItem reference="itU-pm-cfi"/>
+                    <toolbarItem reference="5oR-Nd-TWJ"/>
+                    <toolbarItem reference="jWe-np-DZo"/>
+                    <toolbarItem reference="bji-sb-V1g"/>
+                    <toolbarItem reference="h6p-0t-euE"/>
+                    <toolbarItem reference="lk1-6E-Wrm"/>
+                    <toolbarItem reference="Ch1-hX-nFY"/>
+                </defaultToolbarItems>
+                <connections>
+                    <outlet property="delegate" destination="-2" id="zHt-Yb-dDE"/>
+                </connections>
+            </toolbar>
             <connections>
                 <outlet property="delegate" destination="-2" id="0bl-1N-x8E"/>
             </connections>
             <point key="canvasLocation" x="291" y="385"/>
         </window>
+        <customView id="LcS-K1-RcL">
+            <rect key="frame" x="0.0" y="0.0" width="163" height="96"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+        </customView>
+        <toolbarItem implicitItemIdentifier="NSToolbarSeparatorItem" id="yqR-Xp-OSb"/>
     </objects>
+    <resources>
+        <image name="b_call_clock" width="64" height="64"/>
+        <image name="b_configure" width="64" height="64"/>
+        <image name="b_display" width="64" height="64"/>
+        <image name="b_next" width="64" height="64"/>
+        <image name="b_play_pause" width="64" height="64"/>
+        <image name="b_previous" width="64" height="64"/>
+        <image name="b_restart" width="64" height="64"/>
+    </resources>
 </document>
