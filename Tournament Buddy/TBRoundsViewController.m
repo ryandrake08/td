@@ -58,7 +58,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    // set up filter predicate
+    // filter predicate to not show fake "setup" round
     NSPredicate* predicate = [NSPredicate predicateWithFormat: @"%K != %@", @"game_name", @"Setup"];
     [[self arrayController] setFilterPredicate:predicate];
 }

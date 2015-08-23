@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
@@ -231,7 +231,7 @@
             </subviews>
             <point key="canvasLocation" x="310" y="310.5"/>
         </customView>
-        <arrayController automaticallyRearrangesObjects="YES" id="hco-pa-9cV" customClass="TBChipsArrayController">
+        <arrayController clearsFilterPredicateOnInsertion="NO" automaticallyRearrangesObjects="YES" id="hco-pa-9cV" customClass="TBChipsArrayController">
             <declaredKeys>
                 <string>color</string>
                 <string>denomination</string>

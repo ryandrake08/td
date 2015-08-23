@@ -31,6 +31,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    // filter predicate to not show this computer's auth code
+    NSPredicate* predicate = [NSPredicate predicateWithFormat: @"%K != %@", @"code", [TournamentSession clientIdentifier]];
+    [[self arrayController] setFilterPredicate:predicate];
+
     // setup sort descriptors
     NSSortDescriptor* nameSort = [[NSSortDescriptor alloc] initWithKey:@"added_on" ascending:YES];
     [[self arrayController] setSortDescriptors:@[nameSort]];
