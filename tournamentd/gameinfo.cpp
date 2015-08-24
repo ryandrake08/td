@@ -217,20 +217,36 @@ std::size_t gameinfo::plan_seating(std::size_t max_expected_players)
 
     // figure out how many tables needed
     this->tables = ((max_expected_players-1) / this->table_capacity) + 1;
-
     logger(LOG_INFO) << "tables needed: " << this->tables << "\n";
 
-    // build up seat list
+    // figure out how many seats should be first occupied
+    std::size_t preferred_seats = (max_expected_players + this->tables - 1) / this->tables;
+    logger(LOG_INFO) << "prefer: " << preferred_seats << "seats per table\n";
+
+    // build up preferred seat list
     for(std::size_t t(0); t<this->tables; t++)
     {
-        for(std::size_t s(0); s<this->table_capacity; s++)
+        for(std::size_t s(0); s<preferred_seats; s++)
         {
             this->empty_seats.push_back(td::seat(t,s));
         }
     }
 
-    // randomize it
-    std::shuffle(this->empty_seats.begin(), this->empty_seats.end(), engine);
+    // store iterator to start of extra seats
+    auto extra_it(this->empty_seats.end());
+
+    // add remaining seats, up to table capacity
+    for(std::size_t t(0); t<this->tables; t++)
+    {
+        for(std::size_t s(preferred_seats); s<this->table_capacity; s++)
+        {
+            this->empty_seats.push_back(td::seat(t,s));
+        }
+    }
+
+    // randomize preferred then extra seats separately
+    std::shuffle(this->empty_seats.begin(), extra_it, engine);
+    std::shuffle(extra_it, this->empty_seats.end(), engine);
 
     logger(LOG_INFO) << "created " << this->empty_seats.size() << " empty seats\n";
 
