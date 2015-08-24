@@ -117,6 +117,7 @@
 		94D04ED81B7C6A5C004F4245 /* TBCurrencyNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 94562E611B65D8CA0017C692 /* TBCurrencyNumberFormatter.m */; };
 		94E16F221B6C99840070F1BA /* TBResizeTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 94562E6B1B65D9420017C692 /* TBResizeTextField.m */; };
 		94ED00111B76E1E6003CF19B /* TBTableSeatNumberTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 94ED00101B76E1E6003CF19B /* TBTableSeatNumberTransformer.m */; };
+		94F466271B8AF203009BB648 /* TBCurrencyCodeTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F466261B8AF203009BB648 /* TBCurrencyCodeTransformer.m */; };
 		94FDEADC1B5AE2560026B25D /* TBColor+CSS.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEADB1B5AE2560026B25D /* TBColor+CSS.m */; };
 		94FDEAE51B5AE2D60026B25D /* CFStreamCreatePairWithUnixSocket.c in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEADD1B5AE2D60026B25D /* CFStreamCreatePairWithUnixSocket.c */; };
 		94FDEAE61B5AE2D60026B25D /* CFStreamCreatePairWithUnixSocket.c in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEADD1B5AE2D60026B25D /* CFStreamCreatePairWithUnixSocket.c */; };
@@ -284,6 +285,8 @@
 		94D04ECC1B7C59EB004F4245 /* s_warning.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = s_warning.caf; sourceTree = "<group>"; };
 		94ED000F1B76E1E6003CF19B /* TBTableSeatNumberTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBTableSeatNumberTransformer.h; sourceTree = "<group>"; };
 		94ED00101B76E1E6003CF19B /* TBTableSeatNumberTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBTableSeatNumberTransformer.m; sourceTree = "<group>"; };
+		94F466251B8AF203009BB648 /* TBCurrencyCodeTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBCurrencyCodeTransformer.h; sourceTree = "<group>"; };
+		94F466261B8AF203009BB648 /* TBCurrencyCodeTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBCurrencyCodeTransformer.m; sourceTree = "<group>"; };
 		94FDEADA1B5AE2560026B25D /* TBColor+CSS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TBColor+CSS.h"; sourceTree = "<group>"; };
 		94FDEADB1B5AE2560026B25D /* TBColor+CSS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TBColor+CSS.m"; sourceTree = "<group>"; };
 		94FDEADD1B5AE2D60026B25D /* CFStreamCreatePairWithUnixSocket.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = CFStreamCreatePairWithUnixSocket.c; sourceTree = "<group>"; };
@@ -530,6 +533,8 @@
 				94FDEADB1B5AE2560026B25D /* TBColor+CSS.m */,
 				94562E5E1B65D8CA0017C692 /* TBColorValueTransformer.h */,
 				94562E5F1B65D8CA0017C692 /* TBColorValueTransformer.m */,
+				94F466251B8AF203009BB648 /* TBCurrencyCodeTransformer.h */,
+				94F466261B8AF203009BB648 /* TBCurrencyCodeTransformer.m */,
 				94562E601B65D8CA0017C692 /* TBCurrencyNumberFormatter.h */,
 				94562E611B65D8CA0017C692 /* TBCurrencyNumberFormatter.m */,
 				94562E621B65D8CA0017C692 /* TBDateStringTransformer.h */,
@@ -923,6 +928,7 @@
 				AD98D9651A7B331A00DA6B8B /* TBFundingViewController.m in Sources */,
 				949D70971B3C440D008D5CD1 /* json.cpp in Sources */,
 				9462A3F61B7864E900B29002 /* TBAuthsViewController.m in Sources */,
+				94F466271B8AF203009BB648 /* TBCurrencyCodeTransformer.m in Sources */,
 				949D70941B3C43DB008D5CD1 /* tournament.cpp in Sources */,
 				AD98D96A1A7B33F100DA6B8B /* TBLeagueViewController.m in Sources */,
 				94E16F221B6C99840070F1BA /* TBResizeTextField.m in Sources */,

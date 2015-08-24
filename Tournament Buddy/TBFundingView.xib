@@ -418,18 +418,6 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField verticalHuggingPriority="750" id="4jU-nb-mEs">
-                    <rect key="frame" x="253" y="2" width="60" height="17"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="USD" drawsBackground="YES" id="NXf-ml-kFf">
-                        <font key="font" metaFont="system" size="10"/>
-                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                    <connections>
-                        <binding destination="-2" name="value" keyPath="configuration.cost_currency" id="t8q-Ni-JVz"/>
-                    </connections>
-                </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="yyS-xd-gwl">
                     <rect key="frame" x="319" y="2" width="150" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -439,18 +427,57 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField verticalHuggingPriority="750" id="G6Y-SS-zNg">
-                    <rect key="frame" x="475" y="2" width="60" height="17"/>
+                <popUpButton id="18E-Z1-Dnh">
+                    <rect key="frame" x="253" y="0.0" width="84" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="USD" drawsBackground="YES" id="g57-1T-J5k">
-                        <font key="font" metaFont="system" size="10"/>
-                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
+                    <popUpButtonCell key="cell" type="square" title="Dollar" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" selectedItem="WF0-vn-zyZ" id="oUZ-hv-V67">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                        <menu key="menu" id="JeI-Nu-oij">
+                            <items>
+                                <menuItem title="Dollar" state="on" id="WF0-vn-zyZ"/>
+                                <menuItem title="Euro" id="NQs-3l-XXe"/>
+                                <menuItem title="Pound" id="VGf-8s-s4e"/>
+                                <menuItem title="Rupee" id="tWM-Vz-nPi"/>
+                                <menuItem title="Yen" id="DTc-pE-0Ve"/>
+                                <menuItem title="Yuan" id="RBz-e3-ZTq"/>
+                            </items>
+                        </menu>
+                    </popUpButtonCell>
                     <connections>
-                        <binding destination="-2" name="value" keyPath="configuration.equity_currency" id="kZM-58-Y6Y"/>
+                        <binding destination="-2" name="selectedValue" keyPath="self.configuration.cost_currency" id="PYf-Xj-qS4">
+                            <dictionary key="options">
+                                <string key="NSValueTransformerName">TBCurrencyCodeTransformer</string>
+                            </dictionary>
+                        </binding>
                     </connections>
-                </textField>
+                </popUpButton>
+                <popUpButton id="1Iw-dm-HVd">
+                    <rect key="frame" x="475" y="0.0" width="84" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <popUpButtonCell key="cell" type="square" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="4Hj-D1-V1d">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                        <menu key="menu" id="IIu-YM-akW">
+                            <items>
+                                <menuItem title="Dollar" id="5mA-hd-hyX"/>
+                                <menuItem title="Euro" id="gxZ-gh-y1k"/>
+                                <menuItem title="Pound" id="DbY-dK-iWd"/>
+                                <menuItem title="Rupee" id="Bzq-bl-66q"/>
+                                <menuItem title="Yen" id="OrT-vt-jyz"/>
+                                <menuItem title="Yuan" id="0fq-v2-xTb"/>
+                                <menuItem title="Points" id="OLC-ic-p1n"/>
+                            </items>
+                        </menu>
+                    </popUpButtonCell>
+                    <connections>
+                        <binding destination="-2" name="selectedValue" keyPath="self.configuration.equity_currency" id="Vg9-fR-KLg">
+                            <dictionary key="options">
+                                <string key="NSValueTransformerName">TBCurrencyCodeTransformer</string>
+                            </dictionary>
+                        </binding>
+                    </connections>
+                </popUpButton>
             </subviews>
             <point key="canvasLocation" x="17" y="246.5"/>
         </customView>

@@ -213,21 +213,32 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField verticalHuggingPriority="750" id="b1Q-LV-RvB">
-                    <rect key="frame" x="199" y="2" width="20" height="17"/>
+                <popUpButton id="n28-9W-Pf5">
+                    <rect key="frame" x="197" y="0.0" width="40" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="center" placeholderString="8" drawsBackground="YES" id="5r8-yQ-ElY">
-                        <numberFormatter key="formatter" formatterBehavior="default10_4" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="0" maximumIntegerDigits="42" id="mYk-sg-1jv">
-                            <bool key="minimum" value="NO"/>
-                        </numberFormatter>
-                        <font key="font" metaFont="system" size="10"/>
-                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
+                    <popUpButtonCell key="cell" type="square" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="AIr-mk-r3Z">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                        <menu key="menu" id="I0e-tW-Kzb">
+                            <items>
+                                <menuItem title="2" tag="2" id="VeH-5l-aEc"/>
+                                <menuItem title="3" tag="3" id="vDX-wR-KEX"/>
+                                <menuItem title="4" tag="4" id="blL-8B-Gj0"/>
+                                <menuItem title="5" tag="5" id="0I3-5G-TvQ"/>
+                                <menuItem title="6" tag="6" id="ePs-pP-WCt"/>
+                                <menuItem title="7" tag="7" id="b7k-Cf-jWy"/>
+                                <menuItem title="8" state="on" tag="8" id="BRb-zg-rvr"/>
+                                <menuItem title="9" tag="9" id="nZH-ST-Cir"/>
+                                <menuItem title="10" tag="10" id="YBu-0I-ZPN"/>
+                                <menuItem title="11" tag="11" id="JvD-Br-G03"/>
+                                <menuItem title="12" tag="12" id="IK3-Tq-2cl"/>
+                            </items>
+                        </menu>
+                    </popUpButtonCell>
                     <connections>
-                        <binding destination="-2" name="value" keyPath="configuration.table_capacity" id="2Yi-pZ-o3Z"/>
+                        <binding destination="-2" name="selectedTag" keyPath="self.configuration.table_capacity" id="H77-tN-9P3"/>
                     </connections>
-                </textField>
+                </popUpButton>
             </subviews>
             <point key="canvasLocation" x="310" y="310.5"/>
         </customView>
