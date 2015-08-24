@@ -26,7 +26,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView identifier="seatsTable" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="sequential" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowHeight="48" rowSizeStyle="automatic" headerView="h7c-ks-BWc" viewBased="YES" id="am5-fF-rIk">
-                                <rect key="frame" x="0.0" y="0.0" width="515" height="750"/>
+                                <rect key="frame" x="0.0" y="0.0" width="515" height="0.0"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <animations/>
                                 <size key="intercellSpacing" width="3" height="2"/>
@@ -204,7 +204,7 @@
                                                         <rect key="frame" x="8" y="8" width="32" height="32"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                         <animations/>
-                                                        <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" imagePosition="only" alternateImage="b_note_dollar" state="on" imageScaling="proportionallyUpOrDown" inset="2" id="Wge-6z-op0">
+                                                        <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" imagePosition="only" alternateImage="b_note_dollar" enabled="NO" state="on" imageScaling="proportionallyUpOrDown" inset="2" id="Wge-6z-op0">
                                                             <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                                                             <font key="font" metaFont="system"/>
                                                         </buttonCell>

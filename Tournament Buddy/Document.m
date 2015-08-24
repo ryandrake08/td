@@ -151,6 +151,12 @@
             }
         }
     }];
+
+    // if table sizes change, replan
+    [[self KVOController] observe:[self configuration] keyPath:@"table_capacity" options:0 block:^(id observer, id object, NSDictionary *change) {
+        NSInteger maxPlayers = [[self maxPlayersButton] selectedTag];
+        [self planSeatingFor:maxPlayers];
+    }];
 }
 
 + (BOOL)autosavesInPlace {

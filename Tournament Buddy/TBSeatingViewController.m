@@ -39,9 +39,6 @@
     // set sort descriptors for arrays
     [[self arrayController] setSortDescriptors:@[tableNumberSort, seatNumberSort]];
 
-    // alloc sounds
-    [self setRebalanceSound:[[TBSound alloc] initWithResource:@"s_rebalance" extension:@"caf"]];
-
     // update currency image if game currency changes
     [[self KVOController] observe:[self session] keyPath:@"costCurrency" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
         NSDictionary* currencyImages = @{@"EUR":@"b_note_euro",@"INR":@"b_note_rupee",@"EGP":@"b_note_sterling",@"FKP":@"b_note_sterling",@"GIP":@"b_note_sterling",@"GGP":@"b_note_sterling",@"IMP":@"b_note_sterling",@"JEP":@"b_note_sterling",@"LBP":@"b_note_sterling",@"SHP":@"b_note_sterling",@"SYP":@"b_note_sterling",@"GBP":@"b_note_sterling",@"JPY":@"b_note_yen_yuan",@"CNY":@"b_note_yen_yuan"};
@@ -51,6 +48,9 @@
         }
         [self setCurrencyImage:[NSImage imageNamed:imageName]];
     }];
+
+    // resize columns
+    [[self tableView] sizeToFit];
 }
 
 - (void)viewWillDisappear {
@@ -60,7 +60,7 @@
 #pragma mark TBPlayersViewDelegate
 
 - (void)selectSeatForPlayerId:(NSString*)playerId {
-    [[[self arrayController] arrangedObjects] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+    [[[self arrayController] arrangedObjects] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL* stop) {
         if([obj[@"player_id"] isEqualToString:playerId]) {
             [[self arrayController] setSelectionIndex:idx];
             [[self tableView] scrollRowToVisible:idx];
@@ -84,6 +84,9 @@
             if([self movementWindowController] == nil) {
                 [self setMovementWindowController:[[TBMovementWindowController alloc] initWithWindowNibName:@"TBMovementWindow"]];
             }
+            
+            // show window
+            [[self movementWindowController] showWindow:self];
 
             for(NSDictionary* movement in movements) {
                 // inject player
@@ -95,10 +98,10 @@
             }
 
             // alert sound
+            if([self rebalanceSound] == nil) {
+                [self setRebalanceSound:[[TBSound alloc] initWithResource:@"s_rebalance" extension:@"caf"]];
+            }
             [[self rebalanceSound] play];
-
-            // show window
-            [[self movementWindowController] showWindow:self];
         }
     }];
 }

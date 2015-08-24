@@ -221,7 +221,7 @@ std::size_t gameinfo::plan_seating(std::size_t max_expected_players)
 
     // figure out how many seats should be first occupied
     std::size_t preferred_seats = (max_expected_players + this->tables - 1) / this->tables;
-    logger(LOG_INFO) << "prefer: " << preferred_seats << "seats per table\n";
+    logger(LOG_INFO) << "prefer: " << preferred_seats << " seats per table\n";
 
     // build up preferred seat list
     for(std::size_t t(0); t<this->tables; t++)

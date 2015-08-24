@@ -141,7 +141,7 @@
 
     if([configToSend count] > 0) {
         [self configure:configToSend withBlock:^(id json) {
-            if(![json isEqual:config]) {
+            if(![json isEqual:newConfig]) {
                 NSLog(@"Sent and received configurations differ");
                 [newConfig setDictionary:json];
             }
