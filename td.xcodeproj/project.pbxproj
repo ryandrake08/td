@@ -151,6 +151,8 @@
 		AD98D9701A7B342000DA6B8B /* TBRoundsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD98D96E1A7B342000DA6B8B /* TBRoundsView.xib */; };
 		AD98D9741A7B343600DA6B8B /* TBSeatingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD98D9721A7B343600DA6B8B /* TBSeatingViewController.m */; };
 		AD98D9751A7B343600DA6B8B /* TBSeatingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD98D9731A7B343600DA6B8B /* TBSeatingView.xib */; };
+		ADA4FC0B1B8B6DA500DB2AA7 /* TBConnectToWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA4FC091B8B6DA500DB2AA7 /* TBConnectToWindowController.m */; };
+		ADA4FC0C1B8B6DA500DB2AA7 /* TBConnectToWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = ADA4FC0A1B8B6DA500DB2AA7 /* TBConnectToWindow.xib */; };
 		ADCECE7A1B7B0D9D00767DA6 /* TBControlsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = ADCECE741B7B0D9D00767DA6 /* TBControlsView.xib */; };
 		ADCECE7B1B7B0D9D00767DA6 /* TBControlsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADCECE761B7B0D9D00767DA6 /* TBControlsViewController.m */; };
 		ADCECE7C1B7B0D9D00767DA6 /* TBResultsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = ADCECE771B7B0D9D00767DA6 /* TBResultsView.xib */; };
@@ -329,6 +331,9 @@
 		AD98D9711A7B343600DA6B8B /* TBSeatingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBSeatingViewController.h; sourceTree = "<group>"; };
 		AD98D9721A7B343600DA6B8B /* TBSeatingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBSeatingViewController.m; sourceTree = "<group>"; };
 		AD98D9731A7B343600DA6B8B /* TBSeatingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TBSeatingView.xib; sourceTree = "<group>"; };
+		ADA4FC081B8B6DA500DB2AA7 /* TBConnectToWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBConnectToWindowController.h; sourceTree = "<group>"; };
+		ADA4FC091B8B6DA500DB2AA7 /* TBConnectToWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBConnectToWindowController.m; sourceTree = "<group>"; };
+		ADA4FC0A1B8B6DA500DB2AA7 /* TBConnectToWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TBConnectToWindow.xib; sourceTree = "<group>"; };
 		ADCECE741B7B0D9D00767DA6 /* TBControlsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TBControlsView.xib; sourceTree = "<group>"; };
 		ADCECE751B7B0D9D00767DA6 /* TBControlsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBControlsViewController.h; sourceTree = "<group>"; };
 		ADCECE761B7B0D9D00767DA6 /* TBControlsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBControlsViewController.m; sourceTree = "<group>"; };
@@ -390,6 +395,9 @@
 				944FF4B71B3D04CA000362ED /* AppDelegate.h */,
 				944FF4B81B3D04CA000362ED /* AppDelegate.m */,
 				944FF4BE1B3D04CA000362ED /* MainMenu.xib */,
+				ADA4FC081B8B6DA500DB2AA7 /* TBConnectToWindowController.h */,
+				ADA4FC091B8B6DA500DB2AA7 /* TBConnectToWindowController.m */,
+				ADA4FC0A1B8B6DA500DB2AA7 /* TBConnectToWindow.xib */,
 				944FF4BC1B3D04CA000362ED /* TBPlayer.xcassets */,
 				944FF4B51B3D04CA000362ED /* Supporting Files */,
 			);
@@ -776,6 +784,7 @@
 				ADE299B81B7B9EE800F1393B /* TBPlayerWindow.xib in Resources */,
 				9462A3F91B7864E900B29002 /* TBAuthsView.xib in Resources */,
 				ADCECE7F1B7B0DBB00767DA6 /* TBControlsView.xib in Resources */,
+				ADA4FC0C1B8B6DA500DB2AA7 /* TBConnectToWindow.xib in Resources */,
 				94D04ED01B7C59EB004F4245 /* s_next.caf in Resources */,
 				944FF4BD1B3D04CA000362ED /* TBPlayer.xcassets in Resources */,
 				ADCECE811B7B0DBF00767DA6 /* TBResultsView.xib in Resources */,
@@ -832,6 +841,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				94FDEAE61B5AE2D60026B25D /* CFStreamCreatePairWithUnixSocket.c in Sources */,
+				ADA4FC0B1B8B6DA500DB2AA7 /* TBConnectToWindowController.m in Sources */,
 				943B00D41B3F429500CE55D4 /* server.cpp in Sources */,
 				943B00D01B3F429500CE55D4 /* datetime.cpp in Sources */,
 				944FF4BB1B3D04CA000362ED /* main.m in Sources */,

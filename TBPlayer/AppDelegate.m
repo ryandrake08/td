@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "TournamentKit/TournamentKit.h"
 #import "TBPlayerWindowController.h"
+#import "TBConnectToWindowController.h"
 
 @interface AppDelegate () <TournamentBrowserDelegate>
 
@@ -71,7 +72,7 @@
     }
 
     // always include manual connection
-    NSMenuItem* connectToServiceItem = [connectMenu addItemWithTitle:NSLocalizedString(@"Connect to Service...", @"") action:@selector(connectToTournament:) keyEquivalent:@"C"];
+    NSMenuItem* connectToServiceItem = [connectMenu addItemWithTitle:NSLocalizedString(@"Connect to Tournament...", @"") action:@selector(connectToTournament:) keyEquivalent:@"C"];
     [connectToServiceItem setTarget:self];
     [connectToServiceItem setKeyEquivalentModifierMask:NSCommandKeyMask|NSShiftKeyMask];
 
@@ -84,6 +85,19 @@
 }
 
 - (IBAction)connectToTournament:(id)sender {
+    // create window controller
+    TBConnectToWindowController* connectWindowController = [[TBConnectToWindowController alloc] initWithWindowNibName:@"TBConnectToWindow"];
+    [connectWindowController setPort:kTournamentServiceDefaultPort];
+
+    // display as a sheet
+    [[[self windowController] window] beginSheet:[connectWindowController window] completionHandler:^(NSModalResponse returnCode) {
+        if(returnCode == NSModalResponseOK) {
+            NSString* address = [connectWindowController address];
+            NSInteger port = [connectWindowController port];
+            TournamentService* service = [[TournamentService alloc] initWithAddress:address andPort:port];
+            [[self session] connect:service];
+        }
+    }];
 }
 
 #pragma mark TournamentBroswerDelegate

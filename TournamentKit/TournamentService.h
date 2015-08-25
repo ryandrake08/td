@@ -2,6 +2,7 @@
 
 #define kTournamentServiceType @"_tournbuddy._tcp."
 #define kTournamentServiceDomain @"local."
+#define kTournamentServiceDefaultPort 25600
 
 #import "TournamentConnection.h"
 
