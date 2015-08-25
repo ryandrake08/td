@@ -57,6 +57,8 @@ public:
         bool restarting(false);
         do
         {
+            restarting = false;
+
             program c(cmdline);
 
             while(signal_caught == 0)
