@@ -150,6 +150,7 @@
 		AD98D9701A7B342000DA6B8B /* TBRoundsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD98D96E1A7B342000DA6B8B /* TBRoundsView.xib */; };
 		AD98D9741A7B343600DA6B8B /* TBSeatingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD98D9721A7B343600DA6B8B /* TBSeatingViewController.m */; };
 		AD98D9751A7B343600DA6B8B /* TBSeatingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD98D9731A7B343600DA6B8B /* TBSeatingView.xib */; };
+		ADA1165A1B8CBF87009D6D41 /* TBResultsPlanningView.xib in Resources */ = {isa = PBXBuildFile; fileRef = ADA116591B8CBF87009D6D41 /* TBResultsPlanningView.xib */; };
 		ADA4FC0B1B8B6DA500DB2AA7 /* TBConnectToWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA4FC091B8B6DA500DB2AA7 /* TBConnectToWindowController.m */; };
 		ADA4FC0C1B8B6DA500DB2AA7 /* TBConnectToWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = ADA4FC0A1B8B6DA500DB2AA7 /* TBConnectToWindow.xib */; };
 		ADCECE7A1B7B0D9D00767DA6 /* TBControlsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = ADCECE741B7B0D9D00767DA6 /* TBControlsView.xib */; };
@@ -329,6 +330,7 @@
 		AD98D9711A7B343600DA6B8B /* TBSeatingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBSeatingViewController.h; path = TBMac/TBSeatingViewController.h; sourceTree = "<group>"; };
 		AD98D9721A7B343600DA6B8B /* TBSeatingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TBSeatingViewController.m; path = TBMac/TBSeatingViewController.m; sourceTree = "<group>"; };
 		AD98D9731A7B343600DA6B8B /* TBSeatingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TBSeatingView.xib; path = TBMac/TBSeatingView.xib; sourceTree = "<group>"; };
+		ADA116591B8CBF87009D6D41 /* TBResultsPlanningView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TBResultsPlanningView.xib; path = TBMac/TBResultsPlanningView.xib; sourceTree = "<group>"; };
 		ADA4FC081B8B6DA500DB2AA7 /* TBConnectToWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBConnectToWindowController.h; sourceTree = "<group>"; };
 		ADA4FC091B8B6DA500DB2AA7 /* TBConnectToWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBConnectToWindowController.m; sourceTree = "<group>"; };
 		ADA4FC0A1B8B6DA500DB2AA7 /* TBConnectToWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TBConnectToWindow.xib; sourceTree = "<group>"; };
@@ -627,6 +629,7 @@
 				ADCECE781B7B0D9D00767DA6 /* TBResultsViewController.h */,
 				ADCECE791B7B0D9D00767DA6 /* TBResultsViewController.m */,
 				ADCECE771B7B0D9D00767DA6 /* TBResultsView.xib */,
+				ADA116591B8CBF87009D6D41 /* TBResultsPlanningView.xib */,
 				AD98D96C1A7B342000DA6B8B /* TBRoundsViewController.h */,
 				AD98D96D1A7B342000DA6B8B /* TBRoundsViewController.m */,
 				AD98D96E1A7B342000DA6B8B /* TBRoundsView.xib */,
@@ -816,6 +819,7 @@
 				9454107C1B6EC5DD001E3373 /* TBConfigurationWindow.xib in Resources */,
 				ADCECE7A1B7B0D9D00767DA6 /* TBControlsView.xib in Resources */,
 				ADE299B51B7B9ED100F1393B /* TBPlayerWindow.xib in Resources */,
+				ADA1165A1B8CBF87009D6D41 /* TBResultsPlanningView.xib in Resources */,
 				ADCECE7C1B7B0D9D00767DA6 /* TBResultsView.xib in Resources */,
 				AD98D96B1A7B33F100DA6B8B /* TBLeagueView.xib in Resources */,
 			);
