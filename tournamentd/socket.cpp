@@ -113,11 +113,25 @@ struct common_socket::impl
     ~impl()
     {
         logger(LOG_DEBUG) << "closing fd: " << this->fd << '\n';
+
 #if defined(_WIN32) // thank you, Microsoft
         ::closesocket(this->fd);
 #else
+        // get the socket path (in case it's a unix socket)
+        sockaddr_un addr;
+        socklen_t addrlen(sizeof(addr));
+        auto ret(::getsockname(this->fd, reinterpret_cast<sockaddr*>(&addr), &addrlen));
+
+        // sync and close the socket
         ::sync();
         ::close(this->fd);
+
+        // unlink if this was a unix socket
+        if((ret != SOCKET_ERROR) && (addr.sun_family == AF_UNIX))
+        {
+            logger(LOG_INFO) << "unlinking unix socket " << this->fd << " path: " << addr.sun_path << '\n';
+            unlink(addr.sun_path);
+        }
 #endif
     }
 };
