@@ -7,7 +7,7 @@
 //
 
 #import "TBRemoteClockViewController.h"
-#import "TournamentKit/TournamentKit.h"
+#import "TournamentSession.h"
 #import "TBActionClockView.h"
 #import "TBAppDelegate.h"
 

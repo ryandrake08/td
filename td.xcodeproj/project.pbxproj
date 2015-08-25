@@ -50,7 +50,6 @@
 		9462A3F21B781A9A00B29002 /* RSVerticallyCenteredTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9462A3F01B781A9A00B29002 /* RSVerticallyCenteredTextFieldCell.m */; };
 		9462A3F61B7864E900B29002 /* TBAuthsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9462A3F41B7864E900B29002 /* TBAuthsViewController.m */; };
 		9462A3F81B7864E900B29002 /* TBAuthsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9462A3F51B7864E900B29002 /* TBAuthsView.xib */; };
-		9462A3F91B7864E900B29002 /* TBAuthsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9462A3F51B7864E900B29002 /* TBAuthsView.xib */; };
 		9476F4691B3C385400A158F8 /* TBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4561B3C385400A158F8 /* TBAppDelegate.m */; };
 		9476F46A1B3C385400A158F8 /* TBTournamentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4581B3C385400A158F8 /* TBTournamentsViewController.m */; };
 		9476F46B1B3C385400A158F8 /* TBRemoteClockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F45A1B3C385400A158F8 /* TBRemoteClockViewController.m */; };
@@ -241,7 +240,6 @@
 		9476F4751B3C3D6700A158F8 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		9476F4771B3C3D6E00A158F8 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
 		9476F4791B3C3D7400A158F8 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/CFNetwork.framework; sourceTree = DEVELOPER_DIR; };
-		9476F47B1B3C3EA700A158F8 /* TournamentKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TournamentKit.h; sourceTree = "<group>"; };
 		9476F47C1B3C3EA700A158F8 /* TournamentConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TournamentConnection.h; sourceTree = "<group>"; };
 		9476F47D1B3C3EA700A158F8 /* TournamentConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TournamentConnection.m; sourceTree = "<group>"; };
 		9476F47E1B3C3EA700A158F8 /* TournamentDaemon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TournamentDaemon.h; sourceTree = "<group>"; };
@@ -439,24 +437,6 @@
 			path = TBRemote;
 			sourceTree = "<group>";
 		};
-		9476F4A11B3C3EA700A158F8 /* TournamentKit */ = {
-			isa = PBXGroup;
-			children = (
-				9476F47B1B3C3EA700A158F8 /* TournamentKit.h */,
-				943970161B3F9DB700BB0413 /* TournamentBrowser.h */,
-				943970171B3F9DB700BB0413 /* TournamentBrowser.m */,
-				9476F47C1B3C3EA700A158F8 /* TournamentConnection.h */,
-				9476F47D1B3C3EA700A158F8 /* TournamentConnection.m */,
-				9476F47E1B3C3EA700A158F8 /* TournamentDaemon.h */,
-				9476F47F1B3C3EA700A158F8 /* TournamentDaemon.mm */,
-				9439701B1B3FA61C00BB0413 /* TournamentService.h */,
-				9439701C1B405DC000BB0413 /* TournamentService.m */,
-				9476F4801B3C3EA700A158F8 /* TournamentSession.h */,
-				9476F4811B3C3EA700A158F8 /* TournamentSession.m */,
-			);
-			path = TournamentKit;
-			sourceTree = "<group>";
-		};
 		9476F4D01B3C3F8300A158F8 /* cjson */ = {
 			isa = PBXGroup;
 			children = (
@@ -555,6 +535,16 @@
 				ADE299AE1B7B994200F1393B /* TBSound.m */,
 				94ED000F1B76E1E6003CF19B /* TBTableSeatNumberTransformer.h */,
 				94ED00101B76E1E6003CF19B /* TBTableSeatNumberTransformer.m */,
+				943970161B3F9DB700BB0413 /* TournamentBrowser.h */,
+				943970171B3F9DB700BB0413 /* TournamentBrowser.m */,
+				9476F47C1B3C3EA700A158F8 /* TournamentConnection.h */,
+				9476F47D1B3C3EA700A158F8 /* TournamentConnection.m */,
+				9476F47E1B3C3EA700A158F8 /* TournamentDaemon.h */,
+				9476F47F1B3C3EA700A158F8 /* TournamentDaemon.mm */,
+				9439701B1B3FA61C00BB0413 /* TournamentService.h */,
+				9439701C1B405DC000BB0413 /* TournamentService.m */,
+				9476F4801B3C3EA700A158F8 /* TournamentSession.h */,
+				9476F4811B3C3EA700A158F8 /* TournamentSession.m */,
 				9462A3E51B77CB3B00B29002 /* TTTOrdinalNumberFormatter.h */,
 				9462A3E61B77CB3B00B29002 /* TTTOrdinalNumberFormatter.m */,
 			);
@@ -581,7 +571,6 @@
 				AD8E68451A6C606700E5A4D8 /* Tournament Buddy */,
 				944FF4B41B3D04CA000362ED /* TBPlayer */,
 				9476F4671B3C385400A158F8 /* TBRemote */,
-				9476F4A11B3C3EA700A158F8 /* TournamentKit */,
 				9476F4EB1B3C3F8300A158F8 /* tournamentd */,
 				AD51C5341AFFC9210084B25E /* Frameworks */,
 				AD8E68441A6C606700E5A4D8 /* Products */,
@@ -782,7 +771,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				ADE299B81B7B9EE800F1393B /* TBPlayerWindow.xib in Resources */,
-				9462A3F91B7864E900B29002 /* TBAuthsView.xib in Resources */,
 				ADCECE7F1B7B0DBB00767DA6 /* TBControlsView.xib in Resources */,
 				ADA4FC0C1B8B6DA500DB2AA7 /* TBConnectToWindow.xib in Resources */,
 				94D04ED01B7C59EB004F4245 /* s_next.caf in Resources */,

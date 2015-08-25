@@ -12,7 +12,8 @@
 #import "TBPlayersViewController.h"
 #import "TBConfigurationWindowController.h"
 #import "TBPlayerWindowController.h"
-#import "TournamentKit/TournamentKit.h"
+#import "TournamentSession.h"
+#import "TournamentDaemon.h"
 #import "NSObject+FBKVOController.h"
 
 @interface Document ()

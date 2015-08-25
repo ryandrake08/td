@@ -7,7 +7,8 @@
 //
 
 #import "AppDelegate.h"
-#import "TournamentKit/TournamentKit.h"
+#import "TournamentBrowser.h"
+#import "TournamentSession.h"
 #import "TBPlayerWindowController.h"
 #import "TBConnectToWindowController.h"
 

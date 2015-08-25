@@ -7,7 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "TournamentKit/TournamentKit.h"
+#import "TournamentSession.h"
 
 @interface TBControlsViewController : NSViewController
 

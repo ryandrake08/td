@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TournamentKit/TournamentKit.h"
+#import "TournamentSession.h"
 
 @interface TBAppDelegate : UIResponder <UIApplicationDelegate>
 

@@ -7,7 +7,8 @@
 //
 
 #import "TBTournamentsViewController.h"
-#import "TournamentKit/TournamentKit.h"
+#import "TournamentBrowser.h"
+#import "TournamentSession.h"
 #import "TBAppDelegate.h"
 
 #import "NSObject+FBKVOController.h"
