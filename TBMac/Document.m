@@ -148,7 +148,7 @@
                 [[self maxPlayersButton] selectItemWithTag:players];
 
                 // also plan seating
-                [self planSeatingFor:players];
+                [self planSeatingFor:players force:NO];
             }
         }
     }];
@@ -156,7 +156,7 @@
     // if table sizes change, replan
     [[self KVOController] observe:[self configuration] keyPath:@"table_capacity" options:0 block:^(id observer, id object, NSDictionary *change) {
         NSInteger maxPlayers = [[self maxPlayersButton] selectedTag];
-        [self planSeatingFor:maxPlayers];
+        [self planSeatingFor:maxPlayers force:NO];
     }];
 }
 
@@ -189,9 +189,9 @@
 
 #pragma mark Operations
 
-- (void)planSeatingFor:(NSInteger)maxPlayers {
+- (void)planSeatingFor:(NSInteger)maxPlayers force:(BOOL)forced {
     NSLog(@"Planning seating for %ld players", maxPlayers);
-    if(maxPlayers > 1) {
+    if(maxPlayers > 1 && (forced || maxPlayers != [self lastMaxPlayers])) {
         [[self session] planSeatingFor:@(maxPlayers)];
         [self setLastMaxPlayers:maxPlayers];
     }
@@ -243,14 +243,12 @@
 
 - (IBAction)maxPlayersTextDidChange:(id)sender {
     NSInteger maxPlayers = [sender selectedTag];
-    if(maxPlayers != [self lastMaxPlayers]) {
-        [self planSeatingFor:maxPlayers];
-    }
+    [self planSeatingFor:maxPlayers force:NO];
 }
 
 - (IBAction)restartTapped:(id)sender {
     NSInteger maxPlayers = [[self maxPlayersButton] selectedTag];
-    [self planSeatingFor:maxPlayers];
+    [self planSeatingFor:maxPlayers force:YES];
 }
 
 - (IBAction)configureButtonDidChange:(id)sender {
