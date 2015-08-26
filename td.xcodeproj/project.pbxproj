@@ -269,7 +269,6 @@
 		9476F4E31B3C3F8300A158F8 /* socket.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = socket.cpp; sourceTree = "<group>"; };
 		9476F4E41B3C3F8300A158F8 /* socket.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = socket.hpp; sourceTree = "<group>"; };
 		9476F4E51B3C3F8300A158F8 /* socketstream.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = socketstream.hpp; sourceTree = "<group>"; };
-		9476F4E61B3C3F8300A158F8 /* stringcrc.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = stringcrc.hpp; sourceTree = "<group>"; };
 		9476F4E71B3C3F8300A158F8 /* tournament.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tournament.cpp; sourceTree = "<group>"; };
 		9476F4E81B3C3F8300A158F8 /* tournament.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = tournament.hpp; sourceTree = "<group>"; };
 		9476F4E91B3C3F8300A158F8 /* types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = types.cpp; sourceTree = "<group>"; };
@@ -474,7 +473,6 @@
 				9476F4E31B3C3F8300A158F8 /* socket.cpp */,
 				9476F4E41B3C3F8300A158F8 /* socket.hpp */,
 				9476F4E51B3C3F8300A158F8 /* socketstream.hpp */,
-				9476F4E61B3C3F8300A158F8 /* stringcrc.hpp */,
 				9476F4E71B3C3F8300A158F8 /* tournament.cpp */,
 				9476F4E81B3C3F8300A158F8 /* tournament.hpp */,
 				9476F4E91B3C3F8300A158F8 /* types.cpp */,
