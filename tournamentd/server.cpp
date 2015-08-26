@@ -16,12 +16,10 @@ void server::listen(const char* unix_socket_path, const char* inet_service)
 
     if(inet_service != nullptr)
     {
-#if 0
-        // add socket to listen for ipv4 (unnecessary on systems supporting dual-stack sockets)
+        // add socket to listen for ipv4
         inet4_socket sock4(inet_service);
         this->all.insert(sock4);
         this->listeners.insert(sock4);
-#endif
 
         // add socket to listen for ipv6
         inet6_socket sock6(inet_service);

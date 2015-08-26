@@ -498,6 +498,22 @@ inet_socket::inet_socket(const char* service, int family, int backlog) : common_
         throw std::system_error(errno, std::system_category(), "setsockopt");
     }
 
+    if(family == PF_INET6)
+    {
+        logger(LOG_DEBUG) << "setting IPV6_V6ONLY\n";
+        
+        // set IPV6_V6ONLY option. some systems don't support dual-stack. if ipv4 is needed, create a separate ipv4 socket
+        yes = 1;
+#if defined(_WIN32)
+        if(::setsockopt(sock, IPPROTO_IPV6, IPV6_V6ONLY, reinterpret_cast<const char*>(&yes), sizeof(yes)) == SOCKET_ERROR)
+#else
+        if(::setsockopt(sock, IPPROTO_IPV6, IPV6_V6ONLY, &yes, sizeof(yes)) == SOCKET_ERROR)
+#endif
+        {
+            throw std::system_error(errno, std::system_category(), "setsockopt");
+        }
+    }
+
     logger(LOG_DEBUG) << "binding " << *this << " to service: " << service << '\n';
 
     // bind to server port
