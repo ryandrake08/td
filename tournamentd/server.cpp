@@ -29,10 +29,12 @@ void server::listen(const char* unix_socket_path, const char* inet_service)
         this->listeners.insert(sock6);
     }
 
+#if !defined(_WIN32)
     // add unix socket
     unix_socket socku(unix_socket_path);
     this->all.insert(socku);
     this->listeners.insert(socku);
+#endif
 }
 
 // poll the server with given timeout
