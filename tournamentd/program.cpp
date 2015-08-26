@@ -1,6 +1,10 @@
 #include "program.hpp"
 #include <sstream>
 
+#if !defined(P_tmpdir)
+#define	P_tmpdir "/tmp/"
+#endif
+
 static const char* usage =
     "Usage: tournamentd [options]\n"
     " -c, --conf FILE\tInitialize configuration from file\n"
