@@ -633,7 +633,7 @@
 
     // payouts with empty player field, for seated players
     for(NSUInteger j=0; j<[[self seats] count]; j++) {
-        NSMutableDictionary* item = [NSMutableDictionary dictionaryWithObjectsAndKeys:@(j+1), @"place", nil];
+        NSMutableDictionary* item = [NSMutableDictionary dictionaryWithObjectsAndKeys:@(j+1), @"place", @"--", @"name", nil];
         if([[self payouts] count] > j) {
             item[@"payout"] = [self payouts][j];
         }
@@ -644,7 +644,7 @@
     for(NSUInteger i=0; i<[[self playersFinished] count]; i++) {
         NSUInteger j = [[self seats] count]+i;
         NSNumber* finished = [self playersFinished][i];
-        NSMutableDictionary* item = [NSMutableDictionary dictionaryWithObjectsAndKeys:@(j+1), @"place", [self playersLookup][finished], @"player", nil];
+        NSMutableDictionary* item = [NSMutableDictionary dictionaryWithObjectsAndKeys:@(j+1), @"place", [self playersLookup][finished][@"name"], @"name", nil];
         if([[self payouts] count] > j) {
             item[@"payout"] = [self payouts][j];
         }

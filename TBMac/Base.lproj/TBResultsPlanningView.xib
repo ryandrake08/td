@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="8152.3" systemVersion="15A263b" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="8187.4" systemVersion="15A275" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="8152.3"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="8187.4"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="TBResultsViewController">
@@ -19,7 +19,7 @@
             <rect key="frame" x="0.0" y="0.0" width="256" height="768"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="TVf-4M-2aI">
-                <rect key="frame" x="0.0" y="23" width="256" height="745"/>
+                <rect key="frame" x="0.0" y="0.0" width="256" height="768"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <tableView identifier="resultsTable" verticalHuggingPriority="750" allowsExpansionToolTips="YES" selectionHighlightStyle="none" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="P4l-nv-VtP" viewBased="YES" id="TLr-OK-BuK">
@@ -96,7 +96,7 @@
                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
                                                 <connections>
-                                                    <binding destination="Qrn-9T-1Xa" name="value" keyPath="objectValue.player.name" id="eoA-Zg-QVz"/>
+                                                    <binding destination="Qrn-9T-1Xa" name="value" keyPath="objectValue.name" id="a7B-Gm-ghA"/>
                                                 </connections>
                                             </textField>
                                         </subviews>
@@ -107,7 +107,7 @@
                                     </tableCellView>
                                 </prototypeCellViews>
                                 <connections>
-                                    <binding destination="404-QG-0a1" name="value" keyPath="arrangedObjects.player.name" id="jH3-q1-Qst"/>
+                                    <binding destination="404-QG-0a1" name="value" keyPath="arrangedObjects.name" id="64p-cy-beN"/>
                                 </connections>
                             </tableColumn>
                             <tableColumn identifier="Payout" width="64" minWidth="64" maxWidth="128" id="quH-nA-eaf">
