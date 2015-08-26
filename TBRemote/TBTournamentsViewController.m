@@ -16,6 +16,7 @@
 @interface TBTournamentsViewController () <UITableViewDelegate,
                                            UITableViewDataSource,
                                            UIActionSheetDelegate,
+                                           UIAlertViewDelegate,
                                            TournamentBrowserDelegate>
 
 @property (nonatomic, strong) TournamentSession* session;
@@ -103,14 +104,21 @@
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
     NSNetService* cellService = [self netServices][[indexPath row]];
     NSNetService* currentService = [[self session] currentService];
+    BOOL isConnected = [[self session] isConnected];
+    BOOL isAuthorized = [[self session] isAuthorized];
 
-    if(cellService == currentService) {
-        // pop disconnection actionsheet
+    if(cellService == currentService && isConnected) {
+        NSString* otherButtons = nil;
+        if(!isAuthorized) {
+            otherButtons = NSLocalizedString(@"Administer Game", nil);
+        }
+
+        // pop actionsheet
         UIActionSheet* actionSheet = [[UIActionSheet alloc] initWithTitle:nil
                                                                  delegate:self
                                                         cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
                                                    destructiveButtonTitle:NSLocalizedString(@"Leave Game", nil)
-                                                        otherButtonTitles:nil];
+                                                        otherButtonTitles:otherButtons, nil];
         [actionSheet showInView:[self view]];
     } else {
         // connect
@@ -132,8 +140,34 @@
 #pragma mark UIActionSheetDelegate
 
 - (void)actionSheet:(UIActionSheet*)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if(buttonIndex == 0) {
+    if(buttonIndex == [actionSheet destructiveButtonIndex]) {
         [[self session] disconnect];
+    } else if(buttonIndex == [actionSheet cancelButtonIndex]) {
+        // do nothing
+    } else if(buttonIndex == [actionSheet firstOtherButtonIndex]) {
+        NSString* msg = [[NSString alloc] initWithFormat:NSLocalizedString(@"The tournament director needs to authorize this code: %@", nil), [TournamentSession clientIdentifier]];
+
+        // present alert
+        UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Administer Game", nil)
+                                                            message:msg
+                                                           delegate:self
+                                                  cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
+                                                  otherButtonTitles:NSLocalizedString(@"Try Again", nil), nil];
+        [alertView show];
+    }
+}
+
+#pragma UIAlertViewDelegate
+
+- (void)alertView:(UIAlertView*)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    if(buttonIndex == [alertView cancelButtonIndex]) {
+        // do nothing
+    } else if(buttonIndex == [alertView firstOtherButtonIndex]) {
+        // check authorization
+        [[self session] checkAuthorizedWithBlock:^(BOOL authorized) {
+            NSNetService* currentService = [[self session] currentService];
+            [self reloadTableRowForService:currentService];
+        }];
     }
 }
 
