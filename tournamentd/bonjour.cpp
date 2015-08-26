@@ -75,7 +75,7 @@ public:
     }
 };
 #else
-class bonjour::impl
+class bonjour_publisher::impl
 {
 public:
     impl(const std::string& name, int port)

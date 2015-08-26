@@ -5,6 +5,7 @@
 #include <deque>
 #include <fstream>
 #include <limits>
+#include <memory>
 #include <stdexcept>
 #include <streambuf>
 #include <string>
@@ -152,7 +153,7 @@ json::json(const long long& value) : ptr(check(cJSON_CreateInt(value)))
 }
 
 template <>
-json::json(const unsigned long long& value) : ptr(check(cJSON_CreateInt(bounds_checking_cast<unsigned long long,double>(value))))
+json::json(const unsigned long long& value) : ptr(check(cJSON_CreateInt(bounds_checking_cast<unsigned long long,long long int>(value))))
 {
 }
 

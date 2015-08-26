@@ -5,6 +5,7 @@
 #include <cerrno> // For EINTR
 #include <exception>
 #include <iostream>
+#include <iterator>
 #include <system_error>
 #include <vector>
 
@@ -31,7 +32,9 @@ public:
 #if defined(SIGUSR2)
         (void) signal(SIGUSR2, signal_handler);
 #endif
+#if defined(SIGPIPE)
         (void) signal(SIGPIPE, SIG_IGN);
+#endif
     }
 
     ~runloop()
@@ -45,7 +48,9 @@ public:
 #if defined(SIGUSR2)
         (void) signal(SIGUSR2, SIG_DFL);
 #endif
-        (void) signal(SIGPIPE, SIG_DFL);
+#if defined(SIGPIPE)
+		(void) signal(SIGPIPE, SIG_DFL);
+#endif
     }
 
     int run(int argc, const char* const argv[])

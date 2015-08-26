@@ -12,6 +12,7 @@
 #define WIN32_LEAN_AND_MEAN 1
 #include <windows.h>
 #include <winsock2.h>
+#include <WS2tcpip.h>
 typedef int socklen_t;
 #endif
 #if defined(__unix) || defined(__APPLE__)
@@ -338,6 +339,7 @@ std::ostream& operator<<(std::ostream& os, const common_socket& sock)
 
 unix_socket::unix_socket(const char* path, bool client, int backlog)
 {
+#if !defined(_WIN32)
     sockaddr_un addr;
 
     // first check size of path
@@ -392,7 +394,7 @@ unix_socket::unix_socket(const char* path, bool client, int backlog)
             throw std::system_error(errno, std::system_category(), "listen");
         }
     }
-
+#endif
     validate();
 }
 
