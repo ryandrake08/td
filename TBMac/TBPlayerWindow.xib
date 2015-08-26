@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="8187.4" systemVersion="15A275" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="8187.4"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="TBPlayerWindowController">
@@ -22,7 +22,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenPrimary="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="196" y="240" width="1024" height="768"/>
+            <rect key="contentRect" x="0.0" y="0.0" width="1024" height="768"/>
             <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
             <value key="minSize" type="size" width="608" height="720"/>
             <view key="contentView" id="se5-gp-TjO">
@@ -32,6 +32,7 @@
                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" id="a0P-Zo-OBW">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <animations/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" id="3Dq-eq-RTL"/>
                     </imageView>
                     <customView id="8iU-hh-7yP" userLabel="Top Pane">
@@ -41,6 +42,7 @@
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="Gsw-KR-maF" customClass="TBResizeTextField">
                                 <rect key="frame" x="0.0" y="32" width="1024" height="64"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <animations/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Non-Rebuy Tournament" placeholderString="" usesSingleLineMode="YES" id="WPd-dJ-g1F" customClass="RSVerticallyCenteredTextFieldCell">
                                     <font key="font" metaFont="system" size="48"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -58,6 +60,7 @@
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="vb7-Xl-URz" customClass="TBResizeTextField">
                                 <rect key="frame" x="0.0" y="0.0" width="1024" height="32"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <animations/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="$20 Buy-in, No rebuys, No add-ons" placeholderString="" usesSingleLineMode="YES" id="4Yf-kT-9pF" customClass="RSVerticallyCenteredTextFieldCell">
                                     <font key="font" metaFont="system" size="24"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -73,6 +76,7 @@
                                 </connections>
                             </textField>
                         </subviews>
+                        <animations/>
                     </customView>
                     <customView id="TM9-KQ-WKc" userLabel="Left Pane">
                         <rect key="frame" x="0.0" y="0.0" width="256" height="672"/>
@@ -81,6 +85,7 @@
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="ixp-z8-Smp" customClass="TBResizeTextField">
                                 <rect key="frame" x="-2" y="640" width="260" height="32"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
+                                <animations/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Current Round" placeholderString="" usesSingleLineMode="YES" id="t9S-rV-kCd">
                                     <font key="font" metaFont="system" size="24"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -90,6 +95,7 @@
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="HG3-0K-cbX" customClass="TBResizeTextField">
                                 <rect key="frame" x="-2" y="576" width="260" height="64"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <animations/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="1" placeholderString="" usesSingleLineMode="YES" id="mJA-lk-ugZ">
                                     <font key="font" metaFont="system" size="48"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -107,6 +113,7 @@
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="J72-wN-CQJ" customClass="TBResizeTextField">
                                 <rect key="frame" x="-2" y="544" width="260" height="32"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <animations/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Players Left" placeholderString="" usesSingleLineMode="YES" id="gOu-Lm-pIp">
                                     <font key="font" metaFont="system" size="24"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -116,6 +123,7 @@
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="CPj-w0-8dz" customClass="TBResizeTextField">
                                 <rect key="frame" x="-2" y="480" width="260" height="64"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <animations/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="1" placeholderString="" usesSingleLineMode="YES" id="xGT-Ij-jvV">
                                     <font key="font" metaFont="system" size="48"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -133,6 +141,7 @@
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="AZb-dO-CHz" customClass="TBResizeTextField">
                                 <rect key="frame" x="-2" y="448" width="260" height="32"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <animations/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Entries" placeholderString="" usesSingleLineMode="YES" id="Y4c-D9-ILW">
                                     <font key="font" metaFont="system" size="24"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -142,6 +151,7 @@
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="EZ3-Z0-lqe" customClass="TBResizeTextField">
                                 <rect key="frame" x="-2" y="384" width="260" height="64"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <animations/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="1" placeholderString="" usesSingleLineMode="YES" id="Rbs-AZ-L0n">
                                     <font key="font" metaFont="system" size="48"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -159,6 +169,7 @@
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="Wau-nO-jwD" customClass="TBResizeTextField">
                                 <rect key="frame" x="-2" y="352" width="260" height="32"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <animations/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Average Stack" placeholderString="" usesSingleLineMode="YES" id="3Zj-xi-9eT">
                                     <font key="font" metaFont="system" size="24"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -168,6 +179,7 @@
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="4e4-de-GFt" customClass="TBResizeTextField">
                                 <rect key="frame" x="-2" y="288" width="260" height="64"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <animations/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="1" placeholderString="" usesSingleLineMode="YES" id="EBC-vx-ffR">
                                     <font key="font" metaFont="system" size="48"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -185,6 +197,7 @@
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="ZNS-JQ-PON" customClass="TBResizeTextField">
                                 <rect key="frame" x="-2" y="256" width="260" height="32"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <animations/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Elapsed Time" placeholderString="" usesSingleLineMode="YES" id="Xku-km-Q5P">
                                     <font key="font" metaFont="system" size="24"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -194,6 +207,7 @@
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="K8v-Yz-PAh" customClass="TBResizeTextField">
                                 <rect key="frame" x="-2" y="192" width="260" height="64"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <animations/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="01:23:45" placeholderString="" usesSingleLineMode="YES" id="Xi1-K8-bQc">
                                     <font key="font" metaFont="system" size="48"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -209,18 +223,21 @@
                                 </connections>
                             </textField>
                         </subviews>
+                        <animations/>
                     </customView>
                     <customView id="zql-0O-xSY" userLabel="Center Pane">
                         <rect key="frame" x="256" y="0.0" width="512" height="672"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
                         <subviews>
                             <customView id="6oh-Wj-Ac7">
-                                <rect key="frame" x="104" y="607.99999813459897" width="304" height="64"/>
+                                <rect key="frame" x="104" y="608" width="304" height="64"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <animations/>
                             </customView>
                             <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="CDw-40-LG5" customClass="TBResizeTextField">
-                                <rect key="frame" x="-2" y="415.99999813459897" width="516" height="192"/>
+                                <rect key="frame" x="-2" y="416" width="516" height="192"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
+                                <animations/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="01:23:45" placeholderString="" usesSingleLineMode="YES" id="f7C-Sd-FCb">
                                     <font key="font" metaFont="system" size="128"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -238,6 +255,7 @@
                             <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="eXJ-d7-wDK" customClass="TBResizeTextField">
                                 <rect key="frame" x="-2" y="384" width="516" height="32"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <animations/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Current Round" placeholderString="" usesSingleLineMode="YES" id="6kq-Ig-Hbi">
                                     <font key="font" metaFont="system" size="24"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -252,6 +270,7 @@
                             <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="oEh-Uu-smb" customClass="TBResizeTextField">
                                 <rect key="frame" x="-2" y="320" width="516" height="64"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <animations/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="No Limit Texas Hold'em" placeholderString="" usesSingleLineMode="YES" id="Vzo-fP-Mvd">
                                     <font key="font" metaFont="system" size="48"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -269,6 +288,7 @@
                             <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="bqH-Qi-teu" customClass="TBResizeTextField">
                                 <rect key="frame" x="-2" y="160" width="516" height="160"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <animations/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="100/200" placeholderString="" usesSingleLineMode="YES" id="t1d-bH-2FE">
                                     <font key="font" metaFont="system" size="128"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -286,6 +306,7 @@
                             <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="lKX-kw-5Fc" customClass="TBResizeTextField">
                                 <rect key="frame" x="-2" y="128" width="516" height="32"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <animations/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Next Round" placeholderString="" usesSingleLineMode="YES" id="kpk-yy-q57">
                                     <font key="font" metaFont="system" size="24"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -300,6 +321,7 @@
                             <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="OMf-if-HTW" customClass="TBResizeTextField">
                                 <rect key="frame" x="-2" y="96" width="516" height="32"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <animations/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Limit Texas Hold'em" placeholderString="" usesSingleLineMode="YES" id="teh-jo-D05">
                                     <font key="font" metaFont="system" size="32"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -317,6 +339,7 @@
                             <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="ffa-40-JOt" customClass="TBResizeTextField">
                                 <rect key="frame" x="-2" y="0.0" width="516" height="96"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <animations/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="200/400" placeholderString="" usesSingleLineMode="YES" id="q8d-Ff-cvY">
                                     <font key="font" metaFont="system" size="90"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -332,14 +355,17 @@
                                 </connections>
                             </textField>
                         </subviews>
+                        <animations/>
                     </customView>
                     <customView id="du6-bL-Okn" userLabel="Right Pane">
                         <rect key="frame" x="768" y="0.0" width="256" height="672"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" heightSizable="YES"/>
+                        <animations/>
                     </customView>
                     <customView hidden="YES" id="YIC-Dz-dR6" userLabel="Action Clock" customClass="TBActionClockView">
                         <rect key="frame" x="128" y="0.0" width="768" height="768"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
+                        <animations/>
                         <connections>
                             <binding destination="-2" name="hidden" keyPath="self.session.actionClockTimeRemaining" id="Zjg-Jo-X7D">
                                 <dictionary key="options">
@@ -349,6 +375,7 @@
                         </connections>
                     </customView>
                 </subviews>
+                <animations/>
             </view>
             <connections>
                 <outlet property="delegate" destination="-2" id="0bl-1N-AYu"/>
