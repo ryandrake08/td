@@ -11,9 +11,6 @@ protected:
 
     std::shared_ptr<impl> pimpl;
 
-    // ensure socket has a valid impl
-    void validate() const;
-
     // empty constructor
     common_socket();
 

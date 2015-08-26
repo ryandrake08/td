@@ -137,14 +137,6 @@ struct common_socket::impl
     }
 };
 
-void common_socket::validate() const
-{
-    if(!this->pimpl)
-    {
-        throw std::logic_error("common_socket: invalid socket impl");
-    }
-}
-
 // empty constructor
 common_socket::common_socket()
 {
@@ -153,16 +145,21 @@ common_socket::common_socket()
 // create a socket with a given impl (needed for accept)
 common_socket::common_socket(impl* imp) : pimpl(imp)
 {
-    validate();
-
     logger(LOG_DEBUG) << "creating socket from existing impl: " << *this << '\n';
+    if(!this->pimpl)
+    {
+        logger(LOG_WARNING) << "creating socket from invalid impl\n";
+    }
 }
 
 common_socket common_socket::accept() const
 {
-    validate();
-
     logger(LOG_DEBUG) << "accepting with " << *this << '\n';
+    if(!this->pimpl)
+    {
+        logger(LOG_WARNING) << "accepting on invalid socket impl\n";
+        return common_socket();
+    }
 
     // accept connection
     sockaddr_storage addr;
@@ -200,26 +197,23 @@ int do_select(int max_fd, fd_set* fds, long usec)
 // select on this socket
 bool common_socket::select(long usec)
 {
-    validate();
-
     // single fd
     fd_set fds;
     FD_ZERO(&fds);
-    FD_SET(this->pimpl->fd, &fds);
-
+    if(this->pimpl)
+    {
+        FD_SET(this->pimpl->fd, &fds);
+    }
     return do_select(this->pimpl->fd+1, &fds, usec) > 0;
 }
 
 // select on multiple sockets
 std::set<common_socket> common_socket::select(const std::set<common_socket>& sockets, long usec)
 {
-    // validate all passed in sockets
-    std::for_each(sockets.begin(), sockets.end(), [](const common_socket& s) { s.validate(); });
-
     // iterate through set, and add to our fd_set
     fd_set fds;
     FD_ZERO(&fds);
-    std::for_each(sockets.begin(), sockets.end(), [&fds](const common_socket& s) { FD_SET(s.pimpl->fd, &fds); });
+    std::for_each(sockets.begin(), sockets.end(), [&fds](const common_socket& s) { if(s.pimpl) FD_SET(s.pimpl->fd, &fds); });
 
     // set is ordered, so max fd is the last element
     int max_fd(sockets.begin() == sockets.end() ? 0 : sockets.rbegin()->pimpl->fd+1);
@@ -235,9 +229,12 @@ std::set<common_socket> common_socket::select(const std::set<common_socket>& soc
 
 std::size_t common_socket::recv(void* buf, std::size_t bytes)
 {
-    validate();
-
     logger(LOG_DEBUG) << "receiving " << bytes << " on " << *this << '\n';
+    if(!this->pimpl)
+    {
+        logger(LOG_WARNING) << "receiving from invalid socket impl\n";
+        return 0;
+    }
 
     // read bytes from a fd
 #if defined(_WIN32)
@@ -257,9 +254,12 @@ std::size_t common_socket::recv(void* buf, std::size_t bytes)
 
 std::size_t common_socket::send(const void* buf, std::size_t bytes)
 {
-    validate();
-
     logger(LOG_DEBUG) << "sending " << bytes << " on " << *this << '\n';
+    if(!this->pimpl)
+    {
+        logger(LOG_WARNING) << "sending to invalid socket impl\n";
+        return 0;
+    }
 
     // write bytes to a fd
 #if defined(_WIN32)
@@ -280,7 +280,11 @@ std::size_t common_socket::send(const void* buf, std::size_t bytes)
 // is socket listening
 bool common_socket::listening() const
 {
-    validate();
+    if(!this->pimpl)
+    {
+        logger(LOG_WARNING) << "invalid socket impl is never listening\n";
+        return false;
+    }
 
     int val(0);
     socklen_t len(sizeof(val));
@@ -294,31 +298,46 @@ bool common_socket::listening() const
 
 bool common_socket::operator<(const common_socket& other) const
 {
-    validate();
-    other.validate();
-
-    return this->pimpl->fd < other.pimpl->fd;
+    if(!this->pimpl || !other.pimpl)
+    {
+        return false;
+    }
+    else
+    {
+        return this->pimpl->fd < other.pimpl->fd;
+    }
 }
 
 bool common_socket::operator==(const common_socket& other) const
 {
-    validate();
-    other.validate();
-
-    return this->pimpl->fd == other.pimpl->fd;
+    if(!this->pimpl || !other.pimpl)
+    {
+        return !this->pimpl && !other.pimpl;
+    }
+    else
+    {
+        return this->pimpl->fd == other.pimpl->fd;
+    }
 }
 
 bool common_socket::operator!=(const common_socket& other) const
 {
-    validate();
-    other.validate();
-
-    return this->pimpl->fd != other.pimpl->fd;
+    if(!this->pimpl || !other.pimpl)
+    {
+        return this->pimpl || other.pimpl;
+    }
+    else
+    {
+        return this->pimpl->fd != other.pimpl->fd;
+    }
 }
 
 std::ostream& operator<<(std::ostream& os, const common_socket& sock)
 {
-    sock.validate();
+    if(!sock.pimpl)
+    {
+        return os << "socket: invalid";
+    }
 
     sockaddr_storage addr;
     socklen_t addrlen(sizeof(addr));
@@ -395,7 +414,6 @@ unix_socket::unix_socket(const char* path, bool client, int backlog)
         }
     }
 #endif
-    validate();
 }
 
 inet_socket::inet_socket(const char* host, const char* service, int family) : common_socket()
@@ -435,8 +453,6 @@ inet_socket::inet_socket(const char* host, const char* service, int family) : co
     {
         throw std::system_error(errno, std::system_category(), "connect");
     }
-
-    validate();
 }
 
 inet_socket::inet_socket(const char* service, int family, int backlog) : common_socket()
@@ -497,8 +513,6 @@ inet_socket::inet_socket(const char* service, int family, int backlog) : common_
     {
         throw std::system_error(errno, std::system_category(), "listen");
     }
-
-    validate();
 }
 
 inet4_socket::inet4_socket(const char* host, const char* service) : inet_socket(host, service, PF_INET)
