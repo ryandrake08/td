@@ -32,7 +32,7 @@
         NSUInteger cellsToShow = [[[self arrayController] arrangedObjects] count];
         cellsToShow = MAX(MIN(cellsToShow, 4), 1);
         CGRect rect = [[self window] frame];
-        rect.size.height = cellsToShow * 96.0;
+        rect.size.height = cellsToShow * 96.0 + 32.0;
         [[self window] setFrame:[[self window] frameRectForContentRect:rect] display:YES];
     }];
 }
