@@ -176,6 +176,7 @@
 		ADE5A4FE1B8F44A0002737A8 /* TBStatsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE5A4FB1B8F44A0002737A8 /* TBStatsViewController.m */; settings = {ASSET_TAGS = (); }; };
 		ADE5A4FF1B8F44A0002737A8 /* TBStatsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = ADE5A4FC1B8F44A0002737A8 /* TBStatsView.xib */; settings = {ASSET_TAGS = (); }; };
 		ADE5A5001B8F44A0002737A8 /* TBStatsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = ADE5A4FC1B8F44A0002737A8 /* TBStatsView.xib */; settings = {ASSET_TAGS = (); }; };
+		ADE5A5031B8F6C4C002737A8 /* TBCurrencyImageTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE5A5021B8F6C4C002737A8 /* TBCurrencyImageTransformer.m */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -356,6 +357,8 @@
 		ADE5A4FA1B8F44A0002737A8 /* TBStatsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBStatsViewController.h; path = TBMac/TBStatsViewController.h; sourceTree = "<group>"; };
 		ADE5A4FB1B8F44A0002737A8 /* TBStatsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TBStatsViewController.m; path = TBMac/TBStatsViewController.m; sourceTree = "<group>"; };
 		ADE5A4FC1B8F44A0002737A8 /* TBStatsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TBStatsView.xib; path = TBMac/TBStatsView.xib; sourceTree = "<group>"; };
+		ADE5A5011B8F6C4C002737A8 /* TBCurrencyImageTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBCurrencyImageTransformer.h; sourceTree = "<group>"; };
+		ADE5A5021B8F6C4C002737A8 /* TBCurrencyImageTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBCurrencyImageTransformer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -530,6 +533,8 @@
 				94562E5F1B65D8CA0017C692 /* TBColorValueTransformer.m */,
 				94F466251B8AF203009BB648 /* TBCurrencyCodeTransformer.h */,
 				94F466261B8AF203009BB648 /* TBCurrencyCodeTransformer.m */,
+				ADE5A5011B8F6C4C002737A8 /* TBCurrencyImageTransformer.h */,
+				ADE5A5021B8F6C4C002737A8 /* TBCurrencyImageTransformer.m */,
 				94562E601B65D8CA0017C692 /* TBCurrencyNumberFormatter.h */,
 				94562E611B65D8CA0017C692 /* TBCurrencyNumberFormatter.m */,
 				94562E621B65D8CA0017C692 /* TBDateStringTransformer.h */,
@@ -960,6 +965,7 @@
 				94FDEAE51B5AE2D60026B25D /* CFStreamCreatePairWithUnixSocket.c in Sources */,
 				94FDEAEB1B5AE2D60026B25D /* NSData+Delimiter.m in Sources */,
 				94562E691B65D8CA0017C692 /* TBDurationNumberFormatter.m in Sources */,
+				ADE5A5031B8F6C4C002737A8 /* TBCurrencyImageTransformer.m in Sources */,
 				949D70A31B3C441F008D5CD1 /* socket.cpp in Sources */,
 				ADE5A4FD1B8F44A0002737A8 /* TBStatsViewController.m in Sources */,
 				AD98D9741A7B343600DA6B8B /* TBSeatingViewController.m in Sources */,

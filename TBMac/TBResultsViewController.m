@@ -25,11 +25,17 @@
     NSSortDescriptor* placeSort = [[NSSortDescriptor alloc] initWithKey:@"place" ascending:YES];
     [[self arrayController] setSortDescriptors:@[placeSort]];
 
+    // bindings
+    [[self equityFormatter] bind:@"currencyCode"
+                        toObject:[self session]
+                     withKeyPath:@"equityCurrency"
+                         options:nil];
+
     // register for KVO
-    [[[self equityFormatter] KVOController] observe:[self session] keyPath:@"equityCurrency" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
-        [observer setCurrencyCode:[object equityCurrency]];
-        [[self tableView] reloadData];
-    }];
+    [[[self tableView] KVOController] observe:[self session]
+                                      keyPath:@"equityCurrency"
+                                      options:0
+                                       action:@selector(reloadData)];
 }
 
 #pragma mark NSTableViewDelegate

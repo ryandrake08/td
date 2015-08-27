@@ -68,16 +68,21 @@
     // set sort descriptors for arrays
     [[self arrayController] setSortDescriptors:@[typeSort, nameSort]];
 
-    // register for KVO
-    [[[self costFormatter] KVOController] observe:[self configuration] keyPath:@"cost_currency" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
-        [observer setCurrencyCode:object[@"cost_currency"]];
-        [[self tableView] reloadData];
-    }];
+    // bindings
+    [[self costFormatter] bind:@"currencyCode"
+                      toObject:[self configuration]
+                   withKeyPath:@"cost_currency"
+                       options:nil];
+    [[self equityFormatter] bind:@"currencyCode"
+                        toObject:[self configuration]
+                     withKeyPath:@"equity_currency"
+                         options:nil];
 
-    [[[self equityFormatter] KVOController] observe:[self configuration] keyPath:@"equity_currency" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
-        [observer setCurrencyCode:object[@"equity_currency"]];
-        [[self tableView] reloadData];
-    }];
+    // register for KVO
+    [[[self tableView] KVOController] observe:[self configuration]
+                                     keyPaths:@[@"cost_currency", @"equity_currency"]
+                                      options:0
+                                       action:@selector(reloadData)];
 }
 
 - (NSArray*)blindLevelNames {
