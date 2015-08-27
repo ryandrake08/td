@@ -5,6 +5,7 @@
 #include <cstddef>
 #include <sstream>
 #include <stdexcept>
+#include <system_error>
 
 // ----- auth check
 
@@ -834,7 +835,7 @@ std::pair<std::string, int> tournament::listen(const char*  unix_socket_director
     {
         // build unique unix socket name using service name
         std::ostringstream local_server, inet_service;
-        local_server << unix_socket_directory << "tournamentd." << port << ".sock";
+        local_server << unix_socket_directory << "/tournamentd." << port << ".sock";
         inet_service << port;
 
         try
