@@ -653,7 +653,7 @@ std::vector<td::player_chips> gameinfo::chips_for_buyin(const td::funding_source
     std::unordered_map<unsigned long,unsigned long> q;
 
     // step 1: fund using highest denominaton chips available
-    long remain(source.chips);
+    unsigned long remain(source.chips);
     auto cit(this->available_chips.rbegin());
     while(remain)
     {
@@ -781,7 +781,7 @@ void gameinfo::recalculate_payouts()
         double total(0.0);
 
         // generate proportional payouts based on harmonic series, N^-f / sum(1/k)
-        for(auto n(0); n<seats_paid; n++)
+        for(size_t n(0); n<seats_paid; n++)
         {
             double c(std::pow(n+1,-f));
             comp[n] = c;
@@ -1146,7 +1146,7 @@ void gameinfo::gen_blind_levels(std::size_t count, long level_duration, long chi
     // starting small blind = smallest denomination
     double ideal_small(static_cast<double>(last_round_denom));
 
-    for(auto i(1); i<count+1; i++)
+    for(size_t i(1); i<count+1; i++)
     {
         // calculate nearest chip denomination to round to
         const auto round_denom(calculate_round_denomination(ideal_small, this->available_chips));

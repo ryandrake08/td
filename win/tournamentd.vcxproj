@@ -88,6 +88,7 @@
     <ClCompile Include="..\tournamentd\program.cpp" />
     <ClCompile Include="..\tournamentd\server.cpp" />
     <ClCompile Include="..\tournamentd\socket.cpp" />
+    <ClCompile Include="..\tournamentd\strptime.c" />
     <ClCompile Include="..\tournamentd\tournament.cpp" />
     <ClCompile Include="..\tournamentd\types.cpp" />
   </ItemGroup>

@@ -5,6 +5,8 @@
 #if defined(_WIN32)
 #define gmtime_r(a,b) gmtime((a))
 #define localtime_r(a,b) localtime((a))
+#define timegm(a) _mkgmtime((a))
+extern "C" char *strptime(const char *buf, const char *fmt, struct tm *tm);
 #endif
 
 typedef std::chrono::system_clock sc;
@@ -124,7 +126,8 @@ static std::ostream& operator<<(std::ostream& os, const std::tm* date_time)
 // Renderers
 std::string datetime::gmtime() const
 {
-    std::tm tm(this->gmtime(tm));
+	std::tm tm;
+	tm = this->gmtime(tm);
     std::ostringstream ss;
     ss << &tm;
     return ss.str();
@@ -132,7 +135,8 @@ std::string datetime::gmtime() const
 
 std::string datetime::localtime() const
 {
-    std::tm tm(this->localtime(tm));
+	std::tm tm;
+	tm = this->localtime(tm);
     std::ostringstream ss;
     ss << &tm;
     return ss.str();

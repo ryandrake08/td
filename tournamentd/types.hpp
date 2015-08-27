@@ -18,7 +18,7 @@ namespace td
     typedef std::string player_id_t;
 
     // index into the funding_source vector
-    typedef int funding_source_id_t;
+    typedef size_t funding_source_id_t;
 
     // type of funding source (buyin, rebuy, addon)
     enum funding_source_type_t { buyin, rebuy, addon };
