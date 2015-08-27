@@ -28,7 +28,7 @@
 @property (strong) IBOutlet TBPlayersViewController* playersViewController;
 @property (strong) IBOutlet TBResultsViewController* resultsViewController;
 
-// WIndow Controllers
+// Window Controllers
 @property (strong) TBConfigurationWindowController* configurationWindowController;
 @property (strong) TBPlayerWindowController* playerWindowController;
 
@@ -39,7 +39,7 @@
 @property (weak) IBOutlet NSView* leftPaneView;
 @property (weak) IBOutlet NSView* rightPaneView;
 @property (weak) IBOutlet NSView* centerPaneView;
-
+@property (weak) IBOutlet NSWindow* mainWindow;
 
 // Keep track of last seating plan size, to avoid setting again
 @property (assign) NSInteger lastMaxPlayers;
@@ -171,13 +171,30 @@
 }
 
 - (NSData*)dataOfType:(NSString*)typeName error:(NSError**)outError {
-    // serialize json configuration to NSData
-    return [NSJSONSerialization dataWithJSONObject:[self configuration] options:0 error:outError];
+    if([typeName isEqualToString:@"JSON"] || [typeName isEqualToString:@"TournamentBuddy"]) {
+        // serialize json configuration to NSData
+        return [NSJSONSerialization dataWithJSONObject:[self configuration] options:0 error:outError];
+    } else if([typeName isEqualToString:@"CSV"]) {
+        // serialize results to NSData
+        NSMutableArray* results = [[NSMutableArray alloc] initWithObjects:@"Player,Finish,Win", nil];
+        // 1 result per line
+        [[[self session] results] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL* stop) {
+            NSString* line = [NSString stringWithFormat:@"\"%@\",%@,%@", obj[@"name"], obj[@"place"], obj[@"payout"]];
+            [results addObject:line];
+        }];
+        // combine
+        NSString* csv = [results componentsJoinedByString:@"\n"];
+        // use WINDOWS-1252 for now
+        return [csv dataUsingEncoding:NSWindowsCP1252StringEncoding];
+    }
+    return nil;
 }
 
 - (BOOL)readFromData:(NSData*)data ofType:(NSString*)typeName error:(NSError**)outError {
-    // deserialize json configuration
-    [[self configuration] setDictionary:[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:outError]];
+    if([typeName isEqualToString:@"JSON"] || [typeName isEqualToString:@"TournamentBuddy"]) {
+        // deserialize json configuration
+        [[self configuration] setDictionary:[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:outError]];
+    }
     return *outError == nil;
 }
 
@@ -199,13 +216,29 @@
 
 #pragma mark Actions
 
+- (IBAction)exportResults:(id)sender {
+    NSSavePanel* savePanel = [NSSavePanel savePanel];
+    [savePanel setShowsTagField:NO];
+    [savePanel setTitle:@"Export Results..."];
+    [savePanel setAllowedFileTypes:@[@"CSV"]];
+    [savePanel beginSheetModalForWindow:[self mainWindow] completionHandler:^(NSInteger result) {
+        if(result == NSFileHandlingPanelOKButton) {
+            [self saveToURL:[savePanel URL] ofType:@"CSV" forSaveOperation:NSSaveToOperation completionHandler:^(NSError* _Nullable errorOrNil) {
+                NSLog(@"%@", errorOrNil);
+            }];
+        }
+    }];
+}
+
 - (IBAction)tournamentNameWasChanged:(NSTextField*)sender {
     // resign first responder
     [[sender window] selectNextKeyView:self];
 
     // configure session and replace current configuration
     [[self session] selectiveConfigure:[self configuration] andUpdate:[self configuration]];
+    [[sender window] setDocumentEdited:YES];
 }
+
 - (IBAction)previousRoundTapped:(id)sender {
     NSUInteger currentBlindLevel = [[[self session] currentBlindLevel] unsignedIntegerValue];
     if(currentBlindLevel != 0) {
@@ -213,7 +246,7 @@
     }
 }
 
-- (IBAction)pauseResumeTapped:(id*)sender {
+- (IBAction)pauseResumeTapped:(id)sender {
     NSUInteger currentBlindLevel = [[[self session] currentBlindLevel] unsignedIntegerValue];
     if(currentBlindLevel != 0) {
         [[self session] togglePauseGame];
@@ -222,14 +255,14 @@
     }
 }
 
-- (IBAction)nextRoundTapped:(id*)sender {
+- (IBAction)nextRoundTapped:(id)sender {
     NSUInteger currentBlindLevel = [[[self session] currentBlindLevel] unsignedIntegerValue];
     if(currentBlindLevel != 0) {
         [[self session] setNextLevelWithBlock:nil];
     }
 }
 
-- (IBAction)callClockTapped:(id*)sender {
+- (IBAction)callClockTapped:(id)sender {
     NSUInteger currentBlindLevel = [[[self session] currentBlindLevel] unsignedIntegerValue];
     if(currentBlindLevel != 0) {
         NSUInteger remaining = [[[self session] actionClockTimeRemaining] unsignedIntegerValue];
@@ -262,8 +295,7 @@
         }
 
         // display as a sheet
-        NSWindowController* windowController = [self windowControllers][0];
-        [[windowController window] beginSheet:[[self configurationWindowController] window] completionHandler:^(NSModalResponse returnCode) {
+        [[self mainWindow] beginSheet:[[self configurationWindowController] window] completionHandler:^(NSModalResponse returnCode) {
             NSLog(@"Configuration sheet closed");
 
             switch (returnCode) {
@@ -271,6 +303,7 @@
                     NSLog(@"Done button was pressed");
                     // configure session and replace current configuration
                     [[self session] selectiveConfigure:[[self configurationWindowController] configuration] andUpdate:[self configuration]];
+                    [[self mainWindow] setDocumentEdited:YES];
                     break;
                 case NSModalResponseCancel:
                     NSLog(@"Cancel button was pressed");

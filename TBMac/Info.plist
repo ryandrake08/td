@@ -16,7 +16,7 @@
 				<string>application/json</string>
 			</array>
 			<key>CFBundleTypeName</key>
-			<string>TournamentBuddy JSON</string>
+			<string>TournamentBuddy</string>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>NSDocumentClass</key>
