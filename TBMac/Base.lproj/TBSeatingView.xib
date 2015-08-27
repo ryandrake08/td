@@ -200,23 +200,24 @@
                                                 <rect key="frame" x="362" y="1" width="48" height="48"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <button id="9hB-Om-8ch">
+                                                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" id="mSY-IK-AuR">
                                                         <rect key="frame" x="8" y="8" width="32" height="32"/>
-                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                                         <animations/>
-                                                        <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" imagePosition="only" alternateImage="b_note_dollar" enabled="NO" state="on" imageScaling="proportionallyUpOrDown" inset="2" id="Wge-6z-op0">
-                                                            <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
-                                                            <font key="font" metaFont="system"/>
-                                                        </buttonCell>
+                                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="c6l-kv-fbp"/>
                                                         <connections>
-                                                            <binding destination="-2" name="alternateImage" keyPath="self.session.costCurrency" id="aQS-TG-Hw0">
+                                                            <binding destination="ywV-rK-qmp" name="hidden" keyPath="objectValue.buyin" id="1sk-dY-OhY">
+                                                                <dictionary key="options">
+                                                                    <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                                                </dictionary>
+                                                            </binding>
+                                                            <binding destination="-2" name="value" keyPath="self.session.costCurrency" id="Muo-rF-W1A">
                                                                 <dictionary key="options">
                                                                     <string key="NSValueTransformerName">TBCurrencyImageTransformer</string>
                                                                 </dictionary>
                                                             </binding>
-                                                            <binding destination="ywV-rK-qmp" name="value" keyPath="objectValue.buyin" id="uV5-89-3Bv"/>
                                                         </connections>
-                                                    </button>
+                                                    </imageView>
                                                 </subviews>
                                                 <animations/>
                                             </tableCellView>
@@ -316,7 +317,6 @@
     </objects>
     <resources>
         <image name="NSListViewTemplate" width="14" height="10"/>
-        <image name="b_note_dollar" width="64" height="64"/>
         <image name="b_seat" width="64" height="64"/>
         <image name="b_table" width="64" height="64"/>
     </resources>
