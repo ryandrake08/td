@@ -172,6 +172,10 @@
 		ADE299B61B7B9ED100F1393B /* TBPlayerWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE299B41B7B9ED100F1393B /* TBPlayerWindowController.m */; };
 		ADE299B71B7B9EE800F1393B /* TBPlayerWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE299B41B7B9ED100F1393B /* TBPlayerWindowController.m */; };
 		ADE4E1281A7DFFD000FC9EFC /* TBTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE4E1271A7DFFD000FC9EFC /* TBTableViewController.m */; };
+		ADE5A4FD1B8F44A0002737A8 /* TBStatsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE5A4FB1B8F44A0002737A8 /* TBStatsViewController.m */; settings = {ASSET_TAGS = (); }; };
+		ADE5A4FE1B8F44A0002737A8 /* TBStatsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE5A4FB1B8F44A0002737A8 /* TBStatsViewController.m */; settings = {ASSET_TAGS = (); }; };
+		ADE5A4FF1B8F44A0002737A8 /* TBStatsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = ADE5A4FC1B8F44A0002737A8 /* TBStatsView.xib */; settings = {ASSET_TAGS = (); }; };
+		ADE5A5001B8F44A0002737A8 /* TBStatsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = ADE5A4FC1B8F44A0002737A8 /* TBStatsView.xib */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -349,6 +353,9 @@
 		ADE299B41B7B9ED100F1393B /* TBPlayerWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TBPlayerWindowController.m; path = TBMac/TBPlayerWindowController.m; sourceTree = "<group>"; };
 		ADE4E1261A7DFFD000FC9EFC /* TBTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBTableViewController.h; path = TBMac/TBTableViewController.h; sourceTree = "<group>"; };
 		ADE4E1271A7DFFD000FC9EFC /* TBTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TBTableViewController.m; path = TBMac/TBTableViewController.m; sourceTree = "<group>"; };
+		ADE5A4FA1B8F44A0002737A8 /* TBStatsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBStatsViewController.h; path = TBMac/TBStatsViewController.h; sourceTree = "<group>"; };
+		ADE5A4FB1B8F44A0002737A8 /* TBStatsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TBStatsViewController.m; path = TBMac/TBStatsViewController.m; sourceTree = "<group>"; };
+		ADE5A4FC1B8F44A0002737A8 /* TBStatsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TBStatsView.xib; path = TBMac/TBStatsView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -634,6 +641,9 @@
 				AD98D9711A7B343600DA6B8B /* TBSeatingViewController.h */,
 				AD98D9721A7B343600DA6B8B /* TBSeatingViewController.m */,
 				94D849FA1B8D616D000124E4 /* TBSeatingView.xib */,
+				ADE5A4FA1B8F44A0002737A8 /* TBStatsViewController.h */,
+				ADE5A4FB1B8F44A0002737A8 /* TBStatsViewController.m */,
+				ADE5A4FC1B8F44A0002737A8 /* TBStatsView.xib */,
 				ADE4E1261A7DFFD000FC9EFC /* TBTableViewController.h */,
 				ADE4E1271A7DFFD000FC9EFC /* TBTableViewController.m */,
 				AD8E68531A6C606700E5A4D8 /* TBMac.xcassets */,
@@ -777,6 +787,7 @@
 				94D04ED01B7C59EB004F4245 /* s_next.caf in Resources */,
 				944FF4BD1B3D04CA000362ED /* TBPlayer.xcassets in Resources */,
 				94D849EF1B8D6160000124E4 /* TBResultsView.xib in Resources */,
+				ADE5A5001B8F44A0002737A8 /* TBStatsView.xib in Resources */,
 				94D04ED61B7C59EB004F4245 /* s_warning.caf in Resources */,
 				944FF4C01B3D04CA000362ED /* MainMenu.xib in Resources */,
 				94D04ECE1B7C59EB004F4245 /* s_break.caf in Resources */,
@@ -799,6 +810,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ADE5A4FF1B8F44A0002737A8 /* TBStatsView.xib in Resources */,
 				AD8E68521A6C606700E5A4D8 /* Document.xib in Resources */,
 				94D849D41B8D60E9000124E4 /* TBChipsView.xib in Resources */,
 				94D849D11B8D60E5000124E4 /* TBAuthsView.xib in Resources */,
@@ -831,6 +843,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				94FDEAE61B5AE2D60026B25D /* CFStreamCreatePairWithUnixSocket.c in Sources */,
+				ADE5A4FE1B8F44A0002737A8 /* TBStatsViewController.m in Sources */,
 				ADA4FC0B1B8B6DA500DB2AA7 /* TBConnectToWindowController.m in Sources */,
 				943B00D41B3F429500CE55D4 /* server.cpp in Sources */,
 				943B00D01B3F429500CE55D4 /* datetime.cpp in Sources */,
@@ -948,6 +961,7 @@
 				94FDEAEB1B5AE2D60026B25D /* NSData+Delimiter.m in Sources */,
 				94562E691B65D8CA0017C692 /* TBDurationNumberFormatter.m in Sources */,
 				949D70A31B3C441F008D5CD1 /* socket.cpp in Sources */,
+				ADE5A4FD1B8F44A0002737A8 /* TBStatsViewController.m in Sources */,
 				AD98D9741A7B343600DA6B8B /* TBSeatingViewController.m in Sources */,
 				94FDEADC1B5AE2560026B25D /* TBColor+CSS.m in Sources */,
 				9462A3E71B77CB3B00B29002 /* TTTOrdinalNumberFormatter.m in Sources */,

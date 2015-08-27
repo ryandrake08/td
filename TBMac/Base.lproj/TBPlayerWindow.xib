@@ -11,8 +11,10 @@
                 <outlet property="backgroundImageView" destination="a0P-Zo-OBW" id="Whv-de-PmQ"/>
                 <outlet property="controlsView" destination="6oh-Wj-Ac7" id="9eg-QJ-646"/>
                 <outlet property="controlsViewController" destination="Y1n-vs-zYF" id="eTG-og-bWW"/>
+                <outlet property="leftPaneView" destination="TM9-KQ-WKc" id="PWD-N9-tyN"/>
                 <outlet property="resultsViewController" destination="2cd-jS-L59" id="eBq-wR-Hxp"/>
                 <outlet property="rightPaneView" destination="du6-bL-Okn" id="7ns-A3-9Cb"/>
+                <outlet property="statsViewController" destination="0Qw-uj-ZKc" id="vEe-cU-F7d"/>
                 <outlet property="window" destination="F0z-JX-Cv5" id="gIp-Ho-8D9"/>
             </connections>
         </customObject>
@@ -81,148 +83,6 @@
                     <customView id="TM9-KQ-WKc" userLabel="Left Pane">
                         <rect key="frame" x="0.0" y="0.0" width="256" height="672"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
-                        <subviews>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="ixp-z8-Smp" customClass="TBResizeTextField">
-                                <rect key="frame" x="-2" y="640" width="260" height="32"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
-                                <animations/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Current Round" placeholderString="" usesSingleLineMode="YES" id="t9S-rV-kCd">
-                                    <font key="font" metaFont="system" size="24"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="HG3-0K-cbX" customClass="TBResizeTextField">
-                                <rect key="frame" x="-2" y="576" width="260" height="64"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                <animations/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="1" placeholderString="" usesSingleLineMode="YES" id="mJA-lk-ugZ">
-                                    <font key="font" metaFont="system" size="48"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="minFontSize">
-                                        <real key="value" value="24"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <binding destination="-2" name="value" keyPath="self.session.currentRoundNumberText" id="ufM-6L-N6h"/>
-                                </connections>
-                            </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="J72-wN-CQJ" customClass="TBResizeTextField">
-                                <rect key="frame" x="-2" y="544" width="260" height="32"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                <animations/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Players Left" placeholderString="" usesSingleLineMode="YES" id="gOu-Lm-pIp">
-                                    <font key="font" metaFont="system" size="24"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="CPj-w0-8dz" customClass="TBResizeTextField">
-                                <rect key="frame" x="-2" y="480" width="260" height="64"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                <animations/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="1" placeholderString="" usesSingleLineMode="YES" id="xGT-Ij-jvV">
-                                    <font key="font" metaFont="system" size="48"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="minFontSize">
-                                        <real key="value" value="24"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <binding destination="-2" name="value" keyPath="self.session.playersLeftText" id="gst-C9-81T"/>
-                                </connections>
-                            </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="AZb-dO-CHz" customClass="TBResizeTextField">
-                                <rect key="frame" x="-2" y="448" width="260" height="32"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                <animations/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Entries" placeholderString="" usesSingleLineMode="YES" id="Y4c-D9-ILW">
-                                    <font key="font" metaFont="system" size="24"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="EZ3-Z0-lqe" customClass="TBResizeTextField">
-                                <rect key="frame" x="-2" y="384" width="260" height="64"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                <animations/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="1" placeholderString="" usesSingleLineMode="YES" id="Rbs-AZ-L0n">
-                                    <font key="font" metaFont="system" size="48"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="minFontSize">
-                                        <real key="value" value="24"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <binding destination="-2" name="value" keyPath="self.session.entriesText" id="BsS-dO-sVk"/>
-                                </connections>
-                            </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="Wau-nO-jwD" customClass="TBResizeTextField">
-                                <rect key="frame" x="-2" y="352" width="260" height="32"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                <animations/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Average Stack" placeholderString="" usesSingleLineMode="YES" id="3Zj-xi-9eT">
-                                    <font key="font" metaFont="system" size="24"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="4e4-de-GFt" customClass="TBResizeTextField">
-                                <rect key="frame" x="-2" y="288" width="260" height="64"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                <animations/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="1" placeholderString="" usesSingleLineMode="YES" id="EBC-vx-ffR">
-                                    <font key="font" metaFont="system" size="48"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="minFontSize">
-                                        <real key="value" value="24"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <binding destination="-2" name="value" keyPath="self.session.averageStackText" id="rDM-Ta-5O4"/>
-                                </connections>
-                            </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="ZNS-JQ-PON" customClass="TBResizeTextField">
-                                <rect key="frame" x="-2" y="256" width="260" height="32"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                <animations/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Elapsed Time" placeholderString="" usesSingleLineMode="YES" id="Xku-km-Q5P">
-                                    <font key="font" metaFont="system" size="24"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="K8v-Yz-PAh" customClass="TBResizeTextField">
-                                <rect key="frame" x="-2" y="192" width="260" height="64"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                <animations/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="01:23:45" placeholderString="" usesSingleLineMode="YES" id="Xi1-K8-bQc">
-                                    <font key="font" metaFont="system" size="48"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="minFontSize">
-                                        <real key="value" value="24"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <binding destination="-2" name="value" keyPath="self.session.elapsedTimeText" id="36C-wB-JO6"/>
-                                </connections>
-                            </textField>
-                        </subviews>
                         <animations/>
                     </customView>
                     <customView id="zql-0O-xSY" userLabel="Center Pane">
@@ -382,6 +242,7 @@
             </connections>
         </window>
         <viewController nibName="TBResultsView" id="2cd-jS-L59" customClass="TBResultsViewController"/>
+        <viewController nibName="TBStatsView" id="0Qw-uj-ZKc" customClass="TBStatsViewController"/>
         <viewController nibName="TBControlsView" id="Y1n-vs-zYF" customClass="TBControlsViewController"/>
     </objects>
 </document>

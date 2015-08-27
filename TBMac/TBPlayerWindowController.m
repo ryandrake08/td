@@ -9,6 +9,7 @@
 #import "TBPlayerWindowController.h"
 #import "TBActionClockView.h"
 #import "TBResizeTextField.h"
+#import "TBStatsViewController.h"
 #import "TBResultsViewController.h"
 #import "TBControlsViewController.h"
 #import "TBSound.h"
@@ -19,12 +20,14 @@
 #define kWarningTime 60000
 
 // View controllers
+@property (strong) IBOutlet TBStatsViewController* statsViewController;
 @property (strong) IBOutlet TBResultsViewController* resultsViewController;
 @property (strong) IBOutlet TBControlsViewController* controlsViewController;
 
 // UI elements
 @property (weak) IBOutlet NSImageView* backgroundImageView;
 @property (weak) IBOutlet TBActionClockView* actionClockView;
+@property (weak) IBOutlet NSView* leftPaneView;
 @property (weak) IBOutlet NSView* rightPaneView;
 @property (weak) IBOutlet NSView* controlsView;
 
@@ -88,6 +91,8 @@
     [self setWarningSound:[[TBSound alloc] initWithResource:@"s_warning" extension:@"caf"]];
 
     // add subivews
+    [[self statsViewController] setSession:[self session]];
+    [[self leftPaneView] addSubview:[[self statsViewController] view]];
     [[self resultsViewController] setSession:[self session]];
     [[self rightPaneView] addSubview:[[self resultsViewController] view]];
     [[self controlsViewController] setSession:[self session]];
