@@ -297,22 +297,24 @@
                 <binding destination="-2" name="contentArray" keyPath="self.session.seatedPlayers" id="8YT-0S-THN"/>
             </connections>
         </arrayController>
-        <menu id="k3e-4i-cwU">
+        <menu showsStateColumn="NO" autoenablesItems="NO" id="k3e-4i-cwU">
             <items>
-                <menuItem title="Item 1" id="9HH-9M-fNb">
-                    <modifierMask key="keyEquivalentModifierMask"/>
+                <menuItem isSeparatorItem="YES" id="iYV-Sn-fJw"/>
+                <menuItem title="Bust Player" tag="2" keyEquivalent="b" id="9HH-9M-fNb">
+                    <connections>
+                        <action selector="bustPlayerFromMenuItem:" target="-2" id="IDu-Y1-nCr"/>
+                    </connections>
                 </menuItem>
-                <menuItem title="Item 2" id="pKb-d6-07h">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                </menuItem>
-                <menuItem title="Item 3" id="ULL-OV-glC">
-                    <modifierMask key="keyEquivalentModifierMask"/>
+                <menuItem title="Unseat Player" tag="3" keyEquivalent="u" id="pKb-d6-07h">
+                    <connections>
+                        <action selector="unseatPlayerFromMenuItem:" target="-2" id="YxT-Ju-E9v"/>
+                    </connections>
                 </menuItem>
             </items>
             <connections>
                 <outlet property="delegate" destination="-2" id="8FG-4N-1wR"/>
             </connections>
-            <point key="canvasLocation" x="320" y="30.5"/>
+            <point key="canvasLocation" x="214" y="-217.5"/>
         </menu>
     </objects>
     <resources>

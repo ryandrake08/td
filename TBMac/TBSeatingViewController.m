@@ -58,12 +58,12 @@
 
 #pragma mark Menu and MenuItem utility
 
-- (void)fundPlayerFromMenuItem:(NSMenuItem*)sender {
+- (IBAction)fundPlayerFromMenuItem:(NSMenuItem*)sender {
     NSDictionary* context = [sender representedObject];
     [[self session] fundPlayer:context[@"player_id"] withFunding:context[@"funding_id"]];
 }
 
-- (void)bustPlayerFromMenuItem:(NSMenuItem*)sender {
+- (IBAction)bustPlayerFromMenuItem:(NSMenuItem*)sender {
     NSNumber* playerId = [sender representedObject];
     [[self session] bustPlayer:playerId withBlock:^(NSArray* movements) {
         if([movements count] > 0) {
@@ -93,20 +93,22 @@
     }];
 }
 
-- (void)unseatPlayerFromMenuItem:(NSMenuItem*)sender {
+- (IBAction)unseatPlayerFromMenuItem:(NSMenuItem*)sender {
     NSNumber* playerId = [sender representedObject];
     [[self session] unseatPlayer:playerId withBlock:nil];
 }
 
 - (void)updateActionMenu:(NSMenu*)menu forTableCellView:(NSTableCellView*)cell {
-    // use manual enabling
-    [menu setAutoenablesItems:NO];
-
     // its object is the model object for this player
     id seatedPlayer = [cell objectValue];
 
     // current blind level
-    NSNumber* current = [[self session] currentBlindLevel];
+    NSNumber* currentBlindLevel = [[self session] currentBlindLevel];
+
+    // remove all funding sources
+    for(id item = [menu itemWithTag:1]; item != nil; item = [menu itemWithTag:1]) {
+        [menu removeItem:item];
+    }
 
     // add funding sources
     [[[self session] fundingSources] enumerateObjectsUsingBlock:^(id source, NSUInteger idx, BOOL* stop) {
@@ -120,38 +122,32 @@
         if(idx < 9) {
             keyEquiv = [@(idx+1) stringValue];
         }
+
         // create a menu item for this funding option
         NSMenuItem* item = [[NSMenuItem alloc] initWithTitle:source[@"name"] action:@selector(fundPlayerFromMenuItem:) keyEquivalent:keyEquiv];
         [item setRepresentedObject:context];
         [item setTarget:self];
-        [item setEnabled:(last == nil || !([last compare:current] == NSOrderedAscending))];
-        [menu addItem:item];
+        [item setEnabled:(last == nil || !([last compare:currentBlindLevel] == NSOrderedAscending))];
+        [item setTag:1];
+        [menu insertItem:item atIndex:idx];
     }];
 
-    NSMenuItem* item = [NSMenuItem separatorItem];
-    [menu addItem:item];
+    NSMenuItem* item = nil;
 
-    // add bust function
-    item = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Bust Player", @"Bust the player out of the tournamnet") action:@selector(bustPlayerFromMenuItem:) keyEquivalent:@"b"];
+    // set up bust function
+    item = [menu itemWithTag:2];
     [item setRepresentedObject:seatedPlayer[@"player_id"]];
-    [item setTarget:self];
-    [item setEnabled:([current integerValue] > 0) && ([seatedPlayer[@"buyin"] boolValue])];
-    [menu addItem:item];
+    [item setEnabled:([currentBlindLevel integerValue] > 0) && ([seatedPlayer[@"buyin"] boolValue])];
 
     // add unseat function
-    item = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Unseat Player", @"Remove player without impacting results") action:@selector(unseatPlayerFromMenuItem:) keyEquivalent:@"u"];
-    [item setTarget:self];
+    item = [menu itemWithTag:3];
     [item setRepresentedObject:seatedPlayer[@"player_id"]];
     [item setEnabled:(![seatedPlayer[@"buyin"] boolValue])];
-    [menu addItem:item];
 }
 
 #pragma mark NSMenuDelegate
 
 - (void)menuNeedsUpdate:(NSMenu*)menu {
-    // delete all previous objects from menu
-    [menu removeAllItems];
-
     // find the clicked tableView cell
     NSInteger row = [[self tableView] clickedRow];
     NSInteger col = [[self tableView] clickedColumn];
@@ -167,10 +163,8 @@
 
 - (IBAction)manageButtonClicked:(id)sender {
     NSTableCellView* cell = (NSTableCellView*)[sender superview];
-    NSMenu* menu = [[NSMenu alloc] initWithTitle:NSLocalizedString(@"Manage", @"Manage user")];
-
-    // delete all previous objects from menu
-    [menu removeAllItems];
+    NSTableView* tableView = (NSTableView*)[[cell superview] superview];
+    NSMenu* menu = [tableView menu];
 
     // update menu content
     [self updateActionMenu:menu forTableCellView:cell];
