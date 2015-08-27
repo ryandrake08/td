@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface TBMovementWindowController : NSWindowController <NSWindowDelegate, NSTableViewDelegate>
+@interface TBMovementWindowController : NSWindowController <NSWindowDelegate>
 
 @property (strong) IBOutlet NSArrayController* arrayController;
 

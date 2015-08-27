@@ -8,10 +8,6 @@
 
 #import "TBPlayersViewController.h"
 
-@interface TBPlayersViewController () <NSTableViewDelegate>
-
-@end
-
 @implementation TBPlayersViewController
 
 - (void)viewDidLoad {

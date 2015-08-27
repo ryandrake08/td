@@ -11,7 +11,7 @@
 #import "TBSound.h"
 #import "NSObject+FBKVOController.h"
 
-@interface TBSeatingViewController () <NSTableViewDelegate, NSMenuDelegate>
+@interface TBSeatingViewController () <NSMenuDelegate>
 
 // Configuration window
 @property (strong) TBMovementWindowController* movementWindowController;
