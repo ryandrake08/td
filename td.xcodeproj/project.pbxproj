@@ -159,6 +159,7 @@
 		AD98D96A1A7B33F100DA6B8B /* TBLeagueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD98D9681A7B33F100DA6B8B /* TBLeagueViewController.m */; };
 		AD98D96F1A7B342000DA6B8B /* TBRoundsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD98D96D1A7B342000DA6B8B /* TBRoundsViewController.m */; };
 		AD98D9741A7B343600DA6B8B /* TBSeatingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD98D9721A7B343600DA6B8B /* TBSeatingViewController.m */; };
+		AD9ED3E91B90949000C10550 /* TBPlayerSeatingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD9ED3E81B90949000C10550 /* TBPlayerSeatingViewController.m */; settings = {ASSET_TAGS = (); }; };
 		ADA4FC0B1B8B6DA500DB2AA7 /* TBConnectToWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA4FC091B8B6DA500DB2AA7 /* TBConnectToWindowController.m */; };
 		ADCECE7B1B7B0D9D00767DA6 /* TBControlsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADCECE761B7B0D9D00767DA6 /* TBControlsViewController.m */; };
 		ADCECE7D1B7B0D9D00767DA6 /* TBResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADCECE791B7B0D9D00767DA6 /* TBResultsViewController.m */; };
@@ -340,6 +341,8 @@
 		AD98D96D1A7B342000DA6B8B /* TBRoundsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TBRoundsViewController.m; path = TBMac/TBRoundsViewController.m; sourceTree = "<group>"; };
 		AD98D9711A7B343600DA6B8B /* TBSeatingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBSeatingViewController.h; path = TBMac/TBSeatingViewController.h; sourceTree = "<group>"; };
 		AD98D9721A7B343600DA6B8B /* TBSeatingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TBSeatingViewController.m; path = TBMac/TBSeatingViewController.m; sourceTree = "<group>"; };
+		AD9ED3E71B90949000C10550 /* TBPlayerSeatingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBPlayerSeatingViewController.h; sourceTree = "<group>"; };
+		AD9ED3E81B90949000C10550 /* TBPlayerSeatingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBPlayerSeatingViewController.m; sourceTree = "<group>"; };
 		ADA4FC081B8B6DA500DB2AA7 /* TBConnectToWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBConnectToWindowController.h; sourceTree = "<group>"; };
 		ADA4FC091B8B6DA500DB2AA7 /* TBConnectToWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBConnectToWindowController.m; sourceTree = "<group>"; };
 		ADCECE751B7B0D9D00767DA6 /* TBControlsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBControlsViewController.h; path = TBMac/TBControlsViewController.h; sourceTree = "<group>"; };
@@ -436,10 +439,12 @@
 			children = (
 				9476F4551B3C385400A158F8 /* TBAppDelegate.h */,
 				9476F4561B3C385400A158F8 /* TBAppDelegate.m */,
-				9476F4571B3C385400A158F8 /* TBTournamentsViewController.h */,
-				9476F4581B3C385400A158F8 /* TBTournamentsViewController.m */,
+				AD9ED3E71B90949000C10550 /* TBPlayerSeatingViewController.h */,
+				AD9ED3E81B90949000C10550 /* TBPlayerSeatingViewController.m */,
 				9476F4591B3C385400A158F8 /* TBRemoteClockViewController.h */,
 				9476F45A1B3C385400A158F8 /* TBRemoteClockViewController.m */,
+				9476F4571B3C385400A158F8 /* TBTournamentsViewController.h */,
+				9476F4581B3C385400A158F8 /* TBTournamentsViewController.m */,
 				9476F45C1B3C385400A158F8 /* Main.storyboard */,
 				9476F45F1B3C385400A158F8 /* LaunchScreen.xib */,
 				9476F45D1B3C385400A158F8 /* TBRemote.xcassets */,
@@ -908,6 +913,7 @@
 				9476F4721B3C385400A158F8 /* main.m in Sources */,
 				94FDEAED1B5AE2D60026B25D /* NSData+Delimiter.m in Sources */,
 				949D70A21B3C441F008D5CD1 /* socket.cpp in Sources */,
+				AD9ED3E91B90949000C10550 /* TBPlayerSeatingViewController.m in Sources */,
 				949D709C1B3C440E008D5CD1 /* gameinfo.cpp in Sources */,
 				94FDEAFB1B5AEB0B0026B25D /* TBActionClockView.m in Sources */,
 				94BB5FFB1B7F9F1600B33929 /* NSString+CamelCase.m in Sources */,

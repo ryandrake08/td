@@ -73,7 +73,7 @@
 }
 
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath {
-    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"ServiceCell"];
+    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"ServiceCell" forIndexPath:indexPath];
 
     NSNetService* cellService = [self netServices][[indexPath row]];
     NSNetService* currentService = [[self session] currentService];

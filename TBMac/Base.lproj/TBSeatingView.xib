@@ -26,7 +26,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView identifier="seatsTable" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="sequential" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowHeight="24" rowSizeStyle="automatic" headerView="DKV-9J-9sV" viewBased="YES" id="am5-fF-rIk">
-                                <rect key="frame" x="0.0" y="0.0" width="515" height="750"/>
+                                <rect key="frame" x="0.0" y="0.0" width="515" height="0.0"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <animations/>
                                 <size key="intercellSpacing" width="3" height="2"/>
@@ -49,7 +49,7 @@
                                                 <rect key="frame" x="1" y="1" width="48" height="24"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="yaF-xA-BTN" customClass="TBResizeTextField">
+                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="yaF-xA-BTN">
                                                         <rect key="frame" x="0.0" y="4" width="48" height="16"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
                                                         <animations/>
@@ -104,7 +104,7 @@
                                                 <rect key="frame" x="52" y="1" width="48" height="24"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="htj-o7-hrf" customClass="TBResizeTextField">
+                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="htj-o7-hrf">
                                                         <rect key="frame" x="0.0" y="9" width="48" height="16"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
                                                         <animations/>
@@ -169,6 +169,11 @@
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="minFontSize">
+                                                                <real key="value" value="10"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
                                                         <connections>
                                                             <binding destination="mTZ-hw-P9L" name="value" keyPath="objectValue.player.name" id="5Xe-WF-agA"/>
                                                         </connections>
