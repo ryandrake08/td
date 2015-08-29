@@ -167,6 +167,9 @@
 		ADCECE801B7B0DBF00767DA6 /* TBResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADCECE791B7B0D9D00767DA6 /* TBResultsViewController.m */; };
 		ADCECE821B7B0E6100767DA6 /* TBTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE4E1271A7DFFD000FC9EFC /* TBTableViewController.m */; };
 		ADCECE861B7B101500767DA6 /* TBPlayersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADCECE841B7B101500767DA6 /* TBPlayersViewController.m */; };
+		ADD4F1251B91FE2400DAF567 /* NSObject+AssociatedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD4F1241B91FE2400DAF567 /* NSObject+AssociatedObject.m */; settings = {ASSET_TAGS = (); }; };
+		ADD4F1261B91FE2400DAF567 /* NSObject+AssociatedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD4F1241B91FE2400DAF567 /* NSObject+AssociatedObject.m */; settings = {ASSET_TAGS = (); }; };
+		ADD4F1271B91FE2400DAF567 /* NSObject+AssociatedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD4F1241B91FE2400DAF567 /* NSObject+AssociatedObject.m */; settings = {ASSET_TAGS = (); }; };
 		ADE299AF1B7B994200F1393B /* TBSound.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE299AE1B7B994200F1393B /* TBSound.m */; };
 		ADE299B01B7B9BCA00F1393B /* TBSound.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE299AE1B7B994200F1393B /* TBSound.m */; };
 		ADE299B11B7B9BCB00F1393B /* TBSound.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE299AE1B7B994200F1393B /* TBSound.m */; };
@@ -351,6 +354,8 @@
 		ADCECE791B7B0D9D00767DA6 /* TBResultsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TBResultsViewController.m; path = TBMac/TBResultsViewController.m; sourceTree = "<group>"; };
 		ADCECE831B7B101500767DA6 /* TBPlayersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBPlayersViewController.h; path = TBMac/TBPlayersViewController.h; sourceTree = "<group>"; };
 		ADCECE841B7B101500767DA6 /* TBPlayersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TBPlayersViewController.m; path = TBMac/TBPlayersViewController.m; sourceTree = "<group>"; };
+		ADD4F1231B91FE2400DAF567 /* NSObject+AssociatedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+AssociatedObject.h"; sourceTree = "<group>"; };
+		ADD4F1241B91FE2400DAF567 /* NSObject+AssociatedObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+AssociatedObject.m"; sourceTree = "<group>"; };
 		ADE299AD1B7B994200F1393B /* TBSound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBSound.h; sourceTree = "<group>"; };
 		ADE299AE1B7B994200F1393B /* TBSound.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBSound.m; sourceTree = "<group>"; };
 		ADE299B31B7B9ED100F1393B /* TBPlayerWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBPlayerWindowController.h; path = TBMac/TBPlayerWindowController.h; sourceTree = "<group>"; };
@@ -522,6 +527,8 @@
 				945410731B6E5C56001E3373 /* NSDateFormatter+ISO8601.m */,
 				94FDEAF31B5AE7390026B25D /* NSFont+LineHeight.h */,
 				94FDEAF41B5AE7390026B25D /* NSFont+LineHeight.m */,
+				ADD4F1231B91FE2400DAF567 /* NSObject+AssociatedObject.h */,
+				ADD4F1241B91FE2400DAF567 /* NSObject+AssociatedObject.m */,
 				94FDEAE31B5AE2D60026B25D /* NSObject+FBKVOController.h */,
 				94FDEAE41B5AE2D60026B25D /* NSObject+FBKVOController.m */,
 				945410751B6E9A17001E3373 /* NSString+CamelCase.h */,
@@ -864,6 +871,7 @@
 				943B00CA1B3F427700CE55D4 /* TournamentSession.m in Sources */,
 				943B00D61B3F429500CE55D4 /* tournament.cpp in Sources */,
 				9462A3E81B77CB3B00B29002 /* TTTOrdinalNumberFormatter.m in Sources */,
+				ADD4F1261B91FE2400DAF567 /* NSObject+AssociatedObject.m in Sources */,
 				94FDEAF51B5AE7390026B25D /* NSFont+LineHeight.m in Sources */,
 				ADCECE801B7B0DBF00767DA6 /* TBResultsViewController.m in Sources */,
 				94562E6C1B65D9420017C692 /* TBResizeTextField.m in Sources */,
@@ -906,6 +914,7 @@
 				9476F46B1B3C385400A158F8 /* TBRemoteClockViewController.m in Sources */,
 				949D70A41B3C442F008D5CD1 /* cJSON.c in Sources */,
 				9476F4A71B3C3EA700A158F8 /* TournamentSession.m in Sources */,
+				ADD4F1271B91FE2400DAF567 /* NSObject+AssociatedObject.m in Sources */,
 				949D709F1B3C440E008D5CD1 /* server.cpp in Sources */,
 				9439701A1B3F9DB700BB0413 /* TournamentBrowser.m in Sources */,
 				94FDEAF01B5AE2D60026B25D /* NSObject+FBKVOController.m in Sources */,
@@ -965,6 +974,7 @@
 				AD8E684F1A6C606700E5A4D8 /* Document.m in Sources */,
 				949D70981B3C440D008D5CD1 /* logger.cpp in Sources */,
 				949D70951B3C440D008D5CD1 /* datetime.cpp in Sources */,
+				ADD4F1251B91FE2400DAF567 /* NSObject+AssociatedObject.m in Sources */,
 				94562E681B65D8CA0017C692 /* TBDateStringTransformer.m in Sources */,
 				949D70961B3C440D008D5CD1 /* gameinfo.cpp in Sources */,
 				94562E661B65D8CA0017C692 /* TBColorValueTransformer.m in Sources */,
