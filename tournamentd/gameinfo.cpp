@@ -317,19 +317,28 @@ td::seat gameinfo::remove_player(const td::player_id_t& player_id)
 // remove a player
 std::vector<td::player_movement> gameinfo::bust_player(const td::player_id_t& player_id)
 {
-    // remove the player
-    this->remove_player(player_id);
-
     auto player_it(players.find(player_id));
     if(player_it == players.end())
     {
         throw td::protocol_error("failed to look up player");
     }
 
+    // check whether player is bought in
+    if(this->buyins.find(player_id) == this->buyins.end())
+    {
+        throw td::protocol_error("tried to bust player not bought in");
+    }
+
+    // remove the player
+    this->remove_player(player_id);
+
     logger(LOG_INFO) << "busting player " << player_id << " (" << player_it->second.name << ")\n";
 
     // add to the busted out list
     this->players_finished.push_front(player_id);
+
+    // mark as no longer bought in
+    this->buyins.erase(player_id);
 
     // try to break table or rebalance
     std::vector<td::player_movement> movements;
@@ -565,7 +574,7 @@ void gameinfo::fund_player(const td::player_id_t& player_id, const td::funding_s
         throw td::protocol_error("too late in the game for this funding source");
     }
 
-    if(source.type != td::buyin && this->buyins.find(player_id) == this->buyins.end())
+    if(source.type != td::buyin && std::find(this->entries.begin(), this->entries.end(), player_id) == this->entries.end())
     {
         throw td::protocol_error("tried a non-buyin funding source but not bought in yet");
     }
@@ -583,12 +592,18 @@ void gameinfo::fund_player(const td::player_id_t& player_id, const td::funding_s
 
     logger(LOG_INFO) << "funding player " << player_id << " (" << player_it->second.name << ") with " << source.name << '\n';
 
-    if(source.type == td::buyin) {
+    if(source.type == td::buyin)
+    {
         // add player to buyin set
         this->buyins.insert(player_id);
 
         // add to entries
         this->entries.push_back(player_id);
+    }
+    else if(source.type == td::rebuy)
+    {
+        // add player to buyin set
+        this->buyins.insert(player_id);
     }
 
     // update totals
@@ -752,8 +767,8 @@ std::vector<td::player_chips> gameinfo::chips_for_buyin(const td::funding_source
 void gameinfo::recalculate_payouts()
 {
     // manual payout:
-    // look for a manual payout given this number of buyins (TODO: should this use number of players instead?)
-    auto manual_payout_it(this->manual_payouts.find(this->buyins.size()));
+    // look for a manual payout given this number of entries (TODO: should this use number of players or buyins instead?)
+    auto manual_payout_it(this->manual_payouts.find(this->entries.size()));
     if(manual_payout_it != this->manual_payouts.end())
     {
         logger(LOG_INFO) << "applying manual payout: " << manual_payout_it->second.size() << " seats will be paid\n";
@@ -765,7 +780,7 @@ void gameinfo::recalculate_payouts()
 
     // automatic calculation, if no manual payout found:
     // first, calculate how many places pay, given configuration and number of players bought in
-    std::size_t seats_paid(static_cast<std::size_t>(this->buyins.size() * this->percent_seats_paid + 0.5));
+    std::size_t seats_paid(static_cast<std::size_t>(this->entries.size() * this->percent_seats_paid + 0.5));
     bool round(this->round_payouts);
     double f(this->payout_flatness);
 
