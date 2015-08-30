@@ -115,6 +115,9 @@ class gameinfo
     // return the maximum number of chips available per player for a given denomination
     unsigned long max_chips_for(unsigned long denomination, std::size_t players_count) const;
 
+    // reset seating to an empty, unplanned game
+    void reset_seating();
+
     // move a player to a specific table
     // returns player's original seat and new seat
     td::player_movement move_player(const td::player_id_t& player_id, std::size_t table);

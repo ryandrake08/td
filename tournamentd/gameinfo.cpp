@@ -172,6 +172,16 @@ void gameinfo::dump_state(json& state) const
     state.set_value("elapsed_time", this->elapsed_time.count());
 }
 
+void gameinfo::reset_seating()
+{
+    // clear all seating and remove all empty seats
+    this->seats.clear();
+    this->empty_seats.clear();
+
+    // no tables means game is unplanned
+    this->tables = 0;
+}
+
 std::vector<std::vector<td::player_id_t> > gameinfo::players_at_tables() const
 {
     // build up two vectors, outer = tables, inner = players per table
@@ -206,14 +216,13 @@ std::size_t gameinfo::plan_seating(std::size_t max_expected_players)
         throw td::protocol_error("table capacity must be at least 2");
     }
 
-    // also reset funding and game state
+    // reset funding, game state, and seating
     this->stop();
     this->reset_funding();
+    this->reset_seating();
 
-    // reset to known quantities
-    this->seats.clear();
+    // reset players finished
     this->players_finished.clear();
-    this->empty_seats.clear();
 
     // figure out how many tables needed
     this->tables = ((max_expected_players-1) / this->table_capacity) + 1;
@@ -345,13 +354,24 @@ std::vector<td::player_movement> gameinfo::bust_player(const td::player_id_t& pl
     this->try_break_table(movements);
     this->try_rebalance(movements);
 
-    // if only one bought-in playsers still seated
-    auto in_the_game = [this](const std::pair<td::player_id_t,td::seat>& s) { return this->buyins.find(s.first) != this->buyins.end(); };
-    auto count_players_in_game(std::count_if(this->seats.begin(), this->seats.end(), in_the_game));
-    if(count_players_in_game == 1)
+    // collect bought-in players still seated
+    struct collector
     {
-        auto last_player_it(std::find_if(this->seats.begin(), this->seats.end(), in_the_game));
-        auto last_player_id(last_player_it->first);
+        const std::unordered_set<td::player_id_t>& container;
+        std::vector<td::player_id_t> playing;
+        collector(const std::unordered_set<td::player_id_t>& c) : container(c) {}
+        void operator()(const std::pair<td::player_id_t,td::seat>& s) { if(container.find(s.first) != container.end()) playing.push_back(s.first); }
+        operator std::vector<td::player_id_t>() { return playing; }
+    };
+    std::vector<td::player_id_t> playing(std::for_each(this->seats.begin(), this->seats.end(), collector(this->buyins)));
+
+    // if only one bought-in playsers still seated
+    if(playing.size() == 1)
+    {
+        auto last_player_id(playing.front());
+
+        // add to the busted out list
+        this->players_finished.push_front(last_player_id);
 
         // remove the player
         this->remove_player(last_player_id);
@@ -364,15 +384,9 @@ std::vector<td::player_movement> gameinfo::bust_player(const td::player_id_t& pl
 
         logger(LOG_INFO) << "winning player " << last_player_id << " (" << player_it->second.name << ")\n";
 
-        // add to the busted out list
-        this->players_finished.push_front(last_player_id);
-
-        // get rid of all other players
-        std::for_each(this->seats.begin(), this->seats.end(), [this](const std::pair<td::player_id_t,td::seat>& s) { this->empty_seats.push_back(s.second); });
-        this->seats.clear();
-
-        // stop the game
+        // stop the game and reset all seating (stops additional entrants)
         this->stop();
+        this->reset_seating();
     }
 
     return movements;
