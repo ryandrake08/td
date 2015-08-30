@@ -36,8 +36,8 @@
     [[self arrayController] setFilterPredicate:predicate];
 
     // setup sort descriptors
-    NSSortDescriptor* nameSort = [[NSSortDescriptor alloc] initWithKey:@"added_on" ascending:YES];
-    [[self arrayController] setSortDescriptors:@[nameSort]];
+    NSSortDescriptor* addedAtSort = [[NSSortDescriptor alloc] initWithKey:@"added_at" ascending:YES];
+    [[self arrayController] setSortDescriptors:@[addedAtSort]];
 }
 
 @end

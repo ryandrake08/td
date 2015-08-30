@@ -7,7 +7,6 @@
 //
 
 #import "TBFundingViewController.h"
-#import "NSObject+FBKVOController.h"
 #import "TBCurrencyNumberFormatter.h"
 #import "NSObject+FBKVOController.h"
 
