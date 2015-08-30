@@ -101,12 +101,13 @@ namespace td
     struct player_movement
     {
         player_id_t player_id;
+        std::string name;
         seat from_seat;
         seat to_seat;
 
         player_movement();
         player_movement(const json& obj);
-        player_movement(player_id_t p, const seat& f, const seat& t);
+        player_movement(player_id_t p, const std::string& n, const seat& f, const seat& t);
     };
 
     // represents a quantity of chips distributed to each player

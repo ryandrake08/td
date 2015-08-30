@@ -40,7 +40,7 @@ td::player_movement::player_movement() : player_id(0)
 {
 }
 
-td::player_movement::player_movement(player_id_t p, const seat& f, const seat& t) : player_id(p), from_seat(f), to_seat(t)
+td::player_movement::player_movement(player_id_t p, const std::string& n, const seat& f, const seat& t) : player_id(p), name(n), from_seat(f), to_seat(t)
 {
 }
 
@@ -134,6 +134,7 @@ td::seat::seat(const json& obj) : seat()
 td::player_movement::player_movement(const json& obj) : player_movement()
 {
     obj.get_value("player_id", this->player_id);
+    obj.get_value("name", this->name);
     obj.get_value("from_table_number", this->from_seat.table_number);
     obj.get_value("from_seat_number", this->from_seat.seat_number);
     obj.get_value("to_table_number", this->to_seat.table_number);
@@ -256,6 +257,7 @@ template<>
 json::json(const td::player_movement& value) : json()
 {
     this->set_value("player_id", value.player_id);
+    this->set_value("name", value.name);
     this->set_value("from_table_number", value.from_seat.table_number);
     this->set_value("from_seat_number", value.from_seat.seat_number);
     this->set_value("to_table_number", value.to_seat.table_number);

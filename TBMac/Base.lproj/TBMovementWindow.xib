@@ -38,7 +38,7 @@
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
                                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="none" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowHeight="96" rowSizeStyle="automatic" viewBased="YES" id="bvm-Xq-IJz">
-                                                <rect key="frame" x="0.0" y="0.0" width="224" height="96"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="224" height="0.0"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <animations/>
                                                 <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
@@ -200,7 +200,7 @@
                                                                             </userDefinedRuntimeAttribute>
                                                                         </userDefinedRuntimeAttributes>
                                                                         <connections>
-                                                                            <binding destination="4FF-0k-cu7" name="value" keyPath="objectValue.player.name" id="OxB-iI-8yr"/>
+                                                                            <binding destination="4FF-0k-cu7" name="value" keyPath="objectValue.name" id="HDo-Dl-vuO"/>
                                                                         </connections>
                                                                     </textField>
                                                                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" id="9oC-qe-e2V" userLabel="Arrow">

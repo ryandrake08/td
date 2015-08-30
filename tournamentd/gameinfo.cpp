@@ -651,7 +651,13 @@ td::player_movement gameinfo::move_player(const td::player_id_t& player_id, std:
 
     logger(LOG_INFO) << "moved player " << this->player_description(player_id) << " from table " << from_seat.table_number << ", seat " << from_seat.seat_number << " to table " << player_seat_it->second.table_number << ", seat " << player_seat_it->second.seat_number << '\n';
 
-    return td::player_movement(player_id, from_seat, player_seat_it->second);
+    auto player_it(this->players.find(player_id));
+    if(player_it == this->players.end())
+    {
+        throw std::runtime_error("failed to look up player: " + player_id);
+    }
+
+    return td::player_movement(player_id, player_it->second.name, from_seat, player_seat_it->second);
 }
 
 // move a player to the table with the smallest number of players

@@ -330,33 +330,6 @@
     }];
 }
 
-#pragma mark Derived Tournament State
-
-+ (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key {
-
-    NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
-
-    if([key isEqualToString:@"playersLookup"]) {
-        keyPaths = [keyPaths setByAddingObjectsFromArray:@[@"players"]];
-    }
-
-    return keyPaths;
-}
-
-- (NSDictionary*)playersLookup {
-    NSMutableArray* keys = [NSMutableArray array];
-
-    // all player_id
-    for(NSDictionary* player in [self players]) {
-        [keys addObject:player[@"player_id"]];
-    }
-
-    // create the player_id -> player lookup table
-    id dict = [NSDictionary dictionaryWithObjects:[self players] forKeys:keys];
-
-    return dict;
-}
-
 #pragma mark Tournament Messages
 
 - (void)handleMessage:(id)json fromConnection:(TournamentConnection*)tc {

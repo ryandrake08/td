@@ -71,18 +71,12 @@
             if([self movementWindowController] == nil) {
                 [self setMovementWindowController:[[TBMovementWindowController alloc] initWithWindowNibName:@"TBMovementWindow"]];
             }
-            
+
+            // add movements
+            [[[self movementWindowController] arrayController] addObjects:movements];
+
             // show window
             [[self movementWindowController] showWindow:self];
-
-            for(NSDictionary* movement in movements) {
-                // inject player
-                NSMutableDictionary* newMovement = [[NSMutableDictionary alloc] initWithDictionary:movement];
-                NSString* playerId = movement[@"player_id"];
-                NSDictionary* player = [[self session] playersLookup][playerId];
-                newMovement[@"player"] = player;
-                [[[self movementWindowController] arrayController] addObject:newMovement];
-            }
 
             // alert sound
             if([self rebalanceSound] == nil) {

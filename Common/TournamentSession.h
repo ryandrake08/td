@@ -67,6 +67,7 @@
 // tournamentd-derived tournament state
 @property (nonatomic, strong, readonly, getter=isOnBreak) NSNumber* onBreak;
 @property (nonatomic, strong, readonly) NSString* clockText;
+@property (nonatomic, strong, readonly) NSString* elapsedTimeText;
 @property (nonatomic, strong, readonly) NSString* currentRoundNumberText;
 @property (nonatomic, strong, readonly) NSString* currentGameText;
 @property (nonatomic, strong, readonly) NSString* currentRoundText;
@@ -77,11 +78,7 @@
 @property (nonatomic, strong, readonly) NSString* averageStackText;
 @property (nonatomic, strong, readonly) NSString* buyinText;
 @property (nonatomic, strong, readonly) NSArray* results;
-
-// TournamentSession-derived tournament state
 @property (nonatomic, strong, readonly) NSArray* seatedPlayers;
-@property (nonatomic, strong, readonly) NSDictionary* playersLookup;
-@property (nonatomic, strong, readonly) NSString* elapsedTimeText;
 
 // client identifier (used for authenticating with servers)
 + (NSNumber*)clientIdentifier;
