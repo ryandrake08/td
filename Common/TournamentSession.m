@@ -746,8 +746,9 @@
         // any configuration or state to update, split into calls to set properties
         [json enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
             @try {
-                if(![obj isEqual:[self valueForKey:[key asCamelCaseFromUnderscore]]]) {
-                    [self setValue:obj forKey:[key asCamelCaseFromUnderscore]];
+                id camelKey = [key asCamelCaseFromUnderscore];
+                if(![obj isEqual:[self valueForKey:camelKey]]) {
+                    [self setValue:obj forKey:camelKey];
                 }
             }
             @catch (NSException* exception) {

@@ -97,6 +97,15 @@
                                                     </connections>
                                                 </buttonCell>
                                                 <connections>
+                                                    <binding destination="-2" name="enabled2" keyPath="self.session.emptySeats" previousBinding="973-M1-fcN" id="Ila-NB-wkw">
+                                                        <dictionary key="options">
+                                                            <integer key="NSMultipleValuesPlaceholder" value="-1"/>
+                                                            <integer key="NSNoSelectionPlaceholder" value="-1"/>
+                                                            <integer key="NSNotApplicablePlaceholder" value="-1"/>
+                                                            <integer key="NSNullPlaceholder" value="-1"/>
+                                                            <string key="NSValueTransformerName">TBArrayCountTransformer</string>
+                                                        </dictionary>
+                                                    </binding>
                                                     <binding destination="e1r-ZN-dia" name="enabled" keyPath="objectValue.buyin" id="973-M1-fcN">
                                                         <dictionary key="options">
                                                             <string key="NSValueTransformerName">NSNegateBoolean</string>
