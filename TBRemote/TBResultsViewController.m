@@ -1,0 +1,86 @@
+//
+//  TBResultsViewController.m
+//  td
+//
+//  Created by Ryan Drake on 8/30/15.
+//  Copyright © 2015 HDna Studio. All rights reserved.
+//
+
+#import "TBResultsViewController.h"
+#import "TBCurrencyNumberFormatter.h"
+#import "TTTOrdinalNumberFormatter.h"
+#import "TournamentSession.h"
+#import "NSObject+FBKVOController.h"
+#import "TBAppDelegate.h"
+
+@interface TBResultsViewController () <UITableViewDataSource>
+
+@property (nonatomic, strong) TournamentSession* session;
+
+// number formatters
+@property (nonatomic, strong) TTTOrdinalNumberFormatter* placeFormatter;
+@property (nonatomic, strong) TBCurrencyNumberFormatter* equityFormatter;
+
+@end
+
+@implementation TBResultsViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+
+    // get model
+    _session = [(TBAppDelegate*)[[UIApplication sharedApplication] delegate] session];
+
+    // number formatters
+    _placeFormatter = [[TTTOrdinalNumberFormatter alloc] init];
+    _equityFormatter = [[TBCurrencyNumberFormatter alloc] init];
+
+    // register for KVO
+    [[self KVOController] observe:[self session] keyPaths:@[@"results", @"equityCurrency"] options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
+        // set currency
+        [[self equityFormatter] setCurrencyCode:[[self session] equityCurrency]];
+
+        // update table view cells
+        [[observer tableView] reloadData];
+    }];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+#pragma mark UITableViewDataSource
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView*)tableView {
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section {
+    return [[[self session] results] count];
+}
+
+- (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath {
+    UITableViewCell* cell;
+    if(indexPath.section == 0) {
+        // create a cell
+        cell = [tableView dequeueReusableCellWithIdentifier:@"ResultsCell" forIndexPath:indexPath];
+
+        // get result for this row
+        NSDictionary* result = [[self session] results][indexPath.row];
+
+        // place
+        NSString* place = [[self placeFormatter] stringFromNumber:result[@"place"]];
+
+        // payout
+        NSString* payout = [[self equityFormatter] stringFromNumber:result[@"payout"]];
+
+        // setup cell
+        [(UILabel*)[cell viewWithTag:100] setText:place];
+        [(UILabel*)[cell viewWithTag:101] setText:result[@"name"]];
+        [(UILabel*)[cell viewWithTag:102] setText:payout];
+    }
+    return cell;
+}
+
+@end

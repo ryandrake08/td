@@ -171,6 +171,7 @@
 		ADD4F1261B91FE2400DAF567 /* NSObject+AssociatedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD4F1241B91FE2400DAF567 /* NSObject+AssociatedObject.m */; settings = {ASSET_TAGS = (); }; };
 		ADD4F1271B91FE2400DAF567 /* NSObject+AssociatedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD4F1241B91FE2400DAF567 /* NSObject+AssociatedObject.m */; settings = {ASSET_TAGS = (); }; };
 		ADDDAA881B93584300D3AF68 /* TBArrayCountTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = ADDDAA871B93584300D3AF68 /* TBArrayCountTransformer.m */; settings = {ASSET_TAGS = (); }; };
+		ADDDAA8B1B93BCEE00D3AF68 /* TBResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADDDAA8A1B93BCEE00D3AF68 /* TBResultsViewController.m */; settings = {ASSET_TAGS = (); }; };
 		ADE299AF1B7B994200F1393B /* TBSound.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE299AE1B7B994200F1393B /* TBSound.m */; };
 		ADE299B01B7B9BCA00F1393B /* TBSound.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE299AE1B7B994200F1393B /* TBSound.m */; };
 		ADE299B11B7B9BCB00F1393B /* TBSound.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE299AE1B7B994200F1393B /* TBSound.m */; };
@@ -359,6 +360,8 @@
 		ADD4F1241B91FE2400DAF567 /* NSObject+AssociatedObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+AssociatedObject.m"; sourceTree = "<group>"; };
 		ADDDAA861B93584300D3AF68 /* TBArrayCountTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBArrayCountTransformer.h; sourceTree = "<group>"; };
 		ADDDAA871B93584300D3AF68 /* TBArrayCountTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBArrayCountTransformer.m; sourceTree = "<group>"; };
+		ADDDAA891B93BCEE00D3AF68 /* TBResultsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBResultsViewController.h; sourceTree = "<group>"; };
+		ADDDAA8A1B93BCEE00D3AF68 /* TBResultsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBResultsViewController.m; sourceTree = "<group>"; };
 		ADE299AD1B7B994200F1393B /* TBSound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBSound.h; sourceTree = "<group>"; };
 		ADE299AE1B7B994200F1393B /* TBSound.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBSound.m; sourceTree = "<group>"; };
 		ADE299B31B7B9ED100F1393B /* TBPlayerWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBPlayerWindowController.h; path = TBMac/TBPlayerWindowController.h; sourceTree = "<group>"; };
@@ -451,6 +454,8 @@
 				AD9ED3E81B90949000C10550 /* TBPlayerSeatingViewController.m */,
 				9476F4591B3C385400A158F8 /* TBRemoteClockViewController.h */,
 				9476F45A1B3C385400A158F8 /* TBRemoteClockViewController.m */,
+				ADDDAA891B93BCEE00D3AF68 /* TBResultsViewController.h */,
+				ADDDAA8A1B93BCEE00D3AF68 /* TBResultsViewController.m */,
 				9476F4571B3C385400A158F8 /* TBTournamentsViewController.h */,
 				9476F4581B3C385400A158F8 /* TBTournamentsViewController.m */,
 				9476F45C1B3C385400A158F8 /* Main.storyboard */,
@@ -922,6 +927,7 @@
 				ADD4F1271B91FE2400DAF567 /* NSObject+AssociatedObject.m in Sources */,
 				949D709F1B3C440E008D5CD1 /* server.cpp in Sources */,
 				9439701A1B3F9DB700BB0413 /* TournamentBrowser.m in Sources */,
+				ADDDAA8B1B93BCEE00D3AF68 /* TBResultsViewController.m in Sources */,
 				94FDEAF01B5AE2D60026B25D /* NSObject+FBKVOController.m in Sources */,
 				9476F46A1B3C385400A158F8 /* TBTournamentsViewController.m in Sources */,
 				9476F4721B3C385400A158F8 /* main.m in Sources */,

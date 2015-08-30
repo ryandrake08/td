@@ -82,9 +82,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)dealloc {
-}
-
 #pragma mark Operations
 
 - (NSString*)displayStringForTableOrSeatNumber:(NSNumber*)number {
