@@ -338,10 +338,6 @@
 
     if([key isEqualToString:@"playersLookup"]) {
         keyPaths = [keyPaths setByAddingObjectsFromArray:@[@"players"]];
-    } else if([key isEqualToString:@"costFormatter"]) {
-        keyPaths = [keyPaths setByAddingObjectsFromArray:@[@"costCurrency"]];
-    } else if([key isEqualToString:@"equityFormatter"]) {
-        keyPaths = [keyPaths setByAddingObjectsFromArray:@[@"equityCurrency"]];
     }
 
     return keyPaths;
@@ -359,24 +355,6 @@
     id dict = [NSDictionary dictionaryWithObjects:[self players] forKeys:keys];
 
     return dict;
-}
-
-#pragma mark Number Formatters
-
-- (NSNumberFormatter*)costFormatter {
-    TBCurrencyNumberFormatter* formatter = [[TBCurrencyNumberFormatter alloc] init];
-    [formatter setNumberStyle:NSNumberFormatterCurrencyStyle];
-    [formatter setMinimumFractionDigits:0];
-    [formatter setCurrencyCode:[self costCurrency]];
-    return formatter;
-}
-
-- (NSNumberFormatter*)equityFormatter {
-    TBCurrencyNumberFormatter* formatter = [[TBCurrencyNumberFormatter alloc] init];
-    [formatter setNumberStyle:NSNumberFormatterCurrencyStyle];
-    [formatter setMinimumFractionDigits:0];
-    [formatter setCurrencyCode:[self equityCurrency]];
-    return formatter;
 }
 
 #pragma mark Tournament Messages

@@ -83,10 +83,6 @@
 @property (nonatomic, strong, readonly) NSDictionary* playersLookup;
 @property (nonatomic, strong, readonly) NSString* elapsedTimeText;
 
-// number formatters
-@property (nonatomic, strong, readonly) NSNumberFormatter* costFormatter;
-@property (nonatomic, strong, readonly) NSNumberFormatter* equityFormatter;
-
 // client identifier (used for authenticating with servers)
 + (NSNumber*)clientIdentifier;
 
