@@ -109,6 +109,9 @@ class gameinfo
     
     // ----- utility -----
 
+    // calculate derived state and dump to JSON
+    void dump_derived_state(json& state) const;
+
     // utility: return a description of a player, by id
     const std::string player_description(const td::player_id_t& player_id) const;
 

@@ -2,9 +2,11 @@
 #include "logger.hpp"
 #include <algorithm>
 #include <cmath>
+#include <iomanip>
 #include <limits>
 #include <numeric>
 #include <random>
+#include <sstream>
 
 // random number generator
 static std::default_random_engine engine;
@@ -170,6 +172,240 @@ void gameinfo::dump_state(json& state) const
     state.set_value("break_time_remaining", this->break_time_remaining.count());
     state.set_value("action_clock_time_remaining", this->action_clock_time_remaining.count());
     state.set_value("elapsed_time", this->elapsed_time.count());
+    this->dump_derived_state(state);
+}
+
+// duration to string
+static std::ostream& operator<<(std::ostream& os, const std::chrono::milliseconds& ms)
+{
+    auto duration(ms.count());
+
+    if(duration < 60000) {
+        // SS.MSS
+        unsigned long s = duration / 1000 % 60;
+        unsigned long ms = duration % 1000;
+        os << s << '.' << std::setw(3) << std::setfill('0') << ms;
+    } else if(duration < 3600000) {
+        // MM:SS
+        unsigned long m = duration / 60000;
+        unsigned long s = duration / 1000 % 60;
+        os << m << ':' << std::setw(2) << std::setfill('0') << s;
+    } else {
+        // HH:MM:SS
+        unsigned long h = duration / 3600000;
+        unsigned long m = duration / 60000 % 60;
+        unsigned long s = duration / 1000 % 60;
+        os << h << ':' << std::setw(2) << std::setfill('0') << m << ':' << s;
+    }
+
+    return os;
+}
+
+// blind level to string
+static std::ostream& operator<<(std::ostream& os, const td::blind_level& level)
+{
+    os << level.little_blind << '/' << level.big_blind;
+    if(level.ante > 0)
+    {
+        os << " A:" << level.ante;
+    }
+    return os;
+}
+
+// funding source to string
+static std::ostream& operator<<(std::ostream& os, const td::funding_source& src)
+{
+    os << src.name << ": " << src.cost;
+    if(src.commission != 0.0)
+    {
+        os << '+' << src.commission;
+    }
+    return os;
+}
+
+// calculate derived state and dump to JSON
+void gameinfo::dump_derived_state(json& state) const
+{
+    // has the tournament started?
+    bool started(this->current_blind_level > 0 && this->current_blind_level < this->blind_levels.size());
+
+    // are we on break?
+    bool on_break(this->time_remaining == duration_t::zero() && this->break_time_remaining == duration_t::zero());
+    state.set_value("on_break", on_break);
+
+    std::ostringstream os;
+    os.imbue(std::locale(""));
+
+    // clock text
+    auto clock_time(on_break ? this->break_time_remaining : this->time_remaining);
+    if(this->running)
+    {
+        os << clock_time;
+    }
+    else
+    {
+        os << "PAUSED";
+    }
+    state.set_value("clock_text", os.str()); os.str("");
+
+    // elapsed time text
+    os << this->elapsed_time;
+    state.set_value("elapsed_time_text", os.str()); os.str("");
+
+    // current round number as text
+    if(started)
+    {
+        os << this->current_blind_level;
+    }
+    else
+    {
+        os << '-';
+    }
+    state.set_value("current_round_number_text", os.str()); os.str("");
+
+    // current game name text
+    if(started && !on_break)
+    {
+        os << blind_levels[this->current_blind_level].game_name;
+    }
+    state.set_value("current_game_text", os.str()); os.str("");
+
+    // current round text
+    if(started)
+    {
+        if(on_break)
+        {
+            os << "BREAK";
+        }
+        else
+        {
+            os << this->blind_levels[this->current_blind_level];
+        }
+    }
+    else
+    {
+        os << '-';
+    }
+    state.set_value("current_round_text", os.str()); os.str("");
+
+    // next game name text
+    if(started && this->current_blind_level+1 < this->blind_levels.size())
+    {
+        os << blind_levels[this->current_blind_level+1].game_name;
+    }
+    state.set_value("next_game_text", os.str()); os.str("");
+
+    // next round text
+    if(started && this->current_blind_level+1 < this->blind_levels.size())
+    {
+        if(on_break)
+        {
+            os << "BREAK";
+        }
+        else
+        {
+            os << this->blind_levels[this->current_blind_level+1];
+        }
+    }
+    else
+    {
+        os << '-';
+    }
+    state.set_value("next_round_text", os.str()); os.str("");
+
+    // players left text
+    if(this->seats.size() > 0)
+    {
+        os << this->seats.size();
+    }
+    else
+    {
+        os << '-';
+    }
+    state.set_value("players_left_text", os.str()); os.str("");
+
+    // entries text
+    if(this->entries.size() > 0)
+    {
+        os << this->entries.size();
+    }
+    else
+    {
+        os << '-';
+    }
+    state.set_value("entries_text", os.str()); os.str("");
+
+    // average stack text
+    if(this->buyins.size() > 0)
+    {
+        os << this->total_chips / this->buyins.size();
+    }
+    else
+    {
+        os << '-';
+    }
+    state.set_value("average_stack_text", os.str()); os.str("");
+
+    // buyin text
+    auto src_it(std::find_if(this->funding_sources.begin(), this->funding_sources.end(), [](const td::funding_source& s) { return s.type == td::buyin; }));
+    if(src_it != this->funding_sources.end())
+    {
+        os << *src_it << ' ' << this->cost_currency;
+    }
+    else
+    {
+        os << "NO BUYIN";
+    }
+    state.set_value("buyin_text", os.str()); os.str("");
+
+    // results
+    std::vector<td::result> results;
+    for(size_t j(0); j<this->seats.size(); j++)
+    {
+        td::result result(j+1);
+        if(j < this->payouts.size())
+        {
+            result.payout = this->payouts[j];
+        }
+        results.push_back(result);
+    }
+    for(size_t i(0); i<this->players_finished.size(); i++)
+    {
+        auto player_id(this->players_finished[i]);
+        auto player_it(this->players.find(player_id));
+        if(player_it == this->players.end())
+        {
+            throw std::runtime_error("failed to look up player: " + player_id);
+        }
+        size_t j(this->seats.size()+i);
+
+        td::result result(j+1, player_it->second.name);
+        if(j < this->payouts.size())
+        {
+            result.payout = this->payouts[j];
+        }
+        results.push_back(result);
+    }
+    state.set_value("results", json(results.begin(), results.end()));
+
+    // seated players
+    std::vector<td::seated_player> seated_players;
+    for(const auto& p : this->players)
+    {
+        auto buyin(this->buyins.find(p.first));
+        auto seat(this->seats.find(p.first));
+        if(seat == this->seats.end())
+        {
+            td::seated_player sp(p.first, p.second.name, buyin != this->buyins.end());
+            seated_players.push_back(sp);
+        }
+        else
+        {
+            td::seated_player sp(p.first, p.second.name, buyin != this->buyins.end(), seat->second.table_number, seat->second.seat_number);
+            seated_players.push_back(sp);
+        }
+    }
+    state.set_value("seated_players", json(seated_players.begin(), seated_players.end()));
 }
 
 void gameinfo::reset_seating()

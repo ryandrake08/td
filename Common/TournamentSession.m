@@ -25,45 +25,6 @@
 // mapping between unique command and block to handle the command's response
 @property (nonatomic, strong) NSMutableDictionary* blocksForCommands;
 
-// number formatter
-@property (nonatomic, strong) NSNumberFormatter* decimalFormatter;
-
-// tournament configuration
-@property (nonatomic, strong) NSString* serverName;
-@property (nonatomic, strong) NSString* serverVersion;
-@property (nonatomic, strong) NSArray* authorizedClients;
-@property (nonatomic, strong) NSString* name;
-@property (nonatomic, strong) NSArray* players;
-@property (nonatomic, strong) NSArray* blindLevels;
-@property (nonatomic, strong) NSArray* availableChips;
-@property (nonatomic, strong) NSString* costCurrency;
-@property (nonatomic, strong) NSString* equityCurrency;
-@property (nonatomic, strong) NSNumber* percentSeatsPaid;
-@property (nonatomic, strong) NSNumber* roundPayouts;
-@property (nonatomic, strong) NSNumber* payoutFlatness;
-@property (nonatomic, strong) NSArray* fundingSources;
-@property (nonatomic, strong) NSNumber* tableCapacity;
-@property (nonatomic, strong) NSArray* manualPayouts;
-
-// tournament state
-@property (nonatomic, strong, getter=isRunning) NSNumber* running;
-@property (nonatomic, strong) NSNumber* currentBlindLevel;
-@property (nonatomic, strong) NSNumber* timeRemaining;
-@property (nonatomic, strong) NSNumber* breakTimeRemaining;
-@property (nonatomic, strong) NSNumber* actionClockTimeRemaining;
-@property (nonatomic, strong) NSSet* buyins;
-@property (nonatomic, strong) NSArray* entries;
-@property (nonatomic, strong) NSArray* payouts;
-@property (nonatomic, strong) NSNumber* totalChips;
-@property (nonatomic, strong) NSNumber* totalCost;
-@property (nonatomic, strong) NSNumber* totalCommission;
-@property (nonatomic, strong) NSNumber* totalEquity;
-@property (nonatomic, strong) NSArray* seats;
-@property (nonatomic, strong) NSArray* playersFinished;
-@property (nonatomic, strong) NSArray* emptySeats;
-@property (nonatomic, strong) NSNumber* tables;
-@property (nonatomic, strong) NSNumber* elapsedTime;
-
 @end
 
 @implementation TournamentSession
@@ -73,10 +34,6 @@
         _blocksForCommands = [[NSMutableDictionary alloc] init];
         _connection = [[TournamentConnection alloc] init];
         [_connection setDelegate:self];
-
-        // Make formatter
-        _decimalFormatter = [[NSNumberFormatter alloc] init];
-        [[self decimalFormatter] setNumberStyle:NSNumberFormatterDecimalStyle];
     }
     return self;
 }
@@ -110,7 +67,7 @@
     [self setCurrentService:nil];
 }
 
-- (BOOL) isConnected {
+- (BOOL)isConnected {
     return [[self connection] isConnected];
 }
 
@@ -373,323 +330,21 @@
     }];
 }
 
-#pragma mark Formatters
-
-- (NSString*)formatBlindLevel:(NSDictionary*)level {
-    NSNumber* bigBlind = level[@"big_blind"];
-    NSNumber* littleBlind = level[@"little_blind"];
-    NSNumber* ante = level[@"ante"];
-
-    if([ante unsignedIntegerValue] > 0) {
-        return [NSString localizedStringWithFormat:@"%@/%@ A:%@",
-                [[self decimalFormatter] stringFromNumber:littleBlind],
-                [[self decimalFormatter] stringFromNumber:bigBlind],
-                [[self decimalFormatter] stringFromNumber:ante]];
-    } else {
-        return [NSString localizedStringWithFormat:@"%@/%@",
-                [[self decimalFormatter] stringFromNumber:littleBlind],
-                [[self decimalFormatter] stringFromNumber:bigBlind]];
-    }
-}
-
-- (NSString*)formatDuration:(NSUInteger)duration {
-    if(duration < 60000) {
-        // SS.MSS
-        unsigned long s = duration / 1000 % 60;
-        unsigned long ms = duration % 1000;
-        return [NSString stringWithFormat:@"%lu.%03lu", s, ms];
-    } else if(duration < 3600000) {
-        // MM:SS
-        unsigned long m = duration / 60000;
-        unsigned long s = duration / 1000 % 60;
-        return [NSString stringWithFormat:@"%lu:%02lu", m, s];
-    } else {
-        // HH:MM:SS
-        unsigned long h = duration / 3600000;
-        unsigned long m = duration / 60000 % 60;
-        unsigned long s = duration / 1000 % 60;
-        return [NSString stringWithFormat:@"%lu:%02lu:%02lu", h, m, s];
-    }
-}
-
 #pragma mark Derived Tournament State
 
 + (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key {
 
     NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
 
-    if([key isEqualToString:@"planned"]) {
-        keyPaths = [keyPaths setByAddingObjectsFromArray:@[@"tables"]];
-    } else if([key isEqualToString:@"onBreak"]) {
-        keyPaths = [keyPaths setByAddingObjectsFromArray:@[@"timeRemaining", @"breakTimeRemaining"]];
-    } else if([key isEqualToString:@"clockText"]) {
-        keyPaths = [keyPaths setByAddingObjectsFromArray:@[@"running", @"onBreak", @"timeRemaining", @"breakTimeRemaining"]];
-    } else if([key isEqualToString:@"elapsedTimeText"]) {
-        keyPaths = [keyPaths setByAddingObjectsFromArray:@[@"elapsedTime"]];
-    } else if([key isEqualToString:@"currentRoundNumberText"]) {
-        keyPaths = [keyPaths setByAddingObjectsFromArray:@[@"currentBlindLevel", @"blindLevels"]];
-    } else if([key isEqualToString:@"currentGameText"]) {
-        keyPaths = [keyPaths setByAddingObjectsFromArray:@[@"currentBlindLevel", @"blindLevels", @"onBreak"]];
-    } else if([key isEqualToString:@"currentRoundText"]) {
-        keyPaths = [keyPaths setByAddingObjectsFromArray:@[@"currentBlindLevel", @"blindLevels", @"onBreak"]];
-    } else if([key isEqualToString:@"nextGameText"]) {
-        keyPaths = [keyPaths setByAddingObjectsFromArray:@[@"currentBlindLevel", @"blindLevels"]];
-    } else if([key isEqualToString:@"nextRoundText"]) {
-        keyPaths = [keyPaths setByAddingObjectsFromArray:@[@"currentBlindLevel", @"blindLevels"]];
-    } else if([key isEqualToString:@"playersLeftText"]) {
-        keyPaths = [keyPaths setByAddingObjectsFromArray:@[@"seats"]];
-    } else if([key isEqualToString:@"entriesText"]) {
-        keyPaths = [keyPaths setByAddingObjectsFromArray:@[@"entries"]];
-    } else if([key isEqualToString:@"averageStackText"]) {
-        keyPaths = [keyPaths setByAddingObjectsFromArray:@[@"seats", @"totalChips"]];
-    } else if([key isEqualToString:@"results"]) {
-        keyPaths = [keyPaths setByAddingObjectsFromArray:@[@"players", @"payouts", @"seats", @"playersFinished"]];
-    } else if([key isEqualToString:@"playersLookup"]) {
+    if([key isEqualToString:@"playersLookup"]) {
         keyPaths = [keyPaths setByAddingObjectsFromArray:@[@"players"]];
-    } else if([key isEqualToString:@"seatedPlayers"]) {
-        keyPaths = [keyPaths setByAddingObjectsFromArray:@[@"seats",@"players",@"buyins"]];
-    } else if([key isEqualToString:@"buyinText"]) {
-        keyPaths = [keyPaths setByAddingObjectsFromArray:@[@"fundingSources"]];
     } else if([key isEqualToString:@"costFormatter"]) {
         keyPaths = [keyPaths setByAddingObjectsFromArray:@[@"costCurrency"]];
     } else if([key isEqualToString:@"equityFormatter"]) {
-        keyPaths = [keyPaths setByAddingObjectsFromArray:@[@"equityCurrencyb"]];
+        keyPaths = [keyPaths setByAddingObjectsFromArray:@[@"equityCurrency"]];
     }
 
     return keyPaths;
-}
-
-- (BOOL)isPlanned {
-    return [[self tables] intValue] > 0;
-}
-
-- (BOOL)isOnBreak {
-    return [[self timeRemaining] unsignedIntegerValue] == 0 && [[self breakTimeRemaining] unsignedIntegerValue] != 0;
-}
-
-- (NSString*)clockText {
-    NSUInteger timeRemaining = [[self timeRemaining] unsignedIntegerValue];
-    NSUInteger breakTimeRemaining = [[self breakTimeRemaining] unsignedIntegerValue];
-
-    // calculate new value
-    NSString* newText = NSLocalizedString(@"PAUSED", nil);
-
-    if([[self isRunning] boolValue]) {
-        if([self isOnBreak]) {
-            // on break
-            newText = [self formatDuration:breakTimeRemaining];
-        } else {
-            newText = [self formatDuration:timeRemaining];
-        }
-    }
-
-    return newText;
-}
-
-- (NSString*)elapsedTimeText {
-    NSUInteger elapsedTime = [[self elapsedTime] unsignedIntegerValue];
-    return [self formatDuration:elapsedTime];
-}
-
-- (NSString*)currentRoundNumberText {
-    NSUInteger currentBlindLevel = [[self currentBlindLevel] unsignedIntegerValue];
-    NSArray* blindLevels = [self blindLevels];
-
-    // calculate new values
-    NSString* newText = @"-";
-
-    if(currentBlindLevel > 0 && currentBlindLevel < [blindLevels count]) {
-        newText = [NSString stringWithFormat:@"%@", [self currentBlindLevel]];
-    }
-
-    return newText;
-}
-
-- (NSString*)currentGameText {
-    NSUInteger currentBlindLevel = [[self currentBlindLevel] unsignedIntegerValue];
-    NSArray* blindLevels = [self blindLevels];
-
-    // calculate new values
-    NSString* newText = @"";
-
-    if(currentBlindLevel > 0 && currentBlindLevel < [blindLevels count]) {
-        if(![self isOnBreak]) {
-            newText = blindLevels[currentBlindLevel][@"game_name"];
-        }
-    }
-
-    return newText;
-}
-
-- (NSString*)currentRoundText {
-    NSUInteger currentBlindLevel = [[self currentBlindLevel] unsignedIntegerValue];
-    NSArray* blindLevels = [self blindLevels];
-
-    // calculate new values
-    NSString* newText = @"-";
-
-    if(currentBlindLevel > 0 && currentBlindLevel < [blindLevels count]) {
-        if([self isOnBreak]) {
-            newText = NSLocalizedString(@"BREAK", nil);
-        } else {
-            newText = [self formatBlindLevel:blindLevels[currentBlindLevel]];
-        }
-    }
-
-    return newText;
-}
-
-- (NSString*)nextGameText {
-    NSUInteger currentBlindLevel = [[self currentBlindLevel] unsignedIntegerValue];
-    NSArray* blindLevels = [self blindLevels];
-
-    // calculate new values
-    NSString* newText = @"";
-
-    if(currentBlindLevel > 0 && currentBlindLevel+1 < [blindLevels count]) {
-        newText = blindLevels[currentBlindLevel+1][@"game_name"];
-    }
-
-    return newText;
-}
-
-- (NSString*)nextRoundText {
-    NSUInteger currentBlindLevel = [[self currentBlindLevel] unsignedIntegerValue];
-    NSArray* blindLevels = [self blindLevels];
-
-    // calculate new values
-    NSString* newText = @"-";
-
-    if(currentBlindLevel > 0 && currentBlindLevel+1 < [blindLevels count]) {
-        newText = [self formatBlindLevel:blindLevels[currentBlindLevel+1]];
-    }
-
-    return newText;
-}
-
-- (NSString*)playersLeftText {
-    NSArray* seats = [self seats];
-
-    // calculate new value
-    NSString* newText = @"-";
-
-    if([seats count] > 0) {
-        newText = [[self decimalFormatter] stringFromNumber:@([seats count])];
-    }
-
-    return newText;
-}
-
-- (NSString*)entriesText {
-    NSArray* entries = [self entries];
-
-    // calculate new value
-    NSString* newText = @"-";
-
-    if([entries count] > 0) {
-        newText = [[self decimalFormatter] stringFromNumber:@([entries count])];
-    }
-
-    return newText;
-}
-
-- (NSString*)averageStackText {
-    NSArray* seats = [self seats];
-    NSUInteger totalChips = [[self totalChips] unsignedIntegerValue];
-
-    // calculate new value
-    NSString* newText = @"-";
-
-    if([seats count] > 0) {
-        newText = [[self decimalFormatter] stringFromNumber:@(totalChips / [seats count])];
-    }
-
-    return newText;
-}
-
-- (NSString*)buyinText {
-    NSArray* fundingSources = [self fundingSources];
-
-    // calculate new value
-    for(NSDictionary* obj in fundingSources) {
-        if([obj[@"type"] isEqualToNumber:kFundingTypeBuyin]) {
-            NSMutableString* newText = [NSMutableString stringWithString:obj[@"name"]];
-            NSString* costText = [[self costFormatter] stringFromNumber:obj[@"cost"]];
-            if(obj[@"commission"] && ![obj[@"commission"] isEqualToNumber:@0]) {
-                NSString* commissionText = [[self costFormatter] stringFromNumber:obj[@"commission"]];
-                [newText appendFormat:@": %@+%@", costText, commissionText];
-            } else {
-                [newText appendFormat:@": %@", costText];
-            }
-            return newText;
-        }
-    }
-
-    return NSLocalizedString(@"No buyin", @"No buyin configured");
-}
-
-- (NSArray*)results {
-    NSMutableArray* newResults = [[NSMutableArray alloc] init];
-
-    // payouts with empty player field, for seated players
-    for(NSUInteger j=0; j<[[self seats] count]; j++) {
-        NSMutableDictionary* item = [NSMutableDictionary dictionaryWithObjectsAndKeys:@(j+1), @"place", @"--", @"name", nil];
-        if([[self payouts] count] > j) {
-            item[@"payout"] = [self payouts][j];
-        }
-        [newResults addObject:item];
-    }
-
-    // include actual player for busted players
-    for(NSUInteger i=0; i<[[self playersFinished] count]; i++) {
-        NSUInteger j = [[self seats] count]+i;
-        NSNumber* finished = [self playersFinished][i];
-        NSMutableDictionary* item = [NSMutableDictionary dictionaryWithObjectsAndKeys:@(j+1), @"place", [self playersLookup][finished][@"name"], @"name", nil];
-        if([[self payouts] count] > j) {
-            item[@"payout"] = [self payouts][j];
-        }
-        [newResults addObject:item];
-    }
-
-    return newResults;
-}
-
-- (NSArray*)seatedPlayers {
-    NSMutableDictionary* newDict = [[NSMutableDictionary alloc] init];
-    // first, add seated players
-    for(id seat in [self seats]) {
-        id playerId = seat[@"player_id"];
-        if(playerId) {
-            BOOL buyin = [[self buyins] containsObject:playerId];
-            NSDictionary* player = [self playersLookup][playerId];
-            if(player) {
-                // Add the player record to the seat dictionary
-                NSMutableDictionary* seatAndPlayer = [[NSMutableDictionary alloc] initWithDictionary:seat];
-                seatAndPlayer[@"player"] = player;
-                seatAndPlayer[@"buyin"] = @(buyin);
-                newDict[playerId] = seatAndPlayer;
-            } else {
-                NSLog(@"Seated player %@ not in player array", seat);
-            }
-        }
-    }
-
-    // then, add any other players (not seated)
-    for(id player in [self players]) {
-        id playerId = player[@"player_id"];
-        if(playerId) {
-            BOOL buyin = [[self buyins] containsObject:playerId];
-            NSDictionary* seat = newDict[playerId];
-            if(seat == nil) {
-                // not seated
-                NSMutableDictionary* seatAndPlayer = [[NSMutableDictionary alloc] init];
-                seatAndPlayer[@"player"] = player;
-                seatAndPlayer[@"buyin"] = @(buyin);
-                newDict[playerId] = seatAndPlayer;
-            }
-        }
-    }
-    return [newDict allValues];
 }
 
 - (NSDictionary*)playersLookup {

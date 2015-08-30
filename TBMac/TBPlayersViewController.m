@@ -14,14 +14,14 @@
     [super viewDidLoad];
 
     // setup sort descriptor
-    NSSortDescriptor* playerNameSort = [[NSSortDescriptor alloc] initWithKey:@"player.name" ascending:YES];
+    NSSortDescriptor* playerNameSort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
     [[self arrayController] setSortDescriptors:@[playerNameSort]];
 }
 
 - (IBAction)seatedButtonDidChange:(id)sender {
     NSTableCellView* cell = (NSTableCellView*)[sender superview];
     id ov = [cell objectValue];
-    id playerId = ov[@"player"][@"player_id"];
+    id playerId = ov[@"player_id"];
     if([sender state] == NSOnState) {
         [[self session] seatPlayer:playerId withBlock:nil];
         // select that seat

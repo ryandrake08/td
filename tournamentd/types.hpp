@@ -130,4 +130,29 @@ namespace td
         manual_payout(const json& obj);
         manual_payout(size_t b, const std::vector<double>& p);
     };
+
+    // represents a tournament result
+    struct result
+    {
+        size_t place;
+        std::string name;
+        double payout;
+
+        result();
+        result(size_t p, const std::string& n="--");
+    };
+
+    // represents a player with additional buyin/seat info
+    struct seated_player
+    {
+        player_id_t player_id;
+        std::string name;
+        bool buyin;
+        std::size_t table_number;
+        std::size_t seat_number;
+
+        seated_player();
+        seated_player(player_id_t p, const std::string& n, bool b);
+        seated_player(player_id_t p, const std::string& n, bool b, std::size_t t, std::size_t s);
+    };
 }

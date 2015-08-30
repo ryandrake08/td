@@ -60,7 +60,7 @@
         // sort descriptors
         NSSortDescriptor* tableNumberSort = [[NSSortDescriptor alloc] initWithKey:@"table_number" ascending:YES];
         NSSortDescriptor* seatNumberSort = [[NSSortDescriptor alloc] initWithKey:@"seat_number" ascending:YES];
-        NSSortDescriptor* nameSort = [[NSSortDescriptor alloc] initWithKey:@"player.name" ascending:YES];
+        NSSortDescriptor* nameSort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
 
         // sorted
         [self setSeatedPlayers:[seated sortedArrayUsingDescriptors:@[tableNumberSort, seatNumberSort]]];
@@ -130,7 +130,7 @@
         // setup cell
         [(UILabel*)[cell viewWithTag:100] setText:[self displayStringForTableOrSeatNumber:player[@"table_number"]]];
         [(UILabel*)[cell viewWithTag:101] setText:[self displayStringForTableOrSeatNumber:player[@"seat_number"]]];
-        [(UILabel*)[cell viewWithTag:102] setText:player[@"player"][@"name"]];
+        [(UILabel*)[cell viewWithTag:102] setText:player[@"name"]];
 
         if([player[@"buyin"] boolValue]) {
             [(UIImageView*)[cell viewWithTag:103] setImage:[self currencyImage]];
@@ -145,7 +145,7 @@
         player = [self unseatedPlayers][[indexPath row]];
 
         // setup cell
-        [(UILabel*)[cell viewWithTag:200] setText:player[@"player"][@"name"]];
+        [(UILabel*)[cell viewWithTag:200] setText:player[@"name"]];
     }
     return cell;
 }
@@ -201,7 +201,7 @@
         }
 
         // set context
-        NSDictionary* context = @{@"player_id":player[@"player"][@"player_id"],@"commands":commands};
+        NSDictionary* context = @{@"player_id":player[@"player_id"],@"commands":commands};
         [actionSheet setAssociatedObject:context];
 
         // pop actionsheet

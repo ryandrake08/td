@@ -55,7 +55,7 @@
                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
                                                 <connections>
-                                                    <binding destination="vq3-qF-Zra" name="value" keyPath="objectValue.player.name" id="ny6-Ca-V5L"/>
+                                                    <binding destination="vq3-qF-Zra" name="value" keyPath="objectValue.name" id="ngT-Xm-vSS"/>
                                                 </connections>
                                             </textField>
                                         </subviews>
@@ -66,7 +66,7 @@
                                     </tableCellView>
                                 </prototypeCellViews>
                                 <connections>
-                                    <binding destination="eys-Jh-e1e" name="value" keyPath="arrangedObjects.player.name" id="mpF-9R-DZN"/>
+                                    <binding destination="eys-Jh-e1e" name="value" keyPath="arrangedObjects.name" id="wlA-wG-2nu"/>
                                 </connections>
                             </tableColumn>
                             <tableColumn width="60" minWidth="60" maxWidth="60" id="W4q-C8-TBl">
@@ -97,15 +97,6 @@
                                                     </connections>
                                                 </buttonCell>
                                                 <connections>
-                                                    <binding destination="-2" name="enabled2" keyPath="self.session.emptySeats" previousBinding="973-M1-fcN" id="Ila-NB-wkw">
-                                                        <dictionary key="options">
-                                                            <integer key="NSMultipleValuesPlaceholder" value="-1"/>
-                                                            <integer key="NSNoSelectionPlaceholder" value="-1"/>
-                                                            <integer key="NSNotApplicablePlaceholder" value="-1"/>
-                                                            <integer key="NSNullPlaceholder" value="-1"/>
-                                                            <string key="NSValueTransformerName">TBArrayCountTransformer</string>
-                                                        </dictionary>
-                                                    </binding>
                                                     <binding destination="e1r-ZN-dia" name="enabled" keyPath="objectValue.buyin" id="973-M1-fcN">
                                                         <dictionary key="options">
                                                             <string key="NSValueTransformerName">NSNegateBoolean</string>
@@ -114,6 +105,15 @@
                                                     <binding destination="e1r-ZN-dia" name="value" keyPath="objectValue.seat_number" id="xBN-Rc-T3w">
                                                         <dictionary key="options">
                                                             <string key="NSValueTransformerName">NSIsNotNil</string>
+                                                        </dictionary>
+                                                    </binding>
+                                                    <binding destination="-2" name="enabled2" keyPath="self.session.emptySeats" previousBinding="973-M1-fcN" id="Ila-NB-wkw">
+                                                        <dictionary key="options">
+                                                            <integer key="NSMultipleValuesPlaceholder" value="-1"/>
+                                                            <integer key="NSNoSelectionPlaceholder" value="-1"/>
+                                                            <integer key="NSNotApplicablePlaceholder" value="-1"/>
+                                                            <integer key="NSNullPlaceholder" value="-1"/>
+                                                            <string key="NSValueTransformerName">TBArrayCountTransformer</string>
                                                         </dictionary>
                                                     </binding>
                                                 </connections>

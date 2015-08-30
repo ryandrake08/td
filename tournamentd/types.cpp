@@ -60,6 +60,26 @@ td::manual_payout::manual_payout(size_t c, const std::vector<double>& p) : buyin
 {
 }
 
+td::result::result() : place(0), payout(0.0)
+{
+}
+
+td::result::result(size_t p, const std::string& n) : place(p), name(n), payout(0.0)
+{
+}
+
+td::seated_player::seated_player() : buyin(false), table_number(std::numeric_limits<std::size_t>::max()), seat_number(std::numeric_limits<std::size_t>::max())
+{
+}
+
+td::seated_player::seated_player(player_id_t p, const std::string& n, bool b) : player_id(p), name(n), buyin(b), table_number(std::numeric_limits<std::size_t>::max()), seat_number(std::numeric_limits<std::size_t>::max())
+{
+}
+
+td::seated_player::seated_player(player_id_t p, const std::string& n, bool b, std::size_t t, std::size_t s) : player_id(p), name(n), buyin(b), table_number(t), seat_number(s)
+{
+}
+
 // ----- construct from json
 
 td::authorized_client::authorized_client(const json& obj)
@@ -274,4 +294,31 @@ json::json(const std::pair<const size_t,std::vector<double>>& value) : json()
 {
     this->set_value("buyins_count", value.first);
     this->set_value("payouts", json(value.second.begin(), value.second.end()));
+}
+
+template<>
+json::json(const td::result& value) : json()
+{
+    this->set_value("place", value.place);
+    this->set_value("name", value.name);
+    if(value.payout != 0.0)
+    {
+        this->set_value("payout", value.payout);
+    }
+}
+
+template<>
+json::json(const td::seated_player& value) : json()
+{
+    this->set_value("player_id", value.player_id);
+    this->set_value("name", value.name);
+    this->set_value("buyin", value.buyin);
+    if(value.table_number != std::numeric_limits<std::size_t>::max())
+    {
+        this->set_value("table_number", value.table_number);
+    }
+    if(value.seat_number != std::numeric_limits<std::size_t>::max())
+    {
+        this->set_value("seat_number", value.seat_number);
+    }
 }

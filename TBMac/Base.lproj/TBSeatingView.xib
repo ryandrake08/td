@@ -165,7 +165,7 @@
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
-                                                            <binding destination="mTZ-hw-P9L" name="value" keyPath="objectValue.player.name" id="5Xe-WF-agA"/>
+                                                            <binding destination="mTZ-hw-P9L" name="value" keyPath="objectValue.name" id="6r7-Mg-sWn"/>
                                                         </connections>
                                                     </textField>
                                                 </subviews>
@@ -176,7 +176,7 @@
                                             </tableCellView>
                                         </prototypeCellViews>
                                         <connections>
-                                            <binding destination="So1-EM-ZfO" name="value" keyPath="arrangedObjects.player.name" id="gHd-VN-hr9"/>
+                                            <binding destination="So1-EM-ZfO" name="value" keyPath="arrangedObjects.name" id="LTp-8E-c5h"/>
                                         </connections>
                                     </tableColumn>
                                     <tableColumn width="48" minWidth="48" maxWidth="48" id="jBz-gC-2ld">
