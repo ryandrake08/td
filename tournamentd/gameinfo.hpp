@@ -109,6 +109,9 @@ class gameinfo
     
     // ----- utility -----
 
+    // utility: return a description of a player, by id
+    const std::string player_description(const td::player_id_t& player_id) const;
+
     // utility: arrange tables with lists of players
     std::vector<std::vector<td::player_id_t> > players_at_tables() const;
 

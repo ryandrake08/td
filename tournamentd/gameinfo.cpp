@@ -182,6 +182,16 @@ void gameinfo::reset_seating()
     this->tables = 0;
 }
 
+const std::string gameinfo::player_description(const td::player_id_t& player_id) const
+{
+    auto player_it(this->players.find(player_id));
+    if(player_it == this->players.end())
+    {
+        throw std::runtime_error("failed to look up player: " + player_id);
+    }
+    return player_id + " (" + player_it->second.name + ")";
+}
+
 std::vector<std::vector<td::player_id_t> > gameinfo::players_at_tables() const
 {
     // build up two vectors, outer = tables, inner = players per table
@@ -266,13 +276,7 @@ std::size_t gameinfo::plan_seating(std::size_t max_expected_players)
 // add player to an existing game
 td::seat gameinfo::add_player(const td::player_id_t& player_id)
 {
-    auto player_it(players.find(player_id));
-    if(player_it == players.end())
-    {
-        throw td::protocol_error("failed to look up player");
-    }
-
-    logger(LOG_INFO) << "adding player " << player_id << " (" << player_it->second.name << ") to game\n";
+    logger(LOG_INFO) << "adding player " << this->player_description(player_id) << " to game\n";
 
     // verify game state
     if(this->empty_seats.empty())
@@ -292,7 +296,7 @@ td::seat gameinfo::add_player(const td::player_id_t& player_id)
     this->seats.insert(std::make_pair(player_id, seat));
     this->empty_seats.pop_front();
 
-    logger(LOG_INFO) << "seated player " << player_id << " at table " << seat.table_number << ", seat " << seat.seat_number << '\n';
+    logger(LOG_INFO) << "seated player " << this->player_description(player_id) << " at table " << seat.table_number << ", seat " << seat.seat_number << '\n';
 
     return seat;
 }
@@ -300,13 +304,7 @@ td::seat gameinfo::add_player(const td::player_id_t& player_id)
 // remove a player
 td::seat gameinfo::remove_player(const td::player_id_t& player_id)
 {
-    auto player_it(players.find(player_id));
-    if(player_it == players.end())
-    {
-        throw td::protocol_error("failed to look up player");
-    }
-
-    logger(LOG_INFO) << "removing player " << player_id << " (" << player_it->second.name << ") from game\n";
+    logger(LOG_INFO) << "removing player " << this->player_description(player_id) << " from game\n";
 
     auto seat_it(this->seats.find(player_id));
 
@@ -326,12 +324,6 @@ td::seat gameinfo::remove_player(const td::player_id_t& player_id)
 // remove a player
 std::vector<td::player_movement> gameinfo::bust_player(const td::player_id_t& player_id)
 {
-    auto player_it(players.find(player_id));
-    if(player_it == players.end())
-    {
-        throw td::protocol_error("failed to look up player");
-    }
-
     // check whether player is bought in
     if(this->buyins.find(player_id) == this->buyins.end())
     {
@@ -341,7 +333,7 @@ std::vector<td::player_movement> gameinfo::bust_player(const td::player_id_t& pl
     // remove the player
     this->remove_player(player_id);
 
-    logger(LOG_INFO) << "busting player " << player_id << " (" << player_it->second.name << ")\n";
+    logger(LOG_INFO) << "busting player " << this->player_description(player_id) << " from the game\n";
 
     // add to the busted out list
     this->players_finished.push_front(player_id);
@@ -368,21 +360,15 @@ std::vector<td::player_movement> gameinfo::bust_player(const td::player_id_t& pl
     // if only one bought-in playsers still seated
     if(playing.size() == 1)
     {
-        auto last_player_id(playing.front());
+        auto player_id(playing.front());
 
         // add to the busted out list
-        this->players_finished.push_front(last_player_id);
+        this->players_finished.push_front(player_id);
 
         // remove the player
-        this->remove_player(last_player_id);
+        this->remove_player(player_id);
 
-        auto player_it(players.find(last_player_id));
-        if(player_it == players.end())
-        {
-            throw td::protocol_error("failed to look up player");
-        }
-
-        logger(LOG_INFO) << "winning player " << last_player_id << " (" << player_it->second.name << ")\n";
+        logger(LOG_INFO) << "winning player " << this->player_description(player_id) << '\n';
 
         // stop the game and reset all seating (stops additional entrants)
         this->stop();
@@ -395,13 +381,7 @@ std::vector<td::player_movement> gameinfo::bust_player(const td::player_id_t& pl
 // move a player to a specific table
 td::player_movement gameinfo::move_player(const td::player_id_t& player_id, std::size_t table)
 {
-    auto player_it(players.find(player_id));
-    if(player_it == players.end())
-    {
-        throw td::protocol_error("failed to look up player");
-    }
-
-    logger(LOG_INFO) << "moving player " << player_id << " (" << player_it->second.name << ") to table " << table << '\n';
+    logger(LOG_INFO) << "moving player " << this->player_description(player_id) << " to table " << table << '\n';
 
     // build up a list of candidate seats
     std::vector<std::deque<td::seat>::iterator> candidates;
@@ -433,7 +413,7 @@ td::player_movement gameinfo::move_player(const td::player_id_t& player_id, std:
     this->empty_seats.push_back(from_seat);
     this->empty_seats.erase(to_seat_it);
 
-    logger(LOG_INFO) << "moved player " << player_id << " from table " << from_seat.table_number << ", seat " << from_seat.seat_number << " to table " << player_seat_it->second.table_number << ", seat " << player_seat_it->second.seat_number << '\n';
+    logger(LOG_INFO) << "moved player " << this->player_description(player_id) << " from table " << from_seat.table_number << ", seat " << from_seat.seat_number << " to table " << player_seat_it->second.table_number << ", seat " << player_seat_it->second.seat_number << '\n';
 
     return td::player_movement(player_id, from_seat, player_seat_it->second);
 }
@@ -441,13 +421,7 @@ td::player_movement gameinfo::move_player(const td::player_id_t& player_id, std:
 // move a player to the table with the smallest number of players
 td::player_movement gameinfo::move_player(const td::player_id_t& player_id, const std::unordered_set<std::size_t>& avoid_tables)
 {
-    auto player_it(players.find(player_id));
-    if(player_it == players.end())
-    {
-        throw td::protocol_error("failed to look up player");
-    }
-
-    logger(LOG_INFO) << "moving player " << player_id << " (" << player_it->second.name << ") to a free table\n";
+    logger(LOG_INFO) << "moving player " << this->player_description(player_id) << " to a free table\n";
 
     // build players-per-table vector
     auto ppt(this->players_at_tables());
@@ -598,13 +572,7 @@ void gameinfo::fund_player(const td::player_id_t& player_id, const td::funding_s
         throw td::protocol_error("tried re-buying before tournamnet start");
     }
 
-    auto player_it(players.find(player_id));
-    if(player_it == players.end())
-    {
-        throw td::protocol_error("failed to look up player");
-    }
-
-    logger(LOG_INFO) << "funding player " << player_id << " (" << player_it->second.name << ") with " << source.name << '\n';
+    logger(LOG_INFO) << "funding player " << this->player_description(player_id) << " with " << source.name << '\n';
 
     if(source.type == td::buyin)
     {
