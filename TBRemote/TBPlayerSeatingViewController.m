@@ -152,6 +152,10 @@
 
 #pragma mark UITableViewDelegate
 
+#define kCommandSeatPlayer -1
+#define kCommandUnseatPlayer -2
+#define kCommandBustPlayer -3
+
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
     if([[self session] isConnected] && [[self session] isAuthorized]) {
         NSDictionary* player;
@@ -161,17 +165,31 @@
                                                    destructiveButtonTitle:nil
                                                         otherButtonTitles:nil];
 
+        NSMutableArray* commands = [[NSMutableArray alloc] initWithObjects:@0, nil];
 
         if(indexPath.section == 0) {
+            NSNumber* currentBlindLevel = [[self session] currentBlindLevel];
+
             // get player for this row
             player = [self seatedPlayers][[indexPath row]];
 
-            // set buttons
+            // add unseat button
             [actionSheet addButtonWithTitle:NSLocalizedString(@"Unseat Player", nil)];
-            [actionSheet addButtonWithTitle:NSLocalizedString(@"Bust Player", nil)];
+            [commands addObject:@(kCommandUnseatPlayer)];
 
+            if([currentBlindLevel unsignedIntegerValue] > 0) {
+                // add unseat button
+                [actionSheet addButtonWithTitle:NSLocalizedString(@"Bust Player", nil)];
+                [commands addObject:@(kCommandBustPlayer)];
+            }
+
+            // add buttons for each eligible funding source
             [[[self session] fundingSources] enumerateObjectsUsingBlock:^(id source, NSUInteger idx, BOOL* stop) {
-                [actionSheet addButtonWithTitle:source[@"name"]];
+                NSNumber* last = source[@"forbid_after_blind_level"];
+                if(last == nil || !([last compare:currentBlindLevel] == NSOrderedAscending)) {
+                    [actionSheet addButtonWithTitle:source[@"name"]];
+                    [commands addObject:@(idx)];
+                }
             }];
         } else if(indexPath.section == 1) {
             // get player for this row
@@ -179,10 +197,14 @@
 
             // set buttons
             [actionSheet addButtonWithTitle:NSLocalizedString(@"Seat Player", nil)];
+            [commands addObject:@(kCommandSeatPlayer)];
         }
 
+        // set context
+        NSDictionary* context = @{@"player_id":player[@"player"][@"player_id"],@"commands":commands};
+        [actionSheet setAssociatedObject:context];
+
         // pop actionsheet
-        [actionSheet setAssociatedObject:player];
         [actionSheet showInView:[self view]];
     }
 
@@ -193,23 +215,27 @@
 #pragma mark UIActionSheetDelegate
 
 - (void)actionSheet:(UIActionSheet*)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    NSDictionary* player = [actionSheet associatedObject];
-    NSString* playerId = player[@"player"][@"player_id"];
+    if(buttonIndex != [actionSheet cancelButtonIndex]) {
+        NSDictionary* context = [actionSheet associatedObject];
+        NSString* playerId = context[@"player_id"];
+        NSArray* commands = context[@"commands"];
 
-    if(player[@"seat_number"] == nil) {
-        NSInteger opsIdx = buttonIndex - 1;
-        if(opsIdx == 0) {
-            [[self session] seatPlayer:playerId withBlock:nil];
-        }
-    } else {
-        NSInteger opsIdx = buttonIndex - 1;
-        NSInteger fundingIdx = buttonIndex - 3;
-        if(opsIdx == 0) {
-            [[self session] unseatPlayer:playerId withBlock:nil];
-        } else if(opsIdx == 1) {
-            [[self session] bustPlayer:playerId withBlock:nil];
-        } else {
-            [[self session] fundPlayer:playerId withFunding:@(fundingIdx)];
+        switch([commands[buttonIndex] integerValue]) {
+            case kCommandSeatPlayer:
+                [[self session] seatPlayer:playerId withBlock:nil];
+                break;
+
+            case kCommandUnseatPlayer:
+                [[self session] unseatPlayer:playerId withBlock:nil];
+                break;
+
+            case kCommandBustPlayer:
+                [[self session] bustPlayer:playerId withBlock:nil];
+                break;
+
+            default:
+                [[self session] fundPlayer:playerId withFunding:commands[buttonIndex]];
+                break;
         }
     }
 }
