@@ -230,7 +230,7 @@ void gameinfo::dump_derived_state(json& state) const
     bool started(this->current_blind_level > 0 && this->current_blind_level < this->blind_levels.size());
 
     // are we on break?
-    bool on_break(this->time_remaining == duration_t::zero() && this->break_time_remaining == duration_t::zero());
+    bool on_break(this->time_remaining == duration_t::zero() && this->break_time_remaining != duration_t::zero());
     state.set_value("on_break", on_break);
 
     std::ostringstream os;
@@ -298,13 +298,13 @@ void gameinfo::dump_derived_state(json& state) const
     // next round text
     if(started && this->current_blind_level+1 < this->blind_levels.size())
     {
-        if(on_break)
+        if(on_break || this->blind_levels[this->current_blind_level].break_duration == 0)
         {
-            os << "BREAK";
+            os << this->blind_levels[this->current_blind_level+1];
         }
         else
         {
-            os << this->blind_levels[this->current_blind_level+1];
+            os << "BREAK";
         }
     }
     else
