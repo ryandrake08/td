@@ -40,7 +40,7 @@
 - (void)application:(UIApplication*)application didReceiveLocalNotification:(UILocalNotification*)notification {
     UIApplicationState state = [application applicationState];
 
-    NSLog(@"Received notification while app in state: %ld", state);
+    NSLog(@"Received notification while app in state: %ld", (long)state);
 
     // Set icon badge number to zero
     application.applicationIconBadgeNumber = 0;

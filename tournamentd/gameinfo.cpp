@@ -182,19 +182,19 @@ static std::ostream& operator<<(std::ostream& os, const std::chrono::millisecond
 
     if(duration < 60000) {
         // SS.MSS
-        unsigned long s = duration / 1000 % 60;
-        unsigned long ms = duration % 1000;
+        long long s = duration / 1000 % 60;
+        long long ms = duration % 1000;
         os << s << '.' << std::setw(3) << std::setfill('0') << ms;
     } else if(duration < 3600000) {
         // MM:SS
-        unsigned long m = duration / 60000;
-        unsigned long s = duration / 1000 % 60;
+        long long m = duration / 60000;
+        long long s = duration / 1000 % 60;
         os << m << ':' << std::setw(2) << std::setfill('0') << s;
     } else {
         // HH:MM:SS
-        unsigned long h = duration / 3600000;
-        unsigned long m = duration / 60000 % 60;
-        unsigned long s = duration / 1000 % 60;
+        long long h = duration / 3600000;
+        long long m = duration / 60000 % 60;
+        long long s = duration / 1000 % 60;
         os << h << ':' << std::setw(2) << std::setfill('0') << m << ':' << s;
     }
 
