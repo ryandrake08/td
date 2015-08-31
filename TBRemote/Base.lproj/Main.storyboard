@@ -505,19 +505,27 @@
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" tag="102" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$100,000" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="gHz-N8-XVN">
-                                            <rect key="frame" x="461" y="6" width="131" height="31.5"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="102" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="88 Points" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="gHz-N8-XVN">
+                                            <rect key="frame" x="476" y="6" width="116" height="31.5"/>
                                             <animations/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="31.5" id="ACM-aG-p3j"/>
+                                                <constraint firstAttribute="width" constant="116" id="Bpi-AW-S7w"/>
                                                 <constraint firstAttribute="width" constant="131" id="BxL-6f-dia"/>
+                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="116" id="sUh-V4-B0z"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="26"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="BxL-6f-dia"/>
+                                                    <exclude reference="sUh-V4-B0z"/>
+                                                </mask>
+                                            </variation>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Player Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="Y9h-yo-paa">
-                                            <rect key="frame" x="92" y="6" width="361" height="31.5"/>
+                                            <rect key="frame" x="92" y="6" width="376" height="31.5"/>
                                             <animations/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="31.5" id="esT-K3-67e"/>

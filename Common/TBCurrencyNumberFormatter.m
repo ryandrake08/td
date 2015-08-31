@@ -13,7 +13,7 @@
 - (void)setCurrencyCode:(NSString *)currencyCode {
     [super setCurrencyCode:currencyCode];
     if([currencyCode isEqualToString:@"XXX"]) {
-        [super setCurrencySymbol:@"₧"];
+        [super setCurrencySymbol:NSLocalizedString(@"Points", nil)];
         [super setPositiveFormat:@"#,##0 ¤"];
         [super setNegativeFormat:@"#,##0 ¤"];
     } else {
