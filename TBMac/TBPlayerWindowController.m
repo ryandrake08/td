@@ -17,8 +17,6 @@
 
 @interface TBPlayerWindowController ()
 
-#define kWarningTime 60000
-
 // View controllers
 @property (strong) IBOutlet TBStatsViewController* statsViewController;
 @property (strong) IBOutlet TBResultsViewController* resultsViewController;
@@ -73,7 +71,7 @@
         id old = change[@"old"];
         id new = change[@"new"];
         if(![old isEqualTo:[NSNull null]] && ![new isEqualTo:[NSNull null]]) {
-            if([old integerValue] > kWarningTime && [new integerValue] <= kWarningTime && [new integerValue] != 0) {
+            if([old integerValue] > kAudioWarningTime && [new integerValue] <= kAudioWarningTime && [new integerValue] != 0) {
                 [[self warningSound] play];
             }
         }

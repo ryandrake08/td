@@ -17,6 +17,9 @@
 // Standard 1 minute countdown
 #define kActionClockRequestTime 60000
 
+// Audio warning
+#define kAudioWarningTime 60000
+
 @interface TournamentSession : NSObject
 
 // currently connected server, or nil if either connected locally or not connected
