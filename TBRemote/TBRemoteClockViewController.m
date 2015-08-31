@@ -19,7 +19,9 @@
 
 @property (nonatomic, weak) IBOutlet UILabel* elapsedLabel;
 @property (nonatomic, weak) IBOutlet UILabel* clockLabel;
+@property (nonatomic, weak) IBOutlet UILabel* currentGameLabel;
 @property (nonatomic, weak) IBOutlet UILabel* currentRoundLabel;
+@property (nonatomic, weak) IBOutlet UILabel* nextGameLabel;
 @property (nonatomic, weak) IBOutlet UILabel* nextRoundLabel;
 @property (nonatomic, weak) IBOutlet UILabel* playersLeftLabel;
 @property (nonatomic, weak) IBOutlet UILabel* averageStackLabel;
@@ -74,10 +76,18 @@
         [[observer clockLabel] setText:[object clockText]];
     }];
 
+    [[self KVOController] observe:[self session] keyPath:@"currentGameText" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
+        [[observer currentGameLabel] setText:[object currentGameText]];
+    }];
+
     [[self KVOController] observe:[self session] keyPath:@"currentRoundText" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
         [[observer currentRoundLabel] setText:[object currentRoundText]];
     }];
 
+    [[self KVOController] observe:[self session] keyPath:@"nextGameText" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
+        [[observer nextGameLabel] setText:[object nextGameText]];
+    }];
+    
     [[self KVOController] observe:[self session] keyPath:@"nextRoundText" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
         [[observer nextRoundLabel] setText:[object nextRoundText]];
     }];
