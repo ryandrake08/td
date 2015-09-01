@@ -223,7 +223,7 @@
     [savePanel setAllowedFileTypes:@[@"CSV"]];
     [savePanel beginSheetModalForWindow:[self mainWindow] completionHandler:^(NSInteger result) {
         if(result == NSFileHandlingPanelOKButton) {
-            [self saveToURL:[savePanel URL] ofType:@"CSV" forSaveOperation:NSSaveToOperation completionHandler:^(NSError* _Nullable errorOrNil) {
+            [self saveToURL:[savePanel URL] ofType:@"CSV" forSaveOperation:NSSaveToOperation completionHandler:^(NSError* errorOrNil) {
                 NSLog(@"%@", errorOrNil);
             }];
         }
