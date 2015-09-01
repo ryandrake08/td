@@ -26,32 +26,24 @@
     }
 
     // register for KVO
-    [[self KVOController] observe:[self session] keyPaths:@[@"isConnected", @"authorized", @"currentBlindLevel"] options:0 block:^(id observer, id object, NSDictionary *change) {
-        BOOL connected = [object isConnected];
-        BOOL authorized = [object isAuthorized];
-        if(connected && authorized) {
-            [[observer previousRoundButton] setHidden:NO];
-            [[observer pauseResumeButton] setHidden:NO];
-            [[observer nextRoundButton] setHidden:NO];
-            [[observer callClockButton] setHidden:NO];
+    [[self KVOController] observe:[self session] keyPaths:@[@"connected", @"authorized", @"currentBlindLevel"] options:0 block:^(id observer, id object, NSDictionary *change) {
+        if([[observer session] isConnected] && [[observer session] isAuthorized]) {
+            if([[[observer session] currentBlindLevel] unsignedIntegerValue] == 0) {
+                [[observer previousRoundButton] setEnabled:NO];
+                [[observer pauseResumeButton] setEnabled:NO];
+                [[observer nextRoundButton] setEnabled:NO];
+                [[observer callClockButton] setEnabled:YES];
+            } else {
+                [[observer previousRoundButton] setEnabled:YES];
+                [[observer pauseResumeButton] setEnabled:YES];
+                [[observer nextRoundButton] setEnabled:YES];
+                [[observer callClockButton] setEnabled:YES];
+            }
         } else {
-            [[observer previousRoundButton] setHidden:YES];
-            [[observer pauseResumeButton] setHidden:YES];
-            [[observer nextRoundButton] setHidden:YES];
-            [[observer callClockButton] setHidden:YES];
-        }
-
-        NSUInteger currentBlindLevel = [[object currentBlindLevel] unsignedIntegerValue];
-        if(currentBlindLevel == 0) {
             [[observer previousRoundButton] setEnabled:NO];
-            [[observer pauseResumeButton] setEnabled:YES];
+            [[observer pauseResumeButton] setEnabled:NO];
             [[observer nextRoundButton] setEnabled:NO];
             [[observer callClockButton] setEnabled:NO];
-        } else {
-            [[observer previousRoundButton] setEnabled:YES];
-            [[observer pauseResumeButton] setEnabled:YES];
-            [[observer nextRoundButton] setEnabled:YES];
-            [[observer callClockButton] setEnabled:YES];
         }
     }];
 }
