@@ -30,6 +30,7 @@
 @property (nonatomic, weak) IBOutlet UIButton* nextRoundButton;
 @property (nonatomic, weak) IBOutlet UIButton* callClockButton;
 @property (nonatomic, weak) IBOutlet TBActionClockView* actionClockView;
+@property (nonatomic, weak) IBOutlet UIScrollView* scrollView;
 
 @end
 
@@ -40,6 +41,9 @@
 
     // get model
     _session = [(TBAppDelegate*)[[UIApplication sharedApplication] delegate] session];
+
+    // set scroll view content inset
+    [[self scrollView] setContentInset:UIEdgeInsetsMake(0.0,0.0,49.0,0.0)];
 
     // register for KVO
     [[self KVOController] observe:[self session] keyPaths:@[@"connected", @"authorized", @"currentBlindLevel"] options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
