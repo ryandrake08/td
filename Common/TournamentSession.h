@@ -22,9 +22,6 @@
 
 @interface TournamentSession : NSObject
 
-// currently connected server, or nil if either connected locally or not connected
-@property (nonatomic, strong, readonly) NSNetService* currentService;
-
 // all tournament configuration and state
 @property (nonatomic, strong, readonly) NSMutableDictionary* state;
 

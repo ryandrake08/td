@@ -13,9 +13,6 @@
 
 @interface TournamentSession() <TournamentConnectionDelegate>
 
-// record currently connected server
-@property (nonatomic, strong) NSNetService* currentService;
-
 // all tournament configuration and state
 @property (nonatomic, strong) NSMutableDictionary* state;
 
@@ -34,7 +31,6 @@
 
 - (instancetype)init {
     if (self = [super init]) {
-        _currentService = nil;
         _state = [[NSMutableDictionary alloc] init];
         _authorized = NO;
         _connection = [[TournamentConnection alloc] init];
@@ -56,7 +52,6 @@
 
 - (BOOL)connectToNetService:(NSNetService*)service {
     [self disconnect];
-    [self setCurrentService:service];
     return [[self connection] connectToNetService:service];
 }
 
@@ -68,7 +63,6 @@
 - (void)disconnect {
     [self setAuthorized:NO];
     [[self connection] close];
-    [self setCurrentService:nil];
 }
 
 + (BOOL)automaticallyNotifiesObserversForKey:(NSString*)key {

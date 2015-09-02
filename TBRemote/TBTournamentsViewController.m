@@ -21,6 +21,7 @@
 
 @property (nonatomic, strong) TournamentSession* session;
 @property (nonatomic, strong) IBOutlet TournamentBrowser* tournamentBrowser;
+@property (nonatomic, strong) NSNetService* currentService;
 @property (nonatomic, copy) NSArray* netServices;
 @end
 
@@ -33,12 +34,12 @@
     _session = [(TBAppDelegate*)[[UIApplication sharedApplication] delegate] session];
 
     // initialize tournament browser
-    [_tournamentBrowser search];
+    [[self tournamentBrowser] search];
 
     // register for KVO
     [[self KVOController] observe:[[self session] state] keyPaths:@[@"connected", @"authorized"] options:0 block:^(id observer, id object, NSDictionary *change) {
         // update table view cell
-        [observer reloadTableRowForService:[[self session] currentService]];
+        [observer reloadTableRowForService:[self currentService]];
     }];
 }
 
@@ -67,7 +68,6 @@
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"ServiceCell" forIndexPath:indexPath];
 
     NSNetService* cellService = [self netServices][[indexPath row]];
-    NSNetService* currentService = [[self session] currentService];
     BOOL connected = [[[self session] state][@"connected"] boolValue];
     BOOL authorized = [[[self session] state][@"authorized"] boolValue];
 
@@ -75,7 +75,7 @@
     [[cell textLabel] setText:[cellService name]];
 
     // set checkmark and accessory text if connected
-    if(cellService == currentService && connected) {
+    if(cellService == [self currentService] && connected) {
         if(authorized) {
             [[cell detailTextLabel] setText:NSLocalizedString(@"Admin", nil)];
         } else {
@@ -94,11 +94,10 @@
 
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
     NSNetService* cellService = [self netServices][[indexPath row]];
-    NSNetService* currentService = [[self session] currentService];
     BOOL connected = [[[self session] state][@"connected"] boolValue];
     BOOL authorized = [[[self session] state][@"authorized"] boolValue];
 
-    if(cellService == currentService && connected) {
+    if(cellService == [self currentService] && connected) {
         NSString* otherButtons = nil;
         if(!authorized) {
             otherButtons = NSLocalizedString(@"Administer Game", nil);
@@ -113,6 +112,7 @@
         [actionSheet showInView:[self view]];
     } else {
         // connect
+        [self setCurrentService:cellService];
         if(![[self session] connectToNetService:cellService]) {
             // TODO: handle error
         }
@@ -135,6 +135,7 @@
 - (void)actionSheet:(UIActionSheet*)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     if(buttonIndex == [actionSheet destructiveButtonIndex]) {
         [[self session] disconnect];
+        [self setCurrentService:nil];
     } else if(buttonIndex == [actionSheet cancelButtonIndex]) {
         // do nothing
     } else if(buttonIndex == [actionSheet firstOtherButtonIndex]) {
