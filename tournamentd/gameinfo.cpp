@@ -17,6 +17,7 @@ gameinfo::gameinfo() :
     percent_seats_paid(1.0),
     round_payouts(false),
     payout_flatness(1.0),
+    previous_blind_level_hold_duration(2000),
     tables(0),
     total_chips(0),
     total_cost(0.0),
@@ -1242,13 +1243,11 @@ bool gameinfo::previous_blind_level(duration_t offset)
         throw td::protocol_error("tournament not started");
     }
 
-    // if elapsed time > 2 seconds, just restart current blind level
-    // TODO: configurable?
-    static auto max_elapsed_time_ms(2000);
-
     // calculate elapsed time in this blind level
     auto blind_level_elapsed_time(this->blind_levels[this->current_blind_level].duration - this->time_remaining.count());
-    if(blind_level_elapsed_time > max_elapsed_time_ms || this->current_blind_level == 1)
+
+    // if elapsed time > 2 seconds, just restart current blind level
+    if(blind_level_elapsed_time > this->previous_blind_level_hold_duration || this->current_blind_level == 1)
     {
         logger(LOG_INFO) << "restarting blind level " << this->current_blind_level << '\n';
 

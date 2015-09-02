@@ -417,6 +417,7 @@ bool tournament::handle_client_input(std::iostream& client)
                         blind_levels (array): Discription of each blind level
                         available_chips (array): Discription of each chip color and denomination
                         manual_payouts (array): Manual payout definitions: number of players and an array of payouts
+                        previous_blind_level_hold_duration (integer): How long after round starts should prev command go to the previous round (rather than restart)? (ms)
                      */
                     this->handle_cmd_get_config(out);
                 }
@@ -494,6 +495,7 @@ bool tournament::handle_client_input(std::iostream& client)
                         blind_levels (optional, array): Discription of each blind level
                         available_chips (optional, array): Discription of each chip color and denomination
                         manual_payouts (optional, array): Manual payout definitions: number of players and an array of payouts
+                        previous_blind_level_hold_duration (optional, integer): How long after round starts should prev command go to the previous round (rather than restart)? (ms)
 
                      output:
                         (none)
