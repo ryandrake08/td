@@ -45,16 +45,14 @@
     // set scroll view content inset
     [[self scrollView] setContentInset:UIEdgeInsetsMake(0.0,0.0,49.0,0.0)];
 
-    // TODO: Go back to logic that takes into account whether the game has started
-    // TODO: Fix case: RemoteClockView->TournamentsView->Grant Admin->RemoteClockView
-
     // register for KVO
-    [[self KVOController] observe:[self session] keyPaths:@[@"isConnected", @"isAuthorized"] options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
-        BOOL enable = [object isConnected] && [object isAuthorized];
-        [[observer previousRoundButton] setEnabled:enable];
-        [[observer pauseResumeButton] setEnabled:enable];
-        [[observer nextRoundButton] setEnabled:enable];
-        [[observer callClockButton] setEnabled:enable];
+    [[self KVOController] observe:[[self session] state] keyPaths:@[@"connected", @"authorized", @"current_blind_level"] options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
+        BOOL authorized = [object[@"connected"] boolValue] && [object[@"authorized"] boolValue];
+        BOOL playing = [object[@"current_blind_level"] unsignedIntegerValue] != 0;
+        [[observer previousRoundButton] setEnabled:authorized && playing];
+        [[observer pauseResumeButton] setEnabled:authorized];
+        [[observer nextRoundButton] setEnabled:authorized && playing];
+        [[observer callClockButton] setEnabled:authorized && playing];
     }];
 
     [[self KVOController] observe:[[self session] state] keyPath:@"elapsed_time_text" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {

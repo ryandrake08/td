@@ -36,18 +36,9 @@
     [_tournamentBrowser search];
 
     // register for KVO
-    [[self KVOController] observe:[self session] keyPath:@"isConnected" options:0 block:^(id observer, id object, NSDictionary *change) {
-        NSNetService* service = [object currentService];
-
+    [[self KVOController] observe:[[self session] state] keyPaths:@[@"connected", @"authorized"] options:0 block:^(id observer, id object, NSDictionary *change) {
         // update table view cell
-        [observer reloadTableRowForService:service];
-
-        if([object isConnected]) {
-            // check authorization
-            [object checkAuthorizedWithBlock:^(BOOL authorized) {
-                [observer reloadTableRowForService:service];
-            }];
-        }
+        [observer reloadTableRowForService:[[self session] currentService]];
     }];
 }
 
@@ -77,15 +68,15 @@
 
     NSNetService* cellService = [self netServices][[indexPath row]];
     NSNetService* currentService = [[self session] currentService];
-    BOOL isConnected = [[self session] isConnected];
-    BOOL isAuthorized = [[self session] isAuthorized];
+    BOOL connected = [[[self session] state][@"connected"] boolValue];
+    BOOL authorized = [[[self session] state][@"authorized"] boolValue];
 
     // always set name
     [[cell textLabel] setText:[cellService name]];
 
     // set checkmark and accessory text if connected
-    if(cellService == currentService && isConnected) {
-        if(isAuthorized) {
+    if(cellService == currentService && connected) {
+        if(authorized) {
             [[cell detailTextLabel] setText:NSLocalizedString(@"Admin", nil)];
         } else {
             [[cell detailTextLabel] setText:NSLocalizedString(@"Connected", nil)];
@@ -104,12 +95,12 @@
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
     NSNetService* cellService = [self netServices][[indexPath row]];
     NSNetService* currentService = [[self session] currentService];
-    BOOL isConnected = [[self session] isConnected];
-    BOOL isAuthorized = [[self session] isAuthorized];
+    BOOL connected = [[[self session] state][@"connected"] boolValue];
+    BOOL authorized = [[[self session] state][@"authorized"] boolValue];
 
-    if(cellService == currentService && isConnected) {
+    if(cellService == currentService && connected) {
         NSString* otherButtons = nil;
-        if(!isAuthorized) {
+        if(!authorized) {
             otherButtons = NSLocalizedString(@"Administer Game", nil);
         }
 
@@ -164,10 +155,7 @@
         // do nothing
     } else if(buttonIndex == [alertView firstOtherButtonIndex]) {
         // check authorization
-        [[self session] checkAuthorizedWithBlock:^(BOOL authorized) {
-            NSNetService* currentService = [[self session] currentService];
-            [self reloadTableRowForService:currentService];
-        }];
+        [[self session] checkAuthorizedWithBlock:nil];
     }
 }
 

@@ -73,10 +73,6 @@
     [self setCurrentService:nil];
 }
 
-- (BOOL)isConnected {
-    return [[self connection] isConnected];
-}
-
 + (BOOL)automaticallyNotifiesObserversForKey:(NSString*)key {
     if([key isEqualToString:NSStringFromSelector(@selector(connection))]) {
         return NO;
@@ -152,8 +148,9 @@
         if(error != nil) {
             NSLog(@"checkAuthorizedWithBlock: %@\n", error);
         } else {
+            // set internal state
+            [self state][@"authorized"] = json[@"authorized"];
             // handle authorization check
-            [self setAuthorized:[json[@"authorized"] boolValue]];
             if(block != nil) {
                 block([json[@"authorized"] boolValue]);
             }
@@ -317,8 +314,6 @@
             NSLog(@"bustPlayerWithBlock: %@\n", error);
         } else {
             // handle player movement
-            // for now, just hand back the json
-            // TODO: make this more sophisticated and populate a separate NSArray with objects
             if(block != nil) {
                 block(json[@"players_moved"]);
             }
@@ -355,8 +350,8 @@
 
 - (void)tournamentConnectionDidConnect:(TournamentConnection*)tc {
     NSAssert([self connection] == tc, @"Unexpected connection from %@", tc);
-    [self willChangeValueForKey:NSStringFromSelector(@selector(isConnected))];
-    [self didChangeValueForKey:NSStringFromSelector(@selector(isConnected))];
+    // set state
+    [self state][@"connected"] = [NSNumber numberWithBool:YES];
 
     // always check if we're authorized right away
     [self checkAuthorizedWithBlock:nil];
@@ -369,8 +364,9 @@
 
 - (void)tournamentConnectionDidClose:(TournamentConnection*)tc {
     NSAssert([self connection] == tc, @"Unexpected close from %@", tc);
-    [self willChangeValueForKey:NSStringFromSelector(@selector(isConnected))];
-    [self didChangeValueForKey:NSStringFromSelector(@selector(isConnected))];
+    // set state
+    [[self state] removeAllObjects];
+    [self state][@"connected"] = [NSNumber numberWithBool:NO];
 }
 
 - (void)tournamentConnection:(TournamentConnection*)tc didReceiveData:(id)json {

@@ -28,14 +28,6 @@
 // all tournament configuration and state
 @property (nonatomic, strong, readonly) NSMutableDictionary* state;
 
-// TODO: Make connected and authorized part of tournamentd state
-
-// YES if currently connected locally or to a server
-@property (nonatomic, readonly, getter=isConnected) BOOL connected;
-
-// YES if currently authorized with server
-@property (nonatomic, readonly, getter=isAuthorized) BOOL authorized;
-
 // client identifier (used for authenticating with servers)
 + (NSNumber*)clientIdentifier;
 

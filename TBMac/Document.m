@@ -56,20 +56,17 @@
         _configuration = [[NSMutableDictionary alloc] init];
 
         // register for KVO
-        [[self KVOController] observe:[self session] keyPath:@"isConnected" options:0 block:^(id observer, id object, NSDictionary *change) {
-            if([object isConnected]) {
-                // check authorization
-                [object checkAuthorizedWithBlock:^(BOOL authorized) {
-                    NSLog(@"Connected and authorized locally");
+        [[self KVOController] observe:[[self session] state] keyPaths:@[@"connected", @"authorized"] options:0 block:^(id observer, id object, NSDictionary *change) {
+            if([object[@"connected"] boolValue] && [object[@"authorized"] boolValue]) {
+                NSLog(@"Connected and authorized locally");
 
-                    // on connection, send entire configuration to session, unconditionally, and then replace with whatever the session has
-                    NSLog(@"Synchronizing session unconditionally");
-                    [[self session] configure:[self configuration] withBlock:^(id json) {
-                        if(![json isEqual:[self configuration]]) {
-                            NSLog(@"Document differs from session");
-                            [[self configuration] setDictionary:json];
-                        }
-                    }];
+                // on connection, send entire configuration to session, unconditionally, and then replace with whatever the session has
+                NSLog(@"Synchronizing session unconditionally");
+                [[self session] configure:[self configuration] withBlock:^(id json) {
+                    if(![json isEqual:[self configuration]]) {
+                        NSLog(@"Document differs from session");
+                        [[self configuration] setDictionary:json];
+                    }
                 }];
             }
         }];

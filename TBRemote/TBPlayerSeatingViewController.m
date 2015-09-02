@@ -154,7 +154,7 @@
 #define kCommandBustPlayer -3
 
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
-    if([[self session] isConnected] && [[self session] isAuthorized]) {
+    if([[[self session] state][@"connected"] boolValue] && [[[self session] state][@"authorized"] boolValue]) {
         NSDictionary* player;
         UIActionSheet* actionSheet = [[UIActionSheet alloc] initWithTitle:nil
                                                                  delegate:self
