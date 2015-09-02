@@ -174,6 +174,14 @@
     }
     [self setNetServices:newArray];
 
+    // if just one, automatically connect
+    if([newArray count] == 1) {
+        // connect
+        [self setCurrentService:newArray[0]];
+        if(![[self session] connectToNetService:newArray[0]]) {
+            // TODO: handle error
+        }
+    }
     // reload
     [[self tableView] reloadData];
 }
