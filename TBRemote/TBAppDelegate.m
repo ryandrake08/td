@@ -12,10 +12,6 @@
 
 @interface TBAppDelegate ()
 
-// keep track of when we last updated
-@property (nonatomic, strong) NSDate* nextRoundNotificationUpdate;
-@property (nonatomic, strong) NSDate* nextBreakNotificationUpdate;
-
 @end
 
 @implementation TBAppDelegate
@@ -26,13 +22,16 @@
         [self setSession:[[TournamentSession alloc] init]];
     }
 
+    // Register local notifications
+    if([UIApplication instancesRespondToSelector:@selector(registerUserNotificationSettings:)]) {
+        UIUserNotificationSettings* settings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeSound categories:nil];
+        [application registerUserNotificationSettings:settings];
+    }
+
     // Handle launching from a notification
     UILocalNotification* locationNotification = [launchOptions objectForKey:UIApplicationLaunchOptionsLocalNotificationKey];
     if(locationNotification) {
         NSLog(@"Received notification while app not running");
-
-        // Set icon badge number to zero
-        application.applicationIconBadgeNumber = 0;
     }
     return YES;
 }
@@ -41,15 +40,21 @@
     UIApplicationState state = [application applicationState];
 
     NSLog(@"Received notification while app in state: %ld", (long)state);
-
-    // Set icon badge number to zero
-    application.applicationIconBadgeNumber = 0;
+    if(state != UIApplicationStateActive) {
+        // switch to clock tab if app is inactive or running in the background
+        [(UITabBarController*)[[self window] rootViewController] setSelectedIndex:1];
+    }
 }
 
 - (void)applicationWillResignActive:(UIApplication*)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
     NSLog(@"applicationWillResignActive");
+
+    // schedule round notification
+    [self updateNotificationsForSessionState:[[self session] state]];
+
+    // stop observing KVO while not active
     [[self KVOController] unobserveAll];
 }
 
@@ -66,40 +71,9 @@
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     NSLog(@"applicationDidBecomeActive");
 
-    [[self KVOController] observe:[[self session] state] keyPath:@"current_round_text" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
-        // also clear schedule for notification updates
-        [self setNextRoundNotificationUpdate:nil];
-        [self setNextBreakNotificationUpdate:nil];
-    }];
-
-    [[self KVOController] observe:[[self session] state] keyPath:@"time_remaining" options:0 block:^(id observer, id object, NSDictionary *change) {
-        if([self nextRoundNotificationUpdate] == nil || [[NSDate date] compare:[self nextRoundNotificationUpdate]] == NSOrderedDescending) {
-            NSLog(@"Scheduling notifications for regular round, time remaining: %@", object[@"timeRemaining"]);
-
-            // schedule next try
-            [self setNextRoundNotificationUpdate:[NSDate dateWithTimeIntervalSinceNow:60.0]];
-
-            // is there a break next?
-            NSUInteger currentLevel = [object[@"current_blind_level"] unsignedIntegerValue];
-            NSString* nextRoundText = (object[@"blind_levels"][currentLevel][@"break_duration"] == nil) ? object[@"next_round_text"] : nil;
-
-            // update
-            NSInteger timeRemaining = [object[@"time_remaining"] integerValue];
-            [self updateNotificationsForNextRound:nextRoundText withTimeRemaining:timeRemaining];
-        }
-    }];
-
-    [[self KVOController] observe:[[self session] state] keyPath:@"break_time_remaining" options:0 block:^(id observer, id object, NSDictionary *change) {
-        if([self nextBreakNotificationUpdate] == nil || [[NSDate date] compare:[self nextBreakNotificationUpdate]] == NSOrderedDescending) {
-            NSLog(@"Scheduling notifications for break, time remaining: %@", object[@"break_time_remaining"]);
-
-            // schedule next try
-            [self setNextBreakNotificationUpdate:[NSDate dateWithTimeIntervalSinceNow:60.0]];
-
-            // update
-            NSInteger timeRemaining = [object[@"break_time_remaining"] integerValue];
-            [self updateNotificationsForNextRound:object[@"next_round_text"] withTimeRemaining:timeRemaining];
-        }
+    [[self KVOController] observe:[[self session] state] keyPaths:@[@"running", @"current_round_text"] options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
+        // schedule round notification (next runloop)
+        [self performSelector:@selector(updateNotificationsForSessionState:) withObject:[[self session] state] afterDelay:0.0];
     }];
 }
 
@@ -109,57 +83,64 @@
 
 #pragma mark Notification
 
-- (void)updateLocalNotificationNamed:(NSString*)notificationId interval:(NSTimeInterval)interval body:(NSString*)alertBody action:(NSString*)actionTitle sound:(NSString*)soundName {
-    // cancel old notification
-    for (UILocalNotification* notification in [[UIApplication sharedApplication] scheduledLocalNotifications]) {
-        if([[[notification userInfo] objectForKey:@"notificationId"] isEqualToString:notificationId]) {
-            NSLog(@"Removing old notification:%@", [notification alertBody]);
-            [[UIApplication sharedApplication] cancelLocalNotification:notification];
+- (void)updateNotificationsForSessionState:(NSDictionary*)state {
+    // relevant session variables
+    BOOL running = [state[@"running"] boolValue];
+    NSInteger timeRemaining = [state[@"time_remaining"] integerValue];
+    NSInteger breakTimeRemaining = [state[@"break_time_remaining"] integerValue];
+    NSString* nextRoundText = state[@"next_round_text"];
+
+    // first, cancel
+    [[UIApplication sharedApplication] cancelAllLocalNotifications];
+
+    // schedule new notification if the clock is running
+    if(running && (timeRemaining > 0 || breakTimeRemaining > 0)) {
+        NSTimeInterval interval;
+        NSString* alertBody;
+        NSString* soundName;
+
+        // four possible notifications
+        if(timeRemaining > kAudioWarningTime) {
+            // more than one minute of play left in round
+            interval = (timeRemaining - kAudioWarningTime) / 1000.0;
+            soundName = @"s_warning.caf";
+            if(breakTimeRemaining > 0) {
+                alertBody = NSLocalizedString(@"One minute until break", nil);
+            } else {
+                alertBody = [NSLocalizedString(@"One minute until next round: ", nil) stringByAppendingString:nextRoundText];
+            }
+        } else if(timeRemaining > 0) {
+            // less than one minute of play left in round
+            interval = timeRemaining / 1000.0;
+            if(breakTimeRemaining > 0) {
+                alertBody = NSLocalizedString(@"Break time", nil);
+                soundName = @"s_break.caf";
+            } else {
+                alertBody = [NSLocalizedString(@"New round: ", nil) stringByAppendingString:nextRoundText];
+                soundName = @"s_next.caf";
+            }
+        } else if(breakTimeRemaining > kAudioWarningTime) {
+            // more than one minute left in break
+            interval = (breakTimeRemaining - kAudioWarningTime) / 1000.0;
+            soundName = @"s_warning.caf";
+            alertBody = [NSLocalizedString(@"One minute until next round: ", nil) stringByAppendingString:nextRoundText];
+        } else if(breakTimeRemaining > 0) {
+            // less than one minute left in break
+            interval = breakTimeRemaining / 1000.0;
+            alertBody = [NSLocalizedString(@"New round: ", nil) stringByAppendingString:nextRoundText];
+            soundName = @"s_next.caf";
         }
+
+        // create and schedule local notification
+        UILocalNotification* localNotification = [[UILocalNotification alloc] init];
+        [localNotification setTimeZone:[NSTimeZone localTimeZone]];
+        [localNotification setAlertAction:NSLocalizedString(@"Show timer", @"Launch app and show tournament timer")];
+        [localNotification setFireDate:[NSDate dateWithTimeIntervalSinceNow:interval]];
+        [localNotification setAlertBody:alertBody];
+        [localNotification setSoundName:soundName];
+        NSLog(@"Creating new notification:%@ for %@", [localNotification alertBody], [localNotification fireDate]);
+        [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
     }
-
-    // create new one
-    UILocalNotification* localNotification = [[UILocalNotification alloc] init];
-    [localNotification setFireDate:[NSDate dateWithTimeIntervalSinceNow:interval]];
-    [localNotification setTimeZone:[NSTimeZone localTimeZone]];
-    [localNotification setAlertBody:alertBody];
-    [localNotification setAlertAction:actionTitle];
-    [localNotification setSoundName:soundName];
-    [localNotification setUserInfo:@{@"notificationId":notificationId}];
-    NSLog(@"Creating new notification:%@ for %@", [localNotification alertBody], [localNotification fireDate]);
-    [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
-}
-
-- (void)updateNotificationsForNextRound:(NSString*)nextRoundText withTimeRemaining:(NSInteger)timeRemaining {
-    // different message/sounds depending on whether we are breaking next
-    NSString* warningBody;
-    NSString* nextBody;
-    NSString* nextSound;
-    if(nextRoundText == nil) {
-        warningBody = @"One minute until break";
-        nextBody = @"Break time";
-        nextSound = @"s_break.caf";
-    } else {
-        warningBody = [@"One minute until next round: " stringByAppendingString:nextRoundText];
-        nextBody = [@"New round: " stringByAppendingString:nextRoundText];
-        nextSound = @"s_next.caf";
-    }
-
-    // if we're > kAudioWarningTime away, also schedule notification for warning
-    if(timeRemaining > kAudioWarningTime) {
-        [self updateLocalNotificationNamed:@"warning"
-                                  interval:(timeRemaining-kAudioWarningTime)/1000.0
-                                      body:warningBody
-                                    action:@"Show timer"
-                                     sound:@"s_warning.caf"];
-    }
-
-    // schedule notification for round change
-    [self updateLocalNotificationNamed:@"next"
-                              interval:timeRemaining/1000.0
-                                  body:nextBody
-                                action:@"Show timer"
-                                 sound:nextSound];
 }
 
 @end

@@ -178,7 +178,10 @@
     if([newArray count] == 1) {
         // connect
         [self setCurrentService:newArray[0]];
-        if(![[self session] connectToNetService:newArray[0]]) {
+        if([[self session] connectToNetService:newArray[0]]) {
+            TBAppDelegate* appDelegate = (TBAppDelegate*)[[UIApplication sharedApplication] delegate];
+            [(UITabBarController*)[[appDelegate window] rootViewController] setSelectedIndex:1];
+        } else {
             // TODO: handle error
         }
     }
