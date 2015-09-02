@@ -16,9 +16,6 @@
 // all tournament configuration and state
 @property (nonatomic, strong) NSMutableDictionary* state;
 
-// YES if currently authorized with server
-@property (nonatomic, assign) BOOL authorized;
-
 // the connection object, handles networking and JSON serialization
 @property (nonatomic, strong) TournamentConnection* connection;
 
@@ -32,7 +29,6 @@
 - (instancetype)init {
     if (self = [super init]) {
         _state = [[NSMutableDictionary alloc] init];
-        _authorized = NO;
         _connection = [[TournamentConnection alloc] init];
         [_connection setDelegate:self];
         _blocksForCommands = [[NSMutableDictionary alloc] init];
@@ -61,7 +57,6 @@
 }
 
 - (void)disconnect {
-    [self setAuthorized:NO];
     [[self connection] close];
 }
 
