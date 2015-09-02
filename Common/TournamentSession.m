@@ -44,27 +44,25 @@
     return self;
 }
 
-- (void)connectToLocalPath:(NSString*)path {
+- (BOOL)connectToLocalPath:(NSString*)path {
     [self disconnect];
-    [[self connection] connectToUnixSocketNamed:path];
-    // TODO: handle error
+    return [[self connection] connectToUnixSocketNamed:path];
 }
 
-- (void)connectToAddress:(NSString *)address port:(NSInteger)port {
+- (BOOL)connectToAddress:(NSString *)address port:(NSInteger)port {
     [self disconnect];
-    [[self connection] connectToAddress:address andPort:port];
-    // TODO: handle error
+    return [[self connection] connectToAddress:address andPort:port];
 }
 
-- (void)connectToNetService:(NSNetService*)service {
+- (BOOL)connectToNetService:(NSNetService*)service {
     [self disconnect];
     [self setCurrentService:service];
-    [[self connection] connectToNetService:service];
+    return [[self connection] connectToNetService:service];
 }
 
-- (void)connectToTournamentService:(TournamentService*)tournament {
+- (BOOL)connectToTournamentService:(TournamentService*)tournament {
     [self disconnect];
-    [[self connection] connectToTournamentService:tournament];
+    return [[self connection] connectToTournamentService:tournament];
 }
 
 - (void)disconnect {

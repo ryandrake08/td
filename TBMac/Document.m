@@ -75,7 +75,9 @@
         NSString* path = [[self server] startWithAuthCode:[TournamentSession clientIdentifier]];
 
         // Start the session, connecting locally
-        [[self session] connectToLocalPath:path];
+        if(![[self session] connectToLocalPath:path]) {
+            // TODO: handle error
+        }
     }
     return self;
 }

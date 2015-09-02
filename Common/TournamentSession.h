@@ -32,10 +32,10 @@
 + (NSNumber*)clientIdentifier;
 
 // connect either locally through a unix socket or to a server
-- (void)connectToLocalPath:(NSString*)path;
-- (void)connectToAddress:(NSString*)address port:(NSInteger)port;
-- (void)connectToNetService:(NSNetService*)service;
-- (void)connectToTournamentService:(TournamentService*)tournament;
+- (BOOL)connectToLocalPath:(NSString*)path;
+- (BOOL)connectToAddress:(NSString*)address port:(NSInteger)port;
+- (BOOL)connectToNetService:(NSNetService*)service;
+- (BOOL)connectToTournamentService:(TournamentService*)tournament;
 - (void)disconnect;
 
 // configure the session with configuration by sending only changed keys

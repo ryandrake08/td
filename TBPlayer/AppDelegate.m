@@ -87,7 +87,9 @@
 }
 
 - (void)connectToTournamentMenuItem:(id)sender {
-    [[self session] connectToTournamentService:[sender representedObject]];
+    if(![[self session] connectToTournamentService:[sender representedObject]]) {
+        // TODO: handle error
+    }
 }
 
 - (IBAction)connectToTournament:(id)sender {
@@ -100,7 +102,9 @@
         if(returnCode == NSModalResponseOK) {
             NSString* address = [connectWindowController address];
             NSInteger port = [connectWindowController port];
-            [[self session] connectToAddress:address port:port];
+            if(![[self session] connectToAddress:address port:port]) {
+                // TODO: handle error
+            }
         }
     }];
 }
