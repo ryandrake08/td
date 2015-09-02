@@ -171,6 +171,9 @@
 		ADD4F1251B91FE2400DAF567 /* NSObject+AssociatedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD4F1241B91FE2400DAF567 /* NSObject+AssociatedObject.m */; settings = {ASSET_TAGS = (); }; };
 		ADD4F1261B91FE2400DAF567 /* NSObject+AssociatedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD4F1241B91FE2400DAF567 /* NSObject+AssociatedObject.m */; settings = {ASSET_TAGS = (); }; };
 		ADD4F1271B91FE2400DAF567 /* NSObject+AssociatedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD4F1241B91FE2400DAF567 /* NSObject+AssociatedObject.m */; settings = {ASSET_TAGS = (); }; };
+		ADD73D291B9692E1006824A1 /* NSDictionary+Changed.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD73D281B9692E1006824A1 /* NSDictionary+Changed.m */; settings = {ASSET_TAGS = (); }; };
+		ADD73D2A1B9692E1006824A1 /* NSDictionary+Changed.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD73D281B9692E1006824A1 /* NSDictionary+Changed.m */; settings = {ASSET_TAGS = (); }; };
+		ADD73D2B1B9692E1006824A1 /* NSDictionary+Changed.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD73D281B9692E1006824A1 /* NSDictionary+Changed.m */; settings = {ASSET_TAGS = (); }; };
 		ADDDAA881B93584300D3AF68 /* TBArrayCountTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = ADDDAA871B93584300D3AF68 /* TBArrayCountTransformer.m */; settings = {ASSET_TAGS = (); }; };
 		ADDDAA8B1B93BCEE00D3AF68 /* TBResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADDDAA8A1B93BCEE00D3AF68 /* TBResultsViewController.m */; settings = {ASSET_TAGS = (); }; };
 		ADE299AF1B7B994200F1393B /* TBSound.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE299AE1B7B994200F1393B /* TBSound.m */; };
@@ -359,6 +362,8 @@
 		ADCECE841B7B101500767DA6 /* TBPlayersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TBPlayersViewController.m; path = TBMac/TBPlayersViewController.m; sourceTree = "<group>"; };
 		ADD4F1231B91FE2400DAF567 /* NSObject+AssociatedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+AssociatedObject.h"; sourceTree = "<group>"; };
 		ADD4F1241B91FE2400DAF567 /* NSObject+AssociatedObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+AssociatedObject.m"; sourceTree = "<group>"; };
+		ADD73D271B9692E1006824A1 /* NSDictionary+Changed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Changed.h"; sourceTree = "<group>"; };
+		ADD73D281B9692E1006824A1 /* NSDictionary+Changed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Changed.m"; sourceTree = "<group>"; };
 		ADDDAA861B93584300D3AF68 /* TBArrayCountTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBArrayCountTransformer.h; sourceTree = "<group>"; };
 		ADDDAA871B93584300D3AF68 /* TBArrayCountTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBArrayCountTransformer.m; sourceTree = "<group>"; };
 		ADDDAA891B93BCEE00D3AF68 /* TBResultsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBResultsViewController.h; sourceTree = "<group>"; };
@@ -534,6 +539,8 @@
 				94FDEAE21B5AE2D60026B25D /* NSData+Delimiter.m */,
 				945410721B6E5C56001E3373 /* NSDateFormatter+ISO8601.h */,
 				945410731B6E5C56001E3373 /* NSDateFormatter+ISO8601.m */,
+				ADD73D271B9692E1006824A1 /* NSDictionary+Changed.h */,
+				ADD73D281B9692E1006824A1 /* NSDictionary+Changed.m */,
 				94FDEAF31B5AE7390026B25D /* NSFont+LineHeight.h */,
 				94FDEAF41B5AE7390026B25D /* NSFont+LineHeight.m */,
 				ADD4F1231B91FE2400DAF567 /* NSObject+AssociatedObject.h */,
@@ -878,6 +885,7 @@
 				943B00D01B3F429500CE55D4 /* datetime.cpp in Sources */,
 				944FF4BB1B3D04CA000362ED /* main.m in Sources */,
 				943B00C91B3F427700CE55D4 /* TournamentDaemon.mm in Sources */,
+				ADD73D2A1B9692E1006824A1 /* NSDictionary+Changed.m in Sources */,
 				94FDEAE91B5AE2D60026B25D /* FBKVOController.m in Sources */,
 				94FDEAFA1B5AEB0B0026B25D /* TBActionClockView.m in Sources */,
 				943B00CA1B3F427700CE55D4 /* TournamentSession.m in Sources */,
@@ -915,6 +923,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				94D04ED81B7C6A5C004F4245 /* TBCurrencyNumberFormatter.m in Sources */,
+				ADD73D2B1B9692E1006824A1 /* NSDictionary+Changed.m in Sources */,
 				9462A3E91B77CB3B00B29002 /* TTTOrdinalNumberFormatter.m in Sources */,
 				ADE299B11B7B9BCB00F1393B /* TBSound.m in Sources */,
 				9476F4691B3C385400A158F8 /* TBAppDelegate.m in Sources */,
@@ -1002,6 +1011,7 @@
 				9462A3E71B77CB3B00B29002 /* TTTOrdinalNumberFormatter.m in Sources */,
 				94FDEAEE1B5AE2D60026B25D /* NSObject+FBKVOController.m in Sources */,
 				ADE4E1281A7DFFD000FC9EFC /* TBTableViewController.m in Sources */,
+				ADD73D291B9692E1006824A1 /* NSDictionary+Changed.m in Sources */,
 				AD8E684C1A6C606700E5A4D8 /* main.m in Sources */,
 				949D70A51B3C442F008D5CD1 /* cJSON.c in Sources */,
 				ADCECE7B1B7B0D9D00767DA6 /* TBControlsViewController.m in Sources */,

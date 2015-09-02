@@ -8,7 +8,7 @@
 
 #import "TournamentSession.h"
 #import "TournamentConnection.h"
-#import "NSString+CamelCase.h"
+#import "NSDictionary+Changed.h"
 #import "TBCurrencyNumberFormatter.h"
 
 @interface TournamentSession() <TournamentConnectionDelegate>
@@ -90,16 +90,9 @@
     NSLog(@"Synchronizing session");
 
     // only send parts of configuration that changed
-    NSMutableDictionary* configToSend = [NSMutableDictionary dictionary];
-    [config enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL* stop) {
-        if(![obj isEqual:[self state][key]]) {
-            configToSend[key] = obj;
-        }
-    }];
-
-    NSLog(@"Sending %ld configuration items", (long)[configToSend count]);
-
+    NSDictionary* configToSend = [config dictionaryWithChangesFromDictionary:[self state]];
     if([configToSend count] > 0) {
+        NSLog(@"Sending %ld configuration items", (long)[configToSend count]);
         [self configure:configToSend withBlock:^(id json) {
             if(![json isEqual:newConfig]) {
                 NSLog(@"Sent and received configurations differ");
@@ -353,12 +346,7 @@
         }
     } else {
         // replace only state that changed
-        NSMutableDictionary* update = [NSMutableDictionary dictionary];
-        [json enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL* stop) {
-            if(![obj isEqual:[self state][key]]) {
-                update[key] = obj;
-            }
-        }];
+        NSDictionary* update = [json dictionaryWithChangesFromDictionary:[self state]];
         [[self state] addEntriesFromDictionary:update];
     }
 }
