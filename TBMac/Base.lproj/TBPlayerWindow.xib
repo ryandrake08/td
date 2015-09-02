@@ -56,7 +56,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <binding destination="-2" name="value" keyPath="self.session.name" id="QuG-Am-fWS"/>
+                                    <binding destination="-2" name="value" keyPath="self.session.state.name" id="QuG-Am-fWS"/>
                                 </connections>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="vb7-Xl-URz" customClass="TBResizeTextField">
@@ -74,7 +74,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <binding destination="-2" name="value" keyPath="self.session.buyinText" id="U2T-xE-3QG"/>
+                                    <binding destination="-2" name="value" keyPath="self.session.state.buyin_text" id="U2T-xE-3QG"/>
                                 </connections>
                             </textField>
                         </subviews>
@@ -109,7 +109,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <binding destination="-2" name="value" keyPath="self.session.clockText" id="dix-jd-8wQ"/>
+                                    <binding destination="-2" name="value" keyPath="self.session.state.clock_text" id="dix-jd-8wQ"/>
                                 </connections>
                             </textField>
                             <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="eXJ-d7-wDK" customClass="TBResizeTextField">
@@ -142,7 +142,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <binding destination="-2" name="value" keyPath="self.session.currentGameText" id="qhu-Si-NBT"/>
+                                    <binding destination="-2" name="value" keyPath="self.session.state.current_game_text" id="qhu-Si-NBT"/>
                                 </connections>
                             </textField>
                             <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="bqH-Qi-teu" customClass="TBResizeTextField">
@@ -160,7 +160,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <binding destination="-2" name="value" keyPath="self.session.currentRoundText" id="9vL-OJ-ME2"/>
+                                    <binding destination="-2" name="value" keyPath="self.session.state.current_round_text" id="9vL-OJ-ME2"/>
                                 </connections>
                             </textField>
                             <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="lKX-kw-5Fc" customClass="TBResizeTextField">
@@ -193,7 +193,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <binding destination="-2" name="value" keyPath="self.session.nextGameText" id="oeG-9O-R4r"/>
+                                    <binding destination="-2" name="value" keyPath="self.session.state.next_game_text" id="oeG-9O-R4r"/>
                                 </connections>
                             </textField>
                             <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="ffa-40-JOt" customClass="TBResizeTextField">
@@ -211,7 +211,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <binding destination="-2" name="value" keyPath="self.session.nextRoundText" id="E2C-9L-Lla"/>
+                                    <binding destination="-2" name="value" keyPath="self.session.state.next_round_text" id="E2C-9L-Lla"/>
                                 </connections>
                             </textField>
                         </subviews>
@@ -227,7 +227,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
                         <animations/>
                         <connections>
-                            <binding destination="-2" name="hidden" keyPath="self.session.actionClockTimeRemaining" id="Zjg-Jo-X7D">
+                            <binding destination="-2" name="hidden" keyPath="self.session.state.action_clock_time_remaining" id="Zjg-Jo-X7D">
                                 <dictionary key="options">
                                     <string key="NSValueTransformerName">NSNegateBoolean</string>
                                 </dictionary>

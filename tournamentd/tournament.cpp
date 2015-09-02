@@ -501,6 +501,7 @@ bool tournament::handle_client_input(std::iostream& client)
                     this->ensure_authorized(in);
                     this->handle_cmd_configure(in, out);
                     this->broadcast_configuration();
+                    this->broadcast_state();
                 }
                 else if(cmd == "start_game")
                 {

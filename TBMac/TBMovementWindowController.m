@@ -27,7 +27,7 @@
 - (void)windowDidLoad {
     [super windowDidLoad];
 
-    // pass whole-configuration changes to session
+    // resize window when array controller contents change
     [[self KVOController] observe:[self arrayController] keyPath:@"arrangedObjects.count" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
         NSUInteger cellsToShow = [[[self arrayController] arrangedObjects] count];
         cellsToShow = MAX(MIN(cellsToShow, 4), 1);

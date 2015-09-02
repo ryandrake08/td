@@ -43,7 +43,7 @@
     [super windowDidLoad];
     
     // register for KVO
-    [[self KVOController] observe:[self session] keyPath:NSStringFromSelector(@selector(currentBlindLevel)) options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld block:^(id observer, id object, NSDictionary* change) {
+    [[self KVOController] observe:[[self session] state] keyPath:@"current_blind_level" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld block:^(id observer, id object, NSDictionary* change) {
         id old = change[@"old"];
         id new = change[@"new"];
         if(![old isEqualTo:[NSNull null]] && ![new isEqualTo:[NSNull null]]) {
@@ -57,7 +57,7 @@
         }
     }];
 
-    [[self KVOController] observe:[self session] keyPaths:@[@"onBreak"] options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld block:^(id observer, id object, NSDictionary* change) {
+    [[self KVOController] observe:[[self session] state] keyPaths:@[@"on_break"] options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld block:^(id observer, id object, NSDictionary* change) {
         id old = change[@"old"];
         id new = change[@"new"];
         if(![old isEqualTo:[NSNull null]] && ![new isEqualTo:[NSNull null]]) {
@@ -67,7 +67,7 @@
         }
     }];
 
-    [[self KVOController] observe:[self session] keyPaths:@[@"timeRemaining",@"breakTimeRemaining"] options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld block:^(id observer, id object, NSDictionary* change) {
+    [[self KVOController] observe:[[self session] state] keyPaths:@[@"time_remaining",@"break_time_remaining"] options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld block:^(id observer, id object, NSDictionary* change) {
         id old = change[@"old"];
         id new = change[@"new"];
         if(![old isEqualTo:[NSNull null]] && ![new isEqualTo:[NSNull null]]) {
@@ -77,8 +77,8 @@
         }
     }];
 
-    [[self KVOController] observe:[self session] keyPath:@"actionClockTimeRemaining" options:0 block:^(id observer, id object, NSDictionary *change) {
-        NSUInteger actionClockTimeRemaining = [[[self session] actionClockTimeRemaining] unsignedIntegerValue];
+    [[self KVOController] observe:[[self session] state] keyPath:@"action_clock_time_remaining" options:0 block:^(id observer, id object, NSDictionary *change) {
+        NSUInteger actionClockTimeRemaining = [object[@"action_clock_time_remaining"] unsignedIntegerValue];
         [[self actionClockView] setSeconds:actionClockTimeRemaining / 1000.0];
     }];
 

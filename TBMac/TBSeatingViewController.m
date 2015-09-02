@@ -72,11 +72,11 @@
                 [self setMovementWindowController:[[TBMovementWindowController alloc] initWithWindowNibName:@"TBMovementWindow"]];
             }
 
+            // show window before adding movements, so array controller gets created!
+            [[self movementWindowController] showWindow:self];
+
             // add movements
             [[[self movementWindowController] arrayController] addObjects:movements];
-
-            // show window
-            [[self movementWindowController] showWindow:self];
 
             // alert sound
             if([self rebalanceSound] == nil) {
@@ -97,7 +97,7 @@
     id seatedPlayer = [cell objectValue];
 
     // current blind level
-    NSNumber* currentBlindLevel = [[self session] currentBlindLevel];
+    NSNumber* currentBlindLevel = [[self session] state][@"current_blind_level"];
 
     // remove all funding sources
     for(id item = [menu itemWithTag:1]; item != nil; item = [menu itemWithTag:1]) {
@@ -105,7 +105,7 @@
     }
 
     // add funding sources
-    [[[self session] fundingSources] enumerateObjectsUsingBlock:^(id source, NSUInteger idx, BOOL* stop) {
+    [[[self session] state][@"funding_sources"] enumerateObjectsUsingBlock:^(id source, NSUInteger idx, BOOL* stop) {
         id context = @{@"player_id":seatedPlayer[@"player_id"], @"funding_id":@(idx)};
 
         // enable if we can still use this source

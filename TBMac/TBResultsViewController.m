@@ -26,16 +26,10 @@
     [[self arrayController] setSortDescriptors:@[placeSort]];
 
     // bindings
-    [[self equityFormatter] bind:@"currencyCode"
-                        toObject:[self session]
-                     withKeyPath:@"equityCurrency"
-                         options:nil];
+    [[self equityFormatter] bind:@"currencyCode" toObject:[[self session] state] withKeyPath:@"equity_currency" options:nil];
 
     // register for KVO
-    [[[self tableView] KVOController] observe:[self session]
-                                      keyPath:@"equityCurrency"
-                                      options:0
-                                       action:@selector(reloadData)];
+    [[[self tableView] KVOController] observe:[[self session] state] keyPath:@"equity_currency" options:0 action:@selector(reloadData)];
 }
 
 #pragma mark NSTableViewDelegate

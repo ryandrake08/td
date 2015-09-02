@@ -45,62 +45,52 @@
     // set scroll view content inset
     [[self scrollView] setContentInset:UIEdgeInsetsMake(0.0,0.0,49.0,0.0)];
 
+    // TODO: Go back to logic that takes into account whether the game has started
+    // TODO: Fix case: RemoteClockView->TournamentsView->Grant Admin->RemoteClockView
+
     // register for KVO
-    [[self KVOController] observe:[self session] keyPaths:@[@"connected", @"authorized", @"currentBlindLevel"] options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
-        if([[observer session] isConnected] && [[observer session] isAuthorized]) {
-            if([[[observer session] currentBlindLevel] unsignedIntegerValue] == 0) {
-                [[observer previousRoundButton] setEnabled:NO];
-                [[observer pauseResumeButton] setEnabled:NO];
-                [[observer nextRoundButton] setEnabled:NO];
-                [[observer callClockButton] setEnabled:YES];
-            } else {
-                [[observer previousRoundButton] setEnabled:YES];
-                [[observer pauseResumeButton] setEnabled:YES];
-                [[observer nextRoundButton] setEnabled:YES];
-                [[observer callClockButton] setEnabled:YES];
-            }
-        } else {
-            [[observer previousRoundButton] setEnabled:NO];
-            [[observer pauseResumeButton] setEnabled:NO];
-            [[observer nextRoundButton] setEnabled:NO];
-            [[observer callClockButton] setEnabled:NO];
-        }
+    [[self KVOController] observe:[self session] keyPaths:@[@"isConnected", @"isAuthorized"] options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
+        BOOL enable = [object isConnected] && [object isAuthorized];
+        [[observer previousRoundButton] setEnabled:enable];
+        [[observer pauseResumeButton] setEnabled:enable];
+        [[observer nextRoundButton] setEnabled:enable];
+        [[observer callClockButton] setEnabled:enable];
     }];
 
-    [[self KVOController] observe:[self session] keyPath:@"elapsedTimeText" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
-        [[observer elapsedLabel] setText:[object elapsedTimeText]];
+    [[self KVOController] observe:[[self session] state] keyPath:@"elapsed_time_text" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
+        [[observer elapsedLabel] setText:object[@"elapsed_time_text"]];
     }];
 
-    [[self KVOController] observe:[self session] keyPath:@"clockText" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
-        [[observer clockLabel] setText:[object clockText]];
+    [[self KVOController] observe:[[self session] state] keyPath:@"clock_text" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
+        [[observer clockLabel] setText:object[@"clock_text"]];
     }];
 
-    [[self KVOController] observe:[self session] keyPath:@"currentGameText" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
-        [[observer currentGameLabel] setText:[object currentGameText]];
+    [[self KVOController] observe:[[self session] state] keyPath:@"current_game_text" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
+        [[observer currentGameLabel] setText:object[@"current_game_text"]];
     }];
 
-    [[self KVOController] observe:[self session] keyPath:@"currentRoundText" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
-        [[observer currentRoundLabel] setText:[object currentRoundText]];
+    [[self KVOController] observe:[[self session] state] keyPath:@"current_round_text" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
+        [[observer currentRoundLabel] setText:object[@"current_round_text"]];
     }];
 
-    [[self KVOController] observe:[self session] keyPath:@"nextGameText" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
-        [[observer nextGameLabel] setText:[object nextGameText]];
+    [[self KVOController] observe:[[self session] state] keyPath:@"next_game_text" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
+        [[observer nextGameLabel] setText:object[@"next_game_text"]];
     }];
     
-    [[self KVOController] observe:[self session] keyPath:@"nextRoundText" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
-        [[observer nextRoundLabel] setText:[object nextRoundText]];
+    [[self KVOController] observe:[[self session] state] keyPath:@"next_round_text" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
+        [[observer nextRoundLabel] setText:object[@"next_round_text"]];
     }];
 
-    [[self KVOController] observe:[self session] keyPath:@"playersLeftText" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
-        [[observer playersLeftLabel] setText:[object playersLeftText]];
+    [[self KVOController] observe:[[self session] state] keyPath:@"players_left_text" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
+        [[observer playersLeftLabel] setText:object[@"players_left_text"]];
     }];
 
-    [[self KVOController] observe:[self session] keyPath:@"averageStackText" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
-        [[observer averageStackLabel] setText:[object averageStackText]];
+    [[self KVOController] observe:[[self session] state] keyPath:@"average_stack_text" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
+        [[observer averageStackLabel] setText:object[@"average_stack_text"]];
     }];
 
-    [[self KVOController] observe:[self session] keyPath:@"actionClockTimeRemaining" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
-        [observer updateActionClock];
+    [[self KVOController] observe:[[self session] state] keyPath:@"action_clock_time_remaining" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
+        [observer updateActionClock:object[@"action_clock_time_remaining"]];
     }];
 }
 
@@ -111,8 +101,8 @@
 
 #pragma mark Update
 
-- (void)updateActionClock {
-    NSUInteger actionClockTimeRemaining = [[[self session] actionClockTimeRemaining] unsignedIntegerValue];
+- (void)updateActionClock:(NSNumber*)timeRemaining {
+    NSUInteger actionClockTimeRemaining = [timeRemaining unsignedIntegerValue];
     if(actionClockTimeRemaining == 0) {
         [[self actionClockView] setHidden:YES];
     } else {
@@ -124,14 +114,14 @@
 #pragma mark Actions
 
 - (IBAction)previousRoundTapped:(UIButton*)sender {
-    NSUInteger currentBlindLevel = [[[self session] currentBlindLevel] unsignedIntegerValue];
+    NSUInteger currentBlindLevel = [[[self session] state][@"current_blind_level"] unsignedIntegerValue];
     if(currentBlindLevel != 0) {
         [[self session] setPreviousLevelWithBlock:nil];
     }
 }
 
 - (IBAction)pauseResumeTapped:(UIButton*)sender {
-    NSUInteger currentBlindLevel = [[[self session] currentBlindLevel] unsignedIntegerValue];
+    NSUInteger currentBlindLevel = [[[self session] state][@"current_blind_level"] unsignedIntegerValue];
     if(currentBlindLevel != 0) {
         [[self session] togglePauseGame];
     } else {
@@ -140,16 +130,16 @@
 }
 
 - (IBAction)nextRoundTapped:(UIButton*)sender {
-    NSUInteger currentBlindLevel = [[[self session] currentBlindLevel] unsignedIntegerValue];
+    NSUInteger currentBlindLevel = [[[self session] state][@"current_blind_level"] unsignedIntegerValue];
     if(currentBlindLevel != 0) {
         [[self session] setNextLevelWithBlock:nil];
     }
 }
 
 - (IBAction)callClockTapped:(UIButton*)sender {
-    NSUInteger currentBlindLevel = [[[self session] currentBlindLevel] unsignedIntegerValue];
+    NSUInteger currentBlindLevel = [[[self session] state][@"current_blind_level"] unsignedIntegerValue];
     if(currentBlindLevel != 0) {
-        NSUInteger remaining = [[[self session] actionClockTimeRemaining] unsignedIntegerValue];
+        NSUInteger remaining = [[[self session] state][@"action_clock_remaining"] unsignedIntegerValue];
         if(remaining == 0) {
             [[self session] setActionClock:@kActionClockRequestTime];
         } else {

@@ -109,9 +109,9 @@
     [[self rightPaneView] addSubview:[[self resultsViewController] view]];
 
     // whenever tournament name changes, do some stuff
-    [[self KVOController] observe:[self session] keyPath:@"name" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
+    [[self KVOController] observe:[[self session] state] keyPath:@"name" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
         // re-publish on Bonjour
-        [[self server] publishWithName:[object name]];
+        [[self server] publishWithName:object[@"name"]];
 
         // resize toolbar control
         [[self tournamentNameField] sizeToFit];
@@ -178,7 +178,7 @@
         // serialize results to NSData
         NSMutableArray* results = [[NSMutableArray alloc] initWithObjects:@"Player,Finish,Win", nil];
         // 1 result per line
-        [[[self session] results] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL* stop) {
+        [[[self session] state][@"results"] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL* stop) {
             NSString* line = [NSString stringWithFormat:@"\"%@\",%@,%@", obj[@"name"], obj[@"place"], obj[@"payout"]];
             [results addObject:line];
         }];
@@ -240,14 +240,14 @@
 }
 
 - (IBAction)previousRoundTapped:(id)sender {
-    NSUInteger currentBlindLevel = [[[self session] currentBlindLevel] unsignedIntegerValue];
+    NSUInteger currentBlindLevel = [[[self session] state][@"current_blind_level"] unsignedIntegerValue];
     if(currentBlindLevel != 0) {
         [[self session] setPreviousLevelWithBlock:nil];
     }
 }
 
 - (IBAction)pauseResumeTapped:(id)sender {
-    NSUInteger currentBlindLevel = [[[self session] currentBlindLevel] unsignedIntegerValue];
+    NSUInteger currentBlindLevel = [[[self session] state][@"current_blind_level"] unsignedIntegerValue];
     if(currentBlindLevel != 0) {
         [[self session] togglePauseGame];
     } else {
@@ -256,16 +256,16 @@
 }
 
 - (IBAction)nextRoundTapped:(id)sender {
-    NSUInteger currentBlindLevel = [[[self session] currentBlindLevel] unsignedIntegerValue];
+    NSUInteger currentBlindLevel = [[[self session] state][@"current_blind_level"] unsignedIntegerValue];
     if(currentBlindLevel != 0) {
         [[self session] setNextLevelWithBlock:nil];
     }
 }
 
 - (IBAction)callClockTapped:(id)sender {
-    NSUInteger currentBlindLevel = [[[self session] currentBlindLevel] unsignedIntegerValue];
+    NSUInteger currentBlindLevel = [[[self session] state][@"current_blind_level"] unsignedIntegerValue];
     if(currentBlindLevel != 0) {
-        NSUInteger remaining = [[[self session] actionClockTimeRemaining] unsignedIntegerValue];
+        NSUInteger remaining = [[[self session] state][@"action_clock_time_remaining"] unsignedIntegerValue];
         if(remaining == 0) {
             [[self session] setActionClock:@kActionClockRequestTime];
         } else {

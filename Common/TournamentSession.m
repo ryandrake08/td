@@ -16,6 +16,9 @@
 // record currently connected server
 @property (nonatomic, strong) NSNetService* currentService;
 
+// all tournament configuration and state
+@property (nonatomic, strong) NSMutableDictionary* state;
+
 // YES if currently authorized with server
 @property (nonatomic, assign) BOOL authorized;
 
@@ -31,9 +34,12 @@
 
 - (instancetype)init {
     if (self = [super init]) {
-        _blocksForCommands = [[NSMutableDictionary alloc] init];
+        _currentService = nil;
+        _state = [[NSMutableDictionary alloc] init];
+        _authorized = NO;
         _connection = [[TournamentConnection alloc] init];
         [_connection setDelegate:self];
+        _blocksForCommands = [[NSMutableDictionary alloc] init];
     }
     return self;
 }
@@ -84,15 +90,12 @@
     NSLog(@"Synchronizing session");
 
     // only send parts of configuration that changed
-    NSMutableDictionary* configToSend = [config mutableCopy];
-    NSMutableArray* keysToRemove = [NSMutableArray array];
-    [configToSend enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL* stop) {
-        NSString* propertyName = [key asCamelCaseFromUnderscore];
-        if([obj isEqual:[self valueForKey:propertyName]]) {
-            [keysToRemove addObject:key];
+    NSMutableDictionary* configToSend = [NSMutableDictionary dictionary];
+    [config enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL* stop) {
+        if(![obj isEqual:[self state][key]]) {
+            configToSend[key] = obj;
         }
     }];
-    [configToSend removeObjectsForKeys:keysToRemove];
 
     NSLog(@"Sending %ld configuration items", (long)[configToSend count]);
 
@@ -349,18 +352,14 @@
             [[self blocksForCommands] removeObjectForKey:cmdkey];
         }
     } else {
-        // any configuration or state to update, split into calls to set properties
-        [json enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-            @try {
-                id camelKey = [key asCamelCaseFromUnderscore];
-                if(![obj isEqual:[self valueForKey:camelKey]]) {
-                    [self setValue:obj forKey:camelKey];
-                }
-            }
-            @catch (NSException* exception) {
-                NSLog(@"Session has no key %@", key);
+        // replace only state that changed
+        NSMutableDictionary* update = [NSMutableDictionary dictionary];
+        [json enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL* stop) {
+            if(![obj isEqual:[self state][key]]) {
+                update[key] = obj;
             }
         }];
+        [[self state] addEntriesFromDictionary:update];
     }
 }
 

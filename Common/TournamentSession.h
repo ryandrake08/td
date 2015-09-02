@@ -25,63 +25,16 @@
 // currently connected server, or nil if either connected locally or not connected
 @property (nonatomic, strong, readonly) NSNetService* currentService;
 
+// all tournament configuration and state
+@property (nonatomic, strong, readonly) NSMutableDictionary* state;
+
+// TODO: Make connected and authorized part of tournamentd state
+
 // YES if currently connected locally or to a server
 @property (nonatomic, readonly, getter=isConnected) BOOL connected;
 
 // YES if currently authorized with server
 @property (nonatomic, readonly, getter=isAuthorized) BOOL authorized;
-
-// tournament configuration
-@property (nonatomic, strong, readonly) NSString* serverName;
-@property (nonatomic, strong, readonly) NSString* serverVersion;
-@property (nonatomic, strong, readonly) NSArray* authorizedClients;
-@property (nonatomic, strong, readonly) NSString* name;
-@property (nonatomic, strong, readonly) NSArray* players;
-@property (nonatomic, strong, readonly) NSArray* blindLevels;
-@property (nonatomic, strong, readonly) NSArray* availableChips;
-@property (nonatomic, strong, readonly) NSString* costCurrency;
-@property (nonatomic, strong, readonly) NSString* equityCurrency;
-@property (nonatomic, strong, readonly) NSNumber* percentSeatsPaid;
-@property (nonatomic, strong, readonly) NSNumber* roundPayouts;
-@property (nonatomic, strong, readonly) NSNumber* payoutFlatness;
-@property (nonatomic, strong, readonly) NSArray* fundingSources;
-@property (nonatomic, strong, readonly) NSNumber* tableCapacity;
-@property (nonatomic, strong, readonly) NSArray* manualPayouts;
-
-// tournament state
-@property (nonatomic, strong, readonly, getter=isRunning) NSNumber* running;
-@property (nonatomic, strong, readonly) NSNumber* currentBlindLevel;
-@property (nonatomic, strong, readonly) NSNumber* timeRemaining;
-@property (nonatomic, strong, readonly) NSNumber* breakTimeRemaining;
-@property (nonatomic, strong, readonly) NSNumber* actionClockTimeRemaining;
-@property (nonatomic, strong, readonly) NSSet* buyins;
-@property (nonatomic, strong, readonly) NSArray* entries;
-@property (nonatomic, strong, readonly) NSArray* payouts;
-@property (nonatomic, strong, readonly) NSNumber* totalChips;
-@property (nonatomic, strong, readonly) NSNumber* totalCost;
-@property (nonatomic, strong, readonly) NSNumber* totalCommission;
-@property (nonatomic, strong, readonly) NSNumber* totalEquity;
-@property (nonatomic, strong, readonly) NSArray* seats;
-@property (nonatomic, strong, readonly) NSArray* playersFinished;
-@property (nonatomic, strong, readonly) NSArray* emptySeats;
-@property (nonatomic, strong, readonly) NSNumber* tables;
-@property (nonatomic, strong, readonly) NSNumber* elapsedTime;
-
-// tournamentd-derived tournament state
-@property (nonatomic, strong, readonly, getter=isOnBreak) NSNumber* onBreak;
-@property (nonatomic, strong, readonly) NSString* clockText;
-@property (nonatomic, strong, readonly) NSString* elapsedTimeText;
-@property (nonatomic, strong, readonly) NSString* currentRoundNumberText;
-@property (nonatomic, strong, readonly) NSString* currentGameText;
-@property (nonatomic, strong, readonly) NSString* currentRoundText;
-@property (nonatomic, strong, readonly) NSString* nextGameText;
-@property (nonatomic, strong, readonly) NSString* nextRoundText;
-@property (nonatomic, strong, readonly) NSString* playersLeftText;
-@property (nonatomic, strong, readonly) NSString* entriesText;
-@property (nonatomic, strong, readonly) NSString* averageStackText;
-@property (nonatomic, strong, readonly) NSString* buyinText;
-@property (nonatomic, strong, readonly) NSArray* results;
-@property (nonatomic, strong, readonly) NSArray* seatedPlayers;
 
 // client identifier (used for authenticating with servers)
 + (NSNumber*)clientIdentifier;

@@ -18,7 +18,7 @@
     [[self arrayController] setSortDescriptors:@[playerNameSort]];
 }
 
-- (IBAction)seatedButtonDidChange:(id)sender {
+- (IBAction)seatedButtonDidChange:(NSButton*)sender {
     NSTableCellView* cell = (NSTableCellView*)[sender superview];
     id ov = [cell objectValue];
     id playerId = ov[@"player_id"];

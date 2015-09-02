@@ -37,7 +37,7 @@
 
 @implementation TBFundingTableCellView
 
-- (IBAction)forbidButtonDidChange:(id)sender {
+- (IBAction)forbidButtonDidChange:(NSButton*)sender {
     if([sender state] == NSOnState) {
         [self objectValue][@"forbid_after_blind_level"] = @0;
     } else {
@@ -68,20 +68,11 @@
     [[self arrayController] setSortDescriptors:@[typeSort, nameSort]];
 
     // bindings
-    [[self costFormatter] bind:@"currencyCode"
-                      toObject:[self configuration]
-                   withKeyPath:@"cost_currency"
-                       options:nil];
-    [[self equityFormatter] bind:@"currencyCode"
-                        toObject:[self configuration]
-                     withKeyPath:@"equity_currency"
-                         options:nil];
+    [[self costFormatter] bind:@"currencyCode" toObject:[self configuration] withKeyPath:@"cost_currency" options:nil];
+    [[self equityFormatter] bind:@"currencyCode" toObject:[self configuration] withKeyPath:@"equity_currency" options:nil];
 
     // register for KVO
-    [[[self tableView] KVOController] observe:[self configuration]
-                                     keyPaths:@[@"cost_currency", @"equity_currency"]
-                                      options:0
-                                       action:@selector(reloadData)];
+    [[[self tableView] KVOController] observe:[self configuration] keyPaths:@[@"cost_currency", @"equity_currency"] options:0 action:@selector(reloadData)];
 }
 
 - (NSArray*)blindLevelNames {

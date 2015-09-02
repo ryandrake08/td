@@ -43,7 +43,7 @@
 
 @implementation TBRoundsTableCellView
 
-- (IBAction)breakButtonDidChange:(id)sender {
+- (IBAction)breakButtonDidChange:(NSButton*)sender {
     if([sender state] == NSOnState) {
         [self objectValue][@"break_duration"] = @0;
     } else {

@@ -206,7 +206,7 @@
                                                                     <string key="NSValueTransformerName">NSNegateBoolean</string>
                                                                 </dictionary>
                                                             </binding>
-                                                            <binding destination="-2" name="value" keyPath="self.session.costCurrency" id="Muo-rF-W1A">
+                                                            <binding destination="-2" name="value" keyPath="self.session.state.cost_currency" id="Muo-rF-W1A">
                                                                 <dictionary key="options">
                                                                     <string key="NSValueTransformerName">TBCurrencyImageTransformer</string>
                                                                 </dictionary>
@@ -289,7 +289,7 @@
         </customView>
         <arrayController clearsFilterPredicateOnInsertion="NO" automaticallyRearrangesObjects="YES" id="So1-EM-ZfO" userLabel="Seats Array Controller">
             <connections>
-                <binding destination="-2" name="contentArray" keyPath="self.session.seatedPlayers" id="8YT-0S-THN"/>
+                <binding destination="-2" name="contentArray" keyPath="self.session.state.seated_players" id="3PT-UT-GDi"/>
             </connections>
         </arrayController>
         <menu showsStateColumn="NO" autoenablesItems="NO" id="k3e-4i-cwU">

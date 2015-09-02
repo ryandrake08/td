@@ -36,9 +36,9 @@
     _equityFormatter = [[TBCurrencyNumberFormatter alloc] init];
 
     // register for KVO
-    [[self KVOController] observe:[self session] keyPaths:@[@"results", @"equityCurrency"] options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
+    [[self KVOController] observe:[[self session] state] keyPaths:@[@"results", @"equity_currency"] options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
         // set currency
-        [[self equityFormatter] setCurrencyCode:[[self session] equityCurrency]];
+        [[self equityFormatter] setCurrencyCode:object[@"equity_currency"]];
 
         // update table view cells
         [[observer tableView] reloadData];
@@ -57,7 +57,7 @@
 }
 
 - (NSInteger)tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section {
-    return [[[self session] results] count];
+    return [[[self session] state][@"results"] count];
 }
 
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath {
@@ -67,7 +67,7 @@
         cell = [tableView dequeueReusableCellWithIdentifier:@"ResultsCell" forIndexPath:indexPath];
 
         // get result for this row
-        NSDictionary* result = [[self session] results][indexPath.row];
+        NSDictionary* result = [[self session] state][@"results"][indexPath.row];
 
         // place
         NSString* place = [[self placeFormatter] stringFromNumber:result[@"place"]];

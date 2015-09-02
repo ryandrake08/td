@@ -25,26 +25,15 @@
         [super viewDidLoad];
     }
 
+    // TODO: Go back to logic that takes into account whether the game has started
+
     // register for KVO
-    [[self KVOController] observe:[self session] keyPaths:@[@"connected", @"authorized", @"currentBlindLevel"] options:0 block:^(id observer, id object, NSDictionary *change) {
-        if([[observer session] isConnected] && [[observer session] isAuthorized]) {
-            if([[[observer session] currentBlindLevel] unsignedIntegerValue] == 0) {
-                [[observer previousRoundButton] setEnabled:NO];
-                [[observer pauseResumeButton] setEnabled:NO];
-                [[observer nextRoundButton] setEnabled:NO];
-                [[observer callClockButton] setEnabled:YES];
-            } else {
-                [[observer previousRoundButton] setEnabled:YES];
-                [[observer pauseResumeButton] setEnabled:YES];
-                [[observer nextRoundButton] setEnabled:YES];
-                [[observer callClockButton] setEnabled:YES];
-            }
-        } else {
-            [[observer previousRoundButton] setEnabled:NO];
-            [[observer pauseResumeButton] setEnabled:NO];
-            [[observer nextRoundButton] setEnabled:NO];
-            [[observer callClockButton] setEnabled:NO];
-        }
+    [[self KVOController] observe:[self session] keyPaths:@[@"isConnected", @"isAuthorized"] options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
+        BOOL enable = [object isConnected] && [object isAuthorized];
+        [[observer previousRoundButton] setEnabled:enable];
+        [[observer pauseResumeButton] setEnabled:enable];
+        [[observer nextRoundButton] setEnabled:enable];
+        [[observer callClockButton] setEnabled:enable];
     }];
 }
 
@@ -58,14 +47,14 @@
 #pragma mark Actions
 
 - (IBAction)previousRoundTapped:(NSButton*)sender {
-    NSUInteger currentBlindLevel = [[[self session] currentBlindLevel] unsignedIntegerValue];
+    NSUInteger currentBlindLevel = [[[self session] state][@"current_blind_level"] unsignedIntegerValue];
     if(currentBlindLevel != 0) {
         [[self session] setPreviousLevelWithBlock:nil];
     }
 }
 
 - (IBAction)pauseResumeTapped:(NSButton*)sender {
-    NSUInteger currentBlindLevel = [[[self session] currentBlindLevel] unsignedIntegerValue];
+    NSUInteger currentBlindLevel = [[[self session] state][@"current_blind_level"] unsignedIntegerValue];
     if(currentBlindLevel != 0) {
         [[self session] togglePauseGame];
     } else {
@@ -74,16 +63,16 @@
 }
 
 - (IBAction)nextRoundTapped:(NSButton*)sender {
-    NSUInteger currentBlindLevel = [[[self session] currentBlindLevel] unsignedIntegerValue];
+    NSUInteger currentBlindLevel = [[[self session] state][@"current_blind_level"] unsignedIntegerValue];
     if(currentBlindLevel != 0) {
         [[self session] setNextLevelWithBlock:nil];
     }
 }
 
 - (IBAction)callClockTapped:(NSButton*)sender {
-    NSUInteger currentBlindLevel = [[[self session] currentBlindLevel] unsignedIntegerValue];
+    NSUInteger currentBlindLevel = [[[self session] state][@"current_blind_level"] unsignedIntegerValue];
     if(currentBlindLevel != 0) {
-        NSUInteger remaining = [[[self session] actionClockTimeRemaining] unsignedIntegerValue];
+        NSUInteger remaining = [[[self session] state][@"action_clock_time_remaining"] unsignedIntegerValue];
         if(remaining == 0) {
             [[self session] setActionClock:@kActionClockRequestTime];
         } else {

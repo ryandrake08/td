@@ -166,7 +166,7 @@
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                             <connections>
-                                <binding destination="-2" name="value" keyPath="self.session.clockText" id="hlJ-gc-JZI"/>
+                                <binding destination="-2" name="value" keyPath="self.session.state.clock_text" id="hlJ-gc-JZI"/>
                             </connections>
                         </textField>
                     </toolbarItem>

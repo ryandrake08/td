@@ -49,9 +49,9 @@
                                    @"CNY":[UIImage imageNamed:@"b_note_yen_yuan"]}];
 
     // register for KVO
-    [[self KVOController] observe:[self session] keyPaths:@[@"seatedPlayers"] options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
+    [[self KVOController] observe:[[self session] state] keyPaths:@[@"seated_players"] options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
         // filter and sort
-        NSArray* seatedPlayers = [[self session] seatedPlayers];
+        NSArray* seatedPlayers = object[@"seated_players"];
 
         // get lists of players
         NSArray* seated = [seatedPlayers filteredArrayUsingPredicate:[NSPredicate predicateWithFormat: @"seat_number != nil"]];
@@ -70,8 +70,8 @@
         [[observer tableView] reloadData];
     }];
 
-    [[self KVOController] observe:[self session] keyPath:@"costCurrency" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
-        NSString* costCurrency = [[self session] costCurrency];
+    [[self KVOController] observe:[[self session] state] keyPath:@"cost_currency" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
+        NSString* costCurrency = object[@"cost_currency"];
         [self setCurrencyImage:[self currencyImageLookup][costCurrency]];
         [[observer tableView] reloadData];
     }];
@@ -165,7 +165,7 @@
         NSMutableArray* commands = [[NSMutableArray alloc] initWithObjects:@0, nil];
 
         if(indexPath.section == 0) {
-            NSNumber* currentBlindLevel = [[self session] currentBlindLevel];
+            NSNumber* currentBlindLevel = [[self session] state][@"current_blind_level"];
 
             // get player for this row
             player = [self seatedPlayers][[indexPath row]];
@@ -181,7 +181,7 @@
             }
 
             // add buttons for each eligible funding source
-            [[[self session] fundingSources] enumerateObjectsUsingBlock:^(id source, NSUInteger idx, BOOL* stop) {
+            [[[self session] state][@"funding_sources"] enumerateObjectsUsingBlock:^(id source, NSUInteger idx, BOOL* stop) {
                 NSNumber* last = source[@"forbid_after_blind_level"];
                 if(last == nil || !([last compare:currentBlindLevel] == NSOrderedAscending)) {
                     [actionSheet addButtonWithTitle:source[@"name"]];

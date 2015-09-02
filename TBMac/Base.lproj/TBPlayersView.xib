@@ -107,7 +107,7 @@
                                                             <string key="NSValueTransformerName">NSIsNotNil</string>
                                                         </dictionary>
                                                     </binding>
-                                                    <binding destination="-2" name="enabled2" keyPath="self.session.emptySeats" previousBinding="973-M1-fcN" id="Ila-NB-wkw">
+                                                    <binding destination="-2" name="enabled2" keyPath="self.session.state.empty_seats" previousBinding="973-M1-fcN" id="Ila-NB-wkw">
                                                         <dictionary key="options">
                                                             <integer key="NSMultipleValuesPlaceholder" value="-1"/>
                                                             <integer key="NSNoSelectionPlaceholder" value="-1"/>
@@ -153,7 +153,7 @@
                 <string>seat_number</string>
             </declaredKeys>
             <connections>
-                <binding destination="-2" name="contentArray" keyPath="self.session.seatedPlayers" id="4NL-gl-rzX"/>
+                <binding destination="-2" name="contentArray" keyPath="self.session.state.seated_players" id="M2Q-kr-hPD"/>
             </connections>
         </arrayController>
     </objects>

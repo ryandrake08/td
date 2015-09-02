@@ -66,39 +66,39 @@
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     NSLog(@"applicationDidBecomeActive");
 
-    [[self KVOController] observe:[self session] keyPath:@"currentRoundText" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
+    [[self KVOController] observe:[[self session] state] keyPath:@"current_round_text" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
         // also clear schedule for notification updates
         [self setNextRoundNotificationUpdate:nil];
         [self setNextBreakNotificationUpdate:nil];
     }];
 
-    [[self KVOController] observe:[self session] keyPath:@"timeRemaining" options:0 block:^(id observer, id object, NSDictionary *change) {
+    [[self KVOController] observe:[[self session] state] keyPath:@"time_remaining" options:0 block:^(id observer, id object, NSDictionary *change) {
         if([self nextRoundNotificationUpdate] == nil || [[NSDate date] compare:[self nextRoundNotificationUpdate]] == NSOrderedDescending) {
-            NSLog(@"Scheduling notifications for regular round, time remaining: %@", [object timeRemaining]);
+            NSLog(@"Scheduling notifications for regular round, time remaining: %@", object[@"timeRemaining"]);
 
             // schedule next try
             [self setNextRoundNotificationUpdate:[NSDate dateWithTimeIntervalSinceNow:60.0]];
 
             // is there a break next?
-            NSUInteger currentLevel = [[object currentBlindLevel] unsignedIntegerValue];
-            NSString* nextRoundText = ([object blindLevels][currentLevel][@"break_duration"] == nil) ? [object nextRoundText] : nil;
+            NSUInteger currentLevel = [object[@"current_blind_level"] unsignedIntegerValue];
+            NSString* nextRoundText = (object[@"blind_levels"][currentLevel][@"break_duration"] == nil) ? object[@"next_round_text"] : nil;
 
             // update
-            NSInteger timeRemaining = [[object timeRemaining] integerValue];
+            NSInteger timeRemaining = [object[@"time_remaining"] integerValue];
             [self updateNotificationsForNextRound:nextRoundText withTimeRemaining:timeRemaining];
         }
     }];
 
-    [[self KVOController] observe:[self session] keyPath:@"breakTimeRemaining" options:0 block:^(id observer, id object, NSDictionary *change) {
+    [[self KVOController] observe:[[self session] state] keyPath:@"break_time_remaining" options:0 block:^(id observer, id object, NSDictionary *change) {
         if([self nextBreakNotificationUpdate] == nil || [[NSDate date] compare:[self nextBreakNotificationUpdate]] == NSOrderedDescending) {
-            NSLog(@"Scheduling notifications for break, time remaining: %@", [object breakTimeRemaining]);
+            NSLog(@"Scheduling notifications for break, time remaining: %@", object[@"break_time_remaining"]);
 
             // schedule next try
             [self setNextBreakNotificationUpdate:[NSDate dateWithTimeIntervalSinceNow:60.0]];
 
             // update
-            NSInteger timeRemaining = [[object breakTimeRemaining] integerValue];
-            [self updateNotificationsForNextRound:[object nextRoundText] withTimeRemaining:timeRemaining];
+            NSInteger timeRemaining = [object[@"break_time_remaining"] integerValue];
+            [self updateNotificationsForNextRound:object[@"next_round_text"] withTimeRemaining:timeRemaining];
         }
     }];
 }

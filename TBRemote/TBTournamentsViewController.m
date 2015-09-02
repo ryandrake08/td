@@ -36,7 +36,7 @@
     [_tournamentBrowser search];
 
     // register for KVO
-    [[self KVOController] observe:[self session] keyPath:NSStringFromSelector(@selector(isConnected)) options:0 block:^(id observer, id object, NSDictionary *change) {
+    [[self KVOController] observe:[self session] keyPath:@"isConnected" options:0 block:^(id observer, id object, NSDictionary *change) {
         NSNetService* service = [object currentService];
 
         // update table view cell

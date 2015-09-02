@@ -22,7 +22,7 @@
                 <string>payout</string>
             </declaredKeys>
             <connections>
-                <binding destination="-2" name="contentArray" keyPath="self.session.results" id="cir-EU-UWf"/>
+                <binding destination="-2" name="contentArray" keyPath="self.session.state.results" id="m41-3w-P8s"/>
             </connections>
         </arrayController>
         <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="94" horizontalPageScroll="10" verticalLineScroll="94" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="g11-Md-FtT">
