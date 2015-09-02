@@ -77,6 +77,11 @@
     [connectToServiceItem setTarget:self];
     [connectToServiceItem setKeyEquivalentModifierMask:NSCommandKeyMask|NSShiftKeyMask];
 
+    // always include disconneciton
+    NSMenuItem* disconnectItem = [connectMenu addItemWithTitle:NSLocalizedString(@"Disconnect", @"") action:@selector(disconnect:) keyEquivalent:@"D"];
+    [disconnectItem setTarget:self];
+    [disconnectItem setKeyEquivalentModifierMask:NSCommandKeyMask|NSShiftKeyMask];
+
     // set the new submenu
     [[self connectMenuItem] setSubmenu:connectMenu];
 }
@@ -98,6 +103,10 @@
             [[self session] connectToAddress:address port:port];
         }
     }];
+}
+
+- (IBAction)disconnect:(id)sender {
+    [[self session] disconnect];
 }
 
 #pragma mark TournamentBroswerDelegate
