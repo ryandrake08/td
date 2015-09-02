@@ -56,15 +56,15 @@
     // TODO: handle error
 }
 
-- (void)connectToService:(NSNetService*)service {
+- (void)connectToNetService:(NSNetService*)service {
     [self disconnect];
     [self setCurrentService:service];
-    [[self connection] connectToService:service];
+    [[self connection] connectToNetService:service];
 }
 
-- (void)connect:(TournamentService*)tournament {
+- (void)connectToTournamentService:(TournamentService*)tournament {
     [self disconnect];
-    [tournament connectTo:[self connection]];
+    [[self connection] connectToTournamentService:tournament];
 }
 
 - (void)disconnect {

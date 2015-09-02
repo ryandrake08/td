@@ -13,7 +13,7 @@
 @interface TournamentConnection : NSObject <NSStreamDelegate>
 
 // open a connection to the server, either local or remote
-- (BOOL)connectToService:(NSNetService*)netService;
+- (BOOL)connectToNetService:(NSNetService*)netService;
 - (BOOL)connectToAddress:(NSString*)address andPort:(NSInteger)port;
 - (BOOL)connectToUnixSocketNamed:(NSString*)socketPath;
 

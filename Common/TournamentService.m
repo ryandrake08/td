@@ -38,28 +38,6 @@
     return self;
 }
 
-// connect to a service
-- (BOOL)connectTo:(TournamentConnection*)connection {
-    NSNetService* service = [self dict][@"service"];
-    NSString* path = [self dict][@"path"];
-    NSString* address = [self dict][@"address"];
-    NSNumber* port = [self dict][@"port"];
-
-    if(service) {
-        return [connection connectToService:service];
-    }
-
-    if(path) {
-        return [connection connectToUnixSocketNamed:path];
-    }
-
-    if(address) {
-        return [connection connectToAddress:address andPort:[port integerValue]];
-    }
-
-    return NO;
-}
-
 - (BOOL)isRemote {
     return [self dict][@"path"] == nil;
 }
@@ -71,6 +49,31 @@
 // retrieve the netService, if applicable
 - (NSNetService*)netService {
     return [self dict][@"service"];
+}
+
+@end
+
+@implementation TournamentConnection (TournamentService)
+
+- (BOOL)connectToTournamentService:(TournamentService*)service {
+    NSNetService* netService = [service dict][@"service"];
+    NSString* path = [service dict][@"path"];
+    NSString* address = [service dict][@"address"];
+    NSNumber* port = [service dict][@"port"];
+
+    if(netService) {
+        return [self connectToNetService:netService];
+    }
+
+    if(path) {
+        return [self connectToUnixSocketNamed:path];
+    }
+
+    if(address) {
+        return [self connectToAddress:address andPort:[port integerValue]];
+    }
+
+    return NO;
 }
 
 @end

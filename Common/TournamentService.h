@@ -13,9 +13,6 @@
 - (instancetype)initWithAddress:(NSString*)address andPort:(NSInteger)port;
 - (instancetype)initWithUnixSocket:(NSString*)path;
 
-// connect to a service
-- (BOOL)connectTo:(TournamentConnection*)connection;
-
 // is this a remote service?
 @property (nonatomic, readonly, getter=isRemote) BOOL remote;
 
@@ -24,5 +21,12 @@
 
 // retrieve the netService, if applicable
 @property (nonatomic, strong, readonly) NSNetService* netService;
+
+@end
+
+@interface TournamentConnection (TournamentService)
+
+// Category on TournamentConnection, to not foul up that class with TournamentSession
+- (BOOL)connectToTournamentService:(TournamentService*)service;
 
 @end

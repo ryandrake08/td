@@ -52,7 +52,7 @@
     return YES;
 }
 
-- (BOOL)connectToService:(NSNetService*)netService {
+- (BOOL)connectToNetService:(NSNetService*)netService {
     [netService getInputStream:&_inputStream outputStream:&_outputStream];
     return [self setupInputStream:[self inputStream] outputStream:[self outputStream]];
 }

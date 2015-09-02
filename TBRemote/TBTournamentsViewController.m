@@ -113,7 +113,7 @@
         [actionSheet showInView:[self view]];
     } else {
         // connect
-        [[self session] connectToService:cellService];
+        [[self session] connectToNetService:cellService];
     }
 
     // deselect either way
