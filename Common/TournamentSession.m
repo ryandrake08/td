@@ -338,7 +338,7 @@
 - (void)tournamentConnectionDidConnect:(TournamentConnection*)tc {
     NSAssert([self connection] == tc, @"Unexpected connection from %@", tc);
     // set state
-    [self state][@"connected"] = [NSNumber numberWithBool:YES];
+    [self state][@"connected"] = @YES;
 
     // always check if we're authorized right away
     [self checkAuthorizedWithBlock:nil];
@@ -353,7 +353,7 @@
     NSAssert([self connection] == tc, @"Unexpected close from %@", tc);
     // set state
     [[self state] removeAllObjects];
-    [self state][@"connected"] = [NSNumber numberWithBool:NO];
+    [self state][@"connected"] = @NO;
 }
 
 - (void)tournamentConnection:(TournamentConnection*)tc didReceiveData:(id)json {

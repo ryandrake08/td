@@ -13,8 +13,8 @@
 - (NSDictionary*)dictionaryWithChangesFromDictionary:(NSDictionary*)other {
     NSMutableDictionary* changes = [NSMutableDictionary dictionary];
     [self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL* stop) {
-        if(![obj isEqual:[other objectForKey:key]]) {
-            [changes setObject:obj forKey:key];
+        if(![obj isEqual:other[key]]) {
+            changes[key] = obj;
         }
     }];
     return [NSDictionary dictionaryWithDictionary:changes];

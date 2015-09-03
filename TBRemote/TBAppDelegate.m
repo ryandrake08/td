@@ -29,7 +29,7 @@
     }
 
     // Handle launching from a notification
-    UILocalNotification* locationNotification = [launchOptions objectForKey:UIApplicationLaunchOptionsLocalNotificationKey];
+    UILocalNotification* locationNotification = launchOptions[UIApplicationLaunchOptionsLocalNotificationKey];
     if(locationNotification) {
         NSLog(@"Received notification while app not running");
     }
