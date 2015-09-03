@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="8187.4" systemVersion="15A275" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="8187.4" systemVersion="15A275" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="8187.4"/>
@@ -43,8 +43,9 @@
                                         <rect key="frame" x="1" y="1" width="254" height="94"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
-                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nre-oa-J9a" customClass="TBResizeTextField">
+                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="nre-oa-J9a" customClass="TBResizeTextField">
                                                 <rect key="frame" x="-2" y="63" width="260" height="32"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                                                 <animations/>
                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Current Round" placeholderString="" usesSingleLineMode="YES" id="pvB-P2-4wy">
                                                     <font key="font" metaFont="system" size="24"/>
@@ -55,8 +56,9 @@
                                                     <binding destination="nUc-Ii-JF6" name="value" keyPath="objectValue.title" id="Unz-hW-WXY"/>
                                                 </connections>
                                             </textField>
-                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wq5-bf-WID" customClass="TBResizeTextField">
+                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="wq5-bf-WID" customClass="TBResizeTextField">
                                                 <rect key="frame" x="-2" y="16" width="260" height="47"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                                 <animations/>
                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="1" placeholderString="" usesSingleLineMode="YES" id="Teu-Pc-NqO">
                                                     <font key="font" metaFont="system" size="48"/>
@@ -72,8 +74,9 @@
                                                     <binding destination="nUc-Ii-JF6" name="value" keyPath="objectValue.text" id="8td-5Z-zI9"/>
                                                 </connections>
                                             </textField>
-                                            <box verticalHuggingPriority="750" fixedFrame="YES" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="xea-v4-kvt">
+                                            <box verticalHuggingPriority="750" title="Box" boxType="separator" titlePosition="noTitle" id="xea-v4-kvt">
                                                 <rect key="frame" x="3" y="5" width="250" height="5"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                                 <animations/>
                                                 <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                                                 <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>

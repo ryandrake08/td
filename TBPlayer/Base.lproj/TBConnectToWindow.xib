@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="8187.4" systemVersion="15A275" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="8187.4" systemVersion="15A275" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="8187.4"/>
@@ -21,8 +21,9 @@
                 <rect key="frame" x="0.0" y="0.0" width="472" height="89"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jNv-lb-bNc">
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="jNv-lb-bNc">
                         <rect key="frame" x="18" y="52" width="48" height="17"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                         <animations/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Host:" id="bnp-tD-Qkz">
                             <font key="font" metaFont="system"/>
@@ -30,8 +31,9 @@
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tH7-KV-Lss">
+                    <textField verticalHuggingPriority="750" id="tH7-KV-Lss">
                         <rect key="frame" x="72" y="49" width="256" height="22"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                         <animations/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="127.0.0.1" drawsBackground="YES" id="TkK-Tk-nNe">
                             <font key="font" metaFont="system"/>
@@ -43,8 +45,9 @@
                             <outlet property="nextKeyView" destination="Ty9-fD-EIl" id="FG1-ub-yro"/>
                         </connections>
                     </textField>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NB3-1X-BGZ">
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="NB3-1X-BGZ">
                         <rect key="frame" x="334" y="52" width="48" height="17"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                         <animations/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Port:" id="URd-YW-9Ou">
                             <font key="font" metaFont="system"/>
@@ -52,8 +55,9 @@
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ty9-fD-EIl">
+                    <textField verticalHuggingPriority="750" id="Ty9-fD-EIl">
                         <rect key="frame" x="388" y="49" width="64" height="22"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                         <animations/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="25600" placeholderString="25600" drawsBackground="YES" id="6lS-d2-crF">
                             <numberFormatter key="formatter" formatterBehavior="10_0" positiveFormat="#" localizesFormat="NO" hasThousandSeparators="NO" thousandSeparator="," id="FnY-2M-HQ8">
@@ -69,8 +73,9 @@
                             <outlet property="nextKeyView" destination="xf6-lg-bDZ" id="EO2-Xs-Kwk"/>
                         </connections>
                     </textField>
-                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xf6-lg-bDZ">
+                    <button verticalHuggingPriority="750" id="xf6-lg-bDZ">
                         <rect key="frame" x="376" y="13" width="82" height="32"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                         <animations/>
                         <buttonCell key="cell" type="push" title="Connect" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="boR-uk-sHh">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -83,8 +88,9 @@ DQ
                             <action selector="connectButtonDidChange:" target="-2" id="YG8-Mb-jzM"/>
                         </connections>
                     </button>
-                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qIg-x2-NFQ">
+                    <button verticalHuggingPriority="750" id="qIg-x2-NFQ">
                         <rect key="frame" x="294" y="13" width="82" height="32"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                         <animations/>
                         <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="z5V-oP-NRw">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
