@@ -77,9 +77,10 @@
     if([configToSend count] > 0) {
         NSLog(@"Sending %ld configuration items", (long)[configToSend count]);
         [self configure:configToSend withBlock:^(id json) {
-            if(![json isEqual:newConfig]) {
-                NSLog(@"Sent and received configurations differ");
-                [newConfig setDictionary:json];
+            NSDictionary* differences = [json dictionaryWithChangesFromDictionary:newConfig];
+            if([differences count] > 0) {
+                NSLog(@"Updating existing config with %ld configuration items", (long)[differences count]);
+                [newConfig addEntriesFromDictionary:differences];
             }
         }];
     }
