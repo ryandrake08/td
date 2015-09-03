@@ -10,7 +10,7 @@
 #import "TournamentService.h"
 
 #include "tournament.hpp"
-#include <sstream>
+#include "logger.hpp"
 
 @interface TournamentDaemon ()
 {
@@ -44,6 +44,8 @@
 
 // start the daemon, pre-authorizing given client code, returning local unix socket path
 - (NSString*)startWithAuthCode:(NSNumber*)code {
+
+    logger_enable(LOG_ERROR, LOG_WARNING);
 
     // set up tournament and authorize
     __block tournament tourney;
