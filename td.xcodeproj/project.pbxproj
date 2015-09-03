@@ -162,6 +162,8 @@
 		AD9ED3E91B90949000C10550 /* TBPlayerSeatingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD9ED3E81B90949000C10550 /* TBPlayerSeatingViewController.m */; settings = {ASSET_TAGS = (); }; };
 		ADA4FC0B1B8B6DA500DB2AA7 /* TBConnectToWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA4FC091B8B6DA500DB2AA7 /* TBConnectToWindowController.m */; };
 		ADA5DAC01B949CB1004F50C8 /* s_warning.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04ECC1B7C59EB004F4245 /* s_warning.caf */; settings = {ASSET_TAGS = (); }; };
+		ADACCB701B989B2400F7C477 /* TBStatsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = ADACCB731B989B2400F7C477 /* TBStatsView.xib */; };
+		ADACCB711B989B2400F7C477 /* TBStatsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = ADACCB731B989B2400F7C477 /* TBStatsView.xib */; };
 		ADCECE7B1B7B0D9D00767DA6 /* TBControlsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADCECE761B7B0D9D00767DA6 /* TBControlsViewController.m */; };
 		ADCECE7D1B7B0D9D00767DA6 /* TBResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADCECE791B7B0D9D00767DA6 /* TBResultsViewController.m */; };
 		ADCECE7E1B7B0DBB00767DA6 /* TBControlsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADCECE761B7B0D9D00767DA6 /* TBControlsViewController.m */; };
@@ -184,8 +186,6 @@
 		ADE4E1281A7DFFD000FC9EFC /* TBTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE4E1271A7DFFD000FC9EFC /* TBTableViewController.m */; };
 		ADE5A4FD1B8F44A0002737A8 /* TBStatsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE5A4FB1B8F44A0002737A8 /* TBStatsViewController.m */; settings = {ASSET_TAGS = (); }; };
 		ADE5A4FE1B8F44A0002737A8 /* TBStatsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE5A4FB1B8F44A0002737A8 /* TBStatsViewController.m */; settings = {ASSET_TAGS = (); }; };
-		ADE5A4FF1B8F44A0002737A8 /* TBStatsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = ADE5A4FC1B8F44A0002737A8 /* TBStatsView.xib */; settings = {ASSET_TAGS = (); }; };
-		ADE5A5001B8F44A0002737A8 /* TBStatsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = ADE5A4FC1B8F44A0002737A8 /* TBStatsView.xib */; settings = {ASSET_TAGS = (); }; };
 		ADE5A5031B8F6C4C002737A8 /* TBCurrencyImageTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE5A5021B8F6C4C002737A8 /* TBCurrencyImageTransformer.m */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
@@ -354,6 +354,7 @@
 		AD9ED3E81B90949000C10550 /* TBPlayerSeatingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBPlayerSeatingViewController.m; sourceTree = "<group>"; };
 		ADA4FC081B8B6DA500DB2AA7 /* TBConnectToWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBConnectToWindowController.h; sourceTree = "<group>"; };
 		ADA4FC091B8B6DA500DB2AA7 /* TBConnectToWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBConnectToWindowController.m; sourceTree = "<group>"; };
+		ADACCB721B989B2400F7C477 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/TBStatsView.xib; sourceTree = "<group>"; };
 		ADCECE751B7B0D9D00767DA6 /* TBControlsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBControlsViewController.h; path = TBMac/TBControlsViewController.h; sourceTree = "<group>"; };
 		ADCECE761B7B0D9D00767DA6 /* TBControlsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TBControlsViewController.m; path = TBMac/TBControlsViewController.m; sourceTree = "<group>"; };
 		ADCECE781B7B0D9D00767DA6 /* TBResultsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBResultsViewController.h; path = TBMac/TBResultsViewController.h; sourceTree = "<group>"; };
@@ -376,7 +377,6 @@
 		ADE4E1271A7DFFD000FC9EFC /* TBTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TBTableViewController.m; path = TBMac/TBTableViewController.m; sourceTree = "<group>"; };
 		ADE5A4FA1B8F44A0002737A8 /* TBStatsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBStatsViewController.h; path = TBMac/TBStatsViewController.h; sourceTree = "<group>"; };
 		ADE5A4FB1B8F44A0002737A8 /* TBStatsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TBStatsViewController.m; path = TBMac/TBStatsViewController.m; sourceTree = "<group>"; };
-		ADE5A4FC1B8F44A0002737A8 /* TBStatsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TBStatsView.xib; path = TBMac/TBStatsView.xib; sourceTree = "<group>"; };
 		ADE5A5011B8F6C4C002737A8 /* TBCurrencyImageTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBCurrencyImageTransformer.h; sourceTree = "<group>"; };
 		ADE5A5021B8F6C4C002737A8 /* TBCurrencyImageTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBCurrencyImageTransformer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -678,7 +678,7 @@
 				94D849FA1B8D616D000124E4 /* TBSeatingView.xib */,
 				ADE5A4FA1B8F44A0002737A8 /* TBStatsViewController.h */,
 				ADE5A4FB1B8F44A0002737A8 /* TBStatsViewController.m */,
-				ADE5A4FC1B8F44A0002737A8 /* TBStatsView.xib */,
+				ADACCB731B989B2400F7C477 /* TBStatsView.xib */,
 				ADE4E1261A7DFFD000FC9EFC /* TBTableViewController.h */,
 				ADE4E1271A7DFFD000FC9EFC /* TBTableViewController.m */,
 				AD8E68531A6C606700E5A4D8 /* TBMac.xcassets */,
@@ -822,7 +822,7 @@
 				94D04ED01B7C59EB004F4245 /* s_next.caf in Resources */,
 				944FF4BD1B3D04CA000362ED /* TBPlayer.xcassets in Resources */,
 				94D849EF1B8D6160000124E4 /* TBResultsView.xib in Resources */,
-				ADE5A5001B8F44A0002737A8 /* TBStatsView.xib in Resources */,
+				ADACCB711B989B2400F7C477 /* TBStatsView.xib in Resources */,
 				94D04ED61B7C59EB004F4245 /* s_warning.caf in Resources */,
 				944FF4C01B3D04CA000362ED /* MainMenu.xib in Resources */,
 				94D04ECE1B7C59EB004F4245 /* s_break.caf in Resources */,
@@ -846,7 +846,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ADE5A4FF1B8F44A0002737A8 /* TBStatsView.xib in Resources */,
+				ADACCB701B989B2400F7C477 /* TBStatsView.xib in Resources */,
 				AD8E68521A6C606700E5A4D8 /* Document.xib in Resources */,
 				94D849D41B8D60E9000124E4 /* TBChipsView.xib in Resources */,
 				94D849D11B8D60E5000124E4 /* TBAuthsView.xib in Resources */,
@@ -1205,6 +1205,15 @@
 				AD8E68561A6C606700E5A4D8 /* Base */,
 			);
 			name = MainMenu.xib;
+			path = TBMac;
+			sourceTree = "<group>";
+		};
+		ADACCB731B989B2400F7C477 /* TBStatsView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				ADACCB721B989B2400F7C477 /* Base */,
+			);
+			name = TBStatsView.xib;
 			path = TBMac;
 			sourceTree = "<group>";
 		};
