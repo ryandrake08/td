@@ -20,6 +20,9 @@
 // Audio warning
 #define kAudioWarningTime 60000
 
+// Notification
+extern NSString* const TournamentSessionUpdatedNotification;
+
 @interface TournamentSession : NSObject
 
 // all tournament configuration and state

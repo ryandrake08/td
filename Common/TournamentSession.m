@@ -11,6 +11,8 @@
 #import "NSDictionary+Changed.h"
 #import "TBCurrencyNumberFormatter.h"
 
+NSString* const TournamentSessionUpdatedNotification = @"TournamentSessionUpdatedNotification";
+
 @interface TournamentSession() <TournamentConnectionDelegate>
 
 // all tournament configuration and state
@@ -331,6 +333,9 @@
         // replace only state that changed
         NSDictionary* update = [json dictionaryWithChangesFromDictionary:[self state]];
         [[self state] addEntriesFromDictionary:update];
+
+        // post notification
+        [[NSNotificationCenter defaultCenter] postNotificationName:TournamentSessionUpdatedNotification object:update];
     }
 }
 
