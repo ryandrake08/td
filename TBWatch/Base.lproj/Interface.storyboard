@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="8187.4" systemVersion="15A275" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="AgC-eL-Hgc">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8151.3"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="8092"/>
+    </dependencies>
+    <scenes>
+        <!--Interface Controller-->
+        <scene sceneID="aou-V4-d1y">
+            <objects>
+                <controller id="AgC-eL-Hgc" customClass="InterfaceController">
+                    <items>
+                        <group width="1" alignment="left" layout="vertical" id="cQx-30-C5d">
+                            <items>
+                                <label alignment="center" text="0:59:59" minimumScaleFactor="0.80000000000000004" id="jfh-q1-fMz">
+                                    <fontDescription key="font" type="boldSystem" pointSize="40"/>
+                                </label>
+                                <label alignment="center" text="25/50" minimumScaleFactor="0.29999999999999999" id="yNz-nR-m2D">
+                                    <fontDescription key="font" type="system" pointSize="30"/>
+                                </label>
+                                <label alignment="center" text="No Limit Texas Hold'em" minimumScaleFactor="0.80000000000000004" id="3EP-gl-hZn">
+                                    <fontDescription key="font" type="system" pointSize="12"/>
+                                </label>
+                            </items>
+                        </group>
+                        <group width="1" alignment="left" id="JA2-bG-LxC">
+                            <items>
+                                <button width="32" height="32" alignment="center" backgroundImage="b_previous" id="8yV-vf-Ad5">
+                                    <connections>
+                                        <action selector="previousRoundTapped" destination="AgC-eL-Hgc" id="VCn-ls-HaX"/>
+                                    </connections>
+                                </button>
+                                <button width="32" height="32" alignment="center" backgroundImage="b_play_pause" id="nDz-BI-TN4">
+                                    <connections>
+                                        <action selector="playPauseTapped" destination="AgC-eL-Hgc" id="z1x-WH-XSY"/>
+                                    </connections>
+                                </button>
+                                <button width="32" height="32" alignment="center" backgroundImage="b_next" id="Gmp-B4-4H9">
+                                    <connections>
+                                        <action selector="nextRoundTapped" destination="AgC-eL-Hgc" id="2dD-Ju-dXB"/>
+                                    </connections>
+                                </button>
+                                <button width="32" height="32" alignment="center" backgroundImage="b_call_clock" id="g08-KH-ZcQ">
+                                    <connections>
+                                        <action selector="callClockTapped" destination="AgC-eL-Hgc" id="s6v-8K-wrr"/>
+                                    </connections>
+                                </button>
+                            </items>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </group>
+                        <group width="1" alignment="left" layout="vertical" id="Qmz-R9-uUw">
+                            <items>
+                                <label alignment="center" text="Next Round" id="wq8-vl-cbU"/>
+                                <label alignment="center" text="25/50" minimumScaleFactor="0.29999999999999999" id="hrK-J4-yV0">
+                                    <fontDescription key="font" type="system" pointSize="30"/>
+                                </label>
+                                <label alignment="center" text="No Limit Texas Hold'em" minimumScaleFactor="0.80000000000000004" id="toO-ga-DPR">
+                                    <fontDescription key="font" type="system" pointSize="12"/>
+                                </label>
+                                <separator alignment="left" id="9MT-mW-7sA"/>
+                                <label alignment="center" text="Players Left" id="cCT-0o-vr8"/>
+                                <label alignment="center" text="20" id="cXr-82-vmZ">
+                                    <fontDescription key="font" type="system" pointSize="30"/>
+                                </label>
+                                <separator alignment="left" id="jiK-hl-yIV"/>
+                                <label alignment="center" text="Average Stack" id="eyC-E0-sji"/>
+                                <label alignment="center" text="1,000" minimumScaleFactor="0.80000000000000004" id="5nn-ha-mOM">
+                                    <fontDescription key="font" type="system" pointSize="30"/>
+                                </label>
+                            </items>
+                        </group>
+                    </items>
+                    <connections>
+                        <outlet property="averageStackLabel" destination="5nn-ha-mOM" id="O0B-FY-2t0"/>
+                        <outlet property="callClockButton" destination="g08-KH-ZcQ" id="osX-36-JKd"/>
+                        <outlet property="clockLabel" destination="jfh-q1-fMz" id="Por-zM-4m9"/>
+                        <outlet property="currentGameLabel" destination="3EP-gl-hZn" id="dZM-fz-GxP"/>
+                        <outlet property="currentRoundLabel" destination="yNz-nR-m2D" id="WVT-8k-VW5"/>
+                        <outlet property="nextGameLabel" destination="toO-ga-DPR" id="sv9-Af-HlL"/>
+                        <outlet property="nextRoundButton" destination="Gmp-B4-4H9" id="vaR-LM-ncZ"/>
+                        <outlet property="nextRoundLabel" destination="hrK-J4-yV0" id="2a3-cC-eLT"/>
+                        <outlet property="pauseResumeButton" destination="nDz-BI-TN4" id="OPm-IJ-Oqb"/>
+                        <outlet property="playersLeftLabel" destination="cXr-82-vmZ" id="vMT-XB-2kF"/>
+                        <outlet property="previousRoundButton" destination="8yV-vf-Ad5" id="hHn-tv-ddW"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="220" y="285.75"/>
+        </scene>
+        <!--Static Notification Interface Controller-->
+        <scene sceneID="AEw-b0-oYE">
+            <objects>
+                <notificationController id="YCC-NB-fut">
+                    <items>
+                        <label alignment="left" text="Alert Label" id="IdU-wH-bcW"/>
+                    </items>
+                    <notificationCategory key="notificationCategory" identifier="myCategory" id="JfB-70-Muf"/>
+                    <connections>
+                        <outlet property="notificationAlertLabel" destination="IdU-wH-bcW" id="JKC-fr-R95"/>
+                        <segue destination="4sK-HA-Art" kind="relationship" relationship="dynamicNotificationInterface" id="kXh-Jw-8B1"/>
+                    </connections>
+                </notificationController>
+            </objects>
+            <point key="canvasLocation" x="220" y="643"/>
+        </scene>
+        <!--Notification Controller-->
+        <scene sceneID="ZPc-GJ-vnh">
+            <objects>
+                <controller id="4sK-HA-Art" customClass="NotificationController"/>
+            </objects>
+            <point key="canvasLocation" x="468" y="643"/>
+        </scene>
+    </scenes>
+</document>

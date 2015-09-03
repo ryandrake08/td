@@ -7,10 +7,11 @@
 //
 
 #import "TBAppDelegate.h"
-
 #import "NSObject+FBKVOController.h"
 
-@interface TBAppDelegate ()
+@import WatchConnectivity;
+
+@interface TBAppDelegate () <WCSessionDelegate>
 
 @end
 
@@ -43,6 +44,13 @@
     UILocalNotification* locationNotification = launchOptions[UIApplicationLaunchOptionsLocalNotificationKey];
     if(locationNotification) {
         NSLog(@"Received notification while app not running");
+    }
+
+    // WCSession
+    if([WCSession isSupported]) {
+        WCSession* session = [WCSession defaultSession];
+        [session setDelegate:self];
+        [session activateSession];
     }
     return YES;
 }
@@ -82,9 +90,19 @@
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     NSLog(@"applicationDidBecomeActive");
 
+    // KVO for notifications
     [[self KVOController] observe:[[self session] state] keyPaths:@[@"running", @"current_round_text"] options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
         // schedule round notification (next runloop)
         [self performSelector:@selector(updateNotificationsForSessionState:) withObject:[[self session] state] afterDelay:0.0];
+    }];
+
+    // Notification center
+    [[NSNotificationCenter defaultCenter] addObserverForName:TournamentSessionUpdatedNotification object:nil queue:nil usingBlock:^(NSNotification* note) {
+        NSMutableDictionary* update = [NSMutableDictionary dictionaryWithDictionary:[note object]];
+        [update removeObjectsForKeys:@[@"elapsed_time", @"elapsed_time_text", @"time_remaining", @"break_time_remaining", @"action_clock_time_remaining"]];
+        if([update count] > 0) {
+            [[WCSession defaultSession] sendMessage:@{@"state":update} replyHandler:nil errorHandler:nil];
+        }
     }];
 }
 
@@ -167,6 +185,50 @@
         [localNotification setSoundName:soundName];
         NSLog(@"Creating new notification:%@ for %@", [localNotification alertBody], [localNotification fireDate]);
         [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
+    }
+}
+
+#pragma mark WCSessionDelegate
+
+- (void)session:(WCSession *)session didReceiveMessage:(NSDictionary<NSString *,id> *)message {
+    NSString* command = message[@"command"];
+    if(command) {
+        NSLog(@"Command received from watch: %@", command);
+
+        if([command isEqualToString:@"previousRound"]) {
+            NSUInteger currentBlindLevel = [[[self session] state][@"current_blind_level"] unsignedIntegerValue];
+            if(currentBlindLevel != 0) {
+                [[self session] setPreviousLevelWithBlock:nil];
+            }
+        }
+
+        if([command isEqualToString:@"playPause"]) {
+            NSUInteger currentBlindLevel = [[[self session] state][@"current_blind_level"] unsignedIntegerValue];
+            if(currentBlindLevel != 0) {
+                [[self session] togglePauseGame];
+            } else {
+                [[self session] startGameAt:nil];
+            }
+        }
+
+        if([command isEqualToString:@"nextRound"]) {
+            NSUInteger currentBlindLevel = [[[self session] state][@"current_blind_level"] unsignedIntegerValue];
+            if(currentBlindLevel != 0) {
+                [[self session] setNextLevelWithBlock:nil];
+            }
+        }
+
+        if([command isEqualToString:@"callClock"]) {
+            NSUInteger currentBlindLevel = [[[self session] state][@"current_blind_level"] unsignedIntegerValue];
+            if(currentBlindLevel != 0) {
+                NSUInteger remaining = [[[self session] state][@"action_clock_time_remaining"] unsignedIntegerValue];
+                if(remaining == 0) {
+                    [[self session] setActionClock:@kActionClockRequestTime];
+                } else {
+                    [[self session] setActionClock:nil];
+                }
+            }
+        }
     }
 }
 
