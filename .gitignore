@@ -3,13 +3,13 @@ project.xcworkspace
 xcuserdata
 xcshareddata
 db
+bin
+obj
 *.o
 *.a
 *.sdf
 *.opensdf
 *.suo
-*.vcxproj.user
-*.vcxproj.filters
-*/Debug*
-*/Release*
+*.user
+*.filters
 Defaults.tournbuddy
