@@ -79,6 +79,11 @@
                             <action selector="callClockTapped:" target="-2" id="kVy-ZC-tAl"/>
                         </connections>
                     </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="F1882079-CADA-4FB5-AE5D-02FEA5639344" label="Authorize" paletteLabel="Authorize" tag="-1" image="b_auth" id="bcc-fF-vg1">
+                        <connections>
+                            <action selector="authorizeButtonDidChange:" target="-2" id="yvy-7t-rb2"/>
+                        </connections>
+                    </toolbarItem>
                     <toolbarItem implicitItemIdentifier="0B2B8D14-0973-41DA-8224-1B3C07A95872" label="Setup" paletteLabel="Setup" tag="-1" image="b_configure" id="itU-pm-cfi">
                         <connections>
                             <action selector="configureButtonDidChange:" target="-2" id="rW3-mx-EQE"/>
@@ -176,6 +181,7 @@
                     <toolbarItem reference="Nof-xM-Y12"/>
                     <toolbarItem reference="o3e-sc-jd7"/>
                     <toolbarItem reference="h6p-0t-euE"/>
+                    <toolbarItem reference="bcc-fF-vg1"/>
                     <toolbarItem reference="itU-pm-cfi"/>
                     <toolbarItem reference="5oR-Nd-TWJ"/>
                     <toolbarItem reference="jWe-np-DZo"/>
@@ -198,6 +204,7 @@
         <viewController nibName="TBPlayersView" id="caP-4Z-QN9" customClass="TBPlayersViewController"/>
     </objects>
     <resources>
+        <image name="b_auth" width="64" height="64"/>
         <image name="b_call_clock" width="64" height="64"/>
         <image name="b_configure" width="64" height="64"/>
         <image name="b_display" width="64" height="64"/>

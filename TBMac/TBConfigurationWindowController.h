@@ -11,6 +11,6 @@
 @interface TBConfigurationWindowController : NSWindowController
 
 // Configuration and session
-@property (nonatomic, copy) NSMutableDictionary* configuration;
+@property (nonatomic, strong) NSMutableDictionary* configuration;
 
 @end

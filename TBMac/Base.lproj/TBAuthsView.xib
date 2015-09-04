@@ -8,6 +8,7 @@
         <customObject id="-2" userLabel="File's Owner" customClass="TBAuthsViewController">
             <connections>
                 <outlet property="arrayController" destination="l6s-a5-cpk" id="HU1-re-PlD"/>
+                <outlet property="tableView" destination="spg-BN-zNq" id="chW-Lq-fYk"/>
                 <outlet property="view" destination="upc-xJ-OKU" id="DKI-u4-yuM"/>
             </connections>
         </customObject>
@@ -64,7 +65,7 @@
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                         <animations/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" alignment="left" title="Table View Cell" placeholderString="Code" id="Nn4-I6-563">
-                                                            <numberFormatter key="formatter" formatterBehavior="default10_4" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="0" maximumIntegerDigits="42" id="hzo-me-RIv"/>
+                                                            <numberFormatter key="formatter" formatterBehavior="custom10_4" localizesFormat="NO" allowsFloats="NO" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="5" maximumIntegerDigits="5" id="hzo-me-RIv"/>
                                                             <font key="font" metaFont="system"/>
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>

@@ -10,6 +10,7 @@
 #import "TBSeatingViewController.h"
 #import "TBResultsViewController.h"
 #import "TBPlayersViewController.h"
+#import "TBAuthCodeWindowController.h"
 #import "TBConfigurationWindowController.h"
 #import "TBPlayerWindowController.h"
 #import "TournamentSession.h"
@@ -29,7 +30,6 @@
 @property (strong) IBOutlet TBResultsViewController* resultsViewController;
 
 // Window Controllers
-@property (strong) TBConfigurationWindowController* configurationWindowController;
 @property (strong) TBPlayerWindowController* playerWindowController;
 
 // UI Outlets
@@ -84,7 +84,6 @@
 
 - (void)close {
     // close all windows
-    [[self configurationWindowController] close];
     [[self playerWindowController] close];
 
     [[self KVOController] unobserveAll];
@@ -283,37 +282,36 @@
     [self planSeatingFor:maxPlayers force:YES];
 }
 
-- (IBAction)configureButtonDidChange:(id)sender {
-    if([[[self configurationWindowController] window] isVisible]) {
-        [[self configurationWindowController] close];
-    } else {
-        // setup configuration window if needed
-        if([self configurationWindowController] == nil) {
-            [self setConfigurationWindowController:[[TBConfigurationWindowController alloc] initWithWindowNibName:@"TBConfigurationWindow"]];
-            [[self configurationWindowController] setConfiguration:[self configuration]];
+- (IBAction)authorizeButtonDidChange:(id)sender {
+    TBAuthCodeWindowController* wc = [[TBAuthCodeWindowController alloc] initWithWindowNibName:@"TBAuthCodeWindow"];
+    // display as a sheet
+    [[self mainWindow] beginSheet:[wc window] completionHandler:^(NSModalResponse returnCode) {
+        if(returnCode == NSModalResponseOK) {
+            // new authorized client
+            [[self configuration][@"authorized_clients"] addObject:@{@"code":[wc code], @"added_at":[NSDate date]}];
+
+            // configure session and replace current configuration
+            [[self session] selectiveConfigure:[self configuration] andUpdate:[self configuration]];
+
+            // mark document as edited
+            [[self mainWindow] setDocumentEdited:YES];
         }
+    }];
+}
 
-        // display as a sheet
-        [[self mainWindow] beginSheet:[[self configurationWindowController] window] completionHandler:^(NSModalResponse returnCode) {
-            NSLog(@"Configuration sheet closed");
+- (IBAction)configureButtonDidChange:(id)sender {
+    TBConfigurationWindowController* wc = [[TBConfigurationWindowController alloc] initWithWindowNibName:@"TBConfigurationWindow"];
+    [wc setConfiguration:[self configuration]];
+    // display as a sheet
+    [[self mainWindow] beginSheet:[wc window] completionHandler:^(NSModalResponse returnCode) {
+        if(returnCode == NSModalResponseOK) {
+            // configure session and replace current configuration
+            [[self session] selectiveConfigure:[wc configuration] andUpdate:[self configuration]];
 
-            switch (returnCode) {
-                case NSModalResponseOK:
-                    NSLog(@"Done button was pressed");
-                    // configure session and replace current configuration
-                    [[self session] selectiveConfigure:[[self configurationWindowController] configuration] andUpdate:[self configuration]];
-                    [[self mainWindow] setDocumentEdited:YES];
-                    break;
-                case NSModalResponseCancel:
-                    NSLog(@"Cancel button was pressed");
-                    break;
-
-                default:
-                    break;
-            }
-
-        }];
-    }
+            // mark document as edited
+            [[self mainWindow] setDocumentEdited:YES];
+        }
+    }];
 }
 
 - (IBAction)displayButtonDidChange:(id)sender {
@@ -326,6 +324,7 @@
             [[self playerWindowController] setSession:[self session]];
         }
 
+        // display as non-modal
         [[self playerWindowController] showWindow:self];
 
         // move to second screen if possible
