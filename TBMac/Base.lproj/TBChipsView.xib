@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" customObjectInstantitationMethod="direct">
     <dependencies>
-        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
     </dependencies>
     <objects>
@@ -218,7 +217,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <popUpButtonCell key="cell" type="square" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="AIr-mk-r3Z">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="system"/>
+                        <font key="font" metaFont="menu"/>
                         <menu key="menu" id="I0e-tW-Kzb">
                             <items>
                                 <menuItem title="2" tag="2" id="VeH-5l-aEc"/>
@@ -227,7 +226,7 @@
                                 <menuItem title="5" tag="5" id="0I3-5G-TvQ"/>
                                 <menuItem title="6" tag="6" id="ePs-pP-WCt"/>
                                 <menuItem title="7" tag="7" id="b7k-Cf-jWy"/>
-                                <menuItem title="8" state="on" tag="8" id="BRb-zg-rvr"/>
+                                <menuItem title="8" tag="8" id="BRb-zg-rvr"/>
                                 <menuItem title="9" tag="9" id="nZH-ST-Cir"/>
                                 <menuItem title="10" tag="10" id="YBu-0I-ZPN"/>
                                 <menuItem title="11" tag="11" id="JvD-Br-G03"/>
