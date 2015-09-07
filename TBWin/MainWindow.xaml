@@ -5,8 +5,50 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TBWin"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
-    </Grid>
+        Width="1024"
+        Height="768"
+        Title="MainWindow">
+
+    <Window.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.New" Executed="NewCommand_Executed" />
+        <CommandBinding Command="ApplicationCommands.Open" Executed="OpenCommand_Executed" />
+        <CommandBinding Command="ApplicationCommands.Save" Executed="SaveCommand_Executed" />
+        <CommandBinding Command="ApplicationCommands.SaveAs" Executed="SaveAsCommand_Executed" />
+        <CommandBinding Command="local:Commands.Exit" Executed="ExitCommand_Executed" />
+    </Window.CommandBindings>
+
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="_File">
+                <MenuItem Header="_New" Command="ApplicationCommands.New"></MenuItem>
+                <MenuItem Header="_Open..." Command="ApplicationCommands.Open"></MenuItem>
+                <MenuItem Header="_Save" Command="ApplicationCommands.Save"></MenuItem>
+                <MenuItem Header="Save _As..." Command="ApplicationCommands.SaveAs"></MenuItem>
+                <Separator />
+                <MenuItem Header="E_xit" Command="local:Commands.Exit"></MenuItem>
+            </MenuItem>
+        </Menu>
+        <DataGrid x:Name="rightPane" DockPanel.Dock="Left">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Player"/>
+                <DataGridCheckBoxColumn Header="Seated"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <DataGrid x:Name="leftPane" DockPanel.Dock="Right">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Place"/>
+                <DataGridTextColumn Header="Player"/>
+                <DataGridTextColumn Header="Payout"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <DataGrid x:Name="centerPane">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="Table"/>
+                <DataGridTemplateColumn Header="Seat"/>
+                <DataGridTextColumn Header="Player"/>
+                <DataGridTemplateColumn Header="Paid"/>
+                <DataGridTemplateColumn Header="Action"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </DockPanel>
 </Window>
