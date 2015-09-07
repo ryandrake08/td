@@ -54,6 +54,11 @@
                 <allowedToolbarItems>
                     <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="kf3-UG-2JF"/>
                     <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="o3e-sc-jd7"/>
+                    <toolbarItem implicitItemIdentifier="21B1560B-E9E5-4590-8D45-BDC208751FA9" label="Results" paletteLabel="Export" tag="-1" image="b_export" id="nHO-s5-qne">
+                        <connections>
+                            <action selector="exportResults:" target="-2" id="jsC-CT-u71"/>
+                        </connections>
+                    </toolbarItem>
                     <toolbarItem implicitItemIdentifier="9303F932-10EA-45FF-9112-5E2190AFB751" label="Re-Plan" paletteLabel="Re-Plan" tag="-1" image="b_restart" id="jWe-np-DZo">
                         <connections>
                             <action selector="restartTapped:" target="-2" id="FlW-si-vnt"/>
@@ -185,6 +190,8 @@
                     <toolbarItem reference="itU-pm-cfi"/>
                     <toolbarItem reference="5oR-Nd-TWJ"/>
                     <toolbarItem reference="jWe-np-DZo"/>
+                    <toolbarItem reference="nHO-s5-qne"/>
+                    <toolbarItem reference="h6p-0t-euE"/>
                     <toolbarItem reference="bji-sb-V1g"/>
                     <toolbarItem reference="h6p-0t-euE"/>
                     <toolbarItem reference="lk1-6E-Wrm"/>
@@ -208,6 +215,7 @@
         <image name="b_call_clock" width="64" height="64"/>
         <image name="b_configure" width="64" height="64"/>
         <image name="b_display" width="64" height="64"/>
+        <image name="b_export" width="64" height="64"/>
         <image name="b_next" width="64" height="64"/>
         <image name="b_play_pause" width="64" height="64"/>
         <image name="b_previous" width="64" height="64"/>
