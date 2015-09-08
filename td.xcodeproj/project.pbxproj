@@ -160,6 +160,7 @@
 		AD87A6CC1BA1D3B800E55961 /* TBChipsDisplayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD87A6C91BA1D3B800E55961 /* TBChipsDisplayView.xib */; settings = {ASSET_TAGS = (); }; };
 		AD87A6CD1BA1D3B800E55961 /* TBChipsDisplayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD87A6C91BA1D3B800E55961 /* TBChipsDisplayView.xib */; settings = {ASSET_TAGS = (); }; };
 		AD87A6DB1BA2094400E55961 /* TBEllipseView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD87A6D81BA2094400E55961 /* TBEllipseView.m */; settings = {ASSET_TAGS = (); }; };
+		AD5375B41B9F35FB00EF5132 /* TBRemoteWatchDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AD5375B31B9F35FB00EF5132 /* TBRemoteWatchDelegate.m */; settings = {ASSET_TAGS = (); }; };
 		AD8E684A1A6C606700E5A4D8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8E68491A6C606700E5A4D8 /* AppDelegate.m */; };
 		AD8E684C1A6C606700E5A4D8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8E684B1A6C606700E5A4D8 /* main.m */; };
 		AD8E684F1A6C606700E5A4D8 /* Document.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8E684E1A6C606700E5A4D8 /* Document.m */; };
@@ -408,6 +409,8 @@
 		AD87A6D71BA2094400E55961 /* TBEllipseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBEllipseView.h; sourceTree = "<group>"; };
 		AD87A6D81BA2094400E55961 /* TBEllipseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBEllipseView.m; sourceTree = "<group>"; };
 		AD8E68431A6C606700E5A4D8 /* TBMac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TBMac.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AD5375B21B9F35FA00EF5132 /* TBRemoteWatchDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBRemoteWatchDelegate.h; sourceTree = "<group>"; };
+		AD5375B31B9F35FB00EF5132 /* TBRemoteWatchDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBRemoteWatchDelegate.m; sourceTree = "<group>"; };
 		AD8E68471A6C606700E5A4D8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = Info.plist; path = TBMac/Info.plist; sourceTree = "<group>"; };
 		AD8E68481A6C606700E5A4D8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = TBMac/AppDelegate.h; sourceTree = "<group>"; };
 		AD8E68491A6C606700E5A4D8 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = TBMac/AppDelegate.m; sourceTree = "<group>"; };
@@ -563,6 +566,8 @@
 				AD9ED3E81B90949000C10550 /* TBPlayerSeatingViewController.m */,
 				9476F4591B3C385400A158F8 /* TBRemoteClockViewController.h */,
 				9476F45A1B3C385400A158F8 /* TBRemoteClockViewController.m */,
+				AD5375B21B9F35FA00EF5132 /* TBRemoteWatchDelegate.h */,
+				AD5375B31B9F35FB00EF5132 /* TBRemoteWatchDelegate.m */,
 				ADDDAA891B93BCEE00D3AF68 /* TBResultsViewController.h */,
 				ADDDAA8A1B93BCEE00D3AF68 /* TBResultsViewController.m */,
 				ADD3BE831BA0A2A600A69834 /* TBSettingsViewController.h */,
@@ -1163,6 +1168,7 @@
 				9476F4691B3C385400A158F8 /* TBAppDelegate.m in Sources */,
 				949D70A01B3C440E008D5CD1 /* types.cpp in Sources */,
 				AD1B250F1BA8796500C4BDDC /* scope_timer.cpp in Sources */,
+				AD5375B41B9F35FB00EF5132 /* TBRemoteWatchDelegate.m in Sources */,
 				949D70A11B3C4411008D5CD1 /* tournament.cpp in Sources */,
 				9439701F1B405DC000BB0413 /* TournamentService.m in Sources */,
 				949D709D1B3C440E008D5CD1 /* json.cpp in Sources */,
