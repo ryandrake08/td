@@ -224,9 +224,9 @@ namespace TBWin
             return false;
         }
 
-        string _path = "";
-        dynamic _content = null;
-        bool _isDirty = false;
+        private string _path = "";
+        private dynamic _content = null;
+        private bool _isDirty = false;
 
         ResourceManager _resourceManager = TBWin.Properties.Resources.ResourceManager;
     }

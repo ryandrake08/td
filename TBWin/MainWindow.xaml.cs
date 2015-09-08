@@ -25,26 +25,38 @@ namespace TBWin
             InitializeComponent();
         }
 
+        public JsonDocument Document
+        {
+            get { return _document; }
+            set { _document = value; }
+        }
+
         private void NewCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
+            _document = new JsonDocument();
         }
 
         private void OpenCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
+            _document.Open();
         }
 
         private void SaveCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
+            _document.Save();
         }
 
         private void SaveAsCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
+            _document.SaveNew();
         }
 
         private void ExitCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             Application.Current.Shutdown();
         }
+
+        private JsonDocument _document;
     }
 
     public static class Commands
