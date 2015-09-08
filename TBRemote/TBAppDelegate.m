@@ -97,6 +97,7 @@
     if(running && (timeRemaining > 0 || breakTimeRemaining > 0)) {
         NSTimeInterval interval;
         NSString* alertBody;
+        NSString* alertTitle;
         NSString* soundName;
 
         // four possible notifications
@@ -104,6 +105,7 @@
             // more than one minute of play left in round
             interval = (timeRemaining - kAudioWarningTime) / 1000.0;
             soundName = @"s_warning.caf";
+            alertTitle = NSLocalizedString(@"One minute", nil);
             if(breakTimeRemaining > 0) {
                 alertBody = NSLocalizedString(@"One minute until break", nil);
             } else {
@@ -113,22 +115,36 @@
             // less than one minute of play left in round
             interval = timeRemaining / 1000.0;
             if(breakTimeRemaining > 0) {
-                alertBody = NSLocalizedString(@"Break time", nil);
                 soundName = @"s_break.caf";
+                if(breakTimeRemaining < 60000) {
+                    NSInteger seconds = breakTimeRemaining / 1000;
+                    alertBody = [NSString stringWithFormat:NSLocalizedString(@"Players are now on a %ld second break", nil), seconds];
+                } else if(breakTimeRemaining < 3600000) {
+                    NSInteger minutes = breakTimeRemaining / 60000;
+                    alertBody = [NSString stringWithFormat:NSLocalizedString(@"Players are now on a %ld minute break", nil), minutes];
+                } else {
+                    NSInteger minutes = (breakTimeRemaining / 60000) % 60;
+                    NSInteger hours = (breakTimeRemaining / 3600000);
+                    alertBody = [NSString stringWithFormat:NSLocalizedString(@"Players are now on a %ld hour, %ld minute break", nil), hours, minutes];
+                }
+                alertTitle = NSLocalizedString(@"Break time", nil);
             } else {
-                alertBody = [NSLocalizedString(@"New round: ", nil) stringByAppendingString:nextRoundText];
                 soundName = @"s_next.caf";
+                alertBody = [NSLocalizedString(@"New round: ", nil) stringByAppendingString:nextRoundText];
+                alertTitle = [nextRoundText copy];
             }
         } else if(breakTimeRemaining > kAudioWarningTime) {
             // more than one minute left in break
             interval = (breakTimeRemaining - kAudioWarningTime) / 1000.0;
             soundName = @"s_warning.caf";
             alertBody = [NSLocalizedString(@"One minute until next round: ", nil) stringByAppendingString:nextRoundText];
+            alertTitle = NSLocalizedString(@"One minute", nil);
         } else if(breakTimeRemaining > 0) {
             // less than one minute left in break
             interval = breakTimeRemaining / 1000.0;
-            alertBody = [NSLocalizedString(@"New round: ", nil) stringByAppendingString:nextRoundText];
             soundName = @"s_next.caf";
+            alertBody = [NSLocalizedString(@"New round: ", nil) stringByAppendingString:nextRoundText];
+            alertTitle = [nextRoundText copy];
         }
 
         // create and schedule local notification
