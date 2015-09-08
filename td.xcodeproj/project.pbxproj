@@ -174,10 +174,6 @@
 		AD9ED3E91B90949000C10550 /* TBPlayerSeatingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD9ED3E81B90949000C10550 /* TBPlayerSeatingViewController.m */; };
 		ADA4FC0B1B8B6DA500DB2AA7 /* TBConnectToWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA4FC091B8B6DA500DB2AA7 /* TBConnectToWindowController.m */; };
 		ADA5DAC01B949CB1004F50C8 /* s_warning.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04ECC1B7C59EB004F4245 /* s_warning.caf */; };
-		ADACCB701B989B2400F7C477 /* TBStatsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = ADACCB731B989B2400F7C477 /* TBStatsView.xib */; };
-		ADACCB711B989B2400F7C477 /* TBStatsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = ADACCB731B989B2400F7C477 /* TBStatsView.xib */; };
-		ADACCB781B989B8000F7C477 /* TBAuthCodeWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADACCB761B989B8000F7C477 /* TBAuthCodeWindowController.m */; };
-		ADACCB791B989B8F00F7C477 /* TBAuthCodeWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = ADACCB7B1B989B8F00F7C477 /* TBAuthCodeWindow.xib */; };
 		ADA6A19C1B97FE8A00C83762 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ADA6A19A1B97FE8A00C83762 /* Interface.storyboard */; };
 		ADA6A19E1B97FE8A00C83762 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ADA6A19D1B97FE8A00C83762 /* Assets.xcassets */; };
 		ADA6A1A51B97FE8A00C83762 /* TBWatch Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = ADA6A1A41B97FE8A00C83762 /* TBWatch Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -186,8 +182,12 @@
 		ADA6A1B31B97FE8A00C83762 /* NotificationController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA6A1B21B97FE8A00C83762 /* NotificationController.m */; };
 		ADA6A1B51B97FE8A00C83762 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ADA6A1B41B97FE8A00C83762 /* Assets.xcassets */; };
 		ADA6A1B91B97FE8A00C83762 /* TBWatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = ADA6A1981B97FE8A00C83762 /* TBWatch.app */; };
-		ADA6A1C21B98041900C83762 /* FBKVOController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEAE01B5AE2D60026B25D /* FBKVOController.m */; settings = {ASSET_TAGS = (); }; };
-		ADA6A1C31B98043500C83762 /* NSObject+FBKVOController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEAE41B5AE2D60026B25D /* NSObject+FBKVOController.m */; settings = {ASSET_TAGS = (); }; };
+		ADA6A1C21B98041900C83762 /* FBKVOController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEAE01B5AE2D60026B25D /* FBKVOController.m */; };
+		ADA6A1C31B98043500C83762 /* NSObject+FBKVOController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEAE41B5AE2D60026B25D /* NSObject+FBKVOController.m */; };
+		ADACCB701B989B2400F7C477 /* TBStatsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = ADACCB731B989B2400F7C477 /* TBStatsView.xib */; };
+		ADACCB711B989B2400F7C477 /* TBStatsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = ADACCB731B989B2400F7C477 /* TBStatsView.xib */; };
+		ADACCB781B989B8000F7C477 /* TBAuthCodeWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADACCB761B989B8000F7C477 /* TBAuthCodeWindowController.m */; };
+		ADACCB791B989B8F00F7C477 /* TBAuthCodeWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = ADACCB7B1B989B8F00F7C477 /* TBAuthCodeWindow.xib */; };
 		ADCECE7B1B7B0D9D00767DA6 /* TBControlsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADCECE761B7B0D9D00767DA6 /* TBControlsViewController.m */; };
 		ADCECE7D1B7B0D9D00767DA6 /* TBResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADCECE791B7B0D9D00767DA6 /* TBResultsViewController.m */; };
 		ADCECE7E1B7B0DBB00767DA6 /* TBControlsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADCECE761B7B0D9D00767DA6 /* TBControlsViewController.m */; };
@@ -431,10 +431,6 @@
 		AD9ED3E81B90949000C10550 /* TBPlayerSeatingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBPlayerSeatingViewController.m; sourceTree = "<group>"; };
 		ADA4FC081B8B6DA500DB2AA7 /* TBConnectToWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBConnectToWindowController.h; sourceTree = "<group>"; };
 		ADA4FC091B8B6DA500DB2AA7 /* TBConnectToWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBConnectToWindowController.m; sourceTree = "<group>"; };
-		ADACCB721B989B2400F7C477 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/TBStatsView.xib; sourceTree = "<group>"; };
-		ADACCB751B989B8000F7C477 /* TBAuthCodeWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBAuthCodeWindowController.h; path = TBMac/TBAuthCodeWindowController.h; sourceTree = "<group>"; };
-		ADACCB761B989B8000F7C477 /* TBAuthCodeWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TBAuthCodeWindowController.m; path = TBMac/TBAuthCodeWindowController.m; sourceTree = "<group>"; };
-		ADACCB7A1B989B8F00F7C477 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/TBAuthCodeWindow.xib; sourceTree = "<group>"; };
 		ADA6A1981B97FE8A00C83762 /* TBWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TBWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADA6A19B1B97FE8A00C83762 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
 		ADA6A19D1B97FE8A00C83762 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -449,6 +445,10 @@
 		ADA6A1B21B97FE8A00C83762 /* NotificationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotificationController.m; sourceTree = "<group>"; };
 		ADA6A1B41B97FE8A00C83762 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		ADA6A1B61B97FE8A00C83762 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		ADACCB721B989B2400F7C477 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/TBStatsView.xib; sourceTree = "<group>"; };
+		ADACCB751B989B8000F7C477 /* TBAuthCodeWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBAuthCodeWindowController.h; path = TBMac/TBAuthCodeWindowController.h; sourceTree = "<group>"; };
+		ADACCB761B989B8000F7C477 /* TBAuthCodeWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TBAuthCodeWindowController.m; path = TBMac/TBAuthCodeWindowController.m; sourceTree = "<group>"; };
+		ADACCB7A1B989B8F00F7C477 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/TBAuthCodeWindow.xib; sourceTree = "<group>"; };
 		ADCECE751B7B0D9D00767DA6 /* TBControlsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBControlsViewController.h; path = TBMac/TBControlsViewController.h; sourceTree = "<group>"; };
 		ADCECE761B7B0D9D00767DA6 /* TBControlsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TBControlsViewController.m; path = TBMac/TBControlsViewController.m; sourceTree = "<group>"; };
 		ADCECE781B7B0D9D00767DA6 /* TBResultsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBResultsViewController.h; path = TBMac/TBResultsViewController.h; sourceTree = "<group>"; };
@@ -734,9 +734,9 @@
 				AD8E68451A6C606700E5A4D8 /* TBMac */,
 				944FF4B41B3D04CA000362ED /* TBPlayer */,
 				9476F4671B3C385400A158F8 /* TBRemote */,
-				9476F4EB1B3C3F8300A158F8 /* tournamentd */,
 				ADA6A1991B97FE8A00C83762 /* TBWatch */,
 				ADA6A1A81B97FE8A00C83762 /* TBWatch Extension */,
+				9476F4EB1B3C3F8300A158F8 /* tournamentd */,
 				AD51C5341AFFC9210084B25E /* Frameworks */,
 				AD8E68441A6C606700E5A4D8 /* Products */,
 			);
@@ -1476,6 +1476,14 @@
 			path = TBMac;
 			sourceTree = "<group>";
 		};
+		ADA6A19A1B97FE8A00C83762 /* Interface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				ADA6A19B1B97FE8A00C83762 /* Base */,
+			);
+			name = Interface.storyboard;
+			sourceTree = "<group>";
+		};
 		ADACCB731B989B2400F7C477 /* TBStatsView.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -1492,12 +1500,6 @@
 			);
 			name = TBAuthCodeWindow.xib;
 			path = TBMac;
-		ADA6A19A1B97FE8A00C83762 /* Interface.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				ADA6A19B1B97FE8A00C83762 /* Base */,
-			);
-			name = Interface.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -1783,6 +1785,7 @@
 				ADA6A1BD1B97FE8A00C83762 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		ADA6A1C01B97FE8A00C83762 /* Build configuration list for PBXNativeTarget "TBWatch" */ = {
 			isa = XCConfigurationList;
@@ -1791,6 +1794,7 @@
 				ADA6A1BB1B97FE8A00C83762 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

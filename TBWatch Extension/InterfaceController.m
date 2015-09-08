@@ -13,21 +13,18 @@
 
 @interface InterfaceController () <WCSessionDelegate>
 
-// state
-@property (nonatomic, strong) NSMutableDictionary* state;
-
 // ui
 @property (weak, nonatomic) IBOutlet WKInterfaceLabel* clockLabel;
 @property (weak, nonatomic) IBOutlet WKInterfaceLabel* currentRoundLabel;
 @property (weak, nonatomic) IBOutlet WKInterfaceLabel* currentGameLabel;
 @property (weak, nonatomic) IBOutlet WKInterfaceLabel* nextRoundLabel;
 @property (weak, nonatomic) IBOutlet WKInterfaceLabel* nextGameLabel;
+@property (weak, nonatomic) IBOutlet WKInterfaceLabel* playersLeftLabel;
+@property (weak, nonatomic) IBOutlet WKInterfaceLabel* averageStackLabel;
 @property (weak, nonatomic) IBOutlet WKInterfaceButton* previousRoundButton;
 @property (weak, nonatomic) IBOutlet WKInterfaceButton* pauseResumeButton;
 @property (weak, nonatomic) IBOutlet WKInterfaceButton* nextRoundButton;
 @property (weak, nonatomic) IBOutlet WKInterfaceButton* callClockButton;
-@property (weak, nonatomic) IBOutlet WKInterfaceLabel* playersLeftLabel;
-@property (weak, nonatomic) IBOutlet WKInterfaceLabel* averageStackLabel;
 
 @end
 
@@ -36,9 +33,6 @@
 
 - (void)awakeWithContext:(id)context {
     [super awakeWithContext:context];
-
-    // Create state
-    [self setState:[[NSMutableDictionary alloc] init]];
 
     // WCSession
     if([WCSession isSupported]) {
@@ -63,11 +57,9 @@
     if(state) {
         NSLog(@"State received from companion: %ld entries", (unsigned long)[state count]);
 
-        [[self state] addEntriesFromDictionary:state];
-
         if(state[@"connected"] || state[@"authorized"]) {
-            BOOL authorized = [[self state][@"connected"] boolValue] && [[self state][@"authorized"] boolValue];
-            BOOL playing = [[self state][@"current_blind_level"] unsignedIntegerValue] != 0;
+            BOOL authorized = [state[@"connected"] boolValue] && [state[@"authorized"] boolValue];
+            BOOL playing = [state[@"current_blind_level"] unsignedIntegerValue] != 0;
             [[self previousRoundButton] setEnabled:authorized && playing];
             [[self pauseResumeButton] setEnabled:authorized];
             [[self nextRoundButton] setEnabled:authorized && playing];
@@ -75,31 +67,31 @@
         }
 
         if(state[@"clock_text"]) {
-            [[self clockLabel] setText:[self state][@"clock_text"]];
+            [[self clockLabel] setText:state[@"clock_text"]];
         }
 
         if(state[@"current_round_text"]) {
-            [[self currentRoundLabel] setText:[self state][@"current_round_text"]];
+            [[self currentRoundLabel] setText:state[@"current_round_text"]];
         }
 
         if(state[@"current_game_text"]) {
-            [[self currentGameLabel] setText:[self state][@"current_game_text"]];
+            [[self currentGameLabel] setText:state[@"current_game_text"]];
         }
 
         if(state[@"next_round_text"]) {
-            [[self nextRoundLabel] setText:[self state][@"next_round_text"]];
+            [[self nextRoundLabel] setText:state[@"next_round_text"]];
         }
 
         if(state[@"next_game_text"]) {
-            [[self nextGameLabel] setText:[self state][@"next_game_text"]];
+            [[self nextGameLabel] setText:state[@"next_game_text"]];
         }
 
         if(state[@"players_left_text"]) {
-            [[self playersLeftLabel] setText:[self state][@"players_left_text"]];
+            [[self playersLeftLabel] setText:state[@"players_left_text"]];
         }
 
         if(state[@"average_stack_text"]) {
-            [[self averageStackLabel] setText:[self state][@"average_stack_text"]];
+            [[self averageStackLabel] setText:state[@"average_stack_text"]];
         }
     }
 }

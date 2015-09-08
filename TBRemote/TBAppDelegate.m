@@ -96,7 +96,7 @@
         [self performSelector:@selector(updateNotificationsForSessionState:) withObject:[[self session] state] afterDelay:0.0];
     }];
 
-    // Notification center
+    // Notification center - Update WCSession when certain state changes happen
     [[NSNotificationCenter defaultCenter] addObserverForName:TournamentSessionUpdatedNotification object:nil queue:nil usingBlock:^(NSNotification* note) {
         NSMutableDictionary* update = [NSMutableDictionary dictionaryWithDictionary:[note object]];
         [update removeObjectsForKeys:@[@"elapsed_time", @"elapsed_time_text", @"time_remaining", @"break_time_remaining", @"action_clock_time_remaining"]];
@@ -190,7 +190,7 @@
 
 #pragma mark WCSessionDelegate
 
-- (void)session:(WCSession *)session didReceiveMessage:(NSDictionary<NSString *,id> *)message {
+- (void)session:(WCSession*)session didReceiveMessage:(NSDictionary<NSString*,id>*)message {
     NSString* command = message[@"command"];
     if(command) {
         NSLog(@"Command received from watch: %@", command);
