@@ -68,7 +68,12 @@
     }];
 
     [[self KVOController] observe:[[self session] state] keyPath:@"current_round_text" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
-        [[observer currentRoundLabel] setText:object[@"current_round_text"]];
+        NSString* currentRoundText = object[@"current_round_text"];
+        if([[self currentRoundLabel] frame].size.width <= 400.0f) {
+            // wrap at ante
+            currentRoundText = [currentRoundText stringByReplacingOccurrencesOfString:@" A:" withString:@"\nA:"];
+        }
+        [[observer currentRoundLabel] setText:currentRoundText];
     }];
 
     [[self KVOController] observe:[[self session] state] keyPath:@"next_game_text" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
