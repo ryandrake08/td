@@ -93,6 +93,7 @@
     for(TournamentService* tournament in [self mutableList]) {
         if([[tournament netService] isEqual:service]) {
             [[self mutableList] removeObject:tournament];
+            break;
         }
     }
 
