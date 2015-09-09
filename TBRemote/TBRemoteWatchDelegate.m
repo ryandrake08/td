@@ -7,13 +7,16 @@
 //
 
 #import "TBRemoteWatchDelegate.h"
-
 @import WatchConnectivity;
+
+#define kMinMessageSendInterval 1.0
 
 @interface TBRemoteWatchDelegate() <WCSessionDelegate>
 
 // the tournament session (model) object
 @property (strong) TournamentSession* session;
+
+@property (strong) NSDate* lastSendDate;
 
 @end
 
@@ -25,6 +28,9 @@
             // Set the tournament session
             [self setSession:session];
 
+            // Default last-send date
+            [self setLastSendDate:[NSDate dateWithTimeIntervalSince1970:0.0]];
+
             // Set up the WatchConnectivity session
             WCSession* wcSession = [WCSession defaultSession];
             [wcSession setDelegate:self];
@@ -32,10 +38,15 @@
 
             // Notification center - Update WCSession when certain state changes happen
             [[NSNotificationCenter defaultCenter] addObserverForName:TournamentSessionUpdatedNotification object:nil queue:nil usingBlock:^(NSNotification* note) {
-                NSMutableDictionary* update = [NSMutableDictionary dictionaryWithDictionary:[note object]];
-                [update removeObjectsForKeys:@[@"elapsed_time", @"elapsed_time_text", @"time_remaining", @"break_time_remaining", @"action_clock_time_remaining"]];
-                if([update count] > 0) {
-                    [[WCSession defaultSession] sendMessage:@{@"state":update} replyHandler:nil errorHandler:nil];
+                if([[self lastSendDate] timeIntervalSinceNow] < -kMinMessageSendInterval) {
+                    NSMutableDictionary* update = [NSMutableDictionary dictionaryWithDictionary:[note object]];
+                    [update removeObjectsForKeys:@[@"elapsed_time", @"elapsed_time_text", @"time_remaining", @"break_time_remaining", @"action_clock_time_remaining"]];
+                    if([update count] > 0) {
+                        // Send state change as a message to watch
+                        [[WCSession defaultSession] sendMessage:@{@"state":update} replyHandler:nil errorHandler:nil];
+                        // Last sent = now
+                        [self setLastSendDate:[NSDate date]];
+                    }
                 }
             }];
         }
