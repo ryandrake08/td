@@ -22,6 +22,17 @@
         [self setSession:[[TournamentSession alloc] init]];
     }
 
+    // Create either tournamnet list or setup, depending on whether this is the full version or the remote
+    UIStoryboard* sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    NSString* firstTabName = (YES) ? @"TBTournamentsViewController" : @"TBSettingsViewController";
+    UIViewController* vc = [sb instantiateViewControllerWithIdentifier:firstTabName];
+
+    // Add it as first tab
+    UITabBarController* root = (UITabBarController*)[[self window] rootViewController];
+    NSMutableArray* tabs = [NSMutableArray arrayWithArray:[root viewControllers]];
+    [tabs insertObject:vc atIndex:0];
+    [root setViewControllers:tabs];
+
     // Register local notifications
     if([UIApplication instancesRespondToSelector:@selector(registerUserNotificationSettings:)]) {
         UIUserNotificationSettings* settings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeSound categories:nil];

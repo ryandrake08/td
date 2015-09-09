@@ -172,6 +172,7 @@
 		ADCECE801B7B0DBF00767DA6 /* TBResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADCECE791B7B0D9D00767DA6 /* TBResultsViewController.m */; };
 		ADCECE821B7B0E6100767DA6 /* TBTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE4E1271A7DFFD000FC9EFC /* TBTableViewController.m */; };
 		ADCECE861B7B101500767DA6 /* TBPlayersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADCECE841B7B101500767DA6 /* TBPlayersViewController.m */; };
+		ADD3BE851BA0A2A600A69834 /* TBSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD3BE841BA0A2A600A69834 /* TBSettingsViewController.m */; settings = {ASSET_TAGS = (); }; };
 		ADD4F1251B91FE2400DAF567 /* NSObject+AssociatedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD4F1241B91FE2400DAF567 /* NSObject+AssociatedObject.m */; settings = {ASSET_TAGS = (); }; };
 		ADD4F1261B91FE2400DAF567 /* NSObject+AssociatedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD4F1241B91FE2400DAF567 /* NSObject+AssociatedObject.m */; settings = {ASSET_TAGS = (); }; };
 		ADD4F1271B91FE2400DAF567 /* NSObject+AssociatedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD4F1241B91FE2400DAF567 /* NSObject+AssociatedObject.m */; settings = {ASSET_TAGS = (); }; };
@@ -366,6 +367,8 @@
 		ADCECE791B7B0D9D00767DA6 /* TBResultsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TBResultsViewController.m; path = TBMac/TBResultsViewController.m; sourceTree = "<group>"; };
 		ADCECE831B7B101500767DA6 /* TBPlayersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBPlayersViewController.h; path = TBMac/TBPlayersViewController.h; sourceTree = "<group>"; };
 		ADCECE841B7B101500767DA6 /* TBPlayersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TBPlayersViewController.m; path = TBMac/TBPlayersViewController.m; sourceTree = "<group>"; };
+		ADD3BE831BA0A2A600A69834 /* TBSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBSettingsViewController.h; sourceTree = "<group>"; };
+		ADD3BE841BA0A2A600A69834 /* TBSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBSettingsViewController.m; sourceTree = "<group>"; };
 		ADD4F1231B91FE2400DAF567 /* NSObject+AssociatedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+AssociatedObject.h"; sourceTree = "<group>"; };
 		ADD4F1241B91FE2400DAF567 /* NSObject+AssociatedObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+AssociatedObject.m"; sourceTree = "<group>"; };
 		ADD73D271B9692E1006824A1 /* NSDictionary+Changed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Changed.h"; sourceTree = "<group>"; };
@@ -467,6 +470,8 @@
 				9476F45A1B3C385400A158F8 /* TBRemoteClockViewController.m */,
 				ADDDAA891B93BCEE00D3AF68 /* TBResultsViewController.h */,
 				ADDDAA8A1B93BCEE00D3AF68 /* TBResultsViewController.m */,
+				ADD3BE831BA0A2A600A69834 /* TBSettingsViewController.h */,
+				ADD3BE841BA0A2A600A69834 /* TBSettingsViewController.m */,
 				9476F4571B3C385400A158F8 /* TBTournamentsViewController.h */,
 				9476F4581B3C385400A158F8 /* TBTournamentsViewController.m */,
 				9476F45C1B3C385400A158F8 /* Main.storyboard */,
@@ -958,6 +963,7 @@
 				94FDEAFB1B5AEB0B0026B25D /* TBActionClockView.m in Sources */,
 				94BB5FFB1B7F9F1600B33929 /* NSString+CamelCase.m in Sources */,
 				94FDEAEA1B5AE2D60026B25D /* FBKVOController.m in Sources */,
+				ADD3BE851BA0A2A600A69834 /* TBSettingsViewController.m in Sources */,
 				9476F4A31B3C3EA700A158F8 /* TournamentConnection.m in Sources */,
 				949D709E1B3C440E008D5CD1 /* logger.cpp in Sources */,
 				949D709B1B3C440E008D5CD1 /* datetime.cpp in Sources */,
