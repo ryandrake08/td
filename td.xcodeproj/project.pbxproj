@@ -161,6 +161,12 @@
 		AD87A6CD1BA1D3B800E55961 /* TBChipsDisplayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD87A6C91BA1D3B800E55961 /* TBChipsDisplayView.xib */; settings = {ASSET_TAGS = (); }; };
 		AD87A6DB1BA2094400E55961 /* TBEllipseView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD87A6D81BA2094400E55961 /* TBEllipseView.m */; settings = {ASSET_TAGS = (); }; };
 		AD5375B41B9F35FB00EF5132 /* TBRemoteWatchDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AD5375B31B9F35FB00EF5132 /* TBRemoteWatchDelegate.m */; settings = {ASSET_TAGS = (); }; };
+		AD7E5D011B9FE766004654E9 /* s_break.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04EC81B7C59EB004F4245 /* s_break.caf */; settings = {ASSET_TAGS = (); }; };
+		AD7E5D021B9FE766004654E9 /* s_next.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04EC91B7C59EB004F4245 /* s_next.caf */; settings = {ASSET_TAGS = (); }; };
+		AD7E5D031B9FE766004654E9 /* s_warning.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04ECC1B7C59EB004F4245 /* s_warning.caf */; settings = {ASSET_TAGS = (); }; };
+		AD7E5D071B9FE7AB004654E9 /* s_break.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04EC81B7C59EB004F4245 /* s_break.caf */; settings = {ASSET_TAGS = (); }; };
+		AD7E5D081B9FE7AB004654E9 /* s_next.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04EC91B7C59EB004F4245 /* s_next.caf */; settings = {ASSET_TAGS = (); }; };
+		AD7E5D091B9FE7AB004654E9 /* s_warning.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04ECC1B7C59EB004F4245 /* s_warning.caf */; settings = {ASSET_TAGS = (); }; };
 		AD8E684A1A6C606700E5A4D8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8E68491A6C606700E5A4D8 /* AppDelegate.m */; };
 		AD8E684C1A6C606700E5A4D8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8E684B1A6C606700E5A4D8 /* main.m */; };
 		AD8E684F1A6C606700E5A4D8 /* Document.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8E684E1A6C606700E5A4D8 /* Document.m */; };
@@ -1092,8 +1098,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AD7E5D031B9FE766004654E9 /* s_warning.caf in Resources */,
+				AD7E5D011B9FE766004654E9 /* s_break.caf in Resources */,
 				ADA6A19E1B97FE8A00C83762 /* Assets.xcassets in Resources */,
 				ADA6A19C1B97FE8A00C83762 /* Interface.storyboard in Resources */,
+				AD7E5D021B9FE766004654E9 /* s_next.caf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1101,6 +1110,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AD7E5D081B9FE7AB004654E9 /* s_next.caf in Resources */,
+				AD7E5D091B9FE7AB004654E9 /* s_warning.caf in Resources */,
+				AD7E5D071B9FE7AB004654E9 /* s_break.caf in Resources */,
 				ADA6A1B51B97FE8A00C83762 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

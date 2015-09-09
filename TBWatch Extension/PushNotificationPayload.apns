@@ -1,16 +1,17 @@
 {
     "aps": {
         "alert": {
-            "body": "Test message",
-            "title": "Optional title"
+            "body": "Players are now on a 15 minute break",
+            "title": "Break time",
+            "sound": "s_break.caf"
         },
         "category": "myCategory"
     },
 
     "WatchKit Simulator Actions": [
         {
-            "title": "First Button",
-            "identifier": "firstButtonAction"
+            "title": "Show timer",
+            "identifier": "showTimerAction"
         }
     ],
 
