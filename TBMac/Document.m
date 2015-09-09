@@ -288,7 +288,7 @@
     [[self mainWindow] beginSheet:[wc window] completionHandler:^(NSModalResponse returnCode) {
         if(returnCode == NSModalResponseOK) {
             // new authorized client
-            [[self configuration][@"authorized_clients"] addObject:@{@"code":[wc code], @"added_at":[NSDate date]}];
+            [[self configuration][@"authorized_clients"] addObject:[wc object]];
 
             // configure session and replace current configuration
             [[self session] selectiveConfigure:[self configuration] andUpdate:[self configuration]];

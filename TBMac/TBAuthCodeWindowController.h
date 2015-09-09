@@ -10,7 +10,7 @@
 
 @interface TBAuthCodeWindowController : NSWindowController
 
-// the entered code
-- (NSString*)code;
+// json representation of authorized_client
+- (NSDictionary*) object;
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "TBAuthCodeWindowController.h"
+#import "TBDateStringTransformer.h"
 
 @interface TBAuthCodeWindowController ()
 
@@ -22,10 +23,25 @@
 
 #pragma mark Accessors
 
-// the entered code
-- (NSString*)code {
+// json representation of authorized_client
+- (NSDictionary*) object {
+    // code
     NSArray* components = @[[[self codeField0] stringValue],[[self codeField1] stringValue],[[self codeField2] stringValue],[[self codeField3] stringValue],[[self codeField4] stringValue]];
-    return [components componentsJoinedByString:@""];
+    NSString* codeString = [components componentsJoinedByString:@""];
+    NSNumberFormatter* formatter = [[NSNumberFormatter alloc] init];
+    [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
+    NSNumber* code = [formatter numberFromString:codeString];
+
+    // added_at
+    TBDateStringTransformer* transformer = [[TBDateStringTransformer alloc] init];
+    NSString* addedAt = [transformer reverseTransformedValue:[NSDate date]];
+
+    // build dictionary
+    if(code && addedAt) {
+        return @{@"code":code, @"added_at":addedAt};
+    } else {
+        return nil;
+    }
 }
 
 #pragma mark Text field navigation
