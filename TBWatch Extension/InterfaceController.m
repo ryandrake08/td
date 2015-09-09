@@ -26,6 +26,11 @@
 @property (weak, nonatomic) IBOutlet WKInterfaceButton* nextRoundButton;
 @property (weak, nonatomic) IBOutlet WKInterfaceButton* callClockButton;
 
+// tracked state
+@property (assign, nonatomic) BOOL connected;
+@property (assign, nonatomic) BOOL authorized;
+@property (assign, nonatomic) BOOL playing;
+
 @end
 
 
@@ -45,6 +50,10 @@
 - (void)willActivate {
     // This method is called when watch view controller is about to be visible to user
     [super willActivate];
+
+    // Request a full sync from companion
+    NSLog(@"Requesting a full sync from companion");
+    [[WCSession defaultSession] sendMessage:@{@"command":@"fullSync"} replyHandler:nil errorHandler:nil];
 }
 
 - (void)didDeactivate {
@@ -57,13 +66,21 @@
     if(state) {
         NSLog(@"State received from companion: %ld entries", (unsigned long)[state count]);
 
-        if(state[@"connected"] || state[@"authorized"]) {
-            BOOL authorized = [state[@"connected"] boolValue] && [state[@"authorized"] boolValue];
-            BOOL playing = [state[@"current_blind_level"] unsignedIntegerValue] != 0;
-            [[self previousRoundButton] setEnabled:authorized && playing];
-            [[self pauseResumeButton] setEnabled:authorized];
-            [[self nextRoundButton] setEnabled:authorized && playing];
-            [[self callClockButton] setEnabled:authorized && playing];
+        if(state[@"connected"] || state[@"authorized"] || state[@"current_blind_level"]) {
+            if(state[@"connected"]) {
+                [self setConnected:[state[@"connected"] boolValue]];
+            }
+            if(state[@"authorized"]) {
+                [self setAuthorized:[state[@"authorized"] boolValue]];
+            }
+            if(state[@"current_blind_level"]) {
+                [self setPlaying:[state[@"current_blind_level"] unsignedIntegerValue] != 0];
+            }
+
+            [[self previousRoundButton] setEnabled:[self authorized] && [self playing]];
+            [[self pauseResumeButton] setEnabled:[self authorized]];
+            [[self nextRoundButton] setEnabled:[self authorized] && [self playing]];
+            [[self callClockButton] setEnabled:[self authorized] && [self playing]];
         }
 
         if(state[@"clock_text"]) {

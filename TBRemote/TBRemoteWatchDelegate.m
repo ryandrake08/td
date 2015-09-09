@@ -61,6 +61,17 @@
     if(command) {
         NSLog(@"Command received from watch: %@", command);
 
+        if([command isEqualToString:@"fullSync"]) {
+            // Checking for authorization will trigger auth message
+            [[self session] checkAuthorizedWithBlock:nil];
+            if([[[self session] state] count] > 0) {
+                // Send state change as a message to watch
+                [[WCSession defaultSession] sendMessage:@{@"state":[[self session] state]} replyHandler:nil errorHandler:nil];
+                // Last sent = now
+                [self setLastSendDate:[NSDate date]];
+            }
+        }
+
         if([command isEqualToString:@"previousRound"]) {
             NSUInteger currentBlindLevel = [[[self session] state][@"current_blind_level"] unsignedIntegerValue];
             if(currentBlindLevel != 0) {
