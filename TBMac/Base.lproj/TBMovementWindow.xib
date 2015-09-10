@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" customObjectInstantitationMethod="direct">
     <dependencies>
+        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
     </dependencies>
     <objects>
@@ -195,7 +196,7 @@
                                                             </connections>
                                                         </textField>
                                                         <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" id="9oC-qe-e2V" userLabel="Arrow">
-                                                            <rect key="frame" x="96" y="25.000000290572643" width="32" height="32"/>
+                                                            <rect key="frame" x="96" y="25.000000779958143" width="32" height="32"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
                                                             <animations/>
                                                             <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="b_arrow" id="Gjp-ob-sav"/>
@@ -204,7 +205,7 @@
                                                             <rect key="frame" x="194" y="66" width="28" height="28"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                                             <animations/>
-                                                            <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="b_check" imagePosition="only" alignment="center" alternateImage="h_check" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="bSk-4u-naP">
+                                                            <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="b_check" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="bSk-4u-naP">
                                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                 <font key="font" metaFont="system"/>
                                                             </buttonCell>
@@ -265,6 +266,5 @@
         <image name="b_check" width="64" height="64"/>
         <image name="b_seat" width="64" height="64"/>
         <image name="b_table" width="64" height="64"/>
-        <image name="h_check" width="64" height="64"/>
     </resources>
 </document>
