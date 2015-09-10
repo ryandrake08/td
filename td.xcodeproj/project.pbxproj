@@ -159,12 +159,12 @@
 		AD98D96A1A7B33F100DA6B8B /* TBLeagueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD98D9681A7B33F100DA6B8B /* TBLeagueViewController.m */; };
 		AD98D96F1A7B342000DA6B8B /* TBRoundsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD98D96D1A7B342000DA6B8B /* TBRoundsViewController.m */; };
 		AD98D9741A7B343600DA6B8B /* TBSeatingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD98D9721A7B343600DA6B8B /* TBSeatingViewController.m */; };
-		AD9ED3E91B90949000C10550 /* TBPlayerSeatingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD9ED3E81B90949000C10550 /* TBPlayerSeatingViewController.m */; settings = {ASSET_TAGS = (); }; };
+		AD9ED3E91B90949000C10550 /* TBPlayerSeatingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD9ED3E81B90949000C10550 /* TBPlayerSeatingViewController.m */; };
 		ADA4FC0B1B8B6DA500DB2AA7 /* TBConnectToWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA4FC091B8B6DA500DB2AA7 /* TBConnectToWindowController.m */; };
-		ADA5DAC01B949CB1004F50C8 /* s_warning.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04ECC1B7C59EB004F4245 /* s_warning.caf */; settings = {ASSET_TAGS = (); }; };
+		ADA5DAC01B949CB1004F50C8 /* s_warning.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04ECC1B7C59EB004F4245 /* s_warning.caf */; };
 		ADACCB701B989B2400F7C477 /* TBStatsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = ADACCB731B989B2400F7C477 /* TBStatsView.xib */; };
 		ADACCB711B989B2400F7C477 /* TBStatsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = ADACCB731B989B2400F7C477 /* TBStatsView.xib */; };
-		ADACCB781B989B8000F7C477 /* TBAuthCodeWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADACCB761B989B8000F7C477 /* TBAuthCodeWindowController.m */; settings = {ASSET_TAGS = (); }; };
+		ADACCB781B989B8000F7C477 /* TBAuthCodeWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADACCB761B989B8000F7C477 /* TBAuthCodeWindowController.m */; };
 		ADACCB791B989B8F00F7C477 /* TBAuthCodeWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = ADACCB7B1B989B8F00F7C477 /* TBAuthCodeWindow.xib */; };
 		ADCECE7B1B7B0D9D00767DA6 /* TBControlsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADCECE761B7B0D9D00767DA6 /* TBControlsViewController.m */; };
 		ADCECE7D1B7B0D9D00767DA6 /* TBResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADCECE791B7B0D9D00767DA6 /* TBResultsViewController.m */; };
@@ -172,24 +172,24 @@
 		ADCECE801B7B0DBF00767DA6 /* TBResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADCECE791B7B0D9D00767DA6 /* TBResultsViewController.m */; };
 		ADCECE821B7B0E6100767DA6 /* TBTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE4E1271A7DFFD000FC9EFC /* TBTableViewController.m */; };
 		ADCECE861B7B101500767DA6 /* TBPlayersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADCECE841B7B101500767DA6 /* TBPlayersViewController.m */; };
-		ADD3BE851BA0A2A600A69834 /* TBSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD3BE841BA0A2A600A69834 /* TBSettingsViewController.m */; settings = {ASSET_TAGS = (); }; };
-		ADD4F1251B91FE2400DAF567 /* NSObject+AssociatedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD4F1241B91FE2400DAF567 /* NSObject+AssociatedObject.m */; settings = {ASSET_TAGS = (); }; };
-		ADD4F1261B91FE2400DAF567 /* NSObject+AssociatedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD4F1241B91FE2400DAF567 /* NSObject+AssociatedObject.m */; settings = {ASSET_TAGS = (); }; };
-		ADD4F1271B91FE2400DAF567 /* NSObject+AssociatedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD4F1241B91FE2400DAF567 /* NSObject+AssociatedObject.m */; settings = {ASSET_TAGS = (); }; };
-		ADD73D291B9692E1006824A1 /* NSDictionary+Changed.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD73D281B9692E1006824A1 /* NSDictionary+Changed.m */; settings = {ASSET_TAGS = (); }; };
-		ADD73D2A1B9692E1006824A1 /* NSDictionary+Changed.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD73D281B9692E1006824A1 /* NSDictionary+Changed.m */; settings = {ASSET_TAGS = (); }; };
-		ADD73D2B1B9692E1006824A1 /* NSDictionary+Changed.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD73D281B9692E1006824A1 /* NSDictionary+Changed.m */; settings = {ASSET_TAGS = (); }; };
-		ADDDAA881B93584300D3AF68 /* TBArrayCountTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = ADDDAA871B93584300D3AF68 /* TBArrayCountTransformer.m */; settings = {ASSET_TAGS = (); }; };
-		ADDDAA8B1B93BCEE00D3AF68 /* TBResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADDDAA8A1B93BCEE00D3AF68 /* TBResultsViewController.m */; settings = {ASSET_TAGS = (); }; };
+		ADD3BE851BA0A2A600A69834 /* TBSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD3BE841BA0A2A600A69834 /* TBSettingsViewController.m */; };
+		ADD4F1251B91FE2400DAF567 /* NSObject+AssociatedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD4F1241B91FE2400DAF567 /* NSObject+AssociatedObject.m */; };
+		ADD4F1261B91FE2400DAF567 /* NSObject+AssociatedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD4F1241B91FE2400DAF567 /* NSObject+AssociatedObject.m */; };
+		ADD4F1271B91FE2400DAF567 /* NSObject+AssociatedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD4F1241B91FE2400DAF567 /* NSObject+AssociatedObject.m */; };
+		ADD73D291B9692E1006824A1 /* NSDictionary+Changed.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD73D281B9692E1006824A1 /* NSDictionary+Changed.m */; };
+		ADD73D2A1B9692E1006824A1 /* NSDictionary+Changed.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD73D281B9692E1006824A1 /* NSDictionary+Changed.m */; };
+		ADD73D2B1B9692E1006824A1 /* NSDictionary+Changed.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD73D281B9692E1006824A1 /* NSDictionary+Changed.m */; };
+		ADDDAA881B93584300D3AF68 /* TBArrayCountTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = ADDDAA871B93584300D3AF68 /* TBArrayCountTransformer.m */; };
+		ADDDAA8B1B93BCEE00D3AF68 /* TBResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADDDAA8A1B93BCEE00D3AF68 /* TBResultsViewController.m */; };
 		ADE299AF1B7B994200F1393B /* TBSound.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE299AE1B7B994200F1393B /* TBSound.m */; };
 		ADE299B01B7B9BCA00F1393B /* TBSound.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE299AE1B7B994200F1393B /* TBSound.m */; };
 		ADE299B11B7B9BCB00F1393B /* TBSound.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE299AE1B7B994200F1393B /* TBSound.m */; };
 		ADE299B61B7B9ED100F1393B /* TBPlayerWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE299B41B7B9ED100F1393B /* TBPlayerWindowController.m */; };
 		ADE299B71B7B9EE800F1393B /* TBPlayerWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE299B41B7B9ED100F1393B /* TBPlayerWindowController.m */; };
 		ADE4E1281A7DFFD000FC9EFC /* TBTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE4E1271A7DFFD000FC9EFC /* TBTableViewController.m */; };
-		ADE5A4FD1B8F44A0002737A8 /* TBStatsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE5A4FB1B8F44A0002737A8 /* TBStatsViewController.m */; settings = {ASSET_TAGS = (); }; };
-		ADE5A4FE1B8F44A0002737A8 /* TBStatsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE5A4FB1B8F44A0002737A8 /* TBStatsViewController.m */; settings = {ASSET_TAGS = (); }; };
-		ADE5A5031B8F6C4C002737A8 /* TBCurrencyImageTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE5A5021B8F6C4C002737A8 /* TBCurrencyImageTransformer.m */; settings = {ASSET_TAGS = (); }; };
+		ADE5A4FD1B8F44A0002737A8 /* TBStatsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE5A4FB1B8F44A0002737A8 /* TBStatsViewController.m */; };
+		ADE5A4FE1B8F44A0002737A8 /* TBStatsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE5A4FB1B8F44A0002737A8 /* TBStatsViewController.m */; };
+		ADE5A5031B8F6C4C002737A8 /* TBCurrencyImageTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE5A5021B8F6C4C002737A8 /* TBCurrencyImageTransformer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -763,9 +763,9 @@
 			productReference = 9476F4C61B3C3F3D00A158F8 /* tournamentd */;
 			productType = "com.apple.product-type.tool";
 		};
-		AD8E68421A6C606700E5A4D8 /* Tournament Buddy */ = {
+		AD8E68421A6C606700E5A4D8 /* TBMac */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = AD8E68661A6C606700E5A4D8 /* Build configuration list for PBXNativeTarget "Tournament Buddy" */;
+			buildConfigurationList = AD8E68661A6C606700E5A4D8 /* Build configuration list for PBXNativeTarget "TBMac" */;
 			buildPhases = (
 				AD8E683F1A6C606700E5A4D8 /* Sources */,
 				AD8E68401A6C606700E5A4D8 /* Frameworks */,
@@ -775,7 +775,7 @@
 			);
 			dependencies = (
 			);
-			name = "Tournament Buddy";
+			name = TBMac;
 			productName = "Tournament Buddy";
 			productReference = AD8E68431A6C606700E5A4D8 /* Tournament Buddy.app */;
 			productType = "com.apple.product-type.application";
@@ -816,7 +816,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				AD8E68421A6C606700E5A4D8 /* Tournament Buddy */,
+				AD8E68421A6C606700E5A4D8 /* TBMac */,
 				944FF4B21B3D04CA000362ED /* TBPlayer */,
 				9476F4291B3C37D000A158F8 /* TBRemote */,
 				9476F4C51B3C3F3D00A158F8 /* tournamentd */,
@@ -1449,7 +1449,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		AD8E68661A6C606700E5A4D8 /* Build configuration list for PBXNativeTarget "Tournament Buddy" */ = {
+		AD8E68661A6C606700E5A4D8 /* Build configuration list for PBXNativeTarget "TBMac" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				AD8E68671A6C606700E5A4D8 /* Debug */,
