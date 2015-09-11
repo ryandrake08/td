@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="8187.4" systemVersion="15A275" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" customObjectInstantitationMethod="direct">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="8187.4"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="TBPlayerWindowController">
             <connections>
                 <outlet property="actionClockView" destination="YIC-Dz-dR6" id="lnc-go-IPp"/>
                 <outlet property="backgroundImageView" destination="a0P-Zo-OBW" id="Whv-de-PmQ"/>
+                <outlet property="chipsDisplayViewController" destination="BBL-vB-hpG" id="wQb-Zx-qR1"/>
                 <outlet property="controlsView" destination="6oh-Wj-Ac7" id="9eg-QJ-646"/>
                 <outlet property="controlsViewController" destination="Y1n-vs-zYF" id="eTG-og-bWW"/>
+                <outlet property="leftAccessoryView" destination="yqR-JB-ebo" id="qtN-fc-AVh"/>
                 <outlet property="leftPaneView" destination="TM9-KQ-WKc" id="PWD-N9-tyN"/>
                 <outlet property="resultsViewController" destination="2cd-jS-L59" id="eBq-wR-Hxp"/>
                 <outlet property="rightPaneView" destination="du6-bL-Okn" id="7ns-A3-9Cb"/>
@@ -80,8 +83,8 @@
                         <animations/>
                     </customView>
                     <customView id="TM9-KQ-WKc" userLabel="Left Pane">
-                        <rect key="frame" x="0.0" y="0.0" width="256" height="672"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
+                        <rect key="frame" x="0.0" y="202" width="256" height="470"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <animations/>
                     </customView>
                     <customView id="zql-0O-xSY" userLabel="Center Pane">
@@ -89,12 +92,12 @@
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
                         <subviews>
                             <customView id="6oh-Wj-Ac7">
-                                <rect key="frame" x="104" y="607.9999974568683" width="304" height="64"/>
+                                <rect key="frame" x="104" y="608" width="304" height="64"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <animations/>
                             </customView>
                             <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="CDw-40-LG5" customClass="TBResizeTextField">
-                                <rect key="frame" x="-2" y="415.9999974568683" width="516" height="192"/>
+                                <rect key="frame" x="-2" y="416" width="516" height="192"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                                 <animations/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="01:23:45" placeholderString="" usesSingleLineMode="YES" id="f7C-Sd-FCb">
@@ -233,6 +236,11 @@
                             </binding>
                         </connections>
                     </customView>
+                    <customView id="yqR-JB-ebo" userLabel="Accessory Pane">
+                        <rect key="frame" x="0.0" y="0.0" width="256" height="202"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
+                        <animations/>
+                    </customView>
                 </subviews>
                 <animations/>
             </view>
@@ -242,6 +250,7 @@
         </window>
         <viewController nibName="TBResultsView" id="2cd-jS-L59" customClass="TBResultsViewController"/>
         <viewController nibName="TBStatsView" id="0Qw-uj-ZKc" customClass="TBStatsViewController"/>
+        <viewController nibName="TBChipsDisplayView" id="BBL-vB-hpG" customClass="TBChipsDisplayViewController"/>
         <viewController nibName="TBControlsView" id="Y1n-vs-zYF" customClass="TBControlsViewController"/>
     </objects>
 </document>

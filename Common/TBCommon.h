@@ -13,11 +13,13 @@
 #define TBColor UIColor
 #define TBFont UIFont
 #define TBView UIView
+#define TBImageView UIImageView
 #else
 #import <Cocoa/Cocoa.h>
 #define TBColor NSColor
 #define TBFont NSFont
 #define TBView NSView
+#define TBImageView NSImageView
 #import "NSFont+LineHeight.h"
 #import "NSView+BackgroundColor.h"
 #endif

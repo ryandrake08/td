@@ -11,6 +11,7 @@
 #import "TBResizeTextField.h"
 #import "TBStatsViewController.h"
 #import "TBResultsViewController.h"
+#import "TBChipsDisplayViewController.h"
 #import "TBControlsViewController.h"
 #import "TBSound.h"
 #import "NSObject+FBKVOController.h"
@@ -20,6 +21,7 @@
 // View controllers
 @property (strong) IBOutlet TBStatsViewController* statsViewController;
 @property (strong) IBOutlet TBResultsViewController* resultsViewController;
+@property (strong) IBOutlet TBChipsDisplayViewController* chipsDisplayViewController;
 @property (strong) IBOutlet TBControlsViewController* controlsViewController;
 
 // UI elements
@@ -28,6 +30,7 @@
 @property (weak) IBOutlet NSView* leftPaneView;
 @property (weak) IBOutlet NSView* rightPaneView;
 @property (weak) IBOutlet NSView* controlsView;
+@property (weak) IBOutlet NSView* leftAccessoryView;
 
 // Sounds
 @property (strong) TBSound* startSound;
@@ -91,6 +94,8 @@
     // add subivews
     [[self statsViewController] setSession:[self session]];
     [[self leftPaneView] addSubview:[[self statsViewController] view]];
+    [[self chipsDisplayViewController] setSession:[self session]];
+    [[self leftAccessoryView] addSubview:[[self chipsDisplayViewController] view]];
     [[self resultsViewController] setSession:[self session]];
     [[self rightPaneView] addSubview:[[self resultsViewController] view]];
     [[self controlsViewController] setSession:[self session]];
