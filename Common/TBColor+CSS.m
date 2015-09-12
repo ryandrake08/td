@@ -230,7 +230,12 @@ static NSDictionary* cssHexCodes = nil;
 
 - (UInt32)rgbHex {
     CGFloat r, g, b, a;
-    [[self colorUsingColorSpaceName:NSCalibratedRGBColorSpace] getRed:&r green:&g blue:&b alpha:&a];
+#if TARGET_OS_IPHONE
+    TBColor* color = self;
+#else
+    TBColor* color = [self colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
+#endif
+    [color getRed:&r green:&g blue:&b alpha:&a];
     return (int)(r * 255.0f) << 16 | (int)(g * 255.0f) << 8 | (int)(b * 255.0f);
 }
 

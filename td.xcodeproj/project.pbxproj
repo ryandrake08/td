@@ -148,13 +148,14 @@
 		94FDEAF81B5AE7920026B25D /* NSView+BackgroundColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEAF71B5AE7920026B25D /* NSView+BackgroundColor.m */; };
 		94FDEAFA1B5AEB0B0026B25D /* TBActionClockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEAF91B5AEB0B0026B25D /* TBActionClockView.m */; };
 		94FDEAFB1B5AEB0B0026B25D /* TBActionClockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEAF91B5AEB0B0026B25D /* TBActionClockView.m */; };
+		AD75ACEE1BA3FD8800705967 /* TBEllipseImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD75ACED1BA3FD8800705967 /* TBEllipseImageView.m */; settings = {ASSET_TAGS = (); }; };
+		AD75ACEF1BA3FEEA00705967 /* TBEllipseImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD75ACED1BA3FD8800705967 /* TBEllipseImageView.m */; settings = {ASSET_TAGS = (); }; };
+		AD75ACF01BA3FF1900705967 /* TBColorValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 94562E5F1B65D8CA0017C692 /* TBColorValueTransformer.m */; settings = {ASSET_TAGS = (); }; };
 		AD87A6CA1BA1D3B800E55961 /* TBChipsDisplayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD87A6C81BA1D3B800E55961 /* TBChipsDisplayViewController.m */; settings = {ASSET_TAGS = (); }; };
 		AD87A6CB1BA1D3B800E55961 /* TBChipsDisplayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD87A6C81BA1D3B800E55961 /* TBChipsDisplayViewController.m */; settings = {ASSET_TAGS = (); }; };
 		AD87A6CC1BA1D3B800E55961 /* TBChipsDisplayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD87A6C91BA1D3B800E55961 /* TBChipsDisplayView.xib */; settings = {ASSET_TAGS = (); }; };
 		AD87A6CD1BA1D3B800E55961 /* TBChipsDisplayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD87A6C91BA1D3B800E55961 /* TBChipsDisplayView.xib */; settings = {ASSET_TAGS = (); }; };
-		AD87A6D91BA2094400E55961 /* TBEllipseImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD87A6D81BA2094400E55961 /* TBEllipseImageView.m */; settings = {ASSET_TAGS = (); }; };
-		AD87A6DA1BA2094400E55961 /* TBEllipseImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD87A6D81BA2094400E55961 /* TBEllipseImageView.m */; settings = {ASSET_TAGS = (); }; };
-		AD87A6DB1BA2094400E55961 /* TBEllipseImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD87A6D81BA2094400E55961 /* TBEllipseImageView.m */; settings = {ASSET_TAGS = (); }; };
+		AD87A6DB1BA2094400E55961 /* TBEllipseView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD87A6D81BA2094400E55961 /* TBEllipseView.m */; settings = {ASSET_TAGS = (); }; };
 		AD8E684A1A6C606700E5A4D8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8E68491A6C606700E5A4D8 /* AppDelegate.m */; };
 		AD8E684C1A6C606700E5A4D8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8E684B1A6C606700E5A4D8 /* main.m */; };
 		AD8E684F1A6C606700E5A4D8 /* Document.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8E684E1A6C606700E5A4D8 /* Document.m */; };
@@ -197,6 +198,8 @@
 		ADE5A4FD1B8F44A0002737A8 /* TBStatsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE5A4FB1B8F44A0002737A8 /* TBStatsViewController.m */; };
 		ADE5A4FE1B8F44A0002737A8 /* TBStatsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE5A4FB1B8F44A0002737A8 /* TBStatsViewController.m */; };
 		ADE5A5031B8F6C4C002737A8 /* TBCurrencyImageTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE5A5021B8F6C4C002737A8 /* TBCurrencyImageTransformer.m */; };
+		ADFFFF141BA34394003BAC88 /* TBColor+CSS.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEADB1B5AE2560026B25D /* TBColor+CSS.m */; settings = {ASSET_TAGS = (); }; };
+		ADFFFF151BA34394003BAC88 /* TBColor+CSS.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEADB1B5AE2560026B25D /* TBColor+CSS.m */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -340,11 +343,13 @@
 		94FDEAF61B5AE7920026B25D /* NSView+BackgroundColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSView+BackgroundColor.h"; sourceTree = "<group>"; };
 		94FDEAF71B5AE7920026B25D /* NSView+BackgroundColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSView+BackgroundColor.m"; sourceTree = "<group>"; };
 		94FDEAF91B5AEB0B0026B25D /* TBActionClockView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBActionClockView.m; sourceTree = "<group>"; };
+		AD75ACEC1BA3FD8700705967 /* TBEllipseImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBEllipseImageView.h; sourceTree = "<group>"; };
+		AD75ACED1BA3FD8800705967 /* TBEllipseImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBEllipseImageView.m; sourceTree = "<group>"; };
 		AD87A6C71BA1D3B800E55961 /* TBChipsDisplayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBChipsDisplayViewController.h; sourceTree = "<group>"; };
 		AD87A6C81BA1D3B800E55961 /* TBChipsDisplayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBChipsDisplayViewController.m; sourceTree = "<group>"; };
 		AD87A6C91BA1D3B800E55961 /* TBChipsDisplayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TBChipsDisplayView.xib; sourceTree = "<group>"; };
-		AD87A6D71BA2094400E55961 /* TBEllipseImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBEllipseImageView.h; sourceTree = "<group>"; };
-		AD87A6D81BA2094400E55961 /* TBEllipseImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBEllipseImageView.m; sourceTree = "<group>"; };
+		AD87A6D71BA2094400E55961 /* TBEllipseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBEllipseView.h; sourceTree = "<group>"; };
+		AD87A6D81BA2094400E55961 /* TBEllipseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBEllipseView.m; sourceTree = "<group>"; };
 		AD8E68431A6C606700E5A4D8 /* TBMac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TBMac.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD8E68471A6C606700E5A4D8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = Info.plist; path = TBMac/Info.plist; sourceTree = "<group>"; };
 		AD8E68481A6C606700E5A4D8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = TBMac/AppDelegate.h; sourceTree = "<group>"; };
@@ -579,8 +584,6 @@
 				94FDEAF91B5AEB0B0026B25D /* TBActionClockView.m */,
 				ADDDAA861B93584300D3AF68 /* TBArrayCountTransformer.h */,
 				ADDDAA871B93584300D3AF68 /* TBArrayCountTransformer.m */,
-				AD87A6D71BA2094400E55961 /* TBEllipseImageView.h */,
-				AD87A6D81BA2094400E55961 /* TBEllipseImageView.m */,
 				94FDEADA1B5AE2560026B25D /* TBColor+CSS.h */,
 				94FDEADB1B5AE2560026B25D /* TBColor+CSS.m */,
 				94562E5E1B65D8CA0017C692 /* TBColorValueTransformer.h */,
@@ -595,6 +598,10 @@
 				94562E631B65D8CA0017C692 /* TBDateStringTransformer.m */,
 				94562E641B65D8CA0017C692 /* TBDurationNumberFormatter.h */,
 				94562E651B65D8CA0017C692 /* TBDurationNumberFormatter.m */,
+				AD75ACEC1BA3FD8700705967 /* TBEllipseImageView.h */,
+				AD75ACED1BA3FD8800705967 /* TBEllipseImageView.m */,
+				AD87A6D71BA2094400E55961 /* TBEllipseView.h */,
+				AD87A6D81BA2094400E55961 /* TBEllipseView.m */,
 				94562E6A1B65D9420017C692 /* TBResizeTextField.h */,
 				94562E6B1B65D9420017C692 /* TBResizeTextField.m */,
 				ADE299AD1B7B994200F1393B /* TBSound.h */,
@@ -915,6 +922,7 @@
 				ADE5A4FE1B8F44A0002737A8 /* TBStatsViewController.m in Sources */,
 				ADA4FC0B1B8B6DA500DB2AA7 /* TBConnectToWindowController.m in Sources */,
 				943B00D41B3F429500CE55D4 /* server.cpp in Sources */,
+				AD75ACEF1BA3FEEA00705967 /* TBEllipseImageView.m in Sources */,
 				943B00D01B3F429500CE55D4 /* datetime.cpp in Sources */,
 				944FF4BB1B3D04CA000362ED /* main.m in Sources */,
 				943B00C91B3F427700CE55D4 /* TournamentDaemon.mm in Sources */,
@@ -922,12 +930,14 @@
 				94FDEAE91B5AE2D60026B25D /* FBKVOController.m in Sources */,
 				94FDEAFA1B5AEB0B0026B25D /* TBActionClockView.m in Sources */,
 				943B00CA1B3F427700CE55D4 /* TournamentSession.m in Sources */,
+				AD75ACF01BA3FF1900705967 /* TBColorValueTransformer.m in Sources */,
 				943B00D61B3F429500CE55D4 /* tournament.cpp in Sources */,
 				9462A3E81B77CB3B00B29002 /* TTTOrdinalNumberFormatter.m in Sources */,
 				ADD4F1261B91FE2400DAF567 /* NSObject+AssociatedObject.m in Sources */,
 				94FDEAF51B5AE7390026B25D /* NSFont+LineHeight.m in Sources */,
 				ADCECE801B7B0DBF00767DA6 /* TBResultsViewController.m in Sources */,
 				94562E6C1B65D9420017C692 /* TBResizeTextField.m in Sources */,
+				ADFFFF141BA34394003BAC88 /* TBColor+CSS.m in Sources */,
 				94FDEAF81B5AE7920026B25D /* NSView+BackgroundColor.m in Sources */,
 				9462A3F21B781A9A00B29002 /* RSVerticallyCenteredTextFieldCell.m in Sources */,
 				AD87A6CB1BA1D3B800E55961 /* TBChipsDisplayViewController.m in Sources */,
@@ -946,7 +956,6 @@
 				943B00D51B3F429500CE55D4 /* socket.cpp in Sources */,
 				943B00D81B3F43FC00CE55D4 /* cJSON.c in Sources */,
 				943B00C81B3F427700CE55D4 /* TournamentConnection.m in Sources */,
-				AD87A6DA1BA2094400E55961 /* TBEllipseImageView.m in Sources */,
 				943B00D71B3F429500CE55D4 /* types.cpp in Sources */,
 				ADCECE821B7B0E6100767DA6 /* TBTableViewController.m in Sources */,
 				ADE299B71B7B9EE800F1393B /* TBPlayerWindowController.m in Sources */,
@@ -967,11 +976,12 @@
 				9439701F1B405DC000BB0413 /* TournamentService.m in Sources */,
 				949D709D1B3C440E008D5CD1 /* json.cpp in Sources */,
 				94FDEAE71B5AE2D60026B25D /* CFStreamCreatePairWithUnixSocket.c in Sources */,
-				AD87A6DB1BA2094400E55961 /* TBEllipseImageView.m in Sources */,
+				AD87A6DB1BA2094400E55961 /* TBEllipseView.m in Sources */,
 				9476F46B1B3C385400A158F8 /* TBRemoteClockViewController.m in Sources */,
 				949D70A41B3C442F008D5CD1 /* cJSON.c in Sources */,
 				9476F4A71B3C3EA700A158F8 /* TournamentSession.m in Sources */,
 				ADD4F1271B91FE2400DAF567 /* NSObject+AssociatedObject.m in Sources */,
+				ADFFFF151BA34394003BAC88 /* TBColor+CSS.m in Sources */,
 				949D709F1B3C440E008D5CD1 /* server.cpp in Sources */,
 				9439701A1B3F9DB700BB0413 /* TournamentBrowser.m in Sources */,
 				ADDDAA8B1B93BCEE00D3AF68 /* TBResultsViewController.m in Sources */,
@@ -1055,6 +1065,7 @@
 				ADCECE7B1B7B0D9D00767DA6 /* TBControlsViewController.m in Sources */,
 				9476F4A41B3C3EA700A158F8 /* TournamentDaemon.mm in Sources */,
 				AD98D9611A7B330B00DA6B8B /* TBChipsViewController.m in Sources */,
+				AD75ACEE1BA3FD8800705967 /* TBEllipseImageView.m in Sources */,
 				ADCECE7D1B7B0D9D00767DA6 /* TBResultsViewController.m in Sources */,
 				945410741B6E5C56001E3373 /* NSDateFormatter+ISO8601.m in Sources */,
 				941916DC1B6F215F001253CA /* TBActionClockView.m in Sources */,
@@ -1070,7 +1081,6 @@
 				94ED00111B76E1E6003CF19B /* TBTableSeatNumberTransformer.m in Sources */,
 				ADCECE861B7B101500767DA6 /* TBPlayersViewController.m in Sources */,
 				ADE299AF1B7B994200F1393B /* TBSound.m in Sources */,
-				AD87A6D91BA2094400E55961 /* TBEllipseImageView.m in Sources */,
 				943970181B3F9DB700BB0413 /* TournamentBrowser.m in Sources */,
 				949D709A1B3C440D008D5CD1 /* types.cpp in Sources */,
 				ADACCB781B989B8000F7C477 /* TBAuthCodeWindowController.m in Sources */,

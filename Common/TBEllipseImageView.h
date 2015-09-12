@@ -6,13 +6,11 @@
 //  Copyright © 2015 HDna Studio. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import <CoreGraphics/CoreGraphics.h>
-#import "TBCommon.h"
+#import <Cocoa/Cocoa.h>
 
-@interface TBEllipseImageView : TBImageView
+@interface TBEllipseImageView : NSImageView
 
 // Ellipse color
-@property (nonatomic, strong) TBColor* color;
+@property (nonatomic, strong) NSColor* color;
 
 @end

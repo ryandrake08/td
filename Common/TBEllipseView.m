@@ -1,23 +1,23 @@
 //
-//  TBEllipseImageView.m
+//  TBEllipseView.m
 //  td
 //
 //  Created by Ryan Drake on 9/10/15.
 //  Copyright © 2015 HDna Studio. All rights reserved.
 //
 
-#import "TBEllipseImageView.h"
+#import "TBEllipseView.h"
 #import "TBColor+CSS.h"
 #import <CoreGraphics/CoreGraphics.h>
 
-@implementation TBEllipseImageView
+@implementation TBEllipseView
 
 - (void)drawRect:(CGRect)rect {
     // Get graphics context
-    CGContextRef ctx = [[NSGraphicsContext currentContext] graphicsPort];
+    CGContextRef ctx = UIGraphicsGetCurrentContext();
 
     // Add colored ellipse
-    CGContextAddEllipseInRect(ctx, [self frame]);
+    CGContextAddEllipseInRect(ctx, [self bounds]);
     CGContextSetFillColorWithColor(ctx, [[self color] CGColor]);
     CGContextFillPath(ctx);
 
