@@ -345,9 +345,9 @@
 		94FDEAF91B5AEB0B0026B25D /* TBActionClockView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBActionClockView.m; sourceTree = "<group>"; };
 		AD75ACEC1BA3FD8700705967 /* TBEllipseImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBEllipseImageView.h; sourceTree = "<group>"; };
 		AD75ACED1BA3FD8800705967 /* TBEllipseImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBEllipseImageView.m; sourceTree = "<group>"; };
-		AD87A6C71BA1D3B800E55961 /* TBChipsDisplayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBChipsDisplayViewController.h; sourceTree = "<group>"; };
-		AD87A6C81BA1D3B800E55961 /* TBChipsDisplayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBChipsDisplayViewController.m; sourceTree = "<group>"; };
-		AD87A6C91BA1D3B800E55961 /* TBChipsDisplayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TBChipsDisplayView.xib; sourceTree = "<group>"; };
+		AD87A6C71BA1D3B800E55961 /* TBChipsDisplayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBChipsDisplayViewController.h; path = TBMac/TBChipsDisplayViewController.h; sourceTree = "<group>"; };
+		AD87A6C81BA1D3B800E55961 /* TBChipsDisplayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TBChipsDisplayViewController.m; path = TBMac/TBChipsDisplayViewController.m; sourceTree = "<group>"; };
+		AD87A6C91BA1D3B800E55961 /* TBChipsDisplayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TBChipsDisplayView.xib; path = TBMac/TBChipsDisplayView.xib; sourceTree = "<group>"; };
 		AD87A6D71BA2094400E55961 /* TBEllipseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBEllipseView.h; sourceTree = "<group>"; };
 		AD87A6D81BA2094400E55961 /* TBEllipseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBEllipseView.m; sourceTree = "<group>"; };
 		AD8E68431A6C606700E5A4D8 /* TBMac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TBMac.app; sourceTree = BUILT_PRODUCTS_DIR; };
