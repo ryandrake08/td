@@ -110,7 +110,7 @@ td::chip::chip(const json& obj) : chip()
 td::funding_source::funding_source(const json& obj) : funding_source()
 {
     obj.get_value("name", this->name);
-    int type; obj.get_value("type", type); this->type = static_cast<td::funding_source_type_t>(type);
+    obj.get_value("type", reinterpret_cast<int&>(this->type));
     obj.get_value("forbid_after_blind_level", this->forbid_after_blind_level);
     obj.get_value("chips", this->chips);
     obj.get_value("cost", this->cost);
