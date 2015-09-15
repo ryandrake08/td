@@ -1,6 +1,7 @@
 #include "tournament.hpp"
 #include "json.hpp"
 #include "logger.hpp"
+#include "scope_timer.hpp"
 #include <algorithm>
 #include <cstddef>
 #include <sstream>
@@ -311,6 +312,8 @@ bool tournament::handle_client_input(std::iostream& client)
 
             try
             {
+                scope_timer timer;
+
                 // parse command and argument
                 std::string cmd;
                 json in;
@@ -338,8 +341,10 @@ bool tournament::handle_client_input(std::iostream& client)
                     out.set_value("echo", echo);
                 }
 
-                // call command handler
+                // set message for timer
+                timer.set_message("command " + cmd + " handled in: ");
 
+                // call command handler
                 if(cmd == "quit" || cmd == "exit")
                 {
                     /*
@@ -882,6 +887,8 @@ bool tournament::run()
         // update the clock, and report to clients if anything changed
         if(this->game_info.update_remaining())
         {
+            scope_timer("broadcast_state: ");
+
             // send to clients
             this->broadcast_state();
         }

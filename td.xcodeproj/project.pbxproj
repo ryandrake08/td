@@ -148,6 +148,10 @@
 		94FDEAF81B5AE7920026B25D /* NSView+BackgroundColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEAF71B5AE7920026B25D /* NSView+BackgroundColor.m */; };
 		94FDEAFA1B5AEB0B0026B25D /* TBActionClockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEAF91B5AEB0B0026B25D /* TBActionClockView.m */; };
 		94FDEAFB1B5AEB0B0026B25D /* TBActionClockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEAF91B5AEB0B0026B25D /* TBActionClockView.m */; };
+		AD1B250C1BA8773900C4BDDC /* scope_timer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AD1B250A1BA8773900C4BDDC /* scope_timer.cpp */; settings = {ASSET_TAGS = (); }; };
+		AD1B250D1BA8796100C4BDDC /* scope_timer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AD1B250A1BA8773900C4BDDC /* scope_timer.cpp */; settings = {ASSET_TAGS = (); }; };
+		AD1B250E1BA8796400C4BDDC /* scope_timer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AD1B250A1BA8773900C4BDDC /* scope_timer.cpp */; settings = {ASSET_TAGS = (); }; };
+		AD1B250F1BA8796500C4BDDC /* scope_timer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AD1B250A1BA8773900C4BDDC /* scope_timer.cpp */; settings = {ASSET_TAGS = (); }; };
 		AD75ACEE1BA3FD8800705967 /* TBEllipseImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD75ACED1BA3FD8800705967 /* TBEllipseImageView.m */; settings = {ASSET_TAGS = (); }; };
 		AD75ACEF1BA3FEEA00705967 /* TBEllipseImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD75ACED1BA3FD8800705967 /* TBEllipseImageView.m */; settings = {ASSET_TAGS = (); }; };
 		AD75ACF01BA3FF1900705967 /* TBColorValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 94562E5F1B65D8CA0017C692 /* TBColorValueTransformer.m */; settings = {ASSET_TAGS = (); }; };
@@ -343,6 +347,10 @@
 		94FDEAF61B5AE7920026B25D /* NSView+BackgroundColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSView+BackgroundColor.h"; sourceTree = "<group>"; };
 		94FDEAF71B5AE7920026B25D /* NSView+BackgroundColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSView+BackgroundColor.m"; sourceTree = "<group>"; };
 		94FDEAF91B5AEB0B0026B25D /* TBActionClockView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBActionClockView.m; sourceTree = "<group>"; };
+		AD1B250A1BA8773900C4BDDC /* scope_timer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scope_timer.cpp; sourceTree = "<group>"; };
+		AD1B250B1BA8773900C4BDDC /* scope_timer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = scope_timer.hpp; sourceTree = "<group>"; };
+		AD5934791BA87D820018B9EB /* chrono_io */ = {isa = PBXFileReference; lastKnownFileType = text; name = chrono_io; path = chrono/chrono_io; sourceTree = "<group>"; };
+		AD59347A1BA87D820018B9EB /* ratio_io */ = {isa = PBXFileReference; lastKnownFileType = text; name = ratio_io; path = chrono/ratio_io; sourceTree = "<group>"; };
 		AD75ACEC1BA3FD8700705967 /* TBEllipseImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBEllipseImageView.h; sourceTree = "<group>"; };
 		AD75ACED1BA3FD8800705967 /* TBEllipseImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBEllipseImageView.m; sourceTree = "<group>"; };
 		AD87A6C71BA1D3B800E55961 /* TBChipsDisplayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBChipsDisplayViewController.h; path = TBMac/TBChipsDisplayViewController.h; sourceTree = "<group>"; };
@@ -512,6 +520,7 @@
 			isa = PBXGroup;
 			children = (
 				9476F4CD1B3C3F8300A158F8 /* defaults.json */,
+				AD5934781BA87D700018B9EB /* chrono */,
 				9476F4D01B3C3F8300A158F8 /* cjson */,
 				9476F4D11B3C3F8300A158F8 /* bonjour.cpp */,
 				9476F4D21B3C3F8300A158F8 /* bonjour.hpp */,
@@ -529,6 +538,8 @@
 				9476F4DE1B3C3F8300A158F8 /* process.hpp */,
 				9476F4DF1B3C3F8300A158F8 /* program.cpp */,
 				9476F4E01B3C3F8300A158F8 /* program.hpp */,
+				AD1B250A1BA8773900C4BDDC /* scope_timer.cpp */,
+				AD1B250B1BA8773900C4BDDC /* scope_timer.hpp */,
 				9476F4E11B3C3F8300A158F8 /* server.cpp */,
 				9476F4E21B3C3F8300A158F8 /* server.hpp */,
 				9476F4E31B3C3F8300A158F8 /* socket.cpp */,
@@ -634,6 +645,15 @@
 				9476F4751B3C3D6700A158F8 /* UIKit.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		AD5934781BA87D700018B9EB /* chrono */ = {
+			isa = PBXGroup;
+			children = (
+				AD5934791BA87D820018B9EB /* chrono_io */,
+				AD59347A1BA87D820018B9EB /* ratio_io */,
+			);
+			name = chrono;
 			sourceTree = "<group>";
 		};
 		AD8E683A1A6C606700E5A4D8 = {
@@ -938,6 +958,7 @@
 				ADCECE801B7B0DBF00767DA6 /* TBResultsViewController.m in Sources */,
 				94562E6C1B65D9420017C692 /* TBResizeTextField.m in Sources */,
 				ADFFFF141BA34394003BAC88 /* TBColor+CSS.m in Sources */,
+				AD1B250E1BA8796400C4BDDC /* scope_timer.cpp in Sources */,
 				94FDEAF81B5AE7920026B25D /* NSView+BackgroundColor.m in Sources */,
 				9462A3F21B781A9A00B29002 /* RSVerticallyCenteredTextFieldCell.m in Sources */,
 				AD87A6CB1BA1D3B800E55961 /* TBChipsDisplayViewController.m in Sources */,
@@ -972,6 +993,7 @@
 				ADE299B11B7B9BCB00F1393B /* TBSound.m in Sources */,
 				9476F4691B3C385400A158F8 /* TBAppDelegate.m in Sources */,
 				949D70A01B3C440E008D5CD1 /* types.cpp in Sources */,
+				AD1B250F1BA8796500C4BDDC /* scope_timer.cpp in Sources */,
 				949D70A11B3C4411008D5CD1 /* tournament.cpp in Sources */,
 				9439701F1B405DC000BB0413 /* TournamentService.m in Sources */,
 				949D709D1B3C440E008D5CD1 /* json.cpp in Sources */,
@@ -1013,6 +1035,7 @@
 				9476F4ED1B3C3F8300A158F8 /* bonjour.cpp in Sources */,
 				9476F4F71B3C3F8300A158F8 /* tournament.cpp in Sources */,
 				9476F4F31B3C3F8300A158F8 /* process.cpp in Sources */,
+				AD1B250C1BA8773900C4BDDC /* scope_timer.cpp in Sources */,
 				9476F4F11B3C3F8300A158F8 /* logger.cpp in Sources */,
 				9476F4F21B3C3F8300A158F8 /* main.cpp in Sources */,
 				9476F4F01B3C3F8300A158F8 /* json.cpp in Sources */,
@@ -1046,6 +1069,7 @@
 				949D70951B3C440D008D5CD1 /* datetime.cpp in Sources */,
 				ADD4F1251B91FE2400DAF567 /* NSObject+AssociatedObject.m in Sources */,
 				94562E681B65D8CA0017C692 /* TBDateStringTransformer.m in Sources */,
+				AD1B250D1BA8796100C4BDDC /* scope_timer.cpp in Sources */,
 				949D70961B3C440D008D5CD1 /* gameinfo.cpp in Sources */,
 				94562E661B65D8CA0017C692 /* TBColorValueTransformer.m in Sources */,
 				94FDEAE51B5AE2D60026B25D /* CFStreamCreatePairWithUnixSocket.c in Sources */,
