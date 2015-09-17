@@ -22,6 +22,9 @@
 // number of players to plan for
 @property (nonatomic) NSInteger maxPlayers;
 
+// ui references
+@property (nonatomic, weak) IBOutlet UIStepper* maxPlayersStepper;
+
 @end
 
 @implementation TBSettingsViewController
@@ -29,10 +32,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    // get model
-    _server = [[TournamentDaemon alloc] init];
+    // get app-wide session
     _session = [(TBAppDelegate*)[[UIApplication sharedApplication] delegate] session];
+
+    // server owned by this class
+    _server = [[TournamentDaemon alloc] init];
+
+    // for setting up tournament
     _configuration = [[NSMutableDictionary alloc] init];
+    _maxPlayers = 2;
 
     // load configuration
     NSError* error;
@@ -60,6 +68,23 @@
         }
     }];
 
+    // whenever tournament name changes, do some stuff
+    [[self KVOController] observe:[[self session] state] keyPath:@"name" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
+        // re-publish on Bonjour
+        [[self server] publishWithName:object[@"name"]];
+    }];
+
+    // if number of players changes, limit our seating plan
+    [[self KVOController] observe:[[self session] state] keyPath:@"players" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
+        NSUInteger playerCount = [object[@"players"] count];
+        [[self maxPlayersStepper] setMaximumValue:(double)playerCount];
+    }];
+
+    // if table sizes change, replan
+    [[self KVOController] observe:[[self session] state] keyPath:@"table_capacity" options:0 block:^(id observer, id object, NSDictionary *change) {
+        [self planSeatingFor:[self maxPlayers] force:YES];
+    }];
+
     // update rows when keypaths change
     [self bindTableViewRow:0 inSection:0 toObject:[[self session] state] keyPath:@"name"];
     [self bindTableViewRow:1 inSection:0 toObject:[[self session] state] keyPath:@"players"];
@@ -69,23 +94,6 @@
     [self bindTableViewRow:5 inSection:0 toObject:[[self session] state] keyPath:@"blind_levels"];
     [self bindTableViewRow:6 inSection:0 toObject:[[self session] state] keyPath:@"authorized_clients"];
     [self bindTableViewRow:0 inSection:1 toObject:self keyPath:@"maxPlayers"];
-
-    // whenever tournament name changes, do some stuff
-    [[self KVOController] observe:[[self session] state] keyPath:@"name" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
-        // re-publish on Bonjour
-        [[self server] publishWithName:object[@"name"]];
-    }];
-
-    // update max players selector
-    [[self KVOController] observe:[[self session] state] keyPath:@"players" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
-        // plan seating
-        [self planSeatingFor:[object[@"players"] count] force:NO];
-    }];
-
-    // if table sizes change, replan
-    [[self KVOController] observe:[[self session] state] keyPath:@"table_capacity" options:0 block:^(id observer, id object, NSDictionary *change) {
-        [self planSeatingFor:[self maxPlayers] force:NO];
-    }];
 
     // Start serving using this device's auth key
     NSString* path = [[self server] startWithAuthCode:[TournamentSession clientIdentifier]];
@@ -155,6 +163,13 @@
             case 0:
                 detail = [NSString stringWithFormat:@"%ld", [self maxPlayers]];
                 [[cell detailTextLabel] setText:detail];
+
+                NSUInteger playerCount = [state[@"players"] count];
+                UIStepper* stepper = (UIStepper*)[cell viewWithTag:100];
+                [stepper setValue:(double)[self maxPlayers]];
+                [stepper setMinimumValue:2.0];
+                [stepper setMaximumValue:(double)playerCount];
+                NSLog(@"%f-%f", [stepper minimumValue],[stepper maximumValue]);
                 break;
         }
     }
@@ -193,7 +208,7 @@
         }
     }
 
-    // deselect either way
+    // deselect
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
@@ -204,6 +219,16 @@
     if(maxPlayers > 1 && (forced || maxPlayers != [self maxPlayers])) {
         [[self session] planSeatingFor:@(maxPlayers)];
         [self setMaxPlayers:maxPlayers];
+    }
+}
+
+#pragma mark Actions
+
+- (IBAction)stepperDidChange:(id)sender {
+    if([sender isKindOfClass:[UIStepper class]]) {
+        UIStepper* stepper = (UIStepper*)sender;
+        NSInteger value = (NSInteger)[stepper value];
+        [self planSeatingFor:value force:NO];
     }
 }
 
