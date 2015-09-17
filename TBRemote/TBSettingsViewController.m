@@ -1,3 +1,4 @@
+
 //
 //  TBSettingsViewController.m
 //  td
@@ -7,12 +8,19 @@
 //
 
 #import "TBSettingsViewController.h"
+#import "TournamentDaemon.h"
 #import "TournamentSession.h"
 #import "TBAppDelegate.h"
+#import "NSObject+FBKVOController.h"
 
 @interface TBSettingsViewController () <UITableViewDelegate, UITableViewDataSource>
 
+@property (nonatomic, strong) TournamentDaemon* server;
 @property (nonatomic, strong) TournamentSession* session;
+@property (nonatomic, strong) NSMutableDictionary* configuration;
+
+// number of players to plan for
+@property (nonatomic) NSInteger maxPlayers;
 
 @end
 
@@ -22,8 +30,70 @@
     [super viewDidLoad];
 
     // get model
+    _server = [[TournamentDaemon alloc] init];
     _session = [(TBAppDelegate*)[[UIApplication sharedApplication] delegate] session];
+    _configuration = [[NSMutableDictionary alloc] init];
 
+    // load configuration
+    NSError* error;
+    if([[self class] loadConfig:[self configuration] withError:&error] == NO) {
+        // TODO: something with the error
+        NSLog(@"%@", error);
+    }
+
+    // register for KVO
+    [[self KVOController] observe:[[self session] state] keyPaths:@[@"connected", @"authorized"] options:0 block:^(id observer, id object, NSDictionary *change) {
+        if([object[@"connected"] boolValue] && [object[@"authorized"] boolValue]) {
+            NSLog(@"Connected and authorized locally");
+
+            // on connection, send entire configuration to session, unconditionally, and then replace with whatever the session has
+            NSLog(@"Synchronizing session unconditionally");
+            [[self session] configure:[self configuration] withBlock:^(id json) {
+                if(![json isEqual:[self configuration]]) {
+                    NSLog(@"Document differs from session");
+                    [[self configuration] setDictionary:json];
+
+                    // reload the table view
+                    [[self tableView] reloadData];
+                }
+            }];
+        }
+    }];
+
+    // update rows when keypaths change
+    [self bindTableViewRow:0 inSection:0 toObject:[[self session] state] keyPath:@"name"];
+    [self bindTableViewRow:1 inSection:0 toObject:[[self session] state] keyPath:@"players"];
+    [self bindTableViewRow:2 inSection:0 toObject:[[self session] state] keyPath:@"available_chips"];
+    [self bindTableViewRow:3 inSection:0 toObject:[[self session] state] keyPath:@"table_capacity"];
+    [self bindTableViewRow:4 inSection:0 toObject:[[self session] state] keyPath:@"buyin_text"];
+    [self bindTableViewRow:5 inSection:0 toObject:[[self session] state] keyPath:@"blind_levels"];
+    [self bindTableViewRow:6 inSection:0 toObject:[[self session] state] keyPath:@"authorized_clients"];
+    [self bindTableViewRow:0 inSection:1 toObject:self keyPath:@"maxPlayers"];
+
+    // whenever tournament name changes, do some stuff
+    [[self KVOController] observe:[[self session] state] keyPath:@"name" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
+        // re-publish on Bonjour
+        [[self server] publishWithName:object[@"name"]];
+    }];
+
+    // update max players selector
+    [[self KVOController] observe:[[self session] state] keyPath:@"players" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
+        // plan seating
+        [self planSeatingFor:[object[@"players"] count] force:NO];
+    }];
+
+    // if table sizes change, replan
+    [[self KVOController] observe:[[self session] state] keyPath:@"table_capacity" options:0 block:^(id observer, id object, NSDictionary *change) {
+        [self planSeatingFor:[self maxPlayers] force:NO];
+    }];
+
+    // Start serving using this device's auth key
+    NSString* path = [[self server] startWithAuthCode:[TournamentSession clientIdentifier]];
+
+    // Start the session, connecting locally
+    if(![[self session] connectToLocalPath:path]) {
+        // TODO: handle error
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -31,127 +101,154 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark UITableView data binding
+
+- (void)bindTableViewRow:(NSInteger)row inSection:(NSInteger)secton toObject:(id)object keyPath:(NSString*)keyPath {
+    [[[self tableView] KVOController] observe:object keyPath:keyPath options:0 block:^(id observer, id object, NSDictionary* change) {
+        // reload the table view row
+        NSIndexPath* theRow = [NSIndexPath indexPathForRow:row inSection:secton];
+        [observer reloadRowsAtIndexPaths:@[theRow] withRowAnimation:UITableViewRowAnimationNone];
+    }];
+}
+
 #pragma mark UITableViewDataSource
 
-- (NSString*)tableView:(UITableView*)tableView titleForHeaderInSection:(NSInteger)section {
-    NSString* sectionName;
-    if(section == 0) {
-        sectionName = NSLocalizedString(@"Tournament Setup", nil);
-    } else if(section == 1) {
-        sectionName = NSLocalizedString(@"Seat Planning", nil);
-    }
-    return sectionName;
-}
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView*)tableView {
-    return 2;
-}
-
-- (NSInteger)tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section {
-    if(section == 0) {
-        return 6;
-    } else if(section == 1) {
-        return 2;
-    } else {
-        return 0;
-    }
-}
-
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath {
-    UITableViewCell* cell;
-    NSString* text;
+    UITableViewCell* cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
+    NSDictionary* state = [[self session] state];
     NSString* detail;
 
     if(indexPath.section == 0) {
         // create a cell
-        cell = [tableView dequeueReusableCellWithIdentifier:@"SetupCell" forIndexPath:indexPath];
         switch(indexPath.row) {
             case 0:
-                text = NSLocalizedString(@"Name", nil);
-                detail = [[self session] state][@"name"];
+                detail = state[@"name"];
+                [[cell detailTextLabel] setText:detail];
                 break;
             case 1:
-                text = NSLocalizedString(@"Players", nil);
-                detail = [[self session] state][@"name"];
+                detail = [NSString stringWithFormat:@"%ld", [state[@"players"] count]];
+                [[cell detailTextLabel] setText:detail];
                 break;
             case 2:
-                text = NSLocalizedString(@"Equipment", nil);
-                detail = [[self session] state][@"name"];
+                detail = [NSString stringWithFormat:@"%ld", [state[@"available_chips"] count]];
+                [[cell detailTextLabel] setText:detail];
                 break;
             case 3:
-                text = NSLocalizedString(@"Funding", nil);
-                detail = [[self session] state][@"name"];
+                detail = [NSString stringWithFormat:@"%@", state[@"table_capacity"]];
+                [[cell detailTextLabel] setText:detail];
                 break;
             case 4:
-                text = NSLocalizedString(@"Rounds", nil);
-                detail = [[self session] state][@"name"];
+                detail = state[@"buyin_text"];
+                [[cell detailTextLabel] setText:detail];
                 break;
             case 5:
-                text = NSLocalizedString(@"Devices", nil);
-                detail = [[self session] state][@"name"];
+                detail = [NSString stringWithFormat:@"%ld", [state[@"blind_levels"] count]];
+                [[cell detailTextLabel] setText:detail];
+                break;
+            case 6:
+                detail = [NSString stringWithFormat:@"%ld", [state[@"authorized_clients"] count]];
+                [[cell detailTextLabel] setText:detail];
                 break;
         }
     } else if(indexPath.section == 1) {
-        cell = [tableView dequeueReusableCellWithIdentifier:@"SetupCell" forIndexPath:indexPath];
         switch(indexPath.row) {
             case 0:
-                text = NSLocalizedString(@"Seating For", nil);
-                detail = [[self session] state][@"name"];
+                detail = [NSString stringWithFormat:@"%ld", [self maxPlayers]];
+                [[cell detailTextLabel] setText:detail];
+                break;
+        }
+    }
+    return cell;
+}
+
+#pragma mark UITableViewDelegate
+
+- (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
+    if(indexPath.section == 0) {
+        // create a cell
+        switch(indexPath.row) {
+            case 0:
                 break;
             case 1:
-                text = NSLocalizedString(@"Re-plan", nil);
-                detail = nil;
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+            case 5:
+                break;
+            case 6:
+                break;
+        }
+    } else if(indexPath.section == 1) {
+        switch(indexPath.row) {
+            case 0:
+                break;
+            case 1:
+                // force plan seating
+                [self planSeatingFor:[self maxPlayers] force:YES];
                 break;
         }
     }
 
-    [[cell textLabel] setText:text];
-    [[cell detailTextLabel] setText:detail];
-    return cell;
+    // deselect either way
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
+#pragma mark Operations
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+- (void)planSeatingFor:(NSInteger)maxPlayers force:(BOOL)forced {
+    NSLog(@"Planning seating for %ld players", maxPlayers);
+    if(maxPlayers > 1 && (forced || maxPlayers != [self maxPlayers])) {
+        [[self session] planSeatingFor:@(maxPlayers)];
+        [self setMaxPlayers:maxPlayers];
+    }
 }
-*/
 
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
+#pragma mark File handling
+
+#define kHardcodedDocumentName @"mobile.tournbuddy"
+
++ (BOOL)saveConfig:(NSDictionary*)config withError:(NSError**)error {
+    NSFileManager* fileManager = [NSFileManager defaultManager];
+    NSURL* docDirectoryUrl = [fileManager URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:error];
+    if(docDirectoryUrl != nil) {
+        NSURL* docUrl = [docDirectoryUrl URLByAppendingPathComponent:kHardcodedDocumentName];
+
+        // serialize data
+        NSData* data = [NSJSONSerialization dataWithJSONObject:config options:0 error:error];
+        if(data != nil) {
+            // write data to disk
+            return [data writeToURL:docUrl options:0 error:error];
+        }
+    }
+    return *error == nil;
 }
-*/
 
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
++ (BOOL)loadConfig:(NSMutableDictionary*)config withError:(NSError**)error {
+    NSFileManager* fileManager = [NSFileManager defaultManager];
+    NSURL* docDirectoryUrl = [fileManager URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:error];
+    if(docDirectoryUrl != nil) {
+        NSURL* docUrl = [docDirectoryUrl URLByAppendingPathComponent:kHardcodedDocumentName];
+
+        // check existance of file
+        if(![fileManager fileExistsAtPath:[docUrl path]]) {
+            // file does not exist, copy default
+            NSString* defaultDocument = [[NSBundle mainBundle] pathForResource:@"defaults" ofType:@"json"];
+            if(![fileManager copyItemAtPath:defaultDocument toPath:[docUrl path] error:error]) {
+                return NO;
+            }
+        }
+
+        // read data from disk
+        NSData* data = [NSData dataWithContentsOfURL:docUrl options:0 error:error];
+        if(data != nil) {
+            [config setDictionary:[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:error]];
+        }
+    }
+    return *error == nil;
 }
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

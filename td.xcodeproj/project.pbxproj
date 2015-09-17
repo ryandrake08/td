@@ -336,7 +336,7 @@
 		9476F4801B3C3EA700A158F8 /* TournamentSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TournamentSession.h; sourceTree = "<group>"; };
 		9476F4811B3C3EA700A158F8 /* TournamentSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TournamentSession.m; sourceTree = "<group>"; };
 		9476F4C61B3C3F3D00A158F8 /* tournamentd */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = tournamentd; sourceTree = BUILT_PRODUCTS_DIR; };
-		9476F4CD1B3C3F8300A158F8 /* defaults.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = defaults.json; path = ../defaults.json; sourceTree = "<group>"; };
+		9476F4CD1B3C3F8300A158F8 /* defaults.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = defaults.json; sourceTree = "<group>"; };
 		9476F4CE1B3C3F8300A158F8 /* cJSON.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cJSON.c; sourceTree = "<group>"; };
 		9476F4CF1B3C3F8300A158F8 /* cJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cJSON.h; sourceTree = "<group>"; };
 		9476F4D11B3C3F8300A158F8 /* bonjour.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bonjour.cpp; sourceTree = "<group>"; };
@@ -605,7 +605,6 @@
 		9476F4EB1B3C3F8300A158F8 /* tournamentd */ = {
 			isa = PBXGroup;
 			children = (
-				9476F4CD1B3C3F8300A158F8 /* defaults.json */,
 				AD5934781BA87D700018B9EB /* chrono */,
 				9476F4D01B3C3F8300A158F8 /* cjson */,
 				9476F4D11B3C3F8300A158F8 /* bonjour.cpp */,
@@ -642,6 +641,7 @@
 		94D04EC71B7C59EB004F4245 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				9476F4CD1B3C3F8300A158F8 /* defaults.json */,
 				94D04EC81B7C59EB004F4245 /* s_break.caf */,
 				94D04EC91B7C59EB004F4245 /* s_next.caf */,
 				94D04ECA1B7C59EB004F4245 /* s_rebalance.caf */,
