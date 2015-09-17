@@ -8,6 +8,7 @@
 
 #import "TournamentDaemon.h"
 #import "TournamentService.h"
+#import "TournamentSocketDirectory.h"
 
 #include "tournament.hpp"
 #include "logger.hpp"
@@ -50,7 +51,7 @@
     // set up tournament and authorize
     __block tournament tourney;
     tourney.authorize([code intValue]);
-    auto service(tourney.listen([NSTemporaryDirectory() UTF8String]));
+    auto service(tourney.listen([TournamentSocketDirectory() UTF8String]));
 
     // server is listening. mark as running and run in background
     running = YES;
