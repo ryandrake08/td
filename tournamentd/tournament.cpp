@@ -298,9 +298,16 @@ bool tournament::handle_client_input(std::iostream& client)
 {
     bool ret(false);
 
-    // get a line of input
     std::string input;
-    if(std::getline(client, input))
+    // get lines of input
+    //
+    // note: this is probably the most problematic line of the entire codebase.
+    //
+    // we want to consume all available lines of input, but we do not want to block if there is no input ready.
+    // with just an if() statement, we only read the first line available and ignore the rest.
+    // with just a while() statement, we keep trying the read even when there is no input ready, blocking!
+    // third try: check input availability first with peek(), only read if something is ready.
+    while((client.peek() != EOF) && std::getline(client, input))
     {
         // find start of command
         static const char* whitespace(" \t\r\n");
