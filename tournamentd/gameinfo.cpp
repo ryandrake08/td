@@ -13,7 +13,7 @@ static std::default_random_engine engine;
 
 // initialize game
 gameinfo::gameinfo() :
-    table_capacity(0),
+    table_capacity(2),
     percent_seats_paid(1.0),
     round_payouts(false),
     payout_flatness(1.0),
