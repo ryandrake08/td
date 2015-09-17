@@ -121,7 +121,7 @@
     }];
 
     // update max players selector
-    [[self KVOController] observe:[self configuration] keyPath:@"players" options:0 block:^(id observer, id object, NSDictionary *change) {
+    [[self KVOController] observe:[[self session] state] keyPath:@"players" options:0 block:^(id observer, id object, NSDictionary *change) {
         NSUInteger players = [object[@"players"] count];
         if(players > 1 && players != [[[self maxPlayersButton] lastItem] tag]) {
 
@@ -152,9 +152,9 @@
     }];
 
     // if table sizes change, replan
-    [[self KVOController] observe:[self configuration] keyPath:@"table_capacity" options:0 block:^(id observer, id object, NSDictionary *change) {
+    [[self KVOController] observe:[[self session] state] keyPath:@"table_capacity" options:0 block:^(id observer, id object, NSDictionary *change) {
         NSInteger maxPlayers = [[self maxPlayersButton] selectedTag];
-        [self planSeatingFor:maxPlayers force:NO];
+        [self planSeatingFor:maxPlayers force:YES];
     }];
 }
 
