@@ -155,6 +155,8 @@
 		AD2CA95F1BAA7043009A2384 /* TournamentSocketDirectory.m in Sources */ = {isa = PBXBuildFile; fileRef = AD2CA95E1BAA7043009A2384 /* TournamentSocketDirectory.m */; settings = {ASSET_TAGS = (); }; };
 		AD2CA9601BAA70F9009A2384 /* TournamentSocketDirectory.m in Sources */ = {isa = PBXBuildFile; fileRef = AD2CA95E1BAA7043009A2384 /* TournamentSocketDirectory.m */; settings = {ASSET_TAGS = (); }; };
 		AD2CA9611BAA7134009A2384 /* TournamentSocketDirectory.m in Sources */ = {isa = PBXBuildFile; fileRef = AD2CA95E1BAA7043009A2384 /* TournamentSocketDirectory.m */; settings = {ASSET_TAGS = (); }; };
+		AD33BA421BABAC120011777C /* defaults.json in Resources */ = {isa = PBXBuildFile; fileRef = 9476F4CD1B3C3F8300A158F8 /* defaults.json */; };
+		AD33BA431BABAD6B0011777C /* defaults.json in Resources */ = {isa = PBXBuildFile; fileRef = 9476F4CD1B3C3F8300A158F8 /* defaults.json */; };
 		AD5375B41B9F35FB00EF5132 /* TBRemoteWatchDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AD5375B31B9F35FB00EF5132 /* TBRemoteWatchDelegate.m */; settings = {ASSET_TAGS = (); }; };
 		AD75ACEE1BA3FD8800705967 /* TBEllipseImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD75ACED1BA3FD8800705967 /* TBEllipseImageView.m */; settings = {ASSET_TAGS = (); }; };
 		AD75ACEF1BA3FEEA00705967 /* TBEllipseImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD75ACED1BA3FD8800705967 /* TBEllipseImageView.m */; settings = {ASSET_TAGS = (); }; };
@@ -204,7 +206,6 @@
 		ADCECE801B7B0DBF00767DA6 /* TBResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADCECE791B7B0D9D00767DA6 /* TBResultsViewController.m */; };
 		ADCECE821B7B0E6100767DA6 /* TBTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE4E1271A7DFFD000FC9EFC /* TBTableViewController.m */; };
 		ADCECE861B7B101500767DA6 /* TBPlayersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADCECE841B7B101500767DA6 /* TBPlayersViewController.m */; };
-		ADD3BE851BA0A2A600A69834 /* TBSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD3BE841BA0A2A600A69834 /* TBSettingsViewController.m */; };
 		ADD4F1251B91FE2400DAF567 /* NSObject+AssociatedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD4F1241B91FE2400DAF567 /* NSObject+AssociatedObject.m */; };
 		ADD4F1261B91FE2400DAF567 /* NSObject+AssociatedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD4F1241B91FE2400DAF567 /* NSObject+AssociatedObject.m */; };
 		ADD4F1271B91FE2400DAF567 /* NSObject+AssociatedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD4F1241B91FE2400DAF567 /* NSObject+AssociatedObject.m */; };
@@ -222,6 +223,49 @@
 		ADE5A4FD1B8F44A0002737A8 /* TBStatsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE5A4FB1B8F44A0002737A8 /* TBStatsViewController.m */; };
 		ADE5A4FE1B8F44A0002737A8 /* TBStatsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE5A4FB1B8F44A0002737A8 /* TBStatsViewController.m */; };
 		ADE5A5031B8F6C4C002737A8 /* TBCurrencyImageTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE5A5021B8F6C4C002737A8 /* TBCurrencyImageTransformer.m */; };
+		ADF635E51BAB8AF800D019AE /* TournamentSocketDirectory.m in Sources */ = {isa = PBXBuildFile; fileRef = AD2CA95E1BAA7043009A2384 /* TournamentSocketDirectory.m */; settings = {ASSET_TAGS = (); }; };
+		ADF635E61BAB8AF800D019AE /* TBCurrencyNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 94562E611B65D8CA0017C692 /* TBCurrencyNumberFormatter.m */; };
+		ADF635E71BAB8AF800D019AE /* NSDictionary+Changed.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD73D281B9692E1006824A1 /* NSDictionary+Changed.m */; };
+		ADF635E81BAB8AF800D019AE /* TTTOrdinalNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9462A3E61B77CB3B00B29002 /* TTTOrdinalNumberFormatter.m */; };
+		ADF635E91BAB8AF800D019AE /* TBSound.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE299AE1B7B994200F1393B /* TBSound.m */; };
+		ADF635EA1BAB8AF800D019AE /* TBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4561B3C385400A158F8 /* TBAppDelegate.m */; };
+		ADF635EB1BAB8AF800D019AE /* types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E91B3C3F8300A158F8 /* types.cpp */; };
+		ADF635EC1BAB8AF800D019AE /* scope_timer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AD1B250A1BA8773900C4BDDC /* scope_timer.cpp */; settings = {ASSET_TAGS = (); }; };
+		ADF635ED1BAB8AF800D019AE /* TBRemoteWatchDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AD5375B31B9F35FB00EF5132 /* TBRemoteWatchDelegate.m */; settings = {ASSET_TAGS = (); }; };
+		ADF635EE1BAB8AF800D019AE /* tournament.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E71B3C3F8300A158F8 /* tournament.cpp */; };
+		ADF635EF1BAB8AF800D019AE /* TournamentService.m in Sources */ = {isa = PBXBuildFile; fileRef = 9439701C1B405DC000BB0413 /* TournamentService.m */; };
+		ADF635F01BAB8AF800D019AE /* json.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4D81B3C3F8300A158F8 /* json.cpp */; };
+		ADF635F11BAB8AF800D019AE /* CFStreamCreatePairWithUnixSocket.c in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEADD1B5AE2D60026B25D /* CFStreamCreatePairWithUnixSocket.c */; };
+		ADF635F21BAB8AF800D019AE /* TBEllipseView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD87A6D81BA2094400E55961 /* TBEllipseView.m */; settings = {ASSET_TAGS = (); }; };
+		ADF635F31BAB8AF800D019AE /* TBRemoteClockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F45A1B3C385400A158F8 /* TBRemoteClockViewController.m */; };
+		ADF635F41BAB8AF800D019AE /* cJSON.c in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4CE1B3C3F8300A158F8 /* cJSON.c */; };
+		ADF635F51BAB8AF800D019AE /* TournamentSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4811B3C3EA700A158F8 /* TournamentSession.m */; };
+		ADF635F61BAB8AF800D019AE /* NSObject+AssociatedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD4F1241B91FE2400DAF567 /* NSObject+AssociatedObject.m */; };
+		ADF635F71BAB8AF800D019AE /* TBColor+CSS.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEADB1B5AE2560026B25D /* TBColor+CSS.m */; settings = {ASSET_TAGS = (); }; };
+		ADF635F81BAB8AF800D019AE /* server.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E11B3C3F8300A158F8 /* server.cpp */; };
+		ADF635F91BAB8AF800D019AE /* TournamentBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 943970171B3F9DB700BB0413 /* TournamentBrowser.m */; };
+		ADF635FA1BAB8AF800D019AE /* TBResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADDDAA8A1B93BCEE00D3AF68 /* TBResultsViewController.m */; };
+		ADF635FB1BAB8AF800D019AE /* NSObject+FBKVOController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEAE41B5AE2D60026B25D /* NSObject+FBKVOController.m */; };
+		ADF635FD1BAB8AF800D019AE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4651B3C385400A158F8 /* main.m */; };
+		ADF635FE1BAB8AF800D019AE /* NSData+Delimiter.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEAE21B5AE2D60026B25D /* NSData+Delimiter.m */; };
+		ADF635FF1BAB8AF800D019AE /* socket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E31B3C3F8300A158F8 /* socket.cpp */; };
+		ADF636001BAB8AF800D019AE /* TBPlayerSeatingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD9ED3E81B90949000C10550 /* TBPlayerSeatingViewController.m */; };
+		ADF636011BAB8AF800D019AE /* gameinfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4D51B3C3F8300A158F8 /* gameinfo.cpp */; };
+		ADF636021BAB8AF800D019AE /* TBActionClockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEAF91B5AEB0B0026B25D /* TBActionClockView.m */; };
+		ADF636031BAB8AF800D019AE /* NSString+CamelCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 945410761B6E9A17001E3373 /* NSString+CamelCase.m */; };
+		ADF636041BAB8AF800D019AE /* FBKVOController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEAE01B5AE2D60026B25D /* FBKVOController.m */; };
+		ADF636051BAB8AF800D019AE /* TBSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD3BE841BA0A2A600A69834 /* TBSettingsViewController.m */; };
+		ADF636061BAB8AF800D019AE /* TournamentConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F47D1B3C3EA700A158F8 /* TournamentConnection.m */; };
+		ADF636071BAB8AF800D019AE /* logger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4DA1B3C3F8300A158F8 /* logger.cpp */; };
+		ADF636081BAB8AF800D019AE /* datetime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4D31B3C3F8300A158F8 /* datetime.cpp */; };
+		ADF636091BAB8AF800D019AE /* TournamentDaemon.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9476F47F1B3C3EA700A158F8 /* TournamentDaemon.mm */; };
+		ADF6360B1BAB8AF800D019AE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9476F4751B3C3D6700A158F8 /* UIKit.framework */; };
+		ADF6360C1BAB8AF800D019AE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9476F4771B3C3D6E00A158F8 /* CoreGraphics.framework */; };
+		ADF6360D1BAB8AF800D019AE /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9476F4791B3C3D7400A158F8 /* CFNetwork.framework */; };
+		ADF6360F1BAB8AF800D019AE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9476F45C1B3C385400A158F8 /* Main.storyboard */; };
+		ADF636101BAB8AF800D019AE /* s_warning.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04ECC1B7C59EB004F4245 /* s_warning.caf */; };
+		ADF636111BAB8AF800D019AE /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9476F45F1B3C385400A158F8 /* LaunchScreen.xib */; };
+		ADF636121BAB8AF800D019AE /* TBRemote.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9476F45D1B3C385400A158F8 /* TBRemote.xcassets */; };
 		ADFFFF141BA34394003BAC88 /* TBColor+CSS.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEADB1B5AE2560026B25D /* TBColor+CSS.m */; settings = {ASSET_TAGS = (); }; };
 		ADFFFF151BA34394003BAC88 /* TBColor+CSS.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEADB1B5AE2560026B25D /* TBColor+CSS.m */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
@@ -324,7 +368,7 @@
 		9476F45B1B3C385400A158F8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9476F45D1B3C385400A158F8 /* TBRemote.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = TBRemote.xcassets; sourceTree = "<group>"; };
 		9476F45E1B3C385400A158F8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		9476F4641B3C385400A158F8 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9476F4641B3C385400A158F8 /* TBRemote-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "TBRemote-Info.plist"; sourceTree = "<group>"; };
 		9476F4651B3C385400A158F8 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		9476F4751B3C3D6700A158F8 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		9476F4771B3C3D6E00A158F8 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
@@ -489,6 +533,8 @@
 		ADE5A4FB1B8F44A0002737A8 /* TBStatsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TBStatsViewController.m; path = TBMac/TBStatsViewController.m; sourceTree = "<group>"; };
 		ADE5A5011B8F6C4C002737A8 /* TBCurrencyImageTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBCurrencyImageTransformer.h; sourceTree = "<group>"; };
 		ADE5A5021B8F6C4C002737A8 /* TBCurrencyImageTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBCurrencyImageTransformer.m; sourceTree = "<group>"; };
+		ADF636181BAB8AF800D019AE /* TBPhone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TBPhone.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		ADF636191BAB8AF800D019AE /* TBPhone-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TBPhone-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -532,6 +578,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		ADF6360A1BAB8AF800D019AE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ADF6360B1BAB8AF800D019AE /* UIKit.framework in Frameworks */,
+				ADF6360C1BAB8AF800D019AE /* CoreGraphics.framework in Frameworks */,
+				ADF6360D1BAB8AF800D019AE /* CFNetwork.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -562,7 +618,8 @@
 		9476F4661B3C385400A158F8 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				9476F4641B3C385400A158F8 /* Info.plist */,
+				9476F4641B3C385400A158F8 /* TBRemote-Info.plist */,
+				ADF636191BAB8AF800D019AE /* TBPhone-Info.plist */,
 				9476F4651B3C385400A158F8 /* main.m */,
 			);
 			name = "Supporting Files";
@@ -769,6 +826,7 @@
 				944FF4B31B3D04CA000362ED /* TBPlayer.app */,
 				ADA6A1981B97FE8A00C83762 /* TBWatch.app */,
 				ADA6A1A41B97FE8A00C83762 /* TBWatch Extension.appex */,
+				ADF636181BAB8AF800D019AE /* TBPhone.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -986,6 +1044,23 @@
 			productReference = ADA6A1A41B97FE8A00C83762 /* TBWatch Extension.appex */;
 			productType = "com.apple.product-type.watchkit2-extension";
 		};
+		ADF635E11BAB8AF800D019AE /* TBPhone */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ADF636151BAB8AF800D019AE /* Build configuration list for PBXNativeTarget "TBPhone" */;
+			buildPhases = (
+				ADF635E41BAB8AF800D019AE /* Sources */,
+				ADF6360A1BAB8AF800D019AE /* Frameworks */,
+				ADF6360E1BAB8AF800D019AE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TBPhone;
+			productName = TBRemote;
+			productReference = ADF636181BAB8AF800D019AE /* TBPhone.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1030,6 +1105,7 @@
 			targets = (
 				AD8E68421A6C606700E5A4D8 /* TBMac */,
 				944FF4B21B3D04CA000362ED /* TBPlayer */,
+				ADF635E11BAB8AF800D019AE /* TBPhone */,
 				9476F4291B3C37D000A158F8 /* TBRemote */,
 				9476F4C51B3C3F3D00A158F8 /* tournamentd */,
 				ADA6A1971B97FE8A00C83762 /* TBWatch */,
@@ -1063,6 +1139,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AD33BA431BABAD6B0011777C /* defaults.json in Resources */,
 				9476F46C1B3C385400A158F8 /* Main.storyboard in Resources */,
 				ADA5DAC01B949CB1004F50C8 /* s_warning.caf in Resources */,
 				9476F46E1B3C385400A158F8 /* LaunchScreen.xib in Resources */,
@@ -1121,6 +1198,18 @@
 				AD7E5D091B9FE7AB004654E9 /* s_warning.caf in Resources */,
 				AD7E5D071B9FE7AB004654E9 /* s_break.caf in Resources */,
 				ADA6A1B51B97FE8A00C83762 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ADF6360E1BAB8AF800D019AE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AD33BA421BABAC120011777C /* defaults.json in Resources */,
+				ADF6360F1BAB8AF800D019AE /* Main.storyboard in Resources */,
+				ADF636101BAB8AF800D019AE /* s_warning.caf in Resources */,
+				ADF636111BAB8AF800D019AE /* LaunchScreen.xib in Resources */,
+				ADF636121BAB8AF800D019AE /* TBRemote.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1213,7 +1302,6 @@
 				94FDEAFB1B5AEB0B0026B25D /* TBActionClockView.m in Sources */,
 				94BB5FFB1B7F9F1600B33929 /* NSString+CamelCase.m in Sources */,
 				94FDEAEA1B5AE2D60026B25D /* FBKVOController.m in Sources */,
-				ADD3BE851BA0A2A600A69834 /* TBSettingsViewController.m in Sources */,
 				9476F4A31B3C3EA700A158F8 /* TournamentConnection.m in Sources */,
 				949D709E1B3C440E008D5CD1 /* logger.cpp in Sources */,
 				949D709B1B3C440E008D5CD1 /* datetime.cpp in Sources */,
@@ -1318,6 +1406,49 @@
 				ADA6A1B01B97FE8A00C83762 /* ExtensionDelegate.m in Sources */,
 				ADA6A1AD1B97FE8A00C83762 /* InterfaceController.m in Sources */,
 				ADA6A1B31B97FE8A00C83762 /* NotificationController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ADF635E41BAB8AF800D019AE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ADF635E51BAB8AF800D019AE /* TournamentSocketDirectory.m in Sources */,
+				ADF635E61BAB8AF800D019AE /* TBCurrencyNumberFormatter.m in Sources */,
+				ADF635E71BAB8AF800D019AE /* NSDictionary+Changed.m in Sources */,
+				ADF635E81BAB8AF800D019AE /* TTTOrdinalNumberFormatter.m in Sources */,
+				ADF635E91BAB8AF800D019AE /* TBSound.m in Sources */,
+				ADF635EA1BAB8AF800D019AE /* TBAppDelegate.m in Sources */,
+				ADF635EB1BAB8AF800D019AE /* types.cpp in Sources */,
+				ADF635EC1BAB8AF800D019AE /* scope_timer.cpp in Sources */,
+				ADF635ED1BAB8AF800D019AE /* TBRemoteWatchDelegate.m in Sources */,
+				ADF635EE1BAB8AF800D019AE /* tournament.cpp in Sources */,
+				ADF635EF1BAB8AF800D019AE /* TournamentService.m in Sources */,
+				ADF635F01BAB8AF800D019AE /* json.cpp in Sources */,
+				ADF635F11BAB8AF800D019AE /* CFStreamCreatePairWithUnixSocket.c in Sources */,
+				ADF635F21BAB8AF800D019AE /* TBEllipseView.m in Sources */,
+				ADF635F31BAB8AF800D019AE /* TBRemoteClockViewController.m in Sources */,
+				ADF635F41BAB8AF800D019AE /* cJSON.c in Sources */,
+				ADF635F51BAB8AF800D019AE /* TournamentSession.m in Sources */,
+				ADF635F61BAB8AF800D019AE /* NSObject+AssociatedObject.m in Sources */,
+				ADF635F71BAB8AF800D019AE /* TBColor+CSS.m in Sources */,
+				ADF635F81BAB8AF800D019AE /* server.cpp in Sources */,
+				ADF635F91BAB8AF800D019AE /* TournamentBrowser.m in Sources */,
+				ADF635FA1BAB8AF800D019AE /* TBResultsViewController.m in Sources */,
+				ADF635FB1BAB8AF800D019AE /* NSObject+FBKVOController.m in Sources */,
+				ADF635FD1BAB8AF800D019AE /* main.m in Sources */,
+				ADF635FE1BAB8AF800D019AE /* NSData+Delimiter.m in Sources */,
+				ADF635FF1BAB8AF800D019AE /* socket.cpp in Sources */,
+				ADF636001BAB8AF800D019AE /* TBPlayerSeatingViewController.m in Sources */,
+				ADF636011BAB8AF800D019AE /* gameinfo.cpp in Sources */,
+				ADF636021BAB8AF800D019AE /* TBActionClockView.m in Sources */,
+				ADF636031BAB8AF800D019AE /* NSString+CamelCase.m in Sources */,
+				ADF636041BAB8AF800D019AE /* FBKVOController.m in Sources */,
+				ADF636051BAB8AF800D019AE /* TBSettingsViewController.m in Sources */,
+				ADF636061BAB8AF800D019AE /* TournamentConnection.m in Sources */,
+				ADF636071BAB8AF800D019AE /* logger.cpp in Sources */,
+				ADF636081BAB8AF800D019AE /* datetime.cpp in Sources */,
+				ADF636091BAB8AF800D019AE /* TournamentDaemon.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1564,10 +1695,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				INFOPLIST_FILE = TBRemote/Info.plist;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = "TBRemote/TBRemote-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.hdnastudio.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1578,10 +1712,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				INFOPLIST_FILE = TBRemote/Info.plist;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = "TBRemote/TBRemote-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.hdnastudio.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1667,6 +1804,7 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_PREPROCESSOR_DEFINITIONS = "";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -1765,6 +1903,42 @@
 			};
 			name = Release;
 		};
+		ADF636161BAB8AF800D019AE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+					"TBFULL=1",
+				);
+				INFOPLIST_FILE = "TBRemote/TBPhone-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.hdnastudio.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		ADF636171BAB8AF800D019AE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GCC_PREPROCESSOR_DEFINITIONS = "TBFULL=1";
+				INFOPLIST_FILE = "TBRemote/TBPhone-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.hdnastudio.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1827,6 +2001,15 @@
 			buildConfigurations = (
 				ADA6A1BA1B97FE8A00C83762 /* Debug */,
 				ADA6A1BB1B97FE8A00C83762 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		ADF636151BAB8AF800D019AE /* Build configuration list for PBXNativeTarget "TBPhone" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ADF636161BAB8AF800D019AE /* Debug */,
+				ADF636171BAB8AF800D019AE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

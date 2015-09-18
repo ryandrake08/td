@@ -24,9 +24,13 @@
         [self setSession:[[TournamentSession alloc] init]];
     }
 
-    // Create either tournamnet list or setup, depending on whether this is the full version or the remote
+    // Create either tournament list or setup, depending on whether this is the full version or the remote
     UIStoryboard* sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    NSString* firstTabName = (YES) ? @"TBTournamentsViewController" : @"TBSettingsViewController";
+#if defined(TBFULL)
+    NSString* firstTabName = @"TBSettingsViewController";
+#else
+    NSString* firstTabName = @"TBTournamentsViewController";
+#endif
     UIViewController* vc = [sb instantiateViewControllerWithIdentifier:firstTabName];
 
     // Add it as first tab
