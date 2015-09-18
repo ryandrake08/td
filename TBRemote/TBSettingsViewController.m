@@ -80,9 +80,14 @@
         [[self maxPlayersStepper] setMaximumValue:(double)playerCount];
     }];
 
-    // if table sizes change, replan
+    // if table sizes change, force a replan
     [[self KVOController] observe:[[self session] state] keyPath:@"table_capacity" options:0 block:^(id observer, id object, NSDictionary *change) {
-        [self planSeatingFor:[self maxPlayers] force:YES];
+        [self planSeating];
+    }];
+
+    // if max players changes, force a replan
+    [[self KVOController] observe:self keyPath:@"maxPlayers" options:0 block:^(id observer, id object, NSDictionary *change) {
+        [self planSeating];
     }];
 
     // update rows when keypaths change
@@ -169,7 +174,6 @@
                 [stepper setValue:(double)[self maxPlayers]];
                 [stepper setMinimumValue:2.0];
                 [stepper setMaximumValue:(double)playerCount];
-                NSLog(@"%f-%f", [stepper minimumValue],[stepper maximumValue]);
                 break;
         }
     }
@@ -203,7 +207,7 @@
                 break;
             case 1:
                 // force plan seating
-                [self planSeatingFor:[self maxPlayers] force:YES];
+                [self planSeating];
                 break;
         }
     }
@@ -214,11 +218,10 @@
 
 #pragma mark Operations
 
-- (void)planSeatingFor:(NSInteger)maxPlayers force:(BOOL)forced {
-    NSLog(@"Planning seating for %ld players", maxPlayers);
-    if(maxPlayers > 1 && (forced || maxPlayers != [self maxPlayers])) {
-        [[self session] planSeatingFor:@(maxPlayers)];
-        [self setMaxPlayers:maxPlayers];
+- (void)planSeating {
+    NSLog(@"Planning seating for %ld players", [self maxPlayers]);
+    if([self maxPlayers] > 1) {
+        [[self session] planSeatingFor:@([self maxPlayers])];
     }
 }
 
@@ -228,7 +231,7 @@
     if([sender isKindOfClass:[UIStepper class]]) {
         UIStepper* stepper = (UIStepper*)sender;
         NSInteger value = (NSInteger)[stepper value];
-        [self planSeatingFor:value force:NO];
+        [self setMaxPlayers:value];
     }
 }
 
