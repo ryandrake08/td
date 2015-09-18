@@ -152,11 +152,27 @@
 		AD1B250D1BA8796100C4BDDC /* scope_timer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AD1B250A1BA8773900C4BDDC /* scope_timer.cpp */; settings = {ASSET_TAGS = (); }; };
 		AD1B250E1BA8796400C4BDDC /* scope_timer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AD1B250A1BA8773900C4BDDC /* scope_timer.cpp */; settings = {ASSET_TAGS = (); }; };
 		AD1B250F1BA8796500C4BDDC /* scope_timer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AD1B250A1BA8773900C4BDDC /* scope_timer.cpp */; settings = {ASSET_TAGS = (); }; };
+		AD2B800E1BACC63600E2FE9C /* TBPhone WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = AD33BA641BAC63540011777C /* TBPhone WatchKit Extension.appex */; settings = {ASSET_TAGS = (); }; };
 		AD2CA95F1BAA7043009A2384 /* TournamentSocketDirectory.m in Sources */ = {isa = PBXBuildFile; fileRef = AD2CA95E1BAA7043009A2384 /* TournamentSocketDirectory.m */; settings = {ASSET_TAGS = (); }; };
 		AD2CA9601BAA70F9009A2384 /* TournamentSocketDirectory.m in Sources */ = {isa = PBXBuildFile; fileRef = AD2CA95E1BAA7043009A2384 /* TournamentSocketDirectory.m */; settings = {ASSET_TAGS = (); }; };
 		AD2CA9611BAA7134009A2384 /* TournamentSocketDirectory.m in Sources */ = {isa = PBXBuildFile; fileRef = AD2CA95E1BAA7043009A2384 /* TournamentSocketDirectory.m */; settings = {ASSET_TAGS = (); }; };
+		AD2FC7901BACDB51008ABB22 /* TBPhone WatchKit App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = AD33BA521BAC634F0011777C /* TBPhone WatchKit App.app */; };
 		AD33BA421BABAC120011777C /* defaults.json in Resources */ = {isa = PBXBuildFile; fileRef = 9476F4CD1B3C3F8300A158F8 /* defaults.json */; };
 		AD33BA431BABAD6B0011777C /* defaults.json in Resources */ = {isa = PBXBuildFile; fileRef = 9476F4CD1B3C3F8300A158F8 /* defaults.json */; };
+		AD33BA481BAC634F0011777C /* s_warning.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04ECC1B7C59EB004F4245 /* s_warning.caf */; settings = {ASSET_TAGS = (); }; };
+		AD33BA491BAC634F0011777C /* s_break.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04EC81B7C59EB004F4245 /* s_break.caf */; settings = {ASSET_TAGS = (); }; };
+		AD33BA4A1BAC634F0011777C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ADA6A19D1B97FE8A00C83762 /* Assets.xcassets */; };
+		AD33BA4B1BAC634F0011777C /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ADA6A19A1B97FE8A00C83762 /* Interface.storyboard */; };
+		AD33BA4C1BAC634F0011777C /* s_next.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04EC91B7C59EB004F4245 /* s_next.caf */; settings = {ASSET_TAGS = (); }; };
+		AD33BA561BAC63540011777C /* FBKVOController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEAE01B5AE2D60026B25D /* FBKVOController.m */; };
+		AD33BA571BAC63540011777C /* NSObject+FBKVOController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEAE41B5AE2D60026B25D /* NSObject+FBKVOController.m */; };
+		AD33BA581BAC63540011777C /* ExtensionDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA6A1AF1B97FE8A00C83762 /* ExtensionDelegate.m */; };
+		AD33BA591BAC63540011777C /* InterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA6A1AC1B97FE8A00C83762 /* InterfaceController.m */; };
+		AD33BA5A1BAC63540011777C /* NotificationController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA6A1B21B97FE8A00C83762 /* NotificationController.m */; };
+		AD33BA5D1BAC63540011777C /* s_next.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04EC91B7C59EB004F4245 /* s_next.caf */; settings = {ASSET_TAGS = (); }; };
+		AD33BA5E1BAC63540011777C /* s_warning.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04ECC1B7C59EB004F4245 /* s_warning.caf */; settings = {ASSET_TAGS = (); }; };
+		AD33BA5F1BAC63540011777C /* s_break.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04EC81B7C59EB004F4245 /* s_break.caf */; settings = {ASSET_TAGS = (); }; };
+		AD33BA601BAC63540011777C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ADA6A1B41B97FE8A00C83762 /* Assets.xcassets */; };
 		AD5375B41B9F35FB00EF5132 /* TBRemoteWatchDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AD5375B31B9F35FB00EF5132 /* TBRemoteWatchDelegate.m */; settings = {ASSET_TAGS = (); }; };
 		AD75ACEE1BA3FD8800705967 /* TBEllipseImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD75ACED1BA3FD8800705967 /* TBEllipseImageView.m */; settings = {ASSET_TAGS = (); }; };
 		AD75ACEF1BA3FEEA00705967 /* TBEllipseImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD75ACED1BA3FD8800705967 /* TBEllipseImageView.m */; settings = {ASSET_TAGS = (); }; };
@@ -188,12 +204,12 @@
 		ADA5DAC01B949CB1004F50C8 /* s_warning.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04ECC1B7C59EB004F4245 /* s_warning.caf */; };
 		ADA6A19C1B97FE8A00C83762 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ADA6A19A1B97FE8A00C83762 /* Interface.storyboard */; };
 		ADA6A19E1B97FE8A00C83762 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ADA6A19D1B97FE8A00C83762 /* Assets.xcassets */; };
-		ADA6A1A51B97FE8A00C83762 /* TBWatch Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = ADA6A1A41B97FE8A00C83762 /* TBWatch Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		ADA6A1A51B97FE8A00C83762 /* TBRemote WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = ADA6A1A41B97FE8A00C83762 /* TBRemote WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		ADA6A1AD1B97FE8A00C83762 /* InterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA6A1AC1B97FE8A00C83762 /* InterfaceController.m */; };
 		ADA6A1B01B97FE8A00C83762 /* ExtensionDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA6A1AF1B97FE8A00C83762 /* ExtensionDelegate.m */; };
 		ADA6A1B31B97FE8A00C83762 /* NotificationController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA6A1B21B97FE8A00C83762 /* NotificationController.m */; };
 		ADA6A1B51B97FE8A00C83762 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ADA6A1B41B97FE8A00C83762 /* Assets.xcassets */; };
-		ADA6A1B91B97FE8A00C83762 /* TBWatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = ADA6A1981B97FE8A00C83762 /* TBWatch.app */; };
+		ADA6A1B91B97FE8A00C83762 /* TBRemote WatchKit App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = ADA6A1981B97FE8A00C83762 /* TBRemote WatchKit App.app */; };
 		ADA6A1C21B98041900C83762 /* FBKVOController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEAE01B5AE2D60026B25D /* FBKVOController.m */; };
 		ADA6A1C31B98043500C83762 /* NSObject+FBKVOController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEAE41B5AE2D60026B25D /* NSObject+FBKVOController.m */; };
 		ADACCB701B989B2400F7C477 /* TBStatsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = ADACCB731B989B2400F7C477 /* TBStatsView.xib */; };
@@ -271,19 +287,47 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		AD33BA461BAC634F0011777C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AD8E683B1A6C606700E5A4D8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AD33BA541BAC63540011777C;
+			remoteInfo = "TBPhone WatchKit Extension";
+		};
+		AD4610DF1BACE87000BEA347 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AD8E683B1A6C606700E5A4D8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AD33BA441BAC634F0011777C;
+			remoteInfo = "TBPhone WatchKit App";
+		};
+		AD4610E11BACE87600BEA347 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AD8E683B1A6C606700E5A4D8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = ADA6A1971B97FE8A00C83762;
+			remoteInfo = "TBRemote WatchKit App";
+		};
+		ADA3B6361BACD8530048E1BD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AD8E683B1A6C606700E5A4D8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AD33BA541BAC63540011777C;
+			remoteInfo = "TBPhone WatchKit Extension";
+		};
+		ADA3B6381BACD8630048E1BD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AD8E683B1A6C606700E5A4D8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = ADA6A1A31B97FE8A00C83762;
+			remoteInfo = "TBRemote WatchKit Extension";
+		};
 		ADA6A1A61B97FE8A00C83762 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = AD8E683B1A6C606700E5A4D8 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = ADA6A1A31B97FE8A00C83762;
-			remoteInfo = "TBWatch Extension";
-		};
-		ADA6A1B71B97FE8A00C83762 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = AD8E683B1A6C606700E5A4D8 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = ADA6A1971B97FE8A00C83762;
-			remoteInfo = TBWatch;
+			remoteInfo = "TBRemote WatchKit Extension";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -298,13 +342,35 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		AD33BA4D1BAC634F0011777C /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				AD2B800E1BACC63600E2FE9C /* TBPhone WatchKit Extension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AD33BA6A1BAC665B0011777C /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				AD2FC7901BACDB51008ABB22 /* TBPhone WatchKit App.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		ADA6A1BF1B97FE8A00C83762 /* Embed App Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				ADA6A1A51B97FE8A00C83762 /* TBWatch Extension.appex in Embed App Extensions */,
+				ADA6A1A51B97FE8A00C83762 /* TBRemote WatchKit Extension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -315,7 +381,7 @@
 			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
 			dstSubfolderSpec = 16;
 			files = (
-				ADA6A1B91B97FE8A00C83762 /* TBWatch.app in Embed Watch Content */,
+				ADA6A1B91B97FE8A00C83762 /* TBRemote WatchKit App.app in Embed Watch Content */,
 			);
 			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -454,6 +520,10 @@
 		AD1B250B1BA8773900C4BDDC /* scope_timer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = scope_timer.hpp; sourceTree = "<group>"; };
 		AD2CA95D1BAA7043009A2384 /* TournamentSocketDirectory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TournamentSocketDirectory.h; sourceTree = "<group>"; };
 		AD2CA95E1BAA7043009A2384 /* TournamentSocketDirectory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TournamentSocketDirectory.m; sourceTree = "<group>"; };
+		AD33BA521BAC634F0011777C /* TBPhone WatchKit App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TBPhone WatchKit App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AD33BA641BAC63540011777C /* TBPhone WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "TBPhone WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AD33BA661BAC63CC0011777C /* TBPhone-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "TBPhone-Info.plist"; sourceTree = "<group>"; };
+		AD33BA681BAC63D40011777C /* TBPhone-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "TBPhone-Info.plist"; sourceTree = "<group>"; };
 		AD5375B21B9F35FA00EF5132 /* TBRemoteWatchDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBRemoteWatchDelegate.h; sourceTree = "<group>"; };
 		AD5375B31B9F35FB00EF5132 /* TBRemoteWatchDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBRemoteWatchDelegate.m; sourceTree = "<group>"; };
 		AD5934791BA87D820018B9EB /* chrono_io */ = {isa = PBXFileReference; lastKnownFileType = text; name = chrono_io; path = chrono/chrono_io; sourceTree = "<group>"; };
@@ -489,11 +559,11 @@
 		AD9ED3E81B90949000C10550 /* TBPlayerSeatingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBPlayerSeatingViewController.m; sourceTree = "<group>"; };
 		ADA4FC081B8B6DA500DB2AA7 /* TBConnectToWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBConnectToWindowController.h; sourceTree = "<group>"; };
 		ADA4FC091B8B6DA500DB2AA7 /* TBConnectToWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBConnectToWindowController.m; sourceTree = "<group>"; };
-		ADA6A1981B97FE8A00C83762 /* TBWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TBWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		ADA6A1981B97FE8A00C83762 /* TBRemote WatchKit App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TBRemote WatchKit App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADA6A19B1B97FE8A00C83762 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
 		ADA6A19D1B97FE8A00C83762 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		ADA6A19F1B97FE8A00C83762 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		ADA6A1A41B97FE8A00C83762 /* TBWatch Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "TBWatch Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		ADA6A19F1B97FE8A00C83762 /* TBRemote-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TBRemote-Info.plist"; sourceTree = "<group>"; };
+		ADA6A1A41B97FE8A00C83762 /* TBRemote WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "TBRemote WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADA6A1AA1B97FE8A00C83762 /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
 		ADA6A1AB1B97FE8A00C83762 /* InterfaceController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InterfaceController.h; sourceTree = "<group>"; };
 		ADA6A1AC1B97FE8A00C83762 /* InterfaceController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InterfaceController.m; sourceTree = "<group>"; };
@@ -502,7 +572,7 @@
 		ADA6A1B11B97FE8A00C83762 /* NotificationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationController.h; sourceTree = "<group>"; };
 		ADA6A1B21B97FE8A00C83762 /* NotificationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotificationController.m; sourceTree = "<group>"; };
 		ADA6A1B41B97FE8A00C83762 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		ADA6A1B61B97FE8A00C83762 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		ADA6A1B61B97FE8A00C83762 /* TBRemote-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TBRemote-Info.plist"; sourceTree = "<group>"; };
 		ADACCB721B989B2400F7C477 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/TBStatsView.xib; sourceTree = "<group>"; };
 		ADACCB751B989B8000F7C477 /* TBAuthCodeWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBAuthCodeWindowController.h; path = TBMac/TBAuthCodeWindowController.h; sourceTree = "<group>"; };
 		ADACCB761B989B8000F7C477 /* TBAuthCodeWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TBAuthCodeWindowController.m; path = TBMac/TBAuthCodeWindowController.m; sourceTree = "<group>"; };
@@ -561,6 +631,13 @@
 			files = (
 				9476F4FC1B3C404400A158F8 /* CoreFoundation.framework in Frameworks */,
 				9476F4FA1B3C403F00A158F8 /* CFNetwork.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AD33BA5B1BAC63540011777C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -824,9 +901,11 @@
 				9476F42A1B3C37D000A158F8 /* TBRemote.app */,
 				9476F4C61B3C3F3D00A158F8 /* tournamentd */,
 				944FF4B31B3D04CA000362ED /* TBPlayer.app */,
-				ADA6A1981B97FE8A00C83762 /* TBWatch.app */,
-				ADA6A1A41B97FE8A00C83762 /* TBWatch Extension.appex */,
+				ADA6A1981B97FE8A00C83762 /* TBRemote WatchKit App.app */,
+				ADA6A1A41B97FE8A00C83762 /* TBRemote WatchKit Extension.appex */,
 				ADF636181BAB8AF800D019AE /* TBPhone.app */,
+				AD33BA521BAC634F0011777C /* TBPhone WatchKit App.app */,
+				AD33BA641BAC63540011777C /* TBPhone WatchKit Extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -908,7 +987,8 @@
 			children = (
 				ADA6A19A1B97FE8A00C83762 /* Interface.storyboard */,
 				ADA6A19D1B97FE8A00C83762 /* Assets.xcassets */,
-				ADA6A19F1B97FE8A00C83762 /* Info.plist */,
+				AD33BA661BAC63CC0011777C /* TBPhone-Info.plist */,
+				ADA6A19F1B97FE8A00C83762 /* TBRemote-Info.plist */,
 			);
 			path = TBWatch;
 			sourceTree = "<group>";
@@ -923,7 +1003,8 @@
 				ADA6A1B11B97FE8A00C83762 /* NotificationController.h */,
 				ADA6A1B21B97FE8A00C83762 /* NotificationController.m */,
 				ADA6A1B41B97FE8A00C83762 /* Assets.xcassets */,
-				ADA6A1B61B97FE8A00C83762 /* Info.plist */,
+				AD33BA681BAC63D40011777C /* TBPhone-Info.plist */,
+				ADA6A1B61B97FE8A00C83762 /* TBRemote-Info.plist */,
 				ADA6A1A91B97FE8A00C83762 /* Supporting Files */,
 			);
 			path = "TBWatch Extension";
@@ -969,7 +1050,8 @@
 			buildRules = (
 			);
 			dependencies = (
-				ADA6A1B81B97FE8A00C83762 /* PBXTargetDependency */,
+				AD4610E21BACE87600BEA347 /* PBXTargetDependency */,
+				ADA3B6391BACD8630048E1BD /* PBXTargetDependency */,
 			);
 			name = TBRemote;
 			productName = TBRemote;
@@ -993,6 +1075,40 @@
 			productReference = 9476F4C61B3C3F3D00A158F8 /* tournamentd */;
 			productType = "com.apple.product-type.tool";
 		};
+		AD33BA441BAC634F0011777C /* TBPhone WatchKit App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AD33BA4F1BAC634F0011777C /* Build configuration list for PBXNativeTarget "TBPhone WatchKit App" */;
+			buildPhases = (
+				AD33BA471BAC634F0011777C /* Resources */,
+				AD33BA4D1BAC634F0011777C /* Embed App Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AD33BA451BAC634F0011777C /* PBXTargetDependency */,
+			);
+			name = "TBPhone WatchKit App";
+			productName = "TBPhone WatchKit App";
+			productReference = AD33BA521BAC634F0011777C /* TBPhone WatchKit App.app */;
+			productType = "com.apple.product-type.application.watchapp2";
+		};
+		AD33BA541BAC63540011777C /* TBPhone WatchKit Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AD33BA611BAC63540011777C /* Build configuration list for PBXNativeTarget "TBPhone WatchKit Extension" */;
+			buildPhases = (
+				AD33BA551BAC63540011777C /* Sources */,
+				AD33BA5B1BAC63540011777C /* Frameworks */,
+				AD33BA5C1BAC63540011777C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "TBPhone WatchKit Extension";
+			productName = "TBPhone WatchKit Extension";
+			productReference = AD33BA641BAC63540011777C /* TBPhone WatchKit Extension.appex */;
+			productType = "com.apple.product-type.watchkit2-extension";
+		};
 		AD8E68421A6C606700E5A4D8 /* TBMac */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = AD8E68661A6C606700E5A4D8 /* Build configuration list for PBXNativeTarget "TBMac" */;
@@ -1010,9 +1126,9 @@
 			productReference = AD8E68431A6C606700E5A4D8 /* TBMac.app */;
 			productType = "com.apple.product-type.application";
 		};
-		ADA6A1971B97FE8A00C83762 /* TBWatch */ = {
+		ADA6A1971B97FE8A00C83762 /* TBRemote WatchKit App */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = ADA6A1C01B97FE8A00C83762 /* Build configuration list for PBXNativeTarget "TBWatch" */;
+			buildConfigurationList = ADA6A1C01B97FE8A00C83762 /* Build configuration list for PBXNativeTarget "TBRemote WatchKit App" */;
 			buildPhases = (
 				ADA6A1961B97FE8A00C83762 /* Resources */,
 				ADA6A1BF1B97FE8A00C83762 /* Embed App Extensions */,
@@ -1022,14 +1138,14 @@
 			dependencies = (
 				ADA6A1A71B97FE8A00C83762 /* PBXTargetDependency */,
 			);
-			name = TBWatch;
-			productName = TBWatch;
-			productReference = ADA6A1981B97FE8A00C83762 /* TBWatch.app */;
+			name = "TBRemote WatchKit App";
+			productName = "TBRemote WatchKit App";
+			productReference = ADA6A1981B97FE8A00C83762 /* TBRemote WatchKit App.app */;
 			productType = "com.apple.product-type.application.watchapp2";
 		};
-		ADA6A1A31B97FE8A00C83762 /* TBWatch Extension */ = {
+		ADA6A1A31B97FE8A00C83762 /* TBRemote WatchKit Extension */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = ADA6A1BE1B97FE8A00C83762 /* Build configuration list for PBXNativeTarget "TBWatch Extension" */;
+			buildConfigurationList = ADA6A1BE1B97FE8A00C83762 /* Build configuration list for PBXNativeTarget "TBRemote WatchKit Extension" */;
 			buildPhases = (
 				ADA6A1A01B97FE8A00C83762 /* Sources */,
 				ADA6A1A11B97FE8A00C83762 /* Frameworks */,
@@ -1039,9 +1155,9 @@
 			);
 			dependencies = (
 			);
-			name = "TBWatch Extension";
-			productName = "TBWatch Extension";
-			productReference = ADA6A1A41B97FE8A00C83762 /* TBWatch Extension.appex */;
+			name = "TBRemote WatchKit Extension";
+			productName = "TBRemote WatchKit Extension";
+			productReference = ADA6A1A41B97FE8A00C83762 /* TBRemote WatchKit Extension.appex */;
 			productType = "com.apple.product-type.watchkit2-extension";
 		};
 		ADF635E11BAB8AF800D019AE /* TBPhone */ = {
@@ -1051,10 +1167,13 @@
 				ADF635E41BAB8AF800D019AE /* Sources */,
 				ADF6360A1BAB8AF800D019AE /* Frameworks */,
 				ADF6360E1BAB8AF800D019AE /* Resources */,
+				AD33BA6A1BAC665B0011777C /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				AD4610E01BACE87000BEA347 /* PBXTargetDependency */,
+				ADA3B6371BACD8530048E1BD /* PBXTargetDependency */,
 			);
 			name = TBPhone;
 			productName = TBRemote;
@@ -1108,8 +1227,10 @@
 				ADF635E11BAB8AF800D019AE /* TBPhone */,
 				9476F4291B3C37D000A158F8 /* TBRemote */,
 				9476F4C51B3C3F3D00A158F8 /* tournamentd */,
-				ADA6A1971B97FE8A00C83762 /* TBWatch */,
-				ADA6A1A31B97FE8A00C83762 /* TBWatch Extension */,
+				AD33BA441BAC634F0011777C /* TBPhone WatchKit App */,
+				AD33BA541BAC63540011777C /* TBPhone WatchKit Extension */,
+				ADA6A1971B97FE8A00C83762 /* TBRemote WatchKit App */,
+				ADA6A1A31B97FE8A00C83762 /* TBRemote WatchKit Extension */,
 			);
 		};
 /* End PBXProject section */
@@ -1144,6 +1265,29 @@
 				ADA5DAC01B949CB1004F50C8 /* s_warning.caf in Resources */,
 				9476F46E1B3C385400A158F8 /* LaunchScreen.xib in Resources */,
 				9476F46D1B3C385400A158F8 /* TBRemote.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AD33BA471BAC634F0011777C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AD33BA481BAC634F0011777C /* s_warning.caf in Resources */,
+				AD33BA491BAC634F0011777C /* s_break.caf in Resources */,
+				AD33BA4A1BAC634F0011777C /* Assets.xcassets in Resources */,
+				AD33BA4B1BAC634F0011777C /* Interface.storyboard in Resources */,
+				AD33BA4C1BAC634F0011777C /* s_next.caf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AD33BA5C1BAC63540011777C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AD33BA5D1BAC63540011777C /* s_next.caf in Resources */,
+				AD33BA5E1BAC63540011777C /* s_warning.caf in Resources */,
+				AD33BA5F1BAC63540011777C /* s_break.caf in Resources */,
+				AD33BA601BAC63540011777C /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1330,6 +1474,18 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		AD33BA551BAC63540011777C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AD33BA561BAC63540011777C /* FBKVOController.m in Sources */,
+				AD33BA571BAC63540011777C /* NSObject+FBKVOController.m in Sources */,
+				AD33BA581BAC63540011777C /* ExtensionDelegate.m in Sources */,
+				AD33BA591BAC63540011777C /* InterfaceController.m in Sources */,
+				AD33BA5A1BAC63540011777C /* NotificationController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		AD8E683F1A6C606700E5A4D8 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1455,15 +1611,35 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		AD33BA451BAC634F0011777C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AD33BA541BAC63540011777C /* TBPhone WatchKit Extension */;
+			targetProxy = AD33BA461BAC634F0011777C /* PBXContainerItemProxy */;
+		};
+		AD4610E01BACE87000BEA347 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AD33BA441BAC634F0011777C /* TBPhone WatchKit App */;
+			targetProxy = AD4610DF1BACE87000BEA347 /* PBXContainerItemProxy */;
+		};
+		AD4610E21BACE87600BEA347 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = ADA6A1971B97FE8A00C83762 /* TBRemote WatchKit App */;
+			targetProxy = AD4610E11BACE87600BEA347 /* PBXContainerItemProxy */;
+		};
+		ADA3B6371BACD8530048E1BD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AD33BA541BAC63540011777C /* TBPhone WatchKit Extension */;
+			targetProxy = ADA3B6361BACD8530048E1BD /* PBXContainerItemProxy */;
+		};
+		ADA3B6391BACD8630048E1BD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = ADA6A1A31B97FE8A00C83762 /* TBRemote WatchKit Extension */;
+			targetProxy = ADA3B6381BACD8630048E1BD /* PBXContainerItemProxy */;
+		};
 		ADA6A1A71B97FE8A00C83762 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = ADA6A1A31B97FE8A00C83762 /* TBWatch Extension */;
+			target = ADA6A1A31B97FE8A00C83762 /* TBRemote WatchKit Extension */;
 			targetProxy = ADA6A1A61B97FE8A00C83762 /* PBXContainerItemProxy */;
-		};
-		ADA6A1B81B97FE8A00C83762 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = ADA6A1971B97FE8A00C83762 /* TBWatch */;
-			targetProxy = ADA6A1B71B97FE8A00C83762 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1740,6 +1916,64 @@
 			};
 			name = Release;
 		};
+		AD33BA501BAC634F0011777C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IBSC_MODULE = TBPhone_Extension;
+				INFOPLIST_FILE = "TBWatch/TBPhone-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = com.hdnastudio.TBPhone.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+			};
+			name = Debug;
+		};
+		AD33BA511BAC634F0011777C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IBSC_MODULE = TBPhone_Extension;
+				INFOPLIST_FILE = "TBWatch/TBPhone-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = com.hdnastudio.TBPhone.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+			};
+			name = Release;
+		};
+		AD33BA621BAC63540011777C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "TBWatch Extension/TBPhone-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.hdnastudio.TBPhone.watchkitapp.watchkitextension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+			};
+			name = Debug;
+		};
+		AD33BA631BAC63540011777C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "TBWatch Extension/TBPhone-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.hdnastudio.TBPhone.watchkitapp.watchkitextension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+			};
+			name = Release;
+		};
 		AD8E68641A6C606700E5A4D8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1850,8 +2084,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				GCC_NO_COMMON_BLOCKS = YES;
-				IBSC_MODULE = TBWatch_Extension;
-				INFOPLIST_FILE = TBWatch/Info.plist;
+				IBSC_MODULE = TBRemote_Extension;
+				INFOPLIST_FILE = "TBWatch/TBRemote-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hdnastudio.TBRemote.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -1865,8 +2099,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				GCC_NO_COMMON_BLOCKS = YES;
-				IBSC_MODULE = TBWatch_Extension;
-				INFOPLIST_FILE = TBWatch/Info.plist;
+				IBSC_MODULE = TBRemote_Extension;
+				INFOPLIST_FILE = "TBWatch/TBRemote-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hdnastudio.TBRemote.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -1879,7 +2113,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "TBWatch Extension/Info.plist";
+				INFOPLIST_FILE = "TBWatch Extension/TBRemote-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hdnastudio.TBRemote.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
@@ -1893,7 +2127,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "TBWatch Extension/Info.plist";
+				INFOPLIST_FILE = "TBWatch Extension/TBRemote-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hdnastudio.TBRemote.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
@@ -1969,6 +2203,24 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		AD33BA4F1BAC634F0011777C /* Build configuration list for PBXNativeTarget "TBPhone WatchKit App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AD33BA501BAC634F0011777C /* Debug */,
+				AD33BA511BAC634F0011777C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AD33BA611BAC63540011777C /* Build configuration list for PBXNativeTarget "TBPhone WatchKit Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AD33BA621BAC63540011777C /* Debug */,
+				AD33BA631BAC63540011777C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		AD8E683E1A6C606700E5A4D8 /* Build configuration list for PBXProject "td" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1987,7 +2239,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		ADA6A1BE1B97FE8A00C83762 /* Build configuration list for PBXNativeTarget "TBWatch Extension" */ = {
+		ADA6A1BE1B97FE8A00C83762 /* Build configuration list for PBXNativeTarget "TBRemote WatchKit Extension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				ADA6A1BC1B97FE8A00C83762 /* Debug */,
@@ -1996,7 +2248,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		ADA6A1C01B97FE8A00C83762 /* Build configuration list for PBXNativeTarget "TBWatch" */ = {
+		ADA6A1C01B97FE8A00C83762 /* Build configuration list for PBXNativeTarget "TBRemote WatchKit App" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				ADA6A1BA1B97FE8A00C83762 /* Debug */,
