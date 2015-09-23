@@ -22,9 +22,6 @@
 // number of players to plan for
 @property (nonatomic) NSInteger maxPlayers;
 
-// ui references
-@property (nonatomic, weak) IBOutlet UIStepper* maxPlayersStepper;
-
 @end
 
 @implementation TBSettingsViewController
@@ -72,12 +69,6 @@
     [[self KVOController] observe:[[self session] state] keyPath:@"name" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
         // re-publish on Bonjour
         [[self server] publishWithName:object[@"name"]];
-    }];
-
-    // if number of players changes, limit our seating plan
-    [[self KVOController] observe:[[self session] state] keyPath:@"players" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
-        NSUInteger playerCount = [object[@"players"] count];
-        [[self maxPlayersStepper] setMaximumValue:(double)playerCount];
     }];
 
     // if table sizes change, force a replan
@@ -135,9 +126,11 @@
         // create a cell
         switch(indexPath.row) {
             case 0:
+            {
                 detail = state[@"name"];
                 [[cell detailTextLabel] setText:detail];
                 break;
+            }
             case 1:
                 detail = [NSString stringWithFormat:@"%ld", [state[@"players"] count]];
                 [[cell detailTextLabel] setText:detail];
@@ -169,11 +162,9 @@
                 detail = [NSString stringWithFormat:@"%ld", [self maxPlayers]];
                 [[cell detailTextLabel] setText:detail];
 
-                NSUInteger playerCount = [state[@"players"] count];
                 UIStepper* stepper = (UIStepper*)[cell viewWithTag:100];
                 [stepper setValue:(double)[self maxPlayers]];
                 [stepper setMinimumValue:2.0];
-                [stepper setMaximumValue:(double)playerCount];
                 break;
         }
     }
