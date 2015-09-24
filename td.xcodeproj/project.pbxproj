@@ -222,6 +222,14 @@
 		ADCECE801B7B0DBF00767DA6 /* TBResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADCECE791B7B0D9D00767DA6 /* TBResultsViewController.m */; };
 		ADCECE821B7B0E6100767DA6 /* TBTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE4E1271A7DFFD000FC9EFC /* TBTableViewController.m */; };
 		ADCECE861B7B101500767DA6 /* TBPlayersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADCECE841B7B101500767DA6 /* TBPlayersViewController.m */; };
+		ADD2CC3F1BB39E9200DE3DE5 /* TBSetupTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD2CC3E1BB39E9200DE3DE5 /* TBSetupTableViewController.m */; settings = {ASSET_TAGS = (); }; };
+		ADD2CC471BB3A11B00DE3DE5 /* TBSetupPlayersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD2CC461BB3A11B00DE3DE5 /* TBSetupPlayersViewController.m */; settings = {ASSET_TAGS = (); }; };
+		ADD2CC4B1BB3BA8000DE3DE5 /* TBSetupChipsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD2CC4A1BB3BA8000DE3DE5 /* TBSetupChipsViewController.m */; settings = {ASSET_TAGS = (); }; };
+		ADD2CC4E1BB3C73900DE3DE5 /* TBSetupFundingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD2CC4D1BB3C73900DE3DE5 /* TBSetupFundingViewController.m */; settings = {ASSET_TAGS = (); }; };
+		ADD2CC511BB3CD3200DE3DE5 /* TBSetupRoundsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD2CC501BB3CD3200DE3DE5 /* TBSetupRoundsViewController.m */; settings = {ASSET_TAGS = (); }; };
+		ADD2CC521BB3CF7A00DE3DE5 /* TBDurationNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 94562E651B65D8CA0017C692 /* TBDurationNumberFormatter.m */; settings = {ASSET_TAGS = (); }; };
+		ADD2CC551BB3D35700DE3DE5 /* TBSetupDevicesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD2CC541BB3D35700DE3DE5 /* TBSetupDevicesViewController.m */; settings = {ASSET_TAGS = (); }; };
+		ADD2CC571BB3D4CB00DE3DE5 /* NSDateFormatter+ISO8601.m in Sources */ = {isa = PBXBuildFile; fileRef = 945410731B6E5C56001E3373 /* NSDateFormatter+ISO8601.m */; settings = {ASSET_TAGS = (); }; };
 		ADD4F1251B91FE2400DAF567 /* NSObject+AssociatedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD4F1241B91FE2400DAF567 /* NSObject+AssociatedObject.m */; };
 		ADD4F1261B91FE2400DAF567 /* NSObject+AssociatedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD4F1241B91FE2400DAF567 /* NSObject+AssociatedObject.m */; };
 		ADD4F1271B91FE2400DAF567 /* NSObject+AssociatedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD4F1241B91FE2400DAF567 /* NSObject+AssociatedObject.m */; };
@@ -583,6 +591,18 @@
 		ADCECE791B7B0D9D00767DA6 /* TBResultsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TBResultsViewController.m; path = TBMac/TBResultsViewController.m; sourceTree = "<group>"; };
 		ADCECE831B7B101500767DA6 /* TBPlayersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBPlayersViewController.h; path = TBMac/TBPlayersViewController.h; sourceTree = "<group>"; };
 		ADCECE841B7B101500767DA6 /* TBPlayersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TBPlayersViewController.m; path = TBMac/TBPlayersViewController.m; sourceTree = "<group>"; };
+		ADD2CC3D1BB39E9200DE3DE5 /* TBSetupTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBSetupTableViewController.h; sourceTree = "<group>"; };
+		ADD2CC3E1BB39E9200DE3DE5 /* TBSetupTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBSetupTableViewController.m; sourceTree = "<group>"; };
+		ADD2CC451BB3A11B00DE3DE5 /* TBSetupPlayersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBSetupPlayersViewController.h; sourceTree = "<group>"; };
+		ADD2CC461BB3A11B00DE3DE5 /* TBSetupPlayersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBSetupPlayersViewController.m; sourceTree = "<group>"; };
+		ADD2CC491BB3BA8000DE3DE5 /* TBSetupChipsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBSetupChipsViewController.h; sourceTree = "<group>"; };
+		ADD2CC4A1BB3BA8000DE3DE5 /* TBSetupChipsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBSetupChipsViewController.m; sourceTree = "<group>"; };
+		ADD2CC4C1BB3C73900DE3DE5 /* TBSetupFundingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBSetupFundingViewController.h; sourceTree = "<group>"; };
+		ADD2CC4D1BB3C73900DE3DE5 /* TBSetupFundingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBSetupFundingViewController.m; sourceTree = "<group>"; };
+		ADD2CC4F1BB3CD3200DE3DE5 /* TBSetupRoundsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBSetupRoundsViewController.h; sourceTree = "<group>"; };
+		ADD2CC501BB3CD3200DE3DE5 /* TBSetupRoundsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBSetupRoundsViewController.m; sourceTree = "<group>"; };
+		ADD2CC531BB3D35700DE3DE5 /* TBSetupDevicesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBSetupDevicesViewController.h; sourceTree = "<group>"; };
+		ADD2CC541BB3D35700DE3DE5 /* TBSetupDevicesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBSetupDevicesViewController.m; sourceTree = "<group>"; };
 		ADD3BE831BA0A2A600A69834 /* TBSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBSettingsViewController.h; sourceTree = "<group>"; };
 		ADD3BE841BA0A2A600A69834 /* TBSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBSettingsViewController.m; sourceTree = "<group>"; };
 		ADD4F1231B91FE2400DAF567 /* NSObject+AssociatedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+AssociatedObject.h"; sourceTree = "<group>"; };
@@ -717,6 +737,18 @@
 				ADDDAA8A1B93BCEE00D3AF68 /* TBResultsViewController.m */,
 				ADD3BE831BA0A2A600A69834 /* TBSettingsViewController.h */,
 				ADD3BE841BA0A2A600A69834 /* TBSettingsViewController.m */,
+				ADD2CC491BB3BA8000DE3DE5 /* TBSetupChipsViewController.h */,
+				ADD2CC4A1BB3BA8000DE3DE5 /* TBSetupChipsViewController.m */,
+				ADD2CC531BB3D35700DE3DE5 /* TBSetupDevicesViewController.h */,
+				ADD2CC541BB3D35700DE3DE5 /* TBSetupDevicesViewController.m */,
+				ADD2CC4C1BB3C73900DE3DE5 /* TBSetupFundingViewController.h */,
+				ADD2CC4D1BB3C73900DE3DE5 /* TBSetupFundingViewController.m */,
+				ADD2CC451BB3A11B00DE3DE5 /* TBSetupPlayersViewController.h */,
+				ADD2CC461BB3A11B00DE3DE5 /* TBSetupPlayersViewController.m */,
+				ADD2CC4F1BB3CD3200DE3DE5 /* TBSetupRoundsViewController.h */,
+				ADD2CC501BB3CD3200DE3DE5 /* TBSetupRoundsViewController.m */,
+				ADD2CC3D1BB39E9200DE3DE5 /* TBSetupTableViewController.h */,
+				ADD2CC3E1BB39E9200DE3DE5 /* TBSetupTableViewController.m */,
 				9476F4571B3C385400A158F8 /* TBTournamentsViewController.h */,
 				9476F4581B3C385400A158F8 /* TBTournamentsViewController.m */,
 				9476F45C1B3C385400A158F8 /* Main.storyboard */,
@@ -1577,11 +1609,15 @@
 				ADF635EA1BAB8AF800D019AE /* TBAppDelegate.m in Sources */,
 				ADF635EB1BAB8AF800D019AE /* types.cpp in Sources */,
 				ADF635EC1BAB8AF800D019AE /* scope_timer.cpp in Sources */,
+				ADD2CC571BB3D4CB00DE3DE5 /* NSDateFormatter+ISO8601.m in Sources */,
 				ADF635ED1BAB8AF800D019AE /* TBRemoteWatchDelegate.m in Sources */,
 				ADF635EE1BAB8AF800D019AE /* tournament.cpp in Sources */,
+				ADD2CC551BB3D35700DE3DE5 /* TBSetupDevicesViewController.m in Sources */,
 				ADF635EF1BAB8AF800D019AE /* TournamentService.m in Sources */,
 				ADF635F01BAB8AF800D019AE /* json.cpp in Sources */,
+				ADD2CC3F1BB39E9200DE3DE5 /* TBSetupTableViewController.m in Sources */,
 				ADF635F11BAB8AF800D019AE /* CFStreamCreatePairWithUnixSocket.c in Sources */,
+				ADD2CC511BB3CD3200DE3DE5 /* TBSetupRoundsViewController.m in Sources */,
 				ADF635F21BAB8AF800D019AE /* TBEllipseView.m in Sources */,
 				ADF635F31BAB8AF800D019AE /* TBRemoteClockViewController.m in Sources */,
 				ADF635F41BAB8AF800D019AE /* cJSON.c in Sources */,
@@ -1594,13 +1630,17 @@
 				ADF635FB1BAB8AF800D019AE /* NSObject+FBKVOController.m in Sources */,
 				ADF635FD1BAB8AF800D019AE /* main.m in Sources */,
 				ADF635FE1BAB8AF800D019AE /* NSData+Delimiter.m in Sources */,
+				ADD2CC4E1BB3C73900DE3DE5 /* TBSetupFundingViewController.m in Sources */,
 				ADF635FF1BAB8AF800D019AE /* socket.cpp in Sources */,
+				ADD2CC4B1BB3BA8000DE3DE5 /* TBSetupChipsViewController.m in Sources */,
 				ADF636001BAB8AF800D019AE /* TBPlayerSeatingViewController.m in Sources */,
+				ADD2CC521BB3CF7A00DE3DE5 /* TBDurationNumberFormatter.m in Sources */,
 				ADF636011BAB8AF800D019AE /* gameinfo.cpp in Sources */,
 				ADF636021BAB8AF800D019AE /* TBActionClockView.m in Sources */,
 				ADF636031BAB8AF800D019AE /* NSString+CamelCase.m in Sources */,
 				ADF636041BAB8AF800D019AE /* FBKVOController.m in Sources */,
 				ADF636051BAB8AF800D019AE /* TBSettingsViewController.m in Sources */,
+				ADD2CC471BB3A11B00DE3DE5 /* TBSetupPlayersViewController.m in Sources */,
 				ADF636061BAB8AF800D019AE /* TournamentConnection.m in Sources */,
 				ADF636071BAB8AF800D019AE /* logger.cpp in Sources */,
 				ADF636081BAB8AF800D019AE /* datetime.cpp in Sources */,

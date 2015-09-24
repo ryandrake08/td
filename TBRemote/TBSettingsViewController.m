@@ -10,6 +10,7 @@
 #import "TBSettingsViewController.h"
 #import "TournamentDaemon.h"
 #import "TournamentSession.h"
+#import "TBSetupTableViewController.h"
 #import "TBAppDelegate.h"
 #import "NSObject+FBKVOController.h"
 
@@ -148,7 +149,7 @@
                 [[cell detailTextLabel] setText:detail];
                 break;
             case 5:
-                detail = [NSString stringWithFormat:@"%ld", [state[@"blind_levels"] count]];
+                detail = [NSString stringWithFormat:@"%ld", [state[@"blind_levels"] count]-1];
                 [[cell detailTextLabel] setText:detail];
                 break;
             case 6:
@@ -205,6 +206,13 @@
 
     // deselect
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+#pragma mark - Navigation
+
+- (void)prepareForSegue:(UIStoryboardSegue*)segue sender:(id)sender {
+    TBSetupTableViewController* newController = [segue destinationViewController];
+    [newController setConfiguration:[self configuration]];
 }
 
 #pragma mark Operations
