@@ -21,10 +21,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (NSInteger)tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section {
-    return [[self arrangedObjects] count]-1;
-}
-
 - (NSString*)formattedRoundStringForSource:(NSDictionary*)fundingSource {
     NSString* formattedFunding;
     if([fundingSource[@"ante"] doubleValue] != 0.0) {
@@ -37,37 +33,19 @@
 
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath {
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"SetupRoundsCell" forIndexPath:indexPath];
-    NSDictionary* object = [self arrangedObjects][[indexPath row]+1];
+    NSDictionary* object = [self arrangedObjects][[indexPath row]];
     TBDurationNumberFormatter* durationFormatter = [[TBDurationNumberFormatter alloc] init];
     [[cell textLabel] setText:[durationFormatter stringForObjectValue:object[@"duration"]]];
     [[cell detailTextLabel] setText:[self formattedRoundStringForSource:object]];
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete from the data source
-        [[self arrangedObjects] removeObjectAtIndex:[indexPath row]+1];
-
-        // Remove from the table
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+- (CGFloat)tableView:(UITableView*)tableView heightForRowAtIndexPath:(NSIndexPath*)indexPath {
+    if([indexPath row] == 0) {
+        return 0;
+    } else {
+        return 43.5;
     }
-}
-
-// returns the object for a given indexPath
-- (id)arrangedObjectForIndexPath:(NSIndexPath*)indexPath {
-    return [self arrangedObjects][[indexPath row]+1];
-}
-
-// adds a new object to arrangedObjects
-- (void)addArrangedObject:(id)anObject {
-    NSIndexPath* newIndexPath = [NSIndexPath indexPathForRow:[[self arrangedObjects] count]-1 inSection:0];
-
-    // Add to the data source
-    [[self arrangedObjects] addObject:anObject];
-
-    // Insert to the table
-    [[self tableView] insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 - (id)newObject {

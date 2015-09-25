@@ -7,6 +7,7 @@
 //
 
 #import "TBSetupTableViewController.h"
+#import "TBSetupDetailsTableViewController.h"
 
 @implementation TBSetupTableViewController
 
@@ -46,8 +47,17 @@
     // Add to the data source
     [[self arrangedObjects] addObject:anObject];
 
-    // Insert to the table
+    // Insert to the table and scroll
     [[self tableView] insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    [[self tableView] scrollToRowAtIndexPath:newIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+}
+
+#pragma mark - Navigation
+
+- (void)prepareForSegue:(UIStoryboardSegue*)segue sender:(id)sender {
+    TBSetupDetailsTableViewController* newController = [segue destinationViewController];
+    NSIndexPath* indexPath = [[self tableView] indexPathForSelectedRow];
+    [newController setObject:[self arrangedObjectForIndexPath:indexPath]];
 }
 
 @end

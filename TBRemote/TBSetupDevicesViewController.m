@@ -7,13 +7,23 @@
 //
 
 #import "TBSetupDevicesViewController.h"
+#import "TBAuthCodeNumberFormatter.h"
 #import "NSDateFormatter+ISO8601.h"
+
+@interface TBSetupDevicesViewController ()
+
+@property (nonatomic, strong) TBAuthCodeNumberFormatter* codeFormatter;
+
+@end
 
 @implementation TBSetupDevicesViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setArrangedObjects:[self configuration][@"authorized_clients"]];
+
+    // create number formatter
+    [self setCodeFormatter:[[TBAuthCodeNumberFormatter alloc] init]];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -24,7 +34,8 @@
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath {
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"SetupDeviceCell" forIndexPath:indexPath];
     NSDictionary* object = [super arrangedObjectForIndexPath:indexPath];
-    [[cell textLabel] setText:[object[@"code"] stringValue]];
+    NSString* codeString = [[self codeFormatter] stringFromNumber:object[@"code"]];
+    [[cell textLabel] setText:codeString];
     [[cell detailTextLabel] setText:object[@"name"]];
     return cell;
 }
