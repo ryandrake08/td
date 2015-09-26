@@ -11,6 +11,7 @@
 #import "TournamentDaemon.h"
 #import "TournamentSession.h"
 #import "TBSetupTableViewController.h"
+#import "TBEditableTableViewCell.h"
 #import "TBAppDelegate.h"
 #import "NSObject+FBKVOController.h"
 
@@ -128,8 +129,7 @@
         switch(indexPath.row) {
             case 0:
             {
-                detail = state[@"name"];
-                [[cell detailTextLabel] setText:detail];
+                [(TBEditableTableViewCell*)cell setEditableObject:state keypath:@"name"];
                 break;
             }
             case 1:

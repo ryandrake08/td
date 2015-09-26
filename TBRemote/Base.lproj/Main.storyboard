@@ -19,33 +19,45 @@
                         <sections>
                             <tableViewSection headerTitle="Tournament Setup" id="uIM-hK-ahp">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="qkJ-WG-R7L" detailTextLabel="lUJ-d5-0Tw" style="IBUITableViewCellStyleValue1" id="J0X-8K-uTp">
-                                        <rect key="frame" x="0.0" y="113.5" width="320" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="J0X-8K-uTp" customClass="TBEditableTableViewCell">
+                                        <rect key="frame" x="0.0" y="114" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="J0X-8K-uTp" id="C1R-2z-Ha5">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="qkJ-WG-R7L">
-                                                    <rect key="frame" x="15" y="12" width="43" height="19.5"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" horizontalHuggingPriority="750" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iPp-c4-Wdz">
+                                                    <rect key="frame" x="15" y="12" width="43" height="20"/>
                                                     <animations/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="lUJ-d5-0Tw">
-                                                    <rect key="frame" x="263.5" y="12" width="41.5" height="19.5"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <textField opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Tournament Name" textAlignment="right" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="H7M-O4-NKl">
+                                                    <rect key="frame" x="66" y="12" width="219" height="20"/>
                                                     <animations/>
+                                                    <color key="textColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="calibratedRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                    <textInputTraits key="textInputTraits" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="J0X-8K-uTp" id="UaN-bB-bzU"/>
+                                                    </connections>
+                                                </textField>
                                             </subviews>
                                             <animations/>
+                                            <constraints>
+                                                <constraint firstItem="H7M-O4-NKl" firstAttribute="leading" secondItem="iPp-c4-Wdz" secondAttribute="trailing" constant="8" symbolic="YES" id="1is-pl-MVn"/>
+                                                <constraint firstItem="H7M-O4-NKl" firstAttribute="baseline" secondItem="iPp-c4-Wdz" secondAttribute="baseline" id="6n4-Ni-yq2"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="H7M-O4-NKl" secondAttribute="trailing" constant="27" id="CPN-R9-K6e"/>
+                                                <constraint firstItem="H7M-O4-NKl" firstAttribute="top" secondItem="iPp-c4-Wdz" secondAttribute="top" id="Ew6-bh-oSW"/>
+                                                <constraint firstItem="iPp-c4-Wdz" firstAttribute="leading" secondItem="C1R-2z-Ha5" secondAttribute="leadingMargin" constant="7" id="RoH-BL-XBi"/>
+                                                <constraint firstItem="H7M-O4-NKl" firstAttribute="centerY" secondItem="C1R-2z-Ha5" secondAttribute="centerY" id="TfC-Fd-2JS"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <animations/>
+                                        <connections>
+                                            <outlet property="textField" destination="H7M-O4-NKl" id="0hw-iG-GEI"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="Uge-NC-ufS" detailTextLabel="Ulg-Tb-4Hp" style="IBUITableViewCellStyleValue1" id="oXk-BA-8yJ">
                                         <rect key="frame" x="0.0" y="157.5" width="320" height="44"/>
