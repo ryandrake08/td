@@ -39,7 +39,6 @@
 
     // for setting up tournament
     _configuration = [[NSMutableDictionary alloc] init];
-    _maxPlayers = 2;
 
     // load configuration
     NSError* error;
@@ -47,6 +46,9 @@
         // TODO: something with the error
         NSLog(@"%@", error);
     }
+
+    // default maxPlayers to number of configured players
+    [self setMaxPlayers:[[self configuration][@"players"] count]];
 
     // register for KVO
     [[self KVOController] observe:[[self session] state] keyPaths:@[@"connected", @"authorized"] options:0 block:^(id observer, id object, NSDictionary *change) {
