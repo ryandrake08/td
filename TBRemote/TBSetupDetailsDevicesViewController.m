@@ -7,6 +7,7 @@
 //
 
 #import "TBSetupDetailsDevicesViewController.h"
+#import "TBEditableTableViewCell.h"
 #import "TBAuthCodeNumberFormatter.h"
 
 @interface TBSetupDetailsDevicesViewController ()
@@ -38,14 +39,13 @@
         switch(indexPath.row) {
             case 0:
             {
-                NSString* detail = [[self codeFormatter] stringFromNumber:[self object][@"code"]];
-                [[cell detailTextLabel] setText:detail];
+                [(TBEditableNumberTableViewCell*)cell setFormatter:[self codeFormatter]];
+                [(TBEditableNumberTableViewCell*)cell setEditableObject:[self object] keypath:@"code"];
                 break;
             }
             case 1:
             {
-                NSString* detail = [self object][@"name"];
-                [[cell detailTextLabel] setText:detail];
+                [(TBEditableTableViewCell*)cell setEditableObject:[self object] keypath:@"name"];
                 break;
             }
         }

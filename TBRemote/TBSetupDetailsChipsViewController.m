@@ -8,6 +8,7 @@
 
 #import "TBSetupDetailsChipsViewController.h"
 #import "TBEllipseView.h"
+#import "TBEditableTableViewCell.h"
 #import "TBColor+CSS.h"
 
 @interface TBSetupDetailsChipsViewController ()
@@ -41,14 +42,12 @@
             }
             case 1:
             {
-                NSString* detail = [[self object][@"denomination"] stringValue];
-                [[cell detailTextLabel] setText:detail];
+                [(TBEditableNumberTableViewCell*)cell setEditableObject:[self object] keypath:@"denomination"];
                 break;
             }
             case 2:
             {
-                NSString* detail = [[self object][@"count_available"] stringValue];
-                [[cell detailTextLabel] setText:detail];
+                [(TBEditableNumberTableViewCell*)cell setEditableObject:[self object] keypath:@"count_available"];
                 break;
             }
         }

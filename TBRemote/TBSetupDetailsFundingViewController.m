@@ -7,11 +7,17 @@
 //
 
 #import "TBSetupDetailsFundingViewController.h"
+#import "TBEditableTableViewCell.h"
+#import "TBCurrencyNumberFormatter.h"
 #import "TournamentSession.h"
 
 @interface TBSetupDetailsFundingViewController ()
 
 @property (nonatomic, strong) NSArray* fundingTypes;
+
+// formatters
+@property (nonatomic, strong) TBCurrencyNumberFormatter* costFormatter;
+@property (nonatomic, strong) TBCurrencyNumberFormatter* equityFormatter;
 
 @end
 
@@ -23,6 +29,10 @@
     [self setFundingTypes:@[NSLocalizedString(@"Buyin", nil),
                             NSLocalizedString(@"Rebuy", nil),
                             NSLocalizedString(@"Addon", nil)]];
+
+    // create number formatters
+    [self setCostFormatter:[[TBCurrencyNumberFormatter alloc] init]];
+    [self setEquityFormatter:[[TBCurrencyNumberFormatter alloc] init]];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -56,8 +66,7 @@
         switch(indexPath.row) {
             case 0:
             {
-                NSString* detail = [self object][@"name"];
-                [[cell detailTextLabel] setText:detail];
+                [(TBEditableTableViewCell*)cell setEditableObject:[self object] keypath:@"name"];
                 break;
             }
             case 1:
@@ -69,26 +78,25 @@
             }
             case 2:
             {
-                NSString* detail = [[self object][@"cost"] stringValue];
-                [[cell detailTextLabel] setText:detail];
+                [(TBEditableNumberTableViewCell*)cell setFormatter:[self costFormatter]];
+                [(TBEditableNumberTableViewCell*)cell setEditableObject:[self object] keypath:@"cost"];
                 break;
             }
             case 3:
             {
-                NSString* detail = [[self object][@"commission"] stringValue];
-                [[cell detailTextLabel] setText:detail];
+                [(TBEditableNumberTableViewCell*)cell setFormatter:[self costFormatter]];
+                [(TBEditableNumberTableViewCell*)cell setEditableObject:[self object] keypath:@"commission"];
                 break;
             }
             case 4:
             {
-                NSString* detail = [[self object][@"equity"] stringValue];
-                [[cell detailTextLabel] setText:detail];
+                [(TBEditableNumberTableViewCell*)cell setFormatter:[self equityFormatter]];
+                [(TBEditableNumberTableViewCell*)cell setEditableObject:[self object] keypath:@"equity"];
                 break;
             }
             case 5:
             {
-                NSString* detail = [[self object][@"chips"] stringValue];
-                [[cell detailTextLabel] setText:detail];
+                [(TBEditableNumberTableViewCell*)cell setEditableObject:[self object] keypath:@"chips"];
                 break;
             }
             case 6:
@@ -105,8 +113,7 @@
         switch(indexPath.row) {
             case 0:
             {
-                NSString* detail = [[self object][@"forbid_after_blind_level"] stringValue];
-                [[cell detailTextLabel] setText:detail];
+                [(TBEditableNumberTableViewCell*)cell setEditableObject:[self object] keypath:@"forbid_after_blind_level"];
                 break;
             }
         }

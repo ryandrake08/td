@@ -7,11 +7,13 @@
 //
 
 #import "TBSetupDetailsRoundsViewController.h"
+#import "TBEditableTableViewCell.h"
 #import "TBDurationNumberFormatter.h"
 
 @interface TBSetupDetailsRoundsViewController ()
 
 @property (nonatomic, strong) TBDurationNumberFormatter* durationFormatter;
+
 @end
 
 @implementation TBSetupDetailsRoundsViewController
@@ -53,26 +55,23 @@
         switch(indexPath.row) {
             case 0:
             {
-                NSString* detail = [[self durationFormatter] stringForObjectValue:[self object][@"duration"]];
-                [[cell detailTextLabel] setText:detail];
+                [(TBEditableNumberTableViewCell*)cell setFormatter:[self durationFormatter]];
+                [(TBEditableNumberTableViewCell*)cell setEditableObject:[self object] keypath:@"duration"];
                 break;
             }
             case 1:
             {
-                NSString* detail = [[self object][@"little_blind"] stringValue];
-                [[cell detailTextLabel] setText:detail];
+                [(TBEditableNumberTableViewCell*)cell setEditableObject:[self object] keypath:@"little_blind"];
                 break;
             }
             case 2:
             {
-                NSString* detail = [[self object][@"big_blind"] stringValue];
-                [[cell detailTextLabel] setText:detail];
+                [(TBEditableNumberTableViewCell*)cell setEditableObject:[self object] keypath:@"big_blind"];
                 break;
             }
             case 3:
             {
-                NSString* detail = [[self object][@"ante"] stringValue];
-                [[cell detailTextLabel] setText:detail];
+                [(TBEditableNumberTableViewCell*)cell setEditableObject:[self object] keypath:@"ante"];
                 break;
             }
             case 4:
@@ -89,14 +88,13 @@
         switch(indexPath.row) {
             case 0:
             {
-                NSString* detail = [[self durationFormatter] stringForObjectValue:[self object][@"break_duration"]];
-                [[cell detailTextLabel] setText:detail];
+                [(TBEditableNumberTableViewCell*)cell setFormatter:[self durationFormatter]];
+                [(TBEditableNumberTableViewCell*)cell setEditableObject:[self object] keypath:@"break_duration"];
                 break;
             }
             case 1:
             {
-                NSString* detail = [self object][@"reason"];
-                [[cell detailTextLabel] setText:detail];
+                [(TBEditableTableViewCell*)cell setEditableObject:[self object] keypath:@"reason"];
                 break;
             }
         }

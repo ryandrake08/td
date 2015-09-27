@@ -33,6 +33,7 @@
     [self setKeyPath:keyPath];
 
     NSString* text = [self textValueForObject:object[keyPath]];
+    NSLog(@"textValueForObject[%@] -> %@", keyPath, text);
     [[self textField] setText:text];
 }
 
@@ -65,7 +66,9 @@
 
     if(data) {
         // is current text value allowed? if so, select it, otherwise select first object
-        NSUInteger selectedIndex = [data indexOfObject:[self objectForTextValue:[[self textField] text]]];
+        id value = [self objectForTextValue:[[self textField] text]];
+        NSLog(@"objectForTextValue[%@] -> %@", [self keyPath], value);
+        NSUInteger selectedIndex = [data indexOfObject:value];
         if(selectedIndex == NSNotFound) {
             selectedIndex = 0;
         }
@@ -96,6 +99,7 @@
 
 - (void)textFieldDidEndEditing:(UITextField*)textField {
     id value = [self objectForTextValue:[textField text]];
+    NSLog(@"objectForTextValue[%@] -> %@", [self keyPath], value);
     [[self associatedObject] setValue:value forKeyPath:[self keyPath]];
 }
 
@@ -111,6 +115,7 @@
 
 -(NSString*)pickerView:(UIPickerView*)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
     NSString* text = [self textValueForObject:[pickerView associatedObject][row]];
+    NSLog(@"textValueForObject[%@] -> %@", [self keyPath], text);
     return text;
 }
 
@@ -118,6 +123,7 @@
 
 -(void)pickerView:(UIPickerView*)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
     NSString* text = [self textValueForObject:[pickerView associatedObject][row]];
+    NSLog(@"textValueForObject[%@] -> %@", [self keyPath], text);
     [[self textField] setText:text];
 }
 

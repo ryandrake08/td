@@ -7,6 +7,7 @@
 //
 
 #import "TBSetupDetailsPlayerViewController.h"
+#import "TBEditableTableViewCell.h"
 
 @interface TBSetupDetailsPlayerViewController ()
 
@@ -33,8 +34,7 @@
         switch(indexPath.row) {
             case 0:
             {
-                NSString* detail = [self object][@"name"];
-                [[cell detailTextLabel] setText:detail];
+                [(TBEditableTableViewCell*)cell setEditableObject:[self object] keypath:@"name"];
                 break;
             }
         }
