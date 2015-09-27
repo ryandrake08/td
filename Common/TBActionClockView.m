@@ -25,7 +25,7 @@ CGContextRef TBGraphicsGetCurrentContext() {
 
 @implementation TBActionClockView
 
-#pragma mark - Initialization
+#pragma mark Initialization
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];

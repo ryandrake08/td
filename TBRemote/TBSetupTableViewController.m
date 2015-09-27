@@ -52,7 +52,7 @@
     [[self tableView] scrollToRowAtIndexPath:newIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
 }
 
-#pragma mark - Navigation
+#pragma mark Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue*)segue sender:(id)sender {
     TBSetupDetailsTableViewController* newController = [segue destinationViewController];
