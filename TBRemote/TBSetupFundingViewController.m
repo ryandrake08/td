@@ -46,9 +46,10 @@
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath {
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"SetupFundingCell" forIndexPath:indexPath];
     NSDictionary* object = [super arrangedObjectForIndexPath:indexPath];
-    [[cell textLabel] setText:object[@"name"]];
-    [[cell detailTextLabel] setText:[self formattedFundingStringForSource:object]];
-    [[cell imageView] setImage:[self imageForSource:object]];
+    [(UIImageView*)[cell viewWithTag:100] setImage:[self imageForSource:object]];
+    [(UILabel*)[cell viewWithTag:101] setText:object[@"name"]];
+    [(UILabel*)[cell viewWithTag:102] setText:[self formattedFundingStringForSource:object]];
+
     return cell;
 }
 
