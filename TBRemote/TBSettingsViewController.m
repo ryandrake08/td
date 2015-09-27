@@ -161,7 +161,7 @@
         switch(indexPath.row) {
             case 0:
                 detail = [NSString stringWithFormat:@"%ld", [self maxPlayers]];
-                [[cell detailTextLabel] setText:detail];
+                [(UILabel*)[cell viewWithTag:101] setText:detail];
 
                 UIStepper* stepper = (UIStepper*)[cell viewWithTag:100];
                 [stepper setValue:(double)[self maxPlayers]];
