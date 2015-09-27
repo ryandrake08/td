@@ -7,9 +7,10 @@
 //
 
 #import "TBEditableTableViewCell.h"
+#include "NSObject+AssociatedObject.h"
 #include "NSObject+FBKVOController.h"
 
-@interface TBEditableTableViewCell () <UITextFieldDelegate>
+@interface TBEditableTableViewCell () <UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource>
 
 // ui outlet
 @property (nonatomic, strong) IBOutlet UITextField* textField;
@@ -20,12 +21,18 @@
 // keypath of object to be edited
 @property (nonatomic, copy) NSString* keyPath;
 
+// allowed values (picker)
+@property (nonatomic, strong) NSArray* allowedValues;
+
+// selected object (picker)
+@property (nonatomic, strong) id selectedObject;
+
 @end
 
 @implementation TBEditableTableViewCell
 
 // set the object and keypath to observe/sync with text field
-- (void)setEditableObject:(id)object keypath:(NSString *)keyPath {
+- (void)setEditableObject:(id)object keypath:(NSString*)keyPath {
     [self setObject:object];
     [self setKeyPath:keyPath];
     [[[self textField] KVOController] unobserveAll];
@@ -56,6 +63,36 @@
     }
 }
 
+// use a picker instead of free-form text
+- (void)setAllowedValues:(NSArray*)data {
+    // reset picker
+    [[self textField] setInputView:nil];
+    [[self textField] setInputAccessoryView:nil];
+
+    if(data) {
+        // is current text value allowed? if so, select it, otherwise select first object
+        NSUInteger selectedIndex = [data indexOfObject:[self objectForTextValue:[[self textField] text]]];
+        if(selectedIndex == NSNotFound) {
+            selectedIndex = 0;
+        }
+
+        // set up a picker
+        UIPickerView* picker = [[UIPickerView alloc] init];
+        [picker setAssociatedObject:data];
+        [picker setDataSource:self];
+        [picker setDelegate:self];
+        [picker selectRow:selectedIndex inComponent:0 animated:NO];
+        [[self textField] setInputView:picker];
+
+        // set up picker tool bar
+        UIToolbar* toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
+        UIBarButtonItem* space = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+        UIBarButtonItem* doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:[self textField] action:@selector(resignFirstResponder)];
+        [toolbar setItems:@[space, doneButton]];
+        [[self textField] setInputAccessoryView:toolbar];
+    }
+}
+
 #pragma mark UITextFieldDelegate
 
 - (BOOL)textFieldShouldReturn:(UITextField*)textField {
@@ -68,9 +105,35 @@
     [[self object] setValue:value forKeyPath:[self keyPath]];
 }
 
+#pragma mark UIPickerViewDataSource
+
+-(NSInteger)pickerView:(UIPickerView*)pickerView numberOfRowsInComponent:(NSInteger)component {
+    return [[pickerView associatedObject] count];
+}
+
+-(NSInteger)numberOfComponentsInPickerView:(UIPickerView*)pickerView {
+    return 1;
+}
+
+-(NSString*)pickerView:(UIPickerView*)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+    NSString* text = [self textValueForObject:[pickerView associatedObject][row]];
+    return text;
+}
+
+#pragma mark UIPickerViewDelegate
+
+-(void)pickerView:(UIPickerView*)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+    NSString* text = [self textValueForObject:[pickerView associatedObject][row]];
+    [[self textField] setText:text];
+}
+
 @end
 
 @implementation TBEditableNumberTableViewCell
+
+- (void)awakeFromNib {
+    [self setFormatter:[[NSNumberFormatter alloc] init]];
+}
 
 // default textValueForObject
 - (NSString*)textValueForObject:(id)object {

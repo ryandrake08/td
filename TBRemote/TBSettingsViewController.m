@@ -141,8 +141,8 @@
                 [[cell detailTextLabel] setText:detail];
                 break;
             case 3:
-                detail = [NSString stringWithFormat:@"%@", state[@"table_capacity"]];
-                [[cell detailTextLabel] setText:detail];
+                [(TBEditableTableViewCell*)cell setEditableObject:state keypath:@"table_capacity"];
+                [(TBEditableTableViewCell*)cell setAllowedValues:@[@2, @3, @4, @5, @6, @7, @8, @9, @10, @11, @12]];
                 break;
             case 4:
                 detail = state[@"buyin_text"];

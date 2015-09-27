@@ -13,6 +13,9 @@
 // the object and keypath to observe/sync with text field
 - (void)setEditableObject:(id)object keypath:(NSString*)keyPath;
 
+// use a picker instead of free-form text
+- (void)setAllowedValues:(NSArray*)data;
+
 @end
 
 @interface TBEditableNumberTableViewCell : TBEditableTableViewCell
