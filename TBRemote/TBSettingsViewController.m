@@ -93,6 +93,7 @@
     [self bindTableViewRow:4 inSection:0 toObject:[[self session] state] keyPath:@"buyin_text"];
     [self bindTableViewRow:5 inSection:0 toObject:[[self session] state] keyPath:@"blind_levels"];
     [self bindTableViewRow:6 inSection:0 toObject:[[self session] state] keyPath:@"authorized_clients"];
+    [self bindTableViewRow:0 inSection:1 toObject:[[self session] state] keyPath:@"players"];
     [self bindTableViewRow:0 inSection:1 toObject:self keyPath:@"maxPlayers"];
 
     // Start serving using this device's auth key
@@ -167,7 +168,10 @@
 
                 UIStepper* stepper = (UIStepper*)[cell viewWithTag:100];
                 [stepper setValue:(double)[self maxPlayers]];
-                [stepper setMinimumValue:2.0];
+                NSUInteger numPlayers = [state[@"players"] count];
+                if(numPlayers > 1) {
+                    [stepper setMaximumValue:numPlayers * 2.0];
+                }
                 break;
         }
     }
@@ -177,33 +181,9 @@
 #pragma mark UITableViewDelegate
 
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
-    if(indexPath.section == 0) {
-        // create a cell
-        switch(indexPath.row) {
-            case 0:
-                break;
-            case 1:
-                break;
-            case 2:
-                break;
-            case 3:
-                break;
-            case 4:
-                break;
-            case 5:
-                break;
-            case 6:
-                break;
-        }
-    } else if(indexPath.section == 1) {
-        switch(indexPath.row) {
-            case 0:
-                break;
-            case 1:
-                // force plan seating
-                [self planSeating];
-                break;
-        }
+    if([indexPath section] == 1 && [indexPath row] == 1) {
+        // force plan seating
+        [self planSeating];
     }
 
     // deselect
