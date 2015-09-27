@@ -8,15 +8,11 @@
 
 #import "TBEditableTableViewCell.h"
 #include "NSObject+AssociatedObject.h"
-#include "NSObject+FBKVOController.h"
 
 @interface TBEditableTableViewCell () <UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource>
 
 // ui outlet
 @property (nonatomic, strong) IBOutlet UITextField* textField;
-
-// object to be edited
-@property (nonatomic, strong) id object;
 
 // keypath of object to be edited
 @property (nonatomic, copy) NSString* keyPath;
@@ -33,13 +29,11 @@
 
 // set the object and keypath to observe/sync with text field
 - (void)setEditableObject:(id)object keypath:(NSString*)keyPath {
-    [self setObject:object];
+    [self setAssociatedObject:object];
     [self setKeyPath:keyPath];
-    [[[self textField] KVOController] unobserveAll];
-    [[[self textField] KVOController] observe:object keyPath:keyPath options:NSKeyValueObservingOptionNew block:^(id observer, id object, NSDictionary* change) {
-        NSString* text = [self textValueForObject:change[@"new"]];
-        [observer setText:text];
-    }];
+
+    NSString* text = [self textValueForObject:object[keyPath]];
+    [[self textField] setText:text];
 }
 
 // default textValueForObject
@@ -102,7 +96,7 @@
 
 - (void)textFieldDidEndEditing:(UITextField*)textField {
     id value = [self objectForTextValue:[textField text]];
-    [[self object] setValue:value forKeyPath:[self keyPath]];
+    [[self associatedObject] setValue:value forKeyPath:[self keyPath]];
 }
 
 #pragma mark UIPickerViewDataSource
