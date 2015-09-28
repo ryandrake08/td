@@ -18,10 +18,10 @@
 @property (nonatomic, copy) NSString* keyPath;
 
 // allowed values (picker)
-@property (nonatomic, strong) NSArray* allowedValues;
+@property (nonatomic, copy) NSArray* allowedValues;
 
-// selected object (picker)
-@property (nonatomic, strong) id selectedObject;
+// titles for each allowed value (picker)
+@property (nonatomic, copy) NSArray* allowedValueTitles;
 
 @end
 
@@ -40,13 +40,19 @@
 - (NSString*)textValueForObject:(id)object {
     if([object isKindOfClass:[NSString class]]) {
         return [object copy];
+    } else if([object isKindOfClass:[NSNumber class]] && [self formatter] != nil) {
+        return [[self formatter] stringFromNumber:object];
     }
     return nil;
 }
 
 // default objectForTextValue
 - (id)objectForTextValue:(NSString*)text {
-    return [text copy];
+    if([self formatter] == nil) {
+        return [text copy];
+    } else {
+        return [[self formatter] numberFromString:text];
+    }
 }
 
 // when selected, make the edit field become the first responder
@@ -58,22 +64,32 @@
 }
 
 // use a picker instead of free-form text
-- (void)setAllowedValues:(NSArray*)data {
+- (void)setAllowedValues:(NSArray*)allowedValues withTitles:(NSArray*)titles {
     // reset picker
     [[self textField] setInputView:nil];
     [[self textField] setInputAccessoryView:nil];
 
-    if(data) {
+    if(allowedValues) {
+        // get text field's current object value
+        NSUInteger selectedIndex;
+        if(titles) {
+            selectedIndex = [titles indexOfObject:[[self textField] text]];
+        } else {
+            id value = [self objectForTextValue:[[self textField] text]];
+            selectedIndex = [allowedValues indexOfObject:value];
+        }
+
         // is current text value allowed? if so, select it, otherwise select first object
-        id value = [self objectForTextValue:[[self textField] text]];
-        NSUInteger selectedIndex = [data indexOfObject:value];
         if(selectedIndex == NSNotFound) {
             selectedIndex = 0;
         }
 
+        // set state
+        [self setAllowedValues:allowedValues];
+        [self setAllowedValueTitles:titles];
+
         // set up a picker
         UIPickerView* picker = [[UIPickerView alloc] init];
-        [picker setAssociatedObject:data];
         [picker setDataSource:self];
         [picker setDelegate:self];
         [picker selectRow:selectedIndex inComponent:0 animated:NO];
@@ -103,7 +119,7 @@
 #pragma mark UIPickerViewDataSource
 
 - (NSInteger)pickerView:(UIPickerView*)pickerView numberOfRowsInComponent:(NSInteger)component {
-    return [[pickerView associatedObject] count];
+    return [[self allowedValues] count];
 }
 
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView*)pickerView {
@@ -111,14 +127,22 @@
 }
 
 - (NSString*)pickerView:(UIPickerView*)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-    NSString* text = [self textValueForObject:[pickerView associatedObject][row]];
-    return text;
+    if([self allowedValueTitles]) {
+        return [self allowedValueTitles][row];
+    } else {
+        return [self textValueForObject:[self allowedValues][row]];
+    }
 }
 
 #pragma mark UIPickerViewDelegate
 
 - (void)pickerView:(UIPickerView*)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-    NSString* text = [self textValueForObject:[pickerView associatedObject][row]];
+    NSString* text;
+    if([self allowedValueTitles]) {
+        text = [self allowedValueTitles][row];
+    } else {
+        text = [self textValueForObject:[self allowedValues][row]];
+    }
     [[self textField] setText:text];
 }
 
@@ -128,19 +152,6 @@
 
 - (void)awakeFromNib {
     [self setFormatter:[[NSNumberFormatter alloc] init]];
-}
-
-// default textValueForObject
-- (NSString*)textValueForObject:(id)object {
-    if([object isKindOfClass:[NSNumber class]]) {
-        return [[self formatter] stringFromNumber:object];
-    }
-    return nil;
-}
-
-// default objectForTextValue
-- (id)objectForTextValue:(NSString*)text {
-    return [[self formatter] numberFromString:text];
 }
 
 @end

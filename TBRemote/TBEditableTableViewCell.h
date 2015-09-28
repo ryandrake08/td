@@ -10,17 +10,17 @@
 
 @interface TBEditableTableViewCell : UITableViewCell
 
+// if formatter is set, represented object is a NSNumber
+@property (nonatomic, strong) NSNumberFormatter* formatter;
+
 // the object and keypath to observe/sync with text field
 - (void)setEditableObject:(id)object keypath:(NSString*)keyPath;
 
-// use a picker instead of free-form text
-- (void)setAllowedValues:(NSArray*)data;
+// use a picker instead of free-form text, optionally specifying picker titles
+- (void)setAllowedValues:(NSArray*)allowedValues withTitles:(NSArray*)titles;
 
 @end
 
 @interface TBEditableNumberTableViewCell : TBEditableTableViewCell
-
-// represented object is a NSNumber. need a formatter
-@property (nonatomic, strong) NSNumberFormatter* formatter;
 
 @end

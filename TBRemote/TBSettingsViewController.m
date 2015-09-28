@@ -145,7 +145,7 @@
                 break;
             case 3:
                 [(TBEditableTableViewCell*)cell setEditableObject:state keypath:@"table_capacity"];
-                [(TBEditableTableViewCell*)cell setAllowedValues:@[@2, @3, @4, @5, @6, @7, @8, @9, @10, @11, @12]];
+                [(TBEditableTableViewCell*)cell setAllowedValues:@[@2, @3, @4, @5, @6, @7, @8, @9, @10, @11, @12] withTitles:nil];
                 break;
             case 4:
                 detail = state[@"buyin_text"];
