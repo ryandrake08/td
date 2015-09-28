@@ -76,14 +76,7 @@
 }
 
 - (NSArray*)blindLevelNames {
-    NSMutableArray* blindLevelList = [[NSMutableArray alloc] initWithObjects:NSLocalizedString(@"Tournament Start", nil), nil];
-
-    NSInteger blindLevels = [[self configuration][@"blind_levels"] count];
-    for(NSInteger i=1; i<blindLevels; i++) {
-        [blindLevelList addObject:[NSString stringWithFormat:NSLocalizedString(@"Round %ld", @"Numbered blind level"), i]];
-    }
-
-    return blindLevelList;
+    return [TournamentSession namesForBlindLevels:[self configuration][@"blind_levels"]];
 }
 
 #pragma mark NSTableViewDelegate

@@ -61,4 +61,7 @@ extern NSString* const TournamentSessionUpdatedNotification;
 - (void)unseatPlayer:(id)playerId withBlock:(void(^)(id playerId,NSNumber* tableNumber,NSNumber* seatNumber))block;
 - (void)bustPlayer:(id)playerId withBlock:(void(^)(NSArray*))block;
 
+// utility (TODO: better place for this?)
++ (NSArray*) namesForBlindLevels:(NSArray*)blindLevels;
+
 @end

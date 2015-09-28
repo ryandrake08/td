@@ -7,6 +7,7 @@
 //
 
 #import "TBSetupFundingViewController.h"
+#import "TBSetupDetailsFundingViewController.h"
 #import "TournamentSession.h"
 
 @implementation TBSetupFundingViewController
@@ -66,6 +67,16 @@
 
 - (IBAction)addItem:(id)sender {
     [self addArrangedObject:[self newObject]];
+}
+
+#pragma mark Navigation
+
+// custom prepareForSegue that passes blind level list
+- (void)prepareForSegue:(UIStoryboardSegue*)segue sender:(id)sender {
+    TBSetupDetailsFundingViewController* newController = [segue destinationViewController];
+    NSIndexPath* indexPath = [[self tableView] indexPathForSelectedRow];
+    [newController setObject:[self arrangedObjectForIndexPath:indexPath]];
+    [newController setBlindLevels:[self configuration][@"blind_levels"]];
 }
 
 @end

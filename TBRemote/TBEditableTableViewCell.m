@@ -7,12 +7,14 @@
 //
 
 #import "TBEditableTableViewCell.h"
-#include "NSObject+AssociatedObject.h"
 
 @interface TBEditableTableViewCell () <UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource>
 
 // ui outlet
 @property (nonatomic, strong) IBOutlet UITextField* textField;
+
+// object (KV observable) to be edited
+@property (nonatomic, retain) id object;
 
 // keypath of object to be edited
 @property (nonatomic, copy) NSString* keyPath;
@@ -29,7 +31,7 @@
 
 // set the object and keypath to observe/sync with text field
 - (void)setEditableObject:(id)object keypath:(NSString*)keyPath {
-    [self setAssociatedObject:object];
+    [self setObject:object];
     [self setKeyPath:keyPath];
 
     NSString* text = [self textValueForObject:object[keyPath]];
@@ -38,7 +40,14 @@
 
 // default textValueForObject
 - (NSString*)textValueForObject:(id)object {
-    if([object isKindOfClass:[NSString class]]) {
+    if([self allowedValueTitles]) {
+        NSUInteger index = [[self allowedValues] indexOfObject:object];
+        if(index == NSNotFound) {
+            NSLog(@"TBEditableTableViewCell: object not found in allowed list. Using first title");
+            index = 0;
+        }
+        return [self allowedValueTitles][index];
+    } else if([object isKindOfClass:[NSString class]]) {
         return [object copy];
     } else if([object isKindOfClass:[NSNumber class]] && [self formatter] != nil) {
         return [[self formatter] stringFromNumber:object];
@@ -48,7 +57,14 @@
 
 // default objectForTextValue
 - (id)objectForTextValue:(NSString*)text {
-    if([self formatter] == nil) {
+    if([self allowedValueTitles]) {
+        NSUInteger index = [[self allowedValueTitles] indexOfObject:text];
+        if(index == NSNotFound) {
+            NSLog(@"TBEditableTableViewCell: title not found in allowed list. Using first object");
+            index = 0;
+        }
+        return [self allowedValues][index];
+    } else if([self formatter] == nil) {
         return [text copy];
     } else {
         return [[self formatter] numberFromString:text];
@@ -69,6 +85,10 @@
     [[self textField] setInputView:nil];
     [[self textField] setInputAccessoryView:nil];
 
+    // set state
+    [self setAllowedValues:allowedValues];
+    [self setAllowedValueTitles:titles];
+
     if(allowedValues) {
         // get text field's current object value
         NSUInteger selectedIndex;
@@ -83,10 +103,6 @@
         if(selectedIndex == NSNotFound) {
             selectedIndex = 0;
         }
-
-        // set state
-        [self setAllowedValues:allowedValues];
-        [self setAllowedValueTitles:titles];
 
         // set up a picker
         UIPickerView* picker = [[UIPickerView alloc] init];
@@ -113,7 +129,7 @@
 
 - (void)textFieldDidEndEditing:(UITextField*)textField {
     id value = [self objectForTextValue:[textField text]];
-    [[self associatedObject] setValue:value forKeyPath:[self keyPath]];
+    [[self object] setValue:value forKeyPath:[self keyPath]];
 }
 
 #pragma mark UIPickerViewDataSource
@@ -127,22 +143,13 @@
 }
 
 - (NSString*)pickerView:(UIPickerView*)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-    if([self allowedValueTitles]) {
-        return [self allowedValueTitles][row];
-    } else {
-        return [self textValueForObject:[self allowedValues][row]];
-    }
+    return [self textValueForObject:[self allowedValues][row]];
 }
 
 #pragma mark UIPickerViewDelegate
 
 - (void)pickerView:(UIPickerView*)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-    NSString* text;
-    if([self allowedValueTitles]) {
-        text = [self allowedValueTitles][row];
-    } else {
-        text = [self textValueForObject:[self allowedValues][row]];
-    }
+    NSString* text = [self textValueForObject:[self allowedValues][row]];
     [[self textField] setText:text];
 }
 

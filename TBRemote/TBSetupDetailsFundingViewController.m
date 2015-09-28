@@ -113,6 +113,9 @@
         switch(indexPath.row) {
             case 0:
             {
+                NSMutableArray* blindLevelIndices = [[NSMutableArray alloc] init];
+                for(NSUInteger i=0; i<[[self blindLevels] count]; i++) [blindLevelIndices addObject:@(i)];
+                [(TBEditableNumberTableViewCell*)cell setAllowedValues:blindLevelIndices withTitles:[TournamentSession namesForBlindLevels:[self blindLevels]]];
                 [(TBEditableNumberTableViewCell*)cell setEditableObject:[self object] keypath:@"forbid_after_blind_level"];
                 break;
             }

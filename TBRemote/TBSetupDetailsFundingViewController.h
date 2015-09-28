@@ -10,4 +10,7 @@
 
 @interface TBSetupDetailsFundingViewController : TBSetupDetailsTableViewController
 
+// needed for "forbid after" picker
+@property (nonatomic, copy) NSArray* blindLevels;
+
 @end
