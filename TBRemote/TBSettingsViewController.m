@@ -132,7 +132,7 @@
         switch(indexPath.row) {
             case 0:
             {
-                [(TBEditableTableViewCell*)cell setEditableObject:state keypath:@"name"];
+                [(TBEditableTextTableViewCell*)cell setEditableObject:state keypath:@"name"];
                 break;
             }
             case 1:
@@ -144,8 +144,8 @@
                 [[cell detailTextLabel] setText:detail];
                 break;
             case 3:
-                [(TBEditableTableViewCell*)cell setAllowedValues:@[@2, @3, @4, @5, @6, @7, @8, @9, @10, @11, @12] withTitles:nil];
-                [(TBEditableTableViewCell*)cell setEditableObject:state keypath:@"table_capacity"];
+                [(TBPickableTextTableViewCell*)cell setAllowedValues:@[@2, @3, @4, @5, @6, @7, @8, @9, @10, @11, @12] withTitles:nil];
+                [(TBPickableTextTableViewCell*)cell setEditableObject:state keypath:@"table_capacity"];
                 break;
             case 4:
                 detail = state[@"buyin_text"];

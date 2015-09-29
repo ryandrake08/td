@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8187.4" systemVersion="15B17c" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8187.4" systemVersion="15B22b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8151.3"/>
@@ -19,7 +19,7 @@
                         <sections>
                             <tableViewSection headerTitle="Tournament Setup" id="uIM-hK-ahp">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="J0X-8K-uTp" customClass="TBEditableTableViewCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="J0X-8K-uTp" customClass="TBEditableTextTableViewCell">
                                         <rect key="frame" x="0.0" y="113.5" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="J0X-8K-uTp" id="C1R-2z-Ha5">
@@ -121,7 +121,7 @@
                                             <segue destination="sHp-Ri-I7U" kind="push" id="Rwo-oT-ahR"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="jnZ-T7-vKh" customClass="TBEditableNumberTableViewCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="jnZ-T7-vKh" customClass="TBPickableTextTableViewCell">
                                         <rect key="frame" x="0.0" y="245.5" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jnZ-T7-vKh" id="yaV-ZU-SzF">
@@ -1630,7 +1630,7 @@
                                             <outlet property="textField" destination="ou6-Jk-ZbW" id="8jA-V1-HtC"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="XwO-7c-8Ws" customClass="TBEditableTableViewCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="XwO-7c-8Ws" customClass="TBEditableTextTableViewCell">
                                         <rect key="frame" x="0.0" y="427.5" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="XwO-7c-8Ws" id="6Q4-9q-rv6">
@@ -1698,7 +1698,7 @@
                         <sections>
                             <tableViewSection headerTitle="Funding Details" id="LMv-wc-3Yf">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="2OO-ok-Ozh" customClass="TBEditableTableViewCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="2OO-ok-Ozh" customClass="TBEditableTextTableViewCell">
                                         <rect key="frame" x="0.0" y="113.5" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2OO-ok-Ozh" id="SH0-Jj-yGT">
@@ -1738,7 +1738,7 @@
                                             <outlet property="textField" destination="UeC-d9-7ec" id="aiP-45-lTN"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="VTl-t4-fSf" customClass="TBEditableTableViewCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="VTl-t4-fSf" customClass="TBPickableTextTableViewCell">
                                         <rect key="frame" x="0.0" y="157.5" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="VTl-t4-fSf" id="Tev-rm-0KP">
@@ -1962,7 +1962,7 @@
                             </tableViewSection>
                             <tableViewSection headerTitle="Forbid Funding After" id="4Kq-3e-Wbg">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="wh7-as-Y7u" customClass="TBEditableNumberTableViewCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="wh7-as-Y7u" customClass="TBPickableTextTableViewCell">
                                         <rect key="frame" x="0.0" y="471.5" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wh7-as-Y7u" id="9Vq-L5-Zjw">
@@ -2173,7 +2173,7 @@
                         <sections>
                             <tableViewSection id="zUE-SJ-Mke">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="qb6-4e-yjS" customClass="TBEditableTableViewCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="qb6-4e-yjS" customClass="TBEditableTextTableViewCell">
                                         <rect key="frame" x="0.0" y="99" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qb6-4e-yjS" id="PPu-Lo-cdH">
@@ -2281,7 +2281,7 @@
                                             <outlet property="textField" destination="Z9j-sZ-dDw" id="Ei5-Ts-2VW"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="O8Z-qJ-P1I" customClass="TBEditableTableViewCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="O8Z-qJ-P1I" customClass="TBEditableTextTableViewCell">
                                         <rect key="frame" x="0.0" y="143" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="O8Z-qJ-P1I" id="JTh-dz-rmn">

@@ -45,7 +45,7 @@
             }
             case 1:
             {
-                [(TBEditableTableViewCell*)cell setEditableObject:[self object] keypath:@"name"];
+                [(TBEditableTextTableViewCell*)cell setEditableObject:[self object] keypath:@"name"];
                 break;
             }
         }

@@ -34,7 +34,7 @@
         switch(indexPath.row) {
             case 0:
             {
-                [(TBEditableTableViewCell*)cell setEditableObject:[self object] keypath:@"name"];
+                [(TBEditableTextTableViewCell*)cell setEditableObject:[self object] keypath:@"name"];
                 break;
             }
         }

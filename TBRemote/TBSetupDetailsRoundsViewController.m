@@ -94,7 +94,7 @@
             }
             case 1:
             {
-                [(TBEditableTableViewCell*)cell setEditableObject:[self object] keypath:@"reason"];
+                [(TBEditableTextTableViewCell*)cell setEditableObject:[self object] keypath:@"reason"];
                 break;
             }
         }

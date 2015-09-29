@@ -13,8 +13,6 @@
 
 @interface TBSetupDetailsFundingViewController ()
 
-@property (nonatomic, strong) NSArray* fundingTypes;
-
 // formatters
 @property (nonatomic, strong) TBCurrencyNumberFormatter* costFormatter;
 @property (nonatomic, strong) TBCurrencyNumberFormatter* equityFormatter;
@@ -25,10 +23,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    [self setFundingTypes:@[NSLocalizedString(@"Buyin", nil),
-                            NSLocalizedString(@"Rebuy", nil),
-                            NSLocalizedString(@"Addon", nil)]];
 
     // create number formatters
     [self setCostFormatter:[[TBCurrencyNumberFormatter alloc] init]];
@@ -66,14 +60,18 @@
         switch(indexPath.row) {
             case 0:
             {
-                [(TBEditableTableViewCell*)cell setEditableObject:[self object] keypath:@"name"];
+                [(TBEditableTextTableViewCell*)cell setEditableObject:[self object] keypath:@"name"];
                 break;
             }
             case 1:
             {
-                NSInteger typeIndex = [[self object][@"type"] integerValue];
-                NSString* detail = [self fundingTypes][typeIndex];
-                [[cell detailTextLabel] setText:detail];
+                [(TBPickableTextTableViewCell*)cell setAllowedValues:@[kFundingTypeBuyin,
+                                                                       kFundingTypeRebuy,
+                                                                       kFundingTypeAddon]
+                                                          withTitles:@[NSLocalizedString(@"Buyin", nil),
+                                                                       NSLocalizedString(@"Rebuy", nil),
+                                                                       NSLocalizedString(@"Addon", nil)]];
+                [(TBPickableTextTableViewCell*)cell setEditableObject:[self object] keypath:@"type"];
                 break;
             }
             case 2:
@@ -115,8 +113,8 @@
             {
                 NSMutableArray* blindLevelIndices = [[NSMutableArray alloc] init];
                 for(NSUInteger i=0; i<[[self blindLevels] count]; i++) [blindLevelIndices addObject:@(i)];
-                [(TBEditableNumberTableViewCell*)cell setAllowedValues:blindLevelIndices withTitles:[TournamentSession namesForBlindLevels:[self blindLevels]]];
-                [(TBEditableNumberTableViewCell*)cell setEditableObject:[self object] keypath:@"forbid_after_blind_level"];
+                [(TBPickableTextTableViewCell*)cell setAllowedValues:blindLevelIndices withTitles:[TournamentSession namesForBlindLevels:[self blindLevels]]];
+                [(TBPickableTextTableViewCell*)cell setEditableObject:[self object] keypath:@"forbid_after_blind_level"];
                 break;
             }
         }
