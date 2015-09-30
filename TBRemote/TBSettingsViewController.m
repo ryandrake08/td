@@ -138,21 +138,21 @@
                 [[cell detailTextLabel] setText:detail];
                 break;
             case 3:
-                [(TBPickableTextTableViewCell*)cell setAllowedValues:@[@2, @3, @4, @5, @6, @7, @8, @9, @10, @11, @12] withTitles:nil];
-                [(TBEditableTableViewCell*)cell setObject:[self configuration]];
-                [(TBEditableTableViewCell*)cell setKeyPath:@"table_capacity"];
-                break;
-            case 4:
-                detail = [self configuration][@"buyin_text"];
+                detail = [NSString stringWithFormat:@"%ld", [[self configuration][@"funding_sources"] count ]];
                 [[cell detailTextLabel] setText:detail];
                 break;
-            case 5:
+            case 4:
                 detail = [NSString stringWithFormat:@"%ld", [[self configuration][@"blind_levels"] count]-1];
                 [[cell detailTextLabel] setText:detail];
                 break;
-            case 6:
+            case 5:
                 detail = [NSString stringWithFormat:@"%ld", [[self configuration][@"authorized_clients"] count]];
                 [[cell detailTextLabel] setText:detail];
+                break;
+            case 6:
+                [(TBPickableTextTableViewCell*)cell setAllowedValues:@[@2, @3, @4, @5, @6, @7, @8, @9, @10, @11, @12] withTitles:nil];
+                [(TBEditableTableViewCell*)cell setObject:[self configuration]];
+                [(TBEditableTableViewCell*)cell setKeyPath:@"table_capacity"];
                 break;
         }
     } else if(indexPath.section == 1) {
