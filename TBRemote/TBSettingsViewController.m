@@ -85,16 +85,12 @@
         [self planSeating];
     }];
 
-    // update rows when keypaths change
-    [self bindTableViewRow:0 inSection:0 toObject:[[self session] state] keyPath:@"name"];
-    [self bindTableViewRow:1 inSection:0 toObject:[[self session] state] keyPath:@"players"];
-    [self bindTableViewRow:2 inSection:0 toObject:[[self session] state] keyPath:@"available_chips"];
-    [self bindTableViewRow:3 inSection:0 toObject:[[self session] state] keyPath:@"table_capacity"];
-    [self bindTableViewRow:4 inSection:0 toObject:[[self session] state] keyPath:@"buyin_text"];
-    [self bindTableViewRow:5 inSection:0 toObject:[[self session] state] keyPath:@"blind_levels"];
-    [self bindTableViewRow:6 inSection:0 toObject:[[self session] state] keyPath:@"authorized_clients"];
-    [self bindTableViewRow:0 inSection:1 toObject:[[self session] state] keyPath:@"players"];
-    [self bindTableViewRow:0 inSection:1 toObject:self keyPath:@"maxPlayers"];
+    // update row when maxPlayers changes
+    [[[self tableView] KVOController] observe:self keyPath:@"maxPlayers" options:0 block:^(id observer, id object, NSDictionary* change) {
+        // reload the table view row
+        NSIndexPath* theRow = [NSIndexPath indexPathForRow:0 inSection:1];
+        [observer reloadRowsAtIndexPaths:@[theRow] withRowAnimation:UITableViewRowAnimationNone];
+    }];
 
     // Start serving using this device's auth key
     NSString* path = [[self server] startWithAuthCode:[TournamentSession clientIdentifier]];
@@ -105,26 +101,23 @@
     }
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    NSIndexPath* selectedRowIndexPath = [[self tableView] indexPathForSelectedRow];
+    [super viewWillAppear:animated];
+    if (selectedRowIndexPath) {
+        [[self tableView] reloadRowsAtIndexPaths:@[selectedRowIndexPath] withRowAnimation:UITableViewRowAnimationNone];
+    }
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-#pragma mark UITableView data binding
-
-- (void)bindTableViewRow:(NSInteger)row inSection:(NSInteger)secton toObject:(id)object keyPath:(NSString*)keyPath {
-    [[[self tableView] KVOController] observe:object keyPath:keyPath options:0 block:^(id observer, id object, NSDictionary* change) {
-        // reload the table view row
-        NSIndexPath* theRow = [NSIndexPath indexPathForRow:row inSection:secton];
-        [observer reloadRowsAtIndexPaths:@[theRow] withRowAnimation:UITableViewRowAnimationNone];
-    }];
 }
 
 #pragma mark UITableViewDataSource
 
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath {
     UITableViewCell* cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
-    NSDictionary* state = [[self session] state];
     NSString* detail;
 
     if(indexPath.section == 0) {
@@ -132,33 +125,33 @@
         switch(indexPath.row) {
             case 0:
             {
-                [(TBEditableTableViewCell*)cell setObject:state];
+                [(TBEditableTableViewCell*)cell setObject:[self configuration]];
                 [(TBEditableTableViewCell*)cell setKeyPath:@"name"];
                 break;
             }
             case 1:
-                detail = [NSString stringWithFormat:@"%ld", [state[@"players"] count]];
+                detail = [NSString stringWithFormat:@"%ld", [[self configuration][@"players"] count]];
                 [[cell detailTextLabel] setText:detail];
                 break;
             case 2:
-                detail = [NSString stringWithFormat:@"%ld", [state[@"available_chips"] count]];
+                detail = [NSString stringWithFormat:@"%ld", [[self configuration][@"available_chips"] count]];
                 [[cell detailTextLabel] setText:detail];
                 break;
             case 3:
                 [(TBPickableTextTableViewCell*)cell setAllowedValues:@[@2, @3, @4, @5, @6, @7, @8, @9, @10, @11, @12] withTitles:nil];
-                [(TBEditableTableViewCell*)cell setObject:state];
+                [(TBEditableTableViewCell*)cell setObject:[self configuration]];
                 [(TBEditableTableViewCell*)cell setKeyPath:@"table_capacity"];
                 break;
             case 4:
-                detail = state[@"buyin_text"];
+                detail = [self configuration][@"buyin_text"];
                 [[cell detailTextLabel] setText:detail];
                 break;
             case 5:
-                detail = [NSString stringWithFormat:@"%ld", [state[@"blind_levels"] count]-1];
+                detail = [NSString stringWithFormat:@"%ld", [[self configuration][@"blind_levels"] count]-1];
                 [[cell detailTextLabel] setText:detail];
                 break;
             case 6:
-                detail = [NSString stringWithFormat:@"%ld", [state[@"authorized_clients"] count]];
+                detail = [NSString stringWithFormat:@"%ld", [[self configuration][@"authorized_clients"] count]];
                 [[cell detailTextLabel] setText:detail];
                 break;
         }
@@ -170,7 +163,7 @@
 
                 UIStepper* stepper = (UIStepper*)[cell viewWithTag:100];
                 [stepper setValue:(double)[self maxPlayers]];
-                NSUInteger numPlayers = [state[@"players"] count];
+                NSUInteger numPlayers = [[[self session] state][@"players"] count];
                 if(numPlayers > 1) {
                     [stepper setMaximumValue:numPlayers * 2.0];
                 }
@@ -183,13 +176,15 @@
 #pragma mark UITableViewDelegate
 
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
-    if([indexPath section] == 1 && [indexPath row] == 1) {
-        // force plan seating
-        [self planSeating];
-    }
+    if([indexPath section] == 1) {
+        if([indexPath row] == 1) {
+            // force plan seating
+            [self planSeating];
+        }
 
-    // deselect
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        // deselect
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    }
 }
 
 #pragma mark Navigation

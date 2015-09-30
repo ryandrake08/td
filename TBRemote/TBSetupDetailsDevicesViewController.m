@@ -65,9 +65,6 @@
                 break;
         }
     }
-
-    // deselect
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 @end

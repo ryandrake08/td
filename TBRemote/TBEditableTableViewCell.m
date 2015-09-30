@@ -43,7 +43,7 @@
 
 // when selected, make the edit field become the first responder
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
+    // don't call super, we don't want to show selection
     if(selected) {
         [[self textField] becomeFirstResponder];
     }
@@ -144,7 +144,7 @@
 // use a picker instead of free-form text
 - (void)setAllowedValues:(NSArray*)allowedValues withTitles:(NSArray*)titles {
     NSParameterAssert(allowedValues);
-    
+
     // reset picker
     [[self textField] setInputView:nil];
     [[self textField] setInputAccessoryView:nil];
