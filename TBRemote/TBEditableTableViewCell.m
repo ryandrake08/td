@@ -8,24 +8,7 @@
 
 #import "TBEditableTableViewCell.h"
 
-@interface TBEditableTableViewCell ()
-
-// object (KV observable) to be edited
-@property (nonatomic, retain) id object;
-
-// keypath of object to be edited
-@property (nonatomic, copy) NSString* keyPath;
-
-@end
-
 @implementation TBEditableTableViewCell
-
-// set the object and keypath to observe/sync with text field
-- (void)setEditableObject:(id)object keypath:(NSString*)keyPath {
-    [self setObject:object];
-    [self setKeyPath:keyPath];
-}
-
 @end
 
 @interface TBEditableTextTableViewCell () <UITextFieldDelegate>
@@ -38,8 +21,8 @@
 @implementation TBEditableTextTableViewCell
 
 // set the object and keypath to observe/sync with text field
-- (void)setEditableObject:(id)object keypath:(NSString*)keyPath {
-    [super setEditableObject:object keypath:keyPath];
+- (void)setKeyPath:(NSString*)keyPath {
+    [super setKeyPath:keyPath];
     [self updateTextField];
 }
 

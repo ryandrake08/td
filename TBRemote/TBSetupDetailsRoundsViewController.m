@@ -56,22 +56,26 @@
             case 0:
             {
                 [(TBEditableNumberTableViewCell*)cell setFormatter:[self durationFormatter]];
-                [(TBEditableNumberTableViewCell*)cell setEditableObject:[self object] keypath:@"duration"];
+                [(TBEditableTableViewCell*)cell setObject:[self object]];
+                [(TBEditableTableViewCell*)cell setKeyPath:@"duration"];
                 break;
             }
             case 1:
             {
-                [(TBEditableNumberTableViewCell*)cell setEditableObject:[self object] keypath:@"little_blind"];
+                [(TBEditableTableViewCell*)cell setObject:[self object]];
+                [(TBEditableTableViewCell*)cell setKeyPath:@"little_blind"];
                 break;
             }
             case 2:
             {
-                [(TBEditableNumberTableViewCell*)cell setEditableObject:[self object] keypath:@"big_blind"];
+                [(TBEditableTableViewCell*)cell setObject:[self object]];
+                [(TBEditableTableViewCell*)cell setKeyPath:@"big_blind"];
                 break;
             }
             case 3:
             {
-                [(TBEditableNumberTableViewCell*)cell setEditableObject:[self object] keypath:@"ante"];
+                [(TBEditableTableViewCell*)cell setObject:[self object]];
+                [(TBEditableTableViewCell*)cell setKeyPath:@"ante"];
                 break;
             }
             case 4:
@@ -89,12 +93,14 @@
             case 0:
             {
                 [(TBEditableNumberTableViewCell*)cell setFormatter:[self durationFormatter]];
-                [(TBEditableNumberTableViewCell*)cell setEditableObject:[self object] keypath:@"break_duration"];
+                [(TBEditableTableViewCell*)cell setObject:[self object]];
+                [(TBEditableTableViewCell*)cell setKeyPath:@"break_duration"];
                 break;
             }
             case 1:
             {
-                [(TBEditableTextTableViewCell*)cell setEditableObject:[self object] keypath:@"reason"];
+                [(TBEditableTableViewCell*)cell setObject:[self object]];
+                [(TBEditableTableViewCell*)cell setKeyPath:@"reason"];
                 break;
             }
         }

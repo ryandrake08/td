@@ -42,12 +42,14 @@
             }
             case 1:
             {
-                [(TBEditableNumberTableViewCell*)cell setEditableObject:[self object] keypath:@"denomination"];
+                [(TBEditableTableViewCell*)cell setObject:[self object]];
+                [(TBEditableTableViewCell*)cell setKeyPath:@"denomination"];
                 break;
             }
             case 2:
             {
-                [(TBEditableNumberTableViewCell*)cell setEditableObject:[self object] keypath:@"count_available"];
+                [(TBEditableTableViewCell*)cell setObject:[self object]];
+                [(TBEditableTableViewCell*)cell setKeyPath:@"count_available"];
                 break;
             }
         }

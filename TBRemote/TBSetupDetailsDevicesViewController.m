@@ -40,12 +40,14 @@
             case 0:
             {
                 [(TBEditableNumberTableViewCell*)cell setFormatter:[self codeFormatter]];
-                [(TBEditableNumberTableViewCell*)cell setEditableObject:[self object] keypath:@"code"];
+                [(TBEditableTableViewCell*)cell setObject:[self object]];
+                [(TBEditableTableViewCell*)cell setKeyPath:@"code"];
                 break;
             }
             case 1:
             {
-                [(TBEditableTextTableViewCell*)cell setEditableObject:[self object] keypath:@"name"];
+                [(TBEditableTableViewCell*)cell setObject:[self object]];
+                [(TBEditableTableViewCell*)cell setKeyPath:@"name"];
                 break;
             }
         }

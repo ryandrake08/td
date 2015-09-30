@@ -10,8 +10,11 @@
 
 @interface TBEditableTableViewCell : UITableViewCell
 
-// the object and keypath to observe/sync with field
-- (void)setEditableObject:(id)object keypath:(NSString*)keyPath;
+// object (KV observable) to be edited
+@property (nonatomic, retain) id object;
+
+// keypath of object to be edited
+@property (nonatomic, copy) NSString* keyPath;
 
 @end
 

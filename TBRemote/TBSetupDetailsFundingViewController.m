@@ -60,7 +60,8 @@
         switch(indexPath.row) {
             case 0:
             {
-                [(TBEditableTextTableViewCell*)cell setEditableObject:[self object] keypath:@"name"];
+                [(TBEditableTableViewCell*)cell setObject:[self object]];
+                [(TBEditableTableViewCell*)cell setKeyPath:@"name"];
                 break;
             }
             case 1:
@@ -71,30 +72,35 @@
                                                           withTitles:@[NSLocalizedString(@"Buyin", nil),
                                                                        NSLocalizedString(@"Rebuy", nil),
                                                                        NSLocalizedString(@"Addon", nil)]];
-                [(TBPickableTextTableViewCell*)cell setEditableObject:[self object] keypath:@"type"];
+                [(TBEditableTableViewCell*)cell setObject:[self object]];
+                [(TBEditableTableViewCell*)cell setKeyPath:@"type"];
                 break;
             }
             case 2:
             {
                 [(TBEditableNumberTableViewCell*)cell setFormatter:[self costFormatter]];
-                [(TBEditableNumberTableViewCell*)cell setEditableObject:[self object] keypath:@"cost"];
+                [(TBEditableTableViewCell*)cell setObject:[self object]];
+                [(TBEditableTableViewCell*)cell setKeyPath:@"cost"];
                 break;
             }
             case 3:
             {
                 [(TBEditableNumberTableViewCell*)cell setFormatter:[self costFormatter]];
-                [(TBEditableNumberTableViewCell*)cell setEditableObject:[self object] keypath:@"commission"];
+                [(TBEditableTableViewCell*)cell setObject:[self object]];
+                [(TBEditableTableViewCell*)cell setKeyPath:@"commission"];
                 break;
             }
             case 4:
             {
                 [(TBEditableNumberTableViewCell*)cell setFormatter:[self equityFormatter]];
-                [(TBEditableNumberTableViewCell*)cell setEditableObject:[self object] keypath:@"equity"];
+                [(TBEditableTableViewCell*)cell setObject:[self object]];
+                [(TBEditableTableViewCell*)cell setKeyPath:@"equity"];
                 break;
             }
             case 5:
             {
-                [(TBEditableNumberTableViewCell*)cell setEditableObject:[self object] keypath:@"chips"];
+                [(TBEditableTableViewCell*)cell setObject:[self object]];
+                [(TBEditableTableViewCell*)cell setKeyPath:@"chips"];
                 break;
             }
             case 6:
@@ -114,7 +120,8 @@
                 NSMutableArray* blindLevelIndices = [[NSMutableArray alloc] init];
                 for(NSUInteger i=0; i<[[self blindLevels] count]; i++) [blindLevelIndices addObject:@(i)];
                 [(TBPickableTextTableViewCell*)cell setAllowedValues:blindLevelIndices withTitles:[TournamentSession namesForBlindLevels:[self blindLevels]]];
-                [(TBPickableTextTableViewCell*)cell setEditableObject:[self object] keypath:@"forbid_after_blind_level"];
+                [(TBEditableTableViewCell*)cell setObject:[self object]];
+                [(TBEditableTableViewCell*)cell setKeyPath:@"forbid_after_blind_level"];
                 break;
             }
         }
