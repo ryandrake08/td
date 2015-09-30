@@ -100,11 +100,12 @@
 
 @interface TBPickableTextTableViewCell () <UIPickerViewDelegate, UIPickerViewDataSource>
 
-// allowed values (picker)
-@property (nonatomic, copy) NSArray* allowedValues;
-
-// titles for each allowed value (picker)
+// titles for each allowed value
 @property (nonatomic, copy) NSArray* allowedValueTitles;
+
+// two-way mapping between objects and titles
+@property (nonatomic, retain) NSDictionary* valueForTitle;
+@property (nonatomic, retain) NSDictionary* titleForValue;
 
 @end
 
@@ -113,35 +114,37 @@
 // update the text field to match the editable object
 - (void)updateTextField {
     id object = [self object][[self keyPath]];
-    if([self allowedValueTitles]) {
-        NSUInteger index = [[self allowedValues] indexOfObject:object];
-        if(index == NSNotFound) {
-            NSLog(@"TBPickableTextTableViewCell: object not found in allowed list. Using first title");
-            index = 0;
-        }
-        [[self textField] setText:[self allowedValueTitles][index]];
-    } else {
-        NSLog(@"TBPickableTextTableViewCell: no titles");
+    if(object == nil) {
+        NSLog(@"updateTextField: object is nil");
     }
+
+    NSString* text = [self titleForValue][object];
+    if(text == nil) {
+        NSLog(@"updateTextField: text is nil");
+    }
+
+    [[self textField] setText:text];
 }
 
 // update the editable object to match the text field
 - (void)updateEditableObject {
     NSString* text = [[self textField] text];
-    if([self allowedValueTitles]) {
-        NSUInteger index = [[self allowedValueTitles] indexOfObject:text];
-        if(index == NSNotFound) {
-            NSLog(@"TBPickableTextTableViewCell: title not found in allowed list. Using first object");
-            index = 0;
-        }
-        [self object][[self keyPath]] = [self allowedValues][index];
-    } else {
-        NSLog(@"TBPickableTextTableViewCell: no titles");
+    if(text == nil) {
+        NSLog(@"updateEditableObject: text is nil");
     }
+
+    id object = [self valueForTitle][text];
+    if(object == nil) {
+        NSLog(@"updateEditableObject: object is nil");
+    }
+
+    [self object][[self keyPath]] = object;
 }
 
 // use a picker instead of free-form text
 - (void)setAllowedValues:(NSArray*)allowedValues withTitles:(NSArray*)titles {
+    NSParameterAssert(allowedValues);
+    
     // reset picker
     [[self textField] setInputView:nil];
     [[self textField] setInputAccessoryView:nil];
@@ -151,11 +154,15 @@
         titles = [allowedValues valueForKey:@"stringValue"];
     }
 
-    // set state
-    [self setAllowedValues:allowedValues];
-    [self setAllowedValueTitles:titles];
+    // array sizes must match
+    NSAssert([allowedValues count] == [titles count], @"setAllowedValues:withTitles: array sizes must match");
 
-    if(allowedValues) {
+    // set state
+    [self setAllowedValueTitles:titles];
+    [self setValueForTitle:[NSDictionary dictionaryWithObjects:allowedValues forKeys:titles]];
+    [self setTitleForValue:[NSDictionary dictionaryWithObjects:titles forKeys:allowedValues]];
+
+    if(allowedValues && titles) {
         // get text field's current object value
         NSUInteger selectedIndex = [titles indexOfObject:[[self textField] text]];
 
@@ -183,7 +190,7 @@
 #pragma mark UIPickerViewDataSource
 
 - (NSInteger)pickerView:(UIPickerView*)pickerView numberOfRowsInComponent:(NSInteger)component {
-    return [[self allowedValues] count];
+    return [[self allowedValueTitles] count];
 }
 
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView*)pickerView {
