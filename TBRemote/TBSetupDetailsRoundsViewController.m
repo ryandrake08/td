@@ -80,11 +80,8 @@
             }
             case 4:
             {
-                if([self object][@"break_duration"] != nil) {
-                    [cell setAccessoryType:UITableViewCellAccessoryCheckmark];
-                } else {
-                    [cell setAccessoryType:UITableViewCellAccessoryNone];
-                }
+                [(TBCheckmarkNumberTableViewCell*)cell setObject:[self object]];
+                [(TBCheckmarkNumberTableViewCell*)cell setKeyPath:@"break_duration"];
                 break;
             }
         }
@@ -113,11 +110,10 @@
 
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
     if(indexPath.section == 0) {
-        // create a cell
-        switch(indexPath.row) {
-            case 0:
-                break;
-        }
+       if(indexPath.row == 4) {
+           [tableView reloadData];
+           [tableView deselectRowAtIndexPath:indexPath animated:YES];
+       }
     }
 }
 

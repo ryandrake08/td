@@ -1566,7 +1566,7 @@
                                             <outlet property="textField" destination="6Ac-3H-RUx" id="aZ4-a4-meu"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="checkmark" indentationWidth="10" textLabel="B6H-SS-GWv" style="IBUITableViewCellStyleDefault" id="Xdf-4V-1wf">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="checkmark" indentationWidth="10" textLabel="B6H-SS-GWv" style="IBUITableViewCellStyleDefault" id="Xdf-4V-1wf" customClass="TBCheckmarkNumberTableViewCell">
                                         <rect key="frame" x="0.0" y="289.5" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Xdf-4V-1wf" id="4we-aJ-o5e">
@@ -1938,7 +1938,7 @@
                                             <outlet property="textField" destination="8ir-i0-i4k" id="OgI-vf-Byz"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" accessoryType="checkmark" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="MSg-mk-aUA" style="IBUITableViewCellStyleDefault" id="FdJ-5g-GUB">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" accessoryType="checkmark" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="MSg-mk-aUA" style="IBUITableViewCellStyleDefault" id="FdJ-5g-GUB" customClass="TBCheckmarkNumberTableViewCell">
                                         <rect key="frame" x="0.0" y="377.5" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="FdJ-5g-GUB" id="ONR-Ke-XAO">

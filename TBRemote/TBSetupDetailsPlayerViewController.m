@@ -46,13 +46,6 @@
 #pragma mark UITableViewDelegate
 
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
-    if(indexPath.section == 0) {
-        // create a cell
-        switch(indexPath.row) {
-            case 0:
-                break;
-        }
-    }
 }
 
 @end

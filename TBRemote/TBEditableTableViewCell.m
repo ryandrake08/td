@@ -208,3 +208,31 @@
 }
 
 @end
+
+@implementation TBCheckmarkNumberTableViewCell
+
+// set the object and keypath to observe/sync with accessory check
+- (void)setKeyPath:(NSString*)keyPath {
+    [super setKeyPath:keyPath];
+    if([self object][[self keyPath]] == nil) {
+        [self setAccessoryType:UITableViewCellAccessoryNone];
+    } else {
+        [self setAccessoryType:UITableViewCellAccessoryCheckmark];
+    }
+}
+
+// when selected, toggle
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+    [super setSelected:selected animated:animated];
+    if(selected) {
+        if([self accessoryType] == UITableViewCellAccessoryNone) {
+            [self object][[self keyPath]] = @0;
+            [self setAccessoryType:UITableViewCellAccessoryCheckmark];
+        } else {
+            [[self object] removeObjectForKey:[self keyPath]];
+            [self setAccessoryType:UITableViewCellAccessoryNone];
+        }
+    }
+}
+
+@end

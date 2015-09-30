@@ -36,3 +36,8 @@
 
 @end
 
+@interface TBCheckmarkNumberTableViewCell : TBEditableTableViewCell
+
+@end
+
+
