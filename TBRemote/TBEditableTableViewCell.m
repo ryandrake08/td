@@ -31,7 +31,7 @@
     id object = [self object][[self keyPath]];
     if([object isKindOfClass:[NSString class]]) {
         [[self textField] setText:object];
-    } else {
+    } else if(object != nil) {
         NSLog(@"TBEditableTextTableViewCell: editable object is not a string");
     }
 }
@@ -79,7 +79,7 @@
             text = [object stringValue];
         }
         [[self textField] setText:text];
-    } else {
+    } else if(object != nil) {
         NSLog(@"TBEditableNumberTableViewCell: editable object is not a number");
     }
 }
