@@ -9,6 +9,7 @@
 #import "TBSetupDevicesViewController.h"
 #import "TBAuthCodeNumberFormatter.h"
 #import "NSDateFormatter+ISO8601.h"
+#import "TournamentSession.h"
 
 @interface TBSetupDevicesViewController ()
 
@@ -29,6 +30,16 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+// hide row that represents authorization for this device
+- (CGFloat)tableView:(UITableView*)tableView heightForRowAtIndexPath:(NSIndexPath*)indexPath {
+    NSDictionary* object = [super arrangedObjectForIndexPath:indexPath];
+    if(object[@"code"] == [TournamentSession clientIdentifier]) {
+        return 0;
+    } else {
+        return 43.5;
+    }
 }
 
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath {

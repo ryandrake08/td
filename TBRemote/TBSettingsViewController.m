@@ -146,7 +146,7 @@
                 [[cell detailTextLabel] setText:detail];
                 break;
             case 5:
-                detail = [NSString stringWithFormat:@"%ld", [[self configuration][@"authorized_clients"] count]];
+                detail = [NSString stringWithFormat:@"%ld", [[self configuration][@"authorized_clients"] count]-1];
                 [[cell detailTextLabel] setText:detail];
                 break;
             case 6:
