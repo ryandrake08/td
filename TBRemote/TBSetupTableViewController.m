@@ -48,16 +48,9 @@
     return [self arrangedObjects][[indexPath row]];
 }
 
-// adds a new object to arrangedObjects
-- (void)addArrangedObject:(id)anObject {
-    NSIndexPath* newIndexPath = [NSIndexPath indexPathForRow:[[self arrangedObjects] count] inSection:0];
-
-    // Add to the data source
-    [[self arrangedObjects] addObject:anObject];
-
-    // Insert to the table and scroll
-    [[self tableView] insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-    [[self tableView] scrollToRowAtIndexPath:newIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+// generates a new object (MUST be overridden by subclasses)
+- (id)newObject {
+    return nil;
 }
 
 #pragma mark Navigation
@@ -66,6 +59,19 @@
     TBSetupDetailsTableViewController* newController = [segue destinationViewController];
     NSIndexPath* indexPath = [[self tableView] indexPathForSelectedRow];
     [newController setObject:[self arrangedObjectForIndexPath:indexPath]];
+}
+
+#pragma mark Actions
+
+- (IBAction)addItem:(id)sender {
+    NSIndexPath* newIndexPath = [NSIndexPath indexPathForRow:[[self arrangedObjects] count] inSection:0];
+
+    // Add to the data source
+    [[self arrangedObjects] addObject:[self newObject]];
+
+    // Insert to the table and scroll
+    [[self tableView] insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    [[self tableView] scrollToRowAtIndexPath:newIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
 }
 
 @end

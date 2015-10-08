@@ -67,8 +67,4 @@
     return [[NSMutableDictionary alloc] initWithObjectsAndKeys:game_name, @"game_name", little_blind, @"little_blind", big_blind, @"big_blind", ante, @"ante", duration, @"duration", nil];
 }
 
-- (IBAction)addItem:(id)sender {
-    [self addArrangedObject:[self newObject]];
-}
-
 @end

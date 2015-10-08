@@ -65,10 +65,6 @@
     return [[NSMutableDictionary alloc] initWithObjectsAndKeys:name, @"name", type, @"type", chips, @"chips", cost, @"cost", commission, @"commission", equity, @"equity", nil];
 }
 
-- (IBAction)addItem:(id)sender {
-    [self addArrangedObject:[self newObject]];
-}
-
 #pragma mark Navigation
 
 // custom prepareForSegue that passes blind level list

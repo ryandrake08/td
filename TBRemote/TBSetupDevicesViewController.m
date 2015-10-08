@@ -59,8 +59,4 @@
     return [[NSMutableDictionary alloc] initWithObjectsAndKeys:code, @"code", name, @"name", added_at, @"added_at", nil];
 }
 
-- (IBAction)addItem:(id)sender {
-    [self addArrangedObject:[self newObject]];
-}
-
 @end

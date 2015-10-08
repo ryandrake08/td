@@ -44,8 +44,4 @@
     return [[NSMutableDictionary alloc] initWithObjectsAndKeys:color, @"color", denomination, @"denomination", count_available, @"count_available", nil];
 }
 
-- (IBAction)addItem:(id)sender {
-    [self addArrangedObject:[self newObject]];
-}
-
 @end

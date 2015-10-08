@@ -19,7 +19,4 @@
 // returns the object for a given indexPath
 - (id)arrangedObjectForIndexPath:(NSIndexPath*)indexPath;
 
-// adds a new object to arrangedObjects
-- (void)addArrangedObject:(id)anObject;
-
 @end
