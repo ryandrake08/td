@@ -7,6 +7,7 @@
 //
 
 #import "TBSetupDetailsChipsViewController.h"
+#import "TBChooseColorViewController.h"
 #import "TBEllipseView.h"
 #import "TBEditableTableViewCell.h"
 #import "TBColor+CSS.h"
@@ -60,6 +61,13 @@
 #pragma mark UITableViewDelegate
 
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
+}
+
+#pragma mark Navigation
+
+- (void)prepareForSegue:(UIStoryboardSegue*)segue sender:(id)sender {
+    TBChooseColorViewController* newController = [segue destinationViewController];
+    [newController setObject:[self object]];
 }
 
 @end

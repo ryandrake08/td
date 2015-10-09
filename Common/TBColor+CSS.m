@@ -171,6 +171,11 @@ static NSDictionary* cssHexCodes = nil;
     cssHexCodes = [[NSDictionary alloc] initWithObjects:[cssColorNames allKeys] forKeys:[cssColorNames allValues]];
 }
 
+// Return all named colors
++ (NSArray*)allColorNames {
+    return [cssColorNames allKeys];
+}
+
 + (NSString*)randomColorName {
     NSUInteger randomIndex = arc4random() % [cssColorNames count];
     return [cssColorNames allKeys][randomIndex];

@@ -173,6 +173,8 @@
 		AD33BA5E1BAC63540011777C /* s_warning.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04ECC1B7C59EB004F4245 /* s_warning.caf */; settings = {ASSET_TAGS = (); }; };
 		AD33BA5F1BAC63540011777C /* s_break.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04EC81B7C59EB004F4245 /* s_break.caf */; settings = {ASSET_TAGS = (); }; };
 		AD33BA601BAC63540011777C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ADA6A1B41B97FE8A00C83762 /* Assets.xcassets */; };
+		AD452D4F1BC6C685007CF579 /* TBChooseColorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD452D4E1BC6C685007CF579 /* TBChooseColorViewController.m */; settings = {ASSET_TAGS = (); }; };
+		AD452D501BC6C685007CF579 /* TBChooseColorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD452D4E1BC6C685007CF579 /* TBChooseColorViewController.m */; settings = {ASSET_TAGS = (); }; };
 		AD475C3B1BB62D0400DAE739 /* TBEditableTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD475C3A1BB62D0400DAE739 /* TBEditableTableViewCell.m */; settings = {ASSET_TAGS = (); }; };
 		AD5375B41B9F35FB00EF5132 /* TBRemoteWatchDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AD5375B31B9F35FB00EF5132 /* TBRemoteWatchDelegate.m */; settings = {ASSET_TAGS = (); }; };
 		AD62569F1BB448DD00EE776A /* TBSetupDetailsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD62569E1BB448DD00EE776A /* TBSetupDetailsTableViewController.m */; settings = {ASSET_TAGS = (); }; };
@@ -540,6 +542,8 @@
 		AD33BA641BAC63540011777C /* TBPhone WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "TBPhone WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD33BA661BAC63CC0011777C /* TBPhone-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "TBPhone-Info.plist"; sourceTree = "<group>"; };
 		AD33BA681BAC63D40011777C /* TBPhone-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "TBPhone-Info.plist"; sourceTree = "<group>"; };
+		AD452D4D1BC6C685007CF579 /* TBChooseColorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = TBChooseColorViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		AD452D4E1BC6C685007CF579 /* TBChooseColorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = TBChooseColorViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		AD475C391BB62D0400DAE739 /* TBEditableTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBEditableTableViewCell.h; sourceTree = "<group>"; };
 		AD475C3A1BB62D0400DAE739 /* TBEditableTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBEditableTableViewCell.m; sourceTree = "<group>"; };
 		AD5375B21B9F35FA00EF5132 /* TBRemoteWatchDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBRemoteWatchDelegate.h; sourceTree = "<group>"; };
@@ -551,7 +555,7 @@
 		AD6256A01BB44B9A00EE776A /* TBSetupDetailsPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBSetupDetailsPlayerViewController.h; sourceTree = "<group>"; };
 		AD6256A11BB44B9A00EE776A /* TBSetupDetailsPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBSetupDetailsPlayerViewController.m; sourceTree = "<group>"; };
 		AD6256A31BB44D8000EE776A /* TBSetupDetailsChipsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBSetupDetailsChipsViewController.h; sourceTree = "<group>"; };
-		AD6256A41BB44D8000EE776A /* TBSetupDetailsChipsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBSetupDetailsChipsViewController.m; sourceTree = "<group>"; };
+		AD6256A41BB44D8000EE776A /* TBSetupDetailsChipsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = TBSetupDetailsChipsViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		AD6256A61BB44DB200EE776A /* TBSetupDetailsFundingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBSetupDetailsFundingViewController.h; sourceTree = "<group>"; };
 		AD6256A71BB44DB200EE776A /* TBSetupDetailsFundingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBSetupDetailsFundingViewController.m; sourceTree = "<group>"; };
 		AD6256A91BB44DC700EE776A /* TBSetupDetailsRoundsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBSetupDetailsRoundsViewController.h; sourceTree = "<group>"; };
@@ -751,6 +755,8 @@
 			children = (
 				9476F4551B3C385400A158F8 /* TBAppDelegate.h */,
 				9476F4561B3C385400A158F8 /* TBAppDelegate.m */,
+				AD452D4D1BC6C685007CF579 /* TBChooseColorViewController.h */,
+				AD452D4E1BC6C685007CF579 /* TBChooseColorViewController.m */,
 				AD475C391BB62D0400DAE739 /* TBEditableTableViewCell.h */,
 				AD475C3A1BB62D0400DAE739 /* TBEditableTableViewCell.m */,
 				AD9ED3E71B90949000C10550 /* TBPlayerSeatingViewController.h */,
@@ -1492,6 +1498,7 @@
 				9462A3E91B77CB3B00B29002 /* TTTOrdinalNumberFormatter.m in Sources */,
 				ADE299B11B7B9BCB00F1393B /* TBSound.m in Sources */,
 				9476F4691B3C385400A158F8 /* TBAppDelegate.m in Sources */,
+				AD452D501BC6C685007CF579 /* TBChooseColorViewController.m in Sources */,
 				949D70A01B3C440E008D5CD1 /* types.cpp in Sources */,
 				AD1B250F1BA8796500C4BDDC /* scope_timer.cpp in Sources */,
 				AD5375B41B9F35FB00EF5132 /* TBRemoteWatchDelegate.m in Sources */,
@@ -1656,6 +1663,7 @@
 				ADF635ED1BAB8AF800D019AE /* TBRemoteWatchDelegate.m in Sources */,
 				ADF635EE1BAB8AF800D019AE /* tournament.cpp in Sources */,
 				ADD2CC551BB3D35700DE3DE5 /* TBSetupDevicesViewController.m in Sources */,
+				AD452D4F1BC6C685007CF579 /* TBChooseColorViewController.m in Sources */,
 				ADF635EF1BAB8AF800D019AE /* TournamentService.m in Sources */,
 				ADF635F01BAB8AF800D019AE /* json.cpp in Sources */,
 				ADD2CC3F1BB39E9200DE3DE5 /* TBSetupTableViewController.m in Sources */,

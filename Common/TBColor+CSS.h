@@ -10,6 +10,9 @@
 
 @interface TBColor (CSS)
 
+// Return all named colors
++ (NSArray*)allColorNames;
+
 // Return a random color
 + (NSString*)randomColorName;
 
