@@ -103,10 +103,10 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     NSIndexPath* selectedRowIndexPath = [[self tableView] indexPathForSelectedRow];
-    [super viewWillAppear:animated];
     if (selectedRowIndexPath) {
         [[self tableView] reloadRowsAtIndexPaths:@[selectedRowIndexPath] withRowAnimation:UITableViewRowAnimationNone];
     }
+    [super viewWillAppear:animated];
 }
 
 - (void)didReceiveMemoryWarning {

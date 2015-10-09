@@ -37,7 +37,7 @@
         switch(indexPath.row) {
             case 0:
             {
-                UIColor* detail = [TBColor colorWithName:[self object][@"color"] ];
+                UIColor* detail = [TBColor colorWithName:[self object][@"color"]];
                 [(TBEllipseView*)[cell viewWithTag:100] setColor:detail];
                 break;
             }
