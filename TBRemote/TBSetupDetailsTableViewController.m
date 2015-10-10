@@ -10,12 +10,4 @@
 
 @implementation TBSetupDetailsTableViewController
 
-- (void)viewWillAppear:(BOOL)animated {
-    NSIndexPath* selectedRowIndexPath = [[self tableView] indexPathForSelectedRow];
-    if(selectedRowIndexPath) {
-        [[self tableView] reloadRowsAtIndexPaths:@[selectedRowIndexPath] withRowAnimation:UITableViewRowAnimationNone];
-    }
-    [super viewWillAppear:animated];
-}
-
 @end

@@ -6,8 +6,8 @@
 //  Copyright © 2015 HDna Studio. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "TBTableViewController.h"
 
-@interface TBSettingsViewController : UITableViewController
+@interface TBSettingsViewController : TBTableViewController
 
 @end

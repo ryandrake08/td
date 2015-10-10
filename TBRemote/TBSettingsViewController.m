@@ -101,14 +101,6 @@
     }
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    NSIndexPath* selectedRowIndexPath = [[self tableView] indexPathForSelectedRow];
-    if (selectedRowIndexPath) {
-        [[self tableView] reloadRowsAtIndexPaths:@[selectedRowIndexPath] withRowAnimation:UITableViewRowAnimationNone];
-    }
-    [super viewWillAppear:animated];
-}
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

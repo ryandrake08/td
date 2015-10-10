@@ -6,9 +6,9 @@
 //  Copyright © 2015 HDna Studio. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "TBTableViewController.h"
 
-@interface TBSetupDetailsTableViewController : UITableViewController
+@interface TBSetupDetailsTableViewController : TBTableViewController
 
 @property (nonatomic, strong) NSMutableDictionary* object;
 

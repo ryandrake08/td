@@ -131,6 +131,8 @@
 		94E16F221B6C99840070F1BA /* TBResizeTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 94562E6B1B65D9420017C692 /* TBResizeTextField.m */; };
 		94ED00111B76E1E6003CF19B /* TBTableSeatNumberTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 94ED00101B76E1E6003CF19B /* TBTableSeatNumberTransformer.m */; };
 		94F466271B8AF203009BB648 /* TBCurrencyCodeTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F466261B8AF203009BB648 /* TBCurrencyCodeTransformer.m */; };
+		94F51CAE1BC96F53007AD1DD /* TBTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F51CAD1BC96F53007AD1DD /* TBTableViewController.m */; settings = {ASSET_TAGS = (); }; };
+		94F51CAF1BC96F53007AD1DD /* TBTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F51CAD1BC96F53007AD1DD /* TBTableViewController.m */; settings = {ASSET_TAGS = (); }; };
 		94FDEADC1B5AE2560026B25D /* TBColor+CSS.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEADB1B5AE2560026B25D /* TBColor+CSS.m */; };
 		94FDEAE51B5AE2D60026B25D /* CFStreamCreatePairWithUnixSocket.c in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEADD1B5AE2D60026B25D /* CFStreamCreatePairWithUnixSocket.c */; };
 		94FDEAE61B5AE2D60026B25D /* CFStreamCreatePairWithUnixSocket.c in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEADD1B5AE2D60026B25D /* CFStreamCreatePairWithUnixSocket.c */; };
@@ -517,6 +519,8 @@
 		94ED00101B76E1E6003CF19B /* TBTableSeatNumberTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBTableSeatNumberTransformer.m; sourceTree = "<group>"; };
 		94F466251B8AF203009BB648 /* TBCurrencyCodeTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBCurrencyCodeTransformer.h; sourceTree = "<group>"; };
 		94F466261B8AF203009BB648 /* TBCurrencyCodeTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBCurrencyCodeTransformer.m; sourceTree = "<group>"; };
+		94F51CAC1BC96F53007AD1DD /* TBTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBTableViewController.h; sourceTree = "<group>"; };
+		94F51CAD1BC96F53007AD1DD /* TBTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBTableViewController.m; sourceTree = "<group>"; };
 		94FDEADA1B5AE2560026B25D /* TBColor+CSS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TBColor+CSS.h"; sourceTree = "<group>"; };
 		94FDEADB1B5AE2560026B25D /* TBColor+CSS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TBColor+CSS.m"; sourceTree = "<group>"; };
 		94FDEADD1B5AE2D60026B25D /* CFStreamCreatePairWithUnixSocket.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = CFStreamCreatePairWithUnixSocket.c; sourceTree = "<group>"; };
@@ -753,6 +757,8 @@
 		9476F4671B3C385400A158F8 /* TBRemote */ = {
 			isa = PBXGroup;
 			children = (
+				94F51CAB1BC96E61007AD1DD /* Setup */,
+				94F51CAA1BC96E4E007AD1DD /* Setup Details */,
 				9476F4551B3C385400A158F8 /* TBAppDelegate.h */,
 				9476F4561B3C385400A158F8 /* TBAppDelegate.m */,
 				AD452D4D1BC6C685007CF579 /* TBChooseColorViewController.h */,
@@ -769,30 +775,12 @@
 				ADDDAA8A1B93BCEE00D3AF68 /* TBResultsViewController.m */,
 				ADD3BE831BA0A2A600A69834 /* TBSettingsViewController.h */,
 				ADD3BE841BA0A2A600A69834 /* TBSettingsViewController.m */,
-				ADD2CC491BB3BA8000DE3DE5 /* TBSetupChipsViewController.h */,
-				ADD2CC4A1BB3BA8000DE3DE5 /* TBSetupChipsViewController.m */,
-				AD6256A31BB44D8000EE776A /* TBSetupDetailsChipsViewController.h */,
-				AD6256A41BB44D8000EE776A /* TBSetupDetailsChipsViewController.m */,
-				AD6256F11BB44E1100EE776A /* TBSetupDetailsDevicesViewController.h */,
-				AD6256F21BB44E1100EE776A /* TBSetupDetailsDevicesViewController.m */,
-				AD6256A61BB44DB200EE776A /* TBSetupDetailsFundingViewController.h */,
-				AD6256A71BB44DB200EE776A /* TBSetupDetailsFundingViewController.m */,
-				AD6256A01BB44B9A00EE776A /* TBSetupDetailsPlayerViewController.h */,
-				AD6256A11BB44B9A00EE776A /* TBSetupDetailsPlayerViewController.m */,
-				AD6256A91BB44DC700EE776A /* TBSetupDetailsRoundsViewController.h */,
-				AD6256AA1BB44DC700EE776A /* TBSetupDetailsRoundsViewController.m */,
 				AD62569D1BB448DD00EE776A /* TBSetupDetailsTableViewController.h */,
 				AD62569E1BB448DD00EE776A /* TBSetupDetailsTableViewController.m */,
-				ADD2CC531BB3D35700DE3DE5 /* TBSetupDevicesViewController.h */,
-				ADD2CC541BB3D35700DE3DE5 /* TBSetupDevicesViewController.m */,
-				ADD2CC4C1BB3C73900DE3DE5 /* TBSetupFundingViewController.h */,
-				ADD2CC4D1BB3C73900DE3DE5 /* TBSetupFundingViewController.m */,
-				ADD2CC451BB3A11B00DE3DE5 /* TBSetupPlayersViewController.h */,
-				ADD2CC461BB3A11B00DE3DE5 /* TBSetupPlayersViewController.m */,
-				ADD2CC4F1BB3CD3200DE3DE5 /* TBSetupRoundsViewController.h */,
-				ADD2CC501BB3CD3200DE3DE5 /* TBSetupRoundsViewController.m */,
 				ADD2CC3D1BB39E9200DE3DE5 /* TBSetupTableViewController.h */,
 				ADD2CC3E1BB39E9200DE3DE5 /* TBSetupTableViewController.m */,
+				94F51CAC1BC96F53007AD1DD /* TBTableViewController.h */,
+				94F51CAD1BC96F53007AD1DD /* TBTableViewController.m */,
 				9476F4571B3C385400A158F8 /* TBTournamentsViewController.h */,
 				9476F4581B3C385400A158F8 /* TBTournamentsViewController.m */,
 				9476F45C1B3C385400A158F8 /* Main.storyboard */,
@@ -859,6 +847,40 @@
 				94D04ECC1B7C59EB004F4245 /* s_warning.caf */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		94F51CAA1BC96E4E007AD1DD /* Setup Details */ = {
+			isa = PBXGroup;
+			children = (
+				AD6256A31BB44D8000EE776A /* TBSetupDetailsChipsViewController.h */,
+				AD6256A41BB44D8000EE776A /* TBSetupDetailsChipsViewController.m */,
+				AD6256F11BB44E1100EE776A /* TBSetupDetailsDevicesViewController.h */,
+				AD6256F21BB44E1100EE776A /* TBSetupDetailsDevicesViewController.m */,
+				AD6256A61BB44DB200EE776A /* TBSetupDetailsFundingViewController.h */,
+				AD6256A71BB44DB200EE776A /* TBSetupDetailsFundingViewController.m */,
+				AD6256A01BB44B9A00EE776A /* TBSetupDetailsPlayerViewController.h */,
+				AD6256A11BB44B9A00EE776A /* TBSetupDetailsPlayerViewController.m */,
+				AD6256A91BB44DC700EE776A /* TBSetupDetailsRoundsViewController.h */,
+				AD6256AA1BB44DC700EE776A /* TBSetupDetailsRoundsViewController.m */,
+			);
+			name = "Setup Details";
+			sourceTree = "<group>";
+		};
+		94F51CAB1BC96E61007AD1DD /* Setup */ = {
+			isa = PBXGroup;
+			children = (
+				ADD2CC491BB3BA8000DE3DE5 /* TBSetupChipsViewController.h */,
+				ADD2CC4A1BB3BA8000DE3DE5 /* TBSetupChipsViewController.m */,
+				ADD2CC531BB3D35700DE3DE5 /* TBSetupDevicesViewController.h */,
+				ADD2CC541BB3D35700DE3DE5 /* TBSetupDevicesViewController.m */,
+				ADD2CC4C1BB3C73900DE3DE5 /* TBSetupFundingViewController.h */,
+				ADD2CC4D1BB3C73900DE3DE5 /* TBSetupFundingViewController.m */,
+				ADD2CC451BB3A11B00DE3DE5 /* TBSetupPlayersViewController.h */,
+				ADD2CC461BB3A11B00DE3DE5 /* TBSetupPlayersViewController.m */,
+				ADD2CC4F1BB3CD3200DE3DE5 /* TBSetupRoundsViewController.h */,
+				ADD2CC501BB3CD3200DE3DE5 /* TBSetupRoundsViewController.m */,
+			);
+			name = Setup;
 			sourceTree = "<group>";
 		};
 		94FDEAD91B5AD29B0026B25D /* Common */ = {
@@ -1509,6 +1531,7 @@
 				AD87A6DB1BA2094400E55961 /* TBEllipseView.m in Sources */,
 				9476F46B1B3C385400A158F8 /* TBRemoteClockViewController.m in Sources */,
 				949D70A41B3C442F008D5CD1 /* cJSON.c in Sources */,
+				94F51CAF1BC96F53007AD1DD /* TBTableViewController.m in Sources */,
 				9476F4A71B3C3EA700A158F8 /* TournamentSession.m in Sources */,
 				ADD4F1271B91FE2400DAF567 /* NSObject+AssociatedObject.m in Sources */,
 				ADFFFF151BA34394003BAC88 /* TBColor+CSS.m in Sources */,
@@ -1653,6 +1676,7 @@
 				ADF635E61BAB8AF800D019AE /* TBCurrencyNumberFormatter.m in Sources */,
 				ADF635E71BAB8AF800D019AE /* NSDictionary+Changed.m in Sources */,
 				ADF635E81BAB8AF800D019AE /* TTTOrdinalNumberFormatter.m in Sources */,
+				94F51CAE1BC96F53007AD1DD /* TBTableViewController.m in Sources */,
 				ADF635E91BAB8AF800D019AE /* TBSound.m in Sources */,
 				ADF635EA1BAB8AF800D019AE /* TBAppDelegate.m in Sources */,
 				ADF635EB1BAB8AF800D019AE /* types.cpp in Sources */,

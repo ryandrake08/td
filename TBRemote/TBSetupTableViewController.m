@@ -11,14 +11,6 @@
 
 @implementation TBSetupTableViewController
 
-- (void)viewWillAppear:(BOOL)animated {
-    NSIndexPath* selectedRowIndexPath = [[self tableView] indexPathForSelectedRow];
-    if (selectedRowIndexPath) {
-        [[self tableView] reloadRowsAtIndexPaths:@[selectedRowIndexPath] withRowAnimation:UITableViewRowAnimationNone];
-    }
-    [super viewWillAppear:animated];
-}
-
 // common tableView handling code, to reduce boilerplate in subclasses
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView*)tableView {
