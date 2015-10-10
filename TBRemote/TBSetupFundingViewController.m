@@ -65,14 +65,4 @@
     return [[NSMutableDictionary alloc] initWithObjectsAndKeys:name, @"name", type, @"type", chips, @"chips", cost, @"cost", commission, @"commission", equity, @"equity", nil];
 }
 
-#pragma mark Navigation
-
-// custom prepareForSegue that passes blind level list
-- (void)prepareForSegue:(UIStoryboardSegue*)segue sender:(id)sender {
-    TBSetupDetailsFundingViewController* newController = [segue destinationViewController];
-    NSIndexPath* indexPath = [[self tableView] indexPathForSelectedRow];
-    [newController setObject:[self arrangedObjectForIndexPath:indexPath]];
-    [newController setBlindLevels:[self configuration][@"blind_levels"]];
-}
-
 @end

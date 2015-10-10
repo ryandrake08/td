@@ -11,28 +11,7 @@
 #import "TBCurrencyNumberFormatter.h"
 #import "TournamentSession.h"
 
-@interface TBSetupDetailsFundingViewController ()
-
-// formatters
-@property (nonatomic, strong) TBCurrencyNumberFormatter* costFormatter;
-@property (nonatomic, strong) TBCurrencyNumberFormatter* equityFormatter;
-
-@end
-
 @implementation TBSetupDetailsFundingViewController
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-
-    // create number formatters
-    [self setCostFormatter:[[TBCurrencyNumberFormatter alloc] init]];
-    [self setEquityFormatter:[[TBCurrencyNumberFormatter alloc] init]];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 #pragma mark UITableViewDataSource
 
@@ -78,21 +57,27 @@
             }
             case 2:
             {
-                [(TBEditableNumberTableViewCell*)cell setFormatter:[self costFormatter]];
+                TBCurrencyNumberFormatter* costFormatter = [[TBCurrencyNumberFormatter alloc] init];
+                [costFormatter setCurrencyCode:[self configuration][@"cost_currency"]];
+                [(TBEditableNumberTableViewCell*)cell setFormatter:costFormatter];
                 [(TBEditableTableViewCell*)cell setObject:[self object]];
                 [(TBEditableTableViewCell*)cell setKeyPath:@"cost"];
                 break;
             }
             case 3:
             {
-                [(TBEditableNumberTableViewCell*)cell setFormatter:[self costFormatter]];
+                TBCurrencyNumberFormatter* costFormatter = [[TBCurrencyNumberFormatter alloc] init];
+                [costFormatter setCurrencyCode:[self configuration][@"cost_currency"]];
+                [(TBEditableNumberTableViewCell*)cell setFormatter:costFormatter];
                 [(TBEditableTableViewCell*)cell setObject:[self object]];
                 [(TBEditableTableViewCell*)cell setKeyPath:@"commission"];
                 break;
             }
             case 4:
             {
-                [(TBEditableNumberTableViewCell*)cell setFormatter:[self equityFormatter]];
+                TBCurrencyNumberFormatter* equityFormatter = [[TBCurrencyNumberFormatter alloc] init];
+                [equityFormatter setCurrencyCode:[self configuration][@"equity_currency"]];
+                [(TBEditableNumberTableViewCell*)cell setFormatter:equityFormatter];
                 [(TBEditableTableViewCell*)cell setObject:[self object]];
                 [(TBEditableTableViewCell*)cell setKeyPath:@"equity"];
                 break;
@@ -114,9 +99,11 @@
         switch(indexPath.row) {
             case 0:
             {
+                NSArray* blindLevels = [self configuration][@"blind_levels"];
                 NSMutableArray* blindLevelIndices = [[NSMutableArray alloc] init];
-                for(NSUInteger i=0; i<[[self blindLevels] count]; i++) [blindLevelIndices addObject:@(i)];
-                [(TBPickableTextTableViewCell*)cell setAllowedValues:blindLevelIndices withTitles:[TournamentSession namesForBlindLevels:[self blindLevels]]];
+                for(NSUInteger i=0; i<[blindLevels count]; i++) [blindLevelIndices addObject:@(i)];
+
+                [(TBPickableTextTableViewCell*)cell setAllowedValues:blindLevelIndices withTitles:[TournamentSession namesForBlindLevels:blindLevels]];
                 [(TBEditableTableViewCell*)cell setObject:[self object]];
                 [(TBEditableTableViewCell*)cell setKeyPath:@"forbid_after_blind_level"];
                 break;
@@ -132,8 +119,8 @@
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
     if(indexPath.section == 0) {
         if(indexPath.row == 6) {
-            [tableView reloadData];
             [tableView deselectRowAtIndexPath:indexPath animated:YES];
+            [tableView reloadData];
         }
     }
 }

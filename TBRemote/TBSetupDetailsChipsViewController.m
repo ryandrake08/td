@@ -12,21 +12,7 @@
 #import "TBEditableTableViewCell.h"
 #import "TBColor+CSS.h"
 
-@interface TBSetupDetailsChipsViewController ()
-
-@end
-
 @implementation TBSetupDetailsChipsViewController
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 #pragma mark UITableViewDataSource
 
@@ -58,14 +44,11 @@
     return cell;
 }
 
-#pragma mark UITableViewDelegate
-
-- (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
-}
-
 #pragma mark Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue*)segue sender:(id)sender {
+    [super prepareForSegue:segue sender:sender];
+
     TBChooseColorViewController* newController = [segue destinationViewController];
     [newController setObject:[self object]];
 }

@@ -22,14 +22,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setArrangedObjects:[self configuration][@"authorized_clients"]];
-
-    // create number formatter
-    [self setCodeFormatter:[[TBAuthCodeNumberFormatter alloc] init]];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+    
     // Dispose of any resources that can be recreated.
+    [self setCodeFormatter:nil];
 }
 
 // hide row that represents authorization for this device
@@ -43,6 +42,11 @@
 }
 
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath {
+    // create number formatter if it doesn't exist
+    if([self codeFormatter] == nil) {
+        [self setCodeFormatter:[[TBAuthCodeNumberFormatter alloc] init]];
+    }
+
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"SetupDeviceCell" forIndexPath:indexPath];
     NSDictionary* object = [super arrangedObjectForIndexPath:indexPath];
     NSString* codeString = [[self codeFormatter] stringFromNumber:object[@"code"]];

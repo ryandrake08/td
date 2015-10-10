@@ -51,6 +51,7 @@
     TBSetupDetailsTableViewController* newController = [segue destinationViewController];
     NSIndexPath* indexPath = [[self tableView] indexPathForSelectedRow];
     [newController setObject:[self arrangedObjectForIndexPath:indexPath]];
+    [newController setConfiguration:[self configuration]];
 }
 
 #pragma mark Actions

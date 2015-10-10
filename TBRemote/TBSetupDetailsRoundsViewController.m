@@ -10,24 +10,7 @@
 #import "TBEditableTableViewCell.h"
 #import "TBDurationNumberFormatter.h"
 
-@interface TBSetupDetailsRoundsViewController ()
-
-@property (nonatomic, strong) TBDurationNumberFormatter* durationFormatter;
-
-@end
-
 @implementation TBSetupDetailsRoundsViewController
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-
-    [self setDurationFormatter:[[TBDurationNumberFormatter alloc] init]];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 #pragma mark UITableViewDataSource
 
@@ -55,7 +38,8 @@
         switch(indexPath.row) {
             case 0:
             {
-                [(TBEditableNumberTableViewCell*)cell setFormatter:[self durationFormatter]];
+                TBDurationNumberFormatter* durationFormatter = [[TBDurationNumberFormatter alloc] init];
+                [(TBEditableNumberTableViewCell*)cell setFormatter:durationFormatter];
                 [(TBEditableTableViewCell*)cell setObject:[self object]];
                 [(TBEditableTableViewCell*)cell setKeyPath:@"duration"];
                 break;
@@ -89,7 +73,8 @@
         switch(indexPath.row) {
             case 0:
             {
-                [(TBEditableNumberTableViewCell*)cell setFormatter:[self durationFormatter]];
+                TBDurationNumberFormatter* durationFormatter = [[TBDurationNumberFormatter alloc] init];
+                [(TBEditableNumberTableViewCell*)cell setFormatter:durationFormatter];
                 [(TBEditableTableViewCell*)cell setObject:[self object]];
                 [(TBEditableTableViewCell*)cell setKeyPath:@"break_duration"];
                 break;
@@ -111,8 +96,8 @@
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
     if(indexPath.section == 0) {
        if(indexPath.row == 4) {
-           [tableView reloadData];
            [tableView deselectRowAtIndexPath:indexPath animated:YES];
+           [tableView reloadData];
        }
     }
 }

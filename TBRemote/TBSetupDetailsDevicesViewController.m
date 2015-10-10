@@ -10,25 +10,7 @@
 #import "TBEditableTableViewCell.h"
 #import "TBAuthCodeNumberFormatter.h"
 
-@interface TBSetupDetailsDevicesViewController ()
-
-@property (nonatomic, strong) TBAuthCodeNumberFormatter* codeFormatter;
-
-@end
-
 @implementation TBSetupDetailsDevicesViewController
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-
-    // create number formatter
-    [self setCodeFormatter:[[TBAuthCodeNumberFormatter alloc] init]];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 #pragma mark UITableViewDataSource
 
@@ -39,7 +21,8 @@
         switch(indexPath.row) {
             case 0:
             {
-                [(TBEditableNumberTableViewCell*)cell setFormatter:[self codeFormatter]];
+                TBAuthCodeNumberFormatter* codeFormatter = [[TBAuthCodeNumberFormatter alloc] init];
+                [(TBEditableNumberTableViewCell*)cell setFormatter:codeFormatter];
                 [(TBEditableTableViewCell*)cell setObject:[self object]];
                 [(TBEditableTableViewCell*)cell setKeyPath:@"code"];
                 break;
@@ -53,11 +36,6 @@
         }
     }
     return cell;
-}
-
-#pragma mark UITableViewDelegate
-
-- (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
 }
 
 @end
