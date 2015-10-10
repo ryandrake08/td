@@ -114,6 +114,21 @@
 
 @implementation TBPickableTextTableViewCell
 
+// synchronize picker selection with text
+- (void)updatePickerSelection {
+    // get text field's current object value
+    NSUInteger selectedIndex = [[self allowedValueTitles] indexOfObject:[[self textField] text]];
+
+    // is current text value allowed? if so, select it, otherwise select first object
+    if(selectedIndex == NSNotFound) {
+        selectedIndex = 0;
+    }
+
+    // get picker
+    UIPickerView* picker = (UIPickerView*)[[self textField] inputView];
+    [picker selectRow:selectedIndex inComponent:0 animated:NO];
+}
+
 // update the text field to match the editable object
 - (void)updateTextField {
     id object = [self object][[self keyPath]];
@@ -127,6 +142,9 @@
     }
 
     [[self textField] setText:text];
+
+    // sync picker
+    [self updatePickerSelection];
 }
 
 // update the editable object to match the text field
@@ -166,20 +184,14 @@
     [self setTitleForValue:[NSDictionary dictionaryWithObjects:titles forKeys:allowedValues]];
 
     if(allowedValues && titles) {
-        // get text field's current object value
-        NSUInteger selectedIndex = [titles indexOfObject:[[self textField] text]];
-
-        // is current text value allowed? if so, select it, otherwise select first object
-        if(selectedIndex == NSNotFound) {
-            selectedIndex = 0;
-        }
-
         // set up a picker
         UIPickerView* picker = [[UIPickerView alloc] init];
         [picker setDataSource:self];
         [picker setDelegate:self];
-        [picker selectRow:selectedIndex inComponent:0 animated:NO];
         [[self textField] setInputView:picker];
+
+        // sync picker with text
+        [self updatePickerSelection];
 
         // set up picker tool bar
         UIToolbar* toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
