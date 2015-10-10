@@ -7,6 +7,7 @@
 //
 
 #import "TBEditableTableViewCell.h"
+#import "TBNotifications.h"
 
 @implementation TBEditableTableViewCell
 @end
@@ -39,6 +40,7 @@
 // update the editable object to match the text field
 - (void)updateEditableObject {
     [self object][[self keyPath]] = [[self textField] text];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kConfigurationUpdatedNotification object:nil];
 }
 
 // when selected, make the edit field become the first responder
@@ -94,6 +96,7 @@
         number = [NSNumber numberWithDouble:[text doubleValue]];
     }
     [self object][[self keyPath]] = number;
+    [[NSNotificationCenter defaultCenter] postNotificationName:kConfigurationUpdatedNotification object:nil];
 }
 
 @end
@@ -205,6 +208,8 @@
 
 - (void)pickerView:(UIPickerView*)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
     [[self textField] setText:[self allowedValueTitles][row]];
+    // make sure object is updated after selection, in case user dismisses dialog while picker is open
+    [self updateEditableObject];
 }
 
 @end
@@ -232,6 +237,7 @@
             [[self object] removeObjectForKey:[self keyPath]];
             [self setAccessoryType:UITableViewCellAccessoryNone];
         }
+        [[NSNotificationCenter defaultCenter] postNotificationName:kConfigurationUpdatedNotification object:nil];
     }
 }
 

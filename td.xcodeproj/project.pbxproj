@@ -617,6 +617,7 @@
 		ADACCB751B989B8000F7C477 /* TBAuthCodeWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBAuthCodeWindowController.h; path = TBMac/TBAuthCodeWindowController.h; sourceTree = "<group>"; };
 		ADACCB761B989B8000F7C477 /* TBAuthCodeWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TBAuthCodeWindowController.m; path = TBMac/TBAuthCodeWindowController.m; sourceTree = "<group>"; };
 		ADACCB7A1B989B8F00F7C477 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/TBAuthCodeWindow.xib; sourceTree = "<group>"; };
+		ADB3D19B1BC996C500A9AFFA /* TBNotifications.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBNotifications.h; sourceTree = "<group>"; };
 		ADCECE751B7B0D9D00767DA6 /* TBControlsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBControlsViewController.h; path = TBMac/TBControlsViewController.h; sourceTree = "<group>"; };
 		ADCECE761B7B0D9D00767DA6 /* TBControlsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TBControlsViewController.m; path = TBMac/TBControlsViewController.m; sourceTree = "<group>"; };
 		ADCECE781B7B0D9D00767DA6 /* TBResultsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBResultsViewController.h; path = TBMac/TBResultsViewController.h; sourceTree = "<group>"; };
@@ -765,6 +766,7 @@
 				AD452D4E1BC6C685007CF579 /* TBChooseColorViewController.m */,
 				AD475C391BB62D0400DAE739 /* TBEditableTableViewCell.h */,
 				AD475C3A1BB62D0400DAE739 /* TBEditableTableViewCell.m */,
+				ADB3D19B1BC996C500A9AFFA /* TBNotifications.h */,
 				AD9ED3E71B90949000C10550 /* TBPlayerSeatingViewController.h */,
 				AD9ED3E81B90949000C10550 /* TBPlayerSeatingViewController.m */,
 				9476F4591B3C385400A158F8 /* TBRemoteClockViewController.h */,

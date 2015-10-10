@@ -9,6 +9,7 @@
 #import "TBChooseColorViewController.h"
 #import "TBEllipseView.h"
 #import "TBColor+CSS.h"
+#import "TBNotifications.h"
 
 @interface TBChooseColorViewController ()
 
@@ -59,6 +60,7 @@
 
 - (void)collectionView:(UICollectionView*)collectionView didSelectItemAtIndexPath:(NSIndexPath*)indexPath {
     [self object][@"color"] = [TBColor allColorNames][[indexPath row]];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kConfigurationUpdatedNotification object:nil];
     [[self navigationController] popViewControllerAnimated:YES];
 }
 

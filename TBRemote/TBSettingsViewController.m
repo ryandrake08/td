@@ -14,6 +14,7 @@
 #import "TBEditableTableViewCell.h"
 #import "TBAppDelegate.h"
 #import "NSObject+FBKVOController.h"
+#import "TBNotifications.h"
 
 @interface TBSettingsViewController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -90,6 +91,15 @@
         // reload the table view row
         NSIndexPath* theRow = [NSIndexPath indexPathForRow:0 inSection:1];
         [observer reloadRowsAtIndexPaths:@[theRow] withRowAnimation:UITableViewRowAnimationNone];
+    }];
+
+    // save every time configuration changes
+    [[NSNotificationCenter defaultCenter] addObserverForName:kConfigurationUpdatedNotification object:nil queue:nil usingBlock:^(NSNotification* note) {
+        NSError* error;
+        if([[self class] saveConfig:[self configuration] withError:&error] == NO) {
+            // TODO: something with the error
+            NSLog(@"%@", error);
+        }
     }];
 
     // Start serving using this device's auth key
