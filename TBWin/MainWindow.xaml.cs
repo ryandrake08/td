@@ -23,6 +23,9 @@ namespace TBWin
         public MainWindow()
         {
             InitializeComponent();
+
+            _daemon = new TournamentDaemon();
+            _daemon.Start(0);
         }
 
         public JsonDocument Document
@@ -57,6 +60,7 @@ namespace TBWin
         }
 
         private JsonDocument _document;
+        private TournamentDaemon _daemon;
     }
 
     public static class Commands
