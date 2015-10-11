@@ -90,6 +90,7 @@
     <ClCompile Include="..\tournamentd\logger.cpp" />
     <ClCompile Include="..\tournamentd\main.cpp" />
     <ClCompile Include="..\tournamentd\program.cpp" />
+    <ClCompile Include="..\tournamentd\scope_timer.cpp" />
     <ClCompile Include="..\tournamentd\server.cpp" />
     <ClCompile Include="..\tournamentd\socket.cpp" />
     <ClCompile Include="..\tournamentd\strptime.c" />
@@ -105,6 +106,7 @@
     <ClInclude Include="..\tournamentd\json.hpp" />
     <ClInclude Include="..\tournamentd\logger.hpp" />
     <ClInclude Include="..\tournamentd\program.hpp" />
+    <ClInclude Include="..\tournamentd\scope_timer.hpp" />
     <ClInclude Include="..\tournamentd\server.hpp" />
     <ClInclude Include="..\tournamentd\socket.hpp" />
     <ClInclude Include="..\tournamentd\socketstream.hpp" />
