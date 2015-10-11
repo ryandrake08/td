@@ -122,7 +122,7 @@ class gameinfo
     std::vector<std::vector<td::player_id_t> > players_at_tables() const;
 
     // return the maximum number of chips available per player for a given denomination
-    unsigned long max_chips_for(unsigned long denomination, std::size_t players_count) const;
+    size_t max_chips_for(unsigned long denomination, std::size_t players_count) const;
 
     // reset seating to an empty, unplanned game
     void reset_seating();

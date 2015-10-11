@@ -204,7 +204,7 @@ bool common_socket::select(long usec)
     {
         FD_SET(this->pimpl->fd, &fds);
     }
-    return do_select(this->pimpl->fd+1, &fds, usec) > 0;
+    return do_select((int)this->pimpl->fd+1, &fds, usec) > 0;
 }
 
 // select on multiple sockets
@@ -216,7 +216,7 @@ std::set<common_socket> common_socket::select(const std::set<common_socket>& soc
     std::for_each(sockets.begin(), sockets.end(), [&fds](const common_socket& s) { if(s.pimpl) FD_SET(s.pimpl->fd, &fds); });
 
     // set is ordered, so max fd is the last element
-    int max_fd(sockets.begin() == sockets.end() ? 0 : sockets.rbegin()->pimpl->fd+1);
+    int max_fd(sockets.begin() == sockets.end() ? 0 :(int)sockets.rbegin()->pimpl->fd+1);
 
     // do the select
     do_select(max_fd, &fds, usec);
@@ -238,7 +238,7 @@ std::size_t common_socket::recv(void* buf, std::size_t bytes)
 
     // read bytes from a fd
 #if defined(_WIN32)
-    auto len(::recv(this->pimpl->fd, reinterpret_cast<char*>(buf), bytes, 0));
+    auto len(::recv(this->pimpl->fd, reinterpret_cast<char*>(buf), (int)bytes, 0));
 #else
     auto len(::recv(this->pimpl->fd, buf, bytes, 0));
 #endif
@@ -263,7 +263,7 @@ std::size_t common_socket::send(const void* buf, std::size_t bytes)
 
     // write bytes to a fd
 #if defined(_WIN32)
-    auto len(::send(this->pimpl->fd, reinterpret_cast<const char*>(buf), bytes, 0));
+    auto len(::send(this->pimpl->fd, reinterpret_cast<const char*>(buf), (int)bytes, 0));
 #else
     auto len(::send(this->pimpl->fd, buf, bytes, 0));
 #endif
@@ -449,7 +449,11 @@ inet_socket::inet_socket(const char* host, const char* service, int family) : co
     logger(LOG_DEBUG) << "connecting " << *this << " to host: " << host << ", service: " << service << '\n';
 
     // connect to remote address
+#if defined(_WIN32)
+	if(::connect(sock, result.ptr->ai_addr, (int)result.ptr->ai_addrlen) == SOCKET_ERROR)
+#else
     if(::connect(sock, result.ptr->ai_addr, result.ptr->ai_addrlen) == SOCKET_ERROR)
+#endif
     {
         throw std::system_error(errno, std::system_category(), "connect");
     }
@@ -517,7 +521,11 @@ inet_socket::inet_socket(const char* service, int family, int backlog) : common_
     logger(LOG_DEBUG) << "binding " << *this << " to service: " << service << '\n';
 
     // bind to server port
+#if defined(_WIN32)
+	if(::bind(sock, result.ptr->ai_addr, (int)result.ptr->ai_addrlen) == SOCKET_ERROR)
+#else
     if(::bind(sock, result.ptr->ai_addr, result.ptr->ai_addrlen) == SOCKET_ERROR)
+#endif
     {
         throw std::system_error(errno, std::system_category(), "bind");
     }

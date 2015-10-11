@@ -842,7 +842,7 @@ void gameinfo::fund_player(const td::player_id_t& player_id, const td::funding_s
 }
 
 // return the maximum number of chips available per player for a given denomination
-unsigned long gameinfo::max_chips_for(unsigned long denomination, std::size_t players_count) const
+size_t gameinfo::max_chips_for(unsigned long denomination, std::size_t players_count) const
 {
     if(players_count == 0)
     {
