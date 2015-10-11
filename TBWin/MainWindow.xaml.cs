@@ -25,7 +25,8 @@ namespace TBWin
             InitializeComponent();
 
             _daemon = new TournamentDaemon();
-            _daemon.Start(0);
+            int port = _daemon.Start(0);
+            _daemon.Publish("TBWin");
         }
 
         public JsonDocument Document

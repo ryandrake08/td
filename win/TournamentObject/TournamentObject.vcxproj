@@ -24,6 +24,7 @@
     <Keyword>ManagedCProj</Keyword>
     <RootNamespace>TournamentDaemon</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <ProjectName>TournamentObject</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -143,11 +144,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="..\..\tournamentd\cjson\cjson.h" />
     <ClInclude Include="..\..\tournamentd\datetime.hpp" />
     <ClInclude Include="..\..\tournamentd\gameinfo.hpp" />
@@ -160,7 +156,7 @@
     <ClInclude Include="..\..\tournamentd\socketstream.hpp" />
     <ClInclude Include="..\..\tournamentd\tournament.hpp" />
     <ClInclude Include="..\..\tournamentd\types.hpp" />
-    <ClInclude Include="TournamentDaemon.h" />
+    <ClInclude Include="TournamentObject.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\tournamentd\cjson\cjson.c">
@@ -184,7 +180,7 @@
     </ClCompile>
     <ClCompile Include="..\..\tournamentd\tournament.cpp" />
     <ClCompile Include="..\..\tournamentd\types.cpp" />
-    <ClCompile Include="TournamentDaemon.cpp" />
+    <ClCompile Include="TournamentObject.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -7,7 +7,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tournamentd", "tournamentd.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TBWin", "..\TBWin\TBWin.csproj", "{EB521B4E-CDBD-4117-BCE2-EEFBC79044EA}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TournamentDaemon", "TournamentDaemon\TournamentDaemon.vcxproj", "{B4D10073-3450-4101-9AA2-C0DB166A41AF}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TournamentObject", "TournamentObject\TournamentObject.vcxproj", "{B4D10073-3450-4101-9AA2-C0DB166A41AF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
