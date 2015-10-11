@@ -1,14 +1,11 @@
 #pragma once
 
-#import <Foundation/Foundation.h>
-
 #ifdef __cplusplus
-extern "C"
-{
+extern "C" {
 #endif
 
 // return directory suitable for our unix socket
-NSString* TournamentSocketDirectory(void);
+const char*  TournamentSocketDirectory(void);
 
 #ifdef __cplusplus
 }

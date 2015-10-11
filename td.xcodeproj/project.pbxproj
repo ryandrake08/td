@@ -155,9 +155,9 @@
 		AD1B250E1BA8796400C4BDDC /* scope_timer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AD1B250A1BA8773900C4BDDC /* scope_timer.cpp */; settings = {ASSET_TAGS = (); }; };
 		AD1B250F1BA8796500C4BDDC /* scope_timer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AD1B250A1BA8773900C4BDDC /* scope_timer.cpp */; settings = {ASSET_TAGS = (); }; };
 		AD2B800E1BACC63600E2FE9C /* TBPhone WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = AD33BA641BAC63540011777C /* TBPhone WatchKit Extension.appex */; settings = {ASSET_TAGS = (); }; };
-		AD2CA95F1BAA7043009A2384 /* TournamentSocketDirectory.m in Sources */ = {isa = PBXBuildFile; fileRef = AD2CA95E1BAA7043009A2384 /* TournamentSocketDirectory.m */; settings = {ASSET_TAGS = (); }; };
-		AD2CA9601BAA70F9009A2384 /* TournamentSocketDirectory.m in Sources */ = {isa = PBXBuildFile; fileRef = AD2CA95E1BAA7043009A2384 /* TournamentSocketDirectory.m */; settings = {ASSET_TAGS = (); }; };
-		AD2CA9611BAA7134009A2384 /* TournamentSocketDirectory.m in Sources */ = {isa = PBXBuildFile; fileRef = AD2CA95E1BAA7043009A2384 /* TournamentSocketDirectory.m */; settings = {ASSET_TAGS = (); }; };
+		AD2CA95F1BAA7043009A2384 /* TournamentSocketDirectory.c in Sources */ = {isa = PBXBuildFile; fileRef = AD2CA95E1BAA7043009A2384 /* TournamentSocketDirectory.c */; settings = {ASSET_TAGS = (); }; };
+		AD2CA9601BAA70F9009A2384 /* TournamentSocketDirectory.c in Sources */ = {isa = PBXBuildFile; fileRef = AD2CA95E1BAA7043009A2384 /* TournamentSocketDirectory.c */; settings = {ASSET_TAGS = (); }; };
+		AD2CA9611BAA7134009A2384 /* TournamentSocketDirectory.c in Sources */ = {isa = PBXBuildFile; fileRef = AD2CA95E1BAA7043009A2384 /* TournamentSocketDirectory.c */; settings = {ASSET_TAGS = (); }; };
 		AD2FC7901BACDB51008ABB22 /* TBPhone WatchKit App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = AD33BA521BAC634F0011777C /* TBPhone WatchKit App.app */; };
 		AD33BA421BABAC120011777C /* defaults.json in Resources */ = {isa = PBXBuildFile; fileRef = 9476F4CD1B3C3F8300A158F8 /* defaults.json */; };
 		AD33BA431BABAD6B0011777C /* defaults.json in Resources */ = {isa = PBXBuildFile; fileRef = 9476F4CD1B3C3F8300A158F8 /* defaults.json */; };
@@ -259,7 +259,7 @@
 		ADE5A4FD1B8F44A0002737A8 /* TBStatsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE5A4FB1B8F44A0002737A8 /* TBStatsViewController.m */; };
 		ADE5A4FE1B8F44A0002737A8 /* TBStatsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE5A4FB1B8F44A0002737A8 /* TBStatsViewController.m */; };
 		ADE5A5031B8F6C4C002737A8 /* TBCurrencyImageTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE5A5021B8F6C4C002737A8 /* TBCurrencyImageTransformer.m */; };
-		ADF635E51BAB8AF800D019AE /* TournamentSocketDirectory.m in Sources */ = {isa = PBXBuildFile; fileRef = AD2CA95E1BAA7043009A2384 /* TournamentSocketDirectory.m */; settings = {ASSET_TAGS = (); }; };
+		ADF635E51BAB8AF800D019AE /* TournamentSocketDirectory.c in Sources */ = {isa = PBXBuildFile; fileRef = AD2CA95E1BAA7043009A2384 /* TournamentSocketDirectory.c */; settings = {ASSET_TAGS = (); }; };
 		ADF635E61BAB8AF800D019AE /* TBCurrencyNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 94562E611B65D8CA0017C692 /* TBCurrencyNumberFormatter.m */; };
 		ADF635E71BAB8AF800D019AE /* NSDictionary+Changed.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD73D281B9692E1006824A1 /* NSDictionary+Changed.m */; };
 		ADF635E81BAB8AF800D019AE /* TTTOrdinalNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9462A3E61B77CB3B00B29002 /* TTTOrdinalNumberFormatter.m */; };
@@ -541,7 +541,7 @@
 		AD1B250A1BA8773900C4BDDC /* scope_timer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scope_timer.cpp; sourceTree = "<group>"; };
 		AD1B250B1BA8773900C4BDDC /* scope_timer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = scope_timer.hpp; sourceTree = "<group>"; };
 		AD2CA95D1BAA7043009A2384 /* TournamentSocketDirectory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TournamentSocketDirectory.h; sourceTree = "<group>"; };
-		AD2CA95E1BAA7043009A2384 /* TournamentSocketDirectory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TournamentSocketDirectory.m; sourceTree = "<group>"; };
+		AD2CA95E1BAA7043009A2384 /* TournamentSocketDirectory.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = TournamentSocketDirectory.c; sourceTree = "<group>"; };
 		AD33BA521BAC634F0011777C /* TBPhone WatchKit App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TBPhone WatchKit App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD33BA641BAC63540011777C /* TBPhone WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "TBPhone WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD33BA661BAC63CC0011777C /* TBPhone-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "TBPhone-Info.plist"; sourceTree = "<group>"; };
@@ -951,8 +951,8 @@
 				9439701C1B405DC000BB0413 /* TournamentService.m */,
 				9476F4801B3C3EA700A158F8 /* TournamentSession.h */,
 				9476F4811B3C3EA700A158F8 /* TournamentSession.m */,
+				AD2CA95E1BAA7043009A2384 /* TournamentSocketDirectory.c */,
 				AD2CA95D1BAA7043009A2384 /* TournamentSocketDirectory.h */,
-				AD2CA95E1BAA7043009A2384 /* TournamentSocketDirectory.m */,
 				9462A3E51B77CB3B00B29002 /* TTTOrdinalNumberFormatter.h */,
 				9462A3E61B77CB3B00B29002 /* TTTOrdinalNumberFormatter.m */,
 			);
@@ -1508,7 +1508,7 @@
 				943B00D71B3F429500CE55D4 /* types.cpp in Sources */,
 				ADCECE821B7B0E6100767DA6 /* TBTableViewController.m in Sources */,
 				ADE299B71B7B9EE800F1393B /* TBPlayerWindowController.m in Sources */,
-				AD2CA9611BAA7134009A2384 /* TournamentSocketDirectory.m in Sources */,
+				AD2CA9611BAA7134009A2384 /* TournamentSocketDirectory.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1516,7 +1516,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AD2CA9601BAA70F9009A2384 /* TournamentSocketDirectory.m in Sources */,
+				AD2CA9601BAA70F9009A2384 /* TournamentSocketDirectory.c in Sources */,
 				94D04ED81B7C6A5C004F4245 /* TBCurrencyNumberFormatter.m in Sources */,
 				ADD73D2B1B9692E1006824A1 /* NSDictionary+Changed.m in Sources */,
 				9462A3E91B77CB3B00B29002 /* TTTOrdinalNumberFormatter.m in Sources */,
@@ -1631,7 +1631,7 @@
 				AD8E684C1A6C606700E5A4D8 /* main.m in Sources */,
 				949D70A51B3C442F008D5CD1 /* cJSON.c in Sources */,
 				ADCECE7B1B7B0D9D00767DA6 /* TBControlsViewController.m in Sources */,
-				AD2CA95F1BAA7043009A2384 /* TournamentSocketDirectory.m in Sources */,
+				AD2CA95F1BAA7043009A2384 /* TournamentSocketDirectory.c in Sources */,
 				9476F4A41B3C3EA700A158F8 /* TournamentDaemon.mm in Sources */,
 				AD98D9611A7B330B00DA6B8B /* TBChipsViewController.m in Sources */,
 				AD75ACEE1BA3FD8800705967 /* TBEllipseImageView.m in Sources */,
@@ -1674,7 +1674,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AD6256AB1BB44DC700EE776A /* TBSetupDetailsRoundsViewController.m in Sources */,
-				ADF635E51BAB8AF800D019AE /* TournamentSocketDirectory.m in Sources */,
+				ADF635E51BAB8AF800D019AE /* TournamentSocketDirectory.c in Sources */,
 				ADF635E61BAB8AF800D019AE /* TBCurrencyNumberFormatter.m in Sources */,
 				ADF635E71BAB8AF800D019AE /* NSDictionary+Changed.m in Sources */,
 				ADF635E81BAB8AF800D019AE /* TTTOrdinalNumberFormatter.m in Sources */,

@@ -31,14 +31,17 @@
         _serviceBrowser = [[NSNetServiceBrowser alloc] init];
         [[self serviceBrowser] setDelegate:self];
 
+        // socket path
+        NSString* tmpPath = [NSString stringWithUTF8String:TournamentSocketDirectory()];
+
         // get list of unix sockets
-        NSArray* directoryContents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:TournamentSocketDirectory() error:nil];
+        NSArray* directoryContents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:tmpPath error:nil];
         NSPredicate* predicate = [NSPredicate predicateWithFormat:@"SELF LIKE '*tournamentd.*.sock'"];
         NSArray* tournamentContents = [directoryContents filteredArrayUsingPredicate:predicate];
 
         // add a tournament for each
         for(NSString* filename in tournamentContents) {
-            NSString* fullPath = [TournamentSocketDirectory() stringByAppendingPathComponent:filename];
+            NSString* fullPath = [tmpPath stringByAppendingPathComponent:filename];
             TournamentService* tournament = [[TournamentService alloc] initWithUnixSocket:fullPath];
             [[self mutableList] addObject:tournament];
         }
