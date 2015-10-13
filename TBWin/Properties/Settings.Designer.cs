@@ -22,5 +22,17 @@ namespace TBWin.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int clientIdentifier {
+            get {
+                return ((int)(this["clientIdentifier"]));
+            }
+            set {
+                this["clientIdentifier"] = value;
+            }
+        }
     }
 }
