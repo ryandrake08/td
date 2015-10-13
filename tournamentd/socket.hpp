@@ -27,6 +27,9 @@ public:
     // select on multiple sockets
     static std::set<common_socket> select(const std::set<common_socket>& sockets, long usec=-1);
 
+    // does socket have data available
+    bool peek(void* buf, std::size_t bytes) const;
+
     // data transfer
     std::size_t recv(void* buf, std::size_t bytes);
     std::size_t send(const void* buf, std::size_t bytes);

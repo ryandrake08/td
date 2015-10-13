@@ -2,6 +2,7 @@
 #include "json.hpp"
 #include "logger.hpp"
 #include "scope_timer.hpp"
+#include "socketstream.hpp"
 #include <algorithm>
 #include <cstddef>
 #include <sstream>
@@ -307,7 +308,9 @@ bool tournament::handle_client_input(std::iostream& client)
     // with just an if() statement, we only read the first line available and ignore the rest.
     // with just a while() statement, we keep trying the read even when there is no input ready, blocking!
     // third try: check input availability first with peek(), only read if something is ready.
-    while((ret == false) && (client.peek() != EOF) && std::getline(client, input))
+    // fourth try: peek() also tries to fill the buffer and will block. implement a non-blocking peek
+    const socketstream& socket_client(dynamic_cast<const socketstream&>(client));
+    while((ret == false) && (socket_client.nonblocking_peek() != EOF) && std::getline(client, input))
     {
         // find start of command
         static const char* whitespace(" \t\r\n");

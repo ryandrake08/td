@@ -18,6 +18,7 @@ typedef int socklen_t;
 #if defined(__unix) || defined(__APPLE__)
 #include <arpa/inet.h>
 #include <netinet/in.h>
+#include <sys/ioctl.h>
 #include <sys/socket.h>
 #include <sys/un.h>
 #include <unistd.h>
@@ -25,6 +26,7 @@ typedef int socklen_t;
 typedef int SOCKET;
 static const SOCKET INVALID_SOCKET = -1;
 static const int SOCKET_ERROR = -1;
+#define ioctlsocket ioctl
 #endif
 
 class eai_error_category : public std::error_category
@@ -226,6 +228,59 @@ std::set<common_socket> common_socket::select(const std::set<common_socket>& soc
     std::copy_if(sockets.begin(), sockets.end(), std::inserter(ret, ret.end()), [&fds](const common_socket& s) { return FD_ISSET(s.pimpl->fd, &fds); } );
     return ret;
 }
+
+bool common_socket::peek(void* buf, std::size_t bytes) const
+{
+    logger(LOG_DEBUG) << "peeking " << bytes << " on " << *this << '\n';
+    if(!this->pimpl)
+    {
+        logger(LOG_WARNING) << "peeking from invalid socket impl\n";
+        return 0;
+    }
+
+    // temporarily set socket to nonblocking
+    unsigned long nonblocking(1);
+    if(ioctlsocket(this->pimpl->fd, FIONBIO, &nonblocking) != 0)
+    {
+        throw std::system_error(errno, std::system_category(), "ioctl");
+    }
+
+    // peek at bytes from a fd
+#if defined(_WIN32)
+    auto len(::recv(this->pimpl->fd, reinterpret_cast<char*>(buf), (int)bytes, MSG_PEEK));
+#else
+    auto len(::recv(this->pimpl->fd, buf, bytes, MSG_PEEK));
+#endif
+
+    // store errno
+    int recv_errno(errno);
+
+    // temporarily set socket to nonblocking
+    unsigned long blocking(0);
+    if(ioctlsocket(this->pimpl->fd, FIONBIO, &blocking) != 0)
+    {
+        throw std::system_error(errno, std::system_category(), "ioctl");
+    }
+
+    if(len == SOCKET_ERROR)
+    {
+        if(recv_errno != EAGAIN)
+        {
+            throw std::system_error(recv_errno, std::system_category(), "recv");
+        }
+        else
+        {
+            logger(LOG_DEBUG) << "peek: no bytes available\n";
+        }
+        return false;
+    }
+    else
+    {
+        logger(LOG_DEBUG) << "peek: " << len << " bytes available\n";
+        return true;
+    }
+}
+
 
 std::size_t common_socket::recv(void* buf, std::size_t bytes)
 {
