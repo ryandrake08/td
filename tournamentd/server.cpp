@@ -69,11 +69,15 @@ bool server::poll(const std::function<bool(std::ostream&)>& handle_new_client, c
 
             // handle client i/o
             socketstream ss(*sock);
-            if(handle_client(ss) || !ss.good())
+            char buf;
+            while(sock->peek(&buf, 1))
             {
-                logger(LOG_INFO) << "closing client connection\n";
-                this->clients.erase(*sock);
-                this->all.erase(*sock);
+                if(handle_client(ss) || !ss.good())
+                {
+                    logger(LOG_INFO) << "closing client connection\n";
+                    this->clients.erase(*sock);
+                    this->all.erase(*sock);
+                }
             }
         }
     }

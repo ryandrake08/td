@@ -2,7 +2,6 @@
 #include "json.hpp"
 #include "logger.hpp"
 #include "scope_timer.hpp"
-#include "socketstream.hpp"
 #include <algorithm>
 #include <cstddef>
 #include <sstream>
@@ -297,10 +296,8 @@ bool tournament::handle_new_client(std::ostream& client) const
 // handler for input from existing client
 bool tournament::handle_client_input(std::iostream& client)
 {
-    bool ret(false);
-
     std::string input;
-    // get lines of input
+    // get a line of input
     //
     // note: this is probably the most problematic line of the entire codebase.
     //
@@ -309,8 +306,8 @@ bool tournament::handle_client_input(std::iostream& client)
     // with just a while() statement, we keep trying the read even when there is no input ready, blocking!
     // third try: check input availability first with peek(), only read if something is ready.
     // fourth try: peek() also tries to fill the buffer and will block. implement a non-blocking peek
-    const socketstream& socket_client(dynamic_cast<const socketstream&>(client));
-    while((ret == false) && (socket_client.nonblocking_peek() != EOF) && std::getline(client, input))
+    // fifth try: back to a single if() and getline(). moved the loop outside of handle_client_input
+    if(std::getline(client, input))
     {
         // find start of command
         static const char* whitespace(" \t\r\n");
@@ -370,7 +367,7 @@ bool tournament::handle_client_input(std::iostream& client)
                      output:
                         (none)
                     */
-                    ret = true;
+                    return true;
                 }
                 else if(cmd == "check_authorized")
                 {
@@ -832,7 +829,7 @@ bool tournament::handle_client_input(std::iostream& client)
         }
     }
 
-    return ret;
+    return false;
 }
 
 int tournament::authorize(int code)

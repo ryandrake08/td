@@ -26,7 +26,6 @@ typedef int socklen_t;
 typedef int SOCKET;
 static const SOCKET INVALID_SOCKET = -1;
 static const int SOCKET_ERROR = -1;
-#define ioctlsocket ioctl
 #endif
 
 class eai_error_category : public std::error_category
@@ -240,7 +239,11 @@ bool common_socket::peek(void* buf, std::size_t bytes) const
 
     // temporarily set socket to nonblocking
     unsigned long nonblocking(1);
-    if(ioctlsocket(this->pimpl->fd, FIONBIO, &nonblocking) != 0)
+#if defined(_WIN32)
+    if(::ioctlsocket(this->pimpl->fd, FIONBIO, &nonblocking) != 0)
+#else
+    if(::ioctl(this->pimpl->fd, FIONBIO, &nonblocking) != 0)
+#endif
     {
         throw std::system_error(errno, std::system_category(), "ioctl");
     }
@@ -255,9 +258,13 @@ bool common_socket::peek(void* buf, std::size_t bytes) const
     // store errno
     int recv_errno(errno);
 
-    // temporarily set socket to nonblocking
+    // set socket back to blocking
     unsigned long blocking(0);
-    if(ioctlsocket(this->pimpl->fd, FIONBIO, &blocking) != 0)
+#if defined(_WIN32)
+    if(::ioctlsocket(this->pimpl->fd, FIONBIO, &blocking) != 0)
+#else
+    if(::ioctl(this->pimpl->fd, FIONBIO, &blocking) != 0)
+#endif
     {
         throw std::system_error(errno, std::system_category(), "ioctl");
     }
@@ -277,7 +284,7 @@ bool common_socket::peek(void* buf, std::size_t bytes) const
     else
     {
         logger(LOG_DEBUG) << "peek: " << len << " bytes available\n";
-        return true;
+        return len > 0;
     }
 }
 

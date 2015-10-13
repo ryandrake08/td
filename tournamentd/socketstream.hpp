@@ -30,19 +30,12 @@ public:
 
     virtual ~basic_socketstreambuf() throw()
     {
-        this->sync();
-    }
-
-    int_type peek() const
-    {
-        char buf;
-        if(this->sock.peek(&buf, 1))
+        try
         {
-            return static_cast<int_type>(buf);
+            this->sync();
         }
-        else
+        catch(...)
         {
-            return traits_type::eof();
         }
     }
 
@@ -112,7 +105,6 @@ class basic_socketstream : public std::basic_iostream<T>
     basic_socketstreambuf<T> buf;
 public:
     explicit basic_socketstream(const common_socket& s) : std::basic_iostream<T>(&buf), buf(s) {}
-    typename std::basic_iostream<T>::int_type nonblocking_peek() const { return buf.peek(); }
 };
 
 typedef basic_socketstream<char> socketstream;
