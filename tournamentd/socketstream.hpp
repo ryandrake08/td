@@ -18,12 +18,14 @@ class basic_socketstreambuf : public std::basic_streambuf<T>
     common_socket sock;
     static const int char_size = sizeof(char_type);
     static const std::size_t SIZE = 8192;
-    char_type ibuf[SIZE];
-    char_type obuf[SIZE];
+    char_type* ibuf;
+    char_type* obuf;
 
 public:
     explicit basic_socketstreambuf(common_socket s) : sock(std::move(s))
     {
+        this->ibuf = new char[SIZE];
+        this->obuf = new char[SIZE];
         buf_type::setg(ibuf, ibuf, ibuf);
         buf_type::setp(obuf, obuf + (SIZE - 1));
     }
@@ -33,6 +35,8 @@ public:
         try
         {
             this->sync();
+            delete[] this->ibuf;
+            delete[] this->obuf;
         }
         catch(...)
         {
