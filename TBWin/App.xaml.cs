@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace TBWin
@@ -11,7 +6,7 @@ namespace TBWin
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
-    public partial class App : Application
+    public sealed partial class App : Application, IDisposable
     {
         protected override void OnStartup(StartupEventArgs e)
         {
@@ -40,6 +35,11 @@ namespace TBWin
             }
 
             _mainWindow.Show();
+        }
+
+        public void Dispose()
+        {
+            ((IDisposable)_mainWindow).Dispose();
         }
 
         private MainWindow _mainWindow;

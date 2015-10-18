@@ -1,32 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Net;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace TBWin
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public sealed partial class MainWindow : Window, IDisposable
     {
         public MainWindow()
         {
             InitializeComponent();
 
             _daemon = new TournamentDaemon();
-            int port = _daemon.Start(0);
+            int port = _daemon.Start(TournamentSession.ClientIdentifier());
             _daemon.Publish("TBWin");
+            _session = new TournamentSession();
+            _session.Connect(IPAddress.Loopback, port);
         }
 
         public JsonDocument Document
@@ -60,8 +52,15 @@ namespace TBWin
             Application.Current.Shutdown();
         }
 
+        public void Dispose()
+        {
+            ((IDisposable)_daemon).Dispose();
+            ((IDisposable)_session).Dispose();
+        }
+
         private JsonDocument _document;
         private TournamentDaemon _daemon;
+        private TournamentSession _session;
     }
 
     public static class Commands

@@ -1,9 +1,10 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using ZeroconfService;
 
 namespace TBWin
 {
-    class TournamentDaemon
+    class TournamentDaemon : IDisposable
     {
         public int Start(int code)
         {
@@ -76,6 +77,11 @@ namespace TBWin
 
             // join thread
             _thread.Join();
+        }
+
+        public void Dispose()
+        {
+            _netService.Dispose();
         }
 
         // Port in use

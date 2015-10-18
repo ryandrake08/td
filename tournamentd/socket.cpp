@@ -271,14 +271,20 @@ bool common_socket::peek(void* buf, std::size_t bytes) const
 
     if(len == SOCKET_ERROR)
     {
-        if(recv_errno != EAGAIN)
+        if(recv_errno == EAGAIN)
         {
-            throw std::system_error(recv_errno, std::system_category(), "recv");
-        }
-        else
+			logger(LOG_DEBUG) << "peek: no bytes available\n";
+		}
+#if defined(_WIN32)
+		else if (recv_errno == 42 || recv_errno == 0)
+		{
+			logger(LOG_DEBUG) << "peek: no bytes available\n";
+		}
+#endif
+		else
         {
-            logger(LOG_DEBUG) << "peek: no bytes available\n";
-        }
+			throw std::system_error(recv_errno, std::system_category(), "recv");
+		}
         return false;
     }
     else

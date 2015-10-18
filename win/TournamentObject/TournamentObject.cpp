@@ -1,6 +1,10 @@
 #include "TournamentObject.h"
 #include "../../tournamentd/tournament.hpp"
 
+using namespace System;
+using namespace System::Reflection;
+[assembly:AssemblyVersion("1.0.0.0")];
+
 TBWin::TournamentObject::TournamentObject() : tourney(new tournament)
 {
 }
