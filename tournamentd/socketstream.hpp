@@ -24,8 +24,8 @@ class basic_socketstreambuf : public std::basic_streambuf<T>
 public:
     explicit basic_socketstreambuf(common_socket s) : sock(std::move(s))
     {
-        this->ibuf = new char[SIZE];
-        this->obuf = new char[SIZE];
+        this->ibuf = new char_type[SIZE];
+        this->obuf = new char_type[SIZE];
         buf_type::setg(ibuf, ibuf, ibuf);
         buf_type::setp(obuf, obuf + (SIZE - 1));
     }
