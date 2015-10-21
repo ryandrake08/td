@@ -34,12 +34,12 @@ static void ensure_type(const cJSON* object, int type)
 template <typename Ts, typename Td>
 static Td bounds_checking_cast(Ts from)
 {
-    if((double)from < (double)std::numeric_limits<Td>::lowest())
+    if(static_cast<double>(from) < static_cast<double>(std::numeric_limits<Td>::lowest()))
     {
         throw std::out_of_range("value " + std::to_string(from) + " would underflow " + std::to_string(std::numeric_limits<Td>::lowest()));
     }
 
-    if((double)from > (double)std::numeric_limits<Td>::max())
+    if(static_cast<double>(from) > static_cast<double>(std::numeric_limits<Td>::max()))
     {
         throw std::out_of_range("value " + std::to_string(from) + " would overflow " + std::to_string(std::numeric_limits<Td>::max()));
     }

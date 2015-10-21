@@ -1,10 +1,10 @@
 LIBOUT = libpoker_tournament.a
-LIBOBJS = datetime.o gameinfo.o json.o logger.o program.o server.o socket.o tournament.o types.o cjson/cJSON.o
+LIBOBJS = datetime.o gameinfo.o json.o logger.o program.o scope_timer.o server.o socket.o tournament.o types.o cjson/cJSON.o
 TESTOBJS = test.o tests.o
 SERVEROBJS = main.o program.o bonjour.o
 
 CFLAGS = -g
-CXXFLAGS = -g -std=c++11
+CXXFLAGS = -g -std=c++11 -Wall
 LDFLAGS = -L/usr/local/lib
 
 ifeq ($(shell uname -s),Darwin)

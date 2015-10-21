@@ -175,7 +175,7 @@ common_socket common_socket::accept() const
     return common_socket(new impl(sock));
 }
 
-int do_select(int max_fd, fd_set* fds, long usec)
+int do_select(SOCKET max_fd, fd_set* fds, long usec)
 {
     // timeout
     timeval tv;
@@ -205,7 +205,7 @@ bool common_socket::select(long usec)
     {
         FD_SET(this->pimpl->fd, &fds);
     }
-    return do_select((int)this->pimpl->fd+1, &fds, usec) > 0;
+    return do_select(this->pimpl->fd+1, &fds, usec) > 0;
 }
 
 // select on multiple sockets
@@ -217,7 +217,7 @@ std::set<common_socket> common_socket::select(const std::set<common_socket>& soc
     std::for_each(sockets.begin(), sockets.end(), [&fds](const common_socket& s) { if(s.pimpl) FD_SET(s.pimpl->fd, &fds); });
 
     // set is ordered, so max fd is the last element
-    int max_fd(sockets.begin() == sockets.end() ? 0 :(int)sockets.rbegin()->pimpl->fd+1);
+    auto max_fd(sockets.begin() == sockets.end() ? 0 :sockets.rbegin()->pimpl->fd+1);
 
     // do the select
     do_select(max_fd, &fds, usec);

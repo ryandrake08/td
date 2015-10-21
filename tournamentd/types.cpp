@@ -24,7 +24,7 @@ td::funding_source::funding_source() : type(td::buyin), forbid_after_blind_level
 {
 }
 
-td::player::player() : added_at(datetime::now()), player_id(std::to_string(std::uniform_int_distribution<int>(0, std::numeric_limits<int>::max())(engine)))
+td::player::player() : player_id(std::to_string(std::uniform_int_distribution<int>(0, std::numeric_limits<int>::max())(engine))), added_at(datetime::now())
 {
 }
 
