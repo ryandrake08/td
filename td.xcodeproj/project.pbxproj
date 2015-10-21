@@ -70,7 +70,6 @@
 		9476F4F01B3C3F8300A158F8 /* json.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4D81B3C3F8300A158F8 /* json.cpp */; };
 		9476F4F11B3C3F8300A158F8 /* logger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4DA1B3C3F8300A158F8 /* logger.cpp */; };
 		9476F4F21B3C3F8300A158F8 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4DC1B3C3F8300A158F8 /* main.cpp */; };
-		9476F4F31B3C3F8300A158F8 /* process.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4DD1B3C3F8300A158F8 /* process.cpp */; };
 		9476F4F41B3C3F8300A158F8 /* program.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4DF1B3C3F8300A158F8 /* program.cpp */; };
 		9476F4F51B3C3F8300A158F8 /* server.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E11B3C3F8300A158F8 /* server.cpp */; };
 		9476F4F61B3C3F8300A158F8 /* socket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E31B3C3F8300A158F8 /* socket.cpp */; };
@@ -475,14 +474,11 @@
 		9476F4D41B3C3F8300A158F8 /* datetime.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = datetime.hpp; sourceTree = "<group>"; };
 		9476F4D51B3C3F8300A158F8 /* gameinfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gameinfo.cpp; sourceTree = "<group>"; };
 		9476F4D61B3C3F8300A158F8 /* gameinfo.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = gameinfo.hpp; sourceTree = "<group>"; };
-		9476F4D71B3C3F8300A158F8 /* ivectorstream.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ivectorstream.hpp; sourceTree = "<group>"; };
 		9476F4D81B3C3F8300A158F8 /* json.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = json.cpp; sourceTree = "<group>"; };
 		9476F4D91B3C3F8300A158F8 /* json.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = json.hpp; sourceTree = "<group>"; };
 		9476F4DA1B3C3F8300A158F8 /* logger.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = logger.cpp; sourceTree = "<group>"; };
 		9476F4DB1B3C3F8300A158F8 /* logger.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = logger.hpp; sourceTree = "<group>"; };
 		9476F4DC1B3C3F8300A158F8 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		9476F4DD1B3C3F8300A158F8 /* process.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = process.cpp; sourceTree = "<group>"; };
-		9476F4DE1B3C3F8300A158F8 /* process.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = process.hpp; sourceTree = "<group>"; };
 		9476F4DF1B3C3F8300A158F8 /* program.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = program.cpp; sourceTree = "<group>"; };
 		9476F4E01B3C3F8300A158F8 /* program.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = program.hpp; sourceTree = "<group>"; };
 		9476F4E11B3C3F8300A158F8 /* server.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = server.cpp; sourceTree = "<group>"; };
@@ -813,14 +809,11 @@
 				9476F4D41B3C3F8300A158F8 /* datetime.hpp */,
 				9476F4D51B3C3F8300A158F8 /* gameinfo.cpp */,
 				9476F4D61B3C3F8300A158F8 /* gameinfo.hpp */,
-				9476F4D71B3C3F8300A158F8 /* ivectorstream.hpp */,
 				9476F4D81B3C3F8300A158F8 /* json.cpp */,
 				9476F4D91B3C3F8300A158F8 /* json.hpp */,
 				9476F4DA1B3C3F8300A158F8 /* logger.cpp */,
 				9476F4DB1B3C3F8300A158F8 /* logger.hpp */,
 				9476F4DC1B3C3F8300A158F8 /* main.cpp */,
-				9476F4DD1B3C3F8300A158F8 /* process.cpp */,
-				9476F4DE1B3C3F8300A158F8 /* process.hpp */,
 				9476F4DF1B3C3F8300A158F8 /* program.cpp */,
 				9476F4E01B3C3F8300A158F8 /* program.hpp */,
 				AD1B250A1BA8773900C4BDDC /* scope_timer.cpp */,
@@ -1566,7 +1559,6 @@
 				9476F4EC1B3C3F8300A158F8 /* cJSON.c in Sources */,
 				9476F4ED1B3C3F8300A158F8 /* bonjour.cpp in Sources */,
 				9476F4F71B3C3F8300A158F8 /* tournament.cpp in Sources */,
-				9476F4F31B3C3F8300A158F8 /* process.cpp in Sources */,
 				AD1B250C1BA8773900C4BDDC /* scope_timer.cpp in Sources */,
 				9476F4F11B3C3F8300A158F8 /* logger.cpp in Sources */,
 				9476F4F21B3C3F8300A158F8 /* main.cpp in Sources */,
