@@ -273,7 +273,7 @@ std::vector<json> json::value() const
         {
             throw std::out_of_range("array item does not exist: " + std::to_string(i));
         }
-        ret.push_back(json(const_cast<cJSON*>(cJSON_Duplicate(item, 1))));
+        ret.push_back(json(cJSON_Duplicate(item, 1)));
     }
     return ret;
 }
