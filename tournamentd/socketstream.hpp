@@ -62,7 +62,7 @@ private:
     {
         if(c != traits_type::eof())
         {
-            *buf_type::pptr() = c;
+            *buf_type::pptr() = static_cast<char_type>(c);
             buf_type::pbump(1);
         }
 

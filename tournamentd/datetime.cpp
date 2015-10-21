@@ -13,7 +13,7 @@ typedef std::chrono::system_clock sc;
 
 static std::tm inline_strptime(const char* iso8601)
 {
-    struct std::tm tmp = {0};
+    struct std::tm tmp = {};
     ::strptime(iso8601, "%Y-%m-%dT%H:%M:%S%z", &tmp);
     return tmp;
 }

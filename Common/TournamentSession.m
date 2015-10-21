@@ -313,7 +313,7 @@ NSString* const TournamentSessionUpdatedNotification = @"TournamentSessionUpdate
 
 #pragma mark Tournament Messages
 
-- (void)handleMessage:(id)json fromConnection:(TournamentConnection*)tc {
+- (void)handleMessage:(NSMutableDictionary*)json fromConnection:(TournamentConnection*)tc {
     // look for command key
     NSNumber* cmdkey = json[@"echo"];
     if(cmdkey) {

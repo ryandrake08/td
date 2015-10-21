@@ -215,7 +215,7 @@ void tournament::handle_cmd_fund_player(const json& in, json& out)
         throw td::protocol_error("must specify player and source");
     }
 
-    this->game_info.fund_player(player_id, source_id, this->game_info.get_current_blind_level());
+    this->game_info.fund_player(player_id, source_id);
 }
 
 void tournament::handle_cmd_plan_seating(const json& in, json& out)

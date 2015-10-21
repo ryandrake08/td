@@ -30,8 +30,7 @@
     [(UILabel*)[cell viewWithTag:102] setText:[object[@"count_available"] stringValue]];
 
     // set up ellipse view
-    TBEllipseView* ellipseView = (TBEllipseView*)[cell viewWithTag:100];
-    [ellipseView setColor:[TBColor colorWithName:object[@"color"]]];
+    [(TBEllipseView*)[cell viewWithTag:100] setColor:[TBColor colorWithName:object[@"color"]]];
     
     return cell;
 }

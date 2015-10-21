@@ -185,7 +185,7 @@ public:
     // ----- funding -----
     
     // fund a player, (re-)buyin or addon
-    void fund_player(const td::player_id_t& player_id, const td::funding_source_id_t& src, std::size_t current_blind_level);
+    void fund_player(const td::player_id_t& player_id, const td::funding_source_id_t& src);
 
     // calculate number of chips per denomination for this funding source, given totals and number of players
     std::vector<td::player_chips> chips_for_buyin(const td::funding_source_id_t& src, std::size_t max_expected_players) const;

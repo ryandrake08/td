@@ -195,6 +195,8 @@
             // set buttons
             [actionSheet addButtonWithTitle:NSLocalizedString(@"Seat Player", nil)];
             [commands addObject:@(kCommandSeatPlayer)];
+        } else {
+            return;
         }
 
         // set context

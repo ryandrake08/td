@@ -177,9 +177,9 @@ void gameinfo::dump_state(json& state) const
 }
 
 // duration to string
-static std::ostream& operator<<(std::ostream& os, const std::chrono::milliseconds& ms)
+static std::ostream& operator<<(std::ostream& os, const std::chrono::milliseconds& milliseconds)
 {
-    auto duration(ms.count());
+    auto duration(milliseconds.count());
 
     if(duration < 60000) {
         // SS.MSS
@@ -594,18 +594,18 @@ std::vector<td::player_movement> gameinfo::bust_player(const td::player_id_t& pl
     };
     std::vector<td::player_id_t> playing(std::for_each(this->seats.begin(), this->seats.end(), collector(this->buyins)));
 
-    // if only one bought-in playsers still seated
+    // if only one bought-in players still seated
     if(playing.size() == 1)
     {
-        auto player_id(playing.front());
+        auto first_player_id(playing.front());
 
         // add to the busted out list
-        this->players_finished.push_front(player_id);
+        this->players_finished.push_front(first_player_id);
 
         // remove the player
-        this->remove_player(player_id);
+        this->remove_player(first_player_id);
 
-        logger(LOG_INFO) << "winning player " << this->player_description(player_id) << '\n';
+        logger(LOG_INFO) << "winning player " << this->player_description(first_player_id) << '\n';
 
         // stop the game and reset all seating (stops additional entrants)
         this->stop();
@@ -791,7 +791,7 @@ std::size_t gameinfo::try_break_table(std::vector<td::player_movement>& movement
 }
 
 // fund a player, (re-)buyin or addon
-void gameinfo::fund_player(const td::player_id_t& player_id, const td::funding_source_id_t& src, std::size_t current_blind_level)
+void gameinfo::fund_player(const td::player_id_t& player_id, const td::funding_source_id_t& src)
 {
     if(src >= this->funding_sources.size())
     {
@@ -800,7 +800,7 @@ void gameinfo::fund_player(const td::player_id_t& player_id, const td::funding_s
 
     const td::funding_source& source(this->funding_sources[src]);
 
-    if(current_blind_level > source.forbid_after_blind_level)
+    if(this->current_blind_level > source.forbid_after_blind_level)
     {
         throw td::protocol_error("too late in the game for this funding source");
     }

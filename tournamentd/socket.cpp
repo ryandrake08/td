@@ -175,7 +175,7 @@ common_socket common_socket::accept() const
     return common_socket(new impl(sock));
 }
 
-int do_select(SOCKET max_fd, fd_set* fds, long usec)
+static int do_select(SOCKET max_fd, fd_set* fds, long usec)
 {
     // timeout
     timeval tv;
@@ -289,7 +289,7 @@ bool common_socket::peek(void* buf, std::size_t bytes) const
 }
 
 
-std::size_t common_socket::recv(void* buf, std::size_t bytes)
+long common_socket::recv(void* buf, std::size_t bytes)
 {
     logger(LOG_DEBUG) << "receiving " << bytes << " on " << *this << '\n';
     if(!this->pimpl)
@@ -311,10 +311,10 @@ std::size_t common_socket::recv(void* buf, std::size_t bytes)
 
     logger(LOG_DEBUG) << "received " << len << " bytes\n";
 
-    return static_cast<std::size_t>(len);
+    return len;
 }
 
-std::size_t common_socket::send(const void* buf, std::size_t bytes)
+long common_socket::send(const void* buf, std::size_t bytes)
 {
     logger(LOG_DEBUG) << "sending " << bytes << " on " << *this << '\n';
     if(!this->pimpl)
@@ -336,7 +336,7 @@ std::size_t common_socket::send(const void* buf, std::size_t bytes)
 
     logger(LOG_DEBUG) << "sent " << len << " bytes\n";
 
-    return static_cast<std::size_t>(len);
+    return len;
 }
 
 // is socket listening
@@ -433,7 +433,7 @@ unix_socket::unix_socket(const char* path, bool client, int backlog)
     std::strncpy(addr.sun_path, path, sizeof(addr.sun_path)-1);
     addr.sun_family = AF_UNIX;
 #if defined(__APPLE__)
-    addr.sun_len = SUN_LEN(&addr);
+    addr.sun_len = static_cast<unsigned char>(SUN_LEN(&addr));
 #endif
 
     // create the socket
@@ -481,7 +481,7 @@ unix_socket::unix_socket(const char* path, bool client, int backlog)
 inet_socket::inet_socket(const char* host, const char* service, int family) : common_socket()
 {
     // set up hints
-    addrinfo hints = {0};
+    addrinfo hints = {};
     hints.ai_family = PF_UNSPEC;
     hints.ai_socktype = SOCK_STREAM;
     hints.ai_flags = 0;
@@ -524,7 +524,7 @@ inet_socket::inet_socket(const char* host, const char* service, int family) : co
 inet_socket::inet_socket(const char* service, int family, int backlog) : common_socket()
 {
     // set up hints
-    addrinfo hints = {0};
+    addrinfo hints = {};
     hints.ai_family = family;
     hints.ai_socktype = SOCK_STREAM;
     hints.ai_flags = AI_PASSIVE;

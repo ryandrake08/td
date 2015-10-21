@@ -23,7 +23,7 @@ const char* TournamentSocketDirectory(void) {
     if ((n <= 0) || (n >= sizeof(tmpdir)) || (n >= maxLength)) {
         n = strlcpy(tmpdir, getenv("TMPDIR"), sizeof(tmpdir));
         if(n >= maxLength) {
-            strcpy(tmpdir, "/tmp");
+            strncpy(tmpdir, "/tmp", PATH_MAX);
         }
     }
     return tmpdir;

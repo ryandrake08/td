@@ -31,8 +31,8 @@ public:
     bool peek(void* buf, std::size_t bytes) const;
 
     // data transfer
-    std::size_t recv(void* buf, std::size_t bytes);
-    std::size_t send(const void* buf, std::size_t bytes);
+    long recv(void* buf, std::size_t bytes);
+    long send(const void* buf, std::size_t bytes);
 
     // is socket listening
     bool listening() const;

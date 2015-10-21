@@ -42,7 +42,7 @@ void CFStreamCreatePairWithUnixSocket(CFAllocatorRef alloc, CFStringRef name, CF
     // Set up addr
     strncpy(addr.sun_path, path, sizeof(addr.sun_path)-1);
     addr.sun_family = AF_UNIX;
-    addr.sun_len = SUN_LEN(&addr);
+    addr.sun_len = (unsigned char)SUN_LEN(&addr);
 
     // Create socket
     int sock = socket(PF_UNIX, SOCK_STREAM, 0);

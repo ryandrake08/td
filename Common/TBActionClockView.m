@@ -9,7 +9,7 @@
 
 #import "TBActionClockView.h"
 
-CGContextRef TBGraphicsGetCurrentContext() {
+static CGContextRef TBGraphicsGetCurrentContext() {
 #if TARGET_OS_IPHONE
     return UIGraphicsGetCurrentContext();
 #else
@@ -205,7 +205,7 @@ CGContextRef TBGraphicsGetCurrentContext() {
             NSString *secondNumber = [NSString stringWithFormat:@"%@%d", i==0 ? @" ": @"", (i + 1) * 5];
             CGFloat labelX = center.x + (markingDistanceFromCenter - lineHeight/2.0f) * cos((M_PI/180) * (i+offset) * 30 + M_PI);
             CGFloat labelY = center.y + (markingDistanceFromCenter - lineHeight/2.0f) * sin((M_PI/180) * (i+offset) * 30);
-            CGRect rect = CGRectMake(labelX - lineHeight/2.0f, labelY - lineHeight/2.0f, lineHeight, lineHeight);
+            CGRect drawRect = CGRectMake(labelX - lineHeight/2.0f, labelY - lineHeight/2.0f, lineHeight, lineHeight);
 
             // Un-flip text local coordinates for drawing on iOS
             CGContextSaveGState(ctx);
@@ -215,7 +215,7 @@ CGContextRef TBGraphicsGetCurrentContext() {
             CGContextTranslateCTM(ctx, -labelX, -labelY);
 #endif
             // Draw text
-            [secondNumber drawInRect:rect withAttributes:@{NSForegroundColorAttributeName: self.digitColor, NSFontAttributeName: self.digitFont}];
+            [secondNumber drawInRect:drawRect withAttributes:@{NSForegroundColorAttributeName: self.digitColor, NSFontAttributeName: self.digitFont}];
 
             // Restore coordinate system
             CGContextRestoreGState(ctx);

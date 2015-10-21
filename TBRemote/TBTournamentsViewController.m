@@ -151,7 +151,7 @@
     }
 }
 
-#pragma UIAlertViewDelegate
+#pragma mark NSArrayUIAlertViewDelegate
 
 - (void)alertView:(UIAlertView*)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
     if(buttonIndex == [alertView cancelButtonIndex]) {
@@ -179,7 +179,7 @@
         // connect
         [self setCurrentService:newArray[0]];
         if([[self session] connectToNetService:newArray[0]]) {
-            TBAppDelegate* appDelegate = (TBAppDelegate*)[[UIApplication sharedApplication] delegate];
+            TBAppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
             [(UITabBarController*)[[appDelegate window] rootViewController] setSelectedIndex:1];
         } else {
             // TODO: handle error

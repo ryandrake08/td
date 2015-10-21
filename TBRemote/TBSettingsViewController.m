@@ -95,10 +95,10 @@
 
     // save every time configuration changes
     [[NSNotificationCenter defaultCenter] addObserverForName:kConfigurationUpdatedNotification object:nil queue:nil usingBlock:^(NSNotification* note) {
-        NSError* error;
-        if([[self class] saveConfig:[self configuration] withError:&error] == NO) {
+        NSError* saveError;
+        if([[self class] saveConfig:[self configuration] withError:&saveError] == NO) {
             // TODO: something with the error
-            NSLog(@"%@", error);
+            NSLog(@"%@", saveError);
         }
     }];
 

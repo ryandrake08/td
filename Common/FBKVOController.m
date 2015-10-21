@@ -336,7 +336,7 @@ static NSString *describe_options(NSKeyValueObservingOptions options)
           [observer performSelector:info->_action withObject:change withObject:object];
 #pragma clang diagnostic pop
         } else {
-          [observer observeValueForKeyPath:keyPath ofObject:object change:change context:info->_context];
+          [(NSObject*)observer observeValueForKeyPath:keyPath ofObject:object change:change context:info->_context];
         }
       }
     }

@@ -227,7 +227,7 @@ static NSDictionary* cssHexCodes = nil;
         }
 
         // Set the value in cache, storing NSNull on failure
-        colorNameCache[colorName] = (color ?: (id)[NSNull null]);
+        colorNameCache[colorName] = (color ? color : [NSNull null]);
     }
     
     return color;

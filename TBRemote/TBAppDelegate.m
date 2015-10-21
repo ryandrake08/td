@@ -176,6 +176,9 @@
         [localNotification setFireDate:[NSDate dateWithTimeIntervalSinceNow:interval]];
         [localNotification setAlertBody:alertBody];
         [localNotification setSoundName:soundName];
+        if([localNotification respondsToSelector:@selector(setAlertTitle:)]) {
+            [localNotification setAlertTitle:alertTitle];
+        }
         NSLog(@"Creating new notification:%@ for %@", [localNotification alertBody], [localNotification fireDate]);
         [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
     }

@@ -87,7 +87,7 @@
 }
 
 - (void)connectToTournamentMenuItem:(id)sender {
-    if(![[self session] connectToTournamentService:[sender representedObject]]) {
+    if(![[self session] connectToTournamentService:[(NSMenuItem*)sender representedObject]]) {
         // TODO: handle error
     }
 }
