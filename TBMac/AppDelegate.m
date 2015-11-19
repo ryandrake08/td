@@ -10,6 +10,8 @@
 
 @interface AppDelegate ()
 
+@property (strong) NSObject* activity;
+
 @end
 
 @implementation AppDelegate
@@ -20,6 +22,18 @@
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
     // Insert code here to tear down your application
+}
+
+- (void)applicationDidResignActive:(NSNotification *)aNotification {
+    if ([[NSProcessInfo processInfo] respondsToSelector:@selector(beginActivityWithOptions:reason:)]) {
+        [self setActivity:[[NSProcessInfo processInfo] beginActivityWithOptions:NSActivityIdleSystemSleepDisabled reason:@"need to continue timer in the background"]];
+    }
+}
+
+- (void)applicationDidBecomeActive:(NSNotification *)aNotification {
+    if ([[NSProcessInfo processInfo] respondsToSelector:@selector(endActivity:)]) {
+        [[NSProcessInfo processInfo] endActivity:[self activity]];
+    }
 }
 
 @end
