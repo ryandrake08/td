@@ -39,7 +39,7 @@ namespace TBWin
 
         public void Dispose()
         {
-            ((IDisposable)_mainWindow).Dispose();
+            _mainWindow.Dispose();
         }
 
         private MainWindow _mainWindow;

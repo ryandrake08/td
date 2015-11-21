@@ -54,8 +54,8 @@ namespace TBWin
 
         public void Dispose()
         {
-            ((IDisposable)_daemon).Dispose();
-            ((IDisposable)_session).Dispose();
+            _daemon.Dispose();
+            _session.Dispose();
         }
 
         private JsonDocument _document;

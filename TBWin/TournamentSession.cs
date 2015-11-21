@@ -196,7 +196,7 @@ namespace TBWin
 
         public void Dispose()
         {
-            ((IDisposable)_client).Dispose();
+            _client.Close();
         }
 
         // Fields
