@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Resources;
 using System.Windows;
@@ -74,7 +75,7 @@ namespace TBWin
             set { _path = value; }
         }
 
-        public dynamic Content
+        public Dictionary<string,dynamic> Content
         {
             get { return _content; }
             set { _content = value; }
@@ -180,7 +181,7 @@ namespace TBWin
                     {
                         var json = sr.ReadToEnd();
                         _path = path;
-                        _content = JsonConvert.DeserializeObject(json);
+                        _content = JsonConvert.DeserializeObject<Dictionary<string,dynamic>>(json);
                         _isDirty = false;
                     }
                     return true;
@@ -225,7 +226,7 @@ namespace TBWin
         }
 
         private string _path = "";
-        private dynamic _content = null;
+        private Dictionary<string,dynamic> _content = null;
         private bool _isDirty = false;
 
         ResourceManager _resourceManager = TBWin.Properties.Resources.ResourceManager;
