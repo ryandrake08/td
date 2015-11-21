@@ -127,42 +127,32 @@ namespace TBWin
         private Dictionary<long, CommandHandler> _commandHandlers;
         private static long _incrementingKey = 0;
 
-        // Command sender
-        private async Task SendCommand(string command)
+        // Command sender without argument
+        private async Task SendCommand(string command, CommandHandler handler)
         {
-            // Send asynchronously
-            using (var writer = new StreamWriter(_client.GetStream(), new UTF8Encoding(false), 1024, true))
-            {
-                await writer.WriteLineAsync(command);
-            }
+            await SendCommand(command, new Dictionary<string,dynamic>(), handler);
         }
 
         // Command sender with argument
         private async Task SendCommand(string command, Dictionary<string,dynamic> obj, CommandHandler handler)
         {
-            // Add extra stuff to each command
-            var json = obj;
-            if(json == null)
-            {
-                json = new Dictionary<string,dynamic>();
-            }
-
             // Append to every command: authentication
-            var cid = ClientIdentifier();
-            json["authenticate"] = cid;
+            obj["authenticate"] = ClientIdentifier();
 
             // Append to every command: command key
-            var key = _incrementingKey++;
-            json["echo"] = key;
+            obj["echo"] = _incrementingKey;
 
             // Add delegate to our dicationary
-            _commandHandlers[key] = handler;
+            _commandHandlers[_incrementingKey] = handler;
 
-            // Serialize
-            var arg = _serializer.Serialize(json);
+            // Increment key
+            _incrementingKey++;
 
-            // Send
-            await SendCommand(command + ' ' + arg);
+            // Send asynchronously
+            using (var writer = new StreamWriter(_client.GetStream(), new UTF8Encoding(false), 1024, true))
+            {
+                await writer.WriteLineAsync(command + ' ' + _serializer.Serialize(obj));
+            }
         }
 
         // Return the random client identifier for this device
@@ -182,7 +172,7 @@ namespace TBWin
 
         public async Task CheckAuthorized(Action<bool> action)
         {
-            await SendCommand("check_authorized", null, delegate (Dictionary<string,dynamic> obj, string error)
+            await SendCommand("check_authorized", delegate (Dictionary<string,dynamic> obj, string error)
             {
                 if(error != null)
                 {
