@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Resources;
+using System.Web.Script.Serialization;
 using System.Windows;
 using Microsoft.Win32;
-using Newtonsoft.Json;
 
 namespace TBWin
 {
@@ -12,10 +12,12 @@ namespace TBWin
     {
         internal JsonDocument()
         {
+            _serializer = new JavaScriptSerializer();
         }
 
         internal JsonDocument(string path)
         {
+            _serializer = new JavaScriptSerializer();
             Open(path);
         }
 
@@ -132,7 +134,7 @@ namespace TBWin
         {
             try
             {
-                string json = JsonConvert.SerializeObject(_content);
+                string json = _serializer.Serialize(_content);
                 using (var sw = new StreamWriter(path))
                 {
                     _path = path;
@@ -181,7 +183,7 @@ namespace TBWin
                     {
                         var json = sr.ReadToEnd();
                         _path = path;
-                        _content = JsonConvert.DeserializeObject<Dictionary<string,dynamic>>(json);
+                        _content = _serializer.Deserialize<Dictionary<string, dynamic>>(json);
                         _isDirty = false;
                     }
                     return true;
@@ -225,6 +227,7 @@ namespace TBWin
             return false;
         }
 
+        private JavaScriptSerializer _serializer;
         private string _path = "";
         private Dictionary<string,dynamic> _content = null;
         private bool _isDirty = false;

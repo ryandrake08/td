@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
+using System.Web.Script.Serialization;
 using System.Text;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 
 namespace TBWin
 {
@@ -41,6 +40,7 @@ namespace TBWin
         // Constructor
         public TournamentSession()
         {
+            _serializer = new JavaScriptSerializer();
             _state = new Dictionary<string,dynamic>();
             _client = new TcpClient();
             _commandHandlers = new Dictionary<long, CommandHandler>();
@@ -81,7 +81,7 @@ namespace TBWin
                 string line;
                 while ((line = await reader.ReadLineAsync()) != null)
                 {
-                    var json = JsonConvert.DeserializeObject<Dictionary<string,dynamic>>(line);
+                    var json = _serializer.Deserialize<Dictionary<string, dynamic>>(line);
                     try
                     {
                         // Look for command key
@@ -159,7 +159,7 @@ namespace TBWin
             _commandHandlers[key] = handler;
 
             // Serialize
-            var arg = JsonConvert.SerializeObject(json);
+            var arg = _serializer.Serialize(json);
 
             // Send
             await SendCommand(command + ' ' + arg);
@@ -210,6 +210,7 @@ namespace TBWin
         }
 
         // Fields
+        private JavaScriptSerializer _serializer;
         private TcpClient _client;
         private Dictionary<string,dynamic> _state;
     }
