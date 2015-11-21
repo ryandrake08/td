@@ -57,7 +57,7 @@
     if(currentBlindLevel != 0) {
         [[self session] togglePauseGame];
     } else {
-        [[self session] startGameAt:nil];
+        [[self session] startGame];
     }
 }
 

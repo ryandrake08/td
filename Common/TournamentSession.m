@@ -189,11 +189,11 @@ NSString* const TournamentSessionUpdatedNotification = @"TournamentSessionUpdate
 }
 
 - (void)startGameAt:(NSDate*)datetime {
-    if(datetime) {
-        [self sendCommand:@"start_game" withData:@{@"start_at" : datetime} andBlock:nil];
-    } else {
-        [self sendCommand:@"start_game" withData:nil andBlock:nil];
-    }
+    [self sendCommand:@"start_game" withData:@{@"start_at" : datetime} andBlock:nil];
+}
+
+- (void)startGame {
+    [self sendCommand:@"start_game" withData:nil andBlock:nil];
 }
 
 - (void)stopGame {

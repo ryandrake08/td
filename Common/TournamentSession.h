@@ -47,6 +47,7 @@ extern NSString* const TournamentSessionUpdatedNotification;
 - (void)getConfigWithBlock:(void(^)(id))block;
 - (void)configure:(id)config withBlock:(void(^)(id))block;
 - (void)startGameAt:(NSDate*)datetime;
+- (void)startGame;
 - (void)stopGame;
 - (void)resumeGame;
 - (void)pauseGame;
