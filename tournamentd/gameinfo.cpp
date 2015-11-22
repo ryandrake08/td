@@ -55,6 +55,7 @@ void gameinfo::configure(const json& config)
     config.get_value("cost_currency", this->cost_currency);
     config.get_value("equity_currency", this->equity_currency);
     config.get_values("funding_sources", this->funding_sources);
+    config.get_value("percent_seats_paid", this->percent_seats_paid);
 
     if(config.get_values("available_chips", this->available_chips))
     {
