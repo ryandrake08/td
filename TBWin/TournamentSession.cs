@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -13,10 +12,20 @@ namespace TBWin
 {
     public static class DictionaryExtension
     {
-        // This is the extension method.
-        // The first parameter takes the "this" modifier
-        // and specifies the type for which the method is defined.
-        public static void AddRangeAndUpdate<T, S>(this Dictionary<T, S> source, Dictionary<T, S> collection)
+        public static bool DeepContains<T,S>(this IDictionary<T,S> source, KeyValuePair<T,S> item)
+        {
+            if(source.ContainsKey(item.Key))
+            {
+                var value = source[item.Key];
+                if(value.Equals(item.Value))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public static void AddRange<T,S>(this IDictionary<T,S> source, ICollection<KeyValuePair<T,S>> collection)
         {
             if (collection == null)
             {
@@ -25,15 +34,31 @@ namespace TBWin
 
             foreach (var item in collection)
             {
-                if (!source.ContainsKey(item.Key))
-                {
-                    source.Add(item.Key, item.Value);
-                }
-                else if(!source[item.Key].Equals(item.Value))
+                if (!source.Contains(item))
                 {
                     source[item.Key] = item.Value;
                 }
             }
+        }
+
+        public static Dictionary<T,S> Except<T,S>(this ICollection<KeyValuePair<T,S>> source, ICollection<KeyValuePair<T,S>> collection)
+        {
+            if (collection == null)
+            {
+                throw new ArgumentNullException("Collection is null");
+            }
+
+            var ret = new Dictionary<T, S>();
+
+            foreach (var item in source)
+            {
+                if (!collection.Contains(item))
+                {
+                    ret[item.Key] = item.Value;
+                }
+            }
+
+            return ret;
         }
     }
 
@@ -81,13 +106,24 @@ namespace TBWin
             await StartReader();
         }
 
-        public void SelectiveConfigureAndUpdate(Dictionary<string,dynamic> config, ref Dictionary<string,dynamic> newConfig)
+        public async Task SelectiveConfigure(Dictionary<string,dynamic> config, Dictionary<string,dynamic> referenceConfig, Action<Dictionary<string, dynamic>> action)
         {
             var configToSend = config.Except(_state);
-            if(configToSend.Count() > 0)
+            if(configToSend.Count > 0)
             {
-                System.Diagnostics.Debug.WriteLine("Sending " + configToSend.Count() + " configuration items");
-                // TODO: Call Configure()
+                System.Diagnostics.Debug.WriteLine("Sending " + configToSend.Count + " configuration items");
+                await Configure(configToSend, delegate (Dictionary<string, dynamic> returnedConfig)
+                {
+                    var differences = returnedConfig.Except(referenceConfig);
+                    if (differences.Count > 0)
+                    {
+                        System.Diagnostics.Debug.WriteLine("Updating existing config with " + differences.Count + " configuration items");
+                        if (action != null)
+                        {
+                            action(differences);
+                        }
+                    }
+                });
             }
         }
 
@@ -351,7 +387,7 @@ namespace TBWin
                     }
                     else
                     {
-                        _state.AddRangeAndUpdate(obj);
+                        _state.AddRange(obj);
                     }
                 }
             }
