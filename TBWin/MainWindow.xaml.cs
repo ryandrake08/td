@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -18,7 +19,7 @@ namespace TBWin
             int port = _daemon.Start(TournamentSession.ClientIdentifier());
             _daemon.Publish("TBWin");
             _session = new TournamentSession();
-            _session.Connect(IPAddress.Loopback, port);
+            _connectTask = _session.Connect(IPAddress.Loopback, port);
         }
 
         public JsonDocument Document
@@ -61,6 +62,7 @@ namespace TBWin
         private JsonDocument _document;
         private TournamentDaemon _daemon;
         private TournamentSession _session;
+        private Task _connectTask;
     }
 
     public static class Commands
