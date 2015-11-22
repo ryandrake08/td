@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 using System.Windows;
@@ -33,9 +34,14 @@ namespace TBWin
             _document = new JsonDocument();
         }
 
-        private void OpenCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        private async void OpenCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             _document.Open();
+
+            await _session.Configure(_document.Content, delegate (IDictionary<string, dynamic> newConfig)
+            {
+                _document.Content.AddRange(newConfig);
+            });
         }
 
         private void SaveCommand_Executed(object sender, ExecutedRoutedEventArgs e)
