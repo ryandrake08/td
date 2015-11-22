@@ -55,6 +55,7 @@ extern NSString* const TournamentSessionUpdatedNotification;
 - (void)setPreviousLevelWithBlock:(void(^)(NSNumber*))block;
 - (void)setNextLevelWithBlock:(void(^)(NSNumber*))block;
 - (void)setActionClock:(NSNumber*)milliseconds;
+- (void)clearActionClock;
 - (void)genBlindLevels:(NSNumber*)count withDuration:(NSNumber*)durationMs breakDuration:(NSNumber*)breakDurationMs blindIncreaseFactor:(NSNumber*)increaseFactor;
 - (void)fundPlayer:(id)playerId withFunding:(NSNumber*)sourceId;
 - (void)planSeatingFor:(NSNumber*)expectedPlayers;

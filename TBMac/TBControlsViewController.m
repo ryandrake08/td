@@ -75,7 +75,7 @@
         if(remaining == 0) {
             [[self session] setActionClock:@kActionClockRequestTime];
         } else {
-            [[self session] setActionClock:nil];
+            [[self session] clearActionClock];
         }
     }
 }

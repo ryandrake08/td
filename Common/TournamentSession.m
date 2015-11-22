@@ -239,11 +239,11 @@ NSString* const TournamentSessionUpdatedNotification = @"TournamentSessionUpdate
 }
 
 - (void)setActionClock:(NSNumber*)milliseconds {
-    if(milliseconds) {
-        [self sendCommand:@"set_action_clock" withData:@{@"duration" : milliseconds} andBlock:nil];
-    } else {
-        [self sendCommand:@"set_action_clock" withData:nil andBlock:nil];
-    }
+    [self sendCommand:@"set_action_clock" withData:@{@"duration" : milliseconds} andBlock:nil];
+}
+
+- (void)clearActionClock {
+    [self sendCommand:@"set_action_clock" withData:nil andBlock:nil];
 }
 
 - (void)genBlindLevels:(NSNumber*)count withDuration:(NSNumber*)durationMs breakDuration:(NSNumber*)breakDurationMs blindIncreaseFactor:(NSNumber*)increaseFactor {
