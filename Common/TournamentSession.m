@@ -247,7 +247,7 @@ NSString* const TournamentSessionUpdatedNotification = @"TournamentSessionUpdate
 }
 
 - (void)genBlindLevels:(NSNumber*)count withDuration:(NSNumber*)durationMs breakDuration:(NSNumber*)breakDurationMs blindIncreaseFactor:(NSNumber*)increaseFactor {
-    [self sendCommand:@"gen_blind_levels"withData:@{@"count" : count, @"duration" : durationMs, @"break_duration" : breakDurationMs, @"blind_increase_factor" : increaseFactor, } andBlock:nil];
+    [self sendCommand:@"gen_blind_levels" withData:@{@"count" : count, @"duration" : durationMs, @"break_duration" : breakDurationMs, @"blind_increase_factor" : increaseFactor } andBlock:nil];
 }
 
 - (void)fundPlayer:(id)playerId withFunding:(NSNumber*)sourceId {
