@@ -77,7 +77,7 @@ namespace TBWin
             set { _path = value; }
         }
 
-        public Dictionary<string,dynamic> Content
+        public IDictionary<string,dynamic> Content
         {
             get { return _content; }
             set { _content = value; }
@@ -183,7 +183,7 @@ namespace TBWin
                     {
                         var json = sr.ReadToEnd();
                         _path = path;
-                        _content = _serializer.Deserialize<Dictionary<string, dynamic>>(json);
+                        _content = _serializer.Deserialize<IDictionary<string, dynamic>>(json);
                         _isDirty = false;
                     }
                     return true;
@@ -229,7 +229,7 @@ namespace TBWin
 
         private JavaScriptSerializer _serializer;
         private string _path = "";
-        private Dictionary<string,dynamic> _content = null;
+        private IDictionary<string,dynamic> _content = null;
         private bool _isDirty = false;
 
         ResourceManager _resourceManager = TBWin.Properties.Resources.ResourceManager;

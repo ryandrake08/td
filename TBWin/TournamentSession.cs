@@ -41,7 +41,7 @@ namespace TBWin
             }
         }
 
-        public static Dictionary<T,S> Except<T,S>(this ICollection<KeyValuePair<T,S>> source, ICollection<KeyValuePair<T,S>> collection)
+        public static IDictionary<T,S> Except<T,S>(this ICollection<KeyValuePair<T,S>> source, ICollection<KeyValuePair<T,S>> collection)
         {
             if (collection == null)
             {
@@ -74,7 +74,7 @@ namespace TBWin
         }
 
         // Get all tournament configuration and state
-        public Dictionary<string,dynamic> State
+        public IDictionary<string,dynamic> State
         {
             get { return _state; }
         }
@@ -106,13 +106,16 @@ namespace TBWin
             await StartReader();
         }
 
-        public async Task SelectiveConfigure(Dictionary<string,dynamic> config, Dictionary<string,dynamic> referenceConfig, Action<Dictionary<string, dynamic>> action)
+        public async Task SelectiveConfigure(
+            ICollection<KeyValuePair<string,dynamic>> config,
+            ICollection<KeyValuePair<string, dynamic>> referenceConfig,
+            Action<IDictionary<string, dynamic>> action)
         {
             var configToSend = config.Except(_state);
             if(configToSend.Count > 0)
             {
                 System.Diagnostics.Debug.WriteLine("Sending " + configToSend.Count + " configuration items");
-                await Configure(configToSend, delegate (Dictionary<string, dynamic> returnedConfig)
+                await Configure(configToSend, delegate (IDictionary<string, dynamic> returnedConfig)
                 {
                     var differences = returnedConfig.Except(referenceConfig);
                     if (differences.Count > 0)
@@ -131,7 +134,7 @@ namespace TBWin
 
         public async Task CheckAuthorized(Action<bool> action)
         {
-            await SendCommand("check_authorized", delegate (Dictionary<string,dynamic> obj)
+            await SendCommand("check_authorized", delegate (IDictionary<string,dynamic> obj)
             {
                 var authorized = obj["authorized"];
                 _state["authorized"] = authorized;
@@ -142,9 +145,9 @@ namespace TBWin
             });
         }
 
-        public async Task GetState(Action<Dictionary<string,dynamic>> action)
+        public async Task GetState(Action<IDictionary<string,dynamic>> action)
         {
-            await SendCommand("get_state", delegate (Dictionary<string, dynamic> obj)
+            await SendCommand("get_state", delegate (IDictionary<string, dynamic> obj)
             {
                 if (action != null)
                 {
@@ -153,9 +156,9 @@ namespace TBWin
             });
         }
 
-        public async Task GetConfig(Action<Dictionary<string, dynamic>> action)
+        public async Task GetConfig(Action<IDictionary<string, dynamic>> action)
         {
-            await SendCommand("get_config", delegate (Dictionary<string, dynamic> obj)
+            await SendCommand("get_config", delegate (IDictionary<string, dynamic> obj)
             {
                 if (action != null)
                 {
@@ -164,9 +167,9 @@ namespace TBWin
             });
         }
 
-        public async Task Configure(Dictionary<string, dynamic> config, Action<Dictionary<string, dynamic>> action)
+        public async Task Configure(ICollection<KeyValuePair<string, dynamic>> config, Action<IDictionary<string, dynamic>> action)
         {
-            await SendCommand("configure", config, delegate (Dictionary<string, dynamic> obj)
+            await SendCommand("configure", config, delegate (IDictionary<string, dynamic> obj)
             {
                 if (action != null)
                 {
@@ -211,7 +214,7 @@ namespace TBWin
 
         public async Task SetPreviousLevel(Action<long> action)
         {
-            await SendCommand("set_previous_level", delegate (Dictionary<string, dynamic> obj)
+            await SendCommand("set_previous_level", delegate (IDictionary<string, dynamic> obj)
             {
                 var level = obj["blind_level_changed"];
                 if (action != null)
@@ -223,7 +226,7 @@ namespace TBWin
 
         public async Task SetNextLevel(Action<long> action)
         {
-            await SendCommand("set_next_level", delegate (Dictionary<string, dynamic> obj)
+            await SendCommand("set_next_level", delegate (IDictionary<string, dynamic> obj)
             {
                 var level = obj["blind_level_changed"];
                 if (action != null)
@@ -285,7 +288,7 @@ namespace TBWin
                 { "player_id", playerId }
             };
 
-            await SendCommand("seat_player", delegate (Dictionary<string, dynamic> obj2)
+            await SendCommand("seat_player", delegate (IDictionary<string, dynamic> obj2)
             {
                 var playerSeated = obj2["player_seated"];
                 if (action != null)
@@ -302,7 +305,7 @@ namespace TBWin
                 { "player_id", playerId }
             };
 
-            await SendCommand("unseat_player", delegate (Dictionary<string, dynamic> obj2)
+            await SendCommand("unseat_player", delegate (IDictionary<string, dynamic> obj2)
             {
                 var playerUnseated = obj2["player_unseated"];
                 if (action != null)
@@ -319,7 +322,7 @@ namespace TBWin
                 { "player_id", playerId }
             };
 
-            await SendCommand("bust_player", delegate (Dictionary<string, dynamic> obj2)
+            await SendCommand("bust_player", delegate (IDictionary<string, dynamic> obj2)
             {
                 var playersMoved = obj["players_moved"];
                 if (action != null)
@@ -357,7 +360,7 @@ namespace TBWin
                 string line;
                 while ((line = await reader.ReadLineAsync()) != null)
                 {
-                    var obj = _serializer.Deserialize<Dictionary<string, dynamic>>(line);
+                    var obj = _serializer.Deserialize<IDictionary<string, dynamic>>(line);
 
                     // Check for error
                     if (obj.ContainsKey("error"))
@@ -397,8 +400,8 @@ namespace TBWin
         }
 
         // Command delegates
-        delegate void CommandHandler(Dictionary<string, dynamic> obj);
-        private Dictionary<long, CommandHandler> _commandHandlers;
+        delegate void CommandHandler(IDictionary<string, dynamic> obj);
+        private IDictionary<long, CommandHandler> _commandHandlers;
         private static long _incrementingKey = 0;
 
         // Command sender without argument
@@ -408,13 +411,13 @@ namespace TBWin
         }
 
         // Command sender with argument
-        private async Task SendCommand(string command, Dictionary<string, dynamic> obj, CommandHandler handler=null)
+        private async Task SendCommand(string command, ICollection<KeyValuePair<string, dynamic>> obj, CommandHandler handler=null)
         {
             // Append to every command: authentication
-            obj["authenticate"] = ClientIdentifier();
+            obj.Add(new KeyValuePair<string, dynamic>("authenticate", ClientIdentifier()));
 
             // Append to every command: command key
-            obj["echo"] = _incrementingKey;
+            obj.Add(new KeyValuePair<string, dynamic>("echo", _incrementingKey));
 
             // Add delegate to our dicationary
             _commandHandlers[_incrementingKey] = handler;
@@ -432,6 +435,6 @@ namespace TBWin
         // Fields
         private JavaScriptSerializer _serializer;
         private TcpClient _client;
-        private Dictionary<string,dynamic> _state;
+        private IDictionary<string,dynamic> _state;
     }
 }
