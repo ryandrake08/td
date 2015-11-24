@@ -175,6 +175,7 @@
     <ClInclude Include="..\tournamentd\ivectorstream.hpp" />
     <ClInclude Include="..\tournamentd\json.hpp" />
     <ClInclude Include="..\tournamentd\logger.hpp" />
+    <ClInclude Include="..\tournamentd\outputdebugstringbuf.hpp" />
     <ClInclude Include="..\tournamentd\program.hpp" />
     <ClInclude Include="..\tournamentd\scope_timer.hpp" />
     <ClInclude Include="..\tournamentd\server.hpp" />

@@ -1,5 +1,6 @@
 #include "logger.hpp"
 #include "datetime.hpp"
+#include "outputdebugstringbuf.hpp"
 #include <fstream>
 
 logger_internal& logger_internal::instance()
@@ -10,6 +11,7 @@ logger_internal& logger_internal::instance()
 
 logger_internal::logger_internal() : mask(-1)
 {
+	redirect_debug_output();
 }
 
 void logger_internal::set_enabled(std::initializer_list<logger_level> logs)
