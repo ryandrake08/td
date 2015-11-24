@@ -99,6 +99,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="TournamentConfigSerializer.cs" />
     <Compile Include="TournamentDaemon.cs" />
     <Compile Include="TournamentSession.cs" />
     <Page Include="MainWindow.xaml">

@@ -130,11 +130,9 @@ namespace TBWin
 
         public bool Save(string path)
         {
-            var serializer = new JavaScriptSerializer();
-
             try
             {
-                string json = serializer.Serialize(_content);
+                string json = new TournamentConfigSerializer().Serialize(_content);
                 using (var sw = new StreamWriter(path))
                 {
                     _path = path;
@@ -177,15 +175,13 @@ namespace TBWin
         {
             if (path.Length > 0)
             {
-                var serializer = new JavaScriptSerializer();
-
                 try
                 {
                     using (var sr = new StreamReader(path))
                     {
                         var json = sr.ReadToEnd();
                         _path = path;
-                        _content = serializer.Deserialize<IDictionary<string, dynamic>>(json);
+                        _content = new TournamentConfigSerializer().Deserialize<IDictionary<string, dynamic>>(json);
                         _isDirty = false;
                     }
                     return true;

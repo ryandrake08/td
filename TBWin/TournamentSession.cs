@@ -356,12 +356,10 @@ namespace TBWin
 
             using (StreamReader reader = new StreamReader(_client.GetStream(), Encoding.UTF8))
             {
-                var serializer = new JavaScriptSerializer();
-
                 string line;
                 while ((line = await reader.ReadLineAsync()) != null)
                 {
-                    var obj = serializer.Deserialize<IDictionary<string, dynamic>>(line);
+                    var obj = new TournamentConfigSerializer().Deserialize<IDictionary<string, dynamic>>(line);
 
                     // Check for error
                     if (obj.ContainsKey("error"))
@@ -426,13 +424,10 @@ namespace TBWin
             // Increment key
             _incrementingKey++;
 
-            // Crease serializer
-            var serializer = new JavaScriptSerializer();
-
             // Send asynchronously
             using (var writer = new StreamWriter(_client.GetStream(), new UTF8Encoding(false), 1024, true))
             {
-                await writer.WriteLineAsync(command + ' ' + serializer.Serialize(obj));
+                await writer.WriteLineAsync(command + ' ' + new TournamentConfigSerializer().Serialize(obj));
             }
         }
 
