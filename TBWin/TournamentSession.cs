@@ -67,7 +67,6 @@ namespace TBWin
         // Constructor
         public TournamentSession()
         {
-            _serializer = new JavaScriptSerializer();
             _state = new Dictionary<string,dynamic>();
             _client = new TcpClient();
             _commandHandlers = new Dictionary<long, CommandHandler>();
@@ -357,10 +356,12 @@ namespace TBWin
 
             using (StreamReader reader = new StreamReader(_client.GetStream(), Encoding.UTF8))
             {
+                var serializer = new JavaScriptSerializer();
+
                 string line;
                 while ((line = await reader.ReadLineAsync()) != null)
                 {
-                    var obj = _serializer.Deserialize<IDictionary<string, dynamic>>(line);
+                    var obj = serializer.Deserialize<IDictionary<string, dynamic>>(line);
 
                     // Check for error
                     if (obj.ContainsKey("error"))
@@ -425,15 +426,17 @@ namespace TBWin
             // Increment key
             _incrementingKey++;
 
+            // Crease serializer
+            var serializer = new JavaScriptSerializer();
+
             // Send asynchronously
             using (var writer = new StreamWriter(_client.GetStream(), new UTF8Encoding(false), 1024, true))
             {
-                await writer.WriteLineAsync(command + ' ' + _serializer.Serialize(obj));
+                await writer.WriteLineAsync(command + ' ' + serializer.Serialize(obj));
             }
         }
 
         // Fields
-        private JavaScriptSerializer _serializer;
         private TcpClient _client;
         private IDictionary<string,dynamic> _state;
     }
