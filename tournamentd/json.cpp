@@ -158,7 +158,7 @@ json::json(const unsigned long long& value) : ptr(check(cJSON_CreateInt(bounds_c
 }
 
 template <>
-json::json(const double& value) : ptr(check(cJSON_CreateDouble(value)))
+json::json(const double& value) : ptr(check(cJSON_CreateNumber(value)))
 {
 }
 

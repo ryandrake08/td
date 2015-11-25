@@ -55,35 +55,30 @@
             "game_name": "No Limit Texas Hold'em",
             "little_blind": 25,
             "big_blind": 25,
-            "ante": 0,
             "duration": 3600000
         },
         {
             "game_name": "No Limit Texas Hold'em",
             "little_blind": 25,
             "big_blind": 50,
-            "ante": 0,
             "duration": 3600000
         },
         {
             "game_name": "No Limit Texas Hold'em",
             "little_blind": 50,
             "big_blind": 100,
-            "ante": 0,
             "duration": 3600000
         },
         {
             "game_name": "No Limit Texas Hold'em",
             "little_blind": 75,
             "big_blind": 150,
-            "ante": 0,
             "duration": 3600000
         },
         {
             "game_name": "No Limit Texas Hold'em",
             "little_blind": 100,
             "big_blind": 200,
-            "ante": 0,
             "duration": 3600000
         },
         {
