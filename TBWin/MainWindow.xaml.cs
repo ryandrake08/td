@@ -38,7 +38,7 @@ namespace TBWin
         {
             _document.Open();
 
-            await _session.Configure(_document.Content, delegate (IDictionary<string, dynamic> newConfig)
+            await _session.SelectiveConfigure(_document.Content, _document.Content, delegate (IDictionary<string, dynamic> newConfig)
             {
                 _document.Content.AddRange(newConfig);
             });

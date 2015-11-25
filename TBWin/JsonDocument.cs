@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Resources;
-using System.Web.Script.Serialization;
 using System.Windows;
 using Microsoft.Win32;
 
@@ -181,7 +180,7 @@ namespace TBWin
                     {
                         var json = sr.ReadToEnd();
                         _path = path;
-                        _content = new TournamentConfigSerializer().Deserialize<IDictionary<string, dynamic>>(json);
+                        _content = new TournamentConfigSerializer().Deserialize(json);
                         _isDirty = false;
                     }
                     return true;

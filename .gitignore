@@ -13,5 +13,6 @@ obj
 *.user
 *.filters
 Defaults.tournbuddy
+.vs
 *.nupkg
 **/packages/*

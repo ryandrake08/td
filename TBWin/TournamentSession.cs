@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -6,7 +7,6 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web.Script.Serialization;
 
 namespace TBWin
 {
@@ -14,12 +14,16 @@ namespace TBWin
     {
         public static bool DeepContains<T,S>(this IDictionary<T,S> source, KeyValuePair<T,S> item)
         {
-            if(source.ContainsKey(item.Key))
+            if (source.ContainsKey(item.Key))
             {
                 var value = source[item.Key];
-                if(value.Equals(item.Value))
+                if (value is JToken && item.Value is JToken)
                 {
-                    return true;
+                    return JToken.DeepEquals(value as JToken, item.Value as JToken);
+                }
+                else
+                {
+                    return value.Equals(item.Value);
                 }
             }
             return false;
@@ -34,14 +38,14 @@ namespace TBWin
 
             foreach (var item in collection)
             {
-                if (!source.Contains(item))
+                if (!source.DeepContains(item))
                 {
                     source[item.Key] = item.Value;
                 }
             }
         }
 
-        public static IDictionary<T,S> Except<T,S>(this ICollection<KeyValuePair<T,S>> source, ICollection<KeyValuePair<T,S>> collection)
+        public static IDictionary<T,S> Except<T,S>(this ICollection<KeyValuePair<T,S>> source, IDictionary<T,S> collection)
         {
             if (collection == null)
             {
@@ -52,7 +56,7 @@ namespace TBWin
 
             foreach (var item in source)
             {
-                if (!collection.Contains(item))
+                if (!collection.DeepContains(item))
                 {
                     ret[item.Key] = item.Value;
                 }
@@ -107,7 +111,7 @@ namespace TBWin
 
         public async Task SelectiveConfigure(
             ICollection<KeyValuePair<string,dynamic>> config,
-            ICollection<KeyValuePair<string, dynamic>> referenceConfig,
+            IDictionary<string, dynamic> referenceConfig,
             Action<IDictionary<string, dynamic>> action)
         {
             var configToSend = config.Except(_state);
@@ -359,7 +363,7 @@ namespace TBWin
                 string line;
                 while ((line = await reader.ReadLineAsync()) != null)
                 {
-                    var obj = new TournamentConfigSerializer().Deserialize<IDictionary<string, dynamic>>(line);
+                    var obj = new TournamentConfigSerializer().Deserialize(line);
 
                     // Check for error
                     if (obj.ContainsKey("error"))
