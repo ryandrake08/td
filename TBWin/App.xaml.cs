@@ -6,7 +6,7 @@ namespace TBWin
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
-    public sealed partial class App : Application, IDisposable
+    public sealed partial class App : IDisposable
     {
         protected override void OnStartup(StartupEventArgs e)
         {
@@ -25,15 +25,7 @@ namespace TBWin
                 }
             }
 
-            if (document == null)
-            {
-                _mainWindow.Document = new JsonDocument();
-            }
-            else
-            {
-                _mainWindow.Document = new JsonDocument(document);
-            }
-
+            _mainWindow.Document = document == null ? new JsonDocument() : new JsonDocument(document);
             _mainWindow.Show();
         }
 

@@ -28,20 +28,20 @@
                 <MenuItem Header="E_xit" Command="local:Commands.Exit"></MenuItem>
             </MenuItem>
         </Menu>
-        <DataGrid x:Name="rightPane" DockPanel.Dock="Left">
+        <DataGrid x:Name="RightPane" DockPanel.Dock="Left">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Player"/>
                 <DataGridCheckBoxColumn Header="Seated"/>
             </DataGrid.Columns>
         </DataGrid>
-        <DataGrid x:Name="leftPane" DockPanel.Dock="Right">
+        <DataGrid x:Name="LeftPane" DockPanel.Dock="Right">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Place"/>
                 <DataGridTextColumn Header="Player"/>
                 <DataGridTextColumn Header="Payout"/>
             </DataGrid.Columns>
         </DataGrid>
-        <DataGrid x:Name="centerPane">
+        <DataGrid x:Name="CenterPane">
             <DataGrid.Columns>
                 <DataGridTemplateColumn Header="Table"/>
                 <DataGridTemplateColumn Header="Seat"/>

@@ -105,9 +105,11 @@ namespace TBWin
 
         public bool SaveNew()
         {
-            var dlg = new SaveFileDialog();
-            dlg.Filter = "JSON Documents (*.json)|*.json|All Files|*.*";
-            dlg.DefaultExt = "json";
+            var dlg = new SaveFileDialog
+            {
+                Filter = "JSON Documents (*.json)|*.json|All Files|*.*",
+                DefaultExt = "json"
+            };
             if (dlg.ShowDialog() == true)
             {
                 return Save(dlg.FileName);
@@ -141,10 +143,14 @@ namespace TBWin
                 }
             }
             // This catch handles the exception raised when trying to save a read only file
-            catch (System.UnauthorizedAccessException)
+            catch (UnauthorizedAccessException)
             {
                 var appTitle = _resourceManager.GetString("ApplicationName");
-                var message = string.Format(_resourceManager.GetString("UnauthorizedAccessWarningMessage"), path);
+                var message = _resourceManager.GetString("UnauthorizedAccessWarningMessage");
+                if (message != null)
+                {
+                    message = string.Format(message, path);
+                }
                 MessageBox.Show(message, appTitle, MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 return SaveNew();
             }
@@ -157,12 +163,14 @@ namespace TBWin
 
         public bool Open()
         {
-            var dlg = new OpenFileDialog();
-            dlg.Filter = "JSON Documents (*.json)|*.json|All Files|*.*";
-            dlg.DefaultExt = "json";
-            dlg.InitialDirectory = InitialDirectory;
-            dlg.Multiselect = false;
-            dlg.CheckFileExists = true;
+            var dlg = new OpenFileDialog
+            {
+                Filter = "JSON Documents (*.json)|*.json|All Files|*.*",
+                DefaultExt = "json",
+                InitialDirectory = InitialDirectory,
+                Multiselect = false,
+                CheckFileExists = true
+            };
             if (dlg.ShowDialog() == true)
             {
                 return Open(dlg.FileName);
@@ -185,7 +193,7 @@ namespace TBWin
                     }
                     return true;
                 }
-                catch (System.ArgumentException)
+                catch (ArgumentException)
                 {
                     var appTitle = _resourceManager.GetString("ApplicationName");
                     var message = _resourceManager.GetString("PathSyntaxError");
@@ -207,7 +215,10 @@ namespace TBWin
                 {
                     var appTitle = _resourceManager.GetString("ApplicationName");
                     var message = _resourceManager.GetString("FileNotFoundError");
-                    message = String.Format(message, path);
+                    if (message != null)
+                    {
+                        message = String.Format(message, path);
+                    }
                     MessageBox.Show(message, appTitle);
                 }
                 catch (OutOfMemoryException)
@@ -225,9 +236,8 @@ namespace TBWin
         }
 
         private string _path = "";
-        private IDictionary<string,dynamic> _content = null;
-        private bool _isDirty = false;
-
-        ResourceManager _resourceManager = TBWin.Properties.Resources.ResourceManager;
+        private IDictionary<string,dynamic> _content;
+        private bool _isDirty;
+        private readonly ResourceManager _resourceManager = Properties.Resources.ResourceManager;
     }
 }

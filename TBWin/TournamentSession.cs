@@ -12,7 +12,7 @@ namespace TBWin
 {
     public static class DictionaryExtension
     {
-        public static bool DeepContains<T,S>(this IDictionary<T,S> source, KeyValuePair<T,S> item)
+        public static bool DeepContains<TK, TV>(this IDictionary<TK, TV> source, KeyValuePair<TK, TV> item)
         {
             if (source.ContainsKey(item.Key))
             {
@@ -29,11 +29,11 @@ namespace TBWin
             return false;
         }
 
-        public static void AddRange<T,S>(this IDictionary<T,S> source, ICollection<KeyValuePair<T,S>> collection)
+        public static void AddRange<TK, TV>(this IDictionary<TK, TV> source, ICollection<KeyValuePair<TK, TV>> collection)
         {
             if (collection == null)
             {
-                throw new ArgumentNullException("Collection is null");
+                throw new ArgumentNullException("collection");
             }
 
             foreach (var item in collection)
@@ -45,14 +45,14 @@ namespace TBWin
             }
         }
 
-        public static IDictionary<T,S> Except<T,S>(this ICollection<KeyValuePair<T,S>> source, IDictionary<T,S> collection)
+        public static IDictionary<TK, TV> Except<TK, TV>(this ICollection<KeyValuePair<TK, TV>> source, IDictionary<TK, TV> collection)
         {
             if (collection == null)
             {
-                throw new ArgumentNullException("Collection is null");
+                throw new ArgumentNullException("collection");
             }
 
-            var ret = new Dictionary<T, S>();
+            var ret = new Dictionary<TK, TV>();
 
             foreach (var item in source)
             {
@@ -77,10 +77,7 @@ namespace TBWin
         }
 
         // Get all tournament configuration and state
-        public IDictionary<string,dynamic> State
-        {
-            get { return _state; }
-        }
+        public IDictionary<string,dynamic> State => _state;
 
         // Client identifier (used for authenticating with servers)
         public static int ClientIdentifier()
@@ -124,10 +121,7 @@ namespace TBWin
                     if (differences.Count > 0)
                     {
                         System.Diagnostics.Debug.WriteLine("Updating existing config with " + differences.Count + " configuration items");
-                        if (action != null)
-                        {
-                            action(differences);
-                        }
+                        action?.Invoke(differences);
                     }
                 });
             }
@@ -141,10 +135,7 @@ namespace TBWin
             {
                 var authorized = obj["authorized"];
                 _state["authorized"] = authorized;
-                if (action != null)
-                {
-                    action(authorized);
-                }
+                action?.Invoke(authorized);
             });
         }
 
@@ -152,10 +143,7 @@ namespace TBWin
         {
             await SendCommand("get_state", delegate (IDictionary<string, dynamic> obj)
             {
-                if (action != null)
-                {
-                    action(obj);
-                }
+                action?.Invoke(obj);
             });
         }
 
@@ -174,10 +162,7 @@ namespace TBWin
         {
             await SendCommand("configure", config, delegate (IDictionary<string, dynamic> obj)
             {
-                if (action != null)
-                {
-                    action(obj);
-                }
+                action?.Invoke(obj);
             });
         }
 
@@ -220,10 +205,7 @@ namespace TBWin
             await SendCommand("set_previous_level", delegate (IDictionary<string, dynamic> obj)
             {
                 var level = obj["blind_level_changed"];
-                if (action != null)
-                {
-                    action(level);
-                }
+                action?.Invoke(level);
             });
         }
 
@@ -232,10 +214,7 @@ namespace TBWin
             await SendCommand("set_next_level", delegate (IDictionary<string, dynamic> obj)
             {
                 var level = obj["blind_level_changed"];
-                if (action != null)
-                {
-                    action(level);
-                }
+                action?.Invoke(level);
             });
         }
 
@@ -291,13 +270,10 @@ namespace TBWin
                 { "player_id", playerId }
             };
 
-            await SendCommand("seat_player", delegate (IDictionary<string, dynamic> obj2)
+            await SendCommand("seat_player", obj, delegate (IDictionary<string, dynamic> obj2)
             {
                 var playerSeated = obj2["player_seated"];
-                if (action != null)
-                {
-                    action(playerSeated["player_id"], playerSeated["table_number"], playerSeated["seat_number"]);
-                }
+                action?.Invoke(playerSeated["player_id"], playerSeated["table_number"], playerSeated["seat_number"]);
             });
         }
 
@@ -308,13 +284,10 @@ namespace TBWin
                 { "player_id", playerId }
             };
 
-            await SendCommand("unseat_player", delegate (IDictionary<string, dynamic> obj2)
+            await SendCommand("unseat_player", obj,  delegate (IDictionary<string, dynamic> obj2)
             {
                 var playerUnseated = obj2["player_unseated"];
-                if (action != null)
-                {
-                    action(playerUnseated["player_id"], playerUnseated["table_number"], playerUnseated["seat_number"]);
-                }
+                action?.Invoke(playerUnseated["player_id"], playerUnseated["table_number"], playerUnseated["seat_number"]);
             });
         }
 
@@ -325,13 +298,10 @@ namespace TBWin
                 { "player_id", playerId }
             };
 
-            await SendCommand("bust_player", delegate (IDictionary<string, dynamic> obj2)
+            await SendCommand("bust_player", obj, delegate (IDictionary<string, dynamic> obj2)
             {
-                var playersMoved = obj["players_moved"];
-                if (action != null)
-                {
-                    action(playersMoved);
-                }
+                var playersMoved = obj2["players_moved"];
+                action?.Invoke(playersMoved);
             });
         }
 
@@ -348,14 +318,7 @@ namespace TBWin
             // TODO: Handle connection
             await CheckAuthorized(delegate (bool val)
             {
-                if (val)
-                {
-                    System.Diagnostics.Debug.WriteLine("CheckAuthorized returned true");
-                }
-                else
-                {
-                    System.Diagnostics.Debug.WriteLine("CheckAuthorized returned false");
-                }
+                System.Diagnostics.Debug.WriteLine("CheckAuthorized returned " + val);
             });
 
             using (StreamReader reader = new StreamReader(_client.GetStream(), Encoding.UTF8))
@@ -404,8 +367,8 @@ namespace TBWin
 
         // Command delegates
         delegate void CommandHandler(IDictionary<string, dynamic> obj);
-        private IDictionary<long, CommandHandler> _commandHandlers;
-        private static long _incrementingKey = 0;
+        private readonly IDictionary<long, CommandHandler> _commandHandlers;
+        private static long _incrementingKey;
 
         // Command sender without argument
         private async Task SendCommand(string command, CommandHandler handler=null)
@@ -436,7 +399,7 @@ namespace TBWin
         }
 
         // Fields
-        private TcpClient _client;
-        private IDictionary<string,dynamic> _state;
+        private readonly TcpClient _client;
+        private readonly IDictionary<string,dynamic> _state;
     }
 }

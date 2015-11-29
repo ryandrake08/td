@@ -18,15 +18,17 @@ namespace TBWin
             _running = true;
 
             // create a background thread
-            _thread = new Thread((ThreadStart)delegate
+            _thread = new Thread((ThreadStart) delegate
             {
-                while(_running)
+                while (_running)
                 {
                     bool quit = tourney.Run();
                     _running = _running && !quit;
                 }
-            });
-            _thread.IsBackground = true;
+            })
+            {
+                IsBackground = true
+            };
             _thread.Start();
 
             // return the listening port, for subsequent connection
@@ -51,7 +53,7 @@ namespace TBWin
                     _netService.Publish();
                     return true;
                 }
-                catch(System.DllNotFoundException)
+                catch(DllNotFoundException)
                 {
                     // bonjour not installed. just return false to indicate we did not publish
                 }
@@ -64,10 +66,7 @@ namespace TBWin
         public void Stop()
         {
             // stop net service
-            if (_netService != null)
-            {
-                _netService.Stop();
-            }
+            _netService?.Stop();
 
             // clear port
             _port = 0;

@@ -10,7 +10,7 @@ namespace TBWin
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public sealed partial class MainWindow : Window, IDisposable
+    public sealed partial class MainWindow : IDisposable
     {
         public MainWindow()
         {
@@ -61,14 +61,15 @@ namespace TBWin
 
         public void Dispose()
         {
+            _connectTask.Wait();
             _daemon.Dispose();
             _session.Dispose();
         }
 
         private JsonDocument _document;
-        private TournamentDaemon _daemon;
-        private TournamentSession _session;
-        private Task _connectTask;
+        private readonly TournamentDaemon _daemon;
+        private readonly TournamentSession _session;
+        private readonly Task _connectTask;
     }
 
     public static class Commands
