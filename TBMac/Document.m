@@ -287,14 +287,16 @@
     // display as a sheet
     [[self mainWindow] beginSheet:[wc window] completionHandler:^(NSModalResponse returnCode) {
         if(returnCode == NSModalResponseOK) {
-            // new authorized client
-            [[self configuration][@"authorized_clients"] addObject:[wc object]];
+            if([wc object] != nil) {
+                // new authorized client
+                [[self configuration][@"authorized_clients"] addObject:[wc object]];
 
-            // configure session and replace current configuration
-            [[self session] selectiveConfigure:[self configuration] andUpdate:[self configuration]];
+                // configure session and replace current configuration
+                [[self session] selectiveConfigure:[self configuration] andUpdate:[self configuration]];
 
-            // mark document as edited
-            [[self mainWindow] setDocumentEdited:YES];
+                // mark document as edited
+                [[self mainWindow] setDocumentEdited:YES];
+            }
         }
     }];
 }
