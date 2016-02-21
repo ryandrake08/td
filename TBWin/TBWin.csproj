@@ -80,6 +80,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -168,6 +169,84 @@
       <Project>{b4d10073-3450-4101-9aa2-c0db166a41af}</Project>
       <Name>TournamentObject</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\b_arrow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\b_auth.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\b_call_clock.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\b_check.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\b_configure.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\b_display.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\b_export.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\b_next.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\b_note_dollar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\b_note_euro.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\b_note_rupee.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\b_note_sterling.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\b_note_yen_yuan.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\b_play_pause.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\b_previous.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\b_restart.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\b_seat.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\b_table.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\h_call_clock.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\h_next.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\h_play_pause.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\h_previous.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\i_chip.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\m_addon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\m_buyin.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\m_rebuy.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -4,10 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TBWin"
+        xmlns:controls="clr-namespace:System.Windows.Controls"
         mc:Ignorable="d"
         Width="1024"
         Height="768"
         Title="MainWindow"
+        Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
         DataContext="{Binding Path=Session.State, RelativeSource={RelativeSource Self}}">
 
     <Window.CommandBindings>
@@ -16,6 +18,13 @@
         <CommandBinding Command="ApplicationCommands.Save" Executed="SaveCommand_Executed" />
         <CommandBinding Command="ApplicationCommands.SaveAs" Executed="SaveAsCommand_Executed" />
         <CommandBinding Command="local:Commands.Exit" Executed="ExitCommand_Executed" />
+        <CommandBinding Command="local:Commands.Authorize" Executed="AuthorizeCommand_Executed" />
+        <CommandBinding Command="local:Commands.Setup" Executed="SetupCommand_Executed" />
+        <CommandBinding Command="local:Commands.Plan" Executed="PlanCommand_Executed" />
+        <CommandBinding Command="local:Commands.Replan" Executed="ReplanCommand_Executed" />
+        <CommandBinding Command="local:Commands.Results" Executed="ResultsCommand_Executed" />
+        <CommandBinding Command="local:Commands.Display" Executed="DisplayCommand_Executed" />
+        <CommandBinding Command="local:Commands.PlayPause" Executed="PlayPauseCommand_Executed" />
     </Window.CommandBindings>
 
     <DockPanel>
@@ -29,6 +38,63 @@
                 <MenuItem Header="E_xit" Command="local:Commands.Exit"></MenuItem>
             </MenuItem>
         </Menu>
+        <DockPanel DockPanel.Dock="Top">
+            <ToolBar DockPanel.Dock="Right">
+                <Button Command="local:Commands.Authorize">
+                    <StackPanel Orientation="Vertical">
+                        <Image Source="Images\b_auth.png" Width="32"/>
+                        <TextBlock TextAlignment="Center">Authorize</TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button Command="local:Commands.Setup">
+                    <StackPanel Orientation="Vertical">
+                        <Image Source="Images\b_check.png" Width="32"/>
+                        <TextBlock TextAlignment="Center">Setup</TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button Command="local:Commands.Plan">
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock TextAlignment="Center">Plan for</TextBlock>
+                        <ComboBox>
+                            <ComboBoxItem IsSelected="True">2</ComboBoxItem>
+                            <ComboBoxItem>3</ComboBoxItem>
+                            <ComboBoxItem>4</ComboBoxItem>
+                        </ComboBox>
+                        <TextBlock TextAlignment="Center">Players</TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button Command="local:Commands.Replan">
+                    <StackPanel Orientation="Vertical">
+                        <Image Source="Images\b_restart.png" Width="32"/>
+                        <TextBlock TextAlignment="Center">Re-Plan</TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button Command="local:Commands.Results">
+                    <StackPanel Orientation="Vertical">
+                        <Image Source="Images\b_export.png" Width="32"/>
+                        <TextBlock TextAlignment="Center">Results</TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button Command="local:Commands.Display">
+                    <StackPanel Orientation="Vertical">
+                        <Image Source="Images\b_display.png" Width="32"/>
+                        <TextBlock TextAlignment="Center">Display</TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button Command="local:Commands.PlayPause">
+                    <StackPanel Orientation="Vertical">
+                        <Image Source="Images\b_play_pause.png" Width="32"/>
+                        <TextBlock TextAlignment="Center"></TextBlock>
+                    </StackPanel>
+                </Button>
+                <StackPanel VerticalAlignment="Center" Margin="0,0,0,16" Orientation="Vertical">
+                    <Label FontSize="24">PAUSED</Label>
+                </StackPanel>
+            </ToolBar>
+            <ToolBar DockPanel.Dock="Left">
+                <TextBox FontSize="16" Background="Transparent" BorderBrush="Transparent">Default Tournament</TextBox>
+            </ToolBar>
+        </DockPanel>
         <DataGrid x:Name="LeftPane" DockPanel.Dock="Left" ItemsSource="{Binding .[players]}" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Player" Binding="{Binding name}"/>

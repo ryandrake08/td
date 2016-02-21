@@ -64,6 +64,34 @@ namespace TBWin
             Application.Current.Shutdown();
         }
 
+        private void AuthorizeCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+        }
+
+        private void SetupCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+        }
+
+        private void PlanCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+        }
+
+        private void ReplanCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+        }
+
+        private void ResultsCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+        }
+
+        private void DisplayCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+        }
+
+        private void PlayPauseCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+        }
+
         public void Dispose()
         {
             _connectTask.Wait();
@@ -80,5 +108,12 @@ namespace TBWin
     public static class Commands
     {
         public static readonly RoutedUICommand Exit = new RoutedUICommand("Exit", "Exit", typeof(Commands), new InputGestureCollection() { new KeyGesture(Key.F4, ModifierKeys.Alt) });
+        public static readonly RoutedUICommand Authorize = new RoutedUICommand("Authorize", "Authorize", typeof(Commands));
+        public static readonly RoutedUICommand Setup = new RoutedUICommand("Setup", "Setup", typeof(Commands));
+        public static readonly RoutedUICommand Plan = new RoutedUICommand("Plan", "Plan", typeof(Commands));
+        public static readonly RoutedUICommand Replan = new RoutedUICommand("Replan", "Replan", typeof(Commands));
+        public static readonly RoutedUICommand Results = new RoutedUICommand("Results", "Results", typeof(Commands));
+        public static readonly RoutedUICommand Display = new RoutedUICommand("Display", "Display", typeof(Commands));
+        public static readonly RoutedUICommand PlayPause = new RoutedUICommand("PlayPause", "PlayPause", typeof(Commands));
     }
 }
