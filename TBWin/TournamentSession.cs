@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
@@ -66,12 +67,12 @@ namespace TBWin
         }
     }
 
-    class TournamentSession : IDisposable
+    public class TournamentSession : IDisposable
     {
         // Constructor
         public TournamentSession()
         {
-            _state = new Dictionary<string,dynamic>();
+            _state = new ObservableDictionary<string,dynamic>();
             _client = new TcpClient();
             _commandHandlers = new Dictionary<long, CommandHandler>();
         }

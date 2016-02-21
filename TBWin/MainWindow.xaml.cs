@@ -14,19 +14,24 @@ namespace TBWin
     {
         public MainWindow()
         {
-            InitializeComponent();
-
             _daemon = new TournamentDaemon();
             int port = _daemon.Start(TournamentSession.ClientIdentifier());
             _daemon.Publish("TBWin");
             _session = new TournamentSession();
             _connectTask = _session.Connect(IPAddress.Loopback, port);
+
+            InitializeComponent();
         }
 
         public JsonDocument Document
         {
             get { return _document; }
             set { _document = value; }
+        }
+
+        public TournamentSession Session
+        {
+            get { return _session;  }
         }
 
         private void NewCommand_Executed(object sender, ExecutedRoutedEventArgs e)

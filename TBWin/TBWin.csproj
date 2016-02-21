@@ -103,6 +103,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ObservableDictionary.cs" />
     <Compile Include="TournamentConfigSerializer.cs" />
     <Compile Include="TournamentDaemon.cs" />
     <Compile Include="TournamentSession.cs" />

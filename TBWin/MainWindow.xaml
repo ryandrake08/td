@@ -7,7 +7,8 @@
         mc:Ignorable="d"
         Width="1024"
         Height="768"
-        Title="MainWindow">
+        Title="MainWindow"
+        DataContext="{Binding Path=Session.State, RelativeSource={RelativeSource Self}}">
 
     <Window.CommandBindings>
         <CommandBinding Command="ApplicationCommands.New" Executed="NewCommand_Executed" />
@@ -28,13 +29,13 @@
                 <MenuItem Header="E_xit" Command="local:Commands.Exit"></MenuItem>
             </MenuItem>
         </Menu>
-        <DataGrid x:Name="RightPane" DockPanel.Dock="Left">
+        <DataGrid x:Name="LeftPane" DockPanel.Dock="Left" ItemsSource="{Binding .[players]}" AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Player"/>
+                <DataGridTextColumn Header="Player" Binding="{Binding name}"/>
                 <DataGridCheckBoxColumn Header="Seated"/>
             </DataGrid.Columns>
         </DataGrid>
-        <DataGrid x:Name="LeftPane" DockPanel.Dock="Right">
+        <DataGrid x:Name="RightPane" DockPanel.Dock="Right">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Place"/>
                 <DataGridTextColumn Header="Player"/>
