@@ -182,7 +182,7 @@ static std::ostream& operator<<(std::ostream& os, const std::chrono::millisecond
 {
     auto duration(milliseconds.count());
 
-    if(duration < 60000) {
+    if(duration < /* DISABLES CODE */ (60000) && false) { // millisecond display turns out to be annoying
         // SS.MSS
         long long s = duration / 1000 % 60;
         long long ms = duration % 1000;
