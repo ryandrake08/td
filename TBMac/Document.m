@@ -34,7 +34,6 @@
 @property (strong) TBPlayerWindowController* playerWindowController;
 
 // UI Outlets
-@property (weak) IBOutlet NSPopUpButton* maxPlayersButton;
 @property (weak) IBOutlet NSTextField* tournamentNameField;
 @property (weak) IBOutlet NSToolbarItem* tournamentNameItem;
 @property (weak) IBOutlet NSView* leftPaneView;
@@ -42,7 +41,7 @@
 @property (weak) IBOutlet NSView* centerPaneView;
 @property (weak) IBOutlet NSWindow* mainWindow;
 
-// Keep track of last seating plan size, to avoid setting again
+// Keep track of last seating plan size
 @property (assign) NSInteger lastMaxPlayers;
 
 @end
@@ -121,41 +120,9 @@
         [[self tournamentNameItem] setMaxSize:size];
     }];
 
-    // update max players selector
-    [[self KVOController] observe:[[self session] state] keyPath:@"players" options:0 block:^(id observer, id object, NSDictionary *change) {
-        NSUInteger players = [object[@"players"] count];
-        if(players > 1 && players != [[[self maxPlayersButton] lastItem] tag]) {
-
-            // remember selection
-            NSInteger selectedTag = [[self maxPlayersButton] selectedTag];
-
-            // start with empty menu
-            [[self maxPlayersButton] removeAllItems];
-
-            NSLog(@"Populating maxPlayers button with %ld items", players);
-            for(NSUInteger i=2; i<=players; i++) {
-                // add item with a title corresponding to number of potential players
-                [[self maxPlayersButton] addItemWithTitle:[@(i) stringValue]];
-                // add tag
-                [[[self maxPlayersButton] itemAtIndex:i-2] setTag:i];
-            }
-
-            // select tag
-            if(selectedTag > 1) {
-                [[self maxPlayersButton] selectItemWithTag:selectedTag];
-            } else {
-                [[self maxPlayersButton] selectItemWithTag:players];
-
-                // also plan seating
-                [self planSeatingFor:players force:NO];
-            }
-        }
-    }];
-
     // if table sizes change, replan
     [[self KVOController] observe:[[self session] state] keyPath:@"table_capacity" options:0 block:^(id observer, id object, NSDictionary *change) {
-        NSInteger maxPlayers = [[self maxPlayersButton] selectedTag];
-        [self planSeatingFor:maxPlayers force:YES];
+        [self planSeatingFor:[self lastMaxPlayers]];
     }];
 }
 
@@ -205,12 +172,11 @@
 
 #pragma mark Operations
 
-- (void)planSeatingFor:(NSInteger)maxPlayers force:(BOOL)forced {
+- (void)planSeatingFor:(NSInteger)maxPlayers {
     NSLog(@"Planning seating for %ld players", maxPlayers);
-    if(maxPlayers > 1 && (forced || maxPlayers != [self lastMaxPlayers])) {
+    if(maxPlayers > 1) {
         [[self session] planSeatingFor:@(maxPlayers)];
         [self setLastMaxPlayers:maxPlayers];
-        [[self maxPlayersButton] selectItemWithTag:maxPlayers];
     }
 }
 
@@ -274,14 +240,8 @@
     }
 }
 
-- (IBAction)maxPlayersTextDidChange:(id)sender {
-    NSInteger maxPlayers = [sender selectedTag];
-    [self planSeatingFor:maxPlayers force:NO];
-}
-
 - (IBAction)restartTapped:(id)sender {
-    NSInteger maxPlayers = [[self maxPlayersButton] selectedTag];
-    [self planSeatingFor:maxPlayers force:YES];
+    [self planSeatingFor:[self lastMaxPlayers]];
 }
 
 - (IBAction)authorizeButtonDidChange:(id)sender {
@@ -344,16 +304,15 @@
 - (IBAction)planButtonDidChange:(id)sender {
     TBPlanWindowController* wc = [[TBPlanWindowController alloc] initWithWindowNibName:@"TBPlanWindow"];
     [wc setEnableWarning:[self lastMaxPlayers] > 0];
-    [wc setNumberOfPlayers:[self lastMaxPlayers]];
+    if([self lastMaxPlayers] > 0) {
+        [wc setNumberOfPlayers:[self lastMaxPlayers]];
+    } else {
+        [wc setNumberOfPlayers:[[[self session] state][@"players"] count]];
+    }
     // display as a sheet
     [[self mainWindow] beginSheet:[wc window] completionHandler:^(NSModalResponse returnCode) {
         if(returnCode == NSModalResponseOK) {
-            NSInteger maxPlayers = [wc numberOfPlayers];
-            NSLog(@"Planning seating for %ld players", maxPlayers);
-            if(maxPlayers > 1) {
-                [[self session] planSeatingFor:@([wc numberOfPlayers])];
-                [self setLastMaxPlayers:maxPlayers];
-            }
+            [self planSeatingFor:[wc numberOfPlayers]];
         }
     }];
 }
