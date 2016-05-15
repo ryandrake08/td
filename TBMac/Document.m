@@ -12,6 +12,7 @@
 #import "TBPlayersViewController.h"
 #import "TBAuthCodeWindowController.h"
 #import "TBConfigurationWindowController.h"
+#import "TBPlanWindowController.h"
 #import "TBPlayerWindowController.h"
 #import "TournamentSession.h"
 #import "TournamentDaemon.h"
@@ -209,6 +210,7 @@
     if(maxPlayers > 1 && (forced || maxPlayers != [self lastMaxPlayers])) {
         [[self session] planSeatingFor:@(maxPlayers)];
         [self setLastMaxPlayers:maxPlayers];
+        [[self maxPlayersButton] selectItemWithTag:maxPlayers];
     }
 }
 
@@ -339,5 +341,21 @@
     }
 }
 
+- (IBAction)planButtonDidChange:(id)sender {
+    TBPlanWindowController* wc = [[TBPlanWindowController alloc] initWithWindowNibName:@"TBPlanWindow"];
+    [wc setEnableWarning:[self lastMaxPlayers] > 0];
+    [wc setNumberOfPlayers:[self lastMaxPlayers]];
+    // display as a sheet
+    [[self mainWindow] beginSheet:[wc window] completionHandler:^(NSModalResponse returnCode) {
+        if(returnCode == NSModalResponseOK) {
+            NSInteger maxPlayers = [wc numberOfPlayers];
+            NSLog(@"Planning seating for %ld players", maxPlayers);
+            if(maxPlayers > 1) {
+                [[self session] planSeatingFor:@([wc numberOfPlayers])];
+                [self setLastMaxPlayers:maxPlayers];
+            }
+        }
+    }];
+}
 
 @end

@@ -98,6 +98,8 @@
 		949D70A51B3C442F008D5CD1 /* cJSON.c in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4CE1B3C3F8300A158F8 /* cJSON.c */; };
 		94BB5FFA1B7F9F1600B33929 /* NSString+CamelCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 945410761B6E9A17001E3373 /* NSString+CamelCase.m */; };
 		94BB5FFB1B7F9F1600B33929 /* NSString+CamelCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 945410761B6E9A17001E3373 /* NSString+CamelCase.m */; };
+		94CC7F8F1CE8CF770081A8A0 /* TBPlanWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CC7F8D1CE8CF770081A8A0 /* TBPlanWindowController.m */; };
+		94CC7F901CE8CF770081A8A0 /* TBPlanWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94CC7F8E1CE8CF770081A8A0 /* TBPlanWindow.xib */; };
 		94D04ECD1B7C59EB004F4245 /* s_break.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04EC81B7C59EB004F4245 /* s_break.caf */; };
 		94D04ECE1B7C59EB004F4245 /* s_break.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04EC81B7C59EB004F4245 /* s_break.caf */; };
 		94D04ECF1B7C59EB004F4245 /* s_next.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04EC91B7C59EB004F4245 /* s_next.caf */; };
@@ -130,8 +132,8 @@
 		94E16F221B6C99840070F1BA /* TBResizeTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 94562E6B1B65D9420017C692 /* TBResizeTextField.m */; };
 		94ED00111B76E1E6003CF19B /* TBTableSeatNumberTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 94ED00101B76E1E6003CF19B /* TBTableSeatNumberTransformer.m */; };
 		94F466271B8AF203009BB648 /* TBCurrencyCodeTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F466261B8AF203009BB648 /* TBCurrencyCodeTransformer.m */; };
-		94F51CAE1BC96F53007AD1DD /* TBTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F51CAD1BC96F53007AD1DD /* TBTableViewController.m */; settings = {ASSET_TAGS = (); }; };
-		94F51CAF1BC96F53007AD1DD /* TBTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F51CAD1BC96F53007AD1DD /* TBTableViewController.m */; settings = {ASSET_TAGS = (); }; };
+		94F51CAE1BC96F53007AD1DD /* TBTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F51CAD1BC96F53007AD1DD /* TBTableViewController.m */; };
+		94F51CAF1BC96F53007AD1DD /* TBTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F51CAD1BC96F53007AD1DD /* TBTableViewController.m */; };
 		94FDEADC1B5AE2560026B25D /* TBColor+CSS.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEADB1B5AE2560026B25D /* TBColor+CSS.m */; };
 		94FDEAE51B5AE2D60026B25D /* CFStreamCreatePairWithUnixSocket.c in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEADD1B5AE2D60026B25D /* CFStreamCreatePairWithUnixSocket.c */; };
 		94FDEAE61B5AE2D60026B25D /* CFStreamCreatePairWithUnixSocket.c in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEADD1B5AE2D60026B25D /* CFStreamCreatePairWithUnixSocket.c */; };
@@ -149,56 +151,56 @@
 		94FDEAF81B5AE7920026B25D /* NSView+BackgroundColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEAF71B5AE7920026B25D /* NSView+BackgroundColor.m */; };
 		94FDEAFA1B5AEB0B0026B25D /* TBActionClockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEAF91B5AEB0B0026B25D /* TBActionClockView.m */; };
 		94FDEAFB1B5AEB0B0026B25D /* TBActionClockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEAF91B5AEB0B0026B25D /* TBActionClockView.m */; };
-		AD1B250C1BA8773900C4BDDC /* scope_timer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AD1B250A1BA8773900C4BDDC /* scope_timer.cpp */; settings = {ASSET_TAGS = (); }; };
-		AD1B250D1BA8796100C4BDDC /* scope_timer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AD1B250A1BA8773900C4BDDC /* scope_timer.cpp */; settings = {ASSET_TAGS = (); }; };
-		AD1B250E1BA8796400C4BDDC /* scope_timer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AD1B250A1BA8773900C4BDDC /* scope_timer.cpp */; settings = {ASSET_TAGS = (); }; };
-		AD1B250F1BA8796500C4BDDC /* scope_timer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AD1B250A1BA8773900C4BDDC /* scope_timer.cpp */; settings = {ASSET_TAGS = (); }; };
-		AD2B800E1BACC63600E2FE9C /* TBPhone WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = AD33BA641BAC63540011777C /* TBPhone WatchKit Extension.appex */; settings = {ASSET_TAGS = (); }; };
-		AD2CA95F1BAA7043009A2384 /* TournamentSocketDirectory.c in Sources */ = {isa = PBXBuildFile; fileRef = AD2CA95E1BAA7043009A2384 /* TournamentSocketDirectory.c */; settings = {ASSET_TAGS = (); }; };
-		AD2CA9601BAA70F9009A2384 /* TournamentSocketDirectory.c in Sources */ = {isa = PBXBuildFile; fileRef = AD2CA95E1BAA7043009A2384 /* TournamentSocketDirectory.c */; settings = {ASSET_TAGS = (); }; };
-		AD2CA9611BAA7134009A2384 /* TournamentSocketDirectory.c in Sources */ = {isa = PBXBuildFile; fileRef = AD2CA95E1BAA7043009A2384 /* TournamentSocketDirectory.c */; settings = {ASSET_TAGS = (); }; };
+		AD1B250C1BA8773900C4BDDC /* scope_timer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AD1B250A1BA8773900C4BDDC /* scope_timer.cpp */; };
+		AD1B250D1BA8796100C4BDDC /* scope_timer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AD1B250A1BA8773900C4BDDC /* scope_timer.cpp */; };
+		AD1B250E1BA8796400C4BDDC /* scope_timer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AD1B250A1BA8773900C4BDDC /* scope_timer.cpp */; };
+		AD1B250F1BA8796500C4BDDC /* scope_timer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AD1B250A1BA8773900C4BDDC /* scope_timer.cpp */; };
+		AD2B800E1BACC63600E2FE9C /* TBPhone WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = AD33BA641BAC63540011777C /* TBPhone WatchKit Extension.appex */; };
+		AD2CA95F1BAA7043009A2384 /* TournamentSocketDirectory.c in Sources */ = {isa = PBXBuildFile; fileRef = AD2CA95E1BAA7043009A2384 /* TournamentSocketDirectory.c */; };
+		AD2CA9601BAA70F9009A2384 /* TournamentSocketDirectory.c in Sources */ = {isa = PBXBuildFile; fileRef = AD2CA95E1BAA7043009A2384 /* TournamentSocketDirectory.c */; };
+		AD2CA9611BAA7134009A2384 /* TournamentSocketDirectory.c in Sources */ = {isa = PBXBuildFile; fileRef = AD2CA95E1BAA7043009A2384 /* TournamentSocketDirectory.c */; };
 		AD2FC7901BACDB51008ABB22 /* TBPhone WatchKit App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = AD33BA521BAC634F0011777C /* TBPhone WatchKit App.app */; };
 		AD33BA421BABAC120011777C /* defaults.json in Resources */ = {isa = PBXBuildFile; fileRef = 9476F4CD1B3C3F8300A158F8 /* defaults.json */; };
 		AD33BA431BABAD6B0011777C /* defaults.json in Resources */ = {isa = PBXBuildFile; fileRef = 9476F4CD1B3C3F8300A158F8 /* defaults.json */; };
-		AD33BA481BAC634F0011777C /* s_warning.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04ECC1B7C59EB004F4245 /* s_warning.caf */; settings = {ASSET_TAGS = (); }; };
-		AD33BA491BAC634F0011777C /* s_break.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04EC81B7C59EB004F4245 /* s_break.caf */; settings = {ASSET_TAGS = (); }; };
+		AD33BA481BAC634F0011777C /* s_warning.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04ECC1B7C59EB004F4245 /* s_warning.caf */; };
+		AD33BA491BAC634F0011777C /* s_break.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04EC81B7C59EB004F4245 /* s_break.caf */; };
 		AD33BA4A1BAC634F0011777C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ADA6A19D1B97FE8A00C83762 /* Assets.xcassets */; };
 		AD33BA4B1BAC634F0011777C /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ADA6A19A1B97FE8A00C83762 /* Interface.storyboard */; };
-		AD33BA4C1BAC634F0011777C /* s_next.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04EC91B7C59EB004F4245 /* s_next.caf */; settings = {ASSET_TAGS = (); }; };
+		AD33BA4C1BAC634F0011777C /* s_next.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04EC91B7C59EB004F4245 /* s_next.caf */; };
 		AD33BA561BAC63540011777C /* FBKVOController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEAE01B5AE2D60026B25D /* FBKVOController.m */; };
 		AD33BA571BAC63540011777C /* NSObject+FBKVOController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEAE41B5AE2D60026B25D /* NSObject+FBKVOController.m */; };
 		AD33BA581BAC63540011777C /* ExtensionDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA6A1AF1B97FE8A00C83762 /* ExtensionDelegate.m */; };
 		AD33BA591BAC63540011777C /* InterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA6A1AC1B97FE8A00C83762 /* InterfaceController.m */; };
 		AD33BA5A1BAC63540011777C /* NotificationController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA6A1B21B97FE8A00C83762 /* NotificationController.m */; };
-		AD33BA5D1BAC63540011777C /* s_next.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04EC91B7C59EB004F4245 /* s_next.caf */; settings = {ASSET_TAGS = (); }; };
-		AD33BA5E1BAC63540011777C /* s_warning.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04ECC1B7C59EB004F4245 /* s_warning.caf */; settings = {ASSET_TAGS = (); }; };
-		AD33BA5F1BAC63540011777C /* s_break.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04EC81B7C59EB004F4245 /* s_break.caf */; settings = {ASSET_TAGS = (); }; };
+		AD33BA5D1BAC63540011777C /* s_next.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04EC91B7C59EB004F4245 /* s_next.caf */; };
+		AD33BA5E1BAC63540011777C /* s_warning.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04ECC1B7C59EB004F4245 /* s_warning.caf */; };
+		AD33BA5F1BAC63540011777C /* s_break.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04EC81B7C59EB004F4245 /* s_break.caf */; };
 		AD33BA601BAC63540011777C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ADA6A1B41B97FE8A00C83762 /* Assets.xcassets */; };
-		AD452D4F1BC6C685007CF579 /* TBChooseColorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD452D4E1BC6C685007CF579 /* TBChooseColorViewController.m */; settings = {ASSET_TAGS = (); }; };
-		AD452D501BC6C685007CF579 /* TBChooseColorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD452D4E1BC6C685007CF579 /* TBChooseColorViewController.m */; settings = {ASSET_TAGS = (); }; };
-		AD475C3B1BB62D0400DAE739 /* TBEditableTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD475C3A1BB62D0400DAE739 /* TBEditableTableViewCell.m */; settings = {ASSET_TAGS = (); }; };
-		AD5375B41B9F35FB00EF5132 /* TBRemoteWatchDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AD5375B31B9F35FB00EF5132 /* TBRemoteWatchDelegate.m */; settings = {ASSET_TAGS = (); }; };
-		AD62569F1BB448DD00EE776A /* TBSetupDetailsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD62569E1BB448DD00EE776A /* TBSetupDetailsTableViewController.m */; settings = {ASSET_TAGS = (); }; };
-		AD6256A21BB44B9A00EE776A /* TBSetupDetailsPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD6256A11BB44B9A00EE776A /* TBSetupDetailsPlayerViewController.m */; settings = {ASSET_TAGS = (); }; };
-		AD6256A51BB44D8000EE776A /* TBSetupDetailsChipsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD6256A41BB44D8000EE776A /* TBSetupDetailsChipsViewController.m */; settings = {ASSET_TAGS = (); }; };
-		AD6256A81BB44DB200EE776A /* TBSetupDetailsFundingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD6256A71BB44DB200EE776A /* TBSetupDetailsFundingViewController.m */; settings = {ASSET_TAGS = (); }; };
-		AD6256AB1BB44DC700EE776A /* TBSetupDetailsRoundsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD6256AA1BB44DC700EE776A /* TBSetupDetailsRoundsViewController.m */; settings = {ASSET_TAGS = (); }; };
-		AD6256F31BB44E1100EE776A /* TBSetupDetailsDevicesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD6256F21BB44E1100EE776A /* TBSetupDetailsDevicesViewController.m */; settings = {ASSET_TAGS = (); }; };
-		AD6256F61BB4525A00EE776A /* TBAuthCodeNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = AD6256F51BB4525A00EE776A /* TBAuthCodeNumberFormatter.m */; settings = {ASSET_TAGS = (); }; };
-		AD75ACEE1BA3FD8800705967 /* TBEllipseImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD75ACED1BA3FD8800705967 /* TBEllipseImageView.m */; settings = {ASSET_TAGS = (); }; };
-		AD75ACEF1BA3FEEA00705967 /* TBEllipseImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD75ACED1BA3FD8800705967 /* TBEllipseImageView.m */; settings = {ASSET_TAGS = (); }; };
-		AD75ACF01BA3FF1900705967 /* TBColorValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 94562E5F1B65D8CA0017C692 /* TBColorValueTransformer.m */; settings = {ASSET_TAGS = (); }; };
-		AD7E5D011B9FE766004654E9 /* s_break.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04EC81B7C59EB004F4245 /* s_break.caf */; settings = {ASSET_TAGS = (); }; };
-		AD7E5D021B9FE766004654E9 /* s_next.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04EC91B7C59EB004F4245 /* s_next.caf */; settings = {ASSET_TAGS = (); }; };
-		AD7E5D031B9FE766004654E9 /* s_warning.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04ECC1B7C59EB004F4245 /* s_warning.caf */; settings = {ASSET_TAGS = (); }; };
-		AD7E5D071B9FE7AB004654E9 /* s_break.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04EC81B7C59EB004F4245 /* s_break.caf */; settings = {ASSET_TAGS = (); }; };
-		AD7E5D081B9FE7AB004654E9 /* s_next.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04EC91B7C59EB004F4245 /* s_next.caf */; settings = {ASSET_TAGS = (); }; };
-		AD7E5D091B9FE7AB004654E9 /* s_warning.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04ECC1B7C59EB004F4245 /* s_warning.caf */; settings = {ASSET_TAGS = (); }; };
-		AD87A6CA1BA1D3B800E55961 /* TBChipsDisplayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD87A6C81BA1D3B800E55961 /* TBChipsDisplayViewController.m */; settings = {ASSET_TAGS = (); }; };
-		AD87A6CB1BA1D3B800E55961 /* TBChipsDisplayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD87A6C81BA1D3B800E55961 /* TBChipsDisplayViewController.m */; settings = {ASSET_TAGS = (); }; };
-		AD87A6CC1BA1D3B800E55961 /* TBChipsDisplayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD87A6C91BA1D3B800E55961 /* TBChipsDisplayView.xib */; settings = {ASSET_TAGS = (); }; };
-		AD87A6CD1BA1D3B800E55961 /* TBChipsDisplayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD87A6C91BA1D3B800E55961 /* TBChipsDisplayView.xib */; settings = {ASSET_TAGS = (); }; };
-		AD87A6DB1BA2094400E55961 /* TBEllipseView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD87A6D81BA2094400E55961 /* TBEllipseView.m */; settings = {ASSET_TAGS = (); }; };
+		AD452D4F1BC6C685007CF579 /* TBChooseColorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD452D4E1BC6C685007CF579 /* TBChooseColorViewController.m */; };
+		AD452D501BC6C685007CF579 /* TBChooseColorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD452D4E1BC6C685007CF579 /* TBChooseColorViewController.m */; };
+		AD475C3B1BB62D0400DAE739 /* TBEditableTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD475C3A1BB62D0400DAE739 /* TBEditableTableViewCell.m */; };
+		AD5375B41B9F35FB00EF5132 /* TBRemoteWatchDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AD5375B31B9F35FB00EF5132 /* TBRemoteWatchDelegate.m */; };
+		AD62569F1BB448DD00EE776A /* TBSetupDetailsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD62569E1BB448DD00EE776A /* TBSetupDetailsTableViewController.m */; };
+		AD6256A21BB44B9A00EE776A /* TBSetupDetailsPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD6256A11BB44B9A00EE776A /* TBSetupDetailsPlayerViewController.m */; };
+		AD6256A51BB44D8000EE776A /* TBSetupDetailsChipsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD6256A41BB44D8000EE776A /* TBSetupDetailsChipsViewController.m */; };
+		AD6256A81BB44DB200EE776A /* TBSetupDetailsFundingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD6256A71BB44DB200EE776A /* TBSetupDetailsFundingViewController.m */; };
+		AD6256AB1BB44DC700EE776A /* TBSetupDetailsRoundsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD6256AA1BB44DC700EE776A /* TBSetupDetailsRoundsViewController.m */; };
+		AD6256F31BB44E1100EE776A /* TBSetupDetailsDevicesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD6256F21BB44E1100EE776A /* TBSetupDetailsDevicesViewController.m */; };
+		AD6256F61BB4525A00EE776A /* TBAuthCodeNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = AD6256F51BB4525A00EE776A /* TBAuthCodeNumberFormatter.m */; };
+		AD75ACEE1BA3FD8800705967 /* TBEllipseImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD75ACED1BA3FD8800705967 /* TBEllipseImageView.m */; };
+		AD75ACEF1BA3FEEA00705967 /* TBEllipseImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD75ACED1BA3FD8800705967 /* TBEllipseImageView.m */; };
+		AD75ACF01BA3FF1900705967 /* TBColorValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 94562E5F1B65D8CA0017C692 /* TBColorValueTransformer.m */; };
+		AD7E5D011B9FE766004654E9 /* s_break.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04EC81B7C59EB004F4245 /* s_break.caf */; };
+		AD7E5D021B9FE766004654E9 /* s_next.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04EC91B7C59EB004F4245 /* s_next.caf */; };
+		AD7E5D031B9FE766004654E9 /* s_warning.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04ECC1B7C59EB004F4245 /* s_warning.caf */; };
+		AD7E5D071B9FE7AB004654E9 /* s_break.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04EC81B7C59EB004F4245 /* s_break.caf */; };
+		AD7E5D081B9FE7AB004654E9 /* s_next.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04EC91B7C59EB004F4245 /* s_next.caf */; };
+		AD7E5D091B9FE7AB004654E9 /* s_warning.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04ECC1B7C59EB004F4245 /* s_warning.caf */; };
+		AD87A6CA1BA1D3B800E55961 /* TBChipsDisplayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD87A6C81BA1D3B800E55961 /* TBChipsDisplayViewController.m */; };
+		AD87A6CB1BA1D3B800E55961 /* TBChipsDisplayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD87A6C81BA1D3B800E55961 /* TBChipsDisplayViewController.m */; };
+		AD87A6CC1BA1D3B800E55961 /* TBChipsDisplayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD87A6C91BA1D3B800E55961 /* TBChipsDisplayView.xib */; };
+		AD87A6CD1BA1D3B800E55961 /* TBChipsDisplayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD87A6C91BA1D3B800E55961 /* TBChipsDisplayView.xib */; };
+		AD87A6DB1BA2094400E55961 /* TBEllipseView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD87A6D81BA2094400E55961 /* TBEllipseView.m */; };
 		AD8E684A1A6C606700E5A4D8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8E68491A6C606700E5A4D8 /* AppDelegate.m */; };
 		AD8E684C1A6C606700E5A4D8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8E684B1A6C606700E5A4D8 /* main.m */; };
 		AD8E684F1A6C606700E5A4D8 /* Document.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8E684E1A6C606700E5A4D8 /* Document.m */; };
@@ -233,14 +235,14 @@
 		ADCECE801B7B0DBF00767DA6 /* TBResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADCECE791B7B0D9D00767DA6 /* TBResultsViewController.m */; };
 		ADCECE821B7B0E6100767DA6 /* TBTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE4E1271A7DFFD000FC9EFC /* TBTableViewController.m */; };
 		ADCECE861B7B101500767DA6 /* TBPlayersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADCECE841B7B101500767DA6 /* TBPlayersViewController.m */; };
-		ADD2CC3F1BB39E9200DE3DE5 /* TBSetupTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD2CC3E1BB39E9200DE3DE5 /* TBSetupTableViewController.m */; settings = {ASSET_TAGS = (); }; };
-		ADD2CC471BB3A11B00DE3DE5 /* TBSetupPlayersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD2CC461BB3A11B00DE3DE5 /* TBSetupPlayersViewController.m */; settings = {ASSET_TAGS = (); }; };
-		ADD2CC4B1BB3BA8000DE3DE5 /* TBSetupChipsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD2CC4A1BB3BA8000DE3DE5 /* TBSetupChipsViewController.m */; settings = {ASSET_TAGS = (); }; };
-		ADD2CC4E1BB3C73900DE3DE5 /* TBSetupFundingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD2CC4D1BB3C73900DE3DE5 /* TBSetupFundingViewController.m */; settings = {ASSET_TAGS = (); }; };
-		ADD2CC511BB3CD3200DE3DE5 /* TBSetupRoundsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD2CC501BB3CD3200DE3DE5 /* TBSetupRoundsViewController.m */; settings = {ASSET_TAGS = (); }; };
-		ADD2CC521BB3CF7A00DE3DE5 /* TBDurationNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 94562E651B65D8CA0017C692 /* TBDurationNumberFormatter.m */; settings = {ASSET_TAGS = (); }; };
-		ADD2CC551BB3D35700DE3DE5 /* TBSetupDevicesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD2CC541BB3D35700DE3DE5 /* TBSetupDevicesViewController.m */; settings = {ASSET_TAGS = (); }; };
-		ADD2CC571BB3D4CB00DE3DE5 /* NSDateFormatter+ISO8601.m in Sources */ = {isa = PBXBuildFile; fileRef = 945410731B6E5C56001E3373 /* NSDateFormatter+ISO8601.m */; settings = {ASSET_TAGS = (); }; };
+		ADD2CC3F1BB39E9200DE3DE5 /* TBSetupTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD2CC3E1BB39E9200DE3DE5 /* TBSetupTableViewController.m */; };
+		ADD2CC471BB3A11B00DE3DE5 /* TBSetupPlayersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD2CC461BB3A11B00DE3DE5 /* TBSetupPlayersViewController.m */; };
+		ADD2CC4B1BB3BA8000DE3DE5 /* TBSetupChipsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD2CC4A1BB3BA8000DE3DE5 /* TBSetupChipsViewController.m */; };
+		ADD2CC4E1BB3C73900DE3DE5 /* TBSetupFundingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD2CC4D1BB3C73900DE3DE5 /* TBSetupFundingViewController.m */; };
+		ADD2CC511BB3CD3200DE3DE5 /* TBSetupRoundsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD2CC501BB3CD3200DE3DE5 /* TBSetupRoundsViewController.m */; };
+		ADD2CC521BB3CF7A00DE3DE5 /* TBDurationNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 94562E651B65D8CA0017C692 /* TBDurationNumberFormatter.m */; };
+		ADD2CC551BB3D35700DE3DE5 /* TBSetupDevicesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD2CC541BB3D35700DE3DE5 /* TBSetupDevicesViewController.m */; };
+		ADD2CC571BB3D4CB00DE3DE5 /* NSDateFormatter+ISO8601.m in Sources */ = {isa = PBXBuildFile; fileRef = 945410731B6E5C56001E3373 /* NSDateFormatter+ISO8601.m */; };
 		ADD4F1251B91FE2400DAF567 /* NSObject+AssociatedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD4F1241B91FE2400DAF567 /* NSObject+AssociatedObject.m */; };
 		ADD4F1261B91FE2400DAF567 /* NSObject+AssociatedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD4F1241B91FE2400DAF567 /* NSObject+AssociatedObject.m */; };
 		ADD4F1271B91FE2400DAF567 /* NSObject+AssociatedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD4F1241B91FE2400DAF567 /* NSObject+AssociatedObject.m */; };
@@ -258,25 +260,25 @@
 		ADE5A4FD1B8F44A0002737A8 /* TBStatsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE5A4FB1B8F44A0002737A8 /* TBStatsViewController.m */; };
 		ADE5A4FE1B8F44A0002737A8 /* TBStatsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE5A4FB1B8F44A0002737A8 /* TBStatsViewController.m */; };
 		ADE5A5031B8F6C4C002737A8 /* TBCurrencyImageTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE5A5021B8F6C4C002737A8 /* TBCurrencyImageTransformer.m */; };
-		ADF635E51BAB8AF800D019AE /* TournamentSocketDirectory.c in Sources */ = {isa = PBXBuildFile; fileRef = AD2CA95E1BAA7043009A2384 /* TournamentSocketDirectory.c */; settings = {ASSET_TAGS = (); }; };
+		ADF635E51BAB8AF800D019AE /* TournamentSocketDirectory.c in Sources */ = {isa = PBXBuildFile; fileRef = AD2CA95E1BAA7043009A2384 /* TournamentSocketDirectory.c */; };
 		ADF635E61BAB8AF800D019AE /* TBCurrencyNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 94562E611B65D8CA0017C692 /* TBCurrencyNumberFormatter.m */; };
 		ADF635E71BAB8AF800D019AE /* NSDictionary+Changed.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD73D281B9692E1006824A1 /* NSDictionary+Changed.m */; };
 		ADF635E81BAB8AF800D019AE /* TTTOrdinalNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9462A3E61B77CB3B00B29002 /* TTTOrdinalNumberFormatter.m */; };
 		ADF635E91BAB8AF800D019AE /* TBSound.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE299AE1B7B994200F1393B /* TBSound.m */; };
 		ADF635EA1BAB8AF800D019AE /* TBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4561B3C385400A158F8 /* TBAppDelegate.m */; };
 		ADF635EB1BAB8AF800D019AE /* types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E91B3C3F8300A158F8 /* types.cpp */; };
-		ADF635EC1BAB8AF800D019AE /* scope_timer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AD1B250A1BA8773900C4BDDC /* scope_timer.cpp */; settings = {ASSET_TAGS = (); }; };
-		ADF635ED1BAB8AF800D019AE /* TBRemoteWatchDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AD5375B31B9F35FB00EF5132 /* TBRemoteWatchDelegate.m */; settings = {ASSET_TAGS = (); }; };
+		ADF635EC1BAB8AF800D019AE /* scope_timer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AD1B250A1BA8773900C4BDDC /* scope_timer.cpp */; };
+		ADF635ED1BAB8AF800D019AE /* TBRemoteWatchDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AD5375B31B9F35FB00EF5132 /* TBRemoteWatchDelegate.m */; };
 		ADF635EE1BAB8AF800D019AE /* tournament.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E71B3C3F8300A158F8 /* tournament.cpp */; };
 		ADF635EF1BAB8AF800D019AE /* TournamentService.m in Sources */ = {isa = PBXBuildFile; fileRef = 9439701C1B405DC000BB0413 /* TournamentService.m */; };
 		ADF635F01BAB8AF800D019AE /* json.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4D81B3C3F8300A158F8 /* json.cpp */; };
 		ADF635F11BAB8AF800D019AE /* CFStreamCreatePairWithUnixSocket.c in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEADD1B5AE2D60026B25D /* CFStreamCreatePairWithUnixSocket.c */; };
-		ADF635F21BAB8AF800D019AE /* TBEllipseView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD87A6D81BA2094400E55961 /* TBEllipseView.m */; settings = {ASSET_TAGS = (); }; };
+		ADF635F21BAB8AF800D019AE /* TBEllipseView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD87A6D81BA2094400E55961 /* TBEllipseView.m */; };
 		ADF635F31BAB8AF800D019AE /* TBRemoteClockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F45A1B3C385400A158F8 /* TBRemoteClockViewController.m */; };
 		ADF635F41BAB8AF800D019AE /* cJSON.c in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4CE1B3C3F8300A158F8 /* cJSON.c */; };
 		ADF635F51BAB8AF800D019AE /* TournamentSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4811B3C3EA700A158F8 /* TournamentSession.m */; };
 		ADF635F61BAB8AF800D019AE /* NSObject+AssociatedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD4F1241B91FE2400DAF567 /* NSObject+AssociatedObject.m */; };
-		ADF635F71BAB8AF800D019AE /* TBColor+CSS.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEADB1B5AE2560026B25D /* TBColor+CSS.m */; settings = {ASSET_TAGS = (); }; };
+		ADF635F71BAB8AF800D019AE /* TBColor+CSS.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEADB1B5AE2560026B25D /* TBColor+CSS.m */; };
 		ADF635F81BAB8AF800D019AE /* server.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E11B3C3F8300A158F8 /* server.cpp */; };
 		ADF635F91BAB8AF800D019AE /* TournamentBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 943970171B3F9DB700BB0413 /* TournamentBrowser.m */; };
 		ADF635FA1BAB8AF800D019AE /* TBResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADDDAA8A1B93BCEE00D3AF68 /* TBResultsViewController.m */; };
@@ -301,8 +303,8 @@
 		ADF636101BAB8AF800D019AE /* s_warning.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04ECC1B7C59EB004F4245 /* s_warning.caf */; };
 		ADF636111BAB8AF800D019AE /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9476F45F1B3C385400A158F8 /* LaunchScreen.xib */; };
 		ADF636121BAB8AF800D019AE /* TBRemote.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9476F45D1B3C385400A158F8 /* TBRemote.xcassets */; };
-		ADFFFF141BA34394003BAC88 /* TBColor+CSS.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEADB1B5AE2560026B25D /* TBColor+CSS.m */; settings = {ASSET_TAGS = (); }; };
-		ADFFFF151BA34394003BAC88 /* TBColor+CSS.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEADB1B5AE2560026B25D /* TBColor+CSS.m */; settings = {ASSET_TAGS = (); }; };
+		ADFFFF141BA34394003BAC88 /* TBColor+CSS.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEADB1B5AE2560026B25D /* TBColor+CSS.m */; };
+		ADFFFF151BA34394003BAC88 /* TBColor+CSS.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEADB1B5AE2560026B25D /* TBColor+CSS.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -492,6 +494,9 @@
 		9476F4EA1B3C3F8300A158F8 /* types.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = types.hpp; sourceTree = "<group>"; };
 		9476F4F91B3C403F00A158F8 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		9476F4FB1B3C404400A158F8 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		94CC7F8C1CE8CF770081A8A0 /* TBPlanWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBPlanWindowController.h; path = TBMac/TBPlanWindowController.h; sourceTree = "<group>"; };
+		94CC7F8D1CE8CF770081A8A0 /* TBPlanWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TBPlanWindowController.m; path = TBMac/TBPlanWindowController.m; sourceTree = "<group>"; };
+		94CC7F8E1CE8CF770081A8A0 /* TBPlanWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TBPlanWindow.xib; path = TBMac/TBPlanWindow.xib; sourceTree = "<group>"; };
 		94D04EC81B7C59EB004F4245 /* s_break.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = s_break.caf; sourceTree = "<group>"; };
 		94D04EC91B7C59EB004F4245 /* s_next.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = s_next.caf; sourceTree = "<group>"; };
 		94D04ECA1B7C59EB004F4245 /* s_rebalance.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = s_rebalance.caf; sourceTree = "<group>"; };
@@ -1008,15 +1013,15 @@
 		AD8E68451A6C606700E5A4D8 /* TBMac */ = {
 			isa = PBXGroup;
 			children = (
-				ADACCB751B989B8000F7C477 /* TBAuthCodeWindowController.h */,
-				ADACCB761B989B8000F7C477 /* TBAuthCodeWindowController.m */,
-				ADACCB7B1B989B8F00F7C477 /* TBAuthCodeWindow.xib */,
 				AD8E68481A6C606700E5A4D8 /* AppDelegate.h */,
 				AD8E68491A6C606700E5A4D8 /* AppDelegate.m */,
 				AD8E684D1A6C606700E5A4D8 /* Document.h */,
 				AD8E684E1A6C606700E5A4D8 /* Document.m */,
 				AD8E68501A6C606700E5A4D8 /* Document.xib */,
 				AD8E68551A6C606700E5A4D8 /* MainMenu.xib */,
+				ADACCB751B989B8000F7C477 /* TBAuthCodeWindowController.h */,
+				ADACCB761B989B8000F7C477 /* TBAuthCodeWindowController.m */,
+				ADACCB7B1B989B8F00F7C477 /* TBAuthCodeWindow.xib */,
 				9462A3F31B7864E900B29002 /* TBAuthsViewController.h */,
 				9462A3F41B7864E900B29002 /* TBAuthsViewController.m */,
 				94D849D31B8D60E5000124E4 /* TBAuthsView.xib */,
@@ -1041,6 +1046,9 @@
 				AD98D9671A7B33F100DA6B8B /* TBLeagueViewController.h */,
 				AD98D9681A7B33F100DA6B8B /* TBLeagueViewController.m */,
 				94D849E61B8D6153000124E4 /* TBLeagueView.xib */,
+				94CC7F8C1CE8CF770081A8A0 /* TBPlanWindowController.h */,
+				94CC7F8D1CE8CF770081A8A0 /* TBPlanWindowController.m */,
+				94CC7F8E1CE8CF770081A8A0 /* TBPlanWindow.xib */,
 				ADCECE831B7B101500767DA6 /* TBPlayersViewController.h */,
 				ADCECE841B7B101500767DA6 /* TBPlayersViewController.m */,
 				94D849E91B8D6156000124E4 /* TBPlayersView.xib */,
@@ -1398,6 +1406,7 @@
 				94D849DE1B8D60FD000124E4 /* TBFundingView.xib in Resources */,
 				AD87A6CC1BA1D3B800E55961 /* TBChipsDisplayView.xib in Resources */,
 				94D04ED51B7C59EB004F4245 /* s_warning.caf in Resources */,
+				94CC7F901CE8CF770081A8A0 /* TBPlanWindow.xib in Resources */,
 				94D849E71B8D6156000124E4 /* TBPlayersView.xib in Resources */,
 				94D849F81B8D616D000124E4 /* TBSeatingView.xib in Resources */,
 				94D849F51B8D6169000124E4 /* TBRoundsView.xib in Resources */,
@@ -1599,6 +1608,7 @@
 				94FDEAE81B5AE2D60026B25D /* FBKVOController.m in Sources */,
 				9462A3E31B77376000B29002 /* NSFont+LineHeight.m in Sources */,
 				945410771B6E9A17001E3373 /* NSString+CamelCase.m in Sources */,
+				94CC7F8F1CE8CF770081A8A0 /* TBPlanWindowController.m in Sources */,
 				ADE299B61B7B9ED100F1393B /* TBPlayerWindowController.m in Sources */,
 				AD8E684F1A6C606700E5A4D8 /* Document.m in Sources */,
 				949D70981B3C440D008D5CD1 /* logger.cpp in Sources */,

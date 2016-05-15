@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10117"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="Document">
@@ -35,20 +35,16 @@
                     <customView id="f7K-dU-sgd" userLabel="Right Pane">
                         <rect key="frame" x="768" y="0.0" width="256" height="768"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" heightSizable="YES"/>
-                        <animations/>
                     </customView>
                     <customView id="avI-PZ-fLe" userLabel="Center Pane">
                         <rect key="frame" x="256" y="0.0" width="512" height="768"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
-                        <animations/>
                     </customView>
                     <customView id="5IA-WE-Vdf" userLabel="Left Pane">
                         <rect key="frame" x="0.0" y="0.0" width="256" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
-                        <animations/>
                     </customView>
                 </subviews>
-                <animations/>
             </view>
             <toolbar key="toolbar" implicitIdentifier="1A059E8D-FDB2-4EBE-BADD-148181524512" autosavesConfiguration="NO" displayMode="iconAndLabel" sizeMode="regular" id="0oW-bd-6uA">
                 <allowedToolbarItems>
@@ -106,7 +102,6 @@
                         <textField key="view" horizontalHuggingPriority="251" verticalHuggingPriority="750" id="bNj-fJ-naS">
                             <rect key="frame" x="33" y="14" width="38" height="17"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                            <animations/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" title="Name" id="b9M-jI-hem">
                                 <font key="font" metaFont="systemBold" size="15"/>
                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -129,7 +124,6 @@
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="Eqa-99-rBs">
                                     <rect key="frame" x="0.0" y="20" width="48" height="12"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <animations/>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Plan for" id="jIO-Jz-mXp">
                                         <font key="font" metaFont="system" size="10"/>
                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -139,7 +133,6 @@
                                 <popUpButton verticalHuggingPriority="750" id="XIt-CZ-SXu">
                                     <rect key="frame" x="0.0" y="0.0" width="48" height="19"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <animations/>
                                     <popUpButtonCell key="cell" type="roundRect" bezelStyle="roundedRect" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="njO-bP-gU3">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="cellTitle"/>
@@ -154,7 +147,6 @@
                                     </connections>
                                 </popUpButton>
                             </subviews>
-                            <animations/>
                         </customView>
                     </toolbarItem>
                     <toolbarItem implicitItemIdentifier="5A542159-C189-4BF5-BC14-D2EFB4171C3A" label="" paletteLabel="Timer" id="Ch1-hX-nFY">
@@ -164,7 +156,6 @@
                         <textField key="view" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="8t2-yA-r5v" customClass="TBResizeTextField">
                             <rect key="frame" x="0.0" y="14" width="98" height="32"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
-                            <animations/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="01:23:45" placeholderString="" usesSingleLineMode="YES" id="9pa-nU-X5Q">
                                 <font key="font" metaFont="system" size="22"/>
                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -181,6 +172,11 @@
                         </textField>
                     </toolbarItem>
                     <toolbarItem implicitItemIdentifier="NSToolbarSeparatorItem" id="h6p-0t-euE"/>
+                    <toolbarItem implicitItemIdentifier="C87824C1-9B13-4B0D-B0F1-4A348C7F1DF5" label="Plan" paletteLabel="Plan" tag="-1" image="b_new" id="Y0Y-fF-Dcd">
+                        <connections>
+                            <action selector="planButtonDidChange:" target="-2" id="mm9-9h-wnN"/>
+                        </connections>
+                    </toolbarItem>
                 </allowedToolbarItems>
                 <defaultToolbarItems>
                     <toolbarItem reference="Nof-xM-Y12"/>
@@ -188,8 +184,7 @@
                     <toolbarItem reference="h6p-0t-euE"/>
                     <toolbarItem reference="bcc-fF-vg1"/>
                     <toolbarItem reference="itU-pm-cfi"/>
-                    <toolbarItem reference="5oR-Nd-TWJ"/>
-                    <toolbarItem reference="jWe-np-DZo"/>
+                    <toolbarItem reference="Y0Y-fF-Dcd"/>
                     <toolbarItem reference="nHO-s5-qne"/>
                     <toolbarItem reference="h6p-0t-euE"/>
                     <toolbarItem reference="bji-sb-V1g"/>
@@ -216,6 +211,7 @@
         <image name="b_configure" width="64" height="64"/>
         <image name="b_display" width="64" height="64"/>
         <image name="b_export" width="64" height="64"/>
+        <image name="b_new" width="64" height="64"/>
         <image name="b_next" width="64" height="64"/>
         <image name="b_play_pause" width="64" height="64"/>
         <image name="b_previous" width="64" height="64"/>
