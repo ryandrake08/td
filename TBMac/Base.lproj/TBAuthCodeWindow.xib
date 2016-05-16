@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10117"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="TBAuthCodeWindowController">
@@ -33,7 +33,6 @@
                             <textField verticalHuggingPriority="750" id="dkh-kT-fvg">
                                 <rect key="frame" x="16" y="16" width="64" height="64"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                <animations/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="border" alignment="center" drawsBackground="YES" id="8FX-Js-fkd">
                                     <numberFormatter key="formatter" formatterBehavior="custom10_4" positiveFormat="#" localizesFormat="NO" numberStyle="decimal" allowsFloats="NO" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="1" maximumIntegerDigits="1" decimalSeparator="." groupingSeparator="," id="Wad-mk-cpE"/>
                                     <font key="font" metaFont="system" size="48"/>
@@ -46,7 +45,6 @@
                                 </connections>
                             </textField>
                         </subviews>
-                        <animations/>
                     </customView>
                     <customView id="evC-nX-Ycd">
                         <rect key="frame" x="104" y="61" width="96" height="96"/>
@@ -55,7 +53,6 @@
                             <textField verticalHuggingPriority="750" id="0kB-DQ-Cbr">
                                 <rect key="frame" x="16" y="16" width="64" height="64"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                <animations/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="border" alignment="center" drawsBackground="YES" id="uvY-i7-Q7f">
                                     <numberFormatter key="formatter" formatterBehavior="custom10_4" positiveFormat="#" localizesFormat="NO" numberStyle="decimal" allowsFloats="NO" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="1" maximumIntegerDigits="1" decimalSeparator="." groupingSeparator="," id="4zN-Lv-qpp"/>
                                     <font key="font" metaFont="system" size="48"/>
@@ -68,7 +65,6 @@
                                 </connections>
                             </textField>
                         </subviews>
-                        <animations/>
                     </customView>
                     <customView id="BKO-zb-LuA">
                         <rect key="frame" x="208" y="61" width="96" height="96"/>
@@ -77,7 +73,6 @@
                             <textField verticalHuggingPriority="750" id="SUv-vU-OAk">
                                 <rect key="frame" x="16" y="16" width="64" height="64"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                <animations/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="border" alignment="center" drawsBackground="YES" id="0Zm-83-gDO">
                                     <numberFormatter key="formatter" formatterBehavior="custom10_4" positiveFormat="#" localizesFormat="NO" numberStyle="decimal" allowsFloats="NO" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="1" maximumIntegerDigits="1" decimalSeparator="." groupingSeparator="," id="1wB-0c-wCs"/>
                                     <font key="font" metaFont="system" size="48"/>
@@ -90,7 +85,6 @@
                                 </connections>
                             </textField>
                         </subviews>
-                        <animations/>
                     </customView>
                     <customView id="hsg-wV-Nxe">
                         <rect key="frame" x="312" y="61" width="96" height="96"/>
@@ -99,7 +93,6 @@
                             <textField verticalHuggingPriority="750" id="ewQ-yC-WOe">
                                 <rect key="frame" x="16" y="16" width="64" height="64"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                <animations/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="border" alignment="center" drawsBackground="YES" id="HPP-fe-h77">
                                     <numberFormatter key="formatter" formatterBehavior="custom10_4" positiveFormat="#" localizesFormat="NO" numberStyle="decimal" allowsFloats="NO" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="1" maximumIntegerDigits="1" decimalSeparator="." groupingSeparator="," id="xSW-CI-omQ"/>
                                     <font key="font" metaFont="system" size="48"/>
@@ -112,7 +105,6 @@
                                 </connections>
                             </textField>
                         </subviews>
-                        <animations/>
                     </customView>
                     <customView id="yCh-1M-VeU">
                         <rect key="frame" x="416" y="61" width="96" height="96"/>
@@ -121,7 +113,6 @@
                             <textField verticalHuggingPriority="750" id="s14-qP-VOA">
                                 <rect key="frame" x="16" y="16" width="64" height="64"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                <animations/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="border" alignment="center" drawsBackground="YES" id="flz-Jd-TQB">
                                     <numberFormatter key="formatter" formatterBehavior="custom10_4" positiveFormat="#" localizesFormat="NO" numberStyle="decimal" allowsFloats="NO" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="1" maximumIntegerDigits="1" decimalSeparator="." groupingSeparator="," id="vuh-me-pbC"/>
                                     <font key="font" metaFont="system" size="48"/>
@@ -134,12 +125,10 @@
                                 </connections>
                             </textField>
                         </subviews>
-                        <animations/>
                     </customView>
                     <button verticalHuggingPriority="750" id="g8c-aK-ToM">
                         <rect key="frame" x="334" y="13" width="82" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                        <animations/>
                         <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="FHg-dI-vka">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -154,7 +143,6 @@ Gw
                     <button verticalHuggingPriority="750" id="K6M-Vb-GYu">
                         <rect key="frame" x="416" y="13" width="82" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                        <animations/>
                         <buttonCell key="cell" type="push" title="Done" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="fDn-N6-8SB">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -167,9 +155,8 @@ DQ
                         </connections>
                     </button>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="OTb-Mr-rYe">
-                        <rect key="frame" x="18" y="164.99999989378875" width="476" height="31"/>
+                        <rect key="frame" x="18" y="165" width="476" height="31"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
-                        <animations/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Enter code shown on device to authorize:" id="4JT-e9-tTn">
                             <font key="font" metaFont="system" size="22"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -177,7 +164,6 @@ DQ
                         </textFieldCell>
                     </textField>
                 </subviews>
-                <animations/>
             </view>
             <connections>
                 <outlet property="delegate" destination="-2" id="0bl-1N-AYu"/>

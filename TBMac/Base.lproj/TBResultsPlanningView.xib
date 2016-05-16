@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10117"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="TBResultsViewController">
@@ -23,9 +23,8 @@
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <tableView identifier="resultsTable" verticalHuggingPriority="750" allowsExpansionToolTips="YES" selectionHighlightStyle="none" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="pq4-od-TPo" viewBased="YES" id="TLr-OK-BuK">
-                        <rect key="frame" x="0.0" y="0.0" width="256" height="751"/>
+                        <rect key="frame" x="0.0" y="0.0" width="256" height="0.0"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <animations/>
                         <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
                         <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                         <tableColumns>
@@ -46,11 +45,10 @@
                                         <rect key="frame" x="0.0" y="0.0" width="48" height="17"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
-                                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="n5h-CF-1nA">
+                                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="n5h-CF-1nA" userLabel="Place">
                                                 <rect key="frame" x="0.0" y="0.0" width="48" height="17"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                                <animations/>
-                                                <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="100th" id="nM6-Ax-D9I">
+                                                <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" id="nM6-Ax-D9I">
                                                     <numberFormatter key="formatter" formatterBehavior="default10_4" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="0" maximumIntegerDigits="42" id="TJd-bO-6va" customClass="TTTOrdinalNumberFormatter"/>
                                                     <font key="font" metaFont="system"/>
                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -61,7 +59,6 @@
                                                 </connections>
                                             </textField>
                                         </subviews>
-                                        <animations/>
                                         <connections>
                                             <outlet property="textField" destination="n5h-CF-1nA" id="CSL-ht-TIy"/>
                                         </connections>
@@ -88,11 +85,10 @@
                                         <rect key="frame" x="48" y="0.0" width="144" height="17"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
-                                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="0OM-BT-Qky">
+                                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="0OM-BT-Qky" userLabel="Player">
                                                 <rect key="frame" x="0.0" y="0.0" width="144" height="17"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                                <animations/>
-                                                <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="NtO-Ce-dhQ">
+                                                <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" id="NtO-Ce-dhQ">
                                                     <font key="font" metaFont="system"/>
                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -102,7 +98,6 @@
                                                 </connections>
                                             </textField>
                                         </subviews>
-                                        <animations/>
                                         <connections>
                                             <outlet property="textField" destination="0OM-BT-Qky" id="tgV-Wg-Oir"/>
                                         </connections>
@@ -129,11 +124,10 @@
                                         <rect key="frame" x="192" y="0.0" width="64" height="17"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
-                                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="gzE-K0-D4f">
+                                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="gzE-K0-D4f" userLabel="Payout">
                                                 <rect key="frame" x="0.0" y="0.0" width="64" height="17"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                                <animations/>
-                                                <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="$100,000" id="vsP-xO-dRF">
+                                                <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" id="vsP-xO-dRF">
                                                     <font key="font" metaFont="system"/>
                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -143,7 +137,6 @@
                                                 </connections>
                                             </textField>
                                         </subviews>
-                                        <animations/>
                                         <connections>
                                             <outlet property="textField" destination="gzE-K0-D4f" id="SH1-br-GKj"/>
                                         </connections>
@@ -159,19 +152,15 @@
                         </connections>
                     </tableView>
                 </subviews>
-                <animations/>
                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
             </clipView>
-            <animations/>
             <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="Tj9-Di-WKy">
                 <rect key="frame" x="0.0" y="752" width="256" height="16"/>
                 <autoresizingMask key="autoresizingMask"/>
-                <animations/>
             </scroller>
             <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="BRl-eF-CQL">
                 <rect key="frame" x="224" y="17" width="15" height="102"/>
                 <autoresizingMask key="autoresizingMask"/>
-                <animations/>
             </scroller>
             <tableHeaderView key="headerView" id="pq4-od-TPo">
                 <rect key="frame" x="0.0" y="0.0" width="10000" height="17"/>
