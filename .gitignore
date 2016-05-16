@@ -16,3 +16,4 @@ Defaults.tournbuddy
 .vs
 *.nupkg
 **/packages/*
+*.opendb

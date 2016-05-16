@@ -66,18 +66,44 @@ namespace TBWin
 
         private void AuthorizeCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
+            var authCodeWindow = new TBAuthCodeWindow();
+            authCodeWindow.ShowDialog();
+            if (authCodeWindow.DialogResult.HasValue && authCodeWindow.DialogResult.Value)
+            {
+                MessageBox.Show("User clicked OK");
+            }
+            else
+            {
+                MessageBox.Show("User clicked Cancel");
+            }
         }
 
         private void SetupCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
+            var authCodeWindow = new TBConfigurationWindow();
+            authCodeWindow.ShowDialog();
+            if (authCodeWindow.DialogResult.HasValue && authCodeWindow.DialogResult.Value)
+            {
+                MessageBox.Show("User clicked OK");
+            }
+            else
+            {
+                MessageBox.Show("User clicked Cancel");
+            }
         }
 
         private void PlanCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-        }
-
-        private void ReplanCommand_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
+            var authCodeWindow = new TBPlanWindow();
+            authCodeWindow.ShowDialog();
+            if (authCodeWindow.DialogResult.HasValue && authCodeWindow.DialogResult.Value)
+            {
+                MessageBox.Show("User clicked OK");
+            }
+            else
+            {
+                MessageBox.Show("User clicked Cancel");
+            }
         }
 
         private void ResultsCommand_Executed(object sender, ExecutedRoutedEventArgs e)

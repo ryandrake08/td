@@ -1,0 +1,221 @@
+﻿<Window x:Class="TBWin.TBConfigurationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:local="clr-namespace:TBWin"
+        mc:Ignorable="d"
+        Title="TBConfigurationWindow" Height="480" Width="640">
+    <StackPanel>
+        <TabControl x:Name="TabControl" HorizontalAlignment="Left" Height="388" Margin="10,10,0,0" VerticalAlignment="Top" Width="612">
+            <TabItem Header="Players">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <DataGrid x:Name="PlayersGrid" AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Name" Binding="{Binding name}" Width="*"/>
+                            <DataGridTemplateColumn Header="Member Since" Width="128">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding added_at}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                                <DataGridTemplateColumn.CellEditingTemplate>
+                                    <DataTemplate>
+                                        <DatePicker SelectedDate="{Binding added_at}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellEditingTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <StackPanel Grid.Row="1" Orientation="Horizontal">
+                        <Button Name="AddPlayer" Click="AddPlayer_OnClick">
+                            <Image Source="Images/b_add.png"/>
+                        </Button>
+                        <Button Name="RemovePlayer" Click="RemovePlayer_OnClick">
+                            <Image Source="Images/b_remove.png"/>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Equipment">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <DataGrid x:Name="ChipsGrid" AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Header="Color" Width="48">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <xctk:ColorPicker SelectedColor="{Binding color}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Header="Denomination" Binding="{Binding denomination}" Width="128"/>
+                            <DataGridTextColumn Header="Available" Binding="{Binding count_available}" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <StackPanel Grid.Row="1" Orientation="Horizontal">
+                        <Button Name="AddChip" Click="AddChip_Click">
+                            <Image Source="Images/b_add.png"/>
+                        </Button>
+                        <Button Name="RemoveChip" Click="RemoveChip_Click">
+                            <Image Source="Images/b_remove.png"/>
+                        </Button>
+                        <Label Padding="3">Players per table:</Label>
+                        <ComboBox Text="{Binding table_capacity}">
+                            <ComboBoxItem>2</ComboBoxItem>
+                            <ComboBoxItem>3</ComboBoxItem>
+                            <ComboBoxItem>4</ComboBoxItem>
+                            <ComboBoxItem>5</ComboBoxItem>
+                            <ComboBoxItem>6</ComboBoxItem>
+                            <ComboBoxItem>7</ComboBoxItem>
+                            <ComboBoxItem>8</ComboBoxItem>
+                            <ComboBoxItem>9</ComboBoxItem>
+                            <ComboBoxItem>10</ComboBoxItem>
+                            <ComboBoxItem>11</ComboBoxItem>
+                            <ComboBoxItem>12</ComboBoxItem>
+                        </ComboBox>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Funding">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <DataGrid x:Name="FundingsGrid" AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Name" Binding="{Binding name}" Width="*"/>
+                            <DataGridTextColumn Header="Type" Binding="{Binding type}" Width="112"/>
+                            <DataGridTextColumn Header="Cost" Binding="{Binding cost}" Width="56"/>
+                            <DataGridTextColumn Header="Fee" Binding="{Binding commission}" Width="56"/>
+                            <DataGridTextColumn Header="Equity" Binding="{Binding equity}" Width="56"/>
+                            <DataGridTextColumn Header="Chips" Binding="{Binding chips}" Width="56"/>
+                            <DataGridCheckBoxColumn Header="" Binding="{Binding forbid_after_blind_level}" Width="16"/>
+                            <DataGridComboBoxColumn Header="Forbid After" Width="176"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <StackPanel Grid.Row="1" Orientation="Horizontal">
+                        <Button Name="AddFunding" Click="AddFunding_Click">
+                            <Image Source="Images/b_add.png"/>
+                        </Button>
+                        <Button Name="RemoveFunding" Click="RemoveFunding_Click">
+                            <Image Source="Images/b_remove.png"/>
+                        </Button>
+                        <Label Padding="3">Cost/Fee currency:</Label>
+                        <ComboBox Text="{Binding cost_currency}">
+                            <ComboBoxItem>Dollar</ComboBoxItem>
+                            <ComboBoxItem>Euro</ComboBoxItem>
+                            <ComboBoxItem>Pound</ComboBoxItem>
+                            <ComboBoxItem>Rupee</ComboBoxItem>
+                            <ComboBoxItem>Yen</ComboBoxItem>
+                            <ComboBoxItem>Yuan</ComboBoxItem>
+                        </ComboBox>
+                        <Label Padding="3">Equity currency:</Label>
+                        <ComboBox Text="{Binding equity_currency}">
+                            <ComboBoxItem>Dollar</ComboBoxItem>
+                            <ComboBoxItem>Euro</ComboBoxItem>
+                            <ComboBoxItem>Pound</ComboBoxItem>
+                            <ComboBoxItem>Rupee</ComboBoxItem>
+                            <ComboBoxItem>Yen</ComboBoxItem>
+                            <ComboBoxItem>Yuan</ComboBoxItem>
+                            <ComboBoxItem>Points</ComboBoxItem>
+                        </ComboBox>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Rounds">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <DataGrid x:Name="RoundsGrid" AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Round" Width="64"/>
+                            <DataGridTextColumn Header="Start Time" Width="64"/>
+                            <DataGridTextColumn Header="Duration" Binding="{Binding duration}" Width="64"/>
+                            <DataGridTextColumn Header="Little Blind" Binding="{Binding little_blind}" Width="64"/>
+                            <DataGridTextColumn Header="Big Blind" Binding="{Binding big_blind}" Width="64"/>
+                            <DataGridTextColumn Header="Ante" Binding="{Binding ante}" Width="64"/>
+                            <DataGridCheckBoxColumn Header="" Binding="{Binding break_duration}" Width="16"/>
+                            <DataGridTextColumn Header="Break" Binding="{Binding break_duration}" Width="48"/>
+                            <DataGridTextColumn Header="Break Message" Binding="{Binding reason}" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <StackPanel Grid.Row="1" Orientation="Horizontal">
+                        <Button Name="AddRound" Click="AddRound_Click">
+                            <Image Source="Images/b_add.png"/>
+                        </Button>
+                        <Button Name="RemoveRound" Click="RemoveRound_Click">
+                            <Image Source="Images/b_remove.png"/>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Devices">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <DataGrid x:Name="DevicesGrid" AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Code" Binding="{Binding code}" Width="64"/>
+                            <DataGridTextColumn Header="Name" Binding="{Binding name}" Width="*"/>
+                            <DataGridTemplateColumn Header="Authorized On" Width="128">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding added_at}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                                <DataGridTemplateColumn.CellEditingTemplate>
+                                    <DataTemplate>
+                                        <DatePicker SelectedDate="{Binding added_at}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellEditingTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <StackPanel Grid.Row="1" Orientation="Horizontal">
+                        <Button Name="AddDevice" Click="AddDevice_Click">
+                            <Image Source="Images/b_add.png"/>
+                        </Button>
+                        <Button Name="RemoveDevice" Click="RemoveDevice_Click">
+                            <Image Source="Images/b_remove.png"/>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+        </TabControl>
+        <Grid Margin="16">
+            <Button
+            Name="OKButton"
+            Content="OK"
+            Height="23"
+            HorizontalAlignment="Right" 
+            Margin="0,0,93,0"
+            VerticalAlignment="Bottom" 
+            Width="75" 
+            Click="OKButton_OnClick"
+            IsDefault="True" />
+
+            <Button
+            Name="CancelButton"
+            Content="Cancel" 
+            Height="23" 
+            HorizontalAlignment="Right" 
+            VerticalAlignment="Bottom"
+            Width="75" 
+            IsCancel="True" />
+        </Grid>
+    </StackPanel>
+</Window>
