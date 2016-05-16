@@ -90,7 +90,7 @@ void redirect_debug_output()
 
 #else
 
-void redirect_debug_output()
+static void redirect_debug_output()
 {
 }
 
