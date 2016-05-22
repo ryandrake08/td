@@ -11,6 +11,7 @@
 #import "TournamentSession.h"
 #import "TBPlayerWindowController.h"
 #import "TBConnectToWindowController.h"
+#import "TBSoundPlayer.h"
 
 @interface AppDelegate () <TournamentBrowserDelegate>
 
@@ -24,6 +25,9 @@
 
 // a tournament broswer
 @property (strong) IBOutlet TournamentBrowser* browser;
+
+// Sound player
+@property (strong) TBSoundPlayer* soundPlayer;
 
 @end
 
@@ -40,6 +44,10 @@
     [_windowController setSession:_session];
     [_windowController showWindow:nil];
     [_windowController.window makeKeyAndOrderFront:nil];
+
+    // set up sound player
+    _soundPlayer = [[TBSoundPlayer alloc] init];
+    [_soundPlayer setSession:_session];
 }
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {

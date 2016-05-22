@@ -14,6 +14,7 @@
 #import "TBConfigurationWindowController.h"
 #import "TBPlanWindowController.h"
 #import "TBPlayerWindowController.h"
+#import "TBSoundPlayer.h"
 #import "TournamentSession.h"
 #import "TournamentDaemon.h"
 #import "NSObject+FBKVOController.h"
@@ -24,6 +25,9 @@
 @property (strong) TournamentDaemon* server;
 @property (strong) TournamentSession* session;
 @property (strong) NSMutableDictionary* configuration;
+
+// Sound player
+@property (strong) TBSoundPlayer* soundPlayer;
 
 // View Controllers
 @property (strong) IBOutlet TBSeatingViewController* seatingViewController;
@@ -54,6 +58,8 @@
         _server = [[TournamentDaemon alloc] init];
         _session = [[TournamentSession alloc] init];
         _configuration = [[NSMutableDictionary alloc] init];
+        _soundPlayer = [[TBSoundPlayer alloc] init];
+        [_soundPlayer setSession:_session];
 
         // register for KVO
         [[self KVOController] observe:[[self session] state] keyPaths:@[@"connected", @"authorized"] options:0 block:^(id observer, id object, NSDictionary *change) {

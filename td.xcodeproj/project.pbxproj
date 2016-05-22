@@ -47,6 +47,8 @@
 		9462A3F11B781A9A00B29002 /* RSVerticallyCenteredTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9462A3F01B781A9A00B29002 /* RSVerticallyCenteredTextFieldCell.m */; };
 		9462A3F21B781A9A00B29002 /* RSVerticallyCenteredTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9462A3F01B781A9A00B29002 /* RSVerticallyCenteredTextFieldCell.m */; };
 		9462A3F61B7864E900B29002 /* TBAuthsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9462A3F41B7864E900B29002 /* TBAuthsViewController.m */; };
+		9469B84D1CF2222400BC45E1 /* TBSoundPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9469B84C1CF2222400BC45E1 /* TBSoundPlayer.m */; };
+		9469B84E1CF2222400BC45E1 /* TBSoundPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9469B84C1CF2222400BC45E1 /* TBSoundPlayer.m */; };
 		9476F4691B3C385400A158F8 /* TBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4561B3C385400A158F8 /* TBAppDelegate.m */; };
 		9476F46A1B3C385400A158F8 /* TBTournamentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4581B3C385400A158F8 /* TBTournamentsViewController.m */; };
 		9476F46B1B3C385400A158F8 /* TBRemoteClockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F45A1B3C385400A158F8 /* TBRemoteClockViewController.m */; };
@@ -445,6 +447,8 @@
 		9462A3F01B781A9A00B29002 /* RSVerticallyCenteredTextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSVerticallyCenteredTextFieldCell.m; sourceTree = "<group>"; };
 		9462A3F31B7864E900B29002 /* TBAuthsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBAuthsViewController.h; path = TBMac/TBAuthsViewController.h; sourceTree = "<group>"; };
 		9462A3F41B7864E900B29002 /* TBAuthsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TBAuthsViewController.m; path = TBMac/TBAuthsViewController.m; sourceTree = "<group>"; };
+		9469B84B1CF2222400BC45E1 /* TBSoundPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBSoundPlayer.h; sourceTree = "<group>"; };
+		9469B84C1CF2222400BC45E1 /* TBSoundPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBSoundPlayer.m; sourceTree = "<group>"; };
 		9476F42A1B3C37D000A158F8 /* TBRemote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TBRemote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9476F4551B3C385400A158F8 /* TBAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBAppDelegate.h; sourceTree = "<group>"; };
 		9476F4561B3C385400A158F8 /* TBAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBAppDelegate.m; sourceTree = "<group>"; };
@@ -937,6 +941,8 @@
 				94562E6B1B65D9420017C692 /* TBResizeTextField.m */,
 				ADE299AD1B7B994200F1393B /* TBSound.h */,
 				ADE299AE1B7B994200F1393B /* TBSound.m */,
+				9469B84B1CF2222400BC45E1 /* TBSoundPlayer.h */,
+				9469B84C1CF2222400BC45E1 /* TBSoundPlayer.m */,
 				94ED000F1B76E1E6003CF19B /* TBTableSeatNumberTransformer.h */,
 				94ED00101B76E1E6003CF19B /* TBTableSeatNumberTransformer.m */,
 				943970161B3F9DB700BB0413 /* TournamentBrowser.h */,
@@ -1498,6 +1504,7 @@
 				943B00D11B3F429500CE55D4 /* gameinfo.cpp in Sources */,
 				ADCECE7E1B7B0DBB00767DA6 /* TBControlsViewController.m in Sources */,
 				ADE299B01B7B9BCA00F1393B /* TBSound.m in Sources */,
+				9469B84E1CF2222400BC45E1 /* TBSoundPlayer.m in Sources */,
 				94D04ED71B7C6A5B004F4245 /* TBCurrencyNumberFormatter.m in Sources */,
 				94FDEAEC1B5AE2D60026B25D /* NSData+Delimiter.m in Sources */,
 				943B00D31B3F429500CE55D4 /* logger.cpp in Sources */,
@@ -1641,6 +1648,7 @@
 				945410741B6E5C56001E3373 /* NSDateFormatter+ISO8601.m in Sources */,
 				941916DC1B6F215F001253CA /* TBActionClockView.m in Sources */,
 				9462A3E41B77376000B29002 /* NSView+BackgroundColor.m in Sources */,
+				9469B84D1CF2222400BC45E1 /* TBSoundPlayer.m in Sources */,
 				949D70991B3C440D008D5CD1 /* server.cpp in Sources */,
 				9439701D1B405DC000BB0413 /* TournamentService.m in Sources */,
 				AD8E684A1A6C606700E5A4D8 /* AppDelegate.m in Sources */,
