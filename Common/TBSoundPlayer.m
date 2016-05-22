@@ -8,6 +8,7 @@
 
 #import "TBSoundPlayer.h"
 #import "TBSound.h"
+#import "TBNotifications.h"
 #import "NSObject+FBKVOController.h"
 
 @interface TBSoundPlayer ()
@@ -17,6 +18,7 @@
 @property (nonatomic, strong) TBSound* nextSound;
 @property (nonatomic, strong) TBSound* breakSound;
 @property (nonatomic, strong) TBSound* warningSound;
+@property (nonatomic, strong) TBSound* rebalanceSound;
 
 @end
 
@@ -29,6 +31,12 @@
         _nextSound = [[TBSound alloc] initWithResource:@"s_next" extension:@"caf"];
         _breakSound = [[TBSound alloc] initWithResource:@"s_break" extension:@"caf"];
         _warningSound = [[TBSound alloc] initWithResource:@"s_warning" extension:@"caf"];
+        _rebalanceSound = [[TBSound alloc] initWithResource:@"s_rebalance" extension:@"caf"];
+
+        // register for movement notification
+        [[NSNotificationCenter defaultCenter] addObserverForName:kMovementsUpdatedNotification object:nil queue:nil usingBlock:^(NSNotification* note) {
+            [[self rebalanceSound] play];
+        }];
     }
     return self;
 }

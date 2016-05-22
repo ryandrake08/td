@@ -94,6 +94,11 @@
                             <action selector="displayButtonDidChange:" target="-2" id="yEL-QD-93o"/>
                         </connections>
                     </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="81AF0BFE-7EDF-4CAD-A052-FEC82EE2E16C" label="Rebalance" paletteLabel="Rebalance" tag="-1" image="b_move" id="89X-vA-opF">
+                        <connections>
+                            <action selector="movementButtonDidChange:" target="-2" id="295-Ib-t56"/>
+                        </connections>
+                    </toolbarItem>
                     <toolbarItem implicitItemIdentifier="522A409F-5876-4785-BD35-965C2982F9F2" label="" paletteLabel="Tournament Name" id="Nof-xM-Y12" userLabel="Tournament Name">
                         <nil key="toolTip"/>
                         <size key="minSize" width="38" height="17"/>
@@ -150,6 +155,7 @@
                     <toolbarItem reference="Y0Y-fF-Dcd"/>
                     <toolbarItem reference="nHO-s5-qne"/>
                     <toolbarItem reference="h6p-0t-euE"/>
+                    <toolbarItem reference="89X-vA-opF"/>
                     <toolbarItem reference="bji-sb-V1g"/>
                     <toolbarItem reference="h6p-0t-euE"/>
                     <toolbarItem reference="lk1-6E-Wrm"/>
@@ -174,6 +180,7 @@
         <image name="b_configure" width="64" height="64"/>
         <image name="b_display" width="64" height="64"/>
         <image name="b_export" width="64" height="64"/>
+        <image name="b_move" width="274" height="274"/>
         <image name="b_new" width="64" height="64"/>
         <image name="b_next" width="64" height="64"/>
         <image name="b_play_pause" width="64" height="64"/>

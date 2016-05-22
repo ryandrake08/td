@@ -7,17 +7,10 @@
 //
 
 #import "TBSeatingViewController.h"
-#import "TBMovementWindowController.h"
-#import "TBSound.h"
+#import "TBNotifications.h"
 #import "NSObject+FBKVOController.h"
 
 @interface TBSeatingViewController () <NSMenuDelegate>
-
-// Configuration window
-@property (strong) TBMovementWindowController* movementWindowController;
-
-// Sounds
-@property (strong) TBSound* rebalanceSound;
 
 @end
 
@@ -38,10 +31,6 @@
 
     // resize columns
     [[self tableView] sizeToFit];
-}
-
-- (void)viewWillDisappear {
-    [[self movementWindowController] close];
 }
 
 #pragma mark TBPlayersViewDelegate
@@ -67,22 +56,7 @@
     NSNumber* playerId = [sender representedObject];
     [[self session] bustPlayer:playerId withBlock:^(NSArray* movements) {
         if([movements count] > 0) {
-            // setup movement window if needed
-            if([self movementWindowController] == nil) {
-                [self setMovementWindowController:[[TBMovementWindowController alloc] initWithWindowNibName:@"TBMovementWindow"]];
-            }
-
-            // show window before adding movements, so array controller gets created!
-            [[self movementWindowController] showWindow:self];
-
-            // add movements
-            [[[self movementWindowController] arrayController] addObjects:movements];
-
-            // alert sound
-            if([self rebalanceSound] == nil) {
-                [self setRebalanceSound:[[TBSound alloc] initWithResource:@"s_rebalance" extension:@"caf"]];
-            }
-            [[self rebalanceSound] play];
+            [[NSNotificationCenter defaultCenter] postNotificationName:kMovementsUpdatedNotification object:movements];
         }
     }];
 }

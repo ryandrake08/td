@@ -9,3 +9,4 @@
 #pragma once
 
 #define kConfigurationUpdatedNotification @"ConfigurationUpdatedNotification"
+#define kMovementsUpdatedNotification @"MovementsUpdatedNotification"

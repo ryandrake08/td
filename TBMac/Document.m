@@ -14,7 +14,9 @@
 #import "TBConfigurationWindowController.h"
 #import "TBPlanWindowController.h"
 #import "TBPlayerWindowController.h"
+#import "TBMovementWindowController.h"
 #import "TBSoundPlayer.h"
+#import "TBNotifications.h"
 #import "TournamentSession.h"
 #import "TournamentDaemon.h"
 #import "NSObject+FBKVOController.h"
@@ -36,6 +38,7 @@
 
 // Window Controllers
 @property (strong) TBPlayerWindowController* playerWindowController;
+@property (strong) TBMovementWindowController* movementWindowController;
 
 // UI Outlets
 @property (weak) IBOutlet NSTextField* tournamentNameField;
@@ -129,6 +132,21 @@
     // if table sizes change, replan
     [[self KVOController] observe:[[self session] state] keyPath:@"table_capacity" options:0 block:^(id observer, id object, NSDictionary *change) {
         [self planSeatingFor:[self lastMaxPlayers]];
+    }];
+
+    // setup movement window
+    if([self movementWindowController] == nil) {
+        [self setMovementWindowController:[[TBMovementWindowController alloc] initWithWindowNibName:@"TBMovementWindow"]];
+    }
+    
+    // register for notifications
+    [[NSNotificationCenter defaultCenter] addObserverForName:kMovementsUpdatedNotification object:nil queue:nil usingBlock:^(NSNotification* note) {
+        // add movements
+        NSArray* movements = [note object];
+        [[[self movementWindowController] arrayController] addObjects:movements];
+
+        // display as non-modal
+        [[self movementWindowController] showWindow:self];
     }];
 }
 
@@ -321,6 +339,15 @@
             [self planSeatingFor:[wc numberOfPlayers]];
         }
     }];
+}
+
+- (IBAction)movementButtonDidChange:(id)sender {
+    if([[[self movementWindowController] window] isVisible]) {
+        [[self movementWindowController] close];
+    } else {
+        // display as non-modal
+        [[self movementWindowController] showWindow:self];
+    }
 }
 
 @end

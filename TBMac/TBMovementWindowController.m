@@ -37,8 +37,4 @@
     }];
 }
 
-- (void)windowWillClose:(NSNotification *)notification {
-    [[self arrayController] setContent:nil];
-}
-
 @end
