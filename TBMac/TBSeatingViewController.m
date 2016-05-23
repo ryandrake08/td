@@ -33,6 +33,7 @@
     [[self tableView] sizeToFit];
 }
 
+
 #pragma mark TBPlayersViewDelegate
 
 - (void)selectSeatForPlayerId:(NSString*)playerId {
@@ -49,26 +50,53 @@
 
 - (IBAction)fundPlayerFromMenuItem:(NSMenuItem*)sender {
     NSDictionary* context = [sender representedObject];
-    [[self session] fundPlayer:context[@"player_id"] withFunding:context[@"funding_id"]];
+    NSArray* playerIds = context[@"player_ids"];
+    NSNumber* fundingId = context[@"funding_id"];
+    for(id playerId in playerIds) {
+        NSLog(@"Funding player id: %@", playerId);
+        [[self session] fundPlayer:playerId withFunding:fundingId];
+    }
 }
 
 - (IBAction)bustPlayerFromMenuItem:(NSMenuItem*)sender {
-    NSNumber* playerId = [sender representedObject];
-    [[self session] bustPlayer:playerId withBlock:^(NSArray* movements) {
-        if([movements count] > 0) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:kMovementsUpdatedNotification object:movements];
-        }
-    }];
+    NSDictionary* context = [sender representedObject];
+    NSArray* playerIds = context[@"player_ids"];
+    for(id playerId in playerIds) {
+        NSLog(@"Busting player id: %@", playerId);
+        [[self session] bustPlayer:playerId withBlock:^(NSArray* movements) {
+            if([movements count] > 0) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:kMovementsUpdatedNotification object:movements];
+            }
+        }];
+    }
 }
 
 - (IBAction)unseatPlayerFromMenuItem:(NSMenuItem*)sender {
-    NSNumber* playerId = [sender representedObject];
-    [[self session] unseatPlayer:playerId withBlock:nil];
+    NSDictionary* context = [sender representedObject];
+    NSArray* playerIds = context[@"player_ids"];
+    for(id playerId in playerIds) {
+        NSLog(@"Unseating player id: %@", playerId);
+        [[self session] unseatPlayer:playerId withBlock:nil];
+    }
 }
 
-- (void)updateActionMenu:(NSMenu*)menu forTableCellView:(NSTableCellView*)cell {
-    // its object is the model object for this player
-    id seatedPlayer = [cell objectValue];
+#pragma mark NSMenuDelegate
+
+- (void)menuNeedsUpdate:(NSMenu*)menu {
+    // array to hold all players
+    NSMutableArray* playerIds = [[NSMutableArray alloc] init];
+    __block NSUInteger buyins = 0;
+
+    // find the selected indexes
+    NSIndexSet* indexSet = [[self tableView] selectedRowIndexes];
+    [indexSet enumerateIndexesUsingBlock:^(NSUInteger row, BOOL* stop) {
+        NSTableCellView* cell = [[self tableView] viewAtColumn:0 row:row makeIfNecessary:YES];
+        NSDictionary* player = [cell objectValue];
+        [playerIds addObject:player[@"player_id"]];
+        if([player[@"buyin"] boolValue]) {
+            buyins++;
+        }
+    }];
 
     // current blind level
     NSNumber* currentBlindLevel = [[self session] state][@"current_blind_level"];
@@ -80,7 +108,7 @@
 
     // add funding sources
     [[[self session] state][@"funding_sources"] enumerateObjectsUsingBlock:^(id source, NSUInteger idx, BOOL* stop) {
-        id context = @{@"player_id":seatedPlayer[@"player_id"], @"funding_id":@(idx)};
+        id context = @{@"player_ids":playerIds, @"funding_id":@(idx)};
 
         // enable if we can still use this source
         NSNumber* last = source[@"forbid_after_blind_level"];
@@ -104,27 +132,13 @@
 
     // set up bust function
     item = [menu itemWithTag:2];
-    [item setRepresentedObject:seatedPlayer[@"player_id"]];
-    [item setEnabled:([currentBlindLevel integerValue] > 0) && ([seatedPlayer[@"buyin"] boolValue])];
+    [item setRepresentedObject:@{@"player_ids":playerIds}];
+    [item setEnabled:([currentBlindLevel integerValue] > 0) && buyins == [indexSet count]];
 
     // add unseat function
     item = [menu itemWithTag:3];
-    [item setRepresentedObject:seatedPlayer[@"player_id"]];
-    [item setEnabled:(![seatedPlayer[@"buyin"] boolValue])];
-}
-
-#pragma mark NSMenuDelegate
-
-- (void)menuNeedsUpdate:(NSMenu*)menu {
-    // find the clicked tableView cell
-    NSInteger row = [[self tableView] clickedRow];
-    NSInteger col = [[self tableView] clickedColumn];
-    if(row != -1 && col != -1) {
-        NSTableCellView* cell = [[self tableView] viewAtColumn:col row:row makeIfNecessary:YES];
-
-        // update menu content
-        [self updateActionMenu:menu forTableCellView:cell];
-    }
+    [item setRepresentedObject:@{@"player_ids":playerIds}];
+    [item setEnabled:buyins == 0];
 }
 
 #pragma mark Actions
@@ -132,12 +146,14 @@
 - (IBAction)manageButtonClicked:(id)sender {
     NSTableCellView* cell = (NSTableCellView*)[sender superview];
     NSTableView* tableView = (NSTableView*)[[cell superview] superview];
-    NSMenu* menu = [tableView menu];
+
+    // select cell
+    NSInteger row = [tableView rowForView:cell];
+    NSIndexSet* indexSet = [NSIndexSet indexSetWithIndex:row];
+    [tableView selectRowIndexes:indexSet byExtendingSelection:NO];
 
     // update menu content
-    [self updateActionMenu:menu forTableCellView:cell];
-
-    // show menu
+    NSMenu* menu = [tableView menu];
     [NSMenu popUpContextMenu:menu withEvent:[NSApp currentEvent] forView:sender];
 }
 

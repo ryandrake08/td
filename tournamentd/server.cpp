@@ -70,7 +70,7 @@ bool server::poll(const std::function<bool(std::ostream&)>& handle_new_client, c
             // handle client i/o
             socketstream ss(*sock);
             char buf;
-            while(sock->peek(&buf, 1))
+            while(ss.rdbuf()->in_avail() > 0 || sock->peek(&buf, 1))
             {
                 if(handle_client(ss) || !ss.good())
                 {
