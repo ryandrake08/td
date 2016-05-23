@@ -98,6 +98,12 @@ private:
         buf_type::setg(ibuf, ibuf, ibuf + num);
         return *buf_type::gptr();
     }
+
+    virtual std::streamsize showmanyc()
+    {
+        char buf;
+        return this->sock.peek(&buf, 1);
+    }
 };
 
 typedef basic_socketstreambuf<char> socketstreambuf;

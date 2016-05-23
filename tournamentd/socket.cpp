@@ -228,7 +228,7 @@ std::set<common_socket> common_socket::select(const std::set<common_socket>& soc
     return ret;
 }
 
-bool common_socket::peek(void* buf, std::size_t bytes) const
+long common_socket::peek(void* buf, std::size_t bytes) const
 {
     logger(LOG_DEBUG) << "peeking " << bytes << " on " << *this << '\n';
     if(!this->pimpl)
@@ -285,12 +285,12 @@ bool common_socket::peek(void* buf, std::size_t bytes) const
         {
 			throw std::system_error(recv_errno, std::system_category(), "recv");
 		}
-        return false;
+        return 0;
     }
     else
     {
         logger(LOG_DEBUG) << "peek: " << len << " bytes available\n";
-        return len > 0;
+        return len;
     }
 }
 
