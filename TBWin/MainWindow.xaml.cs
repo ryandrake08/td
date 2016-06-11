@@ -110,6 +110,12 @@ namespace TBWin
         {
         }
 
+        private void RebalanceCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            var movementWindow = new TBMovementWindow();
+            movementWindow.Show();
+        }
+
         private void DisplayCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
         }
@@ -139,6 +145,7 @@ namespace TBWin
         public static readonly RoutedUICommand Plan = new RoutedUICommand("Plan", "Plan", typeof(Commands));
         public static readonly RoutedUICommand Replan = new RoutedUICommand("Replan", "Replan", typeof(Commands));
         public static readonly RoutedUICommand Results = new RoutedUICommand("Results", "Results", typeof(Commands));
+        public static readonly RoutedUICommand Rebalance = new RoutedUICommand("Rebalance", "Rebalance", typeof(Commands));
         public static readonly RoutedUICommand Display = new RoutedUICommand("Display", "Display", typeof(Commands));
         public static readonly RoutedUICommand PlayPause = new RoutedUICommand("PlayPause", "PlayPause", typeof(Commands));
     }

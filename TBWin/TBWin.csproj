@@ -135,6 +135,9 @@
     <Compile Include="TBConfigurationWindow.xaml.cs">
       <DependentUpon>TBConfigurationWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="TBMovementWindow.xaml.cs">
+      <DependentUpon>TBMovementWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TBPlanWindow.xaml.cs">
       <DependentUpon>TBPlanWindow.xaml</DependentUpon>
     </Compile>
@@ -159,6 +162,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="TBConfigurationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TBMovementWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -299,6 +306,9 @@
   <ItemGroup>
     <Resource Include="Images\b_add.png" />
     <Resource Include="Images\b_remove.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\b_move.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
