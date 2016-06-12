@@ -141,6 +141,9 @@
     <Compile Include="TBPlanWindow.xaml.cs">
       <DependentUpon>TBPlanWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="TBPlayerWindow.xaml.cs">
+      <DependentUpon>TBPlayerWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TournamentConfigSerializer.cs" />
     <Compile Include="TournamentDaemon.cs" />
     <Compile Include="TournamentSession.cs" />
@@ -170,6 +173,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="TBPlanWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TBPlayerWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

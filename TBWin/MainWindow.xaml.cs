@@ -118,6 +118,8 @@ namespace TBWin
 
         private void DisplayCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
+            var playerWindow = new TBPlayerWindow();
+            playerWindow.Show();
         }
 
         private void PlayPauseCommand_Executed(object sender, ExecutedRoutedEventArgs e)
