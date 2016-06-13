@@ -1,13 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Windows;
 
 namespace TBWin
 {
     /// <summary>
     /// Interaction logic for TBMovementWindow.xaml
     /// </summary>
-    public partial class TBMovementWindow : Window
+    public partial class TBMovementWindow
     {
         public TBMovementWindow()
         {

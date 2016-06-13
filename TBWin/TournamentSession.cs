@@ -2,7 +2,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
@@ -69,6 +68,12 @@ namespace TBWin
 
     public class TournamentSession : IDisposable
     {
+        // CONSTANTS
+
+        public const int ActionClockRequestTime = 60000;
+
+        public const int AudioWarningTime = 60000;
+
         // Constructor
         public TournamentSession()
         {
@@ -152,10 +157,7 @@ namespace TBWin
         {
             await SendCommand("get_config", delegate (IDictionary<string, dynamic> obj)
             {
-                if (action != null)
-                {
-                    action(obj);
-                }
+                action?.Invoke(obj);
             });
         }
 
