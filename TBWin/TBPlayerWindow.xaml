@@ -3,80 +3,77 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:TBWin"
         mc:Ignorable="d"
         Title="TBPlayerWindow" Height="768" Width="1024">
     <Window.Resources>
         <DataTemplate x:Key="StatsTemplate">
             <StackPanel Background="White" Width="256" Height="94">
-                <TextBlock Text="Current Round" FontSize="24" Height="32" HorizontalAlignment="Center"/>
+                <TextBlock Text="{Binding TODO}" FontSize="24" Height="32" HorizontalAlignment="Center"/>
                 <TextBlock Text="1" FontSize="48" Height="48" HorizontalAlignment="Center" LineStackingStrategy="BlockLineHeight" LineHeight="48"/>
                 <Separator/>
             </StackPanel>
         </DataTemplate>
         <DataTemplate x:Key="ChipsTemplate">
             <StackPanel Background="White" Width="256" Height="64" Orientation="Horizontal">
-                <Image Source="Images/i_chip.png" />
-                <TextBlock Text="100,000" FontSize="48" Padding="10,0,0,0" Width="192" />
+                <Image Source="Images/i_chip.png"/>
+                <TextBlock Text="{Binding [denomination]}" FontSize="48" Padding="10,0,0,0" Width="192" />
                 <Separator/>
             </StackPanel>
         </DataTemplate>
         <DataTemplate x:Key="ResultsTemplate">
             <StackPanel Background="White" Width="256" Height="94">
                 <StackPanel Height="32" Orientation="Horizontal">
-                    <TextBlock Text="1st" FontSize="26" Width="120" TextAlignment="Right" />
+                    <TextBlock Text="{Binding [place]}" FontSize="26" Width="120" TextAlignment="Right" />
                     <TextBlock Text=":" FontSize="26" />
-                    <TextBlock Text="$100" FontSize="26" />
+                    <TextBlock Text="{Binding [payout]}" FontSize="26" />
                 </StackPanel>
-                <TextBlock Text="Player Name" FontSize="18" Height="48" HorizontalAlignment="Center"/>
+                <TextBlock Text="{Binding [name]}" FontSize="18" Height="48" HorizontalAlignment="Center"/>
                 <Separator/>
             </StackPanel>
         </DataTemplate>
+        
     </Window.Resources>
     
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="64" />
-            <RowDefinition Height="32" />
-            <RowDefinition Height="470" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="64"/>
+            <RowDefinition Height="32"/>
+            <RowDefinition Height="470"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="256" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="256" />
+            <ColumnDefinition Width="256"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="256"/>
         </Grid.ColumnDefinitions>
-        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" x:Name="TournamentName" Text="Non-Rebuy Tournament" TextAlignment="Center" FontSize="48"/>
-        <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" x:Name="TournamentBuyinText" Text="$20 Buy-in, No rebuys, No add-ons" TextAlignment="Center" FontSize="24"/>
-        <ListBox Grid.Row="2" Grid.Column="0" ItemsSource="{Binding TODO}" ItemTemplate="{StaticResource StatsTemplate}" HorizontalContentAlignment="Stretch">
-            <ListBoxItem>
-                test
-            </ListBoxItem>
-        </ListBox>
-        <ListBox Grid.Row="3" Grid.Column="0" ItemsSource="{Binding TODO}" ItemTemplate="{StaticResource ChipsTemplate}" HorizontalContentAlignment="Stretch"/>
+        <!-- TODO: Shrinky text -->
+        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" TextAlignment="Center" FontSize="48" Text="{Binding [name]}"/>
+        <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" TextAlignment="Center" FontSize="24" Text="{Binding [buyin_text]}"/>
+        <ListBox Grid.Row="2" Grid.Column="0" ItemsSource="{Binding TODO}" ItemTemplate="{StaticResource StatsTemplate}" HorizontalContentAlignment="Stretch"/>
+        <ListBox Grid.Row="3" Grid.Column="0" ItemsSource="{Binding [available_chips]}" ItemTemplate="{StaticResource ChipsTemplate}" HorizontalContentAlignment="Stretch"/>
         <StackPanel Grid.Row="2" Grid.Column="1" Grid.RowSpan="2">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Background="{x:Null}" BorderBrush="{x:Null}">
+                <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="PreviousRound_OnClick">
                     <Image Source="Images\b_previous.png" Height="64"/>
                 </Button>
-                <Button Background="{x:Null}" BorderBrush="{x:Null}">
+                <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="PauseResume_OnClick">
                     <Image Source="Images/b_play_pause.png" Height="64"/>
                 </Button>
-                <Button Background="{x:Null}" BorderBrush="{x:Null}">
+                <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="NextRound_OnClick">
                     <Image Source="Images/b_next.png" Height="64"/>
                 </Button>
-                <Button Background="{x:Null}" BorderBrush="{x:Null}">
+                <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="CallClock_OnClick">
                     <Image Source="Images/b_call_clock.png" Height="64"/>
                 </Button>
             </StackPanel>
-            <TextBlock Text="01:23:45" TextAlignment="Center" FontSize="128" Height="160" LineStackingStrategy="BlockLineHeight" LineHeight="160"/>
-            <TextBlock Text="Current Round" TextAlignment="Center" FontSize="24" Height="32"/>
-            <TextBlock Text="No Limit Texas Hold'em" TextAlignment="Center" FontSize="48" Height="64"/>
-            <TextBlock Text="100/200" TextAlignment="Center" FontSize="128" Height="160" LineStackingStrategy="BlockLineHeight" LineHeight="160"/>
-            <TextBlock Text="Next Round" TextAlignment="Center" FontSize="24" Height="32"/>
-            <TextBlock Text="Limit Texas Hold'em" TextAlignment="Center" FontSize="24" Height="32"/>
-            <TextBlock Text="200/400" TextAlignment="Center" FontSize="72" Height="96" LineStackingStrategy="BlockLineHeight" LineHeight="96"/>
+            <TextBlock TextAlignment="Center" FontSize="128" Height="160" Text="{Binding [clock_text]}" LineStackingStrategy="BlockLineHeight" LineHeight="160"/>
+            <TextBlock TextAlignment="Center" FontSize="24"  Height="32"  Text="Current Round" />
+            <TextBlock TextAlignment="Center" FontSize="48"  Height="64"  Text="{Binding [current_game_text]}" />
+            <TextBlock TextAlignment="Center" FontSize="128" Height="160" Text="{Binding [current_round_text]}" LineStackingStrategy="BlockLineHeight" LineHeight="160"/>
+            <TextBlock TextAlignment="Center" FontSize="24"  Height="32"  Text="Next Round" />
+            <TextBlock TextAlignment="Center" FontSize="24"  Height="32"  Text="{Binding [next_game_text]}" />
+            <TextBlock TextAlignment="Center" FontSize="72"  Height="96"  Text="{Binding [next_round_text]}" LineStackingStrategy="BlockLineHeight" LineHeight="96"/>
         </StackPanel>
-        <ListBox Grid.Row="2" Grid.Column="2" Grid.RowSpan="2" ItemsSource="{Binding TODO}" ItemTemplate="{StaticResource ResultsTemplate}" HorizontalContentAlignment="Stretch"/>
+        <ListBox Grid.Row="2" Grid.Column="2" Grid.RowSpan="2" ItemsSource="{Binding [results]}" ItemTemplate="{StaticResource ResultsTemplate}" HorizontalContentAlignment="Stretch"/>
     </Grid>
 </Window>

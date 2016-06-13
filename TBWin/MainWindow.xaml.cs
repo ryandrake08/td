@@ -113,12 +113,13 @@ namespace TBWin
         private void RebalanceCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             var movementWindow = new TBMovementWindow();
+            movementWindow.DataContext = _session.State;
             movementWindow.Show();
         }
 
         private void DisplayCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            var playerWindow = new TBPlayerWindow();
+            var playerWindow = new TBPlayerWindow(_session);
             playerWindow.Show();
         }
 
