@@ -6,6 +6,7 @@ using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace TBWin
@@ -79,6 +80,7 @@ namespace TBWin
         {
             _state = new ObservableDictionary<string,dynamic>();
             _client = new TcpClient();
+            _clientSemaphore = new SemaphoreSlim(1);
             _commandHandlers = new Dictionary<long, CommandHandler>();
         }
 
@@ -388,21 +390,33 @@ namespace TBWin
             // Append to every command: command key
             obj.Add(new KeyValuePair<string, dynamic>("echo", _incrementingKey));
 
-            // Add delegate to our dicationary
-            _commandHandlers[_incrementingKey] = handler;
+            // Synchronize the est
+            await _clientSemaphore.WaitAsync();
 
-            // Increment key
-            _incrementingKey++;
-
-            // Send asynchronously
-            using (var writer = new StreamWriter(_client.GetStream(), new UTF8Encoding(false), 1024, true))
+            try
             {
-                await writer.WriteLineAsync(command + ' ' + new TournamentConfigSerializer().Serialize(obj));
+                // Add delegate to our dicationary
+                _commandHandlers[_incrementingKey] = handler;
+
+                // Increment key
+                _incrementingKey++;
+
+                // Send asynchronously
+                using (var writer = new StreamWriter(_client.GetStream(), new UTF8Encoding(false), 1024, true))
+                {
+                    var message = command + ' ' + new TournamentConfigSerializer().Serialize(obj);
+                    await writer.WriteLineAsync(message);
+                }
+            }
+            finally
+            {
+                _clientSemaphore.Release();
             }
         }
 
         // Fields
         private readonly TcpClient _client;
+        private readonly SemaphoreSlim _clientSemaphore;
         private readonly IDictionary<string,dynamic> _state;
     }
 }
