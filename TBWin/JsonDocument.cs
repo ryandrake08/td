@@ -180,7 +180,7 @@ namespace TBWin
 
         public bool Open(string path)
         {
-            if (path.Length > 0)
+            if (!string.IsNullOrEmpty(path))
             {
                 try
                 {

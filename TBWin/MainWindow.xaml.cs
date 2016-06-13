@@ -4,6 +4,7 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using Newtonsoft.Json.Schema;
 
 namespace TBWin
 {
@@ -19,14 +20,9 @@ namespace TBWin
             _daemon.Publish("TBWin");
             _session = new TournamentSession();
             _connectTask = _session.Connect(IPAddress.Loopback, port);
+            _document = new JsonDocument();
 
             InitializeComponent();
-        }
-
-        public JsonDocument Document
-        {
-            get { return _document; }
-            set { _document = value; }
         }
 
         public TournamentSession Session
@@ -34,19 +30,33 @@ namespace TBWin
             get { return _session;  }
         }
 
+        private async void ConfigureSession()
+        {
+            if (_document.Content != null)
+            {
+                await _session.Configure(_document.Content, delegate (IDictionary<string, dynamic> newConfig)
+                {
+                    _document.Content.AddRange(newConfig);
+                });
+            }
+        }
+
+        public void LoadSession(string path)
+        {
+            _document = new JsonDocument(path);
+            ConfigureSession();
+        }
+
         private void NewCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             _document = new JsonDocument();
+            ConfigureSession();
         }
 
-        private async void OpenCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        private void OpenCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             _document.Open();
-
-            await _session.SelectiveConfigure(_document.Content, _document.Content, delegate (IDictionary<string, dynamic> newConfig)
-            {
-                _document.Content.AddRange(newConfig);
-            });
+            ConfigureSession();
         }
 
         private void SaveCommand_Executed(object sender, ExecutedRoutedEventArgs e)

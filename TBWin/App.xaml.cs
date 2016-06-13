@@ -25,7 +25,7 @@ namespace TBWin
                 }
             }
 
-            _mainWindow.Document = document == null ? new JsonDocument() : new JsonDocument(document);
+            _mainWindow.LoadSession(document);
             _mainWindow.Show();
         }
 
