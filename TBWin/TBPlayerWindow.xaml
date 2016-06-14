@@ -6,17 +6,10 @@
         mc:Ignorable="d"
         Title="TBPlayerWindow" Height="768" Width="1024">
     <Window.Resources>
-        <DataTemplate x:Key="StatsTemplate">
-            <StackPanel Background="White" Width="256" Height="94">
-                <TextBlock Text="{Binding TODO}" FontSize="24" Height="32" HorizontalAlignment="Center"/>
-                <TextBlock Text="1" FontSize="48" Height="48" HorizontalAlignment="Center" LineStackingStrategy="BlockLineHeight" LineHeight="48"/>
-                <Separator/>
-            </StackPanel>
-        </DataTemplate>
         <DataTemplate x:Key="ChipsTemplate">
-            <StackPanel Background="White" Width="256" Height="64" Orientation="Horizontal">
-                <Image Source="Images/i_chip.png"/>
-                <TextBlock Text="{Binding [denomination]}" FontSize="48" Padding="10,0,0,0" Width="192" />
+            <StackPanel Background="White" Width="240" Height="64" Orientation="Horizontal">
+                <Image Source="Images/i_chip.png" Height="64"/><!-- TODO: Tint chip image -->
+                <TextBlock Text="{Binding [denomination]}" FontSize="48" Padding="10,0,0,0" Width="174" />
                 <Separator/>
             </StackPanel>
         </DataTemplate>
@@ -31,14 +24,13 @@
                 <Separator/>
             </StackPanel>
         </DataTemplate>
-        
     </Window.Resources>
     
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="64"/>
             <RowDefinition Height="32"/>
-            <RowDefinition Height="470"/>
+            <RowDefinition Height="424"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -49,8 +41,24 @@
         <!-- TODO: Shrinky text -->
         <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" TextAlignment="Center" FontSize="48" Text="{Binding [name]}"/>
         <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" TextAlignment="Center" FontSize="24" Text="{Binding [buyin_text]}"/>
-        <ListBox Grid.Row="2" Grid.Column="0" ItemsSource="{Binding TODO}" ItemTemplate="{StaticResource StatsTemplate}" HorizontalContentAlignment="Stretch"/>
-        <ListBox Grid.Row="3" Grid.Column="0" ItemsSource="{Binding [available_chips]}" ItemTemplate="{StaticResource ChipsTemplate}" HorizontalContentAlignment="Stretch"/>
+        <StackPanel Grid.Row="2" Grid.Column="0" Background="White" Width="256">
+            <TextBlock Text="Current round" FontSize="24" Height="32" HorizontalAlignment="Center"/>
+            <TextBlock Text="{Binding [current_round_number_text]}" FontSize="48" Height="48" HorizontalAlignment="Center" LineStackingStrategy="BlockLineHeight" LineHeight="48"/>
+            <Separator/>
+            <TextBlock Text="Players Left" FontSize="24" Height="32" HorizontalAlignment="Center"/>
+            <TextBlock Text="{Binding [players_left_text]}" FontSize="48" Height="48" HorizontalAlignment="Center" LineStackingStrategy="BlockLineHeight" LineHeight="48"/>
+            <Separator/>
+            <TextBlock Text="Entries" FontSize="24" Height="32" HorizontalAlignment="Center"/>
+            <TextBlock Text="{Binding [entries_text]}" FontSize="48" Height="48" HorizontalAlignment="Center" LineStackingStrategy="BlockLineHeight" LineHeight="48"/>
+            <Separator/>
+            <TextBlock Text="Average Stack" FontSize="24" Height="32" HorizontalAlignment="Center"/>
+            <TextBlock Text="{Binding [average_stack_text]}" FontSize="48" Height="48" HorizontalAlignment="Center" LineStackingStrategy="BlockLineHeight" LineHeight="48"/>
+            <Separator/>
+            <TextBlock Text="Elapsed Time" FontSize="24" Height="32" HorizontalAlignment="Center"/>
+            <TextBlock Text="{Binding [elapsed)time_text]}" FontSize="48" Height="48" HorizontalAlignment="Center" LineStackingStrategy="BlockLineHeight" LineHeight="48"/>
+            <Separator/>
+        </StackPanel>
+        <ListBox Grid.Row="3" Grid.Column="0" ItemsSource="{Binding [available_chips]}" ItemTemplate="{StaticResource ChipsTemplate}" HorizontalContentAlignment="Stretch" BorderBrush="{x:Null}" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden"/>
         <StackPanel Grid.Row="2" Grid.Column="1" Grid.RowSpan="2">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="PreviousRound_OnClick">
@@ -74,6 +82,6 @@
             <TextBlock TextAlignment="Center" FontSize="24"  Height="32"  Text="{Binding [next_game_text]}" />
             <TextBlock TextAlignment="Center" FontSize="72"  Height="96"  Text="{Binding [next_round_text]}" LineStackingStrategy="BlockLineHeight" LineHeight="96"/>
         </StackPanel>
-        <ListBox Grid.Row="2" Grid.Column="2" Grid.RowSpan="2" ItemsSource="{Binding [results]}" ItemTemplate="{StaticResource ResultsTemplate}" HorizontalContentAlignment="Stretch"/>
+        <ListBox Grid.Row="2" Grid.Column="2" Grid.RowSpan="2" ItemsSource="{Binding [results]}" ItemTemplate="{StaticResource ResultsTemplate}" HorizontalContentAlignment="Stretch" BorderBrush="{x:Null}"/>
     </Grid>
 </Window>
