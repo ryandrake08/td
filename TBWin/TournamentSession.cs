@@ -78,7 +78,7 @@ namespace TBWin
         // Constructor
         public TournamentSession()
         {
-            _state = new ObservableDictionary<string,dynamic>();
+            _state = new DrWPF.Windows.Data.ObservableDictionary<string,dynamic>();
             _client = new TcpClient();
             _clientSemaphore = new SemaphoreSlim(1);
             _commandHandlers = new Dictionary<long, CommandHandler>();
