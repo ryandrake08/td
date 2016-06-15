@@ -627,6 +627,8 @@ namespace DrWPF.Windows.Data
 
 #region protected classes
 
+#pragma warning disable 0693
+
 #region KeyedDictionaryEntryCollection<TKey>
 
         protected class KeyedDictionaryEntryCollection<TKey> : KeyedCollection<TKey, DictionaryEntry>
