@@ -14,38 +14,38 @@ namespace TBWin
             DataContext = session.State;
         }
 
-        private void PreviousRound_OnClick(object sender, RoutedEventArgs e)
+        private async void PreviousRound_OnClick(object sender, RoutedEventArgs e)
         {
             var currentBlindLevel = Session.State["current_blind_level"];
             if (currentBlindLevel != 0)
             {
-                Session.SetPreviousLevel(null);
+                await Session.SetPreviousLevel(null);
             }
         }
 
-        private void PauseResume_OnClick(object sender, RoutedEventArgs e)
+        private async void PauseResume_OnClick(object sender, RoutedEventArgs e)
         {
             var currentBlindLevel = Session.State["current_blind_level"];
             if (currentBlindLevel != 0)
             {
-                Session.TogglePauseGame();
+                await Session.TogglePauseGame();
             }
             else
             {
-                Session.StartGame();
+                await Session.StartGame();
             }
         }
 
-        private void NextRound_OnClick(object sender, RoutedEventArgs e)
+        private async void NextRound_OnClick(object sender, RoutedEventArgs e)
         {
             var currentBlindLevel = Session.State["current_blind_level"];
             if (currentBlindLevel != 0)
             {
-                Session.SetNextLevel(null);
+                await Session.SetNextLevel(null);
             }
         }
 
-        private void CallClock_OnClick(object sender, RoutedEventArgs e)
+        private async void CallClock_OnClick(object sender, RoutedEventArgs e)
         {
             var currentBlindLevel = Session.State["current_blind_level"];
             if (currentBlindLevel != 0)
@@ -53,11 +53,11 @@ namespace TBWin
                 var remaining = Session.State["action_clock_time_remaining"];
                 if (remaining == 0)
                 {
-                    Session.SetActionClock(TournamentSession.ActionClockRequestTime);
+                    await Session.SetActionClock(TournamentSession.ActionClockRequestTime);
                 }
                 else
                 {
-                    Session.ClearActionClock();
+                    await Session.ClearActionClock();
                 }
             }
         }
