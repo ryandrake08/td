@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:TBWin"
         mc:Ignorable="d"
         Title="Move Players" Width="256" Height="Auto"
-        DataContext="{Binding RelativeSource={RelativeSource Self}}">
+        DataContext="{Binding RelativeSource={RelativeSource Self}}"
+        SizeToContent="WidthAndHeight">
     <Window.Resources>
         <DataTemplate x:Key="MovementTemplate">
             <Grid Background="White">
