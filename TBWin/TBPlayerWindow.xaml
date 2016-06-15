@@ -30,18 +30,18 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="64"/>
             <RowDefinition Height="32"/>
+            <RowDefinition Height="64"/>
             <RowDefinition Height="424"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="256"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*" MinWidth="320"/>
             <ColumnDefinition Width="256"/>
         </Grid.ColumnDefinitions>
-        <!-- TODO: Shrinky text -->
         <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" TextAlignment="Center" FontSize="48" Text="{Binding [name]}"/>
         <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" TextAlignment="Center" FontSize="24" Text="{Binding [buyin_text]}"/>
-        <StackPanel Grid.Row="2" Grid.Column="0" Background="White" Width="256">
+        <StackPanel Grid.Row="2" Grid.RowSpan="2" Grid.Column="0" Background="White" Width="256">
             <TextBlock Text="Current round" FontSize="24" Height="32" HorizontalAlignment="Center"/>
             <TextBlock Text="{Binding [current_round_number_text]}" FontSize="48" Height="48" HorizontalAlignment="Center" LineStackingStrategy="BlockLineHeight" LineHeight="48"/>
             <Separator/>
@@ -58,30 +58,53 @@
             <TextBlock Text="{Binding [elapsed)time_text]}" FontSize="48" Height="48" HorizontalAlignment="Center" LineStackingStrategy="BlockLineHeight" LineHeight="48"/>
             <Separator/>
         </StackPanel>
-        <ListBox Grid.Row="3" Grid.Column="0" ItemsSource="{Binding [available_chips]}" ItemTemplate="{StaticResource ChipsTemplate}" HorizontalContentAlignment="Stretch" BorderBrush="{x:Null}" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden"/>
-        <StackPanel Grid.Row="2" Grid.Column="1" Grid.RowSpan="2">
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="PreviousRound_OnClick">
-                    <Image Source="Images\b_previous.png" Height="64"/>
-                </Button>
-                <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="PauseResume_OnClick">
-                    <Image Source="Images/b_play_pause.png" Height="64"/>
-                </Button>
-                <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="NextRound_OnClick">
-                    <Image Source="Images/b_next.png" Height="64"/>
-                </Button>
-                <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="CallClock_OnClick">
-                    <Image Source="Images/b_call_clock.png" Height="64"/>
-                </Button>
-            </StackPanel>
-            <TextBlock TextAlignment="Center" FontSize="128" Height="160" Text="{Binding [clock_text]}" LineStackingStrategy="BlockLineHeight" LineHeight="160"/>
-            <TextBlock TextAlignment="Center" FontSize="24"  Height="32"  Text="Current Round" />
-            <TextBlock TextAlignment="Center" FontSize="48"  Height="64"  Text="{Binding [current_game_text]}" />
-            <TextBlock TextAlignment="Center" FontSize="128" Height="160" Text="{Binding [current_round_text]}" LineStackingStrategy="BlockLineHeight" LineHeight="160"/>
-            <TextBlock TextAlignment="Center" FontSize="24"  Height="32"  Text="Next Round" />
-            <TextBlock TextAlignment="Center" FontSize="24"  Height="32"  Text="{Binding [next_game_text]}" />
-            <TextBlock TextAlignment="Center" FontSize="72"  Height="96"  Text="{Binding [next_round_text]}" LineStackingStrategy="BlockLineHeight" LineHeight="96"/>
+        <ListBox Grid.Row="4" Grid.Column="0" ItemsSource="{Binding [available_chips]}" ItemTemplate="{StaticResource ChipsTemplate}" HorizontalContentAlignment="Stretch" BorderBrush="{x:Null}" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden"/>
+        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="PreviousRound_OnClick">
+                <Image Source="Images\b_previous.png" Height="64"/>
+            </Button>
+            <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="PauseResume_OnClick">
+                <Image Source="Images/b_play_pause.png" Height="64"/>
+            </Button>
+            <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="NextRound_OnClick">
+                <Image Source="Images/b_next.png" Height="64"/>
+            </Button>
+            <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="CallClock_OnClick">
+                <Image Source="Images/b_call_clock.png" Height="64"/>
+            </Button>
         </StackPanel>
-        <ListBox Grid.Row="2" Grid.Column="2" Grid.RowSpan="2" ItemsSource="{Binding [results]}" ItemTemplate="{StaticResource ResultsTemplate}" HorizontalContentAlignment="Stretch" BorderBrush="{x:Null}"/>
+        <Grid Grid.Row="3" Grid.RowSpan="2" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="160*"/>
+                <RowDefinition Height="32*"/>
+                <RowDefinition Height="64*"/>
+                <RowDefinition Height="160*"/>
+                <RowDefinition Height="32*"/>
+                <RowDefinition Height="32*"/>
+                <RowDefinition Height="96*"/>
+            </Grid.RowDefinitions>
+            <Viewbox Grid.Row="0">
+                <TextBlock TextAlignment="Center" FontSize="128" Text="{Binding [clock_text]}" LineStackingStrategy="BlockLineHeight" LineHeight="160"/>
+            </Viewbox>
+            <Viewbox Grid.Row="1">
+                <TextBlock TextAlignment="Center" FontSize="24"  Text="Current Round" />
+            </Viewbox>
+            <Viewbox Grid.Row="2">
+                <TextBlock TextAlignment="Center" FontSize="48"  Text="{Binding [current_game_text]}" />
+            </Viewbox>
+            <Viewbox Grid.Row="3">
+                <TextBlock TextAlignment="Center" FontSize="128" Text="{Binding [current_round_text]}" LineStackingStrategy="BlockLineHeight" LineHeight="160"/>
+            </Viewbox>
+            <Viewbox Grid.Row="4">
+                <TextBlock TextAlignment="Center" FontSize="24"  Text="Next Round" />
+            </Viewbox>
+            <Viewbox Grid.Row="5">
+                <TextBlock TextAlignment="Center" FontSize="24"  Text="{Binding [next_game_text]}" />
+            </Viewbox>
+            <Viewbox Grid.Row="6">
+                <TextBlock TextAlignment="Center" FontSize="72"  Text="{Binding [next_round_text]}" LineStackingStrategy="BlockLineHeight" LineHeight="96"/>
+            </Viewbox>
+        </Grid>
+        <ListBox Grid.Row="2" Grid.Column="2" Grid.RowSpan="3" ItemsSource="{Binding [results]}" ItemTemplate="{StaticResource ResultsTemplate}" HorizontalContentAlignment="Stretch" BorderBrush="{x:Null}"/>
     </Grid>
 </Window>
