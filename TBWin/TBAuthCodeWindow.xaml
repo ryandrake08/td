@@ -5,36 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TBWin"
         mc:Ignorable="d"
-        Title="Authorize Device" Height="205" Width="512">
-    <StackPanel>
-        <Label HorizontalAlignment="Center" Padding="12" FontSize="22">Enter code shown on device to authorize:</Label>
-        <UniformGrid Rows="1">
-            <TextBox Height="64" Width="64"></TextBox>
-            <TextBox Height="64" Width="64"></TextBox>
-            <TextBox Height="64" Width="64"></TextBox>
-            <TextBox Height="64" Width="64"></TextBox>
-            <TextBox Height="64" Width="64"></TextBox>
+        Title="Authorize Device" Height="Auto" Width="Auto"
+        SizeToContent="WidthAndHeight">
+    <StackPanel Margin="16">
+        <TextBlock HorizontalAlignment="Center" FontSize="22">Enter code shown on device to authorize:</TextBlock>
+        <UniformGrid Rows="1" Margin="0,16">
+            <TextBox FontSize="48" Height="64" Width="64" HorizontalContentAlignment="Center"></TextBox>
+            <TextBox FontSize="48" Height="64" Width="64" HorizontalContentAlignment="Center"></TextBox>
+            <TextBox FontSize="48" Height="64" Width="64" HorizontalContentAlignment="Center"></TextBox>
+            <TextBox FontSize="48" Height="64" Width="64" HorizontalContentAlignment="Center"></TextBox>
+            <TextBox FontSize="48" Height="64" Width="64" HorizontalContentAlignment="Center"></TextBox>
         </UniformGrid>
-        <Grid Margin="16">
-            <Button
-            Name="OKButton"
-            Content="OK"
-            Height="23"
-            HorizontalAlignment="Right" 
-            Margin="0,0,93,0"
-            VerticalAlignment="Bottom" 
-            Width="75" 
-            Click="OKButton_OnClick"
-            IsDefault="True" />
-
-            <Button
-            Name="CancelButton"
-            Content="Cancel" 
-            Height="23" 
-            HorizontalAlignment="Right" 
-            VerticalAlignment="Bottom"
-            Width="75" 
-            IsCancel="True" />
+        <Grid>
+            <Button Name="OKButton" Content="OK" HorizontalAlignment="Right"  Margin="93,0" VerticalAlignment="Bottom" Width="75" Click="OKButton_OnClick" IsDefault="True" />
+            <Button Name="CancelButton" Content="Cancel" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="75" IsCancel="True" />
         </Grid>
     </StackPanel>
 </Window>

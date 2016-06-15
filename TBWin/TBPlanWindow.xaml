@@ -5,32 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TBWin"
         mc:Ignorable="d"
-        Title="Plan" Height="250" Width="480">
-    <StackPanel>
-        <Label HorizontalAlignment="Center" Padding="8" FontSize="22">Plan a new tournament with</Label>
-        <TextBox Height="64" Width="160"></TextBox>
-        <Label HorizontalAlignment="Center" Padding="0" FontSize="22">players</Label>
-        <Label HorizontalAlignment="Center" Padding="0" Foreground="Red" FontSize="11">Warning: This will unseat EVERYONE from the current tournament and clear all buyins.</Label>
-        <Grid Margin="16">
-            <Button
-            Name="OKButton"
-            Content="OK"
-            Height="23"
-            HorizontalAlignment="Right" 
-            Margin="0,0,93,0"
-            VerticalAlignment="Bottom" 
-            Width="75" 
-            Click="OKButton_OnClick"
-            IsDefault="True" />
-
-            <Button
-            Name="CancelButton"
-            Content="Cancel" 
-            Height="23" 
-            HorizontalAlignment="Right" 
-            VerticalAlignment="Bottom"
-            Width="75" 
-            IsCancel="True" />
-        </Grid>        
+        Title="Plan" Height="Auto" Width="Auto"
+        SizeToContent="WidthAndHeight">
+    <StackPanel Margin="16">
+        <TextBlock HorizontalAlignment="Center" FontSize="22">Plan a new tournament with</TextBlock>
+        <TextBox FontSize="48" Height="64" Width="160" HorizontalContentAlignment="Center"></TextBox>
+        <TextBlock HorizontalAlignment="Center" FontSize="22">players</TextBlock>
+        <TextBlock HorizontalAlignment="Center" Foreground="Red" FontSize="11">Warning: This will unseat EVERYONE from the current tournament and clear all buyins.</TextBlock>
+        <Grid Margin="0,16,0,0">
+            <Button Name="OKButton" Content="OK" HorizontalAlignment="Right"  Margin="93,0" VerticalAlignment="Bottom" Width="75" Click="OKButton_OnClick" IsDefault="True" />
+            <Button Name="CancelButton" Content="Cancel" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="75" IsCancel="True" />
+        </Grid>
     </StackPanel>
 </Window>

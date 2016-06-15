@@ -7,13 +7,17 @@
         xmlns:local="clr-namespace:TBWin"
         mc:Ignorable="d"
         Title="TBConfigurationWindow" Height="480" Width="640">
-    <StackPanel>
-        <TabControl x:Name="TabControl" HorizontalAlignment="Left" Height="388" Margin="10,10,0,0" VerticalAlignment="Top" Width="612">
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TabControl Grid.Row="0" x:Name="TabControl" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <TabItem Header="Players">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
-                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="24" />
                     </Grid.RowDefinitions>
                     <DataGrid x:Name="PlayersGrid" AutoGenerateColumns="False">
                         <DataGrid.Columns>
@@ -46,7 +50,7 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
-                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="24" />
                     </Grid.RowDefinitions>
                     <DataGrid x:Name="ChipsGrid" AutoGenerateColumns="False">
                         <DataGrid.Columns>
@@ -89,7 +93,7 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
-                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="24" />
                     </Grid.RowDefinitions>
                     <DataGrid x:Name="FundingsGrid" AutoGenerateColumns="False">
                         <DataGrid.Columns>
@@ -136,7 +140,7 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
-                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="24" />
                     </Grid.RowDefinitions>
                     <DataGrid x:Name="RoundsGrid" AutoGenerateColumns="False">
                         <DataGrid.Columns>
@@ -165,7 +169,7 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
-                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="24" />
                     </Grid.RowDefinitions>
                     <DataGrid x:Name="DevicesGrid" AutoGenerateColumns="False">
                         <DataGrid.Columns>
@@ -196,26 +200,9 @@
                 </Grid>
             </TabItem>
         </TabControl>
-        <Grid Margin="16">
-            <Button
-            Name="OKButton"
-            Content="OK"
-            Height="23"
-            HorizontalAlignment="Right" 
-            Margin="0,0,93,0"
-            VerticalAlignment="Bottom" 
-            Width="75" 
-            Click="OKButton_OnClick"
-            IsDefault="True" />
-
-            <Button
-            Name="CancelButton"
-            Content="Cancel" 
-            Height="23" 
-            HorizontalAlignment="Right" 
-            VerticalAlignment="Bottom"
-            Width="75" 
-            IsCancel="True" />
+        <Grid Grid.Row="1" Margin="0,16,0,0">
+            <Button Name="OKButton" Content="OK" HorizontalAlignment="Right"  Margin="93,0" VerticalAlignment="Bottom" Width="75" Click="OKButton_OnClick" IsDefault="True" />
+            <Button Name="CancelButton" Content="Cancel" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="75" IsCancel="True" />
         </Grid>
-    </StackPanel>
+    </Grid>
 </Window>
