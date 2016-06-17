@@ -4,7 +4,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TBWin"
-        xmlns:controls="clr-namespace:System.Windows.Controls"
         mc:Ignorable="d"
         Width="1024"
         Height="768"
@@ -43,71 +42,72 @@
                 <Button Command="local:Commands.Authorize">
                     <StackPanel Orientation="Vertical">
                         <Image Source="Images\b_auth.png" Width="32"/>
-                        <TextBlock TextAlignment="Center">Authorize</TextBlock>
+                        <TextBlock Text="Authorize" TextAlignment="Center"/>
                     </StackPanel>
                 </Button>
                 <Button Command="local:Commands.Setup">
                     <StackPanel Orientation="Vertical">
                         <Image Source="Images\b_check.png" Width="32"/>
-                        <TextBlock TextAlignment="Center">Setup</TextBlock>
+                        <TextBlock Text="Setup" TextAlignment="Center"/>
                     </StackPanel>
                 </Button>
                 <Button Command="local:Commands.Plan">
                     <StackPanel Orientation="Vertical">
                         <Image Source="Images\b_new.png" Width="32"/>
-                        <TextBlock TextAlignment="Center">Plan</TextBlock>
+                        <TextBlock Text="Plan" TextAlignment="Center"/>
                     </StackPanel>
                 </Button>
                 <Button Command="local:Commands.Results">
                     <StackPanel Orientation="Vertical">
                         <Image Source="Images\b_export.png" Width="32"/>
-                        <TextBlock TextAlignment="Center">Results</TextBlock>
+                        <TextBlock Text="Results" TextAlignment="Center"/>
                     </StackPanel>
                 </Button>
                 <Button Command="local:Commands.Rebalance">
                     <StackPanel Orientation="Vertical">
                         <Image Source="Images\b_move.png" Width="32"/>
-                        <TextBlock TextAlignment="Center">Rebalance</TextBlock>
+                        <TextBlock Text="Rebalance" TextAlignment="Center"/>
                     </StackPanel>
                 </Button>
                 <Button Command="local:Commands.Display">
                     <StackPanel Orientation="Vertical">
                         <Image Source="Images\b_display.png" Width="32"/>
-                        <TextBlock TextAlignment="Center">Display</TextBlock>
+                        <TextBlock Text="Display" TextAlignment="Center"/>
                     </StackPanel>
                 </Button>
                 <Button Command="local:Commands.PlayPause">
                     <StackPanel Orientation="Vertical">
                         <Image Source="Images\b_play_pause.png" Width="32"/>
-                        <TextBlock TextAlignment="Center"></TextBlock>
+                        <TextBlock TextAlignment="Center"/>
                     </StackPanel>
                 </Button>
-                <StackPanel VerticalAlignment="Center" Margin="0,0,0,16" Orientation="Vertical">
-                    <Label FontSize="24">PAUSED</Label>
+                <StackPanel VerticalAlignment="Center" Margin="8,0,0,3" Orientation="Vertical">
+                    <TextBlock Text="{Binding [clock_text]}" FontSize="24" Width="96" VerticalAlignment="Center"/>
+                    <TextBlock TextAlignment="Center"/>
                 </StackPanel>
             </ToolBar>
             <ToolBar DockPanel.Dock="Left">
                 <TextBox FontSize="16" Background="Transparent" BorderBrush="Transparent">Default Tournament</TextBox>
             </ToolBar>
         </DockPanel>
-        <DataGrid x:Name="LeftPane" DockPanel.Dock="Left" ItemsSource="{Binding .[players]}" AutoGenerateColumns="False">
+        <DataGrid x:Name="LeftPane" DockPanel.Dock="Left" ItemsSource="{Binding [players]}" AutoGenerateColumns="False" CanUserAddRows="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Player" Binding="{Binding name}"/>
-                <DataGridCheckBoxColumn Header="Seated"/>
+                <DataGridTextColumn Header="Player" Binding="{Binding [name]}"/>
+                <DataGridCheckBoxColumn Header="Seated" Binding="{Binding [seat_number]}"/>
             </DataGrid.Columns>
         </DataGrid>
-        <DataGrid x:Name="RightPane" DockPanel.Dock="Right">
+        <DataGrid x:Name="RightPane" DockPanel.Dock="Right" ItemsSource="{Binding [results]}" AutoGenerateColumns="False" CanUserAddRows="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Place"/>
-                <DataGridTextColumn Header="Player"/>
-                <DataGridTextColumn Header="Payout"/>
+                <DataGridTextColumn Header="Place" Binding="{Binding [place]}"/>
+                <DataGridTextColumn Header="Player" Binding="{Binding [name]}"/>
+                <DataGridTextColumn Header="Payout" Binding="{Binding [payout]}"/>
             </DataGrid.Columns>
         </DataGrid>
-        <DataGrid x:Name="CenterPane">
+        <DataGrid x:Name="CenterPane" ItemsSource="{Binding [seated_players]}" AutoGenerateColumns="False" CanUserAddRows="False">
             <DataGrid.Columns>
                 <DataGridTemplateColumn Header="Table"/>
                 <DataGridTemplateColumn Header="Seat"/>
-                <DataGridTextColumn Header="Player"/>
+                <DataGridTextColumn Header="Player" Binding="{Binding [name]}"/>
                 <DataGridTemplateColumn Header="Paid"/>
                 <DataGridTemplateColumn Header="Action"/>
             </DataGrid.Columns>
