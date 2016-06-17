@@ -8,9 +8,11 @@ namespace TBWin
     /// </summary>
     public partial class TBConfigurationWindow
     {
-        public TBConfigurationWindow()
+        public TBConfigurationWindow(JsonDocument document)
         {
             InitializeComponent();
+            Document = document;
+            DataContext = document.Content;
         }
 
         private void AddPlayer_OnClick(object sender, RoutedEventArgs e)
@@ -67,5 +69,7 @@ namespace TBWin
         {
             DialogResult = true;
         }
+
+        private JsonDocument Document { get; }
     }
 }

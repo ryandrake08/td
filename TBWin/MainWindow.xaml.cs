@@ -90,7 +90,7 @@ namespace TBWin
 
         private void SetupCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            var authCodeWindow = new TBConfigurationWindow();
+            var authCodeWindow = new TBConfigurationWindow(_document);
             authCodeWindow.ShowDialog();
             if (authCodeWindow.DialogResult.HasValue && authCodeWindow.DialogResult.Value)
             {
@@ -133,11 +133,20 @@ namespace TBWin
             playerWindow.Show();
         }
 
-        private void PlayPauseCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        private async void PlayPauseCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
+            var currentBlindLevel = Session.State["current_blind_level"];
+            if (currentBlindLevel != 0)
+            {
+                await Session.TogglePauseGame();
+            }
+            else
+            {
+                await Session.StartGame();
+            }
         }
 
-        public void Dispose()
+    public void Dispose()
         {
             _connectTask.Wait();
             _daemon.Dispose();
