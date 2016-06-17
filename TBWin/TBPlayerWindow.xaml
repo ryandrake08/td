@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TBWin"
         mc:Ignorable="d"
         Title="TBPlayerWindow" Height="768" Width="1024">
     <Window.Resources>
@@ -60,16 +61,16 @@
         </StackPanel>
         <ListBox Grid.Row="4" Grid.Column="0" ItemsSource="{Binding [available_chips]}" ItemTemplate="{StaticResource ChipsTemplate}" HorizontalContentAlignment="Stretch" BorderBrush="{x:Null}" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden"/>
         <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="PreviousRound_OnClick">
+            <Button Background="{x:Null}" BorderBrush="{x:Null}" Command="local:Commands.PreviousRound">
                 <Image Source="Images\b_previous.png" Height="64"/>
             </Button>
-            <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="PauseResume_OnClick">
+            <Button Background="{x:Null}" BorderBrush="{x:Null}" Command="local:Commands.PlayPause">
                 <Image Source="Images/b_play_pause.png" Height="64"/>
             </Button>
-            <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="NextRound_OnClick">
+            <Button Background="{x:Null}" BorderBrush="{x:Null}" Command="local:Commands.NextRound">
                 <Image Source="Images/b_next.png" Height="64"/>
             </Button>
-            <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="CallClock_OnClick">
+            <Button Background="{x:Null}" BorderBrush="{x:Null}" Command="local:Commands.CallClock">
                 <Image Source="Images/b_call_clock.png" Height="64"/>
             </Button>
         </StackPanel>

@@ -16,14 +16,6 @@
         <CommandBinding Command="ApplicationCommands.Open" Executed="OpenCommand_Executed" />
         <CommandBinding Command="ApplicationCommands.Save" Executed="SaveCommand_Executed" />
         <CommandBinding Command="ApplicationCommands.SaveAs" Executed="SaveAsCommand_Executed" />
-        <CommandBinding Command="local:Commands.Exit" Executed="ExitCommand_Executed" />
-        <CommandBinding Command="local:Commands.Authorize" Executed="AuthorizeCommand_Executed" />
-        <CommandBinding Command="local:Commands.Setup" Executed="SetupCommand_Executed" />
-        <CommandBinding Command="local:Commands.Plan" Executed="PlanCommand_Executed" />
-        <CommandBinding Command="local:Commands.Results" Executed="ResultsCommand_Executed" />
-        <CommandBinding Command="local:Commands.Rebalance" Executed="RebalanceCommand_Executed" />
-        <CommandBinding Command="local:Commands.Display" Executed="DisplayCommand_Executed" />
-        <CommandBinding Command="local:Commands.PlayPause" Executed="PlayPauseCommand_Executed" />
     </Window.CommandBindings>
 
     <DockPanel>

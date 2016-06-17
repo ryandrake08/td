@@ -15,6 +15,19 @@ namespace TBWin
     {
         public MainWindow()
         {
+            // Register global command bindings
+            CommandManager.RegisterClassCommandBinding(typeof(Window), new CommandBinding(Commands.Exit, ExitCommand_Executed));
+            CommandManager.RegisterClassCommandBinding(typeof(Window), new CommandBinding(Commands.Authorize, AuthorizeCommand_Executed));
+            CommandManager.RegisterClassCommandBinding(typeof(Window), new CommandBinding(Commands.Setup, SetupCommand_Executed));
+            CommandManager.RegisterClassCommandBinding(typeof(Window), new CommandBinding(Commands.Plan, PlanCommand_Executed));
+            CommandManager.RegisterClassCommandBinding(typeof(Window), new CommandBinding(Commands.Results, ResultsCommand_Executed));
+            CommandManager.RegisterClassCommandBinding(typeof(Window), new CommandBinding(Commands.Rebalance, RebalanceCommand_Executed));
+            CommandManager.RegisterClassCommandBinding(typeof(Window), new CommandBinding(Commands.Display, DisplayCommand_Executed));
+            CommandManager.RegisterClassCommandBinding(typeof(Window), new CommandBinding(Commands.PlayPause, PlayPauseCommand_Executed));
+            CommandManager.RegisterClassCommandBinding(typeof(Window), new CommandBinding(Commands.PreviousRound, PreviousRoundCommand_Executed));
+            CommandManager.RegisterClassCommandBinding(typeof(Window), new CommandBinding(Commands.NextRound, NextRoundCommand_Executed));
+            CommandManager.RegisterClassCommandBinding(typeof(Window), new CommandBinding(Commands.CallClock, CallClockCommand_Executed));
+
             _daemon = new TournamentDaemon();
             int port = _daemon.Start(TournamentSession.ClientIdentifier());
             _daemon.Publish("TBWin");
@@ -146,7 +159,42 @@ namespace TBWin
             }
         }
 
-    public void Dispose()
+        private async void PreviousRoundCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            var currentBlindLevel = Session.State["current_blind_level"];
+            if (currentBlindLevel != 0)
+            {
+                await Session.SetPreviousLevel(null);
+            }
+        }
+
+        private async void NextRoundCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            var currentBlindLevel = Session.State["current_blind_level"];
+            if (currentBlindLevel != 0)
+            {
+                await Session.SetNextLevel(null);
+            }
+        }
+
+        private async void CallClockCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            var currentBlindLevel = Session.State["current_blind_level"];
+            if (currentBlindLevel != 0)
+            {
+                var remaining = Session.State["action_clock_time_remaining"];
+                if (remaining == 0)
+                {
+                    await Session.SetActionClock(TournamentSession.ActionClockRequestTime);
+                }
+                else
+                {
+                    await Session.ClearActionClock();
+                }
+            }
+        }
+
+        public void Dispose()
         {
             _connectTask.Wait();
             _daemon.Dispose();
@@ -161,14 +209,16 @@ namespace TBWin
 
     public static class Commands
     {
-        public static readonly RoutedUICommand Exit = new RoutedUICommand("Exit", "Exit", typeof(Commands), new InputGestureCollection() { new KeyGesture(Key.F4, ModifierKeys.Alt) });
+        public static readonly RoutedUICommand Exit = new RoutedUICommand("Exit", "Exit", typeof(Commands));
         public static readonly RoutedUICommand Authorize = new RoutedUICommand("Authorize", "Authorize", typeof(Commands));
         public static readonly RoutedUICommand Setup = new RoutedUICommand("Setup", "Setup", typeof(Commands));
         public static readonly RoutedUICommand Plan = new RoutedUICommand("Plan", "Plan", typeof(Commands));
-        public static readonly RoutedUICommand Replan = new RoutedUICommand("Replan", "Replan", typeof(Commands));
         public static readonly RoutedUICommand Results = new RoutedUICommand("Results", "Results", typeof(Commands));
         public static readonly RoutedUICommand Rebalance = new RoutedUICommand("Rebalance", "Rebalance", typeof(Commands));
         public static readonly RoutedUICommand Display = new RoutedUICommand("Display", "Display", typeof(Commands));
         public static readonly RoutedUICommand PlayPause = new RoutedUICommand("PlayPause", "PlayPause", typeof(Commands));
+        public static readonly RoutedUICommand NextRound = new RoutedUICommand("NextRound", "NextRound", typeof(Commands));
+        public static readonly RoutedUICommand PreviousRound = new RoutedUICommand("PreviousRound", "PreviousRound", typeof(Commands));
+        public static readonly RoutedUICommand CallClock = new RoutedUICommand("CallClock", "CallClock", typeof(Commands));
     }
 }
