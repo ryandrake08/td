@@ -74,24 +74,42 @@ private:
 typedef basic_outputdebugstringbuf<char> outputdebugstringbuf;
 typedef basic_outputdebugstringbuf<wchar_t> woutputdebugstringbuf;
 
-void redirect_debug_output()
+static std::basic_streambuf<char>* debugstreambuf()
 {
-	if (IsDebuggerPresent())
-	{
-		static outputdebugstringbuf charDebugOutput;
-		std::cerr.rdbuf(&charDebugOutput);
-		std::clog.rdbuf(&charDebugOutput);
+    if(IsDebuggerPresent())
+    {
+        static outputdebugstringbuf charDebugOutput;
+        return &charDebugOutput;
+    }
+    else
+    {
+        return std::cout.rdbuf();
+    }
+}
 
-		static woutputdebugstringbuf wcharDebugOutput;
-		std::wcerr.rdbuf(&wcharDebugOutput);
-		std::wclog.rdbuf(&wcharDebugOutput);
-	}
+static std::basic_streambuf<wchar_t>* wdebugstreambuf()
+{
+    if(IsDebuggerPresent())
+    {
+        static woutputdebugstringbuf wcharDebugOutput;
+        return &wcharDebugOutput;
+    }
+    else
+    {
+        return std::wcout.rdbuf();
+    }
 }
 
 #else
 
-static void redirect_debug_output()
+static std::basic_streambuf<char>* debugstreambuf()
 {
+    return std::cout.rdbuf();
+}
+
+static std::basic_streambuf<wchar_t>* wdebugstreambuf()
+{
+    return std::wcout.rdbuf();
 }
 
 #endif

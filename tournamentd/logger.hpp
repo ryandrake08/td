@@ -1,6 +1,9 @@
 #pragma once
+#include "datetime.hpp"
 #include <initializer_list>
 #include <iostream>
+#include <fstream>
+#include <mutex>
 
 // Macro to include current function in log
 #if __STDC_VERSION__ < 199901L && __cplusplus < 201103L
@@ -10,8 +13,8 @@
 #  define __func__ "<unknown>"
 # endif
 #endif
-#define logger(...) logger_internal::instance().get_stream(__func__, __VA_ARGS__)
-#define logger_enable(...) logger_internal::instance().set_enabled({__VA_ARGS__})
+#define logger(...) logstream(__func__, __VA_ARGS__)
+#define logger_enable(...) logstream::set_enabled({__VA_ARGS__})
 
 enum logger_level
 {
@@ -21,25 +24,44 @@ enum logger_level
     LOG_ERROR
 };
 
-class logger_internal
+template <typename T>
+class basic_logstream : public std::basic_ostream<T>
 {
-    // Bitmask enabling each log level
-    unsigned mask;
+    // mutex
+    static std::mutex mutex;
 
-    // Only the singleton can construct
-    logger_internal();
+    // internally wrapped lock
+    std::lock_guard<std::mutex> lock;
 
-    // No copy constructors/assignment
-    logger_internal(const logger_internal& other) = delete;
-    logger_internal& operator=(const logger_internal& other) = delete;
+    // bitmask enabling each log level
+    static unsigned mask;
+
+    // private constructor constructs given streambuf
+    explicit basic_logstream(std::basic_streambuf<T>* sb, const char* function, logger_level level) : std::basic_ostream<T>(((1 << level) & this->mask) ? sb : nullptr), lock(mutex)
+    {
+        static const char* level_string[] = { " DEBUG ", " INFO ", " WARNING ", " ERROR " };
+        *this << datetime::now() << level_string[level] << function << ": ";
+    }
 
 public:
-    // Get singleton instance
-    static logger_internal& instance();
+    // public constructor constructs given function name and logger_level
+    explicit basic_logstream(const char* function, logger_level level=LOG_DEBUG);
 
-    // Set enabled logs
-    void set_enabled(std::initializer_list<logger_level> logs);
-
-    // Returns an ostream appropriate for logging, primed with the current timestamp and a function name
-    std::ostream& get_stream(const char* function, logger_level level=LOG_DEBUG);
+    // set enabled logs
+    static void set_enabled(std::initializer_list<logger_level> logs)
+    {
+        mask = 0;
+        for(auto level : logs)
+        {
+            mask |= 1 >> level;
+        }
+    }
 };
+
+// specializations
+typedef basic_logstream<char> logstream;
+typedef basic_logstream<wchar_t> wlogstream;
+
+// class variables
+template<typename T> std::mutex basic_logstream<T>::mutex;
+template<typename T> unsigned basic_logstream<T>::mask = -1;

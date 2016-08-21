@@ -498,6 +498,7 @@
 		9476F4EA1B3C3F8300A158F8 /* types.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = types.hpp; sourceTree = "<group>"; };
 		9476F4F91B3C403F00A158F8 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		9476F4FB1B3C404400A158F8 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		94A4C3681D6A40BD00342E13 /* outputdebugstringbuf.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = outputdebugstringbuf.hpp; sourceTree = "<group>"; };
 		94CC7F8C1CE8CF770081A8A0 /* TBPlanWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBPlanWindowController.h; path = TBMac/TBPlanWindowController.h; sourceTree = "<group>"; };
 		94CC7F8D1CE8CF770081A8A0 /* TBPlanWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TBPlanWindowController.m; path = TBMac/TBPlanWindowController.m; sourceTree = "<group>"; };
 		94CC7F8E1CE8CF770081A8A0 /* TBPlanWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TBPlanWindow.xib; path = TBMac/TBPlanWindow.xib; sourceTree = "<group>"; };
@@ -822,6 +823,7 @@
 				9476F4DA1B3C3F8300A158F8 /* logger.cpp */,
 				9476F4DB1B3C3F8300A158F8 /* logger.hpp */,
 				9476F4DC1B3C3F8300A158F8 /* main.cpp */,
+				94A4C3681D6A40BD00342E13 /* outputdebugstringbuf.hpp */,
 				9476F4DF1B3C3F8300A158F8 /* program.cpp */,
 				9476F4E01B3C3F8300A158F8 /* program.hpp */,
 				AD1B250A1BA8773900C4BDDC /* scope_timer.cpp */,
