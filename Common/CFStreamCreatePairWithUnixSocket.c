@@ -12,11 +12,7 @@
 
 void CFStreamCreatePairWithUnixSocket(CFAllocatorRef alloc, CFStringRef name, CFReadStreamRef* readStream, CFWriteStreamRef* writeStream)
 {
-    struct sockaddr_un addr;
-    char buffer[FILENAME_MAX];
-    const char* path;
-
-    // Clear streams
+    // Clear outputs
     if(readStream) {
         *readStream = NULL;
     }
@@ -24,8 +20,9 @@ void CFStreamCreatePairWithUnixSocket(CFAllocatorRef alloc, CFStringRef name, CF
         *writeStream = NULL;
     }
 
-    // Check path length
-    path = CFStringGetCStringPtr(name, kCFStringEncodingUTF8);
+    // Get C-style string (the unix socket path name) from name
+    char buffer[FILENAME_MAX];
+    const char* path = CFStringGetCStringPtr(name, kCFStringEncodingUTF8);
     if(path == NULL) {
         if(!CFStringGetCString(name, buffer, FILENAME_MAX, kCFStringEncodingUTF8)) {
             fprintf(stderr, "Filename buffer not large enough\n");
@@ -33,6 +30,9 @@ void CFStreamCreatePairWithUnixSocket(CFAllocatorRef alloc, CFStringRef name, CF
         }
         path = buffer;
     }
+
+    // Check path length
+    struct sockaddr_un addr;
     if(strlen(path) > sizeof(addr.sun_path)-1)
     {
         fprintf(stderr, "Socket name too long: %s\n", path);
@@ -61,6 +61,7 @@ void CFStreamCreatePairWithUnixSocket(CFAllocatorRef alloc, CFStringRef name, CF
         return;
     }
 
+    // Connect socket to addr
     if(connect(sock, (struct sockaddr*)&addr, addr.sun_len) == -1)
     {
         fprintf(stderr, "Call to connect failed: %s\n", strerror(errno));
@@ -68,9 +69,10 @@ void CFStreamCreatePairWithUnixSocket(CFAllocatorRef alloc, CFStringRef name, CF
         return;
     }
 
-    CFStreamCreatePairWithSocket(kCFAllocatorDefault, sock, readStream, writeStream);
+    // Create the socket pair
+    CFStreamCreatePairWithSocket(alloc, sock, readStream, writeStream);
 
-    // specify that the CFStream should close itself when it's done
+    // Specify that the CFStream should close itself when it's released
     if(readStream != NULL && *readStream != NULL)
     {
         (void) CFReadStreamSetProperty(*readStream, kCFStreamPropertyShouldCloseNativeSocket, kCFBooleanTrue);
