@@ -133,7 +133,7 @@ namespace TBWin
         {
             try
             {
-                string json = new TournamentConfigSerializer().Serialize(_content);
+                string json = new TournamentConfigSerializer().Serialize(_content, true);
                 using (var sw = new StreamWriter(path))
                 {
                     _path = path;

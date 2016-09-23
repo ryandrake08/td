@@ -10,9 +10,9 @@ namespace TBWin
             return JsonConvert.DeserializeObject<IDictionary<string, dynamic>>(input);
         }
 
-        public string Serialize(dynamic obj)
+        public string Serialize(dynamic obj, bool indent=false)
         {
-            return JsonConvert.SerializeObject(obj);
+            return JsonConvert.SerializeObject(obj, indent ? Formatting.Indented : Formatting.None);
         }
     }
 }
