@@ -179,7 +179,7 @@
         // connect
         [self setCurrentService:newArray[0]];
         if([[self session] connectToNetService:newArray[0]]) {
-            TBAppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
+            TBAppDelegate* appDelegate = (TBAppDelegate*)[[UIApplication sharedApplication] delegate];
             [(UITabBarController*)[[appDelegate window] rootViewController] setSelectedIndex:1];
         } else {
             // TODO: handle error

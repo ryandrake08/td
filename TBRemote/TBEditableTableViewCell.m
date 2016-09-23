@@ -67,6 +67,7 @@
 @implementation TBEditableNumberTableViewCell
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     [self setFormatter:[[NSNumberFormatter alloc] init]];
 }
 
