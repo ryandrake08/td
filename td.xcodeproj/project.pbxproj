@@ -98,6 +98,7 @@
 		949D70A31B3C441F008D5CD1 /* socket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E31B3C3F8300A158F8 /* socket.cpp */; };
 		949D70A41B3C442F008D5CD1 /* cJSON.c in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4CE1B3C3F8300A158F8 /* cJSON.c */; };
 		949D70A51B3C442F008D5CD1 /* cJSON.c in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4CE1B3C3F8300A158F8 /* cJSON.c */; };
+		94B2109D1E182FB900F9547B /* runloop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 94B2109C1E182FB900F9547B /* runloop.cpp */; };
 		94BB5FFA1B7F9F1600B33929 /* NSString+CamelCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 945410761B6E9A17001E3373 /* NSString+CamelCase.m */; };
 		94BB5FFB1B7F9F1600B33929 /* NSString+CamelCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 945410761B6E9A17001E3373 /* NSString+CamelCase.m */; };
 		94CC7F8F1CE8CF770081A8A0 /* TBPlanWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CC7F8D1CE8CF770081A8A0 /* TBPlanWindowController.m */; };
@@ -499,6 +500,8 @@
 		9476F4F91B3C403F00A158F8 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		9476F4FB1B3C404400A158F8 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		94A4C3681D6A40BD00342E13 /* outputdebugstringbuf.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = outputdebugstringbuf.hpp; sourceTree = "<group>"; };
+		94B2109B1E182FB900F9547B /* runloop.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = runloop.hpp; sourceTree = "<group>"; };
+		94B2109C1E182FB900F9547B /* runloop.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = runloop.cpp; sourceTree = "<group>"; };
 		94CC7F8C1CE8CF770081A8A0 /* TBPlanWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBPlanWindowController.h; path = TBMac/TBPlanWindowController.h; sourceTree = "<group>"; };
 		94CC7F8D1CE8CF770081A8A0 /* TBPlanWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TBPlanWindowController.m; path = TBMac/TBPlanWindowController.m; sourceTree = "<group>"; };
 		94CC7F8E1CE8CF770081A8A0 /* TBPlanWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TBPlanWindow.xib; path = TBMac/TBPlanWindow.xib; sourceTree = "<group>"; };
@@ -826,6 +829,8 @@
 				94A4C3681D6A40BD00342E13 /* outputdebugstringbuf.hpp */,
 				9476F4DF1B3C3F8300A158F8 /* program.cpp */,
 				9476F4E01B3C3F8300A158F8 /* program.hpp */,
+				94B2109C1E182FB900F9547B /* runloop.cpp */,
+				94B2109B1E182FB900F9547B /* runloop.hpp */,
 				AD1B250A1BA8773900C4BDDC /* scope_timer.cpp */,
 				AD1B250B1BA8773900C4BDDC /* scope_timer.hpp */,
 				9476F4E11B3C3F8300A158F8 /* server.cpp */,
@@ -1609,6 +1614,7 @@
 				9476F4F81B3C3F8300A158F8 /* types.cpp in Sources */,
 				9476F4EF1B3C3F8300A158F8 /* gameinfo.cpp in Sources */,
 				9476F4F61B3C3F8300A158F8 /* socket.cpp in Sources */,
+				94B2109D1E182FB900F9547B /* runloop.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
