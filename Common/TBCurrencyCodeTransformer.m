@@ -26,7 +26,8 @@
                  @"GBP":NSLocalizedString(@"Pound", nil),
                  @"JPY":NSLocalizedString(@"Yen", nil),
                  @"CNY":NSLocalizedString(@"Yuan", nil),
-                 @"XXX":NSLocalizedString(@"Points", nil)}[value];
+                 @"XPB":NSLocalizedString(@"Bucks", nil),
+                 @"XPT":NSLocalizedString(@"Points", nil)}[value];
     }
     return nil;
 }
@@ -39,7 +40,8 @@
                  NSLocalizedString(@"Pound", nil)   :@"GBP",
                  NSLocalizedString(@"Yen", nil)     :@"JPY",
                  NSLocalizedString(@"Yuan", nil)    :@"CNY",
-                 NSLocalizedString(@"Points", nil)  :@"XXX"}[value];
+                 NSLocalizedString(@"Bucks", nil)   :@"XPB",
+                 NSLocalizedString(@"Points", nil)  :@"XPT"}[value];
     }
     return nil;
 }

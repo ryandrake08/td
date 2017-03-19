@@ -19,7 +19,6 @@
 
 // number formatters
 @property (nonatomic, strong) TTTOrdinalNumberFormatter* placeFormatter;
-@property (nonatomic, strong) TBCurrencyNumberFormatter* equityFormatter;
 
 @end
 
@@ -33,13 +32,9 @@
 
     // number formatters
     _placeFormatter = [[TTTOrdinalNumberFormatter alloc] init];
-    _equityFormatter = [[TBCurrencyNumberFormatter alloc] init];
 
     // register for KVO
-    [[self KVOController] observe:[[self session] state] keyPaths:@[@"results", @"equity_currency"] options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
-        // set currency
-        [[self equityFormatter] setCurrencyCode:object[@"equity_currency"]];
-
+    [[self KVOController] observe:[[self session] state] keyPaths:@[@"results"] options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
         // update table view cells
         [[observer tableView] reloadData];
     }];
@@ -73,7 +68,9 @@
         NSString* place = [[self placeFormatter] stringFromNumber:result[@"place"]];
 
         // payout
-        NSString* payout = [[self equityFormatter] stringFromNumber:result[@"payout"]];
+        TBCurrencyNumberFormatter* payoutFormatter = [[TBCurrencyNumberFormatter alloc] init];
+        [payoutFormatter setCurrencyCode:result[@"payout_currency"]];
+        NSString* payout = [payoutFormatter stringFromNumber:result[@"payout"]];
 
         // setup cell
         [(UILabel*)[cell viewWithTag:100] setText:place];

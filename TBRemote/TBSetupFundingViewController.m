@@ -24,11 +24,14 @@
 
 - (NSString*)formattedFundingStringForSource:(NSDictionary*)fundingSource {
     NSString* formattedFunding;
-    NSString* costCurrency = [self configuration][@"cost_currency"];
     if([fundingSource[@"commission"] doubleValue] != 0.0) {
-        formattedFunding = [NSString stringWithFormat:@"%@+%@ %@", fundingSource[@"cost"], fundingSource[@"commission"], costCurrency];
+        if([fundingSource[@"commission_currency"] isEqualToString:fundingSource[@"cost_currency"]]) {
+            formattedFunding = [NSString stringWithFormat:@"%@%@+%@", fundingSource[@"cost_currency"], fundingSource[@"cost"], fundingSource[@"commission"]];
+        } else {
+            formattedFunding = [NSString stringWithFormat:@"%@%@+%@%@", fundingSource[@"cost_currency"], fundingSource[@"cost"], fundingSource[@"commission_currency"], fundingSource[@"commission"]];
+        }
     } else {
-        formattedFunding = [NSString stringWithFormat:@"%@ %@", fundingSource[@"cost"], costCurrency];
+        formattedFunding = [NSString stringWithFormat:@"%@%@", fundingSource[@"cost_currency"], fundingSource[@"cost"]];
     }
     return formattedFunding;
 }

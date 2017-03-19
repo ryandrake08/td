@@ -12,8 +12,12 @@
 
 - (void)setCurrencyCode:(NSString *)currencyCode {
     [super setCurrencyCode:currencyCode];
-    if([currencyCode isEqualToString:@"XXX"]) {
+    if([currencyCode isEqualToString:@"XPT"]) {
         [super setCurrencySymbol:NSLocalizedString(@"Points", nil)];
+        [super setPositiveFormat:@"#,##0 ¤"];
+        [super setNegativeFormat:@"#,##0 ¤"];
+    } else if([currencyCode isEqualToString:@"XPB"]) {
+        [super setCurrencySymbol:NSLocalizedString(@"Bucks", nil)];
         [super setPositiveFormat:@"#,##0 ¤"];
         [super setNegativeFormat:@"#,##0 ¤"];
     } else {

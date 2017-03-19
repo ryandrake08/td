@@ -1,15 +1,14 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" customObjectInstantitationMethod="direct">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10117"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11762"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="TBFundingViewController">
             <connections>
                 <outlet property="arrayController" destination="ZWh-lB-mFY" id="hJ0-cr-QZp"/>
-                <outlet property="costFormatter" destination="2b4-Xz-BGD" id="iyt-ob-0QC"/>
-                <outlet property="equityFormatter" destination="Heg-09-aVJ" id="VgI-d7-ESD"/>
                 <outlet property="tableView" destination="n9f-OZ-oem" id="EMT-Mw-cUM"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="aVB-Tv-n4d"/>
             </connections>
@@ -20,21 +19,21 @@
             <rect key="frame" x="0.0" y="0.0" width="640" height="375"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <scrollView autohidesScrollers="YES" horizontalLineScroll="31" horizontalPageScroll="10" verticalLineScroll="31" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="vsn-W9-hge">
+                <scrollView autohidesScrollers="YES" horizontalLineScroll="60" horizontalPageScroll="10" verticalLineScroll="60" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="vsn-W9-hge">
                     <rect key="frame" x="0.0" y="20" width="640" height="355"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <clipView key="contentView" drawsBackground="NO" id="mHv-8H-3eA">
-                        <rect key="frame" x="1" y="17" width="638" height="337"/>
+                        <rect key="frame" x="1" y="0.0" width="638" height="354"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="firstColumnOnly" columnSelection="YES" autosaveColumns="NO" rowHeight="29" rowSizeStyle="automatic" headerView="SOR-EG-EJf" viewBased="YES" id="n9f-OZ-oem">
+                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="firstColumnOnly" columnSelection="YES" autosaveColumns="NO" rowHeight="58" rowSizeStyle="automatic" headerView="SOR-EG-EJf" viewBased="YES" id="n9f-OZ-oem">
                                 <rect key="frame" x="0.0" y="0.0" width="638" height="337"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                 <tableColumns>
-                                    <tableColumn width="89" maxWidth="1000000000" id="3w1-KV-D03">
+                                    <tableColumn width="153" maxWidth="1000000000" id="3w1-KV-D03">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Name">
                                             <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -47,14 +46,14 @@
                                         </textFieldCell>
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
-                                            <tableCellView id="v4G-pi-8L3">
-                                                <rect key="frame" x="1" y="1" width="89" height="29"/>
+                                            <tableCellView misplaced="YES" id="v4G-pi-8L3">
+                                                <rect key="frame" x="1" y="1" width="153" height="58"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" id="Tuz-Wx-yMt" userLabel="Name">
-                                                        <rect key="frame" x="0.0" y="7" width="85" height="17"/>
+                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" misplaced="YES" allowsExpansionToolTips="YES" id="Tuz-Wx-yMt" userLabel="Name">
+                                                        <rect key="frame" x="0.0" y="3" width="149" height="52"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" placeholderString="Name (e.g. Early Bird Addon)" id="EtV-4i-XDm">
+                                                        <textFieldCell key="cell" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" placeholderString="Name (e.g. Early Bird Addon)" id="EtV-4i-XDm">
                                                             <font key="font" metaFont="systemBold"/>
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -86,12 +85,12 @@
                                         </textFieldCell>
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
-                                            <tableCellView id="g2k-DY-PZy">
-                                                <rect key="frame" x="93" y="1" width="112" height="29"/>
+                                            <tableCellView misplaced="YES" id="g2k-DY-PZy">
+                                                <rect key="frame" x="157" y="1" width="112" height="58"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <popUpButton verticalHuggingPriority="750" id="5oJ-0Q-CaC" userLabel="Type">
-                                                        <rect key="frame" x="0.0" y="1.5" width="104" height="26"/>
+                                                        <rect key="frame" x="0.0" y="18" width="104" height="26"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                         <popUpButtonCell key="cell" type="push" title="Add-on" bezelStyle="rounded" imagePosition="left" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="border" tag="2" imageScaling="proportionallyDown" inset="2" selectedItem="dwf-DU-IBN" id="5Po-jG-8BF">
                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -134,12 +133,12 @@
                                         </textFieldCell>
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
-                                            <tableCellView id="CYi-hL-Ch3">
-                                                <rect key="frame" x="208" y="1" width="56" height="29"/>
+                                            <tableCellView misplaced="YES" id="CYi-hL-Ch3">
+                                                <rect key="frame" x="272" y="1" width="56" height="58"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <textField verticalHuggingPriority="750" id="xTr-TC-3Hl" userLabel="Cost Value">
-                                                        <rect key="frame" x="0.0" y="7" width="56" height="17"/>
+                                                    <textField verticalHuggingPriority="750" misplaced="YES" id="xTr-TC-3Hl" userLabel="Cost Value">
+                                                        <rect key="frame" x="0.0" y="30" width="56" height="17"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" alignment="left" placeholderString="Cost" id="aqP-cm-2eN">
                                                             <font key="font" metaFont="system"/>
@@ -150,6 +149,31 @@
                                                             <binding destination="CYi-hL-Ch3" name="value" keyPath="objectValue.cost" id="zo7-83-ZSv"/>
                                                         </connections>
                                                     </textField>
+                                                    <popUpButton misplaced="YES" id="g6B-g7-PgA">
+                                                        <rect key="frame" x="0.0" y="8" width="56" height="17"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <popUpButtonCell key="cell" type="square" title="Dollar" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" selectedItem="zGH-rm-FG9" id="65i-8f-Nh5">
+                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                            <font key="font" metaFont="menu"/>
+                                                            <menu key="menu" id="EKS-ba-lbo">
+                                                                <items>
+                                                                    <menuItem title="Dollar" state="on" id="zGH-rm-FG9"/>
+                                                                    <menuItem title="Euro" id="lUP-t6-OHB"/>
+                                                                    <menuItem title="Pound" id="qlN-Y4-Ue8"/>
+                                                                    <menuItem title="Rupee" id="ESr-ey-8b3"/>
+                                                                    <menuItem title="Yen" id="Sas-rh-F9L"/>
+                                                                    <menuItem title="Yuan" id="K8x-af-BB4"/>
+                                                                </items>
+                                                            </menu>
+                                                        </popUpButtonCell>
+                                                        <connections>
+                                                            <binding destination="CYi-hL-Ch3" name="selectedValue" keyPath="objectValue.cost_currency" id="WYd-y9-LtV">
+                                                                <dictionary key="options">
+                                                                    <string key="NSValueTransformerName">TBCurrencyCodeTransformer</string>
+                                                                </dictionary>
+                                                            </binding>
+                                                        </connections>
+                                                    </popUpButton>
                                                 </subviews>
                                                 <connections>
                                                     <outlet property="textField" destination="xTr-TC-3Hl" id="VD0-f4-bG3"/>
@@ -173,12 +197,12 @@
                                         </textFieldCell>
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
-                                            <tableCellView id="gjc-Qx-bHl">
-                                                <rect key="frame" x="267" y="1" width="56" height="29"/>
+                                            <tableCellView misplaced="YES" id="gjc-Qx-bHl">
+                                                <rect key="frame" x="331" y="1" width="56" height="58"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <textField verticalHuggingPriority="750" id="ig5-xE-2BK" userLabel="Fee Value">
-                                                        <rect key="frame" x="0.0" y="7" width="56" height="17"/>
+                                                    <textField verticalHuggingPriority="750" misplaced="YES" id="ig5-xE-2BK" userLabel="Fee Value">
+                                                        <rect key="frame" x="0.0" y="30" width="56" height="17"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" alignment="left" placeholderString="Fee" id="88h-PX-2Sg">
                                                             <font key="font" metaFont="system"/>
@@ -189,6 +213,31 @@
                                                             <binding destination="gjc-Qx-bHl" name="value" keyPath="objectValue.commission" id="V8i-HP-2Vo"/>
                                                         </connections>
                                                     </textField>
+                                                    <popUpButton misplaced="YES" id="Bea-v4-oeR">
+                                                        <rect key="frame" x="0.0" y="8" width="56" height="17"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <popUpButtonCell key="cell" type="square" title="Dollar" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" selectedItem="eeF-ZS-ceb" id="hMx-MB-2bQ">
+                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                            <font key="font" metaFont="menu"/>
+                                                            <menu key="menu" id="Rd8-ls-LWB">
+                                                                <items>
+                                                                    <menuItem title="Dollar" state="on" id="eeF-ZS-ceb"/>
+                                                                    <menuItem title="Euro" id="ua2-Vr-7Bn"/>
+                                                                    <menuItem title="Pound" id="iXp-9Z-6GJ"/>
+                                                                    <menuItem title="Rupee" id="ar8-Zl-NlD"/>
+                                                                    <menuItem title="Yen" id="b27-Gt-NmT"/>
+                                                                    <menuItem title="Yuan" id="54K-8M-LRC"/>
+                                                                </items>
+                                                            </menu>
+                                                        </popUpButtonCell>
+                                                        <connections>
+                                                            <binding destination="gjc-Qx-bHl" name="selectedValue" keyPath="objectValue.commission_currency" id="dEd-9l-faX">
+                                                                <dictionary key="options">
+                                                                    <string key="NSValueTransformerName">TBCurrencyCodeTransformer</string>
+                                                                </dictionary>
+                                                            </binding>
+                                                        </connections>
+                                                    </popUpButton>
                                                 </subviews>
                                                 <connections>
                                                     <outlet property="textField" destination="ig5-xE-2BK" id="34f-J1-Gbu"/>
@@ -212,12 +261,12 @@
                                         </textFieldCell>
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
-                                            <tableCellView id="HwY-hW-bUI">
-                                                <rect key="frame" x="326" y="1" width="56" height="29"/>
+                                            <tableCellView misplaced="YES" id="HwY-hW-bUI">
+                                                <rect key="frame" x="390" y="1" width="56" height="58"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <textField verticalHuggingPriority="750" id="FxW-AN-4e6" userLabel="Equity Value">
-                                                        <rect key="frame" x="0.0" y="7" width="56" height="17"/>
+                                                    <textField verticalHuggingPriority="750" misplaced="YES" id="FxW-AN-4e6" userLabel="Equity Value">
+                                                        <rect key="frame" x="0.0" y="30" width="56" height="17"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" alignment="left" placeholderString="Equity" id="asL-e8-nIq">
                                                             <font key="font" metaFont="system"/>
@@ -228,6 +277,31 @@
                                                             <binding destination="HwY-hW-bUI" name="value" keyPath="objectValue.equity" id="MH9-tE-3lR"/>
                                                         </connections>
                                                     </textField>
+                                                    <popUpButton misplaced="YES" id="DBb-Bx-In4">
+                                                        <rect key="frame" x="0.0" y="8" width="56" height="17"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <popUpButtonCell key="cell" type="square" title="Dollar" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" selectedItem="0aT-Ob-z56" id="xFL-J2-e5M">
+                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                            <font key="font" metaFont="menu"/>
+                                                            <menu key="menu" id="bm3-XF-V21">
+                                                                <items>
+                                                                    <menuItem title="Dollar" state="on" id="0aT-Ob-z56"/>
+                                                                    <menuItem title="Euro" id="F7B-bH-jof"/>
+                                                                    <menuItem title="Pound" id="P9R-aT-HzI"/>
+                                                                    <menuItem title="Rupee" id="YR7-HB-haQ"/>
+                                                                    <menuItem title="Yen" id="w8K-ng-Pmx"/>
+                                                                    <menuItem title="Yuan" id="Pao-aA-Jol"/>
+                                                                </items>
+                                                            </menu>
+                                                        </popUpButtonCell>
+                                                        <connections>
+                                                            <binding destination="HwY-hW-bUI" name="selectedValue" keyPath="objectValue.equity_currency" id="Yno-Ae-FT8">
+                                                                <dictionary key="options">
+                                                                    <string key="NSValueTransformerName">TBCurrencyCodeTransformer</string>
+                                                                </dictionary>
+                                                            </binding>
+                                                        </connections>
+                                                    </popUpButton>
                                                 </subviews>
                                                 <connections>
                                                     <outlet property="textField" destination="FxW-AN-4e6" id="j2W-Vq-9TF"/>
@@ -251,12 +325,12 @@
                                         </textFieldCell>
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
-                                            <tableCellView id="DiR-si-Lw4">
-                                                <rect key="frame" x="385" y="1" width="56" height="29"/>
+                                            <tableCellView misplaced="YES" id="DiR-si-Lw4">
+                                                <rect key="frame" x="449" y="1" width="56" height="58"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <textField verticalHuggingPriority="750" id="1Po-Mx-C2U" userLabel="Chips Value">
-                                                        <rect key="frame" x="0.0" y="7" width="56" height="17"/>
+                                                    <textField verticalHuggingPriority="750" misplaced="YES" id="1Po-Mx-C2U" userLabel="Chips Value">
+                                                        <rect key="frame" x="0.0" y="30" width="56" height="17"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" alignment="left" placeholderString="Count" id="Ng6-A1-M0z">
                                                             <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="GPs-t1-CJJ">
@@ -280,7 +354,7 @@
                                             <binding destination="ZWh-lB-mFY" name="value" keyPath="arrangedObjects.chips" id="O4d-Ob-Oml"/>
                                         </connections>
                                     </tableColumn>
-                                    <tableColumn width="192" maxWidth="192" id="ygT-Hl-nmT">
+                                    <tableColumn width="128" maxWidth="192" id="ygT-Hl-nmT">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Forbid After">
                                             <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -293,12 +367,12 @@
                                         </textFieldCell>
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
-                                            <tableCellView id="Sm9-1Z-FA0" customClass="TBFundingTableCellView">
-                                                <rect key="frame" x="444" y="1" width="192" height="29"/>
+                                            <tableCellView misplaced="YES" id="Sm9-1Z-FA0" customClass="TBFundingTableCellView">
+                                                <rect key="frame" x="508" y="1" width="128" height="58"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <button id="IW4-Pg-d0L">
-                                                        <rect key="frame" x="0.0" y="1.5" width="22" height="26"/>
+                                                    <button misplaced="YES" id="IW4-Pg-d0L">
+                                                        <rect key="frame" x="0.0" y="30" width="22" height="26"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                         <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="nuk-dX-93O">
                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -313,8 +387,8 @@
                                                             </binding>
                                                         </connections>
                                                     </button>
-                                                    <popUpButton verticalHuggingPriority="750" id="tsN-Ff-csU" userLabel="Until Round">
-                                                        <rect key="frame" x="26" y="1.5" width="166" height="26"/>
+                                                    <popUpButton verticalHuggingPriority="750" misplaced="YES" id="tsN-Ff-csU" userLabel="Until Round">
+                                                        <rect key="frame" x="1" y="8" width="127" height="26"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                         <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="PtV-cN-mJm">
                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -354,7 +428,7 @@
                         <nil key="backgroundColor"/>
                     </clipView>
                     <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="r9b-mh-iEe">
-                        <rect key="frame" x="1" y="109.96310186386108" width="220.5" height="16"/>
+                        <rect key="frame" x="1" y="110" width="220.5" height="16"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                     <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="drx-cR-GeA">
@@ -362,7 +436,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                     <tableHeaderView key="headerView" id="SOR-EG-EJf">
-                        <rect key="frame" x="0.0" y="0.0" width="10000" height="17"/>
+                        <rect key="frame" x="0.0" y="0.0" width="638" height="17"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </tableHeaderView>
                 </scrollView>
@@ -409,75 +483,6 @@
                         </menu>
                     </popUpButtonCell>
                 </popUpButton>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="0dj-li-b57">
-                    <rect key="frame" x="97" y="2" width="150" height="17"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Cost/Fee currency:" id="KjY-J7-xAy">
-                        <font key="font" metaFont="system"/>
-                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="yyS-xd-gwl">
-                    <rect key="frame" x="319" y="2" width="150" height="17"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Equity currency:" id="Fvu-Pr-pKS">
-                        <font key="font" metaFont="system"/>
-                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <popUpButton id="18E-Z1-Dnh">
-                    <rect key="frame" x="253" y="0.0" width="84" height="21"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <popUpButtonCell key="cell" type="square" title="Dollar" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" selectedItem="WF0-vn-zyZ" id="oUZ-hv-V67">
-                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="menu"/>
-                        <menu key="menu" id="JeI-Nu-oij">
-                            <items>
-                                <menuItem title="Dollar" state="on" id="WF0-vn-zyZ"/>
-                                <menuItem title="Euro" id="NQs-3l-XXe"/>
-                                <menuItem title="Pound" id="VGf-8s-s4e"/>
-                                <menuItem title="Rupee" id="tWM-Vz-nPi"/>
-                                <menuItem title="Yen" id="DTc-pE-0Ve"/>
-                                <menuItem title="Yuan" id="RBz-e3-ZTq"/>
-                            </items>
-                        </menu>
-                    </popUpButtonCell>
-                    <connections>
-                        <binding destination="-2" name="selectedValue" keyPath="self.configuration.cost_currency" id="PYf-Xj-qS4">
-                            <dictionary key="options">
-                                <string key="NSValueTransformerName">TBCurrencyCodeTransformer</string>
-                            </dictionary>
-                        </binding>
-                    </connections>
-                </popUpButton>
-                <popUpButton id="1Iw-dm-HVd">
-                    <rect key="frame" x="475" y="0.0" width="84" height="21"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <popUpButtonCell key="cell" type="square" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="4Hj-D1-V1d">
-                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="menu"/>
-                        <menu key="menu" id="IIu-YM-akW">
-                            <items>
-                                <menuItem title="Dollar" id="5mA-hd-hyX"/>
-                                <menuItem title="Euro" id="gxZ-gh-y1k"/>
-                                <menuItem title="Pound" id="DbY-dK-iWd"/>
-                                <menuItem title="Rupee" id="Bzq-bl-66q"/>
-                                <menuItem title="Yen" id="OrT-vt-jyz"/>
-                                <menuItem title="Yuan" id="0fq-v2-xTb"/>
-                                <menuItem title="Points" id="OLC-ic-p1n"/>
-                            </items>
-                        </menu>
-                    </popUpButtonCell>
-                    <connections>
-                        <binding destination="-2" name="selectedValue" keyPath="self.configuration.equity_currency" id="Vg9-fR-KLg">
-                            <dictionary key="options">
-                                <string key="NSValueTransformerName">TBCurrencyCodeTransformer</string>
-                            </dictionary>
-                        </binding>
-                    </connections>
-                </popUpButton>
             </subviews>
             <point key="canvasLocation" x="17" y="246.5"/>
         </customView>
@@ -494,12 +499,6 @@
                 <binding destination="-2" name="contentArray" keyPath="configuration.funding_sources" id="mVs-qj-OP5"/>
             </connections>
         </arrayController>
-        <numberFormatter formatterBehavior="default10_4" numberStyle="currency" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" minimumFractionDigits="2" maximumFractionDigits="2" id="2b4-Xz-BGD" userLabel="Cost Formatter" customClass="TBCurrencyNumberFormatter">
-            <real key="minimum" value="0.0"/>
-        </numberFormatter>
-        <numberFormatter formatterBehavior="custom10_4" numberStyle="currency" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" minimumFractionDigits="2" maximumFractionDigits="2" id="Heg-09-aVJ" userLabel="Equity Formatter" customClass="TBCurrencyNumberFormatter">
-            <real key="minimum" value="0.0"/>
-        </numberFormatter>
     </objects>
     <resources>
         <image name="NSActionTemplate" width="14" height="14"/>

@@ -1,8 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" customObjectInstantitationMethod="direct">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10117"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11762"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="TBSeatingViewController">
@@ -22,17 +23,17 @@
                     <rect key="frame" x="0.0" y="0.0" width="512" height="768"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <clipView key="contentView" drawsBackground="NO" id="RF3-Kz-bSk">
-                        <rect key="frame" x="1" y="0.0" width="510" height="767"/>
+                        <rect key="frame" x="1" y="0.0" width="510" height="752"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView identifier="seatsTable" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="sequential" columnSelection="YES" autosaveColumns="NO" rowHeight="24" rowSizeStyle="automatic" headerView="DKV-9J-9sV" viewBased="YES" id="am5-fF-rIk">
-                                <rect key="frame" x="0.0" y="0.0" width="515" height="0.0"/>
+                                <rect key="frame" x="0.0" y="0.0" width="515" height="735"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                 <tableColumns>
-                                    <tableColumn width="48" minWidth="48" maxWidth="48" id="Jw8-pv-CpJ">
+                                    <tableColumn width="56" minWidth="48" maxWidth="56" id="Jw8-pv-CpJ">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="center" title="Table">
                                             <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -45,11 +46,11 @@
                                         </textFieldCell>
                                         <prototypeCellViews>
                                             <tableCellView id="i6T-jH-168">
-                                                <rect key="frame" x="1" y="1" width="48" height="24"/>
+                                                <rect key="frame" x="1" y="1" width="56" height="24"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="yaF-xA-BTN">
-                                                        <rect key="frame" x="0.0" y="4" width="48" height="16"/>
+                                                        <rect key="frame" x="0.5" y="4" width="55" height="16"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" title="1" id="7Wy-Pk-DZH" customClass="RSVerticallyCenteredTextFieldCell">
                                                             <font key="font" metaFont="system" size="14"/>
@@ -65,7 +66,7 @@
                                                         </connections>
                                                     </textField>
                                                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" id="5Dc-we-o41">
-                                                        <rect key="frame" x="0.0" y="0.0" width="48" height="24"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="56" height="24"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
                                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="b_table" id="JY9-xH-wnn"/>
                                                     </imageView>
@@ -92,7 +93,7 @@
                                         </textFieldCell>
                                         <prototypeCellViews>
                                             <tableCellView id="gJQ-GH-2wj">
-                                                <rect key="frame" x="52" y="1" width="48" height="24"/>
+                                                <rect key="frame" x="60" y="1" width="48" height="24"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="htj-o7-hrf">
@@ -126,7 +127,7 @@
                                             <binding destination="So1-EM-ZfO" name="value" keyPath="arrangedObjects.seat_number" id="Dla-xt-ex3"/>
                                         </connections>
                                     </tableColumn>
-                                    <tableColumn width="256" minWidth="70" maxWidth="1000" id="dZW-ZQ-NMe">
+                                    <tableColumn width="248" minWidth="70" maxWidth="1000" id="dZW-ZQ-NMe">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Player">
                                             <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -140,11 +141,11 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView id="mTZ-hw-P9L">
-                                                <rect key="frame" x="103" y="1" width="256" height="24"/>
+                                                <rect key="frame" x="111" y="1" width="248" height="24"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="8Ba-5L-OFD" customClass="TBResizeTextField">
-                                                        <rect key="frame" x="0.0" y="0.0" width="256" height="24"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="248" height="24"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Player Name" usesSingleLineMode="YES" id="sC7-n0-SIy" customClass="RSVerticallyCenteredTextFieldCell">
                                                             <font key="font" metaFont="system" size="20"/>
@@ -186,23 +187,21 @@
                                                 <rect key="frame" x="362" y="1" width="48" height="24"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" id="mSY-IK-AuR">
+                                                    <button misplaced="YES" id="gMY-z6-VV2">
                                                         <rect key="frame" x="12" y="0.0" width="24" height="24"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
-                                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="b_note_dollar" id="c6l-kv-fbp"/>
+                                                        <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="only" alignment="center" enabled="NO" state="on" inset="2" id="lNR-63-iw3">
+                                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                            <font key="font" metaFont="system"/>
+                                                        </buttonCell>
                                                         <connections>
-                                                            <binding destination="ywV-rK-qmp" name="hidden" keyPath="objectValue.buyin" id="1sk-dY-OhY">
+                                                            <binding destination="ywV-rK-qmp" name="hidden" keyPath="objectValue.buyin" id="kde-Gg-Joq">
                                                                 <dictionary key="options">
                                                                     <string key="NSValueTransformerName">NSNegateBoolean</string>
                                                                 </dictionary>
                                                             </binding>
-                                                            <binding destination="-2" name="value" keyPath="self.session.state.cost_currency" id="Muo-rF-W1A">
-                                                                <dictionary key="options">
-                                                                    <string key="NSValueTransformerName">TBCurrencyImageTransformer</string>
-                                                                </dictionary>
-                                                            </binding>
                                                         </connections>
-                                                    </imageView>
+                                                    </button>
                                                 </subviews>
                                             </tableCellView>
                                         </prototypeCellViews>
@@ -254,7 +253,7 @@
                         <nil key="backgroundColor"/>
                     </clipView>
                     <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="8Jh-c8-Vhj">
-                        <rect key="frame" x="1" y="67.698349058628082" width="127" height="16"/>
+                        <rect key="frame" x="1" y="752" width="510" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                     <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="gjd-Wq-8XJ">
@@ -295,7 +294,6 @@
     </objects>
     <resources>
         <image name="NSListViewTemplate" width="14" height="10"/>
-        <image name="b_note_dollar" width="64" height="64"/>
         <image name="b_seat" width="64" height="64"/>
         <image name="b_table" width="64" height="64"/>
     </resources>

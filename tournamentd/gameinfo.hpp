@@ -20,12 +20,6 @@ class gameinfo
     // configuration: number of players per table
     std::size_t table_capacity;
 
-    // configuration: name of currency collected (use ISO 4217: USD, EUR, XXX for points)
-    std::string cost_currency;
-
-    // configuration: name of currency distributed (use ISO 4217: USD, EUR, XXX for points)
-    std::string equity_currency;
-
     // configuration: rough percentage of seats that get paid (0.0-1.0)
     double percent_seats_paid;
 
@@ -76,10 +70,10 @@ class gameinfo
     // total game currency (chips) in play
     unsigned long total_chips;
 
-    // total funds received and paid out
-    double total_cost;
-    double total_commission;
-    double total_equity;
+    // total funds received and paid out, for each currency
+    std::unordered_map<std::string,double> total_cost;
+    std::unordered_map<std::string,double> total_commission;
+    std::unordered_map<std::string,double> total_equity;
     
     // is the game running or paused?
     bool running;

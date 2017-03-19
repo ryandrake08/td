@@ -292,8 +292,6 @@
             "count_available": 40
         }
     ],
-    "cost_currency": "USD",
-    "equity_currency": "XXX",
     "percent_seats_paid": 0.25,
     "round_payouts": true,
     "payout_flatness": 0.85,
@@ -304,8 +302,11 @@
             "forbid_after_blind_level": 0,
             "chips": 5000,
             "cost": 30.00,
+            "cost_currency": "USD",
             "commission": 0.00,
-            "equity": 5.00
+            "commission_currency": "USD",
+            "equity": 5.00,
+            "equity_currency": "XPT"
         },
         {
             "name": "Travel add-on",
@@ -313,8 +314,11 @@
             "forbid_after_blind_level": 0,
             "chips": 500,
             "cost": 5.00,
+            "cost_currency": "USD",
             "commission": 0.00,
-            "equity": 0.00
+            "commission_currency": "USD",
+            "equity": 0.00,
+            "equity_currency": "XPT"
         },
         {
             "name": "Early arrival add-on",
@@ -322,8 +326,11 @@
             "forbid_after_blind_level": 0,
             "chips": 500,
             "cost": 0.00,
+            "cost_currency": "USD",
             "commission": 0.00,
-            "equity": 0.00
+            "commission_currency": "USD",
+            "equity": 0.00,
+            "equity_currency": "XPT"
         }
     ],
     "table_capacity": 8,

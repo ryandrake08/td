@@ -69,12 +69,6 @@
         // update table view cell
         [[observer tableView] reloadData];
     }];
-
-    [[self KVOController] observe:[[self session] state] keyPath:@"cost_currency" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
-        NSString* costCurrency = object[@"cost_currency"];
-        [self setCurrencyImage:[self currencyImageLookup][costCurrency]];
-        [[observer tableView] reloadData];
-    }];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -70,6 +70,10 @@ namespace td
         double cost;
         double commission;
         double equity;
+        // currency names use ISO 4217
+        std::string cost_currency;
+        std::string commission_currency;
+        std::string equity_currency;
 
         funding_source();
         funding_source(const json& obj);
@@ -138,6 +142,7 @@ namespace td
         size_t place;
         std::string name;
         double payout;
+        std::string payout_currency;
 
         result();
         result(size_t p, const std::string& n="--");

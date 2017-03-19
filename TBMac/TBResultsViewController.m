@@ -10,12 +10,6 @@
 #import "NSObject+FBKVOController.h"
 #import "TBCurrencyNumberFormatter.h"
 
-@interface TBResultsViewController () <NSTableViewDelegate>
-
-@property (strong) IBOutlet TBCurrencyNumberFormatter* equityFormatter;
-
-@end
-
 @implementation TBResultsViewController
 
 - (void)viewDidLoad {
@@ -24,12 +18,6 @@
     // setup sort descriptor
     NSSortDescriptor* placeSort = [[NSSortDescriptor alloc] initWithKey:@"place" ascending:YES];
     [[self arrayController] setSortDescriptors:@[placeSort]];
-
-    // bindings
-    [[self equityFormatter] bind:@"currencyCode" toObject:[[self session] state] withKeyPath:@"equity_currency" options:nil];
-
-    // register for KVO
-    [[[self tableView] KVOController] observe:[[self session] state] keyPath:@"equity_currency" options:0 action:@selector(reloadData)];
 }
 
 #pragma mark NSTableViewDelegate
@@ -37,7 +25,11 @@
 - (NSView *)tableView:(NSTableView*)aTableView viewForTableColumn:(NSTableColumn*)aTableColumn row:(NSInteger)rowIndex {
     NSTableCellView* result = [aTableView makeViewWithIdentifier:aTableColumn.identifier owner:self];
     if([[aTableColumn identifier] isEqualToString:@"Payout"]) {
-        [[result textField] setFormatter:[self equityFormatter]];
+        if([[result textField] formatter] == nil) {
+            [[result textField] setFormatter:[[TBCurrencyNumberFormatter alloc] init]];
+        }
+        NSDictionary* object = [[[self arrayController] arrangedObjects] objectAtIndex:rowIndex];
+        [[[result textField] formatter] setCurrencyCode:object[@"payout_currency"]];
     }
     return result;
 }

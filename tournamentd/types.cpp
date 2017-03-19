@@ -116,6 +116,9 @@ td::funding_source::funding_source(const json& obj) : funding_source()
     obj.get_value("cost", this->cost);
     obj.get_value("commission", this->commission);
     obj.get_value("equity", this->equity);
+    obj.get_value("cost_currency", this->cost_currency);
+    obj.get_value("commission_currency", this->commission_currency);
+    obj.get_value("equity_currency", this->equity_currency);
 }
 
 td::player::player(const json& obj) : player()
@@ -236,6 +239,9 @@ json::json(const td::funding_source& value) : json()
     this->set_value("cost", value.cost);
     this->set_value("commission", value.commission);
     this->set_value("equity", value.equity);
+    this->set_value("cost_currency", value.cost_currency);
+    this->set_value("commission_currency", value.commission_currency);
+    this->set_value("equity_currency", value.equity_currency);
 }
 
 template<>
@@ -306,6 +312,7 @@ json::json(const td::result& value) : json()
     if(value.payout != 0.0)
     {
         this->set_value("payout", value.payout);
+        this->set_value("payout_currency", value.payout_currency);
     }
 }
 
@@ -323,4 +330,11 @@ json::json(const td::seated_player& value) : json()
     {
         this->set_value("seat_number", value.seat_number);
     }
+}
+
+template<>
+json::json(const std::pair<const std::string,double>& value) : json()
+{
+    this->set_value("currency", value.first);
+    this->set_value("amount", value.second);
 }

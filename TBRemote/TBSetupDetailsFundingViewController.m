@@ -57,27 +57,18 @@
             }
             case 2:
             {
-                TBCurrencyNumberFormatter* costFormatter = [[TBCurrencyNumberFormatter alloc] init];
-                [costFormatter setCurrencyCode:[self configuration][@"cost_currency"]];
-                [(TBEditableNumberTableViewCell*)cell setFormatter:costFormatter];
                 [(TBEditableTableViewCell*)cell setObject:[self object]];
                 [(TBEditableTableViewCell*)cell setKeyPath:@"cost"];
                 break;
             }
             case 3:
             {
-                TBCurrencyNumberFormatter* costFormatter = [[TBCurrencyNumberFormatter alloc] init];
-                [costFormatter setCurrencyCode:[self configuration][@"cost_currency"]];
-                [(TBEditableNumberTableViewCell*)cell setFormatter:costFormatter];
                 [(TBEditableTableViewCell*)cell setObject:[self object]];
                 [(TBEditableTableViewCell*)cell setKeyPath:@"commission"];
                 break;
             }
             case 4:
             {
-                TBCurrencyNumberFormatter* equityFormatter = [[TBCurrencyNumberFormatter alloc] init];
-                [equityFormatter setCurrencyCode:[self configuration][@"equity_currency"]];
-                [(TBEditableNumberTableViewCell*)cell setFormatter:equityFormatter];
                 [(TBEditableTableViewCell*)cell setObject:[self object]];
                 [(TBEditableTableViewCell*)cell setKeyPath:@"equity"];
                 break;

@@ -52,8 +52,6 @@ void gameinfo::configure(const json& config)
     logger(LOG_INFO) << "loading tournament configuration\n";
 
     config.get_value("name", this->name);
-    config.get_value("cost_currency", this->cost_currency);
-    config.get_value("equity_currency", this->equity_currency);
     config.get_values("funding_sources", this->funding_sources);
     config.get_value("percent_seats_paid", this->percent_seats_paid);
 
@@ -143,8 +141,6 @@ void gameinfo::dump_configuration(json& config) const
     config.set_value("name", this->name);
     config.set_value("players", json(this->players.begin(), this->players.end()));
     config.set_value("table_capacity", this->table_capacity);
-    config.set_value("cost_currency", this->cost_currency);
-    config.set_value("equity_currency", this->equity_currency);
     config.set_value("percent_seats_paid", this->percent_seats_paid);
     config.set_value("funding_sources", json(this->funding_sources.begin(), this->funding_sources.end()));
     config.set_value("blind_levels", json(this->blind_levels.begin(), this->blind_levels.end()));
@@ -165,9 +161,9 @@ void gameinfo::dump_state(json& state) const
     state.set_value("entries", json(this->entries.begin(), this->entries.end()));
     state.set_value("payouts", json(this->payouts.begin(), this->payouts.end()));
     state.set_value("total_chips", this->total_chips);
-    state.set_value("total_cost", this->total_cost);
-    state.set_value("total_commission", this->total_commission);
-    state.set_value("total_equity", this->total_equity);
+    state.set_value("total_cost", json(this->total_cost.begin(), this->total_cost.end()));
+    state.set_value("total_commission", json(this->total_commission.begin(), this->total_commission.end()));
+    state.set_value("total_equity", json(this->total_equity.begin(), this->total_equity.end()));
     state.set_value("running", this->running);
     state.set_value("current_blind_level", this->current_blind_level);
     state.set_value("time_remaining", this->time_remaining.count());
@@ -217,10 +213,17 @@ static std::ostream& operator<<(std::ostream& os, const td::blind_level& level)
 // funding source to string
 static std::ostream& operator<<(std::ostream& os, const td::funding_source& src)
 {
-    os << src.name << ": " << src.cost;
+    os << src.name << ": " << src.cost_currency << src.cost;
     if(src.commission != 0.0)
     {
-        os << '+' << src.commission;
+        if(src.commission_currency == src.cost_currency)
+        {
+            os << '+' << src.commission;
+        }
+        else
+        {
+            os << '+' << src.commission_currency << src.commission;
+        }
     }
     return os;
 }
@@ -352,7 +355,7 @@ void gameinfo::dump_derived_state(json& state) const
     auto src_it(std::find_if(this->funding_sources.begin(), this->funding_sources.end(), [](const td::funding_source& s) { return s.type == td::buyin; }));
     if(src_it != this->funding_sources.end())
     {
-        os << *src_it << ' ' << this->cost_currency;
+        os << *src_it;
     }
     else
     {
@@ -360,14 +363,18 @@ void gameinfo::dump_derived_state(json& state) const
     }
     state.set_value("buyin_text", os.str()); os.str("");
 
+    // payout currency (for now, it's the first equity_currency found. equity currencies are guaranteed to match)
+    auto source(this->funding_sources.begin());
+
     // results
     std::vector<td::result> results;
     for(size_t j(0); j<this->seats.size(); j++)
     {
         td::result result(j+1);
-        if(j < this->payouts.size())
+        if(j < this->payouts.size() && source != this->funding_sources.end())
         {
             result.payout = this->payouts[j];
+            result.payout_currency = source->equity_currency;
         }
         results.push_back(result);
     }
@@ -382,9 +389,10 @@ void gameinfo::dump_derived_state(json& state) const
         size_t j(this->seats.size()+i);
 
         td::result result(j+1, player_it->second.name);
-        if(j < this->payouts.size())
+        if(j < this->payouts.size() && source != this->funding_sources.end())
         {
             result.payout = this->payouts[j];
+            result.payout_currency = source->equity_currency;
         }
         results.push_back(result);
     }
@@ -816,6 +824,11 @@ void gameinfo::fund_player(const td::player_id_t& player_id, const td::funding_s
         throw td::protocol_error("tried re-buying before tournamnet start");
     }
 
+    if(!this->total_equity.empty() && source.equity_currency != this->total_equity.begin()->first)
+    {
+        throw td::protocol_error("tried mixing equity currencies, currently not supported");
+    }
+
     logger(LOG_INFO) << "funding player " << this->player_description(player_id) << " with " << source.name << '\n';
 
     if(source.type == td::buyin)
@@ -834,9 +847,9 @@ void gameinfo::fund_player(const td::player_id_t& player_id, const td::funding_s
 
     // update totals
     this->total_chips += source.chips;
-    this->total_cost += source.cost;
-    this->total_commission += source.commission;
-    this->total_equity += source.equity;
+    this->total_cost[source.cost_currency] += source.cost;
+    this->total_commission[source.commission_currency] += source.commission;
+    this->total_equity[source.equity_currency] += source.equity;
 
     // automatically recalculate
     this->recalculate_payouts();
@@ -1032,15 +1045,15 @@ void gameinfo::recalculate_payouts()
         // next, loop through again generating payouts
         if(round)
         {
-            std::transform(comp.begin(), comp.end(), this->payouts.begin(), [&](double c) { return std::round(this->total_equity * c / total); });
+            std::transform(comp.begin(), comp.end(), this->payouts.begin(), [&](double c) { return std::round(this->total_equity.begin()->second * c / total); });
 
             // remainder (either positive or negative) adjusts first place
-            auto remainder(this->total_equity - std::accumulate(this->payouts.begin(), this->payouts.end(), 0.0));
+            auto remainder(this->total_equity.begin()->second - std::accumulate(this->payouts.begin(), this->payouts.end(), 0.0));
             this->payouts[0] += remainder;
         }
         else
         {
-            std::transform(comp.begin(), comp.end(), this->payouts.begin(), [&](double c) { return this->total_equity * c / total; });
+            std::transform(comp.begin(), comp.end(), this->payouts.begin(), [&](double c) { return this->total_equity.begin()->second * c / total; });
         }
     }
 }
@@ -1059,9 +1072,9 @@ void gameinfo::reset_funding()
     this->entries.clear();
     this->payouts.clear();
     this->total_chips = 0;
-    this->total_cost = 0;
-    this->total_commission = 0;
-    this->total_equity = 0;
+    this->total_cost.clear();
+    this->total_commission.clear();
+    this->total_equity.clear();
 }
 
 // utility: start a blind level (optionally starting offset ms into the round)

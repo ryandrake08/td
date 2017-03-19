@@ -1,13 +1,14 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" customObjectInstantitationMethod="direct">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" customObjectInstantitationMethod="direct">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11762"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="TBResultsViewController">
             <connections>
                 <outlet property="arrayController" destination="rBs-Zp-oTv" id="ta3-eH-Ie3"/>
-                <outlet property="equityFormatter" destination="AAr-QI-4T0" id="OvU-ek-9sZ"/>
                 <outlet property="tableView" destination="fOF-J2-UO7" id="TMI-IO-kVw"/>
                 <outlet property="view" destination="g11-Md-FtT" id="gjU-Kt-kIY"/>
             </connections>
@@ -32,9 +33,8 @@
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <tableView identifier="resultsTable" verticalHuggingPriority="750" allowsExpansionToolTips="YES" selectionHighlightStyle="none" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowHeight="94" rowSizeStyle="automatic" viewBased="YES" id="fOF-J2-UO7">
-                        <rect key="frame" x="0.0" y="0.0" width="256" height="0.0"/>
+                        <rect key="frame" x="0.0" y="0.0" width="256" height="672"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <animations/>
                         <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
                         <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                         <tableColumns>
@@ -52,13 +52,12 @@
                                 <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                 <prototypeCellViews>
                                     <tableCellView id="gSs-IO-ANd">
-                                        <rect key="frame" x="1" y="1" width="254" height="94"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="256" height="94"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="tBH-zd-Qfa" userLabel="Place" customClass="TBResizeTextField">
-                                                <rect key="frame" x="0.0" y="64" width="120" height="32"/>
+                                                <rect key="frame" x="0.0" y="64" width="120.5" height="32"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                <animations/>
                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="1st" id="uMO-d0-nj1" customClass="RSVerticallyCenteredTextFieldCell">
                                                     <numberFormatter key="formatter" formatterBehavior="default10_4" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="0" maximumIntegerDigits="42" id="WU4-Gm-2eg" customClass="TTTOrdinalNumberFormatter"/>
                                                     <font key="font" metaFont="system" size="26"/>
@@ -70,9 +69,8 @@
                                                 </connections>
                                             </textField>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="DVs-Wb-gIl">
-                                                <rect key="frame" x="120" y="64" width="16" height="32"/>
+                                                <rect key="frame" x="120.5" y="64" width="16.5" height="32"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                <animations/>
                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="justified" title=":" id="dEz-FL-MTv" customClass="RSVerticallyCenteredTextFieldCell">
                                                     <font key="font" metaFont="system" size="26"/>
                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -80,10 +78,12 @@
                                                 </textFieldCell>
                                             </textField>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="KiW-cG-76R" userLabel="Payout" customClass="TBResizeTextField">
-                                                <rect key="frame" x="136" y="64" width="120" height="32"/>
+                                                <rect key="frame" x="137" y="64" width="121" height="32"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES"/>
-                                                <animations/>
                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="$100" id="lND-wM-YZ7" customClass="RSVerticallyCenteredTextFieldCell">
+                                                    <numberFormatter key="formatter" formatterBehavior="custom10_4" numberStyle="currency" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" minimumFractionDigits="2" maximumFractionDigits="2" id="AAr-QI-4T0" userLabel="Payout Formatter" customClass="TBCurrencyNumberFormatter">
+                                                        <real key="minimum" value="0.0"/>
+                                                    </numberFormatter>
                                                     <font key="font" metaFont="system" size="26"/>
                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -93,9 +93,8 @@
                                                 </connections>
                                             </textField>
                                             <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="gHw-gL-z79" userLabel="Player" customClass="TBResizeTextField">
-                                                <rect key="frame" x="0.0" y="16" width="260" height="48"/>
+                                                <rect key="frame" x="0.0" y="16" width="262" height="48"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                                <animations/>
                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Player Name" usesSingleLineMode="YES" id="RWp-9J-wCc" customClass="RSVerticallyCenteredTextFieldCell">
                                                     <font key="font" metaFont="system" size="18"/>
                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -110,16 +109,11 @@
                                                     <binding destination="gSs-IO-ANd" name="value" keyPath="objectValue.name" id="2yd-l5-flb"/>
                                                 </connections>
                                             </textField>
-                                            <box verticalHuggingPriority="750" title="Box" boxType="separator" titlePosition="noTitle" id="4xh-qK-fH3">
+                                            <box verticalHuggingPriority="750" boxType="separator" id="4xh-qK-fH3">
                                                 <rect key="frame" x="3" y="5" width="250" height="5"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                <animations/>
-                                                <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                                                <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                <font key="titleFont" metaFont="system"/>
                                             </box>
                                         </subviews>
-                                        <animations/>
                                         <connections>
                                             <outlet property="textField" destination="KiW-cG-76R" id="6AB-Ag-aHl"/>
                                         </connections>
@@ -135,24 +129,16 @@
                         </connections>
                     </tableView>
                 </subviews>
-                <animations/>
-                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
             </clipView>
-            <animations/>
             <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="4yC-kN-OuH">
                 <rect key="frame" x="1" y="119" width="223" height="15"/>
                 <autoresizingMask key="autoresizingMask"/>
-                <animations/>
             </scroller>
             <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="Tjw-IS-tME">
                 <rect key="frame" x="224" y="17" width="15" height="102"/>
                 <autoresizingMask key="autoresizingMask"/>
-                <animations/>
             </scroller>
             <point key="canvasLocation" x="318" y="490"/>
         </scrollView>
-        <numberFormatter formatterBehavior="custom10_4" numberStyle="currency" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" minimumFractionDigits="2" maximumFractionDigits="2" id="AAr-QI-4T0" userLabel="Equity Formatter" customClass="TBCurrencyNumberFormatter">
-            <real key="minimum" value="0.0"/>
-        </numberFormatter>
     </objects>
 </document>

@@ -416,8 +416,6 @@ bool tournament::handle_client_input(std::iostream& client)
 							name (string): Human-readable name of this tournament
 							players (array): Each player eligible for this tournament
 							table_capacity (integer): Number of seats per table
-							cost_currency (string): Currency name for buyins, re-buys, etc. ISO 4217: USD, EUR, XXX for points
-							equity_currency (string): Currency name for equity/payouts. ISO 4217: USD, EUR, XXX for points
 							percent_seats_paid (float): Proportion of players (buyins) paid out
 							round_payouts (bool): Round payoffs to integer values
 							payout_flatness (float): How "flat" to make the payout structure
@@ -450,9 +448,9 @@ bool tournament::handle_client_input(std::iostream& client)
 							entries (array): Player ids for each buyin or rebuy
 							payouts (array): Payout amounts for each place
 							total_chips (integer): Count of all tournament chips in play
-							total_cost (float): Sum total of all buyins, rebuys and addons
-							total_commission (float): Sum total of all entry fees
-							total_equity (float): Sum total of all payouts
+							total_cost (array): Sum total of all buyins, rebuys and addons, for each currency
+							total_commission (array): Sum total of all entry fees, for each currency
+							total_equity (array): Sum total of all payouts, for each currency
 							running (bool): True if the tournament is unpaused
 							current_blind_level (integer): Current blind level. 0 = planning stage
 							time_remaining (integer): Time remaining in current level (milliseconds)
@@ -494,8 +492,6 @@ bool tournament::handle_client_input(std::iostream& client)
 							name (optional, string): Human-readable name for this tournament
 							players (optional, array): Each player eligible for this tournament
 							table_capacity (optional, integer): Number of seats per table
-							cost_currency (optional, string): Currency name for buyins, re-buys, etc. ISO 4217: USD, EUR, XXX for points
-							equity_currency (optional, string): Currency name for equity/payouts. ISO 4217: USD, EUR, XXX for points
 							percent_seats_paid (optional, float): Proportion of players (buyins) paid out
 							round_payouts (optional, bool): Round payoffs to integer values
 							payout_flatness (optinoal, float): How "flat" to make the payout structure
