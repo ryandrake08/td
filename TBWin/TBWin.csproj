@@ -147,6 +147,7 @@
     <Compile Include="TournamentConfigSerializer.cs" />
     <Compile Include="TournamentDaemon.cs" />
     <Compile Include="TournamentSession.cs" />
+    <Compile Include="ValueConverters.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

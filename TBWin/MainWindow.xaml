@@ -74,32 +74,32 @@
                     </StackPanel>
                 </Button>
                 <StackPanel VerticalAlignment="Center" Margin="8,0,0,3" Orientation="Vertical">
-                    <TextBlock Text="{Binding [clock_text]}" FontSize="24" Width="96" VerticalAlignment="Center"/>
+                    <TextBlock Text="{Binding clock_text}" FontSize="24" Width="96" VerticalAlignment="Center"/>
                     <TextBlock TextAlignment="Center"/>
                 </StackPanel>
             </ToolBar>
             <ToolBar DockPanel.Dock="Left">
-                <TextBox FontSize="16" Background="Transparent" BorderBrush="Transparent">Default Tournament</TextBox>
+                <TextBox Text="{Binding name}" FontSize="16" Background="Transparent" BorderBrush="Transparent"/>
             </ToolBar>
         </DockPanel>
         <DataGrid x:Name="LeftPane" DockPanel.Dock="Left" ItemsSource="{Binding [players]}" AutoGenerateColumns="False" CanUserAddRows="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Player" Binding="{Binding [name]}"/>
-                <DataGridCheckBoxColumn Header="Seated" Binding="{Binding [seat_number]}"/>
+                <DataGridTextColumn Header="Player" Binding="{Binding name}"/>
+                <DataGridCheckBoxColumn Header="Seated" Binding="{Binding seat_number, Mode=OneWay, Converter={local:ValueExistsToBoolConverter}}"/>
             </DataGrid.Columns>
         </DataGrid>
         <DataGrid x:Name="RightPane" DockPanel.Dock="Right" ItemsSource="{Binding [results]}" AutoGenerateColumns="False" CanUserAddRows="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Place" Binding="{Binding [place]}"/>
-                <DataGridTextColumn Header="Player" Binding="{Binding [name]}"/>
-                <DataGridTextColumn Header="Payout" Binding="{Binding [payout]}"/>
+                <DataGridTextColumn Header="Place" Binding="{Binding place}"/>
+                <DataGridTextColumn Header="Player" Binding="{Binding name}"/>
+                <DataGridTextColumn Header="Payout" Binding="{Binding payout}"/>
             </DataGrid.Columns>
         </DataGrid>
         <DataGrid x:Name="CenterPane" ItemsSource="{Binding [seated_players]}" AutoGenerateColumns="False" CanUserAddRows="False">
             <DataGrid.Columns>
                 <DataGridTemplateColumn Header="Table"/>
                 <DataGridTemplateColumn Header="Seat"/>
-                <DataGridTextColumn Header="Player" Binding="{Binding [name]}"/>
+                <DataGridTextColumn Header="Player" Binding="{Binding name}"/>
                 <DataGridTemplateColumn Header="Paid"/>
                 <DataGridTemplateColumn Header="Action"/>
             </DataGrid.Columns>

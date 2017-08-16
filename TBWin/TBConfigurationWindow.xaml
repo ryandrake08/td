@@ -14,10 +14,10 @@
             </Button>
         </DataTemplate>
         <DataTemplate x:Key="AddedAtCell">
-            <TextBlock Text="{Binding [added_at]}" />
+            <DatePicker SelectedDate="{Binding added_at, Mode=TwoWay, Converter={local:UniversalValueConverter}}" />
         </DataTemplate>
-        <DataTemplate x:Key="AddedAtEditCell">
-            <DatePicker SelectedDate="{Binding [added_at]}" />
+        <DataTemplate x:Key="ColorPickerCell">
+            <xctk:ColorPicker SelectedColor="{Binding color, Mode=TwoWay, Converter={local:UniversalValueConverter}}" />
         </DataTemplate>
     </Window.Resources>
     <Grid Margin="16">
@@ -29,8 +29,8 @@
             <TabItem Header="Players">
                 <DataGrid x:Name="PlayersGrid" ItemsSource="{Binding [players]}" AutoGenerateColumns="False">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Name" Binding="{Binding [name]}" Width="*"/>
-                        <DataGridTemplateColumn Header="Member Since" Width="128" CellTemplate="{StaticResource AddedAtCell}" CellEditingTemplate="{StaticResource AddedAtEditCell}"/>
+                        <DataGridTextColumn Header="Name" Binding="{Binding name}" Width="*"/>
+                        <DataGridTemplateColumn Header="Member Since" Width="128" CellTemplate="{StaticResource AddedAtCell}"/>
                         <DataGridTemplateColumn Header="Delete" CellTemplate="{StaticResource DeleteCell}"/>
                     </DataGrid.Columns>
                 </DataGrid>
@@ -43,15 +43,9 @@
                     </Grid.RowDefinitions>
                     <DataGrid x:Name="ChipsGrid" ItemsSource="{Binding [available_chips]}" AutoGenerateColumns="False">
                         <DataGrid.Columns>
-                            <DataGridTemplateColumn Header="Color" Width="48">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <xctk:ColorPicker SelectedColor="{Binding [color]}" />
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-                            <DataGridTextColumn Header="Denomination" Binding="{Binding [denomination]}" Width="128"/>
-                            <DataGridTextColumn Header="Available" Binding="{Binding [count_available]}" Width="*"/>
+                            <DataGridTemplateColumn Header="Color" Width="48" CellTemplate="{StaticResource ColorPickerCell}"/>
+                            <DataGridTextColumn Header="Denomination" Binding="{Binding denomination}" Width="128"/>
+                            <DataGridTextColumn Header="Available" Binding="{Binding count_available}" Width="*"/>
                             <DataGridTemplateColumn Header="Delete" CellTemplate="{StaticResource DeleteCell}"/>
                         </DataGrid.Columns>
                     </DataGrid>
@@ -81,13 +75,13 @@
                     </Grid.RowDefinitions>
                     <DataGrid x:Name="FundingsGrid" ItemsSource="{Binding [funding_sources]}" AutoGenerateColumns="False">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Name" Binding="{Binding [name]}" Width="*"/>
-                            <DataGridTextColumn Header="Type" Binding="{Binding [type]}" Width="112"/>
-                            <DataGridTextColumn Header="Cost" Binding="{Binding [cost]}" Width="56"/>
-                            <DataGridTextColumn Header="Fee" Binding="{Binding [commission]}" Width="56"/>
-                            <DataGridTextColumn Header="Equity" Binding="{Binding [equity]}" Width="56"/>
-                            <DataGridTextColumn Header="Chips" Binding="{Binding [chips]}" Width="56"/>
-                            <DataGridCheckBoxColumn Header="" Binding="{Binding [forbid_after_blind_level]}" Width="16"/>
+                            <DataGridTextColumn Header="Name" Binding="{Binding name}" Width="*"/>
+                            <DataGridComboBoxColumn Header="Type"  Width="112"/>
+                            <DataGridTextColumn Header="Cost" Binding="{Binding cost}" Width="56"/>
+                            <DataGridTextColumn Header="Fee" Binding="{Binding commission}" Width="56"/>
+                            <DataGridTextColumn Header="Equity" Binding="{Binding equity}" Width="56"/>
+                            <DataGridTextColumn Header="Chips" Binding="{Binding chips}" Width="56"/>
+                            <DataGridCheckBoxColumn Header="" Binding="{Binding forbid_after_blind_level, Mode=OneWay, Converter={local:ValueExistsToBoolConverter}}" Width="16"/>
                             <DataGridComboBoxColumn Header="Forbid After" Width="176"/>
                             <DataGridTemplateColumn Header="Delete" CellTemplate="{StaticResource DeleteCell}"/>
                         </DataGrid.Columns>
@@ -120,13 +114,13 @@
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Round" Width="64"/>
                         <DataGridTextColumn Header="Start Time" Width="64"/>
-                        <DataGridTextColumn Header="Duration" Binding="{Binding [duration]}" Width="64"/>
-                        <DataGridTextColumn Header="Little Blind" Binding="{Binding [little_blind]}" Width="64"/>
-                        <DataGridTextColumn Header="Big Blind" Binding="{Binding [big_blind]}" Width="64"/>
-                        <DataGridTextColumn Header="Ante" Binding="{Binding [ante]}" Width="64"/>
-                        <DataGridCheckBoxColumn Header="" Binding="{Binding [break_duration]}" Width="16"/>
-                        <DataGridTextColumn Header="Break" Binding="{Binding [break_duration]}" Width="48"/>
-                        <DataGridTextColumn Header="Break Message" Binding="{Binding [reason]}" Width="*"/>
+                        <DataGridTextColumn Header="Duration" Binding="{Binding duration, Mode=TwoWay, Converter={local:MillisecondsToTimeSpanConverter}, StringFormat=\{0:h\\:mm\}}" Width="64"/>
+                        <DataGridTextColumn Header="Little Blind" Binding="{Binding little_blind}" Width="64"/>
+                        <DataGridTextColumn Header="Big Blind" Binding="{Binding big_blind}" Width="64"/>
+                        <DataGridTextColumn Header="Ante" Binding="{Binding ante}" Width="64"/>
+                        <DataGridCheckBoxColumn Header="" Binding="{Binding break_duration, Mode=OneWay, Converter={local:ValueExistsToBoolConverter}}" Width="16"/>
+                        <DataGridTextColumn Header="Break" Binding="{Binding break_duration, Mode=TwoWay, Converter={local:MillisecondsToTimeSpanConverter}, StringFormat=\{0:h\\:mm\}}" Width="48"/>
+                        <DataGridTextColumn Header="Break Message" Binding="{Binding reason}" Width="*"/>
                         <DataGridTemplateColumn Header="Delete" CellTemplate="{StaticResource DeleteCell}"/>
                     </DataGrid.Columns>
                 </DataGrid>
@@ -134,9 +128,9 @@
             <TabItem Header="Devices">
                 <DataGrid x:Name="DevicesGrid" ItemsSource="{Binding [authorized_clients]}" AutoGenerateColumns="False">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Code" Binding="{Binding [code]}" Width="64"/>
-                        <DataGridTextColumn Header="Name" Binding="{Binding [name]}" Width="*"/>
-                        <DataGridTemplateColumn Header="Authorized On" Width="128" CellTemplate="{StaticResource AddedAtCell}" CellEditingTemplate="{StaticResource AddedAtEditCell}"/>
+                        <DataGridTextColumn Header="Code" Binding="{Binding code}" Width="64"/>
+                        <DataGridTextColumn Header="Name" Binding="{Binding name}" Width="*"/>
+                        <DataGridTemplateColumn Header="Authorized On" Width="128" CellTemplate="{StaticResource AddedAtCell}"/>
                         <DataGridTemplateColumn Header="Delete" CellTemplate="{StaticResource DeleteCell}"/>
                     </DataGrid.Columns>
                 </DataGrid>
