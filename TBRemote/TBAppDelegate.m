@@ -117,7 +117,7 @@
 
     // schedule new notification if the clock is running
     if(running && (timeRemaining > 0 || breakTimeRemaining > 0)) {
-        NSTimeInterval interval;
+        NSTimeInterval interval = 0.0;
         NSString* alertBody;
         NSString* alertTitle;
         NSString* soundName;
