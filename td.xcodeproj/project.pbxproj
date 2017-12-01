@@ -1302,7 +1302,7 @@
 		AD8E683B1A6C606700E5A4D8 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0900;
+				LastUpgradeCheck = 0910;
 				ORGANIZATIONNAME = "HDna Studio";
 				TargetAttributes = {
 					944FF4B21B3D04CA000362ED = {
