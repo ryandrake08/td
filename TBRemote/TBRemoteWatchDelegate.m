@@ -38,14 +38,16 @@
 
             // Notification center - Update WCSession when certain state changes happen
             [[NSNotificationCenter defaultCenter] addObserverForName:TournamentSessionUpdatedNotification object:nil queue:nil usingBlock:^(NSNotification* note) {
-                if([[self lastSendDate] timeIntervalSinceNow] < -kMinMessageSendInterval) {
-                    NSMutableDictionary* update = [NSMutableDictionary dictionaryWithDictionary:[note object]];
-                    [update removeObjectsForKeys:@[@"elapsed_time", @"elapsed_time_text", @"time_remaining", @"break_time_remaining", @"action_clock_time_remaining"]];
-                    if([update count] > 0) {
-                        // Send state change as a message to watch
-                        [[WCSession defaultSession] sendMessage:@{@"state":update} replyHandler:nil errorHandler:nil];
-                        // Last sent = now
-                        [self setLastSendDate:[NSDate date]];
+                if([wcSession isReachable]) {
+                    if([[self lastSendDate] timeIntervalSinceNow] < -kMinMessageSendInterval) {
+                        NSMutableDictionary* update = [NSMutableDictionary dictionaryWithDictionary:[note object]];
+                        [update removeObjectsForKeys:@[@"elapsed_time", @"elapsed_time_text", @"time_remaining", @"break_time_remaining", @"action_clock_time_remaining"]];
+                        if([update count] > 0) {
+                            // Send state change as a message to watch
+                            [[WCSession defaultSession] sendMessage:@{@"state":update} replyHandler:nil errorHandler:nil];
+                            // Last sent = now
+                            [self setLastSendDate:[NSDate date]];
+                        }
                     }
                 }
             }];
