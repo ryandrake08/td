@@ -1,6 +1,6 @@
 #include "json.hpp"
 #include <stddef.h> // Oops, cJSON.h requires stddef.h
-#include "cjson/cJSON.h"
+#include "cJSON/cJSON.h"
 #include <algorithm>
 #include <deque>
 #include <fstream>
