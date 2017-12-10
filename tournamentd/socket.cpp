@@ -1,11 +1,11 @@
 #include "socket.hpp"
 #include "logger.hpp"
-#include <algorithm>
-#include <system_error>
-#include <cerrno> // for errno
+#include "shared_instance.hpp"
 #include <cassert>
+#include <cerrno> // for errno
 #include <cstring>
 #include <iterator>
+#include <system_error>
 
 #if defined(_WIN32)
 #define STRICT 1
@@ -31,25 +31,26 @@ static const int SOCKET_ERROR = -1;
 class eai_error_category : public std::error_category
 {
 public:
-    virtual const char* name() const throw() override
+    const char* name() const throw() override
     {
         return "eai";
     }
 
-    virtual bool equivalent (const std::error_code& code, int condition) const throw() override
+    bool equivalent(const std::error_code& code, int condition) const throw() override
     {
         return *this==code.category() && static_cast<int>(default_error_condition(code.value()).value())==condition;
     }
 
-    virtual std::string message(int ev) const override
+    std::string message(int ev) const override
     {
         return gai_strerror(ev);
     }
 };
 
-// initializer
-static struct socket_initializer
+// socket_initializer init/terminate
+class socket_initializer
 {
+public:
     socket_initializer()
     {
 #if defined(_WIN32)
@@ -68,11 +69,10 @@ static struct socket_initializer
 #endif
     }
 
-    // No copy constructors/assignment
+    // no copy constructors/assignment
     socket_initializer(const socket_initializer& other) = delete;
     socket_initializer& operator=(const socket_initializer& other) = delete;
-
-} initializer;
+};
 
 // exception-safe wrapper for addrinfo
 
@@ -80,7 +80,7 @@ struct addrinfo_ptr
 {
     addrinfo* ptr;
     addrinfo_ptr() : ptr(nullptr) {}
-    ~addrinfo_ptr() { if(ptr) ::freeaddrinfo(ptr); }
+    ~addrinfo_ptr() { if(ptr != nullptr) { ::freeaddrinfo(ptr); } }
     addrinfo_ptr(const addrinfo_ptr& other) = delete;
     addrinfo_ptr& operator=(const addrinfo_ptr&) = delete;
 };
@@ -89,10 +89,13 @@ struct addrinfo_ptr
 
 struct common_socket::impl
 {
+    // raii object to init/terminate socket subsystem
+    std::shared_ptr<socket_initializer> socket_subsystem;
+
     SOCKET fd;
 
     // construct with given fd
-    impl(SOCKET newfd) : fd(newfd)
+    explicit impl(SOCKET newfd) : socket_subsystem(get_shared_instance<socket_initializer>()), fd(newfd)
     {
         logger(LOG_DEBUG) << "wrapped fd: " << this->fd << '\n';
 
@@ -152,6 +155,8 @@ common_socket::common_socket(impl* imp) : pimpl(imp)
         logger(LOG_WARNING) << "creating socket from invalid impl\n";
     }
 }
+
+common_socket::~common_socket() = default;
 
 common_socket common_socket::accept() const
 {
@@ -214,7 +219,7 @@ std::set<common_socket> common_socket::select(const std::set<common_socket>& soc
     // iterate through set, and add to our fd_set
     fd_set fds;
     FD_ZERO(&fds);
-    std::for_each(sockets.begin(), sockets.end(), [&fds](const common_socket& s) { if(s.pimpl) FD_SET(s.pimpl->fd, &fds); });
+    std::for_each(sockets.begin(), sockets.end(), [&fds](const common_socket& s) { if(s.pimpl) { FD_SET(s.pimpl->fd, &fds); } } );
 
     // set is ordered, so max fd is the last element
     auto max_fd(sockets.begin() == sockets.end() ? 0 :sockets.rbegin()->pimpl->fd+1);
@@ -450,7 +455,7 @@ unix_socket::unix_socket(const char* path, bool client, int backlog)
     }
 
     // wrap the socket and store
-    this->pimpl = std::shared_ptr<impl>(new impl(sock));
+    this->pimpl = std::make_shared<impl>(sock);
 
     if(client)
     {
@@ -466,7 +471,7 @@ unix_socket::unix_socket(const char* path, bool client, int backlog)
     {
         // unlink old socket path, if it exists
         ::unlink(path);
-        
+
         // bind to server port
         if(::bind(sock, reinterpret_cast<sockaddr*>(&addr), sizeof(addr)) == SOCKET_ERROR)
         {
@@ -487,8 +492,8 @@ unix_socket::unix_socket(const char* path, bool client, int backlog)
 inet_socket::inet_socket(const char* host, const char* service, int family) : common_socket()
 {
     // set up hints
-    addrinfo hints = {};
-    hints.ai_family = PF_UNSPEC;
+    addrinfo hints = {0,0,0,0,0,nullptr,nullptr,nullptr};
+    hints.ai_family = family;
     hints.ai_socktype = SOCK_STREAM;
     hints.ai_flags = 0;
 
@@ -512,7 +517,7 @@ inet_socket::inet_socket(const char* host, const char* service, int family) : co
     }
 
     // wrap the socket and store
-    this->pimpl = std::shared_ptr<impl>(new impl(sock));
+    this->pimpl = std::make_shared<impl>(sock);
 
     logger(LOG_DEBUG) << "connecting " << *this << " to host: " << host << ", service: " << service << '\n';
 
@@ -530,7 +535,7 @@ inet_socket::inet_socket(const char* host, const char* service, int family) : co
 inet_socket::inet_socket(const char* service, int family, int backlog) : common_socket()
 {
     // set up hints
-    addrinfo hints = {};
+    addrinfo hints = {0,0,0,0,0,nullptr,nullptr,nullptr};
     hints.ai_family = family;
     hints.ai_socktype = SOCK_STREAM;
     hints.ai_flags = AI_PASSIVE;
@@ -555,7 +560,7 @@ inet_socket::inet_socket(const char* service, int family, int backlog) : common_
     }
 
     // wrap the socket and store
-    this->pimpl = std::shared_ptr<impl>(new impl(sock));
+    this->pimpl = std::make_shared<impl>(sock);
 
     logger(LOG_DEBUG) << "setting SO_REUSEADDR\n";
 
@@ -573,7 +578,7 @@ inet_socket::inet_socket(const char* service, int family, int backlog) : common_
     if(family == PF_INET6)
     {
         logger(LOG_DEBUG) << "setting IPV6_V6ONLY\n";
-        
+
         // set IPV6_V6ONLY option. some systems don't support dual-stack. if ipv4 is needed, create a separate ipv4 socket
         yes = 1;
 #if defined(_WIN32)
@@ -606,6 +611,8 @@ inet_socket::inet_socket(const char* service, int family, int backlog) : common_
         throw std::system_error(errno, std::system_category(), "listen");
     }
 }
+
+inet_socket::~inet_socket() = default;
 
 inet4_socket::inet4_socket(const char* host, const char* service) : inet_socket(host, service, PF_INET)
 {

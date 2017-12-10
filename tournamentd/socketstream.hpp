@@ -30,7 +30,7 @@ public:
         buf_type::setp(obuf, obuf + (SIZE - 1));
     }
 
-    virtual ~basic_socketstreambuf() throw()
+    ~basic_socketstreambuf() override
     {
         try
         {
@@ -58,7 +58,7 @@ private:
         return num;
     }
 
-    virtual int_type overflow(int_type c)
+    int_type overflow(int_type c) override
     {
         if(c != traits_type::eof())
         {
@@ -73,7 +73,7 @@ private:
         return c;
     }
 
-    virtual int sync()
+    int sync() override
     {
         if(output_buffer() == traits_type::eof())
         {
@@ -82,7 +82,7 @@ private:
         return 0;
     }
 
-    virtual int_type underflow()
+    int_type underflow() override
     {
         if(buf_type::gptr() < buf_type::egptr())
         {
@@ -99,7 +99,7 @@ private:
         return *buf_type::gptr();
     }
 
-    virtual std::streamsize showmanyc()
+    std::streamsize showmanyc() override
     {
         char buf;
         return this->sock.peek(&buf, 1);

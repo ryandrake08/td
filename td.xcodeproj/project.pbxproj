@@ -507,6 +507,7 @@
 		9464EC101FDC2F1C009092A4 /* cJSON.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cJSON.c; sourceTree = "<group>"; };
 		9464EC111FDC2F1C009092A4 /* cJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cJSON.h; sourceTree = "<group>"; };
 		9464EC1F1FDC2FB5009092A4 /* libcJSON_iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libcJSON_iOS.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		9464EC2C1FDD102B009092A4 /* shared_instance.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = shared_instance.hpp; sourceTree = "<group>"; };
 		9469B84B1CF2222400BC45E1 /* TBSoundPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBSoundPlayer.h; sourceTree = "<group>"; };
 		9469B84C1CF2222400BC45E1 /* TBSoundPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBSoundPlayer.m; sourceTree = "<group>"; };
 		9476F42A1B3C37D000A158F8 /* TBRemote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TBRemote.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -910,6 +911,7 @@
 				AD1B250B1BA8773900C4BDDC /* scope_timer.hpp */,
 				9476F4E11B3C3F8300A158F8 /* server.cpp */,
 				9476F4E21B3C3F8300A158F8 /* server.hpp */,
+				9464EC2C1FDD102B009092A4 /* shared_instance.hpp */,
 				9476F4E31B3C3F8300A158F8 /* socket.cpp */,
 				9476F4E41B3C3F8300A158F8 /* socket.hpp */,
 				9476F4E51B3C3F8300A158F8 /* socketstream.hpp */,

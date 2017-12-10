@@ -8,16 +8,18 @@ class common_socket
 {
 protected:
     struct impl;
-
     std::shared_ptr<impl> pimpl;
 
     // empty constructor
     common_socket();
 
     // create a socket with a given impl (needed for accept)
-    common_socket(impl* imp);
+    explicit common_socket(impl* imp);
 
 public:
+    // destructor
+    virtual ~common_socket();
+
     // create a new socket by accepting on a listening socket
     common_socket accept() const;
 
@@ -50,12 +52,14 @@ class unix_socket : public common_socket
 {
 public:
     // create a unix socket by either connecting or binding/listening
-    unix_socket(const char* path, bool client=false, int backlog=5);
+    explicit unix_socket(const char* path, bool client=false, int backlog=5);
 };
 
 class inet_socket : public common_socket
 {
 public:
+    ~inet_socket() override;
+
     // create and connect socket and connect to a host at a port
     inet_socket(const char* host, const char* service, int family);
 
@@ -70,7 +74,7 @@ public:
     inet4_socket(const char* host, const char* service);
 
     // create a listening socket by binding to a port
-    inet4_socket(const char* service, int backlog=5);
+    explicit inet4_socket(const char* service, int backlog=5);
 };
 
 class inet6_socket : public inet_socket
@@ -80,5 +84,5 @@ public:
     inet6_socket(const char* host, const char* service);
 
     // create a listening socket by binding to a port
-    inet6_socket(const char* service, int backlog=5);
+    explicit inet6_socket(const char* service, int backlog=5);
 };
