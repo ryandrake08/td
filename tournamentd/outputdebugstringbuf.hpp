@@ -15,7 +15,7 @@ public:
 		setp(_buffer.data(), _buffer.data(), _buffer.data() + _buffer.size());
 	}
 
-	virtual ~basic_outputdebugstringbuf() throw()
+	virtual ~basic_outputdebugstringbuf()
 	{
 	}
 
@@ -74,7 +74,7 @@ private:
 typedef basic_outputdebugstringbuf<char> outputdebugstringbuf;
 typedef basic_outputdebugstringbuf<wchar_t> woutputdebugstringbuf;
 
-static std::basic_streambuf<char>* debugstreambuf()
+static inline std::basic_streambuf<char>* debugstreambuf()
 {
     if(IsDebuggerPresent())
     {
@@ -87,7 +87,7 @@ static std::basic_streambuf<char>* debugstreambuf()
     }
 }
 
-static std::basic_streambuf<wchar_t>* wdebugstreambuf()
+static inline std::basic_streambuf<wchar_t>* wdebugstreambuf()
 {
     if(IsDebuggerPresent())
     {
@@ -102,12 +102,12 @@ static std::basic_streambuf<wchar_t>* wdebugstreambuf()
 
 #else
 
-static std::basic_streambuf<char>* debugstreambuf()
+static inline std::basic_streambuf<char>* debugstreambuf()
 {
     return std::cout.rdbuf();
 }
 
-static std::basic_streambuf<wchar_t>* wdebugstreambuf()
+static inline std::basic_streambuf<wchar_t>* wdebugstreambuf()
 {
     return std::wcout.rdbuf();
 }

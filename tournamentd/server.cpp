@@ -52,7 +52,7 @@ bool server::poll(const std::function<bool(std::ostream&)>& handle_new_client, c
             logger(LOG_INFO) << "new client connection\n";
 
             // accept new client from listening socket
-            auto client(sock->accept());
+            const auto& client(sock->accept());
 
             // greet new client
             socketstream ss(client);

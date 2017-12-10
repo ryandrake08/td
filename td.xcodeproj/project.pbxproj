@@ -20,7 +20,6 @@
 		943B00D01B3F429500CE55D4 /* datetime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4D31B3C3F8300A158F8 /* datetime.cpp */; };
 		943B00D11B3F429500CE55D4 /* gameinfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4D51B3C3F8300A158F8 /* gameinfo.cpp */; };
 		943B00D21B3F429500CE55D4 /* json.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4D81B3C3F8300A158F8 /* json.cpp */; };
-		943B00D31B3F429500CE55D4 /* logger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4DA1B3C3F8300A158F8 /* logger.cpp */; };
 		943B00D41B3F429500CE55D4 /* server.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E11B3C3F8300A158F8 /* server.cpp */; };
 		943B00D51B3F429500CE55D4 /* socket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E31B3C3F8300A158F8 /* socket.cpp */; };
 		943B00D61B3F429500CE55D4 /* tournament.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E71B3C3F8300A158F8 /* tournament.cpp */; };
@@ -75,7 +74,6 @@
 		9476F4EE1B3C3F8300A158F8 /* datetime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4D31B3C3F8300A158F8 /* datetime.cpp */; };
 		9476F4EF1B3C3F8300A158F8 /* gameinfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4D51B3C3F8300A158F8 /* gameinfo.cpp */; };
 		9476F4F01B3C3F8300A158F8 /* json.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4D81B3C3F8300A158F8 /* json.cpp */; };
-		9476F4F11B3C3F8300A158F8 /* logger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4DA1B3C3F8300A158F8 /* logger.cpp */; };
 		9476F4F21B3C3F8300A158F8 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4DC1B3C3F8300A158F8 /* main.cpp */; };
 		9476F4F41B3C3F8300A158F8 /* program.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4DF1B3C3F8300A158F8 /* program.cpp */; };
 		9476F4F51B3C3F8300A158F8 /* server.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E11B3C3F8300A158F8 /* server.cpp */; };
@@ -89,19 +87,16 @@
 		949D70951B3C440D008D5CD1 /* datetime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4D31B3C3F8300A158F8 /* datetime.cpp */; };
 		949D70961B3C440D008D5CD1 /* gameinfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4D51B3C3F8300A158F8 /* gameinfo.cpp */; };
 		949D70971B3C440D008D5CD1 /* json.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4D81B3C3F8300A158F8 /* json.cpp */; };
-		949D70981B3C440D008D5CD1 /* logger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4DA1B3C3F8300A158F8 /* logger.cpp */; };
 		949D70991B3C440D008D5CD1 /* server.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E11B3C3F8300A158F8 /* server.cpp */; };
 		949D709A1B3C440D008D5CD1 /* types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E91B3C3F8300A158F8 /* types.cpp */; };
 		949D709B1B3C440E008D5CD1 /* datetime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4D31B3C3F8300A158F8 /* datetime.cpp */; };
 		949D709C1B3C440E008D5CD1 /* gameinfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4D51B3C3F8300A158F8 /* gameinfo.cpp */; };
 		949D709D1B3C440E008D5CD1 /* json.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4D81B3C3F8300A158F8 /* json.cpp */; };
-		949D709E1B3C440E008D5CD1 /* logger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4DA1B3C3F8300A158F8 /* logger.cpp */; };
 		949D709F1B3C440E008D5CD1 /* server.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E11B3C3F8300A158F8 /* server.cpp */; };
 		949D70A01B3C440E008D5CD1 /* types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E91B3C3F8300A158F8 /* types.cpp */; };
 		949D70A11B3C4411008D5CD1 /* tournament.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E71B3C3F8300A158F8 /* tournament.cpp */; };
 		949D70A21B3C441F008D5CD1 /* socket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E31B3C3F8300A158F8 /* socket.cpp */; };
 		949D70A31B3C441F008D5CD1 /* socket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E31B3C3F8300A158F8 /* socket.cpp */; };
-		94B2109D1E182FB900F9547B /* runloop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 94B2109C1E182FB900F9547B /* runloop.cpp */; };
 		94BB5FFA1B7F9F1600B33929 /* NSString+CamelCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 945410761B6E9A17001E3373 /* NSString+CamelCase.m */; };
 		94BB5FFB1B7F9F1600B33929 /* NSString+CamelCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 945410761B6E9A17001E3373 /* NSString+CamelCase.m */; };
 		94CC7F8F1CE8CF770081A8A0 /* TBPlanWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CC7F8D1CE8CF770081A8A0 /* TBPlanWindowController.m */; };
@@ -298,7 +293,6 @@
 		ADF636041BAB8AF800D019AE /* FBKVOController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEAE01B5AE2D60026B25D /* FBKVOController.m */; };
 		ADF636051BAB8AF800D019AE /* TBSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD3BE841BA0A2A600A69834 /* TBSettingsViewController.m */; };
 		ADF636061BAB8AF800D019AE /* TournamentConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F47D1B3C3EA700A158F8 /* TournamentConnection.m */; };
-		ADF636071BAB8AF800D019AE /* logger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4DA1B3C3F8300A158F8 /* logger.cpp */; };
 		ADF636081BAB8AF800D019AE /* datetime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4D31B3C3F8300A158F8 /* datetime.cpp */; };
 		ADF636091BAB8AF800D019AE /* TournamentDaemon.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9476F47F1B3C3EA700A158F8 /* TournamentDaemon.mm */; };
 		ADF6360B1BAB8AF800D019AE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9476F4751B3C3D6700A158F8 /* UIKit.framework */; };
@@ -541,7 +535,6 @@
 		9476F4D61B3C3F8300A158F8 /* gameinfo.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = gameinfo.hpp; sourceTree = "<group>"; };
 		9476F4D81B3C3F8300A158F8 /* json.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = json.cpp; sourceTree = "<group>"; };
 		9476F4D91B3C3F8300A158F8 /* json.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = json.hpp; sourceTree = "<group>"; };
-		9476F4DA1B3C3F8300A158F8 /* logger.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = logger.cpp; sourceTree = "<group>"; };
 		9476F4DB1B3C3F8300A158F8 /* logger.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = logger.hpp; sourceTree = "<group>"; };
 		9476F4DC1B3C3F8300A158F8 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		9476F4DF1B3C3F8300A158F8 /* program.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = program.cpp; sourceTree = "<group>"; };
@@ -558,8 +551,6 @@
 		9476F4F91B3C403F00A158F8 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		9476F4FB1B3C404400A158F8 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		94A4C3681D6A40BD00342E13 /* outputdebugstringbuf.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = outputdebugstringbuf.hpp; sourceTree = "<group>"; };
-		94B2109B1E182FB900F9547B /* runloop.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = runloop.hpp; sourceTree = "<group>"; };
-		94B2109C1E182FB900F9547B /* runloop.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = runloop.cpp; sourceTree = "<group>"; };
 		94CC7F8C1CE8CF770081A8A0 /* TBPlanWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBPlanWindowController.h; path = TBMac/TBPlanWindowController.h; sourceTree = "<group>"; };
 		94CC7F8D1CE8CF770081A8A0 /* TBPlanWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TBPlanWindowController.m; path = TBMac/TBPlanWindowController.m; sourceTree = "<group>"; };
 		94CC7F8E1CE8CF770081A8A0 /* TBPlanWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TBPlanWindow.xib; path = TBMac/TBPlanWindow.xib; sourceTree = "<group>"; };
@@ -899,14 +890,11 @@
 				9476F4D61B3C3F8300A158F8 /* gameinfo.hpp */,
 				9476F4D81B3C3F8300A158F8 /* json.cpp */,
 				9476F4D91B3C3F8300A158F8 /* json.hpp */,
-				9476F4DA1B3C3F8300A158F8 /* logger.cpp */,
 				9476F4DB1B3C3F8300A158F8 /* logger.hpp */,
 				9476F4DC1B3C3F8300A158F8 /* main.cpp */,
 				94A4C3681D6A40BD00342E13 /* outputdebugstringbuf.hpp */,
 				9476F4DF1B3C3F8300A158F8 /* program.cpp */,
 				9476F4E01B3C3F8300A158F8 /* program.hpp */,
-				94B2109C1E182FB900F9547B /* runloop.cpp */,
-				94B2109B1E182FB900F9547B /* runloop.hpp */,
 				AD1B250A1BA8773900C4BDDC /* scope_timer.cpp */,
 				AD1B250B1BA8773900C4BDDC /* scope_timer.hpp */,
 				9476F4E11B3C3F8300A158F8 /* server.cpp */,
@@ -1659,7 +1647,6 @@
 				9469B84E1CF2222400BC45E1 /* TBSoundPlayer.m in Sources */,
 				94D04ED71B7C6A5B004F4245 /* TBCurrencyNumberFormatter.m in Sources */,
 				94FDEAEC1B5AE2D60026B25D /* NSData+Delimiter.m in Sources */,
-				943B00D31B3F429500CE55D4 /* logger.cpp in Sources */,
 				944FF4B91B3D04CA000362ED /* AppDelegate.m in Sources */,
 				9439701E1B405DC000BB0413 /* TournamentService.m in Sources */,
 				943970191B3F9DB700BB0413 /* TournamentBrowser.m in Sources */,
@@ -1726,7 +1713,6 @@
 				94BB5FFB1B7F9F1600B33929 /* NSString+CamelCase.m in Sources */,
 				94FDEAEA1B5AE2D60026B25D /* FBKVOController.m in Sources */,
 				9476F4A31B3C3EA700A158F8 /* TournamentConnection.m in Sources */,
-				949D709E1B3C440E008D5CD1 /* logger.cpp in Sources */,
 				949D709B1B3C440E008D5CD1 /* datetime.cpp in Sources */,
 				9476F4A51B3C3EA700A158F8 /* TournamentDaemon.mm in Sources */,
 			);
@@ -1741,14 +1727,12 @@
 				9476F4ED1B3C3F8300A158F8 /* bonjour.cpp in Sources */,
 				9476F4F71B3C3F8300A158F8 /* tournament.cpp in Sources */,
 				AD1B250C1BA8773900C4BDDC /* scope_timer.cpp in Sources */,
-				9476F4F11B3C3F8300A158F8 /* logger.cpp in Sources */,
 				9476F4F21B3C3F8300A158F8 /* main.cpp in Sources */,
 				9476F4F01B3C3F8300A158F8 /* json.cpp in Sources */,
 				9476F4F51B3C3F8300A158F8 /* server.cpp in Sources */,
 				9476F4F81B3C3F8300A158F8 /* types.cpp in Sources */,
 				9476F4EF1B3C3F8300A158F8 /* gameinfo.cpp in Sources */,
 				9476F4F61B3C3F8300A158F8 /* socket.cpp in Sources */,
-				94B2109D1E182FB900F9547B /* runloop.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1784,7 +1768,6 @@
 				94CC7F8F1CE8CF770081A8A0 /* TBPlanWindowController.m in Sources */,
 				ADE299B61B7B9ED100F1393B /* TBPlayerWindowController.m in Sources */,
 				AD8E684F1A6C606700E5A4D8 /* Document.m in Sources */,
-				949D70981B3C440D008D5CD1 /* logger.cpp in Sources */,
 				949D70951B3C440D008D5CD1 /* datetime.cpp in Sources */,
 				ADD4F1251B91FE2400DAF567 /* NSObject+AssociatedObject.m in Sources */,
 				94562E681B65D8CA0017C692 /* TBDateStringTransformer.m in Sources */,
@@ -1898,7 +1881,6 @@
 				ADD2CC471BB3A11B00DE3DE5 /* TBSetupPlayersViewController.m in Sources */,
 				AD475C3B1BB62D0400DAE739 /* TBEditableTableViewCell.m in Sources */,
 				ADF636061BAB8AF800D019AE /* TournamentConnection.m in Sources */,
-				ADF636071BAB8AF800D019AE /* logger.cpp in Sources */,
 				ADF636081BAB8AF800D019AE /* datetime.cpp in Sources */,
 				ADF636091BAB8AF800D019AE /* TournamentDaemon.mm in Sources */,
 			);

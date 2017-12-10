@@ -1,7 +1,6 @@
 #pragma once
 #include "datetime.hpp"
-#include <initializer_list>
-#include <iostream>
+#include "outputdebugstringbuf.hpp"
 #include <fstream>
 #include <mutex>
 
@@ -45,7 +44,9 @@ class basic_logstream : public std::basic_ostream<T>
 
 public:
     // public constructor constructs given function name and logger_level
-    explicit basic_logstream(const char* function, logger_level level=LOG_DEBUG);
+    explicit basic_logstream(const char* function, logger_level level=LOG_DEBUG) : basic_logstream(debugstreambuf(), function, level)
+    {
+    }
 
     // set enabled logs
     static void set_enabled(std::initializer_list<logger_level> logs)

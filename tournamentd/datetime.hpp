@@ -2,6 +2,7 @@
 #include <ctime> // for struct tm
 #include <chrono>
 #include <ostream>
+#include <string>
 
 class datetime
 {
@@ -24,6 +25,7 @@ public:
     static datetime from_local(const std::string& iso8601);
     static datetime from_gm(const char* iso8601);
     static datetime from_local(const char* iso8601);
+    static datetime from_nmea0183(const std::string& timebuf, const std::string& datebuf=std::string());
 
     // Renderers
     std::string gmtime() const;
@@ -40,7 +42,15 @@ public:
     // Stream insertion
     friend std::ostream& operator<<(std::ostream& os, const datetime& t);
 
-    // Manipulators for stream insertion
+    // Stream insertion manipulator: datetime output is gmtime
     static std::ostream& gm(std::ostream& os);
+
+    // Stream insertion manipulator: datetime output is localtime
     static std::ostream& local(std::ostream& os);
+
+    // Stream insertion manipulator: datetime output includes milliseconds
+    static std::ostream& millis(std::ostream& os);
+
+    // Stream insertion manipulator: datetime output does not include milliseconds
+    static std::ostream& nomillis(std::ostream& os);
 };
