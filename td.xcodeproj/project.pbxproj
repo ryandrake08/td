@@ -662,7 +662,6 @@
 		ADA6A19D1B97FE8A00C83762 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		ADA6A19F1B97FE8A00C83762 /* TBRemote-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TBRemote-Info.plist"; sourceTree = "<group>"; };
 		ADA6A1A41B97FE8A00C83762 /* TBRemote WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "TBRemote WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
-		ADA6A1AA1B97FE8A00C83762 /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
 		ADA6A1AB1B97FE8A00C83762 /* InterfaceController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InterfaceController.h; sourceTree = "<group>"; };
 		ADA6A1AC1B97FE8A00C83762 /* InterfaceController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InterfaceController.m; sourceTree = "<group>"; };
 		ADA6A1AE1B97FE8A00C83762 /* ExtensionDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExtensionDelegate.h; sourceTree = "<group>"; };
@@ -1197,7 +1196,6 @@
 		ADA6A1A91B97FE8A00C83762 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				ADA6A1AA1B97FE8A00C83762 /* PushNotificationPayload.apns */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
