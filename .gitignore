@@ -2,6 +2,7 @@
 project.xcworkspace
 xcuserdata
 xcshareddata
+build
 db
 bin
 obj
