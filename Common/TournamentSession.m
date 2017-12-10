@@ -138,8 +138,13 @@ NSString* const TournamentSessionUpdatedNotification = @"TournamentSessionUpdate
         if(error != nil) {
             NSLog(@"checkAuthorizedWithBlock: %@\n", error);
         } else {
-            // set internal state
-            [self state][@"authorized"] = json[@"authorized"];
+            // set internal state if changed
+            if([self state][@"authorized"] != json[@"authorized"]) {
+                [self state][@"authorized"] = json[@"authorized"];
+
+                // post notification
+                [[NSNotificationCenter defaultCenter] postNotificationName:TournamentSessionUpdatedNotification object:[self state]];
+            }
             // handle authorization check
             if(block != nil) {
                 block([json[@"authorized"] boolValue]);
@@ -335,7 +340,7 @@ NSString* const TournamentSessionUpdatedNotification = @"TournamentSessionUpdate
         [[self state] addEntriesFromDictionary:update];
 
         // post notification
-        [[NSNotificationCenter defaultCenter] postNotificationName:TournamentSessionUpdatedNotification object:update];
+        [[NSNotificationCenter defaultCenter] postNotificationName:TournamentSessionUpdatedNotification object:[self state]];
     }
 }
 
@@ -345,6 +350,9 @@ NSString* const TournamentSessionUpdatedNotification = @"TournamentSessionUpdate
     NSAssert([self connection] == tc, @"Unexpected connection from %@", tc);
     // set state
     [self state][@"connected"] = @YES;
+
+    // post notification
+    [[NSNotificationCenter defaultCenter] postNotificationName:TournamentSessionUpdatedNotification object:[self state]];
 
     // always check if we're authorized right away
     [self checkAuthorizedWithBlock:nil];
@@ -360,6 +368,9 @@ NSString* const TournamentSessionUpdatedNotification = @"TournamentSessionUpdate
     // set state
     [[self state] removeAllObjects];
     [self state][@"connected"] = @NO;
+
+    // post notification
+    [[NSNotificationCenter defaultCenter] postNotificationName:TournamentSessionUpdatedNotification object:[self state]];
 }
 
 - (void)tournamentConnection:(TournamentConnection*)tc didReceiveData:(id)json {

@@ -10,14 +10,18 @@
 
 @implementation NSDictionary (Changed)
 
-- (NSDictionary*)dictionaryWithChangesFromDictionary:(NSDictionary*)other {
+- (NSMutableDictionary*)mutableDictionaryWithChangesFromDictionary:(NSDictionary*)other {
     NSMutableDictionary* changes = [NSMutableDictionary dictionary];
     [self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL* stop) {
         if(![obj isEqual:other[key]]) {
             changes[key] = obj;
         }
     }];
-    return [NSDictionary dictionaryWithDictionary:changes];
+    return changes;
+}
+
+- (NSDictionary*)dictionaryWithChangesFromDictionary:(NSDictionary*)other {
+    return [NSDictionary dictionaryWithDictionary:[self mutableDictionaryWithChangesFromDictionary:other]];
 }
 
 @end

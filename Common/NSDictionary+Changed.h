@@ -10,6 +10,8 @@
 
 @interface NSDictionary (Changed)
 
+- (NSMutableDictionary*)mutableDictionaryWithChangesFromDictionary:(NSDictionary*)other;
+
 - (NSDictionary*)dictionaryWithChangesFromDictionary:(NSDictionary*)other;
 
 @end
