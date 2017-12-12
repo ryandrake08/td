@@ -145,7 +145,7 @@
 - (IBAction)callClockTapped:(UIButton*)sender {
     NSUInteger currentBlindLevel = [[[self session] state][@"current_blind_level"] unsignedIntegerValue];
     if(currentBlindLevel != 0) {
-        NSUInteger remaining = [[[self session] state][@"action_clock_remaining"] unsignedIntegerValue];
+        NSUInteger remaining = [[[self session] state][@"action_clock_time_remaining"] unsignedIntegerValue];
         if(remaining == 0) {
             [[self session] setActionClock:@kActionClockRequestTime];
         } else {
