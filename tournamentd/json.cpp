@@ -83,7 +83,7 @@ json::json(const json& other) : ptr(check(cJSON_Duplicate(other.ptr, 1)))
 }
 
 // Move constructor moves
-json::json(json&& other) : ptr(check(other.ptr))
+json::json(json&& other) noexcept : ptr(check(other.ptr))
 {
     other.ptr = nullptr;
 }
@@ -103,7 +103,7 @@ json& json::operator=(const json& other)
 }
 
 // Copy assignment duplicates
-json& json::operator=(json&& other)
+json& json::operator=(json&& other) noexcept
 {
     if(this != &other)
     {

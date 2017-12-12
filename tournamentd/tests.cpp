@@ -15,9 +15,7 @@
 int test_json()
 {
     static std::string test_json = "{ \"testnumber\" : 1, \"teststring\" : \"stringdata\" }";
-    json test(test_json);
-
-    test_assert(test.is_object(), "test json not of object type");
+    json test(json::eval(test_json));
 
     int testnumber(0);
     test_assert(test.get_value<int>("testnumber", testnumber) == true, "test object number child not correctly output as int");

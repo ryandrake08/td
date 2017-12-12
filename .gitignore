@@ -15,6 +15,7 @@ obj
 *.filters
 Defaults.tournbuddy
 .vs
+.vscode
 *.nupkg
 **/packages/*
 *.opendb

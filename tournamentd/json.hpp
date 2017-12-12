@@ -27,11 +27,11 @@ public:
 
     // Copy/move construction
     json(const json& other);
-    json(json&& other);
+    json(json&& other) noexcept;
 
     // Assignment
     json& operator=(const json& other);
-    json& operator=(json&& other);
+    json& operator=(json&& other) noexcept;
 
     // Destruction
     ~json();

@@ -122,7 +122,7 @@ void tournament::handle_cmd_configure(const json& in, json& out)
     out.set_value("authorized_clients", json(this->game_auths.begin(), this->game_auths.end()));
 }
 
-void tournament::handle_cmd_start_game(const json& in, json& out)
+void tournament::handle_cmd_start_game(const json& in, json& /* out */)
 {
     datetime start_at;
     if(in.get_value("start_at", start_at))
@@ -135,41 +135,41 @@ void tournament::handle_cmd_start_game(const json& in, json& out)
     }
 }
 
-void tournament::handle_cmd_stop_game(const json& in, json& out)
+void tournament::handle_cmd_stop_game(const json& /* in */, json& /* out */)
 {
     this->game_info.stop();
 }
 
-void tournament::handle_cmd_resume_game(const json& in, json& out)
+void tournament::handle_cmd_resume_game(const json& /* in */, json& /* out */)
 {
     this->game_info.resume();
 }
 
-void tournament::handle_cmd_pause_game(const json& in, json& out)
+void tournament::handle_cmd_pause_game(const json& /* in */, json& /* out */)
 {
     this->game_info.pause();
 }
 
-void tournament::handle_cmd_toggle_pause_game(const json& in, json& out)
+void tournament::handle_cmd_toggle_pause_game(const json& /* in */, json& /* out */)
 {
     this->game_info.toggle_pause_resume();
 }
 
-void tournament::handle_cmd_set_previous_level(const json& in, json& out)
+void tournament::handle_cmd_set_previous_level(const json& /* in */, json& out)
 {
     auto blind_level_changed(this->game_info.previous_blind_level());
 
     out.set_value("blind_level_changed", blind_level_changed);
 }
 
-void tournament::handle_cmd_set_next_level(const json& in, json& out)
+void tournament::handle_cmd_set_next_level(const json& /* in */, json& out)
 {
     auto blind_level_changed(this->game_info.next_blind_level());
 
     out.set_value("blind_level_changed", blind_level_changed);
 }
 
-void tournament::handle_cmd_set_action_clock(const json& in, json& out)
+void tournament::handle_cmd_set_action_clock(const json& in, json& /* out */)
 {
     long duration;
     if(in.get_value("duration", duration))
@@ -182,7 +182,7 @@ void tournament::handle_cmd_set_action_clock(const json& in, json& out)
     }
 }
 
-void tournament::handle_cmd_gen_blind_levels(const json& in, json& out)
+void tournament::handle_cmd_gen_blind_levels(const json& in, json& /* out */)
 {
     std::size_t count;
     long duration;
@@ -200,12 +200,12 @@ void tournament::handle_cmd_gen_blind_levels(const json& in, json& out)
     this->game_info.gen_blind_levels(count, duration, break_duration, blind_increase_factor);
 }
 
-void tournament::handle_cmd_reset_funding(const json &in, json &out)
+void tournament::handle_cmd_reset_funding(const json& /* in */, json& /* out */)
 {
     this->game_info.reset_funding();
 }
 
-void tournament::handle_cmd_fund_player(const json& in, json& out)
+void tournament::handle_cmd_fund_player(const json& in, json& /* out */)
 {
     td::player_id_t player_id;
     td::funding_source_id_t source_id;
@@ -218,7 +218,7 @@ void tournament::handle_cmd_fund_player(const json& in, json& out)
     this->game_info.fund_player(player_id, source_id);
 }
 
-void tournament::handle_cmd_plan_seating(const json& in, json& out)
+void tournament::handle_cmd_plan_seating(const json& in, json& /* out */)
 {
     std::size_t max_expected_players;
 

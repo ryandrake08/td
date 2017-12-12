@@ -4,10 +4,10 @@
 
 #define DO_TEST(test) failures += test();
 
-int main(int argc, char *argv[])
+int main(int /* argc */, char * /* argv */ [])
 {
     int failures(0);
- 
+
     try
     {
         DO_TEST(test_json);

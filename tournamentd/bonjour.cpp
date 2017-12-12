@@ -78,7 +78,7 @@ public:
 class bonjour_publisher::impl
 {
 public:
-    impl(const std::string& name, int port)
+    impl(const std::string& /* name */, int /* port */)
     {
     }
 
