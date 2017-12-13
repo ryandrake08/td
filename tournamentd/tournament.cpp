@@ -899,7 +899,7 @@ bool tournament::run()
         // update the clock, and report to clients if anything changed
         if(this->game_info.update_remaining())
         {
-            scope_timer("broadcast_state: ");
+            scope_timer timer("broadcast_state: ");
 
             // send to clients
             this->broadcast_state();

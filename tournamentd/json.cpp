@@ -173,15 +173,15 @@ json::json(const std::string& value) : ptr(check(cJSON_CreateString(value.c_str(
 }
 
 template <>
-json::json(const bool& value) : ptr(check(cJSON_CreateBool(value != 0)))
+json::json(const bool& value) : ptr(check(cJSON_CreateBool(value ? cJSON_True : cJSON_False)))
 {
 }
 
 // Construct from arrays
 template <>
-json::json(const std::vector<json>& values) : ptr(check(cJSON_CreateArray()))
+json::json(const std::vector<json>& value) : ptr(check(cJSON_CreateArray()))
 {
-    for(const auto& item : values)
+    for(const auto& item : value)
     {
         cJSON_AddItemToArray(this->ptr, cJSON_Duplicate(item.ptr, 1));
     }

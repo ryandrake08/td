@@ -111,7 +111,7 @@ namespace td
 
         player_movement();
         player_movement(const json& obj);
-        player_movement(player_id_t p, const std::string& n, const seat& f, const seat& t);
+        player_movement(const player_id_t& p, const std::string& n, const seat& f, const seat& t);
     };
 
     // represents a quantity of chips distributed to each player
@@ -133,7 +133,7 @@ namespace td
 
         manual_payout();
         manual_payout(const json& obj);
-        manual_payout(size_t b, const std::vector<double>& p);
+        manual_payout(size_t c, const std::vector<double>& p);
     };
 
     // represents a tournament result
@@ -158,7 +158,7 @@ namespace td
         std::size_t seat_number;
 
         seated_player();
-        seated_player(player_id_t p, const std::string& n, bool b);
-        seated_player(player_id_t p, const std::string& n, bool b, std::size_t t, std::size_t s);
+        seated_player(const player_id_t& p, const std::string& n, bool b);
+        seated_player(const player_id_t& p, const std::string& n, bool b, std::size_t t, std::size_t s);
     };
 }

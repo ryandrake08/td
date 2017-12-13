@@ -1,10 +1,17 @@
 #include "types.hpp"
+#include "shared_instance.hpp"
 #include <random>
 #include <utility>
 #include <cassert>
 
-// random number generator
-static std::default_random_engine engine;
+static std::string random_player_id()
+{
+    // get randomization engine
+    auto engine(get_shared_instance<std::default_random_engine>());
+    auto distribution(std::uniform_int_distribution<int>(0, std::numeric_limits<int>::max()));
+    auto numeric_id(distribution(*engine));
+    return std::to_string(numeric_id);
+}
 
 // ----- initialization
 
@@ -24,7 +31,7 @@ td::funding_source::funding_source() : type(td::buyin), forbid_after_blind_level
 {
 }
 
-td::player::player() : player_id(std::to_string(std::uniform_int_distribution<int>(0, std::numeric_limits<int>::max())(engine))), added_at(datetime::now())
+td::player::player() : player_id(random_player_id()), added_at(datetime::now())
 {
 }
 
@@ -36,11 +43,11 @@ td::seat::seat(std::size_t t, std::size_t s) : table_number(t), seat_number(s)
 {
 }
 
-td::player_movement::player_movement() : player_id(0)
+td::player_movement::player_movement()
 {
 }
 
-td::player_movement::player_movement(player_id_t p, const std::string& n, const seat& f, const seat& t) : player_id(p), name(n), from_seat(f), to_seat(t)
+td::player_movement::player_movement(const player_id_t& p, const std::string& n, const seat& f, const seat& t) : player_id(p), name(n), from_seat(f), to_seat(t)
 {
 }
 
@@ -72,11 +79,11 @@ td::seated_player::seated_player() : buyin(false), table_number(std::numeric_lim
 {
 }
 
-td::seated_player::seated_player(player_id_t p, const std::string& n, bool b) : player_id(p), name(n), buyin(b), table_number(std::numeric_limits<std::size_t>::max()), seat_number(std::numeric_limits<std::size_t>::max())
+td::seated_player::seated_player(const player_id_t& p, const std::string& n, bool b) : player_id(p), name(n), buyin(b), table_number(std::numeric_limits<std::size_t>::max()), seat_number(std::numeric_limits<std::size_t>::max())
 {
 }
 
-td::seated_player::seated_player(player_id_t p, const std::string& n, bool b, std::size_t t, std::size_t s) : player_id(p), name(n), buyin(b), table_number(t), seat_number(s)
+td::seated_player::seated_player(const player_id_t& p, const std::string& n, bool b, std::size_t t, std::size_t s) : player_id(p), name(n), buyin(b), table_number(t), seat_number(s)
 {
 }
 
@@ -186,23 +193,23 @@ json::json(const td::blind_level& value) : json()
     {
         this->set_value("game_name", value.game_name);
     }
-    if(value.little_blind)
+    if(value.little_blind > 0)
     {
         this->set_value("little_blind", value.little_blind);
     }
-    if(value.big_blind)
+    if(value.big_blind > 0)
     {
         this->set_value("big_blind", value.big_blind);
     }
-    if(value.ante)
+    if(value.ante > 0)
     {
         this->set_value("ante", value.ante);
     }
-    if(value.duration)
+    if(value.duration> 0)
     {
         this->set_value("duration", value.duration);
     }
-    if(value.break_duration)
+    if(value.break_duration > 0)
     {
         this->set_value("break_duration", value.break_duration);
     }
@@ -220,7 +227,7 @@ json::json(const td::chip& value) : json()
         this->set_value("color", value.color);
     }
     this->set_value("denomination", value.denomination);
-    if(value.count_available)
+    if(value.count_available > 0)
     {
         this->set_value("count_available", value.count_available);
     }

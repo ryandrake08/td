@@ -82,9 +82,7 @@ public:
     {
     }
 
-    ~impl()
-    {
-    }
+    ~impl() = default;
 };
 #endif
 

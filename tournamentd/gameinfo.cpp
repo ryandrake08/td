@@ -1,5 +1,6 @@
 #include "gameinfo.hpp"
 #include "logger.hpp"
+#include "shared_instance.hpp"
 #include <algorithm>
 #include <cmath>
 #include <iomanip>
@@ -7,9 +8,6 @@
 #include <numeric>
 #include <random>
 #include <sstream>
-
-// random number generator
-static std::default_random_engine engine;
 
 // initialize game
 gameinfo::gameinfo() :
@@ -319,7 +317,7 @@ void gameinfo::dump_derived_state(json& state) const
     state.set_value("next_round_text", os.str()); os.str("");
 
     // players left text
-    if(this->seats.size() > 0)
+    if(!this->seats.empty())
     {
         os << this->seats.size();
     }
@@ -330,7 +328,7 @@ void gameinfo::dump_derived_state(json& state) const
     state.set_value("players_left_text", os.str()); os.str("");
 
     // entries text
-    if(this->entries.size() > 0)
+    if(!this->entries.empty())
     {
         os << this->entries.size();
     }
@@ -341,7 +339,7 @@ void gameinfo::dump_derived_state(json& state) const
     state.set_value("entries_text", os.str()); os.str("");
 
     // average stack text
-    if(this->buyins.size() > 0)
+    if(!this->buyins.empty())
     {
         os << this->total_chips / this->buyins.size();
     }
@@ -509,9 +507,12 @@ std::size_t gameinfo::plan_seating(std::size_t max_expected_players)
         }
     }
 
+    // get randomization engine
+    auto engine(get_shared_instance<std::default_random_engine>());
+
     // randomize preferred then extra seats separately
-    std::shuffle(this->empty_seats.begin(), extra_it, engine);
-    std::shuffle(extra_it, this->empty_seats.end(), engine);
+    std::shuffle(this->empty_seats.begin(), extra_it, *engine);
+    std::shuffle(extra_it, this->empty_seats.end(), *engine);
 
     logger(LOG_INFO) << "created " << this->empty_seats.size() << " empty seats\n";
 
@@ -598,7 +599,13 @@ std::vector<td::player_movement> gameinfo::bust_player(const td::player_id_t& pl
         const std::unordered_set<td::player_id_t>& container;
         std::vector<td::player_id_t> playing;
         collector(const std::unordered_set<td::player_id_t>& c) : container(c) {}
-        void operator()(const std::pair<td::player_id_t,td::seat>& s) { if(container.find(s.first) != container.end()) playing.push_back(s.first); }
+        void operator()(const std::pair<td::player_id_t,td::seat>& s)
+        {
+            if(container.find(s.first) != container.end())
+            {
+                playing.push_back(s.first);
+            }
+        }
         operator std::vector<td::player_id_t>() { return playing; }
     };
     std::vector<td::player_id_t> playing(std::for_each(this->seats.begin(), this->seats.end(), collector(this->buyins)));
@@ -648,8 +655,11 @@ td::player_movement gameinfo::move_player(const td::player_id_t& player_id, std:
         throw td::protocol_error("tried to move player to a full table");
     }
 
+    // get randomization engine
+    auto engine(get_shared_instance<std::default_random_engine>());
+
     // pick one at random
-    auto index(std::uniform_int_distribution<std::size_t>(0, candidates.size()-1)(engine));
+    auto index(std::uniform_int_distribution<std::size_t>(0, candidates.size()-1)(*engine));
     auto to_seat_it(candidates[index]);
 
     // move player
@@ -720,6 +730,9 @@ std::size_t gameinfo::try_rebalance(std::vector<td::player_movement>& movements)
 
     std::size_t ret(0);
 
+    // get randomization engine
+    auto engine(get_shared_instance<std::default_random_engine>());
+
     // build players-per-table vector
     auto ppt(this->players_at_tables());
 
@@ -733,7 +746,7 @@ std::size_t gameinfo::try_rebalance(std::vector<td::player_movement>& movements)
         logger(LOG_INFO) << "largest table has " << most_it->size() << " players and smallest table has " << fewest_it->size() << " players\n";
 
         // pick a random player at the table with the most players
-        auto index(std::uniform_int_distribution<std::size_t>(0, most_it->size()-1)(engine));
+        auto index(std::uniform_int_distribution<std::size_t>(0, most_it->size()-1)(*engine));
         auto random_player((*most_it)[index]);
 
         // subtract iterator to find table number
@@ -791,11 +804,11 @@ std::size_t gameinfo::try_break_table(std::vector<td::player_movement>& movement
 
             // prune empty table from our open seat list, no need to seat people at unused tables
             this->empty_seats.erase(std::remove_if(this->empty_seats.begin(), this->empty_seats.end(), [&break_table](const td::seat& seat) { return seat.table_number == break_table; }));
-            
+
             logger(LOG_INFO) << "broken table " << break_table << ". " << this->seats.size() << " players now at " << this->tables << " tables\n";
         }
     }
-    
+
     return ret;
 }
 
@@ -907,31 +920,33 @@ std::vector<td::player_chips> gameinfo::chips_for_buyin(const td::funding_source
     std::unordered_map<unsigned long,unsigned long> q;
 
     // step 1: fund using highest denominaton chips available
-    unsigned long remain(source.chips);
+    auto remain(source.chips);
     auto cit(this->available_chips.rbegin());
-    while(remain)
+    while(remain > 0)
     {
         // find highest denomination chip less than what remains
-        while(cit->denomination > remain)
+        while(cit != this->available_chips.rend() && cit->denomination > remain)
         {
             cit++;
+        }
+
+        if(cit == this->available_chips.rend())
+        {
+            throw td::protocol_error("buyin is not a multiple of the smallest chip available");
         }
 
         auto d(cit->denomination);
 
         // add chips and remove from remainder
         auto count(remain / d);
-        while(count+q[d] > this->max_chips_for(d, max_expected_players)) count--;
+        while(count+q[d] > this->max_chips_for(d, max_expected_players))
+        {
+            count--;
+        }
         q[d] += count;
         remain -= count*d;
 
         logger(LOG_INFO) << "initial chips: T" << d << ": " << q[d] << '\n';
-    }
-
-    // check that we can represent buyin with our chip set
-    if(remain != 0)
-    {
-        throw td::protocol_error("buyin is not a multiple of the smallest chip available");
     }
 
     remain = 0;
@@ -993,7 +1008,7 @@ std::vector<td::player_chips> gameinfo::chips_for_buyin(const td::funding_source
     std::vector<td::player_chips> ret;
     for(auto& p : q)
     {
-        if(p.second)
+        if(p.second > 0)
         {
             ret.push_back(td::player_chips(p.first, p.second));
         }
@@ -1388,7 +1403,7 @@ void gameinfo::gen_blind_levels(std::size_t count, long level_duration, long chi
     }
 
     logger(LOG_INFO) << "generating " << count << " blind levels\n";
-    
+
     // resize structure, zero-initializing
     this->blind_levels.resize(count+1);
 
@@ -1416,7 +1431,7 @@ void gameinfo::gen_blind_levels(std::size_t count, long level_duration, long chi
             // 5 minute break to chip up after each minimum denomination change
             this->blind_levels[i].break_duration = chip_up_break_duration;
         }
-        
+
         // next small blind should be about factor times bigger than previous one
         ideal_small *= blind_increase_factor;
     }
