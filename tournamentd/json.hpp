@@ -38,7 +38,7 @@ public:
 
     // Templated construction from any object
     template <typename T>
-    json(const T& value);
+    explicit json(const T& value);
 
     // Templated construction from container of any object - create vector, implicitly converting each element to json
     template <typename T>
@@ -82,8 +82,15 @@ public:
         return false;
     }
 
+    // Set json value for name
+    void set_json_value(const char* name, const json& value);
+
     // Set value for name
-    void set_value(const char* name, const json& value);
+    template <typename T>
+    void set_value(const char* name, const T& value)
+    {
+        set_json_value(name, json(value));
+    }
 };
 
 // Stream operators

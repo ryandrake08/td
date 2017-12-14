@@ -297,8 +297,8 @@ bool json::get_value(const char* name, json& value) const
     return false;
 }
 
-// Generic JSON setter
-void json::set_value(const char* name, const json& value)
+// Set json value for name
+void json::set_json_value(const char* name, const json& value)
 {
     cJSON_AddItemToObject(this->ptr, name, cJSON_Duplicate(value.ptr, 1));
 }
