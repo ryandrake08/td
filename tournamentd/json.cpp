@@ -286,6 +286,12 @@ std::string json::string(bool pretty) const
 }
 
 // Generic JSON getter
+bool json::get_value(const char* name) const
+{
+    return cJSON_GetObjectItem(this->ptr, name) != nullptr;
+}
+
+// Generic JSON getter
 bool json::get_value(const char* name, json& value) const
 {
     auto item(cJSON_GetObjectItem(this->ptr, name));

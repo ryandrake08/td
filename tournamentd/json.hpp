@@ -53,6 +53,9 @@ public:
     // Print to string
     std::string string(bool pretty=false) const;
 
+    // Simply return whether json value exists for name
+    bool get_value(const char* name) const;
+
     // Get json value for name
     bool get_value(const char* name, json& value) const;
 

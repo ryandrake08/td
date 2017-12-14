@@ -86,9 +86,6 @@ void gameinfo::configure(const json& config)
         {
             this->manual_payouts.emplace(manual_payout.buyins_count, manual_payout.payouts);
         }
-
-        // manual payout might have been added/changed. try recalculating
-        this->recalculate_payouts();
     }
 
     if(config.get_value("table_capacity", this->table_capacity))
@@ -108,6 +105,7 @@ void gameinfo::configure(const json& config)
     }
 
     auto recalculate(false);
+    recalculate = recalculate || config.get_value("manual_payouts");
     recalculate = recalculate || config.get_value("round_payouts", this->round_payouts);
     recalculate = recalculate || config.get_value("percent_seats_paid", this->percent_seats_paid);
     recalculate = recalculate || config.get_value("payout_flatness", this->payout_flatness);
