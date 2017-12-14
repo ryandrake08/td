@@ -28,7 +28,7 @@ gameinfo::gameinfo() :
     action_clock_time_remaining(duration_t::zero()),
     elapsed_time(duration_t::zero())
 {
-    validate();
+    this->blind_levels.push_back(td::blind_level("Setup"));
 }
 
 void gameinfo::validate()
@@ -38,10 +38,8 @@ void gameinfo::validate()
     // ensure we have at least one blind level, the setup level
     if(this->blind_levels.empty())
     {
-        this->blind_levels.push_back(td::blind_level());
+        this->blind_levels.push_back(td::blind_level("Setup"));
     }
-    // and ensure it's called "Setup"
-    this->blind_levels.front().game_name = "Setup";
 }
 
 // load configuration from JSON (object or file)

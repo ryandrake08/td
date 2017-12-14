@@ -45,7 +45,7 @@ namespace td
         long break_duration;
         std::string reason;
 
-        blind_level();
+        explicit blind_level(const std::string& name=std::string());
         blind_level(const json& obj);
     };
 

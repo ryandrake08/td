@@ -19,7 +19,7 @@ td::authorized_client::authorized_client(int c) : code(c), added_at(datetime::no
 {
 }
 
-td::blind_level::blind_level() : little_blind(0), big_blind(0), ante(0), duration(0), break_duration(0)
+td::blind_level::blind_level(const std::string& name) : game_name(name), little_blind(0), big_blind(0), ante(0), duration(0), break_duration(0)
 {
 }
 
