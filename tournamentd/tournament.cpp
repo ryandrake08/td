@@ -827,6 +827,7 @@ bool tournament::handle_client_input(std::iostream& client)
 
 int tournament::authorize(int code)
 {
+	logger(LOG_INFO) << "client " << code << " authorized to administer this tournament\n";
     this->game_auths.emplace(code, code);
     return code;
 }

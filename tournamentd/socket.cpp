@@ -134,7 +134,7 @@ struct common_socket::impl
         // unlink if this was a unix socket
         if((ret != SOCKET_ERROR) && (addr.sun_family == AF_UNIX))
         {
-            logger(LOG_INFO) << "unlinking unix socket " << this->fd << " path: " << addr.sun_path << '\n';
+            logger(LOG_DEBUG) << "unlinking unix socket " << this->fd << " path: " << addr.sun_path << '\n';
             unlink(addr.sun_path);
         }
 #endif

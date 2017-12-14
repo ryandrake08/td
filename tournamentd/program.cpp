@@ -1,4 +1,5 @@
 #include "program.hpp"
+#include "logger.hpp"
 #include <sstream>
 
 #if !defined(P_tmpdir)
@@ -21,6 +22,9 @@ program::program(const std::vector<std::string>& cmdline)
 
     // debug only: load a default configuration
     this->tourney.load_configuration("defaults.json");
+#else
+    // disable LOG_DEBUG
+    logger_enable(LOG_INFO, LOG_WARNING, LOG_ERROR);
 #endif
 
     // parse command-line

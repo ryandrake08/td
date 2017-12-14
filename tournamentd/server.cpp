@@ -73,7 +73,7 @@ bool server::poll(const std::function<bool(std::ostream&)>& handle_new_client, c
             {
                 if(handle_client(ss) || !ss.good())
                 {
-                    logger(LOG_INFO) << "closing client connection\n";
+                    logger(LOG_DEBUG) << "closing client connection\n";
                     this->clients.erase(*sock);
                     this->all.erase(*sock);
                 }

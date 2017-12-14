@@ -33,7 +33,7 @@ gameinfo::gameinfo() :
 
 void gameinfo::validate()
 {
-    logger(LOG_INFO) << "validating game configuration / state\n";
+    logger(LOG_DEBUG) << "validating game configuration / state\n";
 
     // ensure we have at least one blind level, the setup level
     if(this->blind_levels.empty())
