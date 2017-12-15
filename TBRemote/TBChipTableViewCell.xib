@@ -26,6 +26,7 @@
                     <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" tag="101" contentMode="scaleToFill" fixedFrame="YES" image="i_chip" translatesAutoresizingMaskIntoConstraints="NO" id="zNf-dl-iBR">
                         <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </imageView>
                     <label opaque="NO" multipleTouchEnabled="YES" tag="102" contentMode="left" fixedFrame="YES" text="100,000" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8OA-vD-WiT">
                         <rect key="frame" x="52" y="0.0" width="268" height="44"/>
@@ -35,7 +36,9 @@
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
+                <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
             </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
                 <outlet property="colorEllipseView" destination="bTb-dm-adj" id="HsW-FP-lIU"/>
                 <outlet property="valueLabel" destination="8OA-vD-WiT" id="LnJ-6j-Q2P"/>

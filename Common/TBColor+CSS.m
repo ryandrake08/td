@@ -204,6 +204,10 @@ static NSDictionary* cssHexCodes = nil;
 
 // Lookup a color using css 3/svg color name
 + (TBColor*)colorWithName:(NSString*)colorName {
+    if(colorName == nil) {
+        return nil;
+    }
+
     TBColor* color;
     @synchronized(colorNameCache) {
         // Look for the color in the cache

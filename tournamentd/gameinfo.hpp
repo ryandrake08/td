@@ -44,6 +44,9 @@ class gameinfo
     // configuration: how long after round starts should prev command go to the previous round (rather than restart)? (ms)
     long previous_blind_level_hold_duration;
 
+    // configuration: clock screen background color (synced to all clients)
+    std::string background_color;
+
     // ----- state -----
 
     // players seated in the game

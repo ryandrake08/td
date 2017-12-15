@@ -11,6 +11,7 @@
 #import "TBEllipseView.h"
 #import "TBChipTableViewCell.h"
 #import "TBColor+CSS.h"
+#import "TBColor+ContrastTextColor.h"
 #import "TBAppDelegate.h"
 
 #import "NSObject+FBKVOController.h"
@@ -31,7 +32,6 @@
 @property (nonatomic, weak) IBOutlet UIButton* pauseResumeButton;
 @property (nonatomic, weak) IBOutlet UIButton* nextRoundButton;
 @property (nonatomic, weak) IBOutlet UIButton* callClockButton;
-
 
 @end
 
@@ -96,6 +96,22 @@
         [observer updateActionClock:object[@"action_clock_time_remaining"]];
     }];
 
+    [[self KVOController] observe:[[self session] state] keyPath:@"background_color" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
+        // Set the background color on the view
+        NSString* colorName = object[@"background_color"];
+        if(colorName != nil) {
+            TBColor* color = [TBColor colorWithName:colorName];
+            [[observer view] setBackgroundColor:color];
+
+            // Set text label appearance to a complementary color
+            if([[UILabel class] respondsToSelector:@selector(appearanceWhenContainedIn:)]) {
+                [[UILabel appearanceWhenContainedIn:[TBRemoteClockViewController class], nil] setTextColor:[color contrastTextColor]];
+            } else {
+                [[UILabel appearanceWhenContainedInInstancesOfClasses:@[[TBRemoteClockViewController class]]] setTextColor:[color contrastTextColor]];
+            }
+        }
+    }];
+
     // Register table view cell class
     [[self tableView] registerNib:[UINib nibWithNibName:@"TBChipTableViewCell" bundle:nil] forCellReuseIdentifier:@"ChipCell"];
 }
@@ -110,10 +126,8 @@
 - (void)updateActionClock:(NSNumber*)timeRemaining {
     NSUInteger actionClockTimeRemaining = [timeRemaining unsignedIntegerValue];
     if(actionClockTimeRemaining == 0 && [self presentedViewController] != nil) {
-        NSLog(@"timeRemaining: %lu presented: %@", actionClockTimeRemaining, [self presentedViewController]);
         [self dismissViewControllerAnimated:YES completion:nil];
     } else if(actionClockTimeRemaining > 0 && [self presentedViewController] == nil) {
-        NSLog(@"timeRemaining: %lu presented: %@", actionClockTimeRemaining, [self presentedViewController]);
         [self performSegueWithIdentifier:@"presentActionClockView" sender:self];
     }
 }

@@ -106,6 +106,10 @@
 		94CDDD1F1FE1826C008ADF24 /* TBChipTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94CDDD1C1FE1826C008ADF24 /* TBChipTableViewCell.xib */; };
 		94CDDD201FE1826C008ADF24 /* TBChipTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94CDDD1C1FE1826C008ADF24 /* TBChipTableViewCell.xib */; };
 		94CDDD231FE39299008ADF24 /* TBActionClockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CDDD221FE39299008ADF24 /* TBActionClockViewController.m */; };
+		94CDDD331FE3B349008ADF24 /* TBColor+ContrastTextColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CDDD321FE3B349008ADF24 /* TBColor+ContrastTextColor.m */; };
+		94CDDD341FE3B349008ADF24 /* TBColor+ContrastTextColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CDDD321FE3B349008ADF24 /* TBColor+ContrastTextColor.m */; };
+		94CDDD351FE3B349008ADF24 /* TBColor+ContrastTextColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CDDD321FE3B349008ADF24 /* TBColor+ContrastTextColor.m */; };
+		94CDDD361FE3B349008ADF24 /* TBColor+ContrastTextColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CDDD321FE3B349008ADF24 /* TBColor+ContrastTextColor.m */; };
 		94D04ECD1B7C59EB004F4245 /* s_break.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04EC81B7C59EB004F4245 /* s_break.caf */; };
 		94D04ECE1B7C59EB004F4245 /* s_break.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04EC81B7C59EB004F4245 /* s_break.caf */; };
 		94D04ECF1B7C59EB004F4245 /* s_next.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04EC91B7C59EB004F4245 /* s_next.caf */; };
@@ -564,6 +568,8 @@
 		94CDDD1C1FE1826C008ADF24 /* TBChipTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TBChipTableViewCell.xib; sourceTree = "<group>"; };
 		94CDDD211FE39299008ADF24 /* TBActionClockViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBActionClockViewController.h; sourceTree = "<group>"; };
 		94CDDD221FE39299008ADF24 /* TBActionClockViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TBActionClockViewController.m; sourceTree = "<group>"; };
+		94CDDD311FE3B349008ADF24 /* TBColor+ContrastTextColor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TBColor+ContrastTextColor.h"; sourceTree = "<group>"; };
+		94CDDD321FE3B349008ADF24 /* TBColor+ContrastTextColor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "TBColor+ContrastTextColor.m"; sourceTree = "<group>"; };
 		94D04EC81B7C59EB004F4245 /* s_break.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = s_break.caf; sourceTree = "<group>"; };
 		94D04EC91B7C59EB004F4245 /* s_next.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = s_next.caf; sourceTree = "<group>"; };
 		94D04ECA1B7C59EB004F4245 /* s_rebalance.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = s_rebalance.caf; sourceTree = "<group>"; };
@@ -1004,6 +1010,8 @@
 				ADDDAA871B93584300D3AF68 /* TBArrayCountTransformer.m */,
 				AD6256F41BB4525A00EE776A /* TBAuthCodeNumberFormatter.h */,
 				AD6256F51BB4525A00EE776A /* TBAuthCodeNumberFormatter.m */,
+				94CDDD311FE3B349008ADF24 /* TBColor+ContrastTextColor.h */,
+				94CDDD321FE3B349008ADF24 /* TBColor+ContrastTextColor.m */,
 				94FDEADA1B5AE2560026B25D /* TBColor+CSS.h */,
 				94FDEADB1B5AE2560026B25D /* TBColor+CSS.m */,
 				94562E5E1B65D8CA0017C692 /* TBColorValueTransformer.h */,
@@ -1626,6 +1634,7 @@
 				94FDEAE61B5AE2D60026B25D /* CFStreamCreatePairWithUnixSocket.c in Sources */,
 				ADE5A4FE1B8F44A0002737A8 /* TBStatsViewController.m in Sources */,
 				ADA4FC0B1B8B6DA500DB2AA7 /* TBConnectToWindowController.m in Sources */,
+				94CDDD341FE3B349008ADF24 /* TBColor+ContrastTextColor.m in Sources */,
 				943B00D41B3F429500CE55D4 /* server.cpp in Sources */,
 				AD75ACEF1BA3FEEA00705967 /* TBEllipseImageView.m in Sources */,
 				943B00D01B3F429500CE55D4 /* datetime.cpp in Sources */,
@@ -1692,6 +1701,7 @@
 				94D04ED81B7C6A5C004F4245 /* TBCurrencyNumberFormatter.m in Sources */,
 				94CDDD1E1FE1826C008ADF24 /* TBChipTableViewCell.m in Sources */,
 				ADD73D2B1B9692E1006824A1 /* NSDictionary+Changed.m in Sources */,
+				94CDDD361FE3B349008ADF24 /* TBColor+ContrastTextColor.m in Sources */,
 				9462A3E91B77CB3B00B29002 /* TTTOrdinalNumberFormatter.m in Sources */,
 				ADE299B11B7B9BCB00F1393B /* TBSound.m in Sources */,
 				9476F4691B3C385400A158F8 /* TBAppDelegate.m in Sources */,
@@ -1776,6 +1786,7 @@
 				9462A3E31B77376000B29002 /* NSFont+LineHeight.m in Sources */,
 				945410771B6E9A17001E3373 /* NSString+CamelCase.m in Sources */,
 				94CC7F8F1CE8CF770081A8A0 /* TBPlanWindowController.m in Sources */,
+				94CDDD331FE3B349008ADF24 /* TBColor+ContrastTextColor.m in Sources */,
 				ADE299B61B7B9ED100F1393B /* TBPlayerWindowController.m in Sources */,
 				AD8E684F1A6C606700E5A4D8 /* Document.m in Sources */,
 				949D70951B3C440D008D5CD1 /* datetime.cpp in Sources */,
@@ -1892,6 +1903,7 @@
 				ADF636051BAB8AF800D019AE /* TBSettingsViewController.m in Sources */,
 				ADD2CC471BB3A11B00DE3DE5 /* TBSetupPlayersViewController.m in Sources */,
 				AD475C3B1BB62D0400DAE739 /* TBEditableTableViewCell.m in Sources */,
+				94CDDD351FE3B349008ADF24 /* TBColor+ContrastTextColor.m in Sources */,
 				ADF636061BAB8AF800D019AE /* TournamentConnection.m in Sources */,
 				ADF636081BAB8AF800D019AE /* datetime.cpp in Sources */,
 				ADF636091BAB8AF800D019AE /* TournamentDaemon.mm in Sources */,
