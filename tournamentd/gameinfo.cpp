@@ -751,7 +751,7 @@ std::size_t gameinfo::try_rebalance(std::vector<td::player_movement>& movements)
         ret++;
 
         // update our lists to stay consistent
-        (*most_it)[index] = std::move(most_it->back());
+        (*most_it)[index] = most_it->back();
         most_it->pop_back();
         fewest_it->push_back(random_player);
     }
