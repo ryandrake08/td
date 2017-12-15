@@ -8,14 +8,14 @@
 
 #import "TBRemoteClockViewController.h"
 #import "TournamentSession.h"
-#import "TBActionClockView.h"
 #import "TBEllipseView.h"
+#import "TBChipTableViewCell.h"
 #import "TBColor+CSS.h"
 #import "TBAppDelegate.h"
 
 #import "NSObject+FBKVOController.h"
 
-@interface TBRemoteClockViewController () <UITableViewDataSource, TBActionClockDelegate>
+@interface TBRemoteClockViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) TournamentSession* session;
 
@@ -31,9 +31,6 @@
 @property (nonatomic, weak) IBOutlet UIButton* pauseResumeButton;
 @property (nonatomic, weak) IBOutlet UIButton* nextRoundButton;
 @property (nonatomic, weak) IBOutlet UIButton* callClockButton;
-@property (nonatomic, weak) IBOutlet TBActionClockView* actionClockView;
-@property (nonatomic, weak) IBOutlet UITableView* tableView;
-@property (nonatomic, weak) IBOutlet UIView* tableHeaderView;
 
 
 @end
@@ -98,6 +95,9 @@
     [[self KVOController] observe:[[self session] state] keyPath:@"action_clock_time_remaining" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
         [observer updateActionClock:object[@"action_clock_time_remaining"]];
     }];
+
+    // Register table view cell class
+    [[self tableView] registerNib:[UINib nibWithNibName:@"TBChipTableViewCell" bundle:nil] forCellReuseIdentifier:@"ChipCell"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -109,11 +109,12 @@
 
 - (void)updateActionClock:(NSNumber*)timeRemaining {
     NSUInteger actionClockTimeRemaining = [timeRemaining unsignedIntegerValue];
-    if(actionClockTimeRemaining == 0) {
-        [[self actionClockView] setHidden:YES];
-    } else {
-        [[self actionClockView] setHidden:NO];
-        [[self actionClockView] setSeconds:actionClockTimeRemaining / 1000.0];
+    if(actionClockTimeRemaining == 0 && [self presentedViewController] != nil) {
+        NSLog(@"timeRemaining: %lu presented: %@", actionClockTimeRemaining, [self presentedViewController]);
+        [self dismissViewControllerAnimated:YES completion:nil];
+    } else if(actionClockTimeRemaining > 0 && [self presentedViewController] == nil) {
+        NSLog(@"timeRemaining: %lu presented: %@", actionClockTimeRemaining, [self presentedViewController]);
+        [self performSegueWithIdentifier:@"presentActionClockView" sender:self];
     }
 }
 
@@ -156,13 +157,9 @@
 
 #pragma mark UITableViewDataSource
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView*)tableView {
-    return 2;
-}
-
 - (NSInteger)tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section {
     if(section == 0) {
-        return 1;
+        return [super tableView:tableView numberOfRowsInSection:section];
     } else if(section == 1) {
         return [[[self session] state][@"available_chips"] count];
     } else {
@@ -170,91 +167,48 @@
     }
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath {
     if([indexPath section] == 0) {
-        return [[self tableHeaderView] frame].size.height;
+        return [super tableView:tableView cellForRowAtIndexPath:indexPath];
     } else if([indexPath section] == 1) {
-        return 44.0f;
-    } else {
-        return 0.0f;
-    }
-}
-
-#if 0
-- (CGFloat)tableView:(UITableView*)tableView heightForHeaderInSection:(NSInteger)section {
-    if(section == 0) {
-        return [[self tableHeaderView] frame].size.height;
-    } else {
-        return 0.0;
-    }
-}
-- (UIView*)tableView:(UITableView*)tableView viewForHeaderInSection:(NSInteger)section {
-    if(section == 0) {
-        return [self tableHeaderView];
+        // create a cell
+        TBChipTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"ChipCell" forIndexPath:indexPath];
+        [cell setChip:[[self session] state][@"available_chips"][indexPath.row]];
+        return cell;
     } else {
         return nil;
     }
 }
-#endif
-- (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath {
-    UITableViewCell* cell;
-    if([indexPath section] == 0) {
-        // create a cell and add it as a subview
-        cell = [tableView dequeueReusableCellWithIdentifier:@"BlankCell"];
-        [[cell contentView] addSubview:[self tableHeaderView]];
 
-        // use manually set constraints
-        [[self tableHeaderView] setTranslatesAutoresizingMaskIntoConstraints:NO];
-
-        // manually build up some constraints for the view
-        NSLayoutConstraint* equalWidth = [NSLayoutConstraint constraintWithItem:[self tableHeaderView]
-                                                                      attribute:NSLayoutAttributeWidth
-                                                                      relatedBy:0
-                                                                         toItem:[cell contentView]
-                                                                      attribute:NSLayoutAttributeWidth
-                                                                     multiplier:1.0f
-                                                                       constant:0.0f];
-        NSLayoutConstraint* equalHeight = [NSLayoutConstraint constraintWithItem:[self tableHeaderView]
-                                                                       attribute:NSLayoutAttributeHeight
-                                                                       relatedBy:0
-                                                                          toItem:[cell contentView]
-                                                                       attribute:NSLayoutAttributeHeight
-                                                                      multiplier:1.0f
-                                                                        constant:0.0f];
-        NSLayoutConstraint* centerX = [NSLayoutConstraint constraintWithItem:[self tableHeaderView]
-                                                                   attribute:NSLayoutAttributeCenterX
-                                                                   relatedBy:0
-                                                                      toItem:[cell contentView]
-                                                                   attribute:NSLayoutAttributeCenterX
-                                                                  multiplier:1.0f
-                                                                    constant:0.0f];
-        NSLayoutConstraint* centerY = [NSLayoutConstraint constraintWithItem:[self tableHeaderView]
-                                                                   attribute:NSLayoutAttributeCenterY
-                                                                   relatedBy:0
-                                                                      toItem:[cell contentView]
-                                                                   attribute:NSLayoutAttributeCenterY
-                                                                  multiplier:1.0f
-                                                                    constant:0.0f];
-        // set constraint
-        [[cell contentView] addConstraints:@[equalWidth, equalHeight, centerX, centerY]];
-    } else if([indexPath section] == 1) {
-        // create a cell
-        cell = [tableView dequeueReusableCellWithIdentifier:@"ChipCell" forIndexPath:indexPath];
-
-        // get result for this row
-        NSDictionary* chip = [[self session] state][@"available_chips"][indexPath.row];
-
-        // setup cell
-        [(TBEllipseView*)[cell viewWithTag:100] setColor:[TBColor colorWithName:chip[@"color"]]];
-        [(UILabel*)[cell viewWithTag:102] setText:[chip[@"denomination"] stringValue]];
-    }
-    return cell;
+- (NSInteger)numberOfSectionsInTableView:(UITableView*)tableView {
+    return [super numberOfSectionsInTableView:tableView];
 }
 
-#pragma mark TBActionClockViewDelegate
+#pragma mark UITableViewDelegate
 
-- (CGFloat)analogClock:(TBActionClockView*)clock graduationLengthForIndex:(NSInteger)index {
-    return index % 5 == 0 ? 10.0 : 5.0;
+- (UITableViewCellEditingStyle)tableView:(UITableView*)tableView editingStyleForRowAtIndexPath:(NSIndexPath*)indexPath
+{
+    return UITableViewCellEditingStyleNone;
+}
+
+- (CGFloat)tableView:(UITableView*)tableView heightForRowAtIndexPath:(NSIndexPath*)indexPath
+{
+    // if dynamic section make all rows the same height as row 0
+    if ([indexPath section] == 1) {
+        return [super tableView:tableView heightForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:[indexPath section]]];
+    } else {
+        return [super tableView:tableView heightForRowAtIndexPath:indexPath];
+    }
+}
+
+- (NSInteger)tableView:(UITableView*)tableView indentationLevelForRowAtIndexPath:(NSIndexPath*)indexPath
+{
+    // if dynamic section make all rows the same indentation level as row 0
+    if ([indexPath section] == 1) {
+        return [super tableView:tableView indentationLevelForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:[indexPath section]]];
+    } else {
+        return [super tableView:tableView indentationLevelForRowAtIndexPath:indexPath];
+    }
 }
 
 @end

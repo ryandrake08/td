@@ -101,6 +101,11 @@
 		94BB5FFB1B7F9F1600B33929 /* NSString+CamelCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 945410761B6E9A17001E3373 /* NSString+CamelCase.m */; };
 		94CC7F8F1CE8CF770081A8A0 /* TBPlanWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CC7F8D1CE8CF770081A8A0 /* TBPlanWindowController.m */; };
 		94CC7F901CE8CF770081A8A0 /* TBPlanWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94CC7F8E1CE8CF770081A8A0 /* TBPlanWindow.xib */; };
+		94CDDD1D1FE1826C008ADF24 /* TBChipTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CDDD1B1FE1826C008ADF24 /* TBChipTableViewCell.m */; };
+		94CDDD1E1FE1826C008ADF24 /* TBChipTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CDDD1B1FE1826C008ADF24 /* TBChipTableViewCell.m */; };
+		94CDDD1F1FE1826C008ADF24 /* TBChipTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94CDDD1C1FE1826C008ADF24 /* TBChipTableViewCell.xib */; };
+		94CDDD201FE1826C008ADF24 /* TBChipTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94CDDD1C1FE1826C008ADF24 /* TBChipTableViewCell.xib */; };
+		94CDDD231FE39299008ADF24 /* TBActionClockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CDDD221FE39299008ADF24 /* TBActionClockViewController.m */; };
 		94D04ECD1B7C59EB004F4245 /* s_break.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04EC81B7C59EB004F4245 /* s_break.caf */; };
 		94D04ECE1B7C59EB004F4245 /* s_break.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04EC81B7C59EB004F4245 /* s_break.caf */; };
 		94D04ECF1B7C59EB004F4245 /* s_next.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04EC91B7C59EB004F4245 /* s_next.caf */; };
@@ -554,6 +559,11 @@
 		94CC7F8C1CE8CF770081A8A0 /* TBPlanWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBPlanWindowController.h; path = TBMac/TBPlanWindowController.h; sourceTree = "<group>"; };
 		94CC7F8D1CE8CF770081A8A0 /* TBPlanWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TBPlanWindowController.m; path = TBMac/TBPlanWindowController.m; sourceTree = "<group>"; };
 		94CC7F8E1CE8CF770081A8A0 /* TBPlanWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TBPlanWindow.xib; path = TBMac/TBPlanWindow.xib; sourceTree = "<group>"; };
+		94CDDD1A1FE1826C008ADF24 /* TBChipTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBChipTableViewCell.h; sourceTree = "<group>"; };
+		94CDDD1B1FE1826C008ADF24 /* TBChipTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TBChipTableViewCell.m; sourceTree = "<group>"; };
+		94CDDD1C1FE1826C008ADF24 /* TBChipTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TBChipTableViewCell.xib; sourceTree = "<group>"; };
+		94CDDD211FE39299008ADF24 /* TBActionClockViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBActionClockViewController.h; sourceTree = "<group>"; };
+		94CDDD221FE39299008ADF24 /* TBActionClockViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TBActionClockViewController.m; sourceTree = "<group>"; };
 		94D04EC81B7C59EB004F4245 /* s_break.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = s_break.caf; sourceTree = "<group>"; };
 		94D04EC91B7C59EB004F4245 /* s_next.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = s_next.caf; sourceTree = "<group>"; };
 		94D04ECA1B7C59EB004F4245 /* s_rebalance.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = s_rebalance.caf; sourceTree = "<group>"; };
@@ -845,8 +855,13 @@
 			children = (
 				94F51CAB1BC96E61007AD1DD /* Setup */,
 				94F51CAA1BC96E4E007AD1DD /* Setup Details */,
+				94CDDD211FE39299008ADF24 /* TBActionClockViewController.h */,
+				94CDDD221FE39299008ADF24 /* TBActionClockViewController.m */,
 				9476F4551B3C385400A158F8 /* TBAppDelegate.h */,
 				9476F4561B3C385400A158F8 /* TBAppDelegate.m */,
+				94CDDD1A1FE1826C008ADF24 /* TBChipTableViewCell.h */,
+				94CDDD1B1FE1826C008ADF24 /* TBChipTableViewCell.m */,
+				94CDDD1C1FE1826C008ADF24 /* TBChipTableViewCell.xib */,
 				AD452D4D1BC6C685007CF579 /* TBChooseColorViewController.h */,
 				AD452D4E1BC6C685007CF579 /* TBChooseColorViewController.m */,
 				AD475C391BB62D0400DAE739 /* TBEditableTableViewCell.h */,
@@ -1504,6 +1519,7 @@
 				AD33BA431BABAD6B0011777C /* defaults.json in Resources */,
 				9476F46C1B3C385400A158F8 /* Main.storyboard in Resources */,
 				ADA5DAC01B949CB1004F50C8 /* s_warning.caf in Resources */,
+				94CDDD201FE1826C008ADF24 /* TBChipTableViewCell.xib in Resources */,
 				9476F46E1B3C385400A158F8 /* LaunchScreen.xib in Resources */,
 				9476F46D1B3C385400A158F8 /* TBRemote.xcassets in Resources */,
 			);
@@ -1594,6 +1610,7 @@
 				AD33BA421BABAC120011777C /* defaults.json in Resources */,
 				ADF6360F1BAB8AF800D019AE /* Main.storyboard in Resources */,
 				ADF636101BAB8AF800D019AE /* s_warning.caf in Resources */,
+				94CDDD1F1FE1826C008ADF24 /* TBChipTableViewCell.xib in Resources */,
 				ADF636111BAB8AF800D019AE /* LaunchScreen.xib in Resources */,
 				ADF636121BAB8AF800D019AE /* TBRemote.xcassets in Resources */,
 			);
@@ -1673,6 +1690,7 @@
 			files = (
 				AD2CA9601BAA70F9009A2384 /* TournamentSocketDirectory.c in Sources */,
 				94D04ED81B7C6A5C004F4245 /* TBCurrencyNumberFormatter.m in Sources */,
+				94CDDD1E1FE1826C008ADF24 /* TBChipTableViewCell.m in Sources */,
 				ADD73D2B1B9692E1006824A1 /* NSDictionary+Changed.m in Sources */,
 				9462A3E91B77CB3B00B29002 /* TTTOrdinalNumberFormatter.m in Sources */,
 				ADE299B11B7B9BCB00F1393B /* TBSound.m in Sources */,
@@ -1830,6 +1848,7 @@
 				ADF635E81BAB8AF800D019AE /* TTTOrdinalNumberFormatter.m in Sources */,
 				94F51CAE1BC96F53007AD1DD /* TBTableViewController.m in Sources */,
 				ADF635E91BAB8AF800D019AE /* TBSound.m in Sources */,
+				94CDDD1D1FE1826C008ADF24 /* TBChipTableViewCell.m in Sources */,
 				ADF635EA1BAB8AF800D019AE /* TBAppDelegate.m in Sources */,
 				ADF635EB1BAB8AF800D019AE /* types.cpp in Sources */,
 				AD6256A81BB44DB200EE776A /* TBSetupDetailsFundingViewController.m in Sources */,
@@ -1851,6 +1870,7 @@
 				AD6256F61BB4525A00EE776A /* TBAuthCodeNumberFormatter.m in Sources */,
 				ADF635F51BAB8AF800D019AE /* TournamentSession.m in Sources */,
 				ADF635F61BAB8AF800D019AE /* NSObject+AssociatedObject.m in Sources */,
+				94CDDD231FE39299008ADF24 /* TBActionClockViewController.m in Sources */,
 				ADF635F71BAB8AF800D019AE /* TBColor+CSS.m in Sources */,
 				ADF635F81BAB8AF800D019AE /* server.cpp in Sources */,
 				ADF635F91BAB8AF800D019AE /* TournamentBrowser.m in Sources */,

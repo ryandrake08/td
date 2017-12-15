@@ -12,6 +12,11 @@
 
 @implementation TBEllipseView
 
+- (void)setColor:(UIColor*)color {
+    _color = color;
+    [self setNeedsDisplay];
+}
+
 - (void)drawRect:(CGRect)rect {
     // Get graphics context
     CGContextRef ctx = UIGraphicsGetCurrentContext();

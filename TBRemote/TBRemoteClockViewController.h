@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TBRemoteClockViewController : UIViewController
+@interface TBRemoteClockViewController : UITableViewController
 
 @end
