@@ -50,6 +50,7 @@ void gameinfo::configure(const json& config)
     config.get_value("name", this->name);
     config.get_values("funding_sources", this->funding_sources);
     config.get_value("percent_seats_paid", this->percent_seats_paid);
+    config.get_value("previous_blind_level_hold_duration", this->previous_blind_level_hold_duration);
 
     if(config.get_values("available_chips", this->available_chips))
     {
@@ -136,6 +137,7 @@ void gameinfo::dump_configuration(json& config) const
     config.set_value("players", json(this->players.begin(), this->players.end()));
     config.set_value("table_capacity", this->table_capacity);
     config.set_value("percent_seats_paid", this->percent_seats_paid);
+    config.set_value("previous_blind_level_hold_duration", this->previous_blind_level_hold_duration);
     config.set_value("funding_sources", json(this->funding_sources.begin(), this->funding_sources.end()));
     config.set_value("blind_levels", json(this->blind_levels.begin(), this->blind_levels.end()));
     config.set_value("available_chips", json(this->available_chips.begin(), this->available_chips.end()));
