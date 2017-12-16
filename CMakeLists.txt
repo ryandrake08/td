@@ -7,6 +7,10 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
 	set(MACOSX TRUE)
 endif()
 
+find_library(AVAHI_LIBRARY-COMMON NAMES avahi-common)
+find_library(AVAHI_LIBRARY-CLIENT NAMES avahi-client)
+set(AVAHI_LIBRARIES ${AVAHI_LIBRARY-COMMON} ${AVAHI_LIBRARY-CLIENT})
+
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -Wextra")
 set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -O0 -ggdb -DDEBUG=1")
@@ -28,7 +32,7 @@ if(FALSE AND CLANG_TIDY_EXE)
 endif()
 
 add_executable(tournamentd_test tournamentd/test.cpp tournamentd/tests.cpp)
-target_link_libraries(tournamentd_test td cJSON)
+target_link_libraries(tournamentd_test td cJSON ${AVAHI_LIBRARIES})
 
 add_executable(tournamentd tournamentd/main.cpp tournamentd/program.cpp)
-target_link_libraries(tournamentd td cJSON)
+target_link_libraries(tournamentd td cJSON ${AVAHI_LIBRARIES})

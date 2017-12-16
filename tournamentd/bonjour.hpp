@@ -8,7 +8,6 @@ class bonjour_publisher
     std::unique_ptr<impl> pimpl;
 
 public:
-    // empty destructor, so we can use unique_ptr above
     bonjour_publisher();
     ~bonjour_publisher();
 

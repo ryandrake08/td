@@ -6,8 +6,8 @@
 
 class program
 {
-    tournament tourney;
     bonjour_publisher publisher;
+    tournament tourney;
 
 public:
     // Create a program, given command line options
