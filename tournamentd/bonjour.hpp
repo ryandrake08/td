@@ -1,6 +1,5 @@
 #pragma once
 #include <memory>
-#include <string>
 
 class bonjour_publisher
 {
@@ -13,5 +12,5 @@ public:
     bonjour_publisher();
     ~bonjour_publisher();
 
-    void publish(const std::string& name, int port);
+    void publish(const char* name, int port);
 };

@@ -33,14 +33,14 @@ class bonjour_publisher::impl
     }
 
 public:
-    impl(const std::string& name, int port)
+    impl(const char* name, int port)
     {
         logger(LOG_INFO) << "setting up bonjour service for " << name << " with port " << port << '\n';
 
         // describe net service
         CFStringRef theDomain = CFSTR("local.");
         CFStringRef serviceType = CFSTR("_tournbuddy._tcp");
-        CFStringRef serviceName = CFStringCreateWithCString(kCFAllocatorDefault, name.c_str(), kCFStringEncodingUTF8);
+        CFStringRef serviceName = CFStringCreateWithCString(kCFAllocatorDefault, name, kCFStringEncodingUTF8);
 
         // create net service
         netService = CFNetServiceCreate(nullptr, theDomain, serviceType, serviceName, port);
@@ -78,7 +78,7 @@ public:
 class bonjour_publisher::impl
 {
 public:
-    impl(const std::string& /* name */, int /* port */)
+    impl(const char* /* name */, int /* port */)
     {
     }
 
@@ -89,7 +89,7 @@ public:
 bonjour_publisher::bonjour_publisher() = default;
 bonjour_publisher::~bonjour_publisher() = default;
 
-void bonjour_publisher::publish(const std::string& name, int port)
+void bonjour_publisher::publish(const char* name, int port)
 {
     this->pimpl = std::unique_ptr<impl>(new impl(name, port));
 }
