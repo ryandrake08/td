@@ -144,7 +144,13 @@ class bonjour_publisher::impl
             {
                 logger(LOG_DEBUG) << "freeing poller\n";
 
-                avahi_threaded_poll_free(this->threaded_poll);
+                // stop
+                avahi_threaded_poll_stop(this->threaded_poll);
+
+                // avahi bug: looks like avahi_client_free will try to free this for us, causing double-free if we free it here
+                // might be fixed in avahi 0.7
+                //avahi_threaded_poll_free(this->threaded_poll);
+                this->threaded_poll = nullptr;
             }
         }
 
@@ -230,7 +236,7 @@ class bonjour_publisher::impl
                     /* A service name collision with a remote service
                      * happened. Let's pick a new name */
                     logger(LOG_DEBUG) << "AVAHI_ENTRY_GROUP_COLLISION\n";
-                    this->publish(avahi_group::alternative_name(this->service_name), this->service_port);
+                    this->add_service   (avahi_group::alternative_name(this->service_name), this->service_port);
                     break;
 
                 }
@@ -256,7 +262,7 @@ class bonjour_publisher::impl
             reinterpret_cast<bonjour_publisher::impl::avahi_group*>(userdata)->callback(g, state);
         }
 
-        void publish(const std::string& name, int port)
+        void add_service(const std::string& name, int port)
         {
             if(avahi_entry_group_is_empty(this->group))
             {
@@ -285,7 +291,7 @@ class bonjour_publisher::impl
                     this->reset();
 
                     // try re-publishing
-                    this->publish(avahi_group::alternative_name(name), port);
+                    this->add_service(avahi_group::alternative_name(name), port);
                 }
                 else if(ret != 0)
                 {
@@ -306,16 +312,17 @@ class bonjour_publisher::impl
     public:
         avahi_group(const char* name, int port) : group(nullptr), service_name(name), service_port(port)
         {
-            logger(LOG_DEBUG) << "entry group construction\n";
+            logger(LOG_DEBUG) << "constructing entry group object\n";
         }
 
         ~avahi_group()
         {
-            logger(LOG_DEBUG) << "entry group destruction\n";
-
             if(this->group != nullptr)
             {
+                logger(LOG_DEBUG) << "freeing entry group\n";
+
                 avahi_entry_group_free(this->group);
+                this->group = nullptr;
             }
         }
 
@@ -324,6 +331,8 @@ class bonjour_publisher::impl
         {
             if(this->group == nullptr)
             {
+                logger(LOG_DEBUG) << "creating entry group\n";
+
                 this->group = avahi_entry_group_new(c, static_callback, this);
                 if(this->group == nullptr)
                 {
@@ -332,12 +341,12 @@ class bonjour_publisher::impl
             }
 
             // publish the service
-            publish(this->service_name, this->service_port);
+            add_service(this->service_name, this->service_port);
         }
 
         void reset()
         {
-            logger(LOG_DEBUG) << "entry group reset\n";
+            logger(LOG_DEBUG) << "resetting entry group\n";
 
             if(this->group != nullptr)
             {
@@ -431,8 +440,10 @@ public:
         // free client
         if(this->client != nullptr)
         {
+            logger(LOG_DEBUG) << "freeing avahi client\n";
+
             avahi_client_free(this->client);
-            logger(LOG_DEBUG) << "freed the client\n";
+            this->client = nullptr;
         }
     }
 };
