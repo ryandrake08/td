@@ -49,7 +49,7 @@
 @property (weak) IBOutlet NSWindow* mainWindow;
 
 // Keep track of last seating plan size
-@property (assign) NSInteger lastMaxPlayers;
+@property (assign) NSUInteger lastMaxPlayers;
 
 @end
 
@@ -196,8 +196,8 @@
 
 #pragma mark Operations
 
-- (void)planSeatingFor:(NSInteger)maxPlayers {
-    NSLog(@"Planning seating for %ld players", maxPlayers);
+- (void)planSeatingFor:(NSUInteger)maxPlayers {
+    NSLog(@"Planning seating for %lu players", (unsigned long)maxPlayers);
     if(maxPlayers > 1) {
         [[self session] planSeatingFor:@(maxPlayers)];
         [self setLastMaxPlayers:maxPlayers];

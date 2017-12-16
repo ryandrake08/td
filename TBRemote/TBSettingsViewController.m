@@ -23,7 +23,7 @@
 @property (nonatomic, strong) NSMutableDictionary* configuration;
 
 // number of players to plan for
-@property (nonatomic) NSInteger maxPlayers;
+@property (nonatomic) NSUInteger maxPlayers;
 
 @end
 
@@ -132,23 +132,23 @@
                 break;
             }
             case 1:
-                detail = [NSString stringWithFormat:@"%ld", [[self configuration][@"players"] count]];
+                detail = [NSString stringWithFormat:@"%lu", (unsigned long)[[self configuration][@"players"] count]];
                 [(UILabel*)[cell viewWithTag:100] setText:detail];
                 break;
             case 2:
-                detail = [NSString stringWithFormat:@"%ld", [[self configuration][@"available_chips"] count]];
+                detail = [NSString stringWithFormat:@"%lu", (unsigned long)[[self configuration][@"available_chips"] count]];
                 [(UILabel*)[cell viewWithTag:100] setText:detail];
                 break;
             case 3:
-                detail = [NSString stringWithFormat:@"%ld", [[self configuration][@"funding_sources"] count ]];
+                detail = [NSString stringWithFormat:@"%lu", (unsigned long)[[self configuration][@"funding_sources"] count ]];
                 [(UILabel*)[cell viewWithTag:100] setText:detail];
                 break;
             case 4:
-                detail = [NSString stringWithFormat:@"%ld", [[self configuration][@"blind_levels"] count]-1];
+                detail = [NSString stringWithFormat:@"%lu", (unsigned long)[[self configuration][@"blind_levels"] count]-1];
                 [(UILabel*)[cell viewWithTag:100] setText:detail];
                 break;
             case 5:
-                detail = [NSString stringWithFormat:@"%ld", [[self configuration][@"authorized_clients"] count]-1];
+                detail = [NSString stringWithFormat:@"%lu", (unsigned long)[[self configuration][@"authorized_clients"] count]-1];
                 [(UILabel*)[cell viewWithTag:100] setText:detail];
                 break;
             case 6:
@@ -160,7 +160,7 @@
     } else if(indexPath.section == 1) {
         switch(indexPath.row) {
             case 0:
-                detail = [NSString stringWithFormat:@"%ld", [self maxPlayers]];
+                detail = [NSString stringWithFormat:@"%lu", (unsigned long)[self maxPlayers]];
                 [(UILabel*)[cell viewWithTag:101] setText:detail];
 
                 UIStepper* stepper = (UIStepper*)[cell viewWithTag:100];
@@ -199,7 +199,7 @@
 #pragma mark Operations
 
 - (void)planSeating {
-    NSLog(@"Planning seating for %ld players", [self maxPlayers]);
+    NSLog(@"Planning seating for %lu players", (unsigned long)[self maxPlayers]);
     if([self maxPlayers] > 1) {
         [[self session] planSeatingFor:@([self maxPlayers])];
     }
