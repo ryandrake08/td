@@ -30,84 +30,84 @@
 //------------------------------------------------------------------------------------//
 
 /// The seconds property. Used to set up the second hand. Default value is 0.
-@property (nonatomic) double seconds;
+@property (nonatomic) IBInspectable double seconds;
 
 /// If set to YES, the hands will cast a shadow. Default value is YES.
-@property (nonatomic) BOOL enableShadows;
+@property (nonatomic) IBInspectable BOOL enableShadows;
 
 /// If set to YES, the graduation on the clock will be visible. See the methods bellow to costumize the graduations. Default value is YES.
-@property (nonatomic) BOOL enableGraduations;
+@property (nonatomic) IBInspectable BOOL enableGraduations;
 
 /// If set to YES, the digits (5-60) will be displayed on the face of the clock. Default value is YES.
-@property (nonatomic) BOOL enableDigit;
+@property (nonatomic) IBInspectable BOOL enableDigit;
 
 /// If set to YES, the countdown arc will be displayed on the face of the clock. Default value is YES.
-@property (nonatomic) BOOL enableArc;
+@property (nonatomic) IBInspectable BOOL enableArc;
 
 
 //----- CLOCK'S FACE CUSTOMIZATION -----//
 
 /// The background color of the clock's face.
-@property (nonatomic, strong) TBColor* faceBackgroundColor;
+@property (nonatomic, strong) IBInspectable TBColor* faceBackgroundColor;
 
 /// The alpha of the clock's face.
-@property (nonatomic) CGFloat faceBackgroundAlpha;
+@property (nonatomic) IBInspectable CGFloat faceBackgroundAlpha;
 
 /// The color of the clock's border.
-@property (nonatomic, strong) TBColor* borderColor;
+@property (nonatomic, strong) IBInspectable TBColor* borderColor;
 
 /// The alpha of the clock's border.
-@property (nonatomic) CGFloat borderAlpha;
+@property (nonatomic) IBInspectable CGFloat borderAlpha;
 
 /// The width of the clock's border.
-@property (nonatomic) CGFloat borderWidth;
+@property (nonatomic) IBInspectable CGFloat borderWidth;
 
 /// The font of the digits appearing inside the clock
-@property (nonatomic, strong) TBFont* digitFont;
+@property (nonatomic, strong) IBInspectable TBFont* digitFont;
 
 /// The color of the digits appearing inside the clock
-@property (nonatomic, strong) TBColor* digitColor;
+@property (nonatomic, strong) IBInspectable TBColor* digitColor;
 
 /// The offset for the position of the digits on the clock's face. A value >0 will make the digits appear further away from the center of the clock. A valut <0 will make them closer to the center of the clock. Default value is 0.0.
-@property (nonatomic) CGFloat digitOffset;
+@property (nonatomic) IBInspectable CGFloat digitOffset;
 
 
 //----- ARC CUSTOMIZATION -----//
 
 /// The background color of the countdown arc
-@property (nonatomic, strong) TBColor* arcBackgroundColor;
+@property (nonatomic, strong) IBInspectable TBColor* arcBackgroundColor;
 
 /// The alpha of the countdown arc.
-@property (nonatomic) CGFloat arcBackgroundAlpha;
+@property (nonatomic) IBInspectable CGFloat arcBackgroundAlpha;
 
 /// The color of the countdown arc's border.
-@property (nonatomic, strong) TBColor* arcBorderColor;
+@property (nonatomic, strong) IBInspectable TBColor* arcBorderColor;
 
 /// The alpha of the countdown arc's border.
-@property (nonatomic) CGFloat arcBorderAlpha;
+@property (nonatomic) IBInspectable CGFloat arcBorderAlpha;
 
 /// The width of the countdown arc's border.
-@property (nonatomic) CGFloat arcBorderWidth;
+@property (nonatomic) IBInspectable CGFloat arcBorderWidth;
 
 /// If YES, arc fills in as clock counts down to zero. Default value is YES.
-@property (nonatomic) BOOL arcFillsIn;
+@property (nonatomic) IBInspectable BOOL arcFillsIn;
 
 //----- HAND CUSTOMIZATION -----//
 
 /// The color of the clock's hand. Default value is whiteColor.
-@property (nonatomic, strong) TBColor* handColor;
+@property (nonatomic, strong) IBInspectable TBColor* handColor;
 
 /// The alpha of the clock's hand. Default value is 1.0.
-@property (nonatomic) CGFloat handAlpha;
+@property (nonatomic) IBInspectable CGFloat handAlpha;
 
 /// The width of the clock's hand. Default value is 1.0.
-@property (nonatomic) CGFloat handWidth;
+@property (nonatomic) IBInspectable CGFloat handWidth;
 
 /// The length of the clock's hand. Default value is 60.
-@property (nonatomic) CGFloat handLength;
+@property (nonatomic) IBInspectable CGFloat handLength;
 
 /// The length of the offside part of the clock's hand. Default value is 20.
-@property (nonatomic) CGFloat handOffsideLength;
+@property (nonatomic) IBInspectable CGFloat handOffsideLength;
 
 @end
 

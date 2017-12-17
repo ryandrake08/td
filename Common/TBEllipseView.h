@@ -11,6 +11,6 @@
 @interface TBEllipseView : UIView
 
 // Ellipse color
-@property (nonatomic, strong) UIColor* color;
+@property (nonatomic, strong) IBInspectable UIColor* color;
 
 @end
