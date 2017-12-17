@@ -243,9 +243,9 @@ void tournament::handle_cmd_seat_player(const json& in, json& out)
 
     json player_seated;
     player_seated.set_value("player_id", player_id);
-    player_seated.set_value("table_number", seating.table_number);
-    player_seated.set_value("seat_number", seating.seat_number);
-    out.set_value("player_seated", player_seated);
+    player_seated.set_value("table_number", seating.second.table_number);
+    player_seated.set_value("seat_number", seating.second.seat_number);
+    out.set_value(seating.first.c_str(), player_seated);
 }
 
 void tournament::handle_cmd_unseat_player(const json& in, json& out)

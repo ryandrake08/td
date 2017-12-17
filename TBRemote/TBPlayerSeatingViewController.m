@@ -186,9 +186,10 @@
 
         NSMutableArray* commands = [[NSMutableArray alloc] initWithObjects:@0, nil];
 
-        if(indexPath.section == 0) {
-            NSNumber* currentBlindLevel = [[self session] state][@"current_blind_level"];
+        // action sheet buttons depend on current blind level
+        NSNumber* currentBlindLevel = [[self session] state][@"current_blind_level"];
 
+        if(indexPath.section == 0) {
             // get player for this row
             player = [self seatedPlayers][[indexPath row]];
 
@@ -217,6 +218,18 @@
             // set buttons
             [actionSheet addButtonWithTitle:NSLocalizedString(@"Seat Player", nil)];
             [commands addObject:@(kCommandSeatPlayer)];
+
+            // add buttons for any eligible (buyin only) funding sources
+            [[[self session] state][@"funding_sources"] enumerateObjectsUsingBlock:^(id source, NSUInteger idx, BOOL* stop) {
+                NSNumber* last = source[@"forbid_after_blind_level"];
+                if([source[@"type"] isEqual:kFundingTypeBuyin]) {
+                    if(last == nil || !([last compare:currentBlindLevel] == NSOrderedAscending)) {
+                        NSString* titleString = [@"Seat Player + " stringByAppendingString:source[@"name"]];
+                        [actionSheet addButtonWithTitle:titleString];
+                        [commands addObject:@(idx)];
+                    }
+                }
+            }];
         } else {
             return;
         }
@@ -255,6 +268,7 @@
                 break;
 
             default:
+                [[self session] seatPlayer:playerId withBlock:nil];
                 [[self session] fundPlayer:playerId withFunding:commands[buttonIndex]];
                 break;
         }

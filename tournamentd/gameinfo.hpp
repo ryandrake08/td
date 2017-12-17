@@ -170,7 +170,7 @@ public:
 
     // add player to an existing game, returning player's seat
     // returns player's seat
-    td::seat add_player(const td::player_id_t& player_id);
+    std::pair<std::string, td::seat> add_player(const td::player_id_t& player_id);
 
     // remove a player from the game (as though player never existed in the game), returning seat removed from
     td::seat remove_player(const td::player_id_t& player_id);

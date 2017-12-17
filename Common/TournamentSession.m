@@ -263,7 +263,7 @@ NSString* const TournamentSessionUpdatedNotification = @"TournamentSessionUpdate
     [self sendCommand:@"plan_seating" withData:@{@"max_expected_players" : expectedPlayers} andBlock:nil];
 }
 
-- (void)seatPlayer:(id)playerId withBlock:(void(^)(id,NSNumber*,NSNumber*))block {
+- (void)seatPlayer:(id)playerId withBlock:(void(^)(id,NSNumber*,NSNumber*,BOOL))block {
     [self sendCommand:@"seat_player" withData:@{@"player_id" : playerId} andBlock:^(id json, NSString* error) {
         if(error != nil) {
             NSLog(@"seatPlayerWithBlock: %@\n", error);
@@ -272,11 +272,18 @@ NSString* const TournamentSessionUpdatedNotification = @"TournamentSessionUpdate
             id playerSeated = json[@"player_seated"];
             if(playerSeated) {
                 if(block != nil) {
-                    block(playerSeated[@"player_id"], playerSeated[@"table_number"], playerSeated[@"seat_number"]);
+                    block(playerSeated[@"player_id"], playerSeated[@"table_number"], playerSeated[@"seat_number"], NO);
                 }
             } else {
-                if(block != nil) {
-                    block(nil, nil, nil);
+                id alreadySeated = json[@"already_seated"];
+                if(alreadySeated) {
+                    if(block != nil) {
+                        block(alreadySeated[@"player_id"], alreadySeated[@"table_number"], alreadySeated[@"seat_number"], YES);
+                    }
+                } else {
+                    if(block != nil) {
+                        block(nil, nil, nil, NO);
+                    }
                 }
             }
         }

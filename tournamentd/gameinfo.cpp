@@ -521,7 +521,7 @@ std::size_t gameinfo::plan_seating(std::size_t max_expected_players)
 }
 
 // add player to an existing game
-td::seat gameinfo::add_player(const td::player_id_t& player_id)
+std::pair<std::string, td::seat> gameinfo::add_player(const td::player_id_t& player_id)
 {
     logger(LOG_INFO) << "adding player " << this->player_description(player_id) << " to game\n";
 
@@ -535,17 +535,21 @@ td::seat gameinfo::add_player(const td::player_id_t& player_id)
 
     if(seat_it != this->seats.end())
     {
-        throw td::protocol_error("tried to add player already seated");
+        auto seat(seat_it->second);
+        logger(LOG_INFO) << "player " << this->player_description(player_id) << " already seated at table " << seat.table_number << ", seat " << seat.seat_number << '\n';
+        return std::make_pair("already_seated", seat);
     }
+    else
+    {
+        // seat player and remove from empty list
+        auto seat(this->empty_seats.front());
+        this->seats.insert(std::make_pair(player_id, seat));
+        this->empty_seats.pop_front();
 
-    // seat player and remove from empty list
-    auto seat(this->empty_seats.front());
-    this->seats.insert(std::make_pair(player_id, seat));
-    this->empty_seats.pop_front();
+        logger(LOG_INFO) << "seated player " << this->player_description(player_id) << " at table " << seat.table_number << ", seat " << seat.seat_number << '\n';
 
-    logger(LOG_INFO) << "seated player " << this->player_description(player_id) << " at table " << seat.table_number << ", seat " << seat.seat_number << '\n';
-
-    return seat;
+        return std::make_pair("player_seated", seat);
+    }
 }
 
 // remove a player
