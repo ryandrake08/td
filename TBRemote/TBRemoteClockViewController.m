@@ -99,9 +99,9 @@
 
     [[self KVOController] observe:[[self session] state] keyPath:@"background_color" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
         // Set the background color on the view
-        NSString* colorName = object[@"background_color"];
-        if(colorName != nil) {
-            TBColor* color = [TBColor colorWithName:colorName];
+        NSString* backgroundColorName = object[@"background_color"];
+        if(backgroundColorName != nil) {
+            TBColor* color = [TBColor colorWithName:backgroundColorName];
             [[observer view] setBackgroundColor:color];
 
             // Set text label appearance to a complementary color
@@ -187,7 +187,8 @@
     if(section == 0) {
         return [super tableView:tableView numberOfRowsInSection:section];
     } else if(section == 1) {
-        return [[[self session] state][@"available_chips"] count];
+        NSArray* availableChips = [[self session] state][@"available_chips"];
+        return [availableChips count];
     } else {
         return 0;
     }
@@ -197,9 +198,14 @@
     if([indexPath section] == 0) {
         return [super tableView:tableView cellForRowAtIndexPath:indexPath];
     } else if([indexPath section] == 1) {
+        // relevent state
+        NSArray* availableChips = [[self session] state][@"available_chips"];
+        //NSString* backgroundColorName = [[self session] state][@"background_color"];
+        //TBColor* color = [TBColor colorWithName:backgroundColorName];
+
         // create a cell
         TBChipTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"ChipCell" forIndexPath:indexPath];
-        [cell setChip:[[self session] state][@"available_chips"][indexPath.row]];
+        [cell setChip:availableChips[indexPath.row] withInvertedImage:NO];
         return cell;
     } else {
         return nil;

@@ -23,7 +23,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
-                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" tag="101" contentMode="scaleToFill" fixedFrame="YES" image="i_chip" translatesAutoresizingMaskIntoConstraints="NO" id="zNf-dl-iBR">
+                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" tag="101" contentMode="scaleToFill" fixedFrame="YES" image="i_chip" translatesAutoresizingMaskIntoConstraints="NO" id="zNf-dl-iBR" customClass="TBInvertableImageView">
                         <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -40,6 +40,7 @@
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
+                <outlet property="backgroundImageView" destination="zNf-dl-iBR" id="ZNG-bS-21R"/>
                 <outlet property="colorEllipseView" destination="bTb-dm-adj" id="HsW-FP-lIU"/>
                 <outlet property="valueLabel" destination="8OA-vD-WiT" id="LnJ-6j-Q2P"/>
             </connections>

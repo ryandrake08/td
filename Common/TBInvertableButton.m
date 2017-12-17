@@ -23,6 +23,7 @@
         _originalImages = [[NSMutableDictionary alloc] init];
     }
 
+    // lookup in cache for given state
     UIImage* image = [[self originalImages] objectForKey:@(state)];
     if(image == nil) {
         // first time lookup: assume existing image is original
@@ -33,21 +34,20 @@
         }
     }
 
-    // lookup in cache for given state
     return image;
 }
 
 - (void)setImageInverted:(BOOL)inverted forState:(UIControlState)state {
     // get original image
-    UIImage* originalImage = [self originalImageForState:state];
-    if(originalImage == nil) {
+    UIImage* original = [self originalImageForState:state];
+    if(original == nil) {
         NSLog(@"TBInvertableButton: Original image is nil");
     }
 
     if(inverted) {
-        [self setImage:[originalImage invertedImage] forState:state];
+        [self setImage:[original invertedImage] forState:state];
     } else {
-        [self setImage:originalImage forState:state];
+        [self setImage:original forState:state];
     }
 }
 

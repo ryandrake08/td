@@ -10,6 +10,6 @@
 
 @interface TBChipTableViewCell : UITableViewCell
 
-- (void)setChip:(NSDictionary*) chip;
+- (void)setChip:(NSDictionary*)chip withInvertedImage:(BOOL)inverted;
 
 @end

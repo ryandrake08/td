@@ -66,6 +66,8 @@
 		9457DAC31FE6AB310047DF29 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9457DABE1FE6AB0F0047DF29 /* CoreGraphics.framework */; };
 		9457DAC41FE6AB370047DF29 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9457DABA1FE6AAEA0047DF29 /* CoreImage.framework */; };
 		9457DAC51FE6AB400047DF29 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9457DABC1FE6AAF50047DF29 /* UIKit.framework */; };
+		9457DAC81FE6B1520047DF29 /* TBInvertableImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9457DAC71FE6B1520047DF29 /* TBInvertableImageView.m */; };
+		9457DAC91FE6B1520047DF29 /* TBInvertableImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9457DAC71FE6B1520047DF29 /* TBInvertableImageView.m */; };
 		9462A3E31B77376000B29002 /* NSFont+LineHeight.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEAF41B5AE7390026B25D /* NSFont+LineHeight.m */; };
 		9462A3E41B77376000B29002 /* NSView+BackgroundColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEAF71B5AE7920026B25D /* NSView+BackgroundColor.m */; };
 		9462A3E71B77CB3B00B29002 /* TTTOrdinalNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9462A3E61B77CB3B00B29002 /* TTTOrdinalNumberFormatter.m */; };
@@ -565,6 +567,8 @@
 		9457DABC1FE6AAF50047DF29 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.2.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		9457DABE1FE6AB0F0047DF29 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.2.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
 		9457DAC01FE6AB170047DF29 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.2.sdk/System/Library/Frameworks/CFNetwork.framework; sourceTree = DEVELOPER_DIR; };
+		9457DAC61FE6B1520047DF29 /* TBInvertableImageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBInvertableImageView.h; sourceTree = "<group>"; };
+		9457DAC71FE6B1520047DF29 /* TBInvertableImageView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TBInvertableImageView.m; sourceTree = "<group>"; };
 		9462A3E51B77CB3B00B29002 /* TTTOrdinalNumberFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTOrdinalNumberFormatter.h; sourceTree = "<group>"; };
 		9462A3E61B77CB3B00B29002 /* TTTOrdinalNumberFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTOrdinalNumberFormatter.m; sourceTree = "<group>"; };
 		9462A3EA1B77F40500B29002 /* TBMovementWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBMovementWindowController.h; path = TBMac/TBMovementWindowController.h; sourceTree = "<group>"; };
@@ -1101,6 +1105,8 @@
 				AD87A6D81BA2094400E55961 /* TBEllipseView.m */,
 				9457DAB61FE695AC0047DF29 /* TBInvertableButton.h */,
 				9457DAB71FE695AC0047DF29 /* TBInvertableButton.m */,
+				9457DAC61FE6B1520047DF29 /* TBInvertableImageView.h */,
+				9457DAC71FE6B1520047DF29 /* TBInvertableImageView.m */,
 				ADB3D19B1BC996C500A9AFFA /* TBNotifications.h */,
 				94562E6A1B65D9420017C692 /* TBResizeTextField.h */,
 				94562E6B1B65D9420017C692 /* TBResizeTextField.m */,
@@ -1795,6 +1801,7 @@
 				9439701F1B405DC000BB0413 /* TournamentService.m in Sources */,
 				949D709D1B3C440E008D5CD1 /* json.cpp in Sources */,
 				9457DAB51FE6934C0047DF29 /* UIImage+Inverted.m in Sources */,
+				9457DAC91FE6B1520047DF29 /* TBInvertableImageView.m in Sources */,
 				94FDEAE71B5AE2D60026B25D /* CFStreamCreatePairWithUnixSocket.c in Sources */,
 				AD87A6DB1BA2094400E55961 /* TBEllipseView.m in Sources */,
 				9476F46B1B3C385400A158F8 /* TBRemoteClockViewController.m in Sources */,
@@ -1939,6 +1946,7 @@
 				ADF635E51BAB8AF800D019AE /* TournamentSocketDirectory.c in Sources */,
 				ADF635E61BAB8AF800D019AE /* TBCurrencyNumberFormatter.m in Sources */,
 				ADF635E71BAB8AF800D019AE /* NSDictionary+Changed.m in Sources */,
+				9457DAC81FE6B1520047DF29 /* TBInvertableImageView.m in Sources */,
 				ADF635E81BAB8AF800D019AE /* TTTOrdinalNumberFormatter.m in Sources */,
 				94F51CAE1BC96F53007AD1DD /* TBTableViewController.m in Sources */,
 				ADF635E91BAB8AF800D019AE /* TBSound.m in Sources */,
