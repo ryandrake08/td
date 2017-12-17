@@ -529,7 +529,7 @@
         <!--Remote Clock-->
         <scene sceneID="54L-L6-6mf">
             <objects>
-                <tableViewController id="npP-K3-F9m" userLabel="Remote Clock" customClass="TBRemoteClockViewController" sceneMemberID="viewController">
+                <tableViewController definesPresentationContext="YES" id="npP-K3-F9m" userLabel="Remote Clock" customClass="TBRemoteClockViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="xJm-8v-Hwa">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -880,7 +880,7 @@
                         <outlet property="pauseResumeButton" destination="WgK-tj-SLQ" id="421-Uh-P2N"/>
                         <outlet property="playersLeftLabel" destination="ffF-bI-CzQ" id="AcJ-Bg-jMV"/>
                         <outlet property="previousRoundButton" destination="k84-f3-2T1" id="4YW-VG-spw"/>
-                        <segue destination="KPD-fd-iAQ" kind="modal" identifier="presentActionClockView" modalTransitionStyle="crossDissolve" id="pp9-zk-Hwi"/>
+                        <segue destination="KPD-fd-iAQ" kind="modal" identifier="presentActionClockView" modalTransitionStyle="flipHorizontal" id="pp9-zk-Hwi"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fZR-tR-VJS" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -890,7 +890,7 @@
         <!--Action Clock-->
         <scene sceneID="2dU-Hq-Xf1">
             <objects>
-                <viewController id="KPD-fd-iAQ" userLabel="Action Clock" customClass="TBActionClockViewController" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="overCurrentContext" id="KPD-fd-iAQ" userLabel="Action Clock" customClass="TBActionClockViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="EyN-NP-Gc8"/>
                         <viewControllerLayoutGuide type="bottom" id="WmS-EN-4SF"/>
@@ -899,8 +899,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IA3-yz-VIu" customClass="TBActionClockView">
-                                <rect key="frame" x="0.0" y="146" width="375" height="375"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IA3-yz-VIu" customClass="TBActionClockView" customModule="TBPhone">
+                                <rect key="frame" x="20" y="166" width="335" height="335"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <gestureRecognizers/>
                                 <constraints>
@@ -911,18 +911,18 @@
                                 </connections>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="IA3-yz-VIu" firstAttribute="centerX" secondItem="NEH-u1-WC3" secondAttribute="centerX" id="5tR-mG-kHR"/>
-                            <constraint firstItem="IA3-yz-VIu" firstAttribute="leading" secondItem="NEH-u1-WC3" secondAttribute="leading" priority="250" id="AUd-VH-C2v"/>
-                            <constraint firstItem="IA3-yz-VIu" firstAttribute="top" secondItem="EyN-NP-Gc8" secondAttribute="bottom" priority="250" id="Czo-8G-MBn"/>
-                            <constraint firstItem="IA3-yz-VIu" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="NEH-u1-WC3" secondAttribute="leading" id="Kxn-ag-YJ2"/>
+                            <constraint firstItem="IA3-yz-VIu" firstAttribute="leading" secondItem="NEH-u1-WC3" secondAttribute="leading" priority="250" constant="20" symbolic="YES" id="AUd-VH-C2v"/>
+                            <constraint firstItem="IA3-yz-VIu" firstAttribute="top" secondItem="EyN-NP-Gc8" secondAttribute="bottom" priority="250" constant="8" symbolic="YES" id="Czo-8G-MBn"/>
+                            <constraint firstItem="IA3-yz-VIu" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="NEH-u1-WC3" secondAttribute="leading" constant="20" symbolic="YES" id="Kxn-ag-YJ2"/>
                             <constraint firstItem="IA3-yz-VIu" firstAttribute="centerY" secondItem="NEH-u1-WC3" secondAttribute="centerY" id="La3-n3-vyv"/>
-                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="IA3-yz-VIu" secondAttribute="trailing" id="WOk-sO-wt0"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="IA3-yz-VIu" secondAttribute="trailing" constant="20" symbolic="YES" id="WOk-sO-wt0"/>
                             <constraint firstAttribute="trailing" secondItem="IA3-yz-VIu" secondAttribute="trailing" priority="250" id="avq-q1-cSz"/>
-                            <constraint firstItem="WmS-EN-4SF" firstAttribute="top" secondItem="IA3-yz-VIu" secondAttribute="bottom" priority="250" id="cc7-VZ-uhR"/>
-                            <constraint firstItem="WmS-EN-4SF" firstAttribute="top" relation="greaterThanOrEqual" secondItem="IA3-yz-VIu" secondAttribute="bottom" id="eyN-k2-cXl"/>
-                            <constraint firstItem="IA3-yz-VIu" firstAttribute="top" relation="greaterThanOrEqual" secondItem="EyN-NP-Gc8" secondAttribute="bottom" id="gwZ-dd-X8Z"/>
+                            <constraint firstItem="WmS-EN-4SF" firstAttribute="top" secondItem="IA3-yz-VIu" secondAttribute="bottom" priority="250" constant="8" symbolic="YES" id="cc7-VZ-uhR"/>
+                            <constraint firstItem="WmS-EN-4SF" firstAttribute="top" relation="greaterThanOrEqual" secondItem="IA3-yz-VIu" secondAttribute="bottom" constant="8" symbolic="YES" id="eyN-k2-cXl"/>
+                            <constraint firstItem="IA3-yz-VIu" firstAttribute="top" relation="greaterThanOrEqual" secondItem="EyN-NP-Gc8" secondAttribute="bottom" constant="8" symbolic="YES" id="gwZ-dd-X8Z"/>
                         </constraints>
                     </view>
                     <connections>
