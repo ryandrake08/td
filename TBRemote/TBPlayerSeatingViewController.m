@@ -30,6 +30,9 @@
 // lookup
 @property (nonatomic, strong) NSDictionary* currencyImageLookup;
 
+// store funding source for buy-in
+@property (nonatomic, strong) NSDictionary* buyinFundingSource;
+
 @end
 
 @implementation TBPlayerSeatingViewController
@@ -39,6 +42,9 @@
 
     // get model
     _session = [(TBAppDelegate*)[[UIApplication sharedApplication] delegate] session];
+
+    // default currency image
+    [self setCurrencyImage:[UIImage imageNamed:@"b_note_dollar"]];
 
     // currency image lookup
     [self setCurrencyImageLookup:@{@"USD":[UIImage imageNamed:@"b_note_dollar"],
@@ -66,7 +72,29 @@
         [self setSeatedPlayers:[seated sortedArrayUsingDescriptors:@[tableNumberSort, seatNumberSort]]];
         [self setUnseatedPlayers:[unseated sortedArrayUsingDescriptors:@[nameSort]]];
 
-        // update table view cell
+        // update table view cells
+        [[observer tableView] reloadData];
+    }];
+
+    [[self KVOController] observe:[[self session] state] keyPaths:@[@"funding_sources"] options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
+        // find first buy-in
+        [object[@"funding_sources"] enumerateObjectsUsingBlock:^(id source, NSUInteger idx, BOOL* stop) {
+            if([source[@"type"] isEqual:kFundingTypeBuyin]) {
+                [self setBuyinFundingSource:source];
+                *stop = YES;
+            }
+        }];
+
+        // update currency image
+        NSString* buyinCurrency = [self buyinFundingSource][@"cost_currency"];
+        if(buyinCurrency != nil) {
+            UIImage* image = [self currencyImageLookup][buyinCurrency];
+            if(image) {
+                [self setCurrencyImage:image];
+            }
+        }
+
+        // update table view cells
         [[observer tableView] reloadData];
     }];
 }
