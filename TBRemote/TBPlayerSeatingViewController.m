@@ -203,12 +203,31 @@
                 [commands addObject:@(kCommandBustPlayer)];
             }
 
+            // BUSINESS LOGIC AROUND WHICH FUNDING SOURCES ARE ALLOWED WHEN
+
             // add buttons for each eligible funding source
             [[[self session] state][@"funding_sources"] enumerateObjectsUsingBlock:^(id source, NSUInteger idx, BOOL* stop) {
                 NSNumber* last = source[@"forbid_after_blind_level"];
                 if(last == nil || !([last compare:currentBlindLevel] == NSOrderedAscending)) {
-                    [actionSheet addButtonWithTitle:source[@"name"]];
-                    [commands addObject:@(idx)];
+                    if([source[@"type"] isEqual:kFundingTypeBuyin]) {
+                        // buyins can happen at any time before forbid_after_blind_level, for any non-playing player
+                        if(![player[@"buyin"] boolValue]) {
+                            [actionSheet addButtonWithTitle:source[@"name"]];
+                            [commands addObject:@(idx)];
+                        }
+                    } else if([source[@"type"] isEqual:kFundingTypeRebuy]) {
+                        // rebuys can happen after round 0, before forbid_after_blind_level, for any player
+                        if([currentBlindLevel unsignedIntegerValue] > 0) {
+                            [actionSheet addButtonWithTitle:source[@"name"]];
+                            [commands addObject:@(idx)];
+                        }
+                    } else {
+                        // addons can happen at any time before forbid_after_blind_level, for any playing player
+                        if([player[@"buyin"] boolValue]) {
+                            [actionSheet addButtonWithTitle:source[@"name"]];
+                            [commands addObject:@(idx)];
+                        }
+                    }
                 }
             }];
         } else if(indexPath.section == 1) {
@@ -222,11 +241,14 @@
             // add buttons for any eligible (buyin only) funding sources
             [[[self session] state][@"funding_sources"] enumerateObjectsUsingBlock:^(id source, NSUInteger idx, BOOL* stop) {
                 NSNumber* last = source[@"forbid_after_blind_level"];
-                if([source[@"type"] isEqual:kFundingTypeBuyin]) {
-                    if(last == nil || !([last compare:currentBlindLevel] == NSOrderedAscending)) {
-                        NSString* titleString = [@"Seat Player + " stringByAppendingString:source[@"name"]];
-                        [actionSheet addButtonWithTitle:titleString];
-                        [commands addObject:@(idx)];
+                if(last == nil || !([last compare:currentBlindLevel] == NSOrderedAscending)) {
+                    if([source[@"type"] isEqual:kFundingTypeBuyin]) {
+                        // buyins can happen at any time before forbid_after_blind_level, for any non-playing player
+                        if(![player[@"buyin"] boolValue]) {
+                            NSString* titleString = [@"Seat Player + " stringByAppendingString:source[@"name"]];
+                            [actionSheet addButtonWithTitle:titleString];
+                            [commands addObject:@(idx)];
+                        }
                     }
                 }
             }];
