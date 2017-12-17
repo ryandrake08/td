@@ -10,11 +10,14 @@
 
 @implementation TBColor (ContrastTextColor)
 
-- (TBColor*)contrastTextColor {
+- (BOOL)isDark {
     CGFloat r = 0.0f, g = 0.0f, b = 0.0f, a = 0.0f;
     [self getRed:&r green:&g blue:&b alpha:&a];
-    double luminance = 0.299f * r + 0.587f * g + 0.114f * b;
-    return luminance > 0.5 ? [TBColor blackColor] : [TBColor whiteColor];
+    return 0.299f * r + 0.587f * g + 0.114f * b < 0.5f;
+}
+
+- (TBColor*)contrastTextColor {
+    return [self isDark] ? [TBColor whiteColor] : [TBColor blackColor];
 }
 
 @end

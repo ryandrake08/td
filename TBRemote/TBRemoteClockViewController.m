@@ -7,12 +7,13 @@
 //
 
 #import "TBRemoteClockViewController.h"
-#import "TournamentSession.h"
-#import "TBEllipseView.h"
+#import "TBAppDelegate.h"
 #import "TBChipTableViewCell.h"
 #import "TBColor+CSS.h"
 #import "TBColor+ContrastTextColor.h"
-#import "TBAppDelegate.h"
+#import "TBEllipseView.h"
+#import "TBInvertableButton.h"
+#import "TournamentSession.h"
 
 #import "NSObject+FBKVOController.h"
 
@@ -28,10 +29,10 @@
 @property (nonatomic, weak) IBOutlet UILabel* nextRoundLabel;
 @property (nonatomic, weak) IBOutlet UILabel* playersLeftLabel;
 @property (nonatomic, weak) IBOutlet UILabel* averageStackLabel;
-@property (nonatomic, weak) IBOutlet UIButton* previousRoundButton;
-@property (nonatomic, weak) IBOutlet UIButton* pauseResumeButton;
-@property (nonatomic, weak) IBOutlet UIButton* nextRoundButton;
-@property (nonatomic, weak) IBOutlet UIButton* callClockButton;
+@property (nonatomic, weak) IBOutlet TBInvertableButton* previousRoundButton;
+@property (nonatomic, weak) IBOutlet TBInvertableButton* pauseResumeButton;
+@property (nonatomic, weak) IBOutlet TBInvertableButton* nextRoundButton;
+@property (nonatomic, weak) IBOutlet TBInvertableButton* callClockButton;
 
 @end
 
@@ -109,6 +110,17 @@
             } else {
                 [[UILabel appearanceWhenContainedInInstancesOfClasses:@[[TBRemoteClockViewController class]]] setTextColor:[color contrastTextColor]];
             }
+
+            // Invert button images if dark
+            BOOL dark = [color isDark];
+            [[self previousRoundButton] setImageInverted:dark forState:UIControlStateNormal];
+            [[self previousRoundButton] setImageInverted:dark forState:UIControlStateHighlighted];
+            [[self pauseResumeButton] setImageInverted:dark forState:UIControlStateNormal];
+            [[self pauseResumeButton] setImageInverted:dark forState:UIControlStateHighlighted];
+            [[self nextRoundButton] setImageInverted:dark forState:UIControlStateNormal];
+            [[self nextRoundButton] setImageInverted:dark forState:UIControlStateHighlighted];
+            [[self callClockButton] setImageInverted:dark forState:UIControlStateNormal];
+            [[self callClockButton] setImageInverted:dark forState:UIControlStateHighlighted];
         }
     }];
 

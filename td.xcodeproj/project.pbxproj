@@ -54,6 +54,18 @@
 		94562E681B65D8CA0017C692 /* TBDateStringTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 94562E631B65D8CA0017C692 /* TBDateStringTransformer.m */; };
 		94562E691B65D8CA0017C692 /* TBDurationNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 94562E651B65D8CA0017C692 /* TBDurationNumberFormatter.m */; };
 		94562E6C1B65D9420017C692 /* TBResizeTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 94562E6B1B65D9420017C692 /* TBResizeTextField.m */; };
+		9457DAB41FE6934C0047DF29 /* UIImage+Inverted.m in Sources */ = {isa = PBXBuildFile; fileRef = 9457DAB31FE6934C0047DF29 /* UIImage+Inverted.m */; };
+		9457DAB51FE6934C0047DF29 /* UIImage+Inverted.m in Sources */ = {isa = PBXBuildFile; fileRef = 9457DAB31FE6934C0047DF29 /* UIImage+Inverted.m */; };
+		9457DAB81FE695AC0047DF29 /* TBInvertableButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 9457DAB71FE695AC0047DF29 /* TBInvertableButton.m */; };
+		9457DAB91FE695AC0047DF29 /* TBInvertableButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 9457DAB71FE695AC0047DF29 /* TBInvertableButton.m */; };
+		9457DABB1FE6AAEA0047DF29 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9457DABA1FE6AAEA0047DF29 /* CoreImage.framework */; };
+		9457DABD1FE6AAF60047DF29 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9457DABC1FE6AAF50047DF29 /* UIKit.framework */; };
+		9457DABF1FE6AB0F0047DF29 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9457DABE1FE6AB0F0047DF29 /* CoreGraphics.framework */; };
+		9457DAC11FE6AB170047DF29 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9457DAC01FE6AB170047DF29 /* CFNetwork.framework */; };
+		9457DAC21FE6AB2A0047DF29 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9457DAC01FE6AB170047DF29 /* CFNetwork.framework */; };
+		9457DAC31FE6AB310047DF29 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9457DABE1FE6AB0F0047DF29 /* CoreGraphics.framework */; };
+		9457DAC41FE6AB370047DF29 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9457DABA1FE6AAEA0047DF29 /* CoreImage.framework */; };
+		9457DAC51FE6AB400047DF29 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9457DABC1FE6AAF50047DF29 /* UIKit.framework */; };
 		9462A3E31B77376000B29002 /* NSFont+LineHeight.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEAF41B5AE7390026B25D /* NSFont+LineHeight.m */; };
 		9462A3E41B77376000B29002 /* NSView+BackgroundColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEAF71B5AE7920026B25D /* NSView+BackgroundColor.m */; };
 		9462A3E71B77CB3B00B29002 /* TTTOrdinalNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9462A3E61B77CB3B00B29002 /* TTTOrdinalNumberFormatter.m */; };
@@ -79,9 +91,6 @@
 		9476F46D1B3C385400A158F8 /* TBRemote.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9476F45D1B3C385400A158F8 /* TBRemote.xcassets */; };
 		9476F46E1B3C385400A158F8 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9476F45F1B3C385400A158F8 /* LaunchScreen.xib */; };
 		9476F4721B3C385400A158F8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4651B3C385400A158F8 /* main.m */; };
-		9476F4761B3C3D6700A158F8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9476F4751B3C3D6700A158F8 /* UIKit.framework */; };
-		9476F4781B3C3D6E00A158F8 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9476F4771B3C3D6E00A158F8 /* CoreGraphics.framework */; };
-		9476F47A1B3C3D7400A158F8 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9476F4791B3C3D7400A158F8 /* CFNetwork.framework */; };
 		9476F4A21B3C3EA700A158F8 /* TournamentConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F47D1B3C3EA700A158F8 /* TournamentConnection.m */; };
 		9476F4A31B3C3EA700A158F8 /* TournamentConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F47D1B3C3EA700A158F8 /* TournamentConnection.m */; };
 		9476F4A41B3C3EA700A158F8 /* TournamentDaemon.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9476F47F1B3C3EA700A158F8 /* TournamentDaemon.mm */; };
@@ -322,9 +331,6 @@
 		ADF636061BAB8AF800D019AE /* TournamentConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F47D1B3C3EA700A158F8 /* TournamentConnection.m */; };
 		ADF636081BAB8AF800D019AE /* datetime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4D31B3C3F8300A158F8 /* datetime.cpp */; };
 		ADF636091BAB8AF800D019AE /* TournamentDaemon.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9476F47F1B3C3EA700A158F8 /* TournamentDaemon.mm */; };
-		ADF6360B1BAB8AF800D019AE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9476F4751B3C3D6700A158F8 /* UIKit.framework */; };
-		ADF6360C1BAB8AF800D019AE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9476F4771B3C3D6E00A158F8 /* CoreGraphics.framework */; };
-		ADF6360D1BAB8AF800D019AE /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9476F4791B3C3D7400A158F8 /* CFNetwork.framework */; };
 		ADF6360F1BAB8AF800D019AE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9476F45C1B3C385400A158F8 /* Main.storyboard */; };
 		ADF636101BAB8AF800D019AE /* s_warning.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04ECC1B7C59EB004F4245 /* s_warning.caf */; };
 		ADF636111BAB8AF800D019AE /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9476F45F1B3C385400A158F8 /* LaunchScreen.xib */; };
@@ -551,6 +557,14 @@
 		94562E651B65D8CA0017C692 /* TBDurationNumberFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBDurationNumberFormatter.m; sourceTree = "<group>"; };
 		94562E6A1B65D9420017C692 /* TBResizeTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBResizeTextField.h; sourceTree = "<group>"; };
 		94562E6B1B65D9420017C692 /* TBResizeTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBResizeTextField.m; sourceTree = "<group>"; };
+		9457DAB21FE6934C0047DF29 /* UIImage+Inverted.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+Inverted.h"; sourceTree = "<group>"; };
+		9457DAB31FE6934C0047DF29 /* UIImage+Inverted.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Inverted.m"; sourceTree = "<group>"; };
+		9457DAB61FE695AC0047DF29 /* TBInvertableButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBInvertableButton.h; sourceTree = "<group>"; };
+		9457DAB71FE695AC0047DF29 /* TBInvertableButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TBInvertableButton.m; sourceTree = "<group>"; };
+		9457DABA1FE6AAEA0047DF29 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.2.sdk/System/Library/Frameworks/CoreImage.framework; sourceTree = DEVELOPER_DIR; };
+		9457DABC1FE6AAF50047DF29 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.2.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		9457DABE1FE6AB0F0047DF29 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.2.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
+		9457DAC01FE6AB170047DF29 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.2.sdk/System/Library/Frameworks/CFNetwork.framework; sourceTree = DEVELOPER_DIR; };
 		9462A3E51B77CB3B00B29002 /* TTTOrdinalNumberFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTOrdinalNumberFormatter.h; sourceTree = "<group>"; };
 		9462A3E61B77CB3B00B29002 /* TTTOrdinalNumberFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTOrdinalNumberFormatter.m; sourceTree = "<group>"; };
 		9462A3EA1B77F40500B29002 /* TBMovementWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBMovementWindowController.h; path = TBMac/TBMovementWindowController.h; sourceTree = "<group>"; };
@@ -813,10 +827,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9457DAC11FE6AB170047DF29 /* CFNetwork.framework in Frameworks */,
+				9457DABF1FE6AB0F0047DF29 /* CoreGraphics.framework in Frameworks */,
+				9457DABB1FE6AAEA0047DF29 /* CoreImage.framework in Frameworks */,
+				9457DABD1FE6AAF60047DF29 /* UIKit.framework in Frameworks */,
 				9464EC2B1FDC3042009092A4 /* libcJSON_iOS.a in Frameworks */,
-				9476F4761B3C3D6700A158F8 /* UIKit.framework in Frameworks */,
-				9476F4781B3C3D6E00A158F8 /* CoreGraphics.framework in Frameworks */,
-				9476F47A1B3C3D7400A158F8 /* CFNetwork.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -856,10 +871,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9457DAC51FE6AB400047DF29 /* UIKit.framework in Frameworks */,
+				9457DAC41FE6AB370047DF29 /* CoreImage.framework in Frameworks */,
+				9457DAC31FE6AB310047DF29 /* CoreGraphics.framework in Frameworks */,
+				9457DAC21FE6AB2A0047DF29 /* CFNetwork.framework in Frameworks */,
 				9464EC281FDC3036009092A4 /* libcJSON_iOS.a in Frameworks */,
-				ADF6360B1BAB8AF800D019AE /* UIKit.framework in Frameworks */,
-				ADF6360C1BAB8AF800D019AE /* CoreGraphics.framework in Frameworks */,
-				ADF6360D1BAB8AF800D019AE /* CFNetwork.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1083,6 +1099,8 @@
 				AD75ACED1BA3FD8800705967 /* TBEllipseImageView.m */,
 				AD87A6D71BA2094400E55961 /* TBEllipseView.h */,
 				AD87A6D81BA2094400E55961 /* TBEllipseView.m */,
+				9457DAB61FE695AC0047DF29 /* TBInvertableButton.h */,
+				9457DAB71FE695AC0047DF29 /* TBInvertableButton.m */,
 				ADB3D19B1BC996C500A9AFFA /* TBNotifications.h */,
 				94562E6A1B65D9420017C692 /* TBResizeTextField.h */,
 				94562E6B1B65D9420017C692 /* TBResizeTextField.m */,
@@ -1106,6 +1124,8 @@
 				AD2CA95D1BAA7043009A2384 /* TournamentSocketDirectory.h */,
 				9462A3E51B77CB3B00B29002 /* TTTOrdinalNumberFormatter.h */,
 				9462A3E61B77CB3B00B29002 /* TTTOrdinalNumberFormatter.m */,
+				9457DAB21FE6934C0047DF29 /* UIImage+Inverted.h */,
+				9457DAB31FE6934C0047DF29 /* UIImage+Inverted.m */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1113,6 +1133,10 @@
 		AD51C5341AFFC9210084B25E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9457DAC01FE6AB170047DF29 /* CFNetwork.framework */,
+				9457DABE1FE6AB0F0047DF29 /* CoreGraphics.framework */,
+				9457DABC1FE6AAF50047DF29 /* UIKit.framework */,
+				9457DABA1FE6AAEA0047DF29 /* CoreImage.framework */,
 				9476F4F91B3C403F00A158F8 /* CFNetwork.framework */,
 				9476F4FB1B3C404400A158F8 /* CoreFoundation.framework */,
 				9476F4791B3C3D7400A158F8 /* CFNetwork.framework */,
@@ -1759,6 +1783,7 @@
 				94CDDD1E1FE1826C008ADF24 /* TBChipTableViewCell.m in Sources */,
 				ADD73D2B1B9692E1006824A1 /* NSDictionary+Changed.m in Sources */,
 				94CDDD361FE3B349008ADF24 /* TBColor+ContrastTextColor.m in Sources */,
+				9457DAB91FE695AC0047DF29 /* TBInvertableButton.m in Sources */,
 				9462A3E91B77CB3B00B29002 /* TTTOrdinalNumberFormatter.m in Sources */,
 				ADE299B11B7B9BCB00F1393B /* TBSound.m in Sources */,
 				9476F4691B3C385400A158F8 /* TBAppDelegate.m in Sources */,
@@ -1769,6 +1794,7 @@
 				949D70A11B3C4411008D5CD1 /* tournament.cpp in Sources */,
 				9439701F1B405DC000BB0413 /* TournamentService.m in Sources */,
 				949D709D1B3C440E008D5CD1 /* json.cpp in Sources */,
+				9457DAB51FE6934C0047DF29 /* UIImage+Inverted.m in Sources */,
 				94FDEAE71B5AE2D60026B25D /* CFStreamCreatePairWithUnixSocket.c in Sources */,
 				AD87A6DB1BA2094400E55961 /* TBEllipseView.m in Sources */,
 				9476F46B1B3C385400A158F8 /* TBRemoteClockViewController.m in Sources */,
@@ -1919,6 +1945,7 @@
 				94CDDD1D1FE1826C008ADF24 /* TBChipTableViewCell.m in Sources */,
 				ADF635EA1BAB8AF800D019AE /* TBAppDelegate.m in Sources */,
 				ADF635EB1BAB8AF800D019AE /* types.cpp in Sources */,
+				9457DAB41FE6934C0047DF29 /* UIImage+Inverted.m in Sources */,
 				AD6256A81BB44DB200EE776A /* TBSetupDetailsFundingViewController.m in Sources */,
 				ADF635EC1BAB8AF800D019AE /* scope_timer.cpp in Sources */,
 				AD62569F1BB448DD00EE776A /* TBSetupDetailsTableViewController.m in Sources */,
@@ -1935,6 +1962,7 @@
 				ADD2CC511BB3CD3200DE3DE5 /* TBSetupRoundsViewController.m in Sources */,
 				ADF635F21BAB8AF800D019AE /* TBEllipseView.m in Sources */,
 				ADF635F31BAB8AF800D019AE /* TBRemoteClockViewController.m in Sources */,
+				9457DAB81FE695AC0047DF29 /* TBInvertableButton.m in Sources */,
 				AD6256F61BB4525A00EE776A /* TBAuthCodeNumberFormatter.m in Sources */,
 				ADF635F51BAB8AF800D019AE /* TournamentSession.m in Sources */,
 				ADF635F61BAB8AF800D019AE /* NSObject+AssociatedObject.m in Sources */,

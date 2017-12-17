@@ -10,6 +10,10 @@
 
 @interface TBColor (ContrastTextColor)
 
+// YES if color should be considered perceptually dark. -contrastTextColor will be white
+- (BOOL)isDark;
+
+// white if image is dark, black otherwise
 - (TBColor*)contrastTextColor;
 
 @end
