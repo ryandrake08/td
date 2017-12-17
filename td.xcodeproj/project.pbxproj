@@ -58,13 +58,11 @@
 		9457DAB51FE6934C0047DF29 /* UIImage+Inverted.m in Sources */ = {isa = PBXBuildFile; fileRef = 9457DAB31FE6934C0047DF29 /* UIImage+Inverted.m */; };
 		9457DAB81FE695AC0047DF29 /* TBInvertableButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 9457DAB71FE695AC0047DF29 /* TBInvertableButton.m */; };
 		9457DAB91FE695AC0047DF29 /* TBInvertableButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 9457DAB71FE695AC0047DF29 /* TBInvertableButton.m */; };
-		9457DABB1FE6AAEA0047DF29 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9457DABA1FE6AAEA0047DF29 /* CoreImage.framework */; };
 		9457DABD1FE6AAF60047DF29 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9457DABC1FE6AAF50047DF29 /* UIKit.framework */; };
 		9457DABF1FE6AB0F0047DF29 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9457DABE1FE6AB0F0047DF29 /* CoreGraphics.framework */; };
 		9457DAC11FE6AB170047DF29 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9457DAC01FE6AB170047DF29 /* CFNetwork.framework */; };
 		9457DAC21FE6AB2A0047DF29 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9457DAC01FE6AB170047DF29 /* CFNetwork.framework */; };
 		9457DAC31FE6AB310047DF29 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9457DABE1FE6AB0F0047DF29 /* CoreGraphics.framework */; };
-		9457DAC41FE6AB370047DF29 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9457DABA1FE6AAEA0047DF29 /* CoreImage.framework */; };
 		9457DAC51FE6AB400047DF29 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9457DABC1FE6AAF50047DF29 /* UIKit.framework */; };
 		9457DAC81FE6B1520047DF29 /* TBInvertableImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9457DAC71FE6B1520047DF29 /* TBInvertableImageView.m */; };
 		9457DAC91FE6B1520047DF29 /* TBInvertableImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9457DAC71FE6B1520047DF29 /* TBInvertableImageView.m */; };
@@ -833,7 +831,6 @@
 			files = (
 				9457DAC11FE6AB170047DF29 /* CFNetwork.framework in Frameworks */,
 				9457DABF1FE6AB0F0047DF29 /* CoreGraphics.framework in Frameworks */,
-				9457DABB1FE6AAEA0047DF29 /* CoreImage.framework in Frameworks */,
 				9457DABD1FE6AAF60047DF29 /* UIKit.framework in Frameworks */,
 				9464EC2B1FDC3042009092A4 /* libcJSON_iOS.a in Frameworks */,
 			);
@@ -876,7 +873,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				9457DAC51FE6AB400047DF29 /* UIKit.framework in Frameworks */,
-				9457DAC41FE6AB370047DF29 /* CoreImage.framework in Frameworks */,
 				9457DAC31FE6AB310047DF29 /* CoreGraphics.framework in Frameworks */,
 				9457DAC21FE6AB2A0047DF29 /* CFNetwork.framework in Frameworks */,
 				9464EC281FDC3036009092A4 /* libcJSON_iOS.a in Frameworks */,
