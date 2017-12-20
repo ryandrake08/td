@@ -1,17 +1,19 @@
 #pragma once
-#include "socket.hpp"
 #include <functional>
 #include <iostream>
-#include <set>
+#include <memory>
 #include <string>
 
 class server
 {
-    std::set<common_socket> all;
-    std::set<common_socket> listeners;
-    std::set<common_socket> clients;
+    // pimpl
+    struct impl;
+    std::unique_ptr<impl> pimpl;
 
 public:
+    server();
+    ~server();
+    
     // listen on given unix socket path and optional internet service
     void listen(const char* unix_socket_path, const char* inet_service=nullptr);
 
