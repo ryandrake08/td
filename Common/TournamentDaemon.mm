@@ -13,6 +13,8 @@
 #include "tournament.hpp"
 #include "logger.hpp"
 
+#include <memory>
+
 @interface TournamentDaemon ()
 {
     // flag to control whether or not daemon is running
@@ -49,16 +51,16 @@
     logger_enable(LOG_ERROR, LOG_WARNING);
 
     // set up tournament and authorize
-    __block tournament tourney;
-    tourney.authorize([code intValue]);
-    auto service(tourney.listen(TournamentSocketDirectory()));
+    __block std::unique_ptr<tournament> tourney(new tournament);
+    tourney->authorize([code intValue]);
+    auto service(tourney->listen(TournamentSocketDirectory()));
 
     // server is listening. mark as running and run in background
     running = YES;
     dispatch_group_async(group, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         while(running)
         {
-            auto quit = tourney.run();
+            auto quit = tourney->run();
             running = running && !quit;
         }
     });
