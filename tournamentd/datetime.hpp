@@ -13,8 +13,8 @@ class datetime
     std::tm& localtime(std::tm& tm_s) const;
 
 public:
-    datetime();
-    explicit datetime(const std::chrono::system_clock::time_point& time_pt);
+    datetime() = default;
+    explicit constexpr datetime(const std::chrono::system_clock::time_point& time_pt) : tp(time_pt) {}
     explicit datetime(const std::time_t& tt);
 
     // Named constructors

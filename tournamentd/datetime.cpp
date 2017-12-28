@@ -19,14 +19,6 @@ static std::tm inline_strptime(const char* iso8601)
     return tmp;
 }
 
-datetime::datetime()
-{
-}
-
-datetime::datetime(const sc::time_point& time_pt) : tp(time_pt)
-{
-}
-
 datetime::datetime(const std::time_t& tt) : datetime(sc::from_time_t(tt))
 {
 }
