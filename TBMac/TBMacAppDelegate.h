@@ -1,5 +1,5 @@
 //
-//  AppDelegate.h
+//  TBMacAppDelegate.h
 //  td
 //
 //  Created by Ryan Drake on 1/18/15.
