@@ -523,7 +523,7 @@
 		940AF5211FF7CD9700740295 /* TBConnectToViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBConnectToViewController.h; path = TBMac/TBConnectToViewController.h; sourceTree = "<group>"; };
 		940AF5221FF7CD9700740295 /* TBViewerAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBViewerAppDelegate.h; path = TBMac/TBViewerAppDelegate.h; sourceTree = "<group>"; };
 		940AF5231FF7CD9700740295 /* TBConnectToViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TBConnectToViewController.m; path = TBMac/TBConnectToViewController.m; sourceTree = "<group>"; };
-		940AF52D1FF7CEAD00740295 /* TBPlayer-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "TBPlayer-Info.plist"; path = "TBMac/TBPlayer-Info.plist"; sourceTree = "<group>"; };
+		940AF52D1FF7CEAD00740295 /* TBViewer-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "TBViewer-Info.plist"; path = "TBMac/TBViewer-Info.plist"; sourceTree = "<group>"; };
 		940AF54B1FF7DE7800740295 /* TBViewerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TBViewerViewController.m; path = TBMac/TBViewerViewController.m; sourceTree = "<group>"; };
 		940AF54C1FF7DE7800740295 /* TBViewerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBViewerViewController.h; path = TBMac/TBViewerViewController.h; sourceTree = "<group>"; };
 		943970161B3F9DB700BB0413 /* TournamentBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TournamentBrowser.h; sourceTree = "<group>"; };
@@ -1214,7 +1214,7 @@
 			isa = PBXGroup;
 			children = (
 				AD8E68471A6C606700E5A4D8 /* TBMac-Info.plist */,
-				940AF52D1FF7CEAD00740295 /* TBPlayer-Info.plist */,
+				940AF52D1FF7CEAD00740295 /* TBViewer-Info.plist */,
 				AD8E684B1A6C606700E5A4D8 /* main.m */,
 			);
 			name = "Supporting Files";
@@ -2188,7 +2188,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 9BKETM93L2;
-				INFOPLIST_FILE = "$(SRCROOT)/TBMac/TBPlayer-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/TBMac/TBViewer-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.hdnastudio.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2205,7 +2205,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 9BKETM93L2;
-				INFOPLIST_FILE = "$(SRCROOT)/TBMac/TBPlayer-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/TBMac/TBViewer-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.hdnastudio.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
