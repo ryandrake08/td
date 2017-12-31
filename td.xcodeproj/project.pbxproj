@@ -530,6 +530,8 @@
 		943970171B3F9DB700BB0413 /* TournamentBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TournamentBrowser.m; sourceTree = "<group>"; };
 		9439701B1B3FA61C00BB0413 /* TournamentService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TournamentService.h; sourceTree = "<group>"; };
 		9439701C1B405DC000BB0413 /* TournamentService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TournamentService.m; sourceTree = "<group>"; };
+		943F85501FF8F3E200E1C4AD /* TBMac.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = TBMac.entitlements; path = TBMac/TBMac.entitlements; sourceTree = "<group>"; };
+		943F85511FF8F3FE00E1C4AD /* TBViewer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = TBViewer.entitlements; path = TBMac/TBViewer.entitlements; sourceTree = "<group>"; };
 		944FF4B31B3D04CA000362ED /* TBViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TBViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		945410721B6E5C56001E3373 /* NSDateFormatter+ISO8601.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDateFormatter+ISO8601.h"; sourceTree = "<group>"; };
 		945410731B6E5C56001E3373 /* NSDateFormatter+ISO8601.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+ISO8601.m"; sourceTree = "<group>"; };
@@ -1213,7 +1215,9 @@
 		AD8E68461A6C606700E5A4D8 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				943F85501FF8F3E200E1C4AD /* TBMac.entitlements */,
 				AD8E68471A6C606700E5A4D8 /* TBMac-Info.plist */,
+				943F85511FF8F3FE00E1C4AD /* TBViewer.entitlements */,
 				940AF52D1FF7CEAD00740295 /* TBViewer-Info.plist */,
 				AD8E684B1A6C606700E5A4D8 /* main.m */,
 			);
@@ -1468,6 +1472,11 @@
 					944FF4B21B3D04CA000362ED = {
 						DevelopmentTeam = 9BKETM93L2;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 0;
+							};
+						};
 					};
 					9476F4291B3C37D000A158F8 = {
 						DevelopmentTeam = 9BKETM93L2;
@@ -1491,6 +1500,11 @@
 					AD8E68421A6C606700E5A4D8 = {
 						DevelopmentTeam = 9BKETM93L2;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 0;
+							};
+						};
 					};
 					ADA6A1971B97FE8A00C83762 = {
 						DevelopmentTeam = 9BKETM93L2;
