@@ -20,6 +20,19 @@
 
 @implementation TBStatsViewController
 
+- (void)viewDidLoad {
+    if([NSViewController instancesRespondToSelector:@selector(viewDidLoad)]) {
+        [super viewDidLoad];
+    }
+}
+
+- (void)loadView {
+    [super loadView];
+    if(![NSViewController instancesRespondToSelector:@selector(viewDidLoad)]) {
+        [self viewDidLoad];
+    }
+}
+
 #pragma mark NSTableViewDataSource
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
@@ -30,12 +43,12 @@
 
 - (NSView *)tableView:(NSTableView*)aTableView viewForTableColumn:(NSTableColumn*)aTableColumn row:(NSInteger)rowIndex {
     NSArray* titles = @[@"Current Round", @"Players Left", @"Entries", @"Average Stack", @"Elapsed Time"];
-    NSArray* keyPaths = @[@"current_round_number_text", @"players_left_text", @"entries_text", @"average_stack_text", @"elapsed_time_text"];
+    NSArray* keyPaths = @[@"session.state.current_round_number_text", @"session.state.players_left_text", @"session.state.entries_text", @"session.state.average_stack_text", @"session.state.elapsed_time_text"];
 
     TBStatsTableCellView* result = [aTableView makeViewWithIdentifier:aTableColumn.identifier owner:self];
     if(rowIndex >= 0 && rowIndex < 5) {
         [[result titleField] setStringValue:NSLocalizedString(titles[rowIndex], nil)];
-        [[result textField] bind:@"value" toObject:[[self session] state] withKeyPath:keyPaths[rowIndex] options:nil];
+        [[result textField] bind:@"value" toObject:self withKeyPath:keyPaths[rowIndex] options:nil];
     }
     return result;
 }

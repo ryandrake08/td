@@ -53,7 +53,7 @@
     NSLog(@"cleared Action clock");
 }
 
-#pragma mark TBActionClockViewDelegate
+#pragma mark TBActionClockDelegate
 
 - (CGFloat)analogClock:(TBActionClockView*)clock graduationLengthForIndex:(NSInteger)index {
     return index % 5 == 0 ? 10.0 : 5.0;
