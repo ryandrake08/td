@@ -15,21 +15,21 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="17" horizontalPageScroll="10" verticalLineScroll="17" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="nya-ZO-HzW">
-            <rect key="frame" x="0.0" y="0.0" width="256" height="768"/>
+        <scrollView misplaced="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="17" horizontalPageScroll="10" verticalLineScroll="17" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="nya-ZO-HzW">
+            <rect key="frame" x="0.0" y="0.0" width="256" height="576"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="TVf-4M-2aI">
-                <rect key="frame" x="0.0" y="0.0" width="256" height="768"/>
+                <rect key="frame" x="0.0" y="0.0" width="256" height="576"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
-                    <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" selectionHighlightStyle="none" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="pq4-od-TPo" viewBased="YES" id="TLr-OK-BuK">
-                        <rect key="frame" x="0.0" y="0.0" width="256" height="751"/>
+                    <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="sequential" selectionHighlightStyle="none" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="pq4-od-TPo" viewBased="YES" id="TLr-OK-BuK">
+                        <rect key="frame" x="0.0" y="0.0" width="256" height="559"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
                         <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                         <tableColumns>
                             <tableColumn identifier="Place" width="48" minWidth="48" maxWidth="48" id="ksL-m6-yiN">
-                                <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Place">
+                                <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="#">
                                     <font key="font" metaFont="smallSystem"/>
                                     <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -68,7 +68,7 @@
                                     <binding destination="404-QG-0a1" name="value" keyPath="arrangedObjects.place" id="ywV-Xz-Oms"/>
                                 </connections>
                             </tableColumn>
-                            <tableColumn identifier="Player" width="144" minWidth="144" maxWidth="3.4028234663852886e+38" id="NpR-WE-fEO">
+                            <tableColumn identifier="Player" width="144" minWidth="40" maxWidth="1000" id="NpR-WE-fEO">
                                 <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Player">
                                     <font key="font" metaFont="smallSystem"/>
                                     <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
