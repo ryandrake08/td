@@ -848,22 +848,31 @@ std::pair<std::string, int> tournament::listen(const char* unix_socket_directory
 
         try
         {
-			if (unix_socket_directory == nullptr)
-			{
-				// try to listen to this service
-				this->game_server.listen(nullptr, inet_service.str().c_str());
-				return std::make_pair("", port);
-			}
-			else
-			{
-				// build unique unix socket name using service name
-				std::ostringstream local_server;
-				local_server << unix_socket_directory << "/tournamentd." << port << ".sock";
+            if(unix_socket_directory != nullptr)
+            {
+                try
+                {
+                    // build unique unix socket name using service name
+                    std::ostringstream local_server;
+                    local_server << unix_socket_directory << "/tournamentd." << port << ".sock";
 
-				// try to listen to this service
-				this->game_server.listen(local_server.str().c_str(), inet_service.str().c_str());
-				return std::make_pair(local_server.str(), port);
-			}
+                    // try to listen to this service
+                    this->game_server.listen(local_server.str().c_str(), inet_service.str().c_str());
+                    return std::make_pair(local_server.str(), port);
+                }
+                catch(const std::system_error& e)
+                {
+                    // EPERM: failed to bind due to permission issue. retry without unix socket
+                    if(e.code().value() != EPERM)
+                    {
+                        throw;
+                    }
+                }
+            }
+
+            // try to listen to this service, without a unix socket
+            this->game_server.listen(nullptr, inet_service.str().c_str());
+            return std::make_pair(std::string(), port);
         }
         catch(const std::system_error& e)
         {
