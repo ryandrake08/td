@@ -281,11 +281,16 @@ long common_socket::peek(void* buf, std::size_t bytes) const
 			logger(LOG_DEBUG) << "peek: no bytes available\n";
 		}
 #if defined(_WIN32)
-		else if (recv_errno == 42 || recv_errno == 0)
+		else if(recv_errno == 42 || recv_errno == 0)
 		{
 			logger(LOG_DEBUG) << "peek: no bytes available\n";
 		}
 #endif
+        else if(recv_errno == ECONNRESET)
+        {
+            logger(LOG_DEBUG) << "peek: connection reset by peer\n";
+            return -1;
+        }
 		else
         {
 			throw std::system_error(recv_errno, std::system_category(), "recv");
@@ -317,6 +322,12 @@ long common_socket::recv(void* buf, std::size_t bytes)
 #endif
     if(len == SOCKET_ERROR)
     {
+        if(errno == EPIPE)
+        {
+            logger(LOG_DEBUG) << "recv: broken pipe\n";
+            return -1;
+        }
+
         throw std::system_error(errno, std::system_category(), "recv");
     }
 
@@ -342,6 +353,12 @@ long common_socket::send(const void* buf, std::size_t bytes)
 #endif
     if(len == SOCKET_ERROR)
     {
+        if(errno == EPIPE)
+        {
+            logger(LOG_DEBUG) << "send: connection broken pipe\n";
+            return -1;
+        }
+
         throw std::system_error(errno, std::system_category(), "send");
     }
 

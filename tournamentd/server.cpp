@@ -84,7 +84,8 @@ bool server::poll(const std::function<bool(std::ostream&)>& handle_new_client, c
 
             // handle client i/o
             socketstream ss(*sock);
-            while(ss.rdbuf()->in_avail() > 0)
+            auto in_avail(ss.rdbuf()->in_avail());
+            while(in_avail > 0)
             {
                 if(handle_client(ss) || !ss.good())
                 {
@@ -92,6 +93,16 @@ bool server::poll(const std::function<bool(std::ostream&)>& handle_new_client, c
                     this->pimpl->clients.erase(*sock);
                     this->pimpl->all.erase(*sock);
                 }
+
+                // keep checking until no pending io
+                in_avail = ss.rdbuf()->in_avail();
+            }
+
+            if(in_avail < 0)
+            {
+                logger(LOG_DEBUG) << "in_avail < 0, client likely disconnected\n";
+                this->pimpl->clients.erase(*sock);
+                this->pimpl->all.erase(*sock);
             }
         }
     }
