@@ -13,10 +13,10 @@
 #import "TBAuthCodeWindowController.h"
 #import "TBConfigurationWindowController.h"
 #import "TBPlanWindowController.h"
-#import "TBPlayerWindowController.h"
 #import "TBMovementWindowController.h"
 #import "TBSoundPlayer.h"
 #import "TBNotifications.h"
+#import "TBViewerViewController.h"
 #import "TournamentSession.h"
 #import "TournamentDaemon.h"
 #import "NSObject+FBKVOController.h"
@@ -37,7 +37,7 @@
 @property (strong) IBOutlet TBResultsViewController* resultsViewController;
 
 // Window Controllers
-@property (strong) TBPlayerWindowController* playerWindowController;
+@property (strong) NSWindowController* viewerWindowController;
 @property (strong) TBMovementWindowController* movementWindowController;
 
 // UI Outlets
@@ -93,7 +93,7 @@
 
 - (void)close {
     // close all windows
-    [[self playerWindowController] close];
+    [[self viewerWindowController] close];
 
     [[self KVOController] unobserveAll];
     [[self session] disconnect];
@@ -303,24 +303,28 @@
 }
 
 - (IBAction)displayButtonDidChange:(id)sender {
-    if([[[self playerWindowController] window] isVisible]) {
-        [[self playerWindowController] close];
+    if([[[self viewerWindowController] window] isVisible]) {
+        [[self viewerWindowController] close];
     } else {
         // setup player window if needed
-        if([self playerWindowController] == nil) {
-            [self setPlayerWindowController:[[TBPlayerWindowController alloc] initWithWindowNibName:@"TBPlayerWindow"]];
-            [[self playerWindowController] setSession:[self session]];
+        if([self viewerWindowController] == nil) {
+            NSStoryboard* viewerStoryboard = [NSStoryboard storyboardWithName:@"TBViewer" bundle:[NSBundle mainBundle]];
+            [self setViewerWindowController:[viewerStoryboard instantiateInitialController]];
+
+            // player view controller
+            id playerViewController = (TBViewerViewController*)[[self viewerWindowController] contentViewController];
+            [playerViewController setSession:[self session]];
         }
 
         // display as non-modal
-        [[self playerWindowController] showWindow:self];
+        [[self viewerWindowController] showWindow:self];
 
         // move to second screen if possible
         NSArray* screens = [NSScreen screens];
         if([screens count] > 1) {
             NSScreen* screen = [NSScreen screens][1];
-            [[[self playerWindowController] window] setFrame: [screen frame] display:YES animate:NO];
-            [[[self playerWindowController] window] makeKeyAndOrderFront:screen];
+            [[[self viewerWindowController] window] setFrame: [screen frame] display:YES animate:NO];
+            [[[self viewerWindowController] window] makeKeyAndOrderFront:screen];
         }
     }
 }
