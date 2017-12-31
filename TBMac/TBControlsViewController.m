@@ -26,9 +26,9 @@
     }
 
     // register for KVO
-    [[self KVOController] observe:[[self session] state] keyPaths:@[@"connected", @"authorized", @"current_blind_level"] options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
-        BOOL authorized = [object[@"connected"] boolValue] && [object[@"authorized"] boolValue];
-        BOOL playing = [object[@"current_blind_level"] unsignedIntegerValue] != 0;
+    [[self KVOController] observe:self keyPaths:@[@"session.state.connected", @"session.state.authorized", @"session.state.current_blind_level"] options:NSKeyValueObservingOptionInitial block:^(id observer, TBControlsViewController* object, NSDictionary *change) {
+        BOOL authorized = [[[object session] state][@"connected"] boolValue] && [[[object session] state][@"authorized"] boolValue];
+        BOOL playing = [[[object session] state][@"current_blind_level"] unsignedIntegerValue] != 0;
         [[observer previousRoundButton] setEnabled:authorized && playing];
         [[observer pauseResumeButton] setEnabled:authorized];
         [[observer nextRoundButton] setEnabled:authorized && playing];

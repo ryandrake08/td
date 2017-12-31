@@ -38,8 +38,8 @@
 - (void)windowDidLoad {
     [super windowDidLoad];
     
-    [[self KVOController] observe:[[self session] state] keyPath:@"action_clock_time_remaining" options:0 block:^(id observer, id object, NSDictionary *change) {
-        NSUInteger actionClockTimeRemaining = [object[@"action_clock_time_remaining"] unsignedIntegerValue];
+    [[self KVOController] observe:self keyPath:@"session.state.action_clock_time_remaining" options:0 block:^(id observer, TBPlayerWindowController* object, NSDictionary *change) {
+        NSUInteger actionClockTimeRemaining = [[[object session] state][@"action_clock_time_remaining"] unsignedIntegerValue];
         [[self actionClockView] setSeconds:actionClockTimeRemaining / 1000.0];
     }];
 

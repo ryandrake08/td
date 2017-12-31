@@ -52,8 +52,8 @@
     [self setMaxPlayers:[[self configuration][@"players"] count]];
 
     // register for KVO
-    [[self KVOController] observe:[[self session] state] keyPaths:@[@"connected", @"authorized"] options:0 block:^(id observer, id object, NSDictionary *change) {
-        if([object[@"connected"] boolValue] && [object[@"authorized"] boolValue]) {
+    [[self KVOController] observe:self keyPaths:@[@"session.state.connected", @"session.state.authorized"] options:0 block:^(id observer, TBSettingsViewController* object, NSDictionary *change) {
+        if([[[object session] state][@"connected"] boolValue] && [[[object session] state][@"authorized"] boolValue]) {
             NSLog(@"Connected and authorized locally");
 
             // on connection, send entire configuration to session, unconditionally, and then replace with whatever the session has
@@ -71,23 +71,23 @@
     }];
 
     // whenever tournament name changes, do some stuff
-    [[self KVOController] observe:[[self session] state] keyPath:@"name" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
+    [[self KVOController] observe:self keyPath:@"session.state.name" options:NSKeyValueObservingOptionInitial block:^(id observer, TBSettingsViewController* object, NSDictionary *change) {
         // re-publish on Bonjour
-        [[self server] publishWithName:object[@"name"]];
+        [[self server] publishWithName:[[object session] state][@"name"]];
     }];
 
     // if table sizes change, force a replan
-    [[self KVOController] observe:[[self session] state] keyPath:@"table_capacity" options:0 block:^(id observer, id object, NSDictionary *change) {
+    [[self KVOController] observe:self keyPath:@"session.state.table_capacity" options:0 block:^(id observer, TBSettingsViewController* object, NSDictionary *change) {
         [self planSeating];
     }];
 
     // if max players changes, force a replan
-    [[self KVOController] observe:self keyPath:@"maxPlayers" options:0 block:^(id observer, id object, NSDictionary *change) {
+    [[self KVOController] observe:self keyPath:@"maxPlayers" options:0 block:^(id observer, TBSettingsViewController* object, NSDictionary *change) {
         [self planSeating];
     }];
 
     // update row when maxPlayers changes
-    [[[self tableView] KVOController] observe:self keyPath:@"maxPlayers" options:0 block:^(id observer, id object, NSDictionary* change) {
+    [[[self tableView] KVOController] observe:self keyPath:@"maxPlayers" options:0 block:^(id observer, TBSettingsViewController* object, NSDictionary* change) {
         // reload the table view row
         NSIndexPath* theRow = [NSIndexPath indexPathForRow:0 inSection:1];
         [observer reloadRowsAtIndexPaths:@[theRow] withRowAnimation:UITableViewRowAnimationNone];

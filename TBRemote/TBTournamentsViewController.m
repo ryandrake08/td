@@ -37,7 +37,7 @@
     [[self tournamentBrowser] search];
 
     // register for KVO
-    [[self KVOController] observe:[[self session] state] keyPaths:@[@"connected", @"authorized"] options:0 block:^(id observer, id object, NSDictionary *change) {
+    [[self KVOController] observe:self keyPaths:@[@"session.state.connected", @"session.state.authorized"] options:0 block:^(id observer, TBTournamentsViewController* object, NSDictionary *change) {
         // update table view cell
         [observer reloadTableRowForService:[self currentService]];
     }];

@@ -45,31 +45,31 @@
     _session = [(TBAppDelegate*)[[UIApplication sharedApplication] delegate] session];
 
     // register for KVO
-    [[[self tableView] KVOController] observe:[[self session] state] keyPath:@"available_chips" options:0 action:@selector(reloadData)];
+    [[[self tableView] KVOController] observe:self keyPath:@"session.state.available_chips" options:0 action:@selector(reloadData)];
 
-    [[self KVOController] observe:[[self session] state] keyPaths:@[@"connected", @"authorized", @"current_blind_level"] options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
-        BOOL authorized = [object[@"connected"] boolValue] && [object[@"authorized"] boolValue];
-        BOOL playing = [object[@"current_blind_level"] unsignedIntegerValue] != 0;
+    [[self KVOController] observe:self keyPaths:@[@"session.state.connected", @"session.state.authorized", @"session.state.current_blind_level"] options:NSKeyValueObservingOptionInitial block:^(id observer, TBRemoteClockViewController* object, NSDictionary *change) {
+        BOOL authorized = [[[object session] state][@"connected"] boolValue] && [[[object session] state][@"authorized"] boolValue];
+        BOOL playing = [[[object session] state][@"current_blind_level"] unsignedIntegerValue] != 0;
         [[observer previousRoundButton] setEnabled:authorized && playing];
         [[observer pauseResumeButton] setEnabled:authorized];
         [[observer nextRoundButton] setEnabled:authorized && playing];
         [[observer callClockButton] setEnabled:authorized && playing];
     }];
 
-    [[self KVOController] observe:[[self session] state] keyPath:@"elapsed_time_text" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
-        [[observer elapsedLabel] setText:object[@"elapsed_time_text"]];
+    [[self KVOController] observe:self keyPath:@"session.state.elapsed_time_text" options:NSKeyValueObservingOptionInitial block:^(id observer, TBRemoteClockViewController* object, NSDictionary *change) {
+        [[observer elapsedLabel] setText:[[object session] state][@"elapsed_time_text"]];
     }];
 
-    [[self KVOController] observe:[[self session] state] keyPath:@"clock_text" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
-        [[observer clockLabel] setText:object[@"clock_text"]];
+    [[self KVOController] observe:self keyPath:@"session.state.clock_text" options:NSKeyValueObservingOptionInitial block:^(id observer, TBRemoteClockViewController* object, NSDictionary *change) {
+        [[observer clockLabel] setText:[[object session] state][@"clock_text"]];
     }];
 
-    [[self KVOController] observe:[[self session] state] keyPath:@"current_game_text" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
-        [[observer currentGameLabel] setText:object[@"current_game_text"]];
+    [[self KVOController] observe:self keyPath:@"session.state.current_game_text" options:NSKeyValueObservingOptionInitial block:^(id observer, TBRemoteClockViewController* object, NSDictionary *change) {
+        [[observer currentGameLabel] setText:[[object session] state][@"current_game_text"]];
     }];
 
-    [[self KVOController] observe:[[self session] state] keyPath:@"current_round_text" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
-        NSString* currentRoundText = object[@"current_round_text"];
+    [[self KVOController] observe:self keyPath:@"session.state.current_round_text" options:NSKeyValueObservingOptionInitial block:^(id observer, TBRemoteClockViewController* object, NSDictionary *change) {
+        NSString* currentRoundText = [[object session] state][@"current_round_text"];
         if([[self currentRoundLabel] frame].size.width <= 400.0f) {
             // wrap at ante
             currentRoundText = [currentRoundText stringByReplacingOccurrencesOfString:@" A:" withString:@"\nA:"];
@@ -77,29 +77,29 @@
         [[observer currentRoundLabel] setText:currentRoundText];
     }];
 
-    [[self KVOController] observe:[[self session] state] keyPath:@"next_game_text" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
-        [[observer nextGameLabel] setText:object[@"next_game_text"]];
+    [[self KVOController] observe:self keyPath:@"session.state.next_game_text" options:NSKeyValueObservingOptionInitial block:^(id observer, TBRemoteClockViewController* object, NSDictionary *change) {
+        [[observer nextGameLabel] setText:[[object session] state][@"next_game_text"]];
     }];
     
-    [[self KVOController] observe:[[self session] state] keyPath:@"next_round_text" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
-        [[observer nextRoundLabel] setText:object[@"next_round_text"]];
+    [[self KVOController] observe:self keyPath:@"session.state.next_round_text" options:NSKeyValueObservingOptionInitial block:^(id observer, TBRemoteClockViewController* object, NSDictionary *change) {
+        [[observer nextRoundLabel] setText:[[object session] state][@"next_round_text"]];
     }];
 
-    [[self KVOController] observe:[[self session] state] keyPath:@"players_left_text" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
-        [[observer playersLeftLabel] setText:object[@"players_left_text"]];
+    [[self KVOController] observe:self keyPath:@"session.state.players_left_text" options:NSKeyValueObservingOptionInitial block:^(id observer, TBRemoteClockViewController* object, NSDictionary *change) {
+        [[observer playersLeftLabel] setText:[[object session] state][@"players_left_text"]];
     }];
 
-    [[self KVOController] observe:[[self session] state] keyPath:@"average_stack_text" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
-        [[observer averageStackLabel] setText:object[@"average_stack_text"]];
+    [[self KVOController] observe:self keyPath:@"session.state.average_stack_text" options:NSKeyValueObservingOptionInitial block:^(id observer, TBRemoteClockViewController* object, NSDictionary *change) {
+        [[observer averageStackLabel] setText:[[object session] state][@"average_stack_text"]];
     }];
 
-    [[self KVOController] observe:[[self session] state] keyPath:@"action_clock_time_remaining" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
-        [observer updateActionClock:object[@"action_clock_time_remaining"]];
+    [[self KVOController] observe:self keyPath:@"session.state.action_clock_time_remaining" options:NSKeyValueObservingOptionInitial block:^(id observer, TBRemoteClockViewController* object, NSDictionary *change) {
+        [observer updateActionClock:[[object session] state][@"action_clock_time_remaining"]];
     }];
 
-    [[self KVOController] observe:[[self session] state] keyPath:@"background_color" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
+    [[self KVOController] observe:self keyPath:@"session.state.background_color" options:NSKeyValueObservingOptionInitial block:^(id observer, TBRemoteClockViewController* object, NSDictionary *change) {
         // Set the background color on the view
-        NSString* backgroundColorName = object[@"background_color"];
+        NSString* backgroundColorName = [[object session] state][@"background_color"];
         if(backgroundColorName != nil) {
             TBColor* color = [TBColor colorWithName:backgroundColorName];
             [[observer view] setBackgroundColor:color];

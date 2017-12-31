@@ -49,7 +49,7 @@
     _session = session;
 
     // register for KVO
-    [[self KVOController] observe:[[self session] state] keyPath:@"current_blind_level" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld block:^(id observer, id object, NSDictionary* change) {
+    [[self KVOController] observe:self keyPath:@"session.state.current_blind_level" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld block:^(id observer, id object, NSDictionary* change) {
         id old = change[@"old"];
         id new = change[@"new"];
         if(![old isEqualTo:[NSNull null]] && ![new isEqualTo:[NSNull null]]) {
@@ -66,7 +66,7 @@
         }
     }];
 
-    [[self KVOController] observe:[[self session] state] keyPaths:@[@"on_break"] options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld block:^(id observer, id object, NSDictionary* change) {
+    [[self KVOController] observe:self keyPath:@"session.state.on_break" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld block:^(id observer, id object, NSDictionary* change) {
         id old = change[@"old"];
         id new = change[@"new"];
         if(![old isEqualTo:[NSNull null]] && ![new isEqualTo:[NSNull null]]) {
@@ -77,7 +77,7 @@
         }
     }];
 
-    [[self KVOController] observe:[[self session] state] keyPaths:@[@"time_remaining",@"break_time_remaining"] options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld block:^(id observer, id object, NSDictionary* change) {
+    [[self KVOController] observe:self keyPaths:@[@"session.state.time_remaining",@"session.state.break_time_remaining"] options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld block:^(id observer, id object, NSDictionary* change) {
         id old = change[@"old"];
         id new = change[@"new"];
         if(![old isEqualTo:[NSNull null]] && ![new isEqualTo:[NSNull null]]) {

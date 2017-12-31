@@ -34,7 +34,7 @@
     _placeFormatter = [[TTTOrdinalNumberFormatter alloc] init];
 
     // register for KVO
-    [[self KVOController] observe:[[self session] state] keyPaths:@[@"results"] options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
+    [[self KVOController] observe:self keyPath:@"session.state.results" options:NSKeyValueObservingOptionInitial block:^(id observer, TBResultsViewController* object, NSDictionary *change) {
         // update table view cells
         [[observer tableView] reloadData];
     }];

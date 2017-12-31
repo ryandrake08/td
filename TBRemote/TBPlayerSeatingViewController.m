@@ -55,9 +55,9 @@
                                    @"CNY":[UIImage imageNamed:@"b_note_yen_yuan"]}];
 
     // register for KVO
-    [[self KVOController] observe:[[self session] state] keyPaths:@[@"seated_players"] options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
+    [[self KVOController] observe:self keyPath:@"session.state.seated_players" options:NSKeyValueObservingOptionInitial block:^(id observer, TBPlayerSeatingViewController* object, NSDictionary *change) {
         // filter and sort
-        NSArray* seatedPlayers = object[@"seated_players"];
+        NSArray* seatedPlayers = [[object session] state][@"seated_players"];
 
         // get lists of players
         NSArray* seated = [seatedPlayers filteredArrayUsingPredicate:[NSPredicate predicateWithFormat: @"seat_number != nil"]];
@@ -76,9 +76,9 @@
         [[observer tableView] reloadData];
     }];
 
-    [[self KVOController] observe:[[self session] state] keyPaths:@[@"funding_sources"] options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
+    [[self KVOController] observe:self keyPath:@"session.state.funding_sources" options:NSKeyValueObservingOptionInitial block:^(id observer, TBPlayerSeatingViewController* object, NSDictionary *change) {
         // find first buy-in
-        [object[@"funding_sources"] enumerateObjectsUsingBlock:^(id source, NSUInteger idx, BOOL* stop) {
+        [[[object session] state][@"funding_sources"] enumerateObjectsUsingBlock:^(id source, NSUInteger idx, BOOL* stop) {
             if([source[@"type"] isEqual:kFundingTypeBuyin]) {
                 [self setBuyinFundingSource:source];
                 *stop = YES;

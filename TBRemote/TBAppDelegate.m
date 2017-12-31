@@ -93,9 +93,9 @@
     NSLog(@"applicationDidBecomeActive");
 
     // KVO for notifications
-    [[self KVOController] observe:[[self session] state] keyPaths:@[@"running", @"current_round_text"] options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
+    [[self KVOController] observe:self keyPaths:@[@"session.state.running", @"session.state.current_round_text"] options:NSKeyValueObservingOptionInitial block:^(id observer, TBAppDelegate* object, NSDictionary *change) {
         // schedule round notification (next runloop)
-        [self performSelector:@selector(updateNotificationsForSessionState:) withObject:[[self session] state] afterDelay:0.0];
+        [self performSelector:@selector(updateNotificationsForSessionState:) withObject:[[object session] state] afterDelay:0.0];
     }];
 }
 

@@ -20,7 +20,7 @@
     [super viewDidLoad];
 
     // register for KVO
-    [[[self tableView] KVOController] observe:[[self session] state] keyPath:@"available_chips" options:0 action:@selector(reloadData)];
+    [[[self tableView] KVOController] observe:self keyPath:@"session.state.available_chips" options:0 action:@selector(reloadData)];
 }
 
 #pragma mark NSTableViewDataSource

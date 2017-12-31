@@ -65,8 +65,8 @@
         [_soundPlayer setSession:_session];
 
         // register for KVO
-        [[self KVOController] observe:[[self session] state] keyPaths:@[@"connected", @"authorized"] options:0 block:^(id observer, id object, NSDictionary *change) {
-            if([object[@"connected"] boolValue] && [object[@"authorized"] boolValue]) {
+        [[self KVOController] observe:self keyPaths:@[@"session.state.connected", @"session.state.authorized"] options:0 block:^(id observer, Document* object, NSDictionary *change) {
+            if([[[object session] state][@"connected"] boolValue] && [[[object session] state][@"authorized"] boolValue]) {
                 NSLog(@"Connected and authorized locally");
 
                 // on connection, send entire configuration to session, unconditionally, and then replace with whatever the session has
@@ -116,9 +116,9 @@
     [[self rightPaneView] addSubview:[[self resultsViewController] view]];
 
     // whenever tournament name changes, do some stuff
-    [[self KVOController] observe:[[self session] state] keyPath:@"name" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
+    [[self KVOController] observe:self keyPath:@"session.state.name" options:NSKeyValueObservingOptionInitial block:^(id observer, Document* object, NSDictionary *change) {
         // re-publish on Bonjour
-        [[self server] publishWithName:object[@"name"]];
+        [[self server] publishWithName:[[object session] state][@"name"]];
 
         // resize toolbar control
         [[self tournamentNameField] sizeToFit];
@@ -130,7 +130,7 @@
     }];
 
     // if table sizes change, replan
-    [[self KVOController] observe:[[self session] state] keyPath:@"table_capacity" options:0 block:^(id observer, id object, NSDictionary *change) {
+    [[self KVOController] observe:self keyPath:@"session.state.table_capacity" options:0 block:^(id observer, Document* object, NSDictionary *change) {
         [self planSeatingFor:[self lastMaxPlayers]];
     }];
 

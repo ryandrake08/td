@@ -28,8 +28,8 @@
     _session = [(TBAppDelegate*)[[UIApplication sharedApplication] delegate] session];
 
     // register for KVO
-    [[self KVOController] observe:[[self session] state] keyPath:@"action_clock_time_remaining" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
-        [observer updateActionClock:object[@"action_clock_time_remaining"]];
+    [[self KVOController] observe:self keyPath:@"session.state.action_clock_time_remaining" options:NSKeyValueObservingOptionInitial block:^(id observer, TBActionClockViewController* object, NSDictionary *change) {
+        [observer updateActionClock:[[object session] state][@"action_clock_time_remaining"]];
     }];
 }
 
