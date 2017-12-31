@@ -1,5 +1,5 @@
 //
-//  TBPlayerViewController.h
+//  TBViewerViewController.h
 //  td
 //
 //  Created by Ryan Drake on 6/26/15.
@@ -9,7 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import "TournamentSession.h"
 
-@interface TBPlayerViewController : NSViewController
+@interface TBViewerViewController : NSViewController
 
 // the tournament session (model) object
 @property (strong) TournamentSession* session;

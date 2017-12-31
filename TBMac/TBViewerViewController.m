@@ -1,18 +1,18 @@
 //
-//  TBPlayerViewController.m
+//  TBViewerViewController.m
 //  td
 //
 //  Created by Ryan Drake on 6/26/15.
 //  Copyright (c) 2015 HDna Studio. All rights reserved.
 //
 
-#import "TBPlayerViewController.h"
+#import "TBViewerViewController.h"
 #import "TBActionClockViewController.h"
 #import "TBCurrencyNumberFormatter.h"
 #import "TBSoundPlayer.h"
 #import "NSObject+FBKVOController.h"
 
-@interface TBPlayerViewController () <NSTableViewDelegate>
+@interface TBViewerViewController () <NSTableViewDelegate>
 
 // UI elements
 @property (weak) IBOutlet NSImageView* backgroundImageView;
@@ -31,7 +31,7 @@
 
 @end
 
-@implementation TBPlayerViewController
+@implementation TBViewerViewController
 
 - (void)viewDidLoad {
     if([NSViewController instancesRespondToSelector:@selector(viewDidLoad)]) {
@@ -39,7 +39,7 @@
     }
 
     // update buttons when authorization, connected, or current_blinc_level changes
-    [[self KVOController] observe:self keyPaths:@[@"session.state.connected", @"session.state.authorized", @"session.state.current_blind_level"] options:NSKeyValueObservingOptionInitial block:^(id observer, TBPlayerViewController* object, NSDictionary *change) {
+    [[self KVOController] observe:self keyPaths:@[@"session.state.connected", @"session.state.authorized", @"session.state.current_blind_level"] options:NSKeyValueObservingOptionInitial block:^(id observer, TBViewerViewController* object, NSDictionary *change) {
         BOOL authorized = [[[object session] state][@"connected"] boolValue] && [[[object session] state][@"authorized"] boolValue];
         BOOL playing = [[[object session] state][@"current_blind_level"] unsignedIntegerValue] != 0;
         [[observer previousRoundButton] setEnabled:authorized && playing];
@@ -49,7 +49,7 @@
     }];
 
     // update action clock when action_clock_time_remaining chantes
-    [[self KVOController] observe:self keyPath:@"session.state.action_clock_time_remaining" options:0 block:^(id observer, id object, NSDictionary *change) {
+    [[self KVOController] observe:self keyPath:@"session.state.action_clock_time_remaining" options:0 block:^(id observer, TBViewerViewController* object, NSDictionary *change) {
         [observer updateActionClock:[[object session] state][@"action_clock_time_remaining"]];
     }];
 

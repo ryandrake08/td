@@ -1,18 +1,18 @@
 //
-//  TBPlayerAppDelegate.m
-//  TBPlayer
+//  TBViewerAppDelegate.m
+//  td
 //
 //  Created by Ryan Drake on 6/25/15.
 //  Copyright (c) 2015 HDna Studio. All rights reserved.
 //
 
-#import "TBPlayerAppDelegate.h"
+#import "TBViewerAppDelegate.h"
 #import "TournamentBrowser.h"
 #import "TournamentSession.h"
-#import "TBPlayerViewController.h"
+#import "TBViewerViewController.h"
 #import "TBConnectToViewController.h"
 
-@interface TBPlayerAppDelegate () <TournamentBrowserDelegate>
+@interface TBViewerAppDelegate () <TournamentBrowserDelegate>
 
 @property (weak) IBOutlet NSMenu* connectMenu;
 
@@ -24,11 +24,11 @@
 
 @end
 
-@implementation TBPlayerAppDelegate
+@implementation TBViewerAppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification*)aNotification {
     // player view controller
-    id playerViewController = (TBPlayerViewController*)[[[[NSApplication sharedApplication] mainWindow] windowController] contentViewController];
+    id playerViewController = (TBViewerViewController*)[[[[NSApplication sharedApplication] mainWindow] windowController] contentViewController];
     [playerViewController setSession:[self session]];
 
     // update the menu

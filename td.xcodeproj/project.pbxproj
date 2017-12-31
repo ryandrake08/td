@@ -25,11 +25,11 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		940AF5281FF7CE0E00740295 /* TBPlayerAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 940AF5201FF7CD9700740295 /* TBPlayerAppDelegate.m */; };
+		940AF5281FF7CE0E00740295 /* TBViewerAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 940AF5201FF7CD9700740295 /* TBViewerAppDelegate.m */; };
 		940AF52A1FF7CE1B00740295 /* TBConnectToViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 940AF5231FF7CD9700740295 /* TBConnectToViewController.m */; };
 		940AF52C1FF7CE9000740295 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8E684B1A6C606700E5A4D8 /* main.m */; };
 		940AF52E1FF7CECA00740295 /* TBMac.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AD8E68531A6C606700E5A4D8 /* TBMac.xcassets */; };
-		940AF54D1FF7DE7900740295 /* TBPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 940AF54B1FF7DE7800740295 /* TBPlayerViewController.m */; };
+		940AF54D1FF7DE7900740295 /* TBViewerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 940AF54B1FF7DE7800740295 /* TBViewerViewController.m */; };
 		941916DC1B6F215F001253CA /* TBActionClockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEAF91B5AEB0B0026B25D /* TBActionClockView.m */; };
 		943970181B3F9DB700BB0413 /* TournamentBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 943970171B3F9DB700BB0413 /* TournamentBrowser.m */; };
 		943970191B3F9DB700BB0413 /* TournamentBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 943970171B3F9DB700BB0413 /* TournamentBrowser.m */; };
@@ -131,7 +131,7 @@
 		949D70A31B3C441F008D5CD1 /* socket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E31B3C3F8300A158F8 /* socket.cpp */; };
 		94BB5FFA1B7F9F1600B33929 /* NSString+CamelCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 945410761B6E9A17001E3373 /* NSString+CamelCase.m */; };
 		94BB5FFB1B7F9F1600B33929 /* NSString+CamelCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 945410761B6E9A17001E3373 /* NSString+CamelCase.m */; };
-		94BD8D391FF7F4360047EB68 /* TBPlayer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 94BD8D3B1FF7F4360047EB68 /* TBPlayer.storyboard */; };
+		94BD8D391FF7F4360047EB68 /* TBViewer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 94BD8D3B1FF7F4360047EB68 /* TBViewer.storyboard */; };
 		94CC7F8F1CE8CF770081A8A0 /* TBPlanWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CC7F8D1CE8CF770081A8A0 /* TBPlanWindowController.m */; };
 		94CC7F901CE8CF770081A8A0 /* TBPlanWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94CC7F8E1CE8CF770081A8A0 /* TBPlanWindow.xib */; };
 		94CDDD1D1FE1826C008ADF24 /* TBChipTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CDDD1B1FE1826C008ADF24 /* TBChipTableViewCell.m */; };
@@ -534,18 +534,18 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		940AF5201FF7CD9700740295 /* TBPlayerAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TBPlayerAppDelegate.m; path = TBMac/TBPlayerAppDelegate.m; sourceTree = "<group>"; };
+		940AF5201FF7CD9700740295 /* TBViewerAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TBViewerAppDelegate.m; path = TBMac/TBViewerAppDelegate.m; sourceTree = "<group>"; };
 		940AF5211FF7CD9700740295 /* TBConnectToViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBConnectToViewController.h; path = TBMac/TBConnectToViewController.h; sourceTree = "<group>"; };
-		940AF5221FF7CD9700740295 /* TBPlayerAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBPlayerAppDelegate.h; path = TBMac/TBPlayerAppDelegate.h; sourceTree = "<group>"; };
+		940AF5221FF7CD9700740295 /* TBViewerAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBViewerAppDelegate.h; path = TBMac/TBViewerAppDelegate.h; sourceTree = "<group>"; };
 		940AF5231FF7CD9700740295 /* TBConnectToViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TBConnectToViewController.m; path = TBMac/TBConnectToViewController.m; sourceTree = "<group>"; };
 		940AF52D1FF7CEAD00740295 /* TBPlayer-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "TBPlayer-Info.plist"; path = "TBMac/TBPlayer-Info.plist"; sourceTree = "<group>"; };
-		940AF54B1FF7DE7800740295 /* TBPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TBPlayerViewController.m; path = TBMac/TBPlayerViewController.m; sourceTree = "<group>"; };
-		940AF54C1FF7DE7800740295 /* TBPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBPlayerViewController.h; path = TBMac/TBPlayerViewController.h; sourceTree = "<group>"; };
+		940AF54B1FF7DE7800740295 /* TBViewerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TBViewerViewController.m; path = TBMac/TBViewerViewController.m; sourceTree = "<group>"; };
+		940AF54C1FF7DE7800740295 /* TBViewerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBViewerViewController.h; path = TBMac/TBViewerViewController.h; sourceTree = "<group>"; };
 		943970161B3F9DB700BB0413 /* TournamentBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TournamentBrowser.h; sourceTree = "<group>"; };
 		943970171B3F9DB700BB0413 /* TournamentBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TournamentBrowser.m; sourceTree = "<group>"; };
 		9439701B1B3FA61C00BB0413 /* TournamentService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TournamentService.h; sourceTree = "<group>"; };
 		9439701C1B405DC000BB0413 /* TournamentService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TournamentService.m; sourceTree = "<group>"; };
-		944FF4B31B3D04CA000362ED /* TBPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TBPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		944FF4B31B3D04CA000362ED /* TBViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TBViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		945410721B6E5C56001E3373 /* NSDateFormatter+ISO8601.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDateFormatter+ISO8601.h"; sourceTree = "<group>"; };
 		945410731B6E5C56001E3373 /* NSDateFormatter+ISO8601.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+ISO8601.m"; sourceTree = "<group>"; };
 		945410751B6E9A17001E3373 /* NSString+CamelCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+CamelCase.h"; sourceTree = "<group>"; };
@@ -638,7 +638,7 @@
 		9476F4F91B3C403F00A158F8 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		9476F4FB1B3C404400A158F8 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		94A4C3681D6A40BD00342E13 /* outputdebugstringbuf.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = outputdebugstringbuf.hpp; sourceTree = "<group>"; };
-		94BD8D3A1FF7F4360047EB68 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/TBPlayer.storyboard; sourceTree = "<group>"; };
+		94BD8D3A1FF7F4360047EB68 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/TBViewer.storyboard; sourceTree = "<group>"; };
 		94CC7F8C1CE8CF770081A8A0 /* TBPlanWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBPlanWindowController.h; path = TBMac/TBPlanWindowController.h; sourceTree = "<group>"; };
 		94CC7F8D1CE8CF770081A8A0 /* TBPlanWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TBPlanWindowController.m; path = TBMac/TBPlanWindowController.m; sourceTree = "<group>"; };
 		94CC7F8E1CE8CF770081A8A0 /* TBPlanWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TBPlanWindow.xib; path = TBMac/TBPlanWindow.xib; sourceTree = "<group>"; };
@@ -1162,7 +1162,7 @@
 				AD8E68431A6C606700E5A4D8 /* TBMac.app */,
 				9476F42A1B3C37D000A158F8 /* TBRemote.app */,
 				9476F4C61B3C3F3D00A158F8 /* tournamentd */,
-				944FF4B31B3D04CA000362ED /* TBPlayer.app */,
+				944FF4B31B3D04CA000362ED /* TBViewer.app */,
 				ADA6A1981B97FE8A00C83762 /* TBRemote WatchKit App.app */,
 				ADA6A1A41B97FE8A00C83762 /* TBRemote WatchKit Extension.appex */,
 				ADF636181BAB8AF800D019AE /* TBPhone.app */,
@@ -1180,9 +1180,9 @@
 				AD8E68481A6C606700E5A4D8 /* TBMacAppDelegate.h */,
 				AD8E68491A6C606700E5A4D8 /* TBMacAppDelegate.m */,
 				AD8E68551A6C606700E5A4D8 /* TBMacMainMenu.xib */,
-				940AF5221FF7CD9700740295 /* TBPlayerAppDelegate.h */,
-				940AF5201FF7CD9700740295 /* TBPlayerAppDelegate.m */,
-				94BD8D3B1FF7F4360047EB68 /* TBPlayer.storyboard */,
+				940AF5221FF7CD9700740295 /* TBViewerAppDelegate.h */,
+				940AF5201FF7CD9700740295 /* TBViewerAppDelegate.m */,
+				94BD8D3B1FF7F4360047EB68 /* TBViewer.storyboard */,
 				AD8E684D1A6C606700E5A4D8 /* Document.h */,
 				AD8E684E1A6C606700E5A4D8 /* Document.m */,
 				AD8E68501A6C606700E5A4D8 /* Document.xib */,
@@ -1225,8 +1225,6 @@
 				ADCECE831B7B101500767DA6 /* TBPlayersViewController.h */,
 				ADCECE841B7B101500767DA6 /* TBPlayersViewController.m */,
 				94D849E91B8D6156000124E4 /* TBPlayersView.xib */,
-				940AF54C1FF7DE7800740295 /* TBPlayerViewController.h */,
-				940AF54B1FF7DE7800740295 /* TBPlayerViewController.m */,
 				ADE299B31B7B9ED100F1393B /* TBPlayerWindowController.h */,
 				ADE299B41B7B9ED100F1393B /* TBPlayerWindowController.m */,
 				94D849ED1B8D615A000124E4 /* TBPlayerWindow.xib */,
@@ -1245,6 +1243,8 @@
 				ADACCB731B989B2400F7C477 /* TBStatsView.xib */,
 				ADE4E1261A7DFFD000FC9EFC /* TBTableViewController.h */,
 				ADE4E1271A7DFFD000FC9EFC /* TBTableViewController.m */,
+				940AF54C1FF7DE7800740295 /* TBViewerViewController.h */,
+				940AF54B1FF7DE7800740295 /* TBViewerViewController.m */,
 				AD8E68531A6C606700E5A4D8 /* TBMac.xcassets */,
 				AD8E68461A6C606700E5A4D8 /* Supporting Files */,
 			);
@@ -1299,9 +1299,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		944FF4B21B3D04CA000362ED /* TBPlayer */ = {
+		944FF4B21B3D04CA000362ED /* TBViewer */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 944FF4D11B3D04CA000362ED /* Build configuration list for PBXNativeTarget "TBPlayer" */;
+			buildConfigurationList = 944FF4D11B3D04CA000362ED /* Build configuration list for PBXNativeTarget "TBViewer" */;
 			buildPhases = (
 				944FF4AF1B3D04CA000362ED /* Sources */,
 				944FF4B01B3D04CA000362ED /* Frameworks */,
@@ -1312,9 +1312,9 @@
 			dependencies = (
 				9464EC231FDC301A009092A4 /* PBXTargetDependency */,
 			);
-			name = TBPlayer;
+			name = TBViewer;
 			productName = TBPlayer;
-			productReference = 944FF4B31B3D04CA000362ED /* TBPlayer.app */;
+			productReference = 944FF4B31B3D04CA000362ED /* TBViewer.app */;
 			productType = "com.apple.product-type.application";
 		};
 		9464EC061FDC2D44009092A4 /* cJSON_macOS */ = {
@@ -1562,7 +1562,7 @@
 			targets = (
 				94EFDF681FE574BF00E40EA4 /* All */,
 				AD8E68421A6C606700E5A4D8 /* TBMac */,
-				944FF4B21B3D04CA000362ED /* TBPlayer */,
+				944FF4B21B3D04CA000362ED /* TBViewer */,
 				ADF635E11BAB8AF800D019AE /* TBPhone */,
 				9476F4291B3C37D000A158F8 /* TBRemote */,
 				9476F4C51B3C3F3D00A158F8 /* tournamentd */,
@@ -1590,7 +1590,7 @@
 				94D04ED61B7C59EB004F4245 /* s_warning.caf in Resources */,
 				94D04ECE1B7C59EB004F4245 /* s_break.caf in Resources */,
 				94D04ED21B7C59EB004F4245 /* s_rebalance.caf in Resources */,
-				94BD8D391FF7F4360047EB68 /* TBPlayer.storyboard in Resources */,
+				94BD8D391FF7F4360047EB68 /* TBViewer.storyboard in Resources */,
 				AD87A6CD1BA1D3B800E55961 /* TBChipsDisplayView.xib in Resources */,
 				94D04ED41B7C59EB004F4245 /* s_start.caf in Resources */,
 			);
@@ -1718,7 +1718,7 @@
 				ADD73D2A1B9692E1006824A1 /* NSDictionary+Changed.m in Sources */,
 				94FDEAE91B5AE2D60026B25D /* FBKVOController.m in Sources */,
 				94FDEAFA1B5AEB0B0026B25D /* TBActionClockView.m in Sources */,
-				940AF5281FF7CE0E00740295 /* TBPlayerAppDelegate.m in Sources */,
+				940AF5281FF7CE0E00740295 /* TBViewerAppDelegate.m in Sources */,
 				943B00CA1B3F427700CE55D4 /* TournamentSession.m in Sources */,
 				AD75ACF01BA3FF1900705967 /* TBColorValueTransformer.m in Sources */,
 				943B00D61B3F429500CE55D4 /* tournament.cpp in Sources */,
@@ -1750,7 +1750,7 @@
 				9471B3F41FF8BEF1000A314C /* TBActionClockSegue.m in Sources */,
 				ADE299B71B7B9EE800F1393B /* TBPlayerWindowController.m in Sources */,
 				AD2CA9611BAA7134009A2384 /* TournamentSocketDirectory.c in Sources */,
-				940AF54D1FF7DE7900740295 /* TBPlayerViewController.m in Sources */,
+				940AF54D1FF7DE7900740295 /* TBViewerViewController.m in Sources */,
 				940AF52C1FF7CE9000740295 /* main.m in Sources */,
 				940AF52A1FF7CE1B00740295 /* TBConnectToViewController.m in Sources */,
 			);
@@ -2032,7 +2032,7 @@
 		};
 		94EFDF6F1FE574FD00E40EA4 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 944FF4B21B3D04CA000362ED /* TBPlayer */;
+			target = 944FF4B21B3D04CA000362ED /* TBViewer */;
 			targetProxy = 94EFDF6E1FE574FD00E40EA4 /* PBXContainerItemProxy */;
 		};
 		94EFDF711FE574FD00E40EA4 /* PBXTargetDependency */ = {
@@ -2099,12 +2099,12 @@
 			name = LaunchScreen.xib;
 			sourceTree = "<group>";
 		};
-		94BD8D3B1FF7F4360047EB68 /* TBPlayer.storyboard */ = {
+		94BD8D3B1FF7F4360047EB68 /* TBViewer.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				94BD8D3A1FF7F4360047EB68 /* Base */,
 			);
-			name = TBPlayer.storyboard;
+			name = TBViewer.storyboard;
 			path = TBMac;
 			sourceTree = "<group>";
 		};
@@ -2776,7 +2776,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		944FF4D11B3D04CA000362ED /* Build configuration list for PBXNativeTarget "TBPlayer" */ = {
+		944FF4D11B3D04CA000362ED /* Build configuration list for PBXNativeTarget "TBViewer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				944FF4CD1B3D04CA000362ED /* Debug */,

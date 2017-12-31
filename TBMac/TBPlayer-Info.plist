@@ -29,7 +29,7 @@
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2015 HDna Studio. All rights reserved.</string>
 	<key>NSMainStoryboardFile</key>
-	<string>TBPlayer</string>
+	<string>TBViewer</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
 </dict>
