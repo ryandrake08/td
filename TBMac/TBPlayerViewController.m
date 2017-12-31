@@ -7,16 +7,15 @@
 //
 
 #import "TBPlayerViewController.h"
-#import "TBActionClockView.h"
+#import "TBActionClockViewController.h"
 #import "TBResizeTextField.h"
 #import "TBSoundPlayer.h"
 #import "NSObject+FBKVOController.h"
 
-@interface TBPlayerViewController () <TBActionClockDelegate>
+@interface TBPlayerViewController ()
 
 // UI elements
 @property (weak) IBOutlet NSImageView* backgroundImageView;
-@property (weak) IBOutlet TBActionClockView* actionClockView;
 
 // Sound player
 @property (strong) IBOutlet TBSoundPlayer* soundPlayer;
@@ -38,8 +37,7 @@
     _containerViewControllers = [[NSMutableArray alloc] init];
 
     [[self KVOController] observe:self keyPath:@"session.state.action_clock_time_remaining" options:0 block:^(id observer, id object, NSDictionary *change) {
-        NSUInteger actionClockTimeRemaining = [[[object session] state][@"action_clock_time_remaining"] unsignedIntegerValue];
-        [[self actionClockView] setSeconds:actionClockTimeRemaining / 1000.0];
+        [observer updateActionClock:[[object session] state][@"action_clock_time_remaining"]];
     }];
 
     // set up sound player
@@ -54,9 +52,14 @@
 }
 
 - (void)prepareForSegue:(NSStoryboardSegue *)segue sender:(id)sender {
-    id vc = [segue destinationController];
-    if([vc respondsToSelector:@selector(setSession:)]) {
-        [[self containerViewControllers] addObject:vc];
+    id dc = [segue destinationController];
+    if([dc respondsToSelector:@selector(setSession:)]) {
+        [[self containerViewControllers] addObject:dc];
+    }
+
+    if([[segue identifier] isEqualToString:@"presentActionClockView"]) {
+        TBActionClockViewController* vc =  [segue destinationController];
+        [vc setSession:[self session]];
     }
 }
 
@@ -71,10 +74,16 @@
     return _session;
 }
 
-#pragma mark TBActionClockDelegate
+#pragma mark Update action clock
 
-- (CGFloat)analogClock:(TBActionClockView*)clock graduationLengthForIndex:(NSInteger)index {
-    return index % 5 == 0 ? 10.0 : 5.0;
+- (void)updateActionClock:(NSNumber*)timeRemaining {
+    NSUInteger actionClockTimeRemaining = [timeRemaining unsignedIntegerValue];
+    NSArray* presented = [self presentedViewControllers];
+    if(actionClockTimeRemaining == 0 && [presented count] != 0) {
+        [self dismissViewController:presented[0]];
+    } else if(actionClockTimeRemaining > 0 && [presented count] == 0) {
+        [self performSegueWithIdentifier:@"presentActionClockView" sender:self];
+    }
 }
 
 @end

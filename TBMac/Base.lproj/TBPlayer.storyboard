@@ -62,7 +62,7 @@
                                     <items>
                                         <menuItem title="Connect to Tournament..." tag="1" keyEquivalent="C" id="jbb-zH-Jpf">
                                             <connections>
-                                                <segue destination="uJd-6n-gzp" kind="modal" identifier="PresentConnectToViewController" id="HhK-s7-XJ8"/>
+                                                <segue destination="uJd-6n-gzp" kind="modal" identifier="presentConnectToViewController" id="HhK-s7-XJ8"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Disconnect" tag="2" keyEquivalent="D" id="Dih-Kw-MSZ">
@@ -311,10 +311,6 @@
                                     </textField>
                                 </subviews>
                             </customView>
-                            <customView hidden="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qXL-sk-DER" userLabel="Action Clock" customClass="TBActionClockView">
-                                <rect key="frame" x="128" y="0.0" width="768" height="768"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
-                            </customView>
                             <containerView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EWw-J3-Ngw">
                                 <rect key="frame" x="0.0" y="202" width="256" height="470"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
@@ -339,15 +335,32 @@
                         </subviews>
                     </view>
                     <connections>
-                        <outlet property="actionClockView" destination="qXL-sk-DER" id="kqW-dW-iB0"/>
                         <outlet property="backgroundImageView" destination="1ra-sU-qbt" id="OMv-bW-kAG"/>
                         <outlet property="soundPlayer" destination="goO-aW-Fkx" id="auZ-bB-TED"/>
+                        <segue destination="ZqS-QV-bIW" kind="custom" identifier="presentActionClockView" customClass="TBActionClockSegue" id="NWA-s8-adO"/>
                     </connections>
                 </viewController>
                 <customObject id="DCg-8G-Vh9" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <customObject id="goO-aW-Fkx" customClass="TBSoundPlayer"/>
             </objects>
             <point key="canvasLocation" x="74" y="1175"/>
+        </scene>
+        <!--Action Clock View Controller-->
+        <scene sceneID="Zpt-ww-aJc">
+            <objects>
+                <viewController id="ZqS-QV-bIW" customClass="TBActionClockViewController" sceneMemberID="viewController">
+                    <view key="view" id="9fD-m3-z8L" customClass="TBActionClockView">
+                        <rect key="frame" x="0.0" y="0.0" width="512" height="512"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    </view>
+                    <connections>
+                        <outlet property="actionClockView" destination="9fD-m3-z8L" id="0Qx-Mt-gUt"/>
+                        <outlet property="view" destination="9fD-m3-z8L" id="qKt-3t-4eY"/>
+                    </connections>
+                </viewController>
+                <customObject id="7Ar-CU-Hpb" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1040" y="1175"/>
         </scene>
         <!--Chips Display View Controller-->
         <scene sceneID="P01-Gy-h4R">

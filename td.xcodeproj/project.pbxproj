@@ -86,6 +86,9 @@
 		9469B84D1CF2222400BC45E1 /* TBSoundPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9469B84C1CF2222400BC45E1 /* TBSoundPlayer.m */; };
 		9469B84E1CF2222400BC45E1 /* TBSoundPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9469B84C1CF2222400BC45E1 /* TBSoundPlayer.m */; };
 		9471B3ED1FF87EFF000A314C /* TBActionClockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CDDD221FE39299008ADF24 /* TBActionClockViewController.m */; };
+		9471B3F01FF8A950000A314C /* TBActionClockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9471B3EF1FF8A947000A314C /* TBActionClockViewController.m */; };
+		9471B3F11FF8A950000A314C /* TBActionClockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9471B3EF1FF8A947000A314C /* TBActionClockViewController.m */; };
+		9471B3F41FF8BEF1000A314C /* TBActionClockSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 9471B3F31FF8BEF1000A314C /* TBActionClockSegue.m */; };
 		9476F4691B3C385400A158F8 /* TBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4561B3C385400A158F8 /* TBAppDelegate.m */; };
 		9476F46A1B3C385400A158F8 /* TBTournamentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4581B3C385400A158F8 /* TBTournamentsViewController.m */; };
 		9476F46B1B3C385400A158F8 /* TBRemoteClockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F45A1B3C385400A158F8 /* TBRemoteClockViewController.m */; };
@@ -584,6 +587,10 @@
 		9464EC2C1FDD102B009092A4 /* shared_instance.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = shared_instance.hpp; sourceTree = "<group>"; };
 		9469B84B1CF2222400BC45E1 /* TBSoundPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBSoundPlayer.h; sourceTree = "<group>"; };
 		9469B84C1CF2222400BC45E1 /* TBSoundPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBSoundPlayer.m; sourceTree = "<group>"; };
+		9471B3EE1FF8A947000A314C /* TBActionClockViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBActionClockViewController.h; path = TBMac/TBActionClockViewController.h; sourceTree = "<group>"; };
+		9471B3EF1FF8A947000A314C /* TBActionClockViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TBActionClockViewController.m; path = TBMac/TBActionClockViewController.m; sourceTree = "<group>"; };
+		9471B3F21FF8BEF1000A314C /* TBActionClockSegue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TBActionClockSegue.h; path = TBMac/TBActionClockSegue.h; sourceTree = "<group>"; };
+		9471B3F31FF8BEF1000A314C /* TBActionClockSegue.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TBActionClockSegue.m; path = TBMac/TBActionClockSegue.m; sourceTree = "<group>"; };
 		9476F42A1B3C37D000A158F8 /* TBRemote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TBRemote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9476F4551B3C385400A158F8 /* TBAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBAppDelegate.h; sourceTree = "<group>"; };
 		9476F4561B3C385400A158F8 /* TBAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBAppDelegate.m; sourceTree = "<group>"; };
@@ -1179,6 +1186,10 @@
 				AD8E684D1A6C606700E5A4D8 /* Document.h */,
 				AD8E684E1A6C606700E5A4D8 /* Document.m */,
 				AD8E68501A6C606700E5A4D8 /* Document.xib */,
+				9471B3F21FF8BEF1000A314C /* TBActionClockSegue.h */,
+				9471B3F31FF8BEF1000A314C /* TBActionClockSegue.m */,
+				9471B3EE1FF8A947000A314C /* TBActionClockViewController.h */,
+				9471B3EF1FF8A947000A314C /* TBActionClockViewController.m */,
 				ADACCB751B989B8000F7C477 /* TBAuthCodeWindowController.h */,
 				ADACCB761B989B8000F7C477 /* TBAuthCodeWindowController.m */,
 				ADACCB7B1B989B8F00F7C477 /* TBAuthCodeWindow.xib */,
@@ -1698,6 +1709,7 @@
 			files = (
 				94FDEAE61B5AE2D60026B25D /* CFStreamCreatePairWithUnixSocket.c in Sources */,
 				ADE5A4FE1B8F44A0002737A8 /* TBStatsViewController.m in Sources */,
+				9471B3F01FF8A950000A314C /* TBActionClockViewController.m in Sources */,
 				94CDDD341FE3B349008ADF24 /* TBColor+ContrastTextColor.m in Sources */,
 				943B00D41B3F429500CE55D4 /* server.cpp in Sources */,
 				AD75ACEF1BA3FEEA00705967 /* TBEllipseImageView.m in Sources */,
@@ -1735,6 +1747,7 @@
 				943B00C81B3F427700CE55D4 /* TournamentConnection.m in Sources */,
 				943B00D71B3F429500CE55D4 /* types.cpp in Sources */,
 				ADCECE821B7B0E6100767DA6 /* TBTableViewController.m in Sources */,
+				9471B3F41FF8BEF1000A314C /* TBActionClockSegue.m in Sources */,
 				ADE299B71B7B9EE800F1393B /* TBPlayerWindowController.m in Sources */,
 				AD2CA9611BAA7134009A2384 /* TournamentSocketDirectory.c in Sources */,
 				940AF54D1FF7DE7900740295 /* TBPlayerViewController.m in Sources */,
@@ -1903,6 +1916,7 @@
 				949D709A1B3C440D008D5CD1 /* types.cpp in Sources */,
 				ADACCB781B989B8000F7C477 /* TBAuthCodeWindowController.m in Sources */,
 				9462A3ED1B77F40500B29002 /* TBMovementWindowController.m in Sources */,
+				9471B3F11FF8A950000A314C /* TBActionClockViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

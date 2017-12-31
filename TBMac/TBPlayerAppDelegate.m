@@ -85,7 +85,7 @@
 }
 
 - (void)prepareForSegue:(NSStoryboardSegue *)segue sender:(id)sender {
-    if([[segue identifier] isEqualToString:@"PresentConnectToViewController"]) {
+    if([[segue identifier] isEqualToString:@"presentConnectToView"]) {
         TBConnectToViewController* vc = [segue destinationController];
         [vc setSession:[self session]];
         [vc setPort:kTournamentServiceDefaultPort];
