@@ -7,11 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "TournamentService.h"
 
 @interface TournamentDaemon : NSObject
 
 // start the daemon, pre-authorizing given client code, returning local unix socket path
-- (NSString*)startWithAuthCode:(NSNumber*)code;
+- (TournamentService*)startWithAuthCode:(NSNumber*)code;
 
 // publish over Bojour using name
 - (void)publishWithName:(NSString*)name;

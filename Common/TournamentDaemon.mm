@@ -46,7 +46,7 @@
 }
 
 // start the daemon, pre-authorizing given client code, returning local unix socket path
-- (NSString*)startWithAuthCode:(NSNumber*)code {
+- (TournamentService*)startWithAuthCode:(NSNumber*)code {
 
     logger_enable(LOG_ERROR, LOG_WARNING);
 
@@ -69,7 +69,11 @@
     port = service.second;
 
     // return the unix socket path, for subsequent local connection
-    return @(service.first.c_str());
+    if(service.first.empty()) {
+        return [[TournamentService alloc] initWithAddress:@"localhost" andPort:port];
+    } else {
+        return [[TournamentService alloc] initWithUnixSocket:@(service.first.c_str())];
+    }
 }
 
 // publish over Bojour using name

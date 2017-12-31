@@ -103,10 +103,10 @@
     }];
 
     // Start serving using this device's auth key
-    NSString* path = [[self server] startWithAuthCode:[TournamentSession clientIdentifier]];
+    TournamentService* service = [[self server] startWithAuthCode:[TournamentSession clientIdentifier]];
 
     // Start the session, connecting locally
-    if(![[self session] connectToLocalPath:path]) {
+    if(![[self session] connectToTournamentService:service]) {
         // TODO: handle error
     }
 }
