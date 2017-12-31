@@ -177,21 +177,21 @@ static std::ostream& operator<<(std::ostream& os, const std::chrono::millisecond
     auto duration(milliseconds.count());
 
     if(duration < /* DISABLES CODE */ (60000) && false) { // millisecond display turns out to be annoying
-        // SS.MSS
+        // ss.MSS
         long long s = duration / 1000 % 60;
         long long ms = duration % 1000;
         os << s << '.' << std::setw(3) << std::setfill('0') << ms;
     } else if(duration < 3600000) {
-        // MM:SS
+        // mm:SS
         long long m = duration / 60000;
         long long s = duration / 1000 % 60;
         os << m << ':' << std::setw(2) << std::setfill('0') << s;
     } else {
-        // HH:MM:SS
+        // hh:MM:SS
         long long h = duration / 3600000;
         long long m = duration / 60000 % 60;
         long long s = duration / 1000 % 60;
-        os << h << ':' << std::setw(2) << std::setfill('0') << m << ':' << s;
+        os << h << ':' << std::setw(2) << std::setfill('0') << m << ':' << std::setw(2) << std::setfill('0') << s;
     }
 
     return os;
