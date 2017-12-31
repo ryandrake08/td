@@ -90,22 +90,34 @@ static CGContextRef TBGraphicsGetCurrentContext() {
 }
 
 - (void)drawRect:(CGRect)rect {
+    // Aspect-ratio-squared rect to draw within
+    CGRect arect = self.bounds;
+
+    // Squared (minimum dimension)
+    if(arect.size.width < arect.size.height) {
+        arect.origin.y += (arect.size.height - arect.size.width)/2;
+        arect.size.height = arect.size.width;
+    } else {
+        arect.origin.x += (arect.size.width - arect.size.height)/2;
+        arect.size.width = arect.size.height;
+    }
+
     // Center point
-    CGPoint center = CGPointMake(self.frame.size.width / 2, self.frame.size.height / 2);
+    CGPoint center = CGPointMake(arect.origin.x + arect.size.width/2, arect.origin.y + arect.size.height/2);
 
     // Face radius (out to the center of the border)
-    CGFloat radius = center.x - rect.origin.x - self.borderWidth/2;
+    CGFloat radius = center.x - arect.origin.x - self.borderWidth/2;
 
     // Set up graphics context (flip Y coordinates on iOS)
     CGContextRef ctx = TBGraphicsGetCurrentContext();
     CGContextSaveGState(ctx);
 #if TARGET_OS_IPHONE
-    CGContextTranslateCTM(ctx, 0.0, self.frame.size.height);
+    CGContextTranslateCTM(ctx, 0.0, arect.size.height);
     CGContextScaleCTM(ctx, 1.0, -1.0);
 #endif
 
     // CLOCK'S FACE
-    CGContextAddEllipseInRect(ctx, rect);
+    CGContextAddEllipseInRect(ctx, arect);
     CGContextSetFillColorWithColor(ctx, self.faceBackgroundColor.CGColor);
     CGContextSetAlpha(ctx, self.faceBackgroundAlpha);
     CGContextFillPath(ctx);
@@ -120,7 +132,7 @@ static CGContextRef TBGraphicsGetCurrentContext() {
     }
 
     // CLOCK'S BORDER
-    CGContextAddEllipseInRect(ctx, CGRectMake(rect.origin.x + self.borderWidth/2, rect.origin.y + self.borderWidth/2, rect.size.width - self.borderWidth, rect.size.height - self.borderWidth));
+    CGContextAddEllipseInRect(ctx, CGRectMake(arect.origin.x + self.borderWidth/2, arect.origin.y + self.borderWidth/2, arect.size.width - self.borderWidth, arect.size.height - self.borderWidth));
     CGContextSetStrokeColorWithColor(ctx, self.borderColor.CGColor);
     CGContextSetAlpha(ctx, self.borderAlpha);
     CGContextSetLineWidth(ctx,self.borderWidth);
@@ -167,8 +179,10 @@ static CGContextRef TBGraphicsGetCurrentContext() {
                 graduationOffset = [self.delegate analogClock:self graduationOffsetForIndex:i];
             }
 
-            CGPoint P1 = CGPointMake((center.x + ((self.frame.size.width - self.borderWidth*2 - graduationOffset) / 2) * cos((6*i)*(M_PI/180)  - (M_PI/2))), (center.x + ((self.frame.size.width - self.borderWidth*2 - graduationOffset) / 2) * sin((6*i)*(M_PI/180)  - (M_PI/2))));
-            CGPoint P2 = CGPointMake((center.x + ((self.frame.size.width - self.borderWidth*2 - graduationOffset - graduationLength) / 2) * cos((6*i)*(M_PI/180)  - (M_PI/2))), (center.x + ((self.frame.size.width - self.borderWidth*2 - graduationOffset - graduationLength) / 2) * sin((6*i)*(M_PI/180)  - (M_PI/2))));
+            CGPoint P1 = CGPointMake((center.x + ((arect.size.width - self.borderWidth*2 - graduationOffset) / 2) * cos((6*i)*(M_PI/180)  - (M_PI/2))),
+                                     (center.y + ((arect.size.height - self.borderWidth*2 - graduationOffset) / 2) * sin((6*i)*(M_PI/180)  - (M_PI/2))));
+            CGPoint P2 = CGPointMake((center.x + ((arect.size.width - self.borderWidth*2 - graduationOffset - graduationLength) / 2) * cos((6*i)*(M_PI/180) - (M_PI/2))),
+                                     (center.y + ((arect.size.height - self.borderWidth*2 - graduationOffset - graduationLength) / 2) * sin((6*i)*(M_PI/180) - (M_PI/2))));
 
             CGContextSetStrokeColorWithColor(ctx, graduationColor.CGColor);
             CGContextSetLineWidth(ctx, graduationWidth);
@@ -198,7 +212,7 @@ static CGContextRef TBGraphicsGetCurrentContext() {
     // DIGIT DRAWING
     if (self.enableDigit == YES) {
         CGFloat lineHeight = self.digitFont.lineHeight;
-        CGFloat markingDistanceFromCenter = rect.size.width/2.0f - lineHeight/4.0f - 15 + self.digitOffset;
+        CGFloat markingDistanceFromCenter = arect.size.width/2.0f - lineHeight/4.0f - 15 + self.digitOffset;
         NSInteger offset = 4;
 
         for(unsigned i = 0; i < 12; i ++){

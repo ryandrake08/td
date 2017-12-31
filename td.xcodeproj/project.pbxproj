@@ -86,6 +86,7 @@
 		9464EC2B1FDC3042009092A4 /* libcJSON_iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9464EC1F1FDC2FB5009092A4 /* libcJSON_iOS.a */; };
 		9469B84D1CF2222400BC45E1 /* TBSoundPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9469B84C1CF2222400BC45E1 /* TBSoundPlayer.m */; };
 		9469B84E1CF2222400BC45E1 /* TBSoundPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9469B84C1CF2222400BC45E1 /* TBSoundPlayer.m */; };
+		9471B3ED1FF87EFF000A314C /* TBActionClockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CDDD221FE39299008ADF24 /* TBActionClockViewController.m */; };
 		9476F4691B3C385400A158F8 /* TBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4561B3C385400A158F8 /* TBAppDelegate.m */; };
 		9476F46A1B3C385400A158F8 /* TBTournamentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4581B3C385400A158F8 /* TBTournamentsViewController.m */; };
 		9476F46B1B3C385400A158F8 /* TBRemoteClockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F45A1B3C385400A158F8 /* TBRemoteClockViewController.m */; };
@@ -1789,6 +1790,7 @@
 				9439701A1B3F9DB700BB0413 /* TournamentBrowser.m in Sources */,
 				ADDDAA8B1B93BCEE00D3AF68 /* TBResultsViewController.m in Sources */,
 				94FDEAF01B5AE2D60026B25D /* NSObject+FBKVOController.m in Sources */,
+				9471B3ED1FF87EFF000A314C /* TBActionClockViewController.m in Sources */,
 				9476F46A1B3C385400A158F8 /* TBTournamentsViewController.m in Sources */,
 				9476F4721B3C385400A158F8 /* main.m in Sources */,
 				94FDEAED1B5AE2D60026B25D /* NSData+Delimiter.m in Sources */,
