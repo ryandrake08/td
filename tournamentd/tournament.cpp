@@ -281,15 +281,8 @@ void tournament::handle_cmd_bust_player(const json& in, json& out)
 }
 
 // handler for new client
-bool tournament::handle_new_client(std::ostream& client) const
+bool tournament::handle_new_client(std::ostream& /* client */) const
 {
-    // greet client
-    json out;
-    this->handle_cmd_version(out);
-    this->handle_cmd_get_config(out);
-    this->handle_cmd_get_state(out);
-    client << out << std::endl;
-
     return false;
 }
 

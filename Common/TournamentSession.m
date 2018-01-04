@@ -109,6 +109,11 @@ NSString* const TournamentSessionUpdatedNotification = @"TournamentSessionUpdate
     return @(incrementingKey++);
 }
 
+- (void)postUpdatedNotification {
+    // post notification
+    [[NSNotificationCenter defaultCenter] postNotificationName:TournamentSessionUpdatedNotification object:[self state]];
+}
+
 #pragma mark Tournament Commands
 
 // send a command through TournamentConnection
@@ -141,9 +146,7 @@ NSString* const TournamentSessionUpdatedNotification = @"TournamentSessionUpdate
             // set internal state if changed
             if([self state][@"authorized"] != json[@"authorized"]) {
                 [self state][@"authorized"] = json[@"authorized"];
-
-                // post notification
-                [[NSNotificationCenter defaultCenter] postNotificationName:TournamentSessionUpdatedNotification object:[self state]];
+                [self postUpdatedNotification];
             }
             // handle authorization check
             if(block != nil) {
@@ -345,9 +348,7 @@ NSString* const TournamentSessionUpdatedNotification = @"TournamentSessionUpdate
         // replace only state that changed
         NSDictionary* update = [json dictionaryWithChangesFromDictionary:[self state]];
         [[self state] addEntriesFromDictionary:update];
-
-        // post notification
-        [[NSNotificationCenter defaultCenter] postNotificationName:TournamentSessionUpdatedNotification object:[self state]];
+        [self postUpdatedNotification];
     }
 }
 
@@ -357,12 +358,22 @@ NSString* const TournamentSessionUpdatedNotification = @"TournamentSessionUpdate
     NSAssert([self connection] == tc, @"Unexpected connection from %@", tc);
     // set state
     [self state][@"connected"] = @YES;
-
-    // post notification
-    [[NSNotificationCenter defaultCenter] postNotificationName:TournamentSessionUpdatedNotification object:[self state]];
+    [self postUpdatedNotification];
 
     // always check if we're authorized right away
     [self checkAuthorizedWithBlock:nil];
+
+    // and request initial config
+    [self getConfigWithBlock:^(id json) {
+        [[self state] addEntriesFromDictionary:json];
+        [self postUpdatedNotification];
+    }];
+
+    // and request initial state
+    [self getStateWithBlock:^(id json) {
+        [[self state] addEntriesFromDictionary:json];
+        [self postUpdatedNotification];
+    }];
 }
 
 - (void)tournamentConnectionDidDisconnect:(TournamentConnection*)tc {
@@ -375,9 +386,7 @@ NSString* const TournamentSessionUpdatedNotification = @"TournamentSessionUpdate
     // set state
     [[self state] removeAllObjects];
     [self state][@"connected"] = @NO;
-
-    // post notification
-    [[NSNotificationCenter defaultCenter] postNotificationName:TournamentSessionUpdatedNotification object:[self state]];
+    [self postUpdatedNotification];
 }
 
 - (void)tournamentConnection:(TournamentConnection*)tc didReceiveData:(id)json {
