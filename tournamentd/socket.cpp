@@ -278,7 +278,7 @@ long common_socket::peek(void* buf, std::size_t bytes) const
     {
         if(recv_errno == EAGAIN)
         {
-			logger(LOG_DEBUG) << "peek: no bytes available\n";
+			logger(LOG_DEBUG) << "peek: no bytes available (EAGAIN)\n";
 		}
 #if defined(_WIN32)
 		else if(recv_errno == 42 || recv_errno == 0)
@@ -296,6 +296,11 @@ long common_socket::peek(void* buf, std::size_t bytes) const
 			throw std::system_error(recv_errno, std::system_category(), "recv");
 		}
         return 0;
+    }
+    else if(len == 0)
+    {
+        logger(LOG_DEBUG) << "peek: received zero bytes: connection shutdown gracefully\n";
+        return -1;
     }
     else
     {
