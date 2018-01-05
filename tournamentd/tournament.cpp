@@ -810,6 +810,11 @@ bool tournament::handle_client_input(std::iostream& client)
                 out.set_value("error", e.what());
                 logger(LOG_WARNING) << "caught protocol error while processing command: " << e.what() << '\n';
             }
+			catch(const std::exception& e)
+			{
+                out.set_value("exception", e.what());
+                logger(LOG_WARNING) << "caught a non protocol error exception while processing command: " << e.what() << '\n';
+			}
 
             client << out << std::endl;
         }
