@@ -390,7 +390,7 @@
 			containerPortal = AD8E683B1A6C606700E5A4D8 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 944FF4B21B3D04CA000362ED;
-			remoteInfo = TBPlayer;
+			remoteInfo = TBViewer;
 		};
 		94EFDF701FE574FD00E40EA4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1311,7 +1311,7 @@
 				9464EC231FDC301A009092A4 /* PBXTargetDependency */,
 			);
 			name = TBViewer;
-			productName = TBPlayer;
+			productName = TBViewer;
 			productReference = 944FF4B31B3D04CA000362ED /* TBViewer.app */;
 			productType = "com.apple.product-type.application";
 		};

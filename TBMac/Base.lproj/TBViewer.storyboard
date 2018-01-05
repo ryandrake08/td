@@ -12,11 +12,11 @@
                 <application id="2D5-AK-fhd" sceneMemberID="viewController">
                     <menu key="mainMenu" title="Main Menu" systemMenu="main" id="nid-bX-5T5">
                         <items>
-                            <menuItem title="TBPlayer" id="sdb-Yp-J05">
+                            <menuItem title="TBViewer" id="sdb-Yp-J05">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="TBPlayer" systemMenu="apple" id="Bry-mQ-c9r">
+                                <menu key="submenu" title="TBViewer" systemMenu="apple" id="Bry-mQ-c9r">
                                     <items>
-                                        <menuItem title="About TBPlayer" id="ghf-5a-7BX">
+                                        <menuItem title="About TBViewer" id="ghf-5a-7BX">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="orderFrontStandardAboutPanel:" target="l0r-f1-Xxh" id="K55-QO-PNi"/>
@@ -30,7 +30,7 @@
                                             <menu key="submenu" title="Services" systemMenu="services" id="986-fH-WDw"/>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="ubX-DR-asO"/>
-                                        <menuItem title="Hide TBPlayer" keyEquivalent="h" id="O0c-dQ-sSW">
+                                        <menuItem title="Hide TBViewer" keyEquivalent="h" id="O0c-dQ-sSW">
                                             <connections>
                                                 <action selector="hide:" target="l0r-f1-Xxh" id="Av1-YZ-6VK"/>
                                             </connections>
@@ -48,7 +48,7 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="oli-is-ObE"/>
-                                        <menuItem title="Quit TBPlayer" keyEquivalent="q" id="3XQ-fz-Nc8">
+                                        <menuItem title="Quit TBViewer" keyEquivalent="q" id="3XQ-fz-Nc8">
                                             <connections>
                                                 <action selector="terminate:" target="l0r-f1-Xxh" id="61o-AO-oqZ"/>
                                             </connections>
@@ -692,7 +692,7 @@
                                         </connections>
                                     </textField>
                                     <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="CBh-AQ-g0Z">
-                                        <rect key="frame" x="0.0" y="-2" width="256" height="4"/>
+                                        <rect key="frame" x="0.0" y="-2" width="256" height="5"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                     </box>
                                 </subviews>
