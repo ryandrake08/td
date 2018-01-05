@@ -34,13 +34,34 @@ public:
     {
         try
         {
-            this->sync();
-            delete[] this->ibuf;
-            delete[] this->obuf;
+            if(this->ibuf != nullptr)
+            {
+                delete[] this->ibuf;
+            }
+            if(this->obuf != nullptr)
+            {
+                this->sync();
+                delete[] this->obuf;
+            }
         }
         catch(...)
         {
         }
+    }
+
+    basic_socketstreambuf(basic_socketstreambuf&& other) : sock(other.sock), ibuf(other.ibuf), obuf(other.obuf)
+    {
+        other.ibuf = nullptr;
+        other.obuf = nullptr;
+    }
+
+    basic_socketstreambuf& operator=(basic_socketstreambuf&& other)
+    {
+        this->sock = other.sock;
+        this->ibuf = other.ibuf;
+        this->obuf = other.obuf;
+        other.ibuf = nullptr;
+        other.obuf = nullptr;
     }
 
 private:
@@ -115,6 +136,8 @@ class basic_socketstream : public std::basic_iostream<T>
     basic_socketstreambuf<T> buf;
 public:
     explicit basic_socketstream(const common_socket& s) : std::basic_iostream<T>(&buf), buf(s) {}
+    basic_socketstream(basic_socketstream&& other) : std::basic_iostream<T>(&buf), buf(std::move(other.buf)) {}
+    basic_socketstream& operator=(basic_socketstream&& other) { buf = other.buf; }
 };
 
 typedef basic_socketstream<char> socketstream;

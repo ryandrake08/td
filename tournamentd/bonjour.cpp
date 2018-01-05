@@ -28,7 +28,7 @@ class bonjour_publisher::impl
 
     CFNetServiceRef netService;
 
-    static void registerCallback(CFNetServiceRef theService, CFStreamError* error, void* info)
+    static void registerCallback(CFNetServiceRef /* theService */, CFStreamError* /* error */, void* /* info */)
     {
     }
 
