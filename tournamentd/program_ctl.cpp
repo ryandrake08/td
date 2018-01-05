@@ -115,14 +115,14 @@ public:
                 json arg;
                 if(!auth.empty())
                 {
-                    arg.set_value("authenticate", auth);
+                    arg.set_value("authenticate", std::stol(auth));
                 }
 
                 // handle command
                 if(opt == "version")
                 {
                     // send command
-                    stream << "version " << arg << '\r' << std::endl;
+                    stream << opt << ' ' << arg << '\r' << std::endl;
 
                     // read response
                     std::string input;
@@ -141,6 +141,52 @@ public:
                         {
                             std::cout << "version: " << version << '\n';
                         }
+                    }
+                }
+                else if(opt == "check_authorized")
+                {
+                    // send command
+                    stream << opt << ' ' << arg << '\r' << std::endl;
+
+                    // read response
+                    std::string input;
+                    if(std::getline(stream, input))
+                    {
+                        // parse the line from server
+                        auto object(json::eval(input));
+
+                        // parse line
+                        bool authed;
+                        if(object.get_value("authorized", authed))
+                        {
+                            std::cout << "authorized: " << (authed ? "true\n" : "false\n");
+                        }
+                    }
+                }
+                else if(opt == "get_config")
+                {
+                    // send command
+                    stream << opt << ' ' << arg << '\r' << std::endl;
+
+                    // read response
+                    std::string input;
+                    if(std::getline(stream, input))
+                    {
+                        // for now just output raw json
+                        std::cout << input << '\n';
+                    }
+                }
+                else if(opt == "get_state")
+                {
+                    // send command
+                    stream << opt << ' ' << arg << '\r' << std::endl;
+
+                    // read response
+                    std::string input;
+                    if(std::getline(stream, input))
+                    {
+                        // for now just output raw json
+                        std::cout << input << '\n';
                     }
                 }
                 else
