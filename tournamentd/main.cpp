@@ -80,10 +80,8 @@ int main(int argc, char** argv)
                 // notify program of SIGUSR2 so it can take some custom action (on systems that support SIGUSR2)
                 if(signal_handler::signal_caught == SIGUSR2)
                 {
-                    std::cerr << "main: calling program to handle signal SIGUSR2\n";
                     if(c.sigusr2())
                     {
-                        std::cerr << "main: exiting due to SIGUSR2 handler returning true\n";
                         return EXIT_SUCCESS;
                     }
 
@@ -96,7 +94,6 @@ int main(int argc, char** argv)
 #endif
                 if(c.run())
                 {
-                    std::cerr << "main: exiting due to run() returning true\n";
                     return EXIT_SUCCESS;
                 }
             }
@@ -105,7 +102,6 @@ int main(int argc, char** argv)
             // restart gracefully on SIGUSR1 (on systems that support SIGUSR1)
             if(signal_handler::signal_caught == SIGUSR1)
             {
-                std::cerr << "main: restarting run loop due to signal SIGUSR1\n";
                 restarting = true;
 
                 // clear signal_caught for next time
@@ -115,7 +111,7 @@ int main(int argc, char** argv)
         }
         while(restarting);
 
-        std::cerr << "main: exit failure. signal_caught = " << signal_handler::signal_caught << "\n";
+        std::cerr << "FATAL ERROR: caught signal " << signal_handler::signal_caught << std::endl;
         return EXIT_FAILURE;
     }
     catch(const std::exception& e)
