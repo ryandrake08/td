@@ -18,7 +18,7 @@ static cJSON* check(cJSON* obj)
     // Throw if pointer is null
     if(obj == nullptr)
     {
-        throw std::logic_error("empty or invalid json");
+        throw std::logic_error("invalid json");
     }
     return obj;
 }
@@ -120,10 +120,7 @@ json& json::operator=(json&& other) noexcept
 // Delete raw cJSON pointer
 json::~json()
 {
-    if(this->ptr != nullptr)
-    {
-        cJSON_Delete(this->ptr);
-    }
+    cJSON_Delete(this->ptr);
 }
 
 // Construct from primatives
@@ -183,7 +180,7 @@ json::json(const std::vector<json>& value) : ptr(check(cJSON_CreateArray()))
 {
     for(const auto& item : value)
     {
-        cJSON_AddItemToArray(this->ptr, cJSON_Duplicate(item.ptr, 1));
+        cJSON_AddItemToArray(check(this->ptr), cJSON_Duplicate(item.ptr, 1));
     }
 }
 
@@ -247,11 +244,12 @@ std::string json::value() const
 template <>
 bool json::value() const
 {
-    if((check(this->ptr)->type & 0xff) == cJSON_True)
+    auto type(check(this->ptr)->type & 0xff);
+    if(type == cJSON_True)
     {
         return true;
     }
-    else if((check(this->ptr)->type & 0xff) == cJSON_False)
+    else if(type == cJSON_False)
     {
         return false;
     }
@@ -281,6 +279,7 @@ std::vector<json> json::value() const
 // Printer
 std::string json::string(bool pretty) const
 {
+    check(this->ptr);
     std::unique_ptr<char, decltype(std::free)*> buf { (pretty ? cJSON_Print(this->ptr) : cJSON_PrintUnformatted(this->ptr)), std::free };
     return std::string(buf.get());
 }
@@ -288,13 +287,13 @@ std::string json::string(bool pretty) const
 // Generic JSON getter
 bool json::get_value(const char* name) const
 {
-    return cJSON_GetObjectItem(this->ptr, name) != nullptr;
+    return cJSON_GetObjectItem(check(this->ptr), name) != nullptr;
 }
 
 // Generic JSON getter
 bool json::get_value(const char* name, json& value) const
 {
-    auto item(cJSON_GetObjectItem(this->ptr, name));
+    auto item(cJSON_GetObjectItem(check(this->ptr), name));
     if(item != nullptr)
     {
         value = json(cJSON_Duplicate(item, 1));
@@ -306,7 +305,25 @@ bool json::get_value(const char* name, json& value) const
 // Set json value for name
 void json::set_json_value(const char* name, const json& value)
 {
-    cJSON_AddItemToObject(this->ptr, name, cJSON_Duplicate(value.ptr, 1));
+    cJSON_AddItemToObject(check(this->ptr), name, cJSON_Duplicate(value.ptr, 1));
+}
+
+// true if json is null or is an empty object
+bool json::empty() const
+{
+    auto type(check(this->ptr)->type & 0xff);
+    if(type == cJSON_NULL)
+    {
+        return true;
+    }
+    else if(type != cJSON_Array && type != cJSON_Object)
+    {
+        return false;
+    }
+    else
+    {
+        return cJSON_GetArraySize(this->ptr) == 0;
+    }
 }
 
 std::ostream& operator<<(std::ostream& os, const json& object)

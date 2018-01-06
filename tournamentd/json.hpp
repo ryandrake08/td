@@ -94,6 +94,9 @@ public:
     {
         set_json_value(name, json(value));
     }
+
+    // true if json is null or is an empty object
+    bool empty() const;
 };
 
 // Stream operators

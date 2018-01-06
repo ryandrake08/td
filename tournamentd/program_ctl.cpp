@@ -20,6 +20,46 @@ static socketstream make_stream(const std::string& server, const std::string por
     }
 }
 
+static json send_command(std::iostream& stream, const std::string& cmd, const std::string& auth=std::string(), json arg=json())
+{
+    // add auth if exists
+    if(!auth.empty())
+    {
+        arg.set_value("authenticate", std::stol(auth));
+    }
+
+    // send command with optional json argument
+    if(arg.empty())
+    {
+        stream << cmd << '\r' << std::endl;
+    }
+    else
+    {
+        stream << cmd << ' ' << arg << '\r' << std::endl;
+    }
+
+    // read response
+    std::string response;
+    if(std::getline(stream, response))
+    {
+        // convert line from server to json and return
+        return json::eval(response);
+    }
+    else
+    {
+        return json();
+    }
+}
+
+static void print_value_if_exists(const json& object, const std::string& name)
+{
+    json value;
+    if(object.get_value(name.c_str(), value))
+    {
+        std::cout << name << ": " << value << '\n';
+    }
+}
+
 struct program::impl
 {
 public:
@@ -106,92 +146,60 @@ public:
             }
             else
             {
-                // treat the rest as the command and arguments
-
                 // make a stream, given server and port, or unix_path
                 auto stream(make_stream(server, port, unix_path));
-
-                // build initial command argument
-                json arg;
-                if(!auth.empty())
-                {
-                    arg.set_value("authenticate", std::stol(auth));
-                }
 
                 // handle command
                 if(opt == "version")
                 {
                     // send command
-                    stream << opt << ' ' << arg << '\r' << std::endl;
+                    auto object(send_command(stream, opt));
 
-                    // read response
-                    std::string input;
-                    if(std::getline(stream, input))
-                    {
-                        // parse the line from server
-                        auto object(json::eval(input));
-
-                        // parse line
-                        std::string name, version;
-                        if(object.get_value("server_name", name))
-                        {
-                            std::cout << "name: " << name << '\n';
-                        }
-                        if(object.get_value("server_version", version))
-                        {
-                            std::cout << "version: " << version << '\n';
-                        }
-                    }
+                    // print output object
+                    print_value_if_exists(object, "server_name");
+                    print_value_if_exists(object, "server_version");
                 }
                 else if(opt == "check_authorized")
                 {
                     // send command
-                    stream << opt << ' ' << arg << '\r' << std::endl;
+                    auto object(send_command(stream, opt, auth));
 
-                    // read response
-                    std::string input;
-                    if(std::getline(stream, input))
-                    {
-                        // parse the line from server
-                        auto object(json::eval(input));
-
-                        // parse line
-                        bool authed;
-                        if(object.get_value("authorized", authed))
-                        {
-                            std::cout << "authorized: " << (authed ? "true\n" : "false\n");
-                        }
-                    }
+                    // print output object
+                    print_value_if_exists(object, "authorized");
                 }
                 else if(opt == "get_config")
                 {
                     // send command
-                    stream << opt << ' ' << arg << '\r' << std::endl;
+                    auto object(send_command(stream, opt));
 
-                    // read response
-                    std::string input;
-                    if(std::getline(stream, input))
-                    {
-                        // for now just output raw json
-                        std::cout << input << '\n';
-                    }
+                    // print output raw json
+                    std::cout << object << '\n';
                 }
                 else if(opt == "get_state")
                 {
                     // send command
-                    stream << opt << ' ' << arg << '\r' << std::endl;
+                    auto object(send_command(stream, opt));
 
-                    // read response
-                    std::string input;
-                    if(std::getline(stream, input))
-                    {
-                        // for now just output raw json
-                        std::cout << input << '\n';
-                    }
+                    // print output raw json
+                    std::cout << object << '\n';
                 }
                 else
                 {
-                    std::cerr << "Unknown command: " << opt << '\n';
+                    // arbitrary command with optional arg
+                    if(it == cmdline.end())
+                    {
+                        auto object(send_command(stream, opt, auth));
+
+                        // print output raw json
+                        std::cout << object << '\n';
+                    }
+                    else
+                    {
+                        auto object(send_command(stream, opt, auth, json::eval(*it++)));
+
+                        // print output raw json
+                        std::cout << object << '\n';
+                    }
                 }
             }
         }
