@@ -18,6 +18,13 @@
     [[self arrayController] setSortDescriptors:@[playerNameSort]];
 }
 
+- (void)setRepresentedObject:(id)representedObject {
+    [super setRepresentedObject:representedObject];
+
+    // set session
+    [self setSession:representedObject];
+}
+
 - (IBAction)seatedButtonDidChange:(NSButton*)sender {
     NSTableCellView* cell = (NSTableCellView*)[sender superview];
     id ov = [cell objectValue];

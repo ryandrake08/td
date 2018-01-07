@@ -7,11 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "TournamentSession.h"
 
 @interface TBViewerViewController : NSViewController
-
-// the tournament session (model) object
-@property (strong) TournamentSession* session;
 
 @end

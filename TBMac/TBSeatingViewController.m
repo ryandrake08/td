@@ -33,6 +33,12 @@
     [[self tableView] sizeToFit];
 }
 
+- (void)setRepresentedObject:(id)representedObject {
+    [super setRepresentedObject:representedObject];
+
+    // set session
+    [self setSession:representedObject];
+}
 
 #pragma mark TBPlayersViewDelegate
 

@@ -20,6 +20,13 @@
     [[self arrayController] setSortDescriptors:@[placeSort]];
 }
 
+- (void)setRepresentedObject:(id)representedObject {
+    [super setRepresentedObject:representedObject];
+
+    // set session
+    [self setSession:representedObject];
+}
+
 #pragma mark NSTableViewDelegate
 
 - (NSView *)tableView:(NSTableView*)aTableView viewForTableColumn:(NSTableColumn*)aTableColumn row:(NSInteger)rowIndex {

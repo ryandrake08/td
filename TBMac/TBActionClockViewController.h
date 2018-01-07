@@ -7,10 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "TournamentSession.h"
 
 @interface TBActionClockViewController : NSViewController
-
-@property (nonatomic, strong) TournamentSession* session;
 
 @end

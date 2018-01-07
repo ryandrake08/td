@@ -83,8 +83,6 @@
 		9464EC241FDC301D009092A4 /* libcJSON_macOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9464EC071FDC2D44009092A4 /* libcJSON_macOS.a */; };
 		9464EC281FDC3036009092A4 /* libcJSON_iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9464EC1F1FDC2FB5009092A4 /* libcJSON_iOS.a */; };
 		9464EC2B1FDC3042009092A4 /* libcJSON_iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9464EC1F1FDC2FB5009092A4 /* libcJSON_iOS.a */; };
-		9469B84D1CF2222400BC45E1 /* TBSoundPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9469B84C1CF2222400BC45E1 /* TBSoundPlayer.m */; };
-		9469B84E1CF2222400BC45E1 /* TBSoundPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9469B84C1CF2222400BC45E1 /* TBSoundPlayer.m */; };
 		946C65701FFF54690094E4D8 /* server.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E11B3C3F8300A158F8 /* server.cpp */; };
 		946C65711FFF54690094E4D8 /* socket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E31B3C3F8300A158F8 /* socket.cpp */; };
 		946C65721FFF54830094E4D8 /* datetime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4D31B3C3F8300A158F8 /* datetime.cpp */; };
@@ -139,6 +137,9 @@
 		949D70A11B3C4411008D5CD1 /* tournament.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E71B3C3F8300A158F8 /* tournament.cpp */; };
 		949D70A21B3C441F008D5CD1 /* socket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E31B3C3F8300A158F8 /* socket.cpp */; };
 		949D70A31B3C441F008D5CD1 /* socket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E31B3C3F8300A158F8 /* socket.cpp */; };
+		94B30DE320020AFF0037192E /* TBMac.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 94B30DE520020AFF0037192E /* TBMac.storyboard */; };
+		94B30DE8200217710037192E /* TBMacViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B30DE7200217710037192E /* TBMacViewController.m */; };
+		94B30DEB200283CC0037192E /* TBMacWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B30DEA200283CC0037192E /* TBMacWindowController.m */; };
 		94BB5FFA1B7F9F1600B33929 /* NSString+CamelCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 945410761B6E9A17001E3373 /* NSString+CamelCase.m */; };
 		94BB5FFB1B7F9F1600B33929 /* NSString+CamelCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 945410761B6E9A17001E3373 /* NSString+CamelCase.m */; };
 		94BD8D391FF7F4360047EB68 /* TBViewer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 94BD8D3B1FF7F4360047EB68 /* TBViewer.storyboard */; };
@@ -171,10 +172,7 @@
 		94D849DE1B8D60FD000124E4 /* TBFundingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94D849E01B8D60FD000124E4 /* TBFundingView.xib */; };
 		94D849E11B8D614E000124E4 /* TBMovementWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94D849E31B8D614E000124E4 /* TBMovementWindow.xib */; };
 		94D849E41B8D6153000124E4 /* TBLeagueView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94D849E61B8D6153000124E4 /* TBLeagueView.xib */; };
-		94D849E71B8D6156000124E4 /* TBPlayersView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94D849E91B8D6156000124E4 /* TBPlayersView.xib */; };
-		94D849F21B8D6165000124E4 /* TBResultsPlanningView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94D849F41B8D6165000124E4 /* TBResultsPlanningView.xib */; };
 		94D849F51B8D6169000124E4 /* TBRoundsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94D849F71B8D6169000124E4 /* TBRoundsView.xib */; };
-		94D849F81B8D616D000124E4 /* TBSeatingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94D849FA1B8D616D000124E4 /* TBSeatingView.xib */; };
 		94E16F221B6C99840070F1BA /* TBResizeTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 94562E6B1B65D9420017C692 /* TBResizeTextField.m */; };
 		94ED00111B76E1E6003CF19B /* TBTableSeatNumberTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 94ED00101B76E1E6003CF19B /* TBTableSeatNumberTransformer.m */; };
 		94F466271B8AF203009BB648 /* TBCurrencyCodeTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F466261B8AF203009BB648 /* TBCurrencyCodeTransformer.m */; };
@@ -246,9 +244,7 @@
 		AD8E684A1A6C606700E5A4D8 /* TBMacAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8E68491A6C606700E5A4D8 /* TBMacAppDelegate.m */; };
 		AD8E684C1A6C606700E5A4D8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8E684B1A6C606700E5A4D8 /* main.m */; };
 		AD8E684F1A6C606700E5A4D8 /* Document.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8E684E1A6C606700E5A4D8 /* Document.m */; };
-		AD8E68521A6C606700E5A4D8 /* Document.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD8E68501A6C606700E5A4D8 /* Document.xib */; };
 		AD8E68541A6C606700E5A4D8 /* TBMac.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AD8E68531A6C606700E5A4D8 /* TBMac.xcassets */; };
-		AD8E68571A6C606700E5A4D8 /* TBMacMainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD8E68551A6C606700E5A4D8 /* TBMacMainMenu.xib */; };
 		AD98D9611A7B330B00DA6B8B /* TBChipsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD98D9601A7B330B00DA6B8B /* TBChipsViewController.m */; };
 		AD98D9651A7B331A00DA6B8B /* TBFundingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD98D9631A7B331A00DA6B8B /* TBFundingViewController.m */; };
 		AD98D96A1A7B33F100DA6B8B /* TBLeagueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD98D9681A7B33F100DA6B8B /* TBLeagueViewController.m */; };
@@ -595,8 +591,6 @@
 		9464EC111FDC2F1C009092A4 /* cJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cJSON.h; sourceTree = "<group>"; };
 		9464EC1F1FDC2FB5009092A4 /* libcJSON_iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libcJSON_iOS.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		9464EC2C1FDD102B009092A4 /* shared_instance.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = shared_instance.hpp; sourceTree = "<group>"; };
-		9469B84B1CF2222400BC45E1 /* TBSoundPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBSoundPlayer.h; sourceTree = "<group>"; };
-		9469B84C1CF2222400BC45E1 /* TBSoundPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBSoundPlayer.m; sourceTree = "<group>"; };
 		946C65671FFF54360094E4D8 /* tournamentctl */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = tournamentctl; sourceTree = BUILT_PRODUCTS_DIR; };
 		946C656E1FFF54450094E4D8 /* program_ctl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = program_ctl.cpp; sourceTree = "<group>"; };
 		9471B3EE1FF8A947000A314C /* TBActionClockViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBActionClockViewController.h; path = TBMac/TBActionClockViewController.h; sourceTree = "<group>"; };
@@ -650,6 +644,11 @@
 		9476F4F91B3C403F00A158F8 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		9476F4FB1B3C404400A158F8 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		94A4C3681D6A40BD00342E13 /* outputdebugstringbuf.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = outputdebugstringbuf.hpp; sourceTree = "<group>"; };
+		94B30DE420020AFF0037192E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/TBMac.storyboard; sourceTree = "<group>"; };
+		94B30DE6200217710037192E /* TBMacViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TBMacViewController.h; path = TBMac/TBMacViewController.h; sourceTree = "<group>"; };
+		94B30DE7200217710037192E /* TBMacViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TBMacViewController.m; path = TBMac/TBMacViewController.m; sourceTree = "<group>"; };
+		94B30DE9200283CC0037192E /* TBMacWindowController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TBMacWindowController.h; path = TBMac/TBMacWindowController.h; sourceTree = "<group>"; };
+		94B30DEA200283CC0037192E /* TBMacWindowController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TBMacWindowController.m; path = TBMac/TBMacWindowController.m; sourceTree = "<group>"; };
 		94BD8D3A1FF7F4360047EB68 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/TBViewer.storyboard; sourceTree = "<group>"; };
 		94CC7F8C1CE8CF770081A8A0 /* TBPlanWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBPlanWindowController.h; path = TBMac/TBPlanWindowController.h; sourceTree = "<group>"; };
 		94CC7F8D1CE8CF770081A8A0 /* TBPlanWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TBPlanWindowController.m; path = TBMac/TBPlanWindowController.m; sourceTree = "<group>"; };
@@ -672,10 +671,7 @@
 		94D849DF1B8D60FD000124E4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/TBFundingView.xib; sourceTree = "<group>"; };
 		94D849E21B8D614E000124E4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/TBMovementWindow.xib; sourceTree = "<group>"; };
 		94D849E51B8D6153000124E4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/TBLeagueView.xib; sourceTree = "<group>"; };
-		94D849E81B8D6156000124E4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/TBPlayersView.xib; sourceTree = "<group>"; };
-		94D849F31B8D6165000124E4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/TBResultsPlanningView.xib; sourceTree = "<group>"; };
 		94D849F61B8D6169000124E4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/TBRoundsView.xib; sourceTree = "<group>"; };
-		94D849F91B8D616D000124E4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/TBSeatingView.xib; sourceTree = "<group>"; };
 		94ED000F1B76E1E6003CF19B /* TBTableSeatNumberTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBTableSeatNumberTransformer.h; sourceTree = "<group>"; };
 		94ED00101B76E1E6003CF19B /* TBTableSeatNumberTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBTableSeatNumberTransformer.m; sourceTree = "<group>"; };
 		94F466251B8AF203009BB648 /* TBCurrencyCodeTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBCurrencyCodeTransformer.h; sourceTree = "<group>"; };
@@ -740,9 +736,7 @@
 		AD8E684B1A6C606700E5A4D8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = TBMac/main.m; sourceTree = "<group>"; };
 		AD8E684D1A6C606700E5A4D8 /* Document.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Document.h; path = TBMac/Document.h; sourceTree = "<group>"; };
 		AD8E684E1A6C606700E5A4D8 /* Document.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = Document.m; path = TBMac/Document.m; sourceTree = "<group>"; };
-		AD8E68511A6C606700E5A4D8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/Document.xib; sourceTree = "<group>"; };
 		AD8E68531A6C606700E5A4D8 /* TBMac.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = TBMac.xcassets; path = TBMac/TBMac.xcassets; sourceTree = "<group>"; };
-		AD8E68561A6C606700E5A4D8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/TBMacMainMenu.xib; sourceTree = "<group>"; };
 		AD98D95F1A7B330B00DA6B8B /* TBChipsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBChipsViewController.h; path = TBMac/TBChipsViewController.h; sourceTree = "<group>"; };
 		AD98D9601A7B330B00DA6B8B /* TBChipsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TBChipsViewController.m; path = TBMac/TBChipsViewController.m; sourceTree = "<group>"; };
 		AD98D9621A7B331A00DA6B8B /* TBFundingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBFundingViewController.h; path = TBMac/TBFundingViewController.h; sourceTree = "<group>"; };
@@ -1099,8 +1093,6 @@
 				94562E6B1B65D9420017C692 /* TBResizeTextField.m */,
 				ADE299AD1B7B994200F1393B /* TBSound.h */,
 				ADE299AE1B7B994200F1393B /* TBSound.m */,
-				9469B84B1CF2222400BC45E1 /* TBSoundPlayer.h */,
-				9469B84C1CF2222400BC45E1 /* TBSoundPlayer.m */,
 				94ED000F1B76E1E6003CF19B /* TBTableSeatNumberTransformer.h */,
 				94ED00101B76E1E6003CF19B /* TBTableSeatNumberTransformer.m */,
 				943970161B3F9DB700BB0413 /* TournamentBrowser.h */,
@@ -1188,13 +1180,12 @@
 			children = (
 				AD8E68481A6C606700E5A4D8 /* TBMacAppDelegate.h */,
 				AD8E68491A6C606700E5A4D8 /* TBMacAppDelegate.m */,
-				AD8E68551A6C606700E5A4D8 /* TBMacMainMenu.xib */,
+				94B30DE520020AFF0037192E /* TBMac.storyboard */,
 				940AF5221FF7CD9700740295 /* TBViewerAppDelegate.h */,
 				940AF5201FF7CD9700740295 /* TBViewerAppDelegate.m */,
 				94BD8D3B1FF7F4360047EB68 /* TBViewer.storyboard */,
 				AD8E684D1A6C606700E5A4D8 /* Document.h */,
 				AD8E684E1A6C606700E5A4D8 /* Document.m */,
-				AD8E68501A6C606700E5A4D8 /* Document.xib */,
 				9471B3F21FF8BEF1000A314C /* TBActionClockSegue.h */,
 				9471B3F31FF8BEF1000A314C /* TBActionClockSegue.m */,
 				9471B3EE1FF8A947000A314C /* TBActionClockViewController.h */,
@@ -1216,6 +1207,10 @@
 				AD98D9621A7B331A00DA6B8B /* TBFundingViewController.h */,
 				AD98D9631A7B331A00DA6B8B /* TBFundingViewController.m */,
 				94D849E01B8D60FD000124E4 /* TBFundingView.xib */,
+				94B30DE6200217710037192E /* TBMacViewController.h */,
+				94B30DE7200217710037192E /* TBMacViewController.m */,
+				94B30DE9200283CC0037192E /* TBMacWindowController.h */,
+				94B30DEA200283CC0037192E /* TBMacWindowController.m */,
 				9462A3EA1B77F40500B29002 /* TBMovementWindowController.h */,
 				9462A3EB1B77F40500B29002 /* TBMovementWindowController.m */,
 				94D849E31B8D614E000124E4 /* TBMovementWindow.xib */,
@@ -1227,16 +1222,13 @@
 				94CC7F8E1CE8CF770081A8A0 /* TBPlanWindow.xib */,
 				ADCECE831B7B101500767DA6 /* TBPlayersViewController.h */,
 				ADCECE841B7B101500767DA6 /* TBPlayersViewController.m */,
-				94D849E91B8D6156000124E4 /* TBPlayersView.xib */,
 				ADCECE781B7B0D9D00767DA6 /* TBResultsViewController.h */,
 				ADCECE791B7B0D9D00767DA6 /* TBResultsViewController.m */,
-				94D849F41B8D6165000124E4 /* TBResultsPlanningView.xib */,
 				AD98D96C1A7B342000DA6B8B /* TBRoundsViewController.h */,
 				AD98D96D1A7B342000DA6B8B /* TBRoundsViewController.m */,
 				94D849F71B8D6169000124E4 /* TBRoundsView.xib */,
 				AD98D9711A7B343600DA6B8B /* TBSeatingViewController.h */,
 				AD98D9721A7B343600DA6B8B /* TBSeatingViewController.m */,
-				94D849FA1B8D616D000124E4 /* TBSeatingView.xib */,
 				ADE4E1261A7DFFD000FC9EFC /* TBTableViewController.h */,
 				ADE4E1271A7DFFD000FC9EFC /* TBTableViewController.m */,
 				940AF54C1FF7DE7800740295 /* TBViewerViewController.h */,
@@ -1663,7 +1655,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AD8E68521A6C606700E5A4D8 /* Document.xib in Resources */,
 				94D849D41B8D60E9000124E4 /* TBChipsView.xib in Resources */,
 				94D849D11B8D60E5000124E4 /* TBAuthsView.xib in Resources */,
 				AD8E68541A6C606700E5A4D8 /* TBMac.xcassets in Resources */,
@@ -1671,18 +1662,15 @@
 				9471B3F51FF8EBC4000A314C /* TBViewer.storyboard in Resources */,
 				94D04ED51B7C59EB004F4245 /* s_warning.caf in Resources */,
 				94CC7F901CE8CF770081A8A0 /* TBPlanWindow.xib in Resources */,
-				94D849E71B8D6156000124E4 /* TBPlayersView.xib in Resources */,
-				94D849F81B8D616D000124E4 /* TBSeatingView.xib in Resources */,
+				94B30DE320020AFF0037192E /* TBMac.storyboard in Resources */,
 				94D849F51B8D6169000124E4 /* TBRoundsView.xib in Resources */,
 				94D04ED11B7C59EB004F4245 /* s_rebalance.caf in Resources */,
 				94D849E11B8D614E000124E4 /* TBMovementWindow.xib in Resources */,
-				AD8E68571A6C606700E5A4D8 /* TBMacMainMenu.xib in Resources */,
 				94D04ECD1B7C59EB004F4245 /* s_break.caf in Resources */,
 				ADACCB791B989B8F00F7C477 /* TBAuthCodeWindow.xib in Resources */,
 				94D04ED31B7C59EB004F4245 /* s_start.caf in Resources */,
 				94D04ECF1B7C59EB004F4245 /* s_next.caf in Resources */,
 				94D849D71B8D60F2000124E4 /* TBConfigurationWindow.xib in Resources */,
-				94D849F21B8D6165000124E4 /* TBResultsPlanningView.xib in Resources */,
 				94D849E41B8D6153000124E4 /* TBLeagueView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1758,7 +1746,6 @@
 				94FDEAEF1B5AE2D60026B25D /* NSObject+FBKVOController.m in Sources */,
 				943B00D11B3F429500CE55D4 /* gameinfo.cpp in Sources */,
 				ADE299B01B7B9BCA00F1393B /* TBSound.m in Sources */,
-				9469B84E1CF2222400BC45E1 /* TBSoundPlayer.m in Sources */,
 				94D04ED71B7C6A5B004F4245 /* TBCurrencyNumberFormatter.m in Sources */,
 				94FDEAEC1B5AE2D60026B25D /* NSData+Delimiter.m in Sources */,
 				9439701E1B405DC000BB0413 /* TournamentService.m in Sources */,
@@ -1890,6 +1877,7 @@
 				AD98D9651A7B331A00DA6B8B /* TBFundingViewController.m in Sources */,
 				949D70971B3C440D008D5CD1 /* json.cpp in Sources */,
 				9462A3F61B7864E900B29002 /* TBAuthsViewController.m in Sources */,
+				94B30DEB200283CC0037192E /* TBMacWindowController.m in Sources */,
 				94F466271B8AF203009BB648 /* TBCurrencyCodeTransformer.m in Sources */,
 				949D70941B3C43DB008D5CD1 /* tournament.cpp in Sources */,
 				AD98D96A1A7B33F100DA6B8B /* TBLeagueViewController.m in Sources */,
@@ -1912,6 +1900,7 @@
 				94FDEAE51B5AE2D60026B25D /* CFStreamCreatePairWithUnixSocket.c in Sources */,
 				94FDEAEB1B5AE2D60026B25D /* NSData+Delimiter.m in Sources */,
 				94562E691B65D8CA0017C692 /* TBDurationNumberFormatter.m in Sources */,
+				94B30DE8200217710037192E /* TBMacViewController.m in Sources */,
 				ADE5A5031B8F6C4C002737A8 /* TBCurrencyImageTransformer.m in Sources */,
 				949D70A31B3C441F008D5CD1 /* socket.cpp in Sources */,
 				AD98D9741A7B343600DA6B8B /* TBSeatingViewController.m in Sources */,
@@ -1930,7 +1919,6 @@
 				945410741B6E5C56001E3373 /* NSDateFormatter+ISO8601.m in Sources */,
 				941916DC1B6F215F001253CA /* TBActionClockView.m in Sources */,
 				9462A3E41B77376000B29002 /* NSView+BackgroundColor.m in Sources */,
-				9469B84D1CF2222400BC45E1 /* TBSoundPlayer.m in Sources */,
 				949D70991B3C440D008D5CD1 /* server.cpp in Sources */,
 				9439701D1B405DC000BB0413 /* TournamentService.m in Sources */,
 				AD8E684A1A6C606700E5A4D8 /* TBMacAppDelegate.m in Sources */,
@@ -2134,6 +2122,15 @@
 			name = LaunchScreen.xib;
 			sourceTree = "<group>";
 		};
+		94B30DE520020AFF0037192E /* TBMac.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				94B30DE420020AFF0037192E /* Base */,
+			);
+			name = TBMac.storyboard;
+			path = TBMac;
+			sourceTree = "<group>";
+		};
 		94BD8D3B1FF7F4360047EB68 /* TBViewer.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -2197,57 +2194,12 @@
 			path = TBMac;
 			sourceTree = "<group>";
 		};
-		94D849E91B8D6156000124E4 /* TBPlayersView.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				94D849E81B8D6156000124E4 /* Base */,
-			);
-			name = TBPlayersView.xib;
-			path = TBMac;
-			sourceTree = "<group>";
-		};
-		94D849F41B8D6165000124E4 /* TBResultsPlanningView.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				94D849F31B8D6165000124E4 /* Base */,
-			);
-			name = TBResultsPlanningView.xib;
-			path = TBMac;
-			sourceTree = "<group>";
-		};
 		94D849F71B8D6169000124E4 /* TBRoundsView.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				94D849F61B8D6169000124E4 /* Base */,
 			);
 			name = TBRoundsView.xib;
-			path = TBMac;
-			sourceTree = "<group>";
-		};
-		94D849FA1B8D616D000124E4 /* TBSeatingView.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				94D849F91B8D616D000124E4 /* Base */,
-			);
-			name = TBSeatingView.xib;
-			path = TBMac;
-			sourceTree = "<group>";
-		};
-		AD8E68501A6C606700E5A4D8 /* Document.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				AD8E68511A6C606700E5A4D8 /* Base */,
-			);
-			name = Document.xib;
-			path = TBMac;
-			sourceTree = "<group>";
-		};
-		AD8E68551A6C606700E5A4D8 /* TBMacMainMenu.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				AD8E68561A6C606700E5A4D8 /* Base */,
-			);
-			name = TBMacMainMenu.xib;
 			path = TBMac;
 			sourceTree = "<group>";
 		};

@@ -8,7 +8,21 @@
 
 #import <Cocoa/Cocoa.h>
 
+// Forward declare
+@class TournamentSession;
+
 @interface Document : NSDocument
 
-@end
+// The session controlled by the document
+@property (strong, readonly) TournamentSession* session;
 
+// The configuration represented by the document
+@property (strong, readonly) NSMutableDictionary* configuration;
+
+// Add to configuration
+- (void)addConfiguration:(NSDictionary*)config;
+
+// Add an authorized client
+- (void)addAuthorizedClient:(NSDictionary*)code;
+
+@end

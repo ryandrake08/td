@@ -632,7 +632,7 @@
                                         </connections>
                                     </textField>
                                     <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="Orm-b5-ZcG">
-                                        <rect key="frame" x="0.0" y="173" width="256" height="5"/>
+                                        <rect key="frame" x="0.0" y="173" width="256" height="4"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                     </box>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d6h-6d-1QM" customClass="TBResizeTextField">
@@ -708,12 +708,10 @@
                         <outlet property="previousRoundButton" destination="wfv-BZ-oqx" id="lIc-Z8-xJi"/>
                         <outlet property="resultsArrayController" destination="d7e-f5-xK9" id="Obl-uh-OXo"/>
                         <outlet property="resultsTableView" destination="Gfd-YS-Tr6" id="3yW-ZD-kop"/>
-                        <outlet property="soundPlayer" destination="goO-aW-Fkx" id="auZ-bB-TED"/>
                         <segue destination="ZqS-QV-bIW" kind="custom" identifier="presentActionClockView" customClass="TBActionClockSegue" id="NWA-s8-adO"/>
                     </connections>
                 </viewController>
                 <customObject id="DCg-8G-Vh9" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-                <customObject id="goO-aW-Fkx" customClass="TBSoundPlayer"/>
                 <arrayController editable="NO" preservesSelection="NO" selectsInsertedObjects="NO" avoidsEmptySelection="NO" clearsFilterPredicateOnInsertion="NO" automaticallyRearrangesObjects="YES" id="Gv5-Ao-M0m" userLabel="Chips Array Controller">
                     <declaredKeys>
                         <string>color</string>

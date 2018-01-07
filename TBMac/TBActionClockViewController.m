@@ -7,12 +7,16 @@
 //
 
 #import "TBActionClockViewController.h"
-#import "TBActionClockView.h"
-
 #import "NSObject+FBKVOController.h"
+#import "TBActionClockView.h"
+#import "TournamentSession.h"
 
 @interface TBActionClockViewController () <TBActionClockDelegate>
 
+// The global shared session
+@property (strong) TournamentSession* session;
+
+// The clock view
 @property (nonatomic, weak) IBOutlet TBActionClockView* actionClockView;
 
 @end
@@ -26,6 +30,13 @@
     [[self KVOController] observe:self keyPath:@"session.state.action_clock_time_remaining" options:NSKeyValueObservingOptionInitial block:^(id observer, TBActionClockViewController* object, NSDictionary *change) {
         [observer updateActionClock:[[object session] state][@"action_clock_time_remaining"]];
     }];
+}
+
+- (void)setRepresentedObject:(id)representedObject {
+    [super setRepresentedObject:representedObject];
+
+    // set session
+    [self setSession:representedObject];
 }
 
 #pragma mark Update
