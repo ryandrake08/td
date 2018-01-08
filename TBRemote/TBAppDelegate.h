@@ -14,7 +14,7 @@
 @property (nonatomic, strong) UIWindow* window;
 
 // the tournament session (model) object
-@property (strong) TournamentSession* session;
+@property (nonatomic, strong) TournamentSession* session;
 
 @end
 

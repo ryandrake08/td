@@ -13,10 +13,10 @@
 @interface TBRemoteWatchDelegate() <WCSessionDelegate>
 
 // the tournament session (model) object
-@property (strong) TournamentSession* session;
+@property (nonatomic, strong) TournamentSession* session;
 
 // the full state when an update was last sent to watch
-@property (strong) NSMutableDictionary* stateWhenLastSent;
+@property (nonatomic, strong) NSMutableDictionary* stateWhenLastSent;
 
 @end
 
