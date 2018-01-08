@@ -143,8 +143,6 @@
 		94BB5FFA1B7F9F1600B33929 /* NSString+CamelCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 945410761B6E9A17001E3373 /* NSString+CamelCase.m */; };
 		94BB5FFB1B7F9F1600B33929 /* NSString+CamelCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 945410761B6E9A17001E3373 /* NSString+CamelCase.m */; };
 		94BD8D391FF7F4360047EB68 /* TBViewer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 94BD8D3B1FF7F4360047EB68 /* TBViewer.storyboard */; };
-		94CC7F8F1CE8CF770081A8A0 /* TBPlanWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CC7F8D1CE8CF770081A8A0 /* TBPlanWindowController.m */; };
-		94CC7F901CE8CF770081A8A0 /* TBPlanWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94CC7F8E1CE8CF770081A8A0 /* TBPlanWindow.xib */; };
 		94CDDD1D1FE1826C008ADF24 /* TBChipTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CDDD1B1FE1826C008ADF24 /* TBChipTableViewCell.m */; };
 		94CDDD1E1FE1826C008ADF24 /* TBChipTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CDDD1B1FE1826C008ADF24 /* TBChipTableViewCell.m */; };
 		94CDDD1F1FE1826C008ADF24 /* TBChipTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94CDDD1C1FE1826C008ADF24 /* TBChipTableViewCell.xib */; };
@@ -167,6 +165,7 @@
 		94D04ED71B7C6A5B004F4245 /* TBCurrencyNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 94562E611B65D8CA0017C692 /* TBCurrencyNumberFormatter.m */; };
 		94D04ED81B7C6A5C004F4245 /* TBCurrencyNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 94562E611B65D8CA0017C692 /* TBCurrencyNumberFormatter.m */; };
 		94D7290620031960009EC463 /* TBAuthCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94D7290520031960009EC463 /* TBAuthCodeViewController.m */; };
+		94D7290920032C42009EC463 /* TBPlanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94D7290820032C42009EC463 /* TBPlanViewController.m */; };
 		94D849D11B8D60E5000124E4 /* TBAuthsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94D849D31B8D60E5000124E4 /* TBAuthsView.xib */; };
 		94D849D41B8D60E9000124E4 /* TBChipsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94D849D61B8D60E9000124E4 /* TBChipsView.xib */; };
 		94D849D71B8D60F2000124E4 /* TBConfigurationWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94D849D91B8D60F2000124E4 /* TBConfigurationWindow.xib */; };
@@ -649,9 +648,6 @@
 		94B30DE9200283CC0037192E /* TBMacWindowController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TBMacWindowController.h; path = TBMac/TBMacWindowController.h; sourceTree = "<group>"; };
 		94B30DEA200283CC0037192E /* TBMacWindowController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TBMacWindowController.m; path = TBMac/TBMacWindowController.m; sourceTree = "<group>"; };
 		94BD8D3A1FF7F4360047EB68 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/TBViewer.storyboard; sourceTree = "<group>"; };
-		94CC7F8C1CE8CF770081A8A0 /* TBPlanWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBPlanWindowController.h; path = TBMac/TBPlanWindowController.h; sourceTree = "<group>"; };
-		94CC7F8D1CE8CF770081A8A0 /* TBPlanWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TBPlanWindowController.m; path = TBMac/TBPlanWindowController.m; sourceTree = "<group>"; };
-		94CC7F8E1CE8CF770081A8A0 /* TBPlanWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TBPlanWindow.xib; path = TBMac/TBPlanWindow.xib; sourceTree = "<group>"; };
 		94CDDD1A1FE1826C008ADF24 /* TBChipTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBChipTableViewCell.h; sourceTree = "<group>"; };
 		94CDDD1B1FE1826C008ADF24 /* TBChipTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TBChipTableViewCell.m; sourceTree = "<group>"; };
 		94CDDD1C1FE1826C008ADF24 /* TBChipTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TBChipTableViewCell.xib; sourceTree = "<group>"; };
@@ -666,6 +662,8 @@
 		94D04ECC1B7C59EB004F4245 /* s_warning.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = s_warning.caf; sourceTree = "<group>"; };
 		94D7290420031960009EC463 /* TBAuthCodeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TBAuthCodeViewController.h; path = TBMac/TBAuthCodeViewController.h; sourceTree = "<group>"; };
 		94D7290520031960009EC463 /* TBAuthCodeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TBAuthCodeViewController.m; path = TBMac/TBAuthCodeViewController.m; sourceTree = "<group>"; };
+		94D7290720032C42009EC463 /* TBPlanViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TBPlanViewController.h; path = TBMac/TBPlanViewController.h; sourceTree = "<group>"; };
+		94D7290820032C42009EC463 /* TBPlanViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TBPlanViewController.m; path = TBMac/TBPlanViewController.m; sourceTree = "<group>"; };
 		94D849D21B8D60E5000124E4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/TBAuthsView.xib; sourceTree = "<group>"; };
 		94D849D51B8D60E9000124E4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/TBChipsView.xib; sourceTree = "<group>"; };
 		94D849D81B8D60F2000124E4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/TBConfigurationWindow.xib; sourceTree = "<group>"; };
@@ -1214,9 +1212,8 @@
 				AD98D9671A7B33F100DA6B8B /* TBLeagueViewController.h */,
 				AD98D9681A7B33F100DA6B8B /* TBLeagueViewController.m */,
 				94D849E61B8D6153000124E4 /* TBLeagueView.xib */,
-				94CC7F8C1CE8CF770081A8A0 /* TBPlanWindowController.h */,
-				94CC7F8D1CE8CF770081A8A0 /* TBPlanWindowController.m */,
-				94CC7F8E1CE8CF770081A8A0 /* TBPlanWindow.xib */,
+				94D7290720032C42009EC463 /* TBPlanViewController.h */,
+				94D7290820032C42009EC463 /* TBPlanViewController.m */,
 				ADCECE831B7B101500767DA6 /* TBPlayersViewController.h */,
 				ADCECE841B7B101500767DA6 /* TBPlayersViewController.m */,
 				ADCECE781B7B0D9D00767DA6 /* TBResultsViewController.h */,
@@ -1658,7 +1655,6 @@
 				94D849DE1B8D60FD000124E4 /* TBFundingView.xib in Resources */,
 				9471B3F51FF8EBC4000A314C /* TBViewer.storyboard in Resources */,
 				94D04ED51B7C59EB004F4245 /* s_warning.caf in Resources */,
-				94CC7F901CE8CF770081A8A0 /* TBPlanWindow.xib in Resources */,
 				94B30DE320020AFF0037192E /* TBMac.storyboard in Resources */,
 				94D849F51B8D6169000124E4 /* TBRoundsView.xib in Resources */,
 				94D04ED11B7C59EB004F4245 /* s_rebalance.caf in Resources */,
@@ -1885,7 +1881,6 @@
 				94FDEAE81B5AE2D60026B25D /* FBKVOController.m in Sources */,
 				9462A3E31B77376000B29002 /* NSFont+LineHeight.m in Sources */,
 				945410771B6E9A17001E3373 /* NSString+CamelCase.m in Sources */,
-				94CC7F8F1CE8CF770081A8A0 /* TBPlanWindowController.m in Sources */,
 				94CDDD331FE3B349008ADF24 /* TBColor+ContrastTextColor.m in Sources */,
 				AD8E684F1A6C606700E5A4D8 /* Document.m in Sources */,
 				949D70951B3C440D008D5CD1 /* datetime.cpp in Sources */,
@@ -1893,6 +1888,7 @@
 				94562E681B65D8CA0017C692 /* TBDateStringTransformer.m in Sources */,
 				AD1B250D1BA8796100C4BDDC /* scope_timer.cpp in Sources */,
 				949D70961B3C440D008D5CD1 /* gameinfo.cpp in Sources */,
+				94D7290920032C42009EC463 /* TBPlanViewController.m in Sources */,
 				94562E661B65D8CA0017C692 /* TBColorValueTransformer.m in Sources */,
 				94FDEAE51B5AE2D60026B25D /* CFStreamCreatePairWithUnixSocket.c in Sources */,
 				94FDEAEB1B5AE2D60026B25D /* NSData+Delimiter.m in Sources */,

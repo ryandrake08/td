@@ -55,6 +55,9 @@ class gameinfo
     // players without seats or busted out
     std::deque<td::player_id_t> players_finished;
 
+    // maximum number of expected players
+    std::size_t max_expected_players;
+
     // empty seats
     std::deque<td::seat> empty_seats;
 

@@ -19,7 +19,7 @@
 // The global shared session
 @property (strong) TournamentSession* session;
 
-// UI elements
+// UI Outlets
 @property (weak) IBOutlet NSImageView* backgroundImageView;
 @property (weak) IBOutlet NSButton* previousRoundButton;
 @property (weak) IBOutlet NSButton* pauseResumeButton;

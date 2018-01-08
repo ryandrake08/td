@@ -12,7 +12,6 @@
 #import "TBConfigurationWindowController.h"
 #import "TBMovementWindowController.h"
 #import "TBNotifications.h"
-#import "TBPlanWindowController.h"
 #import "TBViewerViewController.h"
 #import "TournamentSession.h"
 
@@ -24,9 +23,6 @@
 // Window Controllers
 @property (strong) NSWindowController* viewerWindowController;
 @property (strong) TBMovementWindowController* movementWindowController;
-
-// Keep track of last seating plan size
-@property (assign) NSUInteger lastMaxPlayers;
 
 @end
 
@@ -60,7 +56,7 @@
 
     // if table sizes change, replan
     [[self KVOController] observe:self keyPath:@"session.state.table_capacity" options:0 block:^(id observer, Document* object, NSDictionary *change) {
-        [self planSeatingFor:[self lastMaxPlayers]];
+        [(Document*)[self document] planSeating];
     }];
 
     // register for notifications
@@ -80,16 +76,6 @@
     // TODO: do we really want to do this?
     [[self viewerWindowController] close];
     [[self movementWindowController] close];
-}
-
-#pragma mark Session interaction
-
-- (void)planSeatingFor:(NSUInteger)maxPlayers {
-    NSLog(@"Planning seating for %lu players", (unsigned long)maxPlayers);
-    if(maxPlayers > 1) {
-        [[self session] planSeatingFor:@(maxPlayers)];
-        [self setLastMaxPlayers:maxPlayers];
-    }
 }
 
 #pragma mark Actions
@@ -155,7 +141,7 @@
 }
 
 - (IBAction)restartTapped:(id)sender {
-    [self planSeatingFor:[self lastMaxPlayers]];
+    [(Document*)[self document] planSeating];
 }
 
 - (IBAction)configureButtonDidChange:(id)sender {
@@ -190,22 +176,6 @@
             [[[self viewerWindowController] window] makeKeyAndOrderFront:screen];
         }
     }
-}
-
-- (IBAction)planButtonDidChange:(id)sender {
-    TBPlanWindowController* wc = [[TBPlanWindowController alloc] initWithWindowNibName:@"TBPlanWindow"];
-    [wc setEnableWarning:[self lastMaxPlayers] > 0];
-    if([self lastMaxPlayers] > 0) {
-        [wc setNumberOfPlayers:[self lastMaxPlayers]];
-    } else {
-        [wc setNumberOfPlayers:[[[self session] state][@"players"] count]];
-    }
-    // display as a sheet
-    [[self window] beginSheet:[wc window] completionHandler:^(NSModalResponse returnCode) {
-        if(returnCode == NSModalResponseOK) {
-            [self planSeatingFor:[wc numberOfPlayers]];
-        }
-    }];
 }
 
 - (IBAction)movementButtonDidChange:(id)sender {

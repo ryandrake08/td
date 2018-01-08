@@ -141,4 +141,20 @@
     [[self mainWindow] setDocumentEdited:YES];
 }
 
+// Plan seating for given number of players
+- (void)planSeatingFor:(NSUInteger)maxPlayers {
+    NSLog(@"Planning seating for %lu players", (unsigned long)maxPlayers);
+    if(maxPlayers > 1) {
+        [[self session] planSeatingFor:@(maxPlayers)];
+    }
+}
+
+// Re-plan seating, clearing current game
+- (void)planSeating {
+    id players = [[self session] state][@"max_expected_players"];
+    [self planSeatingFor:[players unsignedIntegerValue]];
+}
+
+
+
 @end

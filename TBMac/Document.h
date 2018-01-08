@@ -25,4 +25,10 @@
 // Add an authorized client
 - (void)addAuthorizedClient:(NSDictionary*)code;
 
+// Plan seating for given number of players
+- (void)planSeatingFor:(NSUInteger)maxPlayers;
+
+// Re-plan seating, clearing current game
+- (void)planSeating;
+
 @end

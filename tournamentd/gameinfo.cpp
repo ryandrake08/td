@@ -16,6 +16,7 @@ gameinfo::gameinfo() :
     round_payouts(false),
     payout_flatness(1.0),
     previous_blind_level_hold_duration(2000),
+    max_expected_players(0),
     tables(0),
     total_chips(0),
     total_cost(0.0),
@@ -153,6 +154,7 @@ void gameinfo::dump_state(json& state) const
 
     state.set_value("seats", json(this->seats.begin(), this->seats.end()));
     state.set_value("players_finished", json(this->players_finished.begin(), this->players_finished.end()));
+    state.set_value("max_expected_players", this->max_expected_players);
     state.set_value("empty_seats", json(this->empty_seats.begin(), this->empty_seats.end()));
     state.set_value("tables", this->tables);
     state.set_value("buyins", json(this->buyins.begin(), this->buyins.end()));
@@ -454,12 +456,12 @@ std::vector<std::vector<td::player_id_t> > gameinfo::players_at_tables() const
     return ret;
 }
 
-std::size_t gameinfo::plan_seating(std::size_t max_expected_players)
+std::size_t gameinfo::plan_seating(std::size_t max_expected)
 {
-    logger(LOG_INFO) << "planning tournament for " << max_expected_players << " players\n";
+    logger(LOG_INFO) << "planning tournament for " << max_expected << " players\n";
 
     // check arguments
-    if(max_expected_players < 2)
+    if(max_expected < 2)
     {
         throw td::protocol_error("expected players must be at least 2");
     }
@@ -479,11 +481,11 @@ std::size_t gameinfo::plan_seating(std::size_t max_expected_players)
     this->players_finished.clear();
 
     // figure out how many tables needed
-    this->tables = ((max_expected_players-1) / this->table_capacity) + 1;
+    this->tables = ((max_expected-1) / this->table_capacity) + 1;
     logger(LOG_INFO) << "tables needed: " << this->tables << "\n";
 
     // figure out how many seats should be first occupied
-    std::size_t preferred_seats = (max_expected_players + this->tables - 1) / this->tables;
+    std::size_t preferred_seats = (max_expected + this->tables - 1) / this->tables;
     logger(LOG_INFO) << "prefer: " << preferred_seats << " seats per table\n";
 
     // build up preferred seat list
@@ -514,7 +516,10 @@ std::size_t gameinfo::plan_seating(std::size_t max_expected_players)
     std::shuffle(this->empty_seats.begin(), extra_it, *engine);
     std::shuffle(extra_it, this->empty_seats.end(), *engine);
 
-    logger(LOG_INFO) << "created " << this->empty_seats.size() << " empty seats\n";
+    // set max
+    this->max_expected_players = max_expected;
+
+    logger(LOG_INFO) << "created " << this->empty_seats.size() << " empty seats for " << this->max_expected_players << " expected players\n";
 
     // return number of tables needed
     return this->tables;
@@ -895,7 +900,7 @@ size_t gameinfo::max_chips_for(unsigned long denomination, std::size_t players_c
 //  1/5/25/100/500
 //  5/25/100/500/1000
 //  25/100/500/1000/5000
-std::vector<td::player_chips> gameinfo::chips_for_buyin(const td::funding_source_id_t& src, std::size_t max_expected_players) const
+std::vector<td::player_chips> gameinfo::chips_for_buyin(const td::funding_source_id_t& src, std::size_t max_expected) const
 {
     if(src >= this->funding_sources.size())
     {
@@ -943,7 +948,7 @@ std::vector<td::player_chips> gameinfo::chips_for_buyin(const td::funding_source
 
         // add chips and remove from remainder
         auto count(remain / d);
-        while(count+q[d] > this->max_chips_for(d, max_expected_players))
+        while(count+q[d] > this->max_chips_for(d, max_expected))
         {
             count--;
         }
@@ -976,7 +981,7 @@ std::vector<td::player_chips> gameinfo::chips_for_buyin(const td::funding_source
 
                 // add lower denomination chips and remove from remainder
                 auto count(remain / d0);
-                if(count+q[d0] > this->max_chips_for(d0, max_expected_players))
+                if(count+q[d0] > this->max_chips_for(d0, max_expected))
                 {
                     // put it back if we exceed our available quantity
                     q[d1]++;

@@ -347,8 +347,10 @@ NSString* const TournamentSessionUpdatedNotification = @"TournamentSessionUpdate
     } else {
         // replace only state that changed
         NSDictionary* update = [json dictionaryWithChangesFromDictionary:[self state]];
-        [[self state] addEntriesFromDictionary:update];
-        [self postUpdatedNotification];
+        if([update count] > 0) {
+            [[self state] addEntriesFromDictionary:update];
+            [self postUpdatedNotification];
+        }
     }
 }
 
