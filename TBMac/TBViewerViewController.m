@@ -73,8 +73,8 @@
 
     // register for KVO
     [[self KVOController] observe:self keyPath:@"session.state.current_blind_level" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld block:^(id observer, TBViewerViewController* object, NSDictionary* change) {
-        id old = change[@"old"];
-        id new = change[@"new"];
+        id old = change[NSKeyValueChangeOldKey];
+        id new = change[NSKeyValueChangeNewKey];
         if(![old isEqualTo:[NSNull null]] && ![new isEqualTo:[NSNull null]]) {
             if([old isEqualTo:@0] && ![new isEqualTo:@0]) {
                 // round zero to round non-zero: start
@@ -93,8 +93,8 @@
     }];
 
     [[self KVOController] observe:self keyPath:@"session.state.on_break" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld block:^(id observer, TBViewerViewController* object, NSDictionary* change) {
-        id old = change[@"old"];
-        id new = change[@"new"];
+        id old = change[NSKeyValueChangeOldKey];
+        id new = change[NSKeyValueChangeNewKey];
         if(![old isEqualTo:[NSNull null]] && ![new isEqualTo:[NSNull null]]) {
             if([old isEqualTo:@NO] && [new isEqualTo:@YES]) {
                 // break NO to YES
@@ -104,8 +104,8 @@
     }];
 
     [[self KVOController] observe:self keyPaths:@[@"session.state.time_remaining",@"session.state.break_time_remaining"] options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld block:^(id observer, TBViewerViewController* object, NSDictionary* change) {
-        id old = change[@"old"];
-        id new = change[@"new"];
+        id old = change[NSKeyValueChangeOldKey];
+        id new = change[NSKeyValueChangeNewKey];
         if(![old isEqualTo:[NSNull null]] && ![new isEqualTo:[NSNull null]]) {
             if([old integerValue] > kAudioWarningTime && [new integerValue] <= kAudioWarningTime && [new integerValue] != 0) {
                 // time crosses kAudioWarningTime
