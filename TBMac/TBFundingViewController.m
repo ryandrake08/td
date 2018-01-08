@@ -48,10 +48,6 @@
 
 @end
 
-@interface TBFundingViewController ()
-
-@end
-
 @implementation TBFundingViewController
 
 - (void)viewDidLoad {

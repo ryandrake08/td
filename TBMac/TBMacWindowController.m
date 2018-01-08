@@ -9,7 +9,6 @@
 #import "TBMacWindowController.h"
 #import "Document.h"
 #import "NSObject+FBKVOController.h"
-#import "TBConfigurationWindowController.h"
 #import "TBMovementWindowController.h"
 #import "TBNotifications.h"
 #import "TBPlanViewController.h"
@@ -75,9 +74,14 @@
     // pass any needed data to view controllers
     if([[segue identifier] isEqualToString:@"presentAuthCodeView"]) {
     } else if([[segue identifier] isEqualToString:@"presentPlanView"]) {
+        // pass current max expected players to plan view
         TBPlanViewController* vc = (TBPlanViewController*)[segue destinationController];
         id maxExpected = [[self session] state][@"max_expected_players"];
         [vc setEnableWarning:[maxExpected boolValue]];
+    } else if([[segue identifier] isEqualToString:@"presentConfigurationView"]) {
+        // pass configuration to the configuration view
+        id vc = [segue destinationController];
+        [vc setRepresentedObject:[(Document*)[self document] configuration]];
     }
 }
 
@@ -153,18 +157,6 @@
 
 - (IBAction)restartTapped:(id)sender {
     [(Document*)[self document] planSeating];
-}
-
-- (IBAction)configureButtonDidChange:(id)sender {
-    TBConfigurationWindowController* wc = [[TBConfigurationWindowController alloc] initWithWindowNibName:@"TBConfigurationWindow"];
-    [wc setConfiguration:[(Document*)[self document] configuration]];
-    // display as a sheet
-    [[self window] beginSheet:[wc window] completionHandler:^(NSModalResponse returnCode) {
-        if(returnCode == NSModalResponseOK) {
-            // reconfigure document
-            [(Document*)[self document] addConfiguration:[wc configuration]];
-        }
-    }];
 }
 
 - (IBAction)displayButtonDidChange:(id)sender {

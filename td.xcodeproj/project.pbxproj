@@ -49,7 +49,6 @@
 		943B00D71B3F429500CE55D4 /* types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E91B3C3F8300A158F8 /* types.cpp */; };
 		945410741B6E5C56001E3373 /* NSDateFormatter+ISO8601.m in Sources */ = {isa = PBXBuildFile; fileRef = 945410731B6E5C56001E3373 /* NSDateFormatter+ISO8601.m */; };
 		945410771B6E9A17001E3373 /* NSString+CamelCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 945410761B6E9A17001E3373 /* NSString+CamelCase.m */; };
-		9454107B1B6EC5DD001E3373 /* TBConfigurationWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 945410791B6EC5DD001E3373 /* TBConfigurationWindowController.m */; };
 		94562E661B65D8CA0017C692 /* TBColorValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 94562E5F1B65D8CA0017C692 /* TBColorValueTransformer.m */; };
 		94562E671B65D8CA0017C692 /* TBCurrencyNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 94562E611B65D8CA0017C692 /* TBCurrencyNumberFormatter.m */; };
 		94562E681B65D8CA0017C692 /* TBDateStringTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 94562E631B65D8CA0017C692 /* TBDateStringTransformer.m */; };
@@ -166,13 +165,9 @@
 		94D04ED81B7C6A5C004F4245 /* TBCurrencyNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 94562E611B65D8CA0017C692 /* TBCurrencyNumberFormatter.m */; };
 		94D7290620031960009EC463 /* TBAuthCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94D7290520031960009EC463 /* TBAuthCodeViewController.m */; };
 		94D7290920032C42009EC463 /* TBPlanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94D7290820032C42009EC463 /* TBPlanViewController.m */; };
-		94D849D11B8D60E5000124E4 /* TBAuthsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94D849D31B8D60E5000124E4 /* TBAuthsView.xib */; };
-		94D849D41B8D60E9000124E4 /* TBChipsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94D849D61B8D60E9000124E4 /* TBChipsView.xib */; };
-		94D849D71B8D60F2000124E4 /* TBConfigurationWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94D849D91B8D60F2000124E4 /* TBConfigurationWindow.xib */; };
-		94D849DE1B8D60FD000124E4 /* TBFundingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94D849E01B8D60FD000124E4 /* TBFundingView.xib */; };
+		94D7290C200342EB009EC463 /* TBConfigurationTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94D7290B200342EB009EC463 /* TBConfigurationTabViewController.m */; };
+		94D7290F20034F5A009EC463 /* TBConfigurationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94D7290E20034F5A009EC463 /* TBConfigurationViewController.m */; };
 		94D849E11B8D614E000124E4 /* TBMovementWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94D849E31B8D614E000124E4 /* TBMovementWindow.xib */; };
-		94D849E41B8D6153000124E4 /* TBLeagueView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94D849E61B8D6153000124E4 /* TBLeagueView.xib */; };
-		94D849F51B8D6169000124E4 /* TBRoundsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94D849F71B8D6169000124E4 /* TBRoundsView.xib */; };
 		94E16F221B6C99840070F1BA /* TBResizeTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 94562E6B1B65D9420017C692 /* TBResizeTextField.m */; };
 		94ED00111B76E1E6003CF19B /* TBTableSeatNumberTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 94ED00101B76E1E6003CF19B /* TBTableSeatNumberTransformer.m */; };
 		94F466271B8AF203009BB648 /* TBCurrencyCodeTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F466261B8AF203009BB648 /* TBCurrencyCodeTransformer.m */; };
@@ -554,8 +549,6 @@
 		945410731B6E5C56001E3373 /* NSDateFormatter+ISO8601.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+ISO8601.m"; sourceTree = "<group>"; };
 		945410751B6E9A17001E3373 /* NSString+CamelCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+CamelCase.h"; sourceTree = "<group>"; };
 		945410761B6E9A17001E3373 /* NSString+CamelCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+CamelCase.m"; sourceTree = "<group>"; };
-		945410781B6EC5DD001E3373 /* TBConfigurationWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBConfigurationWindowController.h; path = TBMac/TBConfigurationWindowController.h; sourceTree = "<group>"; };
-		945410791B6EC5DD001E3373 /* TBConfigurationWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TBConfigurationWindowController.m; path = TBMac/TBConfigurationWindowController.m; sourceTree = "<group>"; };
 		94562E5E1B65D8CA0017C692 /* TBColorValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBColorValueTransformer.h; sourceTree = "<group>"; };
 		94562E5F1B65D8CA0017C692 /* TBColorValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBColorValueTransformer.m; sourceTree = "<group>"; };
 		94562E601B65D8CA0017C692 /* TBCurrencyNumberFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBCurrencyNumberFormatter.h; sourceTree = "<group>"; };
@@ -664,13 +657,11 @@
 		94D7290520031960009EC463 /* TBAuthCodeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TBAuthCodeViewController.m; path = TBMac/TBAuthCodeViewController.m; sourceTree = "<group>"; };
 		94D7290720032C42009EC463 /* TBPlanViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TBPlanViewController.h; path = TBMac/TBPlanViewController.h; sourceTree = "<group>"; };
 		94D7290820032C42009EC463 /* TBPlanViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TBPlanViewController.m; path = TBMac/TBPlanViewController.m; sourceTree = "<group>"; };
-		94D849D21B8D60E5000124E4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/TBAuthsView.xib; sourceTree = "<group>"; };
-		94D849D51B8D60E9000124E4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/TBChipsView.xib; sourceTree = "<group>"; };
-		94D849D81B8D60F2000124E4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/TBConfigurationWindow.xib; sourceTree = "<group>"; };
-		94D849DF1B8D60FD000124E4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/TBFundingView.xib; sourceTree = "<group>"; };
+		94D7290A200342EB009EC463 /* TBConfigurationTabViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TBConfigurationTabViewController.h; path = TBMac/TBConfigurationTabViewController.h; sourceTree = "<group>"; };
+		94D7290B200342EB009EC463 /* TBConfigurationTabViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TBConfigurationTabViewController.m; path = TBMac/TBConfigurationTabViewController.m; sourceTree = "<group>"; };
+		94D7290D20034F5A009EC463 /* TBConfigurationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TBConfigurationViewController.h; path = TBMac/TBConfigurationViewController.h; sourceTree = "<group>"; };
+		94D7290E20034F5A009EC463 /* TBConfigurationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TBConfigurationViewController.m; path = TBMac/TBConfigurationViewController.m; sourceTree = "<group>"; };
 		94D849E21B8D614E000124E4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/TBMovementWindow.xib; sourceTree = "<group>"; };
-		94D849E51B8D6153000124E4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/TBLeagueView.xib; sourceTree = "<group>"; };
-		94D849F61B8D6169000124E4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/TBRoundsView.xib; sourceTree = "<group>"; };
 		94ED000F1B76E1E6003CF19B /* TBTableSeatNumberTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBTableSeatNumberTransformer.h; sourceTree = "<group>"; };
 		94ED00101B76E1E6003CF19B /* TBTableSeatNumberTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBTableSeatNumberTransformer.m; sourceTree = "<group>"; };
 		94F466251B8AF203009BB648 /* TBCurrencyCodeTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBCurrencyCodeTransformer.h; sourceTree = "<group>"; };
@@ -1190,18 +1181,16 @@
 				94D7290520031960009EC463 /* TBAuthCodeViewController.m */,
 				9462A3F31B7864E900B29002 /* TBAuthsViewController.h */,
 				9462A3F41B7864E900B29002 /* TBAuthsViewController.m */,
-				94D849D31B8D60E5000124E4 /* TBAuthsView.xib */,
 				AD98D95F1A7B330B00DA6B8B /* TBChipsViewController.h */,
 				AD98D9601A7B330B00DA6B8B /* TBChipsViewController.m */,
-				94D849D61B8D60E9000124E4 /* TBChipsView.xib */,
-				945410781B6EC5DD001E3373 /* TBConfigurationWindowController.h */,
-				945410791B6EC5DD001E3373 /* TBConfigurationWindowController.m */,
-				94D849D91B8D60F2000124E4 /* TBConfigurationWindow.xib */,
+				94D7290A200342EB009EC463 /* TBConfigurationTabViewController.h */,
+				94D7290B200342EB009EC463 /* TBConfigurationTabViewController.m */,
+				94D7290D20034F5A009EC463 /* TBConfigurationViewController.h */,
+				94D7290E20034F5A009EC463 /* TBConfigurationViewController.m */,
 				940AF5211FF7CD9700740295 /* TBConnectToViewController.h */,
 				940AF5231FF7CD9700740295 /* TBConnectToViewController.m */,
 				AD98D9621A7B331A00DA6B8B /* TBFundingViewController.h */,
 				AD98D9631A7B331A00DA6B8B /* TBFundingViewController.m */,
-				94D849E01B8D60FD000124E4 /* TBFundingView.xib */,
 				94B30DE6200217710037192E /* TBMacViewController.h */,
 				94B30DE7200217710037192E /* TBMacViewController.m */,
 				94B30DE9200283CC0037192E /* TBMacWindowController.h */,
@@ -1211,7 +1200,6 @@
 				94D849E31B8D614E000124E4 /* TBMovementWindow.xib */,
 				AD98D9671A7B33F100DA6B8B /* TBLeagueViewController.h */,
 				AD98D9681A7B33F100DA6B8B /* TBLeagueViewController.m */,
-				94D849E61B8D6153000124E4 /* TBLeagueView.xib */,
 				94D7290720032C42009EC463 /* TBPlanViewController.h */,
 				94D7290820032C42009EC463 /* TBPlanViewController.m */,
 				ADCECE831B7B101500767DA6 /* TBPlayersViewController.h */,
@@ -1220,7 +1208,6 @@
 				ADCECE791B7B0D9D00767DA6 /* TBResultsViewController.m */,
 				AD98D96C1A7B342000DA6B8B /* TBRoundsViewController.h */,
 				AD98D96D1A7B342000DA6B8B /* TBRoundsViewController.m */,
-				94D849F71B8D6169000124E4 /* TBRoundsView.xib */,
 				AD98D9711A7B343600DA6B8B /* TBSeatingViewController.h */,
 				AD98D9721A7B343600DA6B8B /* TBSeatingViewController.m */,
 				ADE4E1261A7DFFD000FC9EFC /* TBTableViewController.h */,
@@ -1649,21 +1636,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				94D849D41B8D60E9000124E4 /* TBChipsView.xib in Resources */,
-				94D849D11B8D60E5000124E4 /* TBAuthsView.xib in Resources */,
 				AD8E68541A6C606700E5A4D8 /* TBMac.xcassets in Resources */,
-				94D849DE1B8D60FD000124E4 /* TBFundingView.xib in Resources */,
 				9471B3F51FF8EBC4000A314C /* TBViewer.storyboard in Resources */,
 				94D04ED51B7C59EB004F4245 /* s_warning.caf in Resources */,
 				94B30DE320020AFF0037192E /* TBMac.storyboard in Resources */,
-				94D849F51B8D6169000124E4 /* TBRoundsView.xib in Resources */,
 				94D04ED11B7C59EB004F4245 /* s_rebalance.caf in Resources */,
 				94D849E11B8D614E000124E4 /* TBMovementWindow.xib in Resources */,
 				94D04ECD1B7C59EB004F4245 /* s_break.caf in Resources */,
 				94D04ED31B7C59EB004F4245 /* s_start.caf in Resources */,
 				94D04ECF1B7C59EB004F4245 /* s_next.caf in Resources */,
-				94D849D71B8D60F2000124E4 /* TBConfigurationWindow.xib in Resources */,
-				94D849E41B8D6153000124E4 /* TBLeagueView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1894,6 +1875,7 @@
 				94FDEAEB1B5AE2D60026B25D /* NSData+Delimiter.m in Sources */,
 				94562E691B65D8CA0017C692 /* TBDurationNumberFormatter.m in Sources */,
 				94B30DE8200217710037192E /* TBMacViewController.m in Sources */,
+				94D7290F20034F5A009EC463 /* TBConfigurationViewController.m in Sources */,
 				ADE5A5031B8F6C4C002737A8 /* TBCurrencyImageTransformer.m in Sources */,
 				949D70A31B3C441F008D5CD1 /* socket.cpp in Sources */,
 				AD98D9741A7B343600DA6B8B /* TBSeatingViewController.m in Sources */,
@@ -1901,6 +1883,7 @@
 				9471B3F61FF8ED73000A314C /* TBViewerViewController.m in Sources */,
 				9462A3E71B77CB3B00B29002 /* TTTOrdinalNumberFormatter.m in Sources */,
 				94FDEAEE1B5AE2D60026B25D /* NSObject+FBKVOController.m in Sources */,
+				94D7290C200342EB009EC463 /* TBConfigurationTabViewController.m in Sources */,
 				ADE4E1281A7DFFD000FC9EFC /* TBTableViewController.m in Sources */,
 				ADD73D291B9692E1006824A1 /* NSDictionary+Changed.m in Sources */,
 				AD8E684C1A6C606700E5A4D8 /* main.m in Sources */,
@@ -1915,7 +1898,6 @@
 				949D70991B3C440D008D5CD1 /* server.cpp in Sources */,
 				9439701D1B405DC000BB0413 /* TournamentService.m in Sources */,
 				AD8E684A1A6C606700E5A4D8 /* TBMacAppDelegate.m in Sources */,
-				9454107B1B6EC5DD001E3373 /* TBConfigurationWindowController.m in Sources */,
 				94562E671B65D8CA0017C692 /* TBCurrencyNumberFormatter.m in Sources */,
 				9476F4A21B3C3EA700A158F8 /* TournamentConnection.m in Sources */,
 				9462A3F11B781A9A00B29002 /* RSVerticallyCenteredTextFieldCell.m in Sources */,
@@ -2132,66 +2114,12 @@
 			path = TBMac;
 			sourceTree = "<group>";
 		};
-		94D849D31B8D60E5000124E4 /* TBAuthsView.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				94D849D21B8D60E5000124E4 /* Base */,
-			);
-			name = TBAuthsView.xib;
-			path = TBMac;
-			sourceTree = "<group>";
-		};
-		94D849D61B8D60E9000124E4 /* TBChipsView.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				94D849D51B8D60E9000124E4 /* Base */,
-			);
-			name = TBChipsView.xib;
-			path = TBMac;
-			sourceTree = "<group>";
-		};
-		94D849D91B8D60F2000124E4 /* TBConfigurationWindow.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				94D849D81B8D60F2000124E4 /* Base */,
-			);
-			name = TBConfigurationWindow.xib;
-			path = TBMac;
-			sourceTree = "<group>";
-		};
-		94D849E01B8D60FD000124E4 /* TBFundingView.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				94D849DF1B8D60FD000124E4 /* Base */,
-			);
-			name = TBFundingView.xib;
-			path = TBMac;
-			sourceTree = "<group>";
-		};
 		94D849E31B8D614E000124E4 /* TBMovementWindow.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				94D849E21B8D614E000124E4 /* Base */,
 			);
 			name = TBMovementWindow.xib;
-			path = TBMac;
-			sourceTree = "<group>";
-		};
-		94D849E61B8D6153000124E4 /* TBLeagueView.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				94D849E51B8D6153000124E4 /* Base */,
-			);
-			name = TBLeagueView.xib;
-			path = TBMac;
-			sourceTree = "<group>";
-		};
-		94D849F71B8D6169000124E4 /* TBRoundsView.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				94D849F61B8D6169000124E4 /* Base */,
-			);
-			name = TBRoundsView.xib;
 			path = TBMac;
 			sourceTree = "<group>";
 		};

@@ -53,6 +53,10 @@
 }
 @end
 
+@interface TBRoundsViewController () <NSTableViewDataSource>
+
+@end
+
 @implementation TBRoundsViewController
 
 - (void)viewDidLoad {
