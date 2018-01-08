@@ -12,6 +12,7 @@
 #import "TBConfigurationWindowController.h"
 #import "TBMovementWindowController.h"
 #import "TBNotifications.h"
+#import "TBPlanViewController.h"
 #import "TBViewerViewController.h"
 #import "TournamentSession.h"
 
@@ -68,6 +69,16 @@
         // display as non-modal
         [[self movementWindowController] showWindow:self];
     }];
+}
+
+- (void)prepareForSegue:(NSStoryboardSegue *)segue sender:(id)sender {
+    // pass any needed data to view controllers
+    if([[segue identifier] isEqualToString:@"presentAuthCodeView"]) {
+    } else if([[segue identifier] isEqualToString:@"presentPlanView"]) {
+        TBPlanViewController* vc = (TBPlanViewController*)[segue destinationController];
+        id maxExpected = [[self session] state][@"max_expected_players"];
+        [vc setEnableWarning:[maxExpected boolValue]];
+    }
 }
 
 #pragma mark NSWindowDelegate

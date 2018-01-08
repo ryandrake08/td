@@ -359,7 +359,7 @@
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="F1882079-CADA-4FB5-AE5D-02FEA5639344" label="Authorize" paletteLabel="Authorize" tag="-1" image="b_auth" id="dkf-E2-LMY">
                                     <connections>
-                                        <segue destination="bPh-e2-rZM" kind="sheet" id="3WU-TS-ggK"/>
+                                        <segue destination="bPh-e2-rZM" kind="sheet" identifier="presentAuthCodeView" id="3WU-TS-ggK"/>
                                     </connections>
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="0B2B8D14-0973-41DA-8224-1B3C07A95872" label="Setup" paletteLabel="Setup" tag="-1" image="b_configure" id="BiV-xi-hlu">
@@ -420,7 +420,7 @@
                                 <toolbarItem implicitItemIdentifier="NSToolbarSeparatorItem" id="ZaH-wL-3Cm"/>
                                 <toolbarItem implicitItemIdentifier="C87824C1-9B13-4B0D-B0F1-4A348C7F1DF5" label="Plan" paletteLabel="Plan" tag="-1" image="b_new" id="8hl-BW-ftP">
                                     <connections>
-                                        <segue destination="79P-Qm-Z6L" kind="sheet" id="mJ1-px-HDd"/>
+                                        <segue destination="79P-Qm-Z6L" kind="sheet" identifier="presentPlanView" id="mJ1-px-HDd"/>
                                     </connections>
                                 </toolbarItem>
                             </allowedToolbarItems>
@@ -647,6 +647,13 @@ DQ
                                     <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
+                                <connections>
+                                    <binding destination="79P-Qm-Z6L" name="hidden" keyPath="self.enableWarning" id="Yol-Pb-bLo">
+                                        <dictionary key="options">
+                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                        </dictionary>
+                                    </binding>
+                                </connections>
                             </textField>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jVl-Vq-MiJ">
                                 <rect key="frame" x="302" y="13" width="82" height="32"/>
@@ -696,7 +703,6 @@ DQ
                     </view>
                     <connections>
                         <outlet property="playersTextField" destination="PfR-TF-DAI" id="556-9n-zml"/>
-                        <outlet property="warningTextField" destination="5dt-zS-8gM" id="ww9-cb-Izp"/>
                     </connections>
                 </viewController>
                 <customObject id="oXd-3w-ieQ" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
