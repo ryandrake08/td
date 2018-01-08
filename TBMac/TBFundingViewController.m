@@ -7,8 +7,9 @@
 //
 
 #import "TBFundingViewController.h"
-#import "TBCurrencyNumberFormatter.h"
 #import "NSObject+FBKVOController.h"
+#import "TBCurrencyNumberFormatter.h"
+#import "TournamentSession.h"
 
 // TBFundingArrayController implements a new object
 @interface TBFundingArrayController : NSArrayController
@@ -65,7 +66,7 @@
 }
 
 - (NSArray*)blindLevelNames {
-    return [TournamentSession namesForBlindLevels:[self configuration][@"blind_levels"]];
+    return [TournamentSession namesForBlindLevels:[self representedObject][@"blind_levels"]];
 }
 
 @end

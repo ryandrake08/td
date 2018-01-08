@@ -7,6 +7,14 @@
 //
 
 #import "TBPlayersViewController.h"
+#import "TournamentSession.h"
+
+@interface TBPlayersViewController ()
+
+// global session
+@property (strong) TournamentSession* session;
+
+@end
 
 @implementation TBPlayersViewController
 

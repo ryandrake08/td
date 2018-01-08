@@ -47,8 +47,8 @@
     TBTableViewController* controller = [self valueForKey:[tabViewItem identifier]];
 
     // set configuration
-    if([controller configuration] == nil) {
-        [controller setConfiguration:[self configuration]];
+    if([controller representedObject] == nil) {
+        [controller setRepresentedObject:[self configuration]];
     }
 
     // set the view

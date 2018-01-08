@@ -9,6 +9,14 @@
 #import "TBResultsViewController.h"
 #import "NSObject+FBKVOController.h"
 #import "TBCurrencyNumberFormatter.h"
+#import "TournamentSession.h"
+
+@interface TBResultsViewController ()
+
+// global session
+@property (strong) TournamentSession* session;
+
+@end
 
 @implementation TBResultsViewController
 

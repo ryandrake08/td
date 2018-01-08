@@ -8,6 +8,7 @@
 
 #import "TBAuthsViewController.h"
 #import "NSDateFormatter+ISO8601.h"
+#import "TournamentSession.h"
 
 // TBAuthsArrayController implements a new object
 @interface TBAuthsArrayController : NSArrayController

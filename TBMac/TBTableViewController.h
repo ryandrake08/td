@@ -7,7 +7,6 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "TournamentSession.h"
 
 @interface TBTableViewController : NSViewController
 
@@ -16,11 +15,5 @@
 
 // array controller for objects managed by this view controller
 @property (strong) IBOutlet NSArrayController* arrayController;
-
-// global configuration
-@property (strong) NSMutableDictionary* configuration;
-
-// global session
-@property (strong) TournamentSession* session;
 
 @end

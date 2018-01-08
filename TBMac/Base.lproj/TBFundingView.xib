@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13771" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11762"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13771"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -33,7 +33,7 @@
                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                 <tableColumns>
-                                    <tableColumn width="153" maxWidth="1000000000" id="3w1-KV-D03">
+                                    <tableColumn identifier="" width="153" maxWidth="1000000000" id="3w1-KV-D03">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Name">
                                             <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -50,7 +50,7 @@
                                                 <rect key="frame" x="1" y="1" width="153" height="58"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" misplaced="YES" allowsExpansionToolTips="YES" id="Tuz-Wx-yMt" userLabel="Name">
+                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" misplaced="YES" allowsExpansionToolTips="YES" allowsCharacterPickerTouchBarItem="YES" id="Tuz-Wx-yMt" userLabel="Name">
                                                         <rect key="frame" x="0.0" y="3" width="149" height="52"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                         <textFieldCell key="cell" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" placeholderString="Name (e.g. Early Bird Addon)" id="EtV-4i-XDm">
@@ -137,7 +137,7 @@
                                                 <rect key="frame" x="272" y="1" width="56" height="58"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <textField verticalHuggingPriority="750" misplaced="YES" id="xTr-TC-3Hl" userLabel="Cost Value">
+                                                    <textField verticalHuggingPriority="750" misplaced="YES" allowsCharacterPickerTouchBarItem="YES" id="xTr-TC-3Hl" userLabel="Cost Value">
                                                         <rect key="frame" x="0.0" y="30" width="56" height="17"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" alignment="left" placeholderString="Cost" id="aqP-cm-2eN">
@@ -201,7 +201,7 @@
                                                 <rect key="frame" x="331" y="1" width="56" height="58"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <textField verticalHuggingPriority="750" misplaced="YES" id="ig5-xE-2BK" userLabel="Fee Value">
+                                                    <textField verticalHuggingPriority="750" misplaced="YES" allowsCharacterPickerTouchBarItem="YES" id="ig5-xE-2BK" userLabel="Fee Value">
                                                         <rect key="frame" x="0.0" y="30" width="56" height="17"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" alignment="left" placeholderString="Fee" id="88h-PX-2Sg">
@@ -265,7 +265,7 @@
                                                 <rect key="frame" x="390" y="1" width="56" height="58"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <textField verticalHuggingPriority="750" misplaced="YES" id="FxW-AN-4e6" userLabel="Equity Value">
+                                                    <textField verticalHuggingPriority="750" misplaced="YES" allowsCharacterPickerTouchBarItem="YES" id="FxW-AN-4e6" userLabel="Equity Value">
                                                         <rect key="frame" x="0.0" y="30" width="56" height="17"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" alignment="left" placeholderString="Equity" id="asL-e8-nIq">
@@ -312,7 +312,7 @@
                                             <binding destination="ZWh-lB-mFY" name="value" keyPath="arrangedObjects.equity" id="dOd-Pa-xbi"/>
                                         </connections>
                                     </tableColumn>
-                                    <tableColumn width="56" maxWidth="56" id="Uvh-Rz-Buf">
+                                    <tableColumn identifier="" width="56" maxWidth="56" id="Uvh-Rz-Buf">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Chips">
                                             <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -329,7 +329,7 @@
                                                 <rect key="frame" x="449" y="1" width="56" height="58"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <textField verticalHuggingPriority="750" misplaced="YES" id="1Po-Mx-C2U" userLabel="Chips Value">
+                                                    <textField verticalHuggingPriority="750" misplaced="YES" allowsCharacterPickerTouchBarItem="YES" id="1Po-Mx-C2U" userLabel="Chips Value">
                                                         <rect key="frame" x="0.0" y="30" width="56" height="17"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" alignment="left" placeholderString="Count" id="Ng6-A1-M0z">
@@ -354,7 +354,7 @@
                                             <binding destination="ZWh-lB-mFY" name="value" keyPath="arrangedObjects.chips" id="O4d-Ob-Oml"/>
                                         </connections>
                                     </tableColumn>
-                                    <tableColumn width="128" maxWidth="192" id="ygT-Hl-nmT">
+                                    <tableColumn identifier="" width="128" maxWidth="192" id="ygT-Hl-nmT">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Forbid After">
                                             <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -496,7 +496,7 @@
                 <string>forbid_after_blind_level</string>
             </declaredKeys>
             <connections>
-                <binding destination="-2" name="contentArray" keyPath="configuration.funding_sources" id="mVs-qj-OP5"/>
+                <binding destination="-2" name="contentArray" keyPath="self.representedObject.funding_sources" id="Ofs-GP-dYh"/>
             </connections>
         </arrayController>
     </objects>

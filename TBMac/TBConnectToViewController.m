@@ -7,6 +7,7 @@
 //
 
 #import "TBConnectToViewController.h"
+#import "TournamentSession.h"
 
 @implementation TBConnectToViewController
 

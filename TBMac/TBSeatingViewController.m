@@ -7,10 +7,14 @@
 //
 
 #import "TBSeatingViewController.h"
-#import "TBNotifications.h"
 #import "NSObject+FBKVOController.h"
+#import "TBNotifications.h"
+#import "TournamentSession.h"
 
 @interface TBSeatingViewController () <NSMenuDelegate>
+
+// global session
+@property (strong) TournamentSession* session;
 
 @end
 

@@ -7,12 +7,14 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "TournamentSession.h"
+
+// Forward declare
+@class TournamentSession;
 
 @interface TBConnectToViewController : NSViewController
 
 // the tournament session (model) object
-@property (strong) IBOutlet TournamentSession* session;
+@property (strong) TournamentSession* session;
 
 @property (copy) NSString* address;
 @property (assign) NSInteger port;

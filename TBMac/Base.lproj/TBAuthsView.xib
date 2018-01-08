@@ -1,8 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" customObjectInstantitationMethod="direct">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13771" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10117"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13771"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="TBAuthsViewController">
@@ -21,7 +22,7 @@
                 <string>code</string>
             </declaredKeys>
             <connections>
-                <binding destination="-2" name="contentArray" keyPath="self.configuration.authorized_clients" id="TsH-hI-dmU"/>
+                <binding destination="-2" name="contentArray" keyPath="self.representedObject.authorized_clients" id="Hq3-Bu-6xY"/>
             </connections>
         </arrayController>
         <customView id="upc-xJ-OKU">
@@ -42,7 +43,7 @@
                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                 <tableColumns>
-                                    <tableColumn width="64" minWidth="64" maxWidth="64" id="6ZK-Q7-WIu">
+                                    <tableColumn identifier="" width="64" minWidth="64" maxWidth="64" id="6ZK-Q7-WIu">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Code">
                                             <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -82,7 +83,7 @@
                                             <binding destination="l6s-a5-cpk" name="value" keyPath="arrangedObjects.code" id="bMd-xQ-smi"/>
                                         </connections>
                                     </tableColumn>
-                                    <tableColumn width="437" minWidth="64" maxWidth="1000000000" id="9O4-Zs-KGH">
+                                    <tableColumn identifier="" width="437" minWidth="64" maxWidth="1000000000" id="9O4-Zs-KGH">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Name">
                                             <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -121,7 +122,7 @@
                                             <binding destination="l6s-a5-cpk" name="value" keyPath="arrangedObjects.name" id="Bpc-B0-0Tr"/>
                                         </connections>
                                     </tableColumn>
-                                    <tableColumn width="128" minWidth="128" maxWidth="128" id="ZpJ-Qa-kDM">
+                                    <tableColumn identifier="" width="128" minWidth="128" maxWidth="128" id="ZpJ-Qa-kDM">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Authorized On">
                                             <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -170,7 +171,6 @@
                                 </connections>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </clipView>
                     <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="eIx-5U-743">
                         <rect key="frame" x="1" y="338" width="638" height="16"/>
@@ -181,7 +181,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                     <tableHeaderView key="headerView" id="jih-nc-tPH">
-                        <rect key="frame" x="0.0" y="0.0" width="10000" height="17"/>
+                        <rect key="frame" x="0.0" y="0.0" width="638" height="17"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </tableHeaderView>
                 </scrollView>
