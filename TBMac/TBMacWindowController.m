@@ -9,7 +9,6 @@
 #import "TBMacWindowController.h"
 #import "Document.h"
 #import "NSObject+FBKVOController.h"
-#import "TBAuthCodeWindowController.h"
 #import "TBConfigurationWindowController.h"
 #import "TBMovementWindowController.h"
 #import "TBNotifications.h"
@@ -157,19 +156,6 @@
 
 - (IBAction)restartTapped:(id)sender {
     [self planSeatingFor:[self lastMaxPlayers]];
-}
-
-- (IBAction)authorizeButtonDidChange:(id)sender {
-    TBAuthCodeWindowController* wc = [[TBAuthCodeWindowController alloc] initWithWindowNibName:@"TBAuthCodeWindow"];
-    // display as a sheet
-    [[self window] beginSheet:[wc window] completionHandler:^(NSModalResponse returnCode) {
-        if(returnCode == NSModalResponseOK) {
-            if([wc object] != nil) {
-                // Send new authorized client to Document
-                [(Document*)[self document] addAuthorizedClient:[wc object]];
-            }
-        }
-    }];
 }
 
 - (IBAction)configureButtonDidChange:(id)sender {

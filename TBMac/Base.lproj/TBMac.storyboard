@@ -359,7 +359,7 @@
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="F1882079-CADA-4FB5-AE5D-02FEA5639344" label="Authorize" paletteLabel="Authorize" tag="-1" image="b_auth" id="dkf-E2-LMY">
                                     <connections>
-                                        <action selector="authorizeButtonDidChange:" target="KGa-Ib-ddT" id="JUE-6B-17Y"/>
+                                        <segue destination="bPh-e2-rZM" kind="sheet" id="3WU-TS-ggK"/>
                                     </connections>
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="0B2B8D14-0973-41DA-8224-1B3C07A95872" label="Setup" paletteLabel="Setup" tag="-1" image="b_configure" id="BiV-xi-hlu">
@@ -380,9 +380,9 @@
                                 <toolbarItem implicitItemIdentifier="522A409F-5876-4785-BD35-965C2982F9F2" label="" paletteLabel="Tournament Name" id="JhU-Ez-4Uj" userLabel="Tournament Name">
                                     <nil key="toolTip"/>
                                     <size key="minSize" width="38" height="17"/>
-                                    <size key="maxSize" width="128" height="17"/>
+                                    <size key="maxSize" width="128" height="19"/>
                                     <textField key="view" horizontalHuggingPriority="251" verticalHuggingPriority="750" id="jue-x3-WFy">
-                                        <rect key="frame" x="33" y="14" width="38" height="17"/>
+                                        <rect key="frame" x="29" y="14" width="47" height="19"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" title="Name" id="2j1-Rf-xju">
                                             <font key="font" metaFont="systemBold" size="15"/>
@@ -453,6 +453,165 @@
                 <customObject id="bjE-D6-6zO" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="74" y="347"/>
+        </scene>
+        <!--Auth Code View Controller-->
+        <scene sceneID="pDd-XJ-I1W">
+            <objects>
+                <viewController id="bPh-e2-rZM" customClass="TBAuthCodeViewController" sceneMemberID="viewController">
+                    <view key="view" id="MYJ-oe-Bla">
+                        <rect key="frame" x="0.0" y="0.0" width="512" height="205"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pDB-Zv-ksE">
+                                <rect key="frame" x="0.0" y="61" width="96" height="96"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hAm-yK-CMu">
+                                        <rect key="frame" x="16" y="16" width="64" height="64"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="border" alignment="center" drawsBackground="YES" id="NJT-Pc-kKn">
+                                            <numberFormatter key="formatter" formatterBehavior="custom10_4" positiveFormat="#" localizesFormat="NO" numberStyle="decimal" allowsFloats="NO" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="1" maximumIntegerDigits="1" decimalSeparator="." groupingSeparator="," id="g4Q-K9-0wQ"/>
+                                            <font key="font" metaFont="system" size="48"/>
+                                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                        <connections>
+                                            <outlet property="delegate" destination="bPh-e2-rZM" id="PRZ-JV-jzA"/>
+                                            <outlet property="nextKeyView" destination="yFy-p4-ERG" id="luo-yM-ZRL"/>
+                                        </connections>
+                                    </textField>
+                                </subviews>
+                            </customView>
+                            <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="71M-q7-JNh">
+                                <rect key="frame" x="104" y="61" width="96" height="96"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yFy-p4-ERG">
+                                        <rect key="frame" x="16" y="16" width="64" height="64"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="border" alignment="center" drawsBackground="YES" id="182-rc-Nr9">
+                                            <numberFormatter key="formatter" formatterBehavior="custom10_4" positiveFormat="#" localizesFormat="NO" numberStyle="decimal" allowsFloats="NO" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="1" maximumIntegerDigits="1" decimalSeparator="." groupingSeparator="," id="AQu-FU-wOc"/>
+                                            <font key="font" metaFont="system" size="48"/>
+                                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                        <connections>
+                                            <outlet property="delegate" destination="bPh-e2-rZM" id="ZHg-Xr-bIk"/>
+                                            <outlet property="nextKeyView" destination="a4b-Yl-V4y" id="Wl7-pq-X1q"/>
+                                        </connections>
+                                    </textField>
+                                </subviews>
+                            </customView>
+                            <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="caE-EC-YiW">
+                                <rect key="frame" x="208" y="61" width="96" height="96"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="a4b-Yl-V4y">
+                                        <rect key="frame" x="16" y="16" width="64" height="64"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="border" alignment="center" drawsBackground="YES" id="7eV-Pw-Ub4">
+                                            <numberFormatter key="formatter" formatterBehavior="custom10_4" positiveFormat="#" localizesFormat="NO" numberStyle="decimal" allowsFloats="NO" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="1" maximumIntegerDigits="1" decimalSeparator="." groupingSeparator="," id="QvE-Wg-Whx"/>
+                                            <font key="font" metaFont="system" size="48"/>
+                                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                        <connections>
+                                            <outlet property="delegate" destination="bPh-e2-rZM" id="CdP-PW-pMy"/>
+                                            <outlet property="nextKeyView" destination="jcm-Eh-TgS" id="4Cj-p8-NJr"/>
+                                        </connections>
+                                    </textField>
+                                </subviews>
+                            </customView>
+                            <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="m2W-oo-I3z">
+                                <rect key="frame" x="312" y="61" width="96" height="96"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jcm-Eh-TgS">
+                                        <rect key="frame" x="16" y="16" width="64" height="64"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="border" alignment="center" drawsBackground="YES" id="Fg9-AP-jW5">
+                                            <numberFormatter key="formatter" formatterBehavior="custom10_4" positiveFormat="#" localizesFormat="NO" numberStyle="decimal" allowsFloats="NO" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="1" maximumIntegerDigits="1" decimalSeparator="." groupingSeparator="," id="gXt-RF-yhB"/>
+                                            <font key="font" metaFont="system" size="48"/>
+                                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                        <connections>
+                                            <outlet property="delegate" destination="bPh-e2-rZM" id="jTh-Nt-uy4"/>
+                                            <outlet property="nextKeyView" destination="VEB-7a-3fC" id="dgE-Tw-bSm"/>
+                                        </connections>
+                                    </textField>
+                                </subviews>
+                            </customView>
+                            <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fOV-kZ-ap8">
+                                <rect key="frame" x="416" y="61" width="96" height="96"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VEB-7a-3fC">
+                                        <rect key="frame" x="16" y="16" width="64" height="64"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="border" alignment="center" drawsBackground="YES" id="p7J-GN-uWs">
+                                            <numberFormatter key="formatter" formatterBehavior="custom10_4" positiveFormat="#" localizesFormat="NO" numberStyle="decimal" allowsFloats="NO" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="1" maximumIntegerDigits="1" decimalSeparator="." groupingSeparator="," id="r6b-n5-BOJ"/>
+                                            <font key="font" metaFont="system" size="48"/>
+                                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                        <connections>
+                                            <outlet property="delegate" destination="bPh-e2-rZM" id="cPA-hd-ykg"/>
+                                            <outlet property="nextKeyView" destination="jlq-Lr-INc" id="jU8-96-9A5"/>
+                                        </connections>
+                                    </textField>
+                                </subviews>
+                            </customView>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fL2-jU-as2">
+                                <rect key="frame" x="334" y="13" width="82" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="IWv-jn-yBE">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                    <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="dismissController:" target="bPh-e2-rZM" id="lhZ-iu-cII"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jlq-Lr-INc">
+                                <rect key="frame" x="416" y="13" width="82" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                <buttonCell key="cell" type="push" title="Done" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="yhj-Y5-Iqn">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                    <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="doneButtonDidChange:" target="bPh-e2-rZM" id="OYh-5e-JyY"/>
+                                </connections>
+                            </button>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="p4l-P6-0DG">
+                                <rect key="frame" x="18" y="165" width="476" height="31"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Enter code shown on device to authorize:" id="9Gv-2N-0z3">
+                                    <font key="font" metaFont="system" size="22"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                        </subviews>
+                    </view>
+                    <connections>
+                        <outlet property="codeField0" destination="hAm-yK-CMu" id="n3i-ge-GzW"/>
+                        <outlet property="codeField1" destination="yFy-p4-ERG" id="xYO-HF-idP"/>
+                        <outlet property="codeField2" destination="a4b-Yl-V4y" id="Yia-su-PwB"/>
+                        <outlet property="codeField3" destination="jcm-Eh-TgS" id="Phu-XV-YeX"/>
+                        <outlet property="codeField4" destination="VEB-7a-3fC" id="C2p-nj-HiO"/>
+                    </connections>
+                </viewController>
+                <customObject id="P4K-dz-yBZ" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="997" y="-212"/>
         </scene>
         <!--Mac View Controller-->
         <scene sceneID="fMb-6O-UYE">
@@ -864,15 +1023,15 @@
                                                             </buttonCell>
                                                             <connections>
                                                                 <action selector="seatedButtonDidChange:" target="S8w-ig-TI4" id="GU3-hw-xv9"/>
-                                                                <binding destination="S8w-ig-TI4" name="enabled" keyPath="self.session.state.empty_seats" id="jjY-sU-efw">
-                                                                    <dictionary key="options">
-                                                                        <string key="NSValueTransformerName">TBArrayCountTransformer</string>
-                                                                    </dictionary>
-                                                                </binding>
                                                                 <binding destination="LJR-BA-7sj" name="hidden" keyPath="objectValue.buyin" previousBinding="jjY-sU-efw" id="1Yr-dF-wve"/>
                                                                 <binding destination="LJR-BA-7sj" name="value" keyPath="objectValue.seat_number" id="HtF-JF-uKl">
                                                                     <dictionary key="options">
                                                                         <string key="NSValueTransformerName">NSIsNotNil</string>
+                                                                    </dictionary>
+                                                                </binding>
+                                                                <binding destination="S8w-ig-TI4" name="enabled" keyPath="self.session.state.empty_seats" id="jjY-sU-efw">
+                                                                    <dictionary key="options">
+                                                                        <string key="NSValueTransformerName">TBArrayCountTransformer</string>
                                                                     </dictionary>
                                                                 </binding>
                                                             </connections>
