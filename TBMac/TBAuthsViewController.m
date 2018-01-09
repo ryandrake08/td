@@ -9,6 +9,7 @@
 #import "TBAuthsViewController.h"
 #import "NSDateFormatter+ISO8601.h"
 #import "TournamentSession.h"
+#import <Foundation/Foundation.h>
 
 // TBAuthsArrayController implements a new object
 @interface TBAuthsArrayController : NSArrayController
@@ -19,10 +20,10 @@
 
 - (id)newObject {
     NSNumber* code = @12345;
-    NSString* name = @"New Device";
+    NSString* name = NSLocalizedString(@"New Device", nil);
     NSString* added_at = [[NSDateFormatter dateFormatterWithISO8601Format] stringFromDate:[NSDate date]];
 
-    return [[NSMutableDictionary alloc] initWithObjectsAndKeys:code, @"code", name, @"name", added_at, @"added_at", nil];
+    return [@{@"code":code, @"name":name, @"added_at":added_at} mutableCopy];
 }
 
 @end

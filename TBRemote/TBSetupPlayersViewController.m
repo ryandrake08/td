@@ -29,11 +29,12 @@
 }
 
 - (id)newObject {
+    NSString* player_id = [[NSUUID UUID] UUIDString];
     NSString* name = NSLocalizedString(@"New Player", nil);
     NSDateFormatter* dateFormatter = [NSDateFormatter dateFormatterWithISO8601Format];
-    NSString* addedAt = [dateFormatter stringFromDate:[NSDate date]];
+    NSString* added_at = [dateFormatter stringFromDate:[NSDate date]];
 
-    return [[NSMutableDictionary alloc] initWithObjectsAndKeys:name, @"name", addedAt, @"added_at", nil];
+    return [@{@"player_id":player_id, @"name":name, @"added_at":added_at} mutableCopy];
 }
 
 @end

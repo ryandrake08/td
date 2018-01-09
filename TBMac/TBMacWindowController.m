@@ -113,11 +113,8 @@
     // resign first responder
     [[sender window] selectNextKeyView:self];
 
-    // Get new name
-    NSDictionary* config = [[NSDictionary alloc] initWithObjectsAndKeys:[sender stringValue], @"name", nil];
-
     // configure session and replace current configuration
-    [(Document*)[self document] addConfiguration:config];
+    [(Document*)[self document] addConfiguration:@{@"name":[sender stringValue]}];
 }
 
 - (IBAction)previousRoundTapped:(id)sender {

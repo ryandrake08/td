@@ -16,7 +16,7 @@
 @implementation TBRoundsArrayController
 
 - (id)newObject {
-    NSString* game_name = @"No Limit Texas Hold'em";
+    NSString* game_name = NSLocalizedString(@"No Limit Texas Hold'em", nil);
     NSNumber* little_blind = @25;
     NSNumber* big_blind = @50;
     NSNumber* ante = @0;
@@ -31,7 +31,7 @@
         duration = last[@"duration"];
     }
 
-    return [[NSMutableDictionary alloc] initWithObjectsAndKeys:game_name, @"game_name", little_blind, @"little_blind", big_blind, @"big_blind", ante, @"ante", duration, @"duration", nil];
+    return [@{@"game_name":game_name, @"little_blind":little_blind, @"big_blind":big_blind, @"ante":ante, @"duration":duration} mutableCopy];
 }
 
 @end

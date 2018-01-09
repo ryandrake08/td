@@ -58,14 +58,14 @@
 }
 
 - (id)newObject {
-    NSString* name = @"[New Buyin, Rebuy or Addon]";
+    NSString* name = NSLocalizedString(@"Buyin, Rebuy or Addon Name", nil);
     NSNumber* type = kFundingTypeAddon;
     NSNumber* chips = @5000;
     NSNumber* cost = @10;
     NSNumber* commission = @0;
     NSNumber* equity = @10;
 
-    return [[NSMutableDictionary alloc] initWithObjectsAndKeys:name, @"name", type, @"type", chips, @"chips", cost, @"cost", commission, @"commission", equity, @"equity", nil];
+    return [@{@"name":name, @"type":type, @"chips":chips, @"cost":cost, @"commission":commission, @"equity":equity} mutableCopy];
 }
 
 @end
