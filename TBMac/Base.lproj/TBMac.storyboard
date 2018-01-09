@@ -381,7 +381,7 @@
                                 <toolbarItem implicitItemIdentifier="522A409F-5876-4785-BD35-965C2982F9F2" label="" paletteLabel="Tournament Name" id="JhU-Ez-4Uj" userLabel="Tournament Name">
                                     <nil key="toolTip"/>
                                     <size key="minSize" width="38" height="17"/>
-                                    <size key="maxSize" width="128" height="19"/>
+                                    <size key="maxSize" width="10000" height="19"/>
                                     <textField key="view" horizontalHuggingPriority="251" verticalHuggingPriority="750" id="jue-x3-WFy">
                                         <rect key="frame" x="29" y="14" width="47" height="19"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
