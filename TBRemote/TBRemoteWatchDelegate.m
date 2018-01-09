@@ -48,7 +48,7 @@
             [wcSession activateSession];
 
             // Notification center - Update WCSession when certain state changes happen
-            [[NSNotificationCenter defaultCenter] addObserverForName:TournamentSessionUpdatedNotification object:nil queue:nil usingBlock:^(NSNotification* note) {
+            [[NSNotificationCenter defaultCenter] addObserverForName:kTournamentSessionUpdatedNotification object:nil queue:nil usingBlock:^(NSNotification* note) {
                 if([wcSession isReachable]) {
                     // Changes from last sent state
                     NSMutableDictionary* update = [[note object] mutableDictionaryWithChangesFromDictionary:[self stateWhenLastSent]];

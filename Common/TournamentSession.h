@@ -21,7 +21,7 @@
 #define kAudioWarningTime 60000
 
 // Notification
-extern NSString* const TournamentSessionUpdatedNotification;
+#define kTournamentSessionUpdatedNotification @"kTournamentSessionUpdatedNotification"
 
 @interface TournamentSession : NSObject
 

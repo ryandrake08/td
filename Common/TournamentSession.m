@@ -11,8 +11,6 @@
 #import "NSDictionary+Changed.h"
 #import "TBCurrencyNumberFormatter.h"
 
-NSString* const TournamentSessionUpdatedNotification = @"TournamentSessionUpdatedNotification";
-
 @interface TournamentSession() <TournamentConnectionDelegate>
 
 // all tournament configuration and state
@@ -111,7 +109,7 @@ NSString* const TournamentSessionUpdatedNotification = @"TournamentSessionUpdate
 
 - (void)postUpdatedNotification {
     // post notification
-    [[NSNotificationCenter defaultCenter] postNotificationName:TournamentSessionUpdatedNotification object:[self state]];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kTournamentSessionUpdatedNotification object:[self state]];
 }
 
 #pragma mark Tournament Commands
