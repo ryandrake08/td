@@ -7,7 +7,7 @@
 //
 
 #import "TBPlanViewController.h"
-#import "Document.h"
+#import "TBMacDocument.h"
 
 @interface TBPlanViewController ()
 
@@ -24,7 +24,7 @@
     NSInteger players = [[self playersTextField] integerValue];
     if(players != 0) {
         // get document from sheet parent
-        Document* document = [[[[[self view] window] sheetParent] windowController] document];
+        TBMacDocument* document = [[[[[self view] window] sheetParent] windowController] document];
 
         // plan seating
         [document planSeatingFor:players];

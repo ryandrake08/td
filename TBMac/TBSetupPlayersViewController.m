@@ -1,20 +1,20 @@
 //
-//  TBLeagueViewController.m
+//  TBSetupPlayersViewController.m
 //  td
 //
 //  Created by Ryan Drake on 1/29/15.
 //  Copyright (c) 2015 HDna Studio. All rights reserved.
 //
 
-#import "TBLeagueViewController.h"
+#import "TBSetupPlayersViewController.h"
 #import "NSDateFormatter+ISO8601.h"
 
-// TBLeagueArrayController implements a new object
-@interface TBLeagueArrayController : NSArrayController
+// TBSetupPlayersArrayController implements a new object
+@interface TBSetupPlayersArrayController : NSArrayController
 
 @end
 
-@implementation TBLeagueArrayController
+@implementation TBSetupPlayersArrayController
 
 - (id)newObject {
     NSString* player_id = [[NSUUID UUID] UUIDString];
@@ -26,7 +26,7 @@
 
 @end
 
-@implementation TBLeagueViewController
+@implementation TBSetupPlayersViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

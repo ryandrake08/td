@@ -1,19 +1,19 @@
 //
-//  TBRoundsViewController.m
+//  TBSetupRoundsViewController.m
 //  td
 //
 //  Created by Ryan Drake on 1/29/15.
 //  Copyright (c) 2015 HDna Studio. All rights reserved.
 //
 
-#import "TBRoundsViewController.h"
+#import "TBSetupRoundsViewController.h"
 
-// TBRoundsArrayController implements a new object
-@interface TBRoundsArrayController : NSArrayController
+// TBSetupRoundsArrayController implements a new object
+@interface TBSetupRoundsArrayController : NSArrayController
 
 @end
 
-@implementation TBRoundsArrayController
+@implementation TBSetupRoundsArrayController
 
 - (id)newObject {
     NSString* game_name = NSLocalizedString(@"No Limit Texas Hold'em", nil);
@@ -36,12 +36,12 @@
 
 @end
 
-// TBRoundsTableCellView to simply handle the break button check box
-@interface TBRoundsTableCellView : NSTableCellView
+// TBSetupRoundsTableCellView to simply handle the break button check box
+@interface TBSetupRoundsTableCellView : NSTableCellView
 
 @end
 
-@implementation TBRoundsTableCellView
+@implementation TBSetupRoundsTableCellView
 
 - (IBAction)breakButtonDidChange:(NSButton*)sender {
     if([sender state] == NSOnState) {
@@ -53,11 +53,11 @@
 }
 @end
 
-@interface TBRoundsViewController () <NSTableViewDataSource>
+@interface TBSetupRoundsViewController () <NSTableViewDataSource>
 
 @end
 
-@implementation TBRoundsViewController
+@implementation TBSetupRoundsViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

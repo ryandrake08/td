@@ -1,15 +1,15 @@
 //
-//  TBConfigurationTabViewController.m
+//  TBSetupTabViewController.m
 //  TBMac
 //
 //  Created by Ryan Drake on 1/7/18.
 //  Copyright © 2018 HDna Studio. All rights reserved.
 //
 
-#import "TBConfigurationTabViewController.h"
+#import "TBSetupTabViewController.h"
 #import "TBTableViewController.h"
 
-@implementation TBConfigurationTabViewController
+@implementation TBSetupTabViewController
 
 - (void)setRepresentedObject:(id)representedObject {
     [super setRepresentedObject:representedObject];

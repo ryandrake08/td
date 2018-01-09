@@ -1,22 +1,22 @@
 //
-//  TBAuthsViewController.m
+//  TBSetupDevicesViewController.m
 //  td
 //
 //  Created by Ryan Drake on 8/9/15.
 //  Copyright (c) 2015 HDna Studio. All rights reserved.
 //
 
-#import "TBAuthsViewController.h"
+#import "TBSetupDevicesViewController.h"
 #import "NSDateFormatter+ISO8601.h"
 #import "TournamentSession.h"
 #import <Foundation/Foundation.h>
 
-// TBAuthsArrayController implements a new object
-@interface TBAuthsArrayController : NSArrayController
+// TBSetupDevicesArrayController implements a new object
+@interface TBSetupDevicesArrayController : NSArrayController
 
 @end
 
-@implementation TBAuthsArrayController
+@implementation TBSetupDevicesArrayController
 
 - (id)newObject {
     NSNumber* code = @12345;
@@ -28,7 +28,7 @@
 
 @end
 
-@implementation TBAuthsViewController
+@implementation TBSetupDevicesViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

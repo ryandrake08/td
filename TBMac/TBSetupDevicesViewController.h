@@ -1,5 +1,5 @@
 //
-//  TBAuthsViewController.h
+//  TBSetupDevicesViewController.h
 //  td
 //
 //  Created by Ryan Drake on 8/9/15.
@@ -8,6 +8,6 @@
 
 #import "TBTableViewController.h"
 
-@interface TBAuthsViewController : TBTableViewController
+@interface TBSetupDevicesViewController : TBTableViewController
 
 @end

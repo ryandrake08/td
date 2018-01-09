@@ -1,5 +1,5 @@
 //
-//  TBChipsViewController.h
+//  TBRoundsViewController.h
 //  td
 //
 //  Created by Ryan Drake on 1/29/15.
@@ -8,6 +8,6 @@
 
 #import "TBTableViewController.h"
 
-@interface TBChipsViewController : TBTableViewController
+@interface TBSetupRoundsViewController : TBTableViewController
 
 @end

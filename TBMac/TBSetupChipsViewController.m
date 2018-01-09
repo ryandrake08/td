@@ -1,20 +1,20 @@
 //
-//  TBChipsViewController.m
+//  TBSetupChipsViewController.m
 //  td
 //
 //  Created by Ryan Drake on 1/29/15.
 //  Copyright (c) 2015 HDna Studio. All rights reserved.
 //
 
-#import "TBChipsViewController.h"
+#import "TBSetupChipsViewController.h"
 #import "TBColor+CSS.h"
 
-// TBChipsArrayController implements a new object
-@interface TBChipsArrayController : NSArrayController
+// TBSetupChipsArrayController implements a new object
+@interface TBSetupChipsArrayController : NSArrayController
 
 @end
 
-@implementation TBChipsArrayController
+@implementation TBSetupChipsArrayController
 
 - (id)newObject {
     NSString* color = [TBColor randomColorName];
@@ -26,7 +26,7 @@
 
 @end
 
-@implementation TBChipsViewController
+@implementation TBSetupChipsViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

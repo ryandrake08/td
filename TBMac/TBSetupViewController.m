@@ -1,23 +1,23 @@
 //
-//  TBConfigurationViewController.m
+//  TBSetupViewController.m
 //  TBMac
 //
 //  Created by Ryan Drake on 1/7/18.
 //  Copyright © 2018 HDna Studio. All rights reserved.
 //
 
-#import "TBConfigurationViewController.h"
-#import "Document.h"
-#import "TBConfigurationTabViewController.h"
+#import "TBSetupViewController.h"
+#import "TBMacDocument.h"
+#import "TBSetupTabViewController.h"
 
-@interface TBConfigurationViewController ()
+@interface TBSetupViewController ()
 
 // Configuration and session
 @property (nonatomic, strong) NSMutableDictionary* configuration;
 
 @end
 
-@implementation TBConfigurationViewController
+@implementation TBSetupViewController
 
 - (void)prepareForSegue:(NSStoryboardSegue *)segue sender:(id)sender {
     // reference the container view controllers
@@ -43,7 +43,7 @@
 
 - (IBAction)doneButtonDidChange:(id)sender {
     // get document from sheet parent
-    Document* document = [[[[[self view] window] sheetParent] windowController] document];
+    TBMacDocument* document = [[[[[self view] window] sheetParent] windowController] document];
 
     // reconfigure document
     [document addConfiguration:[self configuration]];

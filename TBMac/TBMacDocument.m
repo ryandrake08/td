@@ -1,19 +1,19 @@
 //
-//  Document.m
+//  TBMacDocument.m
 //  td
 //
 //  Created by Ryan Drake on 1/18/15.
 //  Copyright (c) 2015 HDna Studio. All rights reserved.
 //
 
-#import "Document.h"
+#import "TBMacDocument.h"
 #import "TBMacViewController.h"
 #import "TBViewerViewController.h"
 #import "TournamentSession.h"
 #import "TournamentDaemon.h"
 #import "NSObject+FBKVOController.h"
 
-@interface Document ()
+@interface TBMacDocument ()
 
 // Model
 @property (strong) TournamentDaemon* server;
@@ -22,7 +22,7 @@
 
 @end
 
-@implementation Document
+@implementation TBMacDocument
 
 - (instancetype)init {
     self = [super init];
@@ -32,7 +32,7 @@
         _configuration = [[NSMutableDictionary alloc] init];
 
         // register for KVO
-        [[self KVOController] observe:self keyPaths:@[@"session.state.connected", @"session.state.authorized"] options:0 block:^(id observer, Document* object, NSDictionary *change) {
+        [[self KVOController] observe:self keyPaths:@[@"session.state.connected", @"session.state.authorized"] options:0 block:^(id observer, TBMacDocument* object, NSDictionary *change) {
             if([[[object session] state][@"connected"] boolValue] && [[[object session] state][@"authorized"] boolValue]) {
                 NSLog(@"Connected and authorized locally");
 
@@ -48,7 +48,7 @@
         }];
 
         // whenever tournament name changes, re-publish
-        [[self KVOController] observe:self keyPath:@"session.state.name" options:NSKeyValueObservingOptionInitial block:^(id observer, Document* object, NSDictionary *change) {
+        [[self KVOController] observe:self keyPath:@"session.state.name" options:NSKeyValueObservingOptionInitial block:^(id observer, TBMacDocument* object, NSDictionary *change) {
             [[self server] publishWithName:[[object session] state][@"name"]];
         }];
 

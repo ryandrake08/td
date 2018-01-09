@@ -7,8 +7,8 @@
 //
 
 #import "TBMacWindowController.h"
-#import "Document.h"
 #import "NSObject+FBKVOController.h"
+#import "TBMacDocument.h"
 #import "TBMovementWindowController.h"
 #import "TBNotifications.h"
 #import "TBPlanViewController.h"
@@ -29,8 +29,8 @@
 @implementation TBMacWindowController
 
 - (TournamentSession*)session {
-    // TODO: Replace this with Document API. We should not be mutating the session
-    return [(Document*)[self document] session];
+    // TODO: Replace this with TBMacDocument API. We should not be mutating the session
+    return [(TBMacDocument*)[self document] session];
 }
 
 - (void)windowDidLoad {
@@ -55,8 +55,8 @@
     }];
 
     // if table sizes change, replan
-    [[self KVOController] observe:self keyPath:@"session.state.table_capacity" options:0 block:^(id observer, Document* object, NSDictionary *change) {
-        [(Document*)[self document] planSeating];
+    [[self KVOController] observe:self keyPath:@"session.state.table_capacity" options:0 block:^(id observer, TBMacDocument* object, NSDictionary *change) {
+        [(TBMacDocument*)[self document] planSeating];
     }];
 
     // register for notifications
@@ -81,7 +81,7 @@
     } else if([[segue identifier] isEqualToString:@"presentConfigurationView"]) {
         // pass configuration to the configuration view
         id vc = [segue destinationController];
-        [vc setRepresentedObject:[(Document*)[self document] configuration]];
+        [vc setRepresentedObject:[(TBMacDocument*)[self document] configuration]];
     }
 }
 
@@ -114,7 +114,7 @@
     [[sender window] selectNextKeyView:self];
 
     // configure session and replace current configuration
-    [(Document*)[self document] addConfiguration:@{@"name":[sender stringValue]}];
+    [(TBMacDocument*)[self document] addConfiguration:@{@"name":[sender stringValue]}];
 }
 
 - (IBAction)previousRoundTapped:(id)sender {
@@ -153,7 +153,7 @@
 }
 
 - (IBAction)restartTapped:(id)sender {
-    [(Document*)[self document] planSeating];
+    [(TBMacDocument*)[self document] planSeating];
 }
 
 - (IBAction)displayButtonDidChange:(id)sender {

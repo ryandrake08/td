@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13771"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -710,10 +709,10 @@ DQ
             </objects>
             <point key="canvasLocation" x="1073" y="185"/>
         </scene>
-        <!--Configuration View Controller-->
+        <!--Setup View Controller-->
         <scene sceneID="T0g-Aw-Odh">
             <objects>
-                <viewController id="6Oo-A7-hVG" customClass="TBConfigurationViewController" sceneMemberID="viewController">
+                <viewController id="6Oo-A7-hVG" customClass="TBSetupViewController" sceneMemberID="viewController">
                     <view key="view" id="vqw-mJ-XK0">
                         <rect key="frame" x="0.0" y="0.0" width="640" height="480"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -814,7 +813,7 @@ Gw
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <clipView key="contentView" ambiguous="YES" drawsBackground="NO" id="cxf-HJ-HvN">
                                     <rect key="frame" x="1" y="0.0" width="510" height="560"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <tableView identifier="seatsTable" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="sequential" columnSelection="YES" autosaveColumns="NO" rowHeight="24" rowSizeStyle="automatic" headerView="JbA-go-XNU" viewBased="YES" id="Zsf-wY-hgz">
                                             <rect key="frame" x="0.0" y="0.0" width="515" height="537"/>
@@ -1040,7 +1039,7 @@ Gw
                                     <nil key="backgroundColor"/>
                                 </clipView>
                                 <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="9Qp-Ai-cG3">
-                                    <rect key="frame" x="1" y="560" width="510" height="15"/>
+                                    <rect key="frame" x="1" y="23" width="0.0" height="15"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="uf7-Ti-z0r">
@@ -1096,7 +1095,7 @@ Gw
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="faS-hs-UBQ">
                             <rect key="frame" x="0.0" y="0.0" width="256" height="576"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <subviews>
                                 <tableView identifier="playersTable" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="sequential" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowHeight="18" rowSizeStyle="automatic" viewBased="YES" id="g3t-NE-4xY">
                                     <rect key="frame" x="0.0" y="0.0" width="256" height="576"/>
@@ -1244,7 +1243,7 @@ Gw
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="URd-vv-Ani">
                             <rect key="frame" x="0.0" y="0.0" width="256" height="576"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <subviews>
                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="sequential" selectionHighlightStyle="none" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowHeight="34" rowSizeStyle="automatic" headerView="Hdo-Ub-Fib" viewBased="YES" id="NKN-0A-tVG">
                                     <rect key="frame" x="0.0" y="0.0" width="256" height="553"/>
@@ -1398,10 +1397,10 @@ Gw
             </objects>
             <point key="canvasLocation" x="458" y="1934"/>
         </scene>
-        <!--Configuration Tab View Controller-->
+        <!--Setup Tab View Controller-->
         <scene sceneID="fA2-3N-d8g">
             <objects>
-                <tabViewController selectedTabViewItemIndex="0" id="ekd-Jw-D7M" customClass="TBConfigurationTabViewController" sceneMemberID="viewController">
+                <tabViewController selectedTabViewItemIndex="0" id="ekd-Jw-D7M" customClass="TBSetupTabViewController" sceneMemberID="viewController">
                     <tabViewItems>
                         <tabViewItem id="vuh-HF-QDH"/>
                         <tabViewItem id="lec-YR-M3N"/>
@@ -1434,7 +1433,7 @@ Gw
         <!--Players-->
         <scene sceneID="hcE-XN-jb6">
             <objects>
-                <viewController title="Players" id="d0W-cX-w0u" customClass="TBLeagueViewController" sceneMemberID="viewController">
+                <viewController title="Players" id="d0W-cX-w0u" customClass="TBSetupPlayersViewController" sceneMemberID="viewController">
                     <customView key="view" id="nJM-DO-IDb">
                         <rect key="frame" x="0.0" y="0.0" width="614" height="400"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1444,7 +1443,7 @@ Gw
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <clipView key="contentView" ambiguous="YES" id="YgS-4H-nZ9">
                                     <rect key="frame" x="1" y="0.0" width="612" height="379"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="firstColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" autosaveColumns="NO" rowHeight="29" rowSizeStyle="automatic" headerView="FvZ-nH-Q8M" viewBased="YES" id="kMs-1V-3ij">
                                             <rect key="frame" x="0.0" y="0.0" width="612" height="356"/>
@@ -1593,7 +1592,7 @@ Gw
                     </connections>
                 </viewController>
                 <customObject id="Qfc-tf-UQu" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-                <arrayController clearsFilterPredicateOnInsertion="NO" automaticallyRearrangesObjects="YES" id="9tq-iQ-XzF" customClass="TBLeagueArrayController">
+                <arrayController clearsFilterPredicateOnInsertion="NO" automaticallyRearrangesObjects="YES" id="9tq-iQ-XzF" customClass="TBSetupPlayersArrayController">
                     <declaredKeys>
                         <string>name</string>
                         <string>added_at</string>
@@ -1609,7 +1608,7 @@ Gw
         <!--Equipment-->
         <scene sceneID="b3w-rD-sYI">
             <objects>
-                <viewController title="Equipment" id="uhM-Sw-nmb" customClass="TBChipsViewController" sceneMemberID="viewController">
+                <viewController title="Equipment" id="uhM-Sw-nmb" customClass="TBSetupChipsViewController" sceneMemberID="viewController">
                     <customView key="view" id="d8b-7O-wZl">
                         <rect key="frame" x="0.0" y="0.0" width="614" height="400"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1619,7 +1618,7 @@ Gw
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <clipView key="contentView" ambiguous="YES" drawsBackground="NO" id="d3K-8r-GCL">
                                     <rect key="frame" x="1" y="0.0" width="612" height="379"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" autosaveColumns="NO" rowHeight="29" rowSizeStyle="automatic" headerView="QHB-rP-M8L" viewBased="YES" id="z8G-GW-0zX">
                                             <rect key="frame" x="0.0" y="0.0" width="612" height="356"/>
@@ -1842,7 +1841,7 @@ Gw
                     </connections>
                 </viewController>
                 <customObject id="SmA-g7-J7v" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-                <arrayController clearsFilterPredicateOnInsertion="NO" automaticallyRearrangesObjects="YES" id="T3Q-I4-K8A" customClass="TBChipsArrayController">
+                <arrayController clearsFilterPredicateOnInsertion="NO" automaticallyRearrangesObjects="YES" id="T3Q-I4-K8A" customClass="TBSetupChipsArrayController">
                     <declaredKeys>
                         <string>color</string>
                         <string>denomination</string>
@@ -1858,7 +1857,7 @@ Gw
         <!--Funding-->
         <scene sceneID="ibw-BF-53z">
             <objects>
-                <viewController title="Funding" id="Jw6-Xu-FJL" customClass="TBFundingViewController" sceneMemberID="viewController">
+                <viewController title="Funding" id="Jw6-Xu-FJL" customClass="TBSetupFundingViewController" sceneMemberID="viewController">
                     <customView key="view" id="TGR-ss-PP0">
                         <rect key="frame" x="0.0" y="0.0" width="614" height="400"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1868,7 +1867,7 @@ Gw
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <clipView key="contentView" ambiguous="YES" drawsBackground="NO" id="e4J-Md-L7O">
                                     <rect key="frame" x="1" y="0.0" width="612" height="379"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="firstColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" autosaveColumns="NO" rowHeight="58" rowSizeStyle="automatic" headerView="nuU-LE-PjC" viewBased="YES" id="yVI-Nt-7FD">
                                             <rect key="frame" x="0.0" y="0.0" width="612" height="356"/>
@@ -2211,7 +2210,7 @@ Gw
                                                     </textFieldCell>
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
-                                                        <tableCellView id="rln-7e-YkH" customClass="TBFundingTableCellView">
+                                                        <tableCellView id="rln-7e-YkH" customClass="TBSetupFundingTableCellView">
                                                             <rect key="frame" x="482" y="1" width="128" height="58"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
@@ -2333,7 +2332,7 @@ Gw
                     </connections>
                 </viewController>
                 <customObject id="9Aw-Ix-lzy" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-                <arrayController clearsFilterPredicateOnInsertion="NO" automaticallyRearrangesObjects="YES" id="VOX-b0-ObE" customClass="TBFundingArrayController">
+                <arrayController clearsFilterPredicateOnInsertion="NO" automaticallyRearrangesObjects="YES" id="VOX-b0-ObE" customClass="TBSetupFundingArrayController">
                     <declaredKeys>
                         <string>name</string>
                         <string>chips</string>
@@ -2352,7 +2351,7 @@ Gw
         <!--Rounds-->
         <scene sceneID="6G3-DI-A5c">
             <objects>
-                <viewController title="Rounds" id="ddh-wQ-1UK" customClass="TBRoundsViewController" sceneMemberID="viewController">
+                <viewController title="Rounds" id="ddh-wQ-1UK" customClass="TBSetupRoundsViewController" sceneMemberID="viewController">
                     <customView key="view" id="41U-vv-SyA">
                         <rect key="frame" x="0.0" y="0.0" width="614" height="400"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2362,7 +2361,7 @@ Gw
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <clipView key="contentView" ambiguous="YES" id="bBy-L2-jLo">
                                     <rect key="frame" x="1" y="0.0" width="612" height="379"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" autosaveColumns="NO" rowHeight="29" rowSizeStyle="automatic" headerView="5af-8U-fYO" viewBased="YES" id="aLI-Io-JEa">
                                             <rect key="frame" x="0.0" y="0.0" width="612" height="356"/>
@@ -2623,7 +2622,7 @@ Gw
                                                     </textFieldCell>
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
-                                                        <tableCellView id="Up5-QI-MAB" customClass="TBRoundsTableCellView">
+                                                        <tableCellView id="Up5-QI-MAB" customClass="TBSetupRoundsTableCellView">
                                                             <rect key="frame" x="403" y="1" width="64" height="29"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
@@ -2796,7 +2795,7 @@ Gw
                     </connections>
                 </viewController>
                 <customObject id="xwg-d6-l8A" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-                <arrayController clearsFilterPredicateOnInsertion="NO" automaticallyRearrangesObjects="YES" id="QeO-eZ-sQK" customClass="TBRoundsArrayController">
+                <arrayController clearsFilterPredicateOnInsertion="NO" automaticallyRearrangesObjects="YES" id="QeO-eZ-sQK" customClass="TBSetupRoundsArrayController">
                     <declaredKeys>
                         <string>game_name</string>
                         <string>little_blind</string>
@@ -2816,7 +2815,7 @@ Gw
         <!--Devices-->
         <scene sceneID="cxf-Wj-xHf">
             <objects>
-                <viewController title="Devices" id="DiS-6Y-Rp9" customClass="TBAuthsViewController" sceneMemberID="viewController">
+                <viewController title="Devices" id="DiS-6Y-Rp9" customClass="TBSetupDevicesViewController" sceneMemberID="viewController">
                     <customView key="view" id="wdg-c6-KZy">
                         <rect key="frame" x="0.0" y="0.0" width="614" height="400"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2826,7 +2825,7 @@ Gw
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <clipView key="contentView" ambiguous="YES" id="MmS-E9-lxU">
                                     <rect key="frame" x="1" y="0.0" width="612" height="379"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="sequential" alternatingRowBackgroundColors="YES" columnSelection="YES" autosaveColumns="NO" rowHeight="29" rowSizeStyle="automatic" headerView="5kd-OO-rZY" viewBased="YES" id="Te6-WM-Ov7">
                                             <rect key="frame" x="0.0" y="0.0" width="612" height="356"/>
@@ -3015,7 +3014,7 @@ Gw
                     </connections>
                 </viewController>
                 <customObject id="RIl-ac-3sG" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-                <arrayController clearsFilterPredicateOnInsertion="NO" automaticallyRearrangesObjects="YES" id="uuY-v5-edB" customClass="TBAuthsArrayController">
+                <arrayController clearsFilterPredicateOnInsertion="NO" automaticallyRearrangesObjects="YES" id="uuY-v5-edB" customClass="TBSetupDevicesArrayController">
                     <declaredKeys>
                         <string>name</string>
                         <string>added_at</string>

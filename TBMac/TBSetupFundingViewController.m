@@ -1,22 +1,22 @@
 //
-//  TBFundingViewController.m
+//  TBSetupFundingViewController.m
 //  td
 //
 //  Created by Ryan Drake on 1/29/15.
 //  Copyright (c) 2015 HDna Studio. All rights reserved.
 //
 
-#import "TBFundingViewController.h"
+#import "TBSetupFundingViewController.h"
 #import "NSObject+FBKVOController.h"
 #import "TBCurrencyNumberFormatter.h"
 #import "TournamentSession.h"
 
-// TBFundingArrayController implements a new object
-@interface TBFundingArrayController : NSArrayController
+// TBSetupFundingArrayController implements a new object
+@interface TBSetupFundingArrayController : NSArrayController
 
 @end
 
-@implementation TBFundingArrayController
+@implementation TBSetupFundingArrayController
 
 - (id)newObject {
     NSString* name = NSLocalizedString(@"Buyin, Rebuy or Addon Name", nil);
@@ -31,12 +31,12 @@
 
 @end
 
-// TBFundingTableCellView to handle custom bindings
-@interface TBFundingTableCellView : NSTableCellView
+// TBSetupFundingTableCellView to handle custom bindings
+@interface TBSetupFundingTableCellView : NSTableCellView
 
 @end
 
-@implementation TBFundingTableCellView
+@implementation TBSetupFundingTableCellView
 
 - (IBAction)forbidButtonDidChange:(NSButton*)sender {
     if([sender state] == NSOnState) {
@@ -48,7 +48,7 @@
 
 @end
 
-@implementation TBFundingViewController
+@implementation TBSetupFundingViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

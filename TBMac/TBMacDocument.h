@@ -1,5 +1,5 @@
 //
-//  Document.h
+//  TBMacDocument.h
 //  td
 //
 //  Created by Ryan Drake on 1/18/15.
@@ -11,7 +11,7 @@
 // Forward declare
 @class TournamentSession;
 
-@interface Document : NSDocument
+@interface TBMacDocument : NSDocument
 
 // The session controlled by the document
 @property (strong, readonly) TournamentSession* session;

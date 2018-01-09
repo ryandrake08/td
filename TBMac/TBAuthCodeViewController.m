@@ -7,8 +7,8 @@
 //
 
 #import "TBAuthCodeViewController.h"
-#include "Document.h"
 #import "TBDateStringTransformer.h"
+#import "TBMacDocument.h"
 
 @interface TBAuthCodeViewController ()
 
@@ -63,9 +63,9 @@
 
     if(code && addedAt) {
         // get document from sheet parent
-        Document* document = [[[[[self view] window] sheetParent] windowController] document];
+        TBMacDocument* document = [[[[[self view] window] sheetParent] windowController] document];
 
-        // send json representation of authorized client to Document
+        // send json representation of authorized client to TBMacDocument
         [document addAuthorizedClient:@{@"code":code, @"added_at":addedAt}];
     }
 

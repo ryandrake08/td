@@ -1,5 +1,5 @@
 //
-//  TBConfigurationTabViewController.h
+//  TBSetupTabViewController.h
 //  TBMac
 //
 //  Created by Ryan Drake on 1/7/18.
@@ -8,6 +8,6 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface TBConfigurationTabViewController : NSTabViewController
+@interface TBSetupTabViewController : NSTabViewController
 
 @end

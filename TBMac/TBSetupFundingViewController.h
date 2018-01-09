@@ -1,5 +1,5 @@
 //
-//  TBRoundsViewController.h
+//  TBSetupFundingViewController.h
 //  td
 //
 //  Created by Ryan Drake on 1/29/15.
@@ -8,6 +8,6 @@
 
 #import "TBTableViewController.h"
 
-@interface TBRoundsViewController : TBTableViewController
+@interface TBSetupFundingViewController : TBTableViewController
 
 @end

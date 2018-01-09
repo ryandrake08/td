@@ -1,5 +1,5 @@
 //
-//  TBConfigurationViewController.h
+//  TBSetupViewController.h
 //  TBMac
 //
 //  Created by Ryan Drake on 1/7/18.
@@ -8,6 +8,6 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface TBConfigurationViewController : NSViewController
+@interface TBSetupViewController : NSViewController
 
 @end

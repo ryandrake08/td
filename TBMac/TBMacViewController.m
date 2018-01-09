@@ -7,7 +7,7 @@
 //
 
 #import "TBMacViewController.h"
-#import "Document.h"
+#import "TBMacDocument.h"
 #import "TBSeatingViewController.h"
 #import "TBResultsViewController.h"
 #import "TBPlayersViewController.h"
@@ -31,7 +31,7 @@
 
 @implementation TBMacViewController
 
-- (Document*)document {
+- (TBMacDocument*)document {
     return [[[[self view] window] windowController] document];
 }
 
