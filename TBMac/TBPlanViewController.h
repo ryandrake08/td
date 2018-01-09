@@ -13,4 +13,7 @@
 // YES if warning text should be shown
 @property (assign) BOOL enableWarning;
 
+// Number of players to plan for
+@property (assign) NSInteger numberOfPlayers;
+
 @end

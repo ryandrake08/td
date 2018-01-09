@@ -78,6 +78,8 @@
         TBPlanViewController* vc = (TBPlanViewController*)[segue destinationController];
         id maxExpected = [[self session] state][@"max_expected_players"];
         [vc setEnableWarning:[maxExpected boolValue]];
+        NSUInteger numberOfPlayers = [[(TBMacDocument*)[self document] configuration][@"players"] count];
+        [vc setNumberOfPlayers:numberOfPlayers];
     } else if([[segue identifier] isEqualToString:@"presentConfigurationView"]) {
         // pass configuration to the configuration view
         id vc = [segue destinationController];
