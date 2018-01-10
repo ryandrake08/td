@@ -13,7 +13,7 @@ class gameinfo
 
     // configuration: human-readable name of this tournament
     std::string name;
-    
+
     // configuration: list of all known players (playing or not)
     std::unordered_map<td::player_id_t,td::player> players;
 
@@ -31,7 +31,7 @@ class gameinfo
 
     // configuration: funding rules
     std::vector<td::funding_source> funding_sources;
-    
+
     // configuration: blind structure for this game
     std::vector<td::blind_level> blind_levels;
 
@@ -80,7 +80,7 @@ class gameinfo
     std::unordered_map<std::string,double> total_cost;
     std::unordered_map<std::string,double> total_commission;
     std::unordered_map<std::string,double> total_equity;
-    
+
     // is the game running or paused?
     bool running;
 
@@ -109,7 +109,7 @@ class gameinfo
     // elapsed time
     time_point_t tournament_start;
     duration_t elapsed_time;
-    
+
     // ----- utility -----
 
     // calculate derived state and dump to JSON
@@ -142,7 +142,7 @@ class gameinfo
     // break a table if possible
     // returns number of movements, or zero, if no players moved
     std::size_t try_break_table(std::vector<td::player_movement>& movements);
-    
+
     // re-calculate payouts
     void recalculate_payouts();
 
@@ -166,7 +166,7 @@ public:
     void dump_state(json& state) const;
 
     // ----- seating -----
-    
+
     // pre-game player seeting, with expected number of players (to predict table count)
     // returns number of tables needed
     std::size_t plan_seating(std::size_t max_expected_players);
@@ -183,7 +183,7 @@ public:
     std::vector<td::player_movement> bust_player(const td::player_id_t& player_id);
 
     // ----- funding -----
-    
+
     // fund a player, (re-)buyin or addon
     void fund_player(const td::player_id_t& player_id, const td::funding_source_id_t& src);
 
@@ -192,6 +192,12 @@ public:
 
     // reset game state
     void reset_funding();
+
+    // ----- both planning and seating -----
+
+    // quickly set up a game (plan, seat, and buyin, using optional funding source)
+    std::vector<td::seated_player> quick_setup();
+    std::vector<td::seated_player> quick_setup(const td::funding_source_id_t& src);
 
     // ----- clock -----
 

@@ -280,6 +280,23 @@ void tournament::handle_cmd_bust_player(const json& in, json& out)
     out.set_value("players_moved", json(movements.begin(), movements.end()));
 }
 
+void tournament::handle_cmd_quick_setup(const json& in, json& out)
+{
+	std::vector<td::seated_player> seated_players;
+
+    td::funding_source_id_t source;
+    if(in.get_value("source_id", source))
+    {
+		seated_players = this->game_info.quick_setup(source);
+    }
+	else
+	{
+		seated_players = this->game_info.quick_setup();
+	}
+
+	out.set_value("seated_players", json(seated_players.begin(), seated_players.end()));
+}
+
 // handler for new client
 bool tournament::handle_new_client(std::ostream& /* client */) const
 {
@@ -797,6 +814,27 @@ bool tournament::handle_client_input(std::iostream& client)
 						 */
 						this->ensure_authorized(in);
 						this->handle_cmd_bust_player(in, out);
+						this->broadcast_state();
+					}
+					else if(cmd == "quick_setup")
+					{
+						/*
+						 command:
+							quick_setup
+
+						 purpose:
+							Quickly get a game going. Plan for all players in roster, seat all players
+							and buy them in with the first configured uyin
+
+						 input:
+							authenticate (integer): Valid authentication code for a tournament admin
+							source_id (optional,funding source id): Funding source to use (default: first one)
+
+						 output:
+							seated_players (array): List of all players and their seats
+						 */
+						this->ensure_authorized(in);
+						this->handle_cmd_quick_setup(in, out);
 						this->broadcast_state();
 					}
 					else

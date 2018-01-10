@@ -50,6 +50,7 @@ class tournament
     void handle_cmd_seat_player(const json& in, json& out);
     void handle_cmd_unseat_player(const json& in, json& out);
     void handle_cmd_bust_player(const json& in, json& out);
+    void handle_cmd_quick_setup(const json& in, json& out);
 
     // handler for new client
     bool handle_new_client(std::ostream& client) const;

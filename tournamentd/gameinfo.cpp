@@ -1101,6 +1101,37 @@ void gameinfo::reset_funding()
     this->total_equity.clear();
 }
 
+// quickly set up a game (plan, seat, and buyin, using optional funding source)
+std::vector<td::seated_player> gameinfo::quick_setup()
+{
+    if(this->funding_sources.empty())
+    {
+        throw td::protocol_error("cannot quick setup with no funding sources");
+    }
+
+    return this->quick_setup(0);
+}
+
+std::vector<td::seated_player> gameinfo::quick_setup(const td::funding_source_id_t& src)
+{
+    // plan for all players
+    this->plan_seating(this->players.size());
+
+    // seat and fund them
+    std::vector<td::seated_player> seated_players;
+    for(const auto& p : this->players)
+    {
+        auto seating(this->add_player(p.second.player_id));
+        this->fund_player(p.second.player_id, src);
+
+        // build a seated_player object
+        td::seated_player sp(p.first, p.second.name, true, seating.second.table_number, seating.second.seat_number);
+        seated_players.push_back(sp);
+    }
+
+    return seated_players;
+}
+
 // utility: start a blind level (optionally starting offset ms into the round)
 void gameinfo::start_blind_level(std::size_t blind_level, duration_t offset)
 {
