@@ -9,7 +9,7 @@
 #import "TBMacWindowController.h"
 #import "NSObject+FBKVOController.h"
 #import "TBMacDocument.h"
-#import "TBMovementWindowController.h"
+#import "TBMovementViewController.h"
 #import "TBNotifications.h"
 #import "TBPlanViewController.h"
 #import "TBViewerViewController.h"
@@ -20,9 +20,11 @@
 @property (weak) IBOutlet NSTextField* tournamentNameField;
 @property (weak) IBOutlet NSToolbarItem* tournamentNameItem;
 
-// Window Controllers
+// Viewer window controller
 @property (strong) NSWindowController* viewerWindowController;
-@property (strong) TBMovementWindowController* movementWindowController;
+
+// current player movements
+@property (strong) NSMutableArray* playerMovements;
 
 @end
 
@@ -36,12 +38,12 @@
 - (void)windowDidLoad {
     [super windowDidLoad];
 
+    // create player movements
+    [self setPlayerMovements:[[NSMutableArray alloc] init]];
+
     // setup player window
     NSStoryboard* viewerStoryboard = [NSStoryboard storyboardWithName:@"TBViewer" bundle:[NSBundle mainBundle]];
     [self setViewerWindowController:[viewerStoryboard instantiateInitialController]];
-
-    // setup movement window
-    [self setMovementWindowController:[[TBMovementWindowController alloc] initWithWindowNibName:@"TBMovementWindow"]];
 
     // whenever tournament name changes, adjust toolbar
     [[self KVOController] observe:[self document] keyPath:@"session.state.name" options:NSKeyValueObservingOptionInitial block:^(id observer, TBMacWindowController* object, NSDictionary *change) {
@@ -62,11 +64,7 @@
     // register for notifications
     [[NSNotificationCenter defaultCenter] addObserverForName:kMovementsUpdatedNotification object:nil queue:nil usingBlock:^(NSNotification* note) {
         // add movements
-        NSArray* movements = [note object];
-        [[[self movementWindowController] arrayController] addObjects:movements];
-
-        // display as non-modal
-        [[self movementWindowController] showWindow:self];
+        [[self playerMovements] addObjectsFromArray:[note object]];
     }];
 }
 
@@ -84,6 +82,10 @@
         // pass configuration to the configuration view
         id vc = [segue destinationController];
         [vc setRepresentedObject:[(TBMacDocument*)[self document] configuration]];
+    } else if([[segue identifier] isEqualToString:@"presentMovementView"]) {
+        // pass movements to the view
+        id vc = [segue destinationController];
+        [vc setRepresentedObject:[self playerMovements]];
     }
 }
 
@@ -92,7 +94,6 @@
     // close all other windows
     // TODO: do we really want to do this?
     [[self viewerWindowController] close];
-    [[self movementWindowController] close];
 }
 
 #pragma mark Actions
@@ -177,16 +178,6 @@
             [[[self viewerWindowController] window] setFrame: [screen frame] display:YES animate:NO];
             [[[self viewerWindowController] window] makeKeyAndOrderFront:screen];
         }
-    }
-}
-
-- (IBAction)movementButtonDidChange:(id)sender {
-    if([[[self movementWindowController] window] isVisible]) {
-        // close movement window
-        [[self movementWindowController] close];
-    } else {
-        // display as non-modal
-        [[self movementWindowController] showWindow:self];
     }
 }
 

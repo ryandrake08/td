@@ -71,7 +71,7 @@
 		9462A3E71B77CB3B00B29002 /* TTTOrdinalNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9462A3E61B77CB3B00B29002 /* TTTOrdinalNumberFormatter.m */; };
 		9462A3E81B77CB3B00B29002 /* TTTOrdinalNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9462A3E61B77CB3B00B29002 /* TTTOrdinalNumberFormatter.m */; };
 		9462A3E91B77CB3B00B29002 /* TTTOrdinalNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9462A3E61B77CB3B00B29002 /* TTTOrdinalNumberFormatter.m */; };
-		9462A3ED1B77F40500B29002 /* TBMovementWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9462A3EB1B77F40500B29002 /* TBMovementWindowController.m */; };
+		9462A3ED1B77F40500B29002 /* TBMovementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9462A3EB1B77F40500B29002 /* TBMovementViewController.m */; };
 		9462A3F11B781A9A00B29002 /* RSVerticallyCenteredTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9462A3F01B781A9A00B29002 /* RSVerticallyCenteredTextFieldCell.m */; };
 		9462A3F21B781A9A00B29002 /* RSVerticallyCenteredTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9462A3F01B781A9A00B29002 /* RSVerticallyCenteredTextFieldCell.m */; };
 		9462A3F61B7864E900B29002 /* TBSetupDevicesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9462A3F41B7864E900B29002 /* TBSetupDevicesViewController.m */; };
@@ -167,7 +167,6 @@
 		94D7290920032C42009EC463 /* TBPlanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94D7290820032C42009EC463 /* TBPlanViewController.m */; };
 		94D7290C200342EB009EC463 /* TBSetupTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94D7290B200342EB009EC463 /* TBSetupTabViewController.m */; };
 		94D7290F20034F5A009EC463 /* TBSetupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94D7290E20034F5A009EC463 /* TBSetupViewController.m */; };
-		94D849E11B8D614E000124E4 /* TBMovementWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94D849E31B8D614E000124E4 /* TBMovementWindow.xib */; };
 		94E16F221B6C99840070F1BA /* TBResizeTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 94562E6B1B65D9420017C692 /* TBResizeTextField.m */; };
 		94ED00111B76E1E6003CF19B /* TBTableSeatNumberTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 94ED00101B76E1E6003CF19B /* TBTableSeatNumberTransformer.m */; };
 		94F466271B8AF203009BB648 /* TBCurrencyCodeTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F466261B8AF203009BB648 /* TBCurrencyCodeTransformer.m */; };
@@ -571,8 +570,8 @@
 		9457DAC71FE6B1520047DF29 /* TBInvertableImageView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TBInvertableImageView.m; sourceTree = "<group>"; };
 		9462A3E51B77CB3B00B29002 /* TTTOrdinalNumberFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTOrdinalNumberFormatter.h; sourceTree = "<group>"; };
 		9462A3E61B77CB3B00B29002 /* TTTOrdinalNumberFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTOrdinalNumberFormatter.m; sourceTree = "<group>"; };
-		9462A3EA1B77F40500B29002 /* TBMovementWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBMovementWindowController.h; path = TBMac/TBMovementWindowController.h; sourceTree = "<group>"; };
-		9462A3EB1B77F40500B29002 /* TBMovementWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TBMovementWindowController.m; path = TBMac/TBMovementWindowController.m; sourceTree = "<group>"; };
+		9462A3EA1B77F40500B29002 /* TBMovementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBMovementViewController.h; path = TBMac/TBMovementViewController.h; sourceTree = "<group>"; };
+		9462A3EB1B77F40500B29002 /* TBMovementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TBMovementViewController.m; path = TBMac/TBMovementViewController.m; sourceTree = "<group>"; };
 		9462A3EF1B781A9A00B29002 /* RSVerticallyCenteredTextFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSVerticallyCenteredTextFieldCell.h; sourceTree = "<group>"; };
 		9462A3F01B781A9A00B29002 /* RSVerticallyCenteredTextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSVerticallyCenteredTextFieldCell.m; sourceTree = "<group>"; };
 		9462A3F31B7864E900B29002 /* TBSetupDevicesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBSetupDevicesViewController.h; path = TBMac/TBSetupDevicesViewController.h; sourceTree = "<group>"; };
@@ -661,7 +660,6 @@
 		94D7290B200342EB009EC463 /* TBSetupTabViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TBSetupTabViewController.m; path = TBMac/TBSetupTabViewController.m; sourceTree = "<group>"; };
 		94D7290D20034F5A009EC463 /* TBSetupViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TBSetupViewController.h; path = TBMac/TBSetupViewController.h; sourceTree = "<group>"; };
 		94D7290E20034F5A009EC463 /* TBSetupViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TBSetupViewController.m; path = TBMac/TBSetupViewController.m; sourceTree = "<group>"; };
-		94D849E21B8D614E000124E4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/TBMovementWindow.xib; sourceTree = "<group>"; };
 		94ED000F1B76E1E6003CF19B /* TBTableSeatNumberTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBTableSeatNumberTransformer.h; sourceTree = "<group>"; };
 		94ED00101B76E1E6003CF19B /* TBTableSeatNumberTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBTableSeatNumberTransformer.m; sourceTree = "<group>"; };
 		94F466251B8AF203009BB648 /* TBCurrencyCodeTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBCurrencyCodeTransformer.h; sourceTree = "<group>"; };
@@ -1171,9 +1169,8 @@
 				94D7290520031960009EC463 /* TBAuthCodeViewController.m */,
 				940AF5211FF7CD9700740295 /* TBConnectToViewController.h */,
 				940AF5231FF7CD9700740295 /* TBConnectToViewController.m */,
-				9462A3EA1B77F40500B29002 /* TBMovementWindowController.h */,
-				9462A3EB1B77F40500B29002 /* TBMovementWindowController.m */,
-				94D849E31B8D614E000124E4 /* TBMovementWindow.xib */,
+				9462A3EA1B77F40500B29002 /* TBMovementViewController.h */,
+				9462A3EB1B77F40500B29002 /* TBMovementViewController.m */,
 				94D7290720032C42009EC463 /* TBPlanViewController.h */,
 				94D7290820032C42009EC463 /* TBPlanViewController.m */,
 				ADCECE831B7B101500767DA6 /* TBPlayersViewController.h */,
@@ -1625,7 +1622,6 @@
 				94D04ED51B7C59EB004F4245 /* s_warning.caf in Resources */,
 				94B30DE320020AFF0037192E /* TBMac.storyboard in Resources */,
 				94D04ED11B7C59EB004F4245 /* s_rebalance.caf in Resources */,
-				94D849E11B8D614E000124E4 /* TBMovementWindow.xib in Resources */,
 				94D04ECD1B7C59EB004F4245 /* s_break.caf in Resources */,
 				94D04ED31B7C59EB004F4245 /* s_start.caf in Resources */,
 				94D04ECF1B7C59EB004F4245 /* s_next.caf in Resources */,
@@ -1891,7 +1887,7 @@
 				ADE299AF1B7B994200F1393B /* TBSound.m in Sources */,
 				943970181B3F9DB700BB0413 /* TournamentBrowser.m in Sources */,
 				949D709A1B3C440D008D5CD1 /* types.cpp in Sources */,
-				9462A3ED1B77F40500B29002 /* TBMovementWindowController.m in Sources */,
+				9462A3ED1B77F40500B29002 /* TBMovementViewController.m in Sources */,
 				9471B3F11FF8A950000A314C /* TBActionClockViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2095,15 +2091,6 @@
 				94BD8D3A1FF7F4360047EB68 /* Base */,
 			);
 			name = TBViewer.storyboard;
-			path = TBMac;
-			sourceTree = "<group>";
-		};
-		94D849E31B8D614E000124E4 /* TBMovementWindow.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				94D849E21B8D614E000124E4 /* Base */,
-			);
-			name = TBMovementWindow.xib;
 			path = TBMac;
 			sourceTree = "<group>";
 		};
