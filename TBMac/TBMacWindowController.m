@@ -83,9 +83,10 @@
         id vc = [segue destinationController];
         [vc setRepresentedObject:[(TBMacDocument*)[self document] configuration]];
     } else if([[segue identifier] isEqualToString:@"presentMovementView"]) {
-        // pass movements to the view
-        id vc = [segue destinationController];
-        [vc setRepresentedObject:[self playerMovements]];
+        // move movements to the view
+        TBMovementViewController* vc = (TBMovementViewController*)[segue destinationController];
+        [vc setPlayerMovements:[self playerMovements]];
+        [[self playerMovements] removeAllObjects];
     }
 }
 

@@ -7,46 +7,37 @@
 //
 
 #import "TBMovementViewController.h"
-#import "NSObject+FBKVOController.h"
 
 @interface TBMovementViewController ()
 
+// ui
+@property (strong) IBOutlet NSTextField* titleTextField;
+
+// array controller for objects managed by this view controller
 @property (strong) IBOutlet NSArrayController* arrayController;
 
 @end
 
 @implementation TBMovementViewController
 
-- (IBAction)dismissClicked:(id)sender {
-    NSTableCellView* cell = (NSTableCellView*)[sender superview];
-    id object = [cell objectValue];
-    [[self representedObject] removeObject:object];
-
-    // close automatically if none left
-    if([[[self arrayController] arrangedObjects] count] == 0) {
-        [self dismissViewController:self];
-    }
-}
-
-#pragma mark NSWindowDelegate
-
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    // resize window when array controller contents change
-    [[self KVOController] observe:[self arrayController] keyPath:@"arrangedObjects.count" options:NSKeyValueObservingOptionInitial block:^(id observer, NSArrayController* object, NSDictionary *change) {
-        NSUInteger cellsToShow = [[object arrangedObjects] count];
-        cellsToShow = cellsToShow > 4 ? 4 : (cellsToShow < 1 ? 1 : cellsToShow);
-        CGRect rect = [[self view] bounds];
-        rect.size.height = cellsToShow * 38.0f + 116.0f;
-        [[self view] setBounds:rect];
-    }];
-}
+    NSUInteger cellsToShow = [[[self arrayController] arrangedObjects] count];
 
-#pragma mark Operations
+    // change text based on whether we have movements
+    if(cellsToShow == 0) {
+        [[self titleTextField] setStringValue:NSLocalizedString(@"Tables are balanced", nil)];
+    } else if(cellsToShow == 1) {
+        [[self titleTextField] setStringValue:NSLocalizedString(@"Move player:", nil)];
+    } else {
+        [[self titleTextField] setStringValue:NSLocalizedString(@"Move players:", nil)];
+    }
 
-- (void)addObjects:(NSArray*)objects {
-    [[self arrayController] addObjects:objects];
+    // size view content according to number of objects (max: 4)
+    cellsToShow = cellsToShow > 4 ? 4 : cellsToShow;
+    CGSize size = { 450.0f, cellsToShow * 40.0f + 116.0f };
+    [self setPreferredContentSize:size];
 }
 
 @end

@@ -10,7 +10,6 @@
 
 @interface TBMovementViewController : NSViewController
 
-// add movement objects
-- (void)addObjects:(NSArray*)objects;
+@property (copy) NSArray* playerMovements;
 
 @end

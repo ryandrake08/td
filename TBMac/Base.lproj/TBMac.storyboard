@@ -775,11 +775,11 @@ Gw
             <objects>
                 <viewController id="E8o-9k-1FA" customClass="TBMovementViewController" sceneMemberID="viewController">
                     <view key="view" id="Q4g-dc-J9J">
-                        <rect key="frame" x="0.0" y="0.0" width="450" height="154"/>
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="156"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XPK-xZ-rIr">
-                                <rect key="frame" x="-2" y="113" width="454" height="31"/>
+                                <rect key="frame" x="-2" y="115" width="454" height="31"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Move players:" id="udE-Cz-5eC">
                                     <font key="font" metaFont="system" size="22"/>
@@ -788,10 +788,10 @@ Gw
                                 </textFieldCell>
                             </textField>
                             <scrollView fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="40" horizontalPageScroll="10" verticalLineScroll="40" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Buy-Bd-g6y">
-                                <rect key="frame" x="16" y="58" width="418" height="38"/>
+                                <rect key="frame" x="16" y="58" width="418" height="40"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <clipView key="contentView" ambiguous="YES" drawsBackground="NO" copiesOnScroll="NO" id="QnV-De-B37">
-                                    <rect key="frame" x="0.0" y="0.0" width="418" height="38"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="418" height="40"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="none" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowHeight="40" rowSizeStyle="automatic" viewBased="YES" id="jDB-7i-Ikg">
@@ -817,19 +817,8 @@ Gw
                                                             <rect key="frame" x="0.0" y="0.0" width="418" height="40"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
-                                                                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="a8o-ew-BTz">
-                                                                    <rect key="frame" x="2" y="12" width="28" height="28"/>
-                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="b_check" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ph9-Er-pGA">
-                                                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                                        <font key="font" metaFont="system"/>
-                                                                    </buttonCell>
-                                                                    <connections>
-                                                                        <action selector="dismissClicked:" target="E8o-9k-1FA" id="gBn-ll-Gbx"/>
-                                                                    </connections>
-                                                                </button>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="n25-3v-4qt" customClass="TBResizeTextField">
-                                                                    <rect key="frame" x="36" y="12" width="201" height="28"/>
+                                                                    <rect key="frame" x="1" y="12" width="236" height="28"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" refusesFirstResponder="YES" sendsActionOnEndEditing="YES" title="Player Name" id="0da-1M-3JV" customClass="RSVerticallyCenteredTextFieldCell">
                                                                         <font key="font" metaFont="system" size="20"/>
@@ -973,11 +962,11 @@ Gw
                                     </subviews>
                                 </clipView>
                                 <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="DGH-UN-ndd">
-                                    <rect key="frame" x="1" y="79" width="222" height="16"/>
+                                    <rect key="frame" x="0.0" y="-15" width="0.0" height="15"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="IKR-Ek-xxI">
-                                    <rect key="frame" x="224" y="17" width="15" height="102"/>
+                                    <rect key="frame" x="403" y="0.0" width="15" height="23"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
@@ -999,12 +988,13 @@ Gw
                     </view>
                     <connections>
                         <outlet property="arrayController" destination="4tn-Dx-Jud" id="UQn-Ir-uEg"/>
+                        <outlet property="titleTextField" destination="XPK-xZ-rIr" id="gWH-Fx-9rK"/>
                     </connections>
                 </viewController>
                 <customObject id="oNA-fN-PGY" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <arrayController clearsFilterPredicateOnInsertion="NO" automaticallyRearrangesObjects="YES" id="4tn-Dx-Jud">
                     <connections>
-                        <binding destination="E8o-9k-1FA" name="contentArray" keyPath="self.representedObject" id="8uC-Ky-BYw"/>
+                        <binding destination="E8o-9k-1FA" name="contentArray" keyPath="self.playerMovements" id="4fj-W8-fRc"/>
                     </connections>
                 </arrayController>
             </objects>
@@ -3287,7 +3277,6 @@ Gw
         <image name="b_arrow" width="64" height="64"/>
         <image name="b_auth" width="64" height="64"/>
         <image name="b_call_clock" width="64" height="64"/>
-        <image name="b_check" width="64" height="64"/>
         <image name="b_configure" width="64" height="64"/>
         <image name="b_display" width="64" height="64"/>
         <image name="b_export" width="64" height="64"/>
