@@ -8,6 +8,7 @@
 
 #import "TBMacWindowController.h"
 #import "NSObject+FBKVOController.h"
+#import "NSToolbarBadgedItem.h"
 #import "TBMacDocument.h"
 #import "TBMovementViewController.h"
 #import "TBNotifications.h"
@@ -17,8 +18,10 @@
 
 @interface TBMacWindowController () <NSWindowDelegate>
 
+// ui
 @property (weak) IBOutlet NSTextField* tournamentNameField;
 @property (weak) IBOutlet NSToolbarItem* tournamentNameItem;
+@property (weak) IBOutlet NSToolbarBadgedItem* rebalanceToolbarItem;
 
 // Viewer window controller
 @property (strong) NSWindowController* viewerWindowController;
@@ -65,6 +68,14 @@
     [[NSNotificationCenter defaultCenter] addObserverForName:kMovementsUpdatedNotification object:nil queue:nil usingBlock:^(NSNotification* note) {
         // add movements
         [[self playerMovements] addObjectsFromArray:[note object]];
+
+        // update badge
+        NSUInteger movements = [[self playerMovements] count];
+        if(movements > 0) {
+            [[self rebalanceToolbarItem] setBadgeValue:[NSString stringWithFormat:@"%u", (unsigned)movements]];
+        } else {
+            [[self rebalanceToolbarItem] setBadgeValue:nil];
+        }
     }];
 }
 
@@ -87,6 +98,9 @@
         TBMovementViewController* vc = (TBMovementViewController*)[segue destinationController];
         [vc setPlayerMovements:[self playerMovements]];
         [[self playerMovements] removeAllObjects];
+
+        // remove badge
+        [[self rebalanceToolbarItem] setBadgeValue:nil];
     }
 }
 

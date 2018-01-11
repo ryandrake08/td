@@ -75,6 +75,7 @@
 		9462A3F11B781A9A00B29002 /* RSVerticallyCenteredTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9462A3F01B781A9A00B29002 /* RSVerticallyCenteredTextFieldCell.m */; };
 		9462A3F21B781A9A00B29002 /* RSVerticallyCenteredTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9462A3F01B781A9A00B29002 /* RSVerticallyCenteredTextFieldCell.m */; };
 		9462A3F61B7864E900B29002 /* TBSetupDevicesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9462A3F41B7864E900B29002 /* TBSetupDevicesViewController.m */; };
+		946471812007528F00556467 /* NSToolbarBadgedItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 9464717F2007528600556467 /* NSToolbarBadgedItem.m */; };
 		9464EC121FDC2F1C009092A4 /* cJSON.c in Sources */ = {isa = PBXBuildFile; fileRef = 9464EC101FDC2F1C009092A4 /* cJSON.c */; };
 		9464EC131FDC2F30009092A4 /* libcJSON_macOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9464EC071FDC2D44009092A4 /* libcJSON_macOS.a */; };
 		9464EC141FDC2F3F009092A4 /* libcJSON_macOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9464EC071FDC2D44009092A4 /* libcJSON_macOS.a */; };
@@ -576,6 +577,8 @@
 		9462A3F01B781A9A00B29002 /* RSVerticallyCenteredTextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSVerticallyCenteredTextFieldCell.m; sourceTree = "<group>"; };
 		9462A3F31B7864E900B29002 /* TBSetupDevicesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBSetupDevicesViewController.h; path = TBMac/TBSetupDevicesViewController.h; sourceTree = "<group>"; };
 		9462A3F41B7864E900B29002 /* TBSetupDevicesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TBSetupDevicesViewController.m; path = TBMac/TBSetupDevicesViewController.m; sourceTree = "<group>"; };
+		9464717F2007528600556467 /* NSToolbarBadgedItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSToolbarBadgedItem.m; sourceTree = "<group>"; };
+		946471802007528600556467 /* NSToolbarBadgedItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSToolbarBadgedItem.h; sourceTree = "<group>"; };
 		9464EC071FDC2D44009092A4 /* libcJSON_macOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libcJSON_macOS.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		9464EC101FDC2F1C009092A4 /* cJSON.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cJSON.c; sourceTree = "<group>"; };
 		9464EC111FDC2F1C009092A4 /* cJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cJSON.h; sourceTree = "<group>"; };
@@ -1023,6 +1026,8 @@
 				94FDEAE41B5AE2D60026B25D /* NSObject+FBKVOController.m */,
 				945410751B6E9A17001E3373 /* NSString+CamelCase.h */,
 				945410761B6E9A17001E3373 /* NSString+CamelCase.m */,
+				946471802007528600556467 /* NSToolbarBadgedItem.h */,
+				9464717F2007528600556467 /* NSToolbarBadgedItem.m */,
 				94FDEAF61B5AE7920026B25D /* NSView+BackgroundColor.h */,
 				94FDEAF71B5AE7920026B25D /* NSView+BackgroundColor.m */,
 				9462A3EF1B781A9A00B29002 /* RSVerticallyCenteredTextFieldCell.h */,
@@ -1841,6 +1846,7 @@
 				AD98D96F1A7B342000DA6B8B /* TBSetupRoundsViewController.m in Sources */,
 				94FDEAE81B5AE2D60026B25D /* FBKVOController.m in Sources */,
 				9462A3E31B77376000B29002 /* NSFont+LineHeight.m in Sources */,
+				946471812007528F00556467 /* NSToolbarBadgedItem.m in Sources */,
 				945410771B6E9A17001E3373 /* NSString+CamelCase.m in Sources */,
 				94CDDD331FE3B349008ADF24 /* TBColor+ContrastTextColor.m in Sources */,
 				AD8E684F1A6C606700E5A4D8 /* TBMacDocument.m in Sources */,

@@ -373,7 +373,12 @@
                                         <action selector="displayButtonDidChange:" target="KGa-Ib-ddT" id="Qr4-so-rDT"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="81AF0BFE-7EDF-4CAD-A052-FEC82EE2E16C" label="Rebalance" paletteLabel="Rebalance" tag="-1" image="b_move" id="xdp-J0-N7z">
+                                <toolbarItem implicitItemIdentifier="81AF0BFE-7EDF-4CAD-A052-FEC82EE2E16C" label="Rebalance" paletteLabel="Rebalance" tag="-1" image="b_move" id="xdp-J0-N7z" customClass="NSToolbarBadgedItem">
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="badgeFillColor">
+                                            <color key="value" red="0.73218757398237422" green="0.20562186781834416" blue="0.1230878108488874" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
                                     <connections>
                                         <action selector="movementButtonDidChange:" target="KGa-Ib-ddT" id="25N-jQ-LLJ"/>
                                         <segue destination="E8o-9k-1FA" kind="sheet" identifier="presentMovementView" id="cgp-eX-T5f"/>
@@ -453,6 +458,7 @@
                         </connections>
                     </window>
                     <connections>
+                        <outlet property="rebalanceToolbarItem" destination="xdp-J0-N7z" id="SA9-Ai-bW7"/>
                         <outlet property="tournamentNameField" destination="jue-x3-WFy" id="53h-Nm-m1z"/>
                         <outlet property="tournamentNameItem" destination="JhU-Ez-4Uj" id="mfM-rP-8Yl"/>
                         <segue destination="QmN-52-9Ox" kind="relationship" relationship="window.shadowedContentViewController" id="S2g-xK-Gtj"/>
