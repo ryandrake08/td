@@ -181,4 +181,26 @@
     }
 }
 
+- (IBAction)quickStartTapped:(id)sender {
+    // alert because this is a very destructive action
+    NSAlert* alert = [[NSAlert alloc] init];
+    [alert setAlertStyle:NSWarningAlertStyle];
+    [alert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+    [alert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+    [alert setMessageText:NSLocalizedString(@"Quick Start?", nil)];
+
+    // display a different message if the game is running
+    BOOL playing = [[[self session] state][@"current_blind_level"] unsignedIntegerValue] != 0;
+    if(playing) {
+        [alert setInformativeText:NSLocalizedString(@"Quick Start will end the current tournament immediately, then re-seat and buy in all players.", nil)];
+    } else {
+        [alert setInformativeText:NSLocalizedString(@"Quick Start will clear any existing seats and buy-ins, then re-seat and buy in all players.", nil)];
+    }
+
+    // present and only perform setup if confirmed by user
+    if([alert runModal] == NSAlertFirstButtonReturn) {
+        [[self session] quickSetupWithBlock:nil];
+    }
+}
+
 @end

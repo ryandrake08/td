@@ -324,6 +324,19 @@
     }];
 }
 
+- (void)quickSetupWithBlock:(void(^)(NSArray*))block {
+    [self sendCommand:@"quick_setup" withData:nil andBlock:^(id json, NSString* error) {
+        if(error != nil) {
+            NSLog(@"quickSetupWithBlock: %@\n", error);
+        } else {
+            // handle seated players
+            if(block != nil) {
+                block(json[@"seated_players"]);
+            }
+        }
+    }];
+}
+
 #pragma mark Tournament Messages
 
 - (void)handleMessage:(NSMutableDictionary*)json fromConnection:(TournamentConnection*)tc {

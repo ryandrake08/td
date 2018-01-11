@@ -425,19 +425,25 @@
                                         <segue destination="79P-Qm-Z6L" kind="sheet" identifier="presentPlanView" id="mJ1-px-HDd"/>
                                     </connections>
                                 </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="5AED8755-E587-4E01-A980-593FFBFA5FA5" label="Quick Start" paletteLabel="Quick Start" tag="-1" image="b_rocket" id="ANd-0c-7C0">
+                                    <connections>
+                                        <action selector="quickStartTapped:" target="KGa-Ib-ddT" id="dYp-y6-ZQN"/>
+                                    </connections>
+                                </toolbarItem>
                             </allowedToolbarItems>
                             <defaultToolbarItems>
                                 <toolbarItem reference="JhU-Ez-4Uj"/>
                                 <toolbarItem reference="zgL-NK-SlE"/>
                                 <toolbarItem reference="ZaH-wL-3Cm"/>
+                                <toolbarItem reference="ZaH-wL-3Cm"/>
+                                <toolbarItem reference="ZaH-wL-3Cm"/>
+                                <toolbarItem reference="ANd-0c-7C0"/>
                                 <toolbarItem reference="dkf-E2-LMY"/>
                                 <toolbarItem reference="BiV-xi-hlu"/>
                                 <toolbarItem reference="8hl-BW-ftP"/>
                                 <toolbarItem reference="Rcn-rR-9zf"/>
-                                <toolbarItem reference="ZaH-wL-3Cm"/>
                                 <toolbarItem reference="xdp-J0-N7z"/>
                                 <toolbarItem reference="9Gq-SN-JDg"/>
-                                <toolbarItem reference="ZaH-wL-3Cm"/>
                                 <toolbarItem reference="VPE-iB-g5a"/>
                                 <toolbarItem reference="W39-tg-lhP"/>
                             </defaultToolbarItems>
@@ -3291,6 +3297,7 @@ Gw
         <image name="b_play_pause" width="64" height="64"/>
         <image name="b_previous" width="64" height="64"/>
         <image name="b_restart" width="64" height="64"/>
+        <image name="b_rocket" width="64" height="64"/>
         <image name="b_seat" width="64" height="64"/>
         <image name="b_table" width="64" height="64"/>
         <image name="m_addon" width="44" height="44"/>

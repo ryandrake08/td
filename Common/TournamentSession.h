@@ -62,6 +62,7 @@
 - (void)seatPlayer:(id)playerId withBlock:(void(^)(id playerId,NSNumber* tableNumber,NSNumber* seatNumber,BOOL alreadySeated))block;
 - (void)unseatPlayer:(id)playerId withBlock:(void(^)(id playerId,NSNumber* tableNumber,NSNumber* seatNumber))block;
 - (void)bustPlayer:(id)playerId withBlock:(void(^)(NSArray*))block;
+- (void)quickSetupWithBlock:(void(^)(NSArray*))block;
 
 // utility (TODO: better place for this?)
 + (NSArray*) namesForBlindLevels:(NSArray*)blindLevels;
