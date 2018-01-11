@@ -18,14 +18,14 @@
 {
     if ( self = [super initWithItemIdentifier:itemIdentifier] )
     {
-        _badgeLineColor = [NSColor whiteColor];
+        _badgeLineColor = [NSColor redColor];
         _badgeFillColor = [NSColor redColor];
-        _badgeShadowColor = [NSColor colorWithCalibratedWhite:0 alpha:0.5f];
+        _badgeShadowColor = [NSColor clearColor];
         
         _badgeTextColor = [NSColor whiteColor];
-        _badgeTextShadowColor = [NSColor colorWithCalibratedWhite:0 alpha:0.25f];
+        _badgeTextShadowColor = [NSColor clearColor];
         
-        _badgeFontName = @"Helvetica-Bold";
+        _badgeFontName = nil;
     }
     return self;
 }
@@ -186,7 +186,12 @@
         NSRect rect = NSMakeRect(indent.x, indent.y, iconsize, iconsize);
         
         // work out the area
-        NSFont * font = [NSFont fontWithName:_badgeFontName size:pointSize];
+        NSFont * font;
+        if(_badgeFontName == nil) {
+            font = [NSFont systemFontOfSize:pointSize];
+        } else {
+            font = [NSFont fontWithName:_badgeFontName size:pointSize];
+        }
         
         // update the shadow offset
         NSDictionary *attr =nil;
@@ -265,16 +270,18 @@
         CGContextDrawLinearGradient (context, gradient, startPoint, endPoint, 0);
         
         // Draw the text
-        NSRect textBounds = [badge boundingRectWithSize:NSZeroSize
-                                                options:NSStringDrawingUsesDeviceMetrics
-                                             attributes:attr];
+//        NSRect textBounds = [badge boundingRectWithSize:NSZeroSize
+//                                                options:NSStringDrawingUsesDeviceMetrics
+//                                             attributes:attr];
 //        rect.origin.x = CGRectGetMidX(rect) - (textBounds.size.width * 0.5f);
+//        rect.origin.x = CGRectGetMidX(rect) - (textSize.size.width * 0.5f);
+//        rect.origin.x -= (textBounds.size.width - textSize.size.width) * 0.5f;
+//        rect.origin.y = CGRectGetMidY(rect);
+//        rect.origin.y -= textBounds.origin.y;
+//        rect.origin.y -= ((textBounds.size.height - textSize.origin.y) * 0.5f);
         rect.origin.x = CGRectGetMidX(rect) - (textSize.size.width * 0.5f);
-        rect.origin.x -= (textBounds.size.width - textSize.size.width) * 0.5f;
-        rect.origin.y = CGRectGetMidY(rect);
-        rect.origin.y -= textBounds.origin.y;
-        rect.origin.y -= ((textBounds.size.height - textSize.origin.y) * 0.5f);
-        
+        rect.origin.y = CGRectGetMidY(rect) - (textSize.size.height * 0.5f);
+
         rect.size.height = textSize.size.height;
         rect.size.width = textSize.size.width;
         [badge drawInRect:rect withAttributes:attr];
