@@ -1,11 +1,12 @@
 #pragma once
-#include "json.hpp"
 #include "types.hpp"
 #include <deque>
 #include <string>
 #include <unordered_map>
 #include <unordered_set>
 #include <vector>
+
+class json;
 
 class gameinfo
 {
