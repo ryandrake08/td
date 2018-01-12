@@ -207,8 +207,50 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Tournament" id="0Bs-DZ-vBz">
                                     <items>
-                                        <menuItem title="Resume / Pause" id="iNV-aq-Pn0">
+                                        <menuItem title="Quick Setup Tournament" keyEquivalent="t" id="aAk-2d-2a5">
+                                            <connections>
+                                                <action selector="quickStartTapped:" target="dLJ-5r-r8L" id="RYi-DC-txT"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="9Km-lY-8hr"/>
+                                        <menuItem title="Setup Tournament..." id="h1Y-QG-zfu">
                                             <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <segue destination="6Oo-A7-hVG" kind="modal" id="RAQ-SQ-Qt2"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Authorize Remote Device..." id="Paz-iY-Xbz">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <segue destination="bPh-e2-rZM" kind="modal" id="945-vK-tRp"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Plan Tournament..." id="lme-kP-HDg" userLabel="Plan Tournament">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <segue destination="79P-Qm-Z6L" kind="modal" id="bkh-Dn-ae1"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Re-Plan Tournament" id="NZQ-4A-hrd">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="restartTapped:" target="dLJ-5r-r8L" id="jYw-wd-O4w"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="JPM-Je-wgT"/>
+                                        <menuItem title="Show / Hide Main Display" keyEquivalent="d" id="1g9-67-q7x">
+                                            <connections>
+                                                <action selector="displayButtonDidChange:" target="dLJ-5r-r8L" id="VQN-Cp-6NO"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Rebalance Tables..." id="qmA-yM-Ssm">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <segue destination="E8o-9k-1FA" kind="modal" id="oXt-Yb-wuw"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="jOr-MD-YdF"/>
+                                        <menuItem title="Resume / Pause" keyEquivalent="g" id="iNV-aq-Pn0">
                                             <connections>
                                                 <action selector="pauseResumeTapped:" target="dLJ-5r-r8L" id="nuQ-ce-BBA"/>
                                             </connections>
@@ -216,18 +258,19 @@
                                         <menuItem title="Previous Round" keyEquivalent="p" id="xgP-w5-bad">
                                             <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                             <connections>
-                                                <action selector="pauseResumeTapped:" target="dLJ-5r-r8L" id="DOa-Su-cv6"/>
+                                                <action selector="previousRoundTapped:" target="dLJ-5r-r8L" id="ugc-d9-DZD"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Next Round" keyEquivalent="n" id="vXt-md-CWn">
                                             <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                             <connections>
-                                                <action selector="pauseResumeTapped:" target="dLJ-5r-r8L" id="gpd-AA-4ZP"/>
+                                                <action selector="nextRoundTapped:" target="dLJ-5r-r8L" id="53O-8t-qjN"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Call the Clock" keyEquivalent="t" id="sD7-NM-gfy">
+                                        <menuItem title="Call the Clock" keyEquivalent="c" id="sD7-NM-gfy">
+                                            <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                             <connections>
-                                                <action selector="pauseResumeTapped:" target="dLJ-5r-r8L" id="JtD-IO-xU1"/>
+                                                <action selector="callClockTapped:" target="dLJ-5r-r8L" id="m6g-fq-HHo"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="o8w-fl-55b"/>
@@ -311,7 +354,7 @@
                 <customObject id="dLJ-5r-r8L" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <customObject id="cK8-mn-POK" customClass="AppDelegate"/>
             </objects>
-            <point key="canvasLocation" x="75" y="-120"/>
+            <point key="canvasLocation" x="75" y="-410"/>
         </scene>
         <!--Window Controller-->
         <scene sceneID="qzO-nM-m3h">
@@ -459,10 +502,10 @@
             </objects>
             <point key="canvasLocation" x="74" y="347"/>
         </scene>
-        <!--Auth Code View Controller-->
+        <!--Authorize Remote Device-->
         <scene sceneID="pDd-XJ-I1W">
             <objects>
-                <viewController id="bPh-e2-rZM" customClass="TBAuthCodeViewController" sceneMemberID="viewController">
+                <viewController title="Authorize Remote Device" id="bPh-e2-rZM" customClass="TBAuthCodeViewController" sceneMemberID="viewController">
                     <view key="view" id="MYJ-oe-Bla">
                         <rect key="frame" x="0.0" y="0.0" width="512" height="205"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -618,10 +661,10 @@ DQ
             </objects>
             <point key="canvasLocation" x="1073" y="-332"/>
         </scene>
-        <!--Plan View Controller-->
+        <!--Plan Tournament-->
         <scene sceneID="cEL-yG-4EP">
             <objects>
-                <viewController id="79P-Qm-Z6L" customClass="TBPlanViewController" sceneMemberID="viewController">
+                <viewController title="Plan Tournament" id="79P-Qm-Z6L" customClass="TBPlanViewController" sceneMemberID="viewController">
                     <view key="view" id="q3v-ni-JPp">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="250"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -717,10 +760,10 @@ DQ
             </objects>
             <point key="canvasLocation" x="1073" y="-25"/>
         </scene>
-        <!--Setup View Controller-->
+        <!--Setup Tournament-->
         <scene sceneID="T0g-Aw-Odh">
             <objects>
-                <viewController id="6Oo-A7-hVG" customClass="TBSetupViewController" sceneMemberID="viewController">
+                <viewController title="Setup Tournament" id="6Oo-A7-hVG" customClass="TBSetupViewController" sceneMemberID="viewController">
                     <view key="view" id="vqw-mJ-XK0">
                         <rect key="frame" x="0.0" y="0.0" width="640" height="480"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -767,10 +810,10 @@ Gw
             </objects>
             <point key="canvasLocation" x="1073" y="689"/>
         </scene>
-        <!--Movement View Controller-->
+        <!--Rebalance Tables-->
         <scene sceneID="iKZ-xA-nZZ">
             <objects>
-                <viewController id="E8o-9k-1FA" customClass="TBMovementViewController" sceneMemberID="viewController">
+                <viewController title="Rebalance Tables" id="E8o-9k-1FA" customClass="TBMovementViewController" sceneMemberID="viewController">
                     <view key="view" id="Q4g-dc-J9J">
                         <rect key="frame" x="0.0" y="0.0" width="450" height="156"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -1307,12 +1350,12 @@ Gw
                         <menuItem isSeparatorItem="YES" id="NJ9-de-gEv"/>
                         <menuItem title="Bust Player" tag="2" keyEquivalent="b" id="cTS-sQ-JJ3">
                             <connections>
-                                <action selector="bustPlayerFromMenuItem:" target="u5f-W3-CnL" id="LZU-bN-Lyk"/>
+                                <action selector="bustPlayerFromMenuItem:" target="vC9-3z-JR7" id="Ji3-4A-fBE"/>
                             </connections>
                         </menuItem>
                         <menuItem title="Unseat Player" tag="3" keyEquivalent="u" id="Sk5-sG-ERv">
                             <connections>
-                                <action selector="unseatPlayerFromMenuItem:" target="u5f-W3-CnL" id="wzt-h3-iNy"/>
+                                <action selector="unseatPlayerFromMenuItem:" target="vC9-3z-JR7" id="j5i-y9-jDw"/>
                             </connections>
                         </menuItem>
                     </items>
@@ -3290,4 +3333,10 @@ Gw
         <image name="m_buyin" width="44" height="44"/>
         <image name="m_rebuy" width="44" height="44"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="oXt-Yb-wuw"/>
+        <segue reference="RAQ-SQ-Qt2"/>
+        <segue reference="bkh-Dn-ae1"/>
+        <segue reference="945-vK-tRp"/>
+    </inferredMetricsTieBreakers>
 </document>
