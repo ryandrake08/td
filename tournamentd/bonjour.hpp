@@ -3,8 +3,8 @@
 
 class bonjour_publisher
 {
-    class impl;
-
+    // pimpl
+    struct impl;
     std::unique_ptr<impl> pimpl;
 
 public:

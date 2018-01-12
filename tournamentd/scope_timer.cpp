@@ -8,33 +8,54 @@
 
 #include "scope_timer.hpp"
 #include "logger.hpp"
+#include <chrono>
 
 #if defined(__clang__)
 #include "chrono/chrono_io"
 #endif
 
-scope_timer::scope_timer() : begin_time(std::chrono::high_resolution_clock::now())
+struct scope_timer::impl
 {
-}
+    // start and end points
+    std::chrono::high_resolution_clock::time_point begin_time;
+    std::chrono::high_resolution_clock::time_point end_time;
 
-scope_timer::scope_timer(const std::string& message) : begin_time(std::chrono::high_resolution_clock::now()), log_message(message)
-{
-}
+    // log message
+    std::string log_message;
 
-scope_timer::~scope_timer()
-{
-    // mark end of timer
-    end_time = std::chrono::high_resolution_clock::now();
+    impl() : begin_time(std::chrono::high_resolution_clock::now())
+    {
+    }
+
+    impl(const std::string& message) : begin_time(std::chrono::high_resolution_clock::now()), log_message(message)
+    {
+    }
+
+    ~impl()
+    {
+        // mark end of timer
+        this->end_time = std::chrono::high_resolution_clock::now();
 
     // log
 #if defined(__clang__)
-    logger(LOG_DEBUG) << this->log_message << (this->end_time - this->begin_time) << '\n';
+        logger(LOG_DEBUG) << this->log_message << (this->end_time - this->begin_time) << '\n';
 #else
-    logger(LOG_DEBUG) << this->log_message << "scope_timer only available when built using clang\n";
+        logger(LOG_DEBUG) << this->log_message << "scope_timer only available when built using clang\n";
 #endif
+    }
+};
+
+scope_timer::scope_timer() : pimpl(new impl)
+{
 }
+
+scope_timer::scope_timer(const std::string& message) : pimpl(new impl(message))
+{
+}
+
+scope_timer::~scope_timer() = default;
 
 void scope_timer::set_message(const std::string& message)
 {
-    this->log_message = message;
+    this->pimpl->log_message = message;
 }

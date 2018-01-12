@@ -1,15 +1,12 @@
 #pragma once
-#include <chrono>
+#include <memory>
 #include <string>
 
 class scope_timer
 {
-    // start and end points
-    std::chrono::high_resolution_clock::time_point begin_time;
-    std::chrono::high_resolution_clock::time_point end_time;
-
-    // log message
-    std::string log_message;
+    // pimpl
+    struct impl;
+    std::unique_ptr<impl> pimpl;
 
 public:
     // construction

@@ -3,62 +3,21 @@
 #include "gameinfo.hpp"
 #include "server.hpp"
 #include "types.hpp"
-#include <string>
 #include <iostream>
+#include <memory>
+#include <string>
 #include <unordered_set>
 
 class tournament
 {
-    // game object
-    gameinfo game_info;
-
-    // server to handle remote connections
-    server game_server;
-
-    // accepted authorization codes
-    std::unordered_map<int,td::authorized_client> game_auths;
-
-    // auth check
-    void ensure_authorized(const json& in) const;
-
-    // broadcast helpers;
-    void broadcast_state() const;
-    void broadcast_configuration() const;
-
-    // command handlers available to anyone
-    void handle_cmd_version(json& out) const;
-    void handle_cmd_get_config(json& out) const;
-    void handle_cmd_get_state(json& out) const;
-    void handle_cmd_check_authorized(const json& in, json& out) const;
-    void handle_cmd_chips_for_buyin(const json& in, json& out) const;
-
-    // command handlers available to authorized clients
-    void handle_cmd_configure(const json& in, json& out);
-    void handle_cmd_start_game(const json& in, json& out);
-    void handle_cmd_stop_game(const json& in, json& out);
-    void handle_cmd_resume_game(const json& in, json& out);
-    void handle_cmd_pause_game(const json& in, json& out);
-    void handle_cmd_toggle_pause_game(const json& in, json& out);
-    void handle_cmd_set_previous_level(const json& in, json& out);
-    void handle_cmd_set_next_level(const json& in, json& out);
-    void handle_cmd_set_action_clock(const json& in, json& out);
-    void handle_cmd_reset_action_clock(const json& in, json& out);
-    void handle_cmd_gen_blind_levels(const json& in, json& out);
-    void handle_cmd_reset_funding(const json& in, json& out);
-    void handle_cmd_fund_player(const json& in, json& out);
-    void handle_cmd_plan_seating(const json& in, json& out);
-    void handle_cmd_seat_player(const json& in, json& out);
-    void handle_cmd_unseat_player(const json& in, json& out);
-    void handle_cmd_bust_player(const json& in, json& out);
-    void handle_cmd_quick_setup(const json& in, json& out);
-
-    // handler for new client
-    bool handle_new_client(std::ostream& client) const;
-
-    // handler for input from existing client
-    bool handle_client_input(std::iostream& client);
+    // pimpl
+    struct impl;
+    std::unique_ptr<impl> pimpl;
 
 public:
+    tournament();
+    ~tournament();
+
     // authorize a client code
     int authorize(int code);
 
