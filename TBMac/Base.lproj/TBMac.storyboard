@@ -329,32 +329,32 @@
                                 <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="zgL-NK-SlE"/>
                                 <toolbarItem implicitItemIdentifier="21B1560B-E9E5-4590-8D45-BDC208751FA9" label="Results" paletteLabel="Export" tag="-1" image="b_export" id="Rcn-rR-9zf">
                                     <connections>
-                                        <action selector="exportResults:" target="KGa-Ib-ddT" id="c80-LZ-W3y"/>
+                                        <action selector="exportResults:" target="bjE-D6-6zO" id="ZmY-no-mMH"/>
                                     </connections>
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="9303F932-10EA-45FF-9112-5E2190AFB751" label="Re-Plan" paletteLabel="Re-Plan" tag="-1" image="b_restart" id="PYd-AK-xr2">
                                     <connections>
-                                        <action selector="restartTapped:" target="KGa-Ib-ddT" id="mlL-gQ-kaW"/>
+                                        <action selector="restartTapped:" target="bjE-D6-6zO" id="JTC-yJ-ix2"/>
                                     </connections>
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="1A9ED53F-D961-4530-B9F3-14B1711F604F" label="" paletteLabel="Play" tag="-1" image="b_play_pause" id="VPE-iB-g5a">
                                     <connections>
-                                        <action selector="pauseResumeTapped:" target="KGa-Ib-ddT" id="Lmr-cB-2ES"/>
+                                        <action selector="pauseResumeTapped:" target="bjE-D6-6zO" id="wwh-3V-fI5"/>
                                     </connections>
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="B1B14777-FD69-489B-A9D7-090175E2D5B6" label="" paletteLabel="Previous" tag="-1" image="b_previous" id="EzG-hC-xos">
                                     <connections>
-                                        <action selector="previousRoundTapped:" target="KGa-Ib-ddT" id="06g-mb-Ysg"/>
+                                        <action selector="previousRoundTapped:" target="bjE-D6-6zO" id="cVs-xY-npx"/>
                                     </connections>
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="6BD4A895-D4A7-4A94-82B8-2FD6B0B73A71" label="" paletteLabel="Next" tag="-1" image="b_next" id="4T7-RE-kbz">
                                     <connections>
-                                        <action selector="nextRoundTapped:" target="KGa-Ib-ddT" id="LwU-Fx-w9F"/>
+                                        <action selector="nextRoundTapped:" target="bjE-D6-6zO" id="eOj-v4-uKm"/>
                                     </connections>
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="438871C3-164E-4F2B-B7B4-48BBCC6BABE9" label="" paletteLabel="Call Clock" tag="-1" image="b_call_clock" id="mmf-sV-gYb">
                                     <connections>
-                                        <action selector="callClockTapped:" target="KGa-Ib-ddT" id="CLe-3F-I1T"/>
+                                        <action selector="callClockTapped:" target="bjE-D6-6zO" id="tA4-Ci-S4g"/>
                                     </connections>
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="F1882079-CADA-4FB5-AE5D-02FEA5639344" label="Authorize" paletteLabel="Authorize" tag="-1" image="b_auth" id="dkf-E2-LMY">
@@ -364,18 +364,16 @@
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="0B2B8D14-0973-41DA-8224-1B3C07A95872" label="Setup" paletteLabel="Setup" tag="-1" image="b_configure" id="BiV-xi-hlu">
                                     <connections>
-                                        <action selector="configureButtonDidChange:" target="KGa-Ib-ddT" id="Jue-i6-mea"/>
                                         <segue destination="6Oo-A7-hVG" kind="sheet" identifier="presentConfigurationView" id="20A-7q-E8V"/>
                                     </connections>
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="4A9598AD-BDEB-4F5A-9AB0-A1F06B53CF6C" label="Display" paletteLabel="Display" tag="-1" image="b_display" id="9Gq-SN-JDg">
                                     <connections>
-                                        <action selector="displayButtonDidChange:" target="KGa-Ib-ddT" id="Qr4-so-rDT"/>
+                                        <action selector="displayButtonDidChange:" target="bjE-D6-6zO" id="wJg-mT-Bog"/>
                                     </connections>
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="81AF0BFE-7EDF-4CAD-A052-FEC82EE2E16C" label="Rebalance" paletteLabel="Rebalance" tag="-1" image="b_move" id="xdp-J0-N7z" customClass="NSToolbarBadgedItem">
                                     <connections>
-                                        <action selector="movementButtonDidChange:" target="KGa-Ib-ddT" id="25N-jQ-LLJ"/>
                                         <segue destination="E8o-9k-1FA" kind="sheet" identifier="presentMovementView" id="cgp-eX-T5f"/>
                                     </connections>
                                 </toolbarItem>
@@ -392,7 +390,7 @@
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                         <connections>
-                                            <action selector="tournamentNameWasChanged:" target="KGa-Ib-ddT" id="fqR-sq-re4"/>
+                                            <action selector="tournamentNameWasChanged:" target="bjE-D6-6zO" id="WLB-vD-qFC"/>
                                             <binding destination="KGa-Ib-ddT" name="value" keyPath="self.document.configuration.name" id="14Q-Bt-vNo"/>
                                         </connections>
                                     </textField>
@@ -427,7 +425,7 @@
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="5AED8755-E587-4E01-A980-593FFBFA5FA5" label="Quick Start" paletteLabel="Quick Start" tag="-1" image="b_rocket" id="ANd-0c-7C0">
                                     <connections>
-                                        <action selector="quickStartTapped:" target="KGa-Ib-ddT" id="dYp-y6-ZQN"/>
+                                        <action selector="quickStartTapped:" target="bjE-D6-6zO" id="h45-KZ-vpp"/>
                                     </connections>
                                 </toolbarItem>
                             </allowedToolbarItems>
@@ -454,8 +452,6 @@
                     </window>
                     <connections>
                         <outlet property="rebalanceToolbarItem" destination="xdp-J0-N7z" id="SA9-Ai-bW7"/>
-                        <outlet property="tournamentNameField" destination="jue-x3-WFy" id="53h-Nm-m1z"/>
-                        <outlet property="tournamentNameItem" destination="JhU-Ez-4Uj" id="mfM-rP-8Yl"/>
                         <segue destination="QmN-52-9Ox" kind="relationship" relationship="window.shadowedContentViewController" id="S2g-xK-Gtj"/>
                     </connections>
                 </windowController>
