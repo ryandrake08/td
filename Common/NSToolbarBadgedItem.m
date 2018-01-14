@@ -155,7 +155,7 @@
                                                                              hasAlpha: YES
                                                                              isPlanar: NO
                                                                        colorSpaceName: NSDeviceRGBColorSpace
-                                                                          bytesPerRow: size.width * 4
+                                                                          bytesPerRow: 0
                                                                          bitsPerPixel: 32];
         
         NSGraphicsContext *ctx = [NSGraphicsContext graphicsContextWithBitmapImageRep: newRep];
