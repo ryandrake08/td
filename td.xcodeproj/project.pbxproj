@@ -700,8 +700,6 @@
 		AD475C3A1BB62D0400DAE739 /* TBEditableTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBEditableTableViewCell.m; sourceTree = "<group>"; };
 		AD5375B21B9F35FA00EF5132 /* TBRemoteWatchDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBRemoteWatchDelegate.h; sourceTree = "<group>"; };
 		AD5375B31B9F35FB00EF5132 /* TBRemoteWatchDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBRemoteWatchDelegate.m; sourceTree = "<group>"; };
-		AD5934791BA87D820018B9EB /* chrono_io */ = {isa = PBXFileReference; lastKnownFileType = text; name = chrono_io; path = chrono/chrono_io; sourceTree = "<group>"; };
-		AD59347A1BA87D820018B9EB /* ratio_io */ = {isa = PBXFileReference; lastKnownFileType = text; name = ratio_io; path = chrono/ratio_io; sourceTree = "<group>"; };
 		AD62569D1BB448DD00EE776A /* TBSetupDetailsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBSetupDetailsTableViewController.h; sourceTree = "<group>"; };
 		AD62569E1BB448DD00EE776A /* TBSetupDetailsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBSetupDetailsTableViewController.m; sourceTree = "<group>"; };
 		AD6256A01BB44B9A00EE776A /* TBSetupDetailsPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBSetupDetailsPlayerViewController.h; sourceTree = "<group>"; };
@@ -960,7 +958,6 @@
 		9476F4EB1B3C3F8300A158F8 /* tournamentd */ = {
 			isa = PBXGroup;
 			children = (
-				AD5934781BA87D700018B9EB /* chrono */,
 				9476F4D11B3C3F8300A158F8 /* bonjour.cpp */,
 				9476F4D21B3C3F8300A158F8 /* bonjour.hpp */,
 				9476F4D31B3C3F8300A158F8 /* datetime.cpp */,
@@ -1103,15 +1100,6 @@
 				9476F4751B3C3D6700A158F8 /* UIKit.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		AD5934781BA87D700018B9EB /* chrono */ = {
-			isa = PBXGroup;
-			children = (
-				AD5934791BA87D820018B9EB /* chrono_io */,
-				AD59347A1BA87D820018B9EB /* ratio_io */,
-			);
-			name = chrono;
 			sourceTree = "<group>";
 		};
 		AD8E683A1A6C606700E5A4D8 = {

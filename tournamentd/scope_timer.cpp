@@ -10,10 +10,6 @@
 #include "logger.hpp"
 #include <chrono>
 
-#if defined(__clang__)
-#include "chrono/chrono_io"
-#endif
-
 struct scope_timer::impl
 {
     // start and end points
@@ -36,12 +32,9 @@ struct scope_timer::impl
         // mark end of timer
         this->end_time = std::chrono::high_resolution_clock::now();
 
-    // log
-#if defined(__clang__)
-        logger(LOG_DEBUG) << this->log_message << (this->end_time - this->begin_time) << '\n';
-#else
-        logger(LOG_DEBUG) << this->log_message << "scope_timer only available when built using clang\n";
-#endif
+        // log
+        std::chrono::duration<long long, std::nano> duration(this->end_time - this->begin_time);
+        logger(LOG_DEBUG) << this->log_message << duration.count() << " nanoseconds\n";
     }
 };
 
