@@ -52,19 +52,6 @@
     }
 }
 
-- (void)viewDidLoad {
-    if([NSViewController instancesRespondToSelector:@selector(viewDidLoad)]) {
-        [super viewDidLoad];
-    }
-}
-
-- (void)loadView {
-    [super loadView];
-    if(![NSViewController instancesRespondToSelector:@selector(viewDidLoad)]) {
-        [self viewDidLoad];
-    }
-}
-
 - (void)setRepresentedObject:(id)representedObject {
     [super setRepresentedObject:representedObject];
 

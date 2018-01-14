@@ -46,9 +46,7 @@
 @implementation TBViewerViewController
 
 - (void)viewDidLoad {
-    if([NSViewController instancesRespondToSelector:@selector(viewDidLoad)]) {
-        [super viewDidLoad];
-    }
+    [super viewDidLoad];
 
     // alloc sounds
     _startSound = [[TBSound alloc] initWithResource:@"s_start" extension:@"caf"];
@@ -122,13 +120,6 @@
     // set up sort descriptor for results
     NSSortDescriptor* placeSort = [[NSSortDescriptor alloc] initWithKey:@"place" ascending:YES];
     [[self resultsArrayController] setSortDescriptors:@[placeSort]];
-}
-
-- (void)loadView {
-    [super loadView];
-    if(![NSViewController instancesRespondToSelector:@selector(viewDidLoad)]) {
-        [self viewDidLoad];
-    }
 }
 
 - (void)prepareForSegue:(NSStoryboardSegue *)segue sender:(id)sender {
