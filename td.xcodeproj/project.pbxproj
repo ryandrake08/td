@@ -214,7 +214,6 @@
 		AD33BA5D1BAC63540011777C /* s_next.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04EC91B7C59EB004F4245 /* s_next.caf */; };
 		AD33BA5E1BAC63540011777C /* s_warning.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04ECC1B7C59EB004F4245 /* s_warning.caf */; };
 		AD33BA5F1BAC63540011777C /* s_break.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04EC81B7C59EB004F4245 /* s_break.caf */; };
-		AD33BA601BAC63540011777C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ADA6A1B41B97FE8A00C83762 /* Assets.xcassets */; };
 		AD452D4F1BC6C685007CF579 /* TBChooseColorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD452D4E1BC6C685007CF579 /* TBChooseColorViewController.m */; };
 		AD452D501BC6C685007CF579 /* TBChooseColorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD452D4E1BC6C685007CF579 /* TBChooseColorViewController.m */; };
 		AD475C3B1BB62D0400DAE739 /* TBEditableTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD475C3A1BB62D0400DAE739 /* TBEditableTableViewCell.m */; };
@@ -253,7 +252,6 @@
 		ADA6A1AD1B97FE8A00C83762 /* InterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA6A1AC1B97FE8A00C83762 /* InterfaceController.m */; };
 		ADA6A1B01B97FE8A00C83762 /* ExtensionDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA6A1AF1B97FE8A00C83762 /* ExtensionDelegate.m */; };
 		ADA6A1B31B97FE8A00C83762 /* NotificationController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA6A1B21B97FE8A00C83762 /* NotificationController.m */; };
-		ADA6A1B51B97FE8A00C83762 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ADA6A1B41B97FE8A00C83762 /* Assets.xcassets */; };
 		ADA6A1B91B97FE8A00C83762 /* TBRemote WatchKit App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = ADA6A1981B97FE8A00C83762 /* TBRemote WatchKit App.app */; };
 		ADA6A1C21B98041900C83762 /* FBKVOController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEAE01B5AE2D60026B25D /* FBKVOController.m */; };
 		ADA6A1C31B98043500C83762 /* NSObject+FBKVOController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEAE41B5AE2D60026B25D /* NSObject+FBKVOController.m */; };
@@ -749,7 +747,6 @@
 		ADA6A1AF1B97FE8A00C83762 /* ExtensionDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExtensionDelegate.m; sourceTree = "<group>"; };
 		ADA6A1B11B97FE8A00C83762 /* NotificationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationController.h; sourceTree = "<group>"; };
 		ADA6A1B21B97FE8A00C83762 /* NotificationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotificationController.m; sourceTree = "<group>"; };
-		ADA6A1B41B97FE8A00C83762 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		ADA6A1B61B97FE8A00C83762 /* TBRemote-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TBRemote-Info.plist"; sourceTree = "<group>"; };
 		ADB3D19B1BC996C500A9AFFA /* TBNotifications.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBNotifications.h; sourceTree = "<group>"; };
 		ADCECE781B7B0D9D00767DA6 /* TBResultsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBResultsViewController.h; path = TBMac/TBResultsViewController.h; sourceTree = "<group>"; };
@@ -1226,7 +1223,6 @@
 				ADA6A1AF1B97FE8A00C83762 /* ExtensionDelegate.m */,
 				ADA6A1B11B97FE8A00C83762 /* NotificationController.h */,
 				ADA6A1B21B97FE8A00C83762 /* NotificationController.m */,
-				ADA6A1B41B97FE8A00C83762 /* Assets.xcassets */,
 				AD33BA681BAC63D40011777C /* TBPhone-Info.plist */,
 				ADA6A1B61B97FE8A00C83762 /* TBRemote-Info.plist */,
 				ADA6A1A91B97FE8A00C83762 /* Supporting Files */,
@@ -1602,7 +1598,6 @@
 				AD33BA5D1BAC63540011777C /* s_next.caf in Resources */,
 				AD33BA5E1BAC63540011777C /* s_warning.caf in Resources */,
 				AD33BA5F1BAC63540011777C /* s_break.caf in Resources */,
-				AD33BA601BAC63540011777C /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1640,7 +1635,6 @@
 				AD7E5D081B9FE7AB004654E9 /* s_next.caf in Resources */,
 				AD7E5D091B9FE7AB004654E9 /* s_warning.caf in Resources */,
 				AD7E5D071B9FE7AB004654E9 /* s_break.caf in Resources */,
-				ADA6A1B51B97FE8A00C83762 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
