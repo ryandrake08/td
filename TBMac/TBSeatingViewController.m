@@ -93,12 +93,18 @@
 #pragma mark NSMenuDelegate
 
 - (void)menuNeedsUpdate:(NSMenu*)menu {
+    // find the selected indexes
+    NSIndexSet* indexSet = [[self tableView] selectedRowIndexes];
+    // If the clicked row is in selectedIndexes, then process all selectedIndexes. Otherwise, process only clickedRow.
+    if ([[self tableView] clickedRow] != -1 && ![indexSet containsIndex:[[self tableView] clickedRow]]) {
+        indexSet = [NSIndexSet indexSetWithIndex:[[self tableView] clickedRow]];
+    }
+
     // array to hold all players
     NSMutableArray* playerIds = [[NSMutableArray alloc] init];
     __block NSUInteger buyins = 0;
 
-    // find the selected indexes
-    NSIndexSet* indexSet = [[self tableView] selectedRowIndexes];
+    //
     [indexSet enumerateIndexesUsingBlock:^(NSUInteger row, BOOL* stop) {
         NSTableCellView* cell = [[self tableView] viewAtColumn:0 row:row makeIfNecessary:YES];
         NSDictionary* player = [cell objectValue];
@@ -140,12 +146,12 @@
 
     NSMenuItem* item = nil;
 
-    // set up bust function
+    // set up bust function. if game is running and all selected players are bought in, then enable the bust item
     item = [menu itemWithTag:2];
     [item setRepresentedObject:@{@"player_ids":playerIds}];
     [item setEnabled:([currentBlindLevel integerValue] > 0) && buyins == [indexSet count]];
 
-    // add unseat function
+    // add unseat function. if no selected players are bought in, then enable the unseat item
     item = [menu itemWithTag:3];
     [item setRepresentedObject:@{@"player_ids":playerIds}];
     [item setEnabled:buyins == 0];
