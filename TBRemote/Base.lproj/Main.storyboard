@@ -549,53 +549,53 @@
                                                     <rect key="frame" x="35" y="-0.5" width="304" height="64.5"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k84-f3-2T1" customClass="TBInvertableButton">
-                                                            <rect key="frame" x="0.0" y="0.0" width="64" height="64.5"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="64" height="64"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="64" id="Exv-tf-Xcz"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                            <state key="normal" title="Previous Round" image="b_previous"/>
-                                                            <state key="highlighted" image="h_previous"/>
+                                                            <state key="normal" title="Previous Round" image="c_previous"/>
+                                                            <state key="highlighted" image="a_previous"/>
                                                             <connections>
                                                                 <action selector="previousRoundTapped:" destination="npP-K3-F9m" eventType="touchUpInside" id="End-8d-N10"/>
                                                             </connections>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WgK-tj-SLQ" customClass="TBInvertableButton">
-                                                            <rect key="frame" x="80" y="0.0" width="64" height="64.5"/>
+                                                            <rect key="frame" x="80" y="0.0" width="64" height="64"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="64" id="Asd-Yh-h7G"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                            <state key="normal" title="Play / Pause" image="b_play_pause"/>
-                                                            <state key="highlighted" image="h_play_pause"/>
+                                                            <state key="normal" title="Play / Pause" image="c_play_pause"/>
+                                                            <state key="highlighted" image="a_play_pause"/>
                                                             <connections>
                                                                 <action selector="pauseResumeTapped:" destination="npP-K3-F9m" eventType="touchUpInside" id="2c7-FZ-gFH"/>
                                                             </connections>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aQC-kA-VEz" customClass="TBInvertableButton">
-                                                            <rect key="frame" x="160" y="0.0" width="64" height="64.5"/>
+                                                            <rect key="frame" x="160" y="0.0" width="64" height="64"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="64" id="7Fq-pW-TfC"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                            <state key="normal" title="Next Round" image="b_next"/>
-                                                            <state key="highlighted" image="h_next"/>
+                                                            <state key="normal" title="Next Round" image="c_next"/>
+                                                            <state key="highlighted" image="a_next"/>
                                                             <connections>
                                                                 <action selector="nextRoundTapped:" destination="npP-K3-F9m" eventType="touchUpInside" id="Tce-C8-oQH"/>
                                                             </connections>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uSo-37-nWA" customClass="TBInvertableButton">
-                                                            <rect key="frame" x="240" y="0.0" width="64" height="64.5"/>
+                                                            <rect key="frame" x="240" y="0.0" width="64" height="64"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="64" id="cga-v0-pJF"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                            <state key="normal" title="Call Clock" image="b_call_clock"/>
-                                                            <state key="highlighted" image="h_call_clock"/>
+                                                            <state key="normal" title="Call Clock" image="c_call_clock"/>
+                                                            <state key="highlighted" image="a_call_clock"/>
                                                             <connections>
                                                                 <action selector="callClockTapped:" destination="npP-K3-F9m" eventType="touchUpInside" id="CNG-Cb-hIb"/>
                                                             </connections>
@@ -2289,17 +2289,17 @@
         </scene>
     </scenes>
     <resources>
-        <image name="b_call_clock" width="64" height="64"/>
-        <image name="b_next" width="64" height="64"/>
+        <image name="a_call_clock" width="64" height="64"/>
+        <image name="a_next" width="64" height="64"/>
+        <image name="a_play_pause" width="64" height="64"/>
+        <image name="a_previous" width="64" height="64"/>
         <image name="b_note_dollar" width="64" height="64"/>
-        <image name="b_play_pause" width="64" height="64"/>
-        <image name="b_previous" width="64" height="64"/>
         <image name="b_seat" width="64" height="64"/>
         <image name="b_table" width="64" height="64"/>
-        <image name="h_call_clock" width="64" height="64"/>
-        <image name="h_next" width="64" height="64"/>
-        <image name="h_play_pause" width="64" height="64"/>
-        <image name="h_previous" width="64" height="64"/>
+        <image name="c_call_clock" width="64" height="64"/>
+        <image name="c_next" width="64" height="64"/>
+        <image name="c_play_pause" width="64" height="64"/>
+        <image name="c_previous" width="64" height="64"/>
         <image name="i_chip" width="64" height="64"/>
         <image name="m_buyin" width="44" height="44"/>
         <image name="t_clock" width="32" height="32"/>

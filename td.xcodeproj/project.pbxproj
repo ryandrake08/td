@@ -56,8 +56,8 @@
 		94562E6C1B65D9420017C692 /* TBResizeTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 94562E6B1B65D9420017C692 /* TBResizeTextField.m */; };
 		9457DAB41FE6934C0047DF29 /* TBImage+Inverted.m in Sources */ = {isa = PBXBuildFile; fileRef = 9457DAB31FE6934C0047DF29 /* TBImage+Inverted.m */; };
 		9457DAB51FE6934C0047DF29 /* TBImage+Inverted.m in Sources */ = {isa = PBXBuildFile; fileRef = 9457DAB31FE6934C0047DF29 /* TBImage+Inverted.m */; };
-		9457DAB81FE695AC0047DF29 /* TBInvertableButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 9457DAB71FE695AC0047DF29 /* TBInvertableButton.m */; };
-		9457DAB91FE695AC0047DF29 /* TBInvertableButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 9457DAB71FE695AC0047DF29 /* TBInvertableButton.m */; };
+		9457DAB81FE695AC0047DF29 /* TBInvertableButton_iOS.m in Sources */ = {isa = PBXBuildFile; fileRef = 9457DAB71FE695AC0047DF29 /* TBInvertableButton_iOS.m */; };
+		9457DAB91FE695AC0047DF29 /* TBInvertableButton_iOS.m in Sources */ = {isa = PBXBuildFile; fileRef = 9457DAB71FE695AC0047DF29 /* TBInvertableButton_iOS.m */; };
 		9457DABD1FE6AAF60047DF29 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9457DABC1FE6AAF50047DF29 /* UIKit.framework */; };
 		9457DABF1FE6AB0F0047DF29 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9457DABE1FE6AB0F0047DF29 /* CoreGraphics.framework */; };
 		9457DAC11FE6AB170047DF29 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9457DAC01FE6AB170047DF29 /* CFNetwork.framework */; };
@@ -165,6 +165,8 @@
 		94C2DA7F200D27CD001B95B8 /* s_next.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04EC91B7C59EB004F4245 /* s_next.caf */; };
 		94C2DA80200D27D7001B95B8 /* s_break.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04EC81B7C59EB004F4245 /* s_break.caf */; };
 		94C2DA81200D27D7001B95B8 /* s_next.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04EC91B7C59EB004F4245 /* s_next.caf */; };
+		94C2DA84200D2AE7001B95B8 /* TBInvertableButton_macOS.m in Sources */ = {isa = PBXBuildFile; fileRef = 94C2DA82200D2AE7001B95B8 /* TBInvertableButton_macOS.m */; };
+		94C2DA85200D2AE7001B95B8 /* TBInvertableButton_macOS.m in Sources */ = {isa = PBXBuildFile; fileRef = 94C2DA82200D2AE7001B95B8 /* TBInvertableButton_macOS.m */; };
 		94CDDD1D1FE1826C008ADF24 /* TBChipTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CDDD1B1FE1826C008ADF24 /* TBChipTableViewCell.m */; };
 		94CDDD1E1FE1826C008ADF24 /* TBChipTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CDDD1B1FE1826C008ADF24 /* TBChipTableViewCell.m */; };
 		94CDDD1F1FE1826C008ADF24 /* TBChipTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94CDDD1C1FE1826C008ADF24 /* TBChipTableViewCell.xib */; };
@@ -581,8 +583,8 @@
 		94562E6B1B65D9420017C692 /* TBResizeTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBResizeTextField.m; sourceTree = "<group>"; };
 		9457DAB21FE6934C0047DF29 /* TBImage+Inverted.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TBImage+Inverted.h"; sourceTree = "<group>"; };
 		9457DAB31FE6934C0047DF29 /* TBImage+Inverted.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "TBImage+Inverted.m"; sourceTree = "<group>"; };
-		9457DAB61FE695AC0047DF29 /* TBInvertableButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBInvertableButton.h; sourceTree = "<group>"; };
-		9457DAB71FE695AC0047DF29 /* TBInvertableButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TBInvertableButton.m; sourceTree = "<group>"; };
+		9457DAB61FE695AC0047DF29 /* TBInvertableButton_iOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBInvertableButton_iOS.h; sourceTree = "<group>"; };
+		9457DAB71FE695AC0047DF29 /* TBInvertableButton_iOS.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TBInvertableButton_iOS.m; sourceTree = "<group>"; };
 		9457DABA1FE6AAEA0047DF29 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.2.sdk/System/Library/Frameworks/CoreImage.framework; sourceTree = DEVELOPER_DIR; };
 		9457DABC1FE6AAF50047DF29 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.2.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		9457DABE1FE6AB0F0047DF29 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.2.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
@@ -671,6 +673,8 @@
 		94C2DA6F200D147C001B95B8 /* TBChipTableCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBChipTableCellView.h; path = TBMac/TBChipTableCellView.h; sourceTree = "<group>"; };
 		94C2DA7A200D1B01001B95B8 /* NSImage+CGImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSImage+CGImage.h"; sourceTree = "<group>"; };
 		94C2DA7B200D1B01001B95B8 /* NSImage+CGImage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSImage+CGImage.m"; sourceTree = "<group>"; };
+		94C2DA82200D2AE7001B95B8 /* TBInvertableButton_macOS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBInvertableButton_macOS.m; sourceTree = "<group>"; };
+		94C2DA83200D2AE7001B95B8 /* TBInvertableButton_macOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBInvertableButton_macOS.h; sourceTree = "<group>"; };
 		94CDDD1A1FE1826C008ADF24 /* TBChipTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBChipTableViewCell.h; sourceTree = "<group>"; };
 		94CDDD1B1FE1826C008ADF24 /* TBChipTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TBChipTableViewCell.m; sourceTree = "<group>"; };
 		94CDDD1C1FE1826C008ADF24 /* TBChipTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TBChipTableViewCell.xib; sourceTree = "<group>"; };
@@ -1088,8 +1092,10 @@
 				94C2DA64200D0D33001B95B8 /* TBGraphics.m */,
 				9457DAB21FE6934C0047DF29 /* TBImage+Inverted.h */,
 				9457DAB31FE6934C0047DF29 /* TBImage+Inverted.m */,
-				9457DAB61FE695AC0047DF29 /* TBInvertableButton.h */,
-				9457DAB71FE695AC0047DF29 /* TBInvertableButton.m */,
+				94C2DA83200D2AE7001B95B8 /* TBInvertableButton_macOS.h */,
+				94C2DA82200D2AE7001B95B8 /* TBInvertableButton_macOS.m */,
+				9457DAB61FE695AC0047DF29 /* TBInvertableButton_iOS.h */,
+				9457DAB71FE695AC0047DF29 /* TBInvertableButton_iOS.m */,
 				9457DAC61FE6B1520047DF29 /* TBInvertableImageView.h */,
 				9457DAC71FE6B1520047DF29 /* TBInvertableImageView.m */,
 				94647186200CAA9C00556467 /* TBInvertImage.h */,
@@ -1731,6 +1737,7 @@
 				943B00D21B3F429500CE55D4 /* json.cpp in Sources */,
 				94FDEAEF1B5AE2D60026B25D /* NSObject+FBKVOController.m in Sources */,
 				94C2DA62200D0C62001B95B8 /* TBEllipseView.m in Sources */,
+				94C2DA85200D2AE7001B95B8 /* TBInvertableButton_macOS.m in Sources */,
 				943B00D11B3F429500CE55D4 /* gameinfo.cpp in Sources */,
 				ADE299B01B7B9BCA00F1393B /* TBSound.m in Sources */,
 				94D04ED71B7C6A5B004F4245 /* TBCurrencyNumberFormatter.m in Sources */,
@@ -1789,7 +1796,7 @@
 				94CDDD1E1FE1826C008ADF24 /* TBChipTableViewCell.m in Sources */,
 				ADD73D2B1B9692E1006824A1 /* NSDictionary+Changed.m in Sources */,
 				94CDDD361FE3B349008ADF24 /* TBColor+ContrastTextColor.m in Sources */,
-				9457DAB91FE695AC0047DF29 /* TBInvertableButton.m in Sources */,
+				9457DAB91FE695AC0047DF29 /* TBInvertableButton_iOS.m in Sources */,
 				9462A3E91B77CB3B00B29002 /* TTTOrdinalNumberFormatter.m in Sources */,
 				ADE299B11B7B9BCB00F1393B /* TBSound.m in Sources */,
 				9476F4691B3C385400A158F8 /* TBAppDelegate.m in Sources */,
@@ -1903,6 +1910,7 @@
 				AD98D9741A7B343600DA6B8B /* TBSeatingViewController.m in Sources */,
 				94FDEADC1B5AE2560026B25D /* TBColor+CSS.m in Sources */,
 				9471B3F61FF8ED73000A314C /* TBViewerViewController.m in Sources */,
+				94C2DA84200D2AE7001B95B8 /* TBInvertableButton_macOS.m in Sources */,
 				9462A3E71B77CB3B00B29002 /* TTTOrdinalNumberFormatter.m in Sources */,
 				94FDEAEE1B5AE2D60026B25D /* NSObject+FBKVOController.m in Sources */,
 				94D7290C200342EB009EC463 /* TBSetupTabViewController.m in Sources */,
@@ -1983,7 +1991,7 @@
 				ADD2CC511BB3CD3200DE3DE5 /* TBSetupRoundsViewController.m in Sources */,
 				ADF635F21BAB8AF800D019AE /* TBEllipseView.m in Sources */,
 				ADF635F31BAB8AF800D019AE /* TBRemoteClockViewController.m in Sources */,
-				9457DAB81FE695AC0047DF29 /* TBInvertableButton.m in Sources */,
+				9457DAB81FE695AC0047DF29 /* TBInvertableButton_iOS.m in Sources */,
 				AD6256F61BB4525A00EE776A /* TBAuthCodeNumberFormatter.m in Sources */,
 				ADF635F51BAB8AF800D019AE /* TournamentSession.m in Sources */,
 				94C2DA67200D0D33001B95B8 /* TBGraphics.m in Sources */,

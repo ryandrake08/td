@@ -17,13 +17,11 @@
 
 @implementation TBInvertableImageView
 
-- (TBImage*)originalImage {
-    if(_originalImage == nil) {
-        // first time lookup: assume existing image is original
-        [self setOriginalImage:[self image]];
+- (instancetype)initWithCoder:(NSCoder *)coder {
+    if(self = [super initWithCoder:coder]) {
+        _originalImage = [self image];
     }
-
-    return _originalImage;
+    return self;
 }
 
 - (BOOL)imageInverted {
@@ -31,16 +29,10 @@
 }
 
 - (void)setImageInverted:(BOOL)inverted {
-    // get original image
-    TBImage* original = [self originalImage];
-    if(original == nil) {
-        NSLog(@"TBInvertableImageView: Original image is nil");
-    }
-
     if(inverted) {
-        [self setImage:[original invertedImage]];
+        [self setImage:[[self originalImage] invertedImage]];
     } else {
-        [self setImage:original];
+        [self setImage:[self originalImage]];
     }
 }
 

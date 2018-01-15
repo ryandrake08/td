@@ -13,6 +13,7 @@
 #import "TBColor+ContrastTextColor.h"
 #import "TBColor+CSS.h"
 #import "TBCurrencyNumberFormatter.h"
+#import "TBInvertableButton_macOS.h"
 #import "TBNotifications.h"
 #import "TBSound.h"
 #import "TournamentSession.h"
@@ -24,10 +25,10 @@
 
 // UI Outlets
 @property (weak) IBOutlet NSImageView* backgroundImageView;
-@property (weak) IBOutlet NSButton* previousRoundButton;
-@property (weak) IBOutlet NSButton* pauseResumeButton;
-@property (weak) IBOutlet NSButton* nextRoundButton;
-@property (weak) IBOutlet NSButton* callClockButton;
+@property (weak) IBOutlet TBInvertableButton* previousRoundButton;
+@property (weak) IBOutlet TBInvertableButton* pauseResumeButton;
+@property (weak) IBOutlet TBInvertableButton* nextRoundButton;
+@property (weak) IBOutlet TBInvertableButton* callClockButton;
 @property (weak) IBOutlet NSTableView* chipsTableView;
 @property (weak) IBOutlet NSTableView* resultsTableView;
 
@@ -64,6 +65,16 @@
     _breakSound = [[TBSound alloc] initWithResource:@"s_break" extension:@"caf"];
     _warningSound = [[TBSound alloc] initWithResource:@"s_warning" extension:@"caf"];
     _rebalanceSound = [[TBSound alloc] initWithResource:@"s_rebalance" extension:@"caf"];
+
+    // bind button state
+    [[self previousRoundButton] bind:@"imageInverted" toObject:self withKeyPath:@"backgroundIsDark" options:nil];
+    [[self previousRoundButton] bind:@"alternateImageInverted" toObject:self withKeyPath:@"backgroundIsDark" options:nil];
+    [[self pauseResumeButton] bind:@"imageInverted" toObject:self withKeyPath:@"backgroundIsDark" options:nil];
+    [[self pauseResumeButton] bind:@"alternateImageInverted" toObject:self withKeyPath:@"backgroundIsDark" options:nil];
+    [[self nextRoundButton] bind:@"imageInverted" toObject:self withKeyPath:@"backgroundIsDark" options:nil];
+    [[self nextRoundButton] bind:@"alternateImageInverted" toObject:self withKeyPath:@"backgroundIsDark" options:nil];
+    [[self callClockButton] bind:@"imageInverted" toObject:self withKeyPath:@"backgroundIsDark" options:nil];
+    [[self callClockButton] bind:@"alternateImageInverted" toObject:self withKeyPath:@"backgroundIsDark" options:nil];
 
     // update buttons when authorization, connected, or current_blinc_level changes
     [[self KVOController] observe:self keyPaths:@[@"session.state.connected", @"session.state.authorized"] options:NSKeyValueObservingOptionInitial block:^(id observer, TBViewerViewController* object, NSDictionary *change) {
@@ -135,17 +146,6 @@
             // store background mode
             BOOL dark = [color isDark];
             [self setBackgroundIsDark:dark];
-
-#if 0
-            [[self previousRoundButton] setImageInverted:dark forState:UIControlStateNormal];
-            [[self previousRoundButton] setImageInverted:dark forState:UIControlStateHighlighted];
-            [[self pauseResumeButton] setImageInverted:dark forState:UIControlStateNormal];
-            [[self pauseResumeButton] setImageInverted:dark forState:UIControlStateHighlighted];
-            [[self nextRoundButton] setImageInverted:dark forState:UIControlStateNormal];
-            [[self nextRoundButton] setImageInverted:dark forState:UIControlStateHighlighted];
-            [[self callClockButton] setImageInverted:dark forState:UIControlStateNormal];
-            [[self callClockButton] setImageInverted:dark forState:UIControlStateHighlighted];
-#endif
         }
     }];
 

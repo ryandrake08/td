@@ -6,9 +6,9 @@
 //  Copyright © 2017 HDna Studio. All rights reserved.
 //
 
-#import "TBCommon.h"
+#import <UIKit/UIKit.h>
 
-@interface TBInvertableButton : TBButton
+@interface TBInvertableButton : UIButton
 
 - (void)setImageInverted:(BOOL)inverted forState:(UIControlState)state;
 
