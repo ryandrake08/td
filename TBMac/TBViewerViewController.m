@@ -9,6 +9,8 @@
 #import "TBViewerViewController.h"
 #import "NSObject+FBKVOController.h"
 #import "TBActionClockViewController.h"
+#import "TBColor+ContrastTextColor.h"
+#import "TBColor+CSS.h"
 #import "TBCurrencyNumberFormatter.h"
 #import "TBNotifications.h"
 #import "TBSound.h"
@@ -27,6 +29,8 @@
 @property (weak) IBOutlet NSButton* callClockButton;
 @property (weak) IBOutlet NSTableView* chipsTableView;
 @property (weak) IBOutlet NSTableView* resultsTableView;
+
+@property (strong) TBColor* textColor;
 
 // Sounds
 @property (nonatomic, strong) TBSound* startSound;
@@ -48,6 +52,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    // alloc colors
+    _textColor = [TBColor labelColor];
+    
     // alloc sounds
     _startSound = [[TBSound alloc] initWithResource:@"s_start" extension:@"caf"];
     _nextSound = [[TBSound alloc] initWithResource:@"s_next" extension:@"caf"];
@@ -109,6 +116,31 @@
                 // time crosses kAudioWarningTime
                 [[self warningSound] play];
             }
+        }
+    }];
+
+    [[self KVOController] observe:self keyPath:@"session.state.background_color" options:NSKeyValueObservingOptionInitial block:^(id observer, TBViewerViewController* object, NSDictionary *change) {
+        // Set the background color on the view
+        NSString* backgroundColorName = [[object session] state][@"background_color"];
+        if(backgroundColorName != nil) {
+            TBColor* color = [TBColor colorWithName:backgroundColorName];
+            [[object view] setBackgroundColor:color];
+
+            // All text fields in view are bound to this color. Set once, set for all
+            [object setTextColor:[color contrastTextColor]];
+
+            // Invert button images if dark
+            BOOL dark = [color isDark];
+#if 0
+            [[self previousRoundButton] setImageInverted:dark forState:UIControlStateNormal];
+            [[self previousRoundButton] setImageInverted:dark forState:UIControlStateHighlighted];
+            [[self pauseResumeButton] setImageInverted:dark forState:UIControlStateNormal];
+            [[self pauseResumeButton] setImageInverted:dark forState:UIControlStateHighlighted];
+            [[self nextRoundButton] setImageInverted:dark forState:UIControlStateNormal];
+            [[self nextRoundButton] setImageInverted:dark forState:UIControlStateHighlighted];
+            [[self callClockButton] setImageInverted:dark forState:UIControlStateNormal];
+            [[self callClockButton] setImageInverted:dark forState:UIControlStateHighlighted];
+#endif
         }
     }];
 

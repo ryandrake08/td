@@ -163,6 +163,7 @@
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <binding destination="qiy-ws-jFz" name="value" keyPath="self.session.state.name" id="CQ0-QO-FZc"/>
+                                            <binding destination="qiy-ws-jFz" name="textColor" keyPath="self.textColor" id="XLf-iY-qeG"/>
                                         </connections>
                                     </textField>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Onu-GA-eoi" customClass="TBResizeTextField">
@@ -180,6 +181,7 @@
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <binding destination="qiy-ws-jFz" name="value" keyPath="self.session.state.buyin_text" id="Rhr-lh-B32"/>
+                                            <binding destination="qiy-ws-jFz" name="textColor" keyPath="self.textColor" id="SBR-xd-fTq"/>
                                         </connections>
                                     </textField>
                                 </subviews>
@@ -253,6 +255,7 @@
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <binding destination="qiy-ws-jFz" name="value" keyPath="self.session.state.clock_text" id="LAS-rQ-ecc"/>
+                                            <binding destination="qiy-ws-jFz" name="textColor" keyPath="self.textColor" id="52j-PI-dLL"/>
                                         </connections>
                                     </textField>
                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lhU-dh-9MI" customClass="TBResizeTextField">
@@ -268,6 +271,9 @@
                                                 <real key="value" value="24"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <binding destination="qiy-ws-jFz" name="textColor" keyPath="self.textColor" id="lyg-JK-kBZ"/>
+                                        </connections>
                                     </textField>
                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="m0u-w9-hKF" customClass="TBResizeTextField">
                                         <rect key="frame" x="-2" y="320" width="516" height="64"/>
@@ -284,6 +290,7 @@
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <binding destination="qiy-ws-jFz" name="value" keyPath="self.session.state.current_game_text" id="MsE-Ug-5hq"/>
+                                            <binding destination="qiy-ws-jFz" name="textColor" keyPath="self.textColor" id="KAA-kd-Idx"/>
                                         </connections>
                                     </textField>
                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LB3-cc-sGj" customClass="TBResizeTextField">
@@ -301,6 +308,7 @@
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <binding destination="qiy-ws-jFz" name="value" keyPath="self.session.state.current_round_text" id="FcU-if-hnj"/>
+                                            <binding destination="qiy-ws-jFz" name="textColor" keyPath="self.textColor" id="R1o-BH-EiR"/>
                                         </connections>
                                     </textField>
                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="h0w-xz-gzK" customClass="TBResizeTextField">
@@ -316,6 +324,9 @@
                                                 <real key="value" value="24"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <binding destination="qiy-ws-jFz" name="textColor" keyPath="self.textColor" id="3xO-Qp-tFN"/>
+                                        </connections>
                                     </textField>
                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hK2-8o-tob" customClass="TBResizeTextField">
                                         <rect key="frame" x="-2" y="96" width="516" height="32"/>
@@ -332,6 +343,7 @@
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <binding destination="qiy-ws-jFz" name="value" keyPath="self.session.state.next_game_text" id="UiI-RC-cuJ"/>
+                                            <binding destination="qiy-ws-jFz" name="textColor" keyPath="self.textColor" id="q7O-AC-UBH"/>
                                         </connections>
                                     </textField>
                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lYy-03-j6f" customClass="TBResizeTextField">
@@ -349,6 +361,7 @@
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <binding destination="qiy-ws-jFz" name="value" keyPath="self.session.state.next_round_text" id="Umq-L2-yOg"/>
+                                            <binding destination="qiy-ws-jFz" name="textColor" keyPath="self.textColor" id="4gP-be-xs1"/>
                                         </connections>
                                     </textField>
                                 </subviews>
@@ -402,6 +415,7 @@
                                                                     </textFieldCell>
                                                                     <connections>
                                                                         <binding destination="1jm-Wo-cPD" name="value" keyPath="objectValue.denomination" id="uV9-dx-k0C"/>
+                                                                        <binding destination="qiy-ws-jFz" name="textColor" keyPath="self.textColor" id="PI7-hU-hDJ"/>
                                                                     </connections>
                                                                 </textField>
                                                             </subviews>
@@ -470,6 +484,7 @@
                                                                     </textFieldCell>
                                                                     <connections>
                                                                         <binding destination="5xM-ud-r4f" name="value" keyPath="objectValue.place" id="NqH-5h-Swe"/>
+                                                                        <binding destination="qiy-ws-jFz" name="textColor" keyPath="self.textColor" id="ocI-71-3eg"/>
                                                                     </connections>
                                                                 </textField>
                                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dJ7-QL-wNF">
@@ -480,6 +495,9 @@
                                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
+                                                                    <connections>
+                                                                        <binding destination="qiy-ws-jFz" name="textColor" keyPath="self.textColor" id="OYh-7T-Cpn"/>
+                                                                    </connections>
                                                                 </textField>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gfD-It-BPt" userLabel="Player" customClass="TBResizeTextField">
                                                                     <rect key="frame" x="88" y="64" width="167" height="32"/>
@@ -496,6 +514,7 @@
                                                                     </userDefinedRuntimeAttributes>
                                                                     <connections>
                                                                         <binding destination="5xM-ud-r4f" name="value" keyPath="objectValue.name" id="r09-uD-rj1"/>
+                                                                        <binding destination="qiy-ws-jFz" name="textColor" keyPath="self.textColor" id="eq3-iJ-V5s"/>
                                                                     </connections>
                                                                 </textField>
                                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ite-mU-TrB" userLabel="Payout" customClass="TBResizeTextField">
@@ -511,6 +530,7 @@
                                                                     </textFieldCell>
                                                                     <connections>
                                                                         <binding destination="5xM-ud-r4f" name="value" keyPath="objectValue.payout" id="DR4-GQ-Fqb"/>
+                                                                        <binding destination="qiy-ws-jFz" name="textColor" keyPath="self.textColor" id="7Za-PY-L8b"/>
                                                                     </connections>
                                                                 </textField>
                                                                 <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="ogx-nJ-RX5">
@@ -553,6 +573,9 @@
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
+                                        <connections>
+                                            <binding destination="qiy-ws-jFz" name="textColor" keyPath="self.textColor" id="JC8-Ru-zA3"/>
+                                        </connections>
                                     </textField>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8Ho-qG-zZk" customClass="TBResizeTextField">
                                         <rect key="frame" x="0.0" y="356" width="256" height="47"/>
@@ -569,6 +592,7 @@
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <binding destination="qiy-ws-jFz" name="value" keyPath="self.session.state.current_round_number_text" id="NXJ-s4-liU"/>
+                                            <binding destination="qiy-ws-jFz" name="textColor" keyPath="self.textColor" id="MOp-hW-CXh"/>
                                         </connections>
                                     </textField>
                                     <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="x1a-EF-VWU">
@@ -583,6 +607,9 @@
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
+                                        <connections>
+                                            <binding destination="qiy-ws-jFz" name="textColor" keyPath="self.textColor" id="C7x-cq-L4W"/>
+                                        </connections>
                                     </textField>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GnT-bP-qSM" customClass="TBResizeTextField">
                                         <rect key="frame" x="0.0" y="269" width="256" height="57"/>
@@ -599,6 +626,7 @@
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <binding destination="qiy-ws-jFz" name="value" keyPath="self.session.state.players_left_text" id="iIb-s5-djM"/>
+                                            <binding destination="qiy-ws-jFz" name="textColor" keyPath="self.textColor" id="gSD-Aw-3hV"/>
                                         </connections>
                                     </textField>
                                     <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="NuA-2X-ou7">
@@ -613,6 +641,9 @@
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
+                                        <connections>
+                                            <binding destination="qiy-ws-jFz" name="textColor" keyPath="self.textColor" id="PS2-yA-r7J"/>
+                                        </connections>
                                     </textField>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="91A-Ek-BI7" customClass="TBResizeTextField">
                                         <rect key="frame" x="0.0" y="182" width="256" height="57"/>
@@ -629,10 +660,11 @@
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <binding destination="qiy-ws-jFz" name="value" keyPath="self.session.state.entries_text" id="q2e-pY-Q4D"/>
+                                            <binding destination="qiy-ws-jFz" name="textColor" keyPath="self.textColor" id="CNk-4Y-btE"/>
                                         </connections>
                                     </textField>
                                     <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="Orm-b5-ZcG">
-                                        <rect key="frame" x="0.0" y="173" width="256" height="4"/>
+                                        <rect key="frame" x="0.0" y="173" width="256" height="5"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                     </box>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d6h-6d-1QM" customClass="TBResizeTextField">
@@ -643,6 +675,9 @@
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
+                                        <connections>
+                                            <binding destination="qiy-ws-jFz" name="textColor" keyPath="self.textColor" id="m8u-e5-vUc"/>
+                                        </connections>
                                     </textField>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nEu-33-x3C" customClass="TBResizeTextField">
                                         <rect key="frame" x="0.0" y="95" width="256" height="57"/>
@@ -659,6 +694,7 @@
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <binding destination="qiy-ws-jFz" name="value" keyPath="self.session.state.average_stack_text" id="7LA-qG-2Wi"/>
+                                            <binding destination="qiy-ws-jFz" name="textColor" keyPath="self.textColor" id="bod-fL-Oej"/>
                                         </connections>
                                     </textField>
                                     <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="4y3-JK-waU">
@@ -673,6 +709,9 @@
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
+                                        <connections>
+                                            <binding destination="qiy-ws-jFz" name="textColor" keyPath="self.textColor" id="uII-Rh-379"/>
+                                        </connections>
                                     </textField>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZW2-fv-JKQ" customClass="TBResizeTextField">
                                         <rect key="frame" x="0.0" y="8" width="256" height="57"/>
@@ -689,6 +728,7 @@
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <binding destination="qiy-ws-jFz" name="value" keyPath="self.session.state.elapsed_time_text" id="peU-Jt-rTK"/>
+                                            <binding destination="qiy-ws-jFz" name="textColor" keyPath="self.textColor" id="U3U-ky-LHl"/>
                                         </connections>
                                     </textField>
                                     <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="CBh-AQ-g0Z">
