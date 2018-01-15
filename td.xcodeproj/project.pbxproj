@@ -161,6 +161,10 @@
 		94C2DA75200D184D001B95B8 /* TBImage+Inverted.m in Sources */ = {isa = PBXBuildFile; fileRef = 9457DAB31FE6934C0047DF29 /* TBImage+Inverted.m */; };
 		94C2DA7C200D1B01001B95B8 /* NSImage+CGImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 94C2DA7B200D1B01001B95B8 /* NSImage+CGImage.m */; };
 		94C2DA7D200D1B01001B95B8 /* NSImage+CGImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 94C2DA7B200D1B01001B95B8 /* NSImage+CGImage.m */; };
+		94C2DA7E200D27CD001B95B8 /* s_break.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04EC81B7C59EB004F4245 /* s_break.caf */; };
+		94C2DA7F200D27CD001B95B8 /* s_next.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04EC91B7C59EB004F4245 /* s_next.caf */; };
+		94C2DA80200D27D7001B95B8 /* s_break.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04EC81B7C59EB004F4245 /* s_break.caf */; };
+		94C2DA81200D27D7001B95B8 /* s_next.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04EC91B7C59EB004F4245 /* s_next.caf */; };
 		94CDDD1D1FE1826C008ADF24 /* TBChipTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CDDD1B1FE1826C008ADF24 /* TBChipTableViewCell.m */; };
 		94CDDD1E1FE1826C008ADF24 /* TBChipTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CDDD1B1FE1826C008ADF24 /* TBChipTableViewCell.m */; };
 		94CDDD1F1FE1826C008ADF24 /* TBChipTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94CDDD1C1FE1826C008ADF24 /* TBChipTableViewCell.xib */; };
@@ -1608,6 +1612,8 @@
 				9476F46C1B3C385400A158F8 /* Main.storyboard in Resources */,
 				9476F46E1B3C385400A158F8 /* LaunchScreen.xib in Resources */,
 				AD33BA431BABAD6B0011777C /* defaults.json in Resources */,
+				94C2DA80200D27D7001B95B8 /* s_break.caf in Resources */,
+				94C2DA81200D27D7001B95B8 /* s_next.caf in Resources */,
 				ADA5DAC01B949CB1004F50C8 /* s_warning.caf in Resources */,
 				94CDDD201FE1826C008ADF24 /* TBChipTableViewCell.xib in Resources */,
 			);
@@ -1680,6 +1686,8 @@
 				ADF6360F1BAB8AF800D019AE /* Main.storyboard in Resources */,
 				ADF636111BAB8AF800D019AE /* LaunchScreen.xib in Resources */,
 				AD33BA421BABAC120011777C /* defaults.json in Resources */,
+				94C2DA7E200D27CD001B95B8 /* s_break.caf in Resources */,
+				94C2DA7F200D27CD001B95B8 /* s_next.caf in Resources */,
 				ADF636101BAB8AF800D019AE /* s_warning.caf in Resources */,
 				94CDDD1F1FE1826C008ADF24 /* TBChipTableViewCell.xib in Resources */,
 			);
