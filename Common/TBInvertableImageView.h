@@ -6,10 +6,10 @@
 //  Copyright © 2017 HDna Studio. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "TBCommon.h"
 
-@interface TBInvertableImageView : UIImageView
+@interface TBInvertableImageView : TBImageView
 
-- (void)setImageInverted:(BOOL)inverted;
+@property (assign) BOOL imageInverted;
 
 @end

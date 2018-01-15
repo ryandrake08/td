@@ -9,6 +9,7 @@
 #import "TBViewerViewController.h"
 #import "NSObject+FBKVOController.h"
 #import "TBActionClockViewController.h"
+#import "TBChipTableCellView.h"
 #import "TBColor+ContrastTextColor.h"
 #import "TBColor+CSS.h"
 #import "TBCurrencyNumberFormatter.h"
@@ -30,7 +31,9 @@
 @property (weak) IBOutlet NSTableView* chipsTableView;
 @property (weak) IBOutlet NSTableView* resultsTableView;
 
+// Background color
 @property (strong) TBColor* textColor;
+@property (assign) BOOL backgroundIsDark;
 
 // Sounds
 @property (nonatomic, strong) TBSound* startSound;
@@ -129,8 +132,10 @@
             // All text fields in view are bound to this color. Set once, set for all
             [object setTextColor:[color contrastTextColor]];
 
-            // Invert button images if dark
+            // store background mode
             BOOL dark = [color isDark];
+            [self setBackgroundIsDark:dark];
+
 #if 0
             [[self previousRoundButton] setImageInverted:dark forState:UIControlStateNormal];
             [[self previousRoundButton] setImageInverted:dark forState:UIControlStateHighlighted];
@@ -182,7 +187,9 @@
         NSDictionary* object = [[[self resultsArrayController] arrangedObjects] objectAtIndex:rowIndex];
         [[[result textField] formatter] setCurrencyCode:object[@"payout_currency"]];
     } else if([[aTableColumn identifier] isEqualToString:@"Chip"]) {
-        [[result imageView] bind:@"color" toObject:result withKeyPath:@"objectValue.color" options:@{NSValueTransformerNameBindingOption:@"TBColorValueTransformer"}];
+        TBChipTableCellView* chipTableCellView = (TBChipTableCellView*)result;
+        [[chipTableCellView colorEllipseView] bind:@"color" toObject:chipTableCellView withKeyPath:@"objectValue.color" options:@{NSValueTransformerNameBindingOption:@"TBColorValueTransformer"}];
+        [[chipTableCellView backgroundImageView] bind:@"imageInverted" toObject:self withKeyPath:@"backgroundIsDark" options:nil];
     } else {
         NSLog(@"viewForTableColumn: %@", [aTableColumn identifier]);
     }

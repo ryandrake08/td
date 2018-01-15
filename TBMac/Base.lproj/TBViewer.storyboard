@@ -393,18 +393,22 @@
                                                     </textFieldCell>
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
-                                                        <tableCellView id="1jm-Wo-cPD">
+                                                        <tableCellView id="1jm-Wo-cPD" customClass="TBChipTableCellView">
                                                             <rect key="frame" x="1" y="1" width="253" height="64"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
-                                                                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uqc-Ny-CaB" customClass="TBEllipseImageView">
+                                                                <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mOU-hh-Qbc" customClass="TBEllipseView">
                                                                     <rect key="frame" x="0.0" y="0.0" width="64" height="64"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="i_chip" id="NhU-tf-wnh"/>
+                                                                </customView>
+                                                                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7Hx-9H-lMy" customClass="TBInvertableImageView">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="64" height="64"/>
+                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="i_chip" id="DGa-8E-8tF"/>
                                                                 </imageView>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2Cg-N1-D7A">
                                                                     <rect key="frame" x="70" y="3" width="185" height="58"/>
-                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="100,000" id="5Tj-UP-VAR">
                                                                         <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="xUO-q6-Hn8">
                                                                             <real key="minimum" value="0.0"/>
@@ -420,7 +424,8 @@
                                                                 </textField>
                                                             </subviews>
                                                             <connections>
-                                                                <outlet property="imageView" destination="uqc-Ny-CaB" id="N9X-3R-A7z"/>
+                                                                <outlet property="backgroundImageView" destination="7Hx-9H-lMy" id="REK-Aa-DoB"/>
+                                                                <outlet property="colorEllipseView" destination="mOU-hh-Qbc" id="3pD-uN-xSg"/>
                                                                 <outlet property="textField" destination="2Cg-N1-D7A" id="w5J-Cx-2yI"/>
                                                             </connections>
                                                         </tableCellView>

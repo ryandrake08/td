@@ -6,11 +6,11 @@
 //  Copyright © 2015 HDna Studio. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "TBCommon.h"
 
-@interface TBEllipseView : UIView
+@interface TBEllipseView : TBView
 
 // Ellipse color
-@property (nonatomic, strong) IBInspectable UIColor* color;
+@property (nonatomic, strong) IBInspectable TBColor* color;
 
 @end

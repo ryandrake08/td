@@ -34,6 +34,8 @@
 @property (nonatomic, weak) IBOutlet TBInvertableButton* nextRoundButton;
 @property (nonatomic, weak) IBOutlet TBInvertableButton* callClockButton;
 
+@property (nonatomic, assign) BOOL backgroundIsDark;
+
 @end
 
 @implementation TBRemoteClockViewController
@@ -43,6 +45,9 @@
 
     // get model
     _session = [(TBAppDelegate*)[[UIApplication sharedApplication] delegate] session];
+
+    // set background dark mode
+    _backgroundIsDark = NO;
 
     // register for KVO
     [[[self tableView] KVOController] observe:self keyPath:@"session.state.available_chips" options:0 action:@selector(reloadData)];
@@ -111,8 +116,11 @@
                 [[UILabel appearanceWhenContainedInInstancesOfClasses:@[[TBRemoteClockViewController class]]] setTextColor:[color contrastTextColor]];
             }
 
-            // Invert button images if dark
+            // store background mode
             BOOL dark = [color isDark];
+            [self setBackgroundIsDark:dark];
+
+            // Invert button images if dark
             [[self previousRoundButton] setImageInverted:dark forState:UIControlStateNormal];
             [[self previousRoundButton] setImageInverted:dark forState:UIControlStateHighlighted];
             [[self pauseResumeButton] setImageInverted:dark forState:UIControlStateNormal];
@@ -121,6 +129,9 @@
             [[self nextRoundButton] setImageInverted:dark forState:UIControlStateHighlighted];
             [[self callClockButton] setImageInverted:dark forState:UIControlStateNormal];
             [[self callClockButton] setImageInverted:dark forState:UIControlStateHighlighted];
+
+            // reload chip table view to invert images
+            [[self tableView] reloadData];
         }
     }];
 
@@ -200,12 +211,13 @@
     } else if([indexPath section] == 1) {
         // relevent state
         NSArray* availableChips = [[self session] state][@"available_chips"];
-        //NSString* backgroundColorName = [[self session] state][@"background_color"];
-        //TBColor* color = [TBColor colorWithName:backgroundColorName];
+        NSDictionary* chip = availableChips[indexPath.row];
 
         // create a cell
         TBChipTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"ChipCell" forIndexPath:indexPath];
-        [cell setChip:availableChips[indexPath.row] withInvertedImage:NO];
+        [[cell colorEllipseView] setColor:[TBColor colorWithName:chip[@"color"]]];
+        [[cell backgroundImageView] setImageInverted:[self backgroundIsDark]];
+        [[cell valueLabel] setText:[chip[@"denomination"] stringValue]];
         return cell;
     } else {
         return nil;

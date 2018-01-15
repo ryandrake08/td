@@ -8,14 +8,7 @@
 //
 
 #import "TBActionClockView.h"
-
-static CGContextRef TBGraphicsGetCurrentContext() {
-#if TARGET_OS_IPHONE
-    return UIGraphicsGetCurrentContext();
-#else
-    return [[NSGraphicsContext currentContext] graphicsPort];
-#endif
-}
+#import "TBGraphics.h"
 
 @interface TBActionClockView () {
     double _handRadians;

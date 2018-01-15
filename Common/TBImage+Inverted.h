@@ -1,15 +1,15 @@
 //
-//  UIImage+Inverted.h
+//  TBImage+Inverted.h
 //  td
 //
 //  Created by Ryan Drake on 12/17/17.
 //  Copyright © 2017 HDna Studio. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "TBCommon.h"
 
-@interface UIImage (Inverted)
+@interface TBImage (Inverted)
 
-- (UIImage*)invertedImage;
+- (TBImage*)invertedImage;
 
 @end

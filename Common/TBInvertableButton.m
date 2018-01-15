@@ -7,7 +7,7 @@
 //
 
 #import "TBInvertableButton.h"
-#import "UIImage+Inverted.h"
+#import "TBImage+Inverted.h"
 
 @interface TBInvertableButton ()
 
@@ -17,14 +17,14 @@
 
 @implementation TBInvertableButton
 
-- (UIImage*)originalImageForState:(UIControlState)state {
+- (TBImage*)originalImageForState:(UIControlState)state {
     // lazy initialize cache
     if(_originalImages == nil) {
         _originalImages = [[NSMutableDictionary alloc] init];
     }
 
     // lookup in cache for given state
-    UIImage* image = [[self originalImages] objectForKey:@(state)];
+    TBImage* image = [[self originalImages] objectForKey:@(state)];
     if(image == nil) {
         // first time lookup: assume existing image is original
         image = [self imageForState:state];
@@ -39,7 +39,7 @@
 
 - (void)setImageInverted:(BOOL)inverted forState:(UIControlState)state {
     // get original image
-    UIImage* original = [self originalImageForState:state];
+    TBImage* original = [self originalImageForState:state];
     if(original == nil) {
         NSLog(@"TBInvertableButton: Original image is nil");
     }

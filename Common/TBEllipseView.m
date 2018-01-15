@@ -8,18 +8,18 @@
 
 #import "TBEllipseView.h"
 #import "TBColor+CSS.h"
-#import <CoreGraphics/CoreGraphics.h>
+#import "TBGraphics.h"
 
 @implementation TBEllipseView
 
-- (void)setColor:(UIColor*)color {
+- (void)setColor:(TBColor*)color {
     _color = color;
     [self setNeedsDisplay];
 }
 
 - (void)drawRect:(CGRect)rect {
     // Get graphics context
-    CGContextRef ctx = UIGraphicsGetCurrentContext();
+    CGContextRef ctx = TBGraphicsGetCurrentContext();
 
     // Add colored ellipse
     CGContextAddEllipseInRect(ctx, [self bounds]);

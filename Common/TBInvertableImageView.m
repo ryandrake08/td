@@ -7,17 +7,17 @@
 //
 
 #import "TBInvertableImageView.h"
-#import "UIImage+Inverted.h"
+#import "TBImage+Inverted.h"
 
 @interface TBInvertableImageView ()
 
-@property (nonatomic, strong) UIImage* originalImage;
+@property (nonatomic, strong) TBImage* originalImage;
 
 @end
 
 @implementation TBInvertableImageView
 
-- (UIImage*)originalImage {
+- (TBImage*)originalImage {
     if(_originalImage == nil) {
         // first time lookup: assume existing image is original
         [self setOriginalImage:[self image]];
@@ -26,9 +26,13 @@
     return _originalImage;
 }
 
+- (BOOL)imageInverted {
+    return ![[self image] isEqual:[self originalImage]];
+}
+
 - (void)setImageInverted:(BOOL)inverted {
     // get original image
-    UIImage* original = [self originalImage];
+    TBImage* original = [self originalImage];
     if(original == nil) {
         NSLog(@"TBInvertableImageView: Original image is nil");
     }

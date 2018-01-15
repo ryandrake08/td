@@ -1,18 +1,15 @@
 //
-//  UIImage+Inverted.m
+//  TBInvertImage.c
 //  td
 //
-//  Created by Ryan Drake on 12/17/17.
-//  Copyright © 2017 HDna Studio. All rights reserved.
+//  Created by Ryan Drake on 1/15/18.
+//  Copyright © 2018 HDna Studio. All rights reserved.
 //
 
-#import "UIImage+Inverted.h"
-#import <CoreGraphics/CoreGraphics.h>
-#import <objc/runtime.h>
+#include "TBInvertImage.h"
+#include <stdlib.h>
 
-@implementation UIImage (Inverted)
-
-static CGImageRef TBInvertImage(CGImageRef image)
+CGImageRef TBInvertImage(CGImageRef image)
 {
     // allocate an appropriately sized buffer
     size_t width = CGImageGetWidth(image);
@@ -75,21 +72,3 @@ static CGImageRef TBInvertImage(CGImageRef image)
 
     return returnImage;
 }
-
-- (UIImage*)invertedImage {
-    // lookup inverted image in assosicated object
-    UIImage* result = objc_getAssociatedObject(self, @selector(invertedImage));
-    if(result == nil) {
-        // invert
-        CGImageRef outputImage = TBInvertImage([self CGImage]);
-        result = [UIImage imageWithCGImage:outputImage scale:[self scale] orientation:[self imageOrientation]];
-        CGImageRelease(outputImage);
-
-        // cache in associated object
-        objc_setAssociatedObject(self, @selector(invertedImage), result, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    }
-
-    return result;
-}
-
-@end
