@@ -15,13 +15,16 @@
 #import "TBCurrencyNumberFormatter.h"
 #import "TBInvertableButton_macOS.h"
 #import "TBNotifications.h"
-#import "TBSound.h"
+#import "TBSoundPlayer.h"
 #import "TournamentSession.h"
 
 @interface TBViewerViewController () <NSTableViewDelegate>
 
 // The global shared session
 @property (strong) TournamentSession* session;
+
+// Sound player
+@property (strong) TBSoundPlayer* soundPlayer;
 
 // UI Outlets
 @property (weak) IBOutlet NSImageView* backgroundImageView;
@@ -36,13 +39,6 @@
 @property (strong) TBColor* textColor;
 @property (assign) BOOL backgroundIsDark;
 
-// Sounds
-@property (nonatomic, strong) TBSound* startSound;
-@property (nonatomic, strong) TBSound* nextSound;
-@property (nonatomic, strong) TBSound* breakSound;
-@property (nonatomic, strong) TBSound* warningSound;
-@property (nonatomic, strong) TBSound* rebalanceSound;
-
 // View controllers
 @property (strong) TBActionClockViewController* actionClockViewController;
 
@@ -56,16 +52,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    // alloc sound player
+    _soundPlayer = [[TBSoundPlayer alloc] init];
+
     // alloc colors
     _textColor = [TBColor labelColor];
     
-    // alloc sounds
-    _startSound = [[TBSound alloc] initWithResource:@"s_start" extension:@"caf"];
-    _nextSound = [[TBSound alloc] initWithResource:@"s_next" extension:@"caf"];
-    _breakSound = [[TBSound alloc] initWithResource:@"s_break" extension:@"caf"];
-    _warningSound = [[TBSound alloc] initWithResource:@"s_warning" extension:@"caf"];
-    _rebalanceSound = [[TBSound alloc] initWithResource:@"s_rebalance" extension:@"caf"];
-
     // bind button state
     [[self previousRoundButton] bind:@"imageInverted" toObject:self withKeyPath:@"backgroundIsDark" options:nil];
     [[self previousRoundButton] bind:@"alternateImageInverted" toObject:self withKeyPath:@"backgroundIsDark" options:nil];
@@ -91,46 +83,9 @@
     [[[self chipsTableView] KVOController] observe:self keyPath:@"session.state.available_chips" options:0 action:@selector(reloadData)];
 
     // register for KVO
-    [[self KVOController] observe:self keyPath:@"session.state.current_blind_level" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld block:^(id observer, TBViewerViewController* object, NSDictionary* change) {
-        id old = change[NSKeyValueChangeOldKey];
-        id new = change[NSKeyValueChangeNewKey];
-        if(![old isEqualTo:[NSNull null]] && ![new isEqualTo:[NSNull null]]) {
-            if([old isEqualTo:@0] && ![new isEqualTo:@0]) {
-                // round zero to round non-zero: start
-                [[self startSound] play];
-            } else if(![old isEqualTo:@0] && [new isEqualTo:@0]) {
-                // round non-zero to round zero: restart
-                // no sound
-            } else if (![old isEqualTo:[NSNull null]] && ![old isEqualTo:new]) {
-                // round non-zero to round non-zero: next/prev
-                [[self nextSound] play];
-            }
-        }
-
+    [[self KVOController] observe:self keyPath:@"session.state.current_blind_level" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld block:^(id observer, id object, NSDictionary* change) {
         // update controls
-        [self updateTournamentControls];
-    }];
-
-    [[self KVOController] observe:self keyPath:@"session.state.on_break" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld block:^(id observer, TBViewerViewController* object, NSDictionary* change) {
-        id old = change[NSKeyValueChangeOldKey];
-        id new = change[NSKeyValueChangeNewKey];
-        if(![old isEqualTo:[NSNull null]] && ![new isEqualTo:[NSNull null]]) {
-            if([old isEqualTo:@NO] && [new isEqualTo:@YES]) {
-                // break NO to YES
-                [[self breakSound] play];
-            }
-        }
-    }];
-
-    [[self KVOController] observe:self keyPaths:@[@"session.state.time_remaining",@"session.state.break_time_remaining"] options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld block:^(id observer, TBViewerViewController* object, NSDictionary* change) {
-        id old = change[NSKeyValueChangeOldKey];
-        id new = change[NSKeyValueChangeNewKey];
-        if(![old isEqualTo:[NSNull null]] && ![new isEqualTo:[NSNull null]]) {
-            if([old integerValue] > kAudioWarningTime && [new integerValue] <= kAudioWarningTime && [new integerValue] != 0) {
-                // time crosses kAudioWarningTime
-                [[self warningSound] play];
-            }
-        }
+        [observer updateTournamentControls];
     }];
 
     [[self KVOController] observe:self keyPath:@"session.state.background_color" options:NSKeyValueObservingOptionInitial block:^(id observer, TBViewerViewController* object, NSDictionary *change) {
@@ -147,11 +102,6 @@
             BOOL dark = [color isDark];
             [self setBackgroundIsDark:dark];
         }
-    }];
-
-    // register for movement notification
-    [[NSNotificationCenter defaultCenter] addObserverForName:kMovementsUpdatedNotification object:nil queue:nil usingBlock:^(NSNotification* note) {
-        [[self rebalanceSound] play];
     }];
 
     // set up sort descriptor for results
@@ -174,6 +124,9 @@
 
     // also set for containers
     [[self actionClockViewController] setRepresentedObject:representedObject];
+
+    // also set for sound player
+    [[self soundPlayer] setSession:representedObject];
 }
 
 #pragma mark NSTableViewDelegate

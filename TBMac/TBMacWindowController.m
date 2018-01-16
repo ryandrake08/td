@@ -41,6 +41,13 @@
     NSStoryboard* viewerStoryboard = [NSStoryboard storyboardWithName:@"TBViewer" bundle:[NSBundle mainBundle]];
     [self setViewerWindowController:[viewerStoryboard instantiateInitialController]];
 
+    // register for KVO
+    [[self KVOController] observe:self keyPath:@"document" options:0 block:^(id observer, TBMacWindowController* object, NSDictionary* change) {
+        // setup player view controller
+        id viewerViewController = (TBViewerViewController*)[[object viewerWindowController] contentViewController];
+        [viewerViewController setRepresentedObject:[(TBMacDocument*)[object document] session]];
+    }];
+
     // register for notifications
     [[NSNotificationCenter defaultCenter] addObserverForName:kMovementsUpdatedNotification object:nil queue:nil usingBlock:^(NSNotification* note) {
         // add movements
@@ -96,10 +103,6 @@
         // close viewer window
         [[self viewerWindowController] close];
     } else {
-        // setup player view controller
-        id viewerViewController = (TBViewerViewController*)[[self viewerWindowController] contentViewController];
-        [viewerViewController setRepresentedObject:[(TBMacDocument*)[self document] session]];
-
         // display viewer window as non-modal
         [[self viewerWindowController] showWindow:self];
 

@@ -13,6 +13,7 @@
 #import "TBColor+ContrastTextColor.h"
 #import "TBEllipseView.h"
 #import "TBInvertableButton_iOS.h"
+#import "TBSoundPlayer.h"
 #import "TournamentSession.h"
 
 #import "NSObject+FBKVOController.h"
@@ -21,6 +22,10 @@
 
 @property (nonatomic, strong) TournamentSession* session;
 
+// sound player
+@property (nonatomic, strong) TBSoundPlayer* soundPlayer;
+
+// ui
 @property (nonatomic, weak) IBOutlet UILabel* elapsedLabel;
 @property (nonatomic, weak) IBOutlet UILabel* clockLabel;
 @property (nonatomic, weak) IBOutlet UILabel* currentGameLabel;
@@ -48,6 +53,10 @@
 
     // set background dark mode
     _backgroundIsDark = NO;
+
+    // set sound player
+    _soundPlayer = [[TBSoundPlayer alloc] init];
+    [[self soundPlayer] setSession:[self session]];
 
     // register for KVO
     [[[self tableView] KVOController] observe:self keyPath:@"session.state.available_chips" options:0 action:@selector(reloadData)];
