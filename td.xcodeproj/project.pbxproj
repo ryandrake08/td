@@ -107,7 +107,6 @@
 		9476F46B1B3C385400A158F8 /* TBRemoteClockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F45A1B3C385400A158F8 /* TBRemoteClockViewController.m */; };
 		9476F46C1B3C385400A158F8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9476F45C1B3C385400A158F8 /* Main.storyboard */; };
 		9476F46D1B3C385400A158F8 /* TBRemote.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9476F45D1B3C385400A158F8 /* TBRemote.xcassets */; };
-		9476F46E1B3C385400A158F8 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9476F45F1B3C385400A158F8 /* LaunchScreen.xib */; };
 		9476F4721B3C385400A158F8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4651B3C385400A158F8 /* main.m */; };
 		9476F4A21B3C3EA700A158F8 /* TournamentConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F47D1B3C3EA700A158F8 /* TournamentConnection.m */; };
 		9476F4A31B3C3EA700A158F8 /* TournamentConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F47D1B3C3EA700A158F8 /* TournamentConnection.m */; };
@@ -127,6 +126,8 @@
 		9476F4F81B3C3F8300A158F8 /* types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E91B3C3F8300A158F8 /* types.cpp */; };
 		9476F4FA1B3C403F00A158F8 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9476F4F91B3C403F00A158F8 /* CFNetwork.framework */; };
 		9476F4FD1B3C406400A158F8 /* defaults.json in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9476F4CD1B3C3F8300A158F8 /* defaults.json */; };
+		947D7AA8200D8BD300EAD496 /* TBPhoneLaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 947D7AA7200D8BD300EAD496 /* TBPhoneLaunchScreen.storyboard */; };
+		947D7AAA200D8C8A00EAD496 /* TBRemoteLaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 947D7AA9200D8C8A00EAD496 /* TBRemoteLaunchScreen.storyboard */; };
 		949D70941B3C43DB008D5CD1 /* tournament.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E71B3C3F8300A158F8 /* tournament.cpp */; };
 		949D70951B3C440D008D5CD1 /* datetime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4D31B3C3F8300A158F8 /* datetime.cpp */; };
 		949D70961B3C440D008D5CD1 /* gameinfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4D51B3C3F8300A158F8 /* gameinfo.cpp */; };
@@ -340,7 +341,6 @@
 		ADF636091BAB8AF800D019AE /* TournamentDaemon.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9476F47F1B3C3EA700A158F8 /* TournamentDaemon.mm */; };
 		ADF6360F1BAB8AF800D019AE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9476F45C1B3C385400A158F8 /* Main.storyboard */; };
 		ADF636101BAB8AF800D019AE /* s_warning.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04ECC1B7C59EB004F4245 /* s_warning.caf */; };
-		ADF636111BAB8AF800D019AE /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9476F45F1B3C385400A158F8 /* LaunchScreen.xib */; };
 		ADF636121BAB8AF800D019AE /* TBRemote.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9476F45D1B3C385400A158F8 /* TBRemote.xcassets */; };
 		ADFFFF141BA34394003BAC88 /* TBColor+CSS.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEADB1B5AE2560026B25D /* TBColor+CSS.m */; };
 		ADFFFF151BA34394003BAC88 /* TBColor+CSS.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEADB1B5AE2560026B25D /* TBColor+CSS.m */; };
@@ -623,7 +623,6 @@
 		9476F45A1B3C385400A158F8 /* TBRemoteClockViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBRemoteClockViewController.m; sourceTree = "<group>"; };
 		9476F45B1B3C385400A158F8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9476F45D1B3C385400A158F8 /* TBRemote.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = TBRemote.xcassets; sourceTree = "<group>"; };
-		9476F45E1B3C385400A158F8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		9476F4641B3C385400A158F8 /* TBRemote-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "TBRemote-Info.plist"; sourceTree = "<group>"; };
 		9476F4651B3C385400A158F8 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		9476F4751B3C3D6700A158F8 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -660,6 +659,8 @@
 		9476F4EA1B3C3F8300A158F8 /* types.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = types.hpp; sourceTree = "<group>"; };
 		9476F4F91B3C403F00A158F8 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		9476F4FB1B3C404400A158F8 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		947D7AA7200D8BD300EAD496 /* TBPhoneLaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TBPhoneLaunchScreen.storyboard; sourceTree = "<group>"; };
+		947D7AA9200D8C8A00EAD496 /* TBRemoteLaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TBRemoteLaunchScreen.storyboard; sourceTree = "<group>"; };
 		94A4C3681D6A40BD00342E13 /* outputdebugstringbuf.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = outputdebugstringbuf.hpp; sourceTree = "<group>"; };
 		94B30DE420020AFF0037192E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/TBMac.storyboard; sourceTree = "<group>"; };
 		94B30DE6200217710037192E /* TBMacViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TBMacViewController.h; path = TBMac/TBMacViewController.h; sourceTree = "<group>"; };
@@ -979,7 +980,8 @@
 				9476F4571B3C385400A158F8 /* TBTournamentsViewController.h */,
 				9476F4581B3C385400A158F8 /* TBTournamentsViewController.m */,
 				9476F45C1B3C385400A158F8 /* Main.storyboard */,
-				9476F45F1B3C385400A158F8 /* LaunchScreen.xib */,
+				947D7AA7200D8BD300EAD496 /* TBPhoneLaunchScreen.storyboard */,
+				947D7AA9200D8C8A00EAD496 /* TBRemoteLaunchScreen.storyboard */,
 				9476F45D1B3C385400A158F8 /* TBRemote.xcassets */,
 				9476F4661B3C385400A158F8 /* Supporting Files */,
 			);
@@ -1616,8 +1618,8 @@
 			files = (
 				9476F46D1B3C385400A158F8 /* TBRemote.xcassets in Resources */,
 				9476F46C1B3C385400A158F8 /* Main.storyboard in Resources */,
-				9476F46E1B3C385400A158F8 /* LaunchScreen.xib in Resources */,
 				AD33BA431BABAD6B0011777C /* defaults.json in Resources */,
+				947D7AAA200D8C8A00EAD496 /* TBRemoteLaunchScreen.storyboard in Resources */,
 				94C2DA80200D27D7001B95B8 /* s_break.caf in Resources */,
 				94C2DA81200D27D7001B95B8 /* s_next.caf in Resources */,
 				ADA5DAC01B949CB1004F50C8 /* s_warning.caf in Resources */,
@@ -1689,8 +1691,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				ADF636121BAB8AF800D019AE /* TBRemote.xcassets in Resources */,
+				947D7AA8200D8BD300EAD496 /* TBPhoneLaunchScreen.storyboard in Resources */,
 				ADF6360F1BAB8AF800D019AE /* Main.storyboard in Resources */,
-				ADF636111BAB8AF800D019AE /* LaunchScreen.xib in Resources */,
 				AD33BA421BABAC120011777C /* defaults.json in Resources */,
 				94C2DA7E200D27CD001B95B8 /* s_break.caf in Resources */,
 				94C2DA7F200D27CD001B95B8 /* s_next.caf in Resources */,
@@ -2122,14 +2124,6 @@
 				9476F45B1B3C385400A158F8 /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		9476F45F1B3C385400A158F8 /* LaunchScreen.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				9476F45E1B3C385400A158F8 /* Base */,
-			);
-			name = LaunchScreen.xib;
 			sourceTree = "<group>";
 		};
 		94B30DE520020AFF0037192E /* TBMac.storyboard */ = {
