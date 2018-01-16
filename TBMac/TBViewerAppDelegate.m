@@ -12,7 +12,7 @@
 #import "TBViewerViewController.h"
 #import "TBConnectToViewController.h"
 
-@interface TBViewerAppDelegate () <TournamentBrowserDelegate>
+@interface TBViewerAppDelegate () <TournamentBrowserDelegate, TournamentSessionDelegate>
 
 @property (weak) IBOutlet NSMenu* connectMenu;
 
@@ -27,6 +27,9 @@
 @implementation TBViewerAppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification*)aNotification {
+    // set tournament session delegate
+    [[self session] setDelegate:self];
+
     // player view controller
     id playerViewController = (TBViewerViewController*)[[[[NSApplication sharedApplication] mainWindow] windowController] contentViewController];
     [playerViewController setSession:[self session]];
@@ -74,9 +77,10 @@
     }
 }
 
-- (void)connectToTournamentMenuItem:(id)sender {
-    if(![[self session] connectToTournamentService:[(NSMenuItem*)sender representedObject]]) {
-        // TODO: handle error
+- (IBAction)connectToTournamentMenuItem:(id)sender {
+    NSError* error;
+    if(![[self session] connectToTournamentService:[(NSMenuItem*)sender representedObject] error:&error]) {
+        [[NSApplication sharedApplication] presentError:error];
     }
 }
 
@@ -90,6 +94,13 @@
         [vc setSession:[self session]];
         [vc setPort:kTournamentServiceDefaultPort];
     }
+}
+
+#pragma mark TournamentSessionDelegate
+
+- (void)tournamentSession:(TournamentSession *)ts error:(NSError *)error {
+    // Default error presentation
+    [[NSApplication sharedApplication] presentError:error];
 }
 
 #pragma mark TournamentBroswerDelegate

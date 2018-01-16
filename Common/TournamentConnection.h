@@ -13,9 +13,9 @@
 @interface TournamentConnection : NSObject <NSStreamDelegate>
 
 // open a connection to the server, either local or remote
-- (BOOL)connectToNetService:(NSNetService*)netService;
-- (BOOL)connectToAddress:(NSString*)address andPort:(NSInteger)port;
-- (BOOL)connectToUnixSocketNamed:(NSString*)socketPath;
+- (BOOL)connectToNetService:(NSNetService*)netService error:(NSError**)error;
+- (BOOL)connectToAddress:(NSString*)address andPort:(NSInteger)port error:(NSError**)error;
+- (BOOL)connectToUnixSocketNamed:(NSString*)socketPath error:(NSError**)error;
 
 // send a text command to the server
 - (BOOL)sendCommand:(NSString*)cmd;
@@ -41,5 +41,4 @@
 - (void)tournamentConnectionDidClose:(TournamentConnection*)tc;
 - (void)tournamentConnection:(TournamentConnection*)tc didReceiveData:(id)json;
 - (void)tournamentConnection:(TournamentConnection*)tc error:(NSError*)error;
-
 @end

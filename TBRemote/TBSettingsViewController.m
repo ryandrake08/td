@@ -8,13 +8,14 @@
 //
 
 #import "TBSettingsViewController.h"
+#import "NSObject+FBKVOController.h"
+#import "TBAppDelegate.h"
+#import "TBEditableTableViewCell.h"
+#import "TBNotifications.h"
+#import "TBSetupTableViewController.h"
 #import "TournamentDaemon.h"
 #import "TournamentSession.h"
-#import "TBSetupTableViewController.h"
-#import "TBEditableTableViewCell.h"
-#import "TBAppDelegate.h"
-#import "NSObject+FBKVOController.h"
-#import "TBNotifications.h"
+#import "UIResponder+PresentingErrors.h"
 
 @interface TBSettingsViewController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -42,10 +43,9 @@
     _configuration = [[NSMutableDictionary alloc] init];
 
     // load configuration
-    NSError* error;
-    if([[self class] loadConfig:[self configuration] withError:&error] == NO) {
-        // TODO: something with the error
-        NSLog(@"%@", error);
+    NSError* loadError;
+    if([[self class] loadConfig:[self configuration] withError:&loadError] == NO) {
+        [self presentError:loadError];
     }
 
     // default maxPlayers to number of configured players
@@ -97,8 +97,7 @@
     [[NSNotificationCenter defaultCenter] addObserverForName:kConfigurationUpdatedNotification object:nil queue:nil usingBlock:^(NSNotification* note) {
         NSError* saveError;
         if([[self class] saveConfig:[self configuration] withError:&saveError] == NO) {
-            // TODO: something with the error
-            NSLog(@"%@", saveError);
+            [self presentError:saveError];
         }
     }];
 
@@ -106,8 +105,9 @@
     TournamentService* service = [[self server] startWithAuthCode:[TournamentSession clientIdentifier]];
 
     // Start the session, connecting locally
-    if(![[self session] connectToTournamentService:service]) {
-        // TODO: handle error
+    NSError* error;
+    if(![[self session] connectToTournamentService:service error:&error]) {
+        [self presentError:error];
     }
 }
 

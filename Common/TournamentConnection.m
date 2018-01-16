@@ -7,6 +7,7 @@
 //
 
 #import "TournamentConnection.h"
+#import "TBError.h"
 #import "NSData+Delimiter.h"
 #include "CFStreamCreatePairWithUnixSocket.h"
 
@@ -36,11 +37,7 @@
     return self;
 }
 
-- (BOOL)setupInputStream:(NSInputStream*)readStream outputStream:(NSOutputStream*)writeStream {
-    if(readStream == nil || writeStream == nil) {
-        return NO;
-    }
-
+- (void)setupInputStream:(NSInputStream*)readStream outputStream:(NSOutputStream*)writeStream {
     // set up the streams
     [readStream setDelegate:self];
     [writeStream setDelegate:self];
@@ -48,37 +45,78 @@
     [writeStream scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
     [readStream open];
     [writeStream open];
-
-    return YES;
 }
 
-- (BOOL)connectToNetService:(NSNetService*)netService {
-    [netService getInputStream:&_inputStream outputStream:&_outputStream];
-    return [self setupInputStream:[self inputStream] outputStream:[self outputStream]];
+- (BOOL)connectToNetService:(NSNetService*)netService error:(NSError**)error {
+    // close if not already
+    [self close];
+
+    // if we cannot connect to the netService
+    if([netService getInputStream:&_inputStream outputStream:&_outputStream] == NO) {
+        // pass back error if requested
+        if(error != NULL) {
+            NSString* localizedDescription = [NSString localizedStringWithFormat:@"Could not create streams for connection to netService: %@", netService];
+            *error = [NSError errorWithDomain:TBErrorDomain code:TBErrorCouldNotCreateStreams userInfo:@{NSLocalizedDescriptionKey:localizedDescription}];
+        }
+        return NO;
+    } else {
+        [self setupInputStream:[self inputStream] outputStream:[self outputStream]];
+        return YES;
+    }
 }
 
-- (BOOL)connectToAddress:(NSString*)address andPort:(NSInteger)port {
-    CFReadStreamRef readStream;
-    CFWriteStreamRef writeStream;
+- (BOOL)connectToAddress:(NSString*)address andPort:(NSInteger)port error:(NSError**)error {
+    // close if not already
+    [self close];
+
+    // create the streams
+    CFReadStreamRef readStream = NULL;
+    CFWriteStreamRef writeStream = NULL;
     CFStreamCreatePairWithSocketToHost(kCFAllocatorDefault, (__bridge CFStringRef)address, (UInt32)port, &readStream, &writeStream);
 
     // toll-free bridge the streams
     [self setInputStream:(__bridge_transfer NSInputStream*)readStream];
     [self setOutputStream:(__bridge_transfer NSOutputStream*)writeStream];
 
-    return [self setupInputStream:[self inputStream] outputStream:[self outputStream]];
+    // CFStream functions do not return errors. Check streams for NULL
+    if(readStream == NULL || writeStream == NULL) {
+        // pass back error if requested
+        if(error != NULL) {
+            NSString* localizedDescription = [NSString localizedStringWithFormat:@"Could not create streams for connection to host: %@:%d", address, (int)port];
+            *error = [NSError errorWithDomain:TBErrorDomain code:TBErrorCouldNotCreateStreams userInfo:@{NSLocalizedDescriptionKey:localizedDescription}];
+        }
+        return NO;
+    } else {
+        [self setupInputStream:[self inputStream] outputStream:[self outputStream]];
+        return YES;
+    }
 }
 
-- (BOOL)connectToUnixSocketNamed:(NSString*)socketPath {
-    CFReadStreamRef readStream;
-    CFWriteStreamRef writeStream;
+- (BOOL)connectToUnixSocketNamed:(NSString*)socketPath error:(NSError**)error {
+    // close if not already
+    [self close];
+
+    // create the streams
+    CFReadStreamRef readStream = NULL;
+    CFWriteStreamRef writeStream = NULL;
     CFStreamCreatePairWithUnixSocket(kCFAllocatorDefault, (__bridge CFStringRef)socketPath, &readStream, &writeStream);
 
     // toll-free bridge the streams
     [self setInputStream:(__bridge_transfer NSInputStream*)readStream];
     [self setOutputStream:(__bridge_transfer NSOutputStream*)writeStream];
 
-    return [self setupInputStream:[self inputStream] outputStream:[self outputStream]];
+    // CFStream functions do not return errors. Check streams for NULL
+    if(readStream == NULL || writeStream == NULL) {
+        // pass back error if requested
+        if(error != NULL) {
+            NSString* localizedDescription = [NSString localizedStringWithFormat:@"Could not create streams for connection to UNIX socket: %@", socketPath];
+            *error = [NSError errorWithDomain:TBErrorDomain code:TBErrorCouldNotCreateStreams userInfo:@{NSLocalizedDescriptionKey:localizedDescription}];
+        }
+        return NO;
+    } else {
+        [self setupInputStream:[self inputStream] outputStream:[self outputStream]];
+        return YES;
+    }
 }
 
 - (void)dealloc {

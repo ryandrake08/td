@@ -27,6 +27,6 @@
 @interface TournamentConnection (TournamentService)
 
 // Category on TournamentConnection, to not foul up that class with TournamentSession
-- (BOOL)connectToTournamentService:(TournamentService*)service;
+- (BOOL)connectToTournamentService:(TournamentService*)service error:(NSError**)error;
 
 @end

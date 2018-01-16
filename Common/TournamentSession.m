@@ -36,24 +36,24 @@
     return self;
 }
 
-- (BOOL)connectToLocalPath:(NSString*)path {
+- (BOOL)connectToLocalPath:(NSString*)path error:(NSError**)error {
     [self disconnect];
-    return [[self connection] connectToUnixSocketNamed:path];
+    return [[self connection] connectToUnixSocketNamed:path error:error];
 }
 
-- (BOOL)connectToAddress:(NSString *)address port:(NSInteger)port {
+- (BOOL)connectToAddress:(NSString *)address port:(NSInteger)port error:(NSError**)error {
     [self disconnect];
-    return [[self connection] connectToAddress:address andPort:port];
+    return [[self connection] connectToAddress:address andPort:port error:error];
 }
 
-- (BOOL)connectToNetService:(NSNetService*)service {
+- (BOOL)connectToNetService:(NSNetService*)service error:(NSError**)error {
     [self disconnect];
-    return [[self connection] connectToNetService:service];
+    return [[self connection] connectToNetService:service error:error];
 }
 
-- (BOOL)connectToTournamentService:(TournamentService*)tournament {
+- (BOOL)connectToTournamentService:(TournamentService*)tournament error:(NSError**)error {
     [self disconnect];
-    return [[self connection] connectToTournamentService:tournament];
+    return [[self connection] connectToTournamentService:tournament error:error];
 }
 
 - (void)disconnect {
@@ -108,7 +108,8 @@
 }
 
 - (void)postUpdatedNotification {
-    // post notification
+    // post notification (observed by watch)
+    // TODO: make this block-based or delegate based, or make watch code KVO
     [[NSNotificationCenter defaultCenter] postNotificationName:kTournamentSessionUpdatedNotification object:[self state]];
 }
 
@@ -369,6 +370,8 @@
 
 - (void)tournamentConnectionDidConnect:(TournamentConnection*)tc {
     NSAssert([self connection] == tc, @"Unexpected connection from %@", tc);
+    // successfully connected to tournament
+
     // set state
     [self state][@"connected"] = @YES;
     [self postUpdatedNotification];
@@ -387,19 +390,33 @@
         [[self state] addEntriesFromDictionary:json];
         [self postUpdatedNotification];
     }];
+
+    // notify delegate
+    if([[self delegate] respondsToSelector:@selector(tournamentSessionDidBegin:)]) {
+        [[self delegate] tournamentSessionDidBegin:self];
+    }
 }
 
 - (void)tournamentConnectionDidDisconnect:(TournamentConnection*)tc {
     NSAssert([self connection] == tc, @"Unexpected disconnection from %@", tc);
+    // tournament disconnected
+
     [self disconnect];
 }
 
 - (void)tournamentConnectionDidClose:(TournamentConnection*)tc {
     NSAssert([self connection] == tc, @"Unexpected close from %@", tc);
+    // close down connection (happens whether client or server disconnected)
+
     // set state
     [[self state] removeAllObjects];
     [self state][@"connected"] = @NO;
     [self postUpdatedNotification];
+
+    // notify delegate
+    if([[self delegate] respondsToSelector:@selector(tournamentSessionDidEnd:)]) {
+        [[self delegate] tournamentSessionDidEnd:self];
+    }
 }
 
 - (void)tournamentConnection:(TournamentConnection*)tc didReceiveData:(id)json {
@@ -409,6 +426,12 @@
 
 - (void)tournamentConnection:(TournamentConnection*)tc error:(NSError*)error {
     NSAssert([self connection] == tc, @"Unexpected error from %@", tc);
+
+    // notify delegate
+    if([[self delegate] respondsToSelector:@selector(tournamentSession:error:)]) {
+        [[self delegate] tournamentSession:self error:error];
+    }
+
     [self disconnect];
 }
 

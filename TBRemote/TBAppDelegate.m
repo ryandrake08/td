@@ -9,8 +9,9 @@
 #import "TBAppDelegate.h"
 #import "TBRemoteWatchDelegate.h"
 #import "NSObject+FBKVOController.h"
+#import "UIResponder+PresentingErrors.h"
 
-@interface TBAppDelegate ()
+@interface TBAppDelegate () <TournamentSessionDelegate>
 
 @property (strong) TBRemoteWatchDelegate* watchDelegate;
 
@@ -20,9 +21,10 @@
 
 - (BOOL)application:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)launchOptions {
     // Override point for customization after application launch.
-    if([self session] == nil) {
-        [self setSession:[[TournamentSession alloc] init]];
-    }
+    _session = [[TournamentSession alloc] init];
+
+    // set tournament session delegate
+    [[self session] setDelegate:self];
 
     // Create either tournament list or setup, depending on whether this is the full version or the remote
     UIStoryboard* sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
@@ -101,6 +103,13 @@
 
 - (void)applicationWillTerminate:(UIApplication*)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+#pragma mark TournamentSessionDelegate
+
+- (void)tournamentSession:(TournamentSession *)ts error:(NSError *)error {
+    // Default error presentation
+    [[[self window] rootViewController] presentError:error];
 }
 
 #pragma mark Notification

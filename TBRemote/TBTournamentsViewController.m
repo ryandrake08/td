@@ -7,9 +7,10 @@
 //
 
 #import "TBTournamentsViewController.h"
+#import "TBAppDelegate.h"
 #import "TournamentBrowser.h"
 #import "TournamentSession.h"
-#import "TBAppDelegate.h"
+#import "UIResponder+PresentingErrors.h"
 
 #import "NSObject+FBKVOController.h"
 
@@ -112,9 +113,12 @@
         [actionSheet showInView:[self view]];
     } else {
         // connect
-        [self setCurrentService:cellService];
-        if(![[self session] connectToNetService:cellService]) {
-            // TODO: handle error
+        NSError* error;
+        if([[self session] connectToNetService:cellService error:&error]) {
+            // store as current service
+            [self setCurrentService:cellService];
+        } else {
+            [self presentError:error];
         }
     }
 
@@ -177,12 +181,15 @@
     // if just one, automatically connect
     if([newArray count] == 1) {
         // connect
-        [self setCurrentService:newArray[0]];
-        if([[self session] connectToNetService:newArray[0]]) {
+        NSError* error;
+        if([[self session] connectToNetService:newArray[0] error:&error]) {
+            // store as current service
+            [self setCurrentService:newArray[0]];
+
             TBAppDelegate* appDelegate = (TBAppDelegate*)[[UIApplication sharedApplication] delegate];
             [(UITabBarController*)[[appDelegate window] rootViewController] setSelectedIndex:1];
         } else {
-            // TODO: handle error
+            [self presentError:error];
         }
     }
     // reload

@@ -23,19 +23,24 @@
 // Notification
 #define kTournamentSessionUpdatedNotification @"kTournamentSessionUpdatedNotification"
 
+@protocol TournamentSessionDelegate;
+
 @interface TournamentSession : NSObject
 
 // all tournament configuration and state
 @property (nonatomic, strong, readonly) NSMutableDictionary* state;
 
+// delegate to receive start, stop, and error callbacks
+@property (nonatomic, weak) id <TournamentSessionDelegate> delegate;
+
 // client identifier (used for authenticating with servers)
 + (NSNumber*)clientIdentifier;
 
 // connect either locally through a unix socket or to a server
-- (BOOL)connectToLocalPath:(NSString*)path;
-- (BOOL)connectToAddress:(NSString*)address port:(NSInteger)port;
-- (BOOL)connectToNetService:(NSNetService*)service;
-- (BOOL)connectToTournamentService:(TournamentService*)tournament;
+- (BOOL)connectToLocalPath:(NSString*)path error:(NSError**)error;
+- (BOOL)connectToAddress:(NSString*)address port:(NSInteger)port error:(NSError**)error;
+- (BOOL)connectToNetService:(NSNetService*)service error:(NSError**)error;
+- (BOOL)connectToTournamentService:(TournamentService*)tournament error:(NSError**)error;
 - (void)disconnect;
 
 // configure the session with configuration by sending only changed keys
@@ -67,4 +72,11 @@
 // utility (TODO: better place for this?)
 + (NSArray*) namesForBlindLevels:(NSArray*)blindLevels;
 
+@end
+
+@protocol TournamentSessionDelegate <NSObject>
+@optional
+- (void)tournamentSessionDidBegin:(TournamentSession*)ts;
+- (void)tournamentSessionDidEnd:(TournamentSession*)ts;
+- (void)tournamentSession:(TournamentSession*)ts error:(NSError*)error;
 @end

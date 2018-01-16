@@ -14,8 +14,9 @@
 #pragma mark Actions
 
 - (IBAction)connectButtonDidChange:(id)sender {
-    if(![[self session] connectToAddress:[self address] port:[self port]]) {
-        // TODO: handle error
+    NSError* error;
+    if(![[self session] connectToAddress:[self address] port:[self port] error:&error]) {
+        [self presentError:error];
     }
 
     [self dismissViewController:self];

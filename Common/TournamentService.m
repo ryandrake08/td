@@ -55,22 +55,22 @@
 
 @implementation TournamentConnection (TournamentService)
 
-- (BOOL)connectToTournamentService:(TournamentService*)service {
+- (BOOL)connectToTournamentService:(TournamentService*)service error:(NSError**)error {
     NSNetService* netService = [service dict][@"service"];
     NSString* path = [service dict][@"path"];
     NSString* address = [service dict][@"address"];
     NSNumber* port = [service dict][@"port"];
 
     if(netService) {
-        return [self connectToNetService:netService];
+        return [self connectToNetService:netService error:error];
     }
 
     if(path) {
-        return [self connectToUnixSocketNamed:path];
+        return [self connectToUnixSocketNamed:path error:error];
     }
 
     if(address) {
-        return [self connectToAddress:address andPort:[port integerValue]];
+        return [self connectToAddress:address andPort:[port integerValue] error:error];
     }
 
     return NO;

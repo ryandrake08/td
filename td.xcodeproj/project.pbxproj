@@ -39,6 +39,12 @@
 		942B84E5200DA6FA001F8EEB /* s_rebalance.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04ECA1B7C59EB004F4245 /* s_rebalance.caf */; };
 		942B84E6200DA6FA001F8EEB /* s_start.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04ECB1B7C59EB004F4245 /* s_start.caf */; };
 		942B84E7200DA72B001F8EEB /* TBSoundPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 942B84DF200DA00C001F8EEB /* TBSoundPlayer.m */; };
+		94363BCF200E79C000D52155 /* TBError.m in Sources */ = {isa = PBXBuildFile; fileRef = 94363BCE200E79C000D52155 /* TBError.m */; };
+		94363BD0200E79C000D52155 /* TBError.m in Sources */ = {isa = PBXBuildFile; fileRef = 94363BCE200E79C000D52155 /* TBError.m */; };
+		94363BD1200E79C000D52155 /* TBError.m in Sources */ = {isa = PBXBuildFile; fileRef = 94363BCE200E79C000D52155 /* TBError.m */; };
+		94363BD2200E79C000D52155 /* TBError.m in Sources */ = {isa = PBXBuildFile; fileRef = 94363BCE200E79C000D52155 /* TBError.m */; };
+		94363BD7200E84FB00D52155 /* UIResponder+PresentingErrors.m in Sources */ = {isa = PBXBuildFile; fileRef = 94363BD4200E84FB00D52155 /* UIResponder+PresentingErrors.m */; };
+		94363BD8200E84FB00D52155 /* UIResponder+PresentingErrors.m in Sources */ = {isa = PBXBuildFile; fileRef = 94363BD4200E84FB00D52155 /* UIResponder+PresentingErrors.m */; };
 		943970181B3F9DB700BB0413 /* TournamentBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 943970171B3F9DB700BB0413 /* TournamentBrowser.m */; };
 		943970191B3F9DB700BB0413 /* TournamentBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 943970171B3F9DB700BB0413 /* TournamentBrowser.m */; };
 		9439701A1B3F9DB700BB0413 /* TournamentBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 943970171B3F9DB700BB0413 /* TournamentBrowser.m */; };
@@ -570,6 +576,10 @@
 		940AF54C1FF7DE7800740295 /* TBViewerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBViewerViewController.h; path = TBMac/TBViewerViewController.h; sourceTree = "<group>"; };
 		942B84DE200DA00C001F8EEB /* TBSoundPlayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBSoundPlayer.h; sourceTree = "<group>"; };
 		942B84DF200DA00C001F8EEB /* TBSoundPlayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TBSoundPlayer.m; sourceTree = "<group>"; };
+		94363BC8200E77DE00D52155 /* TBError.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBError.h; sourceTree = "<group>"; };
+		94363BCE200E79C000D52155 /* TBError.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TBError.m; sourceTree = "<group>"; };
+		94363BD3200E84FA00D52155 /* UIResponder+PresentingErrors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIResponder+PresentingErrors.h"; sourceTree = "<group>"; };
+		94363BD4200E84FB00D52155 /* UIResponder+PresentingErrors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIResponder+PresentingErrors.m"; sourceTree = "<group>"; };
 		943970161B3F9DB700BB0413 /* TournamentBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TournamentBrowser.h; sourceTree = "<group>"; };
 		943970171B3F9DB700BB0413 /* TournamentBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TournamentBrowser.m; sourceTree = "<group>"; };
 		9439701B1B3FA61C00BB0413 /* TournamentService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TournamentService.h; sourceTree = "<group>"; };
@@ -1100,6 +1110,8 @@
 				AD75ACED1BA3FD8800705967 /* TBEllipseImageView.m */,
 				AD87A6D71BA2094400E55961 /* TBEllipseView.h */,
 				AD87A6D81BA2094400E55961 /* TBEllipseView.m */,
+				94363BC8200E77DE00D52155 /* TBError.h */,
+				94363BCE200E79C000D52155 /* TBError.m */,
 				94C2DA69200D0DBC001B95B8 /* TBGraphics.h */,
 				94C2DA64200D0D33001B95B8 /* TBGraphics.m */,
 				9457DAB21FE6934C0047DF29 /* TBImage+Inverted.h */,
@@ -1135,6 +1147,8 @@
 				AD2CA95D1BAA7043009A2384 /* TournamentSocketDirectory.h */,
 				9462A3E51B77CB3B00B29002 /* TTTOrdinalNumberFormatter.h */,
 				9462A3E61B77CB3B00B29002 /* TTTOrdinalNumberFormatter.m */,
+				94363BD3200E84FA00D52155 /* UIResponder+PresentingErrors.h */,
+				94363BD4200E84FB00D52155 /* UIResponder+PresentingErrors.m */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1755,6 +1769,7 @@
 				94BB5FFA1B7F9F1600B33929 /* NSString+CamelCase.m in Sources */,
 				943B00D21B3F429500CE55D4 /* json.cpp in Sources */,
 				94FDEAEF1B5AE2D60026B25D /* NSObject+FBKVOController.m in Sources */,
+				94363BD0200E79C000D52155 /* TBError.m in Sources */,
 				94C2DA62200D0C62001B95B8 /* TBEllipseView.m in Sources */,
 				94C2DA85200D2AE7001B95B8 /* TBInvertableButton_macOS.m in Sources */,
 				943B00D11B3F429500CE55D4 /* gameinfo.cpp in Sources */,
@@ -1814,6 +1829,7 @@
 				94D04ED81B7C6A5C004F4245 /* TBCurrencyNumberFormatter.m in Sources */,
 				94CDDD1E1FE1826C008ADF24 /* TBChipTableViewCell.m in Sources */,
 				ADD73D2B1B9692E1006824A1 /* NSDictionary+Changed.m in Sources */,
+				94363BD8200E84FB00D52155 /* UIResponder+PresentingErrors.m in Sources */,
 				94CDDD361FE3B349008ADF24 /* TBColor+ContrastTextColor.m in Sources */,
 				9457DAB91FE695AC0047DF29 /* TBInvertableButton_iOS.m in Sources */,
 				9462A3E91B77CB3B00B29002 /* TTTOrdinalNumberFormatter.m in Sources */,
@@ -1836,6 +1852,7 @@
 				9476F4A71B3C3EA700A158F8 /* TournamentSession.m in Sources */,
 				ADD4F1271B91FE2400DAF567 /* NSObject+AssociatedObject.m in Sources */,
 				ADFFFF151BA34394003BAC88 /* TBColor+CSS.m in Sources */,
+				94363BD2200E79C000D52155 /* TBError.m in Sources */,
 				949D709F1B3C440E008D5CD1 /* server.cpp in Sources */,
 				9464718B200CAA9C00556467 /* TBInvertImage.c in Sources */,
 				9439701A1B3F9DB700BB0413 /* TournamentBrowser.m in Sources */,
@@ -1947,6 +1964,7 @@
 				945410741B6E5C56001E3373 /* NSDateFormatter+ISO8601.m in Sources */,
 				941916DC1B6F215F001253CA /* TBActionClockView.m in Sources */,
 				942B84E0200DA00C001F8EEB /* TBSoundPlayer.m in Sources */,
+				94363BCF200E79C000D52155 /* TBError.m in Sources */,
 				9462A3E41B77376000B29002 /* NSView+BackgroundColor.m in Sources */,
 				949D70991B3C440D008D5CD1 /* server.cpp in Sources */,
 				9439701D1B405DC000BB0413 /* TournamentService.m in Sources */,
@@ -2025,6 +2043,7 @@
 				ADF635FA1BAB8AF800D019AE /* TBResultsViewController.m in Sources */,
 				ADF635FB1BAB8AF800D019AE /* NSObject+FBKVOController.m in Sources */,
 				ADF635FD1BAB8AF800D019AE /* main.m in Sources */,
+				94363BD1200E79C000D52155 /* TBError.m in Sources */,
 				ADF635FE1BAB8AF800D019AE /* NSData+Delimiter.m in Sources */,
 				ADD2CC4E1BB3C73900DE3DE5 /* TBSetupFundingViewController.m in Sources */,
 				AD6256A51BB44D8000EE776A /* TBSetupDetailsChipsViewController.m in Sources */,
@@ -2040,6 +2059,7 @@
 				ADF636051BAB8AF800D019AE /* TBSettingsViewController.m in Sources */,
 				ADD2CC471BB3A11B00DE3DE5 /* TBSetupPlayersViewController.m in Sources */,
 				AD475C3B1BB62D0400DAE739 /* TBEditableTableViewCell.m in Sources */,
+				94363BD7200E84FB00D52155 /* UIResponder+PresentingErrors.m in Sources */,
 				94CDDD351FE3B349008ADF24 /* TBColor+ContrastTextColor.m in Sources */,
 				ADF636061BAB8AF800D019AE /* TournamentConnection.m in Sources */,
 				ADF636081BAB8AF800D019AE /* datetime.cpp in Sources */,

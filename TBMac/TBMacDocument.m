@@ -13,7 +13,7 @@
 #import "TournamentDaemon.h"
 #import "NSObject+FBKVOController.h"
 
-@interface TBMacDocument ()
+@interface TBMacDocument () <TournamentSessionDelegate>
 
 // Model
 @property (strong) TournamentDaemon* server;
@@ -30,6 +30,9 @@
         _server = [[TournamentDaemon alloc] init];
         _session = [[TournamentSession alloc] init];
         _configuration = [[NSMutableDictionary alloc] init];
+
+        // set tournament session delegate
+        [[self session] setDelegate:self];
 
         // register for KVO
         [[self KVOController] observe:self keyPaths:@[@"session.state.connected", @"session.state.authorized"] options:0 block:^(id observer, TBMacDocument* object, NSDictionary *change) {
@@ -56,8 +59,9 @@
         TournamentService* service = [[self server] startWithAuthCode:[TournamentSession clientIdentifier]];
 
         // Start the session, connecting locally
-        if(![[self session] connectToTournamentService:service]) {
-            // TODO: handle error
+        NSError* error;
+        if(![[self session] connectToTournamentService:service error:&error]) {
+            [self presentError:error];
         }
     }
     return self;
@@ -155,6 +159,11 @@
     [self planSeatingFor:[players unsignedIntegerValue]];
 }
 
+#pragma mark TournamentSessionDelegate
 
+- (void)tournamentSession:(TournamentSession *)ts error:(NSError *)error {
+    // Default error presentation
+    [self presentError:error];
+}
 
 @end
