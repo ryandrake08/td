@@ -196,16 +196,6 @@
             // get player for this row
             player = [self seatedPlayers][[indexPath row]];
 
-            // add unseat button
-            [actionSheet addButtonWithTitle:NSLocalizedString(@"Unseat Player", nil)];
-            [commands addObject:@(kCommandUnseatPlayer)];
-
-            if([currentBlindLevel unsignedIntegerValue] > 0) {
-                // add unseat button
-                [actionSheet addButtonWithTitle:NSLocalizedString(@"Bust Player", nil)];
-                [commands addObject:@(kCommandBustPlayer)];
-            }
-
             // BUSINESS LOGIC AROUND WHICH FUNDING SOURCES ARE ALLOWED WHEN
 
             // add buttons for each eligible funding source
@@ -233,6 +223,20 @@
                     }
                 }
             }];
+
+            // BUSINESS LOGIC AROUND BUSTING AND UN-SEATING
+
+            // set up bust function. if game is running and all selected player is bought in, then enable the bust item
+            if([currentBlindLevel unsignedIntegerValue] > 0 && [player[@"buyin"] boolValue]) {
+                [actionSheet addButtonWithTitle:NSLocalizedString(@"Bust Player", nil)];
+                [commands addObject:@(kCommandBustPlayer)];
+            }
+
+            // add unseat function. if selected player is not bought in, then enable the unseat item
+            if(![player[@"buyin"] boolValue]) {
+                [actionSheet addButtonWithTitle:NSLocalizedString(@"Unseat Player", nil)];
+                [commands addObject:@(kCommandUnseatPlayer)];
+            }
         } else if(indexPath.section == 1) {
             // get player for this row
             player = [self unseatedPlayers][[indexPath row]];
