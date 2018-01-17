@@ -144,28 +144,33 @@
                 [item setRepresentedObject:context];
                 [item setTarget:self];
                 [item setTag:1];
+                [item setEnabled:NO];
 
                 if([source[@"type"] isEqual:kFundingTypeBuyin]) {
                     // buyins can happen at any time before forbid_after_blind_level, for any non-playing player
                     if(![player[@"buyin"] boolValue]) {
-                        [menu insertItem:item atIndex:idx];
+                        [item setEnabled:YES];
                     }
                 } else if([source[@"type"] isEqual:kFundingTypeRebuy]) {
                     // rebuys can happen after round 0, before forbid_after_blind_level, for any player that has bought in at least once
                     if([currentBlindLevel unsignedIntegerValue] > 0 && [uniqueEntries containsObject:player[@"player_id"]]) {
-                        [menu insertItem:item atIndex:idx];
+                        [item setEnabled:YES];
                     }
                 } else {
                     // addons can happen at any time before forbid_after_blind_level, for any playing player
                     if([player[@"buyin"] boolValue]) {
-                        [menu insertItem:item atIndex:idx];
+                        [item setEnabled:YES];
                     }
                 }
+
+                [menu insertItem:item atIndex:idx];
             }
         }];
     }
 
     NSMenuItem* item = nil;
+
+    // BUSINESS LOGIC AROUND BUSTING AND UN-SEATING
 
     // set up bust function. if game is running and all selected players are bought in, then enable the bust item
     item = [menu itemWithTag:2];
