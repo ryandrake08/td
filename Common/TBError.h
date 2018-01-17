@@ -12,5 +12,6 @@
 extern NSErrorDomain const TBErrorDomain;
 
 typedef NS_ERROR_ENUM(TBErrorDomain, TBErrorCode) {
-    TBErrorCouldNotCreateStreams = 1000
+    TBErrorCouldNotCreateStreams = 1000,
+    TBErrorDaemonResponse = 1001
 };

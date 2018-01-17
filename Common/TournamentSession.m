@@ -7,9 +7,10 @@
 //
 
 #import "TournamentSession.h"
-#import "TournamentConnection.h"
 #import "NSDictionary+Changed.h"
 #import "TBCurrencyNumberFormatter.h"
+#import "TBError.h"
+#import "TournamentConnection.h"
 
 @interface TournamentSession() <TournamentConnectionDelegate>
 
@@ -116,7 +117,7 @@
 #pragma mark Tournament Commands
 
 // send a command through TournamentConnection
-- (void)sendCommand:(NSString*)cmd withData:(NSDictionary*)arg andBlock:(void(^)(id,NSString*))block {
+- (void)sendCommand:(NSString*)cmd withData:(NSDictionary*)arg andBlock:(void(^)(id))block {
     // add extra stuff to each command
     NSMutableDictionary* json = [NSMutableDictionary dictionaryWithDictionary:arg];
 
@@ -138,59 +139,42 @@
 }
 
 - (void)checkAuthorizedWithBlock:(void(^)(BOOL))block {
-    [self sendCommand:@"check_authorized" withData:nil andBlock:^(id json, NSString* error) {
-        if(error != nil) {
-            NSLog(@"checkAuthorizedWithBlock: %@\n", error);
-        } else {
-            // set internal state if changed
-            if([self state][@"authorized"] != json[@"authorized"]) {
-                [self state][@"authorized"] = json[@"authorized"];
-                [self postUpdatedNotification];
-            }
-            // handle authorization check
-            if(block != nil) {
-                block([json[@"authorized"] boolValue]);
-            }
+    [self sendCommand:@"check_authorized" withData:nil andBlock:^(id json) {
+        // set internal state if changed
+        if([self state][@"authorized"] != json[@"authorized"]) {
+            [self state][@"authorized"] = json[@"authorized"];
+            [self postUpdatedNotification];
+        }
+        // handle authorization check
+        if(block) {
+            block([json[@"authorized"] boolValue]);
         }
     }];
 }
 
 - (void)getStateWithBlock:(void(^)(id))block {
-    [self sendCommand:@"get_state" withData:nil andBlock:^(id json, NSString* error) {
-        if(error != nil) {
-            NSLog(@"getStateWithBlock: %@\n", error);
-        } else {
-            // handle config response
-            if(block != nil) {
-                block(json);
-            }
+    [self sendCommand:@"get_state" withData:nil andBlock:^(id json) {
+        // handle config response
+        if(block) {
+            block(json);
         }
     }];
 }
 
 
 - (void)getConfigWithBlock:(void(^)(id))block {
-    [self sendCommand:@"get_config" withData:nil andBlock:^(id json, NSString* error) {
-        if(error != nil) {
-            NSLog(@"getConfigWithBlock: %@\n", error);
-        } else {
-            // handle config response
-            if(block != nil) {
-                block(json);
-            }
+    [self sendCommand:@"get_config" withData:nil andBlock:^(id json) {
+        // handle config response
+        if(block) {
+            block(json);
         }
     }];
 }
 
 - (void)configure:(id)config withBlock:(void(^)(id))block {
-    [self sendCommand:@"configure" withData:config andBlock:^(id json, NSString* error) {
-        if(error != nil) {
-            NSLog(@"configureWithBlock: %@\n", error);
-        } else {
-            // handle config response
-            if(block != nil) {
-                block(json);
-            }
+    [self sendCommand:@"configure" withData:config andBlock:^(id json) {
+        if(block) {
+            block(json);
         }
     }];
 }
@@ -220,27 +204,19 @@
 }
 
 - (void)setPreviousLevelWithBlock:(void(^)(NSNumber*))block {
-    [self sendCommand:@"set_previous_level" withData:nil andBlock:^(id json, NSString* error) {
-        if(error != nil) {
-            NSLog(@"setPreviousLevelWithBlock: %@\n", error);
-        } else {
-            // handle blind level change
-            if(block != nil) {
-                block(json[@"blind_level_changed"]);
-            }
+    [self sendCommand:@"set_previous_level" withData:nil andBlock:^(id json) {
+        // handle blind level change
+        if(block) {
+            block(json[@"blind_level_changed"]);
         }
     }];
 }
 
 - (void)setNextLevelWithBlock:(void(^)(NSNumber*))block {
-    [self sendCommand:@"set_next_level" withData:nil andBlock:^(id json, NSString* error) {
-        if(error != nil) {
-            NSLog(@"setNextLevelWithBlock: %@\n", error);
-        } else {
-            // handle blind level change
-            if(block != nil) {
-                block(json[@"blind_level_changed"]);
-            }
+    [self sendCommand:@"set_next_level" withData:nil andBlock:^(id json) {
+        // handle blind level change
+        if(block) {
+            block(json[@"blind_level_changed"]);
         }
     }];
 }
@@ -266,26 +242,22 @@
 }
 
 - (void)seatPlayer:(id)playerId withBlock:(void(^)(id,NSNumber*,NSNumber*,BOOL))block {
-    [self sendCommand:@"seat_player" withData:@{@"player_id" : playerId} andBlock:^(id json, NSString* error) {
-        if(error != nil) {
-            NSLog(@"seatPlayerWithBlock: %@\n", error);
+    [self sendCommand:@"seat_player" withData:@{@"player_id" : playerId} andBlock:^(id json) {
+        // handle seated player
+        id playerSeated = json[@"player_seated"];
+        if(playerSeated) {
+            if(block) {
+                block(playerSeated[@"player_id"], playerSeated[@"table_number"], playerSeated[@"seat_number"], NO);
+            }
         } else {
-            // handle seated player
-            id playerSeated = json[@"player_seated"];
-            if(playerSeated) {
-                if(block != nil) {
-                    block(playerSeated[@"player_id"], playerSeated[@"table_number"], playerSeated[@"seat_number"], NO);
+            id alreadySeated = json[@"already_seated"];
+            if(alreadySeated) {
+                if(block) {
+                    block(alreadySeated[@"player_id"], alreadySeated[@"table_number"], alreadySeated[@"seat_number"], YES);
                 }
             } else {
-                id alreadySeated = json[@"already_seated"];
-                if(alreadySeated) {
-                    if(block != nil) {
-                        block(alreadySeated[@"player_id"], alreadySeated[@"table_number"], alreadySeated[@"seat_number"], YES);
-                    }
-                } else {
-                    if(block != nil) {
-                        block(nil, nil, nil, NO);
-                    }
+                if(block) {
+                    block(nil, nil, nil, NO);
                 }
             }
         }
@@ -293,47 +265,35 @@
 }
 
 - (void)unseatPlayer:(id)playerId withBlock:(void(^)(id,NSNumber*,NSNumber*))block {
-    [self sendCommand:@"unseat_player" withData:@{@"player_id" : playerId} andBlock:^(id json, NSString* error) {
-        if(error != nil) {
-            NSLog(@"unseatPlayerWithBlock: %@\n", error);
+    [self sendCommand:@"unseat_player" withData:@{@"player_id" : playerId} andBlock:^(id json) {
+        // handle seated player
+        id playerUnseated = json[@"player_unseated"];
+        if(playerUnseated) {
+            if(block) {
+                block(playerUnseated[@"player_id"], playerUnseated[@"table_number"], playerUnseated[@"seat_number"]);
+            }
         } else {
-            // handle seated player
-            id playerUnseated = json[@"player_unseated"];
-            if(playerUnseated) {
-                if(block != nil) {
-                    block(playerUnseated[@"player_id"], playerUnseated[@"table_number"], playerUnseated[@"seat_number"]);
-                }
-            } else {
-                if(block != nil) {
-                    block(nil, nil, nil);
-                }
+            if(block) {
+                block(nil, nil, nil);
             }
         }
     }];
 }
 
 - (void)bustPlayer:(id)playerId withBlock:(void(^)(NSArray*))block {
-    [self sendCommand:@"bust_player" withData:@{@"player_id" : playerId} andBlock:^(id json, NSString* error) {
-        if(error != nil) {
-            NSLog(@"bustPlayerWithBlock: %@\n", error);
-        } else {
-            // handle player movement
-            if(block != nil) {
-                block(json[@"players_moved"]);
-            }
+    [self sendCommand:@"bust_player" withData:@{@"player_id" : playerId} andBlock:^(id json) {
+        // handle player movement
+        if(block) {
+            block(json[@"players_moved"]);
         }
     }];
 }
 
 - (void)quickSetupWithBlock:(void(^)(NSArray*))block {
-    [self sendCommand:@"quick_setup" withData:nil andBlock:^(id json, NSString* error) {
-        if(error != nil) {
-            NSLog(@"quickSetupWithBlock: %@\n", error);
-        } else {
-            // handle seated players
-            if(block != nil) {
-                block(json[@"seated_players"]);
-            }
+    [self sendCommand:@"quick_setup" withData:nil andBlock:^(id json) {
+        // handle seated players
+        if(block) {
+            block(json[@"seated_players"]);
         }
     }];
 }
@@ -341,6 +301,17 @@
 #pragma mark Tournament Messages
 
 - (void)handleMessage:(NSMutableDictionary*)json fromConnection:(TournamentConnection*)tc {
+    // look for an error, pass it to the delegate
+    NSString* errorString = json[@"error"];
+    if(errorString) {
+        // TODO: actually localize error string
+        NSString* localizedDescription = errorString;
+        NSError* error = [NSError errorWithDomain:TBErrorDomain code:TBErrorDaemonResponse userInfo:@{NSLocalizedDescriptionKey:localizedDescription}];
+        if([[self delegate] respondsToSelector:@selector(tournamentSession:error:)]) {
+            [[self delegate] tournamentSession:self error:error];
+        }
+    }
+
     // look for command key
     NSNumber* cmdkey = json[@"echo"];
     if(cmdkey) {
@@ -348,12 +319,14 @@
         [json removeObjectForKey:@"echo"];
 
         // look up block for command key
-        void (^block)(id,NSString*) = [self blocksForCommands][cmdkey];
+        void (^block)(id) = [self blocksForCommands][cmdkey];
         if(block) {
-            // if it's a command with a handler block, call that block
-            block(json, json[@"error"]);
+            if(errorString == nil) {
+                // if it's a command with a handler block, and there is no error, call that block
+                block(json);
+            }
 
-            // remove it from our dictionary
+            // remove block from our dictionary
             [[self blocksForCommands] removeObjectForKey:cmdkey];
         }
     } else {
