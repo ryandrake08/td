@@ -182,6 +182,15 @@
         if([indexPath row] == 1) {
             // force plan seating
             [self planSeating];
+
+            // switch to seating screen automatically
+            [[[self navigationController] tabBarController] setSelectedIndex:1];
+        } else if([indexPath row] == 2) {
+            // quick setup
+            [[self session] quickSetupWithBlock:nil];
+
+            // switch to clock screen automatically
+            [[[self navigationController] tabBarController] setSelectedIndex:2];
         }
 
         // deselect

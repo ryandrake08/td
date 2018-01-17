@@ -314,6 +314,27 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Ja0-bG-eSh">
+                                        <rect key="frame" x="0.0" y="507.5" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ja0-bG-eSh" id="Oc9-Rm-8Cn">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Quck Start" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ht5-Vk-ftM">
+                                                    <rect key="frame" x="23" y="11" width="82.5" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="ht5-Vk-ftM" firstAttribute="centerY" secondItem="Oc9-Rm-8Cn" secondAttribute="centerY" id="Mfe-mw-TYc"/>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ht5-Vk-ftM" secondAttribute="trailing" constant="20" symbolic="YES" id="dpf-Ck-W1F"/>
+                                                <constraint firstItem="ht5-Vk-ftM" firstAttribute="leading" secondItem="Oc9-Rm-8Cn" secondAttribute="leadingMargin" constant="7" id="yll-0k-Jct"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>
