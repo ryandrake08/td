@@ -234,7 +234,7 @@
                                         <menuItem title="Re-Plan Tournament" id="NZQ-4A-hrd">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="restartTapped:" target="dLJ-5r-r8L" id="jYw-wd-O4w"/>
+                                                <action selector="planSeatingTapped:" target="dLJ-5r-r8L" id="FdA-LY-85A"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="JPM-Je-wgT"/>
@@ -243,10 +243,16 @@
                                                 <action selector="displayButtonDidChange:" target="dLJ-5r-r8L" id="VQN-Cp-6NO"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Rebalance Tables..." id="qmA-yM-Ssm">
+                                        <menuItem title="Show Player Moves..." id="qmA-yM-Ssm">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <segue destination="E8o-9k-1FA" kind="modal" id="oXt-Yb-wuw"/>
+                                                <segue destination="E8o-9k-1FA" kind="modal" id="N4t-1A-N0u"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Rebalance Tables..." id="Ec3-XC-iph">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="rebalanceTapped:" target="dLJ-5r-r8L" id="S7H-MX-xu0"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="jOr-MD-YdF"/>
@@ -377,7 +383,7 @@
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="9303F932-10EA-45FF-9112-5E2190AFB751" label="Re-Plan" paletteLabel="Re-Plan" tag="-1" image="b_restart" id="PYd-AK-xr2">
                                     <connections>
-                                        <action selector="restartTapped:" target="bjE-D6-6zO" id="JTC-yJ-ix2"/>
+                                        <action selector="planSeatingTapped:" target="bjE-D6-6zO" id="oBm-yr-VTo"/>
                                     </connections>
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="1A9ED53F-D961-4530-B9F3-14B1711F604F" label="" paletteLabel="Play" tag="-1" image="b_play_pause" id="VPE-iB-g5a">
@@ -471,7 +477,7 @@
                                         <segue destination="79P-Qm-Z6L" kind="sheet" identifier="presentPlanView" id="mJ1-px-HDd"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="5AED8755-E587-4E01-A980-593FFBFA5FA5" label="Quick Start" paletteLabel="Quick Start" tag="-1" image="b_rocket" id="ANd-0c-7C0">
+                                <toolbarItem implicitItemIdentifier="5AED8755-E587-4E01-A980-593FFBFA5FA5" label="Quick Setup" paletteLabel="Quick Setup" tag="-1" image="b_rocket" id="ANd-0c-7C0">
                                     <connections>
                                         <action selector="quickStartTapped:" target="bjE-D6-6zO" id="h45-KZ-vpp"/>
                                     </connections>
@@ -990,7 +996,7 @@ Gw
                                                                     </connections>
                                                                 </textField>
                                                                 <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="8we-y3-Jbh">
-                                                                    <rect key="frame" x="3" y="1" width="418" height="111"/>
+                                                                    <rect key="frame" x="3" y="1" width="418" height="5"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                 </box>
                                                             </subviews>
@@ -3345,9 +3351,9 @@ Gw
         <image name="m_rebuy" width="44" height="44"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="cgp-eX-T5f"/>
-        <segue reference="20A-7q-E8V"/>
-        <segue reference="mJ1-px-HDd"/>
-        <segue reference="3WU-TS-ggK"/>
+        <segue reference="N4t-1A-N0u"/>
+        <segue reference="RAQ-SQ-Qt2"/>
+        <segue reference="bkh-Dn-ae1"/>
+        <segue reference="945-vK-tRp"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -130,12 +130,34 @@
     }
 }
 
-- (IBAction)restartTapped:(id)sender {
-    [(TBMacDocument*)[self document] planSeating];
+- (IBAction)planSeatingTapped:(id)sender {
+    if([[[self session] state][@"seats"] count] > 0 || [[[self session] state][@"buyins"] count] > 0) {
+        // alert because this is a very destructive action
+        NSAlert* alert = [[NSAlert alloc] init];
+        [alert setAlertStyle:NSWarningAlertStyle];
+        [alert addButtonWithTitle:NSLocalizedString(@"Plan", nil)];
+        [alert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+        [alert setMessageText:NSLocalizedString(@"Plan Seating", nil)];
+
+        // display a different message if the game is running
+        BOOL playing = [[[self session] state][@"current_blind_level"] unsignedIntegerValue] != 0;
+        if(playing) {
+            [alert setInformativeText:NSLocalizedString(@"This will end the current tournament immediately, then clear any existing seats and buy-ins.", nil)];
+        } else {
+            [alert setInformativeText:NSLocalizedString(@"This will clear any existing seats and buy-ins.", nil)];
+        }
+
+        // present and only perform setup if confirmed by user
+        if([alert runModal] == NSAlertFirstButtonReturn) {
+            [(TBMacDocument*)[self document] planSeating];
+        }
+    } else {
+        // no warning
+        [(TBMacDocument*)[self document] planSeating];
+    }
 }
 
 - (IBAction)rebalanceTapped:(id)sender {
-    NSLog(@"Rebalancing seating");
     [[self session] rebalanceSeatingWithBlock:^(NSArray* movements) {
         if([movements count] > 0) {
             [[NSNotificationCenter defaultCenter] postNotificationName:kMovementsUpdatedNotification object:movements];
@@ -149,16 +171,16 @@
         // alert because this is a very destructive action
         NSAlert* alert = [[NSAlert alloc] init];
         [alert setAlertStyle:NSWarningAlertStyle];
-        [alert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+        [alert addButtonWithTitle:NSLocalizedString(@"Setup", nil)];
         [alert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
-        [alert setMessageText:NSLocalizedString(@"Quick Start?", nil)];
+        [alert setMessageText:NSLocalizedString(@"Quick Setup", nil)];
 
         // display a different message if the game is running
         BOOL playing = [[[self session] state][@"current_blind_level"] unsignedIntegerValue] != 0;
         if(playing) {
-            [alert setInformativeText:NSLocalizedString(@"Quick Start will end the current tournament immediately, then re-seat and buy in all players.", nil)];
+            [alert setInformativeText:NSLocalizedString(@"Quick Setup will end the current tournament immediately, then re-seat and buy in all players.", nil)];
         } else {
-            [alert setInformativeText:NSLocalizedString(@"Quick Start will clear any existing seats and buy-ins, then re-seat and buy in all players.", nil)];
+            [alert setInformativeText:NSLocalizedString(@"Quick Setup will clear any existing seats and buy-ins, then re-seat and buy in all players.", nil)];
         }
 
         // present and only perform setup if confirmed by user

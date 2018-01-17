@@ -15,6 +15,7 @@
 #import "TBSetupTableViewController.h"
 #import "TournamentDaemon.h"
 #import "TournamentSession.h"
+#import "UIAlertView+Blocks.h"
 #import "UIResponder+PresentingErrors.h"
 
 @interface TBSettingsViewController () <UITableViewDelegate, UITableViewDataSource>
@@ -181,16 +182,10 @@
     if([indexPath section] == 1) {
         if([indexPath row] == 1) {
             // force plan seating
-            [self planSeating];
-
-            // switch to seating screen automatically
-            [[[self navigationController] tabBarController] setSelectedIndex:1];
+            [self planSeatingTapped:self];
         } else if([indexPath row] == 2) {
             // quick setup
-            [[self session] quickSetupWithBlock:nil];
-
-            // switch to clock screen automatically
-            [[[self navigationController] tabBarController] setSelectedIndex:2];
+            [self quickStartTapped:self];
         }
 
         // deselect
@@ -221,6 +216,76 @@
         UIStepper* stepper = (UIStepper*)sender;
         NSInteger value = (NSInteger)[stepper value];
         [self setMaxPlayers:value];
+    }
+}
+
+- (void)planSeatingTapped:(id)sender {
+    if([self maxPlayers] > 1) {
+        if([[[self session] state][@"seats"] count] > 0 || [[[self session] state][@"buyins"] count] > 0) {
+            // display a different message if the game is running
+            BOOL playing = [[[self session] state][@"current_blind_level"] unsignedIntegerValue] != 0;
+            NSString* message;
+            if(playing) {
+                message = NSLocalizedString(@"This will end the current tournament immediately, then clear any existing seats and buy-ins.", nil);
+            } else {
+                message = NSLocalizedString(@"This will clear any existing seats and buy-ins.", nil);
+            }
+
+            // alert because this is a very destructive action
+            [UIAlertView showWithTitle:NSLocalizedString(@"Plan Seating", nil)
+                               message:message
+                     cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
+                     otherButtonTitles:@[NSLocalizedString(@"Plan", nil)]
+                              tapBlock:^(UIAlertView* alertView, NSInteger buttonIndex) {
+                                  if(buttonIndex != [alertView cancelButtonIndex]) {
+                                      NSLog(@"Planning seating for %lu players", (unsigned long)[self maxPlayers]);
+                                      [[self session] planSeatingFor:@([self maxPlayers])];
+
+                                      // switch to clock screen automatically
+                                      [[[self navigationController] tabBarController] setSelectedIndex:1];
+                                  }
+                              }];
+        } else {
+            // no warning
+            NSLog(@"Planning seating for %lu players", (unsigned long)[self maxPlayers]);
+            [[self session] planSeatingFor:@([self maxPlayers])];
+
+            // switch to clock screen automatically
+            [[[self navigationController] tabBarController] setSelectedIndex:1];
+        }
+    }
+}
+
+- (IBAction)quickStartTapped:(id)sender {
+    if([[[self session] state][@"seats"] count] > 0 || [[[self session] state][@"buyins"] count] > 0) {
+        // display a different message if the game is running
+        BOOL playing = [[[self session] state][@"current_blind_level"] unsignedIntegerValue] != 0;
+        NSString* message;
+        if(playing) {
+            message = NSLocalizedString(@"Quick Start will end the current tournament immediately, then re-seat and buy in all players.", nil);
+        } else {
+            message = NSLocalizedString(@"Quick Start will clear any existing seats and buy-ins, then re-seat and buy in all players.", nil);
+        }
+
+        // alert because this is a very destructive action
+        [UIAlertView showWithTitle:NSLocalizedString(@"Quick Setup", nil)
+                           message:message
+                 cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
+                 otherButtonTitles:@[NSLocalizedString(@"Setup", nil)]
+                          tapBlock:^(UIAlertView* alertView, NSInteger buttonIndex) {
+                              if(buttonIndex != [alertView cancelButtonIndex]) {
+                                  [[self session] quickSetupWithBlock:nil];
+
+                                  // switch to clock screen automatically
+                                  [[[self navigationController] tabBarController] setSelectedIndex:2];
+                              }
+                          }];
+    } else {
+        // no warning
+        [[self session] quickSetupWithBlock:nil];
+
+        // switch to clock screen automatically
+        [[[self navigationController] tabBarController] setSelectedIndex:2];
     }
 }
 
