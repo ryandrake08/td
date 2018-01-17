@@ -380,7 +380,7 @@ void gameinfo::dump_derived_state(json& state) const
 
     // results
     std::vector<td::result> results;
-    for(size_t j(0); j<this->seats.size(); j++)
+    for(size_t j(0); j<this->buyins.size(); j++)
     {
         td::result result(j+1);
         if(j < this->payouts.size() && source != this->funding_sources.end())
@@ -398,7 +398,7 @@ void gameinfo::dump_derived_state(json& state) const
         {
             throw std::runtime_error("failed to look up player: " + player_id);
         }
-        size_t j(this->seats.size()+i);
+        size_t j(this->buyins.size()+i);
 
         td::result result(j+1, player_it->second.name);
         if(j < this->payouts.size() && source != this->funding_sources.end())
