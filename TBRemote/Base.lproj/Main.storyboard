@@ -1064,7 +1064,13 @@
                             <outlet property="delegate" destination="w8f-tx-6Y1" id="xkQ-ud-ZHO"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Seating" id="aAt-os-wea"/>
+                    <navigationItem key="navigationItem" title="Seating" id="aAt-os-wea">
+                        <barButtonItem key="rightBarButtonItem" title="Rebalance" id="cu3-Td-PYS">
+                            <connections>
+                                <action selector="rebalanceTapped:" destination="w8f-tx-6Y1" id="2td-Tn-VpY"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0z6-Lt-xSg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -104,6 +104,16 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark Actions
+
+- (IBAction)rebalanceTapped:(id)sender {
+    [[self session] rebalanceSeatingWithBlock:^(NSArray* movements) {
+        if([movements count] > 0) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:kMovementsUpdatedNotification object:movements];
+        }
+    }];
+}
+
 #pragma mark Operations
 
 - (NSString*)displayStringForTableOrSeatNumber:(NSNumber*)number {
