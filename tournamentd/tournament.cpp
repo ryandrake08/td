@@ -445,6 +445,7 @@ struct tournament::impl
 								available_chips (array): Discription of each chip color and denomination
 								manual_payouts (array): Manual payout definitions: number of players and an array of payouts
 								previous_blind_level_hold_duration (integer): How long after round starts should prev command go to the previous round (rather than restart)? (ms)
+								background_color (string): Suggested clock user interface color
 							*/
 							this->handle_cmd_get_config(out);
 						}
