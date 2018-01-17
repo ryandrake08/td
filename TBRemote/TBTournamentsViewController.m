@@ -10,14 +10,14 @@
 #import "TBAppDelegate.h"
 #import "TournamentBrowser.h"
 #import "TournamentSession.h"
+#import "UIActionSheet+Blocks.h"
+#import "UIAlertView+Blocks.h"
 #import "UIResponder+PresentingErrors.h"
 
 #import "NSObject+FBKVOController.h"
 
 @interface TBTournamentsViewController () <UITableViewDelegate,
                                            UITableViewDataSource,
-                                           UIActionSheetDelegate,
-                                           UIAlertViewDelegate,
                                            TournamentBrowserDelegate>
 
 @property (nonatomic, strong) TournamentSession* session;
@@ -105,18 +105,46 @@
         }
 
         // pop actionsheet
-        UIActionSheet* actionSheet = [[UIActionSheet alloc] initWithTitle:nil
-                                                                 delegate:self
-                                                        cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
-                                                   destructiveButtonTitle:NSLocalizedString(@"Leave Game", nil)
-                                                        otherButtonTitles:otherButtons, nil];
-        [actionSheet showInView:[self view]];
+        [UIActionSheet showInView:[self view]
+                        withTitle:nil
+                cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
+           destructiveButtonTitle:NSLocalizedString(@"Leave Game", nil)
+                otherButtonTitles:@[otherButtons]
+                         tapBlock:^(UIActionSheet * _Nonnull actionSheet, NSInteger buttonIndex) {
+                             if(buttonIndex == [actionSheet destructiveButtonIndex]) {
+                                 [[self session] disconnect];
+                                 [self setCurrentService:nil];
+                             } else if(buttonIndex == [actionSheet firstOtherButtonIndex]) {
+                                 NSString* message = [NSString stringWithFormat:NSLocalizedString(@"The tournament director needs to authorize this code: %@", nil), [TournamentSession clientIdentifier]];
+
+                                 // present alert
+                                 [UIAlertView showWithTitle:NSLocalizedString(@"Administer Game", nil)
+                                                    message:message
+                                          cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
+                                          otherButtonTitles:@[NSLocalizedString(@"I'm Ready", nil)]
+                                                   tapBlock:^(UIAlertView* alertView, NSInteger alertBbuttonIndex) {
+                                                       if(alertBbuttonIndex == [alertView firstOtherButtonIndex]) {
+                                                           // check authorization
+                                                           [[self session] checkAuthorizedWithBlock:^(BOOL nowAuthorized) {
+                                                               if(nowAuthorized) {
+                                                                   // switch to seating screen automatically
+                                                                   [[[self navigationController] tabBarController] setSelectedIndex:1];
+                                                               }
+                                                           }];
+                                                       }
+                                                   }];
+                             }
+                         }];
     } else {
         // connect
         NSError* error;
         if([[self session] connectToNetService:cellService error:&error]) {
             // store as current service
             [self setCurrentService:cellService];
+
+            // switch to clock screen automatically
+            [[[self navigationController] tabBarController] setSelectedIndex:2];
+
         } else {
             [self presentError:error];
         }
@@ -131,38 +159,6 @@
     if(i != NSNotFound) {
         NSIndexPath* indexPath = [NSIndexPath indexPathForRow:i inSection:0];
         [[self tableView] reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-    }
-}
-
-#pragma mark UIActionSheetDelegate
-
-- (void)actionSheet:(UIActionSheet*)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if(buttonIndex == [actionSheet destructiveButtonIndex]) {
-        [[self session] disconnect];
-        [self setCurrentService:nil];
-    } else if(buttonIndex == [actionSheet cancelButtonIndex]) {
-        // do nothing
-    } else if(buttonIndex == [actionSheet firstOtherButtonIndex]) {
-        NSString* msg = [[NSString alloc] initWithFormat:NSLocalizedString(@"The tournament director needs to authorize this code: %@", nil), [TournamentSession clientIdentifier]];
-
-        // present alert
-        UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Administer Game", nil)
-                                                            message:msg
-                                                           delegate:self
-                                                  cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
-                                                  otherButtonTitles:NSLocalizedString(@"Try Again", nil), nil];
-        [alertView show];
-    }
-}
-
-#pragma mark NSArrayUIAlertViewDelegate
-
-- (void)alertView:(UIAlertView*)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
-    if(buttonIndex == [alertView cancelButtonIndex]) {
-        // do nothing
-    } else if(buttonIndex == [alertView firstOtherButtonIndex]) {
-        // check authorization
-        [[self session] checkAuthorizedWithBlock:nil];
     }
 }
 

@@ -211,6 +211,8 @@
 		94E273FF200F2B2F0048B07A /* TBArrayEmptyTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 94C9D87A200F265800D4DA10 /* TBArrayEmptyTransformer.m */; };
 		94E27403200F611F0048B07A /* UIAlertView+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E27401200F60B00048B07A /* UIAlertView+Blocks.m */; };
 		94E27404200F611F0048B07A /* UIAlertView+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E27401200F60B00048B07A /* UIAlertView+Blocks.m */; };
+		94E27407200F694A0048B07A /* UIActionSheet+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E27406200F693C0048B07A /* UIActionSheet+Blocks.m */; };
+		94E27408200F694A0048B07A /* UIActionSheet+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E27406200F693C0048B07A /* UIActionSheet+Blocks.m */; };
 		94ED00111B76E1E6003CF19B /* TBTableSeatNumberTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 94ED00101B76E1E6003CF19B /* TBTableSeatNumberTransformer.m */; };
 		94F466271B8AF203009BB648 /* TBCurrencyCodeTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F466261B8AF203009BB648 /* TBCurrencyCodeTransformer.m */; };
 		94F51CAE1BC96F53007AD1DD /* TBTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F51CAD1BC96F53007AD1DD /* TBTableViewController.m */; };
@@ -723,6 +725,8 @@
 		94D7290E20034F5A009EC463 /* TBSetupViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TBSetupViewController.m; path = TBMac/TBSetupViewController.m; sourceTree = "<group>"; };
 		94E27401200F60B00048B07A /* UIAlertView+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+Blocks.m"; sourceTree = "<group>"; };
 		94E27402200F60B00048B07A /* UIAlertView+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+Blocks.h"; sourceTree = "<group>"; };
+		94E27405200F693B0048B07A /* UIActionSheet+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIActionSheet+Blocks.h"; sourceTree = "<group>"; };
+		94E27406200F693C0048B07A /* UIActionSheet+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIActionSheet+Blocks.m"; sourceTree = "<group>"; };
 		94ED000F1B76E1E6003CF19B /* TBTableSeatNumberTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBTableSeatNumberTransformer.h; sourceTree = "<group>"; };
 		94ED00101B76E1E6003CF19B /* TBTableSeatNumberTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBTableSeatNumberTransformer.m; sourceTree = "<group>"; };
 		94F466251B8AF203009BB648 /* TBCurrencyCodeTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBCurrencyCodeTransformer.h; sourceTree = "<group>"; };
@@ -1156,6 +1160,8 @@
 				AD2CA95D1BAA7043009A2384 /* TournamentSocketDirectory.h */,
 				9462A3E51B77CB3B00B29002 /* TTTOrdinalNumberFormatter.h */,
 				9462A3E61B77CB3B00B29002 /* TTTOrdinalNumberFormatter.m */,
+				94E27405200F693B0048B07A /* UIActionSheet+Blocks.h */,
+				94E27406200F693C0048B07A /* UIActionSheet+Blocks.m */,
 				94E27402200F60B00048B07A /* UIAlertView+Blocks.h */,
 				94E27401200F60B00048B07A /* UIAlertView+Blocks.m */,
 				94363BD3200E84FA00D52155 /* UIResponder+PresentingErrors.h */,
@@ -1865,6 +1871,7 @@
 				ADD4F1271B91FE2400DAF567 /* NSObject+AssociatedObject.m in Sources */,
 				ADFFFF151BA34394003BAC88 /* TBColor+CSS.m in Sources */,
 				94363BD2200E79C000D52155 /* TBError.m in Sources */,
+				94E27408200F694A0048B07A /* UIActionSheet+Blocks.m in Sources */,
 				949D709F1B3C440E008D5CD1 /* server.cpp in Sources */,
 				9464718B200CAA9C00556467 /* TBInvertImage.c in Sources */,
 				9439701A1B3F9DB700BB0413 /* TournamentBrowser.m in Sources */,
@@ -2057,6 +2064,7 @@
 				ADF635FB1BAB8AF800D019AE /* NSObject+FBKVOController.m in Sources */,
 				94E27403200F611F0048B07A /* UIAlertView+Blocks.m in Sources */,
 				ADF635FD1BAB8AF800D019AE /* main.m in Sources */,
+				94E27407200F694A0048B07A /* UIActionSheet+Blocks.m in Sources */,
 				94363BD1200E79C000D52155 /* TBError.m in Sources */,
 				ADF635FE1BAB8AF800D019AE /* NSData+Delimiter.m in Sources */,
 				ADD2CC4E1BB3C73900DE3DE5 /* TBSetupFundingViewController.m in Sources */,

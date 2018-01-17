@@ -15,8 +15,7 @@
 
 @interface TBPlayerSeatingViewController () <UITableViewDelegate,
                                              UITableViewDataSource,
-                                             UIActionSheetDelegate,
-                                             UIAlertViewDelegate>
+                                             UIActionSheetDelegate>
 
 @property (nonatomic, strong) TournamentSession* session;
 
