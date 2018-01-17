@@ -824,7 +824,7 @@ std::size_t gameinfo::try_break_table(std::vector<td::player_movement>& movement
             this->tables--;
 
             // prune empty table from our open seat list, no need to seat people at unused tables
-            this->empty_seats.erase(std::remove_if(this->empty_seats.begin(), this->empty_seats.end(), [&break_table](const td::seat& seat) { return seat.table_number == break_table; }));
+            this->empty_seats.erase(std::remove_if(this->empty_seats.begin(), this->empty_seats.end(), [&break_table](const td::seat& seat) { return seat.table_number == break_table; }), this->empty_seats.end());
 
             logger(LOG_INFO) << "broken table " << break_table << ". " << this->seats.size() << " players now at " << this->tables << " tables\n";
         }
