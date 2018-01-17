@@ -23,6 +23,9 @@ namespace td
     // type of funding source (buyin, rebuy, addon)
     enum funding_source_type_t { buyin, rebuy, addon };
 
+    // type of rebalance policy (manual, automatic, shootout)
+    enum rebalance_policy_t { manual, automatic, shootout };
+
     // attributes of an authorized client
     struct authorized_client
     {

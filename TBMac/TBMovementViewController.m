@@ -27,7 +27,7 @@
 
     // change text based on whether we have movements
     if(cellsToShow == 0) {
-        [[self titleTextField] setStringValue:NSLocalizedString(@"Tables are balanced", nil)];
+        [[self titleTextField] setStringValue:NSLocalizedString(@"No players moving", nil)];
     } else if(cellsToShow == 1) {
         [[self titleTextField] setStringValue:NSLocalizedString(@"Move player:", nil)];
     } else {

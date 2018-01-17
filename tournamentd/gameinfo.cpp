@@ -16,6 +16,7 @@ gameinfo::gameinfo() :
     round_payouts(false),
     payout_flatness(1.0),
     previous_blind_level_hold_duration(2000),
+    rebalance_policy(td::manual),
     max_expected_players(0),
     tables(0),
     total_chips(0),
@@ -52,6 +53,8 @@ void gameinfo::configure(const json& config)
     config.get_values("funding_sources", this->funding_sources);
     config.get_value("percent_seats_paid", this->percent_seats_paid);
     config.get_value("previous_blind_level_hold_duration", this->previous_blind_level_hold_duration);
+    // TODO: changing the rebalance policy could trigger an immediate rebalance. for now, we wait until the next bust-out
+    config.get_value("rebalance_policy", reinterpret_cast<int&>(this->rebalance_policy));
     config.get_value("background_color", this->background_color);
 
     if(config.get_values("available_chips", this->available_chips))
@@ -91,6 +94,7 @@ void gameinfo::configure(const json& config)
         }
     }
 
+    // changing the table capacity can cause a re-plan
     if(config.get_value("table_capacity", this->table_capacity))
     {
         if(!this->seats.empty())
@@ -107,6 +111,7 @@ void gameinfo::configure(const json& config)
         }
     }
 
+    // recalculate for any configuration that could alter payouts
     auto recalculate(false);
     recalculate = recalculate || config.get_value("manual_payouts");
     recalculate = recalculate || config.get_value("round_payouts", this->round_payouts);
@@ -118,6 +123,7 @@ void gameinfo::configure(const json& config)
         this->recalculate_payouts();
     }
 
+    // stop the game when reconfiguring blind levels
     if(config.get_values("blind_levels", this->blind_levels))
     {
         if(this->is_started())
@@ -140,6 +146,7 @@ void gameinfo::dump_configuration(json& config) const
     config.set_value("table_capacity", this->table_capacity);
     config.set_value("percent_seats_paid", this->percent_seats_paid);
     config.set_value("previous_blind_level_hold_duration", this->previous_blind_level_hold_duration);
+    config.set_value("rebalance_policy", static_cast<int>(this->rebalance_policy));
     config.set_value("background_color", this->background_color);
     config.set_value("funding_sources", json(this->funding_sources.begin(), this->funding_sources.end()));
     config.set_value("blind_levels", json(this->blind_levels.begin(), this->blind_levels.end()));
@@ -614,8 +621,29 @@ std::vector<td::player_movement> gameinfo::bust_player(const td::player_id_t& pl
 
     // try to break table or rebalance
     std::vector<td::player_movement> movements;
-    this->try_break_table(movements);
-    this->try_rebalance(movements);
+
+    switch(this->rebalance_policy)
+    {
+        case td::manual:
+            // for manual rebalancing, do nothing with tables when a player busts out
+            logger(LOG_DEBUG) << "manual rebalancing in effect. not trying to break tables or rebalance\n";
+            break;
+
+        case td::automatic:
+            // for automatic rebalancing, try to break tables and rebalance every time a player busts out
+            this->try_break_table(movements);
+            this->try_rebalance(movements);
+            break;
+
+        case td::shootout:
+            // for shootout tournaments, only break tables when there is one player left on each table or fewer players
+            if(this->tables >= this->seats.size())
+            {
+                this->try_break_table(movements);
+                this->try_rebalance(movements);
+            }
+            break;
+    }
 
     // collect bought-in players still seated
     struct collector
@@ -653,6 +681,16 @@ std::vector<td::player_movement> gameinfo::bust_player(const td::player_id_t& pl
         this->reset_seating();
     }
 
+    return movements;
+}
+
+// try to break and rebalance tables
+std::vector<td::player_movement> gameinfo::rebalance_seating()
+{
+    // try to break table or rebalance
+    std::vector<td::player_movement> movements;
+    this->try_break_table(movements);
+    this->try_rebalance(movements);
     return movements;
 }
 

@@ -291,6 +291,13 @@ struct tournament::impl
 		out.set_value("players_moved", json(movements.begin(), movements.end()));
 	}
 
+    void handle_cmd_rebalance_seating(const json& in, json& out)
+    {
+        auto movements(this->game_info.rebalance_seating());
+
+        out.set_value("players_moved", json(movements.begin(), movements.end()));
+    }
+
 	void handle_cmd_quick_setup(const json& in, json& out)
 	{
 		std::vector<td::seated_player> seated_players;
@@ -445,6 +452,7 @@ struct tournament::impl
 								available_chips (array): Discription of each chip color and denomination
 								manual_payouts (array): Manual payout definitions: number of players and an array of payouts
 								previous_blind_level_hold_duration (integer): How long after round starts should prev command go to the previous round (rather than restart)? (ms)
+								rebalance_policy (integer): Policy for rebalancing tables (0 = manual, 1 = when unbalanced, 2 = shootout)
 								background_color (string): Suggested clock user interface color
 							*/
 							this->handle_cmd_get_config(out);
@@ -830,6 +838,25 @@ struct tournament::impl
 							this->handle_cmd_bust_player(in, out);
 							this->broadcast_state();
 						}
+                        else if(cmd == "rebalance_seating")
+                        {
+                            /*
+                             command:
+                             rebalance_seating
+
+                             purpose:
+                             Manually try to break and rebalance tables
+
+                             input:
+                             authenticate (integer): Valid authentication code for a tournament admin
+
+                             output:
+                             players_moved (array): Any player movements that have to happen
+                             */
+                            this->ensure_authorized(in);
+                            this->handle_cmd_rebalance_seating(in, out);
+                            this->broadcast_state();
+                        }
 						else if(cmd == "quick_setup")
 						{
 							/*

@@ -8,6 +8,7 @@
 
 #import "TBMacViewController.h"
 #import "TBMacDocument.h"
+#import "TBNotifications.h"
 #import "TBSeatingViewController.h"
 #import "TBResultsViewController.h"
 #import "TBPlayersViewController.h"
@@ -131,6 +132,16 @@
 
 - (IBAction)restartTapped:(id)sender {
     [(TBMacDocument*)[self document] planSeating];
+}
+
+- (IBAction)rebalanceTapped:(id)sender {
+    NSLog(@"Rebalancing seating");
+    [[self session] rebalanceSeatingWithBlock:^(NSArray* movements) {
+        if([movements count] > 0) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:kMovementsUpdatedNotification object:movements];
+            [[[[self view] window] windowController] performSegueWithIdentifier:@"presentMovementView" sender:sender];
+        }
+    }];
 }
 
 - (IBAction)quickStartTapped:(id)sender {

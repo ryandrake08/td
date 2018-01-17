@@ -7,11 +7,11 @@
 //
 
 #import "TBPlayerSeatingViewController.h"
-#import "TournamentSession.h"
-#import "TBAppDelegate.h"
-
 #import "NSObject+AssociatedObject.h"
 #import "NSObject+FBKVOController.h"
+#import "TBAppDelegate.h"
+#import "TBNotifications.h"
+#import "TournamentSession.h"
 
 @interface TBPlayerSeatingViewController () <UITableViewDelegate,
                                              UITableViewDataSource,
@@ -293,7 +293,11 @@
                 break;
 
             case kCommandBustPlayer:
-                [[self session] bustPlayer:playerId withBlock:nil];
+                [[self session] bustPlayer:playerId withBlock:^(NSArray* movements) {
+                    if([movements count] > 0) {
+                        [[NSNotificationCenter defaultCenter] postNotificationName:kMovementsUpdatedNotification object:movements];
+                    }
+                }];
                 break;
 
             default:

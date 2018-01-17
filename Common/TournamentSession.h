@@ -14,6 +14,11 @@
 #define kFundingTypeRebuy @1
 #define kFundingTypeAddon @2
 
+// Rebalance policies
+#define kRebalanceManual @0
+#define kRebalanceAutomatic @1
+#define kRebalanceShootout @2
+
 // Standard 1 minute countdown
 #define kActionClockRequestTime 60000
 
@@ -67,6 +72,7 @@
 - (void)seatPlayer:(id)playerId withBlock:(void(^)(id playerId,NSNumber* tableNumber,NSNumber* seatNumber,BOOL alreadySeated))block;
 - (void)unseatPlayer:(id)playerId withBlock:(void(^)(id playerId,NSNumber* tableNumber,NSNumber* seatNumber))block;
 - (void)bustPlayer:(id)playerId withBlock:(void(^)(NSArray*))block;
+- (void)rebalanceSeatingWithBlock:(void(^)(NSArray*))block;
 - (void)quickSetupWithBlock:(void(^)(NSArray*))block;
 
 // utility (TODO: better place for this?)

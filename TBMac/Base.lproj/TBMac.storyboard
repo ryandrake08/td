@@ -415,9 +415,14 @@
                                         <action selector="displayButtonDidChange:" target="bjE-D6-6zO" id="wJg-mT-Bog"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="81AF0BFE-7EDF-4CAD-A052-FEC82EE2E16C" label="Rebalance" paletteLabel="Rebalance" tag="-1" image="b_move" id="xdp-J0-N7z" customClass="NSToolbarBadgedItem">
+                                <toolbarItem implicitItemIdentifier="81AF0BFE-7EDF-4CAD-A052-FEC82EE2E16C" label="Moves" paletteLabel="Player Moves" tag="-1" image="b_move" id="xdp-J0-N7z" customClass="NSToolbarBadgedItem">
                                     <connections>
                                         <segue destination="E8o-9k-1FA" kind="sheet" identifier="presentMovementView" id="cgp-eX-T5f"/>
+                                    </connections>
+                                </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="839A65C2-19E2-42F5-B98D-640010DE92AD" label="Rebalance" paletteLabel="Rebalance" tag="-1" image="b_rebalance" id="zxK-iM-hgj">
+                                    <connections>
+                                        <action selector="rebalanceTapped:" target="bjE-D6-6zO" id="tgY-wY-ZVQ"/>
                                     </connections>
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="522A409F-5876-4785-BD35-965C2982F9F2" label="" paletteLabel="Tournament Name" id="JhU-Ez-4Uj" userLabel="Tournament Name">
@@ -483,6 +488,7 @@
                                 <toolbarItem reference="BiV-xi-hlu"/>
                                 <toolbarItem reference="8hl-BW-ftP"/>
                                 <toolbarItem reference="Rcn-rR-9zf"/>
+                                <toolbarItem reference="zxK-iM-hgj"/>
                                 <toolbarItem reference="xdp-J0-N7z"/>
                                 <toolbarItem reference="9Gq-SN-JDg"/>
                                 <toolbarItem reference="VPE-iB-g5a"/>
@@ -494,7 +500,7 @@
                         </connections>
                     </window>
                     <connections>
-                        <outlet property="rebalanceToolbarItem" destination="xdp-J0-N7z" id="SA9-Ai-bW7"/>
+                        <outlet property="playerMovesToolbarItem" destination="xdp-J0-N7z" id="xEP-eB-YDO"/>
                         <segue destination="QmN-52-9Ox" kind="relationship" relationship="window.shadowedContentViewController" id="S2g-xK-Gtj"/>
                     </connections>
                 </windowController>
@@ -984,7 +990,7 @@ Gw
                                                                     </connections>
                                                                 </textField>
                                                                 <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="8we-y3-Jbh">
-                                                                    <rect key="frame" x="3" y="1" width="418" height="5"/>
+                                                                    <rect key="frame" x="3" y="1" width="418" height="111"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                 </box>
                                                             </subviews>
@@ -1450,11 +1456,6 @@ Gw
                                                             </buttonCell>
                                                             <connections>
                                                                 <action selector="seatedButtonDidChange:" target="S8w-ig-TI4" id="GU3-hw-xv9"/>
-                                                                <binding destination="S8w-ig-TI4" name="hidden" keyPath="self.session.state.empty_seats" id="Rbc-RG-WTF">
-                                                                    <dictionary key="options">
-                                                                        <string key="NSValueTransformerName">TBArrayEmptyTransformer</string>
-                                                                    </dictionary>
-                                                                </binding>
                                                                 <binding destination="LJR-BA-7sj" name="enabled" keyPath="objectValue.buyin" id="wzb-kA-AE1">
                                                                     <dictionary key="options">
                                                                         <string key="NSValueTransformerName">NSNegateBoolean</string>
@@ -1463,6 +1464,11 @@ Gw
                                                                 <binding destination="LJR-BA-7sj" name="value" keyPath="objectValue.seat_number" id="HtF-JF-uKl">
                                                                     <dictionary key="options">
                                                                         <string key="NSValueTransformerName">NSIsNotNil</string>
+                                                                    </dictionary>
+                                                                </binding>
+                                                                <binding destination="S8w-ig-TI4" name="hidden" keyPath="self.session.state.empty_seats" id="Rbc-RG-WTF">
+                                                                    <dictionary key="options">
+                                                                        <string key="NSValueTransformerName">TBArrayEmptyTransformer</string>
                                                                     </dictionary>
                                                                 </binding>
                                                             </connections>
@@ -3329,6 +3335,7 @@ Gw
         <image name="b_next" width="64" height="64"/>
         <image name="b_play_pause" width="64" height="64"/>
         <image name="b_previous" width="64" height="64"/>
+        <image name="b_rebalance" width="64" height="64"/>
         <image name="b_restart" width="64" height="64"/>
         <image name="b_rocket" width="64" height="64"/>
         <image name="b_seat" width="64" height="64"/>
@@ -3338,9 +3345,9 @@ Gw
         <image name="m_rebuy" width="44" height="44"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="oXt-Yb-wuw"/>
-        <segue reference="RAQ-SQ-Qt2"/>
-        <segue reference="bkh-Dn-ae1"/>
-        <segue reference="945-vK-tRp"/>
+        <segue reference="cgp-eX-T5f"/>
+        <segue reference="20A-7q-E8V"/>
+        <segue reference="mJ1-px-HDd"/>
+        <segue reference="3WU-TS-ggK"/>
     </inferredMetricsTieBreakers>
 </document>

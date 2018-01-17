@@ -45,6 +45,9 @@ class gameinfo
     // configuration: how long after round starts should prev command go to the previous round (rather than restart)? (ms)
     long previous_blind_level_hold_duration;
 
+    // configuration: rebalance policy
+    td::rebalance_policy_t rebalance_policy;
+
     // configuration: clock screen background color (synced to all clients)
     std::string background_color;
 
@@ -189,6 +192,9 @@ public:
     // remove a player from the game, busting him out
     // returns any player movements that happened
     std::vector<td::player_movement> bust_player(const td::player_id_t& player_id);
+
+    // try to break and rebalance tables
+    std::vector<td::player_movement> rebalance_seating();
 
     // ----- funding -----
 

@@ -289,6 +289,15 @@
     }];
 }
 
+- (void)rebalanceSeatingWithBlock:(void(^)(NSArray*))block {
+    [self sendCommand:@"rebalance_seating" withData:nil andBlock:^(id json) {
+        // handle player movement
+        if(block) {
+            block(json[@"players_moved"]);
+        }
+    }];
+}
+
 - (void)quickSetupWithBlock:(void(^)(NSArray*))block {
     [self sendCommand:@"quick_setup" withData:nil andBlock:^(id json) {
         // handle seated players

@@ -19,7 +19,7 @@
 @interface TBMacWindowController () <NSWindowDelegate>
 
 // ui
-@property (weak) IBOutlet NSToolbarBadgedItem* rebalanceToolbarItem;
+@property (weak) IBOutlet NSToolbarBadgedItem* playerMovesToolbarItem;
 
 // Viewer window controller
 @property (strong) NSWindowController* viewerWindowController;
@@ -56,9 +56,9 @@
         // update badge
         NSUInteger movements = [[self playerMovements] count];
         if(movements > 0) {
-            [[self rebalanceToolbarItem] setBadgeValue:[NSString stringWithFormat:@"%u", (unsigned)movements]];
+            [[self playerMovesToolbarItem] setBadgeValue:[NSString stringWithFormat:@"%u", (unsigned)movements]];
         } else {
-            [[self rebalanceToolbarItem] setBadgeValue:nil];
+            [[self playerMovesToolbarItem] setBadgeValue:nil];
         }
     }];
 }
@@ -84,7 +84,7 @@
         [[self playerMovements] removeAllObjects];
 
         // remove badge
-        [[self rebalanceToolbarItem] setBadgeValue:nil];
+        [[self playerMovesToolbarItem] setBadgeValue:nil];
     }
 }
 
