@@ -465,7 +465,8 @@ struct tournament::impl
 								players_finished (array): Player ids without seats (busted)
 								empty_seats (array): Empty seat assignments
 								tables (integer): Number of tables currently playing
-								buyins (array): Player ids who have bought in at least once
+								buyins (array): Player ids who are both currently seated and bought in
+								unique_entries (array): Player ids who at one point have bought in
 								entries (array): Player ids for each buyin or rebuy
 								payouts (array): Payout amounts for each place
 								total_chips (integer): Count of all tournament chips in play
@@ -714,7 +715,7 @@ struct tournament::impl
 								reset_funding
 
 							purpose:
-								Zero out all buyins, entries, cash and chips
+								Zero out all buyins, unique entries, entries, cash and chips
 
 							input:
 								authenticate (integer): Valid authentication code for a tournament admin

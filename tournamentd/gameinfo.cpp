@@ -68,7 +68,7 @@ void gameinfo::configure(const json& config)
     std::vector<td::player> players_vector;
     if(config.get_values("players", players_vector))
     {
-        if(!this->seats.empty() || !this->players_finished.empty() || !this->buyins.empty() || !this->entries.empty())
+        if(!this->seats.empty() || !this->players_finished.empty() || !this->buyins.empty() || !this->unique_entries.empty() || !this->entries.empty())
         {
             logger(LOG_WARNING) << "re-coniguring players list while in play is not advised, deleted players may still be in the game\n";
         }
@@ -158,6 +158,7 @@ void gameinfo::dump_state(json& state) const
     state.set_value("empty_seats", json(this->empty_seats.begin(), this->empty_seats.end()));
     state.set_value("tables", this->tables);
     state.set_value("buyins", json(this->buyins.begin(), this->buyins.end()));
+    state.set_value("unique_entries", json(this->unique_entries.begin(), this->unique_entries.end()));
     state.set_value("entries", json(this->entries.begin(), this->entries.end()));
     state.set_value("payouts", json(this->payouts.begin(), this->payouts.end()));
     state.set_value("total_chips", this->total_chips);
@@ -328,6 +329,17 @@ void gameinfo::dump_derived_state(json& state) const
         os << '-';
     }
     state.set_value("players_left_text", os.str()); os.str("");
+
+    // unique_entries text
+    if(!this->unique_entries.empty())
+    {
+        os << this->unique_entries.size();
+    }
+    else
+    {
+        os << '-';
+    }
+    state.set_value("unique_entries_text", os.str()); os.str("");
 
     // entries text
     if(!this->entries.empty())
@@ -836,7 +848,7 @@ void gameinfo::fund_player(const td::player_id_t& player_id, const td::funding_s
         throw td::protocol_error("too late in the game for this funding source");
     }
 
-    if(source.type != td::buyin && std::find(this->entries.begin(), this->entries.end(), player_id) == this->entries.end())
+    if(source.type != td::buyin && this->unique_entries.find(player_id) == this->unique_entries.end())
     {
         throw td::protocol_error("tried a non-buyin funding source but not bought in yet");
     }
@@ -858,13 +870,22 @@ void gameinfo::fund_player(const td::player_id_t& player_id, const td::funding_s
         // add player to buyin set
         this->buyins.insert(player_id);
 
+        // add player to unique entry set
+        this->unique_entries.insert(player_id);
+
         // add to entries
         this->entries.push_back(player_id);
+
+        // remove from finished players list if existing (re-entry)
+        this->players_finished.erase(std::remove(this->players_finished.begin(), this->players_finished.end(), player_id), this->players_finished.end());
     }
     else if(source.type == td::rebuy)
     {
         // add player to buyin set
         this->buyins.insert(player_id);
+
+        // add to entries
+        this->entries.push_back(player_id);
     }
 
     // update totals
@@ -1030,8 +1051,8 @@ std::vector<td::player_chips> gameinfo::chips_for_buyin(const td::funding_source
 void gameinfo::recalculate_payouts()
 {
     // manual payout:
-    // look for a manual payout given this number of entries (TODO: should this use number of players or buyins instead?)
-    auto manual_payout_it(this->manual_payouts.find(this->entries.size()));
+    // look for a manual payout given this number of unique entries
+    auto manual_payout_it(this->manual_payouts.find(this->unique_entries.size()));
     if(manual_payout_it != this->manual_payouts.end())
     {
         logger(LOG_INFO) << "applying manual payout: " << manual_payout_it->second.size() << " seats will be paid\n";
@@ -1042,8 +1063,8 @@ void gameinfo::recalculate_payouts()
     }
 
     // automatic calculation, if no manual payout found:
-    // first, calculate how many places pay, given configuration and number of players bought in
-    std::size_t seats_paid(static_cast<std::size_t>(this->entries.size() * this->percent_seats_paid + 0.5));
+    // first, calculate how many places pay, given configuration and number of unique entries
+    std::size_t seats_paid(static_cast<std::size_t>(this->unique_entries.size() * this->percent_seats_paid + 0.5));
     bool round(this->round_payouts);
     double f(this->payout_flatness);
 
@@ -1093,6 +1114,7 @@ void gameinfo::reset_funding()
     }
 
     this->buyins.clear();
+    this->unique_entries.clear();
     this->entries.clear();
     this->payouts.clear();
     this->total_chips = 0;

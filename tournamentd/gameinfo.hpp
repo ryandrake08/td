@@ -53,7 +53,7 @@ class gameinfo
     // players seated in the game
     std::unordered_map<td::player_id_t,td::seat> seats;
 
-    // players without seats or busted out
+    // busted out players in reverse order of bust out
     std::deque<td::player_id_t> players_finished;
 
     // maximum number of expected players
@@ -65,10 +65,13 @@ class gameinfo
     // number of tables total
     std::size_t tables;
 
-    // players who bought in at least once
+    // players who are both currently seated and bought in
     std::unordered_set<td::player_id_t> buyins;
 
-    // list of each entry (buyin or rebuy)
+    // players who at one point have bought in
+    std::unordered_set<td::player_id_t> unique_entries;
+
+    // ordered list of each entry (buyin or rebuy)
     std::deque<td::player_id_t> entries;
 
     // payout structure
