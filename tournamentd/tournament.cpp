@@ -462,7 +462,8 @@ struct tournament::impl
 
 							output:
 								seats (array): Seat assignment for each player id
-								players_finished (array): Player ids without seats (busted)
+								players_finished (array): busted player ids in reverse bust out order, no duplicates
+								bust_history (array): Busted player ids in bust out order, can contain duplicates due to rebuys
 								empty_seats (array): Empty seat assignments
 								tables (integer): Number of tables currently playing
 								buyins (array): Player ids who are both currently seated and bought in

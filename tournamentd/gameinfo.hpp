@@ -53,8 +53,12 @@ class gameinfo
     // players seated in the game
     std::unordered_map<td::player_id_t,td::seat> seats;
 
-    // busted out players in reverse order of bust out
+    // finished out players in reverse order of bust out
     std::deque<td::player_id_t> players_finished;
+
+    // busted out players in order of bust out
+    // TODO: make this a pair (buster and busted) to support knockout tournaments
+    std::deque<td::player_id_t> bust_history;
 
     // maximum number of expected players
     std::size_t max_expected_players;

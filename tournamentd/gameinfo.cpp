@@ -68,7 +68,7 @@ void gameinfo::configure(const json& config)
     std::vector<td::player> players_vector;
     if(config.get_values("players", players_vector))
     {
-        if(!this->seats.empty() || !this->players_finished.empty() || !this->buyins.empty() || !this->unique_entries.empty() || !this->entries.empty())
+        if(!this->seats.empty() || !this->players_finished.empty() || !this->bust_history.empty() || !this->buyins.empty() || !this->unique_entries.empty() || !this->entries.empty())
         {
             logger(LOG_WARNING) << "re-coniguring players list while in play is not advised, deleted players may still be in the game\n";
         }
@@ -154,6 +154,7 @@ void gameinfo::dump_state(json& state) const
 
     state.set_value("seats", json(this->seats.begin(), this->seats.end()));
     state.set_value("players_finished", json(this->players_finished.begin(), this->players_finished.end()));
+    state.set_value("bust_history", json(this->bust_history.begin(), this->bust_history.end()));
     state.set_value("max_expected_players", this->max_expected_players);
     state.set_value("empty_seats", json(this->empty_seats.begin(), this->empty_seats.end()));
     state.set_value("tables", this->tables);
@@ -491,6 +492,7 @@ std::size_t gameinfo::plan_seating(std::size_t max_expected)
 
     // reset players finished
     this->players_finished.clear();
+    this->bust_history.clear();
 
     // figure out how many tables needed
     this->tables = ((max_expected-1) / this->table_capacity) + 1;
@@ -605,6 +607,7 @@ std::vector<td::player_movement> gameinfo::bust_player(const td::player_id_t& pl
 
     // add to the busted out list
     this->players_finished.push_front(player_id);
+    this->bust_history.push_back(player_id);
 
     // mark as no longer bought in
     this->buyins.erase(player_id);
@@ -638,6 +641,7 @@ std::vector<td::player_movement> gameinfo::bust_player(const td::player_id_t& pl
 
         // add to the busted out list
         this->players_finished.push_front(first_player_id);
+        this->bust_history.push_back(first_player_id);
 
         // remove the player
         this->remove_player(first_player_id);
@@ -876,7 +880,7 @@ void gameinfo::fund_player(const td::player_id_t& player_id, const td::funding_s
         // add to entries
         this->entries.push_back(player_id);
 
-        // remove from finished players list if existing (re-entry)
+        // remove from finished players list if existing (re-entry), do not remove from bust history
         this->players_finished.erase(std::remove(this->players_finished.begin(), this->players_finished.end(), player_id), this->players_finished.end());
     }
     else if(source.type == td::rebuy)
@@ -886,6 +890,9 @@ void gameinfo::fund_player(const td::player_id_t& player_id, const td::funding_s
 
         // add to entries
         this->entries.push_back(player_id);
+
+        // add to bust history but keep seat
+        this->bust_history.push_back(player_id);
     }
 
     // update totals
