@@ -104,7 +104,7 @@
     NSMutableArray* playerIds = [[NSMutableArray alloc] init];
     __block NSUInteger buyins = 0;
 
-    //
+    // build array of affected player_ids and count how many are bought in
     [indexSet enumerateIndexesUsingBlock:^(NSUInteger row, BOOL* stop) {
         NSTableCellView* cell = [[self tableView] viewAtColumn:0 row:row makeIfNecessary:YES];
         NSDictionary* player = [cell objectValue];
@@ -117,32 +117,53 @@
     // current blind level
     NSNumber* currentBlindLevel = [[self session] state][@"current_blind_level"];
 
+    // get list of players who have already bought in
+    NSArray* uniqueEntries = [[self session] state][@"unique_entries"];
+
     // remove all funding sources
     for(id item = [menu itemWithTag:1]; item != nil; item = [menu itemWithTag:1]) {
         [menu removeItem:item];
     }
 
-    // add funding sources
-    [[[self session] state][@"funding_sources"] enumerateObjectsUsingBlock:^(id source, NSUInteger idx, BOOL* stop) {
-        id context = @{@"player_ids":playerIds, @"funding_id":@(idx)};
+    // only add funding sources if one item selected, logic for which funding sources are allowed depends on player
+    if([indexSet count] == 1) {
+        // get player for this row
+        NSUInteger row = [indexSet firstIndex];
+        NSTableCellView* cell = [[self tableView] viewAtColumn:0 row:row makeIfNecessary:YES];
+        NSDictionary* player = [cell objectValue];
 
-        // enable if we can still use this source
-        NSNumber* last = source[@"forbid_after_blind_level"];
+        // BUSINESS LOGIC AROUND WHICH FUNDING SOURCES ARE ALLOWED WHEN
 
-        // shortcut key
-        NSString* keyEquiv = @"";
-        if(idx < 9) {
-            keyEquiv = [@(idx+1) stringValue];
-        }
+        // add buttons for each eligible funding source
+        [[[self session] state][@"funding_sources"] enumerateObjectsUsingBlock:^(id source, NSUInteger idx, BOOL* stop) {
+            id context = @{@"player_ids":playerIds, @"funding_id":@(idx)};
+            NSNumber* last = source[@"forbid_after_blind_level"];
+            if(last == nil || !([last compare:currentBlindLevel] == NSOrderedAscending)) {
+                // create a menu item for this funding option
+                NSMenuItem* item = [[NSMenuItem alloc] initWithTitle:source[@"name"] action:@selector(fundPlayerFromMenuItem:) keyEquivalent:@""];
+                [item setRepresentedObject:context];
+                [item setTarget:self];
+                [item setTag:1];
 
-        // create a menu item for this funding option
-        NSMenuItem* item = [[NSMenuItem alloc] initWithTitle:source[@"name"] action:@selector(fundPlayerFromMenuItem:) keyEquivalent:keyEquiv];
-        [item setRepresentedObject:context];
-        [item setTarget:self];
-        [item setEnabled:(last == nil || !([last compare:currentBlindLevel] == NSOrderedAscending))];
-        [item setTag:1];
-        [menu insertItem:item atIndex:idx];
-    }];
+                if([source[@"type"] isEqual:kFundingTypeBuyin]) {
+                    // buyins can happen at any time before forbid_after_blind_level, for any non-playing player
+                    if(![player[@"buyin"] boolValue]) {
+                        [menu insertItem:item atIndex:idx];
+                    }
+                } else if([source[@"type"] isEqual:kFundingTypeRebuy]) {
+                    // rebuys can happen after round 0, before forbid_after_blind_level, for any player that has bought in at least once
+                    if([currentBlindLevel unsignedIntegerValue] > 0 && [uniqueEntries containsObject:player[@"player_id"]]) {
+                        [menu insertItem:item atIndex:idx];
+                    }
+                } else {
+                    // addons can happen at any time before forbid_after_blind_level, for any playing player
+                    if([player[@"buyin"] boolValue]) {
+                        [menu insertItem:item atIndex:idx];
+                    }
+                }
+            }
+        }];
+    }
 
     NSMenuItem* item = nil;
 

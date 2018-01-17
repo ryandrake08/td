@@ -208,6 +208,7 @@
 		94D7290C200342EB009EC463 /* TBSetupTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94D7290B200342EB009EC463 /* TBSetupTabViewController.m */; };
 		94D7290F20034F5A009EC463 /* TBSetupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94D7290E20034F5A009EC463 /* TBSetupViewController.m */; };
 		94E16F221B6C99840070F1BA /* TBResizeTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 94562E6B1B65D9420017C692 /* TBResizeTextField.m */; };
+		94E273FF200F2B2F0048B07A /* TBArrayEmptyTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 94C9D87A200F265800D4DA10 /* TBArrayEmptyTransformer.m */; };
 		94ED00111B76E1E6003CF19B /* TBTableSeatNumberTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 94ED00101B76E1E6003CF19B /* TBTableSeatNumberTransformer.m */; };
 		94F466271B8AF203009BB648 /* TBCurrencyCodeTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F466261B8AF203009BB648 /* TBCurrencyCodeTransformer.m */; };
 		94F51CAE1BC96F53007AD1DD /* TBTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F51CAD1BC96F53007AD1DD /* TBTableViewController.m */; };
@@ -696,6 +697,8 @@
 		94C2DA7B200D1B01001B95B8 /* NSImage+CGImage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSImage+CGImage.m"; sourceTree = "<group>"; };
 		94C2DA82200D2AE7001B95B8 /* TBInvertableButton_macOS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBInvertableButton_macOS.m; sourceTree = "<group>"; };
 		94C2DA83200D2AE7001B95B8 /* TBInvertableButton_macOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBInvertableButton_macOS.h; sourceTree = "<group>"; };
+		94C9D879200F265700D4DA10 /* TBArrayEmptyTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBArrayEmptyTransformer.h; sourceTree = "<group>"; };
+		94C9D87A200F265800D4DA10 /* TBArrayEmptyTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBArrayEmptyTransformer.m; sourceTree = "<group>"; };
 		94CDDD1A1FE1826C008ADF24 /* TBChipTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBChipTableViewCell.h; sourceTree = "<group>"; };
 		94CDDD1B1FE1826C008ADF24 /* TBChipTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TBChipTableViewCell.m; sourceTree = "<group>"; };
 		94CDDD1C1FE1826C008ADF24 /* TBChipTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TBChipTableViewCell.xib; sourceTree = "<group>"; };
@@ -1088,6 +1091,8 @@
 				94FDEAF91B5AEB0B0026B25D /* TBActionClockView.m */,
 				ADDDAA861B93584300D3AF68 /* TBArrayCountTransformer.h */,
 				ADDDAA871B93584300D3AF68 /* TBArrayCountTransformer.m */,
+				94C9D879200F265700D4DA10 /* TBArrayEmptyTransformer.h */,
+				94C9D87A200F265800D4DA10 /* TBArrayEmptyTransformer.m */,
 				AD6256F41BB4525A00EE776A /* TBAuthCodeNumberFormatter.h */,
 				AD6256F51BB4525A00EE776A /* TBAuthCodeNumberFormatter.m */,
 				94CDDD311FE3B349008ADF24 /* TBColor+ContrastTextColor.h */,
@@ -1930,6 +1935,7 @@
 				AD8E684F1A6C606700E5A4D8 /* TBMacDocument.m in Sources */,
 				949D70951B3C440D008D5CD1 /* datetime.cpp in Sources */,
 				ADD4F1251B91FE2400DAF567 /* NSObject+AssociatedObject.m in Sources */,
+				94E273FF200F2B2F0048B07A /* TBArrayEmptyTransformer.m in Sources */,
 				94562E681B65D8CA0017C692 /* TBDateStringTransformer.m in Sources */,
 				AD1B250D1BA8796100C4BDDC /* scope_timer.cpp in Sources */,
 				949D70961B3C440D008D5CD1 /* gameinfo.cpp in Sources */,

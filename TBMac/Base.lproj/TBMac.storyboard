@@ -1450,15 +1450,19 @@ Gw
                                                             </buttonCell>
                                                             <connections>
                                                                 <action selector="seatedButtonDidChange:" target="S8w-ig-TI4" id="GU3-hw-xv9"/>
-                                                                <binding destination="LJR-BA-7sj" name="hidden" keyPath="objectValue.buyin" previousBinding="jjY-sU-efw" id="1Yr-dF-wve"/>
+                                                                <binding destination="S8w-ig-TI4" name="hidden" keyPath="self.session.state.empty_seats" id="Rbc-RG-WTF">
+                                                                    <dictionary key="options">
+                                                                        <string key="NSValueTransformerName">TBArrayEmptyTransformer</string>
+                                                                    </dictionary>
+                                                                </binding>
+                                                                <binding destination="LJR-BA-7sj" name="enabled" keyPath="objectValue.buyin" id="wzb-kA-AE1">
+                                                                    <dictionary key="options">
+                                                                        <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                                                    </dictionary>
+                                                                </binding>
                                                                 <binding destination="LJR-BA-7sj" name="value" keyPath="objectValue.seat_number" id="HtF-JF-uKl">
                                                                     <dictionary key="options">
                                                                         <string key="NSValueTransformerName">NSIsNotNil</string>
-                                                                    </dictionary>
-                                                                </binding>
-                                                                <binding destination="S8w-ig-TI4" name="enabled" keyPath="self.session.state.empty_seats" id="jjY-sU-efw">
-                                                                    <dictionary key="options">
-                                                                        <string key="NSValueTransformerName">TBArrayCountTransformer</string>
                                                                     </dictionary>
                                                                 </binding>
                                                             </connections>

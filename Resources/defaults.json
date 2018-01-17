@@ -299,17 +299,29 @@
         {
             "name": "Main Buy-in",
             "type": 0,
-            "forbid_after_blind_level": 0,
+            "forbid_after_blind_level": 1,
             "chips": 5000,
             "cost": 30.00,
             "cost_currency": "USD",
             "commission": 0.00,
             "commission_currency": "USD",
-            "equity": 5.00,
-            "equity_currency": "XPT"
+            "equity": 30.00,
+            "equity_currency": "USD"
         },
         {
-            "name": "Travel add-on",
+            "name": "Re-buy",
+            "type": 1,
+            "forbid_after_blind_level": 3,
+            "chips": 5000,
+            "cost": 30.00,
+            "cost_currency": "USD",
+            "commission": 0.00,
+            "commission_currency": "USD",
+            "equity": 30.00,
+            "equity_currency": "USD"
+        },
+        {
+            "name": "Pizza add-on",
             "type": 2,
             "forbid_after_blind_level": 0,
             "chips": 500,
@@ -317,11 +329,11 @@
             "cost_currency": "USD",
             "commission": 0.00,
             "commission_currency": "USD",
-            "equity": 0.00,
-            "equity_currency": "XPT"
+            "equity": 5.00,
+            "equity_currency": "USD"
         },
         {
-            "name": "Early arrival add-on",
+            "name": "Earlybird free add-on",
             "type": 2,
             "forbid_after_blind_level": 0,
             "chips": 500,
@@ -330,7 +342,7 @@
             "commission": 0.00,
             "commission_currency": "USD",
             "equity": 0.00,
-            "equity_currency": "XPT"
+            "equity_currency": "USD"
         }
     ],
     "table_capacity": 8,
@@ -581,5 +593,5 @@
         }
     ],
     "previous_blind_level_hold_duration": 2000,
-    "background_color": "white"
+    "background_color": "maroon"
 }

@@ -189,6 +189,9 @@
         // action sheet buttons depend on current blind level
         NSNumber* currentBlindLevel = [[self session] state][@"current_blind_level"];
 
+        // get list of players who have already bought in
+        NSArray* uniqueEntries = [[self session] state][@"unique_entries"];
+
         if(indexPath.section == 0) {
             // get player for this row
             player = [self seatedPlayers][[indexPath row]];
@@ -216,8 +219,8 @@
                             [commands addObject:@(idx)];
                         }
                     } else if([source[@"type"] isEqual:kFundingTypeRebuy]) {
-                        // rebuys can happen after round 0, before forbid_after_blind_level, for any player
-                        if([currentBlindLevel unsignedIntegerValue] > 0) {
+                        // rebuys can happen after round 0, before forbid_after_blind_level, for any player that has bought in at least once
+                        if([currentBlindLevel unsignedIntegerValue] > 0 && [uniqueEntries containsObject:player[@"player_id"]]) {
                             [actionSheet addButtonWithTitle:source[@"name"]];
                             [commands addObject:@(idx)];
                         }
