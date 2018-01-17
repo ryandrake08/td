@@ -25,9 +25,6 @@
 // Audio warning
 #define kAudioWarningTime 60000
 
-// Notification
-#define kTournamentSessionUpdatedNotification @"kTournamentSessionUpdatedNotification"
-
 @protocol TournamentSessionDelegate;
 
 @interface TournamentSession : NSObject

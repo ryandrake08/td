@@ -7,31 +7,17 @@
 //
 
 #import "TBRemoteWatchDelegate.h"
-#import "NSDictionary+Changed.h"
-@import WatchConnectivity;
+#import "NSObject+FBKVOController.h"
+#import <WatchConnectivity/WatchConnectivity.h>
 
 @interface TBRemoteWatchDelegate() <WCSessionDelegate>
 
 // the tournament session (model) object
 @property (nonatomic, strong) TournamentSession* session;
 
-// the full state when an update was last sent to watch
-@property (nonatomic, strong) NSMutableDictionary* stateWhenLastSent;
-
 @end
 
 @implementation TBRemoteWatchDelegate
-
-- (void)sendUpdateToWatch:(NSDictionary*)update {
-    // If we still have an update, send it
-    if([update count] > 0) {
-        // Send state change as a message to watch
-        [[WCSession defaultSession] sendMessage:@{@"state":update} replyHandler:nil errorHandler:nil];
-
-        // Add changes from last state
-        [[self stateWhenLastSent] addEntriesFromDictionary:update];
-    }
-}
 
 - (instancetype)initWithSession:(TournamentSession *)session {
     if((self = [super init])) {
@@ -39,28 +25,32 @@
             // Set the tournament session
             [self setSession:session];
 
-            // Default last state
-            [self setStateWhenLastSent:[[NSMutableDictionary alloc] init]];
-
             // Set up the WatchConnectivity session
             WCSession* wcSession = [WCSession defaultSession];
             [wcSession setDelegate:self];
             [wcSession activateSession];
 
-            // Notification center - Update WCSession when certain state changes happen
-            [[NSNotificationCenter defaultCenter] addObserverForName:kTournamentSessionUpdatedNotification object:nil queue:nil usingBlock:^(NSNotification* note) {
-                if([wcSession isReachable]) {
-                    // Changes from last sent state
-                    NSMutableDictionary* update = [[note object] mutableDictionaryWithChangesFromDictionary:[self stateWhenLastSent]];
+            // register for KVO
+            NSArray* keyPaths = @[
+                                  @"session.state.connected",
+                                  @"session.state.authorized",
+                                  @"session.state.current_blind_level",
+                                  @"session.state.clock_text",
+                                  @"session.state.current_round_text",
+                                  @"session.state.current_game_text",
+                                  @"session.state.next_round_text",
+                                  @"session.state.next_game_text",
+                                  @"session.state.players_left_text",
+                                  @"session.state.average_stack_text"
+                                  ];
+            [[self KVOController] observe:self keyPaths:keyPaths options:NSKeyValueObservingOptionNew block:^(id observer, id object, NSDictionary* change) {
+                NSLog(@"Watch observer called: %@ -> %@", change[FBKVONotificationKeyPathKey], change[NSKeyValueChangeNewKey]);
 
-                    // Filter out keys we don't need to send to watch
-                    [update removeObjectsForKeys:@[@"elapsed_time", @"elapsed_time_text", @"time_remaining", @"break_time_remaining", @"action_clock_time_remaining"]];
+                // get the state key that changed
+                NSString* key = [[change[FBKVONotificationKeyPathKey] componentsSeparatedByString:@"."] lastObject];
 
-                    if([update count] != 0) {
-                        // Send update
-                        [self sendUpdateToWatch:update];
-                    }
-                }
+                // Send state change as a message to watch
+                [wcSession sendMessage:@{@"state":@{ key:change[NSKeyValueChangeNewKey] }} replyHandler:nil errorHandler:nil];
             }];
         }
     }
@@ -75,8 +65,8 @@
             // Checking for authorization will trigger auth message
             [[self session] checkAuthorizedWithBlock:nil];
 
-            // Send update
-            [self sendUpdateToWatch:[[self session] state]];
+            // Send full state as a message to watch
+            [[WCSession defaultSession] sendMessage:@{@"state":[[self session] state]} replyHandler:nil errorHandler:nil];
         }
 
         if([command isEqualToString:@"previousRound"]) {

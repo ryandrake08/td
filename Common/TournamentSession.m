@@ -108,12 +108,6 @@
     return @(incrementingKey++);
 }
 
-- (void)postUpdatedNotification {
-    // post notification (observed by watch)
-    // TODO: make this block-based or delegate based, or make watch code KVO
-    [[NSNotificationCenter defaultCenter] postNotificationName:kTournamentSessionUpdatedNotification object:[self state]];
-}
-
 #pragma mark Tournament Commands
 
 // send a command through TournamentConnection
@@ -143,7 +137,6 @@
         // set internal state if changed
         if([self state][@"authorized"] != json[@"authorized"]) {
             [self state][@"authorized"] = json[@"authorized"];
-            [self postUpdatedNotification];
         }
         // handle authorization check
         if(block) {
@@ -343,7 +336,6 @@
         NSDictionary* update = [json dictionaryWithChangesFromDictionary:[self state]];
         if([update count] > 0) {
             [[self state] addEntriesFromDictionary:update];
-            [self postUpdatedNotification];
         }
     }
 }
@@ -356,7 +348,6 @@
 
     // set state
     [self state][@"connected"] = @YES;
-    [self postUpdatedNotification];
 
     // always check if we're authorized right away
     [self checkAuthorizedWithBlock:nil];
@@ -364,14 +355,12 @@
     // and request initial config
     [self getConfigWithBlock:^(id json) {
         [[self state] addEntriesFromDictionary:json];
-        [self postUpdatedNotification];
-    }];
+        }];
 
     // and request initial state
     [self getStateWithBlock:^(id json) {
         [[self state] addEntriesFromDictionary:json];
-        [self postUpdatedNotification];
-    }];
+        }];
 
     // notify delegate
     if([[self delegate] respondsToSelector:@selector(tournamentSessionDidBegin:)]) {
@@ -393,7 +382,6 @@
     // set state
     [[self state] removeAllObjects];
     [self state][@"connected"] = @NO;
-    [self postUpdatedNotification];
 
     // notify delegate
     if([[self delegate] respondsToSelector:@selector(tournamentSessionDidEnd:)]) {
