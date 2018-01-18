@@ -215,17 +215,15 @@ static NSDictionary* cssHexCodes = nil;
         color = colorNameCache[lowerColorName];
 
         if(color == nil) {
-            // If it wasn't there previously, it's still not there now
-            return nil;
-        }
-
-        if(!color) {
             // Color not in cache, so search for it now in the css list
             NSString* colorHex = cssColorNames[[colorName lowercaseString]];
-            color = [TBColor colorWithHexString:colorHex];
+            if(colorHex)
+            {
+                color = [TBColor colorWithHexString:colorHex];
+            }
         }
 
-        if(!color) {
+        if(color == nil) {
             // Color not in cache nor a css color
             color = [TBColor colorWithHexString:colorName];
         }
