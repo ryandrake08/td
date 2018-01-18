@@ -214,7 +214,7 @@ static NSDictionary* cssHexCodes = nil;
         NSString* lowerColorName = [colorName lowercaseString];
         color = colorNameCache[lowerColorName];
 
-        if((id)color == [NSNull null]) {
+        if(color == nil) {
             // If it wasn't there previously, it's still not there now
             return nil;
         }
