@@ -793,36 +793,37 @@ std::size_t gameinfo::try_rebalance(std::vector<td::player_movement>& movements)
 
     std::size_t ret(0);
 
-    // get randomization engine
-    auto engine(get_shared_instance<std::default_random_engine>());
-
     // build players-per-table vector
     auto ppt(this->players_at_tables());
-
-    // find smallest and largest tables
-    auto fewest_it(std::min_element(ppt.begin(), ppt.end(), has_lower_size<std::vector<td::player_id_t> >));
-    auto most_it(std::max_element(ppt.begin(), ppt.end(), has_lower_size<std::vector<td::player_id_t> >));
-
-    // if fewest has two fewer players than most (e.g. 6 vs 8), then rebalance
-    while(!most_it->empty() && fewest_it->size() < most_it->size() - 1)
+    if(!ppt.empty())
     {
-        logger(LOG_INFO) << "largest table has " << most_it->size() << " players and smallest table has " << fewest_it->size() << " players\n";
+        // find smallest and largest tables
+        auto fewest_it(std::min_element(ppt.begin(), ppt.end(), has_lower_size<std::vector<td::player_id_t> >));
+        auto most_it(std::max_element(ppt.begin(), ppt.end(), has_lower_size<std::vector<td::player_id_t> >));
 
-        // pick a random player at the table with the most players
-        auto index(std::uniform_int_distribution<std::size_t>(0, most_it->size()-1)(*engine));
-        auto random_player((*most_it)[index]);
+        // get randomization engine
+        auto engine(get_shared_instance<std::default_random_engine>());
 
-        // subtract iterator to find table number
-        auto table(fewest_it - ppt.begin());
-        movements.push_back(this->move_player(random_player, table));
-        ret++;
+        // if fewest has two fewer players than most (e.g. 6 vs 8), then rebalance
+        while(!most_it->empty() && fewest_it->size() < most_it->size() - 1)
+        {
+            logger(LOG_INFO) << "largest table has " << most_it->size() << " players and smallest table has " << fewest_it->size() << " players\n";
 
-        // update our lists to stay consistent
-        (*most_it)[index] = most_it->back();
-        most_it->pop_back();
-        fewest_it->push_back(random_player);
+            // pick a random player at the table with the most players
+            auto index(std::uniform_int_distribution<std::size_t>(0, most_it->size()-1)(*engine));
+            auto random_player((*most_it)[index]);
+
+            // subtract iterator to find table number
+            auto table(fewest_it - ppt.begin());
+            movements.push_back(this->move_player(random_player, table));
+            ret++;
+
+            // update our lists to stay consistent
+            (*most_it)[index] = most_it->back();
+            most_it->pop_back();
+            fewest_it->push_back(random_player);
+        }
     }
-
     return ret;
 }
 
