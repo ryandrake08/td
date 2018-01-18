@@ -71,7 +71,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" tag="100" contentMode="left" horizontalCompressionResistancePriority="250" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MPG-Dp-OBt">
-                                                    <rect key="frame" x="143.5" y="11.5" width="195.5" height="19.5"/>
+                                                    <rect key="frame" x="143.5" y="11.5" width="189.5" height="19.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -82,7 +82,7 @@
                                                 <constraint firstItem="MPG-Dp-OBt" firstAttribute="baseline" secondItem="STy-wQ-xPE" secondAttribute="baseline" id="J9V-zo-NgJ"/>
                                                 <constraint firstItem="MPG-Dp-OBt" firstAttribute="centerY" secondItem="LZz-Qf-gQo" secondAttribute="centerY" id="Zyl-sc-FPx"/>
                                                 <constraint firstItem="STy-wQ-xPE" firstAttribute="leading" secondItem="LZz-Qf-gQo" secondAttribute="leadingMargin" constant="7" id="tR2-rP-od2"/>
-                                                <constraint firstAttribute="trailing" secondItem="MPG-Dp-OBt" secondAttribute="trailing" constant="2" id="xJx-Eo-95C"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="MPG-Dp-OBt" secondAttribute="trailing" id="xJx-Eo-95C"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -103,7 +103,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" tag="100" contentMode="left" horizontalCompressionResistancePriority="250" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2ht-Bk-2IP">
-                                                    <rect key="frame" x="169.5" y="11.5" width="169.5" height="19.5"/>
+                                                    <rect key="frame" x="169.5" y="11.5" width="163.5" height="19.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -113,7 +113,7 @@
                                                 <constraint firstItem="XFa-p2-Vfe" firstAttribute="leading" secondItem="6aI-6R-Xpz" secondAttribute="leadingMargin" constant="7" id="Bfe-64-jL2"/>
                                                 <constraint firstItem="2ht-Bk-2IP" firstAttribute="baseline" secondItem="XFa-p2-Vfe" secondAttribute="baseline" id="EDd-Fz-JNp"/>
                                                 <constraint firstItem="2ht-Bk-2IP" firstAttribute="leading" secondItem="XFa-p2-Vfe" secondAttribute="trailing" id="jP7-IY-fU9"/>
-                                                <constraint firstAttribute="trailing" secondItem="2ht-Bk-2IP" secondAttribute="trailing" constant="2" id="vQY-uD-7KY"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="2ht-Bk-2IP" secondAttribute="trailing" id="vQY-uD-7KY"/>
                                                 <constraint firstItem="2ht-Bk-2IP" firstAttribute="centerY" secondItem="6aI-6R-Xpz" secondAttribute="centerY" id="ypq-1m-mtX"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -135,14 +135,14 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" tag="100" contentMode="left" horizontalCompressionResistancePriority="250" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qht-X7-jMW">
-                                                    <rect key="frame" x="81.5" y="11.5" width="257.5" height="19.5"/>
+                                                    <rect key="frame" x="81.5" y="11.5" width="251.5" height="19.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="qht-X7-jMW" secondAttribute="trailing" constant="2" id="8K9-qF-xyv"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="qht-X7-jMW" secondAttribute="trailing" id="8K9-qF-xyv"/>
                                                 <constraint firstItem="qht-X7-jMW" firstAttribute="centerY" secondItem="W14-3q-1Zt" secondAttribute="centerY" id="BRq-th-bvw"/>
                                                 <constraint firstItem="rWJ-IM-nVn" firstAttribute="leading" secondItem="W14-3q-1Zt" secondAttribute="leadingMargin" constant="7" id="WYd-nA-5Mx"/>
                                                 <constraint firstItem="qht-X7-jMW" firstAttribute="leading" secondItem="rWJ-IM-nVn" secondAttribute="trailing" id="f2F-37-NyI"/>
@@ -167,14 +167,14 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" tag="100" contentMode="left" horizontalCompressionResistancePriority="250" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Srq-18-Cf3">
-                                                    <rect key="frame" x="78" y="11.5" width="261" height="19.5"/>
+                                                    <rect key="frame" x="78" y="11.5" width="255" height="19.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="Srq-18-Cf3" secondAttribute="trailing" constant="2" id="KgR-HL-EoB"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="Srq-18-Cf3" secondAttribute="trailing" id="KgR-HL-EoB"/>
                                                 <constraint firstItem="Srq-18-Cf3" firstAttribute="leading" secondItem="Gfc-Ou-j2h" secondAttribute="trailing" id="WEp-ii-910"/>
                                                 <constraint firstItem="Gfc-Ou-j2h" firstAttribute="leading" secondItem="XXf-09-Oht" secondAttribute="leadingMargin" constant="7" id="fTO-Xs-My8"/>
                                                 <constraint firstItem="Srq-18-Cf3" firstAttribute="centerY" secondItem="XXf-09-Oht" secondAttribute="centerY" id="rwl-nG-Slh"/>
@@ -199,14 +199,14 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" tag="100" contentMode="left" horizontalCompressionResistancePriority="250" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n8D-f4-YMV">
-                                                    <rect key="frame" x="140.5" y="11.5" width="198.5" height="19.5"/>
+                                                    <rect key="frame" x="140.5" y="11.5" width="192.5" height="19.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="n8D-f4-YMV" secondAttribute="trailing" constant="2" id="2lb-QU-aN1"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="n8D-f4-YMV" secondAttribute="trailing" id="2lb-QU-aN1"/>
                                                 <constraint firstItem="hr6-1f-m3a" firstAttribute="leading" secondItem="dTS-hv-0wN" secondAttribute="leadingMargin" constant="7" id="d8H-P3-fyP"/>
                                                 <constraint firstItem="n8D-f4-YMV" firstAttribute="leading" secondItem="hr6-1f-m3a" secondAttribute="trailing" id="eTw-9T-g8y"/>
                                                 <constraint firstItem="n8D-f4-YMV" firstAttribute="baseline" secondItem="hr6-1f-m3a" secondAttribute="baseline" id="rzd-O2-Z18"/>
