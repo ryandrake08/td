@@ -2292,22 +2292,14 @@ Gw
                                                                 <popUpButton fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CPQ-5n-Pho">
                                                                     <rect key="frame" x="0.0" y="8" width="56" height="17"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                                    <popUpButtonCell key="cell" type="square" title="Dollar" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" selectedItem="4qF-WG-j3q" id="Blp-Ta-adh">
+                                                                    <popUpButtonCell key="cell" type="square" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Blp-Ta-adh">
                                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                         <font key="font" metaFont="menu"/>
-                                                                        <menu key="menu" id="Ltw-tb-ZBY">
-                                                                            <items>
-                                                                                <menuItem title="Dollar" state="on" id="4qF-WG-j3q"/>
-                                                                                <menuItem title="Euro" id="yc6-92-c8h"/>
-                                                                                <menuItem title="Pound" id="CJe-rI-EmS"/>
-                                                                                <menuItem title="Rupee" id="7sY-86-CHc"/>
-                                                                                <menuItem title="Yen" id="e1B-aC-4QR"/>
-                                                                                <menuItem title="Yuan" id="gkb-Mv-tNJ"/>
-                                                                            </items>
-                                                                        </menu>
+                                                                        <menu key="menu" id="Ltw-tb-ZBY"/>
                                                                     </popUpButtonCell>
                                                                     <connections>
-                                                                        <binding destination="lFB-am-lvQ" name="selectedValue" keyPath="objectValue.cost_currency" id="SNf-ja-3Q8">
+                                                                        <binding destination="Jw6-Xu-FJL" name="contentValues" keyPath="self.currencyList" id="l5w-DD-TlS"/>
+                                                                        <binding destination="lFB-am-lvQ" name="selectedValue" keyPath="objectValue.cost_currency" previousBinding="l5w-DD-TlS" id="6XE-ma-6y7">
                                                                             <dictionary key="options">
                                                                                 <string key="NSValueTransformerName">TBCurrencyCodeTransformer</string>
                                                                             </dictionary>
@@ -2356,22 +2348,14 @@ Gw
                                                                 <popUpButton fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wq5-LP-Tyk">
                                                                     <rect key="frame" x="0.0" y="8" width="56" height="17"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                                    <popUpButtonCell key="cell" type="square" title="Dollar" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" selectedItem="M6U-Ab-Ykf" id="soq-il-Ygs">
+                                                                    <popUpButtonCell key="cell" type="square" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="soq-il-Ygs">
                                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                         <font key="font" metaFont="menu"/>
-                                                                        <menu key="menu" id="CT2-bL-dHi">
-                                                                            <items>
-                                                                                <menuItem title="Dollar" state="on" id="M6U-Ab-Ykf"/>
-                                                                                <menuItem title="Euro" id="dHb-Ns-JKA"/>
-                                                                                <menuItem title="Pound" id="qw8-kG-K6U"/>
-                                                                                <menuItem title="Rupee" id="txs-Kz-Baf"/>
-                                                                                <menuItem title="Yen" id="zmq-98-d2n"/>
-                                                                                <menuItem title="Yuan" id="9Oo-We-y92"/>
-                                                                            </items>
-                                                                        </menu>
+                                                                        <menu key="menu" id="CT2-bL-dHi"/>
                                                                     </popUpButtonCell>
                                                                     <connections>
-                                                                        <binding destination="kvs-zF-BYs" name="selectedValue" keyPath="objectValue.commission_currency" id="2bf-hg-HI2">
+                                                                        <binding destination="Jw6-Xu-FJL" name="contentValues" keyPath="self.currencyList" id="gs7-Ej-ujv"/>
+                                                                        <binding destination="kvs-zF-BYs" name="selectedValue" keyPath="objectValue.commission_currency" previousBinding="gs7-Ej-ujv" id="O6l-q5-7yg">
                                                                             <dictionary key="options">
                                                                                 <string key="NSValueTransformerName">TBCurrencyCodeTransformer</string>
                                                                             </dictionary>
@@ -2420,22 +2404,14 @@ Gw
                                                                 <popUpButton fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rVs-Ui-Xav">
                                                                     <rect key="frame" x="0.0" y="8" width="56" height="17"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                                    <popUpButtonCell key="cell" type="square" title="Dollar" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" selectedItem="bhT-lx-rXq" id="NBo-hK-Nh8">
+                                                                    <popUpButtonCell key="cell" type="square" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="NBo-hK-Nh8">
                                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                         <font key="font" metaFont="menu"/>
-                                                                        <menu key="menu" id="qNF-RX-uTP">
-                                                                            <items>
-                                                                                <menuItem title="Dollar" state="on" id="bhT-lx-rXq"/>
-                                                                                <menuItem title="Euro" id="Uf9-5W-SgG"/>
-                                                                                <menuItem title="Pound" id="pyx-Jb-4vv"/>
-                                                                                <menuItem title="Rupee" id="MwY-2l-8OO"/>
-                                                                                <menuItem title="Yen" id="5S2-vo-dUb"/>
-                                                                                <menuItem title="Yuan" id="a4n-4T-LVs"/>
-                                                                            </items>
-                                                                        </menu>
+                                                                        <menu key="menu" id="qNF-RX-uTP"/>
                                                                     </popUpButtonCell>
                                                                     <connections>
-                                                                        <binding destination="T7t-Rj-hcC" name="selectedValue" keyPath="objectValue.equity_currency" id="b0K-hQ-jvN">
+                                                                        <binding destination="Jw6-Xu-FJL" name="contentValues" keyPath="self.currencyList" id="XDv-T7-UW6"/>
+                                                                        <binding destination="T7t-Rj-hcC" name="selectedValue" keyPath="objectValue.equity_currency" previousBinding="XDv-T7-UW6" id="ahA-Sd-Keh">
                                                                             <dictionary key="options">
                                                                                 <string key="NSValueTransformerName">TBCurrencyCodeTransformer</string>
                                                                             </dictionary>
@@ -2547,7 +2523,8 @@ Gw
                                                                                 <string key="NSValueTransformerName">NSIsNil</string>
                                                                             </dictionary>
                                                                         </binding>
-                                                                        <binding destination="rln-7e-YkH" name="selectedIndex" keyPath="objectValue.forbid_after_blind_level" id="7BN-E9-wHB"/>
+                                                                        <binding destination="rln-7e-YkH" name="selectedIndex" keyPath="objectValue.forbid_after_blind_level" previousBinding="JMA-py-nZR" id="ruH-Zd-rYf"/>
+                                                                        <binding destination="Jw6-Xu-FJL" name="contentValues" keyPath="self.blindLevelNames" id="JMA-py-nZR"/>
                                                                     </connections>
                                                                 </popUpButton>
                                                             </subviews>
@@ -3346,9 +3323,9 @@ Gw
         <image name="b_rocket" width="64" height="64"/>
         <image name="b_seat" width="64" height="64"/>
         <image name="b_table" width="64" height="64"/>
-        <image name="m_addon" width="44" height="44"/>
-        <image name="m_buyin" width="44" height="44"/>
-        <image name="m_rebuy" width="44" height="44"/>
+        <image name="m_addon" width="32" height="32"/>
+        <image name="m_buyin" width="32" height="32"/>
+        <image name="m_rebuy" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="N4t-1A-N0u"/>

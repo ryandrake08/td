@@ -405,14 +405,4 @@
     [self disconnect];
 }
 
-// utility (TODO: better place for this?)
-
-+ (NSArray*)namesForBlindLevels:(NSArray*)blindLevels {
-    NSMutableArray* names = [[NSMutableArray alloc] initWithObjects:NSLocalizedString(@"Tournament Start", nil), nil];
-    for(NSInteger i=1; i<[blindLevels count]; i++) {
-        [names addObject:[NSString stringWithFormat:NSLocalizedString(@"Round %ld", @"Numbered blind level"), i]];
-    }
-    return names;
-}
-
 @end

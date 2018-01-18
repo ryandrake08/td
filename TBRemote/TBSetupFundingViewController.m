@@ -7,6 +7,7 @@
 //
 
 #import "TBSetupFundingViewController.h"
+#import "TBCurrencyNumberFormatter.h"
 #import "TBSetupDetailsFundingViewController.h"
 #import "TournamentSession.h"
 
@@ -24,14 +25,16 @@
 
 - (NSString*)formattedFundingStringForSource:(NSDictionary*)fundingSource {
     NSString* formattedFunding;
+
+    TBCurrencyNumberFormatter* costFormatter = [[TBCurrencyNumberFormatter alloc] init];
+    [costFormatter setCurrencyCode:fundingSource[@"cost_currency"]];
+
     if([fundingSource[@"commission"] doubleValue] != 0.0) {
-        if([fundingSource[@"commission_currency"] isEqualToString:fundingSource[@"cost_currency"]]) {
-            formattedFunding = [NSString stringWithFormat:@"%@%@+%@", fundingSource[@"cost_currency"], fundingSource[@"cost"], fundingSource[@"commission"]];
-        } else {
-            formattedFunding = [NSString stringWithFormat:@"%@%@+%@%@", fundingSource[@"cost_currency"], fundingSource[@"cost"], fundingSource[@"commission_currency"], fundingSource[@"commission"]];
-        }
+        TBCurrencyNumberFormatter* commissionFormatter = [[TBCurrencyNumberFormatter alloc] init];
+        [commissionFormatter setCurrencyCode:fundingSource[@"commission_currency"]];
+        formattedFunding = [NSString stringWithFormat:@"%@+%@", [costFormatter stringFromNumber:fundingSource[@"cost"]], [commissionFormatter stringFromNumber:fundingSource[@"commission"]]];
     } else {
-        formattedFunding = [NSString stringWithFormat:@"%@%@", fundingSource[@"cost_currency"], fundingSource[@"cost"]];
+        formattedFunding = [costFormatter stringFromNumber:fundingSource[@"cost"]];
     }
     return formattedFunding;
 }

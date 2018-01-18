@@ -1780,8 +1780,43 @@
                                             <outlet property="textField" destination="R1P-V7-Cdj" id="BkV-Qu-skL"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="AHf-bB-Owe" customClass="TBEditableNumberTableViewCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="8bV-06-hHY" customClass="TBPickableTextTableViewCell">
                                         <rect key="frame" x="0.0" y="187.5" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8bV-06-hHY" id="vSD-lJ-MdV">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" horizontalHuggingPriority="750" text="Cost Currency" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cTa-9x-cOc">
+                                                    <rect key="frame" x="23" y="12" width="104.5" height="20"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textField opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Dollar, Euro, etc." textAlignment="right" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="EbY-0H-o5D">
+                                                    <rect key="frame" x="135.5" y="12" width="216.5" height="20"/>
+                                                    <color key="textColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <textInputTraits key="textInputTraits" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="8bV-06-hHY" id="0yj-oX-dce"/>
+                                                    </connections>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailingMargin" secondItem="EbY-0H-o5D" secondAttribute="trailing" constant="7" id="JOd-bn-CzY"/>
+                                                <constraint firstItem="EbY-0H-o5D" firstAttribute="leading" secondItem="cTa-9x-cOc" secondAttribute="trailing" constant="8" symbolic="YES" id="Rl9-yY-RQw"/>
+                                                <constraint firstItem="EbY-0H-o5D" firstAttribute="centerY" secondItem="vSD-lJ-MdV" secondAttribute="centerY" id="qWH-1X-ETq"/>
+                                                <constraint firstItem="EbY-0H-o5D" firstAttribute="baseline" secondItem="cTa-9x-cOc" secondAttribute="baseline" id="uyQ-JU-rqC"/>
+                                                <constraint firstItem="cTa-9x-cOc" firstAttribute="leading" secondItem="vSD-lJ-MdV" secondAttribute="leadingMargin" constant="7" id="wsJ-mT-vmO"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="textField" destination="EbY-0H-o5D" id="ARG-Zw-QbI"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="AHf-bB-Owe" customClass="TBEditableNumberTableViewCell">
+                                        <rect key="frame" x="0.0" y="231.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="AHf-bB-Owe" id="33N-SR-vgF">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -1815,8 +1850,43 @@
                                             <outlet property="textField" destination="ynV-zw-wDQ" id="1uH-se-u0J"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Las-cZ-LcW" customClass="TBPickableTextTableViewCell">
+                                        <rect key="frame" x="0.0" y="275.5" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Las-cZ-LcW" id="z5N-7z-RJa">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" horizontalHuggingPriority="750" text="Fee Currency" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uqa-kq-JrF">
+                                                    <rect key="frame" x="23" y="12" width="97.5" height="20"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textField opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Dollar, Euro, etc." textAlignment="right" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="lML-vg-MJS">
+                                                    <rect key="frame" x="128.5" y="12" width="223.5" height="20"/>
+                                                    <color key="textColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <textInputTraits key="textInputTraits" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="Las-cZ-LcW" id="wvQ-rR-DYg"/>
+                                                    </connections>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="uqa-kq-JrF" firstAttribute="leading" secondItem="z5N-7z-RJa" secondAttribute="leadingMargin" constant="7" id="PTu-23-fnj"/>
+                                                <constraint firstItem="lML-vg-MJS" firstAttribute="leading" secondItem="uqa-kq-JrF" secondAttribute="trailing" constant="8" symbolic="YES" id="RpU-3G-mQP"/>
+                                                <constraint firstItem="lML-vg-MJS" firstAttribute="centerY" secondItem="z5N-7z-RJa" secondAttribute="centerY" id="UOY-G1-dzG"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="lML-vg-MJS" secondAttribute="trailing" constant="7" id="bn7-C7-vdN"/>
+                                                <constraint firstItem="lML-vg-MJS" firstAttribute="baseline" secondItem="uqa-kq-JrF" secondAttribute="baseline" id="sYx-M7-UWw"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="textField" destination="lML-vg-MJS" id="Pfg-yQ-ksn"/>
+                                        </connections>
+                                    </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="rvS-7z-m2H" customClass="TBEditableNumberTableViewCell">
-                                        <rect key="frame" x="0.0" y="231.5" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="319.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rvS-7z-m2H" id="GkK-NB-H8B">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -1850,8 +1920,43 @@
                                             <outlet property="textField" destination="CMi-C5-KvE" id="IJS-LR-PGZ"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="bVX-ig-7MA" customClass="TBPickableTextTableViewCell">
+                                        <rect key="frame" x="0.0" y="363.5" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bVX-ig-7MA" id="sDB-Eb-uAi">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" horizontalHuggingPriority="750" text="Equity Currency" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="opt-JP-0rk">
+                                                    <rect key="frame" x="23" y="12" width="116" height="20"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textField opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Dollar, Euro, etc." textAlignment="right" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="6p3-TM-Q4d">
+                                                    <rect key="frame" x="147" y="12" width="205" height="20"/>
+                                                    <color key="textColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <textInputTraits key="textInputTraits" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="bVX-ig-7MA" id="Lyr-v9-E3A"/>
+                                                    </connections>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="6p3-TM-Q4d" firstAttribute="baseline" secondItem="opt-JP-0rk" secondAttribute="baseline" id="5Wq-9c-tNi"/>
+                                                <constraint firstItem="opt-JP-0rk" firstAttribute="leading" secondItem="sDB-Eb-uAi" secondAttribute="leadingMargin" constant="7" id="G3N-am-C0l"/>
+                                                <constraint firstItem="6p3-TM-Q4d" firstAttribute="leading" secondItem="opt-JP-0rk" secondAttribute="trailing" constant="8" symbolic="YES" id="pDB-o4-5M3"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="6p3-TM-Q4d" secondAttribute="trailing" constant="7" id="q4K-yb-FlQ"/>
+                                                <constraint firstItem="6p3-TM-Q4d" firstAttribute="centerY" secondItem="sDB-Eb-uAi" secondAttribute="centerY" id="wEe-dT-4Gm"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="textField" destination="6p3-TM-Q4d" id="2Q2-6E-xdh"/>
+                                        </connections>
+                                    </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="GgY-JQ-T5O" customClass="TBEditableNumberTableViewCell">
-                                        <rect key="frame" x="0.0" y="275.5" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="407.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="GgY-JQ-T5O" id="mzT-rp-AIs">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -1886,7 +1991,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" accessoryType="checkmark" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="FdJ-5g-GUB" customClass="TBCheckmarkNumberTableViewCell">
-                                        <rect key="frame" x="0.0" y="319.5" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="451.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="FdJ-5g-GUB" id="ONR-Ke-XAO">
                                             <rect key="frame" x="0.0" y="0.0" width="335" height="43.5"/>
@@ -1911,7 +2016,7 @@
                             <tableViewSection headerTitle="Forbid Funding After" id="4Kq-3e-Wbg">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="wh7-as-Y7u" customClass="TBPickableTextTableViewCell">
-                                        <rect key="frame" x="0.0" y="419.5" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="551.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wh7-as-Y7u" id="9Vq-L5-Zjw">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -2328,7 +2433,7 @@
         <image name="c_play_pause" width="64" height="64"/>
         <image name="c_previous" width="64" height="64"/>
         <image name="i_chip" width="64" height="64"/>
-        <image name="m_buyin" width="44" height="44"/>
+        <image name="m_buyin" width="32" height="32"/>
         <image name="t_clock" width="32" height="32"/>
         <image name="t_connect" width="32" height="32"/>
         <image name="t_players" width="32" height="32"/>

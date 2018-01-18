@@ -72,9 +72,6 @@
 - (void)rebalanceSeatingWithBlock:(void(^)(NSArray*))block;
 - (void)quickSetupWithBlock:(void(^)(NSArray*))block;
 
-// utility (TODO: better place for this?)
-+ (NSArray*) namesForBlindLevels:(NSArray*)blindLevels;
-
 @end
 
 @protocol TournamentSessionDelegate <NSObject>

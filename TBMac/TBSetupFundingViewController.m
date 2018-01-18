@@ -23,10 +23,13 @@
     NSNumber* type = kFundingTypeAddon;
     NSNumber* chips = @5000;
     NSNumber* cost = @10;
+    NSString* costCurrency = @"USD";
     NSNumber* commission = @0;
+    NSString* commissionCurrency = @"USD";
     NSNumber* equity = @10;
+    NSString* equityCurrency = @"USD";
 
-    return [@{@"name":name, @"type":type, @"chips":chips, @"cost":cost, @"commission":commission, @"equity":equity} mutableCopy];
+    return [@{@"name":name, @"type":type, @"chips":chips, @"cost":cost, @"cost_currency":costCurrency, @"commission":commission, @"commission_currency":commissionCurrency, @"equity":equity, @"equity_currency":equityCurrency} mutableCopy];
 }
 
 @end
@@ -48,10 +51,19 @@
 
 @end
 
+@interface TBSetupFundingViewController ()
+
+@property (strong) NSArray* currencyList;
+
+@end
+
 @implementation TBSetupFundingViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    // set up currency list
+    _currencyList = [[TBCurrencyNumberFormatter supportedCodesForCurrencies] allKeys];
 
     // setup sort descriptors
     NSSortDescriptor* nameSort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
@@ -62,7 +74,11 @@
 }
 
 - (NSArray*)blindLevelNames {
-    return [TournamentSession namesForBlindLevels:[self representedObject][@"blind_levels"]];
+    NSMutableArray* names = [[NSMutableArray alloc] initWithObjects:NSLocalizedString(@"Tournament Start", nil), nil];
+    for(NSInteger i=1; i<[[self representedObject][@"blind_levels"] count]; i++) {
+        [names addObject:[NSString stringWithFormat:NSLocalizedString(@"Round %ld", @"Numbered blind level"), i]];
+    }
+    return names;
 }
 
 @end

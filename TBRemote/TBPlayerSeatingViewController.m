@@ -10,6 +10,7 @@
 #import "NSObject+AssociatedObject.h"
 #import "NSObject+FBKVOController.h"
 #import "TBAppDelegate.h"
+#import "TBCurrencyImageTransformer.h"
 #import "TBNotifications.h"
 #import "TournamentSession.h"
 
@@ -26,9 +27,6 @@
 // ui
 @property (nonatomic, strong) UIImage* currencyImage;
 
-// lookup
-@property (nonatomic, strong) NSDictionary* currencyImageLookup;
-
 // store funding source for buy-in
 @property (nonatomic, strong) NSDictionary* buyinFundingSource;
 
@@ -44,14 +42,6 @@
 
     // default currency image
     [self setCurrencyImage:[UIImage imageNamed:@"b_note_dollar"]];
-
-    // currency image lookup
-    [self setCurrencyImageLookup:@{@"USD":[UIImage imageNamed:@"b_note_dollar"],
-                                   @"EUR":[UIImage imageNamed:@"b_note_euro"],
-                                   @"INR":[UIImage imageNamed:@"b_note_rupee"],
-                                   @"GBP":[UIImage imageNamed:@"b_note_sterling"],
-                                   @"JPY":[UIImage imageNamed:@"b_note_yen_yuan"],
-                                   @"CNY":[UIImage imageNamed:@"b_note_yen_yuan"]}];
 
     // register for KVO
     [[self KVOController] observe:self keyPath:@"session.state.seated_players" options:NSKeyValueObservingOptionInitial block:^(id observer, TBPlayerSeatingViewController* object, NSDictionary *change) {
@@ -87,7 +77,8 @@
         // update currency image
         NSString* buyinCurrency = [self buyinFundingSource][@"cost_currency"];
         if(buyinCurrency != nil) {
-            UIImage* image = [self currencyImageLookup][buyinCurrency];
+            TBCurrencyImageTransformer* imageTransformer = [[TBCurrencyImageTransformer alloc] init];
+            UIImage* image = [imageTransformer transformedValue:buyinCurrency];
             if(image) {
                 [self setCurrencyImage:image];
             }

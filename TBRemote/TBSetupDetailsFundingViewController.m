@@ -25,7 +25,7 @@
 
 - (NSInteger)tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section {
     if(section == 0) {
-        return 7;
+        return 10;
     } else if(section == 1 && [self object][@"forbid_after_blind_level"] != nil) {
         return 1;
     }
@@ -57,29 +57,65 @@
             }
             case 2:
             {
+                NSNumberFormatter* costFormatter = [[NSNumberFormatter alloc] init];
+                [costFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
+                [(TBEditableNumberTableViewCell*)cell setFormatter:costFormatter];
+
                 [(TBEditableTableViewCell*)cell setObject:[self object]];
                 [(TBEditableTableViewCell*)cell setKeyPath:@"cost"];
                 break;
             }
             case 3:
             {
+                NSDictionary* currenciesForCodes = [TBCurrencyNumberFormatter supportedCurrenciesForCodes];
+                [(TBPickableTextTableViewCell*)cell setAllowedValues:[currenciesForCodes allKeys] withTitles:[currenciesForCodes allValues]];
                 [(TBEditableTableViewCell*)cell setObject:[self object]];
-                [(TBEditableTableViewCell*)cell setKeyPath:@"commission"];
+                [(TBEditableTableViewCell*)cell setKeyPath:@"cost_currency"];
                 break;
             }
             case 4:
             {
+                NSNumberFormatter* commissionFormatter = [[NSNumberFormatter alloc] init];
+                [commissionFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
+                [(TBEditableNumberTableViewCell*)cell setFormatter:commissionFormatter];
+
+                [(TBEditableTableViewCell*)cell setObject:[self object]];
+                [(TBEditableTableViewCell*)cell setKeyPath:@"commission"];
+                break;
+            }
+            case 5:
+            {
+                NSDictionary* currenciesForCodes = [TBCurrencyNumberFormatter supportedCurrenciesForCodes];
+                [(TBPickableTextTableViewCell*)cell setAllowedValues:[currenciesForCodes allKeys] withTitles:[currenciesForCodes allValues]];
+                [(TBEditableTableViewCell*)cell setObject:[self object]];
+                [(TBEditableTableViewCell*)cell setKeyPath:@"commission_currency"];
+                break;
+            }
+            case 6:
+            {
+                NSNumberFormatter* equityFormatter = [[NSNumberFormatter alloc] init];
+                [equityFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
+                [(TBEditableNumberTableViewCell*)cell setFormatter:equityFormatter];
+
                 [(TBEditableTableViewCell*)cell setObject:[self object]];
                 [(TBEditableTableViewCell*)cell setKeyPath:@"equity"];
                 break;
             }
-            case 5:
+            case 7:
+            {
+                NSDictionary* currenciesForCodes = [TBCurrencyNumberFormatter supportedCurrenciesForCodes];
+                [(TBPickableTextTableViewCell*)cell setAllowedValues:[currenciesForCodes allKeys] withTitles:[currenciesForCodes allValues]];
+                [(TBEditableTableViewCell*)cell setObject:[self object]];
+                [(TBEditableTableViewCell*)cell setKeyPath:@"equity_currency"];
+                break;
+            }
+            case 8:
             {
                 [(TBEditableTableViewCell*)cell setObject:[self object]];
                 [(TBEditableTableViewCell*)cell setKeyPath:@"chips"];
                 break;
             }
-            case 6:
+            case 9:
             {
                 [(TBCheckmarkNumberTableViewCell*)cell setObject:[self object]];
                 [(TBCheckmarkNumberTableViewCell*)cell setKeyPath:@"forbid_after_blind_level"];
@@ -90,11 +126,15 @@
         switch(indexPath.row) {
             case 0:
             {
-                NSArray* blindLevels = [self configuration][@"blind_levels"];
-                NSMutableArray* blindLevelIndices = [[NSMutableArray alloc] init];
-                for(NSUInteger i=0; i<[blindLevels count]; i++) [blindLevelIndices addObject:@(i)];
+                // build up list of blind levels
+                NSMutableArray* blindLevelIndices = [[NSMutableArray alloc] initWithObjects:@[@0], nil];
+                NSMutableArray* names = [[NSMutableArray alloc] initWithObjects:NSLocalizedString(@"Tournament Start", nil), nil];
+                for(NSInteger i=1; i<[[self configuration][@"blind_levels"] count]; i++) {
+                    [blindLevelIndices addObject:@(i)];
+                    [names addObject:[NSString stringWithFormat:NSLocalizedString(@"Round %ld", @"Numbered blind level"), i]];
+                }
 
-                [(TBPickableTextTableViewCell*)cell setAllowedValues:blindLevelIndices withTitles:[TournamentSession namesForBlindLevels:blindLevels]];
+                [(TBPickableTextTableViewCell*)cell setAllowedValues:blindLevelIndices withTitles:names];
                 [(TBEditableTableViewCell*)cell setObject:[self object]];
                 [(TBEditableTableViewCell*)cell setKeyPath:@"forbid_after_blind_level"];
                 break;
@@ -109,7 +149,7 @@
 
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
     if(indexPath.section == 0) {
-        if(indexPath.row == 6) {
+        if(indexPath.row == 9) {
             [tableView deselectRowAtIndexPath:indexPath animated:YES];
             [tableView reloadData];
         }

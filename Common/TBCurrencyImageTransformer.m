@@ -6,13 +6,13 @@
 //  Copyright © 2015 HDna Studio. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
+#import "TBCommon.h"
 #import "TBCurrencyImageTransformer.h"
 
 @implementation TBCurrencyImageTransformer
 
 + (Class)transformedValueClass {
-    return [NSImage class];
+    return [TBImage class];
 }
 
 + (BOOL)allowsReverseTransformation {
@@ -21,12 +21,12 @@
 
 - (id)transformedValue:(id)value {
     if([value isKindOfClass:[NSString class]]) {
-        return @{@"USD":[NSImage imageNamed:@"b_note_dollar"],
-                 @"EUR":[NSImage imageNamed:@"b_note_euro"],
-                 @"INR":[NSImage imageNamed:@"b_note_rupee"],
-                 @"GBP":[NSImage imageNamed:@"b_note_sterling"],
-                 @"JPY":[NSImage imageNamed:@"b_note_yen_yuan"],
-                 @"CNY":[NSImage imageNamed:@"b_note_yen_yuan"]}[value];
+        return @{@"USD":[TBImage imageNamed:@"b_note_dollar"],
+                 @"EUR":[TBImage imageNamed:@"b_note_euro"],
+                 @"INR":[TBImage imageNamed:@"b_note_rupee"],
+                 @"GBP":[TBImage imageNamed:@"b_note_sterling"],
+                 @"JPY":[TBImage imageNamed:@"b_note_yen_yuan"],
+                 @"CNY":[TBImage imageNamed:@"b_note_yen_yuan"]}[value];
     }
     return nil;
 }

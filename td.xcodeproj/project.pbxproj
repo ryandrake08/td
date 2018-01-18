@@ -109,6 +109,8 @@
 		946C65751FFF5BB50094E4D8 /* json.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4D81B3C3F8300A158F8 /* json.cpp */; };
 		946C65781FFF5BD30094E4D8 /* libcJSON_macOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9464EC071FDC2D44009092A4 /* libcJSON_macOS.a */; };
 		946C65791FFF5BEC0094E4D8 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9476F4FB1B3C404400A158F8 /* CoreFoundation.framework */; };
+		946CF8D6200FF0D3008771D4 /* TBCurrencyImageTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE5A5021B8F6C4C002737A8 /* TBCurrencyImageTransformer.m */; };
+		946CF8D7200FF0D3008771D4 /* TBCurrencyImageTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE5A5021B8F6C4C002737A8 /* TBCurrencyImageTransformer.m */; };
 		9471B3ED1FF87EFF000A314C /* TBActionClockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CDDD221FE39299008ADF24 /* TBActionClockViewController.m */; };
 		9471B3F01FF8A950000A314C /* TBActionClockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9471B3EF1FF8A947000A314C /* TBActionClockViewController.m */; };
 		9471B3F11FF8A950000A314C /* TBActionClockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9471B3EF1FF8A947000A314C /* TBActionClockViewController.m */; };
@@ -1872,6 +1874,7 @@
 				ADFFFF151BA34394003BAC88 /* TBColor+CSS.m in Sources */,
 				94363BD2200E79C000D52155 /* TBError.m in Sources */,
 				94E27408200F694A0048B07A /* UIActionSheet+Blocks.m in Sources */,
+				946CF8D7200FF0D3008771D4 /* TBCurrencyImageTransformer.m in Sources */,
 				949D709F1B3C440E008D5CD1 /* server.cpp in Sources */,
 				9464718B200CAA9C00556467 /* TBInvertImage.c in Sources */,
 				9439701A1B3F9DB700BB0413 /* TournamentBrowser.m in Sources */,
@@ -2039,6 +2042,7 @@
 				AD62569F1BB448DD00EE776A /* TBSetupDetailsTableViewController.m in Sources */,
 				ADD2CC571BB3D4CB00DE3DE5 /* NSDateFormatter+ISO8601.m in Sources */,
 				ADF635ED1BAB8AF800D019AE /* TBRemoteWatchDelegate.m in Sources */,
+				946CF8D6200FF0D3008771D4 /* TBCurrencyImageTransformer.m in Sources */,
 				ADF635EE1BAB8AF800D019AE /* tournament.cpp in Sources */,
 				ADD2CC551BB3D35700DE3DE5 /* TBSetupDevicesViewController.m in Sources */,
 				AD452D4F1BC6C685007CF579 /* TBChooseColorViewController.m in Sources */,

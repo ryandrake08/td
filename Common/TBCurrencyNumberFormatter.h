@@ -10,4 +10,7 @@
 
 @interface TBCurrencyNumberFormatter : NSNumberFormatter
 
++ (NSDictionary*)supportedCurrenciesForCodes;
++ (NSDictionary*)supportedCodesForCurrencies;
+
 @end

@@ -92,7 +92,6 @@
 
 - (void)windowWillClose:(NSNotification *)notification {
     // close all other windows
-    // TODO: do we really want to do this?
     [[self viewerWindowController] close];
 }
 
