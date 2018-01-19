@@ -682,7 +682,7 @@
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="lvG-dk-XoB" secondAttribute="height" multiplier="7:2" id="LMv-GY-4wc"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="108"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="108"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>

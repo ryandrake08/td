@@ -457,7 +457,7 @@
                                         <rect key="frame" x="0.0" y="14" width="98" height="32"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="01:23:45" placeholderString="" usesSingleLineMode="YES" id="O6X-X7-7oP">
-                                            <font key="font" metaFont="system" size="22"/>
+                                            <font key="font" metaFont="systemBold" size="22"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
@@ -2298,12 +2298,12 @@ Gw
                                                                         <menu key="menu" id="Ltw-tb-ZBY"/>
                                                                     </popUpButtonCell>
                                                                     <connections>
-                                                                        <binding destination="Jw6-Xu-FJL" name="contentValues" keyPath="self.currencyList" id="l5w-DD-TlS"/>
                                                                         <binding destination="lFB-am-lvQ" name="selectedValue" keyPath="objectValue.cost_currency" previousBinding="l5w-DD-TlS" id="6XE-ma-6y7">
                                                                             <dictionary key="options">
                                                                                 <string key="NSValueTransformerName">TBCurrencyCodeTransformer</string>
                                                                             </dictionary>
                                                                         </binding>
+                                                                        <binding destination="Jw6-Xu-FJL" name="contentValues" keyPath="self.currencyList" id="l5w-DD-TlS"/>
                                                                     </connections>
                                                                 </popUpButton>
                                                             </subviews>
@@ -2354,12 +2354,12 @@ Gw
                                                                         <menu key="menu" id="CT2-bL-dHi"/>
                                                                     </popUpButtonCell>
                                                                     <connections>
-                                                                        <binding destination="Jw6-Xu-FJL" name="contentValues" keyPath="self.currencyList" id="gs7-Ej-ujv"/>
                                                                         <binding destination="kvs-zF-BYs" name="selectedValue" keyPath="objectValue.commission_currency" previousBinding="gs7-Ej-ujv" id="O6l-q5-7yg">
                                                                             <dictionary key="options">
                                                                                 <string key="NSValueTransformerName">TBCurrencyCodeTransformer</string>
                                                                             </dictionary>
                                                                         </binding>
+                                                                        <binding destination="Jw6-Xu-FJL" name="contentValues" keyPath="self.currencyList" id="gs7-Ej-ujv"/>
                                                                     </connections>
                                                                 </popUpButton>
                                                             </subviews>
@@ -2410,12 +2410,12 @@ Gw
                                                                         <menu key="menu" id="qNF-RX-uTP"/>
                                                                     </popUpButtonCell>
                                                                     <connections>
-                                                                        <binding destination="Jw6-Xu-FJL" name="contentValues" keyPath="self.currencyList" id="XDv-T7-UW6"/>
                                                                         <binding destination="T7t-Rj-hcC" name="selectedValue" keyPath="objectValue.equity_currency" previousBinding="XDv-T7-UW6" id="ahA-Sd-Keh">
                                                                             <dictionary key="options">
                                                                                 <string key="NSValueTransformerName">TBCurrencyCodeTransformer</string>
                                                                             </dictionary>
                                                                         </binding>
+                                                                        <binding destination="Jw6-Xu-FJL" name="contentValues" keyPath="self.currencyList" id="XDv-T7-UW6"/>
                                                                     </connections>
                                                                 </popUpButton>
                                                             </subviews>
@@ -3328,9 +3328,9 @@ Gw
         <image name="m_rebuy" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="N4t-1A-N0u"/>
-        <segue reference="RAQ-SQ-Qt2"/>
-        <segue reference="bkh-Dn-ae1"/>
-        <segue reference="945-vK-tRp"/>
+        <segue reference="cgp-eX-T5f"/>
+        <segue reference="20A-7q-E8V"/>
+        <segue reference="mJ1-px-HDd"/>
+        <segue reference="3WU-TS-ggK"/>
     </inferredMetricsTieBreakers>
 </document>
