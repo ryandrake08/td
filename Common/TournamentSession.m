@@ -113,7 +113,12 @@
 // send a command through TournamentConnection
 - (void)sendCommand:(NSString*)cmd withData:(NSDictionary*)arg andBlock:(void(^)(id))block {
     // add extra stuff to each command
-    NSMutableDictionary* json = [NSMutableDictionary dictionaryWithDictionary:arg];
+    NSMutableDictionary* json = [[NSMutableDictionary alloc] init];
+
+    // if commands already passed in
+    if(arg != nil) {
+        [json setDictionary:arg];
+    }
 
     // append to every command: authentication
     NSNumber* cid = [TournamentSession clientIdentifier];
