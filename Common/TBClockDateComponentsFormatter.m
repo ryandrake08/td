@@ -18,7 +18,7 @@
         NSTimeInterval offset = remoteNow - localNow;
 
         // apply as offset to given clock
-        NSTimeInterval displayTime = [clockRemaining doubleValue]/1000.0 + offset + 1.0;
+        NSTimeInterval displayTime = ceil([clockRemaining doubleValue]/1000.0 + offset);
 
         // format this timeInterval
         return [self stringFromTimeInterval:displayTime];
