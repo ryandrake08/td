@@ -229,7 +229,8 @@
         [[cell valueLabel] setText:[chip[@"denomination"] stringValue]];
         return cell;
     } else {
-        return nil;
+        NSLog(@"TBRemoteClockViewController tableView:cellForRowAtIndexPath: invalid section");
+        abort();
     }
 }
 

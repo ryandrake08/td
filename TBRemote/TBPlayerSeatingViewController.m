@@ -137,11 +137,10 @@
 }
 
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath {
-    UITableViewCell* cell;
     NSDictionary* player;
     if(indexPath.section == 0) {
         // create a cell
-        cell = [tableView dequeueReusableCellWithIdentifier:@"SeatedCell" forIndexPath:indexPath];
+        UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"SeatedCell" forIndexPath:indexPath];
 
         // get player for this row
         player = [self seatedPlayers][[indexPath row]];
@@ -156,17 +155,21 @@
         } else {
             [(UIImageView*)[cell viewWithTag:103] setImage:nil];
         }
+        return cell;
     } else if(indexPath.section == 1) {
         // create a cell
-        cell = [tableView dequeueReusableCellWithIdentifier:@"UnseatedCell" forIndexPath:indexPath];
+        UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"UnseatedCell" forIndexPath:indexPath];
 
         // get player for this row
         player = [self unseatedPlayers][[indexPath row]];
 
         // setup cell
         [(UILabel*)[cell viewWithTag:200] setText:player[@"name"]];
+        return cell;
+    } else {
+        NSLog(@"TBPlayerSeatingViewController tableView:cellForRowAtIndexPath: invalid section");
+        abort();
     }
-    return cell;
 }
 
 #pragma mark UITableViewDelegate

@@ -56,10 +56,9 @@
 }
 
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath {
-    UITableViewCell* cell;
     if(indexPath.section == 0) {
         // create a cell
-        cell = [tableView dequeueReusableCellWithIdentifier:@"ResultsCell" forIndexPath:indexPath];
+        UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"ResultsCell" forIndexPath:indexPath];
 
         // get result for this row
         NSDictionary* result = [[self session] state][@"results"][indexPath.row];
@@ -76,8 +75,11 @@
         [(UILabel*)[cell viewWithTag:100] setText:place];
         [(UILabel*)[cell viewWithTag:101] setText:result[@"name"]];
         [(UILabel*)[cell viewWithTag:102] setText:payout];
+        return cell;
+    } else {
+        NSLog(@"TBResultsViewController tableView:cellForRowAtIndexPath: invalid section");
+        abort();
     }
-    return cell;
 }
 
 @end
