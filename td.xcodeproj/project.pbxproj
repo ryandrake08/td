@@ -250,11 +250,11 @@
 		AD1B250D1BA8796100C4BDDC /* scope_timer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AD1B250A1BA8773900C4BDDC /* scope_timer.cpp */; };
 		AD1B250E1BA8796400C4BDDC /* scope_timer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AD1B250A1BA8773900C4BDDC /* scope_timer.cpp */; };
 		AD1B250F1BA8796500C4BDDC /* scope_timer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AD1B250A1BA8773900C4BDDC /* scope_timer.cpp */; };
-		AD2B800E1BACC63600E2FE9C /* TBPhone WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = AD33BA641BAC63540011777C /* TBPhone WatchKit Extension.appex */; };
+		AD2B800E1BACC63600E2FE9C /* Poker Buddy.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = AD33BA641BAC63540011777C /* Poker Buddy.appex */; };
 		AD2CA95F1BAA7043009A2384 /* TournamentSocketDirectory.c in Sources */ = {isa = PBXBuildFile; fileRef = AD2CA95E1BAA7043009A2384 /* TournamentSocketDirectory.c */; };
 		AD2CA9601BAA70F9009A2384 /* TournamentSocketDirectory.c in Sources */ = {isa = PBXBuildFile; fileRef = AD2CA95E1BAA7043009A2384 /* TournamentSocketDirectory.c */; };
 		AD2CA9611BAA7134009A2384 /* TournamentSocketDirectory.c in Sources */ = {isa = PBXBuildFile; fileRef = AD2CA95E1BAA7043009A2384 /* TournamentSocketDirectory.c */; };
-		AD2FC7901BACDB51008ABB22 /* TBPhone WatchKit App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = AD33BA521BAC634F0011777C /* TBPhone WatchKit App.app */; };
+		AD2FC7901BACDB51008ABB22 /* Poker Buddy.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = AD33BA521BAC634F0011777C /* Poker Buddy.app */; };
 		AD33BA421BABAC120011777C /* defaults.json in Resources */ = {isa = PBXBuildFile; fileRef = 9476F4CD1B3C3F8300A158F8 /* defaults.json */; };
 		AD33BA431BABAD6B0011777C /* defaults.json in Resources */ = {isa = PBXBuildFile; fileRef = 9476F4CD1B3C3F8300A158F8 /* defaults.json */; };
 		AD33BA481BAC634F0011777C /* s_warning.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04ECC1B7C59EB004F4245 /* s_warning.caf */; };
@@ -304,11 +304,11 @@
 		ADA5DAC01B949CB1004F50C8 /* s_warning.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04ECC1B7C59EB004F4245 /* s_warning.caf */; };
 		ADA6A19C1B97FE8A00C83762 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ADA6A19A1B97FE8A00C83762 /* Interface.storyboard */; };
 		ADA6A19E1B97FE8A00C83762 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ADA6A19D1B97FE8A00C83762 /* Assets.xcassets */; };
-		ADA6A1A51B97FE8A00C83762 /* TBRemote WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = ADA6A1A41B97FE8A00C83762 /* TBRemote WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		ADA6A1A51B97FE8A00C83762 /* Poker Remote.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = ADA6A1A41B97FE8A00C83762 /* Poker Remote.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		ADA6A1AD1B97FE8A00C83762 /* InterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA6A1AC1B97FE8A00C83762 /* InterfaceController.m */; };
 		ADA6A1B01B97FE8A00C83762 /* ExtensionDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA6A1AF1B97FE8A00C83762 /* ExtensionDelegate.m */; };
 		ADA6A1B31B97FE8A00C83762 /* NotificationController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA6A1B21B97FE8A00C83762 /* NotificationController.m */; };
-		ADA6A1B91B97FE8A00C83762 /* TBRemote WatchKit App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = ADA6A1981B97FE8A00C83762 /* TBRemote WatchKit App.app */; };
+		ADA6A1B91B97FE8A00C83762 /* Poker Remote.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = ADA6A1981B97FE8A00C83762 /* Poker Remote.app */; };
 		ADA6A1C21B98041900C83762 /* FBKVOController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEAE01B5AE2D60026B25D /* FBKVOController.m */; };
 		ADA6A1C31B98043500C83762 /* NSObject+FBKVOController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEAE41B5AE2D60026B25D /* NSObject+FBKVOController.m */; };
 		ADCECE7D1B7B0D9D00767DA6 /* TBResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADCECE791B7B0D9D00767DA6 /* TBResultsViewController.m */; };
@@ -543,7 +543,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				AD2B800E1BACC63600E2FE9C /* TBPhone WatchKit Extension.appex in Embed App Extensions */,
+				AD2B800E1BACC63600E2FE9C /* Poker Buddy.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -554,7 +554,7 @@
 			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
 			dstSubfolderSpec = 16;
 			files = (
-				AD2FC7901BACDB51008ABB22 /* TBPhone WatchKit App.app in Embed Watch Content */,
+				AD2FC7901BACDB51008ABB22 /* Poker Buddy.app in Embed Watch Content */,
 			);
 			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -565,7 +565,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				ADA6A1A51B97FE8A00C83762 /* TBRemote WatchKit Extension.appex in Embed App Extensions */,
+				ADA6A1A51B97FE8A00C83762 /* Poker Remote.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -576,7 +576,7 @@
 			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
 			dstSubfolderSpec = 16;
 			files = (
-				ADA6A1B91B97FE8A00C83762 /* TBRemote WatchKit App.app in Embed Watch Content */,
+				ADA6A1B91B97FE8A00C83762 /* Poker Remote.app in Embed Watch Content */,
 			);
 			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -603,7 +603,7 @@
 		9439701C1B405DC000BB0413 /* TournamentService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TournamentService.m; sourceTree = "<group>"; };
 		943F85501FF8F3E200E1C4AD /* TBMac.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = TBMac.entitlements; path = TBMac/TBMac.entitlements; sourceTree = "<group>"; };
 		943F85511FF8F3FE00E1C4AD /* TBViewer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = TBViewer.entitlements; path = TBMac/TBViewer.entitlements; sourceTree = "<group>"; };
-		944FF4B31B3D04CA000362ED /* TBViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TBViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		944FF4B31B3D04CA000362ED /* Poker Remote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Poker Remote.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		945410721B6E5C56001E3373 /* NSDateFormatter+ISO8601.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDateFormatter+ISO8601.h"; sourceTree = "<group>"; };
 		945410731B6E5C56001E3373 /* NSDateFormatter+ISO8601.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+ISO8601.m"; sourceTree = "<group>"; };
 		945410751B6E9A17001E3373 /* NSString+CamelCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+CamelCase.h"; sourceTree = "<group>"; };
@@ -651,7 +651,7 @@
 		9471B3EF1FF8A947000A314C /* TBActionClockViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TBActionClockViewController.m; path = TBMac/TBActionClockViewController.m; sourceTree = "<group>"; };
 		9471B3F21FF8BEF1000A314C /* TBActionClockSegue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TBActionClockSegue.h; path = TBMac/TBActionClockSegue.h; sourceTree = "<group>"; };
 		9471B3F31FF8BEF1000A314C /* TBActionClockSegue.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TBActionClockSegue.m; path = TBMac/TBActionClockSegue.m; sourceTree = "<group>"; };
-		9476F42A1B3C37D000A158F8 /* TBRemote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TBRemote.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9476F42A1B3C37D000A158F8 /* Poker Remote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Poker Remote.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9476F4551B3C385400A158F8 /* TBAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBAppDelegate.h; sourceTree = "<group>"; };
 		9476F4561B3C385400A158F8 /* TBAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBAppDelegate.m; sourceTree = "<group>"; };
 		9476F4571B3C385400A158F8 /* TBTournamentsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBTournamentsViewController.h; sourceTree = "<group>"; };
@@ -772,8 +772,8 @@
 		AD1B250B1BA8773900C4BDDC /* scope_timer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = scope_timer.hpp; sourceTree = "<group>"; };
 		AD2CA95D1BAA7043009A2384 /* TournamentSocketDirectory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TournamentSocketDirectory.h; sourceTree = "<group>"; };
 		AD2CA95E1BAA7043009A2384 /* TournamentSocketDirectory.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = TournamentSocketDirectory.c; sourceTree = "<group>"; };
-		AD33BA521BAC634F0011777C /* TBPhone WatchKit App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TBPhone WatchKit App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		AD33BA641BAC63540011777C /* TBPhone WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "TBPhone WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AD33BA521BAC634F0011777C /* Poker Buddy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Poker Buddy.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AD33BA641BAC63540011777C /* Poker Buddy.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Poker Buddy.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD33BA661BAC63CC0011777C /* TBPhone-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "TBPhone-Info.plist"; sourceTree = "<group>"; };
 		AD33BA681BAC63D40011777C /* TBPhone-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "TBPhone-Info.plist"; sourceTree = "<group>"; };
 		AD452D4D1BC6C685007CF579 /* TBChooseColorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = TBChooseColorViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -800,7 +800,7 @@
 		AD75ACED1BA3FD8800705967 /* TBEllipseImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBEllipseImageView.m; sourceTree = "<group>"; };
 		AD87A6D71BA2094400E55961 /* TBEllipseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBEllipseView.h; sourceTree = "<group>"; };
 		AD87A6D81BA2094400E55961 /* TBEllipseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBEllipseView.m; sourceTree = "<group>"; };
-		AD8E68431A6C606700E5A4D8 /* TBMac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TBMac.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AD8E68431A6C606700E5A4D8 /* Poker Buddy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Poker Buddy.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD8E68471A6C606700E5A4D8 /* TBMac-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "TBMac-Info.plist"; path = "TBMac/TBMac-Info.plist"; sourceTree = "<group>"; };
 		AD8E68481A6C606700E5A4D8 /* TBMacAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TBMacAppDelegate.h; path = TBMac/TBMacAppDelegate.h; sourceTree = "<group>"; };
 		AD8E68491A6C606700E5A4D8 /* TBMacAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TBMacAppDelegate.m; path = TBMac/TBMacAppDelegate.m; sourceTree = "<group>"; };
@@ -820,11 +820,11 @@
 		AD98D9721A7B343600DA6B8B /* TBSeatingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TBSeatingViewController.m; path = TBMac/TBSeatingViewController.m; sourceTree = "<group>"; };
 		AD9ED3E71B90949000C10550 /* TBPlayerSeatingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBPlayerSeatingViewController.h; sourceTree = "<group>"; };
 		AD9ED3E81B90949000C10550 /* TBPlayerSeatingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBPlayerSeatingViewController.m; sourceTree = "<group>"; };
-		ADA6A1981B97FE8A00C83762 /* TBRemote WatchKit App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TBRemote WatchKit App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		ADA6A1981B97FE8A00C83762 /* Poker Remote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Poker Remote.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADA6A19B1B97FE8A00C83762 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
 		ADA6A19D1B97FE8A00C83762 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		ADA6A19F1B97FE8A00C83762 /* TBRemote-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TBRemote-Info.plist"; sourceTree = "<group>"; };
-		ADA6A1A41B97FE8A00C83762 /* TBRemote WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "TBRemote WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		ADA6A1A41B97FE8A00C83762 /* Poker Remote.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Poker Remote.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADA6A1AB1B97FE8A00C83762 /* InterfaceController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InterfaceController.h; sourceTree = "<group>"; };
 		ADA6A1AC1B97FE8A00C83762 /* InterfaceController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InterfaceController.m; sourceTree = "<group>"; };
 		ADA6A1AE1B97FE8A00C83762 /* ExtensionDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExtensionDelegate.h; sourceTree = "<group>"; };
@@ -865,7 +865,7 @@
 		ADE4E1271A7DFFD000FC9EFC /* TBTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TBTableViewController.m; path = TBMac/TBTableViewController.m; sourceTree = "<group>"; };
 		ADE5A5011B8F6C4C002737A8 /* TBCurrencyImageTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBCurrencyImageTransformer.h; sourceTree = "<group>"; };
 		ADE5A5021B8F6C4C002737A8 /* TBCurrencyImageTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBCurrencyImageTransformer.m; sourceTree = "<group>"; };
-		ADF636181BAB8AF800D019AE /* TBPhone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TBPhone.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		ADF636181BAB8AF800D019AE /* Poker Buddy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Poker Buddy.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADF636191BAB8AF800D019AE /* TBPhone-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TBPhone-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1241,15 +1241,15 @@
 		AD8E68441A6C606700E5A4D8 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				AD8E68431A6C606700E5A4D8 /* TBMac.app */,
-				9476F42A1B3C37D000A158F8 /* TBRemote.app */,
+				AD8E68431A6C606700E5A4D8 /* Poker Buddy.app */,
+				9476F42A1B3C37D000A158F8 /* Poker Remote.app */,
 				9476F4C61B3C3F3D00A158F8 /* tournamentd */,
-				944FF4B31B3D04CA000362ED /* TBViewer.app */,
-				ADA6A1981B97FE8A00C83762 /* TBRemote WatchKit App.app */,
-				ADA6A1A41B97FE8A00C83762 /* TBRemote WatchKit Extension.appex */,
-				ADF636181BAB8AF800D019AE /* TBPhone.app */,
-				AD33BA521BAC634F0011777C /* TBPhone WatchKit App.app */,
-				AD33BA641BAC63540011777C /* TBPhone WatchKit Extension.appex */,
+				944FF4B31B3D04CA000362ED /* Poker Remote.app */,
+				ADA6A1981B97FE8A00C83762 /* Poker Remote.app */,
+				ADA6A1A41B97FE8A00C83762 /* Poker Remote.appex */,
+				ADF636181BAB8AF800D019AE /* Poker Buddy.app */,
+				AD33BA521BAC634F0011777C /* Poker Buddy.app */,
+				AD33BA641BAC63540011777C /* Poker Buddy.appex */,
 				9464EC071FDC2D44009092A4 /* libcJSON_macOS.a */,
 				9464EC1F1FDC2FB5009092A4 /* libcJSON_iOS.a */,
 				946C65671FFF54360094E4D8 /* tournamentctl */,
@@ -1380,7 +1380,7 @@
 			);
 			name = TBViewer;
 			productName = TBViewer;
-			productReference = 944FF4B31B3D04CA000362ED /* TBViewer.app */;
+			productReference = 944FF4B31B3D04CA000362ED /* Poker Remote.app */;
 			productType = "com.apple.product-type.application";
 		};
 		9464EC061FDC2D44009092A4 /* cJSON_macOS */ = {
@@ -1453,7 +1453,7 @@
 			);
 			name = TBRemote;
 			productName = TBRemote;
-			productReference = 9476F42A1B3C37D000A158F8 /* TBRemote.app */;
+			productReference = 9476F42A1B3C37D000A158F8 /* Poker Remote.app */;
 			productType = "com.apple.product-type.application";
 		};
 		9476F4C51B3C3F3D00A158F8 /* tournamentd */ = {
@@ -1488,7 +1488,7 @@
 			);
 			name = "TBPhone WatchKit App";
 			productName = "TBPhone WatchKit App";
-			productReference = AD33BA521BAC634F0011777C /* TBPhone WatchKit App.app */;
+			productReference = AD33BA521BAC634F0011777C /* Poker Buddy.app */;
 			productType = "com.apple.product-type.application.watchapp2";
 		};
 		AD33BA541BAC63540011777C /* TBPhone WatchKit Extension */ = {
@@ -1505,7 +1505,7 @@
 			);
 			name = "TBPhone WatchKit Extension";
 			productName = "TBPhone WatchKit Extension";
-			productReference = AD33BA641BAC63540011777C /* TBPhone WatchKit Extension.appex */;
+			productReference = AD33BA641BAC63540011777C /* Poker Buddy.appex */;
 			productType = "com.apple.product-type.watchkit2-extension";
 		};
 		AD8E68421A6C606700E5A4D8 /* TBMac */ = {
@@ -1523,7 +1523,7 @@
 			);
 			name = TBMac;
 			productName = "Tournament Buddy";
-			productReference = AD8E68431A6C606700E5A4D8 /* TBMac.app */;
+			productReference = AD8E68431A6C606700E5A4D8 /* Poker Buddy.app */;
 			productType = "com.apple.product-type.application";
 		};
 		ADA6A1971B97FE8A00C83762 /* TBRemote WatchKit App */ = {
@@ -1540,7 +1540,7 @@
 			);
 			name = "TBRemote WatchKit App";
 			productName = "TBRemote WatchKit App";
-			productReference = ADA6A1981B97FE8A00C83762 /* TBRemote WatchKit App.app */;
+			productReference = ADA6A1981B97FE8A00C83762 /* Poker Remote.app */;
 			productType = "com.apple.product-type.application.watchapp2";
 		};
 		ADA6A1A31B97FE8A00C83762 /* TBRemote WatchKit Extension */ = {
@@ -1557,7 +1557,7 @@
 			);
 			name = "TBRemote WatchKit Extension";
 			productName = "TBRemote WatchKit Extension";
-			productReference = ADA6A1A41B97FE8A00C83762 /* TBRemote WatchKit Extension.appex */;
+			productReference = ADA6A1A41B97FE8A00C83762 /* Poker Remote.appex */;
 			productType = "com.apple.product-type.watchkit2-extension";
 		};
 		ADF635E11BAB8AF800D019AE /* TBPhone */ = {
@@ -1578,7 +1578,7 @@
 			);
 			name = TBPhone;
 			productName = TBRemote;
-			productReference = ADF636181BAB8AF800D019AE /* TBPhone.app */;
+			productReference = ADF636181BAB8AF800D019AE /* Poker Buddy.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -2257,7 +2257,7 @@
 				CODE_SIGN_ENTITLEMENTS = TBMac/TBViewer.entitlements;
 				INFOPLIST_FILE = "$(SRCROOT)/TBMac/TBViewer-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.hdnastudio.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Poker Remote";
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -2269,7 +2269,7 @@
 				CODE_SIGN_ENTITLEMENTS = TBMac/TBViewer.entitlements;
 				INFOPLIST_FILE = "$(SRCROOT)/TBMac/TBViewer-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.hdnastudio.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Poker Remote";
 				SDKROOT = macosx;
 			};
 			name = Release;
@@ -2333,7 +2333,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = "TBRemote/TBRemote-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.hdnastudio.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Poker Remote";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -2346,7 +2346,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = "TBRemote/TBRemote-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.hdnastudio.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Poker Remote";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -2388,8 +2388,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				IBSC_MODULE = TBPhone_Extension;
 				INFOPLIST_FILE = "TBWatch/TBPhone-Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = com.hdnastudio.TBPhone.watchkitapp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.hdnastudio.$(PRODUCT_NAME:rfc1034identifier).watchkitapp";
+				PRODUCT_NAME = "Poker Buddy";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
@@ -2402,8 +2402,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				IBSC_MODULE = TBPhone_Extension;
 				INFOPLIST_FILE = "TBWatch/TBPhone-Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = com.hdnastudio.TBPhone.watchkitapp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.hdnastudio.$(PRODUCT_NAME:rfc1034identifier).watchkitapp";
+				PRODUCT_NAME = "Poker Buddy";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
@@ -2414,8 +2414,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = "TBWatch Extension/TBPhone-Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = com.hdnastudio.TBPhone.watchkitapp.watchkitextension;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.hdnastudio.$(PRODUCT_NAME:rfc1034identifier).watchkitapp.watchkitextension";
+				PRODUCT_NAME = "Poker Buddy";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
@@ -2426,8 +2426,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = "TBWatch Extension/TBPhone-Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = com.hdnastudio.TBPhone.watchkitapp.watchkitextension;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.hdnastudio.$(PRODUCT_NAME:rfc1034identifier).watchkitapp.watchkitextension";
+				PRODUCT_NAME = "Poker Buddy";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
@@ -2570,7 +2570,7 @@
 				CODE_SIGN_ENTITLEMENTS = TBMac/TBMac.entitlements;
 				INFOPLIST_FILE = "$(SRCROOT)/TBMac/TBMac-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.hdnastudio.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Poker Buddy";
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -2582,7 +2582,7 @@
 				CODE_SIGN_ENTITLEMENTS = TBMac/TBMac.entitlements;
 				INFOPLIST_FILE = "$(SRCROOT)/TBMac/TBMac-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.hdnastudio.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Poker Buddy";
 				SDKROOT = macosx;
 			};
 			name = Release;
@@ -2593,8 +2593,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				IBSC_MODULE = TBRemote_Extension;
 				INFOPLIST_FILE = "TBWatch/TBRemote-Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = com.hdnastudio.TBRemote.watchkitapp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.hdnastudio.$(PRODUCT_NAME:rfc1034identifier).watchkitapp";
+				PRODUCT_NAME = "Poker Remote";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
@@ -2607,8 +2607,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				IBSC_MODULE = TBRemote_Extension;
 				INFOPLIST_FILE = "TBWatch/TBRemote-Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = com.hdnastudio.TBRemote.watchkitapp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.hdnastudio.$(PRODUCT_NAME:rfc1034identifier).watchkitapp";
+				PRODUCT_NAME = "Poker Remote";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
@@ -2619,8 +2619,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = "TBWatch Extension/TBRemote-Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = com.hdnastudio.TBRemote.watchkitapp.watchkitextension;
-				PRODUCT_NAME = "${TARGET_NAME}";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.hdnastudio.$(PRODUCT_NAME:rfc1034identifier).watchkitapp.watchkitextension";
+				PRODUCT_NAME = "Poker Remote";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
@@ -2631,8 +2631,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = "TBWatch Extension/TBRemote-Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = com.hdnastudio.TBRemote.watchkitapp.watchkitextension;
-				PRODUCT_NAME = "${TARGET_NAME}";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.hdnastudio.$(PRODUCT_NAME:rfc1034identifier).watchkitapp.watchkitextension";
+				PRODUCT_NAME = "Poker Remote";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
@@ -2650,7 +2650,7 @@
 				);
 				INFOPLIST_FILE = "TBRemote/TBPhone-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.hdnastudio.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Poker Buddy";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -2664,7 +2664,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = "TBFULL=1";
 				INFOPLIST_FILE = "TBRemote/TBPhone-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.hdnastudio.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Poker Buddy";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
