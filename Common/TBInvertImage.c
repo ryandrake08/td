@@ -9,7 +9,7 @@
 #include "TBInvertImage.h"
 #include <stdlib.h>
 
-CGImageRef TBInvertImage(CGImageRef image)
+CGImageRef TBCreateInvertedImage(CGImageRef image)
 {
     // allocate an appropriately sized buffer
     size_t width = CGImageGetWidth(image);

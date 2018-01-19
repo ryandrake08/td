@@ -2,4 +2,4 @@
 
 #include <CoreGraphics/CoreGraphics.h>
 
-CGImageRef TBInvertImage(CGImageRef image);
+CGImageRef TBCreateInvertedImage(CGImageRef image);

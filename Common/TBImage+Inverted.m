@@ -18,7 +18,7 @@
     TBImage* result = [self associatedObject];
     if(result == nil) {
         // invert
-        CGImageRef outputImage = TBInvertImage([self CGImage]);
+        CGImageRef outputImage = TBCreateInvertedImage([self CGImage]);
 #if TARGET_OS_IPHONE
         result = [[TBImage alloc] initWithCGImage:outputImage scale:[self scale] orientation:[self imageOrientation]];
 #else
