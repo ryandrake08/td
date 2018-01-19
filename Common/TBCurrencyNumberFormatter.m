@@ -11,7 +11,7 @@
 @implementation TBCurrencyNumberFormatter
 
 - (instancetype)init {
-    if([super init]) {
+    if(self = [super init]) {
         [self setNumberStyle:NSNumberFormatterCurrencyStyle];
     }
     return self;
