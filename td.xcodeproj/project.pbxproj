@@ -213,6 +213,18 @@
 		94E27404200F611F0048B07A /* UIAlertView+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E27401200F60B00048B07A /* UIAlertView+Blocks.m */; };
 		94E27407200F694A0048B07A /* UIActionSheet+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E27406200F693C0048B07A /* UIActionSheet+Blocks.m */; };
 		94E27408200F694A0048B07A /* UIActionSheet+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E27406200F693C0048B07A /* UIActionSheet+Blocks.m */; };
+		94E6F1782011B34B0054D94F /* WatchConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E6F1772011B34A0054D94F /* WatchConnectivity.framework */; };
+		94E6F1792011B3500054D94F /* WatchConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E6F1772011B34A0054D94F /* WatchConnectivity.framework */; };
+		94E6F17B2011B54E0054D94F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E6F17A2011B54E0054D94F /* CoreGraphics.framework */; };
+		94E6F17F2011B5800054D94F /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E6F17E2011B5800054D94F /* AudioToolbox.framework */; };
+		94E6F1832011B5B30054D94F /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E6F1822011B5B30054D94F /* AppKit.framework */; };
+		94E6F1842011B5C30054D94F /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E6F17E2011B5800054D94F /* AudioToolbox.framework */; };
+		94E6F1852011B5C70054D94F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E6F17A2011B54E0054D94F /* CoreGraphics.framework */; };
+		94E6F1862011B5CB0054D94F /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E6F1822011B5B30054D94F /* AppKit.framework */; };
+		94E6F1882011B61A0054D94F /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E6F1872011B61A0054D94F /* AudioToolbox.framework */; };
+		94E6F18A2011B6230054D94F /* WatchConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E6F1892011B6230054D94F /* WatchConnectivity.framework */; };
+		94E6F18B2011B6310054D94F /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E6F1872011B61A0054D94F /* AudioToolbox.framework */; };
+		94E6F18C2011B6360054D94F /* WatchConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E6F1892011B6230054D94F /* WatchConnectivity.framework */; };
 		94ED00111B76E1E6003CF19B /* TBTableSeatNumberTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 94ED00101B76E1E6003CF19B /* TBTableSeatNumberTransformer.m */; };
 		94F466271B8AF203009BB648 /* TBCurrencyCodeTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F466261B8AF203009BB648 /* TBCurrencyCodeTransformer.m */; };
 		94F51CAE1BC96F53007AD1DD /* TBTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F51CAD1BC96F53007AD1DD /* TBTableViewController.m */; };
@@ -725,6 +737,14 @@
 		94E27402200F60B00048B07A /* UIAlertView+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+Blocks.h"; sourceTree = "<group>"; };
 		94E27405200F693B0048B07A /* UIActionSheet+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIActionSheet+Blocks.h"; sourceTree = "<group>"; };
 		94E27406200F693C0048B07A /* UIActionSheet+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIActionSheet+Blocks.m"; sourceTree = "<group>"; };
+		94E6F1772011B34A0054D94F /* WatchConnectivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchConnectivity.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS4.2.sdk/System/Library/Frameworks/WatchConnectivity.framework; sourceTree = DEVELOPER_DIR; };
+		94E6F17A2011B54E0054D94F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		94E6F17C2011B55B0054D94F /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
+		94E6F17E2011B5800054D94F /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		94E6F1802011B5980054D94F /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		94E6F1822011B5B30054D94F /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		94E6F1872011B61A0054D94F /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.2.sdk/System/Library/Frameworks/AudioToolbox.framework; sourceTree = DEVELOPER_DIR; };
+		94E6F1892011B6230054D94F /* WatchConnectivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchConnectivity.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.2.sdk/System/Library/Frameworks/WatchConnectivity.framework; sourceTree = DEVELOPER_DIR; };
 		94ED000F1B76E1E6003CF19B /* TBTableSeatNumberTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBTableSeatNumberTransformer.h; sourceTree = "<group>"; };
 		94ED00101B76E1E6003CF19B /* TBTableSeatNumberTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBTableSeatNumberTransformer.m; sourceTree = "<group>"; };
 		94F466251B8AF203009BB648 /* TBCurrencyCodeTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBCurrencyCodeTransformer.h; sourceTree = "<group>"; };
@@ -854,6 +874,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				94E6F1832011B5B30054D94F /* AppKit.framework in Frameworks */,
+				94E6F17F2011B5800054D94F /* AudioToolbox.framework in Frameworks */,
+				94E6F17B2011B54E0054D94F /* CoreGraphics.framework in Frameworks */,
 				9464EC241FDC301D009092A4 /* libcJSON_macOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -884,9 +907,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				94E6F1882011B61A0054D94F /* AudioToolbox.framework in Frameworks */,
 				9457DAC11FE6AB170047DF29 /* CFNetwork.framework in Frameworks */,
 				9457DABF1FE6AB0F0047DF29 /* CoreGraphics.framework in Frameworks */,
 				9457DABD1FE6AAF60047DF29 /* UIKit.framework in Frameworks */,
+				94E6F18A2011B6230054D94F /* WatchConnectivity.framework in Frameworks */,
 				9464EC2B1FDC3042009092A4 /* libcJSON_iOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -895,9 +920,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9464EC131FDC2F30009092A4 /* libcJSON_macOS.a in Frameworks */,
-				946C65791FFF5BEC0094E4D8 /* CoreFoundation.framework in Frameworks */,
 				9476F4FA1B3C403F00A158F8 /* CFNetwork.framework in Frameworks */,
+				946C65791FFF5BEC0094E4D8 /* CoreFoundation.framework in Frameworks */,
+				9464EC131FDC2F30009092A4 /* libcJSON_macOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -905,6 +930,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				94E6F1782011B34B0054D94F /* WatchConnectivity.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -912,6 +938,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				94E6F1862011B5CB0054D94F /* AppKit.framework in Frameworks */,
+				94E6F1842011B5C30054D94F /* AudioToolbox.framework in Frameworks */,
+				94E6F1852011B5C70054D94F /* CoreGraphics.framework in Frameworks */,
 				9464EC141FDC2F3F009092A4 /* libcJSON_macOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -920,6 +949,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				94E6F1792011B3500054D94F /* WatchConnectivity.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -927,9 +957,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9457DAC51FE6AB400047DF29 /* UIKit.framework in Frameworks */,
-				9457DAC31FE6AB310047DF29 /* CoreGraphics.framework in Frameworks */,
+				94E6F18B2011B6310054D94F /* AudioToolbox.framework in Frameworks */,
 				9457DAC21FE6AB2A0047DF29 /* CFNetwork.framework in Frameworks */,
+				9457DAC31FE6AB310047DF29 /* CoreGraphics.framework in Frameworks */,
+				9457DAC51FE6AB400047DF29 /* UIKit.framework in Frameworks */,
+				94E6F18C2011B6360054D94F /* WatchConnectivity.framework in Frameworks */,
 				9464EC281FDC3036009092A4 /* libcJSON_iOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1169,6 +1201,14 @@
 		AD51C5341AFFC9210084B25E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				94E6F1892011B6230054D94F /* WatchConnectivity.framework */,
+				94E6F1872011B61A0054D94F /* AudioToolbox.framework */,
+				94E6F1822011B5B30054D94F /* AppKit.framework */,
+				94E6F1802011B5980054D94F /* ImageIO.framework */,
+				94E6F17E2011B5800054D94F /* AudioToolbox.framework */,
+				94E6F17C2011B55B0054D94F /* CoreAudio.framework */,
+				94E6F17A2011B54E0054D94F /* CoreGraphics.framework */,
+				94E6F1772011B34A0054D94F /* WatchConnectivity.framework */,
 				9457DAC01FE6AB170047DF29 /* CFNetwork.framework */,
 				9457DABE1FE6AB0F0047DF29 /* CoreGraphics.framework */,
 				9457DABC1FE6AAF50047DF29 /* UIKit.framework */,
@@ -2481,7 +2521,6 @@
 				CLANG_ANALYZER_SECURITY_INSECUREAPI_RAND = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -2509,7 +2548,6 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -2550,7 +2588,6 @@
 				CLANG_ANALYZER_SECURITY_INSECUREAPI_RAND = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -2576,7 +2613,6 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = "";
 				GCC_TREAT_IMPLICIT_FUNCTION_DECLARATIONS_AS_ERRORS = YES;

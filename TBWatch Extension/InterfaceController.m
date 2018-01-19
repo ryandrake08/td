@@ -8,8 +8,7 @@
 
 #import "InterfaceController.h"
 #import "NSObject+FBKVOController.h"
-
-@import WatchConnectivity;
+#import <WatchConnectivity/WatchConnectivity.h>
 
 @interface InterfaceController () <WCSessionDelegate>
 
