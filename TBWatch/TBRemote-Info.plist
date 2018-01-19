@@ -26,7 +26,7 @@
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 	</array>
 	<key>WKCompanionAppBundleIdentifier</key>
-	<string>com.hdnastudio.$(PRODUCT_NAME:rfc1034identifier)</string>
+	<string>com.hdnastudio.$(PRODUCT_NAME:rfc1034identifier).ios</string>
 	<key>WKWatchKitApp</key>
 	<true/>
 </dict>

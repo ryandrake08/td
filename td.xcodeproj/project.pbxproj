@@ -2591,7 +2591,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = TBMac/TBViewer.entitlements;
 				INFOPLIST_FILE = "$(SRCROOT)/TBMac/TBViewer-Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.hdnastudio.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.hdnastudio.$(PRODUCT_NAME:rfc1034identifier).macos";
 				PRODUCT_NAME = "Poker Remote";
 				SDKROOT = macosx;
 			};
@@ -2603,7 +2603,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = TBMac/TBViewer.entitlements;
 				INFOPLIST_FILE = "$(SRCROOT)/TBMac/TBViewer-Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.hdnastudio.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.hdnastudio.$(PRODUCT_NAME:rfc1034identifier).macos";
 				PRODUCT_NAME = "Poker Remote";
 				SDKROOT = macosx;
 			};
@@ -2667,7 +2667,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = "TBRemote/TBRemote-Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.hdnastudio.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.hdnastudio.$(PRODUCT_NAME:rfc1034identifier).ios";
 				PRODUCT_NAME = "Poker Remote";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -2680,7 +2680,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = "TBRemote/TBRemote-Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.hdnastudio.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.hdnastudio.$(PRODUCT_NAME:rfc1034identifier).ios";
 				PRODUCT_NAME = "Poker Remote";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -2723,7 +2723,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				IBSC_MODULE = TBPhone_Extension;
 				INFOPLIST_FILE = "TBWatch/TBPhone-Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.hdnastudio.$(PRODUCT_NAME:rfc1034identifier).watchkitapp";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.hdnastudio.$(PRODUCT_NAME:rfc1034identifier).ios.watchkitapp";
 				PRODUCT_NAME = "Poker Buddy";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -2737,7 +2737,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				IBSC_MODULE = TBPhone_Extension;
 				INFOPLIST_FILE = "TBWatch/TBPhone-Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.hdnastudio.$(PRODUCT_NAME:rfc1034identifier).watchkitapp";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.hdnastudio.$(PRODUCT_NAME:rfc1034identifier).ios.watchkitapp";
 				PRODUCT_NAME = "Poker Buddy";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -2749,7 +2749,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = "TBWatch Extension/TBPhone-Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.hdnastudio.$(PRODUCT_NAME:rfc1034identifier).watchkitapp.watchkitextension";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.hdnastudio.$(PRODUCT_NAME:rfc1034identifier).ios.watchkitapp.watchkitextension";
 				PRODUCT_NAME = "Poker Buddy";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -2761,7 +2761,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = "TBWatch Extension/TBPhone-Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.hdnastudio.$(PRODUCT_NAME:rfc1034identifier).watchkitapp.watchkitextension";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.hdnastudio.$(PRODUCT_NAME:rfc1034identifier).ios.watchkitapp.watchkitextension";
 				PRODUCT_NAME = "Poker Buddy";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -2915,7 +2915,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = TBMac/TBMac.entitlements;
 				INFOPLIST_FILE = "$(SRCROOT)/TBMac/TBMac-Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.hdnastudio.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.hdnastudio.$(PRODUCT_NAME:rfc1034identifier).macos";
 				PRODUCT_NAME = "Poker Buddy";
 				SDKROOT = macosx;
 			};
@@ -2927,7 +2927,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = TBMac/TBMac.entitlements;
 				INFOPLIST_FILE = "$(SRCROOT)/TBMac/TBMac-Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.hdnastudio.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.hdnastudio.$(PRODUCT_NAME:rfc1034identifier).macos";
 				PRODUCT_NAME = "Poker Buddy";
 				SDKROOT = macosx;
 			};
@@ -2939,7 +2939,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				IBSC_MODULE = TBRemote_Extension;
 				INFOPLIST_FILE = "TBWatch/TBRemote-Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.hdnastudio.$(PRODUCT_NAME:rfc1034identifier).watchkitapp";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.hdnastudio.$(PRODUCT_NAME:rfc1034identifier).ios.watchkitapp";
 				PRODUCT_NAME = "Poker Remote";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -2953,7 +2953,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				IBSC_MODULE = TBRemote_Extension;
 				INFOPLIST_FILE = "TBWatch/TBRemote-Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.hdnastudio.$(PRODUCT_NAME:rfc1034identifier).watchkitapp";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.hdnastudio.$(PRODUCT_NAME:rfc1034identifier).ios.watchkitapp";
 				PRODUCT_NAME = "Poker Remote";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -2965,7 +2965,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = "TBWatch Extension/TBRemote-Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.hdnastudio.$(PRODUCT_NAME:rfc1034identifier).watchkitapp.watchkitextension";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.hdnastudio.$(PRODUCT_NAME:rfc1034identifier).ios.watchkitapp.watchkitextension";
 				PRODUCT_NAME = "Poker Remote";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -2977,7 +2977,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = "TBWatch Extension/TBRemote-Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.hdnastudio.$(PRODUCT_NAME:rfc1034identifier).watchkitapp.watchkitextension";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.hdnastudio.$(PRODUCT_NAME:rfc1034identifier).ios.watchkitapp.watchkitextension";
 				PRODUCT_NAME = "Poker Remote";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -2995,7 +2995,7 @@
 					"TBFULL=1",
 				);
 				INFOPLIST_FILE = "TBRemote/TBPhone-Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.hdnastudio.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.hdnastudio.$(PRODUCT_NAME:rfc1034identifier).ios";
 				PRODUCT_NAME = "Poker Buddy";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -3009,7 +3009,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PREPROCESSOR_DEFINITIONS = "TBFULL=1";
 				INFOPLIST_FILE = "TBRemote/TBPhone-Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.hdnastudio.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.hdnastudio.$(PRODUCT_NAME:rfc1034identifier).ios";
 				PRODUCT_NAME = "Poker Buddy";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
