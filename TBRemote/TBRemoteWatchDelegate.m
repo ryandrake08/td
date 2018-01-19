@@ -44,13 +44,13 @@
                                   @"session.state.average_stack_text"
                                   ];
             [[self KVOController] observe:self keyPaths:keyPaths options:NSKeyValueObservingOptionNew block:^(id observer, id object, NSDictionary* change) {
-                NSLog(@"Watch observer called: %@ -> %@", change[FBKVONotificationKeyPathKey], change[NSKeyValueChangeNewKey]);
-
                 // get the state key that changed
                 NSString* key = [[change[FBKVONotificationKeyPathKey] componentsSeparatedByString:@"."] lastObject];
 
-                // Send state change as a message to watch
-                [wcSession sendMessage:@{@"state":@{ key:change[NSKeyValueChangeNewKey] }} replyHandler:nil errorHandler:nil];
+                if([[WCSession defaultSession] isReachable]) {
+                    // Send state change as a message to watch
+                    [wcSession sendMessage:@{@"state":@{ key:change[NSKeyValueChangeNewKey] }} replyHandler:nil errorHandler:nil];
+                }
             }];
         }
     }
@@ -65,8 +65,10 @@
             // Checking for authorization will trigger auth message
             [[self session] checkAuthorizedWithBlock:nil];
 
-            // Send full state as a message to watch
-            [[WCSession defaultSession] sendMessage:@{@"state":[[self session] state]} replyHandler:nil errorHandler:nil];
+            if([[WCSession defaultSession] isReachable]) {
+                // Send full state as a message to watch
+                [[WCSession defaultSession] sendMessage:@{@"state":[[self session] state]} replyHandler:nil errorHandler:nil];
+            }
         }
 
         if([command isEqualToString:@"previousRound"]) {
