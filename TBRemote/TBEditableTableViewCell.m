@@ -132,20 +132,25 @@
 
 // update the text field to match the editable object
 - (void)updateTextField {
-    id object = [self object][[self keyPath]];
-    if(object == nil) {
-        NSLog(@"updateTextField: object is nil");
+    NSString* keyPath = [self keyPath];
+    if(keyPath == nil) {
+        NSLog(@"updateTextField: keypath is nil");
+    } else {
+        id object = [self object][keyPath];
+        if(object == nil) {
+            NSLog(@"updateTextField: object is nil");
+        } else {
+            NSString* text = [self titleForValue][object];
+            if(text == nil) {
+                NSLog(@"updateTextField: text is nil");
+            } else {
+                [[self textField] setText:text];
+
+                // sync picker
+                [self updatePickerSelection];
+            }
+        }
     }
-
-    NSString* text = [self titleForValue][object];
-    if(text == nil) {
-        NSLog(@"updateTextField: text is nil");
-    }
-
-    [[self textField] setText:text];
-
-    // sync picker
-    [self updatePickerSelection];
 }
 
 // update the editable object to match the text field
