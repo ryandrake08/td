@@ -80,6 +80,8 @@
 		9457DAC51FE6AB400047DF29 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9457DABC1FE6AAF50047DF29 /* UIKit.framework */; };
 		9457DAC81FE6B1520047DF29 /* TBInvertableImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9457DAC71FE6B1520047DF29 /* TBInvertableImageView.m */; };
 		9457DAC91FE6B1520047DF29 /* TBInvertableImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9457DAC71FE6B1520047DF29 /* TBInvertableImageView.m */; };
+		9458125D2011F83700208575 /* tournamentd in Copy Utilities */ = {isa = PBXBuildFile; fileRef = 9476F4C61B3C3F3D00A158F8 /* tournamentd */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		9458125E2011F83700208575 /* tournamentctl in Copy Utilities */ = {isa = PBXBuildFile; fileRef = 946C65671FFF54360094E4D8 /* tournamentctl */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		9462A3E31B77376000B29002 /* NSFont+LineHeight.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEAF41B5AE7390026B25D /* NSFont+LineHeight.m */; };
 		9462A3E41B77376000B29002 /* NSView+BackgroundColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEAF71B5AE7920026B25D /* NSView+BackgroundColor.m */; };
 		9462A3E71B77CB3B00B29002 /* TTTOrdinalNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9462A3E61B77CB3B00B29002 /* TTTOrdinalNumberFormatter.m */; };
@@ -378,6 +380,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		945812562011F78B00208575 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AD8E683B1A6C606700E5A4D8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9476F4C51B3C3F3D00A158F8;
+			remoteInfo = tournamentd;
+		};
+		945812582011F78B00208575 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AD8E683B1A6C606700E5A4D8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 946C65661FFF54360094E4D8;
+			remoteInfo = tournamentctl;
+		};
 		9464EC151FDC2F50009092A4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = AD8E683B1A6C606700E5A4D8 /* Project object */;
@@ -500,6 +516,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		9458125C2011F82200208575 /* Copy Utilities */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 6;
+			files = (
+				9458125D2011F83700208575 /* tournamentd in Copy Utilities */,
+				9458125E2011F83700208575 /* tournamentctl in Copy Utilities */,
+			);
+			name = "Copy Utilities";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9464EC051FDC2D44009092A4 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1515,10 +1543,13 @@
 				AD8E683F1A6C606700E5A4D8 /* Sources */,
 				AD8E68401A6C606700E5A4D8 /* Frameworks */,
 				AD8E68411A6C606700E5A4D8 /* Resources */,
+				9458125C2011F82200208575 /* Copy Utilities */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				945812572011F78B00208575 /* PBXTargetDependency */,
+				945812592011F78B00208575 /* PBXTargetDependency */,
 				9464EC211FDC300B009092A4 /* PBXTargetDependency */,
 			);
 			name = TBMac;
@@ -2125,6 +2156,16 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		945812572011F78B00208575 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9476F4C51B3C3F3D00A158F8 /* tournamentd */;
+			targetProxy = 945812562011F78B00208575 /* PBXContainerItemProxy */;
+		};
+		945812592011F78B00208575 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 946C65661FFF54360094E4D8 /* tournamentctl */;
+			targetProxy = 945812582011F78B00208575 /* PBXContainerItemProxy */;
+		};
 		9464EC161FDC2F50009092A4 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 9464EC061FDC2D44009092A4 /* cJSON_macOS */;
