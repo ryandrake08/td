@@ -99,9 +99,9 @@
     BOOL authorized = [[[self session] state][@"authorized"] boolValue];
 
     if(cellService == [self currentService] && connected) {
-        NSString* otherButtons = nil;
+        NSArray* otherButtons = nil;
         if(!authorized) {
-            otherButtons = NSLocalizedString(@"Administer Game", nil);
+            otherButtons = @[NSLocalizedString(@"Administer Game", nil)];
         }
 
         // pop actionsheet
@@ -109,7 +109,7 @@
                         withTitle:nil
                 cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
            destructiveButtonTitle:NSLocalizedString(@"Leave Game", nil)
-                otherButtonTitles:@[otherButtons]
+                otherButtonTitles:otherButtons
                          tapBlock:^(UIActionSheet * _Nonnull actionSheet, NSInteger buttonIndex) {
                              if(buttonIndex == [actionSheet destructiveButtonIndex]) {
                                  [[self session] disconnect];
