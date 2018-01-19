@@ -109,6 +109,9 @@ class gameinfo
     time_point_t end_of_round;
     time_point_t end_of_break;
 
+    // current time since epoch
+    duration_t current_time;
+
     // ms remaining
     duration_t time_remaining;
     duration_t break_time_remaining;

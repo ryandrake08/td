@@ -485,6 +485,7 @@ struct tournament::impl
 								total_equity (array): Sum total of all payouts, for each currency
 								running (bool): True if the tournament is unpaused
 								current_blind_level (integer): Current blind level. 0 = planning stage
+								current_time (integer): Current time since epoch (milliseconds)
 								time_remaining (integer): Time remaining in current level (milliseconds)
 								break_time_remaining (integer): Time remaining in current break (milliseconds)
 								action_clock_time_remaining (integer): Time remaining on action clock (milliseconds)

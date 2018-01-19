@@ -25,6 +25,7 @@ gameinfo::gameinfo() :
     total_equity(0.0),
     running(false),
     current_blind_level(0),
+    current_time(std::chrono::duration_cast<duration_t>(std::chrono::system_clock::now().time_since_epoch())),
     time_remaining(duration_t::zero()),
     break_time_remaining(duration_t::zero()),
     action_clock_time_remaining(duration_t::zero()),
@@ -175,6 +176,7 @@ void gameinfo::dump_state(json& state) const
     state.set_value("total_equity", json(this->total_equity.begin(), this->total_equity.end()));
     state.set_value("running", this->running);
     state.set_value("current_blind_level", this->current_blind_level);
+    state.set_value("current_time", this->current_time.count());
     state.set_value("time_remaining", this->time_remaining.count());
     state.set_value("break_time_remaining", this->break_time_remaining.count());
     state.set_value("action_clock_time_remaining", this->action_clock_time_remaining.count());
@@ -247,20 +249,11 @@ void gameinfo::dump_derived_state(json& state) const
     bool on_break(this->time_remaining == duration_t::zero() && this->break_time_remaining != duration_t::zero());
     state.set_value("on_break", on_break);
 
+    // clock_remaining is either time_remaining or break_time_remaining, depending on whether we are on break
+    state.set_value("clock_remaining", on_break ? this->break_time_remaining.count() : this->time_remaining.count());
+
     std::ostringstream os;
     os.imbue(std::locale(""));
-
-    // clock text
-    auto clock_time(on_break ? this->break_time_remaining : this->time_remaining);
-    if(this->running)
-    {
-        os << clock_time;
-    }
-    else
-    {
-        os << "PAUSED";
-    }
-    state.set_value("clock_text", os.str()); os.str("");
 
     // elapsed time text
     os << this->elapsed_time;
@@ -1405,6 +1398,9 @@ bool gameinfo::update_remaining()
 {
     auto updated(false);
     auto now(std::chrono::system_clock::now());
+
+    // set current time (for synchronization)
+    this->current_time = std::chrono::duration_cast<duration_t>(now.time_since_epoch());
 
     // update elapsed_time if we are past the tournament start
     if(this->tournament_start != time_point_t() && this->tournament_start < now)

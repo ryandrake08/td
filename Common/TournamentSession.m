@@ -8,6 +8,7 @@
 
 #import "TournamentSession.h"
 #import "NSDictionary+Changed.h"
+#import "TBClockDateComponentsFormatter.h"
 #import "TBCurrencyNumberFormatter.h"
 #import "TBError.h"
 #import "TournamentConnection.h"
@@ -343,6 +344,12 @@
             [[self state] addEntriesFromDictionary:update];
         }
     }
+
+    // special handling for the clock because we may need to add an offset to what the daemon provides
+    TBClockDateComponentsFormatter* dateFormatter = [[TBClockDateComponentsFormatter alloc] init];
+    [self state][@"clock_text"] = [dateFormatter stringFromMillisecondsRemaining:[self state][@"clock_remaining"]
+                                                         atMillisecondsSince1970:[self state][@"current_time"]
+                                                                         running:[self state][@"running"]];
 }
 
 #pragma mark TournamentConnectionDelegate

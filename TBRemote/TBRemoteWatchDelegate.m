@@ -15,6 +15,9 @@
 // the tournament session (model) object
 @property (nonatomic, strong) TournamentSession* session;
 
+// timer
+@property (nonatomic, strong) NSTimer* sendMessageTimer;
+
 @end
 
 @implementation TBRemoteWatchDelegate
@@ -22,10 +25,13 @@
 - (instancetype)initWithSession:(TournamentSession *)session {
     if((self = [super init])) {
         if([WCSession isSupported]) {
-            // Set the tournament session
-            [self setSession:session];
+            // set the tournament session
+            _session = session;
 
-            // Set up the WatchConnectivity session
+            // set up cache
+            NSMutableDictionary* cachedState = [NSMutableDictionary dictionary];
+
+            // set up the WatchConnectivity session
             WCSession* wcSession = [WCSession defaultSession];
             [wcSession setDelegate:self];
             [wcSession activateSession];
@@ -34,8 +40,10 @@
             NSArray* keyPaths = @[
                                   @"session.state.connected",
                                   @"session.state.authorized",
+                                  @"session.state.running",
                                   @"session.state.current_blind_level",
-                                  @"session.state.clock_text",
+                                  @"session.state.current_time",
+                                  @"session.state.clock_remaining",
                                   @"session.state.current_round_text",
                                   @"session.state.current_game_text",
                                   @"session.state.next_round_text",
@@ -47,9 +55,18 @@
                 // get the state key that changed
                 NSString* key = [[change[FBKVONotificationKeyPathKey] componentsSeparatedByString:@"."] lastObject];
 
-                if([[WCSession defaultSession] isReachable]) {
-                    // Send state change as a message to watch
-                    [wcSession sendMessage:@{@"state":@{ key:change[NSKeyValueChangeNewKey] }} replyHandler:nil errorHandler:nil];
+                // cache it for potential deferred send
+                cachedState[key] = change[NSKeyValueChangeNewKey];
+            }];
+
+            // only send stored state periodically
+            _sendMessageTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 repeats:YES block:^(NSTimer* timer) {
+                if([[WCSession defaultSession] isReachable] && [cachedState count] > 0) {
+                    // send
+                    [wcSession sendMessage:@{@"state":[cachedState copy]} replyHandler:nil errorHandler:nil];
+
+                    // clear cache
+                    [cachedState removeAllObjects];
                 }
             }];
         }

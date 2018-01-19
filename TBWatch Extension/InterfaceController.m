@@ -8,6 +8,7 @@
 
 #import "InterfaceController.h"
 #import "NSObject+FBKVOController.h"
+#import "TBClockDateComponentsFormatter.h"
 #import <WatchConnectivity/WatchConnectivity.h>
 
 @interface InterfaceController () <WCSessionDelegate>
@@ -30,6 +31,14 @@
 @property (assign, nonatomic) BOOL authorized;
 @property (assign, nonatomic) BOOL playing;
 
+// store last known times
+@property (copy, nonatomic) NSNumber* currentTime;
+@property (copy, nonatomic) NSNumber* clockRemaining;
+@property (copy, nonatomic) NSNumber* running;
+
+// timer to refresh clock label UI between updates from companion
+@property (strong, nonatomic) NSTimer* refreshTimer;
+
 @end
 
 
@@ -43,6 +52,9 @@
         WCSession* session = [WCSession defaultSession];
         [session setDelegate:self];
         [session activateSession];
+
+        // set timer
+        [self setRefreshTimer:[NSTimer scheduledTimerWithTimeInterval:0.05 target:self selector:@selector(updateClockLabel) userInfo:nil repeats:YES]];
     }
 }
 
@@ -53,11 +65,25 @@
     // Request a full sync from companion
     NSLog(@"Requesting a full sync from companion");
     [[WCSession defaultSession] sendMessage:@{@"command":@"fullSync"} replyHandler:nil errorHandler:nil];
+
+    // re-set timer
+    [self setRefreshTimer:[NSTimer scheduledTimerWithTimeInterval:0.05 target:self selector:@selector(updateClockLabel) userInfo:nil repeats:YES]];
 }
 
 - (void)didDeactivate {
     // This method is called when watch view controller is no longer visible
     [super didDeactivate];
+
+    // remove timer
+    [[self refreshTimer] invalidate];
+}
+
+- (void)updateClockLabel {
+    // format time for display
+    TBClockDateComponentsFormatter* dateFormatter = [[TBClockDateComponentsFormatter alloc] init];
+    [[self clockLabel] setText:[dateFormatter stringFromMillisecondsRemaining:[self clockRemaining]
+                                                      atMillisecondsSince1970:[self currentTime]
+                                                                      running:[self running]]];
 }
 
 - (void)session:(WCSession *)session didReceiveMessage:(NSDictionary<NSString *,id> *)message {
@@ -80,8 +106,15 @@
             [[self callClockButton] setEnabled:[self authorized] && [self playing]];
         }
 
-        if(state[@"clock_text"]) {
-            [[self clockLabel] setText:state[@"clock_text"]];
+        if(state[@"running"] != nil) {
+            [self setRunning:state[@"running"]];
+        }
+
+        if(state[@"current_time"] != nil && state[@"clock_remaining"] != nil) {
+            // store
+            [self setClockRemaining:state[@"clock_remaining"]];
+            [self setCurrentTime:state[@"current_time"]];
+            [self updateClockLabel];
         }
 
         if(state[@"current_round_text"]) {

@@ -1,0 +1,16 @@
+//
+//  TBClockDateComponentsFormatter.h
+//  td
+//
+//  Created by Ryan Drake on 1/19/18.
+//  Copyright © 2018 HDna Studio. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+@interface TBClockDateComponentsFormatter : NSDateComponentsFormatter
+
+// format clock string given number of milliseconds remaining, number of milliseconds since epoc, and flag for whether we are running
+- (NSString*)stringFromMillisecondsRemaining:(NSNumber*)clockRemaining atMillisecondsSince1970:(NSNumber*)currentTime running:(NSNumber*)running;
+
+@end

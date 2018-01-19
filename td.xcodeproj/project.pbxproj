@@ -82,6 +82,12 @@
 		9457DAC91FE6B1520047DF29 /* TBInvertableImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9457DAC71FE6B1520047DF29 /* TBInvertableImageView.m */; };
 		9458125D2011F83700208575 /* tournamentd in Copy Utilities */ = {isa = PBXBuildFile; fileRef = 9476F4C61B3C3F3D00A158F8 /* tournamentd */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		9458125E2011F83700208575 /* tournamentctl in Copy Utilities */ = {isa = PBXBuildFile; fileRef = 946C65671FFF54360094E4D8 /* tournamentctl */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		945812692012657700208575 /* TBClockDateComponentsFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 945812682012657700208575 /* TBClockDateComponentsFormatter.m */; };
+		9458126A2012657700208575 /* TBClockDateComponentsFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 945812682012657700208575 /* TBClockDateComponentsFormatter.m */; };
+		9458126B2012657700208575 /* TBClockDateComponentsFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 945812682012657700208575 /* TBClockDateComponentsFormatter.m */; };
+		9458126C2012657700208575 /* TBClockDateComponentsFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 945812682012657700208575 /* TBClockDateComponentsFormatter.m */; };
+		9458126D2012657700208575 /* TBClockDateComponentsFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 945812682012657700208575 /* TBClockDateComponentsFormatter.m */; };
+		9458126E2012657700208575 /* TBClockDateComponentsFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 945812682012657700208575 /* TBClockDateComponentsFormatter.m */; };
 		9462A3E31B77376000B29002 /* NSFont+LineHeight.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEAF41B5AE7390026B25D /* NSFont+LineHeight.m */; };
 		9462A3E41B77376000B29002 /* NSView+BackgroundColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEAF71B5AE7920026B25D /* NSView+BackgroundColor.m */; };
 		9462A3E71B77CB3B00B29002 /* TTTOrdinalNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9462A3E61B77CB3B00B29002 /* TTTOrdinalNumberFormatter.m */; };
@@ -656,6 +662,8 @@
 		9457DAC01FE6AB170047DF29 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.2.sdk/System/Library/Frameworks/CFNetwork.framework; sourceTree = DEVELOPER_DIR; };
 		9457DAC61FE6B1520047DF29 /* TBInvertableImageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBInvertableImageView.h; sourceTree = "<group>"; };
 		9457DAC71FE6B1520047DF29 /* TBInvertableImageView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TBInvertableImageView.m; sourceTree = "<group>"; };
+		945812672012657700208575 /* TBClockDateComponentsFormatter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBClockDateComponentsFormatter.h; sourceTree = "<group>"; };
+		945812682012657700208575 /* TBClockDateComponentsFormatter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TBClockDateComponentsFormatter.m; sourceTree = "<group>"; };
 		9462A3E51B77CB3B00B29002 /* TTTOrdinalNumberFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTOrdinalNumberFormatter.h; sourceTree = "<group>"; };
 		9462A3E61B77CB3B00B29002 /* TTTOrdinalNumberFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTOrdinalNumberFormatter.m; sourceTree = "<group>"; };
 		9462A3EA1B77F40500B29002 /* TBMovementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBMovementViewController.h; path = TBMac/TBMovementViewController.h; sourceTree = "<group>"; };
@@ -1159,6 +1167,8 @@
 				94C9D87A200F265800D4DA10 /* TBArrayEmptyTransformer.m */,
 				AD6256F41BB4525A00EE776A /* TBAuthCodeNumberFormatter.h */,
 				AD6256F51BB4525A00EE776A /* TBAuthCodeNumberFormatter.m */,
+				945812672012657700208575 /* TBClockDateComponentsFormatter.h */,
+				945812682012657700208575 /* TBClockDateComponentsFormatter.m */,
 				94CDDD311FE3B349008ADF24 /* TBColor+ContrastTextColor.h */,
 				94CDDD321FE3B349008ADF24 /* TBColor+ContrastTextColor.m */,
 				94FDEADA1B5AE2560026B25D /* TBColor+CSS.h */,
@@ -1844,6 +1854,7 @@
 				94562E6C1B65D9420017C692 /* TBResizeTextField.m in Sources */,
 				ADFFFF141BA34394003BAC88 /* TBColor+CSS.m in Sources */,
 				AD1B250E1BA8796400C4BDDC /* scope_timer.cpp in Sources */,
+				9458126A2012657700208575 /* TBClockDateComponentsFormatter.m in Sources */,
 				94FDEAF81B5AE7920026B25D /* NSView+BackgroundColor.m in Sources */,
 				9462A3F21B781A9A00B29002 /* RSVerticallyCenteredTextFieldCell.m in Sources */,
 				94BB5FFA1B7F9F1600B33929 /* NSString+CamelCase.m in Sources */,
@@ -1930,6 +1941,7 @@
 				AD87A6DB1BA2094400E55961 /* TBEllipseView.m in Sources */,
 				9476F46B1B3C385400A158F8 /* TBRemoteClockViewController.m in Sources */,
 				94F51CAF1BC96F53007AD1DD /* TBTableViewController.m in Sources */,
+				9458126C2012657700208575 /* TBClockDateComponentsFormatter.m in Sources */,
 				9476F4A71B3C3EA700A158F8 /* TournamentSession.m in Sources */,
 				ADD4F1271B91FE2400DAF567 /* NSObject+AssociatedObject.m in Sources */,
 				ADFFFF151BA34394003BAC88 /* TBColor+CSS.m in Sources */,
@@ -1984,6 +1996,7 @@
 				AD33BA571BAC63540011777C /* NSObject+FBKVOController.m in Sources */,
 				AD33BA581BAC63540011777C /* ExtensionDelegate.m in Sources */,
 				AD33BA591BAC63540011777C /* InterfaceController.m in Sources */,
+				9458126D2012657700208575 /* TBClockDateComponentsFormatter.m in Sources */,
 				AD33BA5A1BAC63540011777C /* NotificationController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2032,6 +2045,7 @@
 				9471B3F61FF8ED73000A314C /* TBViewerViewController.m in Sources */,
 				94C2DA84200D2AE7001B95B8 /* TBInvertableButton_macOS.m in Sources */,
 				9462A3E71B77CB3B00B29002 /* TTTOrdinalNumberFormatter.m in Sources */,
+				945812692012657700208575 /* TBClockDateComponentsFormatter.m in Sources */,
 				94FDEAEE1B5AE2D60026B25D /* NSObject+FBKVOController.m in Sources */,
 				94D7290C200342EB009EC463 /* TBSetupTabViewController.m in Sources */,
 				94C2DA74200D184D001B95B8 /* TBImage+Inverted.m in Sources */,
@@ -2076,6 +2090,7 @@
 				ADA6A1C31B98043500C83762 /* NSObject+FBKVOController.m in Sources */,
 				ADA6A1B01B97FE8A00C83762 /* ExtensionDelegate.m in Sources */,
 				ADA6A1AD1B97FE8A00C83762 /* InterfaceController.m in Sources */,
+				9458126E2012657700208575 /* TBClockDateComponentsFormatter.m in Sources */,
 				ADA6A1B31B97FE8A00C83762 /* NotificationController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2127,6 +2142,7 @@
 				ADF635FA1BAB8AF800D019AE /* TBResultsViewController.m in Sources */,
 				ADF635FB1BAB8AF800D019AE /* NSObject+FBKVOController.m in Sources */,
 				94E27403200F611F0048B07A /* UIAlertView+Blocks.m in Sources */,
+				9458126B2012657700208575 /* TBClockDateComponentsFormatter.m in Sources */,
 				ADF635FD1BAB8AF800D019AE /* main.m in Sources */,
 				94E27407200F694A0048B07A /* UIActionSheet+Blocks.m in Sources */,
 				94363BD1200E79C000D52155 /* TBError.m in Sources */,
