@@ -91,7 +91,7 @@
     [[self KVOController] observe:self keyPath:@"session.state.background_color" options:NSKeyValueObservingOptionInitial block:^(id observer, TBViewerViewController* object, NSDictionary *change) {
         // Set the background color on the view
         NSString* backgroundColorName = [[object session] state][@"background_color"];
-        if(backgroundColorName != nil) {
+        if(backgroundColorName != nil && ![backgroundColorName isEqualToString:@""]) {
             TBColor* color = [TBColor colorWithName:backgroundColorName];
             [[object view] setBackgroundColor:color];
 
