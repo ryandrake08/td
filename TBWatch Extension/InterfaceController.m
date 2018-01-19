@@ -63,8 +63,6 @@
 - (void)session:(WCSession *)session didReceiveMessage:(NSDictionary<NSString *,id> *)message {
     NSDictionary* state = message[@"state"];
     if(state) {
-        NSLog(@"State received from companion: %ld entries", (unsigned long)[state count]);
-
         if(state[@"connected"] || state[@"authorized"] || state[@"current_blind_level"]) {
             if(state[@"connected"]) {
                 [self setConnected:[state[@"connected"] boolValue]];
