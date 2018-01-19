@@ -321,13 +321,13 @@
 
     // look for command key
     NSNumber* cmdkey = json[@"echo"];
-    if(cmdkey) {
+    if(cmdkey != nil) {
         // remove command key response
         [json removeObjectForKey:@"echo"];
 
         // look up block for command key
         void (^block)(id) = [self blocksForCommands][cmdkey];
-        if(block) {
+        if(block != nil) {
             if(errorString == nil) {
                 // if it's a command with a handler block, and there is no error, call that block
                 block(json);
