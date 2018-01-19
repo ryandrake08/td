@@ -23,6 +23,5 @@
 #define TBImage NSImage
 #define TBImageView NSImageView
 #import "NSFont+LineHeight.h"
-#import "NSImage+CGImage.h"
 #import "NSView+BackgroundColor.h"
 #endif

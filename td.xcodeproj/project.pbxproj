@@ -176,8 +176,6 @@
 		94C2DA71200D147C001B95B8 /* TBChipTableCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94C2DA6E200D147C001B95B8 /* TBChipTableCellView.m */; };
 		94C2DA74200D184D001B95B8 /* TBImage+Inverted.m in Sources */ = {isa = PBXBuildFile; fileRef = 9457DAB31FE6934C0047DF29 /* TBImage+Inverted.m */; };
 		94C2DA75200D184D001B95B8 /* TBImage+Inverted.m in Sources */ = {isa = PBXBuildFile; fileRef = 9457DAB31FE6934C0047DF29 /* TBImage+Inverted.m */; };
-		94C2DA7C200D1B01001B95B8 /* NSImage+CGImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 94C2DA7B200D1B01001B95B8 /* NSImage+CGImage.m */; };
-		94C2DA7D200D1B01001B95B8 /* NSImage+CGImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 94C2DA7B200D1B01001B95B8 /* NSImage+CGImage.m */; };
 		94C2DA7E200D27CD001B95B8 /* s_break.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04EC81B7C59EB004F4245 /* s_break.caf */; };
 		94C2DA7F200D27CD001B95B8 /* s_next.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04EC91B7C59EB004F4245 /* s_next.caf */; };
 		94C2DA80200D27D7001B95B8 /* s_break.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04EC81B7C59EB004F4245 /* s_break.caf */; };
@@ -699,8 +697,6 @@
 		94C2DA69200D0DBC001B95B8 /* TBGraphics.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBGraphics.h; sourceTree = "<group>"; };
 		94C2DA6E200D147C001B95B8 /* TBChipTableCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TBChipTableCellView.m; path = TBMac/TBChipTableCellView.m; sourceTree = "<group>"; };
 		94C2DA6F200D147C001B95B8 /* TBChipTableCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBChipTableCellView.h; path = TBMac/TBChipTableCellView.h; sourceTree = "<group>"; };
-		94C2DA7A200D1B01001B95B8 /* NSImage+CGImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSImage+CGImage.h"; sourceTree = "<group>"; };
-		94C2DA7B200D1B01001B95B8 /* NSImage+CGImage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSImage+CGImage.m"; sourceTree = "<group>"; };
 		94C2DA82200D2AE7001B95B8 /* TBInvertableButton_macOS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBInvertableButton_macOS.m; sourceTree = "<group>"; };
 		94C2DA83200D2AE7001B95B8 /* TBInvertableButton_macOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBInvertableButton_macOS.h; sourceTree = "<group>"; };
 		94C9D879200F265700D4DA10 /* TBArrayEmptyTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBArrayEmptyTransformer.h; sourceTree = "<group>"; };
@@ -1083,8 +1079,6 @@
 				ADD73D281B9692E1006824A1 /* NSDictionary+Changed.m */,
 				94FDEAF31B5AE7390026B25D /* NSFont+LineHeight.h */,
 				94FDEAF41B5AE7390026B25D /* NSFont+LineHeight.m */,
-				94C2DA7A200D1B01001B95B8 /* NSImage+CGImage.h */,
-				94C2DA7B200D1B01001B95B8 /* NSImage+CGImage.m */,
 				ADD4F1231B91FE2400DAF567 /* NSObject+AssociatedObject.h */,
 				ADD4F1241B91FE2400DAF567 /* NSObject+AssociatedObject.m */,
 				94FDEAE31B5AE2D60026B25D /* NSObject+FBKVOController.h */,
@@ -1765,7 +1759,6 @@
 				94C2DA75200D184D001B95B8 /* TBImage+Inverted.m in Sources */,
 				AD75ACEF1BA3FEEA00705967 /* TBEllipseImageView.m in Sources */,
 				943B00D01B3F429500CE55D4 /* datetime.cpp in Sources */,
-				94C2DA7D200D1B01001B95B8 /* NSImage+CGImage.m in Sources */,
 				943B00C91B3F427700CE55D4 /* TournamentDaemon.mm in Sources */,
 				ADD73D2A1B9692E1006824A1 /* NSDictionary+Changed.m in Sources */,
 				94FDEAE91B5AE2D60026B25D /* FBKVOController.m in Sources */,
@@ -1966,7 +1959,6 @@
 				ADE5A5031B8F6C4C002737A8 /* TBCurrencyImageTransformer.m in Sources */,
 				949D70A31B3C441F008D5CD1 /* socket.cpp in Sources */,
 				94C2DA70200D147C001B95B8 /* TBChipTableCellView.m in Sources */,
-				94C2DA7C200D1B01001B95B8 /* NSImage+CGImage.m in Sources */,
 				AD98D9741A7B343600DA6B8B /* TBSeatingViewController.m in Sources */,
 				94FDEADC1B5AE2560026B25D /* TBColor+CSS.m in Sources */,
 				9471B3F61FF8ED73000A314C /* TBViewerViewController.m in Sources */,
