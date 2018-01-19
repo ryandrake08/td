@@ -291,7 +291,7 @@
 
 #pragma mark File handling
 
-#define kHardcodedDocumentName @"mobile.tournbuddy"
+#define kHardcodedDocumentName @"mobile.pokerbuddy"
 
 + (BOOL)saveConfig:(NSDictionary*)config withError:(NSError**)error {
     NSFileManager* fileManager = [NSFileManager defaultManager];

@@ -9,14 +9,14 @@
 		<dict>
 			<key>CFBundleTypeExtensions</key>
 			<array>
-				<string>tournbuddy</string>
+				<string>pokerbuddy</string>
 			</array>
 			<key>CFBundleTypeMIMETypes</key>
 			<array>
 				<string>application/json</string>
 			</array>
 			<key>CFBundleTypeName</key>
-			<string>TournamentBuddy</string>
+			<string>Poker Buddy Configuration</string>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>NSDocumentClass</key>

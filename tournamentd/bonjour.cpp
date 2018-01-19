@@ -39,7 +39,7 @@ public:
 
         // describe net service
         CFStringRef theDomain = CFSTR("local.");
-        CFStringRef serviceType = CFSTR("_tournbuddy._tcp");
+        CFStringRef serviceType = CFSTR("_pokerbuddy._tcp");
         CFStringRef serviceName = CFStringCreateWithCString(kCFAllocatorDefault, name, kCFStringEncodingUTF8);
 
         // create net service
@@ -277,7 +277,7 @@ class bonjour_publisher::impl
                                                     AVAHI_PROTO_UNSPEC,
                                                     static_cast<AvahiPublishFlags>(0),
                                                     name.c_str(),
-                                                    "_tournbuddy._tcp",
+                                                    "_pokerbuddy._tcp",
                                                     "local.",
                                                     nullptr,
                                                     port,

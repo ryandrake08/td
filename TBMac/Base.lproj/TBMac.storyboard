@@ -12,11 +12,11 @@
                 <application id="DJI-Lp-cvu" sceneMemberID="viewController">
                     <menu key="mainMenu" title="Main Menu" systemMenu="main" id="2Nn-iD-rnb">
                         <items>
-                            <menuItem title="Tournament Buddy" id="rMY-RI-pOk">
+                            <menuItem title="Poker Buddy" id="rMY-RI-pOk">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="Tournament Buddy" systemMenu="apple" id="OIG-yE-vgp">
+                                <menu key="submenu" title="Poker Buddy" systemMenu="apple" id="OIG-yE-vgp">
                                     <items>
-                                        <menuItem title="About Tournament Buddy" id="JMU-yP-wGA">
+                                        <menuItem title="About Poker Buddy" id="JMU-yP-wGA">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="orderFrontStandardAboutPanel:" target="dLJ-5r-r8L" id="JD0-49-yJl"/>
@@ -30,7 +30,7 @@
                                             <menu key="submenu" title="Services" systemMenu="services" id="6iv-9E-MhC"/>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="89x-S4-Uao"/>
-                                        <menuItem title="Hide Tournament Buddy" keyEquivalent="h" id="jr0-k3-qtm">
+                                        <menuItem title="Hide Poker Buddy" keyEquivalent="h" id="jr0-k3-qtm">
                                             <connections>
                                                 <action selector="hide:" target="dLJ-5r-r8L" id="RMC-5y-7kQ"/>
                                             </connections>
@@ -48,7 +48,7 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="gqG-Eb-uzQ"/>
-                                        <menuItem title="Quit Tournament Buddy" keyEquivalent="q" id="Qqc-3W-o5d">
+                                        <menuItem title="Quit Poker Buddy" keyEquivalent="q" id="Qqc-3W-o5d">
                                             <connections>
                                                 <action selector="terminate:" target="dLJ-5r-r8L" id="FRy-ej-vpX"/>
                                             </connections>
@@ -343,7 +343,7 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Help" systemMenu="help" id="GVE-G5-gHI">
                                     <items>
-                                        <menuItem title="Tournament Buddy Help" keyEquivalent="?" id="sRO-u8-utd">
+                                        <menuItem title="Poker Buddy Help" keyEquivalent="?" id="sRO-u8-utd">
                                             <connections>
                                                 <action selector="showHelp:" target="dLJ-5r-r8L" id="fEv-Oh-ZkB"/>
                                             </connections>

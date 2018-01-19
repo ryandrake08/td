@@ -1,6 +1,6 @@
 #pragma once
 
-#define kTournamentServiceType @"_tournbuddy._tcp."
+#define kTournamentServiceType @"_pokerbuddy._tcp."
 #define kTournamentServiceDomain @"local."
 #define kTournamentServiceDefaultPort 25600
 
