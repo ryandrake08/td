@@ -71,18 +71,20 @@
 }
 
 // configure the session with configuration by sending only changed keys
-- (void)selectiveConfigure:(NSDictionary*)config andUpdate:(NSMutableDictionary*)newConfig {
-    NSLog(@"Synchronizing session");
+- (void)selectiveConfigure:(NSDictionary*)config withBlock:(void(^)(id))block {
+    NSLog(@"Selectively configuring session");
 
     // only send parts of configuration that changed
     NSDictionary* configToSend = [config dictionaryWithChangesFromDictionary:[self state]];
     if([configToSend count] > 0) {
         NSLog(@"Sending %ld configuration items", (long)[configToSend count]);
         [self configure:configToSend withBlock:^(id json) {
-            NSDictionary* differences = [json dictionaryWithChangesFromDictionary:newConfig];
+            NSDictionary* differences = [json dictionaryWithChangesFromDictionary:config];
             if([differences count] > 0) {
-                NSLog(@"Updating existing config with %ld configuration items", (long)[differences count]);
-                [newConfig addEntriesFromDictionary:differences];
+                NSLog(@"Configuration received from session differs by %ld configuration items", (long)[differences count]);
+            }
+            if(block) {
+                block(json);
             }
         }];
     }

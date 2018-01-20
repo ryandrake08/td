@@ -54,13 +54,10 @@
 
     // register for KVO
     [[self KVOController] observe:self keyPaths:@[@"session.state.connected", @"session.state.authorized"] options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
-        // sync with session
+        // send config to session
         if([[[self session] state][@"connected"] boolValue] && [[[self session] state][@"authorized"] boolValue]) {
-            [[self session] selectiveConfigure:[self configuration] andUpdate:[self configuration]];
+            [[self session] selectiveConfigure:[self configuration] withBlock:nil];
         }
-
-        // reload the table view
-        [[self tableView] reloadData];
     }];
 
     // whenever tournament name changes, do some stuff
@@ -87,15 +84,12 @@
         [[self tableView] reloadData];
     }];
 
-    // sync and save every time configuration changes
+    // send to session and save every time configuration changes
     [[NSNotificationCenter defaultCenter] addObserverForName:kConfigurationUpdatedNotification object:nil queue:nil usingBlock:^(NSNotification* note) {
-        // sync with session
+        // send to session
         if([[[self session] state][@"connected"] boolValue] && [[[self session] state][@"authorized"] boolValue]) {
-            [[self session] selectiveConfigure:[self configuration] andUpdate:[self configuration]];
+            [[self session] selectiveConfigure:[self configuration] withBlock:nil];
         }
-
-        // reload the table view
-        [[self tableView] reloadData];
 
         // save
         [self saveConfig];
@@ -325,9 +319,9 @@
     // default maxPlayers to number of configured players
     [self setMaxPlayers:[[self configuration][@"players"] count]];
 
-    // sync with session
+    // unconditionally send to session
     if([[[self session] state][@"connected"] boolValue] && [[[self session] state][@"authorized"] boolValue]) {
-        [[self session] selectiveConfigure:dict andUpdate:[self configuration]];
+        [[self session] configure:dict withBlock:nil];
     }
 
     return YES;

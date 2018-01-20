@@ -86,7 +86,7 @@
 }
 
 - (NSData*)dataOfType:(NSString*)typeName error:(NSError**)outError {
-    if([typeName isEqualToString:@"JSON"] || [typeName isEqualToString:NSLocalizedString(@"Poker Buddy Configuration")]) {
+    if([typeName isEqualToString:@"JSON"] || [typeName isEqualToString:NSLocalizedString(@"Poker Buddy Configuration", nil)]) {
         // serialize json configuration to NSData
         return [NSJSONSerialization dataWithJSONObject:[self configuration] options:0 error:outError];
     } else if([typeName isEqualToString:@"CSV"]) {
@@ -106,7 +106,7 @@
 }
 
 - (BOOL)readFromData:(NSData*)data ofType:(NSString*)typeName error:(NSError**)outError {
-    if([typeName isEqualToString:@"JSON"] || [typeName isEqualToString:NSLocalizedString(@"Poker Buddy Configuration")]) {
+    if([typeName isEqualToString:@"JSON"] || [typeName isEqualToString:NSLocalizedString(@"Poker Buddy Configuration", nil)]) {
         // deserialize json configuration
         [[self configuration] setDictionary:[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:outError]];
     }
@@ -134,14 +134,15 @@
 
 // Add to configuration
 - (void)addConfiguration:(NSDictionary*)config {
-    [[self session] selectiveConfigure:config andUpdate:[self configuration]];
+    [[self configuration] addEntriesFromDictionary:config];
+    [[self session] selectiveConfigure:[self configuration] withBlock:nil];
     [[self mainWindow] setDocumentEdited:YES];
 }
 
 // Add an authorized client
 - (void)addAuthorizedClient:(NSDictionary*)code {
     [[self configuration][@"authorized_clients"] addObject:code];
-    [[self session] selectiveConfigure:[self configuration] andUpdate:[self configuration]];
+    [[self session] selectiveConfigure:[self configuration] withBlock:nil];
     [[self mainWindow] setDocumentEdited:YES];
 }
 
