@@ -7,8 +7,8 @@
 //
 
 #import "TBSetupDetailsFundingViewController.h"
-#import "TBEditableTableViewCell.h"
 #import "TBCurrencyNumberFormatter.h"
+#import "TBEditableTableViewCell.h"
 #import "TournamentSession.h"
 
 @implementation TBSetupDetailsFundingViewController
@@ -16,20 +16,17 @@
 #pragma mark UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView*)tableView {
-    if([self object][@"forbid_after_blind_level"] != nil) {
-        return 2;
-    } else {
+    if([self object][@"forbid_after_blind_level"] == nil) {
         return 1;
     }
+    return [super numberOfSectionsInTableView:tableView];
 }
 
 - (NSInteger)tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section {
-    if(section == 0) {
-        return 10;
-    } else if(section == 1 && [self object][@"forbid_after_blind_level"] != nil) {
+    if(section == 1 && [self object][@"forbid_after_blind_level"] != nil) {
         return 1;
     }
-    return 0;
+    return [super tableView:tableView numberOfRowsInSection:section];
 }
 
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath {
@@ -60,7 +57,6 @@
                 NSNumberFormatter* costFormatter = [[NSNumberFormatter alloc] init];
                 [costFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
                 [(TBEditableNumberTableViewCell*)cell setFormatter:costFormatter];
-
                 [(TBEditableTableViewCell*)cell setObject:[self object]];
                 [(TBEditableTableViewCell*)cell setKeyPath:@"cost"];
                 break;
@@ -78,7 +74,6 @@
                 NSNumberFormatter* commissionFormatter = [[NSNumberFormatter alloc] init];
                 [commissionFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
                 [(TBEditableNumberTableViewCell*)cell setFormatter:commissionFormatter];
-
                 [(TBEditableTableViewCell*)cell setObject:[self object]];
                 [(TBEditableTableViewCell*)cell setKeyPath:@"commission"];
                 break;
@@ -96,7 +91,6 @@
                 NSNumberFormatter* equityFormatter = [[NSNumberFormatter alloc] init];
                 [equityFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
                 [(TBEditableNumberTableViewCell*)cell setFormatter:equityFormatter];
-
                 [(TBEditableTableViewCell*)cell setObject:[self object]];
                 [(TBEditableTableViewCell*)cell setKeyPath:@"equity"];
                 break;
@@ -148,6 +142,7 @@
 #pragma mark UITableViewDelegate
 
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
+    // deselect call and reload table when "forbid after" is changed
     if(indexPath.section == 0) {
         if(indexPath.row == 9) {
             [tableView deselectRowAtIndexPath:indexPath animated:YES];

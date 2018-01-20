@@ -65,10 +65,13 @@
     NSNumber* type = kFundingTypeAddon;
     NSNumber* chips = @5000;
     NSNumber* cost = @10;
+    NSString* costCurrency = @"USD";
     NSNumber* commission = @0;
+    NSString* commissionCurrency = @"USD";
     NSNumber* equity = @10;
+    NSString* equityCurrency = @"USD";
 
-    return [@{@"name":name, @"type":type, @"chips":chips, @"cost":cost, @"commission":commission, @"equity":equity} mutableCopy];
+    return [@{@"name":name, @"type":type, @"chips":chips, @"cost":cost, @"cost_currency":costCurrency, @"commission":commission, @"commission_currency":commissionCurrency, @"equity":equity, @"equity_currency":equityCurrency} mutableCopy];
 }
 
 @end
