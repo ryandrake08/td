@@ -27,6 +27,9 @@
 // number of players to plan for
 @property (nonatomic) NSUInteger maxPlayers;
 
+// current document url
+@property (nonatomic, copy) NSURL* documentURL;
+
 @end
 
 @implementation TBSettingsViewController
@@ -40,68 +43,6 @@
     // server owned by this class
     _server = [[TournamentDaemon alloc] init];
 
-    // for setting up tournament
-    _configuration = [[NSMutableDictionary alloc] init];
-
-    // load configuration
-    NSError* loadError;
-    if([[self class] loadConfig:[self configuration] withError:&loadError] == NO) {
-        [self presentError:loadError];
-    }
-
-    // default maxPlayers to number of configured players
-    [self setMaxPlayers:[[self configuration][@"players"] count]];
-
-    // register for KVO
-    [[self KVOController] observe:self keyPaths:@[@"session.state.connected", @"session.state.authorized"] options:0 block:^(id observer, TBSettingsViewController* object, NSDictionary *change) {
-        if([[[object session] state][@"connected"] boolValue] && [[[object session] state][@"authorized"] boolValue]) {
-            NSLog(@"Connected and authorized locally");
-
-            // on connection, send entire configuration to session, unconditionally, and then replace with whatever the session has
-            NSLog(@"Synchronizing session unconditionally");
-            [[self session] configure:[self configuration] withBlock:^(id json) {
-                if(![json isEqual:[self configuration]]) {
-                    NSLog(@"Document differs from session");
-                    [[self configuration] setDictionary:json];
-
-                    // reload the table view
-                    [[self tableView] reloadData];
-                }
-            }];
-        }
-    }];
-
-    // whenever tournament name changes, do some stuff
-    [[self KVOController] observe:self keyPath:@"session.state.name" options:NSKeyValueObservingOptionInitial block:^(id observer, TBSettingsViewController* object, NSDictionary *change) {
-        // re-publish on Bonjour
-        [[self server] publishWithName:[[object session] state][@"name"]];
-    }];
-
-    // if table sizes change, force a replan
-    [[self KVOController] observe:self keyPath:@"session.state.table_capacity" options:0 block:^(id observer, TBSettingsViewController* object, NSDictionary *change) {
-        [self planSeating];
-    }];
-
-    // if max players changes, force a replan
-    [[self KVOController] observe:self keyPath:@"maxPlayers" options:0 block:^(id observer, TBSettingsViewController* object, NSDictionary *change) {
-        [self planSeating];
-    }];
-
-    // update row when maxPlayers changes
-    [[[self tableView] KVOController] observe:self keyPath:@"maxPlayers" options:0 block:^(id observer, TBSettingsViewController* object, NSDictionary* change) {
-        // reload the table view row
-        NSIndexPath* theRow = [NSIndexPath indexPathForRow:0 inSection:1];
-        [observer reloadRowsAtIndexPaths:@[theRow] withRowAnimation:UITableViewRowAnimationNone];
-    }];
-
-    // save every time configuration changes
-    [[NSNotificationCenter defaultCenter] addObserverForName:kConfigurationUpdatedNotification object:nil queue:nil usingBlock:^(NSNotification* note) {
-        NSError* saveError;
-        if([[self class] saveConfig:[self configuration] withError:&saveError] == NO) {
-            [self presentError:saveError];
-        }
-    }];
-
     // Start serving using this device's auth key
     TournamentService* service = [[self server] startWithAuthCode:[TournamentSession clientIdentifier]];
 
@@ -110,6 +51,55 @@
     if(![[self session] connectToTournamentService:service error:&error]) {
         [self presentError:error];
     }
+
+    // register for KVO
+    [[self KVOController] observe:self keyPaths:@[@"session.state.connected", @"session.state.authorized"] options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
+        // sync with session
+        if([[[self session] state][@"connected"] boolValue] && [[[self session] state][@"authorized"] boolValue]) {
+            [[self session] selectiveConfigure:[self configuration] andUpdate:[self configuration]];
+        }
+
+        // reload the table view
+        [[self tableView] reloadData];
+    }];
+
+    // whenever tournament name changes, do some stuff
+    [[self KVOController] observe:self keyPath:@"configuration.name" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
+        // re-publish on Bonjour
+        [[self server] publishWithName:[self configuration][@"name"]];
+
+        // reload table
+        [[self tableView] reloadData];
+    }];
+
+    // whenever other configuration changes, update table row
+    [[self KVOController] observe:self keyPaths:@[@"configuration.players", @"configuration.available_chips", @"configuration.funding_sources", @"configuration.blind_levels", @"configuration.authorized_clients"] options:0 block:^(id observer, id object, NSDictionary *change) {
+        // reload table
+        [[self tableView] reloadData];
+    }];
+
+    // if table sizes or max players change, force a replan
+    [[self KVOController] observe:self keyPaths:@[@"configuration.table_capacity", @"maxPlayers"] options:0 block:^(id observer, id object, NSDictionary *change) {
+        // plan seating
+        [self planSeating];
+
+        // reload table
+        [[self tableView] reloadData];
+    }];
+
+    // sync and save every time configuration changes
+    [[NSNotificationCenter defaultCenter] addObserverForName:kConfigurationUpdatedNotification object:nil queue:nil usingBlock:^(NSNotification* note) {
+        // sync with session
+        if([[[self session] state][@"connected"] boolValue] && [[[self session] state][@"authorized"] boolValue]) {
+            [[self session] selectiveConfigure:[self configuration] andUpdate:[self configuration]];
+        }
+
+        // reload the table view
+        [[self tableView] reloadData];
+
+        // save
+        [self saveConfig];
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -141,7 +131,7 @@
                 [(UILabel*)[cell viewWithTag:100] setText:detail];
                 break;
             case 3:
-                detail = [NSString stringWithFormat:@"%lu", (unsigned long)[[self configuration][@"funding_sources"] count ]];
+                detail = [NSString stringWithFormat:@"%lu", (unsigned long)[[self configuration][@"funding_sources"] count]];
                 [(UILabel*)[cell viewWithTag:100] setText:detail];
                 break;
             case 4:
@@ -291,46 +281,83 @@
 
 #pragma mark File handling
 
-#define kHardcodedDocumentName @"mobile.pokerbuddy"
-
-+ (BOOL)saveConfig:(NSDictionary*)config withError:(NSError**)error {
-    NSFileManager* fileManager = [NSFileManager defaultManager];
-    NSURL* docDirectoryUrl = [fileManager URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:error];
-    if(docDirectoryUrl != nil) {
-        NSURL* docUrl = [docDirectoryUrl URLByAppendingPathComponent:kHardcodedDocumentName];
-
-        // serialize data
-        NSData* data = [NSJSONSerialization dataWithJSONObject:config options:0 error:error];
-        if(data != nil) {
-            // write data to disk
-            return [data writeToURL:docUrl options:0 error:error];
-        }
+- (BOOL)saveConfig {
+    // serialize data
+    NSError* error;
+    NSData* data = [NSJSONSerialization dataWithJSONObject:[self configuration] options:0 error:&error];
+    if(data == nil) {
+        [self presentError:error];
+        return NO;
     }
-    return *error == nil;
+
+    // write data to disk
+    if(![data writeToURL:[self documentURL] options:0 error:&error]) {
+        [self presentError:error];
+        return NO;
+    }
+
+    return YES;
 }
 
-+ (BOOL)loadConfig:(NSMutableDictionary*)config withError:(NSError**)error {
+- (BOOL)loadDocumentFromContentsOfURL:(NSURL*)docUrl {
+    NSError* error;
+
+    // read data from disk
+    NSData* data = [NSData dataWithContentsOfURL:docUrl options:0 error:&error];
+    if(data == nil) {
+        [self presentError:error];
+        return NO;
+    }
+
+    // deserialize data
+    id dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
+    if(dict == nil) {
+        [self presentError:error];
+        return NO;
+    }
+
+    // replace current configuration
+    [self setConfiguration:dict];
+
+    // store url for later serialization
+    [self setDocumentURL:docUrl];
+
+    // default maxPlayers to number of configured players
+    [self setMaxPlayers:[[self configuration][@"players"] count]];
+
+    // sync with session
+    if([[[self session] state][@"connected"] boolValue] && [[[self session] state][@"authorized"] boolValue]) {
+        [[self session] selectiveConfigure:dict andUpdate:[self configuration]];
+    }
+
+    return YES;
+}
+
+- (BOOL)loadDocumentFromContentsOfFile:(NSString*)fileName {
+    NSError* error;
     NSFileManager* fileManager = [NSFileManager defaultManager];
-    NSURL* docDirectoryUrl = [fileManager URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:error];
-    if(docDirectoryUrl != nil) {
-        NSURL* docUrl = [docDirectoryUrl URLByAppendingPathComponent:kHardcodedDocumentName];
 
-        // check existance of file
-        if(![fileManager fileExistsAtPath:[docUrl path]]) {
-            // file does not exist, copy default
-            NSString* defaultDocument = [[NSBundle mainBundle] pathForResource:@"defaults" ofType:@"json"];
-            if(![fileManager copyItemAtPath:defaultDocument toPath:[docUrl path] error:error]) {
-                return NO;
-            }
-        }
+    NSURL* docDirectoryUrl = [fileManager URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:&error];
+    if(docDirectoryUrl == nil) {
+        [self presentError:error];
+        return NO;
+    }
 
-        // read data from disk
-        NSData* data = [NSData dataWithContentsOfURL:docUrl options:0 error:error];
-        if(data != nil) {
-            [config setDictionary:[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:error]];
+    // compute document url
+    NSURL* docUrl = [docDirectoryUrl URLByAppendingPathComponent:fileName];
+
+    // check existance of file
+    if(![fileManager fileExistsAtPath:[docUrl path]]) {
+        // file does not exist, copy default
+        NSString* defaultDocument = [[NSBundle mainBundle] pathForResource:@"defaults" ofType:@"json"];
+        if(![fileManager copyItemAtPath:defaultDocument toPath:[docUrl path] error:&error]) {
+            [self presentError:error];
+            return NO;
         }
     }
-    return *error == nil;
+
+    // load as url
+    return [self loadDocumentFromContentsOfURL:docUrl];
 }
 
 @end

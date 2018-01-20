@@ -11,10 +11,6 @@
 			<array>
 				<string>pokerbuddy</string>
 			</array>
-			<key>CFBundleTypeMIMETypes</key>
-			<array>
-				<string>application/json</string>
-			</array>
 			<key>CFBundleTypeName</key>
 			<string>Poker Buddy Configuration</string>
 			<key>CFBundleTypeRole</key>
@@ -26,10 +22,6 @@
 			<key>CFBundleTypeExtensions</key>
 			<array>
 				<string>json</string>
-			</array>
-			<key>CFBundleTypeMIMETypes</key>
-			<array>
-				<string>application/json</string>
 			</array>
 			<key>CFBundleTypeName</key>
 			<string>JSON</string>

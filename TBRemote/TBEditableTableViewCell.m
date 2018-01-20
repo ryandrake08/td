@@ -166,6 +166,7 @@
     }
 
     [self object][[self keyPath]] = object;
+    [[NSNotificationCenter defaultCenter] postNotificationName:kConfigurationUpdatedNotification object:nil];
 }
 
 // use a picker instead of free-form text

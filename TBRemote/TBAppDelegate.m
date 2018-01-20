@@ -7,8 +7,9 @@
 //
 
 #import "TBAppDelegate.h"
-#import "TBRemoteWatchDelegate.h"
 #import "NSObject+FBKVOController.h"
+#import "TBRemoteWatchDelegate.h"
+#import "TBSettingsViewController.h"
 #import "UIResponder+PresentingErrors.h"
 
 @interface TBAppDelegate () <TournamentSessionDelegate>
@@ -51,6 +52,25 @@
     UILocalNotification* locationNotification = launchOptions[UIApplicationLaunchOptionsLocalNotificationKey];
     if(locationNotification) {
         NSLog(@"Received notification while app not running");
+    }
+
+    if([vc isKindOfClass:[UINavigationController class]]) {
+        UINavigationController* navController = (UINavigationController*)vc;
+        id settingsController = [[navController viewControllers] firstObject];
+
+        // Handle launching with a URL
+        NSURL* url = launchOptions[UIApplicationLaunchOptionsURLKey];
+        if(url != nil) {
+            // url passed as an app launch option. if root view controller is capable of loading from a URL
+            if([settingsController respondsToSelector:@selector(loadDocumentFromContentsOfURL:)]) {
+                [settingsController performSelector:@selector(loadDocumentFromContentsOfURL:) withObject:url];
+            }
+        } else {
+            // no url passed. if root view controler is capable of loading from a file, use a default file for now and create it if missing
+            if([settingsController respondsToSelector:@selector(loadDocumentFromContentsOfFile:)]) {
+                [settingsController performSelector:@selector(loadDocumentFromContentsOfFile:) withObject:@"mobile.pokerbuddy"];
+            }
+        }
     }
 
     // Watch delegate

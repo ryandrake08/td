@@ -10,4 +10,7 @@
 
 @interface TBSettingsViewController : TBTableViewController
 
+- (BOOL)loadDocumentFromContentsOfURL:(NSURL*)docUrl;
+- (BOOL)loadDocumentFromContentsOfFile:(NSString*)fileName;
+
 @end

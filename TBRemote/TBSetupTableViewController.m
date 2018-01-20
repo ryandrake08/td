@@ -7,6 +7,7 @@
 //
 
 #import "TBSetupTableViewController.h"
+#import "TBNotifications.h"
 #import "TBSetupDetailsTableViewController.h"
 
 @implementation TBSetupTableViewController
@@ -29,6 +30,9 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete from the data source
         [[self arrangedObjects] removeObjectAtIndex:[indexPath row]];
+
+        // notify that configuration changed (delete)
+        [[NSNotificationCenter defaultCenter] postNotificationName:kConfigurationUpdatedNotification object:nil];
 
         // Remove from the table
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -61,6 +65,9 @@
 
     // Add to the data source
     [[self arrangedObjects] addObject:[self newObject]];
+
+    // notify that configuration changed (add)
+    [[NSNotificationCenter defaultCenter] postNotificationName:kConfigurationUpdatedNotification object:nil];
 
     // Insert to the table and scroll
     [[self tableView] insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
