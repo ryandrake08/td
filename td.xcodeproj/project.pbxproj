@@ -119,6 +119,10 @@
 		946C65791FFF5BEC0094E4D8 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9476F4FB1B3C404400A158F8 /* CoreFoundation.framework */; };
 		946CF8D6200FF0D3008771D4 /* TBCurrencyImageTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE5A5021B8F6C4C002737A8 /* TBCurrencyImageTransformer.m */; };
 		946CF8D7200FF0D3008771D4 /* TBCurrencyImageTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE5A5021B8F6C4C002737A8 /* TBCurrencyImageTransformer.m */; };
+		946EAFB42013440F00BD57DE /* i_piranha_22x29.png in Resources */ = {isa = PBXBuildFile; fileRef = 946EAFB1201343FD00BD57DE /* i_piranha_22x29.png */; };
+		946EAFB52013440F00BD57DE /* i_piranha_44x58.png in Resources */ = {isa = PBXBuildFile; fileRef = 946EAFB0201343FC00BD57DE /* i_piranha_44x58.png */; };
+		946EAFB62013440F00BD57DE /* i_piranha_64x64.png in Resources */ = {isa = PBXBuildFile; fileRef = 946EAFB2201343FD00BD57DE /* i_piranha_64x64.png */; };
+		946EAFB72013440F00BD57DE /* i_piranha_320x320.png in Resources */ = {isa = PBXBuildFile; fileRef = 946EAFB3201343FD00BD57DE /* i_piranha_320x320.png */; };
 		9471B3ED1FF87EFF000A314C /* TBActionClockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CDDD221FE39299008ADF24 /* TBActionClockViewController.m */; };
 		9471B3F01FF8A950000A314C /* TBActionClockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9471B3EF1FF8A947000A314C /* TBActionClockViewController.m */; };
 		9471B3F11FF8A950000A314C /* TBActionClockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9471B3EF1FF8A947000A314C /* TBActionClockViewController.m */; };
@@ -166,6 +170,7 @@
 		949D70A11B3C4411008D5CD1 /* tournament.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E71B3C3F8300A158F8 /* tournament.cpp */; };
 		949D70A21B3C441F008D5CD1 /* socket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E31B3C3F8300A158F8 /* socket.cpp */; };
 		949D70A31B3C441F008D5CD1 /* socket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E31B3C3F8300A158F8 /* socket.cpp */; };
+		94AD40E120134AA900AB90A3 /* piranha.icns in Resources */ = {isa = PBXBuildFile; fileRef = 94AD40E020134AA300AB90A3 /* piranha.icns */; };
 		94B30DE320020AFF0037192E /* TBMac.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 94B30DE520020AFF0037192E /* TBMac.storyboard */; };
 		94B30DE8200217710037192E /* TBMacViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B30DE7200217710037192E /* TBMacViewController.m */; };
 		94B30DEB200283CC0037192E /* TBMacWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B30DEA200283CC0037192E /* TBMacWindowController.m */; };
@@ -683,6 +688,10 @@
 		9464EC2C1FDD102B009092A4 /* shared_instance.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = shared_instance.hpp; sourceTree = "<group>"; };
 		946C65671FFF54360094E4D8 /* tournamentctl */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = tournamentctl; sourceTree = BUILT_PRODUCTS_DIR; };
 		946C656E1FFF54450094E4D8 /* program_ctl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = program_ctl.cpp; sourceTree = "<group>"; };
+		946EAFB0201343FC00BD57DE /* i_piranha_44x58.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = i_piranha_44x58.png; sourceTree = "<group>"; };
+		946EAFB1201343FD00BD57DE /* i_piranha_22x29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = i_piranha_22x29.png; sourceTree = "<group>"; };
+		946EAFB2201343FD00BD57DE /* i_piranha_64x64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = i_piranha_64x64.png; sourceTree = "<group>"; };
+		946EAFB3201343FD00BD57DE /* i_piranha_320x320.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = i_piranha_320x320.png; sourceTree = "<group>"; };
 		9471B3EE1FF8A947000A314C /* TBActionClockViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBActionClockViewController.h; path = TBMac/TBActionClockViewController.h; sourceTree = "<group>"; };
 		9471B3EF1FF8A947000A314C /* TBActionClockViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TBActionClockViewController.m; path = TBMac/TBActionClockViewController.m; sourceTree = "<group>"; };
 		9471B3F21FF8BEF1000A314C /* TBActionClockSegue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TBActionClockSegue.h; path = TBMac/TBActionClockSegue.h; sourceTree = "<group>"; };
@@ -735,6 +744,7 @@
 		947D7AA7200D8BD300EAD496 /* TBPhoneLaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TBPhoneLaunchScreen.storyboard; sourceTree = "<group>"; };
 		947D7AA9200D8C8A00EAD496 /* TBRemoteLaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TBRemoteLaunchScreen.storyboard; sourceTree = "<group>"; };
 		94A4C3681D6A40BD00342E13 /* outputdebugstringbuf.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = outputdebugstringbuf.hpp; sourceTree = "<group>"; };
+		94AD40E020134AA300AB90A3 /* piranha.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = piranha.icns; sourceTree = "<group>"; };
 		94B30DE420020AFF0037192E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/TBMac.storyboard; sourceTree = "<group>"; };
 		94B30DE6200217710037192E /* TBMacViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TBMacViewController.h; path = TBMac/TBMacViewController.h; sourceTree = "<group>"; };
 		94B30DE7200217710037192E /* TBMacViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TBMacViewController.m; path = TBMac/TBMacViewController.m; sourceTree = "<group>"; };
@@ -1122,6 +1132,11 @@
 			isa = PBXGroup;
 			children = (
 				9476F4CD1B3C3F8300A158F8 /* defaults.json */,
+				946EAFB1201343FD00BD57DE /* i_piranha_22x29.png */,
+				946EAFB0201343FC00BD57DE /* i_piranha_44x58.png */,
+				946EAFB2201343FD00BD57DE /* i_piranha_64x64.png */,
+				946EAFB3201343FD00BD57DE /* i_piranha_320x320.png */,
+				94AD40E020134AA300AB90A3 /* piranha.icns */,
 				94D04EC81B7C59EB004F4245 /* s_break.caf */,
 				94D04EC91B7C59EB004F4245 /* s_next.caf */,
 				94D04ECA1B7C59EB004F4245 /* s_rebalance.caf */,
@@ -1772,6 +1787,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				94AD40E120134AA900AB90A3 /* piranha.icns in Resources */,
 				AD8E68541A6C606700E5A4D8 /* TBMac.xcassets in Resources */,
 				94B30DE320020AFF0037192E /* TBMac.storyboard in Resources */,
 				9471B3F51FF8EBC4000A314C /* TBViewer.storyboard in Resources */,
@@ -1813,11 +1829,15 @@
 				947D7AA8200D8BD300EAD496 /* TBPhoneLaunchScreen.storyboard in Resources */,
 				ADF6360F1BAB8AF800D019AE /* Main.storyboard in Resources */,
 				AD33BA421BABAC120011777C /* defaults.json in Resources */,
+				946EAFB62013440F00BD57DE /* i_piranha_64x64.png in Resources */,
+				946EAFB42013440F00BD57DE /* i_piranha_22x29.png in Resources */,
 				94C2DA7E200D27CD001B95B8 /* s_break.caf in Resources */,
 				94C2DA7F200D27CD001B95B8 /* s_next.caf in Resources */,
 				942B84E3200DA6F1001F8EEB /* s_rebalance.caf in Resources */,
 				942B84E4200DA6F1001F8EEB /* s_start.caf in Resources */,
+				946EAFB52013440F00BD57DE /* i_piranha_44x58.png in Resources */,
 				ADF636101BAB8AF800D019AE /* s_warning.caf in Resources */,
+				946EAFB72013440F00BD57DE /* i_piranha_320x320.png in Resources */,
 				94CDDD1F1FE1826C008ADF24 /* TBChipTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

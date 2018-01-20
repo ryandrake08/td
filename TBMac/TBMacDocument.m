@@ -86,7 +86,7 @@
 }
 
 - (NSData*)dataOfType:(NSString*)typeName error:(NSError**)outError {
-    if([typeName isEqualToString:@"JSON"] || [typeName isEqualToString:NSLocalizedString(@"Poker Buddy Configuration", nil)]) {
+    if([typeName isEqualToString:@"com.hdnastudio.poker-buddy.pokerbuddy"]) {
         // serialize json configuration to NSData
         return [NSJSONSerialization dataWithJSONObject:[self configuration] options:0 error:outError];
     } else if([typeName isEqualToString:@"CSV"]) {
@@ -106,7 +106,7 @@
 }
 
 - (BOOL)readFromData:(NSData*)data ofType:(NSString*)typeName error:(NSError**)outError {
-    if([typeName isEqualToString:@"JSON"] || [typeName isEqualToString:NSLocalizedString(@"Poker Buddy Configuration", nil)]) {
+    if([typeName isEqualToString:@"com.hdnastudio.poker-buddy.pokerbuddy"]) {
         // deserialize json configuration
         [[self configuration] setDictionary:[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:outError]];
     }

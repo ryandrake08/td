@@ -11,22 +11,16 @@
 			<array>
 				<string>pokerbuddy</string>
 			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>piranha</string>
 			<key>CFBundleTypeName</key>
 			<string>Poker Buddy Configuration</string>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
-			<key>NSDocumentClass</key>
-			<string>TBMacDocument</string>
-		</dict>
-		<dict>
-			<key>CFBundleTypeExtensions</key>
+			<key>LSItemContentTypes</key>
 			<array>
-				<string>json</string>
+				<string>com.hdnastudio.Poker-Buddy.pokerbuddy</string>
 			</array>
-			<key>CFBundleTypeName</key>
-			<string>JSON</string>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
 			<key>NSDocumentClass</key>
 			<string>TBMacDocument</string>
 		</dict>
@@ -59,5 +53,27 @@
 	<string>TBMac</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
+	<key>UTExportedTypeDeclarations</key>
+	<array>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.json</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Tournament Buddy Configuration UTI</string>
+			<key>UTTypeIconFile</key>
+			<string>piranha</string>
+			<key>UTTypeIdentifier</key>
+			<string>com.hdnastudio.Poker-Buddy.pokerbuddy</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>pokerbuddy</string>
+				</array>
+			</dict>
+		</dict>
+	</array>
 </dict>
 </plist>
