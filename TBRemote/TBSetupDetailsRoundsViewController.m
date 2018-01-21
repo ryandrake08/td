@@ -7,7 +7,7 @@
 //
 
 #import "TBSetupDetailsRoundsViewController.h"
-#import "TBEditableTableViewCell.h"
+#import "TBKVOTableViewCell.h"
 #import "TBDurationNumberFormatter.h"
 
 @implementation TBSetupDetailsRoundsViewController
@@ -26,10 +26,10 @@
 
     if(indexPath.row == 0) { // formatter for row 0 of both sections
         TBDurationNumberFormatter* durationFormatter = [[TBDurationNumberFormatter alloc] init];
-        [(TBEditableNumberTableViewCell*)cell setFormatter:durationFormatter];
+        [(TBEditableTextTableViewCell*)cell setFormatter:durationFormatter];
     }
 
-    [(TBEditableTableViewCell*)cell setObject:[self object]];
+    [(TBKVOTableViewCell*)cell setObject:[self object]];
     return cell;
 }
 

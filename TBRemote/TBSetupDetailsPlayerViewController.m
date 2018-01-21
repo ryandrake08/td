@@ -7,7 +7,7 @@
 //
 
 #import "TBSetupDetailsPlayerViewController.h"
-#import "TBEditableTableViewCell.h"
+#import "TBKVOTableViewCell.h"
 
 @implementation TBSetupDetailsPlayerViewController
 

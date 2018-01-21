@@ -8,7 +8,7 @@
 
 #import "TBSetupDetailsChipsViewController.h"
 #import "TBChooseColorViewController.h"
-#import "TBEditableTableViewCell.h"
+#import "TBKVOTableViewCell.h"
 
 @implementation TBSetupDetailsChipsViewController
 
@@ -16,7 +16,7 @@
 
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath {
     UITableViewCell* cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
-    [(TBEditableTableViewCell*)cell setObject:[self object]];
+    [(TBKVOTableViewCell*)cell setObject:[self object]];
     return cell;
 }
 

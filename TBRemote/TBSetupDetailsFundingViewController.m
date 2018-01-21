@@ -8,7 +8,7 @@
 
 #import "TBSetupDetailsFundingViewController.h"
 #import "TBCurrencyNumberFormatter.h"
-#import "TBEditableTableViewCell.h"
+#import "TBKVOTableViewCell.h"
 #import "TournamentSession.h"
 
 @implementation TBSetupDetailsFundingViewController
@@ -48,7 +48,7 @@
             {
                 NSNumberFormatter* costFormatter = [[NSNumberFormatter alloc] init];
                 [costFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
-                [(TBEditableNumberTableViewCell*)cell setFormatter:costFormatter];
+                [(TBEditableTextTableViewCell*)cell setFormatter:costFormatter];
                 break;
             }
             case 3:
@@ -61,7 +61,7 @@
             {
                 NSNumberFormatter* commissionFormatter = [[NSNumberFormatter alloc] init];
                 [commissionFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
-                [(TBEditableNumberTableViewCell*)cell setFormatter:commissionFormatter];
+                [(TBEditableTextTableViewCell*)cell setFormatter:commissionFormatter];
                 break;
             }
             case 5:
@@ -74,14 +74,14 @@
             {
                 NSNumberFormatter* equityFormatter = [[NSNumberFormatter alloc] init];
                 [equityFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
-                [(TBEditableNumberTableViewCell*)cell setFormatter:equityFormatter];
+                [(TBEditableTextTableViewCell*)cell setFormatter:equityFormatter];
                 break;
             }
             case 7:
             {
                 NSDictionary* currenciesForCodes = [TBCurrencyNumberFormatter supportedCurrenciesForCodes];
                 [(TBPickableTextTableViewCell*)cell setAllowedValues:[currenciesForCodes allKeys] withTitles:[currenciesForCodes allValues]];
-                [(TBEditableTableViewCell*)cell setObject:[self object]];
+                [(TBKVOTableViewCell*)cell setObject:[self object]];
                 break;
             }
         }
@@ -103,7 +103,7 @@
     }
 
     // pass our object to each cell
-    [(TBEditableTableViewCell*)cell setObject:[self object]];
+    [(TBKVOTableViewCell*)cell setObject:[self object]];
     return cell;
 }
 

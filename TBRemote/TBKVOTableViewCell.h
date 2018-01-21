@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TBEditableTableViewCell : UITableViewCell
+@interface TBKVOTableViewCell : UITableViewCell
 
 // object (KV observable) to be edited
 @property (nonatomic, strong) id object;
@@ -18,13 +18,9 @@
 
 @end
 
-@interface TBEditableTextTableViewCell : TBEditableTableViewCell
+@interface TBEditableTextTableViewCell : TBKVOTableViewCell
 
-@end
-
-@interface TBEditableNumberTableViewCell : TBEditableTextTableViewCell
-
-// represented object is a NSNumber, use this to format to and from text
+// if represented object is a NSNumber, use this to format to and from text
 @property (nonatomic, strong) NSNumberFormatter* formatter;
 
 @end
@@ -36,10 +32,10 @@
 
 @end
 
-@interface TBCheckmarkNumberTableViewCell : TBEditableTableViewCell
+@interface TBCheckmarkNumberTableViewCell : TBKVOTableViewCell
 
 @end
 
-@interface TBEllipseTableViewCell : TBEditableTableViewCell
+@interface TBEllipseTableViewCell : TBKVOTableViewCell
 
 @end

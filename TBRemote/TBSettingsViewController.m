@@ -10,7 +10,7 @@
 #import "TBSettingsViewController.h"
 #import "NSObject+FBKVOController.h"
 #import "TBAppDelegate.h"
-#import "TBEditableTableViewCell.h"
+#import "TBKVOTableViewCell.h"
 #import "TBNotifications.h"
 #import "TBSetupTableViewController.h"
 #import "TournamentDaemon.h"
@@ -112,7 +112,7 @@
         switch(indexPath.row) {
             case 0:
             {
-                [(TBEditableTableViewCell*)cell setObject:[self configuration]];
+                [(TBKVOTableViewCell*)cell setObject:[self configuration]];
                 break;
             }
             case 1:
@@ -137,7 +137,7 @@
                 break;
             case 6:
                 [(TBPickableTextTableViewCell*)cell setAllowedValues:@[@2, @3, @4, @5, @6, @7, @8, @9, @10, @11, @12] withTitles:nil];
-                [(TBEditableTableViewCell*)cell setObject:[self configuration]];
+                [(TBKVOTableViewCell*)cell setObject:[self configuration]];
                 break;
         }
     } else if(indexPath.section == 1) {

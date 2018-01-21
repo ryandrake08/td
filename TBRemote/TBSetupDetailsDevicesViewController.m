@@ -7,7 +7,7 @@
 //
 
 #import "TBSetupDetailsDevicesViewController.h"
-#import "TBEditableTableViewCell.h"
+#import "TBKVOTableViewCell.h"
 #import "TBAuthCodeNumberFormatter.h"
 
 @implementation TBSetupDetailsDevicesViewController
@@ -19,10 +19,10 @@
 
     if(indexPath.section == 0 && indexPath.row == 0) {
         TBAuthCodeNumberFormatter* codeFormatter = [[TBAuthCodeNumberFormatter alloc] init];
-        [(TBEditableNumberTableViewCell*)cell setFormatter:codeFormatter];
+        [(TBEditableTextTableViewCell*)cell setFormatter:codeFormatter];
     }
     
-    [(TBEditableTableViewCell*)cell setObject:[self object]];
+    [(TBKVOTableViewCell*)cell setObject:[self object]];
     return cell;
 }
 
