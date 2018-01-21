@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -18,7 +22,7 @@
                         <sections>
                             <tableViewSection headerTitle="Tournament Setup" id="uIM-hK-ahp">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="J0X-8K-uTp" customClass="TBEditableTextTableViewCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="J0X-8K-uTp" customClass="TBTextFieldTableViewCell">
                                         <rect key="frame" x="0.0" y="55.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="J0X-8K-uTp" id="C1R-2z-Ha5">
@@ -56,7 +60,7 @@
                                             <outlet property="textField" destination="H7M-O4-NKl" id="0hw-iG-GEI"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="oXk-BA-8yJ">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="oXk-BA-8yJ" customClass="TBLabelTableViewCell">
                                         <rect key="frame" x="0.0" y="99.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="oXk-BA-8yJ" id="LZz-Qf-gQo">
@@ -84,11 +88,15 @@
                                                 <constraint firstAttribute="trailingMargin" secondItem="MPG-Dp-OBt" secondAttribute="trailing" id="xJx-Eo-95C"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="keyPath" value="players"/>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
+                                            <outlet property="label" destination="MPG-Dp-OBt" id="0Ad-T5-B1N"/>
                                             <segue destination="2i8-6D-xmz" kind="push" id="MPN-sY-Ey8"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="hf9-m8-j0s">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="hf9-m8-j0s" customClass="TBLabelTableViewCell">
                                         <rect key="frame" x="0.0" y="143.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hf9-m8-j0s" id="6aI-6R-Xpz">
@@ -116,11 +124,15 @@
                                                 <constraint firstItem="2ht-Bk-2IP" firstAttribute="centerY" secondItem="6aI-6R-Xpz" secondAttribute="centerY" id="ypq-1m-mtX"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="keyPath" value="available_chips"/>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
+                                            <outlet property="label" destination="2ht-Bk-2IP" id="0qQ-BS-L06"/>
                                             <segue destination="sHp-Ri-I7U" kind="push" id="NEa-DP-Fwj"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="Cm0-lh-c83">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="Cm0-lh-c83" customClass="TBLabelTableViewCell">
                                         <rect key="frame" x="0.0" y="187.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Cm0-lh-c83" id="W14-3q-1Zt">
@@ -148,11 +160,15 @@
                                                 <constraint firstItem="qht-X7-jMW" firstAttribute="baseline" secondItem="rWJ-IM-nVn" secondAttribute="baseline" id="hxL-sJ-vmA"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="keyPath" value="funding_sources"/>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
+                                            <outlet property="label" destination="qht-X7-jMW" id="rEb-F4-bmz"/>
                                             <segue destination="cwH-d3-1Bp" kind="push" id="RVQ-j7-p6g"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="GU7-QI-eva">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="GU7-QI-eva" customClass="TBLabelTableViewCell">
                                         <rect key="frame" x="0.0" y="231.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="GU7-QI-eva" id="XXf-09-Oht">
@@ -180,11 +196,15 @@
                                                 <constraint firstItem="Srq-18-Cf3" firstAttribute="baseline" secondItem="Gfc-Ou-j2h" secondAttribute="baseline" id="vyo-hC-Ns9"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="keyPath" value="blind_levels"/>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
+                                            <outlet property="label" destination="Srq-18-Cf3" id="S6U-wh-46f"/>
                                             <segue destination="a5T-s7-oJm" kind="push" id="i90-hA-uNH"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="blL-Cj-NBi">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="blL-Cj-NBi" customClass="TBLabelTableViewCell">
                                         <rect key="frame" x="0.0" y="275.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="blL-Cj-NBi" id="dTS-hv-0wN">
@@ -212,7 +232,11 @@
                                                 <constraint firstItem="n8D-f4-YMV" firstAttribute="centerY" secondItem="dTS-hv-0wN" secondAttribute="centerY" id="yIb-Lv-0sw"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="keyPath" value="authorized_clients"/>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
+                                            <outlet property="label" destination="n8D-f4-YMV" id="ibw-9i-Z1a"/>
                                             <segue destination="luY-VZ-YNQ" kind="push" id="REx-lX-b4m"/>
                                         </connections>
                                     </tableViewCell>
@@ -1445,7 +1469,7 @@
                         <sections>
                             <tableViewSection headerTitle="Round Details" id="hLz-zt-1Dm">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="LKi-rk-29M" customClass="TBEditableTextTableViewCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="LKi-rk-29M" customClass="TBTextFieldTableViewCell">
                                         <rect key="frame" x="0.0" y="55.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LKi-rk-29M" id="3DR-vf-ONr">
@@ -1483,7 +1507,7 @@
                                             <outlet property="textField" destination="WDa-Jh-acG" id="Paq-i9-cYL"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="iFy-L8-3tc" customClass="TBEditableTextTableViewCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="iFy-L8-3tc" customClass="TBTextFieldTableViewCell">
                                         <rect key="frame" x="0.0" y="99.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="iFy-L8-3tc" id="96K-zH-VLw">
@@ -1521,7 +1545,7 @@
                                             <outlet property="textField" destination="hZE-bl-x2x" id="kIp-ER-ldb"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="PIa-uR-uNE" customClass="TBEditableTextTableViewCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="PIa-uR-uNE" customClass="TBTextFieldTableViewCell">
                                         <rect key="frame" x="0.0" y="143.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="PIa-uR-uNE" id="suL-Dj-txH">
@@ -1559,7 +1583,7 @@
                                             <outlet property="textField" destination="W6d-06-fje" id="LKw-3o-kNl"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="grf-Ye-UCZ" customClass="TBEditableTextTableViewCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="grf-Ye-UCZ" customClass="TBTextFieldTableViewCell">
                                         <rect key="frame" x="0.0" y="187.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="grf-Ye-UCZ" id="SY2-gy-QMp">
@@ -1625,7 +1649,7 @@
                             </tableViewSection>
                             <tableViewSection headerTitle="Break Details" id="lOY-Ru-97m">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="8pw-hn-7iE" customClass="TBEditableTextTableViewCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="8pw-hn-7iE" customClass="TBTextFieldTableViewCell">
                                         <rect key="frame" x="0.0" y="331.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8pw-hn-7iE" id="nn2-37-Fgw">
@@ -1663,7 +1687,7 @@
                                             <outlet property="textField" destination="ou6-Jk-ZbW" id="8jA-V1-HtC"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="XwO-7c-8Ws" customClass="TBEditableTextTableViewCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="XwO-7c-8Ws" customClass="TBTextFieldTableViewCell">
                                         <rect key="frame" x="0.0" y="375.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="XwO-7c-8Ws" id="6Q4-9q-rv6">
@@ -1728,7 +1752,7 @@
                         <sections>
                             <tableViewSection headerTitle="Funding Details" id="LMv-wc-3Yf">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="2OO-ok-Ozh" customClass="TBEditableTextTableViewCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="2OO-ok-Ozh" customClass="TBTextFieldTableViewCell">
                                         <rect key="frame" x="0.0" y="55.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2OO-ok-Ozh" id="SH0-Jj-yGT">
@@ -1804,7 +1828,7 @@
                                             <outlet property="textField" destination="OIw-Zl-xeE" id="kFb-dW-dVf"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="nu6-pb-qFs" customClass="TBEditableTextTableViewCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="nu6-pb-qFs" customClass="TBTextFieldTableViewCell">
                                         <rect key="frame" x="0.0" y="143.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nu6-pb-qFs" id="jPA-rv-yCx">
@@ -1880,7 +1904,7 @@
                                             <outlet property="textField" destination="EbY-0H-o5D" id="ARG-Zw-QbI"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="AHf-bB-Owe" customClass="TBEditableTextTableViewCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="AHf-bB-Owe" customClass="TBTextFieldTableViewCell">
                                         <rect key="frame" x="0.0" y="231.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="AHf-bB-Owe" id="33N-SR-vgF">
@@ -1956,7 +1980,7 @@
                                             <outlet property="textField" destination="lML-vg-MJS" id="Pfg-yQ-ksn"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="rvS-7z-m2H" customClass="TBEditableTextTableViewCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="rvS-7z-m2H" customClass="TBTextFieldTableViewCell">
                                         <rect key="frame" x="0.0" y="319.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rvS-7z-m2H" id="GkK-NB-H8B">
@@ -2032,7 +2056,7 @@
                                             <outlet property="textField" destination="6p3-TM-Q4d" id="2Q2-6E-xdh"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="GgY-JQ-T5O" customClass="TBEditableTextTableViewCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="GgY-JQ-T5O" customClass="TBTextFieldTableViewCell">
                                         <rect key="frame" x="0.0" y="407.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="GgY-JQ-T5O" id="mzT-rp-AIs">
@@ -2208,7 +2232,7 @@
                                             <segue destination="gRs-x5-yi9" kind="push" id="55k-Z1-HEe"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Vf6-wS-nPF" customClass="TBEditableTextTableViewCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Vf6-wS-nPF" customClass="TBTextFieldTableViewCell">
                                         <rect key="frame" x="0.0" y="79" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Vf6-wS-nPF" id="9bS-Jp-PVW">
@@ -2246,7 +2270,7 @@
                                             <outlet property="textField" destination="fhU-3R-8Cc" id="uVc-Hd-6s6"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Fp1-fF-n14" customClass="TBEditableTextTableViewCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Fp1-fF-n14" customClass="TBTextFieldTableViewCell">
                                         <rect key="frame" x="0.0" y="123" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Fp1-fF-n14" id="hvG-aU-0RD">
@@ -2367,7 +2391,7 @@
                         <sections>
                             <tableViewSection id="zUE-SJ-Mke">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="qb6-4e-yjS" customClass="TBEditableTextTableViewCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="qb6-4e-yjS" customClass="TBTextFieldTableViewCell">
                                         <rect key="frame" x="0.0" y="35" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qb6-4e-yjS" id="PPu-Lo-cdH">
@@ -2432,7 +2456,7 @@
                         <sections>
                             <tableViewSection id="CL2-xn-Rq3">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="JQG-LU-Fj1" customClass="TBEditableTextTableViewCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="JQG-LU-Fj1" customClass="TBTextFieldTableViewCell">
                                         <rect key="frame" x="0.0" y="35" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JQG-LU-Fj1" id="kir-44-HpE">
@@ -2470,7 +2494,7 @@
                                             <outlet property="textField" destination="Z9j-sZ-dDw" id="Ei5-Ts-2VW"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="O8Z-qJ-P1I" customClass="TBEditableTextTableViewCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="O8Z-qJ-P1I" customClass="TBTextFieldTableViewCell">
                                         <rect key="frame" x="0.0" y="79" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="O8Z-qJ-P1I" id="JTh-dz-rmn">

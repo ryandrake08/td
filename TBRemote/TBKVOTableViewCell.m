@@ -1,5 +1,5 @@
 //
-//  TBEditableTextTableViewCell.m
+//  TBTextFieldTableViewCell.m
 //  td
 //
 //  Created by Ryan Drake on 9/25/15.
@@ -34,12 +34,16 @@
 
 - (NSString*)textRepresentationOfUnderlyingValue {
     id underlyingValue = [self underlyingValue];
-    if([underlyingValue isKindOfClass:[NSNumber class]]) {
+    if([underlyingValue respondsToSelector:@selector(count)]) {
+        return [NSString stringWithFormat: @"%ld", (long)[underlyingValue count]];
+    } else if([underlyingValue respondsToSelector:@selector(stringValue)]) {
         return [underlyingValue stringValue];
+    } else if([underlyingValue respondsToSelector:@selector(count)]) {
+        return [NSString stringWithFormat: @"%ld", (long)[underlyingValue count]];
     } else if([underlyingValue isKindOfClass:[NSString class]]) {
         return underlyingValue;
     } else {
-        NSLog(@"TBEditableTextTableViewCell: textRepresentationOfUnderlyingValue: underlying value of unsupported class");
+        NSLog(@"TBTextFieldTableViewCell: textRepresentationOfUnderlyingValue: underlying value of unsupported class");
     }
     return nil;
 }
@@ -52,20 +56,13 @@
         // set directly to text
         [self setUnderlyingValue:text];
     } else {
-        NSLog(@"TBEditableTextTableViewCell: underlyingValueRepresentationFromText: underlying value of unsupported class");
+        NSLog(@"TBTextFieldTableViewCell: underlyingValueRepresentationFromText: underlying value of unsupported class");
     }
 }
 
 @end
 
-@interface TBEditableTextTableViewCell () <UITextFieldDelegate>
-
-// ui outlet
-@property (nonatomic, strong) IBOutlet UITextField* textField;
-
-@end
-
-@implementation TBEditableTextTableViewCell
+@implementation TBFormattedKVOTableViewCell
 
 - (NSString*)textRepresentationOfUnderlyingValue {
     if([self formatter] != nil) {
@@ -82,6 +79,37 @@
         [super setUnderlyingValueFromTextRepresentation:text];
     }
 }
+
+@end
+
+@interface TBLabelTableViewCell ()
+
+// ui outlet
+@property (nonatomic, strong) IBOutlet UILabel* label;
+
+@end
+
+@implementation TBLabelTableViewCell
+
+// set the object and use keypath to observe/sync with control
+- (void)setObject:(id)object {
+    // call base to store the object
+    [super setObject:object];
+
+    // set up the textfield
+    [[self label] setText:[self textRepresentationOfUnderlyingValue]];
+}
+
+@end
+
+@interface TBTextFieldTableViewCell () <UITextFieldDelegate>
+
+// ui outlet
+@property (nonatomic, strong) IBOutlet UITextField* textField;
+
+@end
+
+@implementation TBTextFieldTableViewCell
 
 // set the object and use keypath to observe/sync with control
 - (void)setObject:(id)object {

@@ -26,7 +26,7 @@
 
     if(indexPath.row == 0) { // formatter for row 0 of both sections
         TBDurationNumberFormatter* durationFormatter = [[TBDurationNumberFormatter alloc] init];
-        [(TBEditableTextTableViewCell*)cell setFormatter:durationFormatter];
+        [(TBTextFieldTableViewCell*)cell setFormatter:durationFormatter];
     }
 
     [(TBKVOTableViewCell*)cell setObject:[self object]];

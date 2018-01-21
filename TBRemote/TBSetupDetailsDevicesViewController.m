@@ -19,7 +19,7 @@
 
     if(indexPath.section == 0 && indexPath.row == 0) {
         TBAuthCodeNumberFormatter* codeFormatter = [[TBAuthCodeNumberFormatter alloc] init];
-        [(TBEditableTextTableViewCell*)cell setFormatter:codeFormatter];
+        [(TBTextFieldTableViewCell*)cell setFormatter:codeFormatter];
     }
     
     [(TBKVOTableViewCell*)cell setObject:[self object]];

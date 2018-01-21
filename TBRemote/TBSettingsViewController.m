@@ -109,37 +109,10 @@
 
     if(indexPath.section == 0) {
         // create a cell
-        switch(indexPath.row) {
-            case 0:
-            {
-                [(TBKVOTableViewCell*)cell setObject:[self configuration]];
-                break;
-            }
-            case 1:
-                detail = [NSString stringWithFormat:@"%lu", (unsigned long)[[self configuration][@"players"] count]];
-                [(UILabel*)[cell viewWithTag:100] setText:detail];
-                break;
-            case 2:
-                detail = [NSString stringWithFormat:@"%lu", (unsigned long)[[self configuration][@"available_chips"] count]];
-                [(UILabel*)[cell viewWithTag:100] setText:detail];
-                break;
-            case 3:
-                detail = [NSString stringWithFormat:@"%lu", (unsigned long)[[self configuration][@"funding_sources"] count]];
-                [(UILabel*)[cell viewWithTag:100] setText:detail];
-                break;
-            case 4:
-                detail = [NSString stringWithFormat:@"%lu", (unsigned long)[[self configuration][@"blind_levels"] count]-1];
-                [(UILabel*)[cell viewWithTag:100] setText:detail];
-                break;
-            case 5:
-                detail = [NSString stringWithFormat:@"%lu", (unsigned long)[[self configuration][@"authorized_clients"] count]-1];
-                [(UILabel*)[cell viewWithTag:100] setText:detail];
-                break;
-            case 6:
-                [(TBPickableTextTableViewCell*)cell setAllowedValues:@[@2, @3, @4, @5, @6, @7, @8, @9, @10, @11, @12] withTitles:nil];
-                [(TBKVOTableViewCell*)cell setObject:[self configuration]];
-                break;
+        if(indexPath.row == 6) {
+            [(TBPickableTextTableViewCell*)cell setAllowedValues:@[@2, @3, @4, @5, @6, @7, @8, @9, @10, @11, @12] withTitles:nil];
         }
+        [(TBKVOTableViewCell*)cell setObject:[self configuration]];
     } else if(indexPath.section == 1) {
         switch(indexPath.row) {
             case 0:

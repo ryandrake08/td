@@ -18,14 +18,22 @@
 
 @end
 
-@interface TBEditableTextTableViewCell : TBKVOTableViewCell
+@interface TBFormattedKVOTableViewCell : TBKVOTableViewCell
 
 // if represented object is a NSNumber, use this to format to and from text
 @property (nonatomic, strong) NSNumberFormatter* formatter;
 
 @end
 
-@interface TBPickableTextTableViewCell : TBEditableTextTableViewCell
+@interface TBLabelTableViewCell : TBFormattedKVOTableViewCell
+
+@end
+
+@interface TBTextFieldTableViewCell : TBFormattedKVOTableViewCell
+
+@end
+
+@interface TBPickableTextTableViewCell : TBTextFieldTableViewCell
 
 // use a picker instead of free-form text, optionally specifying picker titles
 - (void)setAllowedValues:(NSArray*)allowedValues withTitles:(NSArray*)titles;
