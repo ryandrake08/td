@@ -15,7 +15,7 @@ static std::string random_player_id()
 
 // ----- initialization
 
-td::authorized_client::authorized_client(int c) : code(c), added_at(datetime::now())
+td::authorized_client::authorized_client(int c, const std::string& name) : code(c), name(name), added_at(datetime::now())
 {
 }
 

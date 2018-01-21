@@ -11,8 +11,8 @@
 
 @interface TournamentDaemon : NSObject
 
-// start the daemon, pre-authorizing given client code, returning local unix socket path
-- (TournamentService*)startWithAuthCode:(NSNumber*)code;
+// start the daemon, pre-authorizing given client code and device name, returning local unix socket path
+- (TournamentService*)startWithAuthCode:(NSNumber*)code name:(NSString*)name;
 
 // publish over Bojour using name
 - (void)publishWithName:(NSString*)name;

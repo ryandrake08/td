@@ -33,7 +33,7 @@ namespace td
         std::string name;
         datetime added_at;
 
-        authorized_client(int c);
+        explicit authorized_client(int c, const std::string& name);
         explicit authorized_client(const json& obj);
     };
 

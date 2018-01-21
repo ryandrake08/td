@@ -43,7 +43,7 @@
     } else if([underlyingValue isKindOfClass:[NSString class]]) {
         return underlyingValue;
     } else {
-        NSLog(@"TBTextFieldTableViewCell: textRepresentationOfUnderlyingValue: underlying value of unsupported class");
+        return @" ";
     }
     return nil;
 }

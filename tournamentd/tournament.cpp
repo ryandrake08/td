@@ -119,10 +119,6 @@ struct tournament::impl
 				logger(LOG_DEBUG) << "Authorizing code " << auth.code << " named \"" << auth.name << "\"\n";
 				this->game_auths.emplace(auth.code, auth);
 			}
-
-			// always make sure caller is in the authorization list
-			logger(LOG_DEBUG) << "Authorizing myself (code " << mycode << ")\n";
-			this->game_auths.emplace(mycode, mycode);
 		}
 
 		// configure
@@ -903,10 +899,10 @@ struct tournament::impl
 		return false;
 	}
 
-	int authorize(int code)
+    int authorize(int code, const std::string& name)
 	{
-		logger(LOG_INFO) << "client " << code << " authorized to administer this tournament\n";
-		this->game_auths.emplace(code, code);
+		logger(LOG_INFO) << "client " << code << " (" << name << ") authorized to administer this tournament\n";
+		this->game_auths.emplace(code, td::authorized_client(code, name));
 		return code;
 	}
 
@@ -978,9 +974,9 @@ tournament::tournament() : pimpl(new impl)
 
 tournament::~tournament() = default;
 
-int tournament::authorize(int code)
+int tournament::authorize(int code, const std::string& name)
 {
-	return this->pimpl->authorize(code);
+	return this->pimpl->authorize(code, name);
 }
 
 #if !defined(DEFAULT_PORT)

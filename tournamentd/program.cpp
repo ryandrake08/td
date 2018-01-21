@@ -20,12 +20,12 @@ public:
         static const char* usage =
             "Usage: tournamentd [options]\n"
             " -c, --conf FILE\tInitialize configuration from file\n"
-            " -a, --auth LIST\tPre-authorize client authentication code\n"
+            " -a, --auth CODE\tPre-authorize client authentication code\n"
             " -n, --name NAME\tPublish Bonjour service with given name (default: tournamentd)\n";
 
 #if defined(DEBUG)
         // debug only: always accept this code
-        this->tourney.authorize(31337);
+        this->tourney.authorize(31337, "Debug Test Account");
 
         // debug only: load a default configuration
         this->tourney.load_configuration("defaults.json");
@@ -57,7 +57,7 @@ public:
                 if(it != cmdline.end())
                 {
                     // parse client code
-                    this->tourney.authorize(std::stoi(*it++));
+                    this->tourney.authorize(std::stoi(*it++), "tournamentd Command Line");
                 }
                 else
                 {

@@ -18,7 +18,7 @@ public:
     ~tournament();
 
     // authorize a client code
-    int authorize(int code);
+    int authorize(int code, const std::string& name);
 
     // listen for clients on any available service, returning the unix socket path and port
     std::pair<std::string, int> listen(const char* unix_socket_directory);

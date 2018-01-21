@@ -44,7 +44,7 @@
     _server = [[TournamentDaemon alloc] init];
 
     // Start serving using this device's auth key
-    TournamentService* service = [[self server] startWithAuthCode:[TournamentSession clientIdentifier]];
+    TournamentService* service = [[self server] startWithAuthCode:[TournamentSession clientIdentifier] name:[[UIDevice currentDevice] name]];
 
     // Start the session, connecting locally
     NSError* error;

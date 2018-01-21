@@ -11,12 +11,6 @@
 #import "NSDateFormatter+ISO8601.h"
 #import "TournamentSession.h"
 
-@interface TBSetupDevicesViewController ()
-
-@property (nonatomic, strong) TBAuthCodeNumberFormatter* codeFormatter;
-
-@end
-
 @implementation TBSetupDevicesViewController
 
 - (void)viewDidLoad {
@@ -26,30 +20,13 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    
-    // Dispose of any resources that can be recreated.
-    [self setCodeFormatter:nil];
-}
-
-// hide row that represents authorization for this device
-- (CGFloat)tableView:(UITableView*)tableView heightForRowAtIndexPath:(NSIndexPath*)indexPath {
-    NSDictionary* object = [super arrangedObjectForIndexPath:indexPath];
-    if(object[@"code"] == [TournamentSession clientIdentifier]) {
-        return 0;
-    } else {
-        return 43.5;
-    }
 }
 
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath {
-    // create number formatter if it doesn't exist
-    if([self codeFormatter] == nil) {
-        [self setCodeFormatter:[[TBAuthCodeNumberFormatter alloc] init]];
-    }
-
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"SetupDeviceCell" forIndexPath:indexPath];
     NSDictionary* object = [super arrangedObjectForIndexPath:indexPath];
-    NSString* codeString = [[self codeFormatter] stringFromNumber:object[@"code"]];
+    TBAuthCodeNumberFormatter* codeFormatter = [[TBAuthCodeNumberFormatter alloc] init];
+    NSString* codeString = [codeFormatter stringFromNumber:object[@"code"]];
     [[cell textLabel] setText:codeString];
     [[cell detailTextLabel] setText:object[@"name"]];
     return cell;
