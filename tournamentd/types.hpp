@@ -34,7 +34,7 @@ namespace td
         datetime added_at;
 
         authorized_client(int c);
-        authorized_client(const json& obj);
+        explicit authorized_client(const json& obj);
     };
 
     // attributes of a single blind level
@@ -49,7 +49,7 @@ namespace td
         std::string reason;
 
         explicit blind_level(const std::string& name=std::string());
-        blind_level(const json& obj);
+        explicit blind_level(const json& obj);
     };
 
     // attributes of a single chip denomination
@@ -60,7 +60,7 @@ namespace td
         unsigned long count_available;
 
         chip();
-        chip(const json& obj);
+        explicit chip(const json& obj);
     };
 
     // attributes of each funding source (buy-in, addon, etc.)
@@ -79,7 +79,7 @@ namespace td
         std::string equity_currency;
 
         funding_source();
-        funding_source(const json& obj);
+        explicit funding_source(const json& obj);
     };
 
     // attributes of each player
@@ -90,7 +90,7 @@ namespace td
         datetime added_at;
 
         player();
-        player(const json& obj);
+        explicit player(const json& obj);
     };
 
     // attributes of a single physical seat at the tournament
@@ -100,7 +100,7 @@ namespace td
         std::size_t seat_number;
 
         seat();
-        seat(const json& obj);
+        explicit seat(const json& obj);
         seat(std::size_t t, std::size_t s);
     };
 
@@ -113,7 +113,7 @@ namespace td
         seat to_seat;
 
         player_movement();
-        player_movement(const json& obj);
+        explicit player_movement(const json& obj);
         player_movement(const player_id_t& p, const std::string& n, const seat& f, const seat& t);
     };
 
@@ -124,7 +124,7 @@ namespace td
         unsigned long chips;
 
         player_chips();
-        player_chips(const json& obj);
+        explicit player_chips(const json& obj);
         player_chips(unsigned long d, unsigned long c);
     };
 
@@ -135,7 +135,7 @@ namespace td
         std::vector<double> payouts;
 
         manual_payout();
-        manual_payout(const json& obj);
+        explicit manual_payout(const json& obj);
         manual_payout(size_t c, const std::vector<double>& p);
     };
 
