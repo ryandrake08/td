@@ -11,7 +11,7 @@
 @interface TBEditableTableViewCell : UITableViewCell
 
 // object (KV observable) to be edited
-@property (nonatomic, retain) id object;
+@property (nonatomic, strong) id object;
 
 // keypath of object to be edited
 @property (nonatomic, copy) NSString* keyPath;
@@ -40,4 +40,6 @@
 
 @end
 
+@interface TBEllipseTableViewCell : TBEditableTableViewCell
 
+@end

@@ -15,17 +15,7 @@
 
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath {
     UITableViewCell* cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
-
-    if(indexPath.section == 0) {
-        switch(indexPath.row) {
-            case 0:
-            {
-                [(TBEditableTextTableViewCell*)cell setObject:[self object]];
-                [(TBEditableTextTableViewCell*)cell setKeyPath:@"name"];
-                break;
-            }
-        }
-    }
+    [(TBEditableTextTableViewCell*)cell setObject:[self object]];
     return cell;
 }
 

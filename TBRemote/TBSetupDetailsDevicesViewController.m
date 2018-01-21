@@ -17,24 +17,12 @@
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath {
     UITableViewCell* cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
 
-    if(indexPath.section == 0) {
-        switch(indexPath.row) {
-            case 0:
-            {
-                TBAuthCodeNumberFormatter* codeFormatter = [[TBAuthCodeNumberFormatter alloc] init];
-                [(TBEditableNumberTableViewCell*)cell setFormatter:codeFormatter];
-                [(TBEditableTableViewCell*)cell setObject:[self object]];
-                [(TBEditableTableViewCell*)cell setKeyPath:@"code"];
-                break;
-            }
-            case 1:
-            {
-                [(TBEditableTableViewCell*)cell setObject:[self object]];
-                [(TBEditableTableViewCell*)cell setKeyPath:@"name"];
-                break;
-            }
-        }
+    if(indexPath.section == 0 && indexPath.row == 0) {
+        TBAuthCodeNumberFormatter* codeFormatter = [[TBAuthCodeNumberFormatter alloc] init];
+        [(TBEditableNumberTableViewCell*)cell setFormatter:codeFormatter];
     }
+    
+    [(TBEditableTableViewCell*)cell setObject:[self object]];
     return cell;
 }
 

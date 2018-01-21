@@ -15,90 +15,31 @@
 #pragma mark UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView*)tableView {
-    if([self object][@"break_duration"] != nil) {
-        return 2;
-    } else {
+    if([self object][@"break_duration"] == nil) {
         return 1;
     }
-}
-
-- (NSInteger)tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section {
-    if(section == 0) {
-        return 5;
-    } else if(section == 1 && [self object][@"break_duration"] != nil) {
-        return 2;
-    }
-    return 0;
+    return [super numberOfSectionsInTableView:tableView];
 }
 
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath {
     UITableViewCell* cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
 
-    if(indexPath.section == 0) {
-        switch(indexPath.row) {
-            case 0:
-            {
-                TBDurationNumberFormatter* durationFormatter = [[TBDurationNumberFormatter alloc] init];
-                [(TBEditableNumberTableViewCell*)cell setFormatter:durationFormatter];
-                [(TBEditableTableViewCell*)cell setObject:[self object]];
-                [(TBEditableTableViewCell*)cell setKeyPath:@"duration"];
-                break;
-            }
-            case 1:
-            {
-                [(TBEditableTableViewCell*)cell setObject:[self object]];
-                [(TBEditableTableViewCell*)cell setKeyPath:@"little_blind"];
-                break;
-            }
-            case 2:
-            {
-                [(TBEditableTableViewCell*)cell setObject:[self object]];
-                [(TBEditableTableViewCell*)cell setKeyPath:@"big_blind"];
-                break;
-            }
-            case 3:
-            {
-                [(TBEditableTableViewCell*)cell setObject:[self object]];
-                [(TBEditableTableViewCell*)cell setKeyPath:@"ante"];
-                break;
-            }
-            case 4:
-            {
-                [(TBCheckmarkNumberTableViewCell*)cell setObject:[self object]];
-                [(TBCheckmarkNumberTableViewCell*)cell setKeyPath:@"break_duration"];
-                break;
-            }
-        }
-    } else if(indexPath.section == 1) {
-        switch(indexPath.row) {
-            case 0:
-            {
-                TBDurationNumberFormatter* durationFormatter = [[TBDurationNumberFormatter alloc] init];
-                [(TBEditableNumberTableViewCell*)cell setFormatter:durationFormatter];
-                [(TBEditableTableViewCell*)cell setObject:[self object]];
-                [(TBEditableTableViewCell*)cell setKeyPath:@"break_duration"];
-                break;
-            }
-            case 1:
-            {
-                [(TBEditableTableViewCell*)cell setObject:[self object]];
-                [(TBEditableTableViewCell*)cell setKeyPath:@"reason"];
-                break;
-            }
-        }
+    if(indexPath.row == 0) { // formatter for row 0 of both sections
+        TBDurationNumberFormatter* durationFormatter = [[TBDurationNumberFormatter alloc] init];
+        [(TBEditableNumberTableViewCell*)cell setFormatter:durationFormatter];
     }
 
+    [(TBEditableTableViewCell*)cell setObject:[self object]];
     return cell;
 }
 
 #pragma mark UITableViewDelegate
 
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
-    if(indexPath.section == 0) {
-       if(indexPath.row == 4) {
-           [tableView deselectRowAtIndexPath:indexPath animated:YES];
-           [tableView reloadData];
-       }
+    // deselect call and reload table when "break after" is changed
+    if(indexPath.section == 0 && indexPath.row == 4) {
+       [tableView deselectRowAtIndexPath:indexPath animated:YES];
+       [tableView reloadData];
     }
 }
 

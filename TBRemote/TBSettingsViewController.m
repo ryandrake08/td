@@ -113,7 +113,6 @@
             case 0:
             {
                 [(TBEditableTableViewCell*)cell setObject:[self configuration]];
-                [(TBEditableTableViewCell*)cell setKeyPath:@"name"];
                 break;
             }
             case 1:
@@ -139,7 +138,6 @@
             case 6:
                 [(TBPickableTextTableViewCell*)cell setAllowedValues:@[@2, @3, @4, @5, @6, @7, @8, @9, @10, @11, @12] withTitles:nil];
                 [(TBEditableTableViewCell*)cell setObject:[self configuration]];
-                [(TBEditableTableViewCell*)cell setKeyPath:@"table_capacity"];
                 break;
         }
     } else if(indexPath.section == 1) {

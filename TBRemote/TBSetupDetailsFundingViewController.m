@@ -34,12 +34,6 @@
 
     if(indexPath.section == 0) {
         switch(indexPath.row) {
-            case 0:
-            {
-                [(TBEditableTableViewCell*)cell setObject:[self object]];
-                [(TBEditableTableViewCell*)cell setKeyPath:@"name"];
-                break;
-            }
             case 1:
             {
                 [(TBPickableTextTableViewCell*)cell setAllowedValues:@[kFundingTypeBuyin,
@@ -48,8 +42,6 @@
                                                           withTitles:@[NSLocalizedString(@"Buyin", nil),
                                                                        NSLocalizedString(@"Rebuy", nil),
                                                                        NSLocalizedString(@"Addon", nil)]];
-                [(TBEditableTableViewCell*)cell setObject:[self object]];
-                [(TBEditableTableViewCell*)cell setKeyPath:@"type"];
                 break;
             }
             case 2:
@@ -57,16 +49,12 @@
                 NSNumberFormatter* costFormatter = [[NSNumberFormatter alloc] init];
                 [costFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
                 [(TBEditableNumberTableViewCell*)cell setFormatter:costFormatter];
-                [(TBEditableTableViewCell*)cell setObject:[self object]];
-                [(TBEditableTableViewCell*)cell setKeyPath:@"cost"];
                 break;
             }
             case 3:
             {
                 NSDictionary* currenciesForCodes = [TBCurrencyNumberFormatter supportedCurrenciesForCodes];
                 [(TBPickableTextTableViewCell*)cell setAllowedValues:[currenciesForCodes allKeys] withTitles:[currenciesForCodes allValues]];
-                [(TBEditableTableViewCell*)cell setObject:[self object]];
-                [(TBEditableTableViewCell*)cell setKeyPath:@"cost_currency"];
                 break;
             }
             case 4:
@@ -74,16 +62,12 @@
                 NSNumberFormatter* commissionFormatter = [[NSNumberFormatter alloc] init];
                 [commissionFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
                 [(TBEditableNumberTableViewCell*)cell setFormatter:commissionFormatter];
-                [(TBEditableTableViewCell*)cell setObject:[self object]];
-                [(TBEditableTableViewCell*)cell setKeyPath:@"commission"];
                 break;
             }
             case 5:
             {
                 NSDictionary* currenciesForCodes = [TBCurrencyNumberFormatter supportedCurrenciesForCodes];
                 [(TBPickableTextTableViewCell*)cell setAllowedValues:[currenciesForCodes allKeys] withTitles:[currenciesForCodes allValues]];
-                [(TBEditableTableViewCell*)cell setObject:[self object]];
-                [(TBEditableTableViewCell*)cell setKeyPath:@"commission_currency"];
                 break;
             }
             case 6:
@@ -91,8 +75,6 @@
                 NSNumberFormatter* equityFormatter = [[NSNumberFormatter alloc] init];
                 [equityFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
                 [(TBEditableNumberTableViewCell*)cell setFormatter:equityFormatter];
-                [(TBEditableTableViewCell*)cell setObject:[self object]];
-                [(TBEditableTableViewCell*)cell setKeyPath:@"equity"];
                 break;
             }
             case 7:
@@ -100,19 +82,6 @@
                 NSDictionary* currenciesForCodes = [TBCurrencyNumberFormatter supportedCurrenciesForCodes];
                 [(TBPickableTextTableViewCell*)cell setAllowedValues:[currenciesForCodes allKeys] withTitles:[currenciesForCodes allValues]];
                 [(TBEditableTableViewCell*)cell setObject:[self object]];
-                [(TBEditableTableViewCell*)cell setKeyPath:@"equity_currency"];
-                break;
-            }
-            case 8:
-            {
-                [(TBEditableTableViewCell*)cell setObject:[self object]];
-                [(TBEditableTableViewCell*)cell setKeyPath:@"chips"];
-                break;
-            }
-            case 9:
-            {
-                [(TBCheckmarkNumberTableViewCell*)cell setObject:[self object]];
-                [(TBCheckmarkNumberTableViewCell*)cell setKeyPath:@"forbid_after_blind_level"];
                 break;
             }
         }
@@ -127,15 +96,14 @@
                     [blindLevelIndices addObject:@(i)];
                     [names addObject:[NSString stringWithFormat:NSLocalizedString(@"Round %ld", @"Numbered blind level"), i]];
                 }
-
                 [(TBPickableTextTableViewCell*)cell setAllowedValues:blindLevelIndices withTitles:names];
-                [(TBEditableTableViewCell*)cell setObject:[self object]];
-                [(TBEditableTableViewCell*)cell setKeyPath:@"forbid_after_blind_level"];
                 break;
             }
         }
     }
 
+    // pass our object to each cell
+    [(TBEditableTableViewCell*)cell setObject:[self object]];
     return cell;
 }
 
@@ -143,11 +111,9 @@
 
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
     // deselect call and reload table when "forbid after" is changed
-    if(indexPath.section == 0) {
-        if(indexPath.row == 9) {
-            [tableView deselectRowAtIndexPath:indexPath animated:YES];
-            [tableView reloadData];
-        }
+    if(indexPath.section == 0 && indexPath.row == 9) {
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        [tableView reloadData];
     }
 }
 

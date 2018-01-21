@@ -7,9 +7,12 @@
 //
 
 #import "TBEditableTableViewCell.h"
+#import "TBColor+CSS.h"
+#import "TBEllipseView.h"
 #import "TBNotifications.h"
 
 @implementation TBEditableTableViewCell
+
 @end
 
 @interface TBEditableTextTableViewCell () <UITextFieldDelegate>
@@ -22,8 +25,8 @@
 @implementation TBEditableTextTableViewCell
 
 // set the object and keypath to observe/sync with text field
-- (void)setKeyPath:(NSString*)keyPath {
-    [super setKeyPath:keyPath];
+- (void)setObject:(id)object {
+    [super setObject:object];
     [self updateTextField];
 }
 
@@ -34,6 +37,8 @@
         [[self textField] setText:object];
     } else if(object != nil) {
         NSLog(@"TBEditableTextTableViewCell: editable object is not a string");
+    } else {
+        NSLog(@"updateTextField: object is nil");
     }
 }
 
@@ -84,6 +89,8 @@
         [[self textField] setText:text];
     } else if(object != nil) {
         NSLog(@"TBEditableNumberTableViewCell: editable object is not a number");
+    } else {
+        NSLog(@"updateTextField: object is nil");
     }
 }
 
@@ -132,24 +139,19 @@
 
 // update the text field to match the editable object
 - (void)updateTextField {
-    NSString* keyPath = [self keyPath];
-    if(keyPath == nil) {
-        NSLog(@"updateTextField: keypath is nil");
-    } else {
-        id object = [self object][keyPath];
-        if(object == nil) {
-            NSLog(@"updateTextField: object is nil");
+    id object = [self object][[self keyPath]];
+    if(object != nil) {
+        NSString* text = [self titleForValue][object];
+        if(text == nil) {
+            NSLog(@"updateTextField: text is nil");
         } else {
-            NSString* text = [self titleForValue][object];
-            if(text == nil) {
-                NSLog(@"updateTextField: text is nil");
-            } else {
-                [[self textField] setText:text];
+            [[self textField] setText:text];
 
-                // sync picker
-                [self updatePickerSelection];
-            }
+            // sync picker
+            [self updatePickerSelection];
         }
+    } else {
+        NSLog(@"updateTextField: object is nil");
     }
 }
 
@@ -258,6 +260,24 @@
         }
         [[NSNotificationCenter defaultCenter] postNotificationName:kConfigurationUpdatedNotification object:nil];
     }
+}
+
+@end
+
+@interface TBEllipseTableViewCell ()
+
+// ui outlet
+@property (nonatomic, strong) IBOutlet TBEllipseView* ellipseView;
+
+@end
+
+@implementation TBEllipseTableViewCell
+
+// set the object and keypath to observe/sync with text field
+- (void)setObject:(id)object {
+    [super setObject:object];
+    UIColor* detail = [TBColor colorWithName:[self object][[self keyPath]]];
+    [[self ellipseView] setColor:detail];
 }
 
 @end

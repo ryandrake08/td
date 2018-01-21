@@ -53,6 +53,9 @@
                                                 <constraint firstItem="H7M-O4-NKl" firstAttribute="centerY" secondItem="C1R-2z-Ha5" secondAttribute="centerY" id="TfC-Fd-2JS"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="keyPath" value="name"/>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outlet property="textField" destination="H7M-O4-NKl" id="0hw-iG-GEI"/>
                                         </connections>
@@ -248,6 +251,9 @@
                                                 <constraint firstAttribute="trailingMargin" secondItem="AcQ-JH-AeB" secondAttribute="trailing" constant="27" id="zCJ-Ox-fEP"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="keyPath" value="table_capacity"/>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outlet property="textField" destination="AcQ-JH-AeB" id="2wk-PA-n3f"/>
                                         </connections>
@@ -1474,6 +1480,9 @@
                                                 <constraint firstItem="WDa-Jh-acG" firstAttribute="centerY" secondItem="3DR-vf-ONr" secondAttribute="centerY" id="xsF-aS-OAy"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="keyPath" value="duration"/>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outlet property="textField" destination="WDa-Jh-acG" id="Paq-i9-cYL"/>
                                         </connections>
@@ -1509,6 +1518,9 @@
                                                 <constraint firstItem="hZE-bl-x2x" firstAttribute="baseline" secondItem="pH6-6d-rbf" secondAttribute="baseline" id="ew8-zb-hVa"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="keyPath" value="little_blind"/>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outlet property="textField" destination="hZE-bl-x2x" id="kIp-ER-ldb"/>
                                         </connections>
@@ -1544,6 +1556,9 @@
                                                 <constraint firstItem="Zc8-4g-HO9" firstAttribute="leading" secondItem="suL-Dj-txH" secondAttribute="leadingMargin" id="wng-G1-Et2"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="keyPath" value="big_blind"/>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outlet property="textField" destination="W6d-06-fje" id="LKw-3o-kNl"/>
                                         </connections>
@@ -1579,6 +1594,9 @@
                                                 <constraint firstItem="6Ac-3H-RUx" firstAttribute="baseline" secondItem="hYQ-rq-FUP" secondAttribute="baseline" id="vxk-5d-pX2"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="keyPath" value="ante"/>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outlet property="textField" destination="6Ac-3H-RUx" id="aZ4-a4-meu"/>
                                         </connections>
@@ -1603,6 +1621,9 @@
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="IM9-KI-2f2" secondAttribute="trailingMargin" id="mfq-pj-VzZ"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="keyPath" value="break_duration"/>
+                                        </userDefinedRuntimeAttributes>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -1639,6 +1660,9 @@
                                                 <constraint firstItem="ou6-Jk-ZbW" firstAttribute="leading" secondItem="Iud-Eq-RjS" secondAttribute="trailing" constant="8" symbolic="YES" id="q9a-5a-ZAI"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="keyPath" value="break_duration"/>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outlet property="textField" destination="ou6-Jk-ZbW" id="8jA-V1-HtC"/>
                                         </connections>
@@ -1674,6 +1698,9 @@
                                                 <constraint firstItem="bYh-pO-566" firstAttribute="centerY" secondItem="6Q4-9q-rv6" secondAttribute="centerY" id="z2h-oR-lSE"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="keyPath" value="reason"/>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outlet property="textField" destination="bYh-pO-566" id="EuD-HV-el9"/>
                                         </connections>
@@ -1736,6 +1763,9 @@
                                                 <constraint firstItem="UeC-d9-7ec" firstAttribute="baseline" secondItem="YWU-WP-0D4" secondAttribute="baseline" id="uIQ-7O-tAC"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="keyPath" value="name"/>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outlet property="textField" destination="UeC-d9-7ec" id="aiP-45-lTN"/>
                                         </connections>
@@ -1771,6 +1801,9 @@
                                                 <constraint firstItem="OIw-Zl-xeE" firstAttribute="leading" secondItem="2Ij-WT-lEz" secondAttribute="trailing" constant="8" symbolic="YES" id="fgf-Qp-BwL"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="keyPath" value="type"/>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outlet property="textField" destination="OIw-Zl-xeE" id="kFb-dW-dVf"/>
                                         </connections>
@@ -1806,6 +1839,9 @@
                                                 <constraint firstItem="mEk-AX-yBt" firstAttribute="leading" secondItem="jPA-rv-yCx" secondAttribute="leadingMargin" id="pFA-o7-6zb"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="keyPath" value="cost"/>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outlet property="textField" destination="R1P-V7-Cdj" id="BkV-Qu-skL"/>
                                         </connections>
@@ -1841,6 +1877,9 @@
                                                 <constraint firstItem="cTa-9x-cOc" firstAttribute="leading" secondItem="vSD-lJ-MdV" secondAttribute="leadingMargin" id="wsJ-mT-vmO"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="keyPath" value="cost_currency"/>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outlet property="textField" destination="EbY-0H-o5D" id="ARG-Zw-QbI"/>
                                         </connections>
@@ -1876,6 +1915,9 @@
                                                 <constraint firstItem="7Fg-zG-82z" firstAttribute="leading" secondItem="33N-SR-vgF" secondAttribute="leadingMargin" id="xDL-B5-iTV"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="keyPath" value="commission"/>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outlet property="textField" destination="ynV-zw-wDQ" id="1uH-se-u0J"/>
                                         </connections>
@@ -1911,6 +1953,9 @@
                                                 <constraint firstItem="lML-vg-MJS" firstAttribute="baseline" secondItem="uqa-kq-JrF" secondAttribute="baseline" id="sYx-M7-UWw"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="keyPath" value="commission_currency"/>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outlet property="textField" destination="lML-vg-MJS" id="Pfg-yQ-ksn"/>
                                         </connections>
@@ -1946,6 +1991,9 @@
                                                 <constraint firstItem="CMi-C5-KvE" firstAttribute="centerY" secondItem="GkK-NB-H8B" secondAttribute="centerY" id="sPE-j7-hWE"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="keyPath" value="equity"/>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outlet property="textField" destination="CMi-C5-KvE" id="IJS-LR-PGZ"/>
                                         </connections>
@@ -1981,6 +2029,9 @@
                                                 <constraint firstItem="6p3-TM-Q4d" firstAttribute="centerY" secondItem="sDB-Eb-uAi" secondAttribute="centerY" id="wEe-dT-4Gm"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="keyPath" value="equity_currency"/>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outlet property="textField" destination="6p3-TM-Q4d" id="2Q2-6E-xdh"/>
                                         </connections>
@@ -2016,6 +2067,9 @@
                                                 <constraint firstItem="8ir-i0-i4k" firstAttribute="centerY" secondItem="mzT-rp-AIs" secondAttribute="centerY" id="yWD-Uh-bxZ"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="keyPath" value="chips"/>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outlet property="textField" destination="8ir-i0-i4k" id="OgI-vf-Byz"/>
                                         </connections>
@@ -2040,6 +2094,9 @@
                                                 <constraint firstItem="ybd-61-dUX" firstAttribute="leading" secondItem="ONR-Ke-XAO" secondAttribute="leadingMargin" id="yzv-VR-ovG"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="keyPath" value="forbid_after_blind_level"/>
+                                        </userDefinedRuntimeAttributes>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -2076,6 +2133,9 @@
                                                 <constraint firstAttribute="trailingMargin" secondItem="pIH-yt-YQV" secondAttribute="trailing" constant="7" id="geA-UL-gub"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="keyPath" value="forbid_after_blind_level"/>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outlet property="textField" destination="pIH-yt-YQV" id="VLZ-0H-Eab"/>
                                         </connections>
@@ -2107,7 +2167,7 @@
                         <sections>
                             <tableViewSection id="oe3-tY-dSh">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="7Pz-qo-o7m">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="7Pz-qo-o7m" customClass="TBEllipseTableViewCell">
                                         <rect key="frame" x="0.0" y="35" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7Pz-qo-o7m" id="JMw-0d-WXW">
@@ -2120,7 +2180,7 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <view tag="100" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U6f-65-7LZ" customClass="TBEllipseView">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U6f-65-7LZ" customClass="TBEllipseView">
                                                     <rect key="frame" x="294" y="6" width="32" height="32"/>
                                                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
@@ -2144,7 +2204,11 @@
                                                 <constraint firstItem="g4y-8E-zdN" firstAttribute="centerY" secondItem="U6f-65-7LZ" secondAttribute="centerY" id="vI0-dn-9NF"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="keyPath" value="color"/>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
+                                            <outlet property="ellipseView" destination="U6f-65-7LZ" id="8C6-eB-oeH"/>
                                             <segue destination="gRs-x5-yi9" kind="push" id="55k-Z1-HEe"/>
                                         </connections>
                                     </tableViewCell>
@@ -2179,6 +2243,9 @@
                                                 <constraint firstItem="GFQ-a4-lZX" firstAttribute="leading" secondItem="9bS-Jp-PVW" secondAttribute="leadingMargin" id="u15-g9-yLA"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="keyPath" value="denomination"/>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outlet property="textField" destination="fhU-3R-8Cc" id="uVc-Hd-6s6"/>
                                         </connections>
@@ -2214,6 +2281,9 @@
                                                 <constraint firstItem="kO1-zw-FeO" firstAttribute="leading" secondItem="jmS-nU-o4T" secondAttribute="trailing" constant="8" symbolic="YES" id="wJi-6g-sGp"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="keyPath" value="count_available"/>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outlet property="textField" destination="kO1-zw-FeO" id="qSg-JN-vuo"/>
                                         </connections>
@@ -2332,6 +2402,9 @@
                                                 <constraint firstItem="6h8-hK-2k1" firstAttribute="baseline" secondItem="Opw-ut-MDT" secondAttribute="baseline" id="f0a-Wf-7HH"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="keyPath" value="name"/>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outlet property="textField" destination="6h8-hK-2k1" id="TQo-Yp-D47"/>
                                         </connections>
@@ -2394,6 +2467,9 @@
                                                 <constraint firstItem="Z9j-sZ-dDw" firstAttribute="centerY" secondItem="kir-44-HpE" secondAttribute="centerY" id="lCO-57-0lA"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="keyPath" value="code"/>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outlet property="textField" destination="Z9j-sZ-dDw" id="Ei5-Ts-2VW"/>
                                         </connections>
@@ -2429,6 +2505,9 @@
                                                 <constraint firstItem="0mY-FS-PLT" firstAttribute="leading" secondItem="rju-j6-E3F" secondAttribute="trailing" constant="8" symbolic="YES" id="ofC-OO-gKv"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="keyPath" value="name"/>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outlet property="textField" destination="0mY-FS-PLT" id="vY8-th-avc"/>
                                         </connections>
