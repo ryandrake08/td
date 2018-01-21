@@ -10,6 +10,11 @@
 
 @interface TBCurrencyNumberFormatter : NSNumberFormatter
 
+@property (nonatomic, copy, readonly) NSArray* supportedCurrencies;
+@property (nonatomic, copy, readonly) NSArray* supportedCodes;
+
++ (NSArray*)supportedCurrencies;
++ (NSArray*)supportedCodes;
 + (NSDictionary*)supportedCurrenciesForCodes;
 + (NSDictionary*)supportedCodesForCurrencies;
 

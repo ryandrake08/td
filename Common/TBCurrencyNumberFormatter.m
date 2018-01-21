@@ -39,26 +39,34 @@
     }
 }
 
++ (NSArray*)supportedCurrencies {
+    return @[NSLocalizedString(@"Dollar", nil),
+             NSLocalizedString(@"Euro", nil),
+             NSLocalizedString(@"Rupee", nil),
+             NSLocalizedString(@"Pound", nil),
+             NSLocalizedString(@"Yen", nil),
+             NSLocalizedString(@"Yuan", nil),
+             NSLocalizedString(@"Bucks", nil),
+             NSLocalizedString(@"Points", nil)];
+}
+
++ (NSArray*)supportedCodes {
+    return @[@"USD",
+             @"EUR",
+             @"INR",
+             @"GBP",
+             @"JPY",
+             @"CNY",
+             @"XPB",
+             @"XPT"];
+}
+
 +(NSDictionary*)supportedCodesForCurrencies {
-    return @{NSLocalizedString(@"Dollar", nil)  :@"USD",
-             NSLocalizedString(@"Euro", nil)    :@"EUR",
-             NSLocalizedString(@"Rupee", nil)   :@"INR",
-             NSLocalizedString(@"Pound", nil)   :@"GBP",
-             NSLocalizedString(@"Yen", nil)     :@"JPY",
-             NSLocalizedString(@"Yuan", nil)    :@"CNY",
-             NSLocalizedString(@"Bucks", nil)   :@"XPB",
-             NSLocalizedString(@"Points", nil)  :@"XPT"};
+    return [NSDictionary dictionaryWithObjects:[[self class] supportedCodes] forKeys:[[self class] supportedCurrencies]];
 }
 
 +(NSDictionary*)supportedCurrenciesForCodes {
-    return @{@"USD":NSLocalizedString(@"Dollar", nil),
-             @"EUR":NSLocalizedString(@"Euro", nil),
-             @"INR":NSLocalizedString(@"Rupee", nil),
-             @"GBP":NSLocalizedString(@"Pound", nil),
-             @"JPY":NSLocalizedString(@"Yen", nil),
-             @"CNY":NSLocalizedString(@"Yuan", nil),
-             @"XPB":NSLocalizedString(@"Bucks", nil),
-             @"XPT":NSLocalizedString(@"Points", nil)};
+    return [NSDictionary dictionaryWithObjects:[[self class] supportedCurrencies] forKeys:[[self class] supportedCodes]];
 }
 
 @end

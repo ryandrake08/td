@@ -63,7 +63,7 @@
     [super viewDidLoad];
 
     // set up currency list
-    _currencyList = [[TBCurrencyNumberFormatter supportedCodesForCurrencies] allKeys];
+    _currencyList = [TBCurrencyNumberFormatter supportedCurrencies];
 
     // setup sort descriptors
     NSSortDescriptor* nameSort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];

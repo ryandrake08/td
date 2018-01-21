@@ -36,52 +36,14 @@
         switch(indexPath.row) {
             case 1:
             {
-                [(TBPickableTextTableViewCell*)cell setAllowedValues:@[kFundingTypeBuyin,
-                                                                       kFundingTypeRebuy,
-                                                                       kFundingTypeAddon]
-                                                          withTitles:@[NSLocalizedString(@"Buyin", nil),
-                                                                       NSLocalizedString(@"Rebuy", nil),
-                                                                       NSLocalizedString(@"Addon", nil)]];
-                break;
-            }
-            case 2:
-            {
-                NSNumberFormatter* costFormatter = [[NSNumberFormatter alloc] init];
-                [costFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
-                [(TBEditableTextTableViewCell*)cell setFormatter:costFormatter];
+                [(TBPickableTextTableViewCell*)cell setAllowedValues:@[kFundingTypeBuyin, kFundingTypeRebuy, kFundingTypeAddon] withTitles:@[NSLocalizedString(@"Buyin", nil), NSLocalizedString(@"Rebuy", nil), NSLocalizedString(@"Addon", nil)]];
                 break;
             }
             case 3:
-            {
-                NSDictionary* currenciesForCodes = [TBCurrencyNumberFormatter supportedCurrenciesForCodes];
-                [(TBPickableTextTableViewCell*)cell setAllowedValues:[currenciesForCodes allKeys] withTitles:[currenciesForCodes allValues]];
-                break;
-            }
-            case 4:
-            {
-                NSNumberFormatter* commissionFormatter = [[NSNumberFormatter alloc] init];
-                [commissionFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
-                [(TBEditableTextTableViewCell*)cell setFormatter:commissionFormatter];
-                break;
-            }
             case 5:
-            {
-                NSDictionary* currenciesForCodes = [TBCurrencyNumberFormatter supportedCurrenciesForCodes];
-                [(TBPickableTextTableViewCell*)cell setAllowedValues:[currenciesForCodes allKeys] withTitles:[currenciesForCodes allValues]];
-                break;
-            }
-            case 6:
-            {
-                NSNumberFormatter* equityFormatter = [[NSNumberFormatter alloc] init];
-                [equityFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
-                [(TBEditableTextTableViewCell*)cell setFormatter:equityFormatter];
-                break;
-            }
             case 7:
             {
-                NSDictionary* currenciesForCodes = [TBCurrencyNumberFormatter supportedCurrenciesForCodes];
-                [(TBPickableTextTableViewCell*)cell setAllowedValues:[currenciesForCodes allKeys] withTitles:[currenciesForCodes allValues]];
-                [(TBKVOTableViewCell*)cell setObject:[self object]];
+                [(TBPickableTextTableViewCell*)cell setAllowedValues:[TBCurrencyNumberFormatter supportedCodes] withTitles:[TBCurrencyNumberFormatter supportedCurrencies]];
                 break;
             }
         }
