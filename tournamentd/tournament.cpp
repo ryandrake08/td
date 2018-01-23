@@ -291,7 +291,7 @@ struct tournament::impl
 		out.set_value("players_moved", json(movements.begin(), movements.end()));
 	}
 
-    void handle_cmd_rebalance_seating(const json& in, json& out)
+    void handle_cmd_rebalance_seating(const json& /* in */, json& out)
     {
         auto movements(this->game_info.rebalance_seating());
 
