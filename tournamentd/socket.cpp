@@ -97,10 +97,10 @@ struct common_socket::impl
     // construct with given fd
     explicit impl(SOCKET newfd) : socket_subsystem(get_shared_instance<socket_initializer>()), fd(newfd)
     {
-        logger(LOG_DEBUG) << "wrapped fd: " << this->fd << '\n';
+        logger(ll::debug) << "wrapped fd: " << this->fd << '\n';
 
 #if defined(SO_NOSIGPIPE)
-        logger(LOG_DEBUG) << "setting SO_NOSIGPIPE\n";
+        logger(ll::debug) << "setting SO_NOSIGPIPE\n";
 
         // set SO_NOSIGPIPE option
         int yes(1);
@@ -117,7 +117,7 @@ struct common_socket::impl
 
     ~impl()
     {
-        logger(LOG_DEBUG) << "closing fd: " << this->fd << '\n';
+        logger(ll::debug) << "closing fd: " << this->fd << '\n';
 
 #if defined(_WIN32) // thank you, Microsoft
         ::closesocket(this->fd);
@@ -134,7 +134,7 @@ struct common_socket::impl
         // unlink if this was a unix socket
         if((ret != SOCKET_ERROR) && (addr.sun_family == AF_UNIX))
         {
-            logger(LOG_DEBUG) << "unlinking unix socket " << this->fd << " path: " << addr.sun_path << '\n';
+            logger(ll::debug) << "unlinking unix socket " << this->fd << " path: " << addr.sun_path << '\n';
             unlink(addr.sun_path);
         }
 #endif
@@ -149,10 +149,10 @@ common_socket::common_socket()
 // create a socket with a given impl (needed for accept)
 common_socket::common_socket(impl* imp) : pimpl(imp)
 {
-    logger(LOG_DEBUG) << "creating socket from existing impl: " << *this << '\n';
+    logger(ll::debug) << "creating socket from existing impl: " << *this << '\n';
     if(!this->pimpl)
     {
-        logger(LOG_WARNING) << "creating socket from invalid impl\n";
+        logger(ll::warning) << "creating socket from invalid impl\n";
     }
 }
 
@@ -160,10 +160,10 @@ common_socket::~common_socket() = default;
 
 common_socket common_socket::accept() const
 {
-    logger(LOG_DEBUG) << "accepting with " << *this << '\n';
+    logger(ll::debug) << "accepting with " << *this << '\n';
     if(!this->pimpl)
     {
-        logger(LOG_WARNING) << "accepting on invalid socket impl\n";
+        logger(ll::warning) << "accepting on invalid socket impl\n";
         return common_socket();
     }
 
@@ -176,7 +176,7 @@ common_socket common_socket::accept() const
         throw std::system_error(errno, std::system_category(), "accept");
     }
 
-    logger(LOG_DEBUG) << "accepted connection on " << *this << '\n';
+    logger(ll::debug) << "accepted connection on " << *this << '\n';
     return common_socket(new impl(sock));
 }
 
@@ -235,10 +235,10 @@ std::set<common_socket> common_socket::select(const std::set<common_socket>& soc
 
 long common_socket::peek(void* buf, std::size_t bytes) const
 {
-    logger(LOG_DEBUG) << "peeking " << bytes << " on " << *this << '\n';
+    logger(ll::debug) << "peeking " << bytes << " on " << *this << '\n';
     if(!this->pimpl)
     {
-        logger(LOG_WARNING) << "peeking from invalid socket impl\n";
+        logger(ll::warning) << "peeking from invalid socket impl\n";
         return 0;
     }
 
@@ -278,17 +278,17 @@ long common_socket::peek(void* buf, std::size_t bytes) const
     {
         if(recv_errno == EAGAIN)
         {
-			logger(LOG_DEBUG) << "peek: no bytes available (EAGAIN)\n";
+			logger(ll::debug) << "peek: no bytes available (EAGAIN)\n";
 		}
 #if defined(_WIN32)
 		else if(recv_errno == 42 || recv_errno == 0)
 		{
-			logger(LOG_DEBUG) << "peek: no bytes available\n";
+			logger(ll::debug) << "peek: no bytes available\n";
 		}
 #endif
         else if(recv_errno == ECONNRESET)
         {
-            logger(LOG_DEBUG) << "peek: connection reset by peer\n";
+            logger(ll::debug) << "peek: connection reset by peer\n";
             return -1;
         }
 		else
@@ -299,12 +299,12 @@ long common_socket::peek(void* buf, std::size_t bytes) const
     }
     else if(len == 0)
     {
-        logger(LOG_DEBUG) << "peek: received zero bytes: connection shutdown gracefully\n";
+        logger(ll::debug) << "peek: received zero bytes: connection shutdown gracefully\n";
         return -1;
     }
     else
     {
-        logger(LOG_DEBUG) << "peek: " << len << " bytes available\n";
+        logger(ll::debug) << "peek: " << len << " bytes available\n";
         return len;
     }
 }
@@ -312,10 +312,10 @@ long common_socket::peek(void* buf, std::size_t bytes) const
 
 long common_socket::recv(void* buf, std::size_t bytes)
 {
-    logger(LOG_DEBUG) << "receiving " << bytes << " on " << *this << '\n';
+    logger(ll::debug) << "receiving " << bytes << " on " << *this << '\n';
     if(!this->pimpl)
     {
-        logger(LOG_WARNING) << "receiving from invalid socket impl\n";
+        logger(ll::warning) << "receiving from invalid socket impl\n";
         return 0;
     }
 
@@ -329,24 +329,24 @@ long common_socket::recv(void* buf, std::size_t bytes)
     {
         if(errno == EPIPE)
         {
-            logger(LOG_DEBUG) << "recv: broken pipe\n";
+            logger(ll::debug) << "recv: broken pipe\n";
             return -1;
         }
 
         throw std::system_error(errno, std::system_category(), "recv");
     }
 
-    logger(LOG_DEBUG) << "received " << len << " bytes\n";
+    logger(ll::debug) << "received " << len << " bytes\n";
 
     return len;
 }
 
 long common_socket::send(const void* buf, std::size_t bytes)
 {
-    logger(LOG_DEBUG) << "sending " << bytes << " on " << *this << '\n';
+    logger(ll::debug) << "sending " << bytes << " on " << *this << '\n';
     if(!this->pimpl)
     {
-        logger(LOG_WARNING) << "sending to invalid socket impl\n";
+        logger(ll::warning) << "sending to invalid socket impl\n";
         return 0;
     }
 
@@ -360,14 +360,14 @@ long common_socket::send(const void* buf, std::size_t bytes)
     {
         if(errno == EPIPE)
         {
-            logger(LOG_DEBUG) << "send: connection broken pipe\n";
+            logger(ll::debug) << "send: connection broken pipe\n";
             return -1;
         }
 
         throw std::system_error(errno, std::system_category(), "send");
     }
 
-    logger(LOG_DEBUG) << "sent " << len << " bytes\n";
+    logger(ll::debug) << "sent " << len << " bytes\n";
 
     return len;
 }
@@ -377,7 +377,7 @@ bool common_socket::listening() const
 {
     if(!this->pimpl)
     {
-        logger(LOG_WARNING) << "invalid socket impl is never listening\n";
+        logger(ll::warning) << "invalid socket impl is never listening\n";
         return false;
     }
 
@@ -481,7 +481,7 @@ unix_socket::unix_socket(const char* path, bool client, int backlog)
 
     if(client)
     {
-        logger(LOG_DEBUG) << "connecting " << *this << '\n';
+        logger(ll::debug) << "connecting " << *this << '\n';
 
         // connect to remote address
         if(::connect(sock, reinterpret_cast<sockaddr*>(&addr), sizeof(addr)) == SOCKET_ERROR)
@@ -500,7 +500,7 @@ unix_socket::unix_socket(const char* path, bool client, int backlog)
             throw std::system_error(errno, std::system_category(), "bind");
         }
 
-        logger(LOG_DEBUG) << "listening on " << *this << " with backlog: " << backlog << '\n';
+        logger(ll::debug) << "listening on " << *this << " with backlog: " << backlog << '\n';
 
         // begin listening on the socket
         if(::listen(sock, backlog) == SOCKET_ERROR)
@@ -519,7 +519,7 @@ inet_socket::inet_socket(const char* host, const char* service, int family) : co
     hints.ai_socktype = SOCK_STREAM;
     hints.ai_flags = 0;
 
-    logger(LOG_DEBUG) << "looking up host: " << host << ", service: " << service << '\n';
+    logger(ll::debug) << "looking up host: " << host << ", service: " << service << '\n';
 
     // fill in addrinfo
     addrinfo_ptr result;
@@ -529,7 +529,7 @@ inet_socket::inet_socket(const char* host, const char* service, int family) : co
         throw std::system_error(err, eai_error_category(), "getaddrinfo");
     }
 
-    logger(LOG_DEBUG) << "creating a socket\n";
+    logger(ll::debug) << "creating a socket\n";
 
     // create the socket
     auto sock(::socket(result.ptr->ai_family, result.ptr->ai_socktype, result.ptr->ai_protocol));
@@ -541,7 +541,7 @@ inet_socket::inet_socket(const char* host, const char* service, int family) : co
     // wrap the socket and store
     this->pimpl = std::make_shared<impl>(sock);
 
-    logger(LOG_DEBUG) << "connecting " << *this << " to host: " << host << ", service: " << service << '\n';
+    logger(ll::debug) << "connecting " << *this << " to host: " << host << ", service: " << service << '\n';
 
     // connect to remote address
 #if defined(_WIN32)
@@ -562,7 +562,7 @@ inet_socket::inet_socket(const char* service, int family, int backlog) : common_
     hints.ai_socktype = SOCK_STREAM;
     hints.ai_flags = AI_PASSIVE;
 
-    logger(LOG_DEBUG) << "looking up service: " << service << '\n';
+    logger(ll::debug) << "looking up service: " << service << '\n';
 
     // fill in addrinfo
     addrinfo_ptr result;
@@ -572,7 +572,7 @@ inet_socket::inet_socket(const char* service, int family, int backlog) : common_
         throw std::system_error(err, eai_error_category(), "getaddrinfo");
     }
 
-    logger(LOG_DEBUG) << "creating a socket\n";
+    logger(ll::debug) << "creating a socket\n";
 
     // create the socket
     auto sock(::socket(result.ptr->ai_family, result.ptr->ai_socktype, result.ptr->ai_protocol));
@@ -584,7 +584,7 @@ inet_socket::inet_socket(const char* service, int family, int backlog) : common_
     // wrap the socket and store
     this->pimpl = std::make_shared<impl>(sock);
 
-    logger(LOG_DEBUG) << "setting SO_REUSEADDR\n";
+    logger(ll::debug) << "setting SO_REUSEADDR\n";
 
     // set SO_REUSADDR option
     int yes(1);
@@ -599,7 +599,7 @@ inet_socket::inet_socket(const char* service, int family, int backlog) : common_
 
     if(family == PF_INET6)
     {
-        logger(LOG_DEBUG) << "setting IPV6_V6ONLY\n";
+        logger(ll::debug) << "setting IPV6_V6ONLY\n";
 
         // set IPV6_V6ONLY option. some systems don't support dual-stack. if ipv4 is needed, create a separate ipv4 socket
         yes = 1;
@@ -613,7 +613,7 @@ inet_socket::inet_socket(const char* service, int family, int backlog) : common_
         }
     }
 
-    logger(LOG_DEBUG) << "binding " << *this << " to service: " << service << '\n';
+    logger(ll::debug) << "binding " << *this << " to service: " << service << '\n';
 
     // bind to server port
 #if defined(_WIN32)
@@ -625,7 +625,7 @@ inet_socket::inet_socket(const char* service, int family, int backlog) : common_
         throw std::system_error(errno, std::system_category(), "bind");
     }
 
-    logger(LOG_DEBUG) << "listening on " << *this << " with backlog: " << backlog << '\n';
+    logger(ll::debug) << "listening on " << *this << " with backlog: " << backlog << '\n';
 
     // begin listening on the socket
     if(::listen(sock, backlog) == SOCKET_ERROR)

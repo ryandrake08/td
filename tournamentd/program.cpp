@@ -30,8 +30,8 @@ public:
         // debug only: load a default configuration
         this->tourney.load_configuration("defaults.json");
 #else
-        // disable LOG_DEBUG
-        logger_enable(LOG_INFO, LOG_WARNING, LOG_ERROR);
+        // disable ll::debug
+        logger_enable(ll::info, ll::warning, ll::error);
 #endif
 
         // parse command-line
@@ -100,7 +100,7 @@ public:
 
     bool sigusr2()
     {
-        logger(LOG_INFO) << "user signal\n";
+        logger(ll::info) << "user signal\n";
         return false;
     }
 };

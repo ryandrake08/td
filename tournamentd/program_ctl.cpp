@@ -10,12 +10,12 @@ static socketstream make_stream(const std::string& server, const std::string por
 {
     if(unix_path.empty())
     {
-        logger(LOG_DEBUG) << "connecting to " << server << ':' << port << '\n';
+        logger(ll::debug) << "connecting to " << server << ':' << port << '\n';
         return socketstream(inet4_socket(server.c_str(), port.c_str()));
     }
     else
     {
-        logger(LOG_DEBUG) << "connecting to " << unix_path << '\n';
+        logger(ll::debug) << "connecting to " << unix_path << '\n';
         return socketstream(unix_socket(unix_path.c_str(), true));
     }
 }
@@ -82,8 +82,8 @@ public:
             "\tversion: Get tournamentd version\n";
 
 #if !defined(DEBUG)
-        // disable LOG_DEBUG
-        logger_enable(LOG_INFO, LOG_WARNING, LOG_ERROR);
+        // disable ll::debug
+        logger_enable(ll::info, ll::warning, ll::error);
 #endif
 
         // parse command-line

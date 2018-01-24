@@ -64,7 +64,7 @@ bool server::poll(const std::function<bool(std::ostream&)>& handle_new_client, c
 
         if(this->pimpl->listeners.find(*sock) != this->pimpl->listeners.end())
         {
-            logger(LOG_DEBUG) << "new client connection\n";
+            logger(ll::info) << "new client connection\n";
 
             // accept new client from listening socket
             const auto& client(sock->accept());
@@ -80,7 +80,7 @@ bool server::poll(const std::function<bool(std::ostream&)>& handle_new_client, c
         }
         else
         {
-            logger(LOG_DEBUG) << "handling client communication\n";
+            logger(ll::info) << "handling client communication\n";
 
             // handle client i/o
             socketstream ss(*sock);
@@ -89,7 +89,7 @@ bool server::poll(const std::function<bool(std::ostream&)>& handle_new_client, c
             {
                 if(handle_client(ss) || !ss.good())
                 {
-                    logger(LOG_DEBUG) << "closing client connection\n";
+                    logger(ll::debug) << "closing client connection\n";
                     this->pimpl->clients.erase(*sock);
                     this->pimpl->all.erase(*sock);
                 }
@@ -100,7 +100,7 @@ bool server::poll(const std::function<bool(std::ostream&)>& handle_new_client, c
 
             if(in_avail < 0)
             {
-                logger(LOG_DEBUG) << "in_avail < 0, client likely disconnected\n";
+                logger(ll::debug) << "in_avail < 0, client likely disconnected\n";
                 this->pimpl->clients.erase(*sock);
                 this->pimpl->all.erase(*sock);
             }

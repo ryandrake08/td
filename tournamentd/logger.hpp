@@ -15,12 +15,12 @@
 #define logger(...) logstream(__func__, __VA_ARGS__)
 #define logger_enable(...) logstream::set_enabled({__VA_ARGS__})
 
-enum logger_level
+enum class ll
 {
-    LOG_DEBUG,
-    LOG_INFO,
-    LOG_WARNING,
-    LOG_ERROR
+    debug = 0,
+    info = 1,
+    warning = 2,
+    error = 3
 };
 
 template <typename T>
@@ -36,25 +36,25 @@ class basic_logstream : public std::basic_ostream<T>
     static unsigned mask;
 
     // private constructor constructs given streambuf
-    explicit basic_logstream(std::basic_streambuf<T>* sb, const char* function, logger_level level) : std::basic_ostream<T>(((1 << level) & this->mask) ? sb : nullptr), lock(mutex)
+    explicit basic_logstream(std::basic_streambuf<T>* sb, const char* function, ll level) : std::basic_ostream<T>(((1 << static_cast<size_t>(level)) & this->mask) ? sb : nullptr), lock(mutex)
     {
         static const char* level_string[] = { " DEBUG ", " INFO ", " WARNING ", " ERROR " };
-        *this << datetime::now() << level_string[level] << function << ": ";
+        *this << datetime::now() << level_string[static_cast<size_t>(level)] << function << ": ";
     }
 
 public:
-    // public constructor constructs given function name and logger_level
-    explicit basic_logstream(const char* function, logger_level level=LOG_DEBUG) : basic_logstream(debugstreambuf(), function, level)
+    // public constructor constructs given function name and logger level
+    explicit basic_logstream(const char* function, ll level=ll::debug) : basic_logstream(debugstreambuf(), function, level)
     {
     }
 
     // set enabled logs
-    static void set_enabled(std::initializer_list<logger_level> logs)
+    static void set_enabled(std::initializer_list<ll> logs)
     {
         mask = 0;
         for(auto level : logs)
         {
-            mask |= 1 >> level;
+            mask |= 1 >> static_cast<size_t>(level);
         }
     }
 };

@@ -34,7 +34,7 @@ struct scope_timer::impl
 
         // log
         std::chrono::duration<long long, std::nano> duration(this->end_time - this->begin_time);
-        logger(LOG_DEBUG) << this->log_message << duration.count() << " nanoseconds\n";
+        logger(ll::debug) << this->log_message << duration.count() << " nanoseconds\n";
     }
 };
 

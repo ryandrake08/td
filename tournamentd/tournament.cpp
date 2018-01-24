@@ -116,7 +116,7 @@ struct tournament::impl
 			this->game_auths.clear();
 			for(auto& auth : auths_vector)
 			{
-				logger(LOG_DEBUG) << "Authorizing code " << auth.code << " named \"" << auth.name << "\"\n";
+				logger(ll::debug) << "Authorizing code " << auth.code << " named \"" << auth.name << "\"\n";
 				this->game_auths.emplace(auth.code, auth);
 			}
 		}
@@ -884,12 +884,12 @@ struct tournament::impl
 				catch(const td::protocol_error& e)
 				{
 					out.set_value("error", e.what());
-					logger(LOG_WARNING) << "caught protocol error while processing command: " << e.what() << '\n';
+					logger(ll::warning) << "caught protocol error while processing command: " << e.what() << '\n';
 				}
 				catch(const std::exception& e)
 				{
 					out.set_value("exception", e.what());
-					logger(LOG_WARNING) << "caught a non protocol error exception while processing command: " << e.what() << '\n';
+					logger(ll::warning) << "caught a non protocol error exception while processing command: " << e.what() << '\n';
 				}
 
 				client << out << std::endl;
@@ -901,7 +901,7 @@ struct tournament::impl
 
     int authorize(int code, const std::string& name)
 	{
-		logger(LOG_INFO) << "client " << code << " (" << name << ") authorized to administer this tournament\n";
+		logger(ll::info) << "client " << code << " (" << name << ") authorized to administer this tournament\n";
 		this->game_auths.emplace(code, td::authorized_client(code, name));
 		return code;
 	}
@@ -1027,13 +1027,13 @@ bool tournament::run()
         // EINTR: select() was interrupted. Just retry
         if(e.code().value() != EINTR)
         {
-            logger(LOG_ERROR) << "caught system_error: " << e.what() << '\n';
+            logger(ll::error) << "caught system_error: " << e.what() << '\n';
             throw;
         }
     }
     catch(const std::exception& e)
     {
-        logger(LOG_ERROR) << "unhandled exception: " << e.what() << '\n';
+        logger(ll::error) << "unhandled exception: " << e.what() << '\n';
         throw;
     }
 
