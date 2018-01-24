@@ -16,7 +16,7 @@ gameinfo::gameinfo() :
     round_payouts(false),
     payout_flatness(1.0),
     previous_blind_level_hold_duration(2000),
-    rebalance_policy(td::manual),
+    rebalance_policy(td::rebalance_policy_t::manual),
     max_expected_players(0),
     tables(0),
     total_chips(0),
@@ -365,7 +365,7 @@ void gameinfo::dump_derived_state(json& state) const
     state.set_value("average_stack_text", os.str()); os.str("");
 
     // buyin text
-    auto src_it(std::find_if(this->funding_sources.begin(), this->funding_sources.end(), [](const td::funding_source& s) { return s.type == td::buyin; }));
+    auto src_it(std::find_if(this->funding_sources.begin(), this->funding_sources.end(), [](const td::funding_source& s) { return s.type == td::funding_source_type_t::buyin; }));
     if(src_it != this->funding_sources.end())
     {
         os << *src_it;
@@ -617,18 +617,18 @@ std::vector<td::player_movement> gameinfo::bust_player(const td::player_id_t& pl
 
     switch(this->rebalance_policy)
     {
-        case td::manual:
+        case td::rebalance_policy_t::manual:
             // for manual rebalancing, do nothing with tables when a player busts out
             logger(ll::debug) << "manual rebalancing in effect. not trying to break tables or rebalance\n";
             break;
 
-        case td::automatic:
+        case td::rebalance_policy_t::automatic:
             // for automatic rebalancing, try to break tables and rebalance every time a player busts out
             this->try_break_table(movements);
             this->try_rebalance(movements);
             break;
 
-        case td::shootout:
+        case td::rebalance_policy_t::shootout:
             // for shootout tournaments, only break tables when there is one player left on each table or fewer players
             if(this->tables >= this->seats.size())
             {
@@ -884,12 +884,12 @@ void gameinfo::fund_player(const td::player_id_t& player_id, const td::funding_s
         throw td::protocol_error("too late in the game for this funding source");
     }
 
-    if(source.type != td::buyin && this->unique_entries.find(player_id) == this->unique_entries.end())
+    if(source.type != td::funding_source_type_t::buyin && this->unique_entries.find(player_id) == this->unique_entries.end())
     {
         throw td::protocol_error("tried a non-buyin funding source but not bought in yet");
     }
 
-    if(source.type == td::rebuy && this->current_blind_level < 1)
+    if(source.type == td::funding_source_type_t::rebuy && this->current_blind_level < 1)
     {
         throw td::protocol_error("tried re-buying before tournamnet start");
     }
@@ -901,7 +901,7 @@ void gameinfo::fund_player(const td::player_id_t& player_id, const td::funding_s
 
     logger(ll::info) << "funding player " << this->player_description(player_id) << " with " << source.name << '\n';
 
-    if(source.type == td::buyin)
+    if(source.type == td::funding_source_type_t::buyin)
     {
         // add player to buyin set
         this->buyins.insert(player_id);
@@ -915,7 +915,7 @@ void gameinfo::fund_player(const td::player_id_t& player_id, const td::funding_s
         // remove from finished players list if existing (re-entry), do not remove from bust history
         this->players_finished.erase(std::remove(this->players_finished.begin(), this->players_finished.end(), player_id), this->players_finished.end());
     }
-    else if(source.type == td::rebuy)
+    else if(source.type == td::funding_source_type_t::rebuy)
     {
         // add player to buyin set
         this->buyins.insert(player_id);
