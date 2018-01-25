@@ -54,21 +54,32 @@
         NSLog(@"Received notification while app not running");
     }
 
-    if([vc isKindOfClass:[UINavigationController class]]) {
-        UINavigationController* navController = (UINavigationController*)vc;
-        id settingsController = [[navController viewControllers] firstObject];
+
+    // Find the initially visible view controller
+    UINavigationController* navController;
+    id firstViewController;
+    if([vc isKindOfClass:[UISplitViewController class]]) {
+        UISplitViewController* splitController = (UISplitViewController*)vc;
+        // set up split view controller
+        [splitController setPreferredDisplayMode:UISplitViewControllerDisplayModeAllVisible];
+        navController = [[splitController viewControllers] firstObject];
+    } else if([vc isKindOfClass:[UINavigationController class]]) {
+        navController = (UINavigationController*)vc;
+    }
+    if(navController != nil) {
+        firstViewController = [[navController viewControllers] firstObject];
 
         // Handle launching with a URL
         NSURL* url = launchOptions[UIApplicationLaunchOptionsURLKey];
         if(url != nil) {
             // url passed as an app launch option. if root view controller is capable of loading from a URL
-            if([settingsController respondsToSelector:@selector(loadDocumentFromContentsOfURL:)]) {
-                [settingsController performSelector:@selector(loadDocumentFromContentsOfURL:) withObject:url];
+            if([firstViewController respondsToSelector:@selector(loadDocumentFromContentsOfURL:)]) {
+                [firstViewController performSelector:@selector(loadDocumentFromContentsOfURL:) withObject:url];
             }
         } else {
             // no url passed. if root view controler is capable of loading from a file, use a default file for now and create it if missing
-            if([settingsController respondsToSelector:@selector(loadDocumentFromContentsOfFile:)]) {
-                [settingsController performSelector:@selector(loadDocumentFromContentsOfFile:) withObject:@"mobile.pokerbuddy"];
+            if([firstViewController respondsToSelector:@selector(loadDocumentFromContentsOfFile:)]) {
+                [firstViewController performSelector:@selector(loadDocumentFromContentsOfFile:) withObject:@"mobile.pokerbuddy"];
             }
         }
     }

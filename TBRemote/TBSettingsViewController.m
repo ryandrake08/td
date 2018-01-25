@@ -157,7 +157,8 @@
 #pragma mark Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue*)segue sender:(id)sender {
-    TBSetupTableViewController* newController = [segue destinationViewController];
+    UINavigationController* navController = [segue destinationViewController];
+    TBSetupTableViewController* newController = [[navController viewControllers] firstObject];
     [newController setConfiguration:[self configuration]];
 }
 

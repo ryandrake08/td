@@ -145,6 +145,7 @@
 }
 
 - (void)textFieldDidEndEditing:(UITextField*)textField {
+    [textField resignFirstResponder];
     [self updateEditableObject];
 }
 
