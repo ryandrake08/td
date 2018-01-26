@@ -15,7 +15,6 @@
 #import "TBSetupTableViewController.h"
 #import "TournamentDaemon.h"
 #import "TournamentSession.h"
-#import "UIAlertView+Blocks.h"
 #import "UIResponder+PresentingErrors.h"
 
 @interface TBSettingsViewController () <UITableViewDelegate, UITableViewDataSource>
@@ -58,6 +57,12 @@
         if([[[self session] state][@"connected"] boolValue] && [[[self session] state][@"authorized"] boolValue]) {
             [[self session] selectiveConfigure:[self configuration] withBlock:nil];
         }
+    }];
+
+    // if we have already planned seating, change "Plan" to "Re-plan"
+    [[self KVOController] observe:self keyPaths:@[@"session.state.seats", @"session.state.buyins"] options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary* change) {
+        // reload table
+        [[self tableView] reloadData];
     }];
 
     // whenever tournament name changes, do some stuff
@@ -105,7 +110,6 @@
 
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath {
     UITableViewCell* cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
-    NSString* detail;
 
     if(indexPath.section == 0) {
         // create a cell
@@ -116,7 +120,8 @@
     } else if(indexPath.section == 1) {
         switch(indexPath.row) {
             case 0:
-                detail = [NSString stringWithFormat:@"%lu", (unsigned long)[self maxPlayers]];
+            {
+                NSString* detail = [NSString stringWithFormat:@"%lu", (unsigned long)[self maxPlayers]];
                 [(UILabel*)[cell viewWithTag:101] setText:detail];
 
                 UIStepper* stepper = (UIStepper*)[cell viewWithTag:100];
@@ -126,6 +131,16 @@
                     [stepper setMaximumValue:numPlayers * 2.0];
                 }
                 break;
+            }
+            case 1:
+            {
+                if([[[self session] state][@"seats"] count] > 0 || [[[self session] state][@"buyins"] count] > 0) {
+                    [(UILabel*)[cell viewWithTag:101] setText:NSLocalizedString(@"Discard Seating and Re-plan", nil)];
+                } else {
+                    [(UILabel*)[cell viewWithTag:101] setText:NSLocalizedString(@"Plan Seating", nil)];
+                }
+                break;
+            }
         }
     }
     return cell;
@@ -194,25 +209,22 @@
             }
 
             // alert because this is a very destructive action
-            [UIAlertView showWithTitle:NSLocalizedString(@"Plan Seating", nil)
-                               message:message
-                     cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
-                     otherButtonTitles:@[NSLocalizedString(@"Plan", nil)]
-                              tapBlock:^(UIAlertView* alertView, NSInteger buttonIndex) {
-                                  if(buttonIndex != [alertView cancelButtonIndex]) {
-                                      NSLog(@"Planning seating for %lu players", (unsigned long)[self maxPlayers]);
-                                      [[self session] planSeatingFor:@([self maxPlayers])];
+            UIAlertController* alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Re-plan Seating", nil) message:message preferredStyle:UIAlertControllerStyleAlert];
+            [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil) style:UIAlertActionStyleCancel handler:nil]];
+            [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Plan", nil) style:UIAlertActionStyleDestructive handler:^(UIAlertAction* action) {
+                NSLog(@"Re-planning seating for %lu players", (unsigned long)[self maxPlayers]);
+                [[self session] planSeatingFor:@([self maxPlayers])];
 
-                                      // switch to clock screen automatically
-                                      [[[self navigationController] tabBarController] setSelectedIndex:1];
-                                  }
-                              }];
+                // switch to seating screen automatically
+                [[[self navigationController] tabBarController] setSelectedIndex:1];
+            }]];
+            [self presentViewController:alert animated:YES completion:nil];
         } else {
             // no warning
             NSLog(@"Planning seating for %lu players", (unsigned long)[self maxPlayers]);
             [[self session] planSeatingFor:@([self maxPlayers])];
 
-            // switch to clock screen automatically
+            // switch to seating screen automatically
             [[[self navigationController] tabBarController] setSelectedIndex:1];
         }
     }
@@ -230,20 +242,19 @@
         }
 
         // alert because this is a very destructive action
-        [UIAlertView showWithTitle:NSLocalizedString(@"Quick Setup", nil)
-                           message:message
-                 cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
-                 otherButtonTitles:@[NSLocalizedString(@"Setup", nil)]
-                          tapBlock:^(UIAlertView* alertView, NSInteger buttonIndex) {
-                              if(buttonIndex != [alertView cancelButtonIndex]) {
-                                  [[self session] quickSetupWithBlock:nil];
+        UIAlertController* alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Quick Setup", nil) message:message preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil) style:UIAlertActionStyleCancel handler:nil]];
+        [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Setup", nil) style:UIAlertActionStyleDestructive handler:^(UIAlertAction* action) {
+            NSLog(@"Performing destructive quick setup");
+            [[self session] quickSetupWithBlock:nil];
 
-                                  // switch to clock screen automatically
-                                  [[[self navigationController] tabBarController] setSelectedIndex:2];
-                              }
-                          }];
+            // switch to clock screen automatically
+            [[[self navigationController] tabBarController] setSelectedIndex:2];
+        }]];
+        [self presentViewController:alert animated:YES completion:nil];
     } else {
         // no warning
+        NSLog(@"Performing quick setup");
         [[self session] quickSetupWithBlock:nil];
 
         // switch to clock screen automatically

@@ -7,6 +7,8 @@
 //
 
 #import "UIResponder+PresentingErrors.h"
+#import <UIKit/UIAlertController.h>
+#import <UIKit/UIWindow.h>
 
 @implementation UIResponder (PresentingErrors)
 
@@ -21,12 +23,9 @@
 
 - (void) presentError:(NSError *)error
 {
-    [[[UIAlertView alloc] initWithTitle:error.localizedDescription
-                                message:error.localizedFailureReason
-                               delegate:nil
-                      cancelButtonTitle:@"OK"
-                      otherButtonTitles:nil]
-     show];
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:error.localizedDescription message:error.localizedFailureReason preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil) style:UIAlertActionStyleCancel handler:nil]];
+    [[[self keyWindow] rootViewController] presentViewController:alert animated:YES completion:nil];
 }
 
 @end

@@ -10,8 +10,6 @@
 #import "TBAppDelegate.h"
 #import "TournamentBrowser.h"
 #import "TournamentSession.h"
-#import "UIActionSheet+Blocks.h"
-#import "UIAlertView+Blocks.h"
 #import "UIResponder+PresentingErrors.h"
 
 #import "NSObject+FBKVOController.h"
@@ -99,42 +97,34 @@
     BOOL authorized = [[[self session] state][@"authorized"] boolValue];
 
     if(cellService == [self currentService] && connected) {
-        NSArray* otherButtons = nil;
-        if(!authorized) {
-            otherButtons = @[NSLocalizedString(@"Administer Game", nil)];
-        }
-
         // pop actionsheet
-        [UIActionSheet showInView:[self view]
-                        withTitle:nil
-                cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
-           destructiveButtonTitle:NSLocalizedString(@"Leave Game", nil)
-                otherButtonTitles:otherButtons
-                         tapBlock:^(UIActionSheet * _Nonnull actionSheet, NSInteger buttonIndex) {
-                             if(buttonIndex == [actionSheet destructiveButtonIndex]) {
-                                 [[self session] disconnect];
-                                 [self setCurrentService:nil];
-                             } else if(buttonIndex == [actionSheet firstOtherButtonIndex]) {
-                                 NSString* message = [NSString stringWithFormat:NSLocalizedString(@"The tournament director needs to authorize this code: %@", nil), [TournamentSession clientIdentifier]];
+        UIAlertController* actionSheet = [UIAlertController alertControllerWithTitle:[cellService name] message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+        [actionSheet addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil) style:UIAlertActionStyleCancel handler:nil]];
+        [actionSheet addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Leave Game", nil) style:UIAlertActionStyleDestructive handler:^(UIAlertAction* action) {
+            // disconnect
+            [[self session] disconnect];
+            [self setCurrentService:nil];
+        }]];
+        if(!authorized) {
+            [actionSheet addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Administer Game", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction* actionSheetAction) {
+                NSString* message = [NSString stringWithFormat:NSLocalizedString(@"The tournament director needs to authorize this code: %@", nil), [TournamentSession clientIdentifier]];
 
-                                 // present alert
-                                 [UIAlertView showWithTitle:NSLocalizedString(@"Administer Game", nil)
-                                                    message:message
-                                          cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
-                                          otherButtonTitles:@[NSLocalizedString(@"I'm Ready", nil)]
-                                                   tapBlock:^(UIAlertView* alertView, NSInteger alertBbuttonIndex) {
-                                                       if(alertBbuttonIndex == [alertView firstOtherButtonIndex]) {
-                                                           // check authorization
-                                                           [[self session] checkAuthorizedWithBlock:^(BOOL nowAuthorized) {
-                                                               if(nowAuthorized) {
-                                                                   // switch to seating screen automatically
-                                                                   [[[self navigationController] tabBarController] setSelectedIndex:1];
-                                                               }
-                                                           }];
-                                                       }
-                                                   }];
-                             }
-                         }];
+                // present alert
+                UIAlertController* alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Administer Game", nil) message:message preferredStyle:UIAlertControllerStyleAlert];
+                [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil) style:UIAlertActionStyleCancel handler:nil]];
+                [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Administer", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction* alertAction) {
+                    // check authorization
+                    [[self session] checkAuthorizedWithBlock:^(BOOL nowAuthorized) {
+                        if(nowAuthorized) {
+                            // switch to seating screen automatically
+                            [[[self navigationController] tabBarController] setSelectedIndex:1];
+                        }
+                    }];
+                }]];
+                [self presentViewController:alert animated:YES completion:nil];
+            }]];
+        }
+        [self presentViewController:actionSheet animated:YES completion:nil];
     } else {
         // connect
         NSError* error;

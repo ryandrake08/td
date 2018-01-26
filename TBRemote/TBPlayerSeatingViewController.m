@@ -7,16 +7,13 @@
 //
 
 #import "TBPlayerSeatingViewController.h"
-#import "NSObject+AssociatedObject.h"
 #import "NSObject+FBKVOController.h"
 #import "TBAppDelegate.h"
 #import "TBCurrencyImageTransformer.h"
 #import "TBNotifications.h"
 #import "TournamentSession.h"
 
-@interface TBPlayerSeatingViewController () <UITableViewDelegate,
-                                             UITableViewDataSource,
-                                             UIActionSheetDelegate>
+@interface TBPlayerSeatingViewController () <UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) TournamentSession* session;
 
@@ -181,13 +178,9 @@
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
     if([[[self session] state][@"connected"] boolValue] && [[[self session] state][@"authorized"] boolValue]) {
         NSDictionary* player;
-        UIActionSheet* actionSheet = [[UIActionSheet alloc] initWithTitle:nil
-                                                                 delegate:self
-                                                        cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
-                                                   destructiveButtonTitle:nil
-                                                        otherButtonTitles:nil];
 
-        NSMutableArray* commands = [[NSMutableArray alloc] initWithObjects:@0, nil];
+        UIAlertController* actionSheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+        [actionSheet addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil) style:UIAlertActionStyleCancel handler:nil]];
 
         // action sheet buttons depend on current blind level
         NSNumber* currentBlindLevel = [[self session] state][@"current_blind_level"];
@@ -198,6 +191,10 @@
         if(indexPath.section == 0) {
             // get player for this row
             player = [self seatedPlayers][[indexPath row]];
+            NSString* playerId = player[@"player_id"];
+
+            // set title
+            [actionSheet setTitle:player[@"name"]];
 
             // BUSINESS LOGIC AROUND WHICH FUNDING SOURCES ARE ALLOWED WHEN
 
@@ -208,20 +205,23 @@
                     if([source[@"type"] isEqual:kFundingTypeBuyin]) {
                         // buyins can happen at any time before forbid_after_blind_level, for any non-playing player
                         if(![player[@"buyin"] boolValue]) {
-                            [actionSheet addButtonWithTitle:source[@"name"]];
-                            [commands addObject:@(idx)];
+                            [actionSheet addAction:[UIAlertAction actionWithTitle:source[@"name"] style:UIAlertActionStyleDefault handler:^(UIAlertAction* action) {
+                                [[self session] fundPlayer:playerId withFunding:@(idx)];
+                            }]];
                         }
                     } else if([source[@"type"] isEqual:kFundingTypeRebuy]) {
                         // rebuys can happen after round 0, before forbid_after_blind_level, for any player that has bought in at least once
                         if([currentBlindLevel unsignedIntegerValue] > 0 && [uniqueEntries containsObject:player[@"player_id"]]) {
-                            [actionSheet addButtonWithTitle:source[@"name"]];
-                            [commands addObject:@(idx)];
+                            [actionSheet addAction:[UIAlertAction actionWithTitle:source[@"name"] style:UIAlertActionStyleDefault handler:^(UIAlertAction* action) {
+                                [[self session] fundPlayer:playerId withFunding:@(idx)];
+                            }]];
                         }
                     } else {
                         // addons can happen at any time before forbid_after_blind_level, for any playing player
                         if([player[@"buyin"] boolValue]) {
-                            [actionSheet addButtonWithTitle:source[@"name"]];
-                            [commands addObject:@(idx)];
+                            [actionSheet addAction:[UIAlertAction actionWithTitle:source[@"name"] style:UIAlertActionStyleDefault handler:^(UIAlertAction* action) {
+                                [[self session] fundPlayer:playerId withFunding:@(idx)];
+                            }]];
                         }
                     }
                 }
@@ -231,22 +231,33 @@
 
             // set up bust function. if game is running and all selected player is bought in, then enable the bust item
             if([currentBlindLevel unsignedIntegerValue] > 0 && [player[@"buyin"] boolValue]) {
-                [actionSheet addButtonWithTitle:NSLocalizedString(@"Bust Player", nil)];
-                [commands addObject:@(kCommandBustPlayer)];
+                [actionSheet addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Bust Player", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction* action) {
+                    [[self session] bustPlayer:playerId withBlock:^(NSArray* movements) {
+                        if([movements count] > 0) {
+                            [[NSNotificationCenter defaultCenter] postNotificationName:kMovementsUpdatedNotification object:movements];
+                        }
+                    }];
+                }]];
             }
 
             // add unseat function. if selected player is not bought in, then enable the unseat item
             if(![player[@"buyin"] boolValue]) {
-                [actionSheet addButtonWithTitle:NSLocalizedString(@"Unseat Player", nil)];
-                [commands addObject:@(kCommandUnseatPlayer)];
+                [actionSheet addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Unseat Player", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction* action) {
+                    [[self session] unseatPlayer:playerId withBlock:nil];
+                }]];
             }
         } else if(indexPath.section == 1) {
             // get player for this row
             player = [self unseatedPlayers][[indexPath row]];
+            NSString* playerId = player[@"player_id"];
+
+            // set title
+            [actionSheet setTitle:player[@"name"]];
 
             // set buttons
-            [actionSheet addButtonWithTitle:NSLocalizedString(@"Seat Player", nil)];
-            [commands addObject:@(kCommandSeatPlayer)];
+            [actionSheet addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Seat Player", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction* action) {
+                [[self session] seatPlayer:playerId withBlock:nil];
+            }]];
 
             // add buttons for any eligible (buyin only) funding sources
             [[[self session] state][@"funding_sources"] enumerateObjectsUsingBlock:^(id source, NSUInteger idx, BOOL* stop) {
@@ -255,9 +266,11 @@
                     if([source[@"type"] isEqual:kFundingTypeBuyin]) {
                         // buyins can happen at any time before forbid_after_blind_level, for any non-playing player
                         if(![player[@"buyin"] boolValue]) {
-                            NSString* titleString = [@"Seat Player + " stringByAppendingString:source[@"name"]];
-                            [actionSheet addButtonWithTitle:titleString];
-                            [commands addObject:@(idx)];
+                            NSString* titleString = [NSLocalizedString(@"Seat Player + ", nil) stringByAppendingString:source[@"name"]];
+                            [actionSheet addAction:[UIAlertAction actionWithTitle:titleString style:UIAlertActionStyleDefault handler:^(UIAlertAction* action) {
+                                [[self session] seatPlayer:playerId withBlock:nil];
+                                [[self session] fundPlayer:playerId withFunding:@(idx)];
+                            }]];
                         }
                     }
                 }
@@ -266,49 +279,12 @@
             return;
         }
 
-        // set context
-        NSDictionary* context = @{@"player_id":player[@"player_id"],@"commands":commands};
-        [actionSheet setAssociatedObject:context];
-
         // pop actionsheet
-        [actionSheet showInView:[self view]];
+        [self presentViewController:actionSheet animated:YES completion:nil];
     }
 
     // deselect either way
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-}
-
-#pragma mark UIActionSheetDelegate
-
-- (void)actionSheet:(UIActionSheet*)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if(buttonIndex != [actionSheet cancelButtonIndex]) {
-        NSDictionary* context = [actionSheet associatedObject];
-        NSString* playerId = context[@"player_id"];
-        NSArray* commands = context[@"commands"];
-
-        switch([commands[buttonIndex] integerValue]) {
-            case kCommandSeatPlayer:
-                [[self session] seatPlayer:playerId withBlock:nil];
-                break;
-
-            case kCommandUnseatPlayer:
-                [[self session] unseatPlayer:playerId withBlock:nil];
-                break;
-
-            case kCommandBustPlayer:
-                [[self session] bustPlayer:playerId withBlock:^(NSArray* movements) {
-                    if([movements count] > 0) {
-                        [[NSNotificationCenter defaultCenter] postNotificationName:kMovementsUpdatedNotification object:movements];
-                    }
-                }];
-                break;
-
-            default:
-                [[self session] seatPlayer:playerId withBlock:nil];
-                [[self session] fundPlayer:playerId withFunding:commands[buttonIndex]];
-                break;
-        }
-    }
 }
 
 @end

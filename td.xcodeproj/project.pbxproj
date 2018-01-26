@@ -224,10 +224,6 @@
 		94D7290F20034F5A009EC463 /* TBSetupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94D7290E20034F5A009EC463 /* TBSetupViewController.m */; };
 		94E16F221B6C99840070F1BA /* TBResizeTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 94562E6B1B65D9420017C692 /* TBResizeTextField.m */; };
 		94E273FF200F2B2F0048B07A /* TBArrayEmptyTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 94C9D87A200F265800D4DA10 /* TBArrayEmptyTransformer.m */; };
-		94E27403200F611F0048B07A /* UIAlertView+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E27401200F60B00048B07A /* UIAlertView+Blocks.m */; };
-		94E27404200F611F0048B07A /* UIAlertView+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E27401200F60B00048B07A /* UIAlertView+Blocks.m */; };
-		94E27407200F694A0048B07A /* UIActionSheet+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E27406200F693C0048B07A /* UIActionSheet+Blocks.m */; };
-		94E27408200F694A0048B07A /* UIActionSheet+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E27406200F693C0048B07A /* UIActionSheet+Blocks.m */; };
 		94E6F1782011B34B0054D94F /* WatchConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E6F1772011B34A0054D94F /* WatchConnectivity.framework */; };
 		94E6F1792011B3500054D94F /* WatchConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E6F1772011B34A0054D94F /* WatchConnectivity.framework */; };
 		94E6F17B2011B54E0054D94F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E6F17A2011B54E0054D94F /* CoreGraphics.framework */; };
@@ -782,10 +778,6 @@
 		94D7290B200342EB009EC463 /* TBSetupTabViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TBSetupTabViewController.m; path = TBMac/TBSetupTabViewController.m; sourceTree = "<group>"; };
 		94D7290D20034F5A009EC463 /* TBSetupViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TBSetupViewController.h; path = TBMac/TBSetupViewController.h; sourceTree = "<group>"; };
 		94D7290E20034F5A009EC463 /* TBSetupViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TBSetupViewController.m; path = TBMac/TBSetupViewController.m; sourceTree = "<group>"; };
-		94E27401200F60B00048B07A /* UIAlertView+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+Blocks.m"; sourceTree = "<group>"; };
-		94E27402200F60B00048B07A /* UIAlertView+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+Blocks.h"; sourceTree = "<group>"; };
-		94E27405200F693B0048B07A /* UIActionSheet+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIActionSheet+Blocks.h"; sourceTree = "<group>"; };
-		94E27406200F693C0048B07A /* UIActionSheet+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIActionSheet+Blocks.m"; sourceTree = "<group>"; };
 		94E6F1772011B34A0054D94F /* WatchConnectivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchConnectivity.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS4.2.sdk/System/Library/Frameworks/WatchConnectivity.framework; sourceTree = DEVELOPER_DIR; };
 		94E6F17A2011B54E0054D94F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		94E6F17C2011B55B0054D94F /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
@@ -1246,10 +1238,6 @@
 				AD2CA95D1BAA7043009A2384 /* TournamentSocketDirectory.h */,
 				9462A3E51B77CB3B00B29002 /* TTTOrdinalNumberFormatter.h */,
 				9462A3E61B77CB3B00B29002 /* TTTOrdinalNumberFormatter.m */,
-				94E27405200F693B0048B07A /* UIActionSheet+Blocks.h */,
-				94E27406200F693C0048B07A /* UIActionSheet+Blocks.m */,
-				94E27402200F60B00048B07A /* UIAlertView+Blocks.h */,
-				94E27401200F60B00048B07A /* UIAlertView+Blocks.m */,
 				94363BD3200E84FA00D52155 /* UIResponder+PresentingErrors.h */,
 				94363BD4200E84FB00D52155 /* UIResponder+PresentingErrors.m */,
 			);
@@ -1951,7 +1939,6 @@
 				9457DAB91FE695AC0047DF29 /* TBInvertableButton_iOS.m in Sources */,
 				9462A3E91B77CB3B00B29002 /* TTTOrdinalNumberFormatter.m in Sources */,
 				ADE299B11B7B9BCB00F1393B /* TBSound.m in Sources */,
-				94E27404200F611F0048B07A /* UIAlertView+Blocks.m in Sources */,
 				9476F4691B3C385400A158F8 /* TBAppDelegate.m in Sources */,
 				AD452D501BC6C685007CF579 /* TBChooseColorViewController.m in Sources */,
 				949D70A01B3C440E008D5CD1 /* types.cpp in Sources */,
@@ -1972,7 +1959,6 @@
 				ADD4F1271B91FE2400DAF567 /* NSObject+AssociatedObject.m in Sources */,
 				ADFFFF151BA34394003BAC88 /* TBColor+CSS.m in Sources */,
 				94363BD2200E79C000D52155 /* TBError.m in Sources */,
-				94E27408200F694A0048B07A /* UIActionSheet+Blocks.m in Sources */,
 				946CF8D7200FF0D3008771D4 /* TBCurrencyImageTransformer.m in Sources */,
 				949D709F1B3C440E008D5CD1 /* server.cpp in Sources */,
 				9464718B200CAA9C00556467 /* TBInvertImage.c in Sources */,
@@ -2167,10 +2153,8 @@
 				ADF635F91BAB8AF800D019AE /* TournamentBrowser.m in Sources */,
 				ADF635FA1BAB8AF800D019AE /* TBResultsViewController.m in Sources */,
 				ADF635FB1BAB8AF800D019AE /* NSObject+FBKVOController.m in Sources */,
-				94E27403200F611F0048B07A /* UIAlertView+Blocks.m in Sources */,
 				9458126B2012657700208575 /* TBClockDateComponentsFormatter.m in Sources */,
 				ADF635FD1BAB8AF800D019AE /* main.m in Sources */,
-				94E27407200F694A0048B07A /* UIActionSheet+Blocks.m in Sources */,
 				94363BD1200E79C000D52155 /* TBError.m in Sources */,
 				ADF635FE1BAB8AF800D019AE /* NSData+Delimiter.m in Sources */,
 				ADD2CC4E1BB3C73900DE3DE5 /* TBSetupFundingViewController.m in Sources */,
