@@ -316,11 +316,8 @@ json::json(const td::result& value) : json()
 {
     this->set_value("place", value.place);
     this->set_value("name", value.name);
-    if(value.payout != 0.0)
-    {
-        this->set_value("payout", value.payout);
-        this->set_value("payout_currency", value.payout_currency);
-    }
+    this->set_value("payout", value.payout);
+    this->set_value("payout_currency", value.payout_currency);
 }
 
 template<>

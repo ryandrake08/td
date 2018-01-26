@@ -387,8 +387,8 @@ void gameinfo::dump_derived_state(json& state) const
         if(j < this->payouts.size() && source != this->funding_sources.end())
         {
             result.payout = this->payouts[j];
-            result.payout_currency = source->equity_currency;
         }
+        result.payout_currency = source->equity_currency;
         results.push_back(result);
     }
     for(size_t i(0); i<this->players_finished.size(); i++)
@@ -405,8 +405,8 @@ void gameinfo::dump_derived_state(json& state) const
         if(j < this->payouts.size() && source != this->funding_sources.end())
         {
             result.payout = this->payouts[j];
-            result.payout_currency = source->equity_currency;
         }
+        result.payout_currency = source->equity_currency;
         results.push_back(result);
     }
     state.set_value("results", json(results.begin(), results.end()));
@@ -658,16 +658,12 @@ std::vector<td::player_movement> gameinfo::bust_player(const td::player_id_t& pl
     // if only one bought-in players still seated
     if(playing.size() == 1)
     {
-        auto first_player_id(playing.front());
+        auto first_place_player_id(playing.front());
 
-        // add to the busted out list
-        this->players_finished.push_front(first_player_id);
-        this->bust_history.push_back(first_player_id);
+        // bust player
+        this->bust_player(first_place_player_id);
 
-        // remove the player
-        this->remove_player(first_player_id);
-
-        logger(ll::info) << "winning player " << this->player_description(first_player_id) << '\n';
+        logger(ll::info) << "winning player " << this->player_description(first_place_player_id) << '\n';
 
         // stop the game and reset all seating (stops additional entrants)
         this->stop();

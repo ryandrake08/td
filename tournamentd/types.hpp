@@ -148,7 +148,7 @@ namespace td
         std::string payout_currency;
 
         result();
-        result(size_t p, const std::string& n="--");
+        result(size_t p, const std::string& n="");
     };
 
     // represents a player with additional buyin/seat info
