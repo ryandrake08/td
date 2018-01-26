@@ -195,6 +195,8 @@
 		94C2DA81200D27D7001B95B8 /* s_next.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04EC91B7C59EB004F4245 /* s_next.caf */; };
 		94C2DA84200D2AE7001B95B8 /* TBInvertableButton_macOS.m in Sources */ = {isa = PBXBuildFile; fileRef = 94C2DA82200D2AE7001B95B8 /* TBInvertableButton_macOS.m */; };
 		94C2DA85200D2AE7001B95B8 /* TBInvertableButton_macOS.m in Sources */ = {isa = PBXBuildFile; fileRef = 94C2DA82200D2AE7001B95B8 /* TBInvertableButton_macOS.m */; };
+		94C95AFE201AEDA900400CFC /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94C95AFD201AEDA800400CFC /* MessageUI.framework */; };
+		94C95AFF201AEDBF00400CFC /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94C95AFD201AEDA800400CFC /* MessageUI.framework */; };
 		94CDDD1D1FE1826C008ADF24 /* TBChipTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CDDD1B1FE1826C008ADF24 /* TBChipTableViewCell.m */; };
 		94CDDD1E1FE1826C008ADF24 /* TBChipTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CDDD1B1FE1826C008ADF24 /* TBChipTableViewCell.m */; };
 		94CDDD1F1FE1826C008ADF24 /* TBChipTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94CDDD1C1FE1826C008ADF24 /* TBChipTableViewCell.xib */; };
@@ -757,6 +759,7 @@
 		94C2DA6F200D147C001B95B8 /* TBChipTableCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBChipTableCellView.h; path = TBMac/TBChipTableCellView.h; sourceTree = "<group>"; };
 		94C2DA82200D2AE7001B95B8 /* TBInvertableButton_macOS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBInvertableButton_macOS.m; sourceTree = "<group>"; };
 		94C2DA83200D2AE7001B95B8 /* TBInvertableButton_macOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBInvertableButton_macOS.h; sourceTree = "<group>"; };
+		94C95AFD201AEDA800400CFC /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.2.sdk/System/Library/Frameworks/MessageUI.framework; sourceTree = DEVELOPER_DIR; };
 		94C9D879200F265700D4DA10 /* TBArrayEmptyTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBArrayEmptyTransformer.h; sourceTree = "<group>"; };
 		94C9D87A200F265800D4DA10 /* TBArrayEmptyTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBArrayEmptyTransformer.m; sourceTree = "<group>"; };
 		94CDDD1A1FE1826C008ADF24 /* TBChipTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBChipTableViewCell.h; sourceTree = "<group>"; };
@@ -956,6 +959,7 @@
 				94E6F1882011B61A0054D94F /* AudioToolbox.framework in Frameworks */,
 				9457DAC11FE6AB170047DF29 /* CFNetwork.framework in Frameworks */,
 				9457DABF1FE6AB0F0047DF29 /* CoreGraphics.framework in Frameworks */,
+				94C95AFF201AEDBF00400CFC /* MessageUI.framework in Frameworks */,
 				9457DABD1FE6AAF60047DF29 /* UIKit.framework in Frameworks */,
 				94E6F18A2011B6230054D94F /* WatchConnectivity.framework in Frameworks */,
 				9464EC2B1FDC3042009092A4 /* libcJSON_iOS.a in Frameworks */,
@@ -1006,6 +1010,7 @@
 				94E6F18B2011B6310054D94F /* AudioToolbox.framework in Frameworks */,
 				9457DAC21FE6AB2A0047DF29 /* CFNetwork.framework in Frameworks */,
 				9457DAC31FE6AB310047DF29 /* CoreGraphics.framework in Frameworks */,
+				94C95AFE201AEDA900400CFC /* MessageUI.framework in Frameworks */,
 				9457DAC51FE6AB400047DF29 /* UIKit.framework in Frameworks */,
 				94E6F18C2011B6360054D94F /* WatchConnectivity.framework in Frameworks */,
 				9464EC281FDC3036009092A4 /* libcJSON_iOS.a in Frameworks */,
@@ -1254,6 +1259,7 @@
 		AD51C5341AFFC9210084B25E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				94C95AFD201AEDA800400CFC /* MessageUI.framework */,
 				94E6F1892011B6230054D94F /* WatchConnectivity.framework */,
 				94E6F1872011B61A0054D94F /* AudioToolbox.framework */,
 				94E6F1822011B5B30054D94F /* AppKit.framework */,

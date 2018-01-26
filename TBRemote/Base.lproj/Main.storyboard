@@ -1241,7 +1241,13 @@
                             <outlet property="delegate" destination="HA6-Ud-mnA" id="p9H-h1-0c0"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Results" id="6lT-2j-WlT"/>
+                    <navigationItem key="navigationItem" title="Results" id="6lT-2j-WlT">
+                        <barButtonItem key="rightBarButtonItem" title="Export" id="7as-yd-RCe">
+                            <connections>
+                                <action selector="exportResults:" destination="HA6-Ud-mnA" id="pVn-s3-Prl"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HL0-8F-mA0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
