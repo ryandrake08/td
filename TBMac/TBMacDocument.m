@@ -90,17 +90,7 @@
         // serialize json configuration to NSData
         return [NSJSONSerialization dataWithJSONObject:[self configuration] options:0 error:outError];
     } else if([typeName isEqualToString:@"CSV"]) {
-        // serialize results to NSData
-        NSMutableArray* results = [[NSMutableArray alloc] initWithObjects:@"Player,Finish,Win", nil];
-        // 1 result per line
-        [[[self session] state][@"results"] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL* stop) {
-            NSString* line = [NSString stringWithFormat:@"\"%@\",%@,%@", obj[@"name"], obj[@"place"], obj[@"payout"]];
-            [results addObject:line];
-        }];
-        // combine
-        NSString* csv = [results componentsJoinedByString:@"\n"];
-        // use WINDOWS-1252 for now
-        return [csv dataUsingEncoding:NSWindowsCP1252StringEncoding];
+        return [[self session] dataWithResultsAsCSV];
     }
     return nil;
 }

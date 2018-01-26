@@ -72,6 +72,9 @@
 - (void)rebalanceSeatingWithBlock:(void(^)(NSArray*))block;
 - (void)quickSetupWithBlock:(void(^)(NSArray*))block;
 
+// serialization
+- (NSData*)dataWithResultsAsCSV;
+
 @end
 
 @protocol TournamentSessionDelegate <NSObject>

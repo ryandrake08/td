@@ -308,6 +308,19 @@
     }];
 }
 
+#pragma mark Serialization
+
+- (NSData*)dataWithResultsAsCSV {
+    // header contains column names
+    NSMutableString* csv = [[NSMutableString alloc] initWithString:NSLocalizedString(@"Player,Finish,Win", nil)];
+    // 1 result per line
+    [[self state][@"results"] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL* stop) {
+        [csv appendString:[NSString stringWithFormat:@"\n\"%@\",%@,%@", obj[@"name"], obj[@"place"], obj[@"payout"]]];
+    }];
+    // serialize results to NSData. use WINDOWS-1252 for now
+    return [csv dataUsingEncoding:NSWindowsCP1252StringEncoding];
+}
+
 #pragma mark Tournament Messages
 
 - (void)handleMessage:(NSMutableDictionary*)json fromConnection:(TournamentConnection*)tc {
