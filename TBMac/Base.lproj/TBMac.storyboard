@@ -1648,6 +1648,9 @@ Gw
                                                             <rect key="frame" x="0.0" y="9" width="64" height="17"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" id="NX2-3W-RHC">
+                                                                <numberFormatter key="formatter" formatterBehavior="custom10_4" numberStyle="currency" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" minimumFractionDigits="2" maximumFractionDigits="2" id="Eay-IP-LLq" userLabel="Payout Formatter" customClass="TBCurrencyNumberFormatter">
+                                                                    <real key="minimum" value="0.0"/>
+                                                                </numberFormatter>
                                                                 <font key="font" metaFont="system"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -3386,6 +3389,9 @@ Gw
                                                                     <rect key="frame" x="0.0" y="7" width="544" height="17"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" alignment="left" placeholderString="0" id="FCa-4q-kKZ">
+                                                                        <numberFormatter key="formatter" formatterBehavior="custom10_4" numberStyle="currency" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" minimumFractionDigits="2" maximumFractionDigits="2" id="oyE-tx-F3I" userLabel="Payout Formatter" customClass="TBCurrencyNumberFormatter">
+                                                                            <real key="minimum" value="0.0"/>
+                                                                        </numberFormatter>
                                                                         <font key="font" metaFont="system"/>
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>

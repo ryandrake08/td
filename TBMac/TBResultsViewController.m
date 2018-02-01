@@ -40,9 +40,6 @@
 - (NSView *)tableView:(NSTableView*)aTableView viewForTableColumn:(NSTableColumn*)aTableColumn row:(NSInteger)rowIndex {
     NSTableCellView* result = [aTableView makeViewWithIdentifier:aTableColumn.identifier owner:self];
     if([[aTableColumn identifier] isEqualToString:@"Payout"]) {
-        if([[result textField] formatter] == nil) {
-            [[result textField] setFormatter:[[TBCurrencyNumberFormatter alloc] init]];
-        }
         NSDictionary* object = [[[self arrayController] arrangedObjects] objectAtIndex:rowIndex];
         [[[result textField] formatter] setCurrencyCode:object[@"payout_currency"]];
     }
