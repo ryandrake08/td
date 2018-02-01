@@ -27,14 +27,14 @@
     NSString* formattedFunding;
 
     TBCurrencyNumberFormatter* costFormatter = [[TBCurrencyNumberFormatter alloc] init];
-    [costFormatter setCurrencyCode:fundingSource[@"cost_currency"]];
+    [costFormatter setCurrencyCode:fundingSource[@"cost"][@"currency"]];
 
-    if([fundingSource[@"commission"] doubleValue] != 0.0) {
+    if([fundingSource[@"commission"][@"amount"] doubleValue] != 0.0) {
         TBCurrencyNumberFormatter* commissionFormatter = [[TBCurrencyNumberFormatter alloc] init];
-        [commissionFormatter setCurrencyCode:fundingSource[@"commission_currency"]];
-        formattedFunding = [NSString stringWithFormat:@"%@+%@", [costFormatter stringFromNumber:fundingSource[@"cost"]], [commissionFormatter stringFromNumber:fundingSource[@"commission"]]];
+        [commissionFormatter setCurrencyCode:fundingSource[@"commission"][@"currency"]];
+        formattedFunding = [NSString stringWithFormat:@"%@+%@", [costFormatter stringFromNumber:fundingSource[@"cost"][@"amount"]], [commissionFormatter stringFromNumber:fundingSource[@"commission"][@"amount"]]];
     } else {
-        formattedFunding = [costFormatter stringFromNumber:fundingSource[@"cost"]];
+        formattedFunding = [costFormatter stringFromNumber:fundingSource[@"cost"][@"amount"]];
     }
     return formattedFunding;
 }
@@ -64,14 +64,11 @@
     NSString* name = NSLocalizedString(@"Buyin, Rebuy or Addon Name", nil);
     NSNumber* type = kFundingTypeAddon;
     NSNumber* chips = @5000;
-    NSNumber* cost = @10;
-    NSString* costCurrency = @"USD";
-    NSNumber* commission = @0;
-    NSString* commissionCurrency = @"USD";
-    NSNumber* equity = @10;
-    NSString* equityCurrency = @"USD";
+    NSMutableDictionary* cost = [@{@"amount":@10, @"currency":@"USD"} mutableCopy];
+    NSMutableDictionary* commission =[ @{@"amount":@0, @"currency":@"USD"} mutableCopy];
+    NSMutableDictionary* equity = [@{@"amount":@10, @"currency":@"USD"} mutableCopy];
 
-    return [@{@"name":name, @"type":type, @"chips":chips, @"cost":cost, @"cost_currency":costCurrency, @"commission":commission, @"commission_currency":commissionCurrency, @"equity":equity, @"equity_currency":equityCurrency} mutableCopy];
+    return [@{@"name":name, @"type":type, @"chips":chips, @"cost":cost, @"commission":commission, @"equity":equity} mutableCopy];
 }
 
 @end

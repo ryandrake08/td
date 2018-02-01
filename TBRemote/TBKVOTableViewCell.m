@@ -24,12 +24,12 @@
 
 - (id)underlyingValue {
     [self validate];
-    return [[self object] objectForKey:[self keyPath]];
+    return [[self object] valueForKeyPath:[self keyPath]];
 }
 
 - (void)setUnderlyingValue:(id)value {
     [self validate];
-    [[self object] setObject:value forKey:[self keyPath]];
+    [[self object] setValue:value forKeyPath:[self keyPath]];
 }
 
 - (NSString*)textRepresentationOfUnderlyingValue {

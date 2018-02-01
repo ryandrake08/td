@@ -27,7 +27,7 @@ td::chip::chip() : denomination(0), count_available(0)
 {
 }
 
-td::funding_source::funding_source() : type(td::funding_source_type_t::buyin), forbid_after_blind_level(std::numeric_limits<std::size_t>::max()), chips(0), cost(0.0), commission(0.0), equity(0.0)
+td::funding_source::funding_source() : type(td::funding_source_type_t::buyin), forbid_after_blind_level(std::numeric_limits<std::size_t>::max()), chips(0)
 {
 }
 
@@ -95,6 +95,13 @@ td::seated_player::seated_player(const player_id_t& p, const std::string& n, boo
 {
 }
 
+// directly get monetary_value object from json
+template <>
+td::monetary_value json::value() const
+{
+    return td::monetary_value(*this);
+}
+
 // ----- construct from json
 
 td::authorized_client::authorized_client(const json& obj)
@@ -131,9 +138,6 @@ td::funding_source::funding_source(const json& obj) : funding_source()
     obj.get_value("cost", this->cost);
     obj.get_value("commission", this->commission);
     obj.get_value("equity", this->equity);
-    obj.get_value("cost_currency", this->cost_currency);
-    obj.get_value("commission_currency", this->commission_currency);
-    obj.get_value("equity_currency", this->equity_currency);
 }
 
 td::player::player(const json& obj) : player()
@@ -248,6 +252,13 @@ json::json(const td::chip& value) : json()
 }
 
 template<>
+json::json(const td::monetary_value& value) : json()
+{
+    this->set_value("amount", value.amount);
+    this->set_value("currency", value.currency);
+}
+
+template<>
 json::json(const td::funding_source& value) : json()
 {
     this->set_value("name", value.name);
@@ -257,12 +268,9 @@ json::json(const td::funding_source& value) : json()
         this->set_value("forbid_after_blind_level", value.forbid_after_blind_level);
     }
     this->set_value("chips", value.chips);
-    this->set_value("cost", value.cost);
+    this->set_value("cost", json(value.cost));
     this->set_value("commission", value.commission);
     this->set_value("equity", value.equity);
-    this->set_value("cost_currency", value.cost_currency);
-    this->set_value("commission_currency", value.commission_currency);
-    this->set_value("equity_currency", value.equity_currency);
 }
 
 template<>
@@ -316,13 +324,6 @@ template<>
 json::json(const std::pair<const td::player_id_t,td::player>& value) : json(value.second)
 {
     assert(value.first == value.second.player_id);
-}
-
-template<>
-json::json(const td::monetary_value& value) : json()
-{
-    this->set_value("amount", value.amount);
-    this->set_value("currency", value.currency);
 }
 
 template<>

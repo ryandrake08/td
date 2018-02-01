@@ -2291,7 +2291,7 @@ Gw
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
                                                                     <connections>
-                                                                        <binding destination="lFB-am-lvQ" name="value" keyPath="objectValue.cost" id="nhV-DP-63A"/>
+                                                                        <binding destination="lFB-am-lvQ" name="value" keyPath="objectValue.cost.amount" id="rgy-ZM-GRk"/>
                                                                     </connections>
                                                                 </textField>
                                                                 <popUpButton fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CPQ-5n-Pho">
@@ -2303,7 +2303,7 @@ Gw
                                                                         <menu key="menu" id="Ltw-tb-ZBY"/>
                                                                     </popUpButtonCell>
                                                                     <connections>
-                                                                        <binding destination="lFB-am-lvQ" name="selectedValue" keyPath="objectValue.cost_currency" previousBinding="l5w-DD-TlS" id="6XE-ma-6y7">
+                                                                        <binding destination="lFB-am-lvQ" name="selectedValue" keyPath="objectValue.cost.currency" previousBinding="l5w-DD-TlS" id="Xjy-Je-LOy">
                                                                             <dictionary key="options">
                                                                                 <string key="NSValueTransformerName">TBCurrencyCodeTransformer</string>
                                                                             </dictionary>
@@ -2347,7 +2347,7 @@ Gw
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
                                                                     <connections>
-                                                                        <binding destination="kvs-zF-BYs" name="value" keyPath="objectValue.commission" id="Mye-gq-oQ2"/>
+                                                                        <binding destination="kvs-zF-BYs" name="value" keyPath="objectValue.commission.amount" id="hMu-eN-MQK"/>
                                                                     </connections>
                                                                 </textField>
                                                                 <popUpButton fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wq5-LP-Tyk">
@@ -2359,7 +2359,7 @@ Gw
                                                                         <menu key="menu" id="CT2-bL-dHi"/>
                                                                     </popUpButtonCell>
                                                                     <connections>
-                                                                        <binding destination="kvs-zF-BYs" name="selectedValue" keyPath="objectValue.commission_currency" previousBinding="gs7-Ej-ujv" id="O6l-q5-7yg">
+                                                                        <binding destination="kvs-zF-BYs" name="selectedValue" keyPath="objectValue.commission.currency" previousBinding="gs7-Ej-ujv" id="jY2-4Y-d7r">
                                                                             <dictionary key="options">
                                                                                 <string key="NSValueTransformerName">TBCurrencyCodeTransformer</string>
                                                                             </dictionary>
@@ -2403,7 +2403,7 @@ Gw
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
                                                                     <connections>
-                                                                        <binding destination="T7t-Rj-hcC" name="value" keyPath="objectValue.equity" id="e6z-Lk-Lct"/>
+                                                                        <binding destination="T7t-Rj-hcC" name="value" keyPath="objectValue.equity.amount" id="4eV-RV-8lT"/>
                                                                     </connections>
                                                                 </textField>
                                                                 <popUpButton fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rVs-Ui-Xav">
@@ -2415,7 +2415,7 @@ Gw
                                                                         <menu key="menu" id="qNF-RX-uTP"/>
                                                                     </popUpButtonCell>
                                                                     <connections>
-                                                                        <binding destination="T7t-Rj-hcC" name="selectedValue" keyPath="objectValue.equity_currency" previousBinding="XDv-T7-UW6" id="ahA-Sd-Keh">
+                                                                        <binding destination="T7t-Rj-hcC" name="selectedValue" keyPath="objectValue.equity.currency" previousBinding="XDv-T7-UW6" id="uTB-J7-D2c">
                                                                             <dictionary key="options">
                                                                                 <string key="NSValueTransformerName">TBCurrencyCodeTransformer</string>
                                                                             </dictionary>

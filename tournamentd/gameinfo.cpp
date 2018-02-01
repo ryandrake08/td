@@ -229,16 +229,16 @@ static std::ostream& operator<<(std::ostream& os, const td::blind_level& level)
 // funding source to string
 static std::ostream& operator<<(std::ostream& os, const td::funding_source& src)
 {
-    os << src.name << ": " << src.cost_currency << src.cost;
-    if(src.commission != 0.0)
+    os << src.name << ": " << src.cost.currency << src.cost.amount;
+    if(src.commission.amount != 0.0)
     {
-        if(src.commission_currency == src.cost_currency)
+        if(src.commission.currency == src.cost.currency)
         {
-            os << '+' << src.commission;
+            os << '+' << src.commission.amount;
         }
         else
         {
-            os << '+' << src.commission_currency << src.commission;
+            os << '+' << src.commission.currency << src.commission.amount;
         }
     }
     return os;
@@ -890,7 +890,7 @@ void gameinfo::fund_player(const td::player_id_t& player_id, const td::funding_s
         throw td::protocol_error("tried re-buying before tournamnet start");
     }
 
-    if(!this->total_equity.empty() && source.equity_currency != this->total_equity.begin()->first)
+    if(!this->total_equity.empty() && source.equity.currency != this->total_equity.begin()->first)
     {
         throw td::protocol_error("tried mixing equity currencies, currently not supported");
     }
@@ -925,9 +925,9 @@ void gameinfo::fund_player(const td::player_id_t& player_id, const td::funding_s
 
     // update totals
     this->total_chips += source.chips;
-    this->total_cost[source.cost_currency] += source.cost;
-    this->total_commission[source.commission_currency] += source.commission;
-    this->total_equity[source.equity_currency] += source.equity;
+    this->total_cost[source.cost.currency] += source.cost.amount;
+    this->total_commission[source.commission.currency] += source.commission.amount;
+    this->total_equity[source.equity.currency] += source.equity.amount;
 
     // automatically recalculate
     this->recalculate_payouts();
@@ -1131,7 +1131,7 @@ void gameinfo::recalculate_payouts()
         }
 
         // TODO: user-specify payout_currency when automatically generating payouts?
-        auto payout_currency(this->funding_sources.begin()->equity_currency);
+        auto payout_currency(this->funding_sources.begin()->equity.currency);
 
         // next, loop through again generating payouts
         if(round)

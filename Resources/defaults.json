@@ -301,48 +301,36 @@
             "type": 0,
             "forbid_after_blind_level": 1,
             "chips": 5000,
-            "cost": 30.00,
-            "cost_currency": "USD",
-            "commission": 0.00,
-            "commission_currency": "USD",
-            "equity": 30.00,
-            "equity_currency": "USD"
+            "cost": { "amount": 30.0, "currency": "USD" },
+            "commission": { "amount": 0.0, "currency": "USD" },
+            "equity": { "amount": 30.0, "currency": "USD" }
         },
         {
             "name": "Re-buy",
             "type": 1,
             "forbid_after_blind_level": 3,
             "chips": 5000,
-            "cost": 30.00,
-            "cost_currency": "USD",
-            "commission": 0.00,
-            "commission_currency": "USD",
-            "equity": 30.00,
-            "equity_currency": "USD"
+            "cost": { "amount": 30.0, "currency": "USD" },
+            "commission": { "amount": 0.0, "currency": "USD" },
+            "equity": { "amount": 30.0, "currency": "USD" }
         },
         {
             "name": "Pizza add-on",
             "type": 2,
             "forbid_after_blind_level": 0,
             "chips": 500,
-            "cost": 5.00,
-            "cost_currency": "USD",
-            "commission": 0.00,
-            "commission_currency": "USD",
-            "equity": 5.00,
-            "equity_currency": "USD"
+            "cost": { "amount": 5.0, "currency": "USD" },
+            "commission": { "amount": 0.0, "currency": "USD" },
+            "equity": { "amount": 5.0, "currency": "USD" }
         },
         {
             "name": "Earlybird free add-on",
             "type": 2,
             "forbid_after_blind_level": 0,
             "chips": 500,
-            "cost": 0.00,
-            "cost_currency": "USD",
-            "commission": 0.00,
-            "commission_currency": "USD",
-            "equity": 0.00,
-            "equity_currency": "USD"
+            "cost": { "amount": 0.0, "currency": "USD" },
+            "commission": { "amount": 0.0, "currency": "USD" },
+            "equity": { "amount": 0.0, "currency": "USD" }
         }
     ],
     "table_capacity": 8,

@@ -1894,7 +1894,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="keyPath" value="cost"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="keyPath" value="cost.amount"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outlet property="textField" destination="R1P-V7-Cdj" id="BkV-Qu-skL"/>
@@ -1932,7 +1932,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="keyPath" value="cost_currency"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="keyPath" value="cost.currency"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outlet property="textField" destination="EbY-0H-o5D" id="ARG-Zw-QbI"/>
@@ -1970,7 +1970,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="keyPath" value="commission"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="keyPath" value="commission.amount"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outlet property="textField" destination="ynV-zw-wDQ" id="1uH-se-u0J"/>
@@ -2008,7 +2008,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="keyPath" value="commission_currency"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="keyPath" value="commission.currency"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outlet property="textField" destination="lML-vg-MJS" id="Pfg-yQ-ksn"/>
@@ -2046,7 +2046,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="keyPath" value="equity"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="keyPath" value="equity.amount"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outlet property="textField" destination="CMi-C5-KvE" id="IJS-LR-PGZ"/>
@@ -2084,7 +2084,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="keyPath" value="equity_currency"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="keyPath" value="equity.currency"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outlet property="textField" destination="6p3-TM-Q4d" id="2Q2-6E-xdh"/>

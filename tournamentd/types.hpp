@@ -63,6 +63,18 @@ namespace td
         explicit chip(const json& obj);
     };
 
+    // represents a monetary value
+    // currency names use ISO 4217
+    struct monetary_value
+    {
+        double amount;
+        std::string currency;
+
+        monetary_value();
+        explicit monetary_value(const json& obj);
+        monetary_value(double amt, const std::string& curr);
+    };
+
     // attributes of each funding source (buy-in, addon, etc.)
     struct funding_source
     {
@@ -70,13 +82,9 @@ namespace td
         funding_source_type_t type;
         std::size_t forbid_after_blind_level;
         unsigned long chips;
-        double cost;
-        double commission;
-        double equity;
-        // currency names use ISO 4217
-        std::string cost_currency;
-        std::string commission_currency;
-        std::string equity_currency;
+        monetary_value cost;
+        monetary_value commission;
+        monetary_value equity;
 
         funding_source();
         explicit funding_source(const json& obj);
@@ -126,17 +134,6 @@ namespace td
         player_chips();
         explicit player_chips(const json& obj);
         player_chips(unsigned long d, unsigned long c);
-    };
-
-    // represents a payout
-    struct monetary_value
-    {
-        double amount;
-        std::string currency;
-
-        monetary_value();
-        explicit monetary_value(const json& obj);
-        monetary_value(double amt, const std::string& curr);
     };
 
     // represents a manually built payout structure

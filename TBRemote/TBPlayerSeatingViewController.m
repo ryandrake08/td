@@ -72,7 +72,7 @@
         }];
 
         // update currency image
-        NSString* buyinCurrency = [self buyinFundingSource][@"cost_currency"];
+        NSString* buyinCurrency = [self buyinFundingSource][@"cost"][@"currency"];
         if(buyinCurrency != nil) {
             TBCurrencyImageTransformer* imageTransformer = [[TBCurrencyImageTransformer alloc] init];
             UIImage* image = [imageTransformer transformedValue:buyinCurrency];
