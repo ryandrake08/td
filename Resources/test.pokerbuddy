@@ -295,6 +295,7 @@
     "percent_seats_paid": 0.25,
     "round_payouts": true,
     "payout_flatness": 0.85,
+    "force_payouts": [100,40,20],
     "funding_sources": [
         {
             "name": "Main Buy-in",

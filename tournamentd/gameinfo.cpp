@@ -58,6 +58,9 @@ void gameinfo::configure(const json& config)
     config.get_value("rebalance_policy", reinterpret_cast<int&>(this->rebalance_policy));
     config.get_value("background_color", this->background_color);
 
+    // forced payouts
+    config.get_values("force_payouts", this->force_payouts);
+
     if(config.get_values("available_chips", this->available_chips))
     {
         // always sort chips by denomination
@@ -114,6 +117,7 @@ void gameinfo::configure(const json& config)
 
     // recalculate for any configuration that could alter payouts
     auto recalculate(false);
+    recalculate = recalculate || config.get_value("force_payouts");
     recalculate = recalculate || config.get_value("manual_payouts");
     recalculate = recalculate || config.get_value("round_payouts", this->round_payouts);
     recalculate = recalculate || config.get_value("percent_seats_paid", this->percent_seats_paid);
@@ -152,6 +156,7 @@ void gameinfo::dump_configuration(json& config) const
     config.set_value("funding_sources", json(this->funding_sources.begin(), this->funding_sources.end()));
     config.set_value("blind_levels", json(this->blind_levels.begin(), this->blind_levels.end()));
     config.set_value("available_chips", json(this->available_chips.begin(), this->available_chips.end()));
+    config.set_value("force_payouts", json(this->force_payouts.begin(), this->force_payouts.end()));
     config.set_value("manual_payouts", json(this->manual_payouts.begin(), this->manual_payouts.end()));
 }
 
@@ -377,6 +382,7 @@ void gameinfo::dump_derived_state(json& state) const
     state.set_value("buyin_text", os.str()); os.str("");
 
     // payout currency (for now, it's the first equity_currency found. equity currencies are guaranteed to match)
+    // TODO: payout_currency should be part of global config, don't rely on equity_currency
     auto source(this->funding_sources.begin());
 
     // results
@@ -1085,6 +1091,14 @@ std::vector<td::player_chips> gameinfo::chips_for_buyin(const td::funding_source
 // re-calculate payouts
 void gameinfo::recalculate_payouts()
 {
+    // force payout:
+    // overrides everyting. disregard number of players and just use this
+    if(!this->force_payouts.empty())
+    {
+        this->payouts = this->force_payouts;
+        return;
+    }
+
     // manual payout:
     // look for a manual payout given this number of unique entries
     auto manual_payout_it(this->manual_payouts.find(this->unique_entries.size()));

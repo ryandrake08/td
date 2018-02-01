@@ -446,7 +446,8 @@ struct tournament::impl
 								funding_sources (array): Each valid source of funding for this tournament
 								blind_levels (array): Discription of each blind level
 								available_chips (array): Discription of each chip color and denomination
-								manual_payouts (array): Manual payout definitions: number of players and an array of payouts
+								force_payouts (array): Force this array of payouts, regardless of number of players
+								manual_payouts (array): Manual payout definitions: number of players and an array of payouts, if missing, automatic payouts are calculated
 								previous_blind_level_hold_duration (integer): How long after round starts should prev command go to the previous round (rather than restart)? (ms)
 								rebalance_policy (integer): Policy for rebalancing tables (0 = manual, 1 = when unbalanced, 2 = shootout)
 								background_color (string): Suggested clock user interface color
@@ -527,7 +528,8 @@ struct tournament::impl
 								funding_sources (optional, array): Each valid source of funding for this tournament
 								blind_levels (optional, array): Discription of each blind level
 								available_chips (optional, array): Discription of each chip color and denomination
-								manual_payouts (optional, array): Manual payout definitions: number of players and an array of payouts
+								force_payouts (array): Force this array of payouts, regardless of number of players
+								manual_payouts (optional, array): Manual payout definitions: number of players and an array of payouts, if missing, automatic payouts are calculated
 								previous_blind_level_hold_duration (optional, integer): How long after round starts should prev command go to the previous round (rather than restart)? (ms)
 
 							output:
@@ -932,6 +934,8 @@ struct tournament::impl
 				{
 					throw;
 				}
+
+                logger(ll::warning) << "unix socket creation resulted in: " << e.what() << ". retrying without unix socket\n";
 			}
 		}
 

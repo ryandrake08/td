@@ -21,15 +21,6 @@ class gameinfo
     // configuration: number of players per table
     std::size_t table_capacity;
 
-    // configuration: rough percentage of seats that get paid (0.0-1.0)
-    double percent_seats_paid;
-
-    // configuration: round to whole numbers when calculating payouts?
-    bool round_payouts;
-
-    // configuration: payout structure flatness
-    double payout_flatness;
-
     // configuration: funding rules
     std::vector<td::funding_source> funding_sources;
 
@@ -39,8 +30,20 @@ class gameinfo
     // configuration: description of each chip (for display)
     std::vector<td::chip> available_chips;
 
+    // configuration: forced payout structure (regardless of number of players)
+    std::vector<double> force_payouts;
+
     // configuration: manually generated payout structures
     std::unordered_map<size_t, std::vector<double>> manual_payouts;
+
+    // configuration: automatic payouts: rough percentage of seats that get paid (0.0-1.0)
+    double percent_seats_paid;
+
+    // configuration: automatic payouts: round to whole numbers when calculating payouts?
+    bool round_payouts;
+
+    // configuration: automatic payouts: payout structure flatness
+    double payout_flatness;
 
     // configuration: how long after round starts should prev command go to the previous round (rather than restart)? (ms)
     long previous_blind_level_hold_duration;
