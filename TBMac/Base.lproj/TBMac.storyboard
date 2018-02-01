@@ -1656,7 +1656,7 @@ Gw
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
                                                             <connections>
-                                                                <binding destination="Hbg-kc-ljD" name="value" keyPath="objectValue.payout" id="SoZ-Lb-bHv"/>
+                                                                <binding destination="Hbg-kc-ljD" name="value" keyPath="objectValue.payout.amount" id="182-oC-uzU"/>
                                                             </connections>
                                                         </textField>
                                                     </subviews>
@@ -1666,7 +1666,7 @@ Gw
                                                 </tableCellView>
                                             </prototypeCellViews>
                                             <connections>
-                                                <binding destination="Us6-y6-DZC" name="value" keyPath="arrangedObjects.payout" id="2mo-5h-hoC"/>
+                                                <binding destination="Us6-y6-DZC" name="value" keyPath="arrangedObjects.payout.amount" id="wLS-Ft-FPQ"/>
                                             </connections>
                                         </tableColumn>
                                     </tableColumns>
@@ -3397,7 +3397,7 @@ Gw
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
                                                                     <connections>
-                                                                        <binding destination="cIQ-1K-wLT" name="value" keyPath="objectValue" id="K5D-TC-dgW"/>
+                                                                        <binding destination="cIQ-1K-wLT" name="value" keyPath="objectValue.amount" id="ksI-2Q-YxD"/>
                                                                     </connections>
                                                                 </textField>
                                                             </subviews>
@@ -3407,11 +3407,12 @@ Gw
                                                         </tableCellView>
                                                     </prototypeCellViews>
                                                     <connections>
-                                                        <binding destination="gM5-f0-sHO" name="value" keyPath="arrangedObjects" id="h55-Ba-S5H"/>
+                                                        <binding destination="gM5-f0-sHO" name="value" keyPath="arrangedObjects.amount" id="r4N-Az-EMr"/>
                                                     </connections>
                                                 </tableColumn>
                                             </tableColumns>
                                             <connections>
+                                                <binding destination="gM5-f0-sHO" name="content" keyPath="arrangedObjects" id="O23-a0-EXv"/>
                                                 <outlet property="dataSource" destination="tHD-7b-Ew5" id="Pbt-PI-N3I"/>
                                                 <outlet property="delegate" destination="tHD-7b-Ew5" id="2D5-Fg-wRF"/>
                                             </connections>
@@ -3469,9 +3470,13 @@ Gw
                     </connections>
                 </viewController>
                 <customObject id="CB0-yh-Pkm" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-                <arrayController objectClassName="NSNumber" clearsFilterPredicateOnInsertion="NO" automaticallyRearrangesObjects="YES" id="gM5-f0-sHO" customClass="TBSetupPayoutsArrayController">
+                <arrayController clearsFilterPredicateOnInsertion="NO" automaticallyRearrangesObjects="YES" id="gM5-f0-sHO" customClass="TBSetupPayoutsArrayController">
+                    <declaredKeys>
+                        <string>amount</string>
+                        <string>currency</string>
+                    </declaredKeys>
                     <connections>
-                        <binding destination="tHD-7b-Ew5" name="contentArray" keyPath="self.representedObject.force_payouts" id="nG6-W5-kxp"/>
+                        <binding destination="tHD-7b-Ew5" name="contentArray" keyPath="self.representedObject.forced_payouts" id="oC3-D0-AZi"/>
                     </connections>
                 </arrayController>
             </objects>

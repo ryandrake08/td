@@ -31,10 +31,10 @@ class gameinfo
     std::vector<td::chip> available_chips;
 
     // configuration: forced payout structure (regardless of number of players)
-    std::vector<double> force_payouts;
+    std::vector<td::monetary_value> forced_payouts;
 
     // configuration: manually generated payout structures
-    std::unordered_map<size_t, std::vector<double>> manual_payouts;
+    std::unordered_map<size_t, std::vector<td::monetary_value>> manual_payouts;
 
     // configuration: automatic payouts: rough percentage of seats that get paid (0.0-1.0)
     double percent_seats_paid;
@@ -85,7 +85,7 @@ class gameinfo
     std::deque<td::player_id_t> entries;
 
     // payout structure
-    std::vector<double> payouts;
+    std::vector<td::monetary_value> payouts;
 
     // total game currency (chips) in play
     unsigned long total_chips;

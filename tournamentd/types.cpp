@@ -59,19 +59,27 @@ td::player_chips::player_chips(unsigned long d, unsigned long c) : denomination(
 {
 }
 
+td::monetary_value::monetary_value() : amount(0.0)
+{
+}
+
+td::monetary_value::monetary_value(double amt, const std::string& curr) : amount(amt), currency(curr)
+{
+}
+
 td::manual_payout::manual_payout() : buyins_count(0)
 {
 }
 
-td::manual_payout::manual_payout(size_t c, const std::vector<double>& p) : buyins_count(c), payouts(p)
+td::manual_payout::manual_payout(size_t c, const std::vector<monetary_value>& p) : buyins_count(c), payouts(p)
 {
 }
 
-td::result::result() : place(0), payout(0.0)
+td::result::result() : place(0)
 {
 }
 
-td::result::result(size_t p, const std::string& n) : place(p), name(n), payout(0.0)
+td::result::result(size_t p, const std::string& n) : place(p), name(n)
 {
 }
 
@@ -149,6 +157,12 @@ td::player_movement::player_movement(const json& obj) : player_movement()
     obj.get_value("from_seat_number", this->from_seat.seat_number);
     obj.get_value("to_table_number", this->to_seat.table_number);
     obj.get_value("to_seat_number", this->to_seat.seat_number);
+}
+
+td::monetary_value::monetary_value(const json& obj) : td::monetary_value()
+{
+    obj.get_value("amount", this->amount);
+    obj.get_value("currency", this->currency);
 }
 
 td::manual_payout::manual_payout(const json& obj) : manual_payout()
@@ -305,7 +319,14 @@ json::json(const std::pair<const td::player_id_t,td::player>& value) : json(valu
 }
 
 template<>
-json::json(const std::pair<const size_t,std::vector<double>>& value) : json()
+json::json(const td::monetary_value& value) : json()
+{
+    this->set_value("amount", value.amount);
+    this->set_value("currency", value.currency);
+}
+
+template<>
+json::json(const std::pair<const size_t,std::vector<td::monetary_value>>& value) : json()
 {
     this->set_value("buyins_count", value.first);
     this->set_value("payouts", json(value.second.begin(), value.second.end()));
@@ -317,7 +338,6 @@ json::json(const td::result& value) : json()
     this->set_value("place", value.place);
     this->set_value("name", value.name);
     this->set_value("payout", value.payout);
-    this->set_value("payout_currency", value.payout_currency);
 }
 
 template<>

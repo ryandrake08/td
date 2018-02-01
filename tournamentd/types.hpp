@@ -128,15 +128,26 @@ namespace td
         player_chips(unsigned long d, unsigned long c);
     };
 
+    // represents a payout
+    struct monetary_value
+    {
+        double amount;
+        std::string currency;
+
+        monetary_value();
+        explicit monetary_value(const json& obj);
+        monetary_value(double amt, const std::string& curr);
+    };
+
     // represents a manually built payout structure
     struct manual_payout
     {
         size_t buyins_count;
-        std::vector<double> payouts;
+        std::vector<monetary_value> payouts;
 
         manual_payout();
         explicit manual_payout(const json& obj);
-        manual_payout(size_t c, const std::vector<double>& p);
+        manual_payout(size_t c, const std::vector<monetary_value>& p);
     };
 
     // represents a tournament result
@@ -144,8 +155,7 @@ namespace td
     {
         size_t place;
         std::string name;
-        double payout;
-        std::string payout_currency;
+        monetary_value payout;
 
         result();
         result(size_t p, const std::string& n="");

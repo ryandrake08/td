@@ -76,8 +76,8 @@
 
         // payout
         TBCurrencyNumberFormatter* payoutFormatter = [[TBCurrencyNumberFormatter alloc] init];
-        [payoutFormatter setCurrencyCode:result[@"payout_currency"]];
-        NSString* payout = [payoutFormatter stringFromNumber:result[@"payout"]];
+        [payoutFormatter setCurrencyCode:result[@"payout"][@"currency"]];
+        NSString* payout = [payoutFormatter stringFromNumber:result[@"payout"][@"amount"]];
 
         // setup cell
         [(UILabel*)[cell viewWithTag:100] setText:place];

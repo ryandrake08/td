@@ -534,8 +534,8 @@
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
                                                                     <connections>
-                                                                        <binding destination="5xM-ud-r4f" name="value" keyPath="objectValue.payout" id="DR4-GQ-Fqb"/>
                                                                         <binding destination="qiy-ws-jFz" name="textColor" keyPath="self.textColor" id="7Za-PY-L8b"/>
+                                                                        <binding destination="5xM-ud-r4f" name="value" keyPath="objectValue.payout.amount" id="w3Z-5N-2j6"/>
                                                                     </connections>
                                                                 </textField>
                                                                 <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="ogx-nJ-RX5">

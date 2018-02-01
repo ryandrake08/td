@@ -19,7 +19,10 @@
 @implementation TBSetupPayoutsArrayController
 
 - (id)newObject {
-    return @0L;
+    NSNumber* amount = @0;
+    NSString* currency = @"USD";
+
+    return [@{@"amount":amount, @"currency":currency} mutableCopy];
 }
 
 @end
@@ -45,8 +48,8 @@
 - (NSView *)tableView:(NSTableView*)aTableView viewForTableColumn:(NSTableColumn*)aTableColumn row:(NSInteger)rowIndex {
     NSTableCellView* result = [aTableView makeViewWithIdentifier:aTableColumn.identifier owner:self];
     if([[aTableColumn identifier] isEqualToString:@"Payout"]) {
-//        NSNumber* object = [[[self arrayController] arrangedObjects] objectAtIndex:rowIndex];
-//        [[[result textField] formatter] setCurrencyCode:object[@"payout_currency"]];
+        NSDictionary* object = [[[self arrayController] arrangedObjects] objectAtIndex:rowIndex];
+        [[[result textField] formatter] setCurrencyCode:object[@"currency"]];
     }
     return result;
 }

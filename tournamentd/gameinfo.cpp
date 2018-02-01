@@ -59,7 +59,7 @@ void gameinfo::configure(const json& config)
     config.get_value("background_color", this->background_color);
 
     // forced payouts
-    config.get_values("force_payouts", this->force_payouts);
+    config.get_values("forced_payouts", this->forced_payouts);
 
     if(config.get_values("available_chips", this->available_chips))
     {
@@ -117,7 +117,7 @@ void gameinfo::configure(const json& config)
 
     // recalculate for any configuration that could alter payouts
     auto recalculate(false);
-    recalculate = recalculate || config.get_value("force_payouts");
+    recalculate = recalculate || config.get_value("forced_payouts");
     recalculate = recalculate || config.get_value("manual_payouts");
     recalculate = recalculate || config.get_value("round_payouts", this->round_payouts);
     recalculate = recalculate || config.get_value("percent_seats_paid", this->percent_seats_paid);
@@ -156,7 +156,7 @@ void gameinfo::dump_configuration(json& config) const
     config.set_value("funding_sources", json(this->funding_sources.begin(), this->funding_sources.end()));
     config.set_value("blind_levels", json(this->blind_levels.begin(), this->blind_levels.end()));
     config.set_value("available_chips", json(this->available_chips.begin(), this->available_chips.end()));
-    config.set_value("force_payouts", json(this->force_payouts.begin(), this->force_payouts.end()));
+    config.set_value("forced_payouts", json(this->forced_payouts.begin(), this->forced_payouts.end()));
     config.set_value("manual_payouts", json(this->manual_payouts.begin(), this->manual_payouts.end()));
 }
 
@@ -381,20 +381,15 @@ void gameinfo::dump_derived_state(json& state) const
     }
     state.set_value("buyin_text", os.str()); os.str("");
 
-    // payout currency (for now, it's the first equity_currency found. equity currencies are guaranteed to match)
-    // TODO: payout_currency should be part of global config, don't rely on equity_currency
-    auto source(this->funding_sources.begin());
-
     // results
     std::vector<td::result> results;
     for(size_t j(0); j<this->buyins.size(); j++)
     {
         td::result result(j+1);
-        if(j < this->payouts.size() && source != this->funding_sources.end())
+        if(j < this->payouts.size())
         {
             result.payout = this->payouts[j];
         }
-        result.payout_currency = source->equity_currency;
         results.push_back(result);
     }
     for(size_t i(0); i<this->players_finished.size(); i++)
@@ -408,11 +403,10 @@ void gameinfo::dump_derived_state(json& state) const
         size_t j(this->buyins.size()+i);
 
         td::result result(j+1, player_it->second.name);
-        if(j < this->payouts.size() && source != this->funding_sources.end())
+        if(j < this->payouts.size())
         {
             result.payout = this->payouts[j];
         }
-        result.payout_currency = source->equity_currency;
         results.push_back(result);
     }
     state.set_value("results", json(results.begin(), results.end()));
@@ -1093,9 +1087,9 @@ void gameinfo::recalculate_payouts()
 {
     // force payout:
     // overrides everyting. disregard number of players and just use this
-    if(!this->force_payouts.empty())
+    if(!this->forced_payouts.empty())
     {
-        this->payouts = this->force_payouts;
+        this->payouts = this->forced_payouts;
         return;
     }
 
@@ -1136,18 +1130,35 @@ void gameinfo::recalculate_payouts()
             total += c;
         }
 
+        // TODO: user-specify payout_currency when automatically generating payouts?
+        auto payout_currency(this->funding_sources.begin()->equity_currency);
+
         // next, loop through again generating payouts
         if(round)
         {
-            std::transform(comp.begin(), comp.end(), this->payouts.begin(), [&](double c) { return std::round(this->total_equity.begin()->second * c / total); });
+            std::transform(comp.begin(), comp.end(), this->payouts.begin(), [&](double c)
+            {
+                double amount(std::round(this->total_equity.begin()->second * c / total));
+                return td::monetary_value(amount, payout_currency);
+            });
+
+            // count how much total was calculated after rounding
+            auto total_allocated_payout(std::accumulate(this->payouts.begin(), this->payouts.end(), 0.0, [](int sum, const td::monetary_value& curr)
+            {
+                return sum + curr.amount;
+            }));
 
             // remainder (either positive or negative) adjusts first place
-            auto remainder(this->total_equity.begin()->second - std::accumulate(this->payouts.begin(), this->payouts.end(), 0.0));
-            this->payouts[0] += remainder;
+            auto remainder(this->total_equity.begin()->second - total_allocated_payout);
+            this->payouts[0].amount += remainder;
         }
         else
         {
-            std::transform(comp.begin(), comp.end(), this->payouts.begin(), [&](double c) { return this->total_equity.begin()->second * c / total; });
+            std::transform(comp.begin(), comp.end(), this->payouts.begin(), [&](double c)
+            {
+                double amount(this->total_equity.begin()->second * c / total);
+                return td::monetary_value(amount, payout_currency);
+            });
         }
     }
 }
