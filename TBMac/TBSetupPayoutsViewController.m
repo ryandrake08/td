@@ -28,11 +28,20 @@
 @end
 
 
-@interface TBSetupPayoutsViewController () <NSTableViewDataSource, NSTableViewDelegate>
+@interface TBSetupPayoutsViewController () <NSTableViewDataSource>
+
+@property (strong) NSArray* currencyList;
 
 @end
 
 @implementation TBSetupPayoutsViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+
+    // set up currency list
+    _currencyList = [TBCurrencyNumberFormatter supportedCurrencies];
+}
 
 #pragma mark NSTableViewDataSource
 
@@ -41,17 +50,6 @@
         return @(rowIndex+1);
     }
     return nil;
-}
-
-#pragma mark NSTableViewDelegate
-
-- (NSView *)tableView:(NSTableView*)aTableView viewForTableColumn:(NSTableColumn*)aTableColumn row:(NSInteger)rowIndex {
-    NSTableCellView* result = [aTableView makeViewWithIdentifier:aTableColumn.identifier owner:self];
-    if([[aTableColumn identifier] isEqualToString:@"Payout"]) {
-        NSDictionary* object = [[[self arrayController] arrangedObjects] objectAtIndex:rowIndex];
-        [[[result textField] formatter] setCurrencyCode:object[@"currency"]];
-    }
-    return result;
 }
 
 @end

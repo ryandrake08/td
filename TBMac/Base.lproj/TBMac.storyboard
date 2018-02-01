@@ -3328,7 +3328,7 @@ Gw
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                             <tableColumns>
-                                                <tableColumn identifier="Round" width="64" maxWidth="100" id="GQI-sJ-vKv">
+                                                <tableColumn identifier="Round" width="64" minWidth="64" maxWidth="64" id="GQI-sJ-vKv">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Round">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -3368,7 +3368,7 @@ Gw
                                                         </tableCellView>
                                                     </prototypeCellViews>
                                                 </tableColumn>
-                                                <tableColumn identifier="Payout" width="542" minWidth="64" maxWidth="1000000000" id="M2O-6y-T3A">
+                                                <tableColumn identifier="Payout" width="96" maxWidth="128" id="M2O-6y-T3A">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Payout">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -3382,16 +3382,13 @@ Gw
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
                                                         <tableCellView id="cIQ-1K-wLT">
-                                                            <rect key="frame" x="68" y="1" width="542" height="29"/>
+                                                            <rect key="frame" x="68" y="1" width="96" height="29"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tPK-bZ-sdY">
-                                                                    <rect key="frame" x="0.0" y="7" width="544" height="17"/>
+                                                                    <rect key="frame" x="0.0" y="7" width="98" height="17"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" alignment="left" placeholderString="0" id="FCa-4q-kKZ">
-                                                                        <numberFormatter key="formatter" formatterBehavior="custom10_4" numberStyle="currency" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" minimumFractionDigits="2" maximumFractionDigits="2" id="oyE-tx-F3I" userLabel="Payout Formatter" customClass="TBCurrencyNumberFormatter">
-                                                                            <real key="minimum" value="0.0"/>
-                                                                        </numberFormatter>
                                                                         <font key="font" metaFont="system"/>
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -3410,11 +3407,48 @@ Gw
                                                         <binding destination="gM5-f0-sHO" name="value" keyPath="arrangedObjects.amount" id="r4N-Az-EMr"/>
                                                     </connections>
                                                 </tableColumn>
+                                                <tableColumn identifier="" width="443" minWidth="56" maxWidth="1000000000" id="Qpn-V5-Pdl">
+                                                    <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Currency">
+                                                        <font key="font" metaFont="smallSystem"/>
+                                                        <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </tableHeaderCell>
+                                                    <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="WVg-cc-Lp7">
+                                                        <font key="font" metaFont="system"/>
+                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                    </textFieldCell>
+                                                    <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                                    <prototypeCellViews>
+                                                        <tableCellView id="70E-Xt-9Hz">
+                                                            <rect key="frame" x="167" y="1" width="443" height="29"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                            <subviews>
+                                                                <popUpButton fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NpP-NB-0Ws">
+                                                                    <rect key="frame" x="0.0" y="7" width="56" height="17"/>
+                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                                    <popUpButtonCell key="cell" type="square" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="dba-je-z7C">
+                                                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                        <font key="font" metaFont="menu"/>
+                                                                        <menu key="menu" id="XbG-pv-CMP"/>
+                                                                    </popUpButtonCell>
+                                                                    <connections>
+                                                                        <binding destination="tHD-7b-Ew5" name="contentValues" keyPath="self.currencyList" id="L5S-Vs-iA2"/>
+                                                                        <binding destination="70E-Xt-9Hz" name="selectedValue" keyPath="objectValue.currency" previousBinding="L5S-Vs-iA2" id="Rbl-xv-0SI">
+                                                                            <dictionary key="options">
+                                                                                <string key="NSValueTransformerName">TBCurrencyCodeTransformer</string>
+                                                                            </dictionary>
+                                                                        </binding>
+                                                                    </connections>
+                                                                </popUpButton>
+                                                            </subviews>
+                                                        </tableCellView>
+                                                    </prototypeCellViews>
+                                                </tableColumn>
                                             </tableColumns>
                                             <connections>
                                                 <binding destination="gM5-f0-sHO" name="content" keyPath="arrangedObjects" id="O23-a0-EXv"/>
                                                 <outlet property="dataSource" destination="tHD-7b-Ew5" id="Pbt-PI-N3I"/>
-                                                <outlet property="delegate" destination="tHD-7b-Ew5" id="2D5-Fg-wRF"/>
                                             </connections>
                                         </tableView>
                                     </subviews>
