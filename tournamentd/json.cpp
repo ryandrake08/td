@@ -91,29 +91,16 @@ json::json(json&& other) noexcept : ptr(check(other.ptr))
 // Copy assignment duplicates
 json& json::operator=(const json& other)
 {
-    if(this != &other)
-    {
-        // Delete current cJSON
-        cJSON_Delete(this->ptr);
-
-        // Duplicate other one
-        this->ptr = check(cJSON_Duplicate(other.ptr, 1));
-    }
+    auto tmp(other);
+    std::swap(this->ptr, tmp.ptr);
     return *this;
 }
 
-// Copy assignment duplicates
+// Move assignment moves
 json& json::operator=(json&& other) noexcept
 {
-    if(this != &other)
-    {
-        // Delete current cJSON
-        cJSON_Delete(this->ptr);
-
-        // Copy the other one
-        this->ptr = check(other.ptr);
-        other.ptr = nullptr;
-    }
+    auto tmp(std::move(other));
+    std::swap(this->ptr, tmp.ptr);
     return *this;
 }
 
