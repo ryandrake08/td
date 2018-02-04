@@ -54,7 +54,7 @@ public:
         mask = 0;
         for(auto level : logs)
         {
-            mask |= 1 >> static_cast<size_t>(level);
+            mask |= 1 << static_cast<size_t>(level);
         }
     }
 };
