@@ -5,7 +5,7 @@
 #if defined(__APPLE__)
 #include <CFNetwork/CFNetwork.h>
 
-class bonjour_publisher::impl
+struct bonjour_publisher::impl
 {
     class cf_error_category : public std::error_category
     {
@@ -85,7 +85,7 @@ public:
 #include <cassert>
 #include <string>
 
-class bonjour_publisher::impl
+struct bonjour_publisher::impl
 {
     class avahi_error_category : public std::error_category
     {
