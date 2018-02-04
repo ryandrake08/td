@@ -1,6 +1,7 @@
 #pragma once
 #include "types.hpp"
 #include <deque>
+#include <random>
 #include <string>
 #include <unordered_map>
 #include <unordered_set>
@@ -10,6 +11,10 @@ class json;
 
 class gameinfo
 {
+    // ----- random number engine -----
+
+    std::default_random_engine random_engine;
+
     // ----- configuration -----
 
     // configuration: human-readable name of this tournament

@@ -1,17 +1,5 @@
 #include "types.hpp"
-#include "shared_instance.hpp"
-#include <random>
-#include <utility>
 #include <cassert>
-
-static std::string random_player_id()
-{
-    // get randomization engine
-    auto engine(get_shared_instance<std::default_random_engine>());
-    auto distribution(std::uniform_int_distribution<int>(0, std::numeric_limits<int>::max()));
-    auto numeric_id(distribution(*engine));
-    return std::to_string(numeric_id);
-}
 
 // ----- initialization
 
@@ -31,7 +19,7 @@ td::funding_source::funding_source() : type(td::funding_source_type_t::buyin), f
 {
 }
 
-td::player::player() : player_id(random_player_id()), added_at(datetime::now())
+td::player::player() : added_at(datetime::now())
 {
 }
 

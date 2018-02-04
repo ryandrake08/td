@@ -1,6 +1,5 @@
 #include "gameinfo.hpp"
 #include "logger.hpp"
-#include "shared_instance.hpp"
 #include <algorithm>
 #include <cmath>
 #include <iomanip>
@@ -523,12 +522,9 @@ std::size_t gameinfo::plan_seating(std::size_t max_expected)
         }
     }
 
-    // get randomization engine
-    auto engine(get_shared_instance<std::default_random_engine>());
-
     // randomize preferred then extra seats separately
-    std::shuffle(this->empty_seats.begin(), extra_it, *engine);
-    std::shuffle(extra_it, this->empty_seats.end(), *engine);
+    std::shuffle(this->empty_seats.begin(), extra_it, this->random_engine);
+    std::shuffle(extra_it, this->empty_seats.end(), this->random_engine);
 
     // set max
     this->max_expected_players = max_expected;
@@ -707,11 +703,8 @@ td::player_movement gameinfo::move_player(const td::player_id_t& player_id, std:
         throw td::protocol_error("tried to move player to a full table");
     }
 
-    // get randomization engine
-    auto engine(get_shared_instance<std::default_random_engine>());
-
     // pick one at random
-    auto index(std::uniform_int_distribution<std::size_t>(0, candidates.size()-1)(*engine));
+    auto index(std::uniform_int_distribution<std::size_t>(0, candidates.size()-1)(this->random_engine));
     auto to_seat_it(candidates[index]);
 
     // move player
@@ -790,16 +783,13 @@ std::size_t gameinfo::try_rebalance(std::vector<td::player_movement>& movements)
         auto fewest_it(std::min_element(ppt.begin(), ppt.end(), has_lower_size<std::vector<td::player_id_t> >));
         auto most_it(std::max_element(ppt.begin(), ppt.end(), has_lower_size<std::vector<td::player_id_t> >));
 
-        // get randomization engine
-        auto engine(get_shared_instance<std::default_random_engine>());
-
         // if fewest has two fewer players than most (e.g. 6 vs 8), then rebalance
         while(!most_it->empty() && fewest_it->size() < most_it->size() - 1)
         {
             logger(ll::info) << "largest table has " << most_it->size() << " players and smallest table has " << fewest_it->size() << " players\n";
 
             // pick a random player at the table with the most players
-            auto index(std::uniform_int_distribution<std::size_t>(0, most_it->size()-1)(*engine));
+            auto index(std::uniform_int_distribution<std::size_t>(0, most_it->size()-1)(this->random_engine));
             auto random_player((*most_it)[index]);
 
             // subtract iterator to find table number
