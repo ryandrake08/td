@@ -171,8 +171,8 @@ static std::ostream& operator<<(std::ostream& os, const std::tm* date_time)
 // Renderers
 std::string datetime::gmtime() const
 {
-	std::tm tm;
-	tm = this->gmtime(tm);
+    std::tm tm;
+    tm = this->gmtime(tm);
     std::ostringstream ss;
     ss << &tm;
     return ss.str();
@@ -180,8 +180,8 @@ std::string datetime::gmtime() const
 
 std::string datetime::localtime() const
 {
-	std::tm tm;
-	tm = this->localtime(tm);
+    std::tm tm;
+    tm = this->localtime(tm);
     std::ostringstream ss;
     ss << &tm;
     return ss.str();

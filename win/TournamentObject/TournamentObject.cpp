@@ -11,17 +11,17 @@ TBWin::TournamentObject::TournamentObject() : tourney(new tournament)
 
 TBWin::TournamentObject::~TournamentObject()
 {
-	delete tourney;
+    delete tourney;
 }
 
 int TBWin::TournamentObject::Start(int code)
 {
-	tourney->authorize(code);
-	auto service(tourney->listen(nullptr));
-	return service.second;
+    tourney->authorize(code);
+    auto service(tourney->listen(nullptr));
+    return service.second;
 }
 
 bool TBWin::TournamentObject::Run()
 {
-	return tourney->run();
+    return tourney->run();
 }

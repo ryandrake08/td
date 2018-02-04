@@ -4,7 +4,7 @@
 #include "tournament.hpp"
 
 #if !defined(P_tmpdir)
-#define	P_tmpdir "/tmp/"
+#define    P_tmpdir "/tmp/"
 #endif
 
 struct program::impl

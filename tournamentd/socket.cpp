@@ -278,23 +278,23 @@ long common_socket::peek(void* buf, std::size_t bytes) const
     {
         if(recv_errno == EAGAIN)
         {
-			logger(ll::debug) << "peek: no bytes available (EAGAIN)\n";
-		}
+            logger(ll::debug) << "peek: no bytes available (EAGAIN)\n";
+        }
 #if defined(_WIN32)
-		else if(recv_errno == 42 || recv_errno == 0)
-		{
-			logger(ll::debug) << "peek: no bytes available\n";
-		}
+        else if(recv_errno == 42 || recv_errno == 0)
+        {
+            logger(ll::debug) << "peek: no bytes available\n";
+        }
 #endif
         else if(recv_errno == ECONNRESET)
         {
             logger(ll::debug) << "peek: connection reset by peer\n";
             return -1;
         }
-		else
+        else
         {
-			throw std::system_error(recv_errno, std::system_category(), "recv");
-		}
+            throw std::system_error(recv_errno, std::system_category(), "recv");
+        }
         return 0;
     }
     else if(len == 0)
@@ -545,7 +545,7 @@ inet_socket::inet_socket(const char* host, const char* service, int family) : co
 
     // connect to remote address
 #if defined(_WIN32)
-	if(::connect(sock, result.ptr->ai_addr, (int)result.ptr->ai_addrlen) == SOCKET_ERROR)
+    if(::connect(sock, result.ptr->ai_addr, (int)result.ptr->ai_addrlen) == SOCKET_ERROR)
 #else
     if(::connect(sock, result.ptr->ai_addr, result.ptr->ai_addrlen) == SOCKET_ERROR)
 #endif
@@ -617,7 +617,7 @@ inet_socket::inet_socket(const char* service, int family, int backlog) : common_
 
     // bind to server port
 #if defined(_WIN32)
-	if(::bind(sock, result.ptr->ai_addr, (int)result.ptr->ai_addrlen) == SOCKET_ERROR)
+    if(::bind(sock, result.ptr->ai_addr, (int)result.ptr->ai_addrlen) == SOCKET_ERROR)
 #else
     if(::bind(sock, result.ptr->ai_addr, result.ptr->ai_addrlen) == SOCKET_ERROR)
 #endif

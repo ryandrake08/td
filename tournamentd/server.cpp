@@ -42,13 +42,13 @@ void server::listen(const char* unix_socket_path, const char* inet_service)
         this->pimpl->listeners.insert(sock6);
     }
 
-	if(unix_socket_path != nullptr)
-	{
-		// add unix socket
-		unix_socket socku(unix_socket_path);
-		this->pimpl->all.insert(socku);
-		this->pimpl->listeners.insert(socku);
-	}
+    if(unix_socket_path != nullptr)
+    {
+        // add unix socket
+        unix_socket socku(unix_socket_path);
+        this->pimpl->all.insert(socku);
+        this->pimpl->listeners.insert(socku);
+    }
 }
 
 // poll the server with given timeout
