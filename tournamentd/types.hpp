@@ -174,4 +174,20 @@ namespace td
         seated_player(const player_id_t& p, const std::string& n, bool b);
         seated_player(const player_id_t& p, const std::string& n, bool b, std::size_t t, std::size_t s);
     };
+
+    // automatic payout parameters
+    struct automatic_payout_parameters
+    {
+        // configuration: automatic payouts: rough percentage of seats that get paid (0.0-1.0)
+        double percent_seats_paid;
+
+        // configuration: automatic payouts: round to whole numbers when calculating payouts?
+        bool round_payouts;
+
+        // configuration: automatic payouts: payout structure flatness
+        double payout_flatness;
+
+        automatic_payout_parameters();
+        automatic_payout_parameters(const json& obj);
+    };
 }

@@ -38,20 +38,14 @@ class gameinfo
     // configuration: payout policy
     td::payout_policy_t payout_policy;
 
+    // configuration: automatic payout parameters
+    td::automatic_payout_parameters automatic_payouts;
+
     // configuration: forced payout structure (regardless of number of players)
     std::vector<td::monetary_value> forced_payouts;
 
     // configuration: manually generated payout structures
     std::unordered_map<size_t, std::vector<td::monetary_value>> manual_payouts;
-
-    // configuration: automatic payouts: rough percentage of seats that get paid (0.0-1.0)
-    double percent_seats_paid;
-
-    // configuration: automatic payouts: round to whole numbers when calculating payouts?
-    bool round_payouts;
-
-    // configuration: automatic payouts: payout structure flatness
-    double payout_flatness;
 
     // configuration: how long after round starts should prev command go to the previous round (rather than restart)? (ms)
     long previous_blind_level_hold_duration;

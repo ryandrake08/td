@@ -12,9 +12,6 @@
 gameinfo::gameinfo() :
     table_capacity(2),
     payout_policy(td::payout_policy_t::automatic),
-    percent_seats_paid(1.0),
-    round_payouts(false),
-    payout_flatness(1.0),
     previous_blind_level_hold_duration(2000),
     rebalance_policy(td::rebalance_policy_t::manual),
     max_expected_players(0),
@@ -53,14 +50,12 @@ void gameinfo::configure(const json& config)
     config.get_value("name", this->name);
     config.get_values("funding_sources", this->funding_sources);
     config.get_value("payout_policy", reinterpret_cast<int&>(this->payout_policy));
-    config.get_value("percent_seats_paid", this->percent_seats_paid);
+    config.get_value("automatic_payouts", this->automatic_payouts);
+    config.get_values("forced_payouts", this->forced_payouts);
     config.get_value("previous_blind_level_hold_duration", this->previous_blind_level_hold_duration);
     // TODO: changing the rebalance policy could trigger an immediate rebalance. for now, we wait until the next bust-out
     config.get_value("rebalance_policy", reinterpret_cast<int&>(this->rebalance_policy));
     config.get_value("background_color", this->background_color);
-
-    // forced payouts
-    config.get_values("forced_payouts", this->forced_payouts);
 
     if(config.get_values("available_chips", this->available_chips))
     {
@@ -119,11 +114,9 @@ void gameinfo::configure(const json& config)
     // recalculate for any configuration that could alter payouts
     auto recalculate(false);
     recalculate = recalculate || config.get_value("payout_policy");
+    recalculate = recalculate || config.get_value("automatic_payouts");
     recalculate = recalculate || config.get_value("forced_payouts");
     recalculate = recalculate || config.get_value("manual_payouts");
-    recalculate = recalculate || config.get_value("round_payouts", this->round_payouts);
-    recalculate = recalculate || config.get_value("percent_seats_paid", this->percent_seats_paid);
-    recalculate = recalculate || config.get_value("payout_flatness", this->payout_flatness);
     if(recalculate)
     {
         // after reconfiguring, we'll need to recalculate
@@ -152,15 +145,15 @@ void gameinfo::dump_configuration(json& config) const
     config.set_value("players", json(this->players.begin(), this->players.end()));
     config.set_value("table_capacity", this->table_capacity);
     config.set_value("payout_policy", static_cast<int>(this->payout_policy));
-    config.set_value("percent_seats_paid", this->percent_seats_paid);
+    config.set_value("automatic_payouts", this->automatic_payouts);
+    config.set_value("forced_payouts", json(this->forced_payouts.begin(), this->forced_payouts.end()));
+    config.set_value("manual_payouts", json(this->manual_payouts.begin(), this->manual_payouts.end()));
     config.set_value("previous_blind_level_hold_duration", this->previous_blind_level_hold_duration);
     config.set_value("rebalance_policy", static_cast<int>(this->rebalance_policy));
     config.set_value("background_color", this->background_color);
     config.set_value("funding_sources", json(this->funding_sources.begin(), this->funding_sources.end()));
     config.set_value("blind_levels", json(this->blind_levels.begin(), this->blind_levels.end()));
     config.set_value("available_chips", json(this->available_chips.begin(), this->available_chips.end()));
-    config.set_value("forced_payouts", json(this->forced_payouts.begin(), this->forced_payouts.end()));
-    config.set_value("manual_payouts", json(this->manual_payouts.begin(), this->manual_payouts.end()));
 }
 
 // dump state to JSON
@@ -1120,11 +1113,11 @@ void gameinfo::recalculate_payouts()
 
     // automatic calculation, if no manual payout found:
     // first, calculate how many places pay, given configuration and number of unique entries
-    std::size_t seats_paid(static_cast<std::size_t>(this->unique_entries.size() * this->percent_seats_paid + 0.5));
-    bool round(this->round_payouts);
-    double f(this->payout_flatness);
+    std::size_t seats_paid(static_cast<std::size_t>(this->unique_entries.size() * this->automatic_payouts.percent_seats_paid + 0.5));
+    bool round(this->automatic_payouts.round_payouts);
+    double f(this->automatic_payouts.payout_flatness);
 
-    logger(ll::info) << "recalculating " << (round ? "" : "and rounding ") << "payouts for " << count_unique_entries << " players: " << this->percent_seats_paid * 100 << "% (" << seats_paid << " seats) will be paid. payout flatness: " << f << "\n";
+    logger(ll::info) << "recalculating " << (round ? "" : "and rounding ") << "payouts for " << count_unique_entries << " players: " << this->automatic_payouts.percent_seats_paid * 100 << "% (" << seats_paid << " seats) will be paid. payout flatness: " << f << "\n";
 
     // resize our payout structure
     this->payouts.resize(seats_paid);

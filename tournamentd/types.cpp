@@ -83,11 +83,21 @@ td::seated_player::seated_player(const player_id_t& p, const std::string& n, boo
 {
 }
 
-// directly get monetary_value object from json
+td::automatic_payout_parameters::automatic_payout_parameters() : percent_seats_paid(1.0), round_payouts(false), payout_flatness(1.0)
+{
+}
+
+// directly get objects from json
 template <>
 td::monetary_value json::value() const
 {
     return td::monetary_value(*this);
+}
+
+template <>
+td::automatic_payout_parameters json::value() const
+{
+    return td::automatic_payout_parameters(*this);
 }
 
 // ----- construct from json
@@ -161,6 +171,13 @@ td::manual_payout::manual_payout(const json& obj) : manual_payout()
 {
     obj.get_value("buyins_count", this->buyins_count);
     obj.get_values("payouts", this->payouts);
+}
+
+td::automatic_payout_parameters::automatic_payout_parameters(const json& obj) : automatic_payout_parameters()
+{
+    obj.get_value("percent_seats_paid", this->percent_seats_paid);
+    obj.get_value("round_payouts", this->round_payouts);
+    obj.get_value("payout_flatness", this->payout_flatness);
 }
 
 // ----- return object from json
@@ -350,4 +367,12 @@ json::json(const std::pair<const std::string,double>& value) : json()
 {
     this->set_value("currency", value.first);
     this->set_value("amount", value.second);
+}
+
+template<>
+json::json(const td::automatic_payout_parameters& value) : json()
+{
+    this->set_value("percent_seats_paid", value.percent_seats_paid);
+    this->set_value("round_payouts", value.round_payouts);
+    this->set_value("payout_flatness", value.payout_flatness);
 }

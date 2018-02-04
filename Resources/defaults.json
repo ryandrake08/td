@@ -292,9 +292,6 @@
             "count_available": 40
         }
     ],
-    "percent_seats_paid": 0.25,
-    "round_payouts": true,
-    "payout_flatness": 0.85,
     "funding_sources": [
         {
             "name": "Main Buy-in",
@@ -334,7 +331,12 @@
         }
     ],
     "table_capacity": 8,
-    "payout_policy": 1,
+    "payout_policy": 0,
+    "automatic_payouts": {
+        "percent_seats_paid": 0.25,
+        "round_payouts": true,
+        "payout_flatness": 0.85
+    },
     "forced_payouts": [{ "amount": 120, "currency": "USD" },{ "amount": 40, "currency": "USD" },{ "amount": 20, "currency": "USD" }],
     "manual_payouts": [
         {

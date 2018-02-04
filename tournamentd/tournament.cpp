@@ -440,13 +440,14 @@ struct tournament::impl
                              name (string): Human-readable name of this tournament
                              players (array): Each player eligible for this tournament
                              table_capacity (integer): Number of seats per table
-                             percent_seats_paid (float): Proportion of players (buyins) paid out
-                             round_payouts (bool): Round payoffs to integer values
-                             payout_flatness (float): How "flat" to make the payout structure
                              funding_sources (array): Each valid source of funding for this tournament
                              blind_levels (array): Discription of each blind level
                              available_chips (array): Discription of each chip color and denomination
                              payout_policy (integer): Policy for paying out players (0 = automatic, 1 = forced, 2 = depends on turnout)
+                             automatic_payouts (object): Parameters for automatic payout structure generation:
+                                percent_seats_paid (float): Proportion of players (buyins) paid out
+                                round_payouts (bool): Round payoffs to integer values
+                                payout_flatness (float): How "flat" to make the payout structure
                              forced_payouts (array): Force this array of payouts, regardless of number of players
                              manual_payouts (array): Manual payout definitions: number of players and an array of payouts, if missing, automatic payouts are calculated
                              previous_blind_level_hold_duration (integer): How long after round starts should prev command go to the previous round (rather than restart)? (ms)
@@ -523,12 +524,13 @@ struct tournament::impl
                              name (optional, string): Human-readable name for this tournament
                              players (optional, array): Each player eligible for this tournament
                              table_capacity (optional, integer): Number of seats per table
-                             percent_seats_paid (optional, float): Proportion of players (buyins) paid out
-                             round_payouts (optional, bool): Round payoffs to integer values
-                             payout_flatness (optinoal, float): How "flat" to make the payout structure
                              funding_sources (optional, array): Each valid source of funding for this tournament
                              blind_levels (optional, array): Discription of each blind level
                              available_chips (optional, array): Discription of each chip color and denomination
+                             automatic_payouts (object): Parameters for automatic payout structure generation:
+                                 percent_seats_paid (float): Proportion of players (buyins) paid out
+                                 round_payouts (bool): Round payoffs to integer values
+                                 payout_flatness (float): How "flat" to make the payout structure
                              forced_payouts (array): Force this array of payouts, regardless of number of players
                              manual_payouts (optional, array): Manual payout definitions: number of players and an array of payouts, if missing, automatic payouts are calculated
                              previous_blind_level_hold_duration (optional, integer): How long after round starts should prev command go to the previous round (rather than restart)? (ms)
