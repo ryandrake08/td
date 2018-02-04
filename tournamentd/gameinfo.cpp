@@ -11,6 +11,7 @@
 // initialize game
 gameinfo::gameinfo() :
     table_capacity(2),
+    payout_policy(td::payout_policy_t::automatic),
     percent_seats_paid(1.0),
     round_payouts(false),
     payout_flatness(1.0),
@@ -51,6 +52,7 @@ void gameinfo::configure(const json& config)
 
     config.get_value("name", this->name);
     config.get_values("funding_sources", this->funding_sources);
+    config.get_value("payout_policy", reinterpret_cast<int&>(this->payout_policy));
     config.get_value("percent_seats_paid", this->percent_seats_paid);
     config.get_value("previous_blind_level_hold_duration", this->previous_blind_level_hold_duration);
     // TODO: changing the rebalance policy could trigger an immediate rebalance. for now, we wait until the next bust-out
@@ -116,6 +118,7 @@ void gameinfo::configure(const json& config)
 
     // recalculate for any configuration that could alter payouts
     auto recalculate(false);
+    recalculate = recalculate || config.get_value("payout_policy");
     recalculate = recalculate || config.get_value("forced_payouts");
     recalculate = recalculate || config.get_value("manual_payouts");
     recalculate = recalculate || config.get_value("round_payouts", this->round_payouts);
@@ -148,6 +151,7 @@ void gameinfo::dump_configuration(json& config) const
     config.set_value("name", this->name);
     config.set_value("players", json(this->players.begin(), this->players.end()));
     config.set_value("table_capacity", this->table_capacity);
+    config.set_value("payout_policy", static_cast<int>(this->payout_policy));
     config.set_value("percent_seats_paid", this->percent_seats_paid);
     config.set_value("previous_blind_level_hold_duration", this->previous_blind_level_hold_duration);
     config.set_value("rebalance_policy", static_cast<int>(this->rebalance_policy));
@@ -1075,24 +1079,43 @@ std::vector<td::player_chips> gameinfo::chips_for_buyin(const td::funding_source
 // re-calculate payouts
 void gameinfo::recalculate_payouts()
 {
-    // force payout:
-    // overrides everyting. disregard number of players and just use this
-    if(!this->forced_payouts.empty())
+    // some policies depend on the number of entries
+    auto count_unique_entries(this->unique_entries.size());
+
+    if(this->payout_policy == td::payout_policy_t::forced)
     {
-        this->payouts = this->forced_payouts;
-        return;
+        // force payout:
+        // overrides everyting. disregard number of players
+        if(this->forced_payouts.empty())
+        {
+            logger(ll::warning) << "payout_policy is forced but no forced_payouts exist. falling back to automatic payouts\n";
+        }
+        else
+        {
+            logger(ll::info) << "applying forced payout: " << this->forced_payouts.size() << " seats will be paid\n";
+
+            // use the payout structure specified in forced_payouts
+            this->payouts = this->forced_payouts;
+            return;
+        }
     }
-
-    // manual payout:
-    // look for a manual payout given this number of unique entries
-    auto manual_payout_it(this->manual_payouts.find(this->unique_entries.size()));
-    if(manual_payout_it != this->manual_payouts.end())
+    else if(this->payout_policy == td::payout_policy_t::manual)
     {
-        logger(ll::info) << "applying manual payout: " << manual_payout_it->second.size() << " seats will be paid\n";
+        // manual payout:
+        // look for a payout list given this number of unique entries
+        auto manual_payout_it(this->manual_payouts.find(count_unique_entries));
+        if(manual_payout_it == this->manual_payouts.end())
+        {
+            logger(ll::warning) << "payout_policy is manual but no payout list with " << count_unique_entries << " players exists. falling back to automatic payouts\n";
+        }
+        else
+        {
+            logger(ll::info) << "applying manual payout for " << count_unique_entries << " players: " << manual_payout_it->second.size() << " seats will be paid\n";
 
-        // use found payout structure
-        this->payouts = manual_payout_it->second;
-        return;
+            // use found payout structure
+            this->payouts = manual_payout_it->second;
+            return;
+        }
     }
 
     // automatic calculation, if no manual payout found:
@@ -1101,7 +1124,7 @@ void gameinfo::recalculate_payouts()
     bool round(this->round_payouts);
     double f(this->payout_flatness);
 
-    logger(ll::info) << "recalculating payouts: " << seats_paid << " seats will be paid\n";
+    logger(ll::info) << "recalculating " << (round ? "" : "and rounding ") << "payouts for " << count_unique_entries << " players: " << this->percent_seats_paid * 100 << "% (" << seats_paid << " seats) will be paid. payout flatness: " << f << "\n";
 
     // resize our payout structure
     this->payouts.resize(seats_paid);

@@ -446,6 +446,7 @@ struct tournament::impl
 								funding_sources (array): Each valid source of funding for this tournament
 								blind_levels (array): Discription of each blind level
 								available_chips (array): Discription of each chip color and denomination
+								payout_policy (integer): Policy for paying out players (0 = automatic, 1 = forced, 2 = depends on turnout)
 								forced_payouts (array): Force this array of payouts, regardless of number of players
 								manual_payouts (array): Manual payout definitions: number of players and an array of payouts, if missing, automatic payouts are calculated
 								previous_blind_level_hold_duration (integer): How long after round starts should prev command go to the previous round (rather than restart)? (ms)

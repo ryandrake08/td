@@ -334,6 +334,7 @@
         }
     ],
     "table_capacity": 8,
+    "payout_policy": 1,
     "forced_payouts": [{ "amount": 120, "currency": "USD" },{ "amount": 40, "currency": "USD" },{ "amount": 20, "currency": "USD" }],
     "manual_payouts": [
         {

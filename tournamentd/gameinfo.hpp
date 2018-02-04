@@ -35,6 +35,9 @@ class gameinfo
     // configuration: description of each chip (for display)
     std::vector<td::chip> available_chips;
 
+    // configuration: payout policy
+    td::payout_policy_t payout_policy;
+
     // configuration: forced payout structure (regardless of number of players)
     std::vector<td::monetary_value> forced_payouts;
 

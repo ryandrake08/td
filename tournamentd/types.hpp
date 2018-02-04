@@ -23,6 +23,9 @@ namespace td
     // type of funding source (buyin, rebuy, addon)
     enum class funding_source_type_t { buyin, rebuy, addon };
 
+    // type of payout policy (automatic, forced, manual)
+    enum class payout_policy_t { automatic, forced, manual };
+
     // type of rebalance policy (manual, automatic, shootout)
     enum class rebalance_policy_t { manual, automatic, shootout };
 
