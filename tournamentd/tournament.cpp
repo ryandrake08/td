@@ -36,14 +36,14 @@ struct tournament::impl
 	{
 		json bcast;
 		game_info.dump_state(bcast);
-		this->game_server.broadcast(bcast.string());
+		this->game_server.broadcast(bcast.print());
 	}
 
 	void broadcast_configuration() const
 	{
 		json bcast;
 		game_info.dump_configuration(bcast);
-		this->game_server.broadcast(bcast.string());
+		this->game_server.broadcast(bcast.print());
 	}
 
 	// ----- command handlers available to anyone

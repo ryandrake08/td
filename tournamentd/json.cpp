@@ -18,17 +18,87 @@ static cJSON* check(cJSON* obj)
     // Throw if pointer is null
     if(obj == nullptr)
     {
-        throw std::logic_error("invalid json");
+        throw std::runtime_error("invalid json");
     }
     return obj;
 }
 
-static void ensure_type(const cJSON* object, int type)
+static void ensure_type(cJSON* object, int type)
 {
     if((object->type & 0xff) != type)
     {
         throw std::invalid_argument("object not of type: " + std::to_string(type));
     }
+}
+
+static bool identical(cJSON* j0, cJSON* j1)
+{
+    // compare type
+    if((j0->type & 0xff) != (j1->type & 0xff))
+    {
+        return false;
+    }
+
+    // compare valuestring
+    if(j0->valuestring != nullptr && j0->valuestring != nullptr)
+    {
+        // both strings exist and are different
+        if(strcmp(j0->valuestring, j1->valuestring))
+        {
+            return false;
+        }
+    }
+    else if(j0->valuestring != nullptr || j1->valuestring != nullptr)
+    {
+        // one string is null and the other one is not
+        return false;
+    }
+
+    // compare valueint
+    if(j0->valueint != j1->valueint)
+    {
+        return false;
+    }
+
+    // compare valuedouble
+    if(j0->valuedouble != j1->valuedouble)
+    {
+        return false;
+    }
+
+    // compare valuestring
+    if(j0->string != nullptr && j0->string != nullptr)
+    {
+        // both strings exist and are different
+        if(strcmp(j0->string, j1->string))
+        {
+            return false;
+        }
+    }
+    else if(j0->string != nullptr || j1->string != nullptr)
+    {
+        // one string is null and the other one is not
+        return false;
+    }
+
+    // ensure number of sub-objects is identical
+    auto s0(cJSON_GetArraySize(j0));
+    auto s1(cJSON_GetArraySize(j1));
+    if(s0 != s1)
+    {
+        return false;
+    }
+
+    // deep compare subobjects
+    for(auto i(0); i<s0; i++)
+    {
+        if(!identical(cJSON_GetArrayItem(j0, i), cJSON_GetArrayItem(j1, i)))
+        {
+            return false;
+        }
+    }
+
+    return true;
 }
 
 template <typename Ts, typename Td>
@@ -108,6 +178,24 @@ json& json::operator=(json&& other) noexcept
 json::~json()
 {
     cJSON_Delete(this->ptr);
+}
+
+// Validity (is underlying pointer set?)
+bool json::valid() const
+{
+    return this->ptr != nullptr;
+}
+
+// Equality (do underlying pointers match)
+bool json::equal(const json& other) const
+{
+    return this->ptr == other.ptr;
+}
+
+// Identical (does data match)
+bool json::identical(const json& other) const
+{
+    return ::identical(this->ptr, other.ptr);
 }
 
 // Construct from primatives
@@ -263,14 +351,6 @@ std::vector<json> json::value() const
     return ret;
 }
 
-// Printer
-std::string json::string(bool pretty) const
-{
-    check(this->ptr);
-    std::unique_ptr<char, decltype(std::free)*> buf { (pretty ? cJSON_Print(this->ptr) : cJSON_PrintUnformatted(this->ptr)), std::free };
-    return std::string(buf.get());
-}
-
 // Generic JSON getter
 bool json::get_value(const char* name) const
 {
@@ -313,9 +393,35 @@ bool json::empty() const
     }
 }
 
+// Printer
+std::string json::print(bool pretty) const
+{
+    check(this->ptr);
+    std::unique_ptr<char, decltype(std::free)*> buf { (pretty ? cJSON_Print(this->ptr) : cJSON_PrintUnformatted(this->ptr)), std::free };
+    return std::string(buf.get());
+}
+
+static inline int mode_iword()
+{
+    static int i = std::ios_base::xalloc();
+    return i;
+}
+
+std::ostream& json::nopretty(std::ostream& os)
+{
+    os.iword(mode_iword()) = 0;
+    return os;
+}
+
+std::ostream& json::pretty(std::ostream& os)
+{
+    os.iword(mode_iword()) = 1;
+    return os;
+}
+
 std::ostream& operator<<(std::ostream& os, const json& object)
 {
-    os << object.string();
+    os << object.print(os.iword(mode_iword()) != 0);
     return os;
 }
 
@@ -326,3 +432,4 @@ std::istream& operator>>(std::istream& is, json& object)
     object = json::eval(buffer);
     return is;
 }
+

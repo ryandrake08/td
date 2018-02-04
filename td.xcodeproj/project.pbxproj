@@ -18,6 +18,8 @@
 				94EFDF711FE574FD00E40EA4 /* PBXTargetDependency */,
 				94EFDF731FE574FD00E40EA4 /* PBXTargetDependency */,
 				94EFDF751FE574FD00E40EA4 /* PBXTargetDependency */,
+				943FC68720266E4F00B6AA4C /* PBXTargetDependency */,
+				943FC68520266E4F00B6AA4C /* PBXTargetDependency */,
 			);
 			name = All;
 			productName = All;
@@ -62,6 +64,10 @@
 		943B00D51B3F429500CE55D4 /* socket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E31B3C3F8300A158F8 /* socket.cpp */; };
 		943B00D61B3F429500CE55D4 /* tournament.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E71B3C3F8300A158F8 /* tournament.cpp */; };
 		943B00D71B3F429500CE55D4 /* types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E91B3C3F8300A158F8 /* types.cpp */; };
+		943FC67E20261FF600B6AA4C /* catch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 943FC67120261EE000B6AA4C /* catch.cpp */; };
+		943FC67F202627EC00B6AA4C /* json.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4D81B3C3F8300A158F8 /* json.cpp */; };
+		943FC68220265A0B00B6AA4C /* libcJSON_macOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9464EC071FDC2D44009092A4 /* libcJSON_macOS.a */; };
+		943FC68320265C8A00B6AA4C /* defaults.json in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9476F4CD1B3C3F8300A158F8 /* defaults.json */; };
 		945410741B6E5C56001E3373 /* NSDateFormatter+ISO8601.m in Sources */ = {isa = PBXBuildFile; fileRef = 945410731B6E5C56001E3373 /* NSDateFormatter+ISO8601.m */; };
 		945410771B6E9A17001E3373 /* NSString+CamelCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 945410761B6E9A17001E3373 /* NSString+CamelCase.m */; };
 		94562E661B65D8CA0017C692 /* TBColorValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 94562E5F1B65D8CA0017C692 /* TBColorValueTransformer.m */; };
@@ -390,6 +396,27 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		943FC68020265A0600B6AA4C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AD8E683B1A6C606700E5A4D8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9464EC061FDC2D44009092A4;
+			remoteInfo = cJSON_macOS;
+		};
+		943FC68420266E4F00B6AA4C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AD8E683B1A6C606700E5A4D8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 943FC67620261FC400B6AA4C;
+			remoteInfo = tournamentd_test;
+		};
+		943FC68620266E4F00B6AA4C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AD8E683B1A6C606700E5A4D8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 946C65661FFF54360094E4D8;
+			remoteInfo = tournamentctl;
+		};
 		945812562011F78B00208575 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = AD8E683B1A6C606700E5A4D8 /* Project object */;
@@ -526,6 +553,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		943FC67520261FC400B6AA4C /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 12;
+			dstPath = "";
+			dstSubfolderSpec = 16;
+			files = (
+				943FC68320265C8A00B6AA4C /* defaults.json in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9458125C2011F82200208575 /* Copy Utilities */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -643,6 +680,9 @@
 		943A4D772021925E00CA03E1 /* TBSetupPayoutsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBSetupPayoutsViewController.h; path = TBMac/TBSetupPayoutsViewController.h; sourceTree = "<group>"; };
 		943F85501FF8F3E200E1C4AD /* TBMac.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = TBMac.entitlements; path = TBMac/TBMac.entitlements; sourceTree = "<group>"; };
 		943F85511FF8F3FE00E1C4AD /* TBViewer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = TBViewer.entitlements; path = TBMac/TBViewer.entitlements; sourceTree = "<group>"; };
+		943FC67020261E9C00B6AA4C /* catch.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = catch.hpp; sourceTree = "<group>"; };
+		943FC67120261EE000B6AA4C /* catch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = catch.cpp; sourceTree = "<group>"; };
+		943FC67720261FC400B6AA4C /* tournamentd_test */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = tournamentd_test; sourceTree = BUILT_PRODUCTS_DIR; };
 		944FF4B31B3D04CA000362ED /* Poker Remote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Poker Remote.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		945410721B6E5C56001E3373 /* NSDateFormatter+ISO8601.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDateFormatter+ISO8601.h"; sourceTree = "<group>"; };
 		945410731B6E5C56001E3373 /* NSDateFormatter+ISO8601.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+ISO8601.m"; sourceTree = "<group>"; };
@@ -914,6 +954,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		943FC67420261FC400B6AA4C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				943FC68220265A0B00B6AA4C /* libcJSON_macOS.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		944FF4B01B3D04CA000362ED /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -1100,6 +1148,8 @@
 			children = (
 				9476F4D11B3C3F8300A158F8 /* bonjour.cpp */,
 				9476F4D21B3C3F8300A158F8 /* bonjour.hpp */,
+				943FC67020261E9C00B6AA4C /* catch.hpp */,
+				943FC67120261EE000B6AA4C /* catch.cpp */,
 				9476F4D31B3C3F8300A158F8 /* datetime.cpp */,
 				9476F4D41B3C3F8300A158F8 /* datetime.hpp */,
 				9476F4D51B3C3F8300A158F8 /* gameinfo.cpp */,
@@ -1303,6 +1353,7 @@
 				9464EC071FDC2D44009092A4 /* libcJSON_macOS.a */,
 				9464EC1F1FDC2FB5009092A4 /* libcJSON_iOS.a */,
 				946C65671FFF54360094E4D8 /* tournamentctl */,
+				943FC67720261FC400B6AA4C /* tournamentd_test */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1417,6 +1468,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		943FC67620261FC400B6AA4C /* tournamentd_test */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 943FC67B20261FC400B6AA4C /* Build configuration list for PBXNativeTarget "tournamentd_test" */;
+			buildPhases = (
+				943FC67320261FC400B6AA4C /* Sources */,
+				943FC67420261FC400B6AA4C /* Frameworks */,
+				943FC67520261FC400B6AA4C /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				943FC68120265A0600B6AA4C /* PBXTargetDependency */,
+			);
+			name = tournamentd_test;
+			productName = tournamentd_test;
+			productReference = 943FC67720261FC400B6AA4C /* tournamentd_test */;
+			productType = "com.apple.product-type.tool";
+		};
 		944FF4B21B3D04CA000362ED /* TBViewer */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 944FF4D11B3D04CA000362ED /* Build configuration list for PBXNativeTarget "TBViewer" */;
@@ -1645,6 +1714,10 @@
 				LastUpgradeCheck = 0920;
 				ORGANIZATIONNAME = "HDna Studio";
 				TargetAttributes = {
+					943FC67620261FC400B6AA4C = {
+						CreatedOnToolsVersion = 9.2;
+						DevelopmentTeam = 9BKETM93L2;
+					};
 					944FF4B21B3D04CA000362ED = {
 						DevelopmentTeam = 9BKETM93L2;
 						SystemCapabilities = {
@@ -1712,6 +1785,7 @@
 			projectRoot = "";
 			targets = (
 				94EFDF681FE574BF00E40EA4 /* All */,
+				943FC67620261FC400B6AA4C /* tournamentd_test */,
 				9476F4C51B3C3F3D00A158F8 /* tournamentd */,
 				946C65661FFF54360094E4D8 /* tournamentctl */,
 				AD8E68421A6C606700E5A4D8 /* TBMac */,
@@ -1844,6 +1918,15 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		943FC67320261FC400B6AA4C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				943FC67E20261FF600B6AA4C /* catch.cpp in Sources */,
+				943FC67F202627EC00B6AA4C /* json.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		944FF4AF1B3D04CA000362ED /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -2188,6 +2271,21 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		943FC68120265A0600B6AA4C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9464EC061FDC2D44009092A4 /* cJSON_macOS */;
+			targetProxy = 943FC68020265A0600B6AA4C /* PBXContainerItemProxy */;
+		};
+		943FC68520266E4F00B6AA4C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 943FC67620261FC400B6AA4C /* tournamentd_test */;
+			targetProxy = 943FC68420266E4F00B6AA4C /* PBXContainerItemProxy */;
+		};
+		943FC68720266E4F00B6AA4C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 946C65661FFF54360094E4D8 /* tournamentctl */;
+			targetProxy = 943FC68620266E4F00B6AA4C /* PBXContainerItemProxy */;
+		};
 		945812572011F78B00208575 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 9476F4C51B3C3F3D00A158F8 /* tournamentd */;
@@ -2323,6 +2421,22 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		943FC67C20261FC400B6AA4C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		943FC67D20261FC400B6AA4C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
 		944FF4CD1B3D04CA000362ED /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2746,6 +2860,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		943FC67B20261FC400B6AA4C /* Build configuration list for PBXNativeTarget "tournamentd_test" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				943FC67C20261FC400B6AA4C /* Debug */,
+				943FC67D20261FC400B6AA4C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		944FF4D11B3D04CA000362ED /* Build configuration list for PBXNativeTarget "TBViewer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
