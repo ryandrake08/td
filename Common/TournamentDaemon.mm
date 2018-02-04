@@ -48,7 +48,11 @@
 // start the daemon, pre-authorizing given client code, returning local unix socket path
 - (TournamentService*)startWithAuthCode:(NSNumber*)code name:(NSString*)name {
 
-    logger_enable(ll::error, ll::warning);
+#if defined(DEBUG)
+    logger_enable(ll::error, ll::warning, ll::info, ll::debug);
+#else
+    logger_enable(ll::error, ll::warning, ll::info);
+#endif
 
     // set up tournament and authorize
     __block std::unique_ptr<tournament> tourney(new tournament);
