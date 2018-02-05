@@ -43,8 +43,8 @@
 - (void)setArrangedObjectsKeyPath:(NSString*)keyPath {
     if([self arrangedObjects] == nil) {
         NSMutableArray* objects = [self valueForKeyPath:keyPath];
-        NSAssert(objects, @"Arranged object keypath has no data (not even an empty array)");
         if(objects == nil) {
+            NSLog(@"Warning: keyPath %@ has no data, not even an empty array.", keyPath);
             objects = [[NSMutableArray alloc] init];
             [self setValue:objects forKeyPath:keyPath];
         }

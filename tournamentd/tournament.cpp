@@ -108,25 +108,38 @@ struct tournament::impl
 
     void handle_cmd_configure(const json& in, json& out)
     {
-        // read auth codes from input
+        // save caller's auth code and re-insert it so one can never accidentally deauthorize onself
         int mycode;
-        std::vector<td::authorized_client> auths_vector;
-        if(in.get_values("authorized_clients", auths_vector) && in.get_value("authenticate", mycode))
+        if(in.get_value("authenticate", mycode))
         {
-            this->game_auths.clear();
-            for(auto& auth : auths_vector)
+            auto myauth_it(this->game_auths.find(mycode));
+            if(myauth_it != this->game_auths.end())
             {
-                logger(ll::debug) << "Authorizing code " << auth.code << " named \"" << auth.name << "\"\n";
-                this->game_auths.emplace(auth.code, auth);
+                auto myauth(*myauth_it);
+
+                // read auth codes from input
+                std::vector<td::authorized_client> auths_vector;
+                if(in.get_values("authorized_clients", auths_vector))
+                {
+                    this->game_auths.clear();
+                    for(auto& auth : auths_vector)
+                    {
+                        logger(ll::debug) << "Authorizing code " << auth.code << " named \"" << auth.name << "\"\n";
+                        this->game_auths.emplace(auth.code, auth);
+                    }
+                }
+
+                // configure
+                this->game_info.configure(in);
+                this->game_info.dump_configuration(out);
+
+                // inject auth codes back into output
+                out.set_value("authorized_clients", json(this->game_auths.begin(), this->game_auths.end()));
+
+                // re-authorize caller
+                this->game_auths.insert(myauth);
             }
         }
-
-        // configure
-        this->game_info.configure(in);
-        this->game_info.dump_configuration(out);
-
-        // inject auth codes back into output
-        out.set_value("authorized_clients", json(this->game_auths.begin(), this->game_auths.end()));
     }
 
     void handle_cmd_start_game(const json& in, json& /* out */)
