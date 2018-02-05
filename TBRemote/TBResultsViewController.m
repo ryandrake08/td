@@ -18,9 +18,6 @@
 
 @property (nonatomic, strong) TournamentSession* session;
 
-// number formatters
-@property (nonatomic, strong) TTTOrdinalNumberFormatter* placeFormatter;
-
 // UI
 @property (nonatomic, weak) UIBarButtonItem* exportBarButtonItem;
 
@@ -33,9 +30,6 @@
 
     // get model
     _session = [(TBAppDelegate*)[[UIApplication sharedApplication] delegate] session];
-
-    // number formatters
-    _placeFormatter = [[TTTOrdinalNumberFormatter alloc] init];
 
     // enable or disable button bar item for export
     BOOL canSendMail = [MFMailComposeViewController canSendMail];
@@ -72,7 +66,8 @@
         NSDictionary* result = [[self session] state][@"results"][indexPath.row];
 
         // place
-        NSString* place = [[self placeFormatter] stringFromNumber:result[@"place"]];
+        TTTOrdinalNumberFormatter* placeFormatter = [[TTTOrdinalNumberFormatter alloc] init];
+        NSString* place = [placeFormatter stringFromNumber:result[@"place"]];
 
         // payout
         TBCurrencyNumberFormatter* payoutFormatter = [[TBCurrencyNumberFormatter alloc] init];

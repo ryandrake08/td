@@ -19,6 +19,11 @@
 #define kRebalanceAutomatic @1
 #define kRebalanceShootout @2
 
+// Payout policies
+#define kPayoutAutomatic @0
+#define kPayoutForced @1
+#define kPayoutManual @2
+
 // Standard 1 minute countdown
 #define kActionClockRequestTime 60000
 

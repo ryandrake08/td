@@ -13,6 +13,7 @@
 #import "TBKVOTableViewCell.h"
 #import "TBNotifications.h"
 #import "TBSetupTableViewController.h"
+#import "TBPayoutPolicyNumberFormatter.h"
 #import "TournamentDaemon.h"
 #import "TournamentSession.h"
 #import "UIResponder+PresentingErrors.h"
@@ -113,8 +114,11 @@
 
     if(indexPath.section == 0) {
         // create a cell
-        if(indexPath.row == 6) {
+        if([[(TBKVOTableViewCell*)cell keyPath] isEqualToString:@"table_capacity"]) {
             [(TBPickableTextTableViewCell*)cell setAllowedValues:@[@2, @3, @4, @5, @6, @7, @8, @9, @10, @11, @12] withTitles:nil];
+        } else if([[(TBKVOTableViewCell*)cell keyPath] isEqualToString:@"payout_policy"]) {
+            TBPayoutPolicyNumberFormatter* policyFormatter = [[TBPayoutPolicyNumberFormatter alloc] init];
+            [(TBFormattedKVOTableViewCell*)cell setFormatter:policyFormatter];
         }
         [(TBKVOTableViewCell*)cell setObject:[self configuration]];
     } else if(indexPath.section == 1) {
@@ -172,9 +176,20 @@
 #pragma mark Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue*)segue sender:(id)sender {
-    UINavigationController* navController = [segue destinationViewController];
-    TBSetupTableViewController* newController = [[navController viewControllers] firstObject];
-    [newController setConfiguration:[self configuration]];
+    UIViewController* destinationController = [segue destinationViewController];
+
+    // if the destination a navigation controller, we pass our info to the first object, which should respond to setConfiguration
+    if([destinationController isKindOfClass:[UINavigationController class]]) {
+        UINavigationController* navController = (UINavigationController*)destinationController;
+        destinationController = [[navController viewControllers] firstObject];
+    }
+
+    // if we can set a configuration, set it
+    if([destinationController respondsToSelector:@selector(setConfiguration:)]) {
+        [destinationController performSelector:@selector(setConfiguration:) withObject:[self configuration]];
+    } else {
+        NSLog(@"Warning: Segue destination does not respond to setConfiguration");
+    }
 }
 
 #pragma mark Operations
