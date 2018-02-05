@@ -13,4 +13,7 @@
 // object being edited
 @property (nonatomic, strong) NSMutableDictionary* object;
 
+// pass object to cell if supported
+- (UITableViewCell*)setObjectToCell:(UITableViewCell*)cell;
+
 @end

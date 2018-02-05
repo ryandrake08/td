@@ -16,6 +16,9 @@
 // specific array of items controlled by this view controller (set by self)
 @property (nonatomic, strong) NSMutableArray* arrangedObjects;
 
+// sets the arranged objects given a keypath from self
+- (void)setArrangedObjectsKeyPath:(NSString*)keyPath;
+
 // returns the object for a given indexPath
 - (id)arrangedObjectForIndexPath:(NSIndexPath*)indexPath;
 

@@ -36,8 +36,6 @@
     // if we can set a configuration, set it
     if([destinationController respondsToSelector:@selector(setConfiguration:)]) {
         [destinationController performSelector:@selector(setConfiguration:) withObject:[self configuration]];
-    } else {
-        NSLog(@"Warning: Segue destination does not respond to setConfiguration:");
     }
 }
 

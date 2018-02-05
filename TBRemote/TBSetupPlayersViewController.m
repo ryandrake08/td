@@ -13,7 +13,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setArrangedObjects:[self configuration][@"players"]];
+    [self setArrangedObjectsKeyPath:@"configuration.players"];
 }
 
 - (void)didReceiveMemoryWarning {

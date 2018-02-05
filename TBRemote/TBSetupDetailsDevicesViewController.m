@@ -22,8 +22,7 @@
         [(TBTextFieldTableViewCell*)cell setFormatter:codeFormatter];
     }
     
-    [(TBKVOTableViewCell*)cell setObject:[self object]];
-    return cell;
+    return [self setObjectToCell:cell];
 }
 
 @end

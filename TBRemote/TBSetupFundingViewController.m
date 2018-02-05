@@ -15,7 +15,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setArrangedObjects:[self configuration][@"funding_sources"]];
+    [self setArrangedObjectsKeyPath:@"configuration.funding_sources"];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -52,7 +52,7 @@
             case 0:
             {
                 // build up list of blind levels
-                NSMutableArray* blindLevelIndices = [[NSMutableArray alloc] initWithObjects:@[@0], nil];
+                NSMutableArray* blindLevelIndices = [[NSMutableArray alloc] initWithObjects:@0, nil];
                 NSMutableArray* names = [[NSMutableArray alloc] initWithObjects:NSLocalizedString(@"Tournament Start", nil), nil];
                 for(NSInteger i=1; i<[[self configuration][@"blind_levels"] count]; i++) {
                     [blindLevelIndices addObject:@(i)];
@@ -64,9 +64,7 @@
         }
     }
 
-    // pass our object to each cell
-    [(TBKVOTableViewCell*)cell setObject:[self object]];
-    return cell;
+    return [self setObjectToCell:cell];
 }
 
 #pragma mark UITableViewDelegate

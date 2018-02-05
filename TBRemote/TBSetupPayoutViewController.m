@@ -15,9 +15,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // default is to look at forced_payouts. if a different payout is needed, previous view controller will set it
-    if([self arrangedObjects] == nil) {
-        [self setArrangedObjects:[self configuration][@"forced_payouts"]];
-    }
+    [self setArrangedObjectsKeyPath:@"configuration.forced_payouts"];
 }
 
 - (void)didReceiveMemoryWarning {

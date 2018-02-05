@@ -39,6 +39,21 @@
     }
 }
 
+// sets the arranged objects given a keypath or create an empty one
+- (void)setArrangedObjectsKeyPath:(NSString*)keyPath {
+    if([self arrangedObjects] == nil) {
+        NSMutableArray* objects = [self valueForKeyPath:keyPath];
+        NSAssert(objects, @"Arranged object keypath has no data (not even an empty array)");
+        if(objects == nil) {
+            objects = [[NSMutableArray alloc] init];
+            [self setValue:objects forKeyPath:keyPath];
+        }
+
+        // is this needed?
+        [self setArrangedObjects:objects];
+    }
+}
+
 // returns the object for a given indexPath
 - (id)arrangedObjectForIndexPath:(NSIndexPath*)indexPath {
     return [self arrangedObjects][[indexPath row]];
@@ -57,8 +72,6 @@
     // if we can set a configuration, set it
     if([destinationController respondsToSelector:@selector(setConfiguration:)]) {
         [destinationController performSelector:@selector(setConfiguration:) withObject:[self configuration]];
-    } else {
-        NSLog(@"Warning: Segue destination does not respond to setConfiguration:");
     }
 
     // set object to whichever one is selected
@@ -66,8 +79,6 @@
         NSIndexPath* selectedIndexPath = [[self tableView] indexPathForSelectedRow];
         id selectedObject = [self arrangedObjectForIndexPath:selectedIndexPath];
         [destinationController performSelector:@selector(setObject:) withObject:selectedObject];
-    } else {
-        NSLog(@"Warning: Segue destination does not respond to setObject:");
     }
 }
 

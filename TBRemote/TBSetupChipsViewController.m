@@ -14,7 +14,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setArrangedObjects:[self configuration][@"available_chips"]];
+    [self setArrangedObjectsKeyPath:@"configuration.available_chips"];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -12,7 +12,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setArrangedObjects:[self configuration][@"manual_payouts"]];
+    [self setArrangedObjectsKeyPath:@"configuration.manual_payouts"];
 }
 
 - (void)didReceiveMemoryWarning {

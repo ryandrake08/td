@@ -15,7 +15,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setArrangedObjects:[self configuration][@"authorized_clients"]];
+    [self setArrangedObjectsKeyPath:@"configuration.authorized_clients"];
 }
 
 - (void)didReceiveMemoryWarning {

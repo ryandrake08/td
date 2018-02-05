@@ -21,9 +21,7 @@
         [(TBPickableTextTableViewCell*)cell setAllowedValues:[TBCurrencyNumberFormatter supportedCodes] withTitles:[TBCurrencyNumberFormatter supportedCurrencies]];
     }
 
-    // pass our object to each cell
-    [(TBKVOTableViewCell*)cell setObject:[self object]];
-    return cell;
+    return [self setObjectToCell:cell];
 }
 
 @end

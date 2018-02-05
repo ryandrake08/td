@@ -7,16 +7,7 @@
 //
 
 #import "TBSetupDetailsPlayerViewController.h"
-#import "TBKVOTableViewCell.h"
 
 @implementation TBSetupDetailsPlayerViewController
-
-#pragma mark UITableViewDataSource
-
-- (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath {
-    UITableViewCell* cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
-    [(TBTextFieldTableViewCell*)cell setObject:[self object]];
-    return cell;
-}
 
 @end

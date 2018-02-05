@@ -13,7 +13,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setArrangedObjects:[self configuration][@"blind_levels"]];
+    [self setArrangedObjectsKeyPath:@"configuration.blind_levels"];
 }
 
 - (void)didReceiveMemoryWarning {
