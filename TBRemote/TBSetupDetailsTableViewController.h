@@ -10,9 +10,6 @@
 
 @interface TBSetupDetailsTableViewController : TBTableViewController
 
-// configuration being edited
-@property (nonatomic, strong) NSMutableDictionary* configuration;
-
 // object being edited
 @property (nonatomic, strong) NSMutableDictionary* object;
 

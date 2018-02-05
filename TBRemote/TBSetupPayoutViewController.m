@@ -8,7 +8,6 @@
 
 #import "TBSetupPayoutViewController.h"
 #import "TBCurrencyNumberFormatter.h"
-#import "TBSetupDetailsTableViewController.h"
 #import "TTTOrdinalNumberFormatter.h"
 
 @implementation TBSetupPayoutViewController
@@ -23,26 +22,6 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-}
-
-- (void)prepareForSegue:(UIStoryboardSegue*)segue sender:(id)sender {
-    UIViewController* destinationController = [segue destinationViewController];
-
-    // if we can set a configuration, set it
-    if([destinationController respondsToSelector:@selector(setConfiguration:)]) {
-        [destinationController performSelector:@selector(setConfiguration:) withObject:[self configuration]];
-    } else {
-        NSLog(@"Warning: Segue destination does not respond to setConfiguration:");
-    }
-
-    // set arranged objects to whichever one is selected
-    if([destinationController respondsToSelector:@selector(setObject:)]) {
-        NSIndexPath* selectedIndexPath = [[self tableView] indexPathForSelectedRow];
-        NSMutableDictionary* selectedPlace = [self arrangedObjectForIndexPath:selectedIndexPath];
-        [destinationController performSelector:@selector(setObject:) withObject:selectedPlace];
-    } else {
-        NSLog(@"Warning: Segue destination does not respond to setObject:");
-    }
 }
 
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath {

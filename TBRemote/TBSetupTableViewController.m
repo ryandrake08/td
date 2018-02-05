@@ -7,8 +7,8 @@
 //
 
 #import "TBSetupTableViewController.h"
-#import "TBNotifications.h"
 #import "TBSetupDetailsTableViewController.h"
+#import "TBNotifications.h"
 
 @implementation TBSetupTableViewController
 
@@ -52,10 +52,23 @@
 #pragma mark Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue*)segue sender:(id)sender {
-    TBSetupDetailsTableViewController* newController = [segue destinationViewController];
-    NSIndexPath* indexPath = [[self tableView] indexPathForSelectedRow];
-    [newController setObject:[self arrangedObjectForIndexPath:indexPath]];
-    [newController setConfiguration:[self configuration]];
+    UIViewController* destinationController = [segue destinationViewController];
+
+    // if we can set a configuration, set it
+    if([destinationController respondsToSelector:@selector(setConfiguration:)]) {
+        [destinationController performSelector:@selector(setConfiguration:) withObject:[self configuration]];
+    } else {
+        NSLog(@"Warning: Segue destination does not respond to setConfiguration:");
+    }
+
+    // set object to whichever one is selected
+    if([destinationController respondsToSelector:@selector(setObject:)]) {
+        NSIndexPath* selectedIndexPath = [[self tableView] indexPathForSelectedRow];
+        id selectedObject = [self arrangedObjectForIndexPath:selectedIndexPath];
+        [destinationController performSelector:@selector(setObject:) withObject:selectedObject];
+    } else {
+        NSLog(@"Warning: Segue destination does not respond to setObject:");
+    }
 }
 
 #pragma mark Actions
