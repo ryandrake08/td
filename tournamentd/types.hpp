@@ -51,7 +51,7 @@ namespace td
         long break_duration;
         std::string reason;
 
-        explicit blind_level(const std::string& name=std::string());
+        blind_level();
         explicit blind_level(const json& obj);
     };
 
@@ -62,7 +62,6 @@ namespace td
         unsigned long denomination;
         unsigned long count_available;
 
-        chip();
         explicit chip(const json& obj);
     };
 
@@ -89,7 +88,6 @@ namespace td
         monetary_value commission;
         monetary_value equity;
 
-        funding_source();
         explicit funding_source(const json& obj);
     };
 
@@ -100,7 +98,6 @@ namespace td
         std::string name;
         datetime added_at;
 
-        player();
         explicit player(const json& obj);
     };
 
@@ -110,7 +107,6 @@ namespace td
         std::size_t table_number;
         std::size_t seat_number;
 
-        seat();
         explicit seat(const json& obj);
         seat(std::size_t t, std::size_t s);
     };
@@ -123,7 +119,6 @@ namespace td
         seat from_seat;
         seat to_seat;
 
-        player_movement();
         explicit player_movement(const json& obj);
         player_movement(const player_id_t& p, const std::string& n, const seat& f, const seat& t);
     };
@@ -134,7 +129,6 @@ namespace td
         unsigned long denomination;
         unsigned long chips;
 
-        player_chips();
         explicit player_chips(const json& obj);
         player_chips(unsigned long d, unsigned long c);
     };
@@ -145,7 +139,6 @@ namespace td
         size_t buyins_count;
         std::vector<monetary_value> payouts;
 
-        manual_payout();
         explicit manual_payout(const json& obj);
         manual_payout(size_t c, const std::vector<monetary_value>& p);
     };
@@ -157,8 +150,7 @@ namespace td
         std::string name;
         monetary_value payout;
 
-        result();
-        result(size_t p, const std::string& n="");
+        explicit result(size_t p, const std::string& n="");
     };
 
     // represents a player with additional buyin/seat info
@@ -170,7 +162,6 @@ namespace td
         std::size_t table_number;
         std::size_t seat_number;
 
-        seated_player();
         seated_player(const player_id_t& p, const std::string& n, bool b);
         seated_player(const player_id_t& p, const std::string& n, bool b, std::size_t t, std::size_t s);
     };
@@ -187,7 +178,7 @@ namespace td
         // configuration: automatic payouts: payout structure flatness
         double payout_flatness;
 
-        automatic_payout_parameters();
-        automatic_payout_parameters(const json& obj);
+        explicit automatic_payout_parameters(const json& obj);
+        automatic_payout_parameters(double percent_paid, bool round, double flatness);
     };
 }

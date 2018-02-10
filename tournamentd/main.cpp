@@ -1,5 +1,6 @@
 #include "program.hpp"
 #include <algorithm>
+#include <clocale>
 #include <cstdlib>
 #include <csignal>
 #include <exception>
@@ -59,6 +60,9 @@ volatile std::sig_atomic_t signal_handler::signal_caught = 0;
 
 int main(int argc, char** argv)
 {
+    // set default locale
+    std::setlocale(LC_ALL, "");
+
     try
     {
         // signal handler for entire program

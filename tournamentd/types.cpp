@@ -1,5 +1,6 @@
 #include "types.hpp"
 #include <cassert>
+#include <clocale>
 
 // ----- initialization
 
@@ -7,23 +8,7 @@ td::authorized_client::authorized_client(int c, const std::string& name) : code(
 {
 }
 
-td::blind_level::blind_level(const std::string& name) : game_name(name), little_blind(0), big_blind(0), ante(0), duration(0), break_duration(0)
-{
-}
-
-td::chip::chip() : denomination(0), count_available(0)
-{
-}
-
-td::funding_source::funding_source() : type(td::funding_source_type_t::buyin), forbid_after_blind_level(std::numeric_limits<std::size_t>::max()), chips(0)
-{
-}
-
-td::player::player() : added_at(datetime::now())
-{
-}
-
-td::seat::seat() : table_number(0), seat_number(0)
+td::blind_level::blind_level() : little_blind(0), big_blind(0), ante(0), duration(0), break_duration(0)
 {
 }
 
@@ -31,15 +16,7 @@ td::seat::seat(std::size_t t, std::size_t s) : table_number(t), seat_number(s)
 {
 }
 
-td::player_movement::player_movement()
-{
-}
-
 td::player_movement::player_movement(const player_id_t& p, const std::string& n, const seat& f, const seat& t) : player_id(p), name(n), from_seat(f), to_seat(t)
-{
-}
-
-td::player_chips::player_chips() : denomination(0), chips(0)
 {
 }
 
@@ -49,13 +26,11 @@ td::player_chips::player_chips(unsigned long d, unsigned long c) : denomination(
 
 td::monetary_value::monetary_value() : amount(0.0)
 {
+    // use currency of default locale
+    this->currency = std::localeconv()->int_curr_symbol;
 }
 
 td::monetary_value::monetary_value(double amt, const std::string& curr) : amount(amt), currency(curr)
-{
-}
-
-td::manual_payout::manual_payout() : buyins_count(0)
 {
 }
 
@@ -63,15 +38,7 @@ td::manual_payout::manual_payout(size_t c, const std::vector<monetary_value>& p)
 {
 }
 
-td::result::result() : place(0)
-{
-}
-
 td::result::result(size_t p, const std::string& n) : place(p), name(n)
-{
-}
-
-td::seated_player::seated_player() : buyin(false), table_number(std::numeric_limits<std::size_t>::max()), seat_number(std::numeric_limits<std::size_t>::max())
 {
 }
 
@@ -83,7 +50,7 @@ td::seated_player::seated_player(const player_id_t& p, const std::string& n, boo
 {
 }
 
-td::automatic_payout_parameters::automatic_payout_parameters() : percent_seats_paid(1.0), round_payouts(false), payout_flatness(1.0)
+td::automatic_payout_parameters::automatic_payout_parameters(double percent_paid, bool round, double flatness) : percent_seats_paid(percent_paid), round_payouts(round), payout_flatness(flatness)
 {
 }
 
@@ -109,7 +76,7 @@ td::authorized_client::authorized_client(const json& obj)
     obj.get_value("added_at", this->added_at);
 }
 
-td::blind_level::blind_level(const json& obj) : blind_level()
+td::blind_level::blind_level(const json& obj)
 {
     obj.get_value("game_name", this->game_name);
     obj.get_value("little_blind", this->little_blind);
@@ -120,14 +87,14 @@ td::blind_level::blind_level(const json& obj) : blind_level()
     obj.get_value("reason", this->reason);
 }
 
-td::chip::chip(const json& obj) : chip()
+td::chip::chip(const json& obj)
 {
     obj.get_value("color", this->color);
     obj.get_value("denomination", this->denomination);
     obj.get_value("count_available", this->count_available);
 }
 
-td::funding_source::funding_source(const json& obj) : funding_source()
+td::funding_source::funding_source(const json& obj)
 {
     obj.get_value("name", this->name);
     obj.get_value("type", reinterpret_cast<int&>(this->type));
@@ -138,20 +105,20 @@ td::funding_source::funding_source(const json& obj) : funding_source()
     obj.get_value("equity", this->equity);
 }
 
-td::player::player(const json& obj) : player()
+td::player::player(const json& obj)
 {
     obj.get_value("player_id", this->player_id);
     obj.get_value("name", this->name);
     obj.get_value("added_at", this->added_at);
 }
 
-td::seat::seat(const json& obj) : seat()
+td::seat::seat(const json& obj)
 {
     obj.get_value("table_number", this->table_number);
     obj.get_value("seat_number", this->seat_number);
 }
 
-td::player_movement::player_movement(const json& obj) : player_movement()
+td::player_movement::player_movement(const json& obj) : from_seat(0, 0), to_seat(0, 0)
 {
     obj.get_value("player_id", this->player_id);
     obj.get_value("name", this->name);
@@ -161,19 +128,19 @@ td::player_movement::player_movement(const json& obj) : player_movement()
     obj.get_value("to_seat_number", this->to_seat.seat_number);
 }
 
-td::monetary_value::monetary_value(const json& obj) : td::monetary_value()
+td::monetary_value::monetary_value(const json& obj)
 {
     obj.get_value("amount", this->amount);
     obj.get_value("currency", this->currency);
 }
 
-td::manual_payout::manual_payout(const json& obj) : manual_payout()
+td::manual_payout::manual_payout(const json& obj)
 {
     obj.get_value("buyins_count", this->buyins_count);
     obj.get_values("payouts", this->payouts);
 }
 
-td::automatic_payout_parameters::automatic_payout_parameters(const json& obj) : automatic_payout_parameters()
+td::automatic_payout_parameters::automatic_payout_parameters(const json& obj)
 {
     obj.get_value("percent_seats_paid", this->percent_seats_paid);
     obj.get_value("round_payouts", this->round_payouts);

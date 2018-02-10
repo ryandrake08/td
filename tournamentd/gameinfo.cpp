@@ -1,7 +1,6 @@
 #include "gameinfo.hpp"
 #include "logger.hpp"
 #include <algorithm>
-#include <clocale>
 #include <cmath>
 #include <iomanip>
 #include <limits>
@@ -12,7 +11,9 @@
 // initialize game
 gameinfo::gameinfo() :
     table_capacity(2),
+    blind_levels(1),
     payout_policy(td::payout_policy_t::automatic),
+    automatic_payouts(1.0, false, 1.0),
     previous_blind_level_hold_duration(2000),
     rebalance_policy(td::rebalance_policy_t::manual),
     max_expected_players(0),
@@ -27,13 +28,6 @@ gameinfo::gameinfo() :
     action_clock_time_remaining(duration_t::zero()),
     elapsed_time(duration_t::zero())
 {
-    // add the necessary "setup" blind level
-    this->blind_levels.push_back(td::blind_level("Setup"));
-
-    // set default payout currency to locale's default
-    std::setlocale(LC_ALL, "");
-    struct lconv* lc(std::localeconv());
-    this->payout_currency = lc->int_curr_symbol;
 }
 
 void gameinfo::validate()
@@ -43,7 +37,7 @@ void gameinfo::validate()
     // ensure we have at least one blind level, the setup level
     if(this->blind_levels.empty())
     {
-        this->blind_levels.push_back(td::blind_level("Setup"));
+        this->blind_levels.resize(1);
     }
 }
 
