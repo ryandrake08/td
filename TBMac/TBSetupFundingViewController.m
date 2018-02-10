@@ -14,6 +14,8 @@
 // TBSetupFundingArrayController implements a new object
 @interface TBSetupFundingArrayController : NSArrayController
 
+@property (copy) NSString* defaultCurrency;
+
 @end
 
 @implementation TBSetupFundingArrayController
@@ -24,7 +26,7 @@
     NSNumber* chips = @5000;
     NSMutableDictionary* cost = [@{@"amount":@10, @"currency":@"USD"} mutableCopy];
     NSMutableDictionary* commission =[ @{@"amount":@0, @"currency":@"USD"} mutableCopy];
-    NSMutableDictionary* equity = [@{@"amount":@10, @"currency":@"USD"} mutableCopy];
+    NSMutableDictionary* equity = [@{@"amount":@10, @"currency":[self defaultCurrency]} mutableCopy];
 
     return [@{@"name":name, @"type":type, @"chips":chips, @"cost":cost, @"commission":commission, @"equity":equity} mutableCopy];
 }
@@ -61,6 +63,8 @@
 
     // set up currency list
     _currencyList = [TBCurrencyNumberFormatter supportedCurrencies];
+    [self willChangeValueForKey:@"currencyList"];
+    [self didChangeValueForKey:@"currencyList"];
 
     // setup sort descriptors
     NSSortDescriptor* nameSort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
@@ -68,6 +72,18 @@
 
     // set sort descriptors for arrays
     [[self arrayController] setSortDescriptors:@[typeSort, nameSort]];
+
+    // observe change to payout currency
+    [[self KVOController] observe:self keyPath:@"representedObject.payout_currency" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
+        id payoutCurrency = [self representedObject][@"payout_currency"];
+        // set default currency for new objects
+        [(TBSetupFundingArrayController*)[self arrayController] setDefaultCurrency:payoutCurrency];
+        // reset currencies
+        for(NSMutableDictionary* source in [[self arrayController] arrangedObjects]) {
+            [source setValue:payoutCurrency forKey:@"equity.currency"];
+        }
+        [[self tableView] reloadData];
+    }];
 }
 
 - (NSArray*)blindLevelNames {

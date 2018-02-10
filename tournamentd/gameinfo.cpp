@@ -17,8 +17,6 @@ gameinfo::gameinfo() :
     max_expected_players(0),
     tables(0),
     total_chips(0),
-    total_cost(0.0),
-    total_commission(0.0),
     total_equity(0.0),
     running(false),
     current_blind_level(0),
@@ -50,6 +48,7 @@ void gameinfo::configure(const json& config)
     config.get_value("name", this->name);
     config.get_values("funding_sources", this->funding_sources);
     config.get_value("payout_policy", reinterpret_cast<int&>(this->payout_policy));
+    config.get_value("payout_currency", this->payout_currency);
     config.get_value("automatic_payouts", this->automatic_payouts);
     config.get_values("forced_payouts", this->forced_payouts);
     config.get_value("previous_blind_level_hold_duration", this->previous_blind_level_hold_duration);
@@ -114,6 +113,7 @@ void gameinfo::configure(const json& config)
     // recalculate for any configuration that could alter payouts
     auto recalculate(false);
     recalculate = recalculate || config.get_value("payout_policy");
+    recalculate = recalculate || config.get_value("payout_currency");
     recalculate = recalculate || config.get_value("automatic_payouts");
     recalculate = recalculate || config.get_value("forced_payouts");
     recalculate = recalculate || config.get_value("manual_payouts");
@@ -145,6 +145,7 @@ void gameinfo::dump_configuration(json& config) const
     config.set_value("players", json(this->players.begin(), this->players.end()));
     config.set_value("table_capacity", this->table_capacity);
     config.set_value("payout_policy", static_cast<int>(this->payout_policy));
+    config.set_value("payout_currency", this->payout_currency);
     config.set_value("automatic_payouts", this->automatic_payouts);
     config.set_value("forced_payouts", json(this->forced_payouts.begin(), this->forced_payouts.end()));
     config.set_value("manual_payouts", json(this->manual_payouts.begin(), this->manual_payouts.end()));
@@ -174,7 +175,7 @@ void gameinfo::dump_state(json& state) const
     state.set_value("total_chips", this->total_chips);
     state.set_value("total_cost", json(this->total_cost.begin(), this->total_cost.end()));
     state.set_value("total_commission", json(this->total_commission.begin(), this->total_commission.end()));
-    state.set_value("total_equity", json(this->total_equity.begin(), this->total_equity.end()));
+    state.set_value("total_equity", this->total_equity);
     state.set_value("running", this->running);
     state.set_value("current_blind_level", this->current_blind_level);
     state.set_value("current_time", this->current_time.count());
@@ -860,7 +861,7 @@ void gameinfo::fund_player(const td::player_id_t& player_id, const td::funding_s
         throw td::protocol_error("invalid funding source");
     }
 
-    const td::funding_source& source(this->funding_sources[src]);
+    td::funding_source& source(this->funding_sources[src]);
 
     if(this->current_blind_level > source.forbid_after_blind_level)
     {
@@ -877,9 +878,10 @@ void gameinfo::fund_player(const td::player_id_t& player_id, const td::funding_s
         throw td::protocol_error("tried re-buying before tournamnet start");
     }
 
-    if(!this->total_equity.empty() && source.equity.currency != this->total_equity.begin()->first)
+    if(source.equity.currency != this->payout_currency)
     {
-        throw td::protocol_error("tried mixing equity currencies, currently not supported");
+        logger(ll::warning) << "equity currency does not match payout_currency, currently not supported. forcing equity currency to " << this->payout_currency << '\n';
+        source.equity.currency = this->payout_currency;
     }
 
     logger(ll::info) << "funding player " << this->player_description(player_id) << " with " << source.name << '\n';
@@ -914,7 +916,7 @@ void gameinfo::fund_player(const td::player_id_t& player_id, const td::funding_s
     this->total_chips += source.chips;
     this->total_cost[source.cost.currency] += source.cost.amount;
     this->total_commission[source.commission.currency] += source.commission.amount;
-    this->total_equity[source.equity.currency] += source.equity.amount;
+    this->total_equity += source.equity.amount;
 
     // automatically recalculate
     this->recalculate_payouts();
@@ -1085,10 +1087,21 @@ void gameinfo::recalculate_payouts()
         }
         else
         {
-            logger(ll::info) << "applying forced payout: " << this->forced_payouts.size() << " seats will be paid\n";
+            // ensure all payout currencies equal globally configured payout_currency
+            auto& use_payout(this->forced_payouts);
+            for(auto payout : use_payout)
+            {
+                if(payout.currency != this->payout_currency)
+                {
+                    logger(ll::warning) << "payout currency does not match global payout_currency, currently not supported. forcing payout currency to " << this->payout_currency << '\n';
+                    payout.currency = this->payout_currency;
+                }
+            }
+
+            logger(ll::info) << "applying forced payout: " << use_payout.size() << " seats will be paid\n";
 
             // use the payout structure specified in forced_payouts
-            this->payouts = this->forced_payouts;
+            this->payouts = use_payout;
             return;
         }
     }
@@ -1103,10 +1116,21 @@ void gameinfo::recalculate_payouts()
         }
         else
         {
-            logger(ll::info) << "applying manual payout for " << count_unique_entries << " players: " << manual_payout_it->second.size() << " seats will be paid\n";
+            // ensure all payout currencies equal globally configured payout_currency
+            auto& use_payout(this->forced_payouts);
+            for(auto payout : use_payout)
+            {
+                if(payout.currency != this->payout_currency)
+                {
+                    logger(ll::warning) << "payout currency does not match global payout_currency, currently not supported. forcing payout currency to " << this->payout_currency << '\n';
+                    payout.currency = this->payout_currency;
+                }
+            }
+
+            logger(ll::info) << "applying manual payout for " << count_unique_entries << " players: " << use_payout.size() << " seats will be paid\n";
 
             // use found payout structure
-            this->payouts = manual_payout_it->second;
+            this->payouts = use_payout;
             return;
         }
     }
@@ -1136,16 +1160,13 @@ void gameinfo::recalculate_payouts()
             total += c;
         }
 
-        // TODO: user-specify payout_currency when automatically generating payouts?
-        auto payout_currency(this->funding_sources.begin()->equity.currency);
-
         // next, loop through again generating payouts
         if(round)
         {
             std::transform(comp.begin(), comp.end(), this->payouts.begin(), [&](double c)
             {
-                double amount(std::round(this->total_equity.begin()->second * c / total));
-                return td::monetary_value(amount, payout_currency);
+                double amount(std::round(this->total_equity * c / total));
+                return td::monetary_value(amount, this->payout_currency);
             });
 
             // count how much total was calculated after rounding
@@ -1155,15 +1176,15 @@ void gameinfo::recalculate_payouts()
             }));
 
             // remainder (either positive or negative) adjusts first place
-            auto remainder(this->total_equity.begin()->second - total_allocated_payout);
+            auto remainder(this->total_equity - total_allocated_payout);
             this->payouts[0].amount += remainder;
         }
         else
         {
             std::transform(comp.begin(), comp.end(), this->payouts.begin(), [&](double c)
             {
-                double amount(this->total_equity.begin()->second * c / total);
-                return td::monetary_value(amount, payout_currency);
+                double amount(this->total_equity * c / total);
+                return td::monetary_value(amount, this->payout_currency);
             });
         }
     }
@@ -1186,7 +1207,7 @@ void gameinfo::reset_funding()
     this->total_chips = 0;
     this->total_cost.clear();
     this->total_commission.clear();
-    this->total_equity.clear();
+    this->total_equity = 0.0;
 }
 
 // quickly set up a game (plan, seat, and buyin, using optional funding source)

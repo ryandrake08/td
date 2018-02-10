@@ -332,6 +332,7 @@
     ],
     "table_capacity": 8,
     "payout_policy": 0,
+    "payout_currency": "USD",
     "automatic_payouts": {
         "percent_seats_paid": 0.25,
         "round_payouts": true,

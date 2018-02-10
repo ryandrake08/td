@@ -10,4 +10,7 @@
 
 @interface TBSetupDetailsPayoutViewController : TBSetupDetailsTableViewController
 
+// configuration being edited
+@property (nonatomic, strong) NSMutableDictionary* configuration;
+
 @end

@@ -19,6 +19,7 @@
 
     if(indexPath.section == 0 && indexPath.row == 1) {
         [(TBPickableTextTableViewCell*)cell setAllowedValues:[TBCurrencyNumberFormatter supportedCodes] withTitles:[TBCurrencyNumberFormatter supportedCurrencies]];
+        [[(TBKVOTableViewCell*)cell object] setValue:[self configuration][@"payout_currency"] forKeyPath:@"payout.currency"];
     }
 
     return [self setObjectToCell:cell];

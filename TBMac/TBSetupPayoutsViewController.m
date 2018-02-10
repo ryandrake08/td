@@ -7,6 +7,7 @@
 //
 
 #import "TBSetupPayoutsViewController.h"
+#import "NSObject+FBKVOController.h"
 #import "TBCurrencyNumberFormatter.h"
 #import "TournamentSession.h"
 #import <Foundation/Foundation.h>
@@ -14,13 +15,15 @@
 // TBSetupPayoutsArrayController implements a new object
 @interface TBSetupPayoutsArrayController : NSArrayController
 
+@property (copy) NSString* defaultCurrency;
+
 @end
 
 @implementation TBSetupPayoutsArrayController
 
 - (id)newObject {
     NSNumber* amount = @0;
-    NSString* currency = @"USD";
+    NSString* currency = [self defaultCurrency];
 
     return [@{@"amount":amount, @"currency":currency} mutableCopy];
 }
@@ -41,6 +44,22 @@
 
     // set up currency list
     _currencyList = [TBCurrencyNumberFormatter supportedCurrencies];
+    [self willChangeValueForKey:@"currencyList"];
+    [self didChangeValueForKey:@"currencyList"];
+
+
+    // observe change to payout currency
+    [[self KVOController] observe:self keyPath:@"representedObject.payout_currency" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
+        id payoutCurrency = [self representedObject][@"payout_currency"];
+        // set default currency for new objects
+        [(TBSetupPayoutsArrayController*)[self arrayController] setDefaultCurrency:payoutCurrency];
+        // reset currencies
+        for(NSMutableDictionary* payout in [[self arrayController] arrangedObjects]) {
+            [payout setValue:payoutCurrency forKey:@"currency"];
+        }
+        [[self tableView] reloadData];
+    }];
+
 }
 
 #pragma mark NSTableViewDataSource

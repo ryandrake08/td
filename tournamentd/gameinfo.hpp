@@ -38,6 +38,9 @@ class gameinfo
     // configuration: payout policy
     td::payout_policy_t payout_policy;
 
+    // configuration: payout currency
+    std::string payout_currency;
+
     // configuration: automatic payout parameters
     td::automatic_payout_parameters automatic_payouts;
 
@@ -92,10 +95,12 @@ class gameinfo
     // total game currency (chips) in play
     unsigned long total_chips;
 
-    // total funds received and paid out, for each currency
+    // total funds received, for each currency
     std::unordered_map<std::string,double> total_cost;
     std::unordered_map<std::string,double> total_commission;
-    std::unordered_map<std::string,double> total_equity;
+
+    // total fund paid out, in payout_currency
+    double total_equity;
 
     // is the game running or paused?
     bool running;

@@ -2406,23 +2406,22 @@ Gw
                                                                         <binding destination="T7t-Rj-hcC" name="value" keyPath="objectValue.equity.amount" id="4eV-RV-8lT"/>
                                                                     </connections>
                                                                 </textField>
-                                                                <popUpButton fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rVs-Ui-Xav">
+                                                                <textField verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sNg-rm-x7r" userLabel="Equity Value">
                                                                     <rect key="frame" x="0.0" y="8" width="56" height="17"/>
-                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                                    <popUpButtonCell key="cell" type="square" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="NBo-hK-Nh8">
-                                                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                                        <font key="font" metaFont="menu"/>
-                                                                        <menu key="menu" id="qNF-RX-uTP"/>
-                                                                    </popUpButtonCell>
+                                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" alignment="left" placeholderString="Currency" id="kW7-s7-ljh">
+                                                                        <font key="font" metaFont="system"/>
+                                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                    </textFieldCell>
                                                                     <connections>
-                                                                        <binding destination="T7t-Rj-hcC" name="selectedValue" keyPath="objectValue.equity.currency" previousBinding="XDv-T7-UW6" id="uTB-J7-D2c">
+                                                                        <binding destination="T7t-Rj-hcC" name="value" keyPath="objectValue.equity.currency" id="Z8S-Sx-hgO">
                                                                             <dictionary key="options">
                                                                                 <string key="NSValueTransformerName">TBCurrencyCodeTransformer</string>
                                                                             </dictionary>
                                                                         </binding>
-                                                                        <binding destination="Jw6-Xu-FJL" name="contentValues" keyPath="self.currencyList" id="XDv-T7-UW6"/>
                                                                     </connections>
-                                                                </popUpButton>
+                                                                </textField>
                                                             </subviews>
                                                             <connections>
                                                                 <outlet property="textField" destination="5oI-uM-Yyf" id="AUm-2Y-bET"/>
@@ -2590,18 +2589,31 @@ Gw
                                     <action selector="remove:" target="VOX-b0-ObE" id="zuh-hN-71w"/>
                                 </connections>
                             </button>
-                            <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TuN-cp-Pus">
-                                <rect key="frame" x="56" y="-1" width="35" height="23"/>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CPf-Xn-MjW">
+                                <rect key="frame" x="63" y="2" width="155" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <popUpButtonCell key="cell" type="smallSquare" title="Utility" bezelStyle="smallSquare" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" selectedItem="iBz-aK-l2u" id="xUh-Ca-qVV">
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Equity/Payout Currency:" id="cAR-qB-l4P">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <popUpButton fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rVs-Ui-Xav">
+                                <rect key="frame" x="224" y="0.0" width="82" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <popUpButtonCell key="cell" type="square" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="NBo-hK-Nh8">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="menu"/>
-                                    <menu key="menu" id="0hl-4Z-qpR">
-                                        <items>
-                                            <menuItem title="Utility" state="on" image="NSActionTemplate" id="iBz-aK-l2u"/>
-                                        </items>
-                                    </menu>
+                                    <menu key="menu" id="qNF-RX-uTP"/>
                                 </popUpButtonCell>
+                                <connections>
+                                    <binding destination="Jw6-Xu-FJL" name="selectedValue" keyPath="self.representedObject.payout_currency" previousBinding="XDv-T7-UW6" id="HIA-YR-Lrt">
+                                        <dictionary key="options">
+                                            <string key="NSValueTransformerName">TBCurrencyCodeTransformer</string>
+                                        </dictionary>
+                                    </binding>
+                                    <binding destination="Jw6-Xu-FJL" name="contentValues" keyPath="self.currencyList" id="XDv-T7-UW6"/>
+                                </connections>
                             </popUpButton>
                         </subviews>
                     </customView>
@@ -3424,23 +3436,22 @@ Gw
                                                             <rect key="frame" x="167" y="1" width="443" height="29"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
-                                                                <popUpButton fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NpP-NB-0Ws">
-                                                                    <rect key="frame" x="0.0" y="7" width="56" height="17"/>
-                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                                                    <popUpButtonCell key="cell" type="square" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="dba-je-z7C">
-                                                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                                        <font key="font" metaFont="menu"/>
-                                                                        <menu key="menu" id="XbG-pv-CMP"/>
-                                                                    </popUpButtonCell>
+                                                                <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zOg-q7-Ea3">
+                                                                    <rect key="frame" x="0.0" y="6" width="443" height="17"/>
+                                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" alignment="left" placeholderString="Dollar, Euro, etc." id="W1I-ue-aVu">
+                                                                        <font key="font" metaFont="system"/>
+                                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                    </textFieldCell>
                                                                     <connections>
-                                                                        <binding destination="tHD-7b-Ew5" name="contentValues" keyPath="self.currencyList" id="L5S-Vs-iA2"/>
-                                                                        <binding destination="70E-Xt-9Hz" name="selectedValue" keyPath="objectValue.currency" previousBinding="L5S-Vs-iA2" id="Rbl-xv-0SI">
+                                                                        <binding destination="70E-Xt-9Hz" name="value" keyPath="objectValue.currency" id="ce1-5w-DlN">
                                                                             <dictionary key="options">
                                                                                 <string key="NSValueTransformerName">TBCurrencyCodeTransformer</string>
                                                                             </dictionary>
                                                                         </binding>
                                                                     </connections>
-                                                                </popUpButton>
+                                                                </textField>
                                                             </subviews>
                                                         </tableCellView>
                                                     </prototypeCellViews>
@@ -3543,9 +3554,9 @@ Gw
         <image name="m_rebuy" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="cgp-eX-T5f"/>
-        <segue reference="20A-7q-E8V"/>
-        <segue reference="mJ1-px-HDd"/>
-        <segue reference="3WU-TS-ggK"/>
+        <segue reference="N4t-1A-N0u"/>
+        <segue reference="RAQ-SQ-Qt2"/>
+        <segue reference="bkh-Dn-ae1"/>
+        <segue reference="945-vK-tRp"/>
     </inferredMetricsTieBreakers>
 </document>

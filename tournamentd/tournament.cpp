@@ -457,6 +457,7 @@ struct tournament::impl
                              blind_levels (array): Discription of each blind level
                              available_chips (array): Discription of each chip color and denomination
                              payout_policy (integer): Policy for paying out players (0 = automatic, 1 = forced, 2 = depends on turnout)
+                             payout_currency (string): Currency used for payouts (equity_currency and individual payout_currency fields must match)
                              automatic_payouts (object): Parameters for automatic payout structure generation:
                                 percent_seats_paid (float): Proportion of players (buyins) paid out
                                 round_payouts (bool): Round payoffs to integer values
@@ -494,7 +495,7 @@ struct tournament::impl
                              total_chips (integer): Count of all tournament chips in play
                              total_cost (array): Sum total of all buyins, rebuys and addons, for each currency
                              total_commission (array): Sum total of all entry fees, for each currency
-                             total_equity (array): Sum total of all payouts, for each currency
+                             total_equity (double): Sum total of all payouts, in configured payout_currency
                              running (bool): True if the tournament is unpaused
                              current_blind_level (integer): Current blind level. 0 = planning stage
                              current_time (integer): Current time since epoch (milliseconds)

@@ -10,6 +10,7 @@
 #import "TBSettingsViewController.h"
 #import "NSObject+FBKVOController.h"
 #import "TBAppDelegate.h"
+#import "TBCurrencyNumberFormatter.h"
 #import "TBKVOTableViewCell.h"
 #import "TBNotifications.h"
 #import "TBSetupTableViewController.h"
@@ -82,7 +83,7 @@
     }];
 
     // if table sizes or max players change, force a replan
-    [[self KVOController] observe:self keyPaths:@[@"configuration.table_capacity", @"maxPlayers"] options:0 block:^(id observer, id object, NSDictionary *change) {
+    [[self KVOController] observe:self keyPaths:@[@"configuration.table_capacity", @"maxPlayers", @"configuration.payout_currency"] options:0 block:^(id observer, id object, NSDictionary *change) {
         // plan seating
         [self planSeating];
 
@@ -119,6 +120,8 @@
         // create a cell
         if([[(TBKVOTableViewCell*)cell keyPath] isEqualToString:@"table_capacity"]) {
             [(TBPickableTextTableViewCell*)cell setAllowedValues:@[@2, @3, @4, @5, @6, @7, @8, @9, @10, @11, @12] withTitles:nil];
+        } else if([[(TBKVOTableViewCell*)cell keyPath] isEqualToString:@"payout_currency"]) {
+            [(TBPickableTextTableViewCell*)cell setAllowedValues:[TBCurrencyNumberFormatter supportedCodes] withTitles:[TBCurrencyNumberFormatter supportedCurrencies]];
         } else if([[(TBKVOTableViewCell*)cell keyPath] isEqualToString:@"payout_policy"]) {
             TBPayoutPolicyNumberFormatter* policyFormatter = [[TBPayoutPolicyNumberFormatter alloc] init];
             [(TBFormattedKVOTableViewCell*)cell setFormatter:policyFormatter];
