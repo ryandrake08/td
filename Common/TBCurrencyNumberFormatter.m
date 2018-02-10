@@ -26,7 +26,7 @@
     return [super stringFromNumber:number];
 }
 
-- (void)setCurrencyCode:(NSString *)currencyCode {
+- (void)setCurrencyCode:(NSString*)currencyCode {
     [super setCurrencyCode:currencyCode];
     if([currencyCode isEqualToString:@"XPT"]) {
         [super setCurrencySymbol:NSLocalizedString(@"Points", nil)];
@@ -39,15 +39,36 @@
     }
 }
 
++ (NSString*)defaultCurrencyCode {
+    // pick a default currency based on user's configured locale
+    NSString* code = [[NSLocale currentLocale] currencyCode];
+    if([[[self class] supportedCodes] containsObject:code]) {
+        return code;
+    } else {
+        return @"USD";
+    }
+}
+
 + (NSArray*)supportedCurrencies {
-    return @[NSLocalizedString(@"Dollar", nil),
-             NSLocalizedString(@"Euro", nil),
-             NSLocalizedString(@"Rupee", nil),
-             NSLocalizedString(@"Pound", nil),
-             NSLocalizedString(@"Yen", nil),
-             NSLocalizedString(@"Yuan", nil),
-             NSLocalizedString(@"Bucks", nil),
-             NSLocalizedString(@"Points", nil)];
+    static NSMutableArray* currencyNames = nil;
+    if(currencyNames == nil) {
+        currencyNames = [[NSMutableArray alloc] init];
+        for(NSString* code in [[self class] supportedCodes]) {
+            NSString* name;
+            if([code isEqualToString:@"XPB"]) {
+                name = NSLocalizedString(@"Bucks", nil);
+            } else if([code isEqualToString:@"XPT"]) {
+                name = NSLocalizedString(@"Points", nil);
+            } else {
+                name = [[NSLocale currentLocale] localizedStringForCurrencyCode:code];
+            }
+            if(name == nil) {
+                name = NSLocalizedString(@"Unknown Currency", nil);
+            }
+            [currencyNames addObject:name];
+        }
+    }
+    return currencyNames;
 }
 
 + (NSArray*)supportedCodes {
@@ -59,14 +80,6 @@
              @"CNY",
              @"XPB",
              @"XPT"];
-}
-
-+(NSDictionary*)supportedCodesForCurrencies {
-    return [NSDictionary dictionaryWithObjects:[[self class] supportedCodes] forKeys:[[self class] supportedCurrencies]];
-}
-
-+(NSDictionary*)supportedCurrenciesForCodes {
-    return [NSDictionary dictionaryWithObjects:[[self class] supportedCurrencies] forKeys:[[self class] supportedCodes]];
 }
 
 @end

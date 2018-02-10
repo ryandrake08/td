@@ -21,12 +21,18 @@
 
 - (id)transformedValue:(id)value {
     if([value isKindOfClass:[NSString class]]) {
-        return @{@"USD":[TBImage imageNamed:@"b_note_dollar"],
-                 @"EUR":[TBImage imageNamed:@"b_note_euro"],
-                 @"INR":[TBImage imageNamed:@"b_note_rupee"],
-                 @"GBP":[TBImage imageNamed:@"b_note_sterling"],
-                 @"JPY":[TBImage imageNamed:@"b_note_yen_yuan"],
-                 @"CNY":[TBImage imageNamed:@"b_note_yen_yuan"]}[value];
+        if([value isEqualToString:@"EUR"]) {
+            return [TBImage imageNamed:@"b_note_euro"];
+        } else if([value isEqualToString:@"INR"]) {
+            return [TBImage imageNamed:@"b_note_rupee"];
+        } else if([value isEqualToString:@"GBP"]) {
+            return [TBImage imageNamed:@"b_note_sterling"];
+        } else if([value isEqualToString:@"JPY"] || [value isEqualToString:@"CNY"]) {
+            return [TBImage imageNamed:@"b_note_yen_yuan"];
+        } else {
+            // use dollar as fallback if currency is USD or not supported with a dedicated image
+            return [TBImage imageNamed:@"b_note_dollar"];
+        }
     }
     return nil;
 }

@@ -1,6 +1,7 @@
 #include "gameinfo.hpp"
 #include "logger.hpp"
 #include <algorithm>
+#include <clocale>
 #include <cmath>
 #include <iomanip>
 #include <limits>
@@ -26,7 +27,13 @@ gameinfo::gameinfo() :
     action_clock_time_remaining(duration_t::zero()),
     elapsed_time(duration_t::zero())
 {
+    // add the necessary "setup" blind level
     this->blind_levels.push_back(td::blind_level("Setup"));
+
+    // set default payout currency to locale's default
+    std::setlocale(LC_ALL, "");
+    struct lconv* lc(std::localeconv());
+    this->payout_currency = lc->int_curr_symbol;
 }
 
 void gameinfo::validate()

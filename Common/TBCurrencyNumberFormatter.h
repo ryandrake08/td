@@ -13,9 +13,8 @@
 @property (nonatomic, copy, readonly) NSArray* supportedCurrencies;
 @property (nonatomic, copy, readonly) NSArray* supportedCodes;
 
++ (NSString*)defaultCurrencyCode;
 + (NSArray*)supportedCurrencies;
 + (NSArray*)supportedCodes;
-+ (NSDictionary*)supportedCurrenciesForCodes;
-+ (NSDictionary*)supportedCodesForCurrencies;
 
 @end

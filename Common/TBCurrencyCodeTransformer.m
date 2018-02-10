@@ -9,6 +9,13 @@
 #import "TBCurrencyCodeTransformer.h"
 #import "TBCurrencyNumberFormatter.h"
 
+@interface TBCurrencyCodeTransformer ()
+
+@property (strong) NSDictionary* transformer;
+@property (strong) NSDictionary* reverseTransformer;
+
+@end
+
 @implementation TBCurrencyCodeTransformer
 
 + (Class)transformedValueClass {
@@ -19,16 +26,24 @@
     return YES;
 }
 
+- (instancetype)init {
+    if(self = [super init]) {
+        _transformer = [NSDictionary dictionaryWithObjects:[TBCurrencyNumberFormatter supportedCurrencies] forKeys:[TBCurrencyNumberFormatter supportedCodes]];
+        _reverseTransformer = [NSDictionary dictionaryWithObjects:[TBCurrencyNumberFormatter supportedCodes] forKeys:[TBCurrencyNumberFormatter supportedCurrencies]];
+    }
+    return self;
+}
+
 - (id)transformedValue:(id)value {
     if([value isKindOfClass:[NSString class]]) {
-        return [TBCurrencyNumberFormatter supportedCurrenciesForCodes][value];
+        return [self transformer][value];
     }
     return nil;
 }
 
 - (id)reverseTransformedValue:(id)value {
     if([value isKindOfClass:[NSString class]]) {
-        return[TBCurrencyNumberFormatter supportedCodesForCurrencies][value];
+        return [self reverseTransformer][value];
     }
     return nil;
 }

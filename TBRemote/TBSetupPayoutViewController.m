@@ -40,7 +40,8 @@
 }
 
 - (id)newObject {
-    return [@{@"amount":@0, @"currency":@"USD"} mutableCopy];
+    NSString* defaultCurrencyCode = [TBCurrencyNumberFormatter defaultCurrencyCode];
+    return [@{@"amount":@0, @"currency":defaultCurrencyCode} mutableCopy];
 }
 
 @end
