@@ -66,7 +66,11 @@
 
 - (NSString*)textRepresentationOfUnderlyingValue {
     if([self formatter] != nil) {
-        return [[self formatter] stringFromNumber:[self underlyingValue]];
+        NSNumber* underlyingNumber = [self underlyingValue];
+        if(underlyingNumber == nil) {
+            underlyingNumber = @0;
+        }
+        return [[self formatter] stringFromNumber:underlyingNumber];
     } else {
         return [super textRepresentationOfUnderlyingValue];
     }
