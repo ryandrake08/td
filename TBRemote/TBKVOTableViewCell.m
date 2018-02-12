@@ -281,6 +281,37 @@
     // call base to store the object
     [super setObject:object];
 
+    if([[self underlyingValue] boolValue]) {
+        [self setAccessoryType:UITableViewCellAccessoryCheckmark];
+    } else {
+        [self setAccessoryType:UITableViewCellAccessoryNone];
+    }
+}
+
+// when selected, toggle
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+    [super setSelected:selected animated:animated];
+
+    if(selected) {
+        if([self accessoryType] == UITableViewCellAccessoryNone) {
+            [self setUnderlyingValue:@NO];
+            [self setAccessoryType:UITableViewCellAccessoryCheckmark];
+        } else {
+            [self setUnderlyingValue:@YES];
+            [self setAccessoryType:UITableViewCellAccessoryNone];
+        }
+    }
+}
+
+@end
+
+@implementation TBCheckmarkValueExistsTableViewCell
+
+// set the object and use keypath to observe/sync with control
+- (void)setObject:(id)object {
+    // call base to store the object
+    [super setObject:object];
+
     if([self underlyingValue] == nil) {
         [self setAccessoryType:UITableViewCellAccessoryNone];
     } else {

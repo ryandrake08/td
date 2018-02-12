@@ -50,6 +50,10 @@
 
 @end
 
+@interface TBCheckmarkValueExistsTableViewCell : TBKVOTableViewCell
+
+@end
+
 @interface TBEllipseTableViewCell : TBKVOTableViewCell
 
 @end
