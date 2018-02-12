@@ -324,7 +324,6 @@
     [super setSelected:selected animated:animated];
 
     if(selected) {
-        // TODO: This logic looks incorrect
         if([self accessoryType] == UITableViewCellAccessoryNone) {
             [self setUnderlyingValue:@0];
             [self setAccessoryType:UITableViewCellAccessoryCheckmark];
