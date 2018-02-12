@@ -48,7 +48,11 @@
             case 7:
             {
                 [(TBPickableTextTableViewCell*)cell setAllowedValues:[TBCurrencyNumberFormatter supportedCodes] withTitles:[TBCurrencyNumberFormatter supportedCurrencies]];
-                [[(TBKVOTableViewCell*)cell object] setValue:[self configuration][@"payout_currency"] forKeyPath:@"equity.currency"];
+
+                // if payout_currency is set, force equity_currency to equal payout_currency
+                if([self configuration][@"payout_currency"]) {
+                    [[(TBKVOTableViewCell*)cell object] setValue:[self configuration][@"payout_currency"] forKeyPath:@"equity.currency"];
+                }
                 break;
             }
         }

@@ -2467,7 +2467,7 @@
                                             <outlet property="textField" destination="CMi-C5-KvE" id="IJS-LR-PGZ"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="bVX-ig-7MA" customClass="TBPickableTextTableViewCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="bVX-ig-7MA" customClass="TBPickableTextTableViewCell">
                                         <rect key="frame" x="0.0" y="363.5" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bVX-ig-7MA" id="sDB-Eb-uAi">
@@ -2480,7 +2480,7 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Dollar, Euro, etc." textAlignment="right" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="6p3-TM-Q4d">
+                                                <textField opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Dollar, Euro, etc." textAlignment="right" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="6p3-TM-Q4d">
                                                     <rect key="frame" x="140" y="12" width="157" height="20"/>
                                                     <color key="textColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>

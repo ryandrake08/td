@@ -27,9 +27,15 @@
 
 @interface TBLabelTableViewCell : TBFormattedKVOTableViewCell
 
+// ui outlet
+@property (nonatomic, strong) IBOutlet UILabel* label;
+
 @end
 
 @interface TBTextFieldTableViewCell : TBFormattedKVOTableViewCell
+
+// ui outlet
+@property (nonatomic, strong) IBOutlet UITextField* textField;
 
 @end
 

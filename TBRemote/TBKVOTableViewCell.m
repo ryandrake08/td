@@ -30,34 +30,28 @@
 - (void)setUnderlyingValue:(id)value {
     [self validate];
     [[self object] setValue:value forKeyPath:[self keyPath]];
+    NSLog(@"DEBUG: setValue:%@ forKeyPath:%@ -> %@", value, [self keyPath], [[self object] valueForKeyPath:[self keyPath]]);
+
+    // tell the world we've edited something
+    [[NSNotificationCenter defaultCenter] postNotificationName:kConfigurationUpdatedNotification object:nil];
 }
 
 - (NSString*)textRepresentationOfUnderlyingValue {
     id underlyingValue = [self underlyingValue];
-    if([underlyingValue respondsToSelector:@selector(count)]) {
+    if(underlyingValue == nil) {
+        // value is not set for key
+        return @" ";
+    } else if([underlyingValue respondsToSelector:@selector(count)]) {
         return [NSString stringWithFormat: @"%ld", (long)[underlyingValue count]];
     } else if([underlyingValue respondsToSelector:@selector(stringValue)]) {
         return [underlyingValue stringValue];
-    } else if([underlyingValue respondsToSelector:@selector(count)]) {
-        return [NSString stringWithFormat: @"%ld", (long)[underlyingValue count]];
     } else if([underlyingValue isKindOfClass:[NSString class]]) {
         return underlyingValue;
     } else {
+        NSLog(@"TBKVOTableViewCell: underlyingValue class %@ not supported", [underlyingValue class]);
         return @" ";
     }
     return nil;
-}
-
-- (void)setUnderlyingValueFromTextRepresentation:(NSString*)text {
-    id underlyingValue = [self underlyingValue];
-    if([underlyingValue isKindOfClass:[NSNumber class]]) {
-        [self setUnderlyingValue:[NSNumber numberWithDouble:[text doubleValue]]];
-    } else if([underlyingValue isKindOfClass:[NSString class]]) {
-        // set directly to text
-        [self setUnderlyingValue:text];
-    } else {
-        NSLog(@"TBTextFieldTableViewCell: underlyingValueRepresentationFromText: underlying value of unsupported class");
-    }
 }
 
 @end
@@ -76,21 +70,6 @@
     }
 }
 
-- (void)setUnderlyingValueFromTextRepresentation:(NSString*)text {
-    if([self formatter] != nil) {
-        [self setUnderlyingValue:[[self formatter] numberFromString:text]];
-    } else {
-        [super setUnderlyingValueFromTextRepresentation:text];
-    }
-}
-
-@end
-
-@interface TBLabelTableViewCell ()
-
-// ui outlet
-@property (nonatomic, strong) IBOutlet UILabel* label;
-
 @end
 
 @implementation TBLabelTableViewCell
@@ -106,13 +85,6 @@
 
 @end
 
-@interface TBTextFieldTableViewCell () <UITextFieldDelegate>
-
-// ui outlet
-@property (nonatomic, strong) IBOutlet UITextField* textField;
-
-@end
-
 @implementation TBTextFieldTableViewCell
 
 // set the object and use keypath to observe/sync with control
@@ -122,15 +94,6 @@
 
     // set up the textfield
     [[self textField] setText:[self textRepresentationOfUnderlyingValue]];
-}
-
-// update the editable object to match the text field
-- (void)updateEditableObject {
-    // set the underlying value
-    [self setUnderlyingValueFromTextRepresentation:[[self textField] text]];
-
-    // tell the world we've edited something
-    [[NSNotificationCenter defaultCenter] postNotificationName:kConfigurationUpdatedNotification object:nil];
 }
 
 // when selected, make the edit field become the first responder
@@ -150,12 +113,32 @@
 
 - (void)textFieldDidEndEditing:(UITextField*)textField {
     [textField resignFirstResponder];
-    [self updateEditableObject];
+
+    // get text
+    NSString* text = [[self textField] text];
+
+    // set the underlying value
+    if([self formatter] != nil) {
+        // if there is a formatter, underlying value should be numeric
+        [self setUnderlyingValue:[[self formatter] numberFromString:text]];
+    } else {
+        // otherwise, we assume it is text, warn if it looks numeric
+        NSNumberFormatter* testFormatter = [[NSNumberFormatter alloc] init];
+        [testFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
+        NSNumber* number = [testFormatter numberFromString:text];
+        if(number != nil) {
+            NSLog(@"TBTextFieldTableViewCell has no formatter, yet a number was entered by user");
+        }
+        [self setUnderlyingValue:text];
+    }
 }
 
 @end
 
 @interface TBPickableTextTableViewCell () <UIPickerViewDelegate, UIPickerViewDataSource>
+
+// allowed values
+@property (nonatomic, copy) NSArray* allowedValues;
 
 // titles for each allowed value
 @property (nonatomic, copy) NSArray* allowedValueTitles;
@@ -172,8 +155,25 @@
     return [self titleForValue][[super underlyingValue]];
 }
 
-- (void)setUnderlyingValueFromTextRepresentation:(NSString*)text {
-    [super setUnderlyingValueFromTextRepresentation:[self valueForTitle][text]];
+- (void)updatePickerSelectionFromTextField {
+    NSInteger selectRow = -1;
+
+    // get text field's current object value
+    NSString* currentText = [[self textField] text];
+    if(![currentText isEqualToString:@""]) {
+        NSUInteger selectedIndex = [[self allowedValueTitles] indexOfObject:currentText];
+
+        // is current text value allowed? if so, select it, otherwise select first object
+        if(selectedIndex == NSNotFound) {
+            NSLog(@"TBPickableTextTableViewCell text entered is not an allowed title");
+        } else {
+            selectRow = selectedIndex;
+        }
+    }
+
+    // get picker and select the right row
+    UIPickerView* picker = (UIPickerView*)[[self textField] inputView];
+    [picker selectRow:selectRow inComponent:0 animated:NO];
 }
 
 // set the object and use keypath to observe/sync with control
@@ -181,41 +181,33 @@
     // call base to store the object
     [super setObject:object];
 
-    // get text field's current object value
-    NSUInteger selectedIndex = [[self allowedValueTitles] indexOfObject:[[self textField] text]];
-
-    // is current text value allowed? if so, select it, otherwise select first object
-    if(selectedIndex == NSNotFound) {
-        NSLog(@"TBPickableTextTableViewCell text entered is not an allowed title");
-        selectedIndex = 0;
-    }
-
-    // get picker
-    UIPickerView* picker = (UIPickerView*)[[self textField] inputView];
-    [picker selectRow:selectedIndex inComponent:0 animated:NO];
+    [self updatePickerSelectionFromTextField];
 }
 
 // use a picker instead of free-form text
-- (void)setAllowedValues:(NSArray*)allowedValues withTitles:(NSArray*)titles {
-    // must have allowedValues
-    NSParameterAssert(allowedValues);
+- (void)setAllowedValues:(NSArray*)values withTitles:(NSArray*)titles {
+    // must have values
+    NSParameterAssert(values);
 
     // build default titles if missing
     if(titles == nil) {
-        titles = [allowedValues valueForKey:@"stringValue"];
+        titles = [values valueForKey:@"stringValue"];
     }
 
     // array sizes must match
-    NSAssert([allowedValues count] == [titles count], @"setAllowedValues:withTitles: array sizes must match");
+    NSAssert([values count] == [titles count], @"setAllowedValues:withTitles: array sizes must match");
 
     // reset picker
     [[self textField] setInputView:nil];
     [[self textField] setInputAccessoryView:nil];
 
     // set state
+    [self setAllowedValues:values];
     [self setAllowedValueTitles:titles];
-    [self setValueForTitle:[NSDictionary dictionaryWithObjects:allowedValues forKeys:titles]];
-    [self setTitleForValue:[NSDictionary dictionaryWithObjects:titles forKeys:allowedValues]];
+
+    // create forward and reverse lookups
+    [self setValueForTitle:[NSDictionary dictionaryWithObjects:values forKeys:titles]];
+    [self setTitleForValue:[NSDictionary dictionaryWithObjects:titles forKeys:values]];
 
     // set up a picker
     UIPickerView* picker = [[UIPickerView alloc] init];
@@ -229,6 +221,9 @@
     UIBarButtonItem* doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:[self textField] action:@selector(resignFirstResponder)];
     [toolbar setItems:@[space, doneButton]];
     [[self textField] setInputAccessoryView:toolbar];
+
+    // update selection
+    [self updatePickerSelectionFromTextField];
 }
 
 #pragma mark UITextFieldDelegate
@@ -236,6 +231,15 @@
 - (BOOL)textField:(UITextField*)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString*)string {
     // picker should be exclusive source of input for textField
     return NO;
+}
+
+- (void)textFieldDidEndEditing:(UITextField*)textField {
+    [textField resignFirstResponder];
+
+    // force call to delegate, in case it never happened
+    UIPickerView* picker = (UIPickerView*)[[self textField] inputView];
+    NSInteger row = [picker selectedRowInComponent:0];
+    [self pickerView:picker didSelectRow:row inComponent:0];
 }
 
 #pragma mark UIPickerViewDataSource
@@ -255,11 +259,17 @@
 #pragma mark UIPickerViewDelegate
 
 - (void)pickerView:(UIPickerView*)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-    // set the textfield
-    [[self textField] setText:[self allowedValueTitles][row]];
+    if(row < 0) {
+        NSLog(@"TBPickableTextTableViewCell: picker deselected");
+    } else if(row >= [[self allowedValues] count]) {
+        NSLog(@"TBPickableTextTableViewCell: selected row out of bounds");
+    } else {
+        // set the textfield
+        [[self textField] setText:[self allowedValueTitles][row]];
 
-    // make sure object is updated after selection, in case user dismisses dialog while picker is open
-    [self updateEditableObject];
+        // set the underlying value
+        [self setUnderlyingValue:[self allowedValues][row]];
+    }
 }
 
 @end
@@ -283,6 +293,7 @@
     [super setSelected:selected animated:animated];
 
     if(selected) {
+        // TODO: This logic looks incorrect
         if([self accessoryType] == UITableViewCellAccessoryNone) {
             [self setUnderlyingValue:@0];
             [self setAccessoryType:UITableViewCellAccessoryCheckmark];
@@ -290,9 +301,6 @@
             [[self object] removeObjectForKey:[self keyPath]];
             [self setAccessoryType:UITableViewCellAccessoryNone];
         }
-
-        // tell the world we've edited something
-        [[NSNotificationCenter defaultCenter] postNotificationName:kConfigurationUpdatedNotification object:nil];
     }
 }
 
