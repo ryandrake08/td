@@ -120,6 +120,8 @@
         // create a cell
         if([[(TBKVOTableViewCell*)cell keyPath] isEqualToString:@"table_capacity"]) {
             [(TBPickableTextTableViewCell*)cell setAllowedValues:@[@2, @3, @4, @5, @6, @7, @8, @9, @10, @11, @12] withTitles:nil];
+        } else if([[(TBKVOTableViewCell*)cell keyPath] isEqualToString:@"blind_levels"]) {
+            [(TBKVOTableViewCell*)cell setValueOffset:-1];
         } else if([[(TBKVOTableViewCell*)cell keyPath] isEqualToString:@"payout_currency"]) {
             [(TBPickableTextTableViewCell*)cell setAllowedValues:[TBCurrencyNumberFormatter supportedCodes] withTitles:[TBCurrencyNumberFormatter supportedCurrencies]];
         } else if([[(TBKVOTableViewCell*)cell keyPath] isEqualToString:@"payout_policy"]) {

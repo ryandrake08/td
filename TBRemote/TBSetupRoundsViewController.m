@@ -14,6 +14,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setArrangedObjectsKeyPath:@"configuration.blind_levels"];
+
+    // ensure we have at lease on round. first round is a "dummy" round and must exist!
+    if([[self arrangedObjects] count] == 0 ) {
+        NSLog(@"Warning: invalid configuration! must have the initial (setup) round");
+        // create a dummy round here
+        [[self arrangedObjects] addObject:@{}];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -42,6 +49,7 @@
 
 - (CGFloat)tableView:(UITableView*)tableView heightForRowAtIndexPath:(NSIndexPath*)indexPath {
     if([indexPath row] == 0) {
+        // Hide first (dummy round) row
         return 0;
     } else {
         return 43.5;
@@ -55,8 +63,9 @@
     NSNumber* ante = @0;
     NSNumber* duration = @3600000;
 
-    NSDictionary* last = [[self arrangedObjects] lastObject];
-    if(last != nil) {
+    if([[self arrangedObjects] count] > 1) {
+        // base new round on final round x 2
+        NSDictionary* last = [[self arrangedObjects] lastObject];
         game_name = last[@"game_name"];
         little_blind = @([last[@"little_blind"] intValue] * 2);
         big_blind = @([last[@"big_blind"] intValue] * 2);

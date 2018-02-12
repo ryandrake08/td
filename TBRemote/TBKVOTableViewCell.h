@@ -16,6 +16,10 @@
 // keypath of object to be edited
 @property (nonatomic, copy) NSString* keyPath;
 
+// if underlying value is an array, table view cell will show the array count
+// if this is set, adjust that count by this amount (used to ignore dummy round)
+@property (nonatomic, assign) long valueOffset;
+
 @end
 
 @interface TBFormattedKVOTableViewCell : TBKVOTableViewCell

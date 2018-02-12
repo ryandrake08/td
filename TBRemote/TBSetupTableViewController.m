@@ -85,13 +85,14 @@
 #pragma mark Actions
 
 - (IBAction)addItem:(id)sender {
-    NSIndexPath* newIndexPath = [NSIndexPath indexPathForRow:[[self arrangedObjects] count] inSection:0];
-
     // Add to the data source
     [[self arrangedObjects] addObject:[self newObject]];
 
     // notify that configuration changed (add)
     [[NSNotificationCenter defaultCenter] postNotificationName:kConfigurationUpdatedNotification object:nil];
+
+    // figure out last added indexPath
+    NSIndexPath* newIndexPath = [NSIndexPath indexPathForRow:[[self arrangedObjects] count]-1 inSection:0];
 
     // Insert to the table and scroll
     [[self tableView] insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];

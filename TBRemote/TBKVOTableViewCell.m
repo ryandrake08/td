@@ -42,7 +42,7 @@
         // value is not set for key
         return @" ";
     } else if([underlyingValue respondsToSelector:@selector(count)]) {
-        return [NSString stringWithFormat: @"%ld", (long)[underlyingValue count]];
+        return [NSString stringWithFormat: @"%ld", (long)[underlyingValue count] + [self valueOffset]];
     } else if([underlyingValue respondsToSelector:@selector(stringValue)]) {
         return [underlyingValue stringValue];
     } else if([underlyingValue isKindOfClass:[NSString class]]) {
