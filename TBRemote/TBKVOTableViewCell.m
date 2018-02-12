@@ -231,6 +231,13 @@
     [[self textField] setInputAccessoryView:toolbar];
 }
 
+#pragma mark UITextFieldDelegate
+
+- (BOOL)textField:(UITextField*)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString*)string {
+    // picker should be exclusive source of input for textField
+    return NO;
+}
+
 #pragma mark UIPickerViewDataSource
 
 - (NSInteger)pickerView:(UIPickerView*)pickerView numberOfRowsInComponent:(NSInteger)component {
