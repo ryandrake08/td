@@ -277,7 +277,7 @@
                                             <segue destination="UmS-DI-Zwh" kind="showDetail" id="qVy-5x-BXy"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="2U9-Hq-Kf2" userLabel="Table Size Table View Cell" customClass="TBPickableTextTableViewCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="2U9-Hq-Kf2" userLabel="Payout Currency Table View Cell" customClass="TBPickableTextTableViewCell">
                                         <rect key="frame" x="0.0" y="363.5" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2U9-Hq-Kf2" id="Ihz-jy-TqE">
