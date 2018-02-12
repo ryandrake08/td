@@ -26,7 +26,7 @@
 }
 
 - (BOOL)getObjectValue:(id*)obj forString:(NSString*)string errorDescription:(NSString**)error {
-    NSLog(@"Unexpected call to getObjectValue:forString:errorDescription:");
+    NSLog(@"Unexpected call to TBPayoutPolicyNumberFormatter getObjectValue:forString:errorDescription:");
     return NO;
 }
 

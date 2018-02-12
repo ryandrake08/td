@@ -96,6 +96,8 @@
 		9458126C2012657700208575 /* TBClockDateComponentsFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 945812682012657700208575 /* TBClockDateComponentsFormatter.m */; };
 		9458126D2012657700208575 /* TBClockDateComponentsFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 945812682012657700208575 /* TBClockDateComponentsFormatter.m */; };
 		9458126E2012657700208575 /* TBClockDateComponentsFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 945812682012657700208575 /* TBClockDateComponentsFormatter.m */; };
+		945D83912032426E00DFE032 /* TBSetupAutomaticPayoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 945D83902032426E00DFE032 /* TBSetupAutomaticPayoutViewController.m */; };
+		945D83942032459E00DFE032 /* TBPayoutShapeNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 945D83932032459E00DFE032 /* TBPayoutShapeNumberFormatter.m */; };
 		9462A3E31B77376000B29002 /* NSFont+LineHeight.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEAF41B5AE7390026B25D /* NSFont+LineHeight.m */; };
 		9462A3E41B77376000B29002 /* NSView+BackgroundColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEAF71B5AE7920026B25D /* NSView+BackgroundColor.m */; };
 		9462A3E71B77CB3B00B29002 /* TTTOrdinalNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9462A3E61B77CB3B00B29002 /* TTTOrdinalNumberFormatter.m */; };
@@ -718,6 +720,10 @@
 		9457DAC71FE6B1520047DF29 /* TBInvertableImageView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TBInvertableImageView.m; sourceTree = "<group>"; };
 		945812672012657700208575 /* TBClockDateComponentsFormatter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBClockDateComponentsFormatter.h; sourceTree = "<group>"; };
 		945812682012657700208575 /* TBClockDateComponentsFormatter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TBClockDateComponentsFormatter.m; sourceTree = "<group>"; };
+		945D838F2032426E00DFE032 /* TBSetupAutomaticPayoutViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBSetupAutomaticPayoutViewController.h; sourceTree = "<group>"; };
+		945D83902032426E00DFE032 /* TBSetupAutomaticPayoutViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TBSetupAutomaticPayoutViewController.m; sourceTree = "<group>"; };
+		945D83922032459E00DFE032 /* TBPayoutShapeNumberFormatter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBPayoutShapeNumberFormatter.h; sourceTree = "<group>"; };
+		945D83932032459E00DFE032 /* TBPayoutShapeNumberFormatter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TBPayoutShapeNumberFormatter.m; sourceTree = "<group>"; };
 		9462A3E51B77CB3B00B29002 /* TTTOrdinalNumberFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTOrdinalNumberFormatter.h; sourceTree = "<group>"; };
 		9462A3E61B77CB3B00B29002 /* TTTOrdinalNumberFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTOrdinalNumberFormatter.m; sourceTree = "<group>"; };
 		9462A3EA1B77F40500B29002 /* TBMovementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBMovementViewController.h; path = TBMac/TBMovementViewController.h; sourceTree = "<group>"; };
@@ -1122,6 +1128,8 @@
 				ADDDAA8A1B93BCEE00D3AF68 /* TBResultsViewController.m */,
 				ADD3BE831BA0A2A600A69834 /* TBSettingsViewController.h */,
 				ADD3BE841BA0A2A600A69834 /* TBSettingsViewController.m */,
+				945D838F2032426E00DFE032 /* TBSetupAutomaticPayoutViewController.h */,
+				945D83902032426E00DFE032 /* TBSetupAutomaticPayoutViewController.m */,
 				ADD2CC491BB3BA8000DE3DE5 /* TBSetupChipsViewController.h */,
 				ADD2CC4A1BB3BA8000DE3DE5 /* TBSetupChipsViewController.m */,
 				94A7FCC32027EB30006AD3FC /* TBSetupDependsOnTurnoutViewController.h */,
@@ -1295,6 +1303,8 @@
 				ADB3D19B1BC996C500A9AFFA /* TBNotifications.h */,
 				94A7FCBF2027E69B006AD3FC /* TBPayoutPolicyNumberFormatter.h */,
 				94A7FCC02027E69B006AD3FC /* TBPayoutPolicyNumberFormatter.m */,
+				945D83922032459E00DFE032 /* TBPayoutShapeNumberFormatter.h */,
+				945D83932032459E00DFE032 /* TBPayoutShapeNumberFormatter.m */,
 				94562E6A1B65D9420017C692 /* TBResizeTextField.h */,
 				94562E6B1B65D9420017C692 /* TBResizeTextField.m */,
 				ADE299AD1B7B994200F1393B /* TBSound.h */,
@@ -2239,6 +2249,7 @@
 				94CDDD1D1FE1826C008ADF24 /* TBChipTableViewCell.m in Sources */,
 				ADF635EA1BAB8AF800D019AE /* TBAppDelegate.m in Sources */,
 				ADF635EB1BAB8AF800D019AE /* types.cpp in Sources */,
+				945D83912032426E00DFE032 /* TBSetupAutomaticPayoutViewController.m in Sources */,
 				9457DAB41FE6934C0047DF29 /* TBImage+Inverted.m in Sources */,
 				AD6256A81BB44DB200EE776A /* TBSetupDetailsFundingViewController.m in Sources */,
 				ADF635EC1BAB8AF800D019AE /* scope_timer.cpp in Sources */,
@@ -2289,6 +2300,7 @@
 				ADF636021BAB8AF800D019AE /* TBActionClockView.m in Sources */,
 				ADF636031BAB8AF800D019AE /* NSString+CamelCase.m in Sources */,
 				ADF636041BAB8AF800D019AE /* FBKVOController.m in Sources */,
+				945D83942032459E00DFE032 /* TBPayoutShapeNumberFormatter.m in Sources */,
 				ADF636051BAB8AF800D019AE /* TBSettingsViewController.m in Sources */,
 				ADD2CC471BB3A11B00DE3DE5 /* TBSetupPlayersViewController.m in Sources */,
 				AD475C3B1BB62D0400DAE739 /* TBKVOTableViewCell.m in Sources */,

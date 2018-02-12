@@ -274,6 +274,39 @@
 
 @end
 
+@implementation TBSliderTableViewCell
+
+// set the object and use keypath to observe/sync with control
+- (void)setObject:(id)object {
+    // call base to store the object
+    [super setObject:object];
+
+    // set up the slider
+    float value = [[self underlyingValue] floatValue];
+    [[self slider] setValue:value animated:NO];
+}
+
+- (IBAction)sliderValueChanged:(id)sender {
+    UISlider* slider = (UISlider*)sender;
+    float value = [slider value];
+
+    // format value for label
+    NSString* text = [[self formatter] stringFromNumber:@(value)];
+
+    // update the label during slide
+    [[self label] setText:text];
+}
+
+- (IBAction)sliderValueSelected:(id)sender {
+    UISlider* slider = (UISlider*)sender;
+    float value = [slider value];
+
+    // set the underlying value only when slider stops sliding (this will also update the label)
+    [self setUnderlyingValue:@(value)];
+}
+
+@end
+
 @implementation TBCheckmarkNumberTableViewCell
 
 // set the object and use keypath to observe/sync with control
@@ -294,10 +327,10 @@
 
     if(selected) {
         if([self accessoryType] == UITableViewCellAccessoryNone) {
-            [self setUnderlyingValue:@NO];
+            [self setUnderlyingValue:@YES];
             [self setAccessoryType:UITableViewCellAccessoryCheckmark];
         } else {
-            [self setUnderlyingValue:@YES];
+            [self setUnderlyingValue:@NO];
             [self setAccessoryType:UITableViewCellAccessoryNone];
         }
     }

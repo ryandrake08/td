@@ -50,6 +50,13 @@
 
 @end
 
+@interface TBSliderTableViewCell : TBLabelTableViewCell
+
+// ui outlet
+@property (nonatomic, strong) IBOutlet UISlider* slider;
+
+@end
+
 @interface TBCheckmarkNumberTableViewCell : TBKVOTableViewCell
 
 @end

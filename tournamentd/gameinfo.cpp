@@ -1141,7 +1141,7 @@ void gameinfo::recalculate_payouts()
     std::size_t seats_paid(static_cast<std::size_t>(this->unique_entries.size() * this->automatic_payouts.percent_seats_paid + 0.5));
     if(seats_paid == 0)
     {
-        throw std::logic_error("zero seats being paid");
+        seats_paid = 1;
     }
 
     // resize our payout structure
@@ -1157,7 +1157,7 @@ void gameinfo::recalculate_payouts()
         logger(ll::warning) << "payout_shape must be >= 0. clamping to 0\n";
         shape = 0.0;
     }
-    if(shape < 1.0)
+    if(shape > 1.0)
     {
         logger(ll::warning) << "payout_shape must be <= 1. clamping to 1\n";
         shape = 1.0;
@@ -1166,9 +1166,12 @@ void gameinfo::recalculate_payouts()
     logger(ll::info) << "recalculating " << (round ? "" : "and rounding ") << "payouts for " << count_unique_entries << " players: " << this->automatic_payouts.percent_seats_paid * 100 << "% (" << seats_paid << " seats) will be paid. payout shape: " << shape << "\n";
 
     // exponent for harmonic series = shape/(shape-1), or 0 -> 0, 0.5 -> -1, 1 -> -inf
-    double f(shape/(shape-1.0));
-
-    logger(ll::debug) << "payout_shape must be <= 1. clamping to 1\n";
+    double f;
+    if(shape >= 1.0) {
+        f = -INFINITY;
+    } else {
+        f = shape / (shape-1.0);
+    }
 
     // ratio for each seat is comp[seat]:total
     std::vector<double> comp(seats_paid);

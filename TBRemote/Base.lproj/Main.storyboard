@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
-        <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -1711,7 +1710,7 @@
         <!--Automatic-->
         <scene sceneID="ihX-XJ-sda">
             <objects>
-                <tableViewController id="3ae-4C-yVo" sceneMemberID="viewController">
+                <tableViewController id="3ae-4C-yVo" customClass="TBSetupAutomaticPayoutViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" sectionFooterHeight="-1" id="z0q-0j-lzJ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1719,44 +1718,44 @@
                         <sections>
                             <tableViewSection headerTitle="Percent Paid" id="NKO-lJ-5rk">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="J1M-RT-2EW" customClass="TBTextFieldTableViewCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="J1M-RT-2EW" customClass="TBSliderTableViewCell">
                                         <rect key="frame" x="0.0" y="55.5" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="J1M-RT-2EW" id="h0a-8G-bDJ">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.25" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="flq-PI-EOp">
-                                                    <rect key="frame" x="14" y="6" width="234" height="31"/>
-                                                </slider>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dXI-fU-n1q">
-                                                    <rect key="frame" x="291" y="11.5" width="13" height="20.5"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dXI-fU-n1q">
+                                                    <rect key="frame" x="16" y="12" width="39" height="20"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="39" id="E9W-RV-UjH"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="100" textAlignment="right" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bJl-uI-7mh">
-                                                    <rect key="frame" x="254" y="11" width="33" height="21"/>
-                                                    <nil key="textColor"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <textInputTraits key="textInputTraits"/>
-                                                </textField>
+                                                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.25" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="flq-PI-EOp">
+                                                    <rect key="frame" x="61" y="7" width="245" height="31"/>
+                                                    <connections>
+                                                        <action selector="sliderValueChanged:" destination="J1M-RT-2EW" eventType="valueChanged" id="BTI-l8-h9d"/>
+                                                        <action selector="sliderValueSelected:" destination="J1M-RT-2EW" eventType="touchUpInside" id="W0r-EI-Gza"/>
+                                                    </connections>
+                                                </slider>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="bJl-uI-7mh" firstAttribute="centerY" secondItem="flq-PI-EOp" secondAttribute="centerY" id="37d-L6-Ho5"/>
-                                                <constraint firstAttribute="trailing" secondItem="dXI-fU-n1q" secondAttribute="trailing" constant="16" id="B2j-Tb-Pcw"/>
-                                                <constraint firstItem="dXI-fU-n1q" firstAttribute="baseline" secondItem="bJl-uI-7mh" secondAttribute="firstBaseline" id="D8E-v8-U0V"/>
-                                                <constraint firstItem="dXI-fU-n1q" firstAttribute="leading" secondItem="bJl-uI-7mh" secondAttribute="trailing" constant="4" id="Dm3-kT-KkP"/>
-                                                <constraint firstItem="flq-PI-EOp" firstAttribute="leading" secondItem="h0a-8G-bDJ" secondAttribute="leading" constant="16" id="Kgw-HC-gPm"/>
-                                                <constraint firstItem="flq-PI-EOp" firstAttribute="centerY" secondItem="h0a-8G-bDJ" secondAttribute="centerY" id="gpm-Qi-AQb"/>
-                                                <constraint firstItem="bJl-uI-7mh" firstAttribute="leading" secondItem="flq-PI-EOp" secondAttribute="trailing" constant="8" id="jeL-Kg-VGc"/>
+                                                <constraint firstItem="dXI-fU-n1q" firstAttribute="centerY" secondItem="flq-PI-EOp" secondAttribute="centerY" id="6UM-BS-k9T"/>
+                                                <constraint firstItem="dXI-fU-n1q" firstAttribute="centerY" secondItem="h0a-8G-bDJ" secondAttribute="centerY" id="V7B-Ny-Rsx"/>
+                                                <constraint firstAttribute="trailing" secondItem="flq-PI-EOp" secondAttribute="trailing" constant="16" id="gN8-YL-AKy"/>
+                                                <constraint firstItem="flq-PI-EOp" firstAttribute="leading" secondItem="dXI-fU-n1q" secondAttribute="trailing" constant="8" id="l6B-kH-WNc"/>
+                                                <constraint firstItem="dXI-fU-n1q" firstAttribute="leading" secondItem="h0a-8G-bDJ" secondAttribute="leading" constant="16" id="nPa-Sz-7gx"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="keyPath" value="percent_seats_paid"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="keyPath" value="automatic_payouts.percent_seats_paid"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <outlet property="textField" destination="bJl-uI-7mh" id="4bh-6y-koR"/>
+                                            <outlet property="label" destination="dXI-fU-n1q" id="Wfk-dp-HI3"/>
+                                            <outlet property="slider" destination="flq-PI-EOp" id="fVc-M9-8oa"/>
                                         </connections>
                                     </tableViewCell>
                                 </cells>
@@ -1764,39 +1763,44 @@
                             <tableViewSection headerTitle="Payout Shape" id="Niz-7A-cHD">
                                 <string key="footerTitle">How much of the payout pool goes to the winner vs. the rest of the field? Range from "pay everyone the same" to "winner takes all"</string>
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="hxH-9a-Ju9" customClass="TBLabelTableViewCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="hxH-9a-Ju9" customClass="TBSliderTableViewCell">
                                         <rect key="frame" x="0.0" y="162.5" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hxH-9a-Ju9" id="Hkh-49-acX">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Same To Everyone" textAlignment="right" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ktc-dW-hYF">
-                                                    <rect key="frame" x="224" y="1.5" width="80" height="41"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Same To Everyone" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ktc-dW-hYF">
+                                                    <rect key="frame" x="16" y="12" width="134" height="19.5"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="134" id="bBk-Mc-aKk"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="aBc-28-ks7">
-                                                    <rect key="frame" x="14" y="7" width="204" height="31"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="200" id="IA4-pj-Jaa"/>
-                                                    </constraints>
+                                                    <rect key="frame" x="156" y="7" width="150" height="31"/>
+                                                    <connections>
+                                                        <action selector="sliderValueChanged:" destination="hxH-9a-Ju9" eventType="valueChanged" id="3No-eM-KN8"/>
+                                                        <action selector="sliderValueSelected:" destination="hxH-9a-Ju9" eventType="touchUpInside" id="dVI-wW-bmu"/>
+                                                    </connections>
                                                 </slider>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="ktc-dW-hYF" firstAttribute="centerY" secondItem="aBc-28-ks7" secondAttribute="centerY" id="32a-cs-xw0"/>
                                                 <constraint firstItem="aBc-28-ks7" firstAttribute="centerY" secondItem="Hkh-49-acX" secondAttribute="centerY" id="4kZ-pX-Qe7"/>
-                                                <constraint firstAttribute="trailing" secondItem="ktc-dW-hYF" secondAttribute="trailing" constant="16" id="WD8-91-DZL"/>
-                                                <constraint firstItem="ktc-dW-hYF" firstAttribute="leading" secondItem="aBc-28-ks7" secondAttribute="trailing" constant="8" id="Yhr-lj-6Bo"/>
-                                                <constraint firstItem="aBc-28-ks7" firstAttribute="leading" secondItem="Hkh-49-acX" secondAttribute="leading" constant="16" id="jGV-f6-Pl9"/>
+                                                <constraint firstItem="ktc-dW-hYF" firstAttribute="leading" secondItem="Hkh-49-acX" secondAttribute="leading" constant="16" id="hhy-OG-jMb"/>
+                                                <constraint firstItem="aBc-28-ks7" firstAttribute="leading" secondItem="ktc-dW-hYF" secondAttribute="trailing" constant="8" id="jAL-da-AHK"/>
+                                                <constraint firstAttribute="trailing" secondItem="aBc-28-ks7" secondAttribute="trailing" constant="16" id="m8e-R1-TsD"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="keyPath" value="payout_shape"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="keyPath" value="automatic_payouts.payout_shape"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outlet property="label" destination="ktc-dW-hYF" id="x5Y-e8-Uba"/>
+                                            <outlet property="slider" destination="aBc-28-ks7" id="ry6-Y5-TR8"/>
                                         </connections>
                                     </tableViewCell>
                                 </cells>
@@ -1820,7 +1824,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="keyPath" value="round_payouts"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="keyPath" value="automatic_payouts.round_payouts"/>
                                         </userDefinedRuntimeAttributes>
                                     </tableViewCell>
                                 </cells>
