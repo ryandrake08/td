@@ -175,10 +175,10 @@ namespace td
         // configuration: automatic payouts: round to whole numbers when calculating payouts?
         bool round_payouts;
 
-        // configuration: automatic payouts: payout structure flatness
-        double payout_flatness;
+        // configuration: automatic payouts: payout structure shape
+        double payout_shape;
 
         explicit automatic_payout_parameters(const json& obj);
-        automatic_payout_parameters(double percent_paid, bool round, double flatness);
+        automatic_payout_parameters(double percent_paid, bool round, double shape);
     };
 }

@@ -461,7 +461,7 @@ struct tournament::impl
                              automatic_payouts (object): Parameters for automatic payout structure generation:
                                 percent_seats_paid (float): Proportion of players (buyins) paid out
                                 round_payouts (bool): Round payoffs to integer values
-                                payout_flatness (float): How "flat" to make the payout structure
+                                payout_shape (float): How "flat" to make the payout structure. 0 = all places paid the same, 1 = winner takes all
                              forced_payouts (array): Force this array of payouts, regardless of number of players
                              manual_payouts (array): Manual payout definitions: number of players and an array of payouts, if missing, automatic payouts are calculated
                              previous_blind_level_hold_duration (integer): How long after round starts should prev command go to the previous round (rather than restart)? (ms)
@@ -544,7 +544,7 @@ struct tournament::impl
                              automatic_payouts (object): Parameters for automatic payout structure generation:
                                  percent_seats_paid (float): Proportion of players (buyins) paid out
                                  round_payouts (bool): Round payoffs to integer values
-                                 payout_flatness (float): How "flat" to make the payout structure
+                                 payout_shape (float): How "flat" to make the payout structure. 0 = all places paid the same, 1 = winner takes all
                              forced_payouts (array): Force this array of payouts, regardless of number of players
                              manual_payouts (optional, array): Manual payout definitions: number of players and an array of payouts, if missing, automatic payouts are calculated
                              previous_blind_level_hold_duration (optional, integer): How long after round starts should prev command go to the previous round (rather than restart)? (ms)

@@ -1139,55 +1139,75 @@ void gameinfo::recalculate_payouts()
     // automatic calculation, if no manual payout found:
     // first, calculate how many places pay, given configuration and number of unique entries
     std::size_t seats_paid(static_cast<std::size_t>(this->unique_entries.size() * this->automatic_payouts.percent_seats_paid + 0.5));
-    bool round(this->automatic_payouts.round_payouts);
-    double f(this->automatic_payouts.payout_flatness);
-
-    logger(ll::info) << "recalculating " << (round ? "" : "and rounding ") << "payouts for " << count_unique_entries << " players: " << this->automatic_payouts.percent_seats_paid * 100 << "% (" << seats_paid << " seats) will be paid. payout flatness: " << f << "\n";
+    if(seats_paid == 0)
+    {
+        throw std::logic_error("zero seats being paid");
+    }
 
     // resize our payout structure
     this->payouts.resize(seats_paid);
 
-    if(!this->payouts.empty())
+    // should we round payouts?
+    bool round(this->automatic_payouts.round_payouts);
+
+    // payout shape. 0 = flat, 1 = winner takes all
+    double shape(this->automatic_payouts.payout_shape);
+    if(shape < 0.0)
     {
-        // ratio for each seat is comp[seat]:total
-        std::vector<double> comp(seats_paid);
-        double total(0.0);
+        logger(ll::warning) << "payout_shape must be >= 0. clamping to 0\n";
+        shape = 0.0;
+    }
+    if(shape < 1.0)
+    {
+        logger(ll::warning) << "payout_shape must be <= 1. clamping to 1\n";
+        shape = 1.0;
+    }
 
-        // generate proportional payouts based on harmonic series, N^-f / sum(1/k)
-        for(size_t n(0); n<seats_paid; n++)
+    logger(ll::info) << "recalculating " << (round ? "" : "and rounding ") << "payouts for " << count_unique_entries << " players: " << this->automatic_payouts.percent_seats_paid * 100 << "% (" << seats_paid << " seats) will be paid. payout shape: " << shape << "\n";
+
+    // exponent for harmonic series = shape/(shape-1), or 0 -> 0, 0.5 -> -1, 1 -> -inf
+    double f(shape/(shape-1.0));
+
+    logger(ll::debug) << "payout_shape must be <= 1. clamping to 1\n";
+
+    // ratio for each seat is comp[seat]:total
+    std::vector<double> comp(seats_paid);
+    double total(0.0);
+
+    // generate proportional payouts based on harmonic series, place^f / sum(1 -> k)
+    for(size_t n(0); n<seats_paid; n++)
+    {
+        double c(std::pow(n+1,f));
+        comp[n] = c;
+        total += c;
+    }
+
+    // next, loop through again generating payouts
+    if(round)
+    {
+        std::transform(comp.begin(), comp.end(), this->payouts.begin(), [&](double c)
         {
-            double c(std::pow(n+1,-f));
-            comp[n] = c;
-            total += c;
-        }
+            double amount(std::round(this->total_equity * c / total));
+            return td::monetary_value(amount, this->payout_currency);
+        });
 
-        // next, loop through again generating payouts
-        if(round)
+        // count how much total was calculated after rounding
+        auto total_allocated_payout(std::accumulate(this->payouts.begin(), this->payouts.end(), 0.0, [](int sum, const td::monetary_value& curr)
         {
-            std::transform(comp.begin(), comp.end(), this->payouts.begin(), [&](double c)
-            {
-                double amount(std::round(this->total_equity * c / total));
-                return td::monetary_value(amount, this->payout_currency);
-            });
+            return sum + curr.amount;
+        }));
 
-            // count how much total was calculated after rounding
-            auto total_allocated_payout(std::accumulate(this->payouts.begin(), this->payouts.end(), 0.0, [](int sum, const td::monetary_value& curr)
-            {
-                return sum + curr.amount;
-            }));
-
-            // remainder (either positive or negative) adjusts first place
-            auto remainder(this->total_equity - total_allocated_payout);
-            this->payouts[0].amount += remainder;
-        }
-        else
+        // remainder (either positive or negative) adjusts first place
+        auto remainder(this->total_equity - total_allocated_payout);
+        this->payouts[0].amount += remainder;
+    }
+    else
+    {
+        std::transform(comp.begin(), comp.end(), this->payouts.begin(), [&](double c)
         {
-            std::transform(comp.begin(), comp.end(), this->payouts.begin(), [&](double c)
-            {
-                double amount(this->total_equity * c / total);
-                return td::monetary_value(amount, this->payout_currency);
-            });
-        }
+            double amount(this->total_equity * c / total);
+            return td::monetary_value(amount, this->payout_currency);
+        });
     }
 }
 

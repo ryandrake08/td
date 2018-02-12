@@ -50,7 +50,7 @@ td::seated_player::seated_player(const player_id_t& p, const std::string& n, boo
 {
 }
 
-td::automatic_payout_parameters::automatic_payout_parameters(double percent_paid, bool round, double flatness) : percent_seats_paid(percent_paid), round_payouts(round), payout_flatness(flatness)
+td::automatic_payout_parameters::automatic_payout_parameters(double percent_paid, bool round, double shape) : percent_seats_paid(percent_paid), round_payouts(round), payout_shape(shape)
 {
 }
 
@@ -144,7 +144,7 @@ td::automatic_payout_parameters::automatic_payout_parameters(const json& obj)
 {
     obj.get_value("percent_seats_paid", this->percent_seats_paid);
     obj.get_value("round_payouts", this->round_payouts);
-    obj.get_value("payout_flatness", this->payout_flatness);
+    obj.get_value("payout_shape", this->payout_shape);
 }
 
 // ----- return object from json
@@ -341,5 +341,5 @@ json::json(const td::automatic_payout_parameters& value) : json()
 {
     this->set_value("percent_seats_paid", value.percent_seats_paid);
     this->set_value("round_payouts", value.round_payouts);
-    this->set_value("payout_flatness", value.payout_flatness);
+    this->set_value("payout_shape", value.payout_shape);
 }
