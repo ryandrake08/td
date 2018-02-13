@@ -13,7 +13,6 @@ gameinfo::gameinfo() :
     table_capacity(2),
     blind_levels(1),
     payout_policy(td::payout_policy_t::automatic),
-    automatic_payouts(1.0, false, 1.0),
     previous_blind_level_hold_duration(2000),
     rebalance_policy(td::rebalance_policy_t::manual),
     max_expected_players(0),
