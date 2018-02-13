@@ -27,20 +27,34 @@
     // set tournament session delegate
     [[self session] setDelegate:self];
 
-    // Create either tournament list or setup, depending on whether this is the full version or the remote
-    UIStoryboard* sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
 #if defined(TBFULL)
-    NSString* firstTabName = @"TBSettingsViewController";
-#else
-    NSString* firstTabName = @"TBTournamentsViewController";
-#endif
-    UIViewController* vc = [sb instantiateViewControllerWithIdentifier:firstTabName];
+    // use setup storyboard in the full version
+    UIStoryboard* sb = [UIStoryboard storyboardWithName:@"Setup" bundle:nil];
 
-    // Add it as first tab
-    UITabBarController* root = (UITabBarController*)[[self window] rootViewController];
-    NSMutableArray* tabs = [NSMutableArray arrayWithArray:[root viewControllers]];
-    [tabs insertObject:vc atIndex:0];
-    [root setViewControllers:tabs];
+    // map out controller hierarchy
+    UITabBarController* rootViewController = (UITabBarController*)[[self window] rootViewController];
+    UISplitViewController* splitController = (UISplitViewController*)[sb instantiateInitialViewController];
+    UINavigationController* navController = [[splitController viewControllers] firstObject];
+    TBSettingsViewController* settingViewController = (TBSettingsViewController*)[[navController viewControllers] firstObject];
+
+    // set up the split view controller
+    [splitController setPreferredDisplayMode:UISplitViewControllerDisplayModeAllVisible];
+
+    // add it as first tab
+    NSMutableArray* tabs = [NSMutableArray arrayWithArray:[rootViewController viewControllers]];
+    tabs[0] = splitController;
+    [rootViewController setViewControllers:tabs];
+
+    // handle launching with a URL
+    NSURL* url = launchOptions[UIApplicationLaunchOptionsURLKey];
+    if(url != nil) {
+        // url passed as an app launch option. use file at url
+        [settingViewController loadDocumentFromContentsOfURL:url];
+    } else {
+        // no url passed. use a default file for now and create it if missing
+        [settingViewController loadDocumentFromContentsOfFile:@"mobile.pokerbuddy"];
+    }
+#endif
 
     // Register local notifications
     if([UIApplication instancesRespondToSelector:@selector(registerUserNotificationSettings:)]) {
@@ -49,39 +63,9 @@
     }
 
     // Handle launching from a notification
-    UILocalNotification* locationNotification = launchOptions[UIApplicationLaunchOptionsLocalNotificationKey];
-    if(locationNotification) {
+    UILocalNotification* localNotification = launchOptions[UIApplicationLaunchOptionsLocalNotificationKey];
+    if(localNotification) {
         NSLog(@"Received notification while app not running");
-    }
-
-
-    // Find the initially visible view controller
-    UINavigationController* navController;
-    id firstViewController;
-    if([vc isKindOfClass:[UISplitViewController class]]) {
-        UISplitViewController* splitController = (UISplitViewController*)vc;
-        // set up split view controller
-        [splitController setPreferredDisplayMode:UISplitViewControllerDisplayModeAllVisible];
-        navController = [[splitController viewControllers] firstObject];
-    } else if([vc isKindOfClass:[UINavigationController class]]) {
-        navController = (UINavigationController*)vc;
-    }
-    if(navController != nil) {
-        firstViewController = [[navController viewControllers] firstObject];
-
-        // Handle launching with a URL
-        NSURL* url = launchOptions[UIApplicationLaunchOptionsURLKey];
-        if(url != nil) {
-            // url passed as an app launch option. if root view controller is capable of loading from a URL
-            if([firstViewController respondsToSelector:@selector(loadDocumentFromContentsOfURL:)]) {
-                [firstViewController performSelector:@selector(loadDocumentFromContentsOfURL:) withObject:url];
-            }
-        } else {
-            // no url passed. if root view controler is capable of loading from a file, use a default file for now and create it if missing
-            if([firstViewController respondsToSelector:@selector(loadDocumentFromContentsOfFile:)]) {
-                [firstViewController performSelector:@selector(loadDocumentFromContentsOfFile:) withObject:@"mobile.pokerbuddy"];
-            }
-        }
     }
 
     // Watch delegate

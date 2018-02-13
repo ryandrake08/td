@@ -98,6 +98,9 @@
 		9458126E2012657700208575 /* TBClockDateComponentsFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 945812682012657700208575 /* TBClockDateComponentsFormatter.m */; };
 		945D83912032426E00DFE032 /* TBSetupAutomaticPayoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 945D83902032426E00DFE032 /* TBSetupAutomaticPayoutViewController.m */; };
 		945D83942032459E00DFE032 /* TBPayoutShapeNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 945D83932032459E00DFE032 /* TBPayoutShapeNumberFormatter.m */; };
+		945D83A02032B47400DFE032 /* Setup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 945D839E2032B47400DFE032 /* Setup.storyboard */; };
+		945D83A12032B9B500DFE032 /* TBTournamentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4581B3C385400A158F8 /* TBTournamentsViewController.m */; };
+		945D83A22032B9FC00DFE032 /* Setup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 945D839E2032B47400DFE032 /* Setup.storyboard */; };
 		9462A3E31B77376000B29002 /* NSFont+LineHeight.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEAF41B5AE7390026B25D /* NSFont+LineHeight.m */; };
 		9462A3E41B77376000B29002 /* NSView+BackgroundColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEAF71B5AE7920026B25D /* NSView+BackgroundColor.m */; };
 		9462A3E71B77CB3B00B29002 /* TTTOrdinalNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9462A3E61B77CB3B00B29002 /* TTTOrdinalNumberFormatter.m */; };
@@ -724,6 +727,7 @@
 		945D83902032426E00DFE032 /* TBSetupAutomaticPayoutViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TBSetupAutomaticPayoutViewController.m; sourceTree = "<group>"; };
 		945D83922032459E00DFE032 /* TBPayoutShapeNumberFormatter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBPayoutShapeNumberFormatter.h; sourceTree = "<group>"; };
 		945D83932032459E00DFE032 /* TBPayoutShapeNumberFormatter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TBPayoutShapeNumberFormatter.m; sourceTree = "<group>"; };
+		945D839F2032B47400DFE032 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Setup.storyboard; sourceTree = "<group>"; };
 		9462A3E51B77CB3B00B29002 /* TTTOrdinalNumberFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTOrdinalNumberFormatter.h; sourceTree = "<group>"; };
 		9462A3E61B77CB3B00B29002 /* TTTOrdinalNumberFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTOrdinalNumberFormatter.m; sourceTree = "<group>"; };
 		9462A3EA1B77F40500B29002 /* TBMovementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBMovementViewController.h; path = TBMac/TBMovementViewController.h; sourceTree = "<group>"; };
@@ -1167,6 +1171,7 @@
 				9476F4571B3C385400A158F8 /* TBTournamentsViewController.h */,
 				9476F4581B3C385400A158F8 /* TBTournamentsViewController.m */,
 				9476F45C1B3C385400A158F8 /* Main.storyboard */,
+				945D839E2032B47400DFE032 /* Setup.storyboard */,
 				947D7AA7200D8BD300EAD496 /* TBPhoneLaunchScreen.storyboard */,
 				947D7AA9200D8C8A00EAD496 /* TBRemoteLaunchScreen.storyboard */,
 				9476F45D1B3C385400A158F8 /* TBRemote.xcassets */,
@@ -1860,6 +1865,7 @@
 				9476F46D1B3C385400A158F8 /* TBRemote.xcassets in Resources */,
 				9476F46C1B3C385400A158F8 /* Main.storyboard in Resources */,
 				AD33BA431BABAD6B0011777C /* defaults.json in Resources */,
+				945D83A02032B47400DFE032 /* Setup.storyboard in Resources */,
 				947D7AAA200D8C8A00EAD496 /* TBRemoteLaunchScreen.storyboard in Resources */,
 				94C2DA80200D27D7001B95B8 /* s_break.caf in Resources */,
 				94C2DA81200D27D7001B95B8 /* s_next.caf in Resources */,
@@ -1936,8 +1942,10 @@
 			files = (
 				ADF636121BAB8AF800D019AE /* TBRemote.xcassets in Resources */,
 				ADF6360F1BAB8AF800D019AE /* Main.storyboard in Resources */,
+				945D83A22032B9FC00DFE032 /* Setup.storyboard in Resources */,
 				AD33BA421BABAC120011777C /* defaults.json in Resources */,
 				947D7AA8200D8BD300EAD496 /* TBPhoneLaunchScreen.storyboard in Resources */,
+				94CDDD1F1FE1826C008ADF24 /* TBChipTableViewCell.xib in Resources */,
 				94C2DA7E200D27CD001B95B8 /* s_break.caf in Resources */,
 				94C2DA7F200D27CD001B95B8 /* s_next.caf in Resources */,
 				942B84E3200DA6F1001F8EEB /* s_rebalance.caf in Resources */,
@@ -1947,7 +1955,6 @@
 				946EAFB62013440F00BD57DE /* i_piranha_64x64.png in Resources */,
 				946EAFB52013440F00BD57DE /* i_piranha_44x58.png in Resources */,
 				946EAFB72013440F00BD57DE /* i_piranha_320x320.png in Resources */,
-				94CDDD1F1FE1826C008ADF24 /* TBChipTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2279,6 +2286,7 @@
 				94C2DA67200D0D33001B95B8 /* TBGraphics.m in Sources */,
 				ADF635F61BAB8AF800D019AE /* NSObject+AssociatedObject.m in Sources */,
 				94CDDD231FE39299008ADF24 /* TBActionClockViewController.m in Sources */,
+				945D83A12032B9B500DFE032 /* TBTournamentsViewController.m in Sources */,
 				ADF635F71BAB8AF800D019AE /* TBColor+CSS.m in Sources */,
 				ADF635F81BAB8AF800D019AE /* server.cpp in Sources */,
 				ADF635F91BAB8AF800D019AE /* TournamentBrowser.m in Sources */,
@@ -2428,6 +2436,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		945D839E2032B47400DFE032 /* Setup.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				945D839F2032B47400DFE032 /* Base */,
+			);
+			name = Setup.storyboard;
+			sourceTree = "<group>";
+		};
 		9476F45C1B3C385400A158F8 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
