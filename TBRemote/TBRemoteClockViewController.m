@@ -114,34 +114,39 @@
     [[self KVOController] observe:self keyPath:@"session.state.background_color" options:NSKeyValueObservingOptionInitial block:^(id observer, TBRemoteClockViewController* object, NSDictionary *change) {
         // Set the background color on the view
         NSString* backgroundColorName = [[object session] state][@"background_color"];
-        if(backgroundColorName != nil) {
-            TBColor* color = [TBColor colorWithName:backgroundColorName];
-            [[observer view] setBackgroundColor:color];
-
-            // Set text label appearance to a complementary color
-            if([[UILabel class] respondsToSelector:@selector(appearanceWhenContainedIn:)]) {
-                [[UILabel appearanceWhenContainedIn:[TBRemoteClockViewController class], nil] setTextColor:[color contrastTextColor]];
-            } else {
-                [[UILabel appearanceWhenContainedInInstancesOfClasses:@[[TBRemoteClockViewController class]]] setTextColor:[color contrastTextColor]];
+        if(backgroundColorName != nil && ![backgroundColorName isEqualToString:@""]) {
+            TBColor* newColor = [TBColor colorWithName:backgroundColorName];
+            if(newColor != nil) {
+                [[observer view] setBackgroundColor:newColor];
             }
-
-            // store background mode
-            BOOL dark = [color isDark];
-            [self setBackgroundIsDark:dark];
-
-            // Invert button images if dark
-            [[self previousRoundButton] setImageInverted:dark forState:UIControlStateNormal];
-            [[self previousRoundButton] setImageInverted:dark forState:UIControlStateHighlighted];
-            [[self pauseResumeButton] setImageInverted:dark forState:UIControlStateNormal];
-            [[self pauseResumeButton] setImageInverted:dark forState:UIControlStateHighlighted];
-            [[self nextRoundButton] setImageInverted:dark forState:UIControlStateNormal];
-            [[self nextRoundButton] setImageInverted:dark forState:UIControlStateHighlighted];
-            [[self callClockButton] setImageInverted:dark forState:UIControlStateNormal];
-            [[self callClockButton] setImageInverted:dark forState:UIControlStateHighlighted];
-
-            // reload chip table view to invert images
-            [[self tableView] reloadData];
         }
+
+        // get current background color
+        TBColor* color = [[observer view] backgroundColor];
+
+        // Set text label appearance to a complementary color
+        if([[UILabel class] respondsToSelector:@selector(appearanceWhenContainedIn:)]) {
+            [[UILabel appearanceWhenContainedIn:[TBRemoteClockViewController class], nil] setTextColor:[color contrastTextColor]];
+        } else {
+            [[UILabel appearanceWhenContainedInInstancesOfClasses:@[[TBRemoteClockViewController class]]] setTextColor:[color contrastTextColor]];
+        }
+
+        // store background mode
+        BOOL dark = [color isDark];
+        [self setBackgroundIsDark:dark];
+
+        // Invert button images if dark
+        [[self previousRoundButton] setImageInverted:dark forState:UIControlStateNormal];
+        [[self previousRoundButton] setImageInverted:dark forState:UIControlStateHighlighted];
+        [[self pauseResumeButton] setImageInverted:dark forState:UIControlStateNormal];
+        [[self pauseResumeButton] setImageInverted:dark forState:UIControlStateHighlighted];
+        [[self nextRoundButton] setImageInverted:dark forState:UIControlStateNormal];
+        [[self nextRoundButton] setImageInverted:dark forState:UIControlStateHighlighted];
+        [[self callClockButton] setImageInverted:dark forState:UIControlStateNormal];
+        [[self callClockButton] setImageInverted:dark forState:UIControlStateHighlighted];
+
+        // reload chip table view to invert images
+        [[self tableView] reloadData];
     }];
 
     // Register table view cell class
