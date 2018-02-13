@@ -164,16 +164,18 @@
     }
     [self setNetServices:newArray];
 
-    // if just one, automatically connect
-    if([newArray count] == 1) {
+    // if just one, and not already connected, automatically connect
+    BOOL connected = [[[self session] state][@"connected"] boolValue];
+    if([newArray count] == 1 && !connected) {
         // connect
         NSError* error;
         if([[self session] connectToNetService:newArray[0] error:&error]) {
             // store as current service
             [self setCurrentService:newArray[0]];
 
+            // switch to clock screen automatically
             TBAppDelegate* appDelegate = (TBAppDelegate*)[[UIApplication sharedApplication] delegate];
-            [(UITabBarController*)[[appDelegate window] rootViewController] setSelectedIndex:1];
+            [[appDelegate rootViewController] setSelectedIndex:2];
         } else {
             [self presentError:error];
         }

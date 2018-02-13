@@ -32,7 +32,7 @@
     UIStoryboard* sb = [UIStoryboard storyboardWithName:@"Setup" bundle:nil];
 
     // map out controller hierarchy
-    UITabBarController* rootViewController = (UITabBarController*)[[self window] rootViewController];
+    UITabBarController* rootViewController = [self rootViewController];
     UISplitViewController* splitController = (UISplitViewController*)[sb instantiateInitialViewController];
     UINavigationController* navController = [[splitController viewControllers] firstObject];
     TBSettingsViewController* settingViewController = (TBSettingsViewController*)[[navController viewControllers] firstObject];
@@ -80,7 +80,7 @@
     NSLog(@"Received notification while app in state: %ld", (long)state);
     if(state != UIApplicationStateActive) {
         // switch to clock tab if app is inactive or running in the background
-        [(UITabBarController*)[[self window] rootViewController] setSelectedIndex:1];
+        [[self rootViewController] setSelectedIndex:2];
     }
 }
 
@@ -124,7 +124,7 @@
 
 - (void)tournamentSession:(TournamentSession *)ts error:(NSError *)error {
     // Default error presentation
-    [[[self window] rootViewController] presentError:error];
+    [[self rootViewController] presentError:error];
 }
 
 #pragma mark Notification
@@ -206,6 +206,12 @@
         NSLog(@"Creating new notification:%@ for %@", [localNotification alertBody], [localNotification fireDate]);
         [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
     }
+}
+
+#pragma mark Accessors
+
+- (UITabBarController*)rootViewController {
+    return (UITabBarController*)[[self window] rootViewController];
 }
 
 @end

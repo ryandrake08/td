@@ -11,7 +11,11 @@
 
 @interface TBAppDelegate : UIResponder <UIApplicationDelegate>
 
+// the app's main window
 @property (nonatomic, strong) UIWindow* window;
+
+// the app's root view controller is a tabBarController
+@property (nonatomic, strong, readonly) UITabBarController* rootViewController;
 
 // the tournament session (model) object
 @property (nonatomic, strong) TournamentSession* session;
