@@ -46,7 +46,7 @@
 }
 
 // start the daemon, pre-authorizing given client code, returning local unix socket path
-- (TournamentService*)startWithAuthCode:(NSNumber*)code name:(NSString*)name {
+- (TournamentService*)startWithAuthCode:(NSNumber*)code {
 
 #if defined(DEBUG)
     logger_enable(ll::error, ll::warning, ll::info, ll::debug);
@@ -56,7 +56,7 @@
 
     // set up tournament and authorize
     __block std::unique_ptr<tournament> tourney(new tournament);
-    tourney->authorize([code intValue], [name UTF8String]);
+    tourney->authorize([code intValue]);
     auto service(tourney->listen(TournamentSocketDirectory()));
 
     // server is listening. mark as running and run in background

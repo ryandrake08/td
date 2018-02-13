@@ -45,7 +45,7 @@
     _server = [[TournamentDaemon alloc] init];
 
     // Start serving using this device's auth key
-    TournamentService* service = [[self server] startWithAuthCode:[TournamentSession clientIdentifier] name:[[UIDevice currentDevice] name]];
+    TournamentService* service = [[self server] startWithAuthCode:[TournamentSession clientIdentifier]];
 
     // Start the session, connecting locally
     NSError* error;
@@ -96,6 +96,8 @@
         // send to session
         if([[[self session] state][@"connected"] boolValue] && [[[self session] state][@"authorized"] boolValue]) {
             [[self session] selectiveConfigure:[self configuration] withBlock:nil];
+        } else {
+            NSLog(@"got kConfigurationUpdatedNotification, but either not authorized or not connected");
         }
 
         // save

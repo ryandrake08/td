@@ -3,10 +3,13 @@
 #include "logger.hpp"
 #include "scope_timer.hpp"
 #include <algorithm>
+#include <cassert>
 #include <cstddef>
 #include <sstream>
 #include <stdexcept>
 #include <system_error>
+#include <unordered_map>
+#include <unordered_set>
 
 struct tournament::impl
 {
@@ -16,15 +19,28 @@ struct tournament::impl
     // server to handle remote connections
     server game_server;
 
+    // pre-authorized codes
+    std::unordered_set<int> pre_auths;
+
     // accepted authorization codes
     std::unordered_map<int,td::authorized_client> game_auths;
 
     // ----- auth check
 
+    bool code_authorized(int code) const
+    {
+        return (this->pre_auths.find(code) == this->pre_auths.end()) || (this->game_auths.find(code) == this->game_auths.end());
+    }
+
     void ensure_authorized(const json& in) const
     {
         int code;
-        if(!in.get_value("authenticate", code) || this->game_auths.find(code) == this->game_auths.end())
+        if(!in.get_value("authenticate", code))
+        {
+            throw td::protocol_error("must specify authentication code");
+        }
+
+        if(!this->code_authorized(code))
         {
             throw td::protocol_error("unauthorized");
         }
@@ -75,7 +91,7 @@ struct tournament::impl
             throw td::protocol_error("must specify authentication code");
         }
 
-        if(this->game_auths.find(code) == this->game_auths.end())
+        if(!this->code_authorized(code))
         {
             out.set_value("authorized", false);
         }
@@ -108,38 +124,25 @@ struct tournament::impl
 
     void handle_cmd_configure(const json& in, json& out)
     {
-        // save caller's auth code and re-insert it so one can never accidentally deauthorize onself
-        int mycode;
-        if(in.get_value("authenticate", mycode))
+        // handle auth codes. game_info doesn't handle these
+        // read auth codes from input
+        std::vector<td::authorized_client> auths_vector;
+        if(in.get_values("authorized_clients", auths_vector))
         {
-            auto myauth_it(this->game_auths.find(mycode));
-            if(myauth_it != this->game_auths.end())
+            this->game_auths.clear();
+            for(auto& auth : auths_vector)
             {
-                auto myauth(*myauth_it);
-
-                // read auth codes from input
-                std::vector<td::authorized_client> auths_vector;
-                if(in.get_values("authorized_clients", auths_vector))
-                {
-                    this->game_auths.clear();
-                    for(auto& auth : auths_vector)
-                    {
-                        logger(ll::debug) << "Authorizing code " << auth.code << " named \"" << auth.name << "\"\n";
-                        this->game_auths.emplace(auth.code, auth);
-                    }
-                }
-
-                // configure
-                this->game_info.configure(in);
-                this->game_info.dump_configuration(out);
-
-                // inject auth codes back into output
-                out.set_value("authorized_clients", json(this->game_auths.begin(), this->game_auths.end()));
-
-                // re-authorize caller
-                this->game_auths.insert(myauth);
+                logger(ll::debug) << "Authorizing code " << auth.code << " named \"" << auth.name << "\"\n";
+                this->game_auths.emplace(auth.code, auth);
             }
         }
+
+        // pass auth codes back into output
+        out.set_value("authorized_clients", json(this->game_auths.begin(), this->game_auths.end()));
+
+        // configure
+        this->game_info.configure(in);
+        this->game_info.dump_configuration(out);
     }
 
     void handle_cmd_start_game(const json& in, json& /* out */)
@@ -918,10 +921,10 @@ struct tournament::impl
         return false;
     }
 
-    int authorize(int code, const std::string& name)
+    int authorize(int code)
     {
-        logger(ll::info) << "client " << code << " (" << name << ") authorized to administer this tournament\n";
-        this->game_auths.emplace(code, td::authorized_client(code, name));
+        logger(ll::info) << "client " << code << "pre-authorized to administer this tournament\n";
+        this->pre_auths.emplace(code);
         return code;
     }
 
@@ -995,9 +998,9 @@ tournament::tournament() : pimpl(new impl)
 
 tournament::~tournament() = default;
 
-int tournament::authorize(int code, const std::string& name)
+int tournament::authorize(int code)
 {
-    return this->pimpl->authorize(code, name);
+    return this->pimpl->authorize(code);
 }
 
 #if !defined(DEFAULT_PORT)

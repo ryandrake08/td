@@ -25,7 +25,7 @@ public:
 
 #if defined(DEBUG)
         // debug only: always accept this code
-        this->tourney.authorize(31337, "Debug Test Account");
+        this->tourney.authorize(31337);
 
         // debug only: load a default configuration
         this->tourney.load_configuration("defaults.json");
@@ -57,7 +57,7 @@ public:
                 if(it != cmdline.end())
                 {
                     // parse client code
-                    this->tourney.authorize(std::stoi(*it++), "tournamentd Command Line");
+                    this->tourney.authorize(std::stoi(*it++));
                 }
                 else
                 {
