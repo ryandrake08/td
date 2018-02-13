@@ -36,7 +36,7 @@
     } else if([[(TBKVOTableViewCell*)cell keyPath] isEqualToString:@"ante"]) {
         NSNumberFormatter* numberFormatter = [[NSNumberFormatter alloc] init];
         [(TBFormattedKVOTableViewCell*)cell setFormatter:numberFormatter];
-    } else if([[(TBKVOTableViewCell*)cell keyPath] isEqualToString:@"break_duration"]) {
+    } else if([[(TBKVOTableViewCell*)cell keyPath] isEqualToString:@"break_duration"] && [indexPath section] == 1) {
         TBDurationNumberFormatter* durationFormatter = [[TBDurationNumberFormatter alloc] init];
         [(TBFormattedKVOTableViewCell*)cell setFormatter:durationFormatter];
     }
