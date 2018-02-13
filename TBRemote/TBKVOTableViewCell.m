@@ -30,7 +30,6 @@
 - (void)setUnderlyingValue:(id)value {
     [self validate];
     [[self object] setValue:value forKeyPath:[self keyPath]];
-    NSLog(@"DEBUG: setValue:%@ forKeyPath:%@ -> %@", value, [self keyPath], [[self object] valueForKeyPath:[self keyPath]]);
 
     // tell the world we've edited something
     [[NSNotificationCenter defaultCenter] postNotificationName:kConfigurationUpdatedNotification object:nil];
