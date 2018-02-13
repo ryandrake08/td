@@ -154,6 +154,7 @@
                 break;
             }
         }
+    } else if([indexPath section] == 2) {
     } else {
         NSLog(@"TBPlayerSeatingViewController tableView:cellForRowAtIndexPath: invalid section");
         abort();
