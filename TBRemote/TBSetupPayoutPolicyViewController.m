@@ -44,7 +44,7 @@
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath {
     UITableViewCell* cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
 
-    if(indexPath.row == [[self configuration][@"payout_policy"] integerValue]) {
+    if([indexPath row] == [[self configuration][@"payout_policy"] integerValue]) {
         [cell setAccessoryType:UITableViewCellAccessoryCheckmark];
     } else {
         [cell setAccessoryType:UITableViewCellAccessoryNone];

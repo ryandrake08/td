@@ -7,7 +7,22 @@
 //
 
 #import "TBSetupDetailsChipsViewController.h"
+#import "TBKVOTableViewCell.h"
 
 @implementation TBSetupDetailsChipsViewController
+
+- (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath {
+    UITableViewCell* cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
+
+    if([[(TBKVOTableViewCell*)cell keyPath] isEqualToString:@"denomination"]) {
+        NSNumberFormatter* numberFormatter = [[NSNumberFormatter alloc] init];
+        [(TBFormattedKVOTableViewCell*)cell setFormatter:numberFormatter];
+    } else if([[(TBKVOTableViewCell*)cell keyPath] isEqualToString:@"count_available"]) {
+        NSNumberFormatter* numberFormatter = [[NSNumberFormatter alloc] init];
+        [(TBFormattedKVOTableViewCell*)cell setFormatter:numberFormatter];
+    }
+
+    return [self setObjectToCell:cell];
+}
 
 @end

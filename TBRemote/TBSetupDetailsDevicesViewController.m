@@ -17,9 +17,9 @@
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath {
     UITableViewCell* cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
 
-    if(indexPath.section == 0 && indexPath.row == 0) {
+    if([[(TBKVOTableViewCell*)cell keyPath] isEqualToString:@"code"]) {
         TBAuthCodeNumberFormatter* codeFormatter = [[TBAuthCodeNumberFormatter alloc] init];
-        [(TBTextFieldTableViewCell*)cell setFormatter:codeFormatter];
+        [(TBFormattedKVOTableViewCell*)cell setFormatter:codeFormatter];
     }
     
     return [self setObjectToCell:cell];

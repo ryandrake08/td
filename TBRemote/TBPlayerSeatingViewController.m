@@ -135,7 +135,7 @@
 
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath {
     NSDictionary* player;
-    if(indexPath.section == 0) {
+    if([indexPath section] == 0) {
         // create a cell
         UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"SeatedCell" forIndexPath:indexPath];
 
@@ -153,7 +153,7 @@
             [(UIImageView*)[cell viewWithTag:103] setImage:nil];
         }
         return cell;
-    } else if(indexPath.section == 1) {
+    } else if([indexPath section] == 1) {
         // create a cell
         UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"UnseatedCell" forIndexPath:indexPath];
 
@@ -188,7 +188,7 @@
         // get list of players who have already bought in
         NSArray* uniqueEntries = [[self session] state][@"unique_entries"];
 
-        if(indexPath.section == 0) {
+        if([indexPath section] == 0) {
             // get player for this row
             player = [self seatedPlayers][[indexPath row]];
             NSString* playerId = player[@"player_id"];
@@ -246,7 +246,7 @@
                     [[self session] unseatPlayer:playerId withBlock:nil];
                 }]];
             }
-        } else if(indexPath.section == 1) {
+        } else if([indexPath section] == 1) {
             // get player for this row
             player = [self unseatedPlayers][[indexPath row]];
             NSString* playerId = player[@"player_id"];

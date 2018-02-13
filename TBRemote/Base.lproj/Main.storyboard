@@ -364,7 +364,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Seats" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vZM-4a-aUM">
-                                                    <rect key="frame" x="8" y="10.5" width="41" height="20"/>
+                                                    <rect key="frame" x="16" y="12" width="41" height="20"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -376,19 +376,20 @@
                                                     </connections>
                                                 </stepper>
                                                 <label opaque="NO" multipleTouchEnabled="YES" tag="101" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C3U-8g-2zx">
-                                                    <rect key="frame" x="243.5" y="10.5" width="41.5" height="19.5"/>
+                                                    <rect key="frame" x="243.5" y="12" width="41.5" height="19.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="bottomMargin" secondItem="vZM-4a-aUM" secondAttribute="bottom" constant="2.5" id="0LI-Kv-7zC"/>
-                                                <constraint firstItem="vZM-4a-aUM" firstAttribute="leading" secondItem="Fz4-PX-jxu" secondAttribute="leadingMargin" id="Fjk-Dl-kGH"/>
                                                 <constraint firstItem="BrN-Lc-sph" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="vZM-4a-aUM" secondAttribute="trailing" constant="8" symbolic="YES" id="Pqi-KW-f9h"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="C3U-8g-2zx" secondAttribute="trailing" constant="27" id="SGV-1Z-48Q"/>
+                                                <constraint firstItem="C3U-8g-2zx" firstAttribute="centerY" secondItem="BrN-Lc-sph" secondAttribute="centerY" id="TEH-fT-V9J"/>
+                                                <constraint firstItem="vZM-4a-aUM" firstAttribute="centerY" secondItem="BrN-Lc-sph" secondAttribute="centerY" id="Ym0-x7-ga1"/>
                                                 <constraint firstItem="vZM-4a-aUM" firstAttribute="baseline" secondItem="C3U-8g-2zx" secondAttribute="baseline" id="bM7-2c-cTm"/>
                                                 <constraint firstItem="C3U-8g-2zx" firstAttribute="leading" secondItem="BrN-Lc-sph" secondAttribute="trailing" constant="8" symbolic="YES" id="fg5-V1-1bS"/>
+                                                <constraint firstItem="vZM-4a-aUM" firstAttribute="leading" secondItem="Fz4-PX-jxu" secondAttribute="leading" constant="16" id="iF3-QM-HHc"/>
                                                 <constraint firstItem="BrN-Lc-sph" firstAttribute="centerY" secondItem="Fz4-PX-jxu" secondAttribute="centerY" id="xMt-78-eJg"/>
                                             </constraints>
                                         </tableViewCellContentView>

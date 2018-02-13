@@ -17,7 +17,10 @@
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath {
     UITableViewCell* cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
 
-    if(indexPath.section == 0 && indexPath.row == 1) {
+    if([[(TBKVOTableViewCell*)cell keyPath] isEqualToString:@"amount"]) {
+        NSNumberFormatter* numberFormatter = [[NSNumberFormatter alloc] init];
+        [(TBFormattedKVOTableViewCell*)cell setFormatter:numberFormatter];
+    } else if([[(TBKVOTableViewCell*)cell keyPath] isEqualToString:@"currency"]) {
         [(TBPickableTextTableViewCell*)cell setAllowedValues:[TBCurrencyNumberFormatter supportedCodes] withTitles:[TBCurrencyNumberFormatter supportedCurrencies]];
         [[(TBKVOTableViewCell*)cell object] setValue:[self configuration][@"payout_currency"] forKeyPath:@"payout.currency"];
     }

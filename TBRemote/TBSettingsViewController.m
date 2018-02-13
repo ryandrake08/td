@@ -116,7 +116,7 @@
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath {
     UITableViewCell* cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
 
-    if(indexPath.section == 0) {
+    if([indexPath section] == 0) {
         // create a cell
         if([[(TBKVOTableViewCell*)cell keyPath] isEqualToString:@"table_capacity"]) {
             [(TBPickableTextTableViewCell*)cell setAllowedValues:@[@2, @3, @4, @5, @6, @7, @8, @9, @10, @11, @12] withTitles:nil];
@@ -129,8 +129,8 @@
             [(TBFormattedKVOTableViewCell*)cell setFormatter:policyFormatter];
         }
         [(TBKVOTableViewCell*)cell setObject:[self configuration]];
-    } else if(indexPath.section == 1) {
-        switch(indexPath.row) {
+    } else if([indexPath section] == 1) {
+        switch([indexPath row]) {
             case 0:
             {
                 NSString* detail = [NSString stringWithFormat:@"%lu", (unsigned long)[self maxPlayers]];
@@ -139,7 +139,7 @@
                 UIStepper* stepper = (UIStepper*)[cell viewWithTag:100];
                 [stepper setValue:(double)[self maxPlayers]];
                 NSUInteger numPlayers = [[[self session] state][@"players"] count];
-                if(numPlayers > 1) {
+                if(numPlayers > 0) {
                     [stepper setMaximumValue:numPlayers * 2.0];
                 }
                 break;
@@ -154,6 +154,9 @@
                 break;
             }
         }
+    } else {
+        NSLog(@"TBPlayerSeatingViewController tableView:cellForRowAtIndexPath: invalid section");
+        abort();
     }
     return cell;
 }

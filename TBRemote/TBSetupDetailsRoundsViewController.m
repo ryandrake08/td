@@ -24,9 +24,21 @@
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath {
     UITableViewCell* cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
 
-    if(indexPath.row == 0) { // formatter for row 0 of both sections
+    if([[(TBKVOTableViewCell*)cell keyPath] isEqualToString:@"duration"]) {
         TBDurationNumberFormatter* durationFormatter = [[TBDurationNumberFormatter alloc] init];
-        [(TBTextFieldTableViewCell*)cell setFormatter:durationFormatter];
+        [(TBFormattedKVOTableViewCell*)cell setFormatter:durationFormatter];
+    } else if([[(TBKVOTableViewCell*)cell keyPath] isEqualToString:@"little_blind"]) {
+        NSNumberFormatter* numberFormatter = [[NSNumberFormatter alloc] init];
+        [(TBFormattedKVOTableViewCell*)cell setFormatter:numberFormatter];
+    } else if([[(TBKVOTableViewCell*)cell keyPath] isEqualToString:@"big_blind"]) {
+        NSNumberFormatter* numberFormatter = [[NSNumberFormatter alloc] init];
+        [(TBFormattedKVOTableViewCell*)cell setFormatter:numberFormatter];
+    } else if([[(TBKVOTableViewCell*)cell keyPath] isEqualToString:@"ante"]) {
+        NSNumberFormatter* numberFormatter = [[NSNumberFormatter alloc] init];
+        [(TBFormattedKVOTableViewCell*)cell setFormatter:numberFormatter];
+    } else if([[(TBKVOTableViewCell*)cell keyPath] isEqualToString:@"break_duration"]) {
+        TBDurationNumberFormatter* durationFormatter = [[TBDurationNumberFormatter alloc] init];
+        [(TBFormattedKVOTableViewCell*)cell setFormatter:durationFormatter];
     }
 
     return [self setObjectToCell:cell];
@@ -36,7 +48,7 @@
 
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
     // deselect call and reload table when "break after" is changed
-    if(indexPath.section == 0 && indexPath.row == 4) {
+    if([indexPath section] == 0 && [indexPath row] == 4) {
        [tableView deselectRowAtIndexPath:indexPath animated:YES];
        [tableView reloadData];
     }

@@ -220,7 +220,7 @@
     } else if([indexPath section] == 1) {
         // relevent state
         NSArray* availableChips = [[self session] state][@"available_chips"];
-        NSDictionary* chip = availableChips[indexPath.row];
+        NSDictionary* chip = availableChips[[indexPath row]];
 
         // create a cell
         TBChipTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"ChipCell" forIndexPath:indexPath];

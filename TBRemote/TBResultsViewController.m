@@ -58,12 +58,12 @@
 }
 
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath {
-    if(indexPath.section == 0) {
+    if([indexPath section] == 0) {
         // create a cell
         UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"ResultsCell" forIndexPath:indexPath];
 
         // get result for this row
-        NSDictionary* result = [[self session] state][@"results"][indexPath.row];
+        NSDictionary* result = [[self session] state][@"results"][[indexPath row]];
 
         // place
         TTTOrdinalNumberFormatter* placeFormatter = [[TTTOrdinalNumberFormatter alloc] init];
