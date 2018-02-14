@@ -79,11 +79,15 @@
 }
 
 - (void)updateClockLabel {
-    // format time for display
     TBClockDateComponentsFormatter* dateFormatter = [[TBClockDateComponentsFormatter alloc] init];
-    [[self clockLabel] setText:[dateFormatter stringFromMillisecondsRemaining:[self clockRemaining]
-                                                      atMillisecondsSince1970:[self currentTime]
-                                                                      running:[self running]]];
+    if([[self running] boolValue]) {
+        // format time for display
+        [[self clockLabel] setText:[dateFormatter stringFromMillisecondsRemaining:[self clockRemaining]
+                                                          atMillisecondsSince1970:[self currentTime]
+                                                                     countingDown:YES]];
+    } else {
+        [[self clockLabel] setText:NSLocalizedString(@"PAUSED", nil)];
+    }
 }
 
 - (void)session:(WCSession *)session didReceiveMessage:(NSDictionary<NSString *,id> *)message {

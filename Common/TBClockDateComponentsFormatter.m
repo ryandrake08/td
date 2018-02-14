@@ -10,22 +10,17 @@
 
 @implementation TBClockDateComponentsFormatter
 
-- (NSString*)stringFromMillisecondsRemaining:(NSNumber*)clockRemaining atMillisecondsSince1970:(NSNumber*)currentTime running:(NSNumber*)running {
-    if([running boolValue]) {
-        // calculate difference between this device's clock and remote clock
-        NSTimeInterval localNow = [[NSDate date] timeIntervalSince1970];
-        NSTimeInterval remoteNow = [currentTime doubleValue]/1000.0;
-        NSTimeInterval offset = remoteNow - localNow;
+- (NSString*)stringFromMillisecondsRemaining:(NSNumber*)clockRemaining atMillisecondsSince1970:(NSNumber*)currentTime countingDown:(BOOL)countingDown {
+    // calculate difference between this device's clock and remote clock
+    NSTimeInterval localNow = [[NSDate date] timeIntervalSince1970];
+    NSTimeInterval remoteNow = [currentTime doubleValue]/1000.0;
+    NSTimeInterval offset = countingDown ? remoteNow - localNow : localNow - remoteNow;
 
-        // apply as offset to given clock
-        NSTimeInterval displayTime = ceil([clockRemaining doubleValue]/1000.0 + offset);
+    // apply as offset to given clock
+    NSTimeInterval displayTime = ceil([clockRemaining doubleValue]/1000.0 + offset);
 
-        // format this timeInterval
-        return [self stringFromTimeInterval:displayTime];
-    } else {
-        // clock is paused
-        return NSLocalizedString(@"PAUSED", nil);
-    }
+    // format this timeInterval
+    return [self stringFromTimeInterval:displayTime];
 }
 
 @end

@@ -360,11 +360,24 @@
         }
     }
 
-    // special handling for the clock because we may need to add an offset to what the daemon provides
+    // special handling for the clocks because we may need to add an offset to what the daemon provides
     TBClockDateComponentsFormatter* dateFormatter = [[TBClockDateComponentsFormatter alloc] init];
-    [self state][@"clock_text"] = [dateFormatter stringFromMillisecondsRemaining:[self state][@"clock_remaining"]
-                                                         atMillisecondsSince1970:[self state][@"current_time"]
-                                                                         running:[self state][@"running"]];
+    if([self state][@"clock_remaining"] && [self state][@"current_time"] && [self state][@"running"]) {
+        if([[self state][@"running"] boolValue]) {
+            // format time for display
+            [self state][@"clock_text"] = [dateFormatter stringFromMillisecondsRemaining:[self state][@"clock_remaining"]
+                                                                 atMillisecondsSince1970:[self state][@"current_time"]
+                                                                            countingDown:YES];
+        } else {
+            [self state][@"clock_text"] = NSLocalizedString(@"PAUSED", nil);
+        }
+    }
+
+    if([self state][@"elapsed_time"] && [self state][@"current_time"]) {
+        [self state][@"elapsed_time_text"] = [dateFormatter stringFromMillisecondsRemaining:[self state][@"elapsed_time"]
+                                                                    atMillisecondsSince1970:[self state][@"current_time"]
+                                                                               countingDown:NO];
+    }
 }
 
 #pragma mark TournamentConnectionDelegate

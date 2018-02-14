@@ -1,4 +1,5 @@
 #include "gameinfo.hpp"
+#include "datetime.hpp"
 #include "logger.hpp"
 #include <algorithm>
 #include <cmath>
@@ -186,32 +187,6 @@ void gameinfo::dump_state(json& state) const
     this->dump_derived_state(state);
 }
 
-// duration to string
-static std::ostream& operator<<(std::ostream& os, const std::chrono::milliseconds& milliseconds)
-{
-    auto duration(milliseconds.count());
-
-    if(duration < /* DISABLES CODE */ (60000) && false) { // millisecond display turns out to be annoying
-        // ss.MSS
-        long long s = duration / 1000 % 60;
-        long long ms = duration % 1000;
-        os << s << '.' << std::setw(3) << std::setfill('0') << ms;
-    } else if(duration < 3600000) {
-        // mm:SS
-        long long m = duration / 60000;
-        long long s = duration / 1000 % 60;
-        os << m << ':' << std::setw(2) << std::setfill('0') << s;
-    } else {
-        // hh:MM:SS
-        long long h = duration / 3600000;
-        long long m = duration / 60000 % 60;
-        long long s = duration / 1000 % 60;
-        os << h << ':' << std::setw(2) << std::setfill('0') << m << ':' << std::setw(2) << std::setfill('0') << s;
-    }
-
-    return os;
-}
-
 // blind level to string
 static std::ostream& operator<<(std::ostream& os, const td::blind_level& level)
 {
@@ -256,10 +231,6 @@ void gameinfo::dump_derived_state(json& state) const
 
     std::ostringstream os;
     os.imbue(std::locale(""));
-
-    // elapsed time text
-    os << this->elapsed_time;
-    state.set_value("elapsed_time_text", os.str()); os.str("");
 
     // current round number as text
     if(started)

@@ -10,7 +10,7 @@
 
 @interface TBClockDateComponentsFormatter : NSDateComponentsFormatter
 
-// format clock string given number of milliseconds remaining, number of milliseconds since epoc, and flag for whether we are running
-- (NSString*)stringFromMillisecondsRemaining:(NSNumber*)clockRemaining atMillisecondsSince1970:(NSNumber*)currentTime running:(NSNumber*)running;
+// format clock string given number of milliseconds remaining, number of milliseconds since epoch
+- (NSString*)stringFromMillisecondsRemaining:(NSNumber*)clockRemaining atMillisecondsSince1970:(NSNumber*)currentTime countingDown:(BOOL)countingDown;
 
 @end

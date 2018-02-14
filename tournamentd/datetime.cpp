@@ -154,6 +154,7 @@ static inline int millis_iword()
     return i;
 }
 
+// struct tm to string
 static std::ostream& operator<<(std::ostream& os, const std::tm* date_time)
 {
     const std::size_t size(1024);
@@ -187,6 +188,7 @@ std::string datetime::localtime() const
     return ss.str();
 }
 
+// datetime to string
 std::ostream& operator<<(std::ostream& os, const datetime& t)
 {
     auto tt(sc::to_time_t(t.tp));
