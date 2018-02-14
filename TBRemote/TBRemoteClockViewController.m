@@ -71,7 +71,9 @@
     }];
 
     [[self KVOController] observe:self keyPath:@"session.state.elapsed_time_text" options:NSKeyValueObservingOptionInitial block:^(id observer, TBRemoteClockViewController* object, NSDictionary *change) {
-        [[observer elapsedLabel] setText:[[object session] state][@"elapsed_time_text"]];
+        NSString* elapsedTimeText = [[object session] state][@"elapsed_time_text"];
+        NSString* fullElapsedTimeText = [NSString localizedStringWithFormat:@"Elapsed Time: %@", elapsedTimeText];
+        [[observer elapsedLabel] setText:fullElapsedTimeText];
     }];
 
     [[self KVOController] observe:self keyPath:@"session.state.clock_text" options:NSKeyValueObservingOptionInitial block:^(id observer, TBRemoteClockViewController* object, NSDictionary *change) {
@@ -79,7 +81,9 @@
     }];
 
     [[self KVOController] observe:self keyPath:@"session.state.current_game_text" options:NSKeyValueObservingOptionInitial block:^(id observer, TBRemoteClockViewController* object, NSDictionary *change) {
-        [[observer currentGameLabel] setText:[[object session] state][@"current_game_text"]];
+        NSString* currentGameText = [[object session] state][@"current_game_text"];
+        NSString* fullCurrentGameText = [NSString localizedStringWithFormat:@"Current Round: %@", currentGameText];
+        [[observer currentGameLabel] setText:fullCurrentGameText];
     }];
 
     [[self KVOController] observe:self keyPath:@"session.state.current_round_text" options:NSKeyValueObservingOptionInitial block:^(id observer, TBRemoteClockViewController* object, NSDictionary *change) {
@@ -92,7 +96,9 @@
     }];
 
     [[self KVOController] observe:self keyPath:@"session.state.next_game_text" options:NSKeyValueObservingOptionInitial block:^(id observer, TBRemoteClockViewController* object, NSDictionary *change) {
-        [[observer nextGameLabel] setText:[[object session] state][@"next_game_text"]];
+        NSString* nextGameText = [[object session] state][@"next_game_text"];
+        NSString* fullNextGameText = [NSString localizedStringWithFormat:@"Next Round: %@", nextGameText];
+        [[observer nextGameLabel] setText:fullNextGameText];
     }];
     
     [[self KVOController] observe:self keyPath:@"session.state.next_round_text" options:NSKeyValueObservingOptionInitial block:^(id observer, TBRemoteClockViewController* object, NSDictionary *change) {
@@ -135,7 +141,10 @@
         BOOL dark = [color isDark];
         [self setBackgroundIsDark:dark];
 
-        // Invert button images if dark
+        // update status bar
+        [self setNeedsStatusBarAppearanceUpdate];
+
+        // invert button images if dark
         [[self previousRoundButton] setImageInverted:dark forState:UIControlStateNormal];
         [[self previousRoundButton] setImageInverted:dark forState:UIControlStateHighlighted];
         [[self pauseResumeButton] setImageInverted:dark forState:UIControlStateNormal];
@@ -149,13 +158,17 @@
         [[self tableView] reloadData];
     }];
 
-    // Register table view cell class
+    // register table view cell class
     [[self tableView] registerNib:[UINib nibWithNibName:@"TBChipTableViewCell" bundle:nil] forCellReuseIdentifier:@"ChipCell"];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (UIStatusBarStyle) preferredStatusBarStyle {
+    return [self backgroundIsDark] ? UIStatusBarStyleLightContent : UIStatusBarStyleDefault;
 }
 
 #pragma mark Update
@@ -209,20 +222,16 @@
 #pragma mark UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section {
-    if(section == 0) {
-        return [super tableView:tableView numberOfRowsInSection:section];
-    } else if(section == 1) {
+    if(section == 5) {
         NSArray* availableChips = [[self session] state][@"available_chips"];
         return [availableChips count];
     } else {
-        return 0;
+        return [super tableView:tableView numberOfRowsInSection:section];
     }
 }
 
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath {
-    if([indexPath section] == 0) {
-        return [super tableView:tableView cellForRowAtIndexPath:indexPath];
-    } else if([indexPath section] == 1) {
+    if([indexPath section] == 5) {
         // relevent state
         NSArray* availableChips = [[self session] state][@"available_chips"];
         NSDictionary* chip = availableChips[[indexPath row]];
@@ -234,13 +243,8 @@
         [[cell valueLabel] setText:[chip[@"denomination"] stringValue]];
         return cell;
     } else {
-        NSLog(@"TBRemoteClockViewController tableView:cellForRowAtIndexPath: invalid section");
-        abort();
+        return [super tableView:tableView cellForRowAtIndexPath:indexPath];
     }
-}
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView*)tableView {
-    return [super numberOfSectionsInTableView:tableView];
 }
 
 #pragma mark UITableViewDelegate
@@ -253,7 +257,7 @@
 - (CGFloat)tableView:(UITableView*)tableView heightForRowAtIndexPath:(NSIndexPath*)indexPath
 {
     // if dynamic section make all rows the same height as row 0
-    if ([indexPath section] == 1) {
+    if([indexPath section] == 5) {
         return [super tableView:tableView heightForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:[indexPath section]]];
     } else {
         return [super tableView:tableView heightForRowAtIndexPath:indexPath];
@@ -263,7 +267,7 @@
 - (NSInteger)tableView:(UITableView*)tableView indentationLevelForRowAtIndexPath:(NSIndexPath*)indexPath
 {
     // if dynamic section make all rows the same indentation level as row 0
-    if ([indexPath section] == 1) {
+    if([indexPath section] == 5) {
         return [super tableView:tableView indentationLevelForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:[indexPath section]]];
     } else {
         return [super tableView:tableView indentationLevelForRowAtIndexPath:indexPath];
