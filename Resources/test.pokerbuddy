@@ -299,7 +299,7 @@
             "chips": 5000,
             "cost": { "amount": 30.0, "currency": "USD" },
             "commission": { "amount": 0.0, "currency": "USD" },
-            "equity": { "amount": 30.0, "currency": "USD" }
+            "equity_amount": 30.0
         },
         {
             "name": "Re-buy",
@@ -308,7 +308,7 @@
             "chips": 5000,
             "cost": { "amount": 30.0, "currency": "USD" },
             "commission": { "amount": 0.0, "currency": "USD" },
-            "equity": { "amount": 30.0, "currency": "USD" }
+            "equity_amount": 30.0
         },
         {
             "name": "Pizza add-on",
@@ -317,7 +317,7 @@
             "chips": 500,
             "cost": { "amount": 5.0, "currency": "USD" },
             "commission": { "amount": 0.0, "currency": "USD" },
-            "equity": { "amount": 5.0, "currency": "USD" }
+            "equity_amount": 5.0
         },
         {
             "name": "Earlybird free add-on",
@@ -326,7 +326,7 @@
             "chips": 500,
             "cost": { "amount": 0.0, "currency": "USD" },
             "commission": { "amount": 0.0, "currency": "USD" },
-            "equity": { "amount": 0.0, "currency": "USD" }
+            "equity_amount": 0.0
         }
     ],
     "table_capacity": 8,

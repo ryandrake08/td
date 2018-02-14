@@ -152,7 +152,7 @@ td::funding_source::funding_source(const json& obj) : funding_source()
     obj.get_value("chips", this->chips);
     obj.get_value("cost", this->cost);
     obj.get_value("commission", this->commission);
-    obj.get_value("equity", this->equity);
+    obj.get_value("equity_amount", this->equity_amount);
 }
 
 td::player::player(const json& obj) : player()
@@ -286,7 +286,7 @@ json::json(const td::funding_source& value) : json()
     this->set_value("chips", value.chips);
     this->set_value("cost", json(value.cost));
     this->set_value("commission", value.commission);
-    this->set_value("equity", value.equity);
+    this->set_value("equity_amount", value.equity_amount);
 }
 
 template<>

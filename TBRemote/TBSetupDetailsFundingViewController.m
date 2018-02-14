@@ -8,6 +8,7 @@
 
 #import "TBSetupDetailsFundingViewController.h"
 #import "TBCurrencyNumberFormatter.h"
+#import "TBCurrencyCodeTransformer.h"
 #import "TBKVOTableViewCell.h"
 #import "TournamentSession.h"
 
@@ -32,6 +33,17 @@
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath {
     UITableViewCell* cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
 
+    // special handling for equity currency, must equal payout_currency
+    if([indexPath section] == 0 && [indexPath row] == 7) {
+        NSString* payoutCurrency = @" ";
+        if([self configuration][@"payout_currency"]) {
+            TBCurrencyCodeTransformer* transformer = [[TBCurrencyCodeTransformer alloc] init];
+            payoutCurrency = [transformer transformedValue:[self configuration][@"payout_currency"]];
+        }
+        [[cell detailTextLabel] setText:payoutCurrency];
+        return cell;
+    }
+
     if([[(TBKVOTableViewCell*)cell keyPath] isEqualToString:@"type"]) {
         [(TBPickableTextTableViewCell*)cell setAllowedValues:@[kFundingTypeBuyin, kFundingTypeRebuy, kFundingTypeAddon] withTitles:@[NSLocalizedString(@"Buyin", nil), NSLocalizedString(@"Rebuy", nil), NSLocalizedString(@"Addon", nil)]];
     } else if([[(TBKVOTableViewCell*)cell keyPath] isEqualToString:@"cost.amount"]) {
@@ -44,16 +56,9 @@
         [(TBFormattedKVOTableViewCell*)cell setFormatter:numberFormatter];
     } else if([[(TBKVOTableViewCell*)cell keyPath] isEqualToString:@"commission.currency"]) {
         [(TBPickableTextTableViewCell*)cell setAllowedValues:[TBCurrencyNumberFormatter supportedCodes] withTitles:[TBCurrencyNumberFormatter supportedCurrencies]];
-    } else if([[(TBKVOTableViewCell*)cell keyPath] isEqualToString:@"equity.amount"]) {
+    } else if([[(TBKVOTableViewCell*)cell keyPath] isEqualToString:@"equity_amount"]) {
         NSNumberFormatter* numberFormatter = [[NSNumberFormatter alloc] init];
         [(TBFormattedKVOTableViewCell*)cell setFormatter:numberFormatter];
-    } else if([[(TBKVOTableViewCell*)cell keyPath] isEqualToString:@"equity.currency"]) {
-        [(TBPickableTextTableViewCell*)cell setAllowedValues:[TBCurrencyNumberFormatter supportedCodes] withTitles:[TBCurrencyNumberFormatter supportedCurrencies]];
-
-        // if payout_currency is set, force equity_currency to equal payout_currency
-        if([self configuration][@"payout_currency"]) {
-            [[(TBKVOTableViewCell*)cell object] setValue:[self configuration][@"payout_currency"] forKeyPath:@"equity.currency"];
-        }
     } else if([[(TBKVOTableViewCell*)cell keyPath] isEqualToString:@"chips"]) {
         NSNumberFormatter* numberFormatter = [[NSNumberFormatter alloc] init];
         [(TBFormattedKVOTableViewCell*)cell setFormatter:numberFormatter];

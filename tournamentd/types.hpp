@@ -88,7 +88,8 @@ namespace td
         unsigned long chips;
         monetary_value cost;
         monetary_value commission;
-        monetary_value equity;
+        // equity currency must match configured payout_currency, so only amount is recorded here
+        double equity_amount;
 
         funding_source();
         explicit funding_source(const json& obj);

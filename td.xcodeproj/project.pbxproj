@@ -32,6 +32,7 @@
 		940AF52C1FF7CE9000740295 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8E684B1A6C606700E5A4D8 /* main.m */; };
 		940AF52E1FF7CECA00740295 /* TBMac.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AD8E68531A6C606700E5A4D8 /* TBMac.xcassets */; };
 		940AF54D1FF7DE7900740295 /* TBViewerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 940AF54B1FF7DE7800740295 /* TBViewerViewController.m */; };
+		94150E7920340B9600D817DD /* TBCurrencyCodeTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F466261B8AF203009BB648 /* TBCurrencyCodeTransformer.m */; };
 		941916DC1B6F215F001253CA /* TBActionClockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEAF91B5AEB0B0026B25D /* TBActionClockView.m */; };
 		942B84E0200DA00C001F8EEB /* TBSoundPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 942B84DF200DA00C001F8EEB /* TBSoundPlayer.m */; };
 		942B84E1200DA00C001F8EEB /* TBSoundPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 942B84DF200DA00C001F8EEB /* TBSoundPlayer.m */; };
@@ -2263,6 +2264,7 @@
 				AD62569F1BB448DD00EE776A /* TBSetupDetailsTableViewController.m in Sources */,
 				ADD2CC571BB3D4CB00DE3DE5 /* NSDateFormatter+ISO8601.m in Sources */,
 				ADF635ED1BAB8AF800D019AE /* TBRemoteWatchDelegate.m in Sources */,
+				94150E7920340B9600D817DD /* TBCurrencyCodeTransformer.m in Sources */,
 				94A7FCC82027F54B006AD3FC /* TBSetupPayoutViewController.m in Sources */,
 				946CF8D6200FF0D3008771D4 /* TBCurrencyImageTransformer.m in Sources */,
 				ADF635EE1BAB8AF800D019AE /* tournament.cpp in Sources */,

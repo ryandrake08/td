@@ -1014,7 +1014,7 @@ Gw
                                     </subviews>
                                 </clipView>
                                 <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="DGH-UN-ndd">
-                                    <rect key="frame" x="0.0" y="-15" width="0.0" height="15"/>
+                                    <rect key="frame" x="0.0" y="-16" width="0.0" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="IKR-Ek-xxI">
@@ -1105,11 +1105,11 @@ Gw
                                 <rect key="frame" x="0.0" y="0.0" width="512" height="576"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <clipView key="contentView" ambiguous="YES" drawsBackground="NO" id="cxf-HJ-HvN">
-                                    <rect key="frame" x="1" y="0.0" width="510" height="560"/>
+                                    <rect key="frame" x="1" y="0.0" width="510" height="575"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <tableView identifier="seatsTable" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="sequential" columnSelection="YES" autosaveColumns="NO" rowHeight="24" rowSizeStyle="automatic" headerView="JbA-go-XNU" viewBased="YES" id="Zsf-wY-hgz">
-                                            <rect key="frame" x="0.0" y="0.0" width="515" height="537"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="515" height="552"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -1332,7 +1332,7 @@ Gw
                                     <nil key="backgroundColor"/>
                                 </clipView>
                                 <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="9Qp-Ai-cG3">
-                                    <rect key="frame" x="1" y="560" width="510" height="15"/>
+                                    <rect key="frame" x="1" y="559" width="510" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="uf7-Ti-z0r">
@@ -1844,7 +1844,7 @@ Gw
                                     </subviews>
                                 </clipView>
                                 <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="7rx-4t-pf2">
-                                    <rect key="frame" x="1" y="8" width="0.0" height="15"/>
+                                    <rect key="frame" x="1" y="7" width="0.0" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="5tU-Ns-Sqx">
@@ -2058,7 +2058,7 @@ Gw
                                     <nil key="backgroundColor"/>
                                 </clipView>
                                 <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="JsK-Qi-2Hw">
-                                    <rect key="frame" x="1" y="8" width="0.0" height="15"/>
+                                    <rect key="frame" x="1" y="7" width="0.0" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="uwL-pi-e6u">
@@ -2403,19 +2403,19 @@ Gw
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
                                                                     <connections>
-                                                                        <binding destination="T7t-Rj-hcC" name="value" keyPath="objectValue.equity.amount" id="4eV-RV-8lT"/>
+                                                                        <binding destination="T7t-Rj-hcC" name="value" keyPath="objectValue.equity_amount" id="ioc-nq-3Ad"/>
                                                                     </connections>
                                                                 </textField>
                                                                 <textField verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sNg-rm-x7r" userLabel="Equity Value">
                                                                     <rect key="frame" x="0.0" y="8" width="56" height="17"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" alignment="left" placeholderString="Currency" id="kW7-s7-ljh">
+                                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" enabled="NO" sendsActionOnEndEditing="YES" state="on" alignment="left" placeholderString="Currency" id="kW7-s7-ljh">
                                                                         <font key="font" metaFont="system"/>
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
                                                                     <connections>
-                                                                        <binding destination="T7t-Rj-hcC" name="value" keyPath="objectValue.equity.currency" id="Z8S-Sx-hgO">
+                                                                        <binding destination="Jw6-Xu-FJL" name="value" keyPath="self.representedObject.payout_currency" id="VQA-lg-5Vb">
                                                                             <dictionary key="options">
                                                                                 <string key="NSValueTransformerName">TBCurrencyCodeTransformer</string>
                                                                             </dictionary>
@@ -2547,7 +2547,7 @@ Gw
                                     <nil key="backgroundColor"/>
                                 </clipView>
                                 <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="HYv-ud-AmD">
-                                    <rect key="frame" x="1" y="8" width="0.0" height="15"/>
+                                    <rect key="frame" x="1" y="7" width="0.0" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="QzT-qN-ihD">
@@ -2607,12 +2607,12 @@ Gw
                                     <menu key="menu" id="qNF-RX-uTP"/>
                                 </popUpButtonCell>
                                 <connections>
+                                    <binding destination="Jw6-Xu-FJL" name="contentValues" keyPath="self.currencyList" id="XDv-T7-UW6"/>
                                     <binding destination="Jw6-Xu-FJL" name="selectedValue" keyPath="self.representedObject.payout_currency" previousBinding="XDv-T7-UW6" id="HIA-YR-Lrt">
                                         <dictionary key="options">
                                             <string key="NSValueTransformerName">TBCurrencyCodeTransformer</string>
                                         </dictionary>
                                     </binding>
-                                    <binding destination="Jw6-Xu-FJL" name="contentValues" keyPath="self.currencyList" id="XDv-T7-UW6"/>
                                 </connections>
                             </popUpButton>
                         </subviews>
@@ -3023,7 +3023,7 @@ Gw
                                     </subviews>
                                 </clipView>
                                 <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="wy2-xy-P9Z">
-                                    <rect key="frame" x="1" y="8" width="0.0" height="15"/>
+                                    <rect key="frame" x="1" y="7" width="0.0" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="JR5-m0-dwb">
@@ -3255,7 +3255,7 @@ Gw
                                     </subviews>
                                 </clipView>
                                 <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="Vfp-55-l7x">
-                                    <rect key="frame" x="1" y="8" width="0.0" height="15"/>
+                                    <rect key="frame" x="1" y="7" width="0.0" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="whK-1B-aCp">
@@ -3465,7 +3465,7 @@ Gw
                                     </subviews>
                                 </clipView>
                                 <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="CLt-uQ-Fpg">
-                                    <rect key="frame" x="1" y="8" width="0.0" height="15"/>
+                                    <rect key="frame" x="1" y="7" width="0.0" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="im3-or-q7v">

@@ -239,44 +239,8 @@
                                             <segue destination="sJj-8a-JCY" kind="show" id="1zm-1o-hOl"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="blL-Cj-NBi" userLabel="Devices Table View Cell" customClass="TBLabelTableViewCell">
-                                        <rect key="frame" x="0.0" y="319.5" width="375" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="blL-Cj-NBi" id="dTS-hv-0wN">
-                                            <rect key="frame" x="0.0" y="0.0" width="341" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" horizontalHuggingPriority="750" text="Remote Devices" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hr6-1f-m3a">
-                                                    <rect key="frame" x="16" y="12" width="117.5" height="19.5"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" multipleTouchEnabled="YES" tag="100" contentMode="left" horizontalCompressionResistancePriority="250" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n8D-f4-YMV">
-                                                    <rect key="frame" x="133.5" y="11.5" width="199.5" height="19.5"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="trailingMargin" secondItem="n8D-f4-YMV" secondAttribute="trailing" id="2lb-QU-aN1"/>
-                                                <constraint firstItem="hr6-1f-m3a" firstAttribute="leading" secondItem="dTS-hv-0wN" secondAttribute="leadingMargin" id="d8H-P3-fyP"/>
-                                                <constraint firstItem="n8D-f4-YMV" firstAttribute="leading" secondItem="hr6-1f-m3a" secondAttribute="trailing" id="eTw-9T-g8y"/>
-                                                <constraint firstItem="n8D-f4-YMV" firstAttribute="baseline" secondItem="hr6-1f-m3a" secondAttribute="baseline" id="rzd-O2-Z18"/>
-                                                <constraint firstItem="n8D-f4-YMV" firstAttribute="centerY" secondItem="dTS-hv-0wN" secondAttribute="centerY" id="yIb-Lv-0sw"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="keyPath" value="authorized_clients"/>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <outlet property="label" destination="n8D-f4-YMV" id="ibw-9i-Z1a"/>
-                                            <segue destination="UmS-DI-Zwh" kind="showDetail" id="qVy-5x-BXy"/>
-                                        </connections>
-                                    </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="2U9-Hq-Kf2" userLabel="Payout Currency Table View Cell" customClass="TBPickableTextTableViewCell">
-                                        <rect key="frame" x="0.0" y="363.5" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="319.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2U9-Hq-Kf2" id="Ihz-jy-TqE">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -311,6 +275,42 @@
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outlet property="textField" destination="Ca5-bY-let" id="StT-cm-RbP"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="blL-Cj-NBi" userLabel="Devices Table View Cell" customClass="TBLabelTableViewCell">
+                                        <rect key="frame" x="0.0" y="363.5" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="blL-Cj-NBi" id="dTS-hv-0wN">
+                                            <rect key="frame" x="0.0" y="0.0" width="341" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" horizontalHuggingPriority="750" text="Remote Devices" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hr6-1f-m3a">
+                                                    <rect key="frame" x="16" y="12" width="117.5" height="19.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" tag="100" contentMode="left" horizontalCompressionResistancePriority="250" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n8D-f4-YMV">
+                                                    <rect key="frame" x="133.5" y="11.5" width="199.5" height="19.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailingMargin" secondItem="n8D-f4-YMV" secondAttribute="trailing" id="2lb-QU-aN1"/>
+                                                <constraint firstItem="hr6-1f-m3a" firstAttribute="leading" secondItem="dTS-hv-0wN" secondAttribute="leadingMargin" id="d8H-P3-fyP"/>
+                                                <constraint firstItem="n8D-f4-YMV" firstAttribute="leading" secondItem="hr6-1f-m3a" secondAttribute="trailing" id="eTw-9T-g8y"/>
+                                                <constraint firstItem="n8D-f4-YMV" firstAttribute="baseline" secondItem="hr6-1f-m3a" secondAttribute="baseline" id="rzd-O2-Z18"/>
+                                                <constraint firstItem="n8D-f4-YMV" firstAttribute="centerY" secondItem="dTS-hv-0wN" secondAttribute="centerY" id="yIb-Lv-0sw"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="keyPath" value="authorized_clients"/>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <outlet property="label" destination="n8D-f4-YMV" id="ibw-9i-Z1a"/>
+                                            <segue destination="UmS-DI-Zwh" kind="showDetail" id="qVy-5x-BXy"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="jnZ-T7-vKh" userLabel="Table Size Table View Cell" customClass="TBPickableTextTableViewCell">
@@ -1487,7 +1487,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Funding Source Name" textAlignment="right" minimumFontSize="16" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="UeC-d9-7ec">
-                                                    <rect key="frame" x="67" y="12" width="285" height="20"/>
+                                                    <rect key="frame" x="67" y="12" width="292" height="20"/>
                                                     <color key="textColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <textInputTraits key="textInputTraits" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
@@ -1499,7 +1499,7 @@
                                             <constraints>
                                                 <constraint firstItem="UeC-d9-7ec" firstAttribute="centerY" secondItem="SH0-Jj-yGT" secondAttribute="centerY" id="EH9-o6-xIi"/>
                                                 <constraint firstItem="YWU-WP-0D4" firstAttribute="leading" secondItem="SH0-Jj-yGT" secondAttribute="leadingMargin" id="MEZ-sA-02q"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="UeC-d9-7ec" secondAttribute="trailing" constant="7" id="Mem-LO-kcW"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="UeC-d9-7ec" secondAttribute="trailing" id="Mem-LO-kcW"/>
                                                 <constraint firstItem="UeC-d9-7ec" firstAttribute="leading" secondItem="YWU-WP-0D4" secondAttribute="trailing" constant="8" symbolic="YES" id="UaU-Cn-dY8"/>
                                                 <constraint firstItem="UeC-d9-7ec" firstAttribute="baseline" secondItem="YWU-WP-0D4" secondAttribute="baseline" id="uIQ-7O-tAC"/>
                                             </constraints>
@@ -1525,7 +1525,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Buyin, Rebuy, Addon" textAlignment="right" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="OIw-Zl-xeE">
-                                                    <rect key="frame" x="59.5" y="12" width="292.5" height="20"/>
+                                                    <rect key="frame" x="59.5" y="12" width="299.5" height="20"/>
                                                     <color key="textColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <textInputTraits key="textInputTraits" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
@@ -1536,7 +1536,7 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="2Ij-WT-lEz" firstAttribute="leading" secondItem="Tev-rm-0KP" secondAttribute="leadingMargin" id="LTc-Y0-XWG"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="OIw-Zl-xeE" secondAttribute="trailing" constant="7" id="Ojp-Ou-qyd"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="OIw-Zl-xeE" secondAttribute="trailing" id="Ojp-Ou-qyd"/>
                                                 <constraint firstItem="OIw-Zl-xeE" firstAttribute="baseline" secondItem="2Ij-WT-lEz" secondAttribute="baseline" id="Qji-n5-gzw"/>
                                                 <constraint firstItem="OIw-Zl-xeE" firstAttribute="centerY" secondItem="Tev-rm-0KP" secondAttribute="centerY" id="YwF-ps-iyE"/>
                                                 <constraint firstItem="OIw-Zl-xeE" firstAttribute="leading" secondItem="2Ij-WT-lEz" secondAttribute="trailing" constant="8" symbolic="YES" id="fgf-Qp-BwL"/>
@@ -1563,7 +1563,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Prize pool take" textAlignment="right" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="R1P-V7-Cdj">
-                                                    <rect key="frame" x="58" y="12" width="294" height="20"/>
+                                                    <rect key="frame" x="58" y="12" width="301" height="20"/>
                                                     <color key="textColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
@@ -1574,7 +1574,7 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="R1P-V7-Cdj" firstAttribute="baseline" secondItem="mEk-AX-yBt" secondAttribute="baseline" id="2Xn-UJ-FZg"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="R1P-V7-Cdj" secondAttribute="trailing" constant="7" id="bOM-TY-UmG"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="R1P-V7-Cdj" secondAttribute="trailing" id="bOM-TY-UmG"/>
                                                 <constraint firstItem="R1P-V7-Cdj" firstAttribute="leading" secondItem="mEk-AX-yBt" secondAttribute="trailing" constant="8" symbolic="YES" id="eN9-1k-wuy"/>
                                                 <constraint firstItem="R1P-V7-Cdj" firstAttribute="centerY" secondItem="jPA-rv-yCx" secondAttribute="centerY" id="fVJ-4k-4iF"/>
                                                 <constraint firstItem="mEk-AX-yBt" firstAttribute="leading" secondItem="jPA-rv-yCx" secondAttribute="leadingMargin" id="pFA-o7-6zb"/>
@@ -1601,7 +1601,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Dollar, Euro, etc." textAlignment="right" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="EbY-0H-o5D">
-                                                    <rect key="frame" x="128.5" y="12" width="223.5" height="20"/>
+                                                    <rect key="frame" x="128.5" y="12" width="230.5" height="20"/>
                                                     <color key="textColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <textInputTraits key="textInputTraits" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
@@ -1611,7 +1611,7 @@
                                                 </textField>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailingMargin" secondItem="EbY-0H-o5D" secondAttribute="trailing" constant="7" id="JOd-bn-CzY"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="EbY-0H-o5D" secondAttribute="trailing" id="JOd-bn-CzY"/>
                                                 <constraint firstItem="EbY-0H-o5D" firstAttribute="leading" secondItem="cTa-9x-cOc" secondAttribute="trailing" constant="8" symbolic="YES" id="Rl9-yY-RQw"/>
                                                 <constraint firstItem="EbY-0H-o5D" firstAttribute="centerY" secondItem="vSD-lJ-MdV" secondAttribute="centerY" id="qWH-1X-ETq"/>
                                                 <constraint firstItem="EbY-0H-o5D" firstAttribute="baseline" secondItem="cTa-9x-cOc" secondAttribute="baseline" id="uyQ-JU-rqC"/>
@@ -1639,7 +1639,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="House take" textAlignment="right" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="ynV-zw-wDQ">
-                                                    <rect key="frame" x="50.5" y="12" width="301.5" height="20"/>
+                                                    <rect key="frame" x="50.5" y="12" width="308.5" height="20"/>
                                                     <color key="textColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
@@ -1649,7 +1649,7 @@
                                                 </textField>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailingMargin" secondItem="ynV-zw-wDQ" secondAttribute="trailing" constant="7" id="6g1-mz-UOW"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="ynV-zw-wDQ" secondAttribute="trailing" id="6g1-mz-UOW"/>
                                                 <constraint firstItem="ynV-zw-wDQ" firstAttribute="centerY" secondItem="33N-SR-vgF" secondAttribute="centerY" id="TLU-jA-oyg"/>
                                                 <constraint firstItem="ynV-zw-wDQ" firstAttribute="baseline" secondItem="7Fg-zG-82z" secondAttribute="baseline" id="bJt-2h-tA9"/>
                                                 <constraint firstItem="ynV-zw-wDQ" firstAttribute="leading" secondItem="7Fg-zG-82z" secondAttribute="trailing" constant="8" symbolic="YES" id="q4a-89-o2o"/>
@@ -1677,7 +1677,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Dollar, Euro, etc." textAlignment="right" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="lML-vg-MJS">
-                                                    <rect key="frame" x="121.5" y="12" width="230.5" height="20"/>
+                                                    <rect key="frame" x="121.5" y="12" width="237.5" height="20"/>
                                                     <color key="textColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <textInputTraits key="textInputTraits" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
@@ -1690,7 +1690,7 @@
                                                 <constraint firstItem="uqa-kq-JrF" firstAttribute="leading" secondItem="z5N-7z-RJa" secondAttribute="leadingMargin" id="PTu-23-fnj"/>
                                                 <constraint firstItem="lML-vg-MJS" firstAttribute="leading" secondItem="uqa-kq-JrF" secondAttribute="trailing" constant="8" symbolic="YES" id="RpU-3G-mQP"/>
                                                 <constraint firstItem="lML-vg-MJS" firstAttribute="centerY" secondItem="z5N-7z-RJa" secondAttribute="centerY" id="UOY-G1-dzG"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="lML-vg-MJS" secondAttribute="trailing" constant="7" id="bn7-C7-vdN"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="lML-vg-MJS" secondAttribute="trailing" id="bn7-C7-vdN"/>
                                                 <constraint firstItem="lML-vg-MJS" firstAttribute="baseline" secondItem="uqa-kq-JrF" secondAttribute="baseline" id="sYx-M7-UWw"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -1715,7 +1715,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Stake in prize pool" textAlignment="right" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="CMi-C5-KvE">
-                                                    <rect key="frame" x="69.5" y="12" width="282.5" height="20"/>
+                                                    <rect key="frame" x="69.5" y="12" width="289.5" height="20"/>
                                                     <color key="textColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
@@ -1728,54 +1728,40 @@
                                                 <constraint firstItem="CMi-C5-KvE" firstAttribute="baseline" secondItem="omr-0p-xzB" secondAttribute="baseline" id="DGW-aO-kQ5"/>
                                                 <constraint firstItem="CMi-C5-KvE" firstAttribute="leading" secondItem="omr-0p-xzB" secondAttribute="trailing" constant="8" symbolic="YES" id="E3L-ff-5Pt"/>
                                                 <constraint firstItem="omr-0p-xzB" firstAttribute="leading" secondItem="GkK-NB-H8B" secondAttribute="leadingMargin" id="TLc-HI-d7D"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="CMi-C5-KvE" secondAttribute="trailing" constant="7" id="fmB-Ao-6vU"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="CMi-C5-KvE" secondAttribute="trailing" id="fmB-Ao-6vU"/>
                                                 <constraint firstItem="CMi-C5-KvE" firstAttribute="centerY" secondItem="GkK-NB-H8B" secondAttribute="centerY" id="sPE-j7-hWE"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="keyPath" value="equity.amount"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="keyPath" value="equity_amount"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outlet property="textField" destination="CMi-C5-KvE" id="IJS-LR-PGZ"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="bVX-ig-7MA" customClass="TBPickableTextTableViewCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="irF-zk-FeF" detailTextLabel="1us-rp-6TU" style="IBUITableViewCellStyleValue1" id="bVX-ig-7MA">
                                         <rect key="frame" x="0.0" y="363.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bVX-ig-7MA" id="sDB-Eb-uAi">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" horizontalHuggingPriority="750" text="Equity Currency" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="opt-JP-0rk">
-                                                    <rect key="frame" x="16" y="12" width="116" height="20"/>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Equity Currency" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="irF-zk-FeF">
+                                                    <rect key="frame" x="16" y="12" width="116" height="19.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Dollar, Euro, etc." textAlignment="right" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="6p3-TM-Q4d">
-                                                    <rect key="frame" x="140" y="12" width="212" height="20"/>
-                                                    <color key="textColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" enabled="NO" adjustsFontSizeToFit="NO" id="1us-rp-6TU">
+                                                    <rect key="frame" x="317.5" y="12" width="41.5" height="19.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <textInputTraits key="textInputTraits" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
-                                                    <connections>
-                                                        <outlet property="delegate" destination="bVX-ig-7MA" id="Lyr-v9-E3A"/>
-                                                    </connections>
-                                                </textField>
+                                                    <color key="textColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
-                                            <constraints>
-                                                <constraint firstItem="6p3-TM-Q4d" firstAttribute="baseline" secondItem="opt-JP-0rk" secondAttribute="baseline" id="5Wq-9c-tNi"/>
-                                                <constraint firstItem="opt-JP-0rk" firstAttribute="leading" secondItem="sDB-Eb-uAi" secondAttribute="leadingMargin" id="G3N-am-C0l"/>
-                                                <constraint firstItem="6p3-TM-Q4d" firstAttribute="leading" secondItem="opt-JP-0rk" secondAttribute="trailing" constant="8" symbolic="YES" id="pDB-o4-5M3"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="6p3-TM-Q4d" secondAttribute="trailing" constant="7" id="q4K-yb-FlQ"/>
-                                                <constraint firstItem="6p3-TM-Q4d" firstAttribute="centerY" secondItem="sDB-Eb-uAi" secondAttribute="centerY" id="wEe-dT-4Gm"/>
-                                            </constraints>
                                         </tableViewCellContentView>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="keyPath" value="equity.currency"/>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <outlet property="textField" destination="6p3-TM-Q4d" id="2Q2-6E-xdh"/>
-                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="GgY-JQ-T5O" customClass="TBTextFieldTableViewCell">
                                         <rect key="frame" x="0.0" y="407.5" width="375" height="44"/>
@@ -1791,7 +1777,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Quantity" textAlignment="right" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="8ir-i0-i4k">
-                                                    <rect key="frame" x="65.5" y="12" width="286.5" height="20"/>
+                                                    <rect key="frame" x="65.5" y="12" width="293.5" height="20"/>
                                                     <color key="textColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
@@ -1801,7 +1787,7 @@
                                                 </textField>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailingMargin" secondItem="8ir-i0-i4k" secondAttribute="trailing" constant="7" id="6jo-YK-9to"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="8ir-i0-i4k" secondAttribute="trailing" id="6jo-YK-9to"/>
                                                 <constraint firstItem="8ir-i0-i4k" firstAttribute="baseline" secondItem="Qjc-dd-znS" secondAttribute="baseline" id="OxT-A1-2Cl"/>
                                                 <constraint firstItem="8ir-i0-i4k" firstAttribute="leading" secondItem="Qjc-dd-znS" secondAttribute="trailing" constant="8" symbolic="YES" id="TVF-BG-CGI"/>
                                                 <constraint firstItem="Qjc-dd-znS" firstAttribute="leading" secondItem="mzT-rp-AIs" secondAttribute="leadingMargin" id="WAE-m5-cfx"/>
@@ -1857,7 +1843,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Round" textAlignment="right" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="pIH-yt-YQV">
-                                                    <rect key="frame" x="78" y="12" width="274" height="20"/>
+                                                    <rect key="frame" x="78" y="12" width="281" height="20"/>
                                                     <color key="textColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <textInputTraits key="textInputTraits" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
@@ -1871,7 +1857,7 @@
                                                 <constraint firstItem="pIH-yt-YQV" firstAttribute="baseline" secondItem="WGy-ai-p5i" secondAttribute="baseline" id="KOt-ce-qoN"/>
                                                 <constraint firstItem="WGy-ai-p5i" firstAttribute="leading" secondItem="9Vq-L5-Zjw" secondAttribute="leadingMargin" constant="7" id="OwS-X4-ee6"/>
                                                 <constraint firstItem="pIH-yt-YQV" firstAttribute="centerY" secondItem="9Vq-L5-Zjw" secondAttribute="centerY" id="TC7-Qd-CO0"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="pIH-yt-YQV" secondAttribute="trailing" constant="7" id="geA-UL-gub"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="pIH-yt-YQV" secondAttribute="trailing" id="geA-UL-gub"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <userDefinedRuntimeAttributes>

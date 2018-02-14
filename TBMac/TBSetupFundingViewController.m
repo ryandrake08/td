@@ -79,10 +79,6 @@
         id payoutCurrency = [self representedObject][@"payout_currency"];
         // set default currency for new objects
         [(TBSetupFundingArrayController*)[self arrayController] setDefaultCurrency:payoutCurrency];
-        // reset currencies
-        for(NSMutableDictionary* source in [[self arrayController] arrangedObjects]) {
-            [source setValue:payoutCurrency forKey:@"equity.currency"];
-        }
         [[self tableView] reloadData];
     }];
 }

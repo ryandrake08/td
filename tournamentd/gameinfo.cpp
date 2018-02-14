@@ -878,12 +878,6 @@ void gameinfo::fund_player(const td::player_id_t& player_id, const td::funding_s
         throw td::protocol_error("tried re-buying before tournamnet start");
     }
 
-    if(source.equity.currency != this->payout_currency)
-    {
-        logger(ll::warning) << "equity currency does not match payout_currency, currently not supported. forcing equity currency to " << this->payout_currency << '\n';
-        source.equity.currency = this->payout_currency;
-    }
-
     logger(ll::info) << "funding player " << this->player_description(player_id) << " with " << source.name << '\n';
 
     if(source.type == td::funding_source_type_t::buyin)
@@ -916,7 +910,7 @@ void gameinfo::fund_player(const td::player_id_t& player_id, const td::funding_s
     this->total_chips += source.chips;
     this->total_cost[source.cost.currency] += source.cost.amount;
     this->total_commission[source.commission.currency] += source.commission.amount;
-    this->total_equity += source.equity.amount;
+    this->total_equity += source.equity_amount;
 
     // automatically recalculate
     this->recalculate_payouts();
