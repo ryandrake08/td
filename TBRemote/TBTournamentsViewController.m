@@ -124,6 +124,13 @@
                 [self presentViewController:alert animated:YES completion:nil];
             }]];
         }
+
+        // provide popover information for iPad
+        UIPopoverPresentationController* popPresenter = [actionSheet popoverPresentationController];
+        UIView* sourceView = [tableView cellForRowAtIndexPath:indexPath];
+        [popPresenter setSourceView:sourceView];
+        [popPresenter setSourceRect:[sourceView bounds]];
+
         [self presentViewController:actionSheet animated:YES completion:nil];
     } else {
         // connect
