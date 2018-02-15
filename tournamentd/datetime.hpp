@@ -1,5 +1,4 @@
 #pragma once
-#include <ctime> // for struct tm
 #include <chrono>
 #include <ostream>
 #include <string>
@@ -7,10 +6,6 @@
 class datetime
 {
     std::chrono::system_clock::time_point tp;
-
-    // To tm structure
-    std::tm& gmtime(std::tm& tm_s) const;
-    std::tm& localtime(std::tm& tm_s) const;
 
 public:
     datetime() = default;
@@ -39,18 +34,19 @@ public:
     operator std::chrono::system_clock::time_point() const;
     operator std::time_t() const;
 
-    // Stream insertion
+    // Stream insertion/extraction
     friend std::ostream& operator<<(std::ostream& os, const datetime& t);
+    friend std::istream& operator>>(std::istream& is, datetime& t);
 
-    // Stream insertion manipulator: datetime output is gmtime
-    static std::ostream& gm(std::ostream& os);
+    // Stream manipulator: put/get datetime as gmtime
+    static std::ios& gm(std::ios& os);
 
-    // Stream insertion manipulator: datetime output is localtime
-    static std::ostream& local(std::ostream& os);
+    // Stream manipulator: put/getdatetime is localtime
+    static std::ios& local(std::ios& os);
 
-    // Stream insertion manipulator: datetime output includes milliseconds
+    // Stream manipulator: put datetime including milliseconds
     static std::ostream& millis(std::ostream& os);
 
-    // Stream insertion manipulator: datetime output does not include milliseconds
+    // Stream manipulator: put datetime not including milliseconds
     static std::ostream& nomillis(std::ostream& os);
 };
