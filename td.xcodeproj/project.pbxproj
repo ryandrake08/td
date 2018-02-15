@@ -276,10 +276,6 @@
 		94FDEAF81B5AE7920026B25D /* NSView+BackgroundColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEAF71B5AE7920026B25D /* NSView+BackgroundColor.m */; };
 		94FDEAFA1B5AEB0B0026B25D /* TBActionClockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEAF91B5AEB0B0026B25D /* TBActionClockView.m */; };
 		94FDEAFB1B5AEB0B0026B25D /* TBActionClockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEAF91B5AEB0B0026B25D /* TBActionClockView.m */; };
-		AD1B250C1BA8773900C4BDDC /* scope_timer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AD1B250A1BA8773900C4BDDC /* scope_timer.cpp */; };
-		AD1B250D1BA8796100C4BDDC /* scope_timer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AD1B250A1BA8773900C4BDDC /* scope_timer.cpp */; };
-		AD1B250E1BA8796400C4BDDC /* scope_timer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AD1B250A1BA8773900C4BDDC /* scope_timer.cpp */; };
-		AD1B250F1BA8796500C4BDDC /* scope_timer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AD1B250A1BA8773900C4BDDC /* scope_timer.cpp */; };
 		AD2B800E1BACC63600E2FE9C /* Poker Buddy.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = AD33BA641BAC63540011777C /* Poker Buddy.appex */; };
 		AD2CA95F1BAA7043009A2384 /* TournamentSocketDirectory.c in Sources */ = {isa = PBXBuildFile; fileRef = AD2CA95E1BAA7043009A2384 /* TournamentSocketDirectory.c */; };
 		AD2CA9601BAA70F9009A2384 /* TournamentSocketDirectory.c in Sources */ = {isa = PBXBuildFile; fileRef = AD2CA95E1BAA7043009A2384 /* TournamentSocketDirectory.c */; };
@@ -373,7 +369,6 @@
 		ADF635E91BAB8AF800D019AE /* TBSound.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE299AE1B7B994200F1393B /* TBSound.m */; };
 		ADF635EA1BAB8AF800D019AE /* TBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4561B3C385400A158F8 /* TBAppDelegate.m */; };
 		ADF635EB1BAB8AF800D019AE /* types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E91B3C3F8300A158F8 /* types.cpp */; };
-		ADF635EC1BAB8AF800D019AE /* scope_timer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AD1B250A1BA8773900C4BDDC /* scope_timer.cpp */; };
 		ADF635ED1BAB8AF800D019AE /* TBRemoteWatchDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AD5375B31B9F35FB00EF5132 /* TBRemoteWatchDelegate.m */; };
 		ADF635EE1BAB8AF800D019AE /* tournament.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E71B3C3F8300A158F8 /* tournament.cpp */; };
 		ADF635EF1BAB8AF800D019AE /* TournamentService.m in Sources */ = {isa = PBXBuildFile; fileRef = 9439701C1B405DC000BB0413 /* TournamentService.m */; };
@@ -729,6 +724,7 @@
 		945D83922032459E00DFE032 /* TBPayoutShapeNumberFormatter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBPayoutShapeNumberFormatter.h; sourceTree = "<group>"; };
 		945D83932032459E00DFE032 /* TBPayoutShapeNumberFormatter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TBPayoutShapeNumberFormatter.m; sourceTree = "<group>"; };
 		945D839F2032B47400DFE032 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Setup.storyboard; sourceTree = "<group>"; };
+		945D83A32035366800DFE032 /* stopwatch.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = stopwatch.hpp; sourceTree = "<group>"; };
 		9462A3E51B77CB3B00B29002 /* TTTOrdinalNumberFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTOrdinalNumberFormatter.h; sourceTree = "<group>"; };
 		9462A3E61B77CB3B00B29002 /* TTTOrdinalNumberFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTOrdinalNumberFormatter.m; sourceTree = "<group>"; };
 		9462A3EA1B77F40500B29002 /* TBMovementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBMovementViewController.h; path = TBMac/TBMovementViewController.h; sourceTree = "<group>"; };
@@ -879,7 +875,6 @@
 		94FDEAF61B5AE7920026B25D /* NSView+BackgroundColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSView+BackgroundColor.h"; sourceTree = "<group>"; };
 		94FDEAF71B5AE7920026B25D /* NSView+BackgroundColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSView+BackgroundColor.m"; sourceTree = "<group>"; };
 		94FDEAF91B5AEB0B0026B25D /* TBActionClockView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBActionClockView.m; sourceTree = "<group>"; };
-		AD1B250A1BA8773900C4BDDC /* scope_timer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scope_timer.cpp; sourceTree = "<group>"; };
 		AD1B250B1BA8773900C4BDDC /* scope_timer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = scope_timer.hpp; sourceTree = "<group>"; };
 		AD2CA95D1BAA7043009A2384 /* TournamentSocketDirectory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TournamentSocketDirectory.h; sourceTree = "<group>"; };
 		AD2CA95E1BAA7043009A2384 /* TournamentSocketDirectory.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = TournamentSocketDirectory.c; sourceTree = "<group>"; };
@@ -1200,7 +1195,6 @@
 				946C656E1FFF54450094E4D8 /* program_ctl.cpp */,
 				9476F4DF1B3C3F8300A158F8 /* program.cpp */,
 				9476F4E01B3C3F8300A158F8 /* program.hpp */,
-				AD1B250A1BA8773900C4BDDC /* scope_timer.cpp */,
 				AD1B250B1BA8773900C4BDDC /* scope_timer.hpp */,
 				9476F4E11B3C3F8300A158F8 /* server.cpp */,
 				9476F4E21B3C3F8300A158F8 /* server.hpp */,
@@ -1208,6 +1202,7 @@
 				9476F4E31B3C3F8300A158F8 /* socket.cpp */,
 				9476F4E41B3C3F8300A158F8 /* socket.hpp */,
 				9476F4E51B3C3F8300A158F8 /* socketstream.hpp */,
+				945D83A32035366800DFE032 /* stopwatch.hpp */,
 				9476F4E71B3C3F8300A158F8 /* tournament.cpp */,
 				9476F4E81B3C3F8300A158F8 /* tournament.hpp */,
 				9476F4E91B3C3F8300A158F8 /* types.cpp */,
@@ -2000,7 +1995,6 @@
 				ADCECE801B7B0DBF00767DA6 /* TBResultsViewController.m in Sources */,
 				94562E6C1B65D9420017C692 /* TBResizeTextField.m in Sources */,
 				ADFFFF141BA34394003BAC88 /* TBColor+CSS.m in Sources */,
-				AD1B250E1BA8796400C4BDDC /* scope_timer.cpp in Sources */,
 				9458126A2012657700208575 /* TBClockDateComponentsFormatter.m in Sources */,
 				94FDEAF81B5AE7920026B25D /* NSView+BackgroundColor.m in Sources */,
 				9462A3F21B781A9A00B29002 /* RSVerticallyCenteredTextFieldCell.m in Sources */,
@@ -2075,7 +2069,6 @@
 				9476F4691B3C385400A158F8 /* TBAppDelegate.m in Sources */,
 				AD452D501BC6C685007CF579 /* TBChooseColorViewController.m in Sources */,
 				949D70A01B3C440E008D5CD1 /* types.cpp in Sources */,
-				AD1B250F1BA8796500C4BDDC /* scope_timer.cpp in Sources */,
 				AD5375B41B9F35FB00EF5132 /* TBRemoteWatchDelegate.m in Sources */,
 				949D70A11B3C4411008D5CD1 /* tournament.cpp in Sources */,
 				9439701F1B405DC000BB0413 /* TournamentService.m in Sources */,
@@ -2123,7 +2116,6 @@
 				9476F4F41B3C3F8300A158F8 /* program.cpp in Sources */,
 				9476F4ED1B3C3F8300A158F8 /* bonjour.cpp in Sources */,
 				9476F4F71B3C3F8300A158F8 /* tournament.cpp in Sources */,
-				AD1B250C1BA8773900C4BDDC /* scope_timer.cpp in Sources */,
 				9476F4F21B3C3F8300A158F8 /* main.cpp in Sources */,
 				9476F4F01B3C3F8300A158F8 /* json.cpp in Sources */,
 				9476F4F51B3C3F8300A158F8 /* server.cpp in Sources */,
@@ -2174,7 +2166,6 @@
 				ADD4F1251B91FE2400DAF567 /* NSObject+AssociatedObject.m in Sources */,
 				94E273FF200F2B2F0048B07A /* TBArrayEmptyTransformer.m in Sources */,
 				94562E681B65D8CA0017C692 /* TBDateStringTransformer.m in Sources */,
-				AD1B250D1BA8796100C4BDDC /* scope_timer.cpp in Sources */,
 				949D70961B3C440D008D5CD1 /* gameinfo.cpp in Sources */,
 				94D7290920032C42009EC463 /* TBPlanViewController.m in Sources */,
 				94562E661B65D8CA0017C692 /* TBColorValueTransformer.m in Sources */,
@@ -2260,7 +2251,6 @@
 				945D83912032426E00DFE032 /* TBSetupAutomaticPayoutViewController.m in Sources */,
 				9457DAB41FE6934C0047DF29 /* TBImage+Inverted.m in Sources */,
 				AD6256A81BB44DB200EE776A /* TBSetupDetailsFundingViewController.m in Sources */,
-				ADF635EC1BAB8AF800D019AE /* scope_timer.cpp in Sources */,
 				AD62569F1BB448DD00EE776A /* TBSetupDetailsTableViewController.m in Sources */,
 				ADD2CC571BB3D4CB00DE3DE5 /* NSDateFormatter+ISO8601.m in Sources */,
 				ADF635ED1BAB8AF800D019AE /* TBRemoteWatchDelegate.m in Sources */,

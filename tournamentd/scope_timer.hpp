@@ -1,21 +1,28 @@
 #pragma once
-#include <memory>
 #include <string>
+#include "logger.hpp"
+#include "stopwatch.hpp"
 
 class scope_timer
 {
-    // pimpl
-    struct impl;
-    std::unique_ptr<impl> pimpl;
+    // stopwatch for counting elapsed time
+    stopwatch sw;
+
+    // log message
+    std::string log_message;
 
 public:
-    // construction
-    scope_timer();
-    explicit scope_timer(const std::string& message);
-
     // destruction (will log when object goes out of scope)
-    ~scope_timer();
+    ~scope_timer()
+    {
+        // log
+        std::chrono::duration<long long, std::nano> duration(this->sw.elapsed());
+        logger(ll::debug) << this->log_message << duration.count() << " nanoseconds\n";
+    }
 
     // attributes
-    void set_message(const std::string& message);
+    void set_message(const std::string& message)
+    {
+        this->log_message = message;
+    }
 };
