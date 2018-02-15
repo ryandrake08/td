@@ -56,14 +56,14 @@
         for(NSString* code in [[self class] supportedCodes]) {
             NSString* name;
             if([code isEqualToString:@"XPB"]) {
-                name = NSLocalizedString(@"Bucks", nil);
+                name = NSLocalizedString(@"Bucks", @"Special custom currency type");
             } else if([code isEqualToString:@"XPT"]) {
-                name = NSLocalizedString(@"Points", nil);
+                name = NSLocalizedString(@"Points", @"Special custom currency type");
             } else {
                 name = [[NSLocale currentLocale] localizedStringForCurrencyCode:code];
             }
             if(name == nil) {
-                name = NSLocalizedString(@"Unknown Currency", nil);
+                name = NSLocalizedString(@"Unknown", @"Unknown currency type");
             }
             [currencyNames addObject:name];
         }

@@ -18,7 +18,7 @@
 
 - (id)newObject {
     NSString* player_id = [[NSUUID UUID] UUIDString];
-    NSString* name = NSLocalizedString(@"Player Name", nil);
+    NSString* name = NSLocalizedString(@"Player Name", @"Default name for a player");
     NSString* added_at = [[NSDateFormatter dateFormatterWithISO8601Format] stringFromDate:[NSDate date]];
 
     return [@{@"player_id":player_id, @"name":name, @"added_at":added_at} mutableCopy];

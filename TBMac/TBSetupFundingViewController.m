@@ -22,7 +22,7 @@
 
 - (id)newObject {
     NSString* defaultCurrencyCode = [TBCurrencyNumberFormatter defaultCurrencyCode];
-    NSString* name = NSLocalizedString(@"Buyin, Rebuy or Addon Name", nil);
+    NSString* name = NSLocalizedString(@"Buyin, Rebuy or Addon Name", @"List of the three types of funding sources");
     NSNumber* type = kFundingTypeAddon;
     NSNumber* chips = @5000;
     NSMutableDictionary* cost = [@{@"amount":@10, @"currency":defaultCurrencyCode} mutableCopy];

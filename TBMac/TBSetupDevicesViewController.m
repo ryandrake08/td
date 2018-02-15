@@ -20,7 +20,7 @@
 
 - (id)newObject {
     NSNumber* code = @12345;
-    NSString* name = NSLocalizedString(@"New Device", nil);
+    NSString* name = NSLocalizedString(@"New Device", @"Default name for a device");
     NSString* added_at = [[NSDateFormatter dateFormatterWithISO8601Format] stringFromDate:[NSDate date]];
 
     return [@{@"code":code, @"name":name, @"added_at":added_at} mutableCopy];

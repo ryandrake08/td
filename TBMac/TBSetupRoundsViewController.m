@@ -16,7 +16,7 @@
 @implementation TBSetupRoundsArrayController
 
 - (id)newObject {
-    NSString* game_name = NSLocalizedString(@"No Limit Texas Hold'em", nil);
+    NSString* game_name = NSLocalizedString(@"No Limit Texas Hold'em", @"Default name for a poker game");
     NSNumber* little_blind = @25;
     NSNumber* big_blind = @50;
     NSNumber* ante = @0;

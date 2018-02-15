@@ -76,7 +76,7 @@
 - (IBAction)exportResults:(id)sender {
     NSSavePanel* savePanel = [NSSavePanel savePanel];
     [savePanel setShowsTagField:NO];
-    [savePanel setTitle:@"Export Results..."];
+    [savePanel setTitle:NSLocalizedString(@"Export Results...", @"Export results to a file")];
     [savePanel setAllowedFileTypes:@[@"CSV"]];
     [savePanel beginSheetModalForWindow:[[self view] window] completionHandler:^(NSInteger result) {
         if(result == NSFileHandlingPanelOKButton) {
