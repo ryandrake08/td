@@ -18,7 +18,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView*)tableView {
     if([self object][@"forbid_after_blind_level"] == nil) {
-        return 1;
+        return [super numberOfSectionsInTableView:tableView]-1;
     }
     return [super numberOfSectionsInTableView:tableView];
 }
@@ -34,7 +34,7 @@
     UITableViewCell* cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
 
     // special handling for equity currency, must equal payout_currency
-    if([indexPath section] == 0 && [indexPath row] == 7) {
+    if([indexPath section] == 3 && [indexPath row] == 1) {
         NSString* payoutCurrency = @" ";
         if([self configuration][@"payout_currency"]) {
             TBCurrencyCodeTransformer* transformer = [[TBCurrencyCodeTransformer alloc] init];
@@ -62,13 +62,12 @@
     } else if([[(TBKVOTableViewCell*)cell keyPath] isEqualToString:@"chips"]) {
         NSNumberFormatter* numberFormatter = [[NSNumberFormatter alloc] init];
         [(TBFormattedKVOTableViewCell*)cell setFormatter:numberFormatter];
-    } else if([[(TBKVOTableViewCell*)cell keyPath] isEqualToString:@"forbid_after_blind_level"] && [indexPath section] == 1) {
+    } else if([[(TBKVOTableViewCell*)cell keyPath] isEqualToString:@"forbid_after_blind_level"] && [indexPath section] == 5) {
         // build up list of blind levels
         NSMutableArray* blindLevelIndices = [[NSMutableArray alloc] initWithObjects:@0, nil];
-        NSMutableArray* names = [[NSMutableArray alloc] initWithObjects:NSLocalizedString(@"Tournament Start", nil), nil];
+        NSMutableArray* names = [TournamentSession blindLevelNamesForConfiguration:[self configuration]];
         for(NSInteger i=1; i<[[self configuration][@"blind_levels"] count]; i++) {
             [blindLevelIndices addObject:@(i)];
-            [names addObject:[NSString stringWithFormat:NSLocalizedString(@"Round %ld", @"Numbered blind level"), i]];
         }
         [(TBPickableTextTableViewCell*)cell setAllowedValues:blindLevelIndices withTitles:names];
     }
@@ -80,7 +79,7 @@
 
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
     // deselect call and reload table when "forbid after" is changed
-    if([indexPath section] == 0 && [indexPath row] == 9) {
+    if([indexPath section] == 4 && [indexPath row] == 0) {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
         [tableView reloadData];
     }

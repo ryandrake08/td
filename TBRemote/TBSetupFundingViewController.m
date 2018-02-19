@@ -8,6 +8,7 @@
 
 #import "TBSetupFundingViewController.h"
 #import "TBCurrencyNumberFormatter.h"
+#import "TBFundingSourceFormatter.h"
 #import "TBSetupDetailsFundingViewController.h"
 #import "TournamentSession.h"
 
@@ -21,22 +22,6 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (NSString*)formattedFundingStringForSource:(NSDictionary*)fundingSource {
-    NSString* formattedFunding;
-
-    TBCurrencyNumberFormatter* costFormatter = [[TBCurrencyNumberFormatter alloc] init];
-    [costFormatter setCurrencyCode:fundingSource[@"cost"][@"currency"]];
-
-    if([fundingSource[@"commission"][@"amount"] doubleValue] != 0.0) {
-        TBCurrencyNumberFormatter* commissionFormatter = [[TBCurrencyNumberFormatter alloc] init];
-        [commissionFormatter setCurrencyCode:fundingSource[@"commission"][@"currency"]];
-        formattedFunding = [NSString stringWithFormat:@"%@+%@", [costFormatter stringFromNumber:fundingSource[@"cost"][@"amount"]], [commissionFormatter stringFromNumber:fundingSource[@"commission"][@"amount"]]];
-    } else {
-        formattedFunding = [costFormatter stringFromNumber:fundingSource[@"cost"][@"amount"]];
-    }
-    return formattedFunding;
 }
 
 - (UIImage*)imageForSource:(NSDictionary*)fundingSource {
@@ -55,7 +40,8 @@
     NSDictionary* object = [super arrangedObjectForIndexPath:indexPath];
     [(UIImageView*)[cell viewWithTag:100] setImage:[self imageForSource:object]];
     [(UILabel*)[cell viewWithTag:101] setText:object[@"name"]];
-    [(UILabel*)[cell viewWithTag:102] setText:[self formattedFundingStringForSource:object]];
+    TBFundingSourceFormatter* fundingFormatter = [[TBFundingSourceFormatter alloc] init];
+    [(UILabel*)[cell viewWithTag:102] setText:[fundingFormatter stringForObjectValue:object]];
 
     return cell;
 }

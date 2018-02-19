@@ -43,6 +43,9 @@
 // client identifier (used for authenticating with servers)
 + (NSNumber*)clientIdentifier;
 
+// blind level naming utility
++ (NSArray*)blindLevelNamesForConfiguration:(NSDictionary*)config;
+
 // connect either locally through a unix socket or to a server
 - (BOOL)connectToLocalPath:(NSString*)path error:(NSError**)error;
 - (BOOL)connectToAddress:(NSString*)address port:(NSInteger)port error:(NSError**)error;

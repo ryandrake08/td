@@ -216,6 +216,12 @@
 		94C2DA85200D2AE7001B95B8 /* TBInvertableButton_macOS.m in Sources */ = {isa = PBXBuildFile; fileRef = 94C2DA82200D2AE7001B95B8 /* TBInvertableButton_macOS.m */; };
 		94C95AFE201AEDA900400CFC /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94C95AFD201AEDA800400CFC /* MessageUI.framework */; };
 		94C95AFF201AEDBF00400CFC /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94C95AFD201AEDA800400CFC /* MessageUI.framework */; };
+		94C97037203A01080055A28C /* TBSetupFundingDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94C97036203A01080055A28C /* TBSetupFundingDetailsViewController.m */; };
+		94C9703A203A09800055A28C /* TBFundingSourceFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 94C97039203A09800055A28C /* TBFundingSourceFormatter.m */; };
+		94C9703B203A09800055A28C /* TBFundingSourceFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 94C97039203A09800055A28C /* TBFundingSourceFormatter.m */; };
+		94C9703E203A0C170055A28C /* TBFundingSourceValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 94C9703D203A0C170055A28C /* TBFundingSourceValueTransformer.m */; };
+		94C9703F203A0C170055A28C /* TBFundingSourceValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 94C9703D203A0C170055A28C /* TBFundingSourceValueTransformer.m */; };
+		94C97042203A14B30055A28C /* TBPopoverSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 94C97041203A14B30055A28C /* TBPopoverSegue.m */; };
 		94CDDD1D1FE1826C008ADF24 /* TBChipTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CDDD1B1FE1826C008ADF24 /* TBChipTableViewCell.m */; };
 		94CDDD1E1FE1826C008ADF24 /* TBChipTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CDDD1B1FE1826C008ADF24 /* TBChipTableViewCell.m */; };
 		94CDDD1F1FE1826C008ADF24 /* TBChipTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94CDDD1C1FE1826C008ADF24 /* TBChipTableViewCell.xib */; };
@@ -822,6 +828,14 @@
 		94C2DA82200D2AE7001B95B8 /* TBInvertableButton_macOS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBInvertableButton_macOS.m; sourceTree = "<group>"; };
 		94C2DA83200D2AE7001B95B8 /* TBInvertableButton_macOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBInvertableButton_macOS.h; sourceTree = "<group>"; };
 		94C95AFD201AEDA800400CFC /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.2.sdk/System/Library/Frameworks/MessageUI.framework; sourceTree = DEVELOPER_DIR; };
+		94C97035203A01080055A28C /* TBSetupFundingDetailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TBSetupFundingDetailsViewController.h; path = TBMac/TBSetupFundingDetailsViewController.h; sourceTree = "<group>"; };
+		94C97036203A01080055A28C /* TBSetupFundingDetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TBSetupFundingDetailsViewController.m; path = TBMac/TBSetupFundingDetailsViewController.m; sourceTree = "<group>"; };
+		94C97038203A09800055A28C /* TBFundingSourceFormatter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBFundingSourceFormatter.h; sourceTree = "<group>"; };
+		94C97039203A09800055A28C /* TBFundingSourceFormatter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TBFundingSourceFormatter.m; sourceTree = "<group>"; };
+		94C9703C203A0C170055A28C /* TBFundingSourceValueTransformer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBFundingSourceValueTransformer.h; sourceTree = "<group>"; };
+		94C9703D203A0C170055A28C /* TBFundingSourceValueTransformer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TBFundingSourceValueTransformer.m; sourceTree = "<group>"; };
+		94C97040203A14B30055A28C /* TBPopoverSegue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TBPopoverSegue.h; path = TBMac/TBPopoverSegue.h; sourceTree = "<group>"; };
+		94C97041203A14B30055A28C /* TBPopoverSegue.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TBPopoverSegue.m; path = TBMac/TBPopoverSegue.m; sourceTree = "<group>"; };
 		94C9D879200F265700D4DA10 /* TBArrayEmptyTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBArrayEmptyTransformer.h; sourceTree = "<group>"; };
 		94C9D87A200F265800D4DA10 /* TBArrayEmptyTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBArrayEmptyTransformer.m; sourceTree = "<group>"; };
 		94CDDD1A1FE1826C008ADF24 /* TBChipTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBChipTableViewCell.h; sourceTree = "<group>"; };
@@ -1289,6 +1303,10 @@
 				AD87A6D81BA2094400E55961 /* TBEllipseView.m */,
 				94363BC8200E77DE00D52155 /* TBError.h */,
 				94363BCE200E79C000D52155 /* TBError.m */,
+				94C97038203A09800055A28C /* TBFundingSourceFormatter.h */,
+				94C97039203A09800055A28C /* TBFundingSourceFormatter.m */,
+				94C9703C203A0C170055A28C /* TBFundingSourceValueTransformer.h */,
+				94C9703D203A0C170055A28C /* TBFundingSourceValueTransformer.m */,
 				94C2DA69200D0DBC001B95B8 /* TBGraphics.h */,
 				94C2DA64200D0D33001B95B8 /* TBGraphics.m */,
 				9457DAB21FE6934C0047DF29 /* TBImage+Inverted.h */,
@@ -1428,6 +1446,8 @@
 				94D7290820032C42009EC463 /* TBPlanViewController.m */,
 				ADCECE831B7B101500767DA6 /* TBPlayersViewController.h */,
 				ADCECE841B7B101500767DA6 /* TBPlayersViewController.m */,
+				94C97040203A14B30055A28C /* TBPopoverSegue.h */,
+				94C97041203A14B30055A28C /* TBPopoverSegue.m */,
 				ADCECE781B7B0D9D00767DA6 /* TBResultsViewController.h */,
 				ADCECE791B7B0D9D00767DA6 /* TBResultsViewController.m */,
 				AD98D9711A7B343600DA6B8B /* TBSeatingViewController.h */,
@@ -1438,6 +1458,8 @@
 				9462A3F41B7864E900B29002 /* TBSetupDevicesViewController.m */,
 				AD98D9621A7B331A00DA6B8B /* TBSetupFundingViewController.h */,
 				AD98D9631A7B331A00DA6B8B /* TBSetupFundingViewController.m */,
+				94C97035203A01080055A28C /* TBSetupFundingDetailsViewController.h */,
+				94C97036203A01080055A28C /* TBSetupFundingDetailsViewController.m */,
 				943A4D772021925E00CA03E1 /* TBSetupPayoutsViewController.h */,
 				943A4D762021925D00CA03E1 /* TBSetupPayoutsViewController.m */,
 				AD98D9671A7B33F100DA6B8B /* TBSetupPlayersViewController.h */,
@@ -2143,6 +2165,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AD98D9651A7B331A00DA6B8B /* TBSetupFundingViewController.m in Sources */,
+				94C97042203A14B30055A28C /* TBPopoverSegue.m in Sources */,
 				949D70971B3C440D008D5CD1 /* json.cpp in Sources */,
 				9462A3F61B7864E900B29002 /* TBSetupDevicesViewController.m in Sources */,
 				94B30DEB200283CC0037192E /* TBMacWindowController.m in Sources */,
@@ -2161,6 +2184,7 @@
 				94CDDD331FE3B349008ADF24 /* TBColor+ContrastTextColor.m in Sources */,
 				94647188200CAA9C00556467 /* TBInvertImage.c in Sources */,
 				AD8E684F1A6C606700E5A4D8 /* TBMacDocument.m in Sources */,
+				94C9703A203A09800055A28C /* TBFundingSourceFormatter.m in Sources */,
 				9435B7642021A35000F85150 /* TBSetupPayoutsViewController.m in Sources */,
 				949D70951B3C440D008D5CD1 /* datetime.cpp in Sources */,
 				ADD4F1251B91FE2400DAF567 /* NSObject+AssociatedObject.m in Sources */,
@@ -2195,6 +2219,7 @@
 				AD98D9611A7B330B00DA6B8B /* TBSetupChipsViewController.m in Sources */,
 				AD75ACEE1BA3FD8800705967 /* TBEllipseImageView.m in Sources */,
 				ADCECE7D1B7B0D9D00767DA6 /* TBResultsViewController.m in Sources */,
+				94C97037203A01080055A28C /* TBSetupFundingDetailsViewController.m in Sources */,
 				945410741B6E5C56001E3373 /* NSDateFormatter+ISO8601.m in Sources */,
 				941916DC1B6F215F001253CA /* TBActionClockView.m in Sources */,
 				942B84E0200DA00C001F8EEB /* TBSoundPlayer.m in Sources */,
@@ -2212,6 +2237,7 @@
 				ADE299AF1B7B994200F1393B /* TBSound.m in Sources */,
 				943970181B3F9DB700BB0413 /* TournamentBrowser.m in Sources */,
 				949D709A1B3C440D008D5CD1 /* types.cpp in Sources */,
+				94C9703E203A0C170055A28C /* TBFundingSourceValueTransformer.m in Sources */,
 				94C2DA65200D0D33001B95B8 /* TBGraphics.m in Sources */,
 				9462A3ED1B77F40500B29002 /* TBMovementViewController.m in Sources */,
 				94C2DA63200D0C63001B95B8 /* TBEllipseView.m in Sources */,
@@ -2277,6 +2303,7 @@
 				ADF635F51BAB8AF800D019AE /* TournamentSession.m in Sources */,
 				94C2DA67200D0D33001B95B8 /* TBGraphics.m in Sources */,
 				ADF635F61BAB8AF800D019AE /* NSObject+AssociatedObject.m in Sources */,
+				94C9703F203A0C170055A28C /* TBFundingSourceValueTransformer.m in Sources */,
 				94CDDD231FE39299008ADF24 /* TBActionClockViewController.m in Sources */,
 				945D83A12032B9B500DFE032 /* TBTournamentsViewController.m in Sources */,
 				ADF635F71BAB8AF800D019AE /* TBColor+CSS.m in Sources */,
@@ -2291,6 +2318,7 @@
 				ADD2CC4E1BB3C73900DE3DE5 /* TBSetupFundingViewController.m in Sources */,
 				AD6256A51BB44D8000EE776A /* TBSetupDetailsChipsViewController.m in Sources */,
 				AD6256F31BB44E1100EE776A /* TBSetupDetailsDevicesViewController.m in Sources */,
+				94C9703B203A09800055A28C /* TBFundingSourceFormatter.m in Sources */,
 				ADF635FF1BAB8AF800D019AE /* socket.cpp in Sources */,
 				ADD2CC4B1BB3BA8000DE3DE5 /* TBSetupChipsViewController.m in Sources */,
 				94A7FCC52027EB30006AD3FC /* TBSetupDependsOnTurnoutViewController.m in Sources */,

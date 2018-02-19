@@ -9,6 +9,8 @@
 #import "TBSetupFundingViewController.h"
 #import "NSObject+FBKVOController.h"
 #import "TBCurrencyNumberFormatter.h"
+#import "TBPopoverSegue.h"
+#import "TBSetupFundingDetailsViewController.h"
 #import "TournamentSession.h"
 
 // TBSetupFundingArrayController implements a new object
@@ -51,21 +53,10 @@
 
 @end
 
-@interface TBSetupFundingViewController ()
-
-@property (strong) NSArray* currencyList;
-
-@end
-
 @implementation TBSetupFundingViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    // set up currency list
-    _currencyList = [TBCurrencyNumberFormatter supportedCurrencies];
-    [self willChangeValueForKey:@"currencyList"];
-    [self didChangeValueForKey:@"currencyList"];
 
     // setup sort descriptors
     NSSortDescriptor* nameSort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
@@ -83,12 +74,55 @@
     }];
 }
 
-- (NSArray*)blindLevelNames {
-    NSMutableArray* names = [[NSMutableArray alloc] initWithObjects:NSLocalizedString(@"Tournament Start", nil), nil];
-    for(NSInteger i=1; i<[[self representedObject][@"blind_levels"] count]; i++) {
-        [names addObject:[NSString stringWithFormat:NSLocalizedString(@"Round %ld", @"Numbered blind level"), i]];
+- (BOOL)shouldPerformSegueWithIdentifier:(NSStoryboardSegueIdentifier)identifier sender:(id)sender {
+    return  [identifier isEqualToString:@"presentFundingDetailsView"] && [[sender superview] isKindOfClass:[NSTableCellView class]];
+}
+
+- (void)prepareForSegue:(NSStoryboardSegue*)segue sender:(id)sender {
+    // reference the container view controllers
+    if([[segue identifier] isEqualToString:@"presentFundingDetailsView"]) {
+        TBSetupFundingDetailsViewController* vc = (TBSetupFundingDetailsViewController*)[segue destinationController];
+
+        // set configuration (so TBSetupFundingDetailsViewController knows payout currency)
+        [vc setConfiguration:[self representedObject]];
+
+        if([[sender superview] isKindOfClass:[NSTableCellView class]]) {
+            NSTableCellView* cellView = (NSTableCellView*)[sender superview];
+
+            // funding source is the table view cell's objectValue
+            NSDictionary* fundingSource = [cellView objectValue];
+            [vc setRepresentedObject:fundingSource];
+
+            // TODO: this is a hack. we bind the funding details display to the fundingSource dictionary itself,
+            // which does not actually change when its key values change. the details popup may change these values
+            // and the display must be updated. so observe here:
+            [[self KVOController] observe:fundingSource keyPaths:@[@"cost.amount", @"cost.currency", @"commission.amount", @"commission.currency"] options:0 block:^(id  observer, id  object, NSDictionary* change) {
+                [cellView setObjectValue:[fundingSource mutableCopy]];
+            }];
+
+            // set popup behavior
+            if([segue isKindOfClass:[TBPopoverSegue class]]) {
+                TBPopoverSegue* popoverSegue = (TBPopoverSegue*)segue;
+                [popoverSegue setAnchorView:sender];
+                [popoverSegue setPreferredEdge:NSMaxXEdge];
+                [popoverSegue setPopoverBehavior:NSPopoverBehaviorTransient];
+            }
+        }
     }
-    return names;
+}
+
+- (NSArray*)blindLevelNames {
+    return [TournamentSession blindLevelNamesForConfiguration:[self representedObject]];
+}
+
+- (NSArray*)currencyList {
+    return [TBCurrencyNumberFormatter supportedCurrencies];
+}
+
+#pragma mark Actions
+
+- (IBAction)fundingDetailsButtonDidChange:(id)sender {
+    [self performSegueWithIdentifier:@"presentFundingDetailsView" sender:sender];
 }
 
 @end

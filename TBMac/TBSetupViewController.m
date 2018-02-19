@@ -12,7 +12,7 @@
 
 @interface TBSetupViewController ()
 
-// Configuration and session
+// Configuration (TODO: should this be non-mutable now?)
 @property (nonatomic, strong) NSMutableDictionary* configuration;
 
 @end
