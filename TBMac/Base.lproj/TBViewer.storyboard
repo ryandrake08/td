@@ -108,10 +108,10 @@
             </objects>
             <point key="canvasLocation" x="893" y="-314"/>
         </scene>
-        <!--Window Controller-->
+        <!--Root Window-->
         <scene sceneID="uJB-YA-iUW">
             <objects>
-                <windowController storyboardIdentifier="PlayerWindowController" id="aTR-5q-4as" sceneMemberID="viewController">
+                <windowController storyboardIdentifier="PlayerWindowController" id="aTR-5q-4as" userLabel="Root Window" sceneMemberID="viewController">
                     <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" frameAutosaveName="" animationBehavior="default" id="Zol-Ci-1A7">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowCollectionBehavior key="collectionBehavior" fullScreenPrimary="YES"/>
@@ -131,10 +131,10 @@
             </objects>
             <point key="canvasLocation" x="74" y="256"/>
         </scene>
-        <!--Viewer View Controller-->
+        <!--Root View Controller-->
         <scene sceneID="jWm-JT-IOF">
             <objects>
-                <viewController id="qiy-ws-jFz" customClass="TBViewerViewController" sceneMemberID="viewController">
+                <viewController id="qiy-ws-jFz" userLabel="Root View Controller" customClass="TBViewerViewController" sceneMemberID="viewController">
                     <view key="view" id="5Nd-hC-btk">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -534,8 +534,8 @@
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
                                                                     <connections>
-                                                                        <binding destination="qiy-ws-jFz" name="textColor" keyPath="self.textColor" id="7Za-PY-L8b"/>
                                                                         <binding destination="5xM-ud-r4f" name="value" keyPath="objectValue.payout.amount" id="w3Z-5N-2j6"/>
+                                                                        <binding destination="qiy-ws-jFz" name="textColor" keyPath="self.textColor" id="7Za-PY-L8b"/>
                                                                     </connections>
                                                                 </textField>
                                                                 <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="ogx-nJ-RX5">
@@ -635,7 +635,7 @@
                                         </connections>
                                     </textField>
                                     <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="NuA-2X-ou7">
-                                        <rect key="frame" x="0.0" y="261" width="256" height="5"/>
+                                        <rect key="frame" x="0.0" y="261" width="256" height="158"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                     </box>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="srs-dp-1KM" customClass="TBResizeTextField">
@@ -780,10 +780,10 @@
             </objects>
             <point key="canvasLocation" x="74" y="1175"/>
         </scene>
-        <!--Action Clock View Controller-->
+        <!--Action Clock-->
         <scene sceneID="Zpt-ww-aJc">
             <objects>
-                <viewController id="ZqS-QV-bIW" customClass="TBActionClockViewController" sceneMemberID="viewController">
+                <viewController id="ZqS-QV-bIW" userLabel="Action Clock" customClass="TBActionClockViewController" sceneMemberID="viewController">
                     <view key="view" id="9fD-m3-z8L" customClass="TBActionClockView">
                         <rect key="frame" x="0.0" y="0.0" width="512" height="512"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -797,10 +797,10 @@
             </objects>
             <point key="canvasLocation" x="1040" y="1175"/>
         </scene>
-        <!--Connect To View Controller-->
+        <!--Connect To-->
         <scene sceneID="llF-z2-HbQ">
             <objects>
-                <viewController id="uJd-6n-gzp" customClass="TBConnectToViewController" sceneMemberID="viewController">
+                <viewController id="uJd-6n-gzp" userLabel="Connect To" customClass="TBConnectToViewController" sceneMemberID="viewController">
                     <view key="view" id="JLx-fx-rxG">
                         <rect key="frame" x="0.0" y="0.0" width="472" height="89"/>
                         <autoresizingMask key="autoresizingMask"/>
