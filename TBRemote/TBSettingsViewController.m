@@ -271,7 +271,7 @@
         }
 
         // alert because this is a very destructive action
-        UIAlertController* alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Quick Setup", nil) message:message preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController* alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Quick Start", nil) message:message preferredStyle:UIAlertControllerStyleAlert];
         [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil) style:UIAlertActionStyleCancel handler:nil]];
         [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Setup", nil) style:UIAlertActionStyleDestructive handler:^(UIAlertAction* action) {
             NSLog(@"Performing destructive quick setup");

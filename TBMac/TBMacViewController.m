@@ -173,14 +173,14 @@
         [alert setAlertStyle:NSWarningAlertStyle];
         [alert addButtonWithTitle:NSLocalizedString(@"Setup", nil)];
         [alert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
-        [alert setMessageText:NSLocalizedString(@"Quick Setup", nil)];
+        [alert setMessageText:NSLocalizedString(@"Quick Start", nil)];
 
         // display a different message if the game is running
         BOOL playing = [[[self session] state][@"current_blind_level"] unsignedIntegerValue] != 0;
         if(playing) {
-            [alert setInformativeText:NSLocalizedString(@"Quick Setup will end the current tournament immediately, then re-seat and buy in all players.", nil)];
+            [alert setInformativeText:NSLocalizedString(@"Quick Start will end the current tournament immediately, then re-seat and buy in all players.", nil)];
         } else {
-            [alert setInformativeText:NSLocalizedString(@"Quick Setup will clear any existing seats and buy-ins, then re-seat and buy in all players.", nil)];
+            [alert setInformativeText:NSLocalizedString(@"Quick Start will clear any existing seats and buy-ins, then re-seat and buy in all players.", nil)];
         }
 
         // present and only perform setup if confirmed by user

@@ -208,7 +208,7 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Tournament" id="0Bs-DZ-vBz">
                                     <items>
-                                        <menuItem title="Quick Setup Tournament" keyEquivalent="t" id="aAk-2d-2a5">
+                                        <menuItem title="Quick Start Tournament" keyEquivalent="t" id="aAk-2d-2a5">
                                             <connections>
                                                 <action selector="quickStartTapped:" target="dLJ-5r-r8L" id="RYi-DC-txT"/>
                                             </connections>
@@ -478,7 +478,7 @@
                                         <segue destination="79P-Qm-Z6L" kind="sheet" identifier="presentPlanView" id="mJ1-px-HDd"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="5AED8755-E587-4E01-A980-593FFBFA5FA5" label="Quick Setup" paletteLabel="Quick Setup" tag="-1" image="b_rocket" id="ANd-0c-7C0">
+                                <toolbarItem implicitItemIdentifier="5AED8755-E587-4E01-A980-593FFBFA5FA5" label="Quick Start" paletteLabel="Quick Start" tag="-1" image="b_rocket" id="ANd-0c-7C0">
                                     <connections>
                                         <action selector="quickStartTapped:" target="bjE-D6-6zO" id="h45-KZ-vpp"/>
                                     </connections>
@@ -3606,8 +3606,8 @@ Gw
         <image name="m_rebuy" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="cgp-eX-T5f"/>
         <segue reference="20A-7q-E8V"/>
+        <segue reference="cgp-eX-T5f"/>
         <segue reference="mJ1-px-HDd"/>
         <segue reference="3WU-TS-ggK"/>
     </inferredMetricsTieBreakers>
