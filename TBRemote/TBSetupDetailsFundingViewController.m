@@ -65,7 +65,7 @@
     } else if([[(TBKVOTableViewCell*)cell keyPath] isEqualToString:@"forbid_after_blind_level"] && [indexPath section] == 5) {
         // build up list of blind levels
         NSMutableArray* blindLevelIndices = [[NSMutableArray alloc] initWithObjects:@0, nil];
-        NSMutableArray* names = [TournamentSession blindLevelNamesForConfiguration:[self configuration]];
+        NSArray* names = [TournamentSession blindLevelNamesForConfiguration:[self configuration]];
         for(NSInteger i=1; i<[[self configuration][@"blind_levels"] count]; i++) {
             [blindLevelIndices addObject:@(i)];
         }
