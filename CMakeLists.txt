@@ -30,7 +30,7 @@ set(CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO "${CMAKE_EXE_LINKER_FLAGS_RELWITHDEBIN
 add_library(cJSON STATIC cJSON/cJSON.c)
 target_compile_options(cJSON PRIVATE -Wno-misleading-indentation)
 
-add_library(td STATIC tournamentd/bonjour.cpp tournamentd/datetime.cpp tournamentd/gameinfo.cpp tournamentd/json.cpp tournamentd/scope_timer.cpp tournamentd/server.cpp tournamentd/socket.cpp tournamentd/tournament.cpp tournamentd/types.cpp)
+add_library(td STATIC tournamentd/bonjour.cpp tournamentd/datetime.cpp tournamentd/gameinfo.cpp tournamentd/json.cpp tournamentd/server.cpp tournamentd/socket.cpp tournamentd/tournament.cpp tournamentd/types.cpp)
 target_include_directories(td PRIVATE .)
 find_program(CLANG_TIDY_EXE NAMES "clang-tidy" DOC "Path to clang-tidy executable")
 if(FALSE AND CLANG_TIDY_EXE)
