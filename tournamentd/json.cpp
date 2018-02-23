@@ -2,6 +2,7 @@
 #include <stddef.h> // Oops, cJSON.h requires stddef.h
 #include "cJSON/cJSON.h"
 #include <algorithm>
+#include <cstring>
 #include <deque>
 #include <fstream>
 #include <limits>
