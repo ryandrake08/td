@@ -1,10 +1,13 @@
 //
 //  TBSetupPayoutsViewController.h
-//  td
+//  TBMac
+//
+//  Created by Ryan Drake on 3/10/18.
+//  Copyright © 2018 HDna Studio. All rights reserved.
 //
 
-#import "TBTableViewController.h"
+#import <Cocoa/Cocoa.h>
 
-@interface TBSetupPayoutsViewController : TBTableViewController
+@interface TBSetupPayoutsViewController : NSTabViewController
 
 @end

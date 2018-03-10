@@ -1725,7 +1725,7 @@ Gw
                         <segue destination="uhM-Sw-nmb" kind="relationship" relationship="tabItems" id="dGa-hi-Z4H"/>
                         <segue destination="Jw6-Xu-FJL" kind="relationship" relationship="tabItems" id="pnf-4t-zng"/>
                         <segue destination="ddh-wQ-1UK" kind="relationship" relationship="tabItems" id="ceU-Z5-bfa"/>
-                        <segue destination="tHD-7b-Ew5" kind="relationship" relationship="tabItems" id="iI4-uF-Vbt"/>
+                        <segue destination="AUN-C9-TPx" kind="relationship" relationship="tabItems" id="iI4-uF-Vbt"/>
                         <segue destination="DiS-6Y-Rp9" kind="relationship" relationship="tabItems" id="ohp-X3-dqs"/>
                     </connections>
                 </tabViewController>
@@ -1736,7 +1736,7 @@ Gw
         <!--Setup Players-->
         <scene sceneID="hcE-XN-jb6">
             <objects>
-                <viewController id="d0W-cX-w0u" userLabel="Setup Players" customClass="TBSetupPlayersViewController" sceneMemberID="viewController">
+                <viewController title="Players" id="d0W-cX-w0u" userLabel="Setup Players" customClass="TBSetupPlayersViewController" sceneMemberID="viewController">
                     <customView key="view" id="nJM-DO-IDb">
                         <rect key="frame" x="0.0" y="0.0" width="640" height="420"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1911,7 +1911,7 @@ Gw
         <!--Setup Equipment-->
         <scene sceneID="b3w-rD-sYI">
             <objects>
-                <viewController id="uhM-Sw-nmb" userLabel="Setup Equipment" customClass="TBSetupChipsViewController" sceneMemberID="viewController">
+                <viewController title="Equipment" id="uhM-Sw-nmb" userLabel="Setup Equipment" customClass="TBSetupChipsViewController" sceneMemberID="viewController">
                     <customView key="view" id="d8b-7O-wZl">
                         <rect key="frame" x="0.0" y="0.0" width="640" height="420"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2160,7 +2160,7 @@ Gw
         <!--Setup Funding-->
         <scene sceneID="ibw-BF-53z">
             <objects>
-                <viewController id="Jw6-Xu-FJL" userLabel="Setup Funding" customClass="TBSetupFundingViewController" sceneMemberID="viewController">
+                <viewController title="Funding" id="Jw6-Xu-FJL" userLabel="Setup Funding" customClass="TBSetupFundingViewController" sceneMemberID="viewController">
                     <customView key="view" id="TGR-ss-PP0">
                         <rect key="frame" x="0.0" y="0.0" width="640" height="420"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2694,7 +2694,7 @@ Gw
         <!--Setup Rounds-->
         <scene sceneID="6G3-DI-A5c">
             <objects>
-                <viewController id="ddh-wQ-1UK" userLabel="Setup Rounds" customClass="TBSetupRoundsViewController" sceneMemberID="viewController">
+                <viewController title="Rounds" id="ddh-wQ-1UK" userLabel="Setup Rounds" customClass="TBSetupRoundsViewController" sceneMemberID="viewController">
                     <customView key="view" id="41U-vv-SyA">
                         <rect key="frame" x="0.0" y="0.0" width="640" height="420"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -3156,9 +3156,121 @@ Gw
             <point key="canvasLocation" x="2629" y="161"/>
         </scene>
         <!--Setup Payouts-->
+        <scene sceneID="9Jf-sb-Tn9">
+            <objects>
+                <tabViewController title="Payouts" selectedTabViewItemIndex="1" id="AUN-C9-TPx" userLabel="Setup Payouts" customClass="TBSetupPayoutsViewController" sceneMemberID="viewController">
+                    <tabViewItems>
+                        <tabViewItem identifier="" id="xc9-gq-VJC"/>
+                        <tabViewItem id="PUj-6G-ur8"/>
+                        <tabViewItem identifier="" id="b9g-U3-Hsl"/>
+                    </tabViewItems>
+                    <tabView key="tabView" misplaced="YES" type="noTabsNoBorder" id="H7M-i4-re7">
+                        <rect key="frame" x="0.0" y="0.0" width="640" height="420"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <font key="font" metaFont="message"/>
+                        <tabViewItems/>
+                        <connections>
+                            <outlet property="delegate" destination="AUN-C9-TPx" id="NjH-ts-Qxc"/>
+                        </connections>
+                    </tabView>
+                    <connections>
+                        <outlet property="tabView" destination="H7M-i4-re7" id="vrE-wJ-m3s"/>
+                        <segue destination="sCS-S6-ZDH" kind="relationship" relationship="tabItems" id="Azh-bk-phD"/>
+                        <segue destination="tHD-7b-Ew5" kind="relationship" relationship="tabItems" id="4we-wr-ZmG"/>
+                        <segue destination="S6G-5L-Y1G" kind="relationship" relationship="tabItems" id="keP-94-erV"/>
+                    </connections>
+                </tabViewController>
+                <customObject id="TP6-wN-yq1" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2629" y="636"/>
+        </scene>
+        <!--Automatic Payouts-->
+        <scene sceneID="fQn-e0-3VD">
+            <objects>
+                <viewController title="Automatic" id="sCS-S6-ZDH" userLabel="Automatic Payouts" sceneMemberID="viewController">
+                    <view key="view" id="grg-aL-V8f">
+                        <rect key="frame" x="0.0" y="0.0" width="640" height="420"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <box fixedFrame="YES" title="Percent Paid" translatesAutoresizingMaskIntoConstraints="NO" id="wk4-Tk-lBq">
+                                <rect key="frame" x="17" y="318" width="606" height="82"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <view key="contentView" id="gAu-qu-v4x">
+                                    <rect key="frame" x="2" y="2" width="602" height="65"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SgK-Ow-hxL">
+                                            <rect key="frame" x="20" y="23" width="41" height="22"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="100%" drawsBackground="YES" id="c6r-8v-oqB">
+                                                <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="kuo-az-uWK"/>
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RaP-0x-TJL">
+                                            <rect key="frame" x="67" y="24" width="517" height="19"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                            <sliderCell key="cell" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="2o8-OA-DXV"/>
+                                        </slider>
+                                    </subviews>
+                                </view>
+                            </box>
+                            <box fixedFrame="YES" title="Payout Shape" translatesAutoresizingMaskIntoConstraints="NO" id="twE-bN-YiT">
+                                <rect key="frame" x="17" y="231" width="606" height="82"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <view key="contentView" id="n3n-cy-mn4">
+                                    <rect key="frame" x="2" y="2" width="602" height="65"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PMd-GR-R2Z">
+                                            <rect key="frame" x="20" y="23" width="120" height="22"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="Same To Everyone" drawsBackground="YES" id="GU4-X2-0bR">
+                                                <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="VdU-Cv-iSU"/>
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="txl-fk-BoB">
+                                            <rect key="frame" x="146" y="24" width="438" height="19"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                            <sliderCell key="cell" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="FxF-DP-T78"/>
+                                        </slider>
+                                    </subviews>
+                                </view>
+                            </box>
+                            <box fixedFrame="YES" title="Advanced" translatesAutoresizingMaskIntoConstraints="NO" id="JD6-ka-oW9">
+                                <rect key="frame" x="17" y="145" width="606" height="82"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <view key="contentView" id="RC0-zM-CQp">
+                                    <rect key="frame" x="2" y="2" width="602" height="65"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="V0e-xq-tTo">
+                                            <rect key="frame" x="18" y="24" width="566" height="18"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                            <buttonCell key="cell" type="check" title="Round to Nearest Whole Number" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="ugz-s2-34w">
+                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                        </button>
+                                    </subviews>
+                                </view>
+                            </box>
+                        </subviews>
+                    </view>
+                </viewController>
+                <customObject id="uow-s8-NLM" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3795" y="60"/>
+        </scene>
+        <!--Manual Payouts-->
         <scene sceneID="AVf-gE-dSU">
             <objects>
-                <viewController id="tHD-7b-Ew5" userLabel="Setup Payouts" customClass="TBSetupPayoutsViewController" sceneMemberID="viewController">
+                <viewController title="Manual" id="tHD-7b-Ew5" userLabel="Manual Payouts" customClass="TBSetupPayoutViewController" sceneMemberID="viewController">
                     <customView key="view" id="TkU-Vx-Zsr">
                         <rect key="frame" x="0.0" y="0.0" width="640" height="420"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -3362,12 +3474,157 @@ Gw
                     </connections>
                 </arrayController>
             </objects>
-            <point key="canvasLocation" x="2629" y="634"/>
+            <point key="canvasLocation" x="3795" y="540"/>
+        </scene>
+        <!--Depends On Turnout Payouts-->
+        <scene sceneID="d9V-Yc-nQW">
+            <objects>
+                <splitViewController title="Depends on Turnout" id="S6G-5L-Y1G" userLabel="Depends On Turnout Payouts" sceneMemberID="viewController">
+                    <splitViewItems>
+                        <splitViewItem id="BGV-Zu-wzY"/>
+                        <splitViewItem id="R2q-vH-wXq"/>
+                    </splitViewItems>
+                    <splitView key="splitView" misplaced="YES" vertical="YES" id="oHc-qa-aom">
+                        <rect key="frame" x="0.0" y="0.0" width="640" height="420"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <connections>
+                            <outlet property="delegate" destination="S6G-5L-Y1G" id="yjD-KV-7Jh"/>
+                        </connections>
+                    </splitView>
+                    <connections>
+                        <outlet property="splitView" destination="oHc-qa-aom" id="9G1-3P-Vio"/>
+                        <segue destination="tRI-yW-88Y" kind="relationship" relationship="splitItems" id="BeG-oc-ZQj"/>
+                        <segue destination="tHD-7b-Ew5" kind="relationship" relationship="splitItems" id="bT6-Js-AE3"/>
+                    </connections>
+                </splitViewController>
+                <customObject id="kg9-XW-t6m" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3795" y="1018"/>
+        </scene>
+        <!--Player Turnout-->
+        <scene sceneID="XwN-zT-9Wo">
+            <objects>
+                <viewController id="tRI-yW-88Y" userLabel="Player Turnout" sceneMemberID="viewController">
+                    <customView key="view" id="zF1-KS-n1n">
+                        <rect key="frame" x="0.0" y="0.0" width="160" height="420"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView fixedFrame="YES" autohidesScrollers="YES" horizontalLineScroll="54" horizontalPageScroll="10" verticalLineScroll="54" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vGN-wi-d9Q">
+                                <rect key="frame" x="0.0" y="20" width="160" height="400"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <clipView key="contentView" ambiguous="YES" id="uut-Iz-Jqy">
+                                    <rect key="frame" x="1" y="0.0" width="158" height="384"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="sequential" alternatingRowBackgroundColors="YES" columnSelection="YES" autosaveColumns="NO" rowHeight="52" rowSizeStyle="automatic" headerView="BWo-Rr-4x9" viewBased="YES" id="Jb2-zb-JEC">
+                                            <rect key="frame" x="0.0" y="0.0" width="163" height="361"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <size key="intercellSpacing" width="3" height="2"/>
+                                            <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
+                                            <tableColumns>
+                                                <tableColumn identifier="Round" width="160" minWidth="160" maxWidth="160" id="P6N-xj-cxr">
+                                                    <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Players">
+                                                        <font key="font" metaFont="smallSystem"/>
+                                                        <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
+                                                    </tableHeaderCell>
+                                                    <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="gSy-gb-PEV">
+                                                        <font key="font" metaFont="system"/>
+                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                    </textFieldCell>
+                                                    <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                                    <prototypeCellViews>
+                                                        <tableCellView id="g9R-ua-s63">
+                                                            <rect key="frame" x="1" y="1" width="160" height="52"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                            <subviews>
+                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4VM-z5-1l6">
+                                                                    <rect key="frame" x="1" y="18" width="158" height="17"/>
+                                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" enabled="NO" sendsActionOnEndEditing="YES" id="fOI-M3-GKG">
+                                                                        <font key="font" metaFont="systemBold"/>
+                                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                    </textFieldCell>
+                                                                    <connections>
+                                                                        <binding destination="g9R-ua-s63" name="value" keyPath="objectValue" id="Xdt-LK-yIx">
+                                                                            <dictionary key="options">
+                                                                                <bool key="NSConditionallySetsEditable" value="NO"/>
+                                                                            </dictionary>
+                                                                        </binding>
+                                                                    </connections>
+                                                                </textField>
+                                                            </subviews>
+                                                            <connections>
+                                                                <outlet property="textField" destination="4VM-z5-1l6" id="3C0-rA-Ccu"/>
+                                                            </connections>
+                                                        </tableCellView>
+                                                    </prototypeCellViews>
+                                                </tableColumn>
+                                            </tableColumns>
+                                            <connections>
+                                                <binding destination="gM5-f0-sHO" name="content" keyPath="arrangedObjects" id="pB4-1f-OHq"/>
+                                                <outlet property="dataSource" destination="tHD-7b-Ew5" id="xIJ-1T-Kej"/>
+                                            </connections>
+                                        </tableView>
+                                    </subviews>
+                                </clipView>
+                                <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="8iu-Zc-kka">
+                                    <rect key="frame" x="1" y="384" width="158" height="15"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                                <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="7lk-K3-Chp">
+                                    <rect key="frame" x="224" y="17" width="15" height="102"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                                <tableHeaderView key="headerView" id="BWo-Rr-4x9">
+                                    <rect key="frame" x="0.0" y="0.0" width="163" height="23"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableHeaderView>
+                            </scrollView>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FqS-HE-sAk" userLabel="Spacer">
+                                <rect key="frame" x="0.0" y="-1" width="160" height="23"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" imagePosition="overlaps" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="vnG-1j-cCn">
+                                    <behavior key="behavior" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                            </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jso-hW-7Eq" userLabel="Add">
+                                <rect key="frame" x="0.0" y="-1" width="29" height="23"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSAddTemplate" imagePosition="overlaps" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="5DL-ka-T2C">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="add:" target="gM5-f0-sHO" id="kj9-b1-UDD"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nde-aa-aTe" userLabel="Remove">
+                                <rect key="frame" x="28" y="-1" width="29" height="23"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSRemoveTemplate" imagePosition="overlaps" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="p0p-af-eSu">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="remove:" target="gM5-f0-sHO" id="JfG-9f-7NA"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                    </customView>
+                </viewController>
+                <customObject id="5Cq-Zm-l63" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4328" y="1018"/>
         </scene>
         <!--Setup Devices-->
         <scene sceneID="cxf-Wj-xHf">
             <objects>
-                <viewController id="DiS-6Y-Rp9" userLabel="Setup Devices" customClass="TBSetupDevicesViewController" sceneMemberID="viewController">
+                <viewController title="Devices" id="DiS-6Y-Rp9" userLabel="Setup Devices" customClass="TBSetupDevicesViewController" sceneMemberID="viewController">
                     <customView key="view" id="wdg-c6-KZy">
                         <rect key="frame" x="0.0" y="0.0" width="640" height="420"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -3606,9 +3863,10 @@ Gw
         <image name="m_rebuy" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="20A-7q-E8V"/>
-        <segue reference="cgp-eX-T5f"/>
-        <segue reference="mJ1-px-HDd"/>
-        <segue reference="3WU-TS-ggK"/>
+        <segue reference="4we-wr-ZmG"/>
+        <segue reference="RAQ-SQ-Qt2"/>
+        <segue reference="N4t-1A-N0u"/>
+        <segue reference="bkh-Dn-ae1"/>
+        <segue reference="945-vK-tRp"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -42,7 +42,7 @@
 		942B84E5200DA6FA001F8EEB /* s_rebalance.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04ECA1B7C59EB004F4245 /* s_rebalance.caf */; };
 		942B84E6200DA6FA001F8EEB /* s_start.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04ECB1B7C59EB004F4245 /* s_start.caf */; };
 		942B84E7200DA72B001F8EEB /* TBSoundPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 942B84DF200DA00C001F8EEB /* TBSoundPlayer.m */; };
-		9435B7642021A35000F85150 /* TBSetupPayoutsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 943A4D762021925D00CA03E1 /* TBSetupPayoutsViewController.m */; };
+		9435B7642021A35000F85150 /* TBSetupPayoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 943A4D762021925D00CA03E1 /* TBSetupPayoutViewController.m */; };
 		94363BCF200E79C000D52155 /* TBError.m in Sources */ = {isa = PBXBuildFile; fileRef = 94363BCE200E79C000D52155 /* TBError.m */; };
 		94363BD0200E79C000D52155 /* TBError.m in Sources */ = {isa = PBXBuildFile; fileRef = 94363BCE200E79C000D52155 /* TBError.m */; };
 		94363BD1200E79C000D52155 /* TBError.m in Sources */ = {isa = PBXBuildFile; fileRef = 94363BCE200E79C000D52155 /* TBError.m */; };
@@ -123,6 +123,7 @@
 		9464EC241FDC301D009092A4 /* libcJSON_macOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9464EC071FDC2D44009092A4 /* libcJSON_macOS.a */; };
 		9464EC281FDC3036009092A4 /* libcJSON_iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9464EC1F1FDC2FB5009092A4 /* libcJSON_iOS.a */; };
 		9464EC2B1FDC3042009092A4 /* libcJSON_iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9464EC1F1FDC2FB5009092A4 /* libcJSON_iOS.a */; };
+		9465F96B20540768008897D5 /* TBSetupPayoutsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9465F96A20540768008897D5 /* TBSetupPayoutsViewController.m */; };
 		946C65701FFF54690094E4D8 /* server.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E11B3C3F8300A158F8 /* server.cpp */; };
 		946C65711FFF54690094E4D8 /* socket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E31B3C3F8300A158F8 /* socket.cpp */; };
 		946C65721FFF54830094E4D8 /* datetime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4D31B3C3F8300A158F8 /* datetime.cpp */; };
@@ -689,8 +690,8 @@
 		943970171B3F9DB700BB0413 /* TournamentBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TournamentBrowser.m; sourceTree = "<group>"; };
 		9439701B1B3FA61C00BB0413 /* TournamentService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TournamentService.h; sourceTree = "<group>"; };
 		9439701C1B405DC000BB0413 /* TournamentService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TournamentService.m; sourceTree = "<group>"; };
-		943A4D762021925D00CA03E1 /* TBSetupPayoutsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TBSetupPayoutsViewController.m; path = TBMac/TBSetupPayoutsViewController.m; sourceTree = "<group>"; };
-		943A4D772021925E00CA03E1 /* TBSetupPayoutsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBSetupPayoutsViewController.h; path = TBMac/TBSetupPayoutsViewController.h; sourceTree = "<group>"; };
+		943A4D762021925D00CA03E1 /* TBSetupPayoutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TBSetupPayoutViewController.m; path = TBMac/TBSetupPayoutViewController.m; sourceTree = "<group>"; };
+		943A4D772021925E00CA03E1 /* TBSetupPayoutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBSetupPayoutViewController.h; path = TBMac/TBSetupPayoutViewController.h; sourceTree = "<group>"; };
 		943F85501FF8F3E200E1C4AD /* TBMac.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = TBMac.entitlements; path = TBMac/TBMac.entitlements; sourceTree = "<group>"; };
 		943F85511FF8F3FE00E1C4AD /* TBViewer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = TBViewer.entitlements; path = TBMac/TBViewer.entitlements; sourceTree = "<group>"; };
 		943FC67020261E9C00B6AA4C /* catch.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = catch.hpp; sourceTree = "<group>"; };
@@ -748,6 +749,8 @@
 		9464EC111FDC2F1C009092A4 /* cJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cJSON.h; sourceTree = "<group>"; };
 		9464EC1F1FDC2FB5009092A4 /* libcJSON_iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libcJSON_iOS.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		9464EC2C1FDD102B009092A4 /* shared_instance.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = shared_instance.hpp; sourceTree = "<group>"; };
+		9465F96920540768008897D5 /* TBSetupPayoutsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TBSetupPayoutsViewController.h; path = TBMac/TBSetupPayoutsViewController.h; sourceTree = "<group>"; };
+		9465F96A20540768008897D5 /* TBSetupPayoutsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TBSetupPayoutsViewController.m; path = TBMac/TBSetupPayoutsViewController.m; sourceTree = "<group>"; };
 		946C65671FFF54360094E4D8 /* tournamentctl */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = tournamentctl; sourceTree = BUILT_PRODUCTS_DIR; };
 		946C656E1FFF54450094E4D8 /* program_ctl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = program_ctl.cpp; sourceTree = "<group>"; };
 		946EAFB0201343FC00BD57DE /* i_piranha_44x58.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = i_piranha_44x58.png; sourceTree = "<group>"; };
@@ -1460,8 +1463,10 @@
 				AD98D9631A7B331A00DA6B8B /* TBSetupFundingViewController.m */,
 				94C97035203A01080055A28C /* TBSetupFundingDetailsViewController.h */,
 				94C97036203A01080055A28C /* TBSetupFundingDetailsViewController.m */,
-				943A4D772021925E00CA03E1 /* TBSetupPayoutsViewController.h */,
-				943A4D762021925D00CA03E1 /* TBSetupPayoutsViewController.m */,
+				943A4D772021925E00CA03E1 /* TBSetupPayoutViewController.h */,
+				943A4D762021925D00CA03E1 /* TBSetupPayoutViewController.m */,
+				9465F96920540768008897D5 /* TBSetupPayoutsViewController.h */,
+				9465F96A20540768008897D5 /* TBSetupPayoutsViewController.m */,
 				AD98D9671A7B33F100DA6B8B /* TBSetupPlayersViewController.h */,
 				AD98D9681A7B33F100DA6B8B /* TBSetupPlayersViewController.m */,
 				AD98D96C1A7B342000DA6B8B /* TBSetupRoundsViewController.h */,
@@ -2185,7 +2190,7 @@
 				94647188200CAA9C00556467 /* TBInvertImage.c in Sources */,
 				AD8E684F1A6C606700E5A4D8 /* TBMacDocument.m in Sources */,
 				94C9703A203A09800055A28C /* TBFundingSourceFormatter.m in Sources */,
-				9435B7642021A35000F85150 /* TBSetupPayoutsViewController.m in Sources */,
+				9435B7642021A35000F85150 /* TBSetupPayoutViewController.m in Sources */,
 				949D70951B3C440D008D5CD1 /* datetime.cpp in Sources */,
 				ADD4F1251B91FE2400DAF567 /* NSObject+AssociatedObject.m in Sources */,
 				94E273FF200F2B2F0048B07A /* TBArrayEmptyTransformer.m in Sources */,
@@ -2219,6 +2224,7 @@
 				AD98D9611A7B330B00DA6B8B /* TBSetupChipsViewController.m in Sources */,
 				AD75ACEE1BA3FD8800705967 /* TBEllipseImageView.m in Sources */,
 				ADCECE7D1B7B0D9D00767DA6 /* TBResultsViewController.m in Sources */,
+				9465F96B20540768008897D5 /* TBSetupPayoutsViewController.m in Sources */,
 				94C97037203A01080055A28C /* TBSetupFundingDetailsViewController.m in Sources */,
 				945410741B6E5C56001E3373 /* NSDateFormatter+ISO8601.m in Sources */,
 				941916DC1B6F215F001253CA /* TBActionClockView.m in Sources */,
