@@ -3158,7 +3158,7 @@ Gw
         <!--Setup Payouts-->
         <scene sceneID="9Jf-sb-Tn9">
             <objects>
-                <tabViewController title="Payouts" selectedTabViewItemIndex="1" id="AUN-C9-TPx" userLabel="Setup Payouts" customClass="TBSetupPayoutsViewController" sceneMemberID="viewController">
+                <tabViewController title="Payouts" selectedTabViewItemIndex="0" id="AUN-C9-TPx" userLabel="Setup Payouts" customClass="TBSetupPayoutsViewController" sceneMemberID="viewController">
                     <tabViewItems>
                         <tabViewItem identifier="" id="xc9-gq-VJC"/>
                         <tabViewItem id="PUj-6G-ur8"/>
@@ -3170,6 +3170,7 @@ Gw
                         <font key="font" metaFont="message"/>
                         <tabViewItems/>
                         <connections>
+                            <binding destination="AUN-C9-TPx" name="selectedIndex" keyPath="self.representedObject.payout_policy" id="453-zu-gh9"/>
                             <outlet property="delegate" destination="AUN-C9-TPx" id="NjH-ts-Qxc"/>
                         </connections>
                     </tabView>
@@ -3203,16 +3204,26 @@ Gw
                                             <rect key="frame" x="20" y="23" width="41" height="22"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMinY="YES" flexibleMaxY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="100%" drawsBackground="YES" id="c6r-8v-oqB">
-                                                <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="kuo-az-uWK"/>
+                                                <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="percent" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" id="kuo-az-uWK">
+                                                    <integer key="multiplier" value="100"/>
+                                                    <real key="minimum" value="0.0"/>
+                                                    <real key="maximum" value="1"/>
+                                                </numberFormatter>
                                                 <font key="font" metaFont="system"/>
                                                 <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
+                                            <connections>
+                                                <binding destination="sCS-S6-ZDH" name="value" keyPath="self.representedObject.automatic_payouts.percent_seats_paid" id="V8Y-Dp-R4N"/>
+                                            </connections>
                                         </textField>
                                         <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RaP-0x-TJL">
                                             <rect key="frame" x="67" y="24" width="517" height="19"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                            <sliderCell key="cell" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="2o8-OA-DXV"/>
+                                            <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="1" tickMarkPosition="above" sliderType="linear" id="2o8-OA-DXV"/>
+                                            <connections>
+                                                <binding destination="sCS-S6-ZDH" name="value" keyPath="self.representedObject.automatic_payouts.percent_seats_paid" id="lq7-rB-ai8"/>
+                                            </connections>
                                         </slider>
                                     </subviews>
                                 </view>
@@ -3224,21 +3235,27 @@ Gw
                                     <rect key="frame" x="2" y="2" width="602" height="65"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
+                                        <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="txl-fk-BoB">
+                                            <rect key="frame" x="146" y="24" width="438" height="24"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                            <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="1" tickMarkPosition="below" numberOfTickMarks="5" sliderType="linear" id="FxF-DP-T78"/>
+                                            <connections>
+                                                <binding destination="sCS-S6-ZDH" name="value" keyPath="self.representedObject.automatic_payouts.payout_shape" id="F1L-hu-I0y"/>
+                                            </connections>
+                                        </slider>
                                         <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PMd-GR-R2Z">
-                                            <rect key="frame" x="20" y="23" width="120" height="22"/>
+                                            <rect key="frame" x="16" y="23" width="124" height="22"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="Same To Everyone" drawsBackground="YES" id="GU4-X2-0bR">
-                                                <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="VdU-Cv-iSU"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" state="on" title="Same To Everyone" id="GU4-X2-0bR">
+                                                <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="VdU-Cv-iSU" customClass="TBPayoutShapeNumberFormatter"/>
                                                 <font key="font" metaFont="system"/>
                                                 <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
+                                            <connections>
+                                                <binding destination="sCS-S6-ZDH" name="value" keyPath="self.representedObject.automatic_payouts.payout_shape" id="FCS-k1-3tu"/>
+                                            </connections>
                                         </textField>
-                                        <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="txl-fk-BoB">
-                                            <rect key="frame" x="146" y="24" width="438" height="19"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                            <sliderCell key="cell" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="FxF-DP-T78"/>
-                                        </slider>
                                     </subviews>
                                 </view>
                             </box>
@@ -3256,6 +3273,9 @@ Gw
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                 <font key="font" metaFont="system"/>
                                             </buttonCell>
+                                            <connections>
+                                                <binding destination="sCS-S6-ZDH" name="value" keyPath="self.representedObject.automatic_payouts.round_payouts" id="ZNe-ed-ZOn"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                 </view>

@@ -14,9 +14,14 @@
 
 @implementation TBSetupPayoutsViewController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do view setup here.
+- (void)setRepresentedObject:(id)representedObject {
+    [super setRepresentedObject:representedObject];
+
+    // set represented object for each tab view
+    for(id tabViewItem in [self tabViewItems]) {
+        NSViewController* controller = [tabViewItem viewController];
+        [controller setRepresentedObject:representedObject];
+    }
 }
 
 @end

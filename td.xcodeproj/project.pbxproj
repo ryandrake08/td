@@ -124,6 +124,7 @@
 		9464EC281FDC3036009092A4 /* libcJSON_iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9464EC1F1FDC2FB5009092A4 /* libcJSON_iOS.a */; };
 		9464EC2B1FDC3042009092A4 /* libcJSON_iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9464EC1F1FDC2FB5009092A4 /* libcJSON_iOS.a */; };
 		9465F96B20540768008897D5 /* TBSetupPayoutsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9465F96A20540768008897D5 /* TBSetupPayoutsViewController.m */; };
+		9465F96C205435EB008897D5 /* TBPayoutShapeNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 945D83932032459E00DFE032 /* TBPayoutShapeNumberFormatter.m */; };
 		946C65701FFF54690094E4D8 /* server.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E11B3C3F8300A158F8 /* server.cpp */; };
 		946C65711FFF54690094E4D8 /* socket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E31B3C3F8300A158F8 /* socket.cpp */; };
 		946C65721FFF54830094E4D8 /* datetime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4D31B3C3F8300A158F8 /* datetime.cpp */; };
@@ -2232,6 +2233,7 @@
 				94363BCF200E79C000D52155 /* TBError.m in Sources */,
 				9462A3E41B77376000B29002 /* NSView+BackgroundColor.m in Sources */,
 				949D70991B3C440D008D5CD1 /* server.cpp in Sources */,
+				9465F96C205435EB008897D5 /* TBPayoutShapeNumberFormatter.m in Sources */,
 				9439701D1B405DC000BB0413 /* TournamentService.m in Sources */,
 				AD8E684A1A6C606700E5A4D8 /* TBMacAppDelegate.m in Sources */,
 				94562E671B65D8CA0017C692 /* TBCurrencyNumberFormatter.m in Sources */,

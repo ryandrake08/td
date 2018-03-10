@@ -16,7 +16,7 @@
 
     // set represented object for each tab view
     for(id tabViewItem in [self tabViewItems]) {
-        TBTableViewController* controller = (TBTableViewController*)[tabViewItem viewController];
+        NSViewController* controller = [tabViewItem viewController];
         [controller setRepresentedObject:representedObject];
     }
 }
