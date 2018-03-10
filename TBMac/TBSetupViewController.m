@@ -30,8 +30,9 @@
 - (void)setRepresentedObject:(id)representedObject {
     [super setRepresentedObject:representedObject];
 
-    // set configuration
-    [self setConfiguration:[representedObject mutableCopy]];
+    // set configuration (use a deep copy)
+    NSData* buffer = [NSKeyedArchiver archivedDataWithRootObject:representedObject];
+    [self setConfiguration:[NSKeyedUnarchiver unarchiveObjectWithData:buffer]];
 }
 
 #pragma mark Actions
