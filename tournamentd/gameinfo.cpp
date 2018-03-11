@@ -1053,6 +1053,7 @@ void gameinfo::recalculate_payouts()
         else
         {
             // ensure all payout currencies equal globally configured payout_currency
+            // TODO: enforce this in the data structure by removing the currency field from individual payouts
             auto& use_payout(this->forced_payouts);
             for(auto payout : use_payout)
             {
@@ -1082,6 +1083,7 @@ void gameinfo::recalculate_payouts()
         else
         {
             // ensure all payout currencies equal globally configured payout_currency
+            // TODO: enforce this in the data structure by removing the currency field from individual payouts
             auto& use_payout(this->forced_payouts);
             for(auto payout : use_payout)
             {
@@ -1155,6 +1157,7 @@ void gameinfo::recalculate_payouts()
         std::transform(comp.begin(), comp.end(), this->payouts.begin(), [&](double c)
         {
             double amount(std::round(this->total_equity * c / total));
+            // TODO: payout_currency is redundant. remove the currency field from individual payouts
             return td::monetary_value(amount, this->payout_currency);
         });
 
