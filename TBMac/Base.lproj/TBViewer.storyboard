@@ -434,6 +434,8 @@
                                             </tableColumns>
                                             <connections>
                                                 <binding destination="Gv5-Ao-M0m" name="content" keyPath="arrangedObjects" id="aSU-q8-baf"/>
+                                                <binding destination="Gv5-Ao-M0m" name="selectionIndexes" keyPath="selectionIndexes" previousBinding="aSU-q8-baf" id="Orh-FR-Cqz"/>
+                                                <binding destination="Gv5-Ao-M0m" name="sortDescriptors" keyPath="sortDescriptors" previousBinding="Orh-FR-Cqz" id="WM9-Kk-soW"/>
                                                 <outlet property="delegate" destination="qiy-ws-jFz" id="Ioe-9J-3zA"/>
                                             </connections>
                                         </tableView>
@@ -552,6 +554,8 @@
                                             </tableColumns>
                                             <connections>
                                                 <binding destination="d7e-f5-xK9" name="content" keyPath="arrangedObjects" id="UeD-rP-fzN"/>
+                                                <binding destination="d7e-f5-xK9" name="selectionIndexes" keyPath="selectionIndexes" previousBinding="UeD-rP-fzN" id="VO7-za-YQu"/>
+                                                <binding destination="d7e-f5-xK9" name="sortDescriptors" keyPath="sortDescriptors" previousBinding="VO7-za-YQu" id="8R3-1a-NOd"/>
                                                 <outlet property="delegate" destination="qiy-ws-jFz" id="HZ8-WO-Uw9"/>
                                             </connections>
                                         </tableView>
@@ -635,7 +639,7 @@
                                         </connections>
                                     </textField>
                                     <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="NuA-2X-ou7">
-                                        <rect key="frame" x="0.0" y="261" width="256" height="158"/>
+                                        <rect key="frame" x="0.0" y="261" width="256" height="5"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                     </box>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="srs-dp-1KM" customClass="TBResizeTextField">
