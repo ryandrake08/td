@@ -12,14 +12,14 @@
 #import "TournamentSession.h"
 #import <Foundation/Foundation.h>
 
-// TBSetupPayoutsArrayController implements a new object
-@interface TBSetupPayoutsArrayController : NSArrayController
+// TBSetupPayoutArrayController implements a new object
+@interface TBSetupPayoutArrayController : NSArrayController
 
 @property (copy) NSString* defaultCurrency;
 
 @end
 
-@implementation TBSetupPayoutsArrayController
+@implementation TBSetupPayoutArrayController
 
 - (id)newObject {
     NSNumber* amount = @0;
@@ -30,10 +30,7 @@
 
 @end
 
-
 @interface TBSetupPayoutViewController () <NSTableViewDataSource>
-
-@property (strong) NSArray* currencyList;
 
 @end
 
@@ -42,30 +39,30 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    // set up currency list
-    _currencyList = [TBCurrencyNumberFormatter supportedCurrencies];
-    [self willChangeValueForKey:@"currencyList"];
-    [self didChangeValueForKey:@"currencyList"];
-
-
     // observe change to payout currency
     [[self KVOController] observe:self keyPath:@"representedObject.payout_currency" options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
+        // get currently configured currency
         id payoutCurrency = [self representedObject][@"payout_currency"];
-        // set default currency for new objects
-        [(TBSetupPayoutsArrayController*)[self arrayController] setDefaultCurrency:payoutCurrency];
-        // reset currencies
+
+        // set it as the default currency for new objects
+        [(TBSetupPayoutArrayController*)[self arrayController] setDefaultCurrency:payoutCurrency];
+
+        // reset all existing currencies
         for(NSMutableDictionary* payout in [[self arrayController] arrangedObjects]) {
             [payout setValue:payoutCurrency forKey:@"currency"];
         }
+
+        // TODO: only resetting the currencies for the payouts managed by this arrayController. other payouts in configuraiton will not get reset
+
+        // refresh
         [[self tableView] reloadData];
     }];
-
 }
 
 #pragma mark NSTableViewDataSource
 
 - (id)tableView:(NSTableView*)aTableView objectValueForTableColumn:(NSTableColumn*)aTableColumn row:(NSInteger)rowIndex {
-    if([[aTableColumn identifier] isEqualToString:@"Round"]) {
+    if([[aTableColumn identifier] isEqualToString:@"Place"]) {
         return @(rowIndex+1);
     }
     return nil;

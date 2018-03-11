@@ -22,7 +22,7 @@
     NSNumber* ante = @0;
     NSNumber* duration = @3600000;
 
-    NSDictionary* last = [[self content] lastObject];
+    NSDictionary* last = [[self arrangedObjects] lastObject];
     if(last != nil) {
         game_name = last[@"game_name"];
         little_blind = @([last[@"little_blind"] intValue] * 2);

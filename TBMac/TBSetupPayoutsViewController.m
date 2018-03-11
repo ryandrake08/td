@@ -8,10 +8,6 @@
 
 #import "TBSetupPayoutsViewController.h"
 
-@interface TBSetupPayoutsViewController ()
-
-@end
-
 @implementation TBSetupPayoutsViewController
 
 - (void)setRepresentedObject:(id)representedObject {

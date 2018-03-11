@@ -11,7 +11,8 @@
 #import "TBCurrencyNumberFormatter.h"
 #import "TournamentSession.h"
 
-@interface TBResultsViewController ()
+@interface TBResultsViewController () <NSTableViewDelegate>
+
 
 // global session
 @property (strong) TournamentSession* session;
