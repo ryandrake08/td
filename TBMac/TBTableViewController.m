@@ -10,4 +10,11 @@
 
 @implementation TBTableViewController
 
+#pragma mark NSTableViewDelegate
+
+- (void)tableViewSelectionDidChange:(NSNotification*)notification {
+    // all TBTableViewControllers scroll their tableViews when the selection changes
+    [[self tableView] scrollRowToVisible:[[self tableView] selectedRow]];
+}
+
 @end

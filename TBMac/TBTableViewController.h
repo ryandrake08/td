@@ -8,12 +8,15 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface TBTableViewController : NSViewController
+@interface TBTableViewController : NSViewController <NSTableViewDelegate>
 
 // always have a reference to the tableView
 @property (strong) IBOutlet NSTableView* tableView;
 
 // array controller for objects managed by this view controller
 @property (strong) IBOutlet NSArrayController* arrayController;
+
+// common delegate behavior among all table views
+- (void)tableViewSelectionDidChange:(NSNotification*)notification;
 
 @end

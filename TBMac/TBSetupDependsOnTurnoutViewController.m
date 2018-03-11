@@ -76,6 +76,8 @@
 #pragma mark NSTableViewDelegate
 
 - (void)tableViewSelectionDidChange:(NSNotification*)notification {
+    [super tableViewSelectionDidChange:notification];
+
     // set payout given selected row
     [self setPayoutForSelectedRow];
 }

@@ -1601,7 +1601,7 @@ DQ
                                                                     </connections>
                                                                 </textField>
                                                                 <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="8we-y3-Jbh">
-                                                                    <rect key="frame" x="3" y="1" width="418" height="5"/>
+                                                                    <rect key="frame" x="3" y="1" width="418" height="13"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                 </box>
                                                             </subviews>
@@ -1852,6 +1852,7 @@ Gw
                                                 <binding destination="9tq-iQ-XzF" name="content" keyPath="arrangedObjects" id="9uG-nv-Ek2"/>
                                                 <binding destination="9tq-iQ-XzF" name="selectionIndexes" keyPath="selectionIndexes" previousBinding="9uG-nv-Ek2" id="0u0-KA-6cn"/>
                                                 <binding destination="9tq-iQ-XzF" name="sortDescriptors" keyPath="sortDescriptors" previousBinding="0u0-KA-6cn" id="nhZ-cb-YwZ"/>
+                                                <outlet property="delegate" destination="d0W-cX-w0u" id="Y89-UQ-pZH"/>
                                             </connections>
                                         </tableView>
                                     </subviews>
@@ -2067,6 +2068,7 @@ Gw
                                                 <binding destination="T3Q-I4-K8A" name="content" keyPath="arrangedObjects" id="UI8-7R-UAb"/>
                                                 <binding destination="T3Q-I4-K8A" name="selectionIndexes" keyPath="selectionIndexes" previousBinding="UI8-7R-UAb" id="M1S-OJ-UMw"/>
                                                 <binding destination="T3Q-I4-K8A" name="sortDescriptors" keyPath="sortDescriptors" previousBinding="M1S-OJ-UMw" id="YYS-QF-Kts"/>
+                                                <outlet property="delegate" destination="uhM-Sw-nmb" id="XGA-6E-1w9"/>
                                             </connections>
                                         </tableView>
                                     </subviews>
@@ -2431,6 +2433,7 @@ Gw
                                                 <binding destination="VOX-b0-ObE" name="content" keyPath="arrangedObjects" id="X4W-vJ-MsX"/>
                                                 <binding destination="VOX-b0-ObE" name="selectionIndexes" keyPath="selectionIndexes" previousBinding="X4W-vJ-MsX" id="fqv-Jg-nH3"/>
                                                 <binding destination="VOX-b0-ObE" name="sortDescriptors" keyPath="sortDescriptors" previousBinding="fqv-Jg-nH3" id="YWh-23-kOz"/>
+                                                <outlet property="delegate" destination="Jw6-Xu-FJL" id="sW5-pe-X40"/>
                                                 <segue destination="Mcc-YA-kUv" kind="custom" identifier="presentFundingDetailsView" customClass="TBPopoverSegue" id="DuG-lS-mj8"/>
                                             </connections>
                                         </tableView>
@@ -2596,7 +2599,7 @@ Gw
                                             </textFieldCell>
                                         </textField>
                                         <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="eQe-ME-Bqr">
-                                            <rect key="frame" x="20" y="174" width="248" height="119"/>
+                                            <rect key="frame" x="20" y="174" width="248" height="5"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                         </box>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IlH-dW-bBl">
@@ -2650,7 +2653,7 @@ Gw
                                             </textFieldCell>
                                         </textField>
                                         <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="Y6y-3t-UsW">
-                                            <rect key="frame" x="20" y="113" width="248" height="5"/>
+                                            <rect key="frame" x="20" y="113" width="248" height="190"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                         </box>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NYE-1S-9xL">
@@ -3094,6 +3097,7 @@ Gw
                                                 <binding destination="QeO-eZ-sQK" name="selectionIndexes" keyPath="selectionIndexes" previousBinding="HOf-Oc-FPJ" id="e41-cW-FsT"/>
                                                 <binding destination="QeO-eZ-sQK" name="sortDescriptors" keyPath="sortDescriptors" previousBinding="e41-cW-FsT" id="4P3-lm-23G"/>
                                                 <outlet property="dataSource" destination="ddh-wQ-1UK" id="mTk-Sp-Ohh"/>
+                                                <outlet property="delegate" destination="ddh-wQ-1UK" id="hJR-wZ-NWx"/>
                                             </connections>
                                         </tableView>
                                     </subviews>
@@ -3461,6 +3465,7 @@ Gw
                                                 <binding destination="gM5-f0-sHO" name="selectionIndexes" keyPath="selectionIndexes" previousBinding="O23-a0-EXv" id="Tfv-iV-V65"/>
                                                 <binding destination="gM5-f0-sHO" name="sortDescriptors" keyPath="sortDescriptors" previousBinding="Tfv-iV-V65" id="n2D-Jj-sN0"/>
                                                 <outlet property="dataSource" destination="tHD-7b-Ew5" id="Pbt-PI-N3I"/>
+                                                <outlet property="delegate" destination="tHD-7b-Ew5" id="MfU-na-PIx"/>
                                             </connections>
                                         </tableView>
                                     </subviews>
@@ -3847,6 +3852,7 @@ Gw
                                                 <binding destination="uuY-v5-edB" name="content" keyPath="arrangedObjects" id="1aS-94-IRc"/>
                                                 <binding destination="uuY-v5-edB" name="selectionIndexes" keyPath="selectionIndexes" previousBinding="1aS-94-IRc" id="qTo-Ks-V5Y"/>
                                                 <binding destination="uuY-v5-edB" name="sortDescriptors" keyPath="sortDescriptors" previousBinding="qTo-Ks-V5Y" id="zao-wg-fyy"/>
+                                                <outlet property="delegate" destination="DiS-6Y-Rp9" id="xla-1Q-oEC"/>
                                             </connections>
                                         </tableView>
                                     </subviews>
