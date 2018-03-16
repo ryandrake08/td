@@ -75,6 +75,14 @@ namespace td
         monetary_value(double amt, const std::string& curr);
     };
 
+    // represents a monetary value without currency
+    struct monetary_value_nocurrency
+    {
+        double amount;
+        monetary_value_nocurrency();
+        explicit monetary_value_nocurrency(double amt);
+    };
+
     // attributes of each funding source (buy-in, addon, etc.)
     struct funding_source
     {
@@ -85,7 +93,7 @@ namespace td
         monetary_value cost;
         monetary_value commission;
         // equity currency must match configured payout_currency, so only amount is recorded here
-        double equity_amount;
+        monetary_value_nocurrency equity;
 
         funding_source();
     };

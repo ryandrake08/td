@@ -53,7 +53,7 @@
     NSNumber* chips = @5000;
     NSMutableDictionary* cost = [@{@"amount":@10, @"currency":defaultCurrencyCode} mutableCopy];
     NSMutableDictionary* commission =[ @{@"amount":@0, @"currency":defaultCurrencyCode} mutableCopy];
-    NSMutableDictionary* equity = [@{@"amount":@10, @"currency":defaultCurrencyCode} mutableCopy];
+    NSMutableDictionary* equity = [@{@"amount":@10} mutableCopy];
 
     return [@{@"name":name, @"type":type, @"chips":chips, @"cost":cost, @"commission":commission, @"equity":equity} mutableCopy];
 }

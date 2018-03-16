@@ -56,7 +56,7 @@
         [(TBFormattedKVOTableViewCell*)cell setFormatter:numberFormatter];
     } else if([[(TBKVOTableViewCell*)cell keyPath] isEqualToString:@"commission.currency"]) {
         [(TBPickableTextTableViewCell*)cell setAllowedValues:[TBCurrencyNumberFormatter supportedCodes] withTitles:[TBCurrencyNumberFormatter supportedCurrencies]];
-    } else if([[(TBKVOTableViewCell*)cell keyPath] isEqualToString:@"equity_amount"]) {
+    } else if([[(TBKVOTableViewCell*)cell keyPath] isEqualToString:@"equity.amount"]) {
         NSNumberFormatter* numberFormatter = [[NSNumberFormatter alloc] init];
         [(TBFormattedKVOTableViewCell*)cell setFormatter:numberFormatter];
     } else if([[(TBKVOTableViewCell*)cell keyPath] isEqualToString:@"chips"]) {

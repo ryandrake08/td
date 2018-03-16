@@ -30,6 +30,14 @@ td::monetary_value::monetary_value(double amt, const std::string& curr) : amount
 {
 }
 
+td::monetary_value_nocurrency::monetary_value_nocurrency() : amount(0.0)
+{
+}
+
+td::monetary_value_nocurrency::monetary_value_nocurrency(double amt) : amount(amt)
+{
+}
+
 td::funding_source::funding_source() : type(td::funding_source_type_t::buyin), forbid_after_blind_level(std::numeric_limits<std::size_t>::max()), chips(0)
 {
 }
@@ -146,6 +154,14 @@ td::monetary_value json::value() const
 }
 
 template <>
+td::monetary_value_nocurrency json::value() const
+{
+    td::monetary_value_nocurrency ret;
+    this->get_value("amount", ret.amount);
+    return ret;
+}
+
+template <>
 td::funding_source json::value() const
 {
     td::funding_source ret;
@@ -155,7 +171,7 @@ td::funding_source json::value() const
     this->get_value("chips", ret.chips);
     this->get_value("cost", ret.cost);
     this->get_value("commission", ret.commission);
-    this->get_value("equity_amount", ret.equity_amount);
+    this->get_value("equity", ret.equity);
     return ret;
 }
 
@@ -270,6 +286,12 @@ json::json(const td::monetary_value& value) : json()
 }
 
 template<>
+json::json(const td::monetary_value_nocurrency& value) : json()
+{
+    this->set_value("amount", value.amount);
+}
+
+template<>
 json::json(const td::funding_source& value) : json()
 {
     this->set_value("name", value.name);
@@ -281,7 +303,7 @@ json::json(const td::funding_source& value) : json()
     this->set_value("chips", value.chips);
     this->set_value("cost", json(value.cost));
     this->set_value("commission", value.commission);
-    this->set_value("equity_amount", value.equity_amount);
+    this->set_value("equity", value.equity);
 }
 
 template<>

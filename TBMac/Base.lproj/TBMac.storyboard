@@ -1601,7 +1601,7 @@ DQ
                                                                     </connections>
                                                                 </textField>
                                                                 <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="8we-y3-Jbh">
-                                                                    <rect key="frame" x="3" y="1" width="418" height="13"/>
+                                                                    <rect key="frame" x="3" y="1" width="418" height="5"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                 </box>
                                                             </subviews>
@@ -2653,7 +2653,7 @@ Gw
                                             </textFieldCell>
                                         </textField>
                                         <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="Y6y-3t-UsW">
-                                            <rect key="frame" x="20" y="113" width="248" height="190"/>
+                                            <rect key="frame" x="20" y="113" width="248" height="5"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                         </box>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NYE-1S-9xL">
@@ -2677,7 +2677,7 @@ Gw
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                             <connections>
-                                                <binding destination="Mcc-YA-kUv" name="value" keyPath="self.representedObject.equity_amount" id="T1b-1J-Kr8"/>
+                                                <binding destination="Mcc-YA-kUv" name="value" keyPath="self.representedObject.equity.amount" id="42D-5t-uNs"/>
                                             </connections>
                                         </textField>
                                         <textField verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oiW-p5-J73" userLabel="Equity Currency">

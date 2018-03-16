@@ -882,7 +882,7 @@ void gameinfo::fund_player(const td::player_id_t& player_id, const td::funding_s
     this->total_chips += source.chips;
     this->total_cost[source.cost.currency] += source.cost.amount;
     this->total_commission[source.commission.currency] += source.commission.amount;
-    this->total_equity += source.equity_amount;
+    this->total_equity += source.equity.amount;
 
     // automatically recalculate
     this->recalculate_payouts();

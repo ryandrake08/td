@@ -1339,7 +1339,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="keyPath" value="equity_amount"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="keyPath" value="equity.amount"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outlet property="textField" destination="CMi-C5-KvE" id="IJS-LR-PGZ"/>
