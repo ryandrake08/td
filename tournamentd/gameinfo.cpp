@@ -1,5 +1,6 @@
 #include "gameinfo.hpp"
 #include "datetime.hpp"
+#include "json.hpp"
 #include "logger.hpp"
 #include <algorithm>
 #include <cmath>

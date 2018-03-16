@@ -79,12 +79,16 @@ public:
 
     // get collection for name, by way of intermediate json items
     template <typename T>
-    bool get_values(const char* name, T& values) const
+    bool get_values(const char* name, std::vector<T>& values) const
     {
         std::vector<json> array;
         if(this->get_value(name, array))
         {
-            values = T(array.begin(), array.end());
+            values.clear();
+            for(auto& item : array)
+            {
+                values.push_back(item.value<T>());
+            }
             return true;
         }
         return false;

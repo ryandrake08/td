@@ -3,7 +3,7 @@
 #include <cstddef>
 #include <stdexcept>
 #include <string>
-#include "json.hpp"
+#include <vector>
 #include "datetime.hpp"
 
 namespace td
@@ -38,7 +38,6 @@ namespace td
 
         authorized_client();
         authorized_client(int c, const std::string& name);
-        explicit authorized_client(const json& obj);
     };
 
     // attributes of a single blind level
@@ -53,7 +52,6 @@ namespace td
         std::string reason;
 
         blind_level();
-        explicit blind_level(const json& obj);
     };
 
     // attributes of a single chip denomination
@@ -64,7 +62,6 @@ namespace td
         unsigned long count_available;
 
         chip();
-        explicit chip(const json& obj);
     };
 
     // represents a monetary value
@@ -76,7 +73,6 @@ namespace td
 
         monetary_value();
         monetary_value(double amt, const std::string& curr);
-        explicit monetary_value(const json& obj);
     };
 
     // attributes of each funding source (buy-in, addon, etc.)
@@ -92,7 +88,6 @@ namespace td
         double equity_amount;
 
         funding_source();
-        explicit funding_source(const json& obj);
     };
 
     // attributes of each player
@@ -103,7 +98,6 @@ namespace td
         datetime added_at;
 
         player();
-        explicit player(const json& obj);
     };
 
     // attributes of a single physical seat at the tournament
@@ -114,7 +108,6 @@ namespace td
 
         seat();
         seat(std::size_t t, std::size_t s);
-        explicit seat(const json& obj);
     };
 
     // represents a player's movement from one seat to another
@@ -127,7 +120,6 @@ namespace td
 
         player_movement();
         player_movement(const player_id_t& p, const std::string& n, const seat& f, const seat& t);
-        explicit player_movement(const json& obj);
     };
 
     // represents a quantity of chips distributed to each player
@@ -138,7 +130,6 @@ namespace td
 
         player_chips();
         player_chips(unsigned long d, unsigned long c);
-        explicit player_chips(const json& obj);
     };
 
     // represents a manually built payout structure
@@ -149,7 +140,6 @@ namespace td
 
         manual_payout();
         manual_payout(size_t c, const std::vector<monetary_value>& p);
-        explicit manual_payout(const json& obj);
     };
 
     // represents a tournament result
@@ -191,6 +181,5 @@ namespace td
 
         automatic_payout_parameters();
         automatic_payout_parameters(double percent_paid, bool round, double shape);
-        explicit automatic_payout_parameters(const json& obj);
     };
 }

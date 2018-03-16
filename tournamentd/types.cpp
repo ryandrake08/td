@@ -98,100 +98,95 @@ td::automatic_payout_parameters::automatic_payout_parameters(double percent_paid
 {
 }
 
-// directly get objects from json
+#include "json.hpp"
+
+// ----- convert value from json
+
+template <>
+td::authorized_client json::value() const
+{
+    td::authorized_client ret;
+    this->get_value("code", ret.code);
+    this->get_value("name", ret.name);
+    this->get_value("added_at", ret.added_at);
+    return ret;
+}
+
+template <>
+td::blind_level json::value() const
+{
+    td::blind_level ret;
+    this->get_value("game_name", ret.game_name);
+    this->get_value("little_blind", ret.little_blind);
+    this->get_value("big_blind", ret.big_blind);
+    this->get_value("ante", ret.ante);
+    this->get_value("duration", ret.duration);
+    this->get_value("break_duration", ret.break_duration);
+    this->get_value("reason", ret.reason);
+    return ret;
+}
+
+template <>
+td::chip json::value() const
+{
+    td::chip ret;
+    this->get_value("color", ret.color);
+    this->get_value("denomination", ret.denomination);
+    this->get_value("count_available", ret.count_available);
+    return ret;
+}
+
 template <>
 td::monetary_value json::value() const
 {
-    return td::monetary_value(*this);
+    td::monetary_value ret;
+    this->get_value("amount", ret.amount);
+    this->get_value("currency", ret.currency);
+    return ret;
+}
+
+template <>
+td::funding_source json::value() const
+{
+    td::funding_source ret;
+    this->get_value("name", ret.name);
+    this->get_value("type", reinterpret_cast<int&>(ret.type));
+    this->get_value("forbid_after_blind_level", ret.forbid_after_blind_level);
+    this->get_value("chips", ret.chips);
+    this->get_value("cost", ret.cost);
+    this->get_value("commission", ret.commission);
+    this->get_value("equity_amount", ret.equity_amount);
+    return ret;
+}
+
+template <>
+td::player json::value() const
+{
+    td::player ret;
+    this->get_value("player_id", ret.player_id);
+    this->get_value("name", ret.name);
+    this->get_value("added_at", ret.added_at);
+    return ret;
+}
+
+template <>
+td::manual_payout json::value() const
+{
+    td::manual_payout ret;
+    this->get_value("buyins_count", ret.buyins_count);
+    this->get_values("payouts", ret.payouts);
+    return ret;
 }
 
 template <>
 td::automatic_payout_parameters json::value() const
 {
-    return td::automatic_payout_parameters(*this);
+    td::automatic_payout_parameters ret;
+    this->get_value("percent_seats_paid", ret.percent_seats_paid);
+    this->get_value("round_payouts", ret.round_payouts);
+    this->get_value("payout_shape", ret.payout_shape);
+    return ret;
 }
-
-// ----- construct from json
-
-td::authorized_client::authorized_client(const json& obj) : authorized_client()
-{
-    obj.get_value("code", this->code);
-    obj.get_value("name", this->name);
-    obj.get_value("added_at", this->added_at);
-}
-
-td::blind_level::blind_level(const json& obj) : blind_level()
-{
-    obj.get_value("game_name", this->game_name);
-    obj.get_value("little_blind", this->little_blind);
-    obj.get_value("big_blind", this->big_blind);
-    obj.get_value("ante", this->ante);
-    obj.get_value("duration", this->duration);
-    obj.get_value("break_duration", this->break_duration);
-    obj.get_value("reason", this->reason);
-}
-
-td::chip::chip(const json& obj) : chip()
-{
-    obj.get_value("color", this->color);
-    obj.get_value("denomination", this->denomination);
-    obj.get_value("count_available", this->count_available);
-}
-
-td::monetary_value::monetary_value(const json& obj) : monetary_value()
-{
-    obj.get_value("amount", this->amount);
-    obj.get_value("currency", this->currency);
-}
-
-td::funding_source::funding_source(const json& obj) : funding_source()
-{
-    obj.get_value("name", this->name);
-    obj.get_value("type", reinterpret_cast<int&>(this->type));
-    obj.get_value("forbid_after_blind_level", this->forbid_after_blind_level);
-    obj.get_value("chips", this->chips);
-    obj.get_value("cost", this->cost);
-    obj.get_value("commission", this->commission);
-    obj.get_value("equity_amount", this->equity_amount);
-}
-
-td::player::player(const json& obj) : player()
-{
-    obj.get_value("player_id", this->player_id);
-    obj.get_value("name", this->name);
-    obj.get_value("added_at", this->added_at);
-}
-
-td::seat::seat(const json& obj) : seat()
-{
-    obj.get_value("table_number", this->table_number);
-    obj.get_value("seat_number", this->seat_number);
-}
-
-td::player_movement::player_movement(const json& obj) : player_movement()
-{
-    obj.get_value("player_id", this->player_id);
-    obj.get_value("name", this->name);
-    obj.get_value("from_table_number", this->from_seat.table_number);
-    obj.get_value("from_seat_number", this->from_seat.seat_number);
-    obj.get_value("to_table_number", this->to_seat.table_number);
-    obj.get_value("to_seat_number", this->to_seat.seat_number);
-}
-
-td::manual_payout::manual_payout(const json& obj) : manual_payout()
-{
-    obj.get_value("buyins_count", this->buyins_count);
-    obj.get_values("payouts", this->payouts);
-}
-
-td::automatic_payout_parameters::automatic_payout_parameters(const json& obj) : automatic_payout_parameters()
-{
-    obj.get_value("percent_seats_paid", this->percent_seats_paid);
-    obj.get_value("round_payouts", this->round_payouts);
-    obj.get_value("payout_shape", this->payout_shape);
-}
-
-// ----- return object from json
 
 template <>
 datetime json::value() const
