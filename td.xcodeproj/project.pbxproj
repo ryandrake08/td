@@ -775,9 +775,6 @@
 		9476F45D1B3C385400A158F8 /* TBRemote.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = TBRemote.xcassets; sourceTree = "<group>"; };
 		9476F4641B3C385400A158F8 /* TBRemote-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "TBRemote-Info.plist"; sourceTree = "<group>"; };
 		9476F4651B3C385400A158F8 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		9476F4751B3C3D6700A158F8 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
-		9476F4771B3C3D6E00A158F8 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
-		9476F4791B3C3D7400A158F8 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/CFNetwork.framework; sourceTree = DEVELOPER_DIR; };
 		9476F47C1B3C3EA700A158F8 /* TournamentConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TournamentConnection.h; sourceTree = "<group>"; };
 		9476F47D1B3C3EA700A158F8 /* TournamentConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TournamentConnection.m; sourceTree = "<group>"; };
 		9476F47E1B3C3EA700A158F8 /* TournamentDaemon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TournamentDaemon.h; sourceTree = "<group>"; };
@@ -1372,9 +1369,6 @@
 				9457DABA1FE6AAEA0047DF29 /* CoreImage.framework */,
 				9476F4F91B3C403F00A158F8 /* CFNetwork.framework */,
 				9476F4FB1B3C404400A158F8 /* CoreFoundation.framework */,
-				9476F4791B3C3D7400A158F8 /* CFNetwork.framework */,
-				9476F4771B3C3D6E00A158F8 /* CoreGraphics.framework */,
-				9476F4751B3C3D6700A158F8 /* UIKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
