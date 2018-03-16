@@ -7,6 +7,7 @@
 //
 
 #import "TBSetupPayoutViewController.h"
+#import "TBKVOTableViewCell.h"
 #import "TBCurrencyNumberFormatter.h"
 #import "TTTOrdinalNumberFormatter.h"
 
@@ -26,17 +27,18 @@
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"SetupPayoutCell" forIndexPath:indexPath];
     NSDictionary* object = [super arrangedObjectForIndexPath:indexPath];
 
-    // place
-    TTTOrdinalNumberFormatter* placeFormatter = [[TTTOrdinalNumberFormatter alloc] init];
-    NSString* placeString = [NSString localizedStringWithFormat:@"%@ place", [placeFormatter stringFromNumber:@([indexPath row] + 1)]];
+    if([[(TBKVOTableViewCell*)cell keyPath] isEqualToString:@"amount"]) {
+        // place
+        TTTOrdinalNumberFormatter* placeFormatter = [[TTTOrdinalNumberFormatter alloc] init];
+        NSString* placeString = [NSString localizedStringWithFormat:@"%@ place", [placeFormatter stringFromNumber:@([indexPath row] + 1)]];
+        [[cell textLabel] setText:placeString];
 
-    // payout
-    NSString* payoutCurrency = [self configuration][@"payout_currency"];
-    TBCurrencyNumberFormatter* payoutFormatter = [[TBCurrencyNumberFormatter alloc] init];
-    [payoutFormatter setCurrencyCode:payoutCurrency];
-    NSString* payoutString = [payoutFormatter stringFromNumber:object[@"amount"]];
-    [[cell textLabel] setText:placeString];
-    [[cell detailTextLabel] setText:payoutString];
+        // payout formatter
+        NSNumberFormatter* numberFormatter = [[NSNumberFormatter alloc] init];
+        [(TBFormattedKVOTableViewCell*)cell setFormatter:numberFormatter];
+    }
+
+    [(TBKVOTableViewCell*)cell setObject:object];
     return cell;
 }
 

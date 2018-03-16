@@ -191,7 +191,6 @@
 		94A7FCC22027E69B006AD3FC /* TBPayoutPolicyNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 94A7FCC02027E69B006AD3FC /* TBPayoutPolicyNumberFormatter.m */; };
 		94A7FCC52027EB30006AD3FC /* TBSetupDependsOnTurnoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94A7FCC42027EB30006AD3FC /* TBSetupDependsOnTurnoutViewController.m */; };
 		94A7FCC82027F54B006AD3FC /* TBSetupPayoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94A7FCC72027F54B006AD3FC /* TBSetupPayoutViewController.m */; };
-		94A7FCCB2027FB90006AD3FC /* TBSetupDetailsPayoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94A7FCCA2027FB90006AD3FC /* TBSetupDetailsPayoutViewController.m */; };
 		94AD40E120134AA900AB90A3 /* piranha.icns in Resources */ = {isa = PBXBuildFile; fileRef = 94AD40E020134AA300AB90A3 /* piranha.icns */; };
 		94B30DE320020AFF0037192E /* TBMac.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 94B30DE520020AFF0037192E /* TBMac.storyboard */; };
 		94B30DE8200217710037192E /* TBMacViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B30DE7200217710037192E /* TBMacViewController.m */; };
@@ -819,8 +818,6 @@
 		94A7FCC42027EB30006AD3FC /* TBSetupDependsOnTurnoutViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TBSetupDependsOnTurnoutViewController.m; sourceTree = "<group>"; };
 		94A7FCC62027F54B006AD3FC /* TBSetupPayoutViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBSetupPayoutViewController.h; sourceTree = "<group>"; };
 		94A7FCC72027F54B006AD3FC /* TBSetupPayoutViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TBSetupPayoutViewController.m; sourceTree = "<group>"; };
-		94A7FCC92027FB90006AD3FC /* TBSetupDetailsPayoutViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBSetupDetailsPayoutViewController.h; sourceTree = "<group>"; };
-		94A7FCCA2027FB90006AD3FC /* TBSetupDetailsPayoutViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TBSetupDetailsPayoutViewController.m; sourceTree = "<group>"; };
 		94AD40E020134AA300AB90A3 /* piranha.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = piranha.icns; sourceTree = "<group>"; };
 		94B30DE420020AFF0037192E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/TBMac.storyboard; sourceTree = "<group>"; };
 		94B30DE6200217710037192E /* TBMacViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TBMacViewController.h; path = TBMac/TBMacViewController.h; sourceTree = "<group>"; };
@@ -1175,8 +1172,6 @@
 				AD6256F21BB44E1100EE776A /* TBSetupDetailsDevicesViewController.m */,
 				AD6256A61BB44DB200EE776A /* TBSetupDetailsFundingViewController.h */,
 				AD6256A71BB44DB200EE776A /* TBSetupDetailsFundingViewController.m */,
-				94A7FCC92027FB90006AD3FC /* TBSetupDetailsPayoutViewController.h */,
-				94A7FCCA2027FB90006AD3FC /* TBSetupDetailsPayoutViewController.m */,
 				AD6256A01BB44B9A00EE776A /* TBSetupDetailsPlayerViewController.h */,
 				AD6256A11BB44B9A00EE776A /* TBSetupDetailsPlayerViewController.m */,
 				AD6256A91BB44DC700EE776A /* TBSetupDetailsRoundsViewController.h */,
@@ -2300,7 +2295,6 @@
 				ADF635EE1BAB8AF800D019AE /* tournament.cpp in Sources */,
 				94A7FCC22027E69B006AD3FC /* TBPayoutPolicyNumberFormatter.m in Sources */,
 				ADD2CC551BB3D35700DE3DE5 /* TBSetupDevicesViewController.m in Sources */,
-				94A7FCCB2027FB90006AD3FC /* TBSetupDetailsPayoutViewController.m in Sources */,
 				AD452D4F1BC6C685007CF579 /* TBChooseColorViewController.m in Sources */,
 				ADF635EF1BAB8AF800D019AE /* TournamentService.m in Sources */,
 				ADF635F01BAB8AF800D019AE /* json.cpp in Sources */,
