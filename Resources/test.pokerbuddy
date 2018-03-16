@@ -337,251 +337,251 @@
         "round_payouts": true,
         "payout_shape": 0.5
     },
-    "forced_payouts": [{ "amount": 120, "currency": "USD" },{ "amount": 40, "currency": "USD" },{ "amount": 20, "currency": "USD" }],
+    "forced_payouts": [{ "amount": 120 },{ "amount": 40 },{ "amount": 20 }],
     "manual_payouts": [
         {
             "buyins_count": 10,
-            "payouts": [{ "amount": 25, "currency": "USD" },{ "amount": 16, "currency": "USD" },{ "amount": 9, "currency": "USD" }]
+            "payouts": [{ "amount": 25 },{ "amount": 16 },{ "amount": 9 }]
         },
         {
             "buyins_count": 11,
-            "payouts": [{ "amount": 27, "currency": "USD" },{ "amount": 18, "currency": "USD" },{ "amount": 10, "currency": "USD" }]
+            "payouts": [{ "amount": 27 },{ "amount": 18 },{ "amount": 10 }]
         },
         {
             "buyins_count": 12,
-            "payouts": [{ "amount": 29, "currency": "USD" },{ "amount": 20, "currency": "USD" },{ "amount": 11, "currency": "USD" }]
+            "payouts": [{ "amount": 29 },{ "amount": 20 },{ "amount": 11 }]
         },
         {
             "buyins_count": 13,
-            "payouts": [{ "amount": 31, "currency": "USD" },{ "amount": 22, "currency": "USD" },{ "amount": 12, "currency": "USD" }]
+            "payouts": [{ "amount": 31 },{ "amount": 22 },{ "amount": 12 }]
         },
         {
             "buyins_count": 14,
-            "payouts": [{ "amount": 32, "currency": "USD" },{ "amount": 23, "currency": "USD" },{ "amount": 12, "currency": "USD" },{ "amount": 3, "currency": "USD" }]
+            "payouts": [{ "amount": 32 },{ "amount": 23 },{ "amount": 12 },{ "amount": 3 }]
         },
         {
             "buyins_count": 15,
-            "payouts": [{ "amount": 34, "currency": "USD" },{ "amount": 24, "currency": "USD" },{ "amount": 13, "currency": "USD" },{ "amount": 4, "currency": "USD" }]
+            "payouts": [{ "amount": 34 },{ "amount": 24 },{ "amount": 13 },{ "amount": 4 }]
         },
         {
             "buyins_count": 16,
-            "payouts": [{ "amount": 36, "currency": "USD" },{ "amount": 25, "currency": "USD" },{ "amount": 14, "currency": "USD" },{ "amount": 5, "currency": "USD" }]
+            "payouts": [{ "amount": 36 },{ "amount": 25 },{ "amount": 14 },{ "amount": 5 }]
         },
         {
             "buyins_count": 17,
-            "payouts": [{ "amount": 38, "currency": "USD" },{ "amount": 26, "currency": "USD" },{ "amount": 15, "currency": "USD" },{ "amount": 6, "currency": "USD" }]
+            "payouts": [{ "amount": 38 },{ "amount": 26 },{ "amount": 15 },{ "amount": 6 }]
         },
         {
             "buyins_count": 18,
-            "payouts": [{ "amount": 39, "currency": "USD" },{ "amount": 27, "currency": "USD" },{ "amount": 16, "currency": "USD" },{ "amount": 6, "currency": "USD" },{ "amount": 2, "currency": "USD" }]
+            "payouts": [{ "amount": 39 },{ "amount": 27 },{ "amount": 16 },{ "amount": 6 },{ "amount": 2 }]
         },
         {
             "buyins_count": 19,
-            "payouts": [{ "amount": 40, "currency": "USD" },{ "amount": 28, "currency": "USD" },{ "amount": 17, "currency": "USD" },{ "amount": 7, "currency": "USD" },{ "amount": 3, "currency": "USD" }]
+            "payouts": [{ "amount": 40 },{ "amount": 28 },{ "amount": 17 },{ "amount": 7 },{ "amount": 3 }]
         },
         {
             "buyins_count": 20,
-            "payouts": [{ "amount": 41, "currency": "USD" },{ "amount": 29, "currency": "USD" },{ "amount": 18, "currency": "USD" },{ "amount": 8, "currency": "USD" },{ "amount": 4, "currency": "USD" }]
+            "payouts": [{ "amount": 41 },{ "amount": 29 },{ "amount": 18 },{ "amount": 8 },{ "amount": 4 }]
         },
         {
             "buyins_count": 21,
-            "payouts": [{ "amount": 42, "currency": "USD" },{ "amount": 30, "currency": "USD" },{ "amount": 19, "currency": "USD" },{ "amount": 9, "currency": "USD" },{ "amount": 5, "currency": "USD" }]
+            "payouts": [{ "amount": 42 },{ "amount": 30 },{ "amount": 19 },{ "amount": 9 },{ "amount": 5 }]
         },
         {
             "buyins_count": 22,
-            "payouts": [{ "amount": 43, "currency": "USD" },{ "amount": 31, "currency": "USD" },{ "amount": 20, "currency": "USD" },{ "amount": 9, "currency": "USD" },{ "amount": 5, "currency": "USD" },{ "amount": 2, "currency": "USD" }]
+            "payouts": [{ "amount": 43 },{ "amount": 31 },{ "amount": 20 },{ "amount": 9 },{ "amount": 5 },{ "amount": 2 }]
         },
         {
             "buyins_count": 23,
-            "payouts": [{ "amount": 44, "currency": "USD" },{ "amount": 32, "currency": "USD" },{ "amount": 21, "currency": "USD" },{ "amount": 10, "currency": "USD" },{ "amount": 6, "currency": "USD" },{ "amount": 2, "currency": "USD" }]
+            "payouts": [{ "amount": 44 },{ "amount": 32 },{ "amount": 21 },{ "amount": 10 },{ "amount": 6 },{ "amount": 2 }]
         },
         {
             "buyins_count": 24,
-            "payouts": [{ "amount": 45, "currency": "USD" },{ "amount": 33, "currency": "USD" },{ "amount": 22, "currency": "USD" },{ "amount": 10, "currency": "USD" },{ "amount": 7, "currency": "USD" },{ "amount": 3, "currency": "USD" }]
+            "payouts": [{ "amount": 45 },{ "amount": 33 },{ "amount": 22 },{ "amount": 10 },{ "amount": 7 },{ "amount": 3 }]
         },
         {
             "buyins_count": 25,
-            "payouts": [{ "amount": 46, "currency": "USD" },{ "amount": 34, "currency": "USD" },{ "amount": 23, "currency": "USD" },{ "amount": 12, "currency": "USD" },{ "amount": 7, "currency": "USD" },{ "amount": 3, "currency": "USD" }]
+            "payouts": [{ "amount": 46 },{ "amount": 34 },{ "amount": 23 },{ "amount": 12 },{ "amount": 7 },{ "amount": 3 }]
         },
         {
             "buyins_count": 26,
-            "payouts": [{ "amount": 47, "currency": "USD" },{ "amount": 34, "currency": "USD" },{ "amount": 23, "currency": "USD" },{ "amount": 14, "currency": "USD" },{ "amount": 8, "currency": "USD" },{ "amount": 4, "currency": "USD" }]
+            "payouts": [{ "amount": 47 },{ "amount": 34 },{ "amount": 23 },{ "amount": 14 },{ "amount": 8 },{ "amount": 4 }]
         },
         {
             "buyins_count": 27,
-            "payouts": [{ "amount": 48, "currency": "USD" },{ "amount": 35, "currency": "USD" },{ "amount": 24, "currency": "USD" },{ "amount": 15, "currency": "USD" },{ "amount": 8, "currency": "USD" },{ "amount": 5, "currency": "USD" }]
+            "payouts": [{ "amount": 48 },{ "amount": 35 },{ "amount": 24 },{ "amount": 15 },{ "amount": 8 },{ "amount": 5 }]
         },
         {
             "buyins_count": 28,
-            "payouts": [{ "amount": 49, "currency": "USD" },{ "amount": 36, "currency": "USD" },{ "amount": 25, "currency": "USD" },{ "amount": 16, "currency": "USD" },{ "amount": 9, "currency": "USD" },{ "amount": 5, "currency": "USD" }]
+            "payouts": [{ "amount": 49 },{ "amount": 36 },{ "amount": 25 },{ "amount": 16 },{ "amount": 9 },{ "amount": 5 }]
         },
         {
             "buyins_count": 29,
-            "payouts": [{ "amount": 50, "currency": "USD" },{ "amount": 37, "currency": "USD" },{ "amount": 27, "currency": "USD" },{ "amount": 16, "currency": "USD" },{ "amount": 9, "currency": "USD" },{ "amount": 6, "currency": "USD" }]
+            "payouts": [{ "amount": 50 },{ "amount": 37 },{ "amount": 27 },{ "amount": 16 },{ "amount": 9 },{ "amount": 6 }]
         },
         {
             "buyins_count": 30,
-            "payouts": [{ "amount": 51, "currency": "USD" },{ "amount": 38, "currency": "USD" },{ "amount": 27, "currency": "USD" },{ "amount": 16, "currency": "USD" },{ "amount": 10, "currency": "USD" },{ "amount": 6, "currency": "USD" },{ "amount": 2, "currency": "USD" }]
+            "payouts": [{ "amount": 51 },{ "amount": 38 },{ "amount": 27 },{ "amount": 16 },{ "amount": 10 },{ "amount": 6 },{ "amount": 2 }]
         },
         {
             "buyins_count": 31,
-            "payouts": [{ "amount": 52, "currency": "USD" },{ "amount": 39, "currency": "USD" },{ "amount": 27, "currency": "USD" },{ "amount": 17, "currency": "USD" },{ "amount": 10, "currency": "USD" },{ "amount": 7, "currency": "USD" },{ "amount": 3, "currency": "USD" }]
+            "payouts": [{ "amount": 52 },{ "amount": 39 },{ "amount": 27 },{ "amount": 17 },{ "amount": 10 },{ "amount": 7 },{ "amount": 3 }]
         },
         {
             "buyins_count": 32,
-            "payouts": [{ "amount": 53, "currency": "USD" },{ "amount": 40, "currency": "USD" },{ "amount": 28, "currency": "USD" },{ "amount": 17, "currency": "USD" },{ "amount": 11, "currency": "USD" },{ "amount": 7, "currency": "USD" },{ "amount": 4, "currency": "USD" }]
+            "payouts": [{ "amount": 53 },{ "amount": 40 },{ "amount": 28 },{ "amount": 17 },{ "amount": 11 },{ "amount": 7 },{ "amount": 4 }]
         },
         {
             "buyins_count": 33,
-            "payouts": [{ "amount": 54, "currency": "USD" },{ "amount": 41, "currency": "USD" },{ "amount": 29, "currency": "USD" },{ "amount": 18, "currency": "USD" },{ "amount": 11, "currency": "USD" },{ "amount": 8, "currency": "USD" },{ "amount": 4, "currency": "USD" }]
+            "payouts": [{ "amount": 54 },{ "amount": 41 },{ "amount": 29 },{ "amount": 18 },{ "amount": 11 },{ "amount": 8 },{ "amount": 4 }]
         },
         {
             "buyins_count": 34,
-            "payouts": [{ "amount": 55, "currency": "USD" },{ "amount": 42, "currency": "USD" },{ "amount": 29, "currency": "USD" },{ "amount": 18, "currency": "USD" },{ "amount": 12, "currency": "USD" },{ "amount": 8, "currency": "USD" },{ "amount": 4, "currency": "USD" },{ "amount": 2, "currency": "USD" }]
+            "payouts": [{ "amount": 55 },{ "amount": 42 },{ "amount": 29 },{ "amount": 18 },{ "amount": 12 },{ "amount": 8 },{ "amount": 4 },{ "amount": 2 }]
         },
         {
             "buyins_count": 35,
-            "payouts": [{ "amount": 56, "currency": "USD" },{ "amount": 43, "currency": "USD" },{ "amount": 30, "currency": "USD" },{ "amount": 18, "currency": "USD" },{ "amount": 12, "currency": "USD" },{ "amount": 8, "currency": "USD" },{ "amount": 5, "currency": "USD" },{ "amount": 3, "currency": "USD" }]
+            "payouts": [{ "amount": 56 },{ "amount": 43 },{ "amount": 30 },{ "amount": 18 },{ "amount": 12 },{ "amount": 8 },{ "amount": 5 },{ "amount": 3 }]
         },
         {
             "buyins_count": 36,
-            "payouts": [{ "amount": 57, "currency": "USD" },{ "amount": 44, "currency": "USD" },{ "amount": 30, "currency": "USD" },{ "amount": 18, "currency": "USD" },{ "amount": 12, "currency": "USD" },{ "amount": 9, "currency": "USD" },{ "amount": 5, "currency": "USD" },{ "amount": 3, "currency": "USD" },{ "amount": 2, "currency": "USD" }]
+            "payouts": [{ "amount": 57 },{ "amount": 44 },{ "amount": 30 },{ "amount": 18 },{ "amount": 12 },{ "amount": 9 },{ "amount": 5 },{ "amount": 3 },{ "amount": 2 }]
         },
         {
             "buyins_count": 37,
-            "payouts": [{ "amount": 58, "currency": "USD" },{ "amount": 45, "currency": "USD" },{ "amount": 30, "currency": "USD" },{ "amount": 18, "currency": "USD" },{ "amount": 13, "currency": "USD" },{ "amount": 9, "currency": "USD" },{ "amount": 6, "currency": "USD" },{ "amount": 4, "currency": "USD" },{ "amount": 2, "currency": "USD" }]
+            "payouts": [{ "amount": 58 },{ "amount": 45 },{ "amount": 30 },{ "amount": 18 },{ "amount": 13 },{ "amount": 9 },{ "amount": 6 },{ "amount": 4 },{ "amount": 2 }]
         },
         {
             "buyins_count": 38,
-            "payouts": [{ "amount": 59, "currency": "USD" },{ "amount": 46, "currency": "USD" },{ "amount": 31, "currency": "USD" },{ "amount": 19, "currency": "USD" },{ "amount": 13, "currency": "USD" },{ "amount": 9, "currency": "USD" },{ "amount": 6, "currency": "USD" },{ "amount": 4, "currency": "USD" },{ "amount": 3, "currency": "USD" }]
+            "payouts": [{ "amount": 59 },{ "amount": 46 },{ "amount": 31 },{ "amount": 19 },{ "amount": 13 },{ "amount": 9 },{ "amount": 6 },{ "amount": 4 },{ "amount": 3 }]
         },
         {
             "buyins_count": 39,
-            "payouts": [{ "amount": 61, "currency": "USD" },{ "amount": 47, "currency": "USD" },{ "amount": 31, "currency": "USD" },{ "amount": 20, "currency": "USD" },{ "amount": 13, "currency": "USD" },{ "amount": 9, "currency": "USD" },{ "amount": 6, "currency": "USD" },{ "amount": 5, "currency": "USD" },{ "amount": 3, "currency": "USD" }]
+            "payouts": [{ "amount": 61 },{ "amount": 47 },{ "amount": 31 },{ "amount": 20 },{ "amount": 13 },{ "amount": 9 },{ "amount": 6 },{ "amount": 5 },{ "amount": 3 }]
         },
         {
             "buyins_count": 40,
-            "payouts": [{ "amount": 62, "currency": "USD" },{ "amount": 48, "currency": "USD" },{ "amount": 31, "currency": "USD" },{ "amount": 21, "currency": "USD" },{ "amount": 14, "currency": "USD" },{ "amount": 10, "currency": "USD" },{ "amount": 6, "currency": "USD" },{ "amount": 5, "currency": "USD" },{ "amount": 3, "currency": "USD" }]
+            "payouts": [{ "amount": 62 },{ "amount": 48 },{ "amount": 31 },{ "amount": 21 },{ "amount": 14 },{ "amount": 10 },{ "amount": 6 },{ "amount": 5 },{ "amount": 3 }]
         },
         {
             "buyins_count": 41,
-            "payouts": [{ "amount": 63, "currency": "USD" },{ "amount": 49, "currency": "USD" },{ "amount": 31, "currency": "USD" },{ "amount": 22, "currency": "USD" },{ "amount": 14, "currency": "USD" },{ "amount": 10, "currency": "USD" },{ "amount": 7, "currency": "USD" },{ "amount": 5, "currency": "USD" },{ "amount": 4, "currency": "USD" }]
+            "payouts": [{ "amount": 63 },{ "amount": 49 },{ "amount": 31 },{ "amount": 22 },{ "amount": 14 },{ "amount": 10 },{ "amount": 7 },{ "amount": 5 },{ "amount": 4 }]
         },
         {
             "buyins_count": 42,
-            "payouts": [{ "amount": 64, "currency": "USD" },{ "amount": 49, "currency": "USD" },{ "amount": 31, "currency": "USD" },{ "amount": 22, "currency": "USD" },{ "amount": 14, "currency": "USD" },{ "amount": 11, "currency": "USD" },{ "amount": 7, "currency": "USD" },{ "amount": 5, "currency": "USD" },{ "amount": 4, "currency": "USD" },{ "amount": 3, "currency": "USD" }]
+            "payouts": [{ "amount": 64 },{ "amount": 49 },{ "amount": 31 },{ "amount": 22 },{ "amount": 14 },{ "amount": 11 },{ "amount": 7 },{ "amount": 5 },{ "amount": 4 },{ "amount": 3 }]
         },
         {
             "buyins_count": 43,
-            "payouts": [{ "amount": 65, "currency": "USD" },{ "amount": 50, "currency": "USD" },{ "amount": 32, "currency": "USD" },{ "amount": 23, "currency": "USD" },{ "amount": 15, "currency": "USD" },{ "amount": 11, "currency": "USD" },{ "amount": 7, "currency": "USD" },{ "amount": 5, "currency": "USD" },{ "amount": 4, "currency": "USD" },{ "amount": 3, "currency": "USD" }]
+            "payouts": [{ "amount": 65 },{ "amount": 50 },{ "amount": 32 },{ "amount": 23 },{ "amount": 15 },{ "amount": 11 },{ "amount": 7 },{ "amount": 5 },{ "amount": 4 },{ "amount": 3 }]
         },
         {
             "buyins_count": 44,
-            "payouts": [{ "amount": 66, "currency": "USD" },{ "amount": 51, "currency": "USD" },{ "amount": 33, "currency": "USD" },{ "amount": 23, "currency": "USD" },{ "amount": 15, "currency": "USD" },{ "amount": 11, "currency": "USD" },{ "amount": 8, "currency": "USD" },{ "amount": 6, "currency": "USD" },{ "amount": 4, "currency": "USD" },{ "amount": 3, "currency": "USD" }]
+            "payouts": [{ "amount": 66 },{ "amount": 51 },{ "amount": 33 },{ "amount": 23 },{ "amount": 15 },{ "amount": 11 },{ "amount": 8 },{ "amount": 6 },{ "amount": 4 },{ "amount": 3 }]
         },
         {
             "buyins_count": 45,
-            "payouts": [{ "amount": 67, "currency": "USD" },{ "amount": 52, "currency": "USD" },{ "amount": 34, "currency": "USD" },{ "amount": 24, "currency": "USD" },{ "amount": 15, "currency": "USD" },{ "amount": 11, "currency": "USD" },{ "amount": 8, "currency": "USD" },{ "amount": 6, "currency": "USD" },{ "amount": 5, "currency": "USD" },{ "amount": 3, "currency": "USD" }]
+            "payouts": [{ "amount": 67 },{ "amount": 52 },{ "amount": 34 },{ "amount": 24 },{ "amount": 15 },{ "amount": 11 },{ "amount": 8 },{ "amount": 6 },{ "amount": 5 },{ "amount": 3 }]
         },
         {
             "buyins_count": 46,
-            "payouts": [{ "amount": 68, "currency": "USD" },{ "amount": 52, "currency": "USD" },{ "amount": 34, "currency": "USD" },{ "amount": 24, "currency": "USD" },{ "amount": 16, "currency": "USD" },{ "amount": 11, "currency": "USD" },{ "amount": 8, "currency": "USD" },{ "amount": 6, "currency": "USD" },{ "amount": 5, "currency": "USD" },{ "amount": 4, "currency": "USD" },{ "amount": 2, "currency": "USD" }]
+            "payouts": [{ "amount": 68 },{ "amount": 52 },{ "amount": 34 },{ "amount": 24 },{ "amount": 16 },{ "amount": 11 },{ "amount": 8 },{ "amount": 6 },{ "amount": 5 },{ "amount": 4 },{ "amount": 2 }]
         },
         {
             "buyins_count": 47,
-            "payouts": [{ "amount": 69, "currency": "USD" },{ "amount": 53, "currency": "USD" },{ "amount": 34, "currency": "USD" },{ "amount": 25, "currency": "USD" },{ "amount": 16, "currency": "USD" },{ "amount": 11, "currency": "USD" },{ "amount": 8, "currency": "USD" },{ "amount": 7, "currency": "USD" },{ "amount": 5, "currency": "USD" },{ "amount": 4, "currency": "USD" },{ "amount": 3, "currency": "USD" }]
+            "payouts": [{ "amount": 69 },{ "amount": 53 },{ "amount": 34 },{ "amount": 25 },{ "amount": 16 },{ "amount": 11 },{ "amount": 8 },{ "amount": 7 },{ "amount": 5 },{ "amount": 4 },{ "amount": 3 }]
         },
         {
             "buyins_count": 48,
-            "payouts": [{ "amount": 69, "currency": "USD" },{ "amount": 54, "currency": "USD" },{ "amount": 35, "currency": "USD" },{ "amount": 25, "currency": "USD" },{ "amount": 16, "currency": "USD" },{ "amount": 12, "currency": "USD" },{ "amount": 9, "currency": "USD" },{ "amount": 7, "currency": "USD" },{ "amount": 6, "currency": "USD" },{ "amount": 4, "currency": "USD" },{ "amount": 3, "currency": "USD" }]
+            "payouts": [{ "amount": 69 },{ "amount": 54 },{ "amount": 35 },{ "amount": 25 },{ "amount": 16 },{ "amount": 12 },{ "amount": 9 },{ "amount": 7 },{ "amount": 6 },{ "amount": 4 },{ "amount": 3 }]
         },
         {
             "buyins_count": 49,
-            "payouts": [{ "amount": 70, "currency": "USD" },{ "amount": 55, "currency": "USD" },{ "amount": 35, "currency": "USD" },{ "amount": 25, "currency": "USD" },{ "amount": 16, "currency": "USD" },{ "amount": 12, "currency": "USD" },{ "amount": 10, "currency": "USD" },{ "amount": 8, "currency": "USD" },{ "amount": 6, "currency": "USD" },{ "amount": 5, "currency": "USD" },{ "amount": 3, "currency": "USD" }]
+            "payouts": [{ "amount": 70 },{ "amount": 55 },{ "amount": 35 },{ "amount": 25 },{ "amount": 16 },{ "amount": 12 },{ "amount": 10 },{ "amount": 8 },{ "amount": 6 },{ "amount": 5 },{ "amount": 3 }]
         },
         {
             "buyins_count": 50,
-            "payouts": [{ "amount": 70, "currency": "USD" },{ "amount": 55, "currency": "USD" },{ "amount": 36, "currency": "USD" },{ "amount": 26, "currency": "USD" },{ "amount": 16, "currency": "USD" },{ "amount": 12, "currency": "USD" },{ "amount": 10, "currency": "USD" },{ "amount": 8, "currency": "USD" },{ "amount": 6, "currency": "USD" },{ "amount": 5, "currency": "USD" },{ "amount": 4, "currency": "USD" },{ "amount": 2, "currency": "USD" }]
+            "payouts": [{ "amount": 70 },{ "amount": 55 },{ "amount": 36 },{ "amount": 26 },{ "amount": 16 },{ "amount": 12 },{ "amount": 10 },{ "amount": 8 },{ "amount": 6 },{ "amount": 5 },{ "amount": 4 },{ "amount": 2 }]
         },
         {
             "buyins_count": 51,
-            "payouts": [{ "amount": 72, "currency": "USD" },{ "amount": 56, "currency": "USD" },{ "amount": 36, "currency": "USD" },{ "amount": 26, "currency": "USD" },{ "amount": 17, "currency": "USD" },{ "amount": 12, "currency": "USD" },{ "amount": 10, "currency": "USD" },{ "amount": 8, "currency": "USD" },{ "amount": 6, "currency": "USD" },{ "amount": 5, "currency": "USD" },{ "amount": 4, "currency": "USD" },{ "amount": 3, "currency": "USD" }]
+            "payouts": [{ "amount": 72 },{ "amount": 56 },{ "amount": 36 },{ "amount": 26 },{ "amount": 17 },{ "amount": 12 },{ "amount": 10 },{ "amount": 8 },{ "amount": 6 },{ "amount": 5 },{ "amount": 4 },{ "amount": 3 }]
         },
         {
             "buyins_count": 52,
-            "payouts": [{ "amount": 72, "currency": "USD" },{ "amount": 56, "currency": "USD" },{ "amount": 37, "currency": "USD" },{ "amount": 27, "currency": "USD" },{ "amount": 18, "currency": "USD" },{ "amount": 13, "currency": "USD" },{ "amount": 11, "currency": "USD" },{ "amount": 8, "currency": "USD" },{ "amount": 6, "currency": "USD" },{ "amount": 5, "currency": "USD" },{ "amount": 4, "currency": "USD" },{ "amount": 3, "currency": "USD" }]
+            "payouts": [{ "amount": 72 },{ "amount": 56 },{ "amount": 37 },{ "amount": 27 },{ "amount": 18 },{ "amount": 13 },{ "amount": 11 },{ "amount": 8 },{ "amount": 6 },{ "amount": 5 },{ "amount": 4 },{ "amount": 3 }]
         },
         {
             "buyins_count": 53,
-            "payouts": [{ "amount": 73, "currency": "USD" },{ "amount": 57, "currency": "USD" },{ "amount": 37, "currency": "USD" },{ "amount": 27, "currency": "USD" },{ "amount": 18, "currency": "USD" },{ "amount": 13, "currency": "USD" },{ "amount": 11, "currency": "USD" },{ "amount": 9, "currency": "USD" },{ "amount": 7, "currency": "USD" },{ "amount": 6, "currency": "USD" },{ "amount": 4, "currency": "USD" },{ "amount": 3, "currency": "USD" }]
+            "payouts": [{ "amount": 73 },{ "amount": 57 },{ "amount": 37 },{ "amount": 27 },{ "amount": 18 },{ "amount": 13 },{ "amount": 11 },{ "amount": 9 },{ "amount": 7 },{ "amount": 6 },{ "amount": 4 },{ "amount": 3 }]
         },
         {
             "buyins_count": 54,
-            "payouts": [{ "amount": 74, "currency": "USD" },{ "amount": 57, "currency": "USD" },{ "amount": 38, "currency": "USD" },{ "amount": 27, "currency": "USD" },{ "amount": 18, "currency": "USD" },{ "amount": 13, "currency": "USD" },{ "amount": 11, "currency": "USD" },{ "amount": 9, "currency": "USD" },{ "amount": 7, "currency": "USD" },{ "amount": 6, "currency": "USD" },{ "amount": 5, "currency": "USD" },{ "amount": 3, "currency": "USD" },{ "amount": 2, "currency": "USD" }]
+            "payouts": [{ "amount": 74 },{ "amount": 57 },{ "amount": 38 },{ "amount": 27 },{ "amount": 18 },{ "amount": 13 },{ "amount": 11 },{ "amount": 9 },{ "amount": 7 },{ "amount": 6 },{ "amount": 5 },{ "amount": 3 },{ "amount": 2 }]
         },
         {
             "buyins_count": 55,
-            "payouts": [{ "amount": 74, "currency": "USD" },{ "amount": 57, "currency": "USD" },{ "amount": 38, "currency": "USD" },{ "amount": 27, "currency": "USD" },{ "amount": 20, "currency": "USD" },{ "amount": 14, "currency": "USD" },{ "amount": 11, "currency": "USD" },{ "amount": 9, "currency": "USD" },{ "amount": 7, "currency": "USD" },{ "amount": 6, "currency": "USD" },{ "amount": 5, "currency": "USD" },{ "amount": 4, "currency": "USD" },{ "amount": 3, "currency": "USD" }]
+            "payouts": [{ "amount": 74 },{ "amount": 57 },{ "amount": 38 },{ "amount": 27 },{ "amount": 20 },{ "amount": 14 },{ "amount": 11 },{ "amount": 9 },{ "amount": 7 },{ "amount": 6 },{ "amount": 5 },{ "amount": 4 },{ "amount": 3 }]
         },
         {
             "buyins_count": 56,
-            "payouts": [{ "amount": 74, "currency": "USD" },{ "amount": 58, "currency": "USD" },{ "amount": 39, "currency": "USD" },{ "amount": 28, "currency": "USD" },{ "amount": 20, "currency": "USD" },{ "amount": 15, "currency": "USD" },{ "amount": 12, "currency": "USD" },{ "amount": 9, "currency": "USD" },{ "amount": 7, "currency": "USD" },{ "amount": 6, "currency": "USD" },{ "amount": 5, "currency": "USD" },{ "amount": 4, "currency": "USD" },{ "amount": 3, "currency": "USD" }]
+            "payouts": [{ "amount": 74 },{ "amount": 58 },{ "amount": 39 },{ "amount": 28 },{ "amount": 20 },{ "amount": 15 },{ "amount": 12 },{ "amount": 9 },{ "amount": 7 },{ "amount": 6 },{ "amount": 5 },{ "amount": 4 },{ "amount": 3 }]
         },
         {
             "buyins_count": 57,
-            "payouts": [{ "amount": 76, "currency": "USD" },{ "amount": 58, "currency": "USD" },{ "amount": 39, "currency": "USD" },{ "amount": 28, "currency": "USD" },{ "amount": 20, "currency": "USD" },{ "amount": 16, "currency": "USD" },{ "amount": 12, "currency": "USD" },{ "amount": 10, "currency": "USD" },{ "amount": 8, "currency": "USD" },{ "amount": 6, "currency": "USD" },{ "amount": 5, "currency": "USD" },{ "amount": 4, "currency": "USD" },{ "amount": 3, "currency": "USD" }]
+            "payouts": [{ "amount": 76 },{ "amount": 58 },{ "amount": 39 },{ "amount": 28 },{ "amount": 20 },{ "amount": 16 },{ "amount": 12 },{ "amount": 10 },{ "amount": 8 },{ "amount": 6 },{ "amount": 5 },{ "amount": 4 },{ "amount": 3 }]
         },
         {
             "buyins_count": 58,
-            "payouts": [{ "amount": 76, "currency": "USD" },{ "amount": 58, "currency": "USD" },{ "amount": 39, "currency": "USD" },{ "amount": 28, "currency": "USD" },{ "amount": 21, "currency": "USD" },{ "amount": 17, "currency": "USD" },{ "amount": 13, "currency": "USD" },{ "amount": 10, "currency": "USD" },{ "amount": 8, "currency": "USD" },{ "amount": 6, "currency": "USD" },{ "amount": 5, "currency": "USD" },{ "amount": 4, "currency": "USD" },{ "amount": 3, "currency": "USD" },{ "amount": 2, "currency": "USD" }]
+            "payouts": [{ "amount": 76 },{ "amount": 58 },{ "amount": 39 },{ "amount": 28 },{ "amount": 21 },{ "amount": 17 },{ "amount": 13 },{ "amount": 10 },{ "amount": 8 },{ "amount": 6 },{ "amount": 5 },{ "amount": 4 },{ "amount": 3 },{ "amount": 2 }]
         },
         {
             "buyins_count": 59,
-            "payouts": [{ "amount": 77, "currency": "USD" },{ "amount": 60, "currency": "USD" },{ "amount": 40, "currency": "USD" },{ "amount": 29, "currency": "USD" },{ "amount": 21, "currency": "USD" },{ "amount": 17, "currency": "USD" },{ "amount": 13, "currency": "USD" },{ "amount": 10, "currency": "USD" },{ "amount": 8, "currency": "USD" },{ "amount": 6, "currency": "USD" },{ "amount": 5, "currency": "USD" },{ "amount": 4, "currency": "USD" },{ "amount": 3, "currency": "USD" },{ "amount": 2, "currency": "USD" }]
+            "payouts": [{ "amount": 77 },{ "amount": 60 },{ "amount": 40 },{ "amount": 29 },{ "amount": 21 },{ "amount": 17 },{ "amount": 13 },{ "amount": 10 },{ "amount": 8 },{ "amount": 6 },{ "amount": 5 },{ "amount": 4 },{ "amount": 3 },{ "amount": 2 }]
         },
         {
             "buyins_count": 60,
-            "payouts": [{ "amount": 77, "currency": "USD" },{ "amount": 60, "currency": "USD" },{ "amount": 41, "currency": "USD" },{ "amount": 30, "currency": "USD" },{ "amount": 22, "currency": "USD" },{ "amount": 18, "currency": "USD" },{ "amount": 14, "currency": "USD" },{ "amount": 10, "currency": "USD" },{ "amount": 8, "currency": "USD" },{ "amount": 6, "currency": "USD" },{ "amount": 5, "currency": "USD" },{ "amount": 4, "currency": "USD" },{ "amount": 3, "currency": "USD" },{ "amount": 2, "currency": "USD" }]
+            "payouts": [{ "amount": 77 },{ "amount": 60 },{ "amount": 41 },{ "amount": 30 },{ "amount": 22 },{ "amount": 18 },{ "amount": 14 },{ "amount": 10 },{ "amount": 8 },{ "amount": 6 },{ "amount": 5 },{ "amount": 4 },{ "amount": 3 },{ "amount": 2 }]
         },
         {
             "buyins_count": 61,
-            "payouts": [{ "amount": 78, "currency": "USD" },{ "amount": 60, "currency": "USD" },{ "amount": 42, "currency": "USD" },{ "amount": 30, "currency": "USD" },{ "amount": 22, "currency": "USD" },{ "amount": 18, "currency": "USD" },{ "amount": 14, "currency": "USD" },{ "amount": 10, "currency": "USD" },{ "amount": 9, "currency": "USD" },{ "amount": 7, "currency": "USD" },{ "amount": 6, "currency": "USD" },{ "amount": 4, "currency": "USD" },{ "amount": 3, "currency": "USD" },{ "amount": 2, "currency": "USD" }]
+            "payouts": [{ "amount": 78 },{ "amount": 60 },{ "amount": 42 },{ "amount": 30 },{ "amount": 22 },{ "amount": 18 },{ "amount": 14 },{ "amount": 10 },{ "amount": 9 },{ "amount": 7 },{ "amount": 6 },{ "amount": 4 },{ "amount": 3 },{ "amount": 2 }]
         },
         {
             "buyins_count": 62,
-            "payouts": [{ "amount": 78, "currency": "USD" },{ "amount": 60, "currency": "USD" },{ "amount": 43, "currency": "USD" },{ "amount": 31, "currency": "USD" },{ "amount": 23, "currency": "USD" },{ "amount": 19, "currency": "USD" },{ "amount": 15, "currency": "USD" },{ "amount": 10, "currency": "USD" },{ "amount": 9, "currency": "USD" },{ "amount": 7, "currency": "USD" },{ "amount": 6, "currency": "USD" },{ "amount": 4, "currency": "USD" },{ "amount": 3, "currency": "USD" },{ "amount": 2, "currency": "USD" }]
+            "payouts": [{ "amount": 78 },{ "amount": 60 },{ "amount": 43 },{ "amount": 31 },{ "amount": 23 },{ "amount": 19 },{ "amount": 15 },{ "amount": 10 },{ "amount": 9 },{ "amount": 7 },{ "amount": 6 },{ "amount": 4 },{ "amount": 3 },{ "amount": 2 }]
         },
         {
             "buyins_count": 63,
-            "payouts": [{ "amount": 80, "currency": "USD" },{ "amount": 62, "currency": "USD" },{ "amount": 44, "currency": "USD" },{ "amount": 31, "currency": "USD" },{ "amount": 23, "currency": "USD" },{ "amount": 19, "currency": "USD" },{ "amount": 15, "currency": "USD" },{ "amount": 10, "currency": "USD" },{ "amount": 9, "currency": "USD" },{ "amount": 7, "currency": "USD" },{ "amount": 6, "currency": "USD" },{ "amount": 4, "currency": "USD" },{ "amount": 3, "currency": "USD" },{ "amount": 2, "currency": "USD" }]
+            "payouts": [{ "amount": 80 },{ "amount": 62 },{ "amount": 44 },{ "amount": 31 },{ "amount": 23 },{ "amount": 19 },{ "amount": 15 },{ "amount": 10 },{ "amount": 9 },{ "amount": 7 },{ "amount": 6 },{ "amount": 4 },{ "amount": 3 },{ "amount": 2 }]
         },
         {
             "buyins_count": 64,
-            "payouts": [{ "amount": 81, "currency": "USD" },{ "amount": 63, "currency": "USD" },{ "amount": 44, "currency": "USD" },{ "amount": 31, "currency": "USD" },{ "amount": 23, "currency": "USD" },{ "amount": 19, "currency": "USD" },{ "amount": 15, "currency": "USD" },{ "amount": 10, "currency": "USD" },{ "amount": 9, "currency": "USD" },{ "amount": 7, "currency": "USD" },{ "amount": 6, "currency": "USD" },{ "amount": 5, "currency": "USD" },{ "amount": 4, "currency": "USD" },{ "amount": 3, "currency": "USD" }]
+            "payouts": [{ "amount": 81 },{ "amount": 63 },{ "amount": 44 },{ "amount": 31 },{ "amount": 23 },{ "amount": 19 },{ "amount": 15 },{ "amount": 10 },{ "amount": 9 },{ "amount": 7 },{ "amount": 6 },{ "amount": 5 },{ "amount": 4 },{ "amount": 3 }]
         },
         {
             "buyins_count": 65,
-            "payouts": [{ "amount": 82, "currency": "USD" },{ "amount": 63, "currency": "USD" },{ "amount": 44, "currency": "USD" },{ "amount": 31, "currency": "USD" },{ "amount": 23, "currency": "USD" },{ "amount": 19, "currency": "USD" },{ "amount": 15, "currency": "USD" },{ "amount": 11, "currency": "USD" },{ "amount": 9, "currency": "USD" },{ "amount": 7, "currency": "USD" },{ "amount": 7, "currency": "USD" },{ "amount": 5, "currency": "USD" },{ "amount": 4, "currency": "USD" },{ "amount": 3, "currency": "USD" },{ "amount": 2, "currency": "USD" }]
+            "payouts": [{ "amount": 82 },{ "amount": 63 },{ "amount": 44 },{ "amount": 31 },{ "amount": 23 },{ "amount": 19 },{ "amount": 15 },{ "amount": 11 },{ "amount": 9 },{ "amount": 7 },{ "amount": 7 },{ "amount": 5 },{ "amount": 4 },{ "amount": 3 },{ "amount": 2 }]
         },
         {
             "buyins_count": 66,
-            "payouts": [{ "amount": 82, "currency": "USD" },{ "amount": 63, "currency": "USD" },{ "amount": 44, "currency": "USD" },{ "amount": 31, "currency": "USD" },{ "amount": 23, "currency": "USD" },{ "amount": 19, "currency": "USD" },{ "amount": 16, "currency": "USD" },{ "amount": 12, "currency": "USD" },{ "amount": 10, "currency": "USD" },{ "amount": 8, "currency": "USD" },{ "amount": 7, "currency": "USD" },{ "amount": 6, "currency": "USD" },{ "amount": 4, "currency": "USD" },{ "amount": 3, "currency": "USD" },{ "amount": 2, "currency": "USD" }]
+            "payouts": [{ "amount": 82 },{ "amount": 63 },{ "amount": 44 },{ "amount": 31 },{ "amount": 23 },{ "amount": 19 },{ "amount": 16 },{ "amount": 12 },{ "amount": 10 },{ "amount": 8 },{ "amount": 7 },{ "amount": 6 },{ "amount": 4 },{ "amount": 3 },{ "amount": 2 }]
         },
         {
             "buyins_count": 67,
-            "payouts": [{ "amount": 83, "currency": "USD" },{ "amount": 63, "currency": "USD" },{ "amount": 44, "currency": "USD" },{ "amount": 32, "currency": "USD" },{ "amount": 24, "currency": "USD" },{ "amount": 20, "currency": "USD" },{ "amount": 16, "currency": "USD" },{ "amount": 12, "currency": "USD" },{ "amount": 10, "currency": "USD" },{ "amount": 8, "currency": "USD" },{ "amount": 7, "currency": "USD" },{ "amount": 6, "currency": "USD" },{ "amount": 5, "currency": "USD" },{ "amount": 3, "currency": "USD" },{ "amount": 2, "currency": "USD" }]
+            "payouts": [{ "amount": 83 },{ "amount": 63 },{ "amount": 44 },{ "amount": 32 },{ "amount": 24 },{ "amount": 20 },{ "amount": 16 },{ "amount": 12 },{ "amount": 10 },{ "amount": 8 },{ "amount": 7 },{ "amount": 6 },{ "amount": 5 },{ "amount": 3 },{ "amount": 2 }]
         },
         {
             "buyins_count": 68,
-            "payouts": [{ "amount": 84, "currency": "USD" },{ "amount": 64, "currency": "USD" },{ "amount": 45, "currency": "USD" },{ "amount": 32, "currency": "USD" },{ "amount": 24, "currency": "USD" },{ "amount": 20, "currency": "USD" },{ "amount": 17, "currency": "USD" },{ "amount": 13, "currency": "USD" },{ "amount": 10, "currency": "USD" },{ "amount": 8, "currency": "USD" },{ "amount": 7, "currency": "USD" },{ "amount": 6, "currency": "USD" },{ "amount": 5, "currency": "USD" },{ "amount": 3, "currency": "USD" },{ "amount": 2, "currency": "USD" }]
+            "payouts": [{ "amount": 84 },{ "amount": 64 },{ "amount": 45 },{ "amount": 32 },{ "amount": 24 },{ "amount": 20 },{ "amount": 17 },{ "amount": 13 },{ "amount": 10 },{ "amount": 8 },{ "amount": 7 },{ "amount": 6 },{ "amount": 5 },{ "amount": 3 },{ "amount": 2 }]
         },
         {
             "buyins_count": 69,
-            "payouts": [{ "amount": 85, "currency": "USD" },{ "amount": 65, "currency": "USD" },{ "amount": 46, "currency": "USD" },{ "amount": 33, "currency": "USD" },{ "amount": 24, "currency": "USD" },{ "amount": 20, "currency": "USD" },{ "amount": 17, "currency": "USD" },{ "amount": 13, "currency": "USD" },{ "amount": 10, "currency": "USD" },{ "amount": 8, "currency": "USD" },{ "amount": 7, "currency": "USD" },{ "amount": 6, "currency": "USD" },{ "amount": 5, "currency": "USD" },{ "amount": 4, "currency": "USD" },{ "amount": 2, "currency": "USD" }]
+            "payouts": [{ "amount": 85 },{ "amount": 65 },{ "amount": 46 },{ "amount": 33 },{ "amount": 24 },{ "amount": 20 },{ "amount": 17 },{ "amount": 13 },{ "amount": 10 },{ "amount": 8 },{ "amount": 7 },{ "amount": 6 },{ "amount": 5 },{ "amount": 4 },{ "amount": 2 }]
         },
         {
             "buyins_count": 70,
-            "payouts": [{ "amount": 85, "currency": "USD" },{ "amount": 65, "currency": "USD" },{ "amount": 46, "currency": "USD" },{ "amount": 33, "currency": "USD" },{ "amount": 25, "currency": "USD" },{ "amount": 21, "currency": "USD" },{ "amount": 18, "currency": "USD" },{ "amount": 13, "currency": "USD" },{ "amount": 11, "currency": "USD" },{ "amount": 8, "currency": "USD" },{ "amount": 7, "currency": "USD" },{ "amount": 6, "currency": "USD" },{ "amount": 5, "currency": "USD" },{ "amount": 4, "currency": "USD" },{ "amount": 3, "currency": "USD" }]
+            "payouts": [{ "amount": 85 },{ "amount": 65 },{ "amount": 46 },{ "amount": 33 },{ "amount": 25 },{ "amount": 21 },{ "amount": 18 },{ "amount": 13 },{ "amount": 11 },{ "amount": 8 },{ "amount": 7 },{ "amount": 6 },{ "amount": 5 },{ "amount": 4 },{ "amount": 3 }]
         }
     ],
     "previous_blind_level_hold_duration": 2000,

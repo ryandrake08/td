@@ -74,7 +74,7 @@ td::manual_payout::manual_payout() : buyins_count(0)
 {
 }
 
-td::manual_payout::manual_payout(size_t c, const std::vector<monetary_value>& p) : buyins_count(c), payouts(p)
+td::manual_payout::manual_payout(size_t c, const std::vector<td::monetary_value_nocurrency>& p) : buyins_count(c), payouts(p)
 {
 }
 
@@ -360,7 +360,7 @@ json::json(const std::pair<const td::player_id_t,td::player>& value) : json(valu
 }
 
 template<>
-json::json(const std::pair<const size_t,std::vector<td::monetary_value>>& value) : json()
+json::json(const std::pair<const size_t,std::vector<td::monetary_value_nocurrency>>& value) : json()
 {
     this->set_value("buyins_count", value.first);
     this->set_value("payouts", json(value.second.begin(), value.second.end()));

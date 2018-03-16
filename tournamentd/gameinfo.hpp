@@ -45,10 +45,10 @@ class gameinfo
     td::automatic_payout_parameters automatic_payouts;
 
     // configuration: forced payout structure (regardless of number of players)
-    std::vector<td::monetary_value> forced_payouts;
+    std::vector<td::monetary_value_nocurrency> forced_payouts;
 
     // configuration: manually generated payout structures
-    std::unordered_map<size_t, std::vector<td::monetary_value>> manual_payouts;
+    std::unordered_map<size_t, std::vector<td::monetary_value_nocurrency>> manual_payouts;
 
     // configuration: how long after round starts should prev command go to the previous round (rather than restart)? (ms)
     long previous_blind_level_hold_duration;

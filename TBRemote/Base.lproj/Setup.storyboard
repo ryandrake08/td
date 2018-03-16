@@ -2150,44 +2150,6 @@
                                             <outlet property="textField" destination="3Bb-2W-mVd" id="bQ6-vM-wKF"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="zks-02-BKn" customClass="TBPickableTextTableViewCell">
-                                        <rect key="frame" x="0.0" y="79" width="375" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zks-02-BKn" id="9vy-xK-7ee">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" horizontalHuggingPriority="750" text="Payout Currency" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zFD-bA-nFf">
-                                                    <rect key="frame" x="16" y="12" width="120.5" height="20"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <textField opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Dollar, Euro, etc." textAlignment="right" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="kd1-Nc-H01">
-                                                    <rect key="frame" x="144.5" y="12" width="207.5" height="20"/>
-                                                    <color key="textColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <textInputTraits key="textInputTraits" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
-                                                    <connections>
-                                                        <outlet property="delegate" destination="zks-02-BKn" id="yJc-K6-5Vb"/>
-                                                    </connections>
-                                                </textField>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="trailingMargin" secondItem="kd1-Nc-H01" secondAttribute="trailing" constant="7" id="2Vp-rg-46N"/>
-                                                <constraint firstItem="kd1-Nc-H01" firstAttribute="centerY" secondItem="9vy-xK-7ee" secondAttribute="centerY" id="Hg1-pO-Dbm"/>
-                                                <constraint firstItem="zFD-bA-nFf" firstAttribute="leading" secondItem="9vy-xK-7ee" secondAttribute="leadingMargin" id="VmW-X4-yME"/>
-                                                <constraint firstItem="kd1-Nc-H01" firstAttribute="leading" secondItem="zFD-bA-nFf" secondAttribute="trailing" constant="8" symbolic="YES" id="eQh-Dw-um0"/>
-                                                <constraint firstItem="kd1-Nc-H01" firstAttribute="baseline" secondItem="zFD-bA-nFf" secondAttribute="baseline" id="h93-s4-SpC"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="keyPath" value="currency"/>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <outlet property="textField" destination="kd1-Nc-H01" id="ssn-4l-ywI"/>
-                                        </connections>
-                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>

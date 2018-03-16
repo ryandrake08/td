@@ -1053,22 +1053,14 @@ void gameinfo::recalculate_payouts()
         }
         else
         {
-            // ensure all payout currencies equal globally configured payout_currency
-            // TODO: enforce this in the data structure by removing the currency field from individual payouts
-            auto& use_payout(this->forced_payouts);
-            for(auto payout : use_payout)
-            {
-                if(payout.currency != this->payout_currency)
-                {
-                    logger(ll::warning) << "payout currency does not match global payout_currency, currently not supported. forcing payout currency to " << this->payout_currency << '\n';
-                    payout.currency = this->payout_currency;
-                }
-            }
-
-            logger(ll::info) << "applying forced payout: " << use_payout.size() << " seats will be paid\n";
+            logger(ll::info) << "applying forced payout: " << this->forced_payouts.size() << " seats will be paid\n";
 
             // use the payout structure specified in forced_payouts
-            this->payouts = use_payout;
+            this->payouts.resize(this->forced_payouts.size());
+            std::transform(this->forced_payouts.begin(), this->forced_payouts.end(), this->payouts.begin(), [&](const td::monetary_value_nocurrency& c)
+            {
+                return td::monetary_value(c.amount, this->payout_currency);
+            });
             return;
         }
     }
@@ -1083,22 +1075,14 @@ void gameinfo::recalculate_payouts()
         }
         else
         {
-            // ensure all payout currencies equal globally configured payout_currency
-            // TODO: enforce this in the data structure by removing the currency field from individual payouts
-            auto& use_payout(this->forced_payouts);
-            for(auto payout : use_payout)
-            {
-                if(payout.currency != this->payout_currency)
-                {
-                    logger(ll::warning) << "payout currency does not match global payout_currency, currently not supported. forcing payout currency to " << this->payout_currency << '\n';
-                    payout.currency = this->payout_currency;
-                }
-            }
-
-            logger(ll::info) << "applying manual payout for " << count_unique_entries << " players: " << use_payout.size() << " seats will be paid\n";
+            logger(ll::info) << "applying manual payout for " << count_unique_entries << " players: " << manual_payout_it->second.size() << " seats will be paid\n";
 
             // use found payout structure
-            this->payouts = use_payout;
+            this->payouts.resize(manual_payout_it->second.size());
+            std::transform(manual_payout_it->second.begin(), manual_payout_it->second.end(), this->payouts.begin(), [&](const td::monetary_value_nocurrency& c)
+            {
+                return td::monetary_value(c.amount, this->payout_currency);
+            });
             return;
         }
     }
@@ -1158,7 +1142,6 @@ void gameinfo::recalculate_payouts()
         std::transform(comp.begin(), comp.end(), this->payouts.begin(), [&](double c)
         {
             double amount(std::round(this->total_equity * c / total));
-            // TODO: payout_currency is redundant. remove the currency field from individual payouts
             return td::monetary_value(amount, this->payout_currency);
         });
 

@@ -20,9 +20,6 @@
     if([[(TBKVOTableViewCell*)cell keyPath] isEqualToString:@"amount"]) {
         NSNumberFormatter* numberFormatter = [[NSNumberFormatter alloc] init];
         [(TBFormattedKVOTableViewCell*)cell setFormatter:numberFormatter];
-    } else if([[(TBKVOTableViewCell*)cell keyPath] isEqualToString:@"currency"]) {
-        [(TBPickableTextTableViewCell*)cell setAllowedValues:[TBCurrencyNumberFormatter supportedCodes] withTitles:[TBCurrencyNumberFormatter supportedCurrencies]];
-        [[(TBKVOTableViewCell*)cell object] setValue:[self configuration][@"payout_currency"] forKeyPath:@"payout.currency"];
     }
 
     return [self setObjectToCell:cell];

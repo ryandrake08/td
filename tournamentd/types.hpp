@@ -144,10 +144,10 @@ namespace td
     struct manual_payout
     {
         size_t buyins_count;
-        std::vector<monetary_value> payouts;
+        std::vector<td::monetary_value_nocurrency> payouts;
 
         manual_payout();
-        manual_payout(size_t c, const std::vector<monetary_value>& p);
+        manual_payout(size_t c, const std::vector<td::monetary_value_nocurrency>& p);
     };
 
     // represents a tournament result

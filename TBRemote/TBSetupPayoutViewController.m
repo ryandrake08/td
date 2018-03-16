@@ -31,8 +31,9 @@
     NSString* placeString = [NSString localizedStringWithFormat:@"%@ place", [placeFormatter stringFromNumber:@([indexPath row] + 1)]];
 
     // payout
+    NSString* payoutCurrency = [self configuration][@"payout_currency"];
     TBCurrencyNumberFormatter* payoutFormatter = [[TBCurrencyNumberFormatter alloc] init];
-    [payoutFormatter setCurrencyCode:object[@"currency"]];
+    [payoutFormatter setCurrencyCode:payoutCurrency];
     NSString* payoutString = [payoutFormatter stringFromNumber:object[@"amount"]];
     [[cell textLabel] setText:placeString];
     [[cell detailTextLabel] setText:payoutString];
@@ -40,8 +41,7 @@
 }
 
 - (id)newObject {
-    NSString* defaultCurrencyCode = [TBCurrencyNumberFormatter defaultCurrencyCode];
-    return [@{@"amount":@0, @"currency":defaultCurrencyCode} mutableCopy];
+    return [@{@"amount":@0} mutableCopy];
 }
 
 @end

@@ -3448,7 +3448,7 @@ Gw
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
                                                                     <connections>
-                                                                        <binding destination="70E-Xt-9Hz" name="value" keyPath="objectValue.currency" id="ce1-5w-DlN">
+                                                                        <binding destination="tHD-7b-Ew5" name="value" keyPath="self.representedObject.payout_currency" id="xYo-j9-9vH">
                                                                             <dictionary key="options">
                                                                                 <string key="NSValueTransformerName">TBCurrencyCodeTransformer</string>
                                                                             </dictionary>
@@ -3524,7 +3524,6 @@ Gw
                 <arrayController clearsFilterPredicateOnInsertion="NO" automaticallyRearrangesObjects="YES" id="gM5-f0-sHO" customClass="TBSetupPayoutArrayController">
                     <declaredKeys>
                         <string>amount</string>
-                        <string>currency</string>
                     </declaredKeys>
                     <connections>
                         <binding destination="tHD-7b-Ew5" name="contentArray" keyPath="self.representedObject.forced_payouts" id="dvT-kP-m35"/>
