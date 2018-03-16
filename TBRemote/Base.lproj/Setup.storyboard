@@ -1911,16 +1911,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dXI-fU-n1q">
-                                                    <rect key="frame" x="16" y="12" width="39" height="20"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="39" id="E9W-RV-UjH"/>
-                                                    </constraints>
+                                                    <rect key="frame" x="16" y="12" width="40" height="20"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.25" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="flq-PI-EOp">
-                                                    <rect key="frame" x="61" y="7" width="300" height="31"/>
+                                                    <rect key="frame" x="62" y="7" width="299" height="31"/>
                                                     <connections>
                                                         <action selector="sliderValueChanged:" destination="J1M-RT-2EW" eventType="valueChanged" id="BTI-l8-h9d"/>
                                                         <action selector="sliderValueSelected:" destination="J1M-RT-2EW" eventType="touchUpInside" id="W0r-EI-Gza"/>
@@ -1929,6 +1926,7 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="dXI-fU-n1q" firstAttribute="centerY" secondItem="flq-PI-EOp" secondAttribute="centerY" id="6UM-BS-k9T"/>
+                                                <constraint firstItem="flq-PI-EOp" firstAttribute="width" secondItem="h0a-8G-bDJ" secondAttribute="width" constant="-80" id="7W5-if-pRh"/>
                                                 <constraint firstItem="dXI-fU-n1q" firstAttribute="centerY" secondItem="h0a-8G-bDJ" secondAttribute="centerY" id="V7B-Ny-Rsx"/>
                                                 <constraint firstAttribute="trailing" secondItem="flq-PI-EOp" secondAttribute="trailing" constant="16" id="gN8-YL-AKy"/>
                                                 <constraint firstItem="flq-PI-EOp" firstAttribute="leading" secondItem="dXI-fU-n1q" secondAttribute="trailing" constant="8" id="l6B-kH-WNc"/>
@@ -1956,16 +1954,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Same To Everyone" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ktc-dW-hYF">
-                                                    <rect key="frame" x="16" y="12" width="134" height="19.5"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="134" id="bBk-Mc-aKk"/>
-                                                    </constraints>
+                                                    <rect key="frame" x="16" y="12" width="136" height="19.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="aBc-28-ks7">
-                                                    <rect key="frame" x="156" y="7" width="205" height="31"/>
+                                                    <rect key="frame" x="158" y="7" width="203" height="31"/>
                                                     <connections>
                                                         <action selector="sliderValueChanged:" destination="hxH-9a-Ju9" eventType="valueChanged" id="3No-eM-KN8"/>
                                                         <action selector="sliderValueSelected:" destination="hxH-9a-Ju9" eventType="touchUpInside" id="dVI-wW-bmu"/>
@@ -1975,6 +1970,7 @@
                                             <constraints>
                                                 <constraint firstItem="ktc-dW-hYF" firstAttribute="centerY" secondItem="aBc-28-ks7" secondAttribute="centerY" id="32a-cs-xw0"/>
                                                 <constraint firstItem="aBc-28-ks7" firstAttribute="centerY" secondItem="Hkh-49-acX" secondAttribute="centerY" id="4kZ-pX-Qe7"/>
+                                                <constraint firstItem="aBc-28-ks7" firstAttribute="width" secondItem="Hkh-49-acX" secondAttribute="width" constant="-176" id="Hoi-e6-QgV"/>
                                                 <constraint firstItem="ktc-dW-hYF" firstAttribute="leading" secondItem="Hkh-49-acX" secondAttribute="leading" constant="16" id="hhy-OG-jMb"/>
                                                 <constraint firstItem="aBc-28-ks7" firstAttribute="leading" secondItem="ktc-dW-hYF" secondAttribute="trailing" constant="8" id="jAL-da-AHK"/>
                                                 <constraint firstAttribute="trailing" secondItem="aBc-28-ks7" secondAttribute="trailing" constant="16" id="m8e-R1-TsD"/>
