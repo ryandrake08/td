@@ -59,8 +59,20 @@
                 name = NSLocalizedString(@"Bucks", @"Special custom currency type");
             } else if([code isEqualToString:@"XPT"]) {
                 name = NSLocalizedString(@"Points", @"Special custom currency type");
-            } else {
+            } else if([[NSLocale currentLocale] respondsToSelector:@selector(localizedStringForCurrencyCode:)]) {
                 name = [[NSLocale currentLocale] localizedStringForCurrencyCode:code];
+            } else if([code isEqualToString:@"USD"]) {
+                name = NSLocalizedString(@"US Dollar", @"Currency name");
+            } else if([code isEqualToString:@"EUR"]) {
+                name = NSLocalizedString(@"Euro", @"Currency name");
+            } else if([code isEqualToString:@"INR"]) {
+                name = NSLocalizedString(@"Indian Rupee", @"Currency name");
+            } else if([code isEqualToString:@"GBP"]) {
+                name = NSLocalizedString(@"British Pound", @"Currency name");
+            } else if([code isEqualToString:@"JPY"]) {
+                name = NSLocalizedString(@"Japanese Yen", @"Currency name");
+            } else if([code isEqualToString:@"CNY"]) {
+                name = NSLocalizedString(@"Chinese Yuan", @"Currency name");
             }
             if(name == nil) {
                 name = NSLocalizedString(@"Unknown", @"Unknown currency type");
