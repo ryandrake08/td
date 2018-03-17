@@ -13,6 +13,9 @@
 // YES if warning text should be shown
 @property (assign) BOOL enableWarning;
 
+// Warning text to display
+@property (strong) NSString* warningText;
+
 // Number of players to plan for
 @property (assign) NSInteger numberOfPlayers;
 

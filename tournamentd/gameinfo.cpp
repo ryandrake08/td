@@ -405,6 +405,7 @@ void gameinfo::reset_seating()
     // clear all seating and remove all empty seats
     this->seats.clear();
     this->empty_seats.clear();
+    this->max_expected_players = 0;
 
     // no tables means game is unplanned
     this->tables = 0;

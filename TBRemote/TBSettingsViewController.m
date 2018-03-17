@@ -25,9 +25,6 @@
 @property (nonatomic, strong) TournamentSession* session;
 @property (nonatomic, strong) NSMutableDictionary* configuration;
 
-// number of players to plan for
-@property (nonatomic) NSUInteger maxPlayers;
-
 // current document url
 @property (nonatomic, copy) NSURL* documentURL;
 
@@ -77,16 +74,7 @@
     }];
 
     // whenever other configuration changes, update table row
-    [[self KVOController] observe:self keyPaths:@[@"configuration.players", @"configuration.available_chips", @"configuration.funding_sources", @"configuration.blind_levels", @"configuration.authorized_clients"] options:0 block:^(id observer, id object, NSDictionary *change) {
-        // reload table
-        [[self tableView] reloadData];
-    }];
-
-    // if table sizes or max players change, force a replan
-    [[self KVOController] observe:self keyPaths:@[@"configuration.table_capacity", @"maxPlayers", @"configuration.payout_currency"] options:0 block:^(id observer, id object, NSDictionary *change) {
-        // plan seating
-        [self planSeating];
-
+    [[self KVOController] observe:self keyPaths:@[@"configuration.players", @"configuration.available_chips", @"configuration.funding_sources", @"configuration.blind_levels", @"configuration.payout_policy", @"configuration.payout_currency", @"configuration.authorized_clients", @"configuration.table_capacity"] options:0 block:^(id observer, id object, NSDictionary *change) {
         // reload table
         [[self tableView] reloadData];
     }];
@@ -135,19 +123,6 @@
         switch([indexPath row]) {
             case 0:
             {
-                NSString* detail = [NSString stringWithFormat:@"%lu", (unsigned long)[self maxPlayers]];
-                [(UILabel*)[cell viewWithTag:101] setText:detail];
-
-                UIStepper* stepper = (UIStepper*)[cell viewWithTag:100];
-                [stepper setValue:(double)[self maxPlayers]];
-                NSUInteger numPlayers = [[[self session] state][@"players"] count];
-                if(numPlayers > 0) {
-                    [stepper setMaximumValue:numPlayers * 2.0];
-                }
-                break;
-            }
-            case 1:
-            {
                 if([[[self session] state][@"seats"] count] > 0 || [[[self session] state][@"buyins"] count] > 0) {
                     [(UILabel*)[cell viewWithTag:101] setText:NSLocalizedString(@"Discard Seating and Re-plan", nil)];
                 } else {
@@ -168,10 +143,10 @@
 
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
     if([indexPath section] == 1) {
-        if([indexPath row] == 1) {
-            // force plan seating
+        if([indexPath row] == 0) {
+            // plan seating
             [self planSeatingTapped:self];
-        } else if([indexPath row] == 2) {
+        } else if([indexPath row] == 1) {
             // quick setup
             [self quickStartTapped:self];
         }
@@ -206,65 +181,65 @@
     }
 }
 
-#pragma mark Operations
-
-- (void)planSeating {
-    NSLog(@"Planning seating for %lu players", (unsigned long)[self maxPlayers]);
-    if([self maxPlayers] > 1) {
-        [[self session] planSeatingFor:@([self maxPlayers])];
-    }
-}
-
 #pragma mark Actions
 
-- (IBAction)stepperDidChange:(id)sender {
-    if([sender isKindOfClass:[UIStepper class]]) {
-        UIStepper* stepper = (UIStepper*)sender;
-        NSInteger value = (NSInteger)[stepper value];
-        [self setMaxPlayers:value];
-    }
-}
+- (IBAction)planSeatingTapped:(id)sender {
+    NSString* message = NSLocalizedString(@"Plan to seat at most this many players:", nil);
 
-- (void)planSeatingTapped:(id)sender {
-    if([self maxPlayers] > 1) {
-        if([[[self session] state][@"seats"] count] > 0 || [[[self session] state][@"buyins"] count] > 0) {
-            // display a different message if the game is running
-            BOOL playing = [[[self session] state][@"current_blind_level"] unsignedIntegerValue] != 0;
-            NSString* message;
-            if(playing) {
-                message = NSLocalizedString(@"This will end the current tournament immediately, then clear any existing seats and buy-ins.", nil);
-            } else {
-                message = NSLocalizedString(@"This will clear any existing seats and buy-ins.", nil);
-            }
-
-            // alert because this is a very destructive action
-            UIAlertController* alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Re-plan Seating", nil) message:message preferredStyle:UIAlertControllerStyleAlert];
-            [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil) style:UIAlertActionStyleCancel handler:nil]];
-            [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Plan", nil) style:UIAlertActionStyleDestructive handler:^(UIAlertAction* action) {
-                NSLog(@"Re-planning seating for %lu players", (unsigned long)[self maxPlayers]);
-                [[self session] planSeatingFor:@([self maxPlayers])];
-
-                // switch to seating screen automatically
-                [[[self navigationController] tabBarController] setSelectedIndex:1];
-            }]];
-            [self presentViewController:alert animated:YES completion:nil];
+    BOOL alreadyPlanned = [[[self session] state][@"seats"] count] > 0 || [[[self session] state][@"buyins"] count] > 0;
+    if(alreadyPlanned) {
+        // display a different message if the game is running
+        id playing = [[self session] state][@"current_blind_level"];
+        if([playing boolValue]) {
+            message = NSLocalizedString(@"Warning: This will end the current tournament immediately, then unseat EVERYONE from the current tournament and clear all buyins. Plan to seat at most this many players:", nil);
         } else {
-            // no warning
-            NSLog(@"Planning seating for %lu players", (unsigned long)[self maxPlayers]);
-            [[self session] planSeatingFor:@([self maxPlayers])];
-
-            // switch to seating screen automatically
-            [[[self navigationController] tabBarController] setSelectedIndex:1];
+            message = NSLocalizedString(@"Warning: This will unseat EVERYONE from the current tournament and clear all buyins. Plan to seat at most this many players:", nil);
         }
     }
+
+    // keep reference to textfield
+    __block UITextField* alertTextField;
+
+    // for text foratting
+    NSNumberFormatter* formatter = [[NSNumberFormatter alloc] init];
+    [formatter setNumberStyle:NSNumberFormatterNoStyle];
+
+    // set up alert for user confirmation
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Plan Seating", nil) message:message preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil) style:UIAlertActionStyleCancel handler:nil]];
+    [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Plan", nil) style:UIAlertActionStyleDestructive handler:^(UIAlertAction* action) {
+        // retrieve number
+        NSNumber* maxPlayers = [formatter numberFromString:[alertTextField text]];
+
+        // plan seating
+        NSLog(@"Planning seating for %@ players", maxPlayers);
+        [[self session] planSeatingFor:maxPlayers];
+
+        // switch to seating screen automatically
+        [[[self navigationController] tabBarController] setSelectedIndex:1];
+    }]];
+    [alert addTextFieldWithConfigurationHandler:^(UITextField* textField) {
+        // store textfield
+        alertTextField = textField;
+
+        // default maxPlayers to number of configured players
+        NSNumber* maxPlayers = @([[self configuration][@"players"] count]);
+
+        // set initial textfield value
+        [textField setText:[formatter stringFromNumber:maxPlayers]];
+    }];
+
+    // present the alert
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 - (IBAction)quickStartTapped:(id)sender {
-    if([[[self session] state][@"seats"] count] > 0 || [[[self session] state][@"buyins"] count] > 0) {
+    BOOL alreadyPlanned = [[[self session] state][@"seats"] count] > 0 || [[[self session] state][@"buyins"] count] > 0;
+    if(alreadyPlanned) {
         // display a different message if the game is running
-        BOOL playing = [[[self session] state][@"current_blind_level"] unsignedIntegerValue] != 0;
         NSString* message;
-        if(playing) {
+        id playing = [[self session] state][@"current_blind_level"];
+        if([playing boolValue]) {
             message = NSLocalizedString(@"Quick Start will end the current tournament immediately, then re-seat and buy in all players.", nil);
         } else {
             message = NSLocalizedString(@"Quick Start will clear any existing seats and buy-ins, then re-seat and buy in all players.", nil);
@@ -333,9 +308,6 @@
 
     // store url for later serialization
     [self setDocumentURL:docUrl];
-
-    // default maxPlayers to number of configured players
-    [self setMaxPlayers:[[self configuration][@"players"] count]];
 
     // unconditionally send to session
     if([[[self session] state][@"connected"] boolValue] && [[[self session] state][@"authorized"] boolValue]) {

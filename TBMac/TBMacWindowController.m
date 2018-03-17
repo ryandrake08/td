@@ -69,8 +69,20 @@
     } else if([[segue identifier] isEqualToString:@"presentPlanView"]) {
         // pass current max expected players to plan view
         TBPlanViewController* vc = (TBPlanViewController*)[segue destinationController];
-        id maxExpected = [[(TBMacDocument*)[self document] session] state][@"max_expected_players"];
-        [vc setEnableWarning:[maxExpected boolValue]];
+
+        // enable warning text if players are either seated or bought in
+        BOOL alreadyPlanned = [[[(TBMacDocument*)[self document] session] state][@"seats"] count] > 0 || [[[(TBMacDocument*)[self document] session] state][@"buyins"] count] > 0;
+        [vc setEnableWarning:alreadyPlanned];
+
+        // different warning text based on wither game is running
+        id playing = [[(TBMacDocument*)[self document] session] state][@"current_blind_level"];
+        if([playing boolValue]) {
+            [vc setWarningText:NSLocalizedString(@"Warning: This will end the current tournament immediately, then unseat EVERYONE from the current tournament and clear all buyins.", nil)];
+        } else {
+            [vc setWarningText:NSLocalizedString(@"Warning: This will unseat EVERYONE from the current tournament and clear all buyins.", nil)];
+        }
+
+        // default maxPlayers to number of configured players
         NSUInteger numberOfPlayers = [[(TBMacDocument*)[self document] configuration][@"players"] count];
         [vc setNumberOfPlayers:numberOfPlayers];
     } else if([[segue identifier] isEqualToString:@"presentConfigurationView"]) {
