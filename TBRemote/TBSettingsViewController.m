@@ -131,7 +131,6 @@
                 break;
             }
         }
-    } else if([indexPath section] == 2) {
     } else {
         NSLog(@"TBPlayerSeatingViewController tableView:cellForRowAtIndexPath: invalid section");
         abort();
@@ -153,12 +152,6 @@
 
         // deselect
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    } else if([indexPath section] == 2) {
-        if([indexPath row] == 0) {
-            // open
-        } else if([indexPath row] == 1) {
-            // save
-        }
     }
 }
 

@@ -173,6 +173,9 @@
 		9476F4FD1B3C406400A158F8 /* defaults.json in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9476F4CD1B3C3F8300A158F8 /* defaults.json */; };
 		947D7AA8200D8BD300EAD496 /* TBPhoneLaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 947D7AA7200D8BD300EAD496 /* TBPhoneLaunchScreen.storyboard */; };
 		947D7AAA200D8C8A00EAD496 /* TBRemoteLaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 947D7AA9200D8C8A00EAD496 /* TBRemoteLaunchScreen.storyboard */; };
+		94983373205DDF3500DE6F33 /* TBSetupFilesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94983372205DDF3500DE6F33 /* TBSetupFilesViewController.m */; };
+		94983376205E000700DE6F33 /* TBSetupFilesFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 94983375205E000700DE6F33 /* TBSetupFilesFlowLayout.m */; };
+		94983378205E021300DE6F33 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94983377205E021300DE6F33 /* QuartzCore.framework */; };
 		949D70941B3C43DB008D5CD1 /* tournament.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E71B3C3F8300A158F8 /* tournament.cpp */; };
 		949D70951B3C440D008D5CD1 /* datetime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4D31B3C3F8300A158F8 /* datetime.cpp */; };
 		949D70961B3C440D008D5CD1 /* gameinfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4D51B3C3F8300A158F8 /* gameinfo.cpp */; };
@@ -808,6 +811,11 @@
 		9476F4FB1B3C404400A158F8 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		947D7AA7200D8BD300EAD496 /* TBPhoneLaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TBPhoneLaunchScreen.storyboard; sourceTree = "<group>"; };
 		947D7AA9200D8C8A00EAD496 /* TBRemoteLaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TBRemoteLaunchScreen.storyboard; sourceTree = "<group>"; };
+		94983371205DDF3500DE6F33 /* TBSetupFilesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBSetupFilesViewController.h; sourceTree = "<group>"; };
+		94983372205DDF3500DE6F33 /* TBSetupFilesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TBSetupFilesViewController.m; sourceTree = "<group>"; };
+		94983374205E000700DE6F33 /* TBSetupFilesFlowLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBSetupFilesFlowLayout.h; sourceTree = "<group>"; };
+		94983375205E000700DE6F33 /* TBSetupFilesFlowLayout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TBSetupFilesFlowLayout.m; sourceTree = "<group>"; };
+		94983377205E021300DE6F33 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.2.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
 		94A4C3681D6A40BD00342E13 /* outputdebugstringbuf.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = outputdebugstringbuf.hpp; sourceTree = "<group>"; };
 		94A7FCBF2027E69B006AD3FC /* TBPayoutPolicyNumberFormatter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBPayoutPolicyNumberFormatter.h; sourceTree = "<group>"; };
 		94A7FCC02027E69B006AD3FC /* TBPayoutPolicyNumberFormatter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TBPayoutPolicyNumberFormatter.m; sourceTree = "<group>"; };
@@ -1091,6 +1099,7 @@
 				9457DAC21FE6AB2A0047DF29 /* CFNetwork.framework in Frameworks */,
 				9457DAC31FE6AB310047DF29 /* CoreGraphics.framework in Frameworks */,
 				94C95AFE201AEDA900400CFC /* MessageUI.framework in Frameworks */,
+				94983378205E021300DE6F33 /* QuartzCore.framework in Frameworks */,
 				9457DAC51FE6AB400047DF29 /* UIKit.framework in Frameworks */,
 				94E6F18C2011B6360054D94F /* WatchConnectivity.framework in Frameworks */,
 				9464EC281FDC3036009092A4 /* libcJSON_iOS.a in Frameworks */,
@@ -1151,6 +1160,10 @@
 				94A7FCC42027EB30006AD3FC /* TBSetupDependsOnTurnoutViewController.m */,
 				ADD2CC531BB3D35700DE3DE5 /* TBSetupDevicesViewController.h */,
 				ADD2CC541BB3D35700DE3DE5 /* TBSetupDevicesViewController.m */,
+				94983374205E000700DE6F33 /* TBSetupFilesFlowLayout.h */,
+				94983375205E000700DE6F33 /* TBSetupFilesFlowLayout.m */,
+				94983371205DDF3500DE6F33 /* TBSetupFilesViewController.h */,
+				94983372205DDF3500DE6F33 /* TBSetupFilesViewController.m */,
 				ADD2CC4C1BB3C73900DE3DE5 /* TBSetupFundingViewController.h */,
 				ADD2CC4D1BB3C73900DE3DE5 /* TBSetupFundingViewController.m */,
 				94A7FCC62027F54B006AD3FC /* TBSetupPayoutViewController.h */,
@@ -1354,6 +1367,7 @@
 		AD51C5341AFFC9210084B25E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				94983377205E021300DE6F33 /* QuartzCore.framework */,
 				94C95AFD201AEDA800400CFC /* MessageUI.framework */,
 				94E6F1892011B6230054D94F /* WatchConnectivity.framework */,
 				94E6F1872011B61A0054D94F /* AudioToolbox.framework */,
@@ -2272,6 +2286,7 @@
 				9457DAC81FE6B1520047DF29 /* TBInvertableImageView.m in Sources */,
 				ADF635E81BAB8AF800D019AE /* TTTOrdinalNumberFormatter.m in Sources */,
 				94F51CAE1BC96F53007AD1DD /* TBTableViewController.m in Sources */,
+				94983376205E000700DE6F33 /* TBSetupFilesFlowLayout.m in Sources */,
 				942B84E2200DA00C001F8EEB /* TBSoundPlayer.m in Sources */,
 				ADF635E91BAB8AF800D019AE /* TBSound.m in Sources */,
 				94CDDD1D1FE1826C008ADF24 /* TBChipTableViewCell.m in Sources */,
@@ -2324,6 +2339,7 @@
 				ADF635FF1BAB8AF800D019AE /* socket.cpp in Sources */,
 				ADD2CC4B1BB3BA8000DE3DE5 /* TBSetupChipsViewController.m in Sources */,
 				94A7FCC52027EB30006AD3FC /* TBSetupDependsOnTurnoutViewController.m in Sources */,
+				94983373205DDF3500DE6F33 /* TBSetupFilesViewController.m in Sources */,
 				ADF636001BAB8AF800D019AE /* TBPlayerSeatingViewController.m in Sources */,
 				ADD2CC521BB3CF7A00DE3DE5 /* TBDurationNumberFormatter.m in Sources */,
 				ADF636011BAB8AF800D019AE /* gameinfo.cpp in Sources */,
