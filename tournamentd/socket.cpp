@@ -434,6 +434,7 @@ std::ostream& operator<<(std::ostream& os, const common_socket& sock)
         return os << "socket: invalid";
     }
 
+#if 0 // remove peer name lookup, as it can sometimes take 5 seconds if ipv6 resolution times out
     sockaddr_storage addr;
     socklen_t addrlen(sizeof(addr));
     auto ret(::getpeername(sock.pimpl->fd, reinterpret_cast<sockaddr*>(&addr), &addrlen));
@@ -447,7 +448,7 @@ std::ostream& operator<<(std::ostream& os, const common_socket& sock)
             return os << "socket: " << sock.pimpl->fd << ", peer: " << buffer;
         }
     }
-
+#endif
     return os << "socket: " << sock.pimpl->fd;
 }
 
