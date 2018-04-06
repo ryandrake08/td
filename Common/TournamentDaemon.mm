@@ -62,10 +62,10 @@
     // server is listening. mark as running and run in background
     running = YES;
     dispatch_group_async(group, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        while(running)
+        while(self->running)
         {
             auto quit = tourney->run();
-            running = running && !quit;
+            self->running = self->running && !quit;
         }
     });
 
