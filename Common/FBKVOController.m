@@ -54,7 +54,7 @@ static void append_option_description(NSMutableString *s, NSUInteger option)
 
 static NSUInteger enumerate_flags(NSUInteger *ptrFlags)
 {
-  NSCAssert(ptrFlags, @"expected ptrFlags");
+  NSCParameterAssert(ptrFlags);
   if (!ptrFlags) {
     return 0;
   }
