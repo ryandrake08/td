@@ -194,7 +194,7 @@
     }
 
     // array sizes must match
-    NSAssert([values count] == [titles count], @"setAllowedValues:withTitles: array sizes must match");
+    NSAssert([values count] == [titles count], @"setAllowedValues:withTitles: array sizes must match: %ld, %ld", (long)[values count], (long)[titles count]);
 
     // reset picker
     [[self textField] setInputView:nil];
