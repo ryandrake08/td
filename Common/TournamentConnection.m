@@ -152,17 +152,17 @@
     while([[self outputBuffer] length] > 0 && [[self outputStream] hasSpaceAvailable]) {
         NSInteger bytesWritten = [[self outputStream] write:[[self outputBuffer] bytes] maxLength:[[self outputBuffer] length]];
 
-        // remove written bytes
-        if(bytesWritten > 0) {
-            [[self outputBuffer] replaceBytesInRange:NSMakeRange(0, bytesWritten) withBytes:NULL length:0];
-        }
-
         // check error condition
         if(bytesWritten < 0) {
             // notify delegate
             if([[self delegate] respondsToSelector:@selector(tournamentConnection:error:)]) {
                 [[self delegate] tournamentConnection:self error:[[self outputStream] streamError]];
             }
+        }
+
+        // remove written bytes
+        if(bytesWritten > 0) {
+            [[self outputBuffer] replaceBytesInRange:NSMakeRange(0, bytesWritten) withBytes:NULL length:0];
         }
     }
 }

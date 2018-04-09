@@ -134,8 +134,9 @@
         [self presentViewController:actionSheet animated:YES completion:nil];
     } else {
         // connect
+        TournamentService* service = [[TournamentService alloc] initWithNetService:cellService];
         NSError* error;
-        if([[self session] connectToNetService:cellService error:&error]) {
+        if([[self session] connectToTournamentService:service error:&error]) {
             // store as current service
             [self setCurrentService:cellService];
 
@@ -175,8 +176,9 @@
     BOOL connected = [[[self session] state][@"connected"] boolValue];
     if([newArray count] == 1 && !connected) {
         // connect
+        TournamentService* service = [[TournamentService alloc] initWithNetService:newArray[0]];
         NSError* error;
-        if([[self session] connectToNetService:newArray[0] error:&error]) {
+        if([[self session] connectToTournamentService:service error:&error]) {
             // store as current service
             [self setCurrentService:newArray[0]];
 

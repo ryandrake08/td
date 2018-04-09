@@ -34,6 +34,9 @@
 
 @interface TournamentSession : NSObject
 
+// cache the current tournament service, in order to reconnect
+@property (nonatomic, strong) TournamentService* currentTournamentService;
+
 // all tournament configuration and state
 @property (nonatomic, strong, readonly) NSMutableDictionary* state;
 
@@ -46,10 +49,7 @@
 // blind level naming utility
 + (NSArray*)blindLevelNamesForConfiguration:(NSDictionary*)config;
 
-// connect either locally through a unix socket or to a server
-- (BOOL)connectToLocalPath:(NSString*)path error:(NSError**)error;
-- (BOOL)connectToAddress:(NSString*)address port:(NSInteger)port error:(NSError**)error;
-- (BOOL)connectToNetService:(NSNetService*)service error:(NSError**)error;
+// connect to a tournament service
 - (BOOL)connectToTournamentService:(TournamentService*)tournament error:(NSError**)error;
 - (void)disconnect;
 

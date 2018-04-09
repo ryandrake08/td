@@ -38,28 +38,20 @@
     return self;
 }
 
-- (BOOL)connectToLocalPath:(NSString*)path error:(NSError**)error {
-    [self disconnect];
-    return [[self connection] connectToUnixSocketNamed:path error:error];
-}
-
-- (BOOL)connectToAddress:(NSString *)address port:(NSInteger)port error:(NSError**)error {
-    [self disconnect];
-    return [[self connection] connectToAddress:address andPort:port error:error];
-}
-
-- (BOOL)connectToNetService:(NSNetService*)service error:(NSError**)error {
-    [self disconnect];
-    return [[self connection] connectToNetService:service error:error];
-}
-
 - (BOOL)connectToTournamentService:(TournamentService*)tournament error:(NSError**)error {
     [self disconnect];
-    return [[self connection] connectToTournamentService:tournament error:error];
+    if([[self connection] connectToTournamentService:tournament error:error] == YES) {
+        // cache service for later reconnection
+        [self setCurrentTournamentService:tournament];
+        return YES;
+    }
+
+    return NO;
 }
 
 - (void)disconnect {
     [[self connection] close];
+    [self setCurrentTournamentService:nil];
 }
 
 + (BOOL)automaticallyNotifiesObserversForKey:(NSString*)key {
@@ -446,12 +438,17 @@
 - (void)tournamentConnection:(TournamentConnection*)tc error:(NSError*)error {
     NSAssert([self connection] == tc, @"Unexpected error from %@", tc);
 
-    // notify delegate
-    if([[self delegate] respondsToSelector:@selector(tournamentSession:error:)]) {
-        [[self delegate] tournamentSession:self error:error];
-    }
+    // retry
+    NSError* reconnectError;
+    [[self connection] close];
+    if([[self connection] connectToTournamentService:[self currentTournamentService] error:&reconnectError] == NO) {
+        // notify delegate
+        if([[self delegate] respondsToSelector:@selector(tournamentSession:error:)]) {
+            [[self delegate] tournamentSession:self error:error];
+        }
 
-    [self disconnect];
+        [self disconnect];
+    }
 }
 
 @end

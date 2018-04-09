@@ -14,8 +14,9 @@
 #pragma mark Actions
 
 - (IBAction)connectButtonDidChange:(id)sender {
+    TournamentService* service = [[TournamentService alloc] initWithAddress:[self address] andPort:[self port]];
     NSError* error;
-    if(![[self session] connectToAddress:[self address] port:[self port] error:&error]) {
+    if(![[self session] connectToTournamentService:service error:&error]) {
         [self presentError:error];
     }
 
