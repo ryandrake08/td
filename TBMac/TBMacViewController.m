@@ -130,7 +130,7 @@
     }
 }
 
-- (IBAction)planSeatingTapped:(id)sender {
+- (IBAction)replanSeatingTapped:(id)sender {
     if([[[self session] state][@"seats"] count] > 0 || [[[self session] state][@"buyins"] count] > 0) {
         // alert because this is a very destructive action
         NSAlert* alert = [[NSAlert alloc] init];

@@ -235,7 +235,7 @@
                                         <menuItem title="Re-Plan Tournament" id="NZQ-4A-hrd">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="planSeatingTapped:" target="dLJ-5r-r8L" id="FdA-LY-85A"/>
+                                                <action selector="replanSeatingTapped:" target="dLJ-5r-r8L" id="85Y-xF-mmc"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="JPM-Je-wgT"/>
@@ -378,7 +378,7 @@
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="9303F932-10EA-45FF-9112-5E2190AFB751" label="Re-Plan" paletteLabel="Re-Plan" tag="-1" image="b_restart" id="PYd-AK-xr2">
                                     <connections>
-                                        <action selector="planSeatingTapped:" target="bjE-D6-6zO" id="oBm-yr-VTo"/>
+                                        <action selector="replanSeatingTapped:" target="bjE-D6-6zO" id="TIG-vQ-Lix"/>
                                     </connections>
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="1A9ED53F-D961-4530-B9F3-14B1711F604F" label="" paletteLabel="Play" tag="-1" image="b_play_pause" id="VPE-iB-g5a">
@@ -3941,9 +3941,9 @@ Gw
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="df0-lD-5UZ"/>
-        <segue reference="RAQ-SQ-Qt2"/>
-        <segue reference="N4t-1A-N0u"/>
-        <segue reference="bkh-Dn-ae1"/>
-        <segue reference="945-vK-tRp"/>
+        <segue reference="20A-7q-E8V"/>
+        <segue reference="cgp-eX-T5f"/>
+        <segue reference="mJ1-px-HDd"/>
+        <segue reference="3WU-TS-ggK"/>
     </inferredMetricsTieBreakers>
 </document>
