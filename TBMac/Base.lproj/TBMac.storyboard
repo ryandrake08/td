@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13771"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14109"/>
         <capability name="box content view" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -217,19 +217,19 @@
                                         <menuItem title="Setup Tournament..." id="h1Y-QG-zfu">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <segue destination="6Oo-A7-hVG" kind="modal" id="RAQ-SQ-Qt2"/>
+                                                <segue destination="6Oo-A7-hVG" kind="modal" identifier="presentConfigurationView" id="RAQ-SQ-Qt2"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Authorize Remote Device..." id="Paz-iY-Xbz">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <segue destination="bPh-e2-rZM" kind="modal" id="945-vK-tRp"/>
+                                                <segue destination="bPh-e2-rZM" kind="modal" identifier="presentAuthCodeView" id="945-vK-tRp"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Plan Tournament..." id="lme-kP-HDg" userLabel="Plan Tournament">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <segue destination="79P-Qm-Z6L" kind="modal" id="bkh-Dn-ae1"/>
+                                                <segue destination="79P-Qm-Z6L" kind="modal" identifier="presentPlanView" id="bkh-Dn-ae1"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Re-Plan Tournament" id="NZQ-4A-hrd">
@@ -241,13 +241,13 @@
                                         <menuItem isSeparatorItem="YES" id="JPM-Je-wgT"/>
                                         <menuItem title="Show / Hide Main Display" keyEquivalent="d" id="1g9-67-q7x">
                                             <connections>
-                                                <action selector="displayButtonDidChange:" target="dLJ-5r-r8L" id="VQN-Cp-6NO"/>
+                                                <action selector="displayTapped:" target="dLJ-5r-r8L" id="hck-fp-Lha"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Show Player Moves..." id="qmA-yM-Ssm">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <segue destination="E8o-9k-1FA" kind="modal" id="N4t-1A-N0u"/>
+                                                <segue destination="E8o-9k-1FA" kind="modal" identifier="presentMovementView" id="N4t-1A-N0u"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Rebalance Tables..." id="Ec3-XC-iph">
@@ -329,12 +329,6 @@
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="arrangeInFront:" target="dLJ-5r-r8L" id="mg6-IW-2Ae"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem isSeparatorItem="YES" id="lHG-3k-J45"/>
-                                        <menuItem title="Display Screen" keyEquivalent="d" id="4ON-Wr-3Xx">
-                                            <connections>
-                                                <action selector="displayButtonDidChange:" target="dLJ-5r-r8L" id="TIW-Uf-Fdv"/>
                                             </connections>
                                         </menuItem>
                                     </items>
@@ -419,7 +413,7 @@
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="4A9598AD-BDEB-4F5A-9AB0-A1F06B53CF6C" label="Display" paletteLabel="Display" tag="-1" image="b_display" id="9Gq-SN-JDg">
                                     <connections>
-                                        <action selector="displayButtonDidChange:" target="bjE-D6-6zO" id="wJg-mT-Bog"/>
+                                        <action selector="displayTapped:" target="bjE-D6-6zO" id="hhw-vi-Xdr"/>
                                     </connections>
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="81AF0BFE-7EDF-4CAD-A052-FEC82EE2E16C" label="Moves" paletteLabel="Player Moves" tag="-1" image="b_move" id="xdp-J0-N7z" customClass="NSToolbarBadgedItem">
@@ -1725,7 +1719,6 @@ Gw
                         <rect key="frame" x="0.0" y="0.0" width="640" height="420"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <font key="font" metaFont="message"/>
-                        <tabViewItems/>
                         <connections>
                             <outlet property="delegate" destination="ekd-Jw-D7M" id="MT2-Rx-3SX"/>
                         </connections>
@@ -3197,7 +3190,6 @@ Gw
                         <rect key="frame" x="0.0" y="0.0" width="640" height="420"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <font key="font" metaFont="message"/>
-                        <tabViewItems/>
                         <connections>
                             <binding destination="AUN-C9-TPx" name="selectedIndex" keyPath="self.representedObject.payout_policy" id="453-zu-gh9"/>
                             <outlet property="delegate" destination="AUN-C9-TPx" id="NjH-ts-Qxc"/>

@@ -113,7 +113,7 @@
 
 #pragma mark Actions
 
-- (IBAction)displayButtonDidChange:(id)sender {
+- (IBAction)displayTapped:(id)sender {
     if([[[self viewerWindowController] window] isVisible]) {
         // close viewer window
         [[self viewerWindowController] close];
