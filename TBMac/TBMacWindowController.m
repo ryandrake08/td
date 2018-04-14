@@ -131,4 +131,20 @@
     }
 }
 
+- (IBAction)authorizeTapped:(id)sender {
+    [self performSegueWithIdentifier:@"presentAuthCodeView" sender:sender];
+}
+
+- (IBAction)setupTapped:(id)sender {
+    [self performSegueWithIdentifier:@"presentConfigurationView" sender:sender];
+}
+
+- (IBAction)planTapped:(id)sender {
+    [self performSegueWithIdentifier:@"presentPlanView" sender:sender];
+}
+
+- (IBAction)movesTapped:(id)sender {
+    [self performSegueWithIdentifier:@"presentMovementView" sender:sender];
+}
+
 @end
