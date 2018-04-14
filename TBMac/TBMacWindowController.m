@@ -41,6 +41,10 @@
     NSStoryboard* viewerStoryboard = [NSStoryboard storyboardWithName:@"TBViewer" bundle:[NSBundle mainBundle]];
     [self setViewerWindowController:[viewerStoryboard instantiateInitialController]];
 
+    // keep this our content view controller, window, and window controller in the responder chain when the viewer window is open
+    [self setNextResponder:[[self viewerWindowController] nextResponder]];
+    [[self viewerWindowController] setNextResponder:[self contentViewController]];
+
     // register for KVO
     [[self KVOController] observe:self keyPath:@"document" options:0 block:^(id observer, TBMacWindowController* object, NSDictionary* change) {
         // setup player view controller
