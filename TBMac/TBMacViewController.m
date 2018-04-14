@@ -149,11 +149,17 @@
 
         // present and only perform setup if confirmed by user
         if([alert runModal] == NSAlertFirstButtonReturn) {
-            [(TBMacDocument*)[self document] planSeating];
+            id players = [[self session] state][@"max_expected_players"];
+            if([players unsignedIntegerValue] > 1) {
+                [[self session] planSeatingFor:players];
+            }
         }
     } else {
         // no warning
-        [(TBMacDocument*)[self document] planSeating];
+        id players = [[self session] state][@"max_expected_players"];
+        if([players unsignedIntegerValue] > 1) {
+            [[self session] planSeatingFor:players];
+        }
     }
 }
 

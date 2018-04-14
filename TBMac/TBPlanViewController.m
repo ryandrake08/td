@@ -8,6 +8,7 @@
 
 #import "TBPlanViewController.h"
 #import "TBMacDocument.h"
+#import "TournamentSession.h"
 
 @interface TBPlanViewController ()
 
@@ -23,11 +24,11 @@
 - (IBAction)doneButtonDidChange:(id)sender {
     NSInteger players = [[self playersTextField] integerValue];
     if(players != 0) {
-        // get document from sheet parent
-        TBMacDocument* document = [[[[[self view] window] sheetParent] windowController] document];
+        // session is represented object
+        TournamentSession* session = [self representedObject];
 
         // plan seating
-        [document planSeatingFor:players];
+        [session planSeatingFor:@(players)];
     }
 
     // dismiss

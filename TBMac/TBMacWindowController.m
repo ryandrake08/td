@@ -71,8 +71,10 @@
     // pass any needed data to view controllers
     if([[segue identifier] isEqualToString:@"presentAuthCodeView"]) {
     } else if([[segue identifier] isEqualToString:@"presentPlanView"]) {
-        // pass current max expected players to plan view
         TBPlanViewController* vc = (TBPlanViewController*)[segue destinationController];
+
+        // pass session to the plan view
+        [vc setRepresentedObject:[(TBMacDocument*)[self document] session]];
 
         // enable warning text if players are either seated or bought in
         BOOL alreadyPlanned = [[[(TBMacDocument*)[self document] session] state][@"seats"] count] > 0 || [[[(TBMacDocument*)[self document] session] state][@"buyins"] count] > 0;
@@ -88,14 +90,18 @@
 
         // default maxPlayers to number of configured players
         NSUInteger numberOfPlayers = [[(TBMacDocument*)[self document] configuration][@"players"] count];
+
+        // pass current max expected players to plan view
         [vc setNumberOfPlayers:numberOfPlayers];
     } else if([[segue identifier] isEqualToString:@"presentConfigurationView"]) {
-        // pass configuration to the configuration view
         id vc = [segue destinationController];
+
+        // pass configuration to the configuration view
         [vc setRepresentedObject:[(TBMacDocument*)[self document] configuration]];
     } else if([[segue identifier] isEqualToString:@"presentMovementView"]) {
         // move movements to the view
         TBMovementViewController* vc = (TBMovementViewController*)[segue destinationController];
+
         [vc setPlayerMovements:[self playerMovements]];
         [[self playerMovements] removeAllObjects];
 
