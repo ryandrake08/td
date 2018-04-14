@@ -13,6 +13,7 @@
 #import "TBMovementViewController.h"
 #import "TBNotifications.h"
 #import "TBPlanViewController.h"
+#import "TBSetupViewController.h"
 #import "TBViewerViewController.h"
 #import "TournamentSession.h"
 
@@ -71,7 +72,7 @@
     // pass any needed data to view controllers
     if([[segue identifier] isEqualToString:@"presentAuthCodeView"]) {
     } else if([[segue identifier] isEqualToString:@"presentPlanView"]) {
-        TBPlanViewController* vc = (TBPlanViewController*)[segue destinationController];
+        TBPlanViewController* vc = [segue destinationController];
 
         // pass session to the plan view
         [vc setRepresentedObject:[(TBMacDocument*)[self document] session]];
@@ -94,13 +95,13 @@
         // pass current max expected players to plan view
         [vc setNumberOfPlayers:numberOfPlayers];
     } else if([[segue identifier] isEqualToString:@"presentConfigurationView"]) {
-        id vc = [segue destinationController];
+        TBSetupViewController* vc = [segue destinationController];
 
         // pass configuration to the configuration view
-        [vc setRepresentedObject:[(TBMacDocument*)[self document] configuration]];
+        [vc setInitialConfiguration:[(TBMacDocument*)[self document] configuration]];
     } else if([[segue identifier] isEqualToString:@"presentMovementView"]) {
         // move movements to the view
-        TBMovementViewController* vc = (TBMovementViewController*)[segue destinationController];
+        TBMovementViewController* vc = [segue destinationController];
 
         [vc setPlayerMovements:[self playerMovements]];
         [[self playerMovements] removeAllObjects];

@@ -10,4 +10,6 @@
 
 @interface TBSetupViewController : NSViewController
 
+- (void)setInitialConfiguration:(NSDictionary*)config;
+
 @end

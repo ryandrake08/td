@@ -12,7 +12,7 @@
 
 @interface TBSetupViewController ()
 
-// Configuration (TODO: should this be non-mutable now?)
+// Configuration being worked on
 @property (nonatomic, strong) NSMutableDictionary* configuration;
 
 @end
@@ -27,12 +27,9 @@
     }
 }
 
-- (void)setRepresentedObject:(id)representedObject {
-    [super setRepresentedObject:representedObject];
-
+- (void)setInitialConfiguration:(NSDictionary*)config {
     // set configuration (use a deep copy)
-    NSData* buffer = [NSKeyedArchiver archivedDataWithRootObject:representedObject];
-    [self setConfiguration:[NSKeyedUnarchiver unarchiveObjectWithData:buffer]];
+    [self setConfiguration:[NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject:config]]];
 }
 
 #pragma mark Actions
