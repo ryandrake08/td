@@ -13,9 +13,6 @@
 
 @interface TBSeatingViewController () <NSMenuDelegate>
 
-// global session
-@property (strong) TournamentSession* session;
-
 @end
 
 @implementation TBSeatingViewController
@@ -35,13 +32,6 @@
 
     // resize columns
     [[self tableView] sizeToFit];
-}
-
-- (void)setRepresentedObject:(id)representedObject {
-    [super setRepresentedObject:representedObject];
-
-    // set session
-    [self setSession:representedObject];
 }
 
 #pragma mark TBPlayersViewDelegate

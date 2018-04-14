@@ -7,7 +7,11 @@
 //
 
 #import "TBTableViewController.h"
+@class TournamentSession;
 
 @interface TBResultsViewController : TBTableViewController
+
+// The session
+@property (nonatomic, strong) TournamentSession* session;
 
 @end

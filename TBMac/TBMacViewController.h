@@ -7,8 +7,12 @@
 //
 
 #import <Cocoa/Cocoa.h>
+@class TournamentSession;
 
 @interface TBMacViewController : NSViewController
+
+// The session
+@property (nonatomic, strong) TournamentSession* session;
 
 // Returns the view appropriate for printing
 - (NSView*)printableView;

@@ -49,8 +49,8 @@
     // register for KVO
     [[self KVOController] observe:self keyPath:@"document" options:0 block:^(id observer, TBMacWindowController* object, NSDictionary* change) {
         // setup player view controller
-        id viewerViewController = (TBViewerViewController*)[[object viewerWindowController] contentViewController];
-        [viewerViewController setRepresentedObject:[(TBMacDocument*)[object document] session]];
+        TBViewerViewController* viewerViewController = (TBViewerViewController*)[[object viewerWindowController] contentViewController];
+        [viewerViewController setSession:[(TBMacDocument*)[object document] session]];
     }];
 
     // register for notifications
@@ -75,7 +75,7 @@
         TBPlanViewController* vc = [segue destinationController];
 
         // pass session to the plan view
-        [vc setRepresentedObject:[(TBMacDocument*)[self document] session]];
+        [vc setSession:[(TBMacDocument*)[self document] session]];
 
         // enable warning text if players are either seated or bought in
         BOOL alreadyPlanned = [[[(TBMacDocument*)[self document] session] state][@"seats"] count] > 0 || [[[(TBMacDocument*)[self document] session] state][@"buyins"] count] > 0;

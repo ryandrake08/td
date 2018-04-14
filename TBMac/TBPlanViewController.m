@@ -24,11 +24,8 @@
 - (IBAction)doneButtonDidChange:(id)sender {
     NSInteger players = [[self playersTextField] integerValue];
     if(players != 0) {
-        // session is represented object
-        TournamentSession* session = [self representedObject];
-
         // plan seating
-        [session planSeatingFor:@(players)];
+        [[self session] planSeatingFor:@(players)];
     }
 
     // dismiss

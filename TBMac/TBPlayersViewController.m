@@ -9,13 +9,6 @@
 #import "TBPlayersViewController.h"
 #import "TournamentSession.h"
 
-@interface TBPlayersViewController ()
-
-// global session
-@property (strong) TournamentSession* session;
-
-@end
-
 @implementation TBPlayersViewController
 
 - (void)viewDidLoad {
@@ -24,13 +17,6 @@
     // setup sort descriptor
     NSSortDescriptor* playerNameSort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
     [[self arrayController] setSortDescriptors:@[playerNameSort]];
-}
-
-- (void)setRepresentedObject:(id)representedObject {
-    [super setRepresentedObject:representedObject];
-
-    // set session
-    [self setSession:representedObject];
 }
 
 - (IBAction)seatedButtonDidChange:(NSButton*)sender {

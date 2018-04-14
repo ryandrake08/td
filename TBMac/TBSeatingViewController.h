@@ -8,7 +8,11 @@
 
 #import "TBTableViewController.h"
 #import "TBPlayersViewController.h"
+@class TournamentSession;
 
 @interface TBSeatingViewController : TBTableViewController <TBPlayersViewDelegate>
+
+// The session
+@property (nonatomic, strong) TournamentSession* session;
 
 @end

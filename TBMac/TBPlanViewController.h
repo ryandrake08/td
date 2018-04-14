@@ -7,8 +7,12 @@
 //
 
 #import <Cocoa/Cocoa.h>
+@class TournamentSession;
 
 @interface TBPlanViewController : NSViewController
+
+// The session
+@property (strong) TournamentSession* session;
 
 // YES if warning text should be shown
 @property (assign) BOOL enableWarning;

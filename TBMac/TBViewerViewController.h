@@ -7,7 +7,11 @@
 //
 
 #import <Cocoa/Cocoa.h>
+@class TournamentSession;
 
 @interface TBViewerViewController : NSViewController
+
+// The session
+@property (nonatomic, strong) TournamentSession* session;
 
 @end

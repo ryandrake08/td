@@ -16,9 +16,6 @@
 
 @interface TBMacViewController ()
 
-// The global shared session
-@property (strong) TournamentSession* session;
-
 // UI Outlets
 @property (weak) IBOutlet NSView* leftPaneView;
 @property (weak) IBOutlet NSView* rightPaneView;
@@ -53,16 +50,14 @@
     }
 }
 
-- (void)setRepresentedObject:(id)representedObject {
-    [super setRepresentedObject:representedObject];
-
+- (void)setSession:(TournamentSession*)session {
     // set session
-    [self setSession:representedObject];
+    _session = session;
 
     // also set for containers
-    [[self seatingViewController] setRepresentedObject:representedObject];
-    [[self playersViewController] setRepresentedObject:representedObject];
-    [[self resultsViewController] setRepresentedObject:representedObject];
+    [[self seatingViewController] setSession:[self session]];
+    [[self playersViewController] setSession:[self session]];
+    [[self resultsViewController] setSession:[self session]];
 }
 
 #pragma mark Attributes

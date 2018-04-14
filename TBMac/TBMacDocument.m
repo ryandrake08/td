@@ -80,8 +80,8 @@
 
 - (void)makeWindowControllers {
     NSWindowController* wc = [[NSStoryboard storyboardWithName:@"TBMac" bundle:nil] instantiateControllerWithIdentifier:@"Document Window Controller"];
-    NSViewController* vc = [wc contentViewController];
-    [vc setRepresentedObject: [self session]];
+    TBMacViewController* vc = (TBMacViewController*)[wc contentViewController];
+    [vc setSession:[self session]];
     [self addWindowController:wc];
 }
 

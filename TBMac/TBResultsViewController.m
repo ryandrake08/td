@@ -11,14 +11,6 @@
 #import "TBCurrencyNumberFormatter.h"
 #import "TournamentSession.h"
 
-@interface TBResultsViewController () <NSTableViewDelegate>
-
-
-// global session
-@property (strong) TournamentSession* session;
-
-@end
-
 @implementation TBResultsViewController
 
 - (void)viewDidLoad {
@@ -27,13 +19,6 @@
     // setup sort descriptor
     NSSortDescriptor* placeSort = [[NSSortDescriptor alloc] initWithKey:@"place" ascending:YES];
     [[self arrayController] setSortDescriptors:@[placeSort]];
-}
-
-- (void)setRepresentedObject:(id)representedObject {
-    [super setRepresentedObject:representedObject];
-
-    // set session
-    [self setSession:representedObject];
 }
 
 #pragma mark NSTableViewDelegate

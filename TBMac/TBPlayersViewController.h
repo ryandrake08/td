@@ -7,6 +7,7 @@
 //
 
 #import "TBTableViewController.h"
+@class TournamentSession;
 
 @protocol TBPlayersViewDelegate <NSObject>
 
@@ -15,6 +16,9 @@
 @end
 
 @interface TBPlayersViewController : TBTableViewController
+
+// The session
+@property (nonatomic, strong) TournamentSession* session;
 
 @property (weak) NSObject<TBPlayersViewDelegate>* delegate;
 

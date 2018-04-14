@@ -22,9 +22,6 @@
 
 @interface TBViewerViewController () <NSTableViewDelegate>
 
-// The global shared session
-@property (strong) TournamentSession* session;
-
 // Sound player
 @property (strong) TBSoundPlayer* soundPlayer;
 
@@ -119,21 +116,19 @@
 - (void)prepareForSegue:(NSStoryboardSegue *)segue sender:(id)sender {
     if([[segue identifier] isEqualToString:@"presentActionClockView"]) {
         [self setActionClockViewController:[segue destinationController]];
-        [[self actionClockViewController] setRepresentedObject:[self session]];
+        [[self actionClockViewController] setSession:[self session]];
     }
 }
 
-- (void)setRepresentedObject:(id)representedObject {
-    [super setRepresentedObject:representedObject];
-
+- (void)setSession:(TournamentSession*)session {
     // set session
-    [self setSession:representedObject];
+    _session = session;
 
     // also set for containers
-    [[self actionClockViewController] setRepresentedObject:representedObject];
+    [[self actionClockViewController] setSession:[self session]];
 
     // also set for sound player
-    [[self soundPlayer] setSession:representedObject];
+    [[self soundPlayer] setSession:[self session]];
 }
 
 #pragma mark NSTableViewDelegate
