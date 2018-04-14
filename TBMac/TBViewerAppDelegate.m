@@ -9,6 +9,7 @@
 #import "TBViewerAppDelegate.h"
 #import "TournamentBrowser.h"
 #import "TournamentSession.h"
+#import "TournamentService.h"
 #import "TBViewerViewController.h"
 #import "TBConnectToViewController.h"
 

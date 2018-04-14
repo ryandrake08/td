@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "TournamentService.h"
+@class TournamentService;
 
 // Funding types (sync with enum funding_source_type_t in types.hpp)
 #define kFundingTypeBuyin @0

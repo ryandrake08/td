@@ -12,6 +12,7 @@
 #import "TBCurrencyNumberFormatter.h"
 #import "TBError.h"
 #import "TournamentConnection.h"
+#import "TournamentService.h"
 
 @interface TournamentSession() <TournamentConnectionDelegate>
 

@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "TournamentSession.h"
+@class TournamentSession;
 
 @interface TBSoundPlayer : NSObject
 

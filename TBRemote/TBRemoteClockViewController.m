@@ -12,6 +12,7 @@
 #import "TBColor+CSS.h"
 #import "TBColor+ContrastTextColor.h"
 #import "TBEllipseView.h"
+#import "TBInvertableImageView.h"
 #import "TBInvertableButton_iOS.h"
 #import "TBSoundPlayer.h"
 #import "TournamentSession.h"

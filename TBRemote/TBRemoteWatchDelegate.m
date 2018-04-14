@@ -7,6 +7,7 @@
 //
 
 #import "TBRemoteWatchDelegate.h"
+#import "TournamentSession.h"
 #import "NSObject+FBKVOController.h"
 #import <WatchConnectivity/WatchConnectivity.h>
 

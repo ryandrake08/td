@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TBEllipseView.h"
-#import "TBInvertableImageView.h"
+@class TBEllipseView;
+@class TBInvertableImageView;
 
 @interface TBChipTableViewCell : UITableViewCell
 

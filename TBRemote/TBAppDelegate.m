@@ -10,6 +10,7 @@
 #import "NSObject+FBKVOController.h"
 #import "TBRemoteWatchDelegate.h"
 #import "TBSettingsViewController.h"
+#import "TournamentSession.h"
 #import "UIResponder+PresentingErrors.h"
 
 @interface TBAppDelegate () <TournamentSessionDelegate>

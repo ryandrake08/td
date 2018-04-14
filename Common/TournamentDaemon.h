@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "TournamentService.h"
+@class TournamentService;
 
 @interface TournamentDaemon : NSObject
 

@@ -9,6 +9,7 @@
 #import "TBTournamentsViewController.h"
 #import "TBAppDelegate.h"
 #import "TournamentBrowser.h"
+#import "TournamentService.h"
 #import "TournamentSession.h"
 #import "UIResponder+PresentingErrors.h"
 

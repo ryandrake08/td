@@ -7,8 +7,8 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "TBEllipseView.h"
-#import "TBInvertableImageView.h"
+@class TBEllipseView;
+@class TBInvertableImageView;
 
 @interface TBChipTableCellView : NSTableCellView
 

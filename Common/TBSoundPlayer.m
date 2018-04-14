@@ -10,6 +10,7 @@
 #import "NSObject+FBKVOController.h"
 #import "TBNotifications.h"
 #import "TBSound.h"
+#import "TournamentSession.h"
 
 @interface TBSoundPlayer ()
 

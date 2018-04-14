@@ -9,7 +9,7 @@
 #import "TBActionClockViewController.h"
 #import "TBActionClockView.h"
 #import "TBAppDelegate.h"
-
+#import "TournamentSession.h"
 #import "NSObject+FBKVOController.h"
 
 @interface TBActionClockViewController () <TBActionClockDelegate>
