@@ -68,13 +68,23 @@
     [[self callClockButton] bind:@"imageInverted" toObject:self withKeyPath:@"backgroundIsDark" options:nil];
     [[self callClockButton] bind:@"alternateImageInverted" toObject:self withKeyPath:@"backgroundIsDark" options:nil];
 
-    // update buttons when authorization, connected, or current_blinc_level changes
-    [[self KVOController] observe:self keyPaths:@[@"session.state.connected", @"session.state.authorized"] options:NSKeyValueObservingOptionInitial block:^(id observer, TBViewerViewController* object, NSDictionary *change) {
+    // update window title when tournament name changes
+    [[self KVOController] observe:self keyPath:@"session.state.name" options:NSKeyValueObservingOptionInitial block:^(id observer, TBViewerViewController* object, NSDictionary *change) {
+        NSString* tournamentName = [[object session] state][@"name"];
+        if(tournamentName == nil) {
+            [[[self view] window] setTitle:NSLocalizedString(@"Tournament Display", nil)];
+        } else {
+            [[[self view] window] setTitle:[NSString localizedStringWithFormat:@"Display: %@", tournamentName]];
+        }
+    }];
+
+    // update buttons when authorization, connected, or current_blind_level changes
+    [[self KVOController] observe:self keyPaths:@[@"session.state.connected", @"session.state.authorized", @"session.state.current_blind_level"] options:NSKeyValueObservingOptionInitial block:^(id observer, TBViewerViewController* object, NSDictionary *change) {
         // update controls
         [self updateTournamentControls];
     }];
 
-    // update action clock when action_clock_time_remaining chantes
+    // update action clock when action_clock_time_remaining changes
     [[self KVOController] observe:self keyPath:@"session.state.action_clock_time_remaining" options:0 block:^(id observer, TBViewerViewController* object, NSDictionary *change) {
         [observer updateActionClock:[[object session] state][@"action_clock_time_remaining"]];
     }];
@@ -82,12 +92,7 @@
     // chips tableview reloads itself when available_chips changes
     [[[self chipsTableView] KVOController] observe:self keyPath:@"session.state.available_chips" options:0 action:@selector(reloadData)];
 
-    // register for KVO
-    [[self KVOController] observe:self keyPath:@"session.state.current_blind_level" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld block:^(id observer, id object, NSDictionary* change) {
-        // update controls
-        [observer updateTournamentControls];
-    }];
-
+    // set background color when it changes
     [[self KVOController] observe:self keyPath:@"session.state.background_color" options:NSKeyValueObservingOptionInitial block:^(id observer, TBViewerViewController* object, NSDictionary *change) {
         // Set the background color on the view
         NSString* backgroundColorName = [[object session] state][@"background_color"];
