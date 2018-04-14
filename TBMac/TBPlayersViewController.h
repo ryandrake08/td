@@ -20,6 +20,6 @@
 // The session
 @property (nonatomic, strong) TournamentSession* session;
 
-@property (weak) NSObject<TBPlayersViewDelegate>* delegate;
+@property (nonatomic, weak) NSObject<TBPlayersViewDelegate>* delegate;
 
 @end

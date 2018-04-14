@@ -10,7 +10,7 @@
 
 @interface AppDelegate ()
 
-@property (strong) NSObject* activity;
+@property (nonatomic, strong) NSObject* activity;
 
 @end
 

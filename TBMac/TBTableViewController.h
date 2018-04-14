@@ -11,10 +11,10 @@
 @interface TBTableViewController : NSViewController <NSTableViewDelegate>
 
 // always have a reference to the tableView
-@property (strong) IBOutlet NSTableView* tableView;
+@property (nonatomic, strong) IBOutlet NSTableView* tableView;
 
 // array controller for objects managed by this view controller
-@property (strong) IBOutlet NSArrayController* arrayController;
+@property (nonatomic, strong) IBOutlet NSArrayController* arrayController;
 
 // common delegate behavior among all table views
 - (void)tableViewSelectionDidChange:(NSNotification*)notification;

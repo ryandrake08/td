@@ -15,13 +15,13 @@
 
 @interface TBViewerAppDelegate () <TournamentBrowserDelegate, TournamentSessionDelegate>
 
-@property (weak) IBOutlet NSMenu* connectMenu;
+@property (nonatomic, weak) IBOutlet NSMenu* connectMenu;
 
 // the tournament session (model) object
-@property (strong) IBOutlet TournamentSession* session;
+@property (nonatomic, strong) IBOutlet TournamentSession* session;
 
 // a tournament broswer
-@property (strong) IBOutlet TournamentBrowser* browser;
+@property (nonatomic, strong) IBOutlet TournamentBrowser* browser;
 
 @end
 

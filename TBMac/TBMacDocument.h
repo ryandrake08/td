@@ -14,10 +14,10 @@
 @interface TBMacDocument : NSDocument
 
 // The session controlled by the document
-@property (strong, readonly) TournamentSession* session;
+@property (nonatomic, strong, readonly) TournamentSession* session;
 
 // The configuration represented by the document
-@property (strong, readonly) NSMutableDictionary* configuration;
+@property (nonatomic, strong, readonly) NSMutableDictionary* configuration;
 
 // Add to configuration
 - (void)addConfiguration:(NSDictionary*)config;

@@ -14,30 +14,30 @@
 @interface InterfaceController () <WCSessionDelegate>
 
 // ui
-@property (weak, nonatomic) IBOutlet WKInterfaceLabel* clockLabel;
-@property (weak, nonatomic) IBOutlet WKInterfaceLabel* currentRoundLabel;
-@property (weak, nonatomic) IBOutlet WKInterfaceLabel* currentGameLabel;
-@property (weak, nonatomic) IBOutlet WKInterfaceLabel* nextRoundLabel;
-@property (weak, nonatomic) IBOutlet WKInterfaceLabel* nextGameLabel;
-@property (weak, nonatomic) IBOutlet WKInterfaceLabel* playersLeftLabel;
-@property (weak, nonatomic) IBOutlet WKInterfaceLabel* averageStackLabel;
-@property (weak, nonatomic) IBOutlet WKInterfaceButton* previousRoundButton;
-@property (weak, nonatomic) IBOutlet WKInterfaceButton* pauseResumeButton;
-@property (weak, nonatomic) IBOutlet WKInterfaceButton* nextRoundButton;
-@property (weak, nonatomic) IBOutlet WKInterfaceButton* callClockButton;
+@property (nonatomic, weak) IBOutlet WKInterfaceLabel* clockLabel;
+@property (nonatomic, weak) IBOutlet WKInterfaceLabel* currentRoundLabel;
+@property (nonatomic, weak) IBOutlet WKInterfaceLabel* currentGameLabel;
+@property (nonatomic, weak) IBOutlet WKInterfaceLabel* nextRoundLabel;
+@property (nonatomic, weak) IBOutlet WKInterfaceLabel* nextGameLabel;
+@property (nonatomic, weak) IBOutlet WKInterfaceLabel* playersLeftLabel;
+@property (nonatomic, weak) IBOutlet WKInterfaceLabel* averageStackLabel;
+@property (nonatomic, weak) IBOutlet WKInterfaceButton* previousRoundButton;
+@property (nonatomic, weak) IBOutlet WKInterfaceButton* pauseResumeButton;
+@property (nonatomic, weak) IBOutlet WKInterfaceButton* nextRoundButton;
+@property (nonatomic, weak) IBOutlet WKInterfaceButton* callClockButton;
 
 // tracked state
-@property (assign, nonatomic) BOOL connected;
-@property (assign, nonatomic) BOOL authorized;
-@property (assign, nonatomic) BOOL playing;
+@property (nonatomic, assign) BOOL connected;
+@property (nonatomic, assign) BOOL authorized;
+@property (nonatomic, assign) BOOL playing;
 
 // store last known times
-@property (copy, nonatomic) NSNumber* currentTime;
-@property (copy, nonatomic) NSNumber* clockRemaining;
-@property (copy, nonatomic) NSNumber* running;
+@property (nonatomic, copy) NSNumber* currentTime;
+@property (nonatomic, copy) NSNumber* clockRemaining;
+@property (nonatomic, copy) NSNumber* running;
 
 // timer to refresh clock label UI between updates from companion
-@property (strong, nonatomic) NSTimer* refreshTimer;
+@property (nonatomic, strong) NSTimer* refreshTimer;
 
 @end
 

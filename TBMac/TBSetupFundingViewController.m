@@ -16,7 +16,7 @@
 // TBSetupFundingArrayController implements a new object
 @interface TBSetupFundingArrayController : NSArrayController
 
-@property (copy) NSString* defaultCurrency;
+@property (nonatomic, copy) NSString* defaultCurrency;
 
 @end
 

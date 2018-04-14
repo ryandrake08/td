@@ -13,11 +13,11 @@
 @interface TBAuthCodeViewController ()
 
 // UI Outlets
-@property (weak) IBOutlet NSTextField* codeField0;
-@property (weak) IBOutlet NSTextField* codeField1;
-@property (weak) IBOutlet NSTextField* codeField2;
-@property (weak) IBOutlet NSTextField* codeField3;
-@property (weak) IBOutlet NSTextField* codeField4;
+@property (nonatomic, weak) IBOutlet NSTextField* codeField0;
+@property (nonatomic, weak) IBOutlet NSTextField* codeField1;
+@property (nonatomic, weak) IBOutlet NSTextField* codeField2;
+@property (nonatomic, weak) IBOutlet NSTextField* codeField3;
+@property (nonatomic, weak) IBOutlet NSTextField* codeField4;
 
 @end
 

@@ -10,7 +10,7 @@
 
 @interface NSView (BackgroundColor)
 
-@property NSColor* backgroundColor;
+@property (nonatomic, strong) NSColor* backgroundColor;
 
 - (void)setNeedsDisplay;
 

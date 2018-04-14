@@ -23,26 +23,26 @@
 @interface TBViewerViewController () <NSTableViewDelegate>
 
 // Sound player
-@property (strong) TBSoundPlayer* soundPlayer;
+@property (nonatomic, strong) TBSoundPlayer* soundPlayer;
 
 // UI Outlets
-@property (weak) IBOutlet NSImageView* backgroundImageView;
-@property (weak) IBOutlet TBInvertableButton* previousRoundButton;
-@property (weak) IBOutlet TBInvertableButton* pauseResumeButton;
-@property (weak) IBOutlet TBInvertableButton* nextRoundButton;
-@property (weak) IBOutlet TBInvertableButton* callClockButton;
-@property (weak) IBOutlet NSTableView* chipsTableView;
-@property (weak) IBOutlet NSTableView* resultsTableView;
+@property (nonatomic, weak) IBOutlet NSImageView* backgroundImageView;
+@property (nonatomic, weak) IBOutlet TBInvertableButton* previousRoundButton;
+@property (nonatomic, weak) IBOutlet TBInvertableButton* pauseResumeButton;
+@property (nonatomic, weak) IBOutlet TBInvertableButton* nextRoundButton;
+@property (nonatomic, weak) IBOutlet TBInvertableButton* callClockButton;
+@property (nonatomic, weak) IBOutlet NSTableView* chipsTableView;
+@property (nonatomic, weak) IBOutlet NSTableView* resultsTableView;
 
 // Background color
-@property (strong) TBColor* textColor;
-@property (assign) BOOL backgroundIsDark;
+@property (nonatomic, strong) TBColor* textColor;
+@property (nonatomic, assign) BOOL backgroundIsDark;
 
 // View controllers
-@property (strong) TBActionClockViewController* actionClockViewController;
+@property (nonatomic, strong) TBActionClockViewController* actionClockViewController;
 
 // Array controller for objects managed by this view controller
-@property (strong) IBOutlet NSArrayController* resultsArrayController;
+@property (nonatomic, strong) IBOutlet NSArrayController* resultsArrayController;
 
 @end
 

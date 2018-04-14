@@ -32,7 +32,7 @@
 
 @interface TBSetupDependsOnTurnoutViewController () <NSTableViewDelegate>
 
-@property (weak) TBSetupPayoutViewController* payoutViewController;
+@property (nonatomic, weak) TBSetupPayoutViewController* payoutViewController;
 
 @end
 

@@ -13,7 +13,7 @@
 @interface TBPlanViewController ()
 
 // UI Outlets
-@property (strong) IBOutlet NSTextField* playersTextField;
+@property (nonatomic, strong) IBOutlet NSTextField* playersTextField;
 
 @end
 

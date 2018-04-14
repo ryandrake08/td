@@ -10,6 +10,6 @@
 
 @interface TBMovementViewController : NSViewController
 
-@property (copy) NSArray* playerMovements;
+@property (nonatomic, copy) NSArray* playerMovements;
 
 @end

@@ -12,6 +12,6 @@
 @interface TBActionClockViewController : NSViewController
 
 // The session
-@property (strong) TournamentSession* session;
+@property (nonatomic, strong) TournamentSession* session;
 
 @end

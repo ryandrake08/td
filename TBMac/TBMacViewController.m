@@ -17,14 +17,14 @@
 @interface TBMacViewController ()
 
 // UI Outlets
-@property (weak) IBOutlet NSView* leftPaneView;
-@property (weak) IBOutlet NSView* rightPaneView;
-@property (weak) IBOutlet NSView* centerPaneView;
+@property (nonatomic, weak) IBOutlet NSView* leftPaneView;
+@property (nonatomic, weak) IBOutlet NSView* rightPaneView;
+@property (nonatomic, weak) IBOutlet NSView* centerPaneView;
 
 // View Controllers
-@property (strong) TBSeatingViewController* seatingViewController;
-@property (strong) TBPlayersViewController* playersViewController;
-@property (strong) TBResultsViewController* resultsViewController;
+@property (nonatomic, strong) TBSeatingViewController* seatingViewController;
+@property (nonatomic, strong) TBPlayersViewController* playersViewController;
+@property (nonatomic, strong) TBResultsViewController* resultsViewController;
 
 @end
 

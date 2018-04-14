@@ -20,13 +20,13 @@
 @interface TBMacWindowController () <NSWindowDelegate>
 
 // ui
-@property (weak) IBOutlet NSToolbarBadgedItem* playerMovesToolbarItem;
+@property (nonatomic, weak) IBOutlet NSToolbarBadgedItem* playerMovesToolbarItem;
 
 // Viewer window controller
-@property (strong) NSWindowController* viewerWindowController;
+@property (nonatomic, strong) NSWindowController* viewerWindowController;
 
 // current player movements
-@property (strong) NSMutableArray* playerMovements;
+@property (nonatomic, strong) NSMutableArray* playerMovements;
 
 @end
 

@@ -14,9 +14,9 @@
 @interface TBConnectToViewController : NSViewController
 
 // the tournament session (model) object
-@property (strong) TournamentSession* session;
+@property (nonatomic, strong) TournamentSession* session;
 
-@property (copy) NSString* address;
-@property (assign) NSInteger port;
+@property (nonatomic, copy) NSString* address;
+@property (nonatomic, assign) NSInteger port;
 
 @end

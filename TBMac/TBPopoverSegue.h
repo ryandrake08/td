@@ -10,8 +10,8 @@
 
 @interface TBPopoverSegue : NSStoryboardSegue
 
-@property (weak) NSView* anchorView;
-@property NSRectEdge preferredEdge;
-@property NSPopoverBehavior popoverBehavior;
+@property (nonatomic, weak) NSView* anchorView;
+@property (nonatomic, assign) NSRectEdge preferredEdge;
+@property (nonatomic, assign) NSPopoverBehavior popoverBehavior;
 
 @end

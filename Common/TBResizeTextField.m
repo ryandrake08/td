@@ -10,7 +10,7 @@
 
 @interface TBResizeTextField ()
 // minimum font size to try when resizing to fit
-@property IBInspectable CGFloat minFontSize;
+@property (nonatomic, assign) IBInspectable CGFloat minFontSize;
 @end
 
 @implementation TBResizeTextField

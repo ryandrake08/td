@@ -11,10 +11,10 @@
 @interface TBMovementViewController ()
 
 // ui
-@property (strong) IBOutlet NSTextField* titleTextField;
+@property (nonatomic, strong) IBOutlet NSTextField* titleTextField;
 
 // array controller for objects managed by this view controller
-@property (strong) IBOutlet NSArrayController* arrayController;
+@property (nonatomic, strong) IBOutlet NSArrayController* arrayController;
 
 @end
 

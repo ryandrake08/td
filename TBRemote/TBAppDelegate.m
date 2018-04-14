@@ -15,7 +15,7 @@
 
 @interface TBAppDelegate () <TournamentSessionDelegate>
 
-@property (strong) TBRemoteWatchDelegate* watchDelegate;
+@property (nonatomic, strong) TBRemoteWatchDelegate* watchDelegate;
 
 @end
 

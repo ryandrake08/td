@@ -11,7 +11,7 @@
 
 @interface TBSetupFilesViewController ()
 
-@property (strong) NSArray* documents;
+@property (nonatomic, strong) NSArray* documents;
 
 @end
 

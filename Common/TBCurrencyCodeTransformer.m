@@ -11,8 +11,8 @@
 
 @interface TBCurrencyCodeTransformer ()
 
-@property (strong) NSDictionary* transformer;
-@property (strong) NSDictionary* reverseTransformer;
+@property (nonatomic, strong) NSDictionary* transformer;
+@property (nonatomic, strong) NSDictionary* reverseTransformer;
 
 @end
 

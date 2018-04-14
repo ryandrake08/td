@@ -12,15 +12,15 @@
 @interface TBPlanViewController : NSViewController
 
 // The session
-@property (strong) TournamentSession* session;
+@property (nonatomic, strong) TournamentSession* session;
 
 // YES if warning text should be shown
-@property (assign) BOOL enableWarning;
+@property (nonatomic, assign) BOOL enableWarning;
 
 // Warning text to display
-@property (strong) NSString* warningText;
+@property (nonatomic, strong) NSString* warningText;
 
 // Number of players to plan for
-@property (assign) NSInteger numberOfPlayers;
+@property (nonatomic, assign) NSInteger numberOfPlayers;
 
 @end

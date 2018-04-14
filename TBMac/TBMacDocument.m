@@ -16,9 +16,9 @@
 @interface TBMacDocument () <TournamentSessionDelegate>
 
 // Model
-@property (strong) TournamentDaemon* server;
-@property (strong, readwrite) TournamentSession* session;
-@property (strong, readwrite) NSMutableDictionary* configuration;
+@property (nonatomic, strong) TournamentDaemon* server;
+@property (nonatomic, strong, readwrite) TournamentSession* session;
+@property (nonatomic, strong, readwrite) NSMutableDictionary* configuration;
 
 @end
 
