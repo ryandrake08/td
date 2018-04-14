@@ -131,6 +131,15 @@
     }
 }
 
+- (IBAction)rebalanceTapped:(id)sender {
+    [[(TBMacDocument*)[self document] session] rebalanceSeatingWithBlock:^(NSArray* movements) {
+        if([movements count] > 0) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:kMovementsUpdatedNotification object:movements];
+            [self performSegueWithIdentifier:@"presentMovementView" sender:sender];
+        }
+    }];
+}
+
 - (IBAction)authorizeTapped:(id)sender {
     [self performSegueWithIdentifier:@"presentAuthCodeView" sender:sender];
 }

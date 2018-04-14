@@ -157,15 +157,6 @@
     }
 }
 
-- (IBAction)rebalanceTapped:(id)sender {
-    [[self session] rebalanceSeatingWithBlock:^(NSArray* movements) {
-        if([movements count] > 0) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:kMovementsUpdatedNotification object:movements];
-            [[[[self view] window] windowController] performSegueWithIdentifier:@"presentMovementView" sender:sender];
-        }
-    }];
-}
-
 - (IBAction)quickStartTapped:(id)sender {
     if([[[self session] state][@"seats"] count] > 0 || [[[self session] state][@"buyins"] count] > 0) {
         // alert because this is a very destructive action
