@@ -276,49 +276,50 @@
 
 - (void)stream:(NSStream*)theStream handleEvent:(NSStreamEvent)streamEvent
 {
-    switch (streamEvent)
-    {
-        case NSStreamEventOpenCompleted:
-            if(theStream == [self outputStream]) {
-                // report connection state based on output stream connection
-                // so we report connection only once
-                if([[self delegate] respondsToSelector:@selector(tournamentConnectionDidConnect:)]) {
-                    [[self delegate] tournamentConnectionDidConnect:self];
+    @autoreleasepool {
+        switch (streamEvent) {
+            case NSStreamEventOpenCompleted:
+                if(theStream == [self outputStream]) {
+                    // report connection state based on output stream connection
+                    // so we report connection only once
+                    if([[self delegate] respondsToSelector:@selector(tournamentConnectionDidConnect:)]) {
+                        [[self delegate] tournamentConnectionDidConnect:self];
+                    }
                 }
-            }
-            break;
+                break;
 
-        case NSStreamEventHasBytesAvailable:
-            if(theStream == [self inputStream]) {
-                // fill up, then consume the input buffer
-                [self fillInputBuffer];
-                [self consumeInputBuffer];
-            }
-            break;
+            case NSStreamEventHasBytesAvailable:
+                if(theStream == [self inputStream]) {
+                    // fill up, then consume the input buffer
+                    [self fillInputBuffer];
+                    [self consumeInputBuffer];
+                }
+                break;
 
-        case NSStreamEventHasSpaceAvailable:
-            if(theStream == [self outputStream]) {
-                // flush any remaining data in the output buffer
-                [self flushOutputBuffer];
-            }
-            break;
+            case NSStreamEventHasSpaceAvailable:
+                if(theStream == [self outputStream]) {
+                    // flush any remaining data in the output buffer
+                    [self flushOutputBuffer];
+                }
+                break;
 
-        case NSStreamEventErrorOccurred:
-            // notify delegate
-            if([[self delegate] respondsToSelector:@selector(tournamentConnection:error:)]) {
-                [[self delegate] tournamentConnection:self error:[theStream streamError]];
-            }
-            break;
+            case NSStreamEventErrorOccurred:
+                // notify delegate
+                if([[self delegate] respondsToSelector:@selector(tournamentConnection:error:)]) {
+                    [[self delegate] tournamentConnection:self error:[theStream streamError]];
+                }
+                break;
 
-        case NSStreamEventEndEncountered:
-            // notify delegate
-            if([[self delegate] respondsToSelector:@selector(tournamentConnectionDidDisconnect:)]) {
-                [[self delegate] tournamentConnectionDidDisconnect:self];
-            }
-            break;
+            case NSStreamEventEndEncountered:
+                // notify delegate
+                if([[self delegate] respondsToSelector:@selector(tournamentConnectionDidDisconnect:)]) {
+                    [[self delegate] tournamentConnectionDidDisconnect:self];
+                }
+                break;
 
-        default:
-            NSLog(@"Unknown event: %lu", (unsigned long)streamEvent);
+            default:
+                NSLog(@"Unknown event: %lu", (unsigned long)streamEvent);
+        }
     }
 }
 
