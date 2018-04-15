@@ -15,7 +15,7 @@
 
 @implementation TBResizeTextField
 
-- (void)drawRect:(NSRect)dirtyRect {
+- (void)resizeFont {
     // font to try
     NSFont* newFont, *tryFont;
 
@@ -36,9 +36,20 @@
     } else {
         NSLog(@"TBResizeTextField: minFontSize %f too large for rect", [self minFontSize]);
     }
+}
 
-    // draw the rect otherwise as normal
-    [super drawRect:dirtyRect];
+- (void)setStringValue:(NSString*)stringValue {
+    if(![stringValue isEqualToString:[self stringValue]]) {
+        [super setStringValue:stringValue];
+        [self resizeFont];
+    }
+}
+
+- (void)setFrame:(NSRect)frame {
+    if(!CGRectEqualToRect(frame, [self frame])) {
+        [super setFrame:frame];
+        [self resizeFont];
+    }
 }
 
 @end
