@@ -205,7 +205,7 @@ struct tournament::impl
         }
     }
 
-    void handle_cmd_gen_blind_levels(const json& in, json& /* out */)
+    void handle_cmd_gen_blind_levels(const json& in, json& out)
     {
         // required parameters
         std::size_t count;
@@ -227,7 +227,11 @@ struct tournament::impl
         in.get_value("antes", antes);
         in.get_value("ante_sb_ratio", ante_sb_ratio);
 
-        this->game_info.gen_blind_levels(count, duration, break_duration, blind_increase_factor, antes, ante_sb_ratio);
+        // generate levels
+        auto levels(this->game_info.gen_blind_levels(count, duration, break_duration, blind_increase_factor, antes, ante_sb_ratio));
+
+        // output
+        out.set_value("blind_levels", json(levels.begin(), levels.end()));
     }
 
     void handle_cmd_reset_funding(const json& /* in */, json& /* out */)
@@ -744,7 +748,6 @@ struct tournament::impl
                              */
                             this->ensure_authorized(in);
                             this->handle_cmd_gen_blind_levels(in, out);
-                            this->broadcast_configuration();
                         }
                         else if(cmd == "reset_funding")
                         {

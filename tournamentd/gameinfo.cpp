@@ -1523,7 +1523,7 @@ static unsigned long calculate_round_denomination(double ideal, const std::vecto
 //  1/5/25/100/500
 //  5/25/100/500/1000
 //  25/100/500/1000/5000
-void gameinfo::gen_blind_levels(std::size_t count, long level_duration, long chip_up_break_duration, double blind_increase_factor, bool antes, double ante_sb_ratio)
+std::vector<td::blind_level> gameinfo::gen_blind_levels(std::size_t count, long level_duration, long chip_up_break_duration, double blind_increase_factor, bool antes, double ante_sb_ratio) const
 {
     if(this->available_chips.empty())
     {
@@ -1532,44 +1532,52 @@ void gameinfo::gen_blind_levels(std::size_t count, long level_duration, long chi
 
     logger(ll::info) << "generating " << count << " blind levels\n";
 
-    // resize structure, zero-initializing
-    this->blind_levels.resize(count+1);
-
     // store last round denomination (to check when it changes)
     auto last_round_denom(this->available_chips.begin()->denomination);
 
     // starting small blind = smallest denomination
     auto ideal_small(static_cast<double>(last_round_denom));
 
+    // output
+    std::vector<td::blind_level> levels(count+1);
+
     for(size_t i(1); i<count+1; i++)
     {
-        // calculate nearest chip denomination to round to
+        // calculate nearest chip denomination
         auto round_denom(calculate_round_denomination(ideal_small, this->available_chips));
+
+        // round up to get little blind
         const auto little_blind(static_cast<unsigned long>(std::ceil(ideal_small / round_denom) * round_denom));
 
         // calculate antes if needed
         unsigned long ante(0);
         if(antes)
         {
+            // calculate ideal ante
             auto ideal_ante(ante_sb_ratio * little_blind);
+
+            // calculate nearest chip denomination
             round_denom = calculate_round_denomination(ideal_ante, this->available_chips);
+
+            // round up to get ante
             ante = static_cast<unsigned long>(std::ceil(ideal_ante / round_denom) * round_denom);
         }
 
         logger(ll::debug) << "round: " << i << ", little blind will be: " << little_blind << '\n';
 
-        // round up
-        this->blind_levels[i].little_blind = little_blind;
-        this->blind_levels[i].big_blind = this->blind_levels[i].little_blind * 2;
-        this->blind_levels[i].ante = ante;
-        this->blind_levels[i].duration = level_duration;
+        levels[i].little_blind = little_blind;
+        levels[i].big_blind = levels[i].little_blind * 2;
+        levels[i].ante = ante;
+        levels[i].duration = level_duration;
         if(i > 0 && round_denom != last_round_denom)
         {
-            // 5 minute break to chip up after each minimum denomination change
-            this->blind_levels[i].break_duration = chip_up_break_duration;
+            // break to chip up after each minimum denomination change
+            levels[i].break_duration = chip_up_break_duration;
         }
 
         // next small blind should be about factor times bigger than previous one
         ideal_small *= blind_increase_factor;
     }
+
+    return levels;
 }
