@@ -1492,7 +1492,7 @@ void gameinfo::reset_action_clock()
     this->action_clock_time_remaining = duration_t::zero();
 }
 
-static unsigned long calculate_round_denomination(double ideal_small, const std::vector<td::chip>& chips)
+static unsigned long calculate_round_denomination(double ideal, const std::vector<td::chip>& chips)
 {
     // round to denomination n if ideal small blind is at least 10x denomination n-1
     static const std::size_t multiplier(10);
@@ -1504,9 +1504,9 @@ static unsigned long calculate_round_denomination(double ideal_small, const std:
         std::advance(it, 1);
         auto limit(it->denomination);
 
-        logger(ll::debug) << "ideal_small: " << ideal_small << ", candidate: " << candidate << ", limitx10:" << limit * multiplier << '\n';
+        logger(ll::debug) << "ideal: " << ideal << ", candidate: " << candidate << ", limitx10:" << limit * multiplier << '\n';
 
-        if(ideal_small > limit * multiplier)
+        if(ideal > limit * multiplier)
         {
             return candidate;
         }
@@ -1523,7 +1523,7 @@ static unsigned long calculate_round_denomination(double ideal_small, const std:
 //  1/5/25/100/500
 //  5/25/100/500/1000
 //  25/100/500/1000/5000
-void gameinfo::gen_blind_levels(std::size_t count, long level_duration, long chip_up_break_duration, double blind_increase_factor)
+void gameinfo::gen_blind_levels(std::size_t count, long level_duration, long chip_up_break_duration, double blind_increase_factor, bool antes, double ante_sb_ratio)
 {
     if(this->available_chips.empty())
     {
@@ -1539,20 +1539,29 @@ void gameinfo::gen_blind_levels(std::size_t count, long level_duration, long chi
     auto last_round_denom(this->available_chips.begin()->denomination);
 
     // starting small blind = smallest denomination
-    double ideal_small(static_cast<double>(last_round_denom));
+    auto ideal_small(static_cast<double>(last_round_denom));
 
     for(size_t i(1); i<count+1; i++)
     {
         // calculate nearest chip denomination to round to
-        const auto round_denom(calculate_round_denomination(ideal_small, this->available_chips));
+        auto round_denom(calculate_round_denomination(ideal_small, this->available_chips));
         const auto little_blind(static_cast<unsigned long>(std::ceil(ideal_small / round_denom) * round_denom));
+
+        // calculate antes if needed
+        unsigned long ante(0);
+        if(antes)
+        {
+            auto ideal_ante(ante_sb_ratio * little_blind);
+            round_denom = calculate_round_denomination(ideal_ante, this->available_chips);
+            ante = static_cast<unsigned long>(std::ceil(ideal_ante / round_denom) * round_denom);
+        }
 
         logger(ll::debug) << "round: " << i << ", little blind will be: " << little_blind << '\n';
 
         // round up
         this->blind_levels[i].little_blind = little_blind;
         this->blind_levels[i].big_blind = this->blind_levels[i].little_blind * 2;
-        this->blind_levels[i].ante = 0;
+        this->blind_levels[i].ante = ante;
         this->blind_levels[i].duration = level_duration;
         if(i > 0 && round_denom != last_round_denom)
         {
