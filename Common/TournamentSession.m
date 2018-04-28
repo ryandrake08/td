@@ -232,8 +232,8 @@
     [self sendCommand:@"set_action_clock" withData:nil andBlock:nil];
 }
 
-- (void)genBlindLevels:(NSNumber*)count withDuration:(NSNumber*)durationMs breakDuration:(NSNumber*)breakDurationMs blindIncreaseFactor:(NSNumber*)increaseFactor {
-    [self sendCommand:@"gen_blind_levels" withData:@{@"count" : count, @"duration" : durationMs, @"break_duration" : breakDurationMs, @"blind_increase_factor" : increaseFactor } andBlock:nil];
+- (void)genBlindLevels:(NSNumber*)count withDuration:(NSNumber*)durationMs breakDuration:(NSNumber*)breakDurationMs blindIncreaseFactor:(NSNumber*)increaseFactor antes:(NSNumber*)antes ratio:(NSNumber*)anteSBRatio {
+    [self sendCommand:@"gen_blind_levels" withData:@{@"count" : count, @"duration" : durationMs, @"break_duration" : breakDurationMs, @"blind_increase_factor" : increaseFactor, @"antes" : antes, @"ante_sb_ratio" : anteSBRatio } andBlock:nil];
 }
 
 - (void)fundPlayer:(id)playerId withFunding:(NSNumber*)sourceId {

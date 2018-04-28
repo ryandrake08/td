@@ -207,20 +207,27 @@ struct tournament::impl
 
     void handle_cmd_gen_blind_levels(const json& in, json& /* out */)
     {
+        // required parameters
         std::size_t count;
         long duration;
-        long break_duration;
-        double blind_increase_factor;
 
-        if(!in.get_value("count", count) ||
-           !in.get_value("duration", duration) ||
-           !in.get_value("break_duration", break_duration) ||
-           !in.get_value("blind_increase_factor", blind_increase_factor))
+        if(!in.get_value("count", count) || !in.get_value("duration", duration))
         {
             throw td::protocol_error("must specify count and duration");
         }
 
-        this->game_info.gen_blind_levels(count, duration, break_duration, blind_increase_factor);
+        // optional parameters
+        long break_duration(0);
+        double blind_increase_factor(1.5);
+        bool antes(false);
+        double ante_sb_ratio(0.2);
+
+        in.get_value("break_duration", break_duration);
+        in.get_value("blind_increase_factor", blind_increase_factor);
+        in.get_value("antes", antes);
+        in.get_value("ante_sb_ratio", ante_sb_ratio);
+
+        this->game_info.gen_blind_levels(count, duration, break_duration, blind_increase_factor, antes, ante_sb_ratio);
     }
 
     void handle_cmd_reset_funding(const json& /* in */, json& /* out */)
@@ -727,8 +734,10 @@ struct tournament::impl
                              authenticate (integer): Valid authentication code for a tournament admin
                              count (integer): Number of blind levels to generate
                              duration (integer): Uniform duraiton for each level (milliseconds)
-                             break_duration (integer): If not zero, add a break whenever we can chip up
-                             blind_increase_factor (float): Approx. amount to multiply to increase blinds each round (1.5 is usually good here)
+                             break_duration (optional, integer): Length of break whenever we can chip up (defaults to no break)
+                             blind_increase_factor (optional, float): Approx. amount to multiply to increase blinds each round (defaults to 1.5)
+                             antes (optional, bool): True if need to calculate antes too
+                             ante_sb_ratio (optional, float): Approx. ratio between ante and small blind (defaults to 1:5)
 
                              output:
                              (none)
