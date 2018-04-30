@@ -232,8 +232,13 @@
     [self sendCommand:@"set_action_clock" withData:nil andBlock:nil];
 }
 
-- (void)genBlindLevels:(NSNumber*)count withDuration:(NSNumber*)durationMs breakDuration:(NSNumber*)breakDurationMs blindIncreaseFactor:(NSNumber*)increaseFactor antes:(NSNumber*)antes ratio:(NSNumber*)anteSBRatio {
-    [self sendCommand:@"gen_blind_levels" withData:@{@"count" : count, @"duration" : durationMs, @"break_duration" : breakDurationMs, @"blind_increase_factor" : increaseFactor, @"antes" : antes, @"ante_sb_ratio" : anteSBRatio } andBlock:nil];
+- (void)genBlindLevelsWithDesiredDuration:(NSNumber*)desiredDurationMs levelDuration:(NSNumber*)levelDurationMs chipsInPlay:(NSNumber*)chips breakDuration:(NSNumber*)breakDurationMs antes:(NSNumber*)antes ratio:(NSNumber*)anteSBRatio block:(void(^)(NSArray*))block {
+    [self sendCommand:@"gen_blind_levels" withData:@{@"desired_duration" : desiredDurationMs, @"level_duration" : levelDurationMs, @"chips_in_play" : chips, @"break_duration" : breakDurationMs, @"antes" : antes, @"ante_sb_ratio" : anteSBRatio } andBlock:^(id json) {
+        // handle generated levels
+        if(block) {
+            block(json[@"blind_levels"]);
+        }
+    }];
 }
 
 - (void)fundPlayer:(id)playerId withFunding:(NSNumber*)sourceId {

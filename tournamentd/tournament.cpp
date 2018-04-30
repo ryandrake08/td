@@ -208,27 +208,26 @@ struct tournament::impl
     void handle_cmd_gen_blind_levels(const json& in, json& out)
     {
         // required parameters
-        std::size_t count;
-        long duration;
+        long desired_duration;
+        long level_duration;
+        unsigned long chips_in_play;
 
-        if(!in.get_value("count", count) || !in.get_value("duration", duration))
+        if(!in.get_value("desired_duration", desired_duration) || !in.get_value("level_duration", level_duration) || !in.get_value("chips_in_play", chips_in_play))
         {
-            throw td::protocol_error("must specify count and duration");
+            throw td::protocol_error("must specify desired duration, level duration, and chips in play");
         }
 
         // optional parameters
         long break_duration(0);
-        double blind_increase_factor(1.5);
         bool antes(false);
         double ante_sb_ratio(0.2);
 
         in.get_value("break_duration", break_duration);
-        in.get_value("blind_increase_factor", blind_increase_factor);
         in.get_value("antes", antes);
         in.get_value("ante_sb_ratio", ante_sb_ratio);
 
         // generate levels
-        auto levels(this->game_info.gen_blind_levels(count, duration, break_duration, blind_increase_factor, antes, ante_sb_ratio));
+        auto levels(this->game_info.gen_blind_levels(desired_duration, level_duration, chips_in_play, break_duration, antes, ante_sb_ratio));
 
         // output
         out.set_value("blind_levels", json(levels.begin(), levels.end()));
@@ -736,10 +735,10 @@ struct tournament::impl
 
                              input:
                              authenticate (integer): Valid authentication code for a tournament admin
-                             count (integer): Number of blind levels to generate
-                             duration (integer): Uniform duraiton for each level (milliseconds)
+                             desired_duration (integer): Desired total tournament length (milliseconds)
+                             level_duration (integer): Uniform duraiton for each level (milliseconds)
+                             chips_in_play (integer): Estimated number of total chips in play including buyins, rebuys, and addons
                              break_duration (optional, integer): Length of break whenever we can chip up (defaults to no break)
-                             blind_increase_factor (optional, float): Approx. amount to multiply to increase blinds each round (defaults to 1.5)
                              antes (optional, bool): True if need to calculate antes too
                              ante_sb_ratio (optional, float): Approx. ratio between ante and small blind (defaults to 1:5)
 

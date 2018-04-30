@@ -173,6 +173,9 @@ class gameinfo
     // utility: start a blind level
     void start_blind_level(std::size_t blind_level, duration_t offset);
 
+    // utility: generate a number of progressive blind levels, given increase factor
+    std::vector<td::blind_level> gen_count_blind_levels(std::size_t count, long level_duration, long chip_up_break_duration, double blind_increase_factor, bool antes, double ante_sb_ratio) const;
+
 public:
     // initialize game
     gameinfo();
@@ -267,6 +270,6 @@ public:
     // reset the action clock
     void reset_action_clock();
 
-    // generate progressive blind levels, given available chip denominations
-    std::vector<td::blind_level> gen_blind_levels(std::size_t count, long level_duration, long chip_up_break_duration, double blind_increase_factor, bool antes, double ante_sb_ratio) const;
+    // generate progressive blind levels, given desired duration and starting stacks
+    std::vector<td::blind_level> gen_blind_levels(long desired_duration, long level_duration, unsigned long chips_in_play, long chip_up_break_duration, bool antes, double ante_sb_ratio) const;
 };

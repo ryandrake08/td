@@ -1515,7 +1515,7 @@ static unsigned long calculate_round_denomination(double ideal, const std::vecto
     return it->denomination;
 }
 
-// generate progressive blind levels, given available chip denominations
+// generate a number of progressive blind levels, given increase factor
 // level_duration: uniform duraiton for each level
 // chip_up_break_duration: if not zero, add a break whenever we can chip up
 // blind_increase_factor: amount to multiply to increase blinds each round (1.5 is usually good here)
@@ -1523,7 +1523,7 @@ static unsigned long calculate_round_denomination(double ideal, const std::vecto
 //  1/5/25/100/500
 //  5/25/100/500/1000
 //  25/100/500/1000/5000
-std::vector<td::blind_level> gameinfo::gen_blind_levels(std::size_t count, long level_duration, long chip_up_break_duration, double blind_increase_factor, bool antes, double ante_sb_ratio) const
+std::vector<td::blind_level> gameinfo::gen_count_blind_levels(std::size_t count, long level_duration, long chip_up_break_duration, double blind_increase_factor, bool antes, double ante_sb_ratio) const
 {
     if(this->available_chips.empty())
     {
@@ -1580,4 +1580,61 @@ std::vector<td::blind_level> gameinfo::gen_blind_levels(std::size_t count, long 
     }
 
     return levels;
+}
+
+// generate progressive blind levels, given desired duration and starting stacks
+// calculates number of rounds and increase factor and calls other generator
+std::vector<td::blind_level> gameinfo::gen_blind_levels(long desired_duration, long level_duration, unsigned long chips_in_play, long chip_up_break_duration, bool antes, double ante_sb_ratio) const
+{
+    if(desired_duration <= 0)
+    {
+        throw td::protocol_error("tried to create a blind structure using invalid desired duration");
+    }
+
+    if(level_duration <= 0)
+    {
+        throw td::protocol_error("tried to create a blind structure using invalid level duration");
+    }
+
+    if(chips_in_play == 0)
+    {
+        throw td::protocol_error("tried to create a blind structure using invalid number of chips in play");
+    }
+
+    if(this->available_chips.empty())
+    {
+        throw td::protocol_error("tried to create a blind structure without chips defined");
+    }
+
+    // assume chip up every 10 rounds
+    const auto chip_up_rate(10);
+
+    // assume tournament will end around when there are 10 BB left on the table
+    const auto bb_at_end(10);
+
+    // estimate number of rounds in play = desired duration / average level duration including chip up breaks
+    auto rounds_in_play(desired_duration / (level_duration + (chip_up_break_duration / chip_up_rate)));
+
+    // calculate about 10% more rounds
+    std::size_t count(rounds_in_play + rounds_in_play / 10 + 1);
+
+    // first round small blind = smallest chip denomination
+    auto first_round_sb(this->available_chips.begin()->denomination);
+
+    // last round small blind
+    auto last_round_sb(chips_in_play / (bb_at_end * 2));
+
+    // calculate increase factor that gets us from first round to last round sb
+    // y = last sb
+    // x = first sb
+    // r = number of rounds
+    // f = increase factor
+    //
+    // solve for f: y = x * f ^ (r-1)
+    //
+    // f = (y/x) ^ 1/(r-1)
+    auto blind_increase_factor(std::pow(static_cast<double>(last_round_sb) / static_cast<double>(first_round_sb), 1.0/static_cast<double>(rounds_in_play-1)));
+
+    // pass to other generator
+    return this->gen_count_blind_levels(count, level_duration, chip_up_break_duration, blind_increase_factor, antes, ante_sb_ratio);
 }
