@@ -71,7 +71,7 @@
 - (void)setNextLevelWithBlock:(void(^)(NSNumber*))block;
 - (void)setActionClock:(NSNumber*)milliseconds;
 - (void)clearActionClock;
-- (void)genBlindLevelsWithDesiredDuration:(NSNumber*)desiredDurationMs levelDuration:(NSNumber*)levelDurationMs chipsInPlay:(NSNumber*)chips breakDuration:(NSNumber*)breakDurationMs antes:(NSNumber*)antes ratio:(NSNumber*)anteSBRatio block:(void(^)(NSArray*))block;
+- (void)genBlindLevelsWithDesiredDuration:(NSNumber*)desiredDurationMs levelDuration:(NSNumber*)levelDurationMs expectedBuyins:(NSNumber*)buyins expectedRebuys:(NSNumber*)rebuys expectedAddons:(NSNumber*)addons breakDuration:(NSNumber*)breakDurationMs antes:(NSNumber*)antes ratio:(NSNumber*)anteSBRatio block:(void(^)(NSArray*))block;
 - (void)fundPlayer:(id)playerId withFunding:(NSNumber*)sourceId;
 - (void)planSeatingFor:(NSNumber*)expectedPlayers;
 - (void)seatPlayer:(id)playerId withBlock:(void(^)(id playerId,NSNumber* tableNumber,NSNumber* seatNumber,BOOL alreadySeated))block;

@@ -148,6 +148,9 @@ class gameinfo
     // return the maximum number of chips available per player for a given denomination
     size_t max_chips_for(unsigned long denomination, std::size_t players_count) const;
 
+    // return a default funding source of the given type. used for quick setup and structure generator
+    td::funding_source_id_t source_for_type(const td::funding_source_type_t& type) const;
+
     // reset seating to an empty, unplanned game
     void reset_seating();
 
@@ -271,5 +274,5 @@ public:
     void reset_action_clock();
 
     // generate progressive blind levels, given desired duration and starting stacks
-    std::vector<td::blind_level> gen_blind_levels(long desired_duration, long level_duration, unsigned long chips_in_play, long chip_up_break_duration, bool antes, double ante_sb_ratio) const;
+    std::vector<td::blind_level> gen_blind_levels(long desired_duration, long level_duration, std::size_t expected_buyins, std::size_t expected_rebuys, std::size_t expected_addons, long chip_up_break_duration, bool antes, double ante_sb_ratio) const;
 };

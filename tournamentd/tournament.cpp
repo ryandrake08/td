@@ -210,24 +210,29 @@ struct tournament::impl
         // required parameters
         long desired_duration;
         long level_duration;
-        unsigned long chips_in_play;
 
-        if(!in.get_value("desired_duration", desired_duration) || !in.get_value("level_duration", level_duration) || !in.get_value("chips_in_play", chips_in_play))
+        if(!in.get_value("desired_duration", desired_duration) || !in.get_value("level_duration", level_duration))
         {
             throw td::protocol_error("must specify desired duration, level duration, and chips in play");
         }
 
         // optional parameters
+        std::size_t expected_buyins(0);
+        std::size_t expected_rebuys(0);
+        std::size_t expected_addons(0);
         long break_duration(0);
         bool antes(false);
         double ante_sb_ratio(0.2);
 
+        in.get_value("expected_buyins", expected_buyins);
+        in.get_value("expected_rebuys", expected_rebuys);
+        in.get_value("expected_addons", expected_addons);
         in.get_value("break_duration", break_duration);
         in.get_value("antes", antes);
         in.get_value("ante_sb_ratio", ante_sb_ratio);
 
         // generate levels
-        auto levels(this->game_info.gen_blind_levels(desired_duration, level_duration, chips_in_play, break_duration, antes, ante_sb_ratio));
+        auto levels(this->game_info.gen_blind_levels(desired_duration, level_duration, expected_buyins, expected_rebuys, expected_addons, break_duration, antes, ante_sb_ratio));
 
         // output
         out.set_value("blind_levels", json(levels.begin(), levels.end()));

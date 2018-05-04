@@ -907,6 +907,27 @@ size_t gameinfo::max_chips_for(unsigned long denomination, std::size_t players_c
     return it->count_available / players_count;
 }
 
+// return a default funding source of the given type. used for quick setup and structure generator
+td::funding_source_id_t gameinfo::source_for_type(const td::funding_source_type_t& type) const
+{
+    if(this->funding_sources.empty())
+    {
+        throw td::protocol_error("tried to look up a funding source with none defined");
+    }
+
+    // simple: return the first source that matches
+    for(td::funding_source_id_t src(0); src<this->funding_sources.size(); src++)
+    {
+        if(this->funding_sources[src].type == type)
+        {
+            return src;
+        }
+    }
+
+    // throw if none exist
+    throw td::protocol_error("no funding sources of given type exist");
+}
+
 // calculate number of chips per denomination for this funding source, given totals and number of players
 // this was tuned to produce a sensible result for the following chip denomination sets:
 //  1/5/25/100/500
@@ -1194,7 +1215,7 @@ std::vector<td::seated_player> gameinfo::quick_setup()
         throw td::protocol_error("cannot quick setup with no funding sources");
     }
 
-    return this->quick_setup(0);
+    return this->quick_setup(this->source_for_type(td::funding_source_type_t::buyin));
 }
 
 std::vector<td::seated_player> gameinfo::quick_setup(const td::funding_source_id_t& src)
@@ -1584,7 +1605,7 @@ std::vector<td::blind_level> gameinfo::gen_count_blind_levels(std::size_t count,
 
 // generate progressive blind levels, given desired duration and starting stacks
 // calculates number of rounds and increase factor and calls other generator
-std::vector<td::blind_level> gameinfo::gen_blind_levels(long desired_duration, long level_duration, unsigned long chips_in_play, long chip_up_break_duration, bool antes, double ante_sb_ratio) const
+std::vector<td::blind_level> gameinfo::gen_blind_levels(long desired_duration, long level_duration, std::size_t expected_buyins, std::size_t expected_rebuys, std::size_t expected_addons, long chip_up_break_duration, bool antes, double ante_sb_ratio) const
 {
     if(desired_duration <= 0)
     {
@@ -1594,11 +1615,6 @@ std::vector<td::blind_level> gameinfo::gen_blind_levels(long desired_duration, l
     if(level_duration <= 0)
     {
         throw td::protocol_error("tried to create a blind structure using invalid level duration");
-    }
-
-    if(chips_in_play == 0)
-    {
-        throw td::protocol_error("tried to create a blind structure using invalid number of chips in play");
     }
 
     if(this->available_chips.empty())
@@ -1611,6 +1627,38 @@ std::vector<td::blind_level> gameinfo::gen_blind_levels(long desired_duration, l
 
     // assume tournament will end around when there are 10 BB left on the table
     const auto bb_at_end(10);
+
+    // if no expected buyins set, default to max expected
+    if(expected_buyins == 0)
+    {
+        expected_buyins = this->max_expected_players;
+        logger(ll::warning) << "creating a blind structure without specifying number of buyins. defaulting to max expected players\n";
+    }
+
+    // count estimated chips in play
+    unsigned long chips_in_play(0);
+    if(expected_buyins > 0)
+    {
+        const auto src(this->source_for_type(td::funding_source_type_t::buyin));
+        chips_in_play += this->funding_sources[src].chips * expected_buyins;
+    }
+
+    if(expected_rebuys > 0)
+    {
+        const auto src(this->source_for_type(td::funding_source_type_t::rebuy));
+        chips_in_play += this->funding_sources[src].chips * expected_rebuys;
+    }
+
+    if(expected_addons > 0)
+    {
+        const auto src(this->source_for_type(td::funding_source_type_t::addon));
+        chips_in_play += this->funding_sources[src].chips * expected_addons;
+    }
+
+    if(chips_in_play == 0)
+    {
+        throw td::protocol_error("tried to create a blind structure, but no expected chips in play");
+    }
 
     // estimate number of rounds in play = desired duration / average level duration including chip up breaks
     auto rounds_in_play(desired_duration / (level_duration + (chip_up_break_duration / chip_up_rate)));
