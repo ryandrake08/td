@@ -232,8 +232,8 @@
     [self sendCommand:@"set_action_clock" withData:nil andBlock:nil];
 }
 
-- (void)genBlindLevelsWithDesiredDuration:(NSNumber*)desiredDurationMs levelDuration:(NSNumber*)levelDurationMs expectedBuyins:(NSNumber*)buyins expectedRebuys:(NSNumber*)rebuys expectedAddons:(NSNumber*)addons breakDuration:(NSNumber*)breakDurationMs antes:(NSNumber*)antes ratio:(NSNumber*)anteSBRatio block:(void(^)(NSArray*))block {
-    [self sendCommand:@"gen_blind_levels" withData:@{@"desired_duration" : desiredDurationMs, @"level_duration" : levelDurationMs, @"expected_buyins" : buyins, @"expected_rebuys" : rebuys, @"expected_addons" : addons, @"break_duration" : breakDurationMs, @"antes" : antes, @"ante_sb_ratio" : anteSBRatio } andBlock:^(id json) {
+- (void)genBlindLevelsRequest:(NSDictionary*)request withBlock:(void(^)(NSArray*))block {
+    [self sendCommand:@"gen_blind_levels" withData:request andBlock:^(id json) {
         // handle generated levels
         if(block) {
             block(json[@"blind_levels"]);

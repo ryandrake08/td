@@ -7,6 +7,8 @@
 //
 
 #import "TBSetupRoundsViewController.h"
+#import "TBSetupRoundsDetailsViewController.h"
+#import "TBMacDocument.h"
 
 // TBSetupRoundsArrayController implements a new object
 @interface TBSetupRoundsArrayController : NSArrayController
@@ -65,6 +67,22 @@
     // filter predicate to not show fake "setup" round
     NSPredicate* predicate = [NSPredicate predicateWithFormat: @"%K != %@", @"game_name", nil];
     [[self arrayController] setFilterPredicate:predicate];
+}
+
+- (void)prepareForSegue:(NSStoryboardSegue*)segue sender:(id)sender {
+    // reference the container view controllers
+    if([[segue identifier] isEqualToString:@"presentRoundsDetailsView"]) {
+        TBSetupRoundsDetailsViewController* vc = (TBSetupRoundsDetailsViewController*)[segue destinationController];
+
+        // set configuration (so TBSetupFundingDetailsViewController knows payout currency)
+        [vc setConfiguration:[self representedObject]];
+
+        // get document from sheet parent
+        TBMacDocument* document = [[[[[self view] window] sheetParent] windowController] document];
+
+        // set session
+        [vc setSession:[document session]];
+    }
 }
 
 #pragma mark NSTableViewDataSource
