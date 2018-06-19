@@ -1551,7 +1551,9 @@ std::vector<td::blind_level> gameinfo::gen_count_blind_levels(std::size_t count,
         throw td::protocol_error("tried to create a blind structure without chips defined");
     }
 
-    logger(ll::info) << "generating " << count << " blind levels\n";
+    logger(ll::info) << "generating " << count << " blind levels" << (antes ? " with antes\n" : "\n");
+    logger(ll::info) << "blind_increase_factor: " << blind_increase_factor << '\n';
+    logger(ll::info) << "ante_sb_ratio: " << ante_sb_ratio << '\n';
 
     // store last round denomination (to check when it changes)
     auto last_round_denom(this->available_chips.begin()->denomination);
@@ -1570,6 +1572,8 @@ std::vector<td::blind_level> gameinfo::gen_count_blind_levels(std::size_t count,
         // round up to get little blind
         const auto little_blind(static_cast<unsigned long>(std::ceil(ideal_small / round_denom) * round_denom));
 
+        logger(ll::debug) << "rounding ideal small blind " << ideal_small << " up to nearest " << round_denom << ": " << little_blind << '\n';
+
         // calculate antes if needed
         unsigned long ante(0);
         if(antes)
@@ -1582,22 +1586,31 @@ std::vector<td::blind_level> gameinfo::gen_count_blind_levels(std::size_t count,
 
             // round up to get ante
             ante = static_cast<unsigned long>(std::ceil(ideal_ante / round_denom) * round_denom);
+
+            logger(ll::debug) << "rounding ideal ante " << ideal_ante << " up to nearest " << round_denom << ": " << ante << '\n';
         }
 
-        logger(ll::debug) << "round: " << i << ", little blind will be: " << little_blind << '\n';
-
         levels[i].little_blind = little_blind;
-        levels[i].big_blind = levels[i].little_blind * 2;
+        levels[i].big_blind = little_blind * 2;
         levels[i].ante = ante;
         levels[i].duration = level_duration;
+
+        // if round_denom changes, we no longer need a chip denomination
+        logger(ll::debug) << "comparing round_denom " << round_denom << " with last_round_denom " << last_round_denom << '\n';
+
         if(i > 0 && round_denom != last_round_denom)
         {
             // break to chip up after each minimum denomination change
             levels[i].break_duration = chip_up_break_duration;
         }
 
+        logger(ll::debug) << "round: " << i << ", will be: " << levels[i].little_blind << '/' << levels[i].big_blind << ':' << levels[i].ante << " with duration: " << levels[i].duration << " and break duration: " << levels[i].break_duration << '\n';
+
         // next small blind should be about factor times bigger than previous one
         ideal_small *= blind_increase_factor;
+
+        // store last round denom (to determine when we need to chip up
+        last_round_denom = round_denom;
     }
 
     return levels;
@@ -1660,8 +1673,11 @@ std::vector<td::blind_level> gameinfo::gen_blind_levels(long desired_duration, l
         throw td::protocol_error("tried to create a blind structure, but no expected chips in play");
     }
 
+    logger(ll::debug) << "total expected chips in play: " << chips_in_play << '\n';
+
     // estimate number of rounds in play = desired duration / average level duration including chip up breaks
     auto rounds_in_play(desired_duration / (level_duration + (chip_up_break_duration / chip_up_rate)));
+    logger(ll::debug) << "total expected rounds: " << rounds_in_play << '\n';
 
     // calculate about 10% more rounds
     std::size_t count(rounds_in_play + rounds_in_play / 10 + 1);
@@ -1671,6 +1687,7 @@ std::vector<td::blind_level> gameinfo::gen_blind_levels(long desired_duration, l
 
     // last round small blind
     auto last_round_sb(chips_in_play / (bb_at_end * 2));
+    logger(ll::debug) << "first/last round small blind: " << first_round_sb << '/' << last_round_sb << '\n';
 
     // calculate increase factor that gets us from first round to last round sb
     // y = last sb
