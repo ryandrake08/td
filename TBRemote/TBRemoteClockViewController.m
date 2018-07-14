@@ -88,12 +88,7 @@
     }];
 
     [[self KVOController] observe:self keyPath:@"session.state.current_round_text" options:NSKeyValueObservingOptionInitial block:^(id observer, TBRemoteClockViewController* object, NSDictionary *change) {
-        NSString* currentRoundText = [[object session] state][@"current_round_text"];
-        if([[self currentRoundLabel] frame].size.width <= 400.0f) {
-            // wrap at ante
-            currentRoundText = [currentRoundText stringByReplacingOccurrencesOfString:@" A:" withString:@"\nA:"];
-        }
-        [[observer currentRoundLabel] setText:currentRoundText];
+        [[observer currentRoundLabel] setText:[[object session] state][@"current_round_text"]];
     }];
 
     [[self KVOController] observe:self keyPath:@"session.state.next_game_text" options:NSKeyValueObservingOptionInitial block:^(id observer, TBRemoteClockViewController* object, NSDictionary *change) {

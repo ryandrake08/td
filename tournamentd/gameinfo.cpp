@@ -1544,14 +1544,14 @@ static unsigned long calculate_round_denomination(double ideal, const std::vecto
 //  1/5/25/100/500
 //  5/25/100/500/1000
 //  25/100/500/1000/5000
-std::vector<td::blind_level> gameinfo::gen_count_blind_levels(std::size_t count, long level_duration, long chip_up_break_duration, double blind_increase_factor, bool antes, double ante_sb_ratio) const
+std::vector<td::blind_level> gameinfo::gen_count_blind_levels(std::size_t count, long level_duration, long chip_up_break_duration, double blind_increase_factor, td::ante_type_t antes, double ante_sb_ratio) const
 {
     if(this->available_chips.empty())
     {
         throw td::protocol_error("tried to create a blind structure without chips defined");
     }
 
-    logger(ll::info) << "generating " << count << " blind levels" << (antes ? " with antes\n" : "\n");
+    logger(ll::info) << "generating " << count << " blind levels" << (antes != td::ante_type_t::none ? " with antes\n" : "\n");
     logger(ll::info) << "blind_increase_factor: " << blind_increase_factor << '\n';
     logger(ll::info) << "ante_sb_ratio: " << ante_sb_ratio << '\n';
 
@@ -1576,23 +1576,38 @@ std::vector<td::blind_level> gameinfo::gen_count_blind_levels(std::size_t count,
 
         // calculate antes if needed
         unsigned long ante(0);
-        if(antes)
+        if(antes != td::ante_type_t::none)
         {
-            // calculate ideal ante
+            // calculate ideal traditional ante
             auto ideal_ante(ante_sb_ratio * little_blind);
 
-            // calculate nearest chip denomination
-            round_denom = calculate_round_denomination(ideal_ante, this->available_chips);
+            // only have an ante if ideal >= minimal chip denomination
+            if(ideal_ante >= this->available_chips[0].denomination)
+            {
+                if(antes == td::ante_type_t::traditional)
+                {
+                    // calculate nearest chip denomination
+                    round_denom = calculate_round_denomination(ideal_ante, this->available_chips);
 
-            // round up to get ante
-            ante = static_cast<unsigned long>(std::ceil(ideal_ante / round_denom) * round_denom);
+                    // round up to get ante
+                    ante = static_cast<unsigned long>(std::ceil(ideal_ante / round_denom) * round_denom);
 
-            logger(ll::debug) << "rounding ideal ante " << ideal_ante << " up to nearest " << round_denom << ": " << ante << '\n';
+                    logger(ll::debug) << "rounding ideal ante " << ideal_ante << " up to nearest " << round_denom << ": " << ante << '\n';
+                }
+                else if(antes == td::ante_type_t::bba)
+                {
+                    // keep it simple. bba = big_blind
+                    ante = little_blind * 2;
+
+                    logger(ll::debug) << "ideal traditional ante " << ideal_ante << " and big blind ante is: " << ante << '\n';
+                }
+            }
         }
 
         levels[i].little_blind = little_blind;
         levels[i].big_blind = little_blind * 2;
         levels[i].ante = ante;
+        levels[i].big_blind_ante = antes == td::ante_type_t::bba;
         levels[i].duration = level_duration;
 
         // if round_denom changes, we no longer need a chip denomination
@@ -1618,7 +1633,7 @@ std::vector<td::blind_level> gameinfo::gen_count_blind_levels(std::size_t count,
 
 // generate progressive blind levels, given desired duration and starting stacks
 // calculates number of rounds and increase factor and calls other generator
-std::vector<td::blind_level> gameinfo::gen_blind_levels(long desired_duration, long level_duration, std::size_t expected_buyins, std::size_t expected_rebuys, std::size_t expected_addons, long chip_up_break_duration, bool antes, double ante_sb_ratio) const
+std::vector<td::blind_level> gameinfo::gen_blind_levels(long desired_duration, long level_duration, std::size_t expected_buyins, std::size_t expected_rebuys, std::size_t expected_addons, long chip_up_break_duration, td::ante_type_t antes, double ante_sb_ratio) const
 {
     if(desired_duration <= 0)
     {

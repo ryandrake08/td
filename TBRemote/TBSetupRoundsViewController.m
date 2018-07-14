@@ -31,7 +31,8 @@
 - (NSString*)formattedRoundStringForSource:(NSDictionary*)fundingSource {
     NSString* formattedFunding;
     if([fundingSource[@"ante"] doubleValue] != 0.0) {
-        formattedFunding = [NSString stringWithFormat:@"%@/%@ A:%@", fundingSource[@"little_blind"], fundingSource[@"big_blind"], fundingSource[@"ante"]];
+        NSString* anteLabel = [fundingSource[@"big_blind_ante"] boolValue] ? NSLocalizedString(@"BBA", @"Big Blind Ante") : NSLocalizedString(@"Ante", nil);
+        formattedFunding = [NSString stringWithFormat:@"%@/%@ %@:%@", fundingSource[@"little_blind"], fundingSource[@"big_blind"], anteLabel, fundingSource[@"ante"]];
     } else {
         formattedFunding = [NSString stringWithFormat:@"%@/%@", fundingSource[@"little_blind"], fundingSource[@"big_blind"]];
     }
@@ -61,6 +62,7 @@
     NSNumber* little_blind = @25;
     NSNumber* big_blind = @50;
     NSNumber* ante = @0;
+    NSNumber* big_blind_ante = @NO;
     NSNumber* duration = @3600000;
 
     if([[self arrangedObjects] count] > 1) {
@@ -70,10 +72,11 @@
         little_blind = @([last[@"little_blind"] intValue] * 2);
         big_blind = @([last[@"big_blind"] intValue] * 2);
         ante = @([last[@"ante"] intValue] * 2);
+        big_blind_ante = last[@"big_blind_ante"];
         duration = last[@"duration"];
     }
 
-    return [@{@"game_name":game_name, @"little_blind":little_blind, @"big_blind":big_blind, @"ante":ante, @"duration":duration} mutableCopy];
+    return [@{@"game_name":game_name, @"little_blind":little_blind, @"big_blind":big_blind, @"ante":ante, @"big_blind_ante":big_blind_ante, @"duration":duration} mutableCopy];
 }
 
 @end

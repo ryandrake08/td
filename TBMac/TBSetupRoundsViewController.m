@@ -22,6 +22,7 @@
     NSNumber* little_blind = @25;
     NSNumber* big_blind = @50;
     NSNumber* ante = @0;
+    NSNumber* big_blind_ante = @NO;
     NSNumber* duration = @3600000;
 
     NSDictionary* last = [[self arrangedObjects] lastObject];
@@ -30,10 +31,11 @@
         little_blind = @([last[@"little_blind"] intValue] * 2);
         big_blind = @([last[@"big_blind"] intValue] * 2);
         ante = @([last[@"ante"] intValue] * 2);
+        big_blind_ante = last[@"big_blind_ante"];
         duration = last[@"duration"];
     }
 
-    return [@{@"game_name":game_name, @"little_blind":little_blind, @"big_blind":big_blind, @"ante":ante, @"duration":duration} mutableCopy];
+    return [@{@"game_name":game_name, @"little_blind":little_blind, @"big_blind":big_blind, @"ante":ante, @"big_blind_ante":big_blind_ante, @"duration":duration} mutableCopy];
 }
 
 @end

@@ -29,6 +29,9 @@ namespace td
     // type of rebalance policy (manual, automatic, shootout)
     enum class rebalance_policy_t { manual, automatic, shootout };
 
+    // ante type
+    enum class ante_type_t { none, traditional, bba };
+
     // attributes of an authorized client
     struct authorized_client
     {
@@ -47,6 +50,7 @@ namespace td
         unsigned long little_blind;
         unsigned long big_blind;
         unsigned long ante;
+        bool big_blind_ante;
         long duration;
         long break_duration;
         std::string reason;

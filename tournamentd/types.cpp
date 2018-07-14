@@ -12,7 +12,7 @@ td::authorized_client::authorized_client(int c, const std::string& name) : code(
 {
 }
 
-td::blind_level::blind_level() : little_blind(0), big_blind(0), ante(0), duration(0), break_duration(0)
+td::blind_level::blind_level() : little_blind(0), big_blind(0), ante(0), big_blind_ante(false), duration(0), break_duration(0)
 {
 }
 
@@ -128,6 +128,7 @@ td::blind_level json::value() const
     this->get_value("little_blind", ret.little_blind);
     this->get_value("big_blind", ret.big_blind);
     this->get_value("ante", ret.ante);
+    this->get_value("big_blind_ante", ret.big_blind_ante);
     this->get_value("duration", ret.duration);
     this->get_value("break_duration", ret.break_duration);
     this->get_value("reason", ret.reason);
@@ -250,6 +251,9 @@ json::json(const td::blind_level& value) : json()
     {
         this->set_value("ante", value.ante);
     }
+
+    this->set_value("big_blind_ante", value.big_blind_ante);
+
     if(value.duration> 0)
     {
         this->set_value("duration", value.duration);

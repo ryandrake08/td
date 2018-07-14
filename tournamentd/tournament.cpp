@@ -221,14 +221,14 @@ struct tournament::impl
         std::size_t expected_rebuys(0);
         std::size_t expected_addons(0);
         long break_duration(0);
-        bool antes(false);
+        td::ante_type_t antes(td::ante_type_t::none);
         double ante_sb_ratio(0.2);
 
         in.get_value("expected_buyins", expected_buyins);
         in.get_value("expected_rebuys", expected_rebuys);
         in.get_value("expected_addons", expected_addons);
         in.get_value("break_duration", break_duration);
-        in.get_value("antes", antes);
+        in.get_value("antes", reinterpret_cast<int&>(antes));
         in.get_value("ante_sb_ratio", ante_sb_ratio);
 
         // generate levels
@@ -744,7 +744,7 @@ struct tournament::impl
                              level_duration (integer): Uniform duraiton for each level (milliseconds)
                              chips_in_play (integer): Estimated number of total chips in play including buyins, rebuys, and addons
                              break_duration (optional, integer): Length of break whenever we can chip up (defaults to no break)
-                             antes (optional, bool): True if need to calculate antes too
+                             antes (optional, enum): 0: No ante, 1: Traditional ante, 2: Big Blind Ante
                              ante_sb_ratio (optional, float): Approx. ratio between ante and small blind (defaults to 1:5)
 
                              output:
