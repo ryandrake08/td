@@ -49,13 +49,13 @@ void gameinfo::configure(const json& config)
 
     config.get_value("name", this->name);
     config.get_values("funding_sources", this->funding_sources);
-    config.get_value("payout_policy", reinterpret_cast<int&>(this->payout_policy));
+    config.get_enum_value("payout_policy", this->payout_policy);
     config.get_value("payout_currency", this->payout_currency);
     config.get_value("automatic_payouts", this->automatic_payouts);
     config.get_values("forced_payouts", this->forced_payouts);
     config.get_value("previous_blind_level_hold_duration", this->previous_blind_level_hold_duration);
     // TODO: changing the rebalance policy could trigger an immediate rebalance. for now, we wait until the next bust-out
-    config.get_value("rebalance_policy", reinterpret_cast<int&>(this->rebalance_policy));
+    config.get_enum_value("rebalance_policy", this->rebalance_policy);
     config.get_value("background_color", this->background_color);
 
     if(config.get_values("available_chips", this->available_chips))

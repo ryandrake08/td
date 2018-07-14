@@ -167,7 +167,7 @@ td::funding_source json::value() const
 {
     td::funding_source ret;
     this->get_value("name", ret.name);
-    this->get_value("type", reinterpret_cast<int&>(ret.type));
+    this->get_enum_value("type", ret.type);
     this->get_value("forbid_after_blind_level", ret.forbid_after_blind_level);
     this->get_value("chips", ret.chips);
     this->get_value("cost", ret.cost);

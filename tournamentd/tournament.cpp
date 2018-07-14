@@ -228,7 +228,7 @@ struct tournament::impl
         in.get_value("expected_rebuys", expected_rebuys);
         in.get_value("expected_addons", expected_addons);
         in.get_value("break_duration", break_duration);
-        in.get_value("antes", reinterpret_cast<int&>(antes));
+        in.get_enum_value("antes", antes);
         in.get_value("ante_sb_ratio", ante_sb_ratio);
 
         // generate levels

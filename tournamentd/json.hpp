@@ -77,6 +77,19 @@ public:
         return false;
     }
 
+    // get an enum value for name, by casting to int
+    template <typename T>
+    bool get_enum_value(const char* name, T& value) const
+    {
+        json item;
+        if(this->get_value(name, item))
+        {
+            reinterpret_cast<int&>(value) = item.value<int>();
+            return true;
+        }
+        return false;
+    }
+
     // get collection for name, by way of intermediate json items
     template <typename T>
     bool get_values(const char* name, std::vector<T>& values) const
