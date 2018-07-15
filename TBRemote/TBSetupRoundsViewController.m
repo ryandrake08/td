@@ -28,15 +28,15 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (NSString*)formattedRoundStringForSource:(NSDictionary*)fundingSource {
-    NSString* formattedFunding;
-    if([fundingSource[@"ante"] doubleValue] != 0.0) {
-        NSString* anteLabel = [fundingSource[@"big_blind_ante"] boolValue] ? NSLocalizedString(@"BBA", @"Big Blind Ante") : NSLocalizedString(@"Ante", nil);
-        formattedFunding = [NSString stringWithFormat:@"%@/%@ %@:%@", fundingSource[@"little_blind"], fundingSource[@"big_blind"], anteLabel, fundingSource[@"ante"]];
+- (NSString*)formattedStringForRound:(NSDictionary*)round {
+    NSString* formattedRound;
+    if([round[@"ante"] doubleValue] != 0.0) {
+        NSString* anteLabel = [round[@"big_blind_ante"] boolValue] ? NSLocalizedString(@"BBA", @"Big Blind Ante") : NSLocalizedString(@"Ante", nil);
+        formattedRound = [NSString stringWithFormat:@"%@/%@ %@:%@", round[@"little_blind"], round[@"big_blind"], anteLabel, round[@"ante"]];
     } else {
-        formattedFunding = [NSString stringWithFormat:@"%@/%@", fundingSource[@"little_blind"], fundingSource[@"big_blind"]];
+        formattedRound = [NSString stringWithFormat:@"%@/%@", round[@"little_blind"], round[@"big_blind"]];
     }
-    return formattedFunding;
+    return formattedRound;
 }
 
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath {
@@ -44,7 +44,7 @@
     NSDictionary* object = [self arrangedObjects][[indexPath row]];
     TBDurationNumberFormatter* durationFormatter = [[TBDurationNumberFormatter alloc] init];
     [[cell textLabel] setText:[durationFormatter stringForObjectValue:object[@"duration"]]];
-    [[cell detailTextLabel] setText:[self formattedRoundStringForSource:object]];
+    [[cell detailTextLabel] setText:[self formattedStringForRound:object]];
     return cell;
 }
 
