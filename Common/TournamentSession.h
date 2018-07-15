@@ -24,6 +24,11 @@
 #define kPayoutForced @1
 #define kPayoutManual @2
 
+// Ante types
+#define kAnteTypeNone @0
+#define kAnteTypeTraditional @1
+#define kAnteTypeBigBlind @2
+
 // Standard 1 minute countdown
 #define kActionClockRequestTime 60000
 

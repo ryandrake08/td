@@ -9,6 +9,7 @@
 #import "TBSetupRoundsViewController.h"
 #import "TBSetupRoundsDetailsViewController.h"
 #import "TBMacDocument.h"
+#import "TournamentSession.h"
 
 // TBSetupRoundsArrayController implements a new object
 @interface TBSetupRoundsArrayController : NSArrayController
@@ -22,7 +23,7 @@
     NSNumber* little_blind = @25;
     NSNumber* big_blind = @50;
     NSNumber* ante = @0;
-    NSNumber* big_blind_ante = @NO;
+    NSNumber* ante_type = kAnteTypeNone;
     NSNumber* duration = @3600000;
 
     NSDictionary* last = [[self arrangedObjects] lastObject];
@@ -31,11 +32,11 @@
         little_blind = @([last[@"little_blind"] intValue] * 2);
         big_blind = @([last[@"big_blind"] intValue] * 2);
         ante = @([last[@"ante"] intValue] * 2);
-        big_blind_ante = last[@"big_blind_ante"];
+        ante_type = last[@"ante_type"];
         duration = last[@"duration"];
     }
 
-    return [@{@"game_name":game_name, @"little_blind":little_blind, @"big_blind":big_blind, @"ante":ante, @"big_blind_ante":big_blind_ante, @"duration":duration} mutableCopy];
+    return [@{@"game_name":game_name, @"little_blind":little_blind, @"big_blind":big_blind, @"ante":ante, @"ante_type":ante_type, @"duration":duration} mutableCopy];
 }
 
 @end

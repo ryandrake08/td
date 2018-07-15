@@ -3001,9 +3001,10 @@ Gw
                                                                                 <string key="NSValueTransformerName">NSIsNil</string>
                                                                             </dictionary>
                                                                         </binding>
-                                                                        <binding destination="ehK-kO-NXz" name="value" keyPath="objectValue.big_blind_ante" id="BkJ-je-Jie">
+                                                                        <binding destination="ehK-kO-NXz" name="value" keyPath="objectValue.ante_type" id="SNq-dH-mZ9">
                                                                             <dictionary key="options">
                                                                                 <bool key="NSConditionallySetsEnabled" value="NO"/>
+                                                                                <string key="NSValueTransformerName">TBAnteTypeValueTransformer</string>
                                                                             </dictionary>
                                                                         </binding>
                                                                     </connections>
@@ -3208,7 +3209,7 @@ Gw
                         <string>little_blind</string>
                         <string>big_blind</string>
                         <string>ante</string>
-                        <string>big_blind_ante</string>
+                        <string>ante_type</string>
                         <string>duration</string>
                         <string>break_duration</string>
                         <string>reason</string>

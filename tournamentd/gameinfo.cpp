@@ -146,13 +146,13 @@ void gameinfo::dump_configuration(json& config) const
     config.set_value("name", this->name);
     config.set_value("players", json(this->players.begin(), this->players.end()));
     config.set_value("table_capacity", this->table_capacity);
-    config.set_value("payout_policy", static_cast<int>(this->payout_policy));
+    config.set_enum_value("payout_policy",this->payout_policy);
     config.set_value("payout_currency", this->payout_currency);
     config.set_value("automatic_payouts", this->automatic_payouts);
     config.set_value("forced_payouts", json(this->forced_payouts.begin(), this->forced_payouts.end()));
     config.set_value("manual_payouts", json(this->manual_payouts.begin(), this->manual_payouts.end()));
     config.set_value("previous_blind_level_hold_duration", this->previous_blind_level_hold_duration);
-    config.set_value("rebalance_policy", static_cast<int>(this->rebalance_policy));
+    config.set_enum_value("rebalance_policy", this->rebalance_policy);
     config.set_value("background_color", this->background_color);
     config.set_value("funding_sources", json(this->funding_sources.begin(), this->funding_sources.end()));
     config.set_value("blind_levels", json(this->blind_levels.begin(), this->blind_levels.end()));
@@ -1607,7 +1607,7 @@ std::vector<td::blind_level> gameinfo::gen_count_blind_levels(std::size_t count,
         levels[i].little_blind = little_blind;
         levels[i].big_blind = little_blind * 2;
         levels[i].ante = ante;
-        levels[i].big_blind_ante = antes == td::ante_type_t::bba;
+        levels[i].ante_type = antes;
         levels[i].duration = level_duration;
 
         // if round_denom changes, we no longer need a chip denomination

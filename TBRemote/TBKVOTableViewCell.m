@@ -155,24 +155,24 @@
 }
 
 - (void)updatePickerSelectionFromTextField {
-    NSInteger selectRow = -1;
-
     // get text field's current object value
     NSString* currentText = [[self textField] text];
-    if(![currentText isEqualToString:@""]) {
+    if([currentText isEqualToString:@""]) {
+        NSLog(@"TBPickableTextTableViewCell has no text");
+    } else {
         NSUInteger selectedIndex = [[self allowedValueTitles] indexOfObject:currentText];
 
         // is current text value allowed? if so, select it, otherwise select first object
         if(selectedIndex == NSNotFound) {
             NSLog(@"TBPickableTextTableViewCell text entered is not an allowed title");
         } else {
-            selectRow = selectedIndex;
+            NSInteger selectRow = selectedIndex;
+
+            // get picker and select the right row
+            UIPickerView* picker = (UIPickerView*)[[self textField] inputView];
+            [picker selectRow:selectRow inComponent:0 animated:NO];
         }
     }
-
-    // get picker and select the right row
-    UIPickerView* picker = (UIPickerView*)[[self textField] inputView];
-    [picker selectRow:selectRow inComponent:0 animated:NO];
 }
 
 // set the object and use keypath to observe/sync with control

@@ -102,6 +102,7 @@
 		945D83A02032B47400DFE032 /* Setup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 945D839E2032B47400DFE032 /* Setup.storyboard */; };
 		945D83A12032B9B500DFE032 /* TBTournamentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4581B3C385400A158F8 /* TBTournamentsViewController.m */; };
 		945D83A22032B9FC00DFE032 /* Setup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 945D839E2032B47400DFE032 /* Setup.storyboard */; };
+		945F81ED20FC0D2B00BEEC60 /* TBAnteTypeValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 945F81EC20FC0D2B00BEEC60 /* TBAnteTypeValueTransformer.m */; };
 		9462A3E31B77376000B29002 /* NSFont+LineHeight.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEAF41B5AE7390026B25D /* NSFont+LineHeight.m */; };
 		9462A3E41B77376000B29002 /* NSView+BackgroundColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEAF71B5AE7920026B25D /* NSView+BackgroundColor.m */; };
 		9462A3E71B77CB3B00B29002 /* TTTOrdinalNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9462A3E61B77CB3B00B29002 /* TTTOrdinalNumberFormatter.m */; };
@@ -737,6 +738,8 @@
 		945D83932032459E00DFE032 /* TBPayoutShapeNumberFormatter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TBPayoutShapeNumberFormatter.m; sourceTree = "<group>"; };
 		945D839F2032B47400DFE032 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Setup.storyboard; sourceTree = "<group>"; };
 		945D83A32035366800DFE032 /* stopwatch.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = stopwatch.hpp; sourceTree = "<group>"; };
+		945F81EB20FC0D2B00BEEC60 /* TBAnteTypeValueTransformer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBAnteTypeValueTransformer.h; sourceTree = "<group>"; };
+		945F81EC20FC0D2B00BEEC60 /* TBAnteTypeValueTransformer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TBAnteTypeValueTransformer.m; sourceTree = "<group>"; };
 		9462A3E51B77CB3B00B29002 /* TTTOrdinalNumberFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTOrdinalNumberFormatter.h; sourceTree = "<group>"; };
 		9462A3E61B77CB3B00B29002 /* TTTOrdinalNumberFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTOrdinalNumberFormatter.m; sourceTree = "<group>"; };
 		9462A3EA1B77F40500B29002 /* TBMovementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBMovementViewController.h; path = TBMac/TBMovementViewController.h; sourceTree = "<group>"; };
@@ -1288,6 +1291,8 @@
 				9462A3F01B781A9A00B29002 /* RSVerticallyCenteredTextFieldCell.m */,
 				94FDEAF21B5AE4440026B25D /* TBActionClockView.h */,
 				94FDEAF91B5AEB0B0026B25D /* TBActionClockView.m */,
+				945F81EB20FC0D2B00BEEC60 /* TBAnteTypeValueTransformer.h */,
+				945F81EC20FC0D2B00BEEC60 /* TBAnteTypeValueTransformer.m */,
 				ADDDAA861B93584300D3AF68 /* TBArrayCountTransformer.h */,
 				ADDDAA871B93584300D3AF68 /* TBArrayCountTransformer.m */,
 				94C9D879200F265700D4DA10 /* TBArrayEmptyTransformer.h */,
@@ -2262,6 +2267,7 @@
 				949D709A1B3C440D008D5CD1 /* types.cpp in Sources */,
 				94C9703E203A0C170055A28C /* TBFundingSourceValueTransformer.m in Sources */,
 				94C2DA65200D0D33001B95B8 /* TBGraphics.m in Sources */,
+				945F81ED20FC0D2B00BEEC60 /* TBAnteTypeValueTransformer.m in Sources */,
 				9462A3ED1B77F40500B29002 /* TBMovementViewController.m in Sources */,
 				94C2DA63200D0C63001B95B8 /* TBEllipseView.m in Sources */,
 				9471B3F11FF8A950000A314C /* TBActionClockViewController.m in Sources */,

@@ -117,6 +117,13 @@ public:
         set_json_value(name, json(value));
     }
 
+    // set value for name
+    template <typename T>
+    void set_enum_value(const char* name, const T& value)
+    {
+        set_json_value(name, json(static_cast<int>(value)));
+    }
+
     // true if json is null or is an empty object
     bool empty() const;
 

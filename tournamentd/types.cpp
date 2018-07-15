@@ -12,7 +12,7 @@ td::authorized_client::authorized_client(int c, const std::string& name) : code(
 {
 }
 
-td::blind_level::blind_level() : little_blind(0), big_blind(0), ante(0), big_blind_ante(false), duration(0), break_duration(0)
+td::blind_level::blind_level() : little_blind(0), big_blind(0), ante(0), ante_type(td::ante_type_t::none), duration(0), break_duration(0)
 {
 }
 
@@ -128,7 +128,7 @@ td::blind_level json::value() const
     this->get_value("little_blind", ret.little_blind);
     this->get_value("big_blind", ret.big_blind);
     this->get_value("ante", ret.ante);
-    this->get_value("big_blind_ante", ret.big_blind_ante);
+    this->get_enum_value("ante_type", ret.ante_type);
     this->get_value("duration", ret.duration);
     this->get_value("break_duration", ret.break_duration);
     this->get_value("reason", ret.reason);
@@ -252,7 +252,7 @@ json::json(const td::blind_level& value) : json()
         this->set_value("ante", value.ante);
     }
 
-    this->set_value("big_blind_ante", value.big_blind_ante);
+    this->set_enum_value("ante_type", value.ante_type);
 
     if(value.duration> 0)
     {
@@ -299,7 +299,7 @@ template<>
 json::json(const td::funding_source& value) : json()
 {
     this->set_value("name", value.name);
-    this->set_value("type", static_cast<int>(value.type));
+    this->set_enum_value("type", value.type);
     if(value.forbid_after_blind_level != std::numeric_limits<std::size_t>::max())
     {
         this->set_value("forbid_after_blind_level", value.forbid_after_blind_level);

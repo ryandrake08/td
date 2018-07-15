@@ -8,6 +8,7 @@
 
 #import "TBSetupRoundsViewController.h"
 #import "TBDurationNumberFormatter.h"
+#import "TournamentSession.h"
 
 @implementation TBSetupRoundsViewController
 
@@ -30,11 +31,12 @@
 
 - (NSString*)formattedStringForRound:(NSDictionary*)round {
     NSString* formattedRound;
-    if([round[@"ante"] doubleValue] != 0.0) {
-        NSString* anteLabel = [round[@"big_blind_ante"] boolValue] ? NSLocalizedString(@"BBA", @"Big Blind Ante") : NSLocalizedString(@"Ante", nil);
-        formattedRound = [NSString stringWithFormat:@"%@/%@ %@:%@", round[@"little_blind"], round[@"big_blind"], anteLabel, round[@"ante"]];
-    } else {
+    if([round[@"ante_type"] isEqualToNumber:kAnteTypeNone] || [round[@"ante"] isEqualToNumber:@0]) {
         formattedRound = [NSString stringWithFormat:@"%@/%@", round[@"little_blind"], round[@"big_blind"]];
+    } else if([round[@"ante_type"] isEqualToNumber:kAnteTypeTraditional]) {
+        formattedRound = [NSString stringWithFormat:@"%@/%@ %@:%@", round[@"little_blind"], round[@"big_blind"], NSLocalizedString(@"Ante", nil), round[@"ante"]];
+    } else if([round[@"ante_type"] isEqualToNumber:kAnteTypeBigBlind]) {
+        formattedRound = [NSString stringWithFormat:@"%@/%@ %@:%@", round[@"little_blind"], round[@"big_blind"], NSLocalizedString(@"BBA", @"Big Blind Ante"), round[@"ante"]];
     }
     return formattedRound;
 }
@@ -62,7 +64,7 @@
     NSNumber* little_blind = @25;
     NSNumber* big_blind = @50;
     NSNumber* ante = @0;
-    NSNumber* big_blind_ante = @NO;
+    NSNumber* ante_type = kAnteTypeNone;
     NSNumber* duration = @3600000;
 
     if([[self arrangedObjects] count] > 1) {
@@ -72,11 +74,11 @@
         little_blind = @([last[@"little_blind"] intValue] * 2);
         big_blind = @([last[@"big_blind"] intValue] * 2);
         ante = @([last[@"ante"] intValue] * 2);
-        big_blind_ante = last[@"big_blind_ante"];
+        ante_type = last[@"ante_type"];
         duration = last[@"duration"];
     }
 
-    return [@{@"game_name":game_name, @"little_blind":little_blind, @"big_blind":big_blind, @"ante":ante, @"big_blind_ante":big_blind_ante, @"duration":duration} mutableCopy];
+    return [@{@"game_name":game_name, @"little_blind":little_blind, @"big_blind":big_blind, @"ante":ante, @"ante_type":ante_type, @"duration":duration} mutableCopy];
 }
 
 @end

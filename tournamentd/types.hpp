@@ -50,7 +50,7 @@ namespace td
         unsigned long little_blind;
         unsigned long big_blind;
         unsigned long ante;
-        bool big_blind_ante;
+        ante_type_t ante_type;
         long duration;
         long break_duration;
         std::string reason;

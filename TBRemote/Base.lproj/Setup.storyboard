@@ -1558,7 +1558,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="HH:MM" textAlignment="right" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="WDa-Jh-acG">
-                                                    <rect key="frame" x="90" y="12" width="297" height="20"/>
+                                                    <rect key="frame" x="90" y="12" width="304" height="20"/>
                                                     <color key="textColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
@@ -1569,7 +1569,7 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="6zF-bh-7Ia" firstAttribute="leading" secondItem="3DR-vf-ONr" secondAttribute="leadingMargin" id="0ki-PF-K0Y"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="WDa-Jh-acG" secondAttribute="trailing" constant="7" id="Itq-pl-XaB"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="WDa-Jh-acG" secondAttribute="trailing" id="Itq-pl-XaB"/>
                                                 <constraint firstItem="WDa-Jh-acG" firstAttribute="leading" secondItem="6zF-bh-7Ia" secondAttribute="trailing" constant="8" symbolic="YES" id="j7f-4M-EMT"/>
                                                 <constraint firstItem="WDa-Jh-acG" firstAttribute="baseline" secondItem="6zF-bh-7Ia" secondAttribute="baseline" id="wt1-Go-FbT"/>
                                                 <constraint firstItem="WDa-Jh-acG" firstAttribute="centerY" secondItem="3DR-vf-ONr" secondAttribute="centerY" id="xsF-aS-OAy"/>
@@ -1596,7 +1596,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Chips" textAlignment="right" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="hZE-bl-x2x">
-                                                    <rect key="frame" x="104.66666666666666" y="12" width="282.33333333333337" height="20"/>
+                                                    <rect key="frame" x="105" y="12" width="289" height="20"/>
                                                     <color key="textColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
@@ -1608,7 +1608,7 @@
                                             <constraints>
                                                 <constraint firstItem="hZE-bl-x2x" firstAttribute="leading" secondItem="pH6-6d-rbf" secondAttribute="trailing" constant="8" symbolic="YES" id="B5z-Q5-d1o"/>
                                                 <constraint firstItem="pH6-6d-rbf" firstAttribute="leading" secondItem="96K-zH-VLw" secondAttribute="leadingMargin" id="G5K-64-HpO"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="hZE-bl-x2x" secondAttribute="trailing" constant="7" id="OUt-VE-gTe"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="hZE-bl-x2x" secondAttribute="trailing" id="OUt-VE-gTe"/>
                                                 <constraint firstItem="hZE-bl-x2x" firstAttribute="centerY" secondItem="96K-zH-VLw" secondAttribute="centerY" id="TLl-O4-GLc"/>
                                                 <constraint firstItem="hZE-bl-x2x" firstAttribute="baseline" secondItem="pH6-6d-rbf" secondAttribute="baseline" id="ew8-zb-hVa"/>
                                             </constraints>
@@ -1634,7 +1634,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Chips" textAlignment="right" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="W6d-06-fje">
-                                                    <rect key="frame" x="92" y="12" width="295" height="20"/>
+                                                    <rect key="frame" x="92" y="12" width="302" height="20"/>
                                                     <color key="textColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
@@ -1647,7 +1647,7 @@
                                                 <constraint firstItem="W6d-06-fje" firstAttribute="leading" secondItem="Zc8-4g-HO9" secondAttribute="trailing" constant="8" symbolic="YES" id="0ah-Fk-rUk"/>
                                                 <constraint firstItem="W6d-06-fje" firstAttribute="centerY" secondItem="suL-Dj-txH" secondAttribute="centerY" id="3w0-Cx-xUF"/>
                                                 <constraint firstItem="W6d-06-fje" firstAttribute="baseline" secondItem="Zc8-4g-HO9" secondAttribute="baseline" id="Ai8-AO-fHZ"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="W6d-06-fje" secondAttribute="trailing" constant="7" id="RKx-s6-1L4"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="W6d-06-fje" secondAttribute="trailing" id="RKx-s6-1L4"/>
                                                 <constraint firstItem="Zc8-4g-HO9" firstAttribute="leading" secondItem="suL-Dj-txH" secondAttribute="leadingMargin" id="wng-G1-Et2"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -1672,7 +1672,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Chips" textAlignment="right" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="6Ac-3H-RUx">
-                                                    <rect key="frame" x="62" y="12" width="325" height="20"/>
+                                                    <rect key="frame" x="62" y="12" width="332" height="20"/>
                                                     <color key="textColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
@@ -1683,7 +1683,7 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="6Ac-3H-RUx" firstAttribute="leading" secondItem="hYQ-rq-FUP" secondAttribute="trailing" constant="8" symbolic="YES" id="Uwc-a3-R45"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="6Ac-3H-RUx" secondAttribute="trailing" constant="7" id="kzS-QF-aj2"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="6Ac-3H-RUx" secondAttribute="trailing" id="kzS-QF-aj2"/>
                                                 <constraint firstItem="hYQ-rq-FUP" firstAttribute="leading" secondItem="SY2-gy-QMp" secondAttribute="leadingMargin" id="ppu-ge-P6h"/>
                                                 <constraint firstItem="6Ac-3H-RUx" firstAttribute="centerY" secondItem="SY2-gy-QMp" secondAttribute="centerY" id="v3U-cZ-o9F"/>
                                                 <constraint firstItem="6Ac-3H-RUx" firstAttribute="baseline" secondItem="hYQ-rq-FUP" secondAttribute="baseline" id="vxk-5d-pX2"/>
@@ -1696,29 +1696,43 @@
                                             <outlet property="textField" destination="6Ac-3H-RUx" id="aZ4-a4-meu"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="checkmark" indentationWidth="10" id="G2K-a5-qhk" customClass="TBCheckmarkNumberTableViewCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="YPk-Es-EiE" customClass="TBPickableTextTableViewCell">
                                         <rect key="frame" x="0.0" y="231.33333333333334" width="414" height="44.000000000000028"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="G2K-a5-qhk" id="CV5-Vm-K1r">
-                                            <rect key="frame" x="0.0" y="0.0" width="370" height="43.666666666666664"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="YPk-Es-EiE" id="8xv-6u-DOw">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Big Blind Ante" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ugA-wN-0Pf">
-                                                    <rect key="frame" x="20" y="11.666666666666666" width="107" height="20.333333333333336"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" horizontalHuggingPriority="750" text="Ante Type" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IYf-FS-W7C">
+                                                    <rect key="frame" x="20" y="12" width="73.666666666666671" height="20"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <textField opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="None, Traditional, Big Blind" textAlignment="right" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="6jD-Rs-xBZ">
+                                                    <rect key="frame" x="101.66666666666666" y="12" width="292.33333333333337" height="20"/>
+                                                    <color key="textColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <textInputTraits key="textInputTraits" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="YPk-Es-EiE" id="zWt-y5-unO"/>
+                                                    </connections>
+                                                </textField>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="ugA-wN-0Pf" firstAttribute="centerY" secondItem="CV5-Vm-K1r" secondAttribute="centerY" id="VVo-K4-ZPR"/>
-                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ugA-wN-0Pf" secondAttribute="trailingMargin" id="WW6-oc-AYm"/>
-                                                <constraint firstItem="ugA-wN-0Pf" firstAttribute="leading" secondItem="CV5-Vm-K1r" secondAttribute="leadingMargin" id="a7A-l7-M26"/>
+                                                <constraint firstItem="IYf-FS-W7C" firstAttribute="leading" secondItem="8xv-6u-DOw" secondAttribute="leadingMargin" id="4w2-gL-OuR"/>
+                                                <constraint firstItem="6jD-Rs-xBZ" firstAttribute="centerY" secondItem="8xv-6u-DOw" secondAttribute="centerY" id="DMC-Yw-bQh"/>
+                                                <constraint firstItem="6jD-Rs-xBZ" firstAttribute="baseline" secondItem="IYf-FS-W7C" secondAttribute="baseline" id="Laa-V9-iwN"/>
+                                                <constraint firstItem="6jD-Rs-xBZ" firstAttribute="leading" secondItem="IYf-FS-W7C" secondAttribute="trailing" constant="8" symbolic="YES" id="Tx2-Mj-cax"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="6jD-Rs-xBZ" secondAttribute="trailing" id="dKi-Zh-lfe"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="keyPath" value="big_blind_ante"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="keyPath" value="ante_type"/>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <outlet property="textField" destination="6jD-Rs-xBZ" id="csS-s9-Iif"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="checkmark" indentationWidth="10" id="Xdf-4V-1wf" customClass="TBCheckmarkValueExistsTableViewCell">
                                         <rect key="frame" x="0.0" y="275.33333333333337" width="414" height="44"/>
@@ -1762,7 +1776,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="HH:MM" textAlignment="right" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="ou6-Jk-ZbW">
-                                                    <rect key="frame" x="90" y="12" width="297" height="20"/>
+                                                    <rect key="frame" x="90" y="12" width="304" height="20"/>
                                                     <color key="textColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
@@ -1775,7 +1789,7 @@
                                                 <constraint firstItem="ou6-Jk-ZbW" firstAttribute="centerY" secondItem="nn2-37-Fgw" secondAttribute="centerY" id="MMM-mL-PWr"/>
                                                 <constraint firstItem="ou6-Jk-ZbW" firstAttribute="baseline" secondItem="Iud-Eq-RjS" secondAttribute="baseline" id="g3k-tZ-8sa"/>
                                                 <constraint firstItem="Iud-Eq-RjS" firstAttribute="leading" secondItem="nn2-37-Fgw" secondAttribute="leadingMargin" id="g4l-Xf-Esy"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="ou6-Jk-ZbW" secondAttribute="trailing" constant="7" id="kFW-In-hPt"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="ou6-Jk-ZbW" secondAttribute="trailing" id="kFW-In-hPt"/>
                                                 <constraint firstItem="ou6-Jk-ZbW" firstAttribute="leading" secondItem="Iud-Eq-RjS" secondAttribute="trailing" constant="8" symbolic="YES" id="q9a-5a-ZAI"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -1800,7 +1814,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Reason for break" textAlignment="right" minimumFontSize="16" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="bYh-pO-566">
-                                                    <rect key="frame" x="93.666666666666657" y="12" width="293.33333333333337" height="20"/>
+                                                    <rect key="frame" x="94" y="12" width="300" height="20"/>
                                                     <color key="textColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <textInputTraits key="textInputTraits" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
@@ -1810,7 +1824,7 @@
                                                 </textField>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailingMargin" secondItem="bYh-pO-566" secondAttribute="trailing" constant="7" id="Usi-2r-mYB"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="bYh-pO-566" secondAttribute="trailing" id="Usi-2r-mYB"/>
                                                 <constraint firstItem="bYh-pO-566" firstAttribute="leading" secondItem="d3T-OQ-Zar" secondAttribute="trailing" constant="8" symbolic="YES" id="d2h-7X-WEA"/>
                                                 <constraint firstItem="d3T-OQ-Zar" firstAttribute="leading" secondItem="6Q4-9q-rv6" secondAttribute="leadingMargin" id="gQg-up-hwW"/>
                                                 <constraint firstItem="bYh-pO-566" firstAttribute="baseline" secondItem="d3T-OQ-Zar" secondAttribute="baseline" id="mar-Xv-jbt"/>

@@ -9,6 +9,7 @@
 #import "TBSetupDetailsRoundsViewController.h"
 #import "TBKVOTableViewCell.h"
 #import "TBDurationNumberFormatter.h"
+#import "TournamentSession.h"
 
 @implementation TBSetupDetailsRoundsViewController
 
@@ -36,6 +37,8 @@
     } else if([[(TBKVOTableViewCell*)cell keyPath] isEqualToString:@"ante"]) {
         NSNumberFormatter* numberFormatter = [[NSNumberFormatter alloc] init];
         [(TBFormattedKVOTableViewCell*)cell setFormatter:numberFormatter];
+    } else if([[(TBKVOTableViewCell*)cell keyPath] isEqualToString:@"ante_type"]) {
+        [(TBPickableTextTableViewCell*)cell setAllowedValues:@[kAnteTypeNone, kAnteTypeTraditional, kAnteTypeBigBlind] withTitles:@[NSLocalizedString(@"None", nil), NSLocalizedString(@"Traditional", nil), NSLocalizedString(@"Big Blind", nil)]];
     } else if([[(TBKVOTableViewCell*)cell keyPath] isEqualToString:@"break_duration"] && [indexPath section] == 1) {
         TBDurationNumberFormatter* durationFormatter = [[TBDurationNumberFormatter alloc] init];
         [(TBFormattedKVOTableViewCell*)cell setFormatter:durationFormatter];
