@@ -192,9 +192,15 @@ void gameinfo::dump_state(json& state) const
 static std::ostream& operator<<(std::ostream& os, const td::blind_level& level)
 {
     os << level.little_blind << '/' << level.big_blind;
-    if(level.ante > 0)
+    if(level.ante_type == td::ante_type_t::traditional)
     {
-        os << " A:" << level.ante;
+        // TODO: i18n
+        os << " Ante:" << level.ante;
+    }
+    else if(level.ante_type == td::ante_type_t::bba)
+    {
+        // TODO: i18n
+        os << " BBA:" << level.ante;
     }
     return os;
 }
@@ -249,6 +255,10 @@ void gameinfo::dump_derived_state(json& state) const
     {
         os << blind_levels[this->current_blind_level].game_name;
     }
+    else
+    {
+        os << '-';
+    }
     state.set_value("current_game_text", os.str()); os.str("");
 
     // current round text
@@ -256,6 +266,7 @@ void gameinfo::dump_derived_state(json& state) const
     {
         if(on_break)
         {
+            // TODO: i18n
             os << "BREAK";
         }
         else
@@ -274,6 +285,10 @@ void gameinfo::dump_derived_state(json& state) const
     {
         os << blind_levels[this->current_blind_level+1].game_name;
     }
+    else
+    {
+        os << '-';
+    }
     state.set_value("next_game_text", os.str()); os.str("");
 
     // next round text
@@ -285,6 +300,7 @@ void gameinfo::dump_derived_state(json& state) const
         }
         else
         {
+            // TODO: i18n
             os << "BREAK";
         }
     }
