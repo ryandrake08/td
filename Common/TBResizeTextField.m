@@ -38,9 +38,9 @@
     }
 }
 
-- (void)setStringValue:(NSString*)stringValue {
-    if(![stringValue isEqualToString:[self stringValue]]) {
-        [super setStringValue:stringValue];
+- (void)setObjectValue:(id)objectValue {
+    if(![objectValue isEqual:[self objectValue]]) {
+        [super setObjectValue:objectValue];
         [self resizeFont];
     }
 }
