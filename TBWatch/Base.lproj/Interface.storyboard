@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="13771" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="14113" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
     <device id="watch38" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="watchOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="13756"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="14033"/>
     </dependencies>
     <scenes>
         <!--Interface Controller-->
@@ -19,8 +19,11 @@
                                 <label alignment="center" text="0:59:59" minimumScaleFactor="0.80000000000000004" id="jfh-q1-fMz">
                                     <fontDescription key="font" type="boldSystem" pointSize="40"/>
                                 </label>
-                                <label alignment="center" text="25/50" minimumScaleFactor="0.29999999999999999" id="yNz-nR-m2D">
+                                <label alignment="center" text="25/50" minimumScaleFactor="0.29999999999999999" id="yNz-nR-m2D" userLabel="Current Blinds Label">
                                     <fontDescription key="font" type="system" pointSize="30"/>
+                                </label>
+                                <label alignment="center" text="Ante:25" minimumScaleFactor="0.29999999999999999" id="cvE-eL-V7D" userLabel="Current Ante Label">
+                                    <fontDescription key="font" type="system" pointSize="18"/>
                                 </label>
                                 <label alignment="center" text="No Limit Texas Hold'em" minimumScaleFactor="0.80000000000000004" id="3EP-gl-hZn">
                                     <fontDescription key="font" type="system" pointSize="12"/>
@@ -78,8 +81,9 @@
                         <outlet property="averageStackLabel" destination="5nn-ha-mOM" id="O0B-FY-2t0"/>
                         <outlet property="callClockButton" destination="g08-KH-ZcQ" id="osX-36-JKd"/>
                         <outlet property="clockLabel" destination="jfh-q1-fMz" id="Por-zM-4m9"/>
+                        <outlet property="currentAnteLabel" destination="cvE-eL-V7D" id="Sgu-aX-Jaa"/>
+                        <outlet property="currentBlindsLabel" destination="yNz-nR-m2D" id="WD5-qn-HUI"/>
                         <outlet property="currentGameLabel" destination="3EP-gl-hZn" id="dZM-fz-GxP"/>
-                        <outlet property="currentRoundLabel" destination="yNz-nR-m2D" id="WVT-8k-VW5"/>
                         <outlet property="nextGameLabel" destination="toO-ga-DPR" id="sv9-Af-HlL"/>
                         <outlet property="nextRoundButton" destination="Gmp-B4-4H9" id="vaR-LM-ncZ"/>
                         <outlet property="nextRoundLabel" destination="hrK-J4-yV0" id="2a3-cC-eLT"/>

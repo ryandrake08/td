@@ -2593,7 +2593,7 @@ Gw
                                             </textFieldCell>
                                         </textField>
                                         <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="eQe-ME-Bqr">
-                                            <rect key="frame" x="20" y="174" width="248" height="5"/>
+                                            <rect key="frame" x="20" y="174" width="248" height="61"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                         </box>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IlH-dW-bBl">

@@ -258,25 +258,26 @@
                                             <binding destination="qiy-ws-jFz" name="textColor" keyPath="self.textColor" id="52j-PI-dLL"/>
                                         </connections>
                                     </textField>
-                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lhU-dh-9MI" customClass="TBResizeTextField">
-                                        <rect key="frame" x="-2" y="384" width="516" height="32"/>
+                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LB3-cc-sGj" customClass="TBResizeTextField">
+                                        <rect key="frame" x="-2" y="256" width="516" height="160"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Current Round" placeholderString="" usesSingleLineMode="YES" id="9fy-IB-81v">
-                                            <font key="font" metaFont="system" size="24"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="100/200" placeholderString="" usesSingleLineMode="YES" id="zoc-Mw-CPE">
+                                            <font key="font" metaFont="system" size="128"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="minFontSize">
-                                                <real key="value" value="24"/>
+                                                <real key="value" value="32"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <binding destination="qiy-ws-jFz" name="textColor" keyPath="self.textColor" id="lyg-JK-kBZ"/>
+                                            <binding destination="qiy-ws-jFz" name="textColor" keyPath="self.textColor" id="R1o-BH-EiR"/>
+                                            <binding destination="qiy-ws-jFz" name="value" keyPath="self.session.state.current_round_blinds_text" id="kdM-Rp-32X"/>
                                         </connections>
                                     </textField>
                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="m0u-w9-hKF" customClass="TBResizeTextField">
-                                        <rect key="frame" x="-2" y="320" width="516" height="64"/>
+                                        <rect key="frame" x="-2" y="168" width="516" height="64"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="No Limit Texas Hold'em" placeholderString="" usesSingleLineMode="YES" id="q9O-E8-dZX">
                                             <font key="font" metaFont="system" size="48"/>
@@ -291,24 +292,6 @@
                                         <connections>
                                             <binding destination="qiy-ws-jFz" name="value" keyPath="self.session.state.current_game_text" id="MsE-Ug-5hq"/>
                                             <binding destination="qiy-ws-jFz" name="textColor" keyPath="self.textColor" id="KAA-kd-Idx"/>
-                                        </connections>
-                                    </textField>
-                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LB3-cc-sGj" customClass="TBResizeTextField">
-                                        <rect key="frame" x="-2" y="160" width="516" height="160"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="100/200" placeholderString="" usesSingleLineMode="YES" id="zoc-Mw-CPE">
-                                            <font key="font" metaFont="system" size="128"/>
-                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                        </textFieldCell>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="minFontSize">
-                                                <real key="value" value="32"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <binding destination="qiy-ws-jFz" name="value" keyPath="self.session.state.current_round_text" id="FcU-if-hnj"/>
-                                            <binding destination="qiy-ws-jFz" name="textColor" keyPath="self.textColor" id="R1o-BH-EiR"/>
                                         </connections>
                                     </textField>
                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="h0w-xz-gzK" customClass="TBResizeTextField">
@@ -328,8 +311,26 @@
                                             <binding destination="qiy-ws-jFz" name="textColor" keyPath="self.textColor" id="3xO-Qp-tFN"/>
                                         </connections>
                                     </textField>
+                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lYy-03-j6f" customClass="TBResizeTextField">
+                                        <rect key="frame" x="-2" y="32" width="516" height="96"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="200/400" placeholderString="" usesSingleLineMode="YES" id="mIF-BW-eAj">
+                                            <font key="font" metaFont="system" size="90"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="minFontSize">
+                                                <real key="value" value="15"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <binding destination="qiy-ws-jFz" name="value" keyPath="self.session.state.next_round_text" id="Umq-L2-yOg"/>
+                                            <binding destination="qiy-ws-jFz" name="textColor" keyPath="self.textColor" id="4gP-be-xs1"/>
+                                        </connections>
+                                    </textField>
                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hK2-8o-tob" customClass="TBResizeTextField">
-                                        <rect key="frame" x="-2" y="96" width="516" height="32"/>
+                                        <rect key="frame" x="-2" y="0.0" width="516" height="32"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Limit Texas Hold'em" placeholderString="" usesSingleLineMode="YES" id="XPh-hh-ArM">
                                             <font key="font" metaFont="system" size="32"/>
@@ -346,22 +347,22 @@
                                             <binding destination="qiy-ws-jFz" name="textColor" keyPath="self.textColor" id="q7O-AC-UBH"/>
                                         </connections>
                                     </textField>
-                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lYy-03-j6f" customClass="TBResizeTextField">
-                                        <rect key="frame" x="-2" y="0.0" width="516" height="96"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="200/400" placeholderString="" usesSingleLineMode="YES" id="mIF-BW-eAj">
-                                            <font key="font" metaFont="system" size="90"/>
+                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QIu-Xo-Xlk" customClass="TBResizeTextField">
+                                        <rect key="frame" x="-2" y="233" width="516" height="39"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Ante: 10000" placeholderString="" usesSingleLineMode="YES" id="KDg-wX-eee">
+                                            <font key="font" metaFont="system" size="32"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="minFontSize">
-                                                <real key="value" value="15"/>
+                                                <real key="value" value="32"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <binding destination="qiy-ws-jFz" name="value" keyPath="self.session.state.next_round_text" id="Umq-L2-yOg"/>
-                                            <binding destination="qiy-ws-jFz" name="textColor" keyPath="self.textColor" id="4gP-be-xs1"/>
+                                            <binding destination="qiy-ws-jFz" name="textColor" keyPath="self.textColor" id="GmN-ES-saT"/>
+                                            <binding destination="qiy-ws-jFz" name="value" keyPath="self.session.state.current_round_ante_text" id="GBI-up-icB"/>
                                         </connections>
                                     </textField>
                                 </subviews>
@@ -541,7 +542,7 @@
                                                                     </connections>
                                                                 </textField>
                                                                 <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="ogx-nJ-RX5">
-                                                                    <rect key="frame" x="3" y="5" width="250" height="5"/>
+                                                                    <rect key="frame" x="3" y="5" width="250" height="125"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                                 </box>
                                                             </subviews>

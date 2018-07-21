@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -37,6 +37,7 @@
                     <tabBarItem key="tabBarItem" title="Tournaments" image="t_connect" id="Zb9-yF-xau"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="PH6-AE-Pg8">
+                        <rect key="frame" x="0.0" y="20" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -245,14 +246,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="160"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="750" text="Current Round: No Limit Texas Hold'em" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qwm-gz-Pcg">
-                                                    <rect key="frame" x="0.0" y="4" width="320" height="27.5"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="250" text="40000/80000 A:10000" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="24" preferredMaxLayoutWidth="320" translatesAutoresizingMaskIntoConstraints="NO" id="8v5-57-KLb">
-                                                    <rect key="frame" x="0.0" y="35.5" width="320" height="120"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="250" text="40000/80000" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="24" preferredMaxLayoutWidth="320" translatesAutoresizingMaskIntoConstraints="NO" id="8v5-57-KLb" userLabel="Current Blinds Label">
+                                                    <rect key="frame" x="0.0" y="4" width="320" height="107.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" relation="lessThanOrEqual" constant="120" id="Ruj-7q-Rnp"/>
                                                     </constraints>
@@ -260,14 +255,32 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Ante:10000" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="24" preferredMaxLayoutWidth="320" translatesAutoresizingMaskIntoConstraints="NO" id="lIY-yQ-SqJ" userLabel="Current Ante Label">
+                                                    <rect key="frame" x="0.0" y="111.5" width="320" height="20"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" relation="lessThanOrEqual" constant="20" id="AHi-Kb-aPF"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="108"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="750" text="No Limit Texas Hold'em" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qwm-gz-Pcg">
+                                                    <rect key="frame" x="0.0" y="135.5" width="320" height="20.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="qwm-gz-Pcg" secondAttribute="bottom" constant="4" id="1bM-Ou-6Id"/>
+                                                <constraint firstItem="lIY-yQ-SqJ" firstAttribute="top" secondItem="8v5-57-KLb" secondAttribute="bottom" id="Ddu-n2-E7v"/>
                                                 <constraint firstItem="qwm-gz-Pcg" firstAttribute="width" secondItem="97A-hj-QtU" secondAttribute="width" id="Ohh-R3-CIP"/>
                                                 <constraint firstItem="8v5-57-KLb" firstAttribute="width" secondItem="97A-hj-QtU" secondAttribute="width" id="QE6-SG-BhX"/>
-                                                <constraint firstItem="qwm-gz-Pcg" firstAttribute="top" secondItem="97A-hj-QtU" secondAttribute="top" constant="4" id="avP-94-LIo"/>
+                                                <constraint firstItem="lIY-yQ-SqJ" firstAttribute="centerX" secondItem="97A-hj-QtU" secondAttribute="centerX" id="YMK-5i-8AO"/>
                                                 <constraint firstItem="qwm-gz-Pcg" firstAttribute="centerX" secondItem="97A-hj-QtU" secondAttribute="centerX" id="emQ-Kj-rXX"/>
-                                                <constraint firstItem="8v5-57-KLb" firstAttribute="top" secondItem="qwm-gz-Pcg" secondAttribute="bottom" constant="4" id="lu0-9T-7NX"/>
-                                                <constraint firstAttribute="bottom" secondItem="8v5-57-KLb" secondAttribute="bottom" constant="4" id="uHh-1O-Dxr"/>
+                                                <constraint firstItem="qwm-gz-Pcg" firstAttribute="top" secondItem="lIY-yQ-SqJ" secondAttribute="bottom" constant="4" id="jtw-6K-O3l"/>
+                                                <constraint firstItem="8v5-57-KLb" firstAttribute="top" secondItem="97A-hj-QtU" secondAttribute="top" constant="4" id="nWh-tZ-gIZ"/>
+                                                <constraint firstItem="lIY-yQ-SqJ" firstAttribute="width" secondItem="97A-hj-QtU" secondAttribute="width" id="pCt-Wf-DSs"/>
                                                 <constraint firstItem="8v5-57-KLb" firstAttribute="centerX" secondItem="97A-hj-QtU" secondAttribute="centerX" id="xd9-5x-ZSG"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -285,27 +298,36 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="750" text="Next Round: No Limit Texas Hold'em" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hb0-eh-wgU">
-                                                    <rect key="frame" x="0.0" y="4" width="320" height="17"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Next Round" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5pY-Bh-foh">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="14.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="250" text="80000/160000 A:20000" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="iUc-XK-huR">
-                                                    <rect key="frame" x="0.0" y="25" width="320" height="40"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="250" text="80000/160000 Ante:20000" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="iUc-XK-huR">
+                                                    <rect key="frame" x="0.0" y="18.5" width="320" height="36.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="32"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="750" text="No Limit Texas Hold'em" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hb0-eh-wgU">
+                                                    <rect key="frame" x="0.0" y="59" width="320" height="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="Hb0-eh-wgU" firstAttribute="centerX" secondItem="smL-Kf-Q0o" secondAttribute="centerX" id="0BZ-dR-1yw"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="iUc-XK-huR" secondAttribute="bottom" constant="4" id="KsR-3B-Ed1"/>
-                                                <constraint firstItem="Hb0-eh-wgU" firstAttribute="top" secondItem="smL-Kf-Q0o" secondAttribute="top" constant="4" id="PvK-WJ-Aeg"/>
-                                                <constraint firstItem="iUc-XK-huR" firstAttribute="top" secondItem="Hb0-eh-wgU" secondAttribute="bottom" constant="4" id="cgK-7E-N7w"/>
+                                                <constraint firstItem="5pY-Bh-foh" firstAttribute="top" secondItem="smL-Kf-Q0o" secondAttribute="top" id="2Hi-EG-HxP"/>
+                                                <constraint firstItem="iUc-XK-huR" firstAttribute="top" secondItem="5pY-Bh-foh" secondAttribute="bottom" constant="4" id="EBr-nP-cdY"/>
                                                 <constraint firstItem="Hb0-eh-wgU" firstAttribute="width" secondItem="smL-Kf-Q0o" secondAttribute="width" id="dhy-Z0-JdG"/>
                                                 <constraint firstItem="iUc-XK-huR" firstAttribute="width" secondItem="smL-Kf-Q0o" secondAttribute="width" id="eXZ-n0-9Pn"/>
+                                                <constraint firstItem="Hb0-eh-wgU" firstAttribute="top" secondItem="iUc-XK-huR" secondAttribute="bottom" constant="4" id="hdQ-CF-6ma"/>
+                                                <constraint firstItem="5pY-Bh-foh" firstAttribute="width" secondItem="smL-Kf-Q0o" secondAttribute="width" id="iZM-YC-vOA"/>
                                                 <constraint firstItem="iUc-XK-huR" firstAttribute="centerX" secondItem="smL-Kf-Q0o" secondAttribute="centerX" id="mFv-mM-HJN"/>
+                                                <constraint firstAttribute="bottom" secondItem="Hb0-eh-wgU" secondAttribute="bottom" constant="4" id="y0I-t2-Sk9"/>
+                                                <constraint firstItem="5pY-Bh-foh" firstAttribute="centerX" secondItem="smL-Kf-Q0o" secondAttribute="centerX" id="yr7-Bu-zX0"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -403,8 +425,9 @@
                         <outlet property="averageStackLabel" destination="XNj-02-a9q" id="z7p-U2-pz8"/>
                         <outlet property="callClockButton" destination="uSo-37-nWA" id="Qff-9f-Yrh"/>
                         <outlet property="clockLabel" destination="lvG-dk-XoB" id="tWg-gi-hcM"/>
+                        <outlet property="currentAnteLabel" destination="lIY-yQ-SqJ" id="ytU-mj-fNz"/>
+                        <outlet property="currentBlindsLabel" destination="8v5-57-KLb" id="N2I-DT-Du4"/>
                         <outlet property="currentGameLabel" destination="qwm-gz-Pcg" id="lyW-MU-7oG"/>
-                        <outlet property="currentRoundLabel" destination="8v5-57-KLb" id="ynU-fI-P3g"/>
                         <outlet property="elapsedLabel" destination="rzA-kD-6XA" id="hnz-6n-kPO"/>
                         <outlet property="nextGameLabel" destination="Hb0-eh-wgU" id="HcS-rv-eO7"/>
                         <outlet property="nextRoundButton" destination="aQC-kA-VEz" id="WC6-qC-PsL"/>
@@ -476,6 +499,7 @@
                 <navigationController id="GHW-y1-xaO" userLabel="Seating Navigation" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Seating" image="t_players" id="1fg-ei-iEW"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="lTz-e4-1Ca">
+                        <rect key="frame" x="0.0" y="20" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -609,6 +633,7 @@
                 <navigationController id="V3a-tx-XLb" userLabel="Results Navigation" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Results" image="t_results" id="q7P-bF-PgS"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="VjR-tG-Uuj">
+                        <rect key="frame" x="0.0" y="20" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>

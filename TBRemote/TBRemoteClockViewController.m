@@ -30,7 +30,8 @@
 @property (nonatomic, weak) IBOutlet UILabel* elapsedLabel;
 @property (nonatomic, weak) IBOutlet UILabel* clockLabel;
 @property (nonatomic, weak) IBOutlet UILabel* currentGameLabel;
-@property (nonatomic, weak) IBOutlet UILabel* currentRoundLabel;
+@property (nonatomic, weak) IBOutlet UILabel* currentBlindsLabel;
+@property (nonatomic, weak) IBOutlet UILabel* currentAnteLabel;
 @property (nonatomic, weak) IBOutlet UILabel* nextGameLabel;
 @property (nonatomic, weak) IBOutlet UILabel* nextRoundLabel;
 @property (nonatomic, weak) IBOutlet UILabel* playersLeftLabel;
@@ -82,19 +83,19 @@
     }];
 
     [[self KVOController] observe:self keyPath:@"session.state.current_game_text" options:NSKeyValueObservingOptionInitial block:^(id observer, TBRemoteClockViewController* object, NSDictionary *change) {
-        NSString* currentGameText = [[object session] state][@"current_game_text"];
-        NSString* fullCurrentGameText = [NSString localizedStringWithFormat:@"Current Round: %@", currentGameText];
-        [[observer currentGameLabel] setText:fullCurrentGameText];
+        [[observer currentGameLabel] setText:[[object session] state][@"current_game_text"]];
     }];
 
-    [[self KVOController] observe:self keyPath:@"session.state.current_round_text" options:NSKeyValueObservingOptionInitial block:^(id observer, TBRemoteClockViewController* object, NSDictionary *change) {
-        [[observer currentRoundLabel] setText:[[object session] state][@"current_round_text"]];
+    [[self KVOController] observe:self keyPath:@"session.state.current_round_blinds_text" options:NSKeyValueObservingOptionInitial block:^(id observer, TBRemoteClockViewController* object, NSDictionary *change) {
+        [[observer currentBlindsLabel] setText:[[object session] state][@"current_round_blinds_text"]];
+    }];
+
+    [[self KVOController] observe:self keyPath:@"session.state.current_round_ante_text" options:NSKeyValueObservingOptionInitial block:^(id observer, TBRemoteClockViewController* object, NSDictionary *change) {
+        [[observer currentAnteLabel] setText:[[object session] state][@"current_round_ante_text"]];
     }];
 
     [[self KVOController] observe:self keyPath:@"session.state.next_game_text" options:NSKeyValueObservingOptionInitial block:^(id observer, TBRemoteClockViewController* object, NSDictionary *change) {
-        NSString* nextGameText = [[object session] state][@"next_game_text"];
-        NSString* fullNextGameText = [NSString localizedStringWithFormat:@"Next Round: %@", nextGameText];
-        [[observer nextGameLabel] setText:fullNextGameText];
+        [[observer nextGameLabel] setText:[[object session] state][@"next_game_text"]];
     }];
     
     [[self KVOController] observe:self keyPath:@"session.state.next_round_text" options:NSKeyValueObservingOptionInitial block:^(id observer, TBRemoteClockViewController* object, NSDictionary *change) {
