@@ -991,7 +991,7 @@ struct tournament::impl
     bool update_and_poll()
     {
         // update the clock, and report to clients if anything changed
-        if(this->game_info.update_remaining())
+        if(this->game_info.update())
         {
             scope_timer timer;
             timer.set_message("broadcast_state: ");

@@ -22,12 +22,7 @@ gameinfo::gameinfo() :
     total_chips(0),
     total_equity(0.0),
     running(false),
-    current_blind_level(0),
-    current_time(std::chrono::duration_cast<duration_t>(std::chrono::system_clock::now().time_since_epoch())),
-    time_remaining(duration_t::zero()),
-    break_time_remaining(duration_t::zero()),
-    action_clock_time_remaining(duration_t::zero()),
-    elapsed_time(duration_t::zero())
+    current_blind_level(0)
 {
 }
 
@@ -180,11 +175,6 @@ void gameinfo::dump_state(json& state) const
     state.set_value("total_equity", this->total_equity);
     state.set_value("running", this->running);
     state.set_value("current_blind_level", this->current_blind_level);
-    state.set_value("current_time", this->current_time.count());
-    state.set_value("time_remaining", this->time_remaining.count());
-    state.set_value("break_time_remaining", this->break_time_remaining.count());
-    state.set_value("action_clock_time_remaining", this->action_clock_time_remaining.count());
-    state.set_value("elapsed_time", this->elapsed_time.count());
     this->dump_derived_state(state);
 }
 
@@ -229,12 +219,24 @@ void gameinfo::dump_derived_state(json& state) const
     // has the tournament started?
     bool started(this->current_blind_level > 0 && this->current_blind_level < this->blind_levels.size());
 
-    // are we on break?
-    bool on_break(this->time_remaining == duration_t::zero() && this->break_time_remaining != duration_t::zero());
-    state.set_value("on_break", on_break);
+    // set current time (for synchronization)
+    auto now(std::chrono::system_clock::now());
+    auto current_time(std::chrono::duration_cast<duration_t>(now.time_since_epoch()));
+    state.set_value("current_time", current_time.count());
 
-    // clock_remaining is either time_remaining or break_time_remaining, depending on whether we are on break
-    state.set_value("clock_remaining", on_break ? this->break_time_remaining.count() : this->time_remaining.count());
+    // set elapsed_time if we are past the tournament start
+    if(this->tournament_start != time_point_t() && this->tournament_start < now)
+    {
+        auto elapsed_time(std::chrono::duration_cast<duration_t>(now - this->tournament_start));
+        state.set_value("elapsed_time", elapsed_time.count());
+    }
+
+    // set action clock if ticking
+    if(this->end_of_action_clock != time_point_t() && this->end_of_action_clock > now)
+    {
+        auto action_clock_time_remaining(std::chrono::duration_cast<duration_t>(this->end_of_action_clock - now));
+        state.set_value("action_clock_time_remaining", action_clock_time_remaining.count());
+    }
 
     std::ostringstream os;
     os.imbue(std::locale(""));
@@ -251,7 +253,7 @@ void gameinfo::dump_derived_state(json& state) const
     state.set_value("current_round_number_text", os.str()); os.str("");
 
     // current game name text
-    if(started && !on_break)
+    if(started)
     {
         os << blind_levels[this->current_blind_level].game_name;
     }
@@ -260,60 +262,6 @@ void gameinfo::dump_derived_state(json& state) const
         os << '-';
     }
     state.set_value("current_game_text", os.str()); os.str("");
-
-    // current round text (TODO: no longer used by any client)
-    if(started)
-    {
-        if(on_break)
-        {
-            // TODO: i18n
-            os << "BREAK";
-        }
-        else
-        {
-            os << this->blind_levels[this->current_blind_level];
-        }
-    }
-    else
-    {
-        os << '-';
-    }
-    state.set_value("current_round_text", os.str()); os.str("");
-
-    // current round text
-    if(started)
-    {
-        if(on_break)
-        {
-            // TODO: i18n
-            os << "BREAK";
-        }
-        else
-        {
-            os << this->blind_levels[this->current_blind_level].little_blind << '/' << this->blind_levels[this->current_blind_level].big_blind;
-        }
-    }
-    else
-    {
-        os << '-';
-    }
-    state.set_value("current_round_blinds_text", os.str()); os.str("");
-
-    // current round text
-    if(started && !on_break)
-    {
-        if(this->blind_levels[this->current_blind_level].ante_type == td::ante_type_t::traditional)
-        {
-            // TODO: i18n
-            os << "Ante:" << this->blind_levels[this->current_blind_level].ante;
-        }
-        else if(this->blind_levels[this->current_blind_level].ante_type == td::ante_type_t::bba)
-        {
-            // TODO: i18n
-            os << "BBA:" << this->blind_levels[this->current_blind_level].ante;
-        }
-    }
-    state.set_value("current_round_ante_text", os.str()); os.str("");
 
     // next game name text
     if(started && this->current_blind_level+1 < this->blind_levels.size())
@@ -326,24 +274,119 @@ void gameinfo::dump_derived_state(json& state) const
     }
     state.set_value("next_game_text", os.str()); os.str("");
 
-    // next round text
-    if(started && this->current_blind_level+1 < this->blind_levels.size())
+    if(this->running)
     {
-        if(on_break || this->blind_levels[this->current_blind_level].break_duration == 0)
+        auto time_remaining(duration_t::zero());
+        auto break_time_remaining(duration_t::zero());
+
+        // set time remaining based on current clock
+        if(now < this->end_of_round)
         {
-            os << this->blind_levels[this->current_blind_level+1];
+            // within round, set time remaining
+            time_remaining = std::chrono::duration_cast<duration_t>(this->end_of_round - now);
+        }
+        else if(now < this->end_of_break)
+        {
+            // within break, set break time remaining
+            break_time_remaining = std::chrono::duration_cast<duration_t>(this->end_of_break - now);
+        }
+        state.set_value("time_remaining", time_remaining.count());
+        state.set_value("break_time_remaining", break_time_remaining.count());
+
+        // are we on break?
+        bool on_break(time_remaining == duration_t::zero() && break_time_remaining != duration_t::zero());
+        state.set_value("on_break", on_break);
+
+        // clock_remaining is either time_remaining or break_time_remaining, depending on whether we are on break
+        state.set_value("clock_remaining", on_break ? break_time_remaining.count() : time_remaining.count());
+
+        // current round text (TODO: no longer used by any client)
+        if(started)
+        {
+            if(on_break)
+            {
+                // TODO: i18n
+                os << "BREAK";
+            }
+            else
+            {
+                os << this->blind_levels[this->current_blind_level];
+            }
         }
         else
         {
-            // TODO: i18n
-            os << "BREAK";
+            os << '-';
         }
+        state.set_value("current_round_text", os.str()); os.str("");
+
+        // current round blinds text
+        if(started)
+        {
+            if(on_break)
+            {
+                // TODO: i18n
+                os << "BREAK";
+            }
+            else
+            {
+                os << this->blind_levels[this->current_blind_level].little_blind << '/' << this->blind_levels[this->current_blind_level].big_blind;
+            }
+        }
+        else
+        {
+            os << '-';
+        }
+        state.set_value("current_round_blinds_text", os.str()); os.str("");
+
+        // current round ante text
+        if(started)
+        {
+            if(!on_break)
+            {
+                if(this->blind_levels[this->current_blind_level].ante_type == td::ante_type_t::traditional)
+                {
+                    // TODO: i18n
+                    os << "Ante:" << this->blind_levels[this->current_blind_level].ante;
+                }
+                else if(this->blind_levels[this->current_blind_level].ante_type == td::ante_type_t::bba)
+                {
+                    // TODO: i18n
+                    os << "BBA:" << this->blind_levels[this->current_blind_level].ante;
+                }
+            }
+        }
+        state.set_value("current_round_ante_text", os.str()); os.str("");
+
+        // next round text
+        if(started)
+        {
+            // if there is a next round
+            if(this->current_blind_level+1 < this->blind_levels.size())
+            {
+                // if we are currently on break, or the current blind level does not define a break, then we know the next round is not a break
+                if(on_break || this->blind_levels[this->current_blind_level].break_duration == 0)
+                {
+                    os << this->blind_levels[this->current_blind_level+1];
+                }
+                else
+                {
+                    // TODO: i18n
+                    os << "BREAK";
+                }
+            }
+            else
+            {
+                // no next round
+                os << '-';
+            }
+        }
+        else
+        {
+            // not started
+            os << '-';
+        }
+        state.set_value("next_round_text", os.str()); os.str("");
     }
-    else
-    {
-        os << '-';
-    }
-    state.set_value("next_round_text", os.str()); os.str("");
 
     // players left text
     if(!this->seats.empty())
@@ -1300,10 +1343,11 @@ void gameinfo::start_blind_level(std::size_t blind_level, duration_t offset)
     auto now(std::chrono::system_clock::now());
 
     this->current_blind_level = blind_level;
-    this->time_remaining = duration_t(this->blind_levels[this->current_blind_level].duration) - offset;
-    this->break_time_remaining = duration_t(this->blind_levels[this->current_blind_level].break_duration);
-    this->end_of_round = now + this->time_remaining;
-    this->end_of_break = this->end_of_round + this->break_time_remaining;
+    duration_t blind_level_duration(this->blind_levels[this->current_blind_level].duration);
+    duration_t time_remaining(blind_level_duration - offset);
+    duration_t break_time_remaining(this->blind_levels[this->current_blind_level].break_duration);
+    this->end_of_round = now + time_remaining;
+    this->end_of_break = this->end_of_round + break_time_remaining;
 }
 
 // has the game started?
@@ -1343,9 +1387,6 @@ void gameinfo::start()
 
     // set tournament start time
     this->tournament_start = starttime;
-
-    // set elapsed time
-    this->elapsed_time = duration_t::zero();
 }
 
 void gameinfo::start(const time_point_t& starttime)
@@ -1370,9 +1411,6 @@ void gameinfo::start(const time_point_t& starttime)
 
     // set tournament start time
     this->tournament_start = starttime;
-
-    // set elapsed time
-    this->elapsed_time = duration_t::zero();
 }
 
 // stop the game
@@ -1385,11 +1423,7 @@ void gameinfo::stop()
     this->end_of_round = time_point_t();
     this->end_of_break = time_point_t();
     this->end_of_action_clock = time_point_t();
-    this->time_remaining = duration_t::zero();
-    this->break_time_remaining = duration_t::zero();
-    this->action_clock_time_remaining = duration_t::zero();
     this->tournament_start = time_point_t();
-    this->elapsed_time = duration_t::zero();
 }
 
 // pause
@@ -1402,8 +1436,9 @@ void gameinfo::pause()
 
     logger(ll::info) << "pausing the tournament\n";
 
-    // update time remaining
-    this->update_remaining();
+    // save time the clock was paused
+    auto now(std::chrono::system_clock::now());
+    this->paused_time = now;
 
     // pause
     this->running = false;
@@ -1419,11 +1454,10 @@ void gameinfo::resume()
 
     logger(ll::info) << "resuming the tournament\n";
 
+    // increment end_of_xxx based on time elapsed since we paused
     auto now(std::chrono::system_clock::now());
-
-    // update end_of_xxx with values saved when we paused
-    this->end_of_round = now + this->time_remaining;
-    this->end_of_break = this->end_of_round + this->break_time_remaining;
+    this->end_of_round += now - this->paused_time;
+    this->end_of_break += now - this->paused_time;
 
     // resume
     this->running = true;
@@ -1470,7 +1504,9 @@ bool gameinfo::previous_blind_level(duration_t offset)
     }
 
     // calculate elapsed time in this blind level
-    auto blind_level_elapsed_time(this->blind_levels[this->current_blind_level].duration - this->time_remaining.count());
+    auto now(std::chrono::system_clock::now());
+    auto time_remaining(std::chrono::duration_cast<duration_t>(this->end_of_round-now));
+    auto blind_level_elapsed_time(this->blind_levels[this->current_blind_level].duration - time_remaining.count());
 
     // if elapsed time > 2 seconds, just restart current blind level
     if(blind_level_elapsed_time > this->previous_blind_level_hold_duration || this->current_blind_level == 1)
@@ -1489,55 +1525,31 @@ bool gameinfo::previous_blind_level(duration_t offset)
     }
 }
 
-// update time remaining
-bool gameinfo::update_remaining()
+// update game state
+bool gameinfo::update()
 {
+    // returns true if we should broadcast new state
     auto updated(false);
     auto now(std::chrono::system_clock::now());
 
-    // set current time (for synchronization)
-    this->current_time = std::chrono::duration_cast<duration_t>(now.time_since_epoch());
-
-    // update elapsed_time if we are past the tournament start
+    // broadcast state if we are past the tournament start
     if(this->tournament_start != time_point_t() && this->tournament_start < now)
     {
-        this->elapsed_time = std::chrono::duration_cast<duration_t>(now - this->tournament_start);
         updated = true;
     }
 
-    // always update action clock if ticking
-    if(this->end_of_action_clock != time_point_t() && this->end_of_action_clock > now)
-    {
-        this->action_clock_time_remaining = std::chrono::duration_cast<duration_t>(this->end_of_action_clock - now);
-        updated = true;
-    }
-    else
-    {
-        this->end_of_action_clock = time_point_t();
-        this->action_clock_time_remaining = duration_t::zero();
-    }
-
+    // broadcast state if running
     if(this->running)
     {
-        // set time remaining based on current clock
-        if(now < this->end_of_round)
-        {
-            // within round, set time remaining
-            this->time_remaining = std::chrono::duration_cast<duration_t>(this->end_of_round - now);
-        }
-        else if(now < this->end_of_break)
-        {
-            // within break, set time remaining to zero and set break time remaining
-            this->time_remaining = duration_t::zero();
-            this->break_time_remaining = std::chrono::duration_cast<duration_t>(this->end_of_break - now);
-        }
-        else
+        updated = true;
+
+        // also if past end of round/break
+        if(now >= this->end_of_round && now >= this->end_of_break)
         {
             // advance to next blind
             auto offset(std::chrono::duration_cast<duration_t>(this->end_of_break - now));
             this->next_blind_level(offset);
         }
-        updated = true;
     }
 
     return updated;
@@ -1549,7 +1561,6 @@ void gameinfo::set_action_clock(long duration)
     if(this->end_of_action_clock == time_point_t())
     {
         this->end_of_action_clock = std::chrono::system_clock::now() + duration_t(duration);
-        this->action_clock_time_remaining = duration_t(duration);
     }
     else
     {
@@ -1561,7 +1572,6 @@ void gameinfo::set_action_clock(long duration)
 void gameinfo::reset_action_clock()
 {
     this->end_of_action_clock = time_point_t();
-    this->action_clock_time_remaining = duration_t::zero();
 }
 
 static unsigned long calculate_round_denomination(double ideal, const std::vector<td::chip>& chips)

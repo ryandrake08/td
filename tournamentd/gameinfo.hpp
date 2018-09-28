@@ -112,29 +112,23 @@ class gameinfo
     // represents a point in time
     typedef std::chrono::system_clock::time_point time_point_t;
 
-    // represents a time duration
-    typedef std::chrono::milliseconds duration_t;
-
     // end of period (valid when running)
     time_point_t end_of_round;
     time_point_t end_of_break;
 
-    // current time since epoch
-    duration_t current_time;
-
-    // ms remaining
-    duration_t time_remaining;
-    duration_t break_time_remaining;
-
     // action clock
     time_point_t end_of_action_clock;
-    duration_t action_clock_time_remaining;
 
     // elapsed time
     time_point_t tournament_start;
-    duration_t elapsed_time;
+
+    // paused time
+    time_point_t paused_time;
 
     // ----- utility -----
+
+    // represents a time duration
+    typedef std::chrono::milliseconds duration_t;
 
     // calculate derived state and dump to JSON
     void dump_derived_state(json& state) const;
@@ -264,8 +258,8 @@ public:
     // returns: true if blind level changed, false if blind level was just reset
     bool previous_blind_level(duration_t offset=duration_t::zero());
 
-    // update time remaining
-    bool update_remaining();
+    // update game state
+    bool update();
 
     // set the action clock (when someone 'needs the clock called on them'
     void set_action_clock(long duration);
