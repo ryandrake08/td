@@ -127,8 +127,7 @@ struct common_socket::impl
         socklen_t addrlen(sizeof(addr));
         auto ret(::getsockname(this->fd, reinterpret_cast<sockaddr*>(&addr), &addrlen));
 
-        // sync and close the socket
-        ::sync();
+        // close the socket
         ::close(this->fd);
 
         // unlink if this was a unix socket
