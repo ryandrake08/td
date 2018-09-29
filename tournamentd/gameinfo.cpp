@@ -37,6 +37,12 @@ void gameinfo::validate()
     }
 }
 
+// get current time
+gameinfo::time_point_t gameinfo::now()
+{
+    return std::chrono::system_clock::now();
+}
+
 // load configuration from JSON (object or file)
 void gameinfo::configure(const json& config)
 {
@@ -220,7 +226,7 @@ void gameinfo::dump_derived_state(json& state) const
     bool started(this->current_blind_level > 0 && this->current_blind_level < this->blind_levels.size());
 
     // set current time (for synchronization)
-    auto now(std::chrono::system_clock::now());
+    auto now(this->now());
     auto current_time(std::chrono::duration_cast<duration_t>(now.time_since_epoch()));
     state.set_value("current_time", current_time.count());
 
@@ -1340,13 +1346,11 @@ void gameinfo::start_blind_level(std::size_t blind_level, duration_t offset)
         throw td::protocol_error("not enough blind levels configured");
     }
 
-    auto now(std::chrono::system_clock::now());
-
     this->current_blind_level = blind_level;
     duration_t blind_level_duration(this->blind_levels[this->current_blind_level].duration);
     duration_t time_remaining(blind_level_duration - offset);
     duration_t break_time_remaining(this->blind_levels[this->current_blind_level].break_duration);
-    this->end_of_round = now + time_remaining;
+    this->end_of_round = this->now() + time_remaining;
     this->end_of_break = this->end_of_round + break_time_remaining;
 }
 
@@ -1375,8 +1379,6 @@ void gameinfo::start()
         throw td::protocol_error("cannot start without blind levels configured");
     }
 
-    auto starttime(std::chrono::system_clock::now());
-
     logger(ll::info) << "starting the tournament\n";
 
     // start the blind level
@@ -1386,7 +1388,7 @@ void gameinfo::start()
     this->running = true;
 
     // set tournament start time
-    this->tournament_start = starttime;
+    this->tournament_start = this->now();
 }
 
 void gameinfo::start(const time_point_t& starttime)
@@ -1437,8 +1439,7 @@ void gameinfo::pause()
     logger(ll::info) << "pausing the tournament\n";
 
     // save time the clock was paused
-    auto now(std::chrono::system_clock::now());
-    this->paused_time = now;
+    this->paused_time = this->now();
 
     // pause
     this->running = false;
@@ -1455,7 +1456,7 @@ void gameinfo::resume()
     logger(ll::info) << "resuming the tournament\n";
 
     // increment end_of_xxx based on time elapsed since we paused
-    auto now(std::chrono::system_clock::now());
+    auto now(this->now());
     this->end_of_round += now - this->paused_time;
     this->end_of_break += now - this->paused_time;
 
@@ -1504,8 +1505,7 @@ bool gameinfo::previous_blind_level(duration_t offset)
     }
 
     // calculate elapsed time in this blind level
-    auto now(std::chrono::system_clock::now());
-    auto time_remaining(std::chrono::duration_cast<duration_t>(this->end_of_round-now));
+    auto time_remaining(std::chrono::duration_cast<duration_t>(this->end_of_round - this->now()));
     auto blind_level_elapsed_time(this->blind_levels[this->current_blind_level].duration - time_remaining.count());
 
     // if elapsed time > 2 seconds, just restart current blind level
@@ -1530,7 +1530,7 @@ bool gameinfo::update()
 {
     // returns true if we should broadcast new state
     auto updated(false);
-    auto now(std::chrono::system_clock::now());
+    auto now(this->now());
 
     // broadcast state if we are past the tournament start
     if(this->tournament_start != time_point_t() && this->tournament_start < now)
@@ -1560,7 +1560,7 @@ void gameinfo::set_action_clock(long duration)
 {
     if(this->end_of_action_clock == time_point_t())
     {
-        this->end_of_action_clock = std::chrono::system_clock::now() + duration_t(duration);
+        this->end_of_action_clock = this->now() + duration_t(duration);
     }
     else
     {

@@ -130,6 +130,9 @@ class gameinfo
     // represents a time duration
     typedef std::chrono::milliseconds duration_t;
 
+    // get current time
+    static time_point_t now();
+
     // calculate derived state and dump to JSON
     void dump_derived_state(json& state) const;
 
