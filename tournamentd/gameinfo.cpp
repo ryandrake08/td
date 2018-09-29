@@ -178,7 +178,7 @@ void gameinfo::dump_state(json& state) const
     state.set_value("total_cost", json(this->total_cost.begin(), this->total_cost.end()));
     state.set_value("total_commission", json(this->total_commission.begin(), this->total_commission.end()));
     state.set_value("total_equity", this->total_equity);
-    state.set_value("running", this->end_of_break != time_point_t() && this->paused_time == time_point_t());
+    state.set_value("running", this->end_of_break != time_point_t() && !this->is_paused());
     state.set_value("current_blind_level", this->current_blind_level);
     this->dump_derived_state(state);
 }
@@ -1338,6 +1338,7 @@ void gameinfo::stop()
     this->end_of_break = time_point_t();
     this->end_of_action_clock = time_point_t();
     this->tournament_start = time_point_t();
+    this->paused_time = time_point_t();
 }
 
 // is paused
@@ -1373,7 +1374,7 @@ void gameinfo::resume()
         throw td::protocol_error("tournament not started");
     }
 
-    if(this->paused_time == time_point_t())
+    if(!this->is_paused())
     {
         throw td::protocol_error("tournament not paused");
     }
