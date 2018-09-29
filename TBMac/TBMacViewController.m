@@ -90,6 +90,13 @@
     [(TBMacDocument*)[self document] addConfiguration:@{@"name":[sender stringValue]}];
 }
 
+- (IBAction)endGameTapped:(id)sender {
+    NSUInteger currentBlindLevel = [[[self session] state][@"current_blind_level"] unsignedIntegerValue];
+    if(currentBlindLevel != 0) {
+        [[self session] stopGame];
+    }
+}
+
 - (IBAction)previousRoundTapped:(id)sender {
     NSUInteger currentBlindLevel = [[[self session] state][@"current_blind_level"] unsignedIntegerValue];
     if(currentBlindLevel != 0) {

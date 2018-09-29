@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14113"/>
-        <capability name="box content view" minToolsVersion="7.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14313.18"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -257,9 +256,9 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="jOr-MD-YdF"/>
-                                        <menuItem title="Resume / Pause" keyEquivalent="g" id="iNV-aq-Pn0">
+                                        <menuItem title="Resume / Pause" keyEquivalent="g" id="rAT-hp-j0m">
                                             <connections>
-                                                <action selector="pauseResumeTapped:" target="dLJ-5r-r8L" id="nuQ-ce-BBA"/>
+                                                <action selector="pauseResumeTapped:" target="dLJ-5r-r8L" id="3SQ-fG-OrM"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Previous Round" keyEquivalent="p" id="xgP-w5-bad">
@@ -278,6 +277,11 @@
                                             <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                             <connections>
                                                 <action selector="callClockTapped:" target="dLJ-5r-r8L" id="m6g-fq-HHo"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="End Game" keyEquivalent="e" id="iNV-aq-Pn0" userLabel="End Game">
+                                            <connections>
+                                                <action selector="endGameTapped:" target="dLJ-5r-r8L" id="0iF-qJ-h0A"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="o8w-fl-55b"/>
@@ -361,7 +365,7 @@
         <scene sceneID="qzO-nM-m3h">
             <objects>
                 <windowController storyboardIdentifier="Document Window Controller" id="KGa-Ib-ddT" userLabel="Root Window" customClass="TBMacWindowController" sceneMemberID="viewController">
-                    <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="Gh6-fK-bOk">
+                    <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="Gh6-fK-bOk">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="425" y="461" width="1024" height="576"/>
@@ -399,6 +403,11 @@
                                 <toolbarItem implicitItemIdentifier="438871C3-164E-4F2B-B7B4-48BBCC6BABE9" label="" paletteLabel="Call Clock" tag="-1" image="b_call_clock" id="mmf-sV-gYb">
                                     <connections>
                                         <action selector="callClockTapped:" target="bjE-D6-6zO" id="tA4-Ci-S4g"/>
+                                    </connections>
+                                </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="76F5F85D-0916-47E1-B3BF-FD45274B36ED" label="" paletteLabel="End Game" tag="-1" image="b_stop" id="1rJ-ny-ozR">
+                                    <connections>
+                                        <action selector="endGameTapped:" target="bjE-D6-6zO" id="I1m-cK-n8h"/>
                                     </connections>
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="F1882079-CADA-4FB5-AE5D-02FEA5639344" label="Authorize" paletteLabel="Authorize" tag="-1" image="b_auth" id="dkf-E2-LMY">
@@ -569,7 +578,7 @@
                                     <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                     <tableColumns>
-                                        <tableColumn identifier="" width="190" minWidth="40" maxWidth="1000" id="Yt3-Wx-k7s">
+                                        <tableColumn width="190" minWidth="40" maxWidth="1000" id="Yt3-Wx-k7s">
                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Player">
                                                 <font key="font" metaFont="smallSystem"/>
                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -608,7 +617,7 @@
                                                 <binding destination="deM-cL-wST" name="value" keyPath="arrangedObjects.name" id="KjA-wn-aRo"/>
                                             </connections>
                                         </tableColumn>
-                                        <tableColumn identifier="" width="60" minWidth="60" maxWidth="60" id="IXu-9r-Hwz">
+                                        <tableColumn width="60" minWidth="60" maxWidth="60" id="IXu-9r-Hwz">
                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Seat">
                                                 <font key="font" metaFont="smallSystem"/>
                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -717,7 +726,7 @@
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                             <tableColumns>
-                                                <tableColumn identifier="" width="56" minWidth="48" maxWidth="56" id="N8I-R0-Vg1">
+                                                <tableColumn width="56" minWidth="48" maxWidth="56" id="N8I-R0-Vg1">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="center" title="Table">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -764,7 +773,7 @@
                                                         <binding destination="lEi-d5-YnD" name="value" keyPath="arrangedObjects.table_number" id="zlU-7s-0cw"/>
                                                     </connections>
                                                 </tableColumn>
-                                                <tableColumn identifier="" width="48" minWidth="48" maxWidth="48" id="m8w-Y8-cRT">
+                                                <tableColumn width="48" minWidth="48" maxWidth="48" id="m8w-Y8-cRT">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="center" title="Seat">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -811,7 +820,7 @@
                                                         <binding destination="lEi-d5-YnD" name="value" keyPath="arrangedObjects.seat_number" id="LLM-GT-leS"/>
                                                     </connections>
                                                 </tableColumn>
-                                                <tableColumn identifier="" width="248" minWidth="70" maxWidth="1000" id="376-ib-6xN">
+                                                <tableColumn width="248" minWidth="70" maxWidth="1000" id="376-ib-6xN">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Player">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -855,7 +864,7 @@
                                                         <binding destination="lEi-d5-YnD" name="value" keyPath="arrangedObjects.name" id="5tQ-XH-0gg"/>
                                                     </connections>
                                                 </tableColumn>
-                                                <tableColumn identifier="" width="48" minWidth="48" maxWidth="48" id="kbd-kD-TX5">
+                                                <tableColumn width="48" minWidth="48" maxWidth="48" id="kbd-kD-TX5">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="center" title="Paid">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -893,7 +902,7 @@
                                                         <binding destination="lEi-d5-YnD" name="value" keyPath="arrangedObjects.buyin" id="OyC-2G-svC"/>
                                                     </connections>
                                                 </tableColumn>
-                                                <tableColumn identifier="" width="100" minWidth="100" maxWidth="100" id="8cK-rd-LxV">
+                                                <tableColumn width="100" minWidth="100" maxWidth="100" id="8cK-rd-LxV">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="center" title="Action">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -1181,7 +1190,7 @@
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="border" alignment="center" drawsBackground="YES" id="NJT-Pc-kKn">
                                             <numberFormatter key="formatter" formatterBehavior="custom10_4" positiveFormat="#" localizesFormat="NO" numberStyle="decimal" allowsFloats="NO" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="1" maximumIntegerDigits="1" decimalSeparator="." groupingSeparator="," id="g4Q-K9-0wQ"/>
                                             <font key="font" metaFont="system" size="48"/>
-                                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                         <connections>
@@ -1201,7 +1210,7 @@
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="border" alignment="center" drawsBackground="YES" id="182-rc-Nr9">
                                             <numberFormatter key="formatter" formatterBehavior="custom10_4" positiveFormat="#" localizesFormat="NO" numberStyle="decimal" allowsFloats="NO" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="1" maximumIntegerDigits="1" decimalSeparator="." groupingSeparator="," id="AQu-FU-wOc"/>
                                             <font key="font" metaFont="system" size="48"/>
-                                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                         <connections>
@@ -1221,7 +1230,7 @@
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="border" alignment="center" drawsBackground="YES" id="7eV-Pw-Ub4">
                                             <numberFormatter key="formatter" formatterBehavior="custom10_4" positiveFormat="#" localizesFormat="NO" numberStyle="decimal" allowsFloats="NO" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="1" maximumIntegerDigits="1" decimalSeparator="." groupingSeparator="," id="QvE-Wg-Whx"/>
                                             <font key="font" metaFont="system" size="48"/>
-                                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                         <connections>
@@ -1241,7 +1250,7 @@
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="border" alignment="center" drawsBackground="YES" id="Fg9-AP-jW5">
                                             <numberFormatter key="formatter" formatterBehavior="custom10_4" positiveFormat="#" localizesFormat="NO" numberStyle="decimal" allowsFloats="NO" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="1" maximumIntegerDigits="1" decimalSeparator="." groupingSeparator="," id="gXt-RF-yhB"/>
                                             <font key="font" metaFont="system" size="48"/>
-                                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                         <connections>
@@ -1261,7 +1270,7 @@
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="border" alignment="center" drawsBackground="YES" id="p7J-GN-uWs">
                                             <numberFormatter key="formatter" formatterBehavior="custom10_4" positiveFormat="#" localizesFormat="NO" numberStyle="decimal" allowsFloats="NO" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="1" maximumIntegerDigits="1" decimalSeparator="." groupingSeparator="," id="r6b-n5-BOJ"/>
                                             <font key="font" metaFont="system" size="48"/>
-                                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                         <connections>
@@ -1403,7 +1412,7 @@ DQ
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="border" alignment="center" drawsBackground="YES" id="4Qm-IR-tdJ">
                                             <numberFormatter key="formatter" formatterBehavior="custom10_4" positiveFormat="#" localizesFormat="NO" numberStyle="decimal" allowsFloats="NO" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="1" maximumIntegerDigits="1" decimalSeparator="." groupingSeparator="," id="h3V-Fh-Pey"/>
                                             <font key="font" metaFont="system" size="48"/>
-                                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                         <connections>
@@ -1452,7 +1461,7 @@ DQ
                                             <color key="backgroundColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
                                             <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                             <tableColumns>
-                                                <tableColumn identifier="" width="418" minWidth="418" maxWidth="418" id="uxH-fW-jZH">
+                                                <tableColumn width="418" minWidth="418" maxWidth="418" id="uxH-fW-jZH">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -1759,7 +1768,7 @@ Gw
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                             <tableColumns>
-                                                <tableColumn identifier="" width="504" minWidth="64" maxWidth="1000000000" id="KVs-ry-TtR">
+                                                <tableColumn width="504" minWidth="64" maxWidth="1000000000" id="KVs-ry-TtR">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Name">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -1798,7 +1807,7 @@ Gw
                                                         <binding destination="9tq-iQ-XzF" name="value" keyPath="arrangedObjects.name" id="adM-DA-eE9"/>
                                                     </connections>
                                                 </tableColumn>
-                                                <tableColumn identifier="" width="128" maxWidth="128" id="jdj-Gn-ada">
+                                                <tableColumn width="128" maxWidth="128" id="jdj-Gn-ada">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Member Since">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -1937,7 +1946,7 @@ Gw
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                             <tableColumns>
-                                                <tableColumn identifier="" width="48" minWidth="48" maxWidth="48" id="4l2-WW-Je4">
+                                                <tableColumn width="48" minWidth="48" maxWidth="48" id="4l2-WW-Je4">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Color">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -1973,7 +1982,7 @@ Gw
                                                         <binding destination="T3Q-I4-K8A" name="value" keyPath="arrangedObjects.color" id="WcP-Bv-Hfy"/>
                                                     </connections>
                                                 </tableColumn>
-                                                <tableColumn identifier="" width="96" maxWidth="128" id="OvK-xF-JZC">
+                                                <tableColumn width="96" maxWidth="128" id="OvK-xF-JZC">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Denomination">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -2015,7 +2024,7 @@ Gw
                                                         <binding destination="T3Q-I4-K8A" name="value" keyPath="arrangedObjects.denomination" id="Gsc-5V-J8N"/>
                                                     </connections>
                                                 </tableColumn>
-                                                <tableColumn identifier="" width="485" maxWidth="1000000000" id="oob-0I-nz0">
+                                                <tableColumn width="485" maxWidth="1000000000" id="oob-0I-nz0">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Available">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -2189,7 +2198,7 @@ Gw
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                             <tableColumns>
-                                                <tableColumn identifier="" width="231" maxWidth="1000000000" id="Av2-Xd-RJF">
+                                                <tableColumn width="231" maxWidth="1000000000" id="Av2-Xd-RJF">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Name">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -2228,7 +2237,7 @@ Gw
                                                         <binding destination="VOX-b0-ObE" name="value" keyPath="arrangedObjects.name" id="Szf-MP-8N8"/>
                                                     </connections>
                                                 </tableColumn>
-                                                <tableColumn identifier="" width="112" maxWidth="112" id="6B8-f0-Sz7">
+                                                <tableColumn width="112" maxWidth="112" id="6B8-f0-Sz7">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Type">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -2276,7 +2285,7 @@ Gw
                                                         <binding destination="VOX-b0-ObE" name="value" keyPath="arrangedObjects.type" id="mCg-Xu-yFS"/>
                                                     </connections>
                                                 </tableColumn>
-                                                <tableColumn identifier="" width="80" maxWidth="80" id="dLn-5d-bBh">
+                                                <tableColumn width="80" maxWidth="80" id="dLn-5d-bBh">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Chips">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -2358,7 +2367,7 @@ Gw
                                                         <binding destination="VOX-b0-ObE" name="value" keyPath="arrangedObjects.cost" id="g74-FW-bJM"/>
                                                     </connections>
                                                 </tableColumn>
-                                                <tableColumn identifier="" width="120" maxWidth="248" id="ovY-48-krx">
+                                                <tableColumn width="120" maxWidth="248" id="ovY-48-krx">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Forbid After">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -2539,11 +2548,11 @@ Gw
                                 <rect key="frame" x="17" y="16" width="286" height="270"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <view key="contentView" id="qNv-dL-Q8S">
-                                    <rect key="frame" x="2" y="2" width="282" height="253"/>
+                                    <rect key="frame" x="3" y="3" width="280" height="252"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2AL-og-FgC">
-                                            <rect key="frame" x="18" y="216" width="80" height="17"/>
+                                            <rect key="frame" x="18" y="215" width="80" height="17"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Cost" id="gem-Rd-8UX">
                                                 <font key="font" metaFont="system"/>
@@ -2552,7 +2561,7 @@ Gw
                                             </textFieldCell>
                                         </textField>
                                         <textField verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iKV-rz-D2f" userLabel="Cost Value">
-                                            <rect key="frame" x="102" y="214" width="80" height="21"/>
+                                            <rect key="frame" x="102" y="213" width="78" height="21"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="border" alignment="right" placeholderString="100" drawsBackground="YES" id="nGI-By-jod">
                                                 <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="zgQ-gq-z7p">
@@ -2567,7 +2576,7 @@ Gw
                                             </connections>
                                         </textField>
                                         <popUpButton fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4eI-ck-zF8" userLabel="Cost Currency">
-                                            <rect key="frame" x="188" y="214" width="80" height="21"/>
+                                            <rect key="frame" x="186" y="213" width="80" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                             <popUpButtonCell key="cell" type="square" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="NKT-kF-mOO">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -2584,7 +2593,7 @@ Gw
                                             </connections>
                                         </popUpButton>
                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SRF-Jv-0Dy" userLabel="Cost Description">
-                                            <rect key="frame" x="20" y="174" width="250" height="34"/>
+                                            <rect key="frame" x="20" y="173" width="248" height="34"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="The amount of this funding that the house does not take." id="6PT-lZ-yti">
                                                 <font key="font" metaFont="smallSystem"/>
@@ -2593,11 +2602,11 @@ Gw
                                             </textFieldCell>
                                         </textField>
                                         <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="eQe-ME-Bqr">
-                                            <rect key="frame" x="20" y="174" width="248" height="61"/>
+                                            <rect key="frame" x="20" y="173" width="246" height="61"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                         </box>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IlH-dW-bBl">
-                                            <rect key="frame" x="18" y="151" width="80" height="17"/>
+                                            <rect key="frame" x="18" y="150" width="80" height="17"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Fee" id="Dxg-DM-Uwn">
                                                 <font key="font" metaFont="system"/>
@@ -2606,7 +2615,7 @@ Gw
                                             </textFieldCell>
                                         </textField>
                                         <textField verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yBz-hA-yhL" userLabel="Fee Value">
-                                            <rect key="frame" x="102" y="149" width="80" height="21"/>
+                                            <rect key="frame" x="102" y="148" width="78" height="21"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="border" alignment="right" placeholderString="10" drawsBackground="YES" id="kIG-8H-UO8">
                                                 <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="vdf-cl-PGe">
@@ -2621,7 +2630,7 @@ Gw
                                             </connections>
                                         </textField>
                                         <popUpButton fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iRV-7x-9qI" userLabel="Fee Currency">
-                                            <rect key="frame" x="188" y="149" width="80" height="21"/>
+                                            <rect key="frame" x="186" y="148" width="80" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                             <popUpButtonCell key="cell" type="square" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="aW1-uW-y93">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -2638,7 +2647,7 @@ Gw
                                             </connections>
                                         </popUpButton>
                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Eco-zg-ZK1" userLabel="Fee Description">
-                                            <rect key="frame" x="20" y="113" width="250" height="34"/>
+                                            <rect key="frame" x="20" y="112" width="248" height="34"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="The amount of this funding that the house takes." id="ihG-iY-GMq">
                                                 <font key="font" metaFont="smallSystem"/>
@@ -2647,11 +2656,11 @@ Gw
                                             </textFieldCell>
                                         </textField>
                                         <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="Y6y-3t-UsW">
-                                            <rect key="frame" x="20" y="113" width="248" height="5"/>
+                                            <rect key="frame" x="20" y="112" width="246" height="5"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                         </box>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NYE-1S-9xL">
-                                            <rect key="frame" x="20" y="90" width="80" height="17"/>
+                                            <rect key="frame" x="20" y="89" width="80" height="17"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Equity" id="4B9-Ah-WTA">
                                                 <font key="font" metaFont="system"/>
@@ -2660,7 +2669,7 @@ Gw
                                             </textFieldCell>
                                         </textField>
                                         <textField verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qlp-d3-Rpq" userLabel="Equity Value">
-                                            <rect key="frame" x="102" y="88" width="80" height="21"/>
+                                            <rect key="frame" x="102" y="87" width="78" height="21"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="border" alignment="right" placeholderString="100" drawsBackground="YES" id="anu-8h-gee">
                                                 <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="L3I-hK-5Dx">
@@ -2675,7 +2684,7 @@ Gw
                                             </connections>
                                         </textField>
                                         <textField verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oiW-p5-J73" userLabel="Equity Currency">
-                                            <rect key="frame" x="186" y="88" width="84" height="21"/>
+                                            <rect key="frame" x="184" y="87" width="84" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" enabled="NO" sendsActionOnEndEditing="YES" state="on" alignment="left" placeholderString="Currency" id="gjs-8Z-rCv">
                                                 <font key="font" metaFont="system"/>
@@ -2691,7 +2700,7 @@ Gw
                                             </connections>
                                         </textField>
                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wKo-Z4-kao" userLabel="Equity Description">
-                                            <rect key="frame" x="20" y="7" width="250" height="75"/>
+                                            <rect key="frame" x="20" y="6" width="248" height="75"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="Abt-S5-usV">
                                                 <font key="font" metaFont="smallSystem"/>
@@ -2805,7 +2814,7 @@ Gw
                                                         </tableCellView>
                                                     </prototypeCellViews>
                                                 </tableColumn>
-                                                <tableColumn identifier="" width="64" maxWidth="100" id="Usw-uG-Wkm">
+                                                <tableColumn width="64" maxWidth="100" id="Usw-uG-Wkm">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Duration">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -2845,7 +2854,7 @@ Gw
                                                         <binding destination="QeO-eZ-sQK" name="value" keyPath="arrangedObjects.duration" id="Ccs-IH-tO8"/>
                                                     </connections>
                                                 </tableColumn>
-                                                <tableColumn identifier="" width="64" maxWidth="100" id="g19-Te-4YU">
+                                                <tableColumn width="64" maxWidth="100" id="g19-Te-4YU">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Little Blind">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -2887,7 +2896,7 @@ Gw
                                                         <binding destination="QeO-eZ-sQK" name="value" keyPath="arrangedObjects.little_blind" id="JhM-yX-HTy"/>
                                                     </connections>
                                                 </tableColumn>
-                                                <tableColumn identifier="" width="64" maxWidth="100" id="zwJ-9W-8Qr">
+                                                <tableColumn width="64" maxWidth="100" id="zwJ-9W-8Qr">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Big Blind">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -2929,7 +2938,7 @@ Gw
                                                         <binding destination="QeO-eZ-sQK" name="value" keyPath="arrangedObjects.big_blind" id="39S-vo-7cH"/>
                                                     </connections>
                                                 </tableColumn>
-                                                <tableColumn identifier="" width="64" maxWidth="100" id="bSR-Sc-hiY">
+                                                <tableColumn width="64" maxWidth="100" id="bSR-Sc-hiY">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Ante">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -2971,7 +2980,7 @@ Gw
                                                         <binding destination="QeO-eZ-sQK" name="value" keyPath="arrangedObjects.ante" id="8Bn-1R-wbm"/>
                                                     </connections>
                                                 </tableColumn>
-                                                <tableColumn identifier="" width="28" maxWidth="100" id="KMl-8w-leO">
+                                                <tableColumn width="28" maxWidth="100" id="KMl-8w-leO">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="BBA">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -3016,7 +3025,7 @@ Gw
                                                         <binding destination="QeO-eZ-sQK" name="value" keyPath="arrangedObjects.big_blind_ante" id="jKr-nI-2I0"/>
                                                     </connections>
                                                 </tableColumn>
-                                                <tableColumn identifier="" width="80" maxWidth="100" id="vFP-U7-tNX">
+                                                <tableColumn width="80" maxWidth="100" id="vFP-U7-tNX">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Break">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -3082,7 +3091,7 @@ Gw
                                                         <binding destination="QeO-eZ-sQK" name="value" keyPath="arrangedObjects.break_duration" id="MGA-M4-nU7"/>
                                                     </connections>
                                                 </tableColumn>
-                                                <tableColumn identifier="" width="166" maxWidth="1000000000" id="Qlo-Q5-2lq">
+                                                <tableColumn width="166" maxWidth="1000000000" id="Qlo-Q5-2lq">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Break Message">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -3233,11 +3242,11 @@ Gw
                                 <rect key="frame" x="17" y="16" width="286" height="304"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <view key="contentView" id="ckk-ZP-sQE">
-                                    <rect key="frame" x="2" y="2" width="282" height="287"/>
+                                    <rect key="frame" x="3" y="3" width="280" height="286"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rQe-3K-sYr">
-                                            <rect key="frame" x="18" y="246" width="174" height="21"/>
+                                            <rect key="frame" x="18" y="245" width="172" height="21"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Tournament Duration" id="VG8-Ht-B6Z">
                                                 <font key="font" metaFont="system"/>
@@ -3246,7 +3255,7 @@ Gw
                                             </textFieldCell>
                                         </textField>
                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uDd-sA-qxr">
-                                            <rect key="frame" x="198" y="246" width="64" height="21"/>
+                                            <rect key="frame" x="196" y="245" width="64" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="border" alignment="center" placeholderString="HH:MM" drawsBackground="YES" id="iHC-j0-gNh">
                                                 <numberFormatter key="formatter" formatterBehavior="default10_4" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="0" maximumIntegerDigits="42" id="tHu-tm-B3v" customClass="TBDurationNumberFormatter"/>
@@ -3266,7 +3275,7 @@ Gw
                                             </connections>
                                         </textField>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sqx-Yx-SwO">
-                                            <rect key="frame" x="18" y="215" width="174" height="21"/>
+                                            <rect key="frame" x="18" y="214" width="172" height="21"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Round Duration" id="9fL-Rc-2tW">
                                                 <font key="font" metaFont="system"/>
@@ -3275,7 +3284,7 @@ Gw
                                             </textFieldCell>
                                         </textField>
                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ixu-ru-CFH">
-                                            <rect key="frame" x="198" y="215" width="64" height="21"/>
+                                            <rect key="frame" x="196" y="214" width="64" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="border" alignment="center" placeholderString="HH:MM" drawsBackground="YES" id="f0Z-Qg-4a1">
                                                 <numberFormatter key="formatter" formatterBehavior="default10_4" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="0" maximumIntegerDigits="42" id="aXi-TU-btl" customClass="TBDurationNumberFormatter"/>
@@ -3295,7 +3304,7 @@ Gw
                                             </connections>
                                         </textField>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oBu-Eh-h4o">
-                                            <rect key="frame" x="18" y="184" width="174" height="21"/>
+                                            <rect key="frame" x="18" y="183" width="172" height="21"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Expected Buyins" id="abp-oH-0Na">
                                                 <font key="font" metaFont="system"/>
@@ -3304,7 +3313,7 @@ Gw
                                             </textFieldCell>
                                         </textField>
                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wjc-VD-UZu">
-                                            <rect key="frame" x="198" y="184" width="64" height="21"/>
+                                            <rect key="frame" x="196" y="183" width="64" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="border" alignment="center" drawsBackground="YES" id="SCw-92-VAX">
                                                 <numberFormatter key="formatter" formatterBehavior="custom10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" id="Uef-rX-89Z">
@@ -3319,7 +3328,7 @@ Gw
                                             </connections>
                                         </textField>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VqU-2J-dVg">
-                                            <rect key="frame" x="18" y="153" width="174" height="21"/>
+                                            <rect key="frame" x="18" y="152" width="172" height="21"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Expected Rebuys" id="2cb-YP-Tr5">
                                                 <font key="font" metaFont="system"/>
@@ -3328,7 +3337,7 @@ Gw
                                             </textFieldCell>
                                         </textField>
                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ts9-6y-PhH">
-                                            <rect key="frame" x="198" y="153" width="64" height="21"/>
+                                            <rect key="frame" x="196" y="152" width="64" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="border" alignment="center" drawsBackground="YES" id="ag8-Eb-eU7">
                                                 <numberFormatter key="formatter" formatterBehavior="custom10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" id="q0C-Ek-JD2">
@@ -3343,7 +3352,7 @@ Gw
                                             </connections>
                                         </textField>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GCs-O0-Md8">
-                                            <rect key="frame" x="18" y="122" width="174" height="21"/>
+                                            <rect key="frame" x="18" y="121" width="172" height="21"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Expected Addons" id="MPL-SU-AuW">
                                                 <font key="font" metaFont="system"/>
@@ -3352,7 +3361,7 @@ Gw
                                             </textFieldCell>
                                         </textField>
                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9Sb-IM-ALS">
-                                            <rect key="frame" x="198" y="122" width="64" height="21"/>
+                                            <rect key="frame" x="196" y="121" width="64" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="border" alignment="center" drawsBackground="YES" id="JGQ-W8-q5z">
                                                 <numberFormatter key="formatter" formatterBehavior="custom10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" id="K6k-Kx-arC">
@@ -3367,7 +3376,7 @@ Gw
                                             </connections>
                                         </textField>
                                         <popUpButton fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="n6s-KD-xqR">
-                                            <rect key="frame" x="177" y="93" width="85" height="21"/>
+                                            <rect key="frame" x="175" y="92" width="85" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                             <popUpButtonCell key="cell" type="square" title="Traditional" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" tag="1" imageScaling="proportionallyDown" inset="2" selectedItem="B1e-gW-QZZ" id="zNc-Ak-dZF">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -3391,7 +3400,7 @@ Gw
                                             </connections>
                                         </popUpButton>
                                         <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BHN-0m-HNv">
-                                            <rect key="frame" x="18" y="60" width="174" height="21"/>
+                                            <rect key="frame" x="18" y="59" width="172" height="21"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="check" title="Include Chip Up Breaks" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Zg3-d4-iKJ">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -3402,7 +3411,7 @@ Gw
                                             </connections>
                                         </button>
                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BLh-Vt-8uK">
-                                            <rect key="frame" x="198" y="60" width="64" height="21"/>
+                                            <rect key="frame" x="196" y="59" width="64" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="border" alignment="center" placeholderString="HH:MM" drawsBackground="YES" id="Pcf-dB-kQh">
                                                 <numberFormatter key="formatter" formatterBehavior="default10_4" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="0" maximumIntegerDigits="42" id="l3B-ln-RgS" customClass="TBDurationNumberFormatter"/>
@@ -3422,7 +3431,7 @@ Gw
                                             </connections>
                                         </textField>
                                         <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9kl-dG-dGg">
-                                            <rect key="frame" x="104" y="13" width="82" height="32"/>
+                                            <rect key="frame" x="102" y="13" width="82" height="32"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                             <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="cWV-5q-e1d">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -3436,7 +3445,7 @@ Gw
                                             </connections>
                                         </button>
                                         <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ig2-dC-jC1">
-                                            <rect key="frame" x="179" y="13" width="96" height="32"/>
+                                            <rect key="frame" x="177" y="13" width="96" height="32"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                             <buttonCell key="cell" type="push" title="Generate" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="8jl-Es-9rl">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -3450,7 +3459,7 @@ DQ
                                             </connections>
                                         </button>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lKN-DF-hMl">
-                                            <rect key="frame" x="18" y="93" width="153" height="21"/>
+                                            <rect key="frame" x="18" y="92" width="151" height="21"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Include Antes" id="BhA-JQ-Fe7">
                                                 <font key="font" metaFont="system"/>
@@ -3525,11 +3534,11 @@ DQ
                                 <rect key="frame" x="17" y="318" width="606" height="82"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <view key="contentView" id="gAu-qu-v4x">
-                                    <rect key="frame" x="2" y="2" width="602" height="65"/>
+                                    <rect key="frame" x="3" y="3" width="600" height="64"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SgK-Ow-hxL">
-                                            <rect key="frame" x="20" y="23" width="41" height="22"/>
+                                            <rect key="frame" x="20" y="22" width="41" height="22"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMinY="YES" flexibleMaxY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="100%" drawsBackground="YES" id="c6r-8v-oqB">
                                                 <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="percent" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" id="kuo-az-uWK">
@@ -3538,7 +3547,7 @@ DQ
                                                     <real key="maximum" value="1"/>
                                                 </numberFormatter>
                                                 <font key="font" metaFont="system"/>
-                                                <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                             <connections>
@@ -3546,7 +3555,7 @@ DQ
                                             </connections>
                                         </textField>
                                         <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RaP-0x-TJL">
-                                            <rect key="frame" x="67" y="24" width="517" height="19"/>
+                                            <rect key="frame" x="67" y="23" width="515" height="19"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                             <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="1" tickMarkPosition="above" sliderType="linear" id="2o8-OA-DXV"/>
                                             <connections>
@@ -3560,11 +3569,11 @@ DQ
                                 <rect key="frame" x="17" y="231" width="606" height="82"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <view key="contentView" id="n3n-cy-mn4">
-                                    <rect key="frame" x="2" y="2" width="602" height="65"/>
+                                    <rect key="frame" x="3" y="3" width="600" height="64"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="txl-fk-BoB">
-                                            <rect key="frame" x="146" y="25" width="438" height="24"/>
+                                            <rect key="frame" x="146" y="24" width="436" height="24"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                             <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="1" tickMarkPosition="below" numberOfTickMarks="5" sliderType="linear" id="FxF-DP-T78"/>
                                             <connections>
@@ -3572,7 +3581,7 @@ DQ
                                             </connections>
                                         </slider>
                                         <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PMd-GR-R2Z">
-                                            <rect key="frame" x="16" y="23" width="124" height="22"/>
+                                            <rect key="frame" x="16" y="22" width="124" height="22"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMinY="YES" flexibleMaxY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" state="on" title="Same To Everyone" id="GU4-X2-0bR">
                                                 <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="VdU-Cv-iSU" customClass="TBPayoutShapeNumberFormatter"/>
@@ -3591,11 +3600,11 @@ DQ
                                 <rect key="frame" x="17" y="145" width="606" height="82"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <view key="contentView" id="RC0-zM-CQp">
-                                    <rect key="frame" x="2" y="2" width="602" height="65"/>
+                                    <rect key="frame" x="3" y="3" width="600" height="64"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="V0e-xq-tTo">
-                                            <rect key="frame" x="18" y="24" width="566" height="18"/>
+                                            <rect key="frame" x="18" y="23" width="564" height="18"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                             <buttonCell key="cell" type="check" title="Round to Nearest Whole Number" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="ugz-s2-34w">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -3722,7 +3731,7 @@ DQ
                                                         <binding destination="gM5-f0-sHO" name="value" keyPath="arrangedObjects.amount" id="r4N-Az-EMr"/>
                                                     </connections>
                                                 </tableColumn>
-                                                <tableColumn identifier="" width="469" minWidth="56" maxWidth="1000000000" id="Qpn-V5-Pdl">
+                                                <tableColumn width="469" minWidth="56" maxWidth="1000000000" id="Qpn-V5-Pdl">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Currency">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -4024,7 +4033,7 @@ DQ
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                             <tableColumns>
-                                                <tableColumn identifier="" width="64" minWidth="64" maxWidth="64" id="SXe-lP-gb2">
+                                                <tableColumn width="64" minWidth="64" maxWidth="64" id="SXe-lP-gb2">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Code">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -4064,7 +4073,7 @@ DQ
                                                         <binding destination="uuY-v5-edB" name="value" keyPath="arrangedObjects.code" id="hb0-Eo-480"/>
                                                     </connections>
                                                 </tableColumn>
-                                                <tableColumn identifier="" width="437" minWidth="64" maxWidth="1000000000" id="22y-VE-lgd">
+                                                <tableColumn width="437" minWidth="64" maxWidth="1000000000" id="22y-VE-lgd">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Name">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -4103,7 +4112,7 @@ DQ
                                                         <binding destination="uuY-v5-edB" name="value" keyPath="arrangedObjects.name" id="9vC-Az-ZsT"/>
                                                     </connections>
                                                 </tableColumn>
-                                                <tableColumn identifier="" width="128" minWidth="128" maxWidth="128" id="bqm-pa-xRL">
+                                                <tableColumn width="128" minWidth="128" maxWidth="128" id="bqm-pa-xRL">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Authorized On">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -4241,6 +4250,7 @@ DQ
         <image name="b_restart" width="64" height="64"/>
         <image name="b_rocket" width="64" height="64"/>
         <image name="b_seat" width="64" height="64"/>
+        <image name="b_stop" width="32" height="32"/>
         <image name="b_table" width="64" height="64"/>
         <image name="m_addon" width="32" height="32"/>
         <image name="m_buyin" width="32" height="32"/>
