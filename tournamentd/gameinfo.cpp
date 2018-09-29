@@ -164,6 +164,10 @@ void gameinfo::dump_state(json& state) const
 {
     logger(ll::debug) << "dumping tournament state\n";
 
+    state.set_value("name", this->name);
+    state.set_value("background_color", this->background_color);
+    state.set_value("funding_sources", json(this->funding_sources.begin(), this->funding_sources.end()));
+    state.set_value("available_chips", json(this->available_chips.begin(), this->available_chips.end()));
     state.set_value("seats", json(this->seats.begin(), this->seats.end()));
     state.set_value("players_finished", json(this->players_finished.begin(), this->players_finished.end()));
     state.set_value("bust_history", json(this->bust_history.begin(), this->bust_history.end()));

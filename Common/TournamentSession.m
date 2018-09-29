@@ -16,7 +16,10 @@
 
 @interface TournamentSession() <TournamentConnectionDelegate>
 
-// all tournament configuration and state
+// tournament configuration from session
+@property (nonatomic, strong) NSMutableDictionary* configuration;
+
+// tournament state from session
 @property (nonatomic, strong) NSMutableDictionary* state;
 
 // the connection object, handles networking and JSON serialization
@@ -31,6 +34,7 @@
 
 - (instancetype)init {
     if (self = [super init]) {
+        _configuration = [[NSMutableDictionary alloc] init];
         _state = [[NSMutableDictionary alloc] init];
         _connection = [[TournamentConnection alloc] init];
         [_connection setDelegate:self];
@@ -68,14 +72,16 @@
     NSLog(@"Selectively configuring session");
 
     // only send parts of configuration that changed
-    NSDictionary* configToSend = [config dictionaryWithChangesFromDictionary:[self state]];
+    NSDictionary* configToSend = [config dictionaryWithChangesFromDictionary:[self configuration]];
     if([configToSend count] > 0) {
         NSLog(@"Sending %ld configuration items", (long)[configToSend count]);
         [self configure:configToSend withBlock:^(id json) {
             NSDictionary* differences = [json dictionaryWithChangesFromDictionary:config];
             if([differences count] > 0) {
-                NSLog(@"Configuration received from session differs by %ld configuration items", (long)[differences count]);
+                NSLog(@"Configuration received from session differs from desired configuration by %ld configuration items", (long)[differences count]);
             }
+
+            // call block if required
             if(block) {
                 block(json);
             }
@@ -176,6 +182,9 @@
 
 - (void)configure:(id)config withBlock:(void(^)(id))block {
     [self sendCommand:@"configure" withData:config andBlock:^(id json) {
+        // update session's configuration
+        [[self configuration] setDictionary:json];
+
         if(block) {
             block(json);
         }
@@ -368,28 +377,34 @@
 
         // erase state that is now missing
         NSSet* missing = [json missingKeysPresentInDictionary:[self state]];
-        if([missing count] > 0) {
-            [[self state] removeObjectsForKeys:[missing allObjects]];
+
+        // never erase connected or authorized set. this does not come from daemon
+        NSSet* erase = [missing objectsPassingTest:^BOOL(id obj, BOOL* stop) {
+            return ![obj isEqualToString:@"connected"] && ![obj isEqualToString:@"authorized"];
+        }];
+
+        if([erase count] > 0) {
+            [[self state] removeObjectsForKeys:[erase allObjects]];
         }
     }
 
     // special handling for the clocks because we may need to add an offset to what the daemon provides
     TBClockDateComponentsFormatter* dateFormatter = [[TBClockDateComponentsFormatter alloc] init];
-    if([self state][@"clock_remaining"] && [self state][@"current_time"] && [self state][@"running"]) {
-        if([[self state][@"running"] boolValue]) {
-            // format time for display
-            [self state][@"clock_text"] = [dateFormatter stringFromMillisecondsRemaining:[self state][@"clock_remaining"]
-                                                                 atMillisecondsSince1970:[self state][@"current_time"]
-                                                                            countingDown:YES];
-        } else {
-            [self state][@"clock_text"] = NSLocalizedString(@"PAUSED", nil);
-        }
+    if([self state][@"clock_remaining"] && [self state][@"current_time"]) {
+        // format time for display
+        [self state][@"clock_text"] = [dateFormatter stringFromMillisecondsRemaining:[self state][@"clock_remaining"]
+                                                             atMillisecondsSince1970:[self state][@"current_time"]
+                                                                        countingDown:YES];
     }
 
     if([self state][@"elapsed_time"] && [self state][@"current_time"]) {
         [self state][@"elapsed_time_text"] = [dateFormatter stringFromMillisecondsRemaining:[self state][@"elapsed_time"]
                                                                     atMillisecondsSince1970:[self state][@"current_time"]
                                                                                countingDown:NO];
+    }
+
+    if(![[self state][@"running"] boolValue]) {
+        [self state][@"clock_text"] = NSLocalizedString(@"PAUSED", nil);
     }
 }
 
@@ -410,7 +425,7 @@
 
     // and request initial config
     [self getConfigWithBlock:^(id json) {
-        [[self state] addEntriesFromDictionary:json];
+        [[self configuration] setDictionary:json];
         }];
 
     // and request initial state
@@ -436,6 +451,7 @@
     // close down connection (happens whether client or server disconnected)
 
     // set state
+    [[self configuration] removeAllObjects];
     [[self state] removeAllObjects];
     [self state][@"connected"] = @NO;
 
