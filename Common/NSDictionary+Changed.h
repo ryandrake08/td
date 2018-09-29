@@ -14,4 +14,6 @@
 
 - (NSDictionary*)dictionaryWithChangesFromDictionary:(NSDictionary*)other;
 
+- (NSSet*)missingKeysPresentInDictionary:(NSDictionary*)other;
+
 @end

@@ -24,4 +24,10 @@
     return [NSDictionary dictionaryWithDictionary:[self mutableDictionaryWithChangesFromDictionary:other]];
 }
 
+- (NSSet*)missingKeysPresentInDictionary:(NSDictionary*)other {
+    return [other keysOfEntriesPassingTest:^BOOL(id key, id obj, BOOL* stop) {
+        return self[key] == nil;
+    }];
+}
+
 @end

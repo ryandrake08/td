@@ -365,6 +365,12 @@
         if([update count] > 0) {
             [[self state] addEntriesFromDictionary:update];
         }
+
+        // erase state that is now missing
+        NSSet* missing = [json missingKeysPresentInDictionary:[self state]];
+        if([missing count] > 0) {
+            [[self state] removeObjectsForKeys:[missing allObjects]];
+        }
     }
 
     // special handling for the clocks because we may need to add an offset to what the daemon provides
@@ -393,7 +399,10 @@
     NSAssert([self connection] == tc, @"Unexpected connection from %@", tc);
     // successfully connected to tournament
 
-    // set state
+    // clear state
+    [[self state] removeAllObjects];
+
+    // set connected state
     [self state][@"connected"] = @YES;
 
     // always check if we're authorized right away
