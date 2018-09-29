@@ -222,9 +222,6 @@ static std::ostream& operator<<(std::ostream& os, const td::funding_source& src)
 // calculate derived state and dump to JSON
 void gameinfo::dump_derived_state(json& state) const
 {
-    // has the tournament started?
-    bool started(this->current_blind_level > 0 && this->current_blind_level < this->blind_levels.size());
-
     // set current time (for synchronization)
     auto now(this->now());
     auto current_time(std::chrono::duration_cast<duration_t>(now.time_since_epoch()));
@@ -248,7 +245,7 @@ void gameinfo::dump_derived_state(json& state) const
     os.imbue(std::locale(""));
 
     // current round number as text
-    if(started)
+    if(this->is_started())
     {
         os << this->current_blind_level;
     }
@@ -259,7 +256,7 @@ void gameinfo::dump_derived_state(json& state) const
     state.set_value("current_round_number_text", os.str()); os.str("");
 
     // current game name text
-    if(started)
+    if(this->is_started())
     {
         os << blind_levels[this->current_blind_level].game_name;
     }
@@ -270,7 +267,7 @@ void gameinfo::dump_derived_state(json& state) const
     state.set_value("current_game_text", os.str()); os.str("");
 
     // next game name text
-    if(started && this->current_blind_level+1 < this->blind_levels.size())
+    if(this->current_blind_level + 1 < this->blind_levels.size())
     {
         os << blind_levels[this->current_blind_level+1].game_name;
     }
@@ -307,7 +304,7 @@ void gameinfo::dump_derived_state(json& state) const
         state.set_value("clock_remaining", on_break ? break_time_remaining.count() : time_remaining.count());
 
         // current round text (TODO: no longer used by any client)
-        if(started)
+        if(this->is_started())
         {
             if(on_break)
             {
@@ -326,7 +323,7 @@ void gameinfo::dump_derived_state(json& state) const
         state.set_value("current_round_text", os.str()); os.str("");
 
         // current round blinds text
-        if(started)
+        if(this->is_started())
         {
             if(on_break)
             {
@@ -345,7 +342,7 @@ void gameinfo::dump_derived_state(json& state) const
         state.set_value("current_round_blinds_text", os.str()); os.str("");
 
         // current round ante text
-        if(started)
+        if(this->is_started())
         {
             if(!on_break)
             {
@@ -364,7 +361,7 @@ void gameinfo::dump_derived_state(json& state) const
         state.set_value("current_round_ante_text", os.str()); os.str("");
 
         // next round text
-        if(started)
+        if(this->is_started())
         {
             // if there is a next round
             if(this->current_blind_level+1 < this->blind_levels.size())
@@ -1292,7 +1289,7 @@ void gameinfo::reset_funding()
     logger(ll::info) << "resetting tournament funding to zero\n";
 
     // cannot plan seating while game is in progress
-    if(this->current_blind_level > 0)
+    if(this->is_started())
     {
         throw td::protocol_error("cannot reset funding while tournament is running");
     }
