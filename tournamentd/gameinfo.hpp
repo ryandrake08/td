@@ -102,9 +102,6 @@ class gameinfo
     // total fund paid out, in payout_currency
     double total_equity;
 
-    // is the game running or paused?
-    bool running;
-
     // Current bind level (index into above vector)
     // Note: blind level 0 is reserved for setup/planning
     std::size_t current_blind_level;
@@ -169,6 +166,9 @@ class gameinfo
 
     // re-calculate payouts
     void recalculate_payouts();
+
+    // is paused
+    bool is_paused() const;
 
     // utility: start a blind level
     void start_blind_level(std::size_t blind_level, duration_t offset);
@@ -262,7 +262,7 @@ public:
     bool previous_blind_level(duration_t offset=duration_t::zero());
 
     // update game state
-    bool update();
+    void update();
 
     // set the action clock (when someone 'needs the clock called on them'
     void set_action_clock(long duration);
