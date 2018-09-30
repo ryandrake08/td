@@ -42,9 +42,6 @@
 // cache the current tournament service, in order to reconnect
 @property (nonatomic, strong) TournamentService* currentTournamentService;
 
-// tournament configuration from session
-@property (nonatomic, strong, readonly) NSMutableDictionary* configuration;
-
 // tournament state from session
 @property (nonatomic, strong, readonly) NSMutableDictionary* state;
 
