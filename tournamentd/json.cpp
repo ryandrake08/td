@@ -251,7 +251,7 @@ json::json(const bool& value) : ptr(check(cJSON_CreateBool(value ? cJSON_True : 
 }
 
 template<>
-json::json(const std::chrono::system_clock::time_point& value) : ptr(check(cJSON_CreateInt(std::chrono::system_clock::duration::rep(value.time_since_epoch().count()))))
+json::json(const std::chrono::system_clock::time_point& value) : ptr(check(cJSON_CreateInt(std::chrono::duration_cast<std::chrono::milliseconds>(value.time_since_epoch()).count())))
 {
 }
 
@@ -344,7 +344,7 @@ template <>
 std::chrono::system_clock::time_point json::value() const
 {
     ensure_type(check(this->ptr), cJSON_Number);
-    std::chrono::system_clock::duration duration(this->ptr->valueint);
+    std::chrono::milliseconds duration(this->ptr->valueint);
     return std::chrono::system_clock::time_point(duration);
 }
 
