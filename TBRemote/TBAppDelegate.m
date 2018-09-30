@@ -17,13 +17,19 @@
 
 @property (nonatomic, strong) TBRemoteWatchDelegate* watchDelegate;
 
+// Background task keeps server running for some time while in the background
+@property (nonatomic, assign)UIBackgroundTaskIdentifier backgroundTask;
+
 @end
 
 @implementation TBAppDelegate
 
 - (BOOL)application:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)launchOptions {
-    // Override point for customization after application launch.
-    _session = [[TournamentSession alloc] init];
+    // initialize background task
+    [self setBackgroundTask:UIBackgroundTaskInvalid];
+
+    // get a session
+    [self setSession:[[TournamentSession alloc] init]];
 
     // set tournament session delegate
     [[self session] setDelegate:self];
@@ -100,10 +106,30 @@
 - (void)applicationDidEnterBackground:(UIApplication*)application {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    NSLog(@"applicationDidEnterBackground");
+
+#if defined(TBFULL)
+    // Start a background task here, this will keep client connections alive for a short period while app is in the background
+    __block UIBackgroundTaskIdentifier background_task = [application beginBackgroundTaskWithExpirationHandler: ^ {
+        NSLog(@"Background task expired");
+        [application endBackgroundTask:background_task];
+        background_task = UIBackgroundTaskInvalid;
+    }];
+
+    // Store it so we can end if app enters foreground
+    [self setBackgroundTask:background_task];
+#endif
 }
 
 - (void)applicationWillEnterForeground:(UIApplication*)application {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    NSLog(@"applicationWillEnterForeground");
+
+    // End any background task here
+    if([self backgroundTask] != UIBackgroundTaskInvalid) {
+        [application endBackgroundTask:[self backgroundTask]];
+        [self setBackgroundTask:UIBackgroundTaskInvalid];
+    }
 }
 
 - (void)applicationDidBecomeActive:(UIApplication*)application {
