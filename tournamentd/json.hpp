@@ -61,10 +61,10 @@ public:
     // return whether json value exists for name
     bool get_value(const char* name) const;
 
-    // get json value for name
+    // get json value for name, return whether json value exists for name
     bool get_value(const char* name, json& value) const;
 
-    // get value for name by way of an intermediate json item
+    // get value for name by way of an intermediate json item, return whether json value exists for name
     template <typename T>
     bool get_value(const char* name, T& value) const
     {
@@ -77,7 +77,7 @@ public:
         return false;
     }
 
-    // get an enum value for name, by casting to int
+    // get an enum value for name, by casting to int, return whether json value exists for name
     template <typename T>
     bool get_enum_value(const char* name, T& value) const
     {
@@ -90,7 +90,7 @@ public:
         return false;
     }
 
-    // get collection for name, by way of intermediate json items
+    // get collection for name, by way of intermediate json items, return whether json value exists for name
     template <typename T>
     bool get_values(const char* name, std::vector<T>& values) const
     {
@@ -103,6 +103,66 @@ public:
                 values.push_back(item.value<T>());
             }
             return true;
+        }
+        return false;
+    }
+
+    // get value for name by way of an intermediate json item, return whether value both exists and differs from existing value
+    template <typename T>
+    bool update_value(const char* name, T& value) const
+    {
+        T new_value;
+        if(this->get_value(name, new_value))
+        {
+            if(value == new_value)
+            {
+                return false;
+            }
+            else
+            {
+                value = new_value;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // get an enum value for name, by casting to int, return whether value both exists and differs from existing value
+    template <typename T>
+    bool update_enum_value(const char* name, T& value) const
+    {
+        T new_value;
+        if(this->get_enum_value(name, new_value))
+        {
+            if(value == new_value)
+            {
+                return false;
+            }
+            else
+            {
+                value = new_value;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // get collection for name, by way of intermediate json items, return whether value both exists and differs from existing value
+    template <typename T>
+    bool update_values(const char* name, std::vector<T>& values) const
+    {
+        std::vector<T> new_values;
+        if(this->get_values(name, new_values))
+        {
+            if(values == new_values)
+            {
+                return false;
+            }
+            else
+            {
+                values = new_values;
+                return true;
+            }
         }
         return false;
     }

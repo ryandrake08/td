@@ -55,13 +55,6 @@ struct tournament::impl
         this->game_server.broadcast(bcast.print());
     }
 
-    void broadcast_configuration() const
-    {
-        json bcast;
-        game_info.dump_configuration(bcast);
-        this->game_server.broadcast(bcast.print());
-    }
-
     // ----- command handlers available to anyone
 
     void handle_cmd_version(json& out) const
@@ -486,6 +479,7 @@ struct tournament::impl
                              rebalance_policy (integer): Policy for rebalancing tables (0 = manual, 1 = when unbalanced, 2 = shootout)
                              background_color (string): Suggested clock user interface color
                              */
+                            this->ensure_authorized(in);
                             this->handle_cmd_get_config(out);
                         }
                         else if(cmd == "get_state")
@@ -572,7 +566,6 @@ struct tournament::impl
                              */
                             this->ensure_authorized(in);
                             this->handle_cmd_configure(in, out);
-                            this->broadcast_configuration();
                             this->broadcast_state();
                         }
                         else if(cmd == "start_game")

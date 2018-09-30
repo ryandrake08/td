@@ -10,6 +10,102 @@
 #include <random>
 #include <sstream>
 
+// special update_value for player map
+template <>
+bool json::update_value(const char* name, std::unordered_map<td::player_id_t,td::player>& values) const
+{
+    // read json into vector of players
+    std::vector<td::player> new_values;
+    if(this->get_values(name, new_values))
+    {
+        // check size first, if equal, deep compare
+        if(values.size() == new_values.size())
+        {
+            size_t matches(0);
+            for(const auto& new_value : new_values)
+            {
+                // look up by player_id
+                auto it(values.find(new_value.player_id));
+
+                // if found and the actual value matches test value, continue
+                if(it != values.end() && it->second == new_value)
+                {
+                    matches++;
+                }
+                else
+                {
+                    // no need to test further. data is different
+                    break;
+                }
+            }
+
+            // all values match
+            if(matches == values.size())
+            {
+                return false;
+            }
+        }
+
+        // replace values
+        values.clear();
+        for(auto& new_value : new_values)
+        {
+            values.emplace(new_value.player_id, new_value);
+        }
+        return true;
+    }
+
+    return false;
+}
+
+// special update_value for manual payouts map
+template <>
+bool json::update_value(const char* name, std::unordered_map<size_t, std::vector<td::monetary_value_nocurrency>>& values) const
+{
+    // read json into vector of manual_payout
+    std::vector<td::manual_payout> new_values;
+    if(this->get_values(name, new_values))
+    {
+        // check size first, if equal, deep compare
+        if(values.size() == new_values.size())
+        {
+            size_t matches(0);
+            for(const auto& new_value : new_values)
+            {
+                // look up by player_id
+                auto it(values.find(new_value.buyins_count));
+
+                // if found and the actual value matches test value, continue
+                if(it != values.end() && it->second == new_value.payouts)
+                {
+                    matches++;
+                }
+                else
+                {
+                    // no need to test further. data is different
+                    break;
+                }
+            }
+
+            // all values match
+            if(matches == values.size())
+            {
+                return false;
+            }
+        }
+
+        // replace values
+        values.clear();
+        for(auto& new_value : new_values)
+        {
+            values.emplace(new_value.buyins_count, new_value.payouts);
+        }
+        return true;
+    }
+
+    return false;
+}
+
 // initialize game
 gameinfo::gameinfo() :
     table_capacity(2),
@@ -47,18 +143,14 @@ void gameinfo::configure(const json& config)
 {
     logger(ll::info) << "loading tournament configuration\n";
 
-    config.get_value("name", this->name);
-    config.get_values("funding_sources", this->funding_sources);
-    config.get_enum_value("payout_policy", this->payout_policy);
-    config.get_value("payout_currency", this->payout_currency);
-    config.get_value("automatic_payouts", this->automatic_payouts);
-    config.get_values("forced_payouts", this->forced_payouts);
-    config.get_value("previous_blind_level_hold_duration", this->previous_blind_level_hold_duration);
+    config.update_value("name", this->name);
+    config.update_values("funding_sources", this->funding_sources);
+    config.update_value("previous_blind_level_hold_duration", this->previous_blind_level_hold_duration);
     // TODO: changing the rebalance policy could trigger an immediate rebalance. for now, we wait until the next bust-out
-    config.get_enum_value("rebalance_policy", this->rebalance_policy);
-    config.get_value("background_color", this->background_color);
+    config.update_enum_value("rebalance_policy", this->rebalance_policy);
+    config.update_value("background_color", this->background_color);
 
-    if(config.get_values("available_chips", this->available_chips))
+    if(config.update_values("available_chips", this->available_chips))
     {
         // always sort chips by denomination
         std::sort(this->available_chips.begin(), this->available_chips.end(),
@@ -68,35 +160,16 @@ void gameinfo::configure(const json& config)
                   });
     }
 
-    // special handling for players, read into vector, then convert to map
-    std::vector<td::player> players_vector;
-    if(config.get_values("players", players_vector))
+    if(config.update_value("players", this->players))
     {
         if(!this->seats.empty() || !this->players_finished.empty() || !this->bust_history.empty() || !this->buyins.empty() || !this->unique_entries.empty() || !this->entries.empty())
         {
             logger(ll::warning) << "re-coniguring players list while in play is not advised, deleted players may still be in the game\n";
         }
-
-        this->players.clear();
-        for(auto& player : players_vector)
-        {
-            this->players.emplace(player.player_id, player);
-        }
-    }
-
-    // special handling for manual_payouts, read into vector, then convert to map
-    std::vector<td::manual_payout> manual_payouts_vector;
-    if(config.get_values("manual_payouts", manual_payouts_vector))
-    {
-        this->manual_payouts.clear();
-        for(auto& manual_payout : manual_payouts_vector)
-        {
-            this->manual_payouts.emplace(manual_payout.buyins_count, manual_payout.payouts);
-        }
     }
 
     // changing the table capacity can cause a re-plan
-    if(config.get_value("table_capacity", this->table_capacity))
+    if(config.update_value("table_capacity", this->table_capacity))
     {
         if(!this->seats.empty())
         {
@@ -114,11 +187,31 @@ void gameinfo::configure(const json& config)
 
     // recalculate for any configuration that could alter payouts
     auto recalculate(false);
-    recalculate = recalculate || config.get_value("payout_policy");
-    recalculate = recalculate || config.get_value("payout_currency");
-    recalculate = recalculate || config.get_value("automatic_payouts");
-    recalculate = recalculate || config.get_value("forced_payouts");
-    recalculate = recalculate || config.get_value("manual_payouts");
+    if(config.update_enum_value("payout_policy", this->payout_policy))
+    {
+        recalculate = true;
+    }
+
+    if(config.update_value("payout_currency", this->payout_currency))
+    {
+        recalculate = true;
+    }
+
+    if(config.update_value("automatic_payouts", this->automatic_payouts))
+    {
+        recalculate = true;
+    }
+
+    if(config.update_values("forced_payouts", this->forced_payouts))
+    {
+        recalculate = true;
+    }
+
+    if(config.update_value("manual_payouts", this->manual_payouts))
+    {
+        recalculate = true;
+    }
+
     if(recalculate)
     {
         // after reconfiguring, we'll need to recalculate
@@ -126,7 +219,7 @@ void gameinfo::configure(const json& config)
     }
 
     // stop the game when reconfiguring blind levels
-    if(config.get_values("blind_levels", this->blind_levels))
+    if(config.update_values("blind_levels", this->blind_levels))
     {
         if(this->is_started())
         {

@@ -56,6 +56,9 @@ namespace td
         std::string reason;
 
         blind_level();
+
+        // equality
+        bool operator==(const blind_level& other) const;
     };
 
     // attributes of a single chip denomination
@@ -66,6 +69,9 @@ namespace td
         unsigned long count_available;
 
         chip();
+
+        // equality
+        bool operator==(const chip& other) const;
     };
 
     // represents a monetary value
@@ -77,6 +83,9 @@ namespace td
 
         monetary_value();
         monetary_value(double amt, const std::string& curr);
+
+        // equality
+        bool operator==(const monetary_value& other) const;
     };
 
     // represents a monetary value without currency
@@ -85,6 +94,9 @@ namespace td
         double amount;
         monetary_value_nocurrency();
         explicit monetary_value_nocurrency(double amt);
+        
+        // equality
+        bool operator==(const monetary_value_nocurrency& other) const;
     };
 
     // attributes of each funding source (buy-in, addon, etc.)
@@ -100,6 +112,9 @@ namespace td
         monetary_value_nocurrency equity;
 
         funding_source();
+
+        // equality
+        bool operator==(const funding_source& other) const;
     };
 
     // attributes of each player
@@ -110,6 +125,9 @@ namespace td
         datetime added_at;
 
         player();
+
+        // equality
+        bool operator==(const player& other) const;
     };
 
     // attributes of a single physical seat at the tournament
@@ -193,5 +211,8 @@ namespace td
 
         automatic_payout_parameters();
         automatic_payout_parameters(double percent_paid, bool round, double shape);
+
+        // equality
+        bool operator==(const automatic_payout_parameters& other) const;
     };
 }

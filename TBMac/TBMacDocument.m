@@ -125,14 +125,14 @@
 // Add to configuration
 - (void)addConfiguration:(NSDictionary*)config {
     [[self configuration] addEntriesFromDictionary:config];
-    [[self session] selectiveConfigure:[self configuration] withBlock:nil];
+    [[self session] configure:[self configuration] withBlock:nil];
     [[self mainWindow] setDocumentEdited:YES];
 }
 
 // Add an authorized client
 - (void)addAuthorizedClient:(NSDictionary*)code {
     [[self configuration][@"authorized_clients"] addObject:code];
-    [[self session] selectiveConfigure:[self configuration] withBlock:nil];
+    [[self session] configure:[self configuration] withBlock:nil];
     [[self mainWindow] setDocumentEdited:YES];
 }
 

@@ -170,7 +170,7 @@ public:
                 else if(opt == "get_config")
                 {
                     // send command
-                    auto object(send_command(stream, opt));
+                    auto object(send_command(stream, opt, auth));
 
                     // print output raw json
                     std::cout << object << '\n';

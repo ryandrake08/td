@@ -19,9 +19,6 @@
 // cache the current tournament service, in order to reconnect
 @property (nonatomic, strong) TournamentService* currentTournamentService;
 
-// tournament configuration from session
-@property (nonatomic, strong) NSMutableDictionary* configuration;
-
 // tournament state from session
 @property (nonatomic, strong) NSMutableDictionary* state;
 
@@ -43,7 +40,6 @@
 
 - (instancetype)init {
     if (self = [super init]) {
-        _configuration = [[NSMutableDictionary alloc] init];
         _state = [[NSMutableDictionary alloc] init];
         _connection = [[TournamentConnection alloc] init];
         [_connection setDelegate:self];
@@ -73,28 +69,6 @@
         return NO;
     } else {
         return YES;
-    }
-}
-
-// configure the session with configuration by sending only changed keys
-- (void)selectiveConfigure:(NSDictionary*)config withBlock:(void(^)(id))block {
-    NSLog(@"Selectively configuring session");
-
-    // only send parts of configuration that changed
-    NSDictionary* configToSend = [config dictionaryWithChangesFromDictionary:[self configuration]];
-    if([configToSend count] > 0) {
-        NSLog(@"Sending %ld configuration items", (long)[configToSend count]);
-        [self configure:configToSend withBlock:^(id json) {
-            NSDictionary* differences = [json dictionaryWithChangesFromDictionary:config];
-            if([differences count] > 0) {
-                NSLog(@"Configuration received from session differs from desired configuration by %ld configuration items", (long)[differences count]);
-            }
-
-            // call block if required
-            if(block) {
-                block(json);
-            }
-        }];
     }
 }
 
@@ -191,9 +165,6 @@
 
 - (void)configure:(id)config withBlock:(void(^)(id))block {
     [self sendCommand:@"configure" withData:config andBlock:^(id json) {
-        // update session's configuration
-        [[self configuration] setDictionary:json];
-
         if(block) {
             block(json);
         }
@@ -426,11 +397,6 @@
     // always check if we're authorized right away
     [self checkAuthorizedWithBlock:nil];
 
-    // and request initial config
-    [self getConfigWithBlock:^(id json) {
-        [[self configuration] setDictionary:json];
-        }];
-
     // and request initial state
     [self getStateWithBlock:^(id json) {
         [[self state] setDictionary:json];
@@ -453,8 +419,7 @@
     NSAssert([self connection] == tc, @"Unexpected close from %@", tc);
     // close down connection (happens whether client or server disconnected)
 
-    // set state
-    [[self configuration] removeAllObjects];
+    // clear state
     [[self state] removeAllObjects];
 
     // set disconnected

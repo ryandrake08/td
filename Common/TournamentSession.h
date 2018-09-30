@@ -61,13 +61,9 @@
 - (BOOL)connectToTournamentService:(TournamentService*)tournament error:(NSError**)error;
 - (void)disconnect;
 
-// configure the session with configuration by sending only changed keys
-- (void)selectiveConfigure:(NSDictionary*)config withBlock:(void(^)(id))block;
-
 // tournament commands
 - (void)checkAuthorizedWithBlock:(void(^)(BOOL))block;
 - (void)getStateWithBlock:(void(^)(id))block;
-- (void)getConfigWithBlock:(void(^)(id))block;
 - (void)configure:(id)config withBlock:(void(^)(id))block;
 - (void)startGameAt:(NSDate*)datetime;
 - (void)startGame;

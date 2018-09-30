@@ -54,7 +54,7 @@
     [[self KVOController] observe:self keyPaths:@[@"session.connected", @"session.authorized"] options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
         // send config to session
         if([[self session] connected] && [[self session] authorized]) {
-            [[self session] selectiveConfigure:[self configuration] withBlock:nil];
+            [[self session] configure:[self configuration] withBlock:nil];
         }
     }];
 
@@ -83,7 +83,7 @@
     [[NSNotificationCenter defaultCenter] addObserverForName:kConfigurationUpdatedNotification object:nil queue:nil usingBlock:^(NSNotification* note) {
         // send to session
         if([[self session] connected] && [[self session] authorized]) {
-            [[self session] selectiveConfigure:[self configuration] withBlock:nil];
+            [[self session] configure:[self configuration] withBlock:nil];
         } else {
             NSLog(@"got kConfigurationUpdatedNotification, but either not authorized or not connected");
         }
