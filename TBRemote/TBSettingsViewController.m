@@ -51,9 +51,9 @@
     }
 
     // register for KVO
-    [[self KVOController] observe:self keyPaths:@[@"session.state.connected", @"session.state.authorized"] options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
+    [[self KVOController] observe:self keyPaths:@[@"session.connected", @"session.authorized"] options:NSKeyValueObservingOptionInitial block:^(id observer, id object, NSDictionary *change) {
         // send config to session
-        if([[[self session] state][@"connected"] boolValue] && [[[self session] state][@"authorized"] boolValue]) {
+        if([[self session] connected] && [[self session] authorized]) {
             [[self session] selectiveConfigure:[self configuration] withBlock:nil];
         }
     }];
@@ -82,7 +82,7 @@
     // send to session and save every time configuration changes
     [[NSNotificationCenter defaultCenter] addObserverForName:kConfigurationUpdatedNotification object:nil queue:nil usingBlock:^(NSNotification* note) {
         // send to session
-        if([[[self session] state][@"connected"] boolValue] && [[[self session] state][@"authorized"] boolValue]) {
+        if([[self session] connected] && [[self session] authorized]) {
             [[self session] selectiveConfigure:[self configuration] withBlock:nil];
         } else {
             NSLog(@"got kConfigurationUpdatedNotification, but either not authorized or not connected");
@@ -303,7 +303,7 @@
     [self setDocumentURL:docUrl];
 
     // unconditionally send to session
-    if([[[self session] state][@"connected"] boolValue] && [[[self session] state][@"authorized"] boolValue]) {
+    if([[self session] connected] && [[self session] authorized]) {
         [[self session] configure:dict withBlock:nil];
     }
 

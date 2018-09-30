@@ -35,8 +35,8 @@
         [[self session] setDelegate:self];
 
         // register for KVO
-        [[self KVOController] observe:self keyPaths:@[@"session.state.connected", @"session.state.authorized"] options:0 block:^(id observer, TBMacDocument* object, NSDictionary *change) {
-            if([[[object session] state][@"connected"] boolValue] && [[[object session] state][@"authorized"] boolValue]) {
+        [[self KVOController] observe:self keyPaths:@[@"session.connected", @"session.authorized"] options:0 block:^(id observer, TBMacDocument* object, NSDictionary *change) {
+            if([[object session] connected] && [[object session] authorized]) {
                 NSLog(@"Connected and authorized locally");
 
                 // on connection, send entire configuration to session, unconditionally, and then replace with whatever the session has

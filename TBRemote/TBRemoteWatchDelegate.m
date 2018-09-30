@@ -16,6 +16,9 @@
 // the tournament session (model) object
 @property (nonatomic, strong) TournamentSession* session;
 
+// cache the state and send periodically
+@property (nonatomic, strong) NSMutableDictionary* cachedState;
+
 // timer
 @property (nonatomic, strong) NSTimer* sendMessageTimer;
 
@@ -30,7 +33,7 @@
             _session = session;
 
             // set up cache
-            NSMutableDictionary* cachedState = [NSMutableDictionary dictionary];
+            _cachedState = [NSMutableDictionary dictionary];
 
             // set up the WatchConnectivity session
             WCSession* wcSession = [WCSession defaultSession];
@@ -39,8 +42,8 @@
 
             // register for KVO
             NSArray* keyPaths = @[
-                                  @"session.state.connected",
-                                  @"session.state.authorized",
+                                  @"session.connected",
+                                  @"session.authorized",
                                   @"session.state.running",
                                   @"session.state.current_blind_level",
                                   @"session.state.current_time",
@@ -57,23 +60,31 @@
                 // get the state key that changed
                 NSString* key = [[change[FBKVONotificationKeyPathKey] componentsSeparatedByString:@"."] lastObject];
 
-                // cache it for potential deferred send
-                cachedState[key] = change[NSKeyValueChangeNewKey];
+                if([change[NSKeyValueChangeNewKey] isEqual:[NSNull null]]) {
+                    // remove from cache if null
+                    [[self cachedState] removeObjectForKey:key];
+                } else {
+                    // cache it for potential deferred send
+                    [self cachedState][key] = change[NSKeyValueChangeNewKey];
+                }
             }];
 
             // only send stored state periodically
-            _sendMessageTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 repeats:YES block:^(NSTimer* timer) {
-                if([[WCSession defaultSession] isReachable] && [cachedState count] > 0) {
-                    // send
-                    [wcSession sendMessage:@{@"state":[cachedState copy]} replyHandler:nil errorHandler:nil];
-
-                    // clear cache
-                    [cachedState removeAllObjects];
-                }
-            }];
+            _sendMessageTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(sendCachedStateFromTimer:) userInfo:nil repeats:YES];
         }
     }
     return self;
+}
+
+- (void)sendCachedStateFromTimer:(NSTimer*)timer {
+    WCSession* wcSession = [WCSession defaultSession];
+    if([wcSession isReachable] && [[self cachedState] count] > 0) {
+        // send
+        [wcSession sendMessage:@{@"state":[[self cachedState] copy]} replyHandler:nil errorHandler:nil];
+
+        // clear cache
+        [[self cachedState] removeAllObjects];
+    }
 }
 
 - (void)handleCommand:(NSString*)command {

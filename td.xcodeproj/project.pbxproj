@@ -256,6 +256,7 @@
 		94D7290F20034F5A009EC463 /* TBSetupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94D7290E20034F5A009EC463 /* TBSetupViewController.m */; };
 		94E16F221B6C99840070F1BA /* TBResizeTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 94562E6B1B65D9420017C692 /* TBResizeTextField.m */; };
 		94E273FF200F2B2F0048B07A /* TBArrayEmptyTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 94C9D87A200F265800D4DA10 /* TBArrayEmptyTransformer.m */; };
+		94E33DFB21604AC400FFFE1D /* defaults.json in Resources */ = {isa = PBXBuildFile; fileRef = 9476F4CD1B3C3F8300A158F8 /* defaults.json */; };
 		94E6F1782011B34B0054D94F /* WatchConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E6F1772011B34A0054D94F /* WatchConnectivity.framework */; };
 		94E6F1792011B3500054D94F /* WatchConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E6F1772011B34A0054D94F /* WatchConnectivity.framework */; };
 		94E6F17B2011B54E0054D94F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E6F17A2011B54E0054D94F /* CoreGraphics.framework */; };
@@ -1979,6 +1980,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				94E33DFB21604AC400FFFE1D /* defaults.json in Resources */,
 				ADF636121BAB8AF800D019AE /* TBRemote.xcassets in Resources */,
 				ADF6360F1BAB8AF800D019AE /* Main.storyboard in Resources */,
 				945D83A22032B9FC00DFE032 /* Setup.storyboard in Resources */,

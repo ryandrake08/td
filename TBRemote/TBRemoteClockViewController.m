@@ -63,8 +63,8 @@
     // register for KVO
     [[[self tableView] KVOController] observe:self keyPath:@"session.state.available_chips" options:0 action:@selector(reloadData)];
 
-    [[self KVOController] observe:self keyPaths:@[@"session.state.connected", @"session.state.authorized", @"session.state.current_blind_level"] options:NSKeyValueObservingOptionInitial block:^(id observer, TBRemoteClockViewController* object, NSDictionary *change) {
-        BOOL authorized = [[[object session] state][@"connected"] boolValue] && [[[object session] state][@"authorized"] boolValue];
+    [[self KVOController] observe:self keyPaths:@[@"session.connected", @"session.authorized", @"session.state.current_blind_level"] options:NSKeyValueObservingOptionInitial block:^(id observer, TBRemoteClockViewController* object, NSDictionary *change) {
+        BOOL authorized = [[object session] connected] && [[object session] authorized];
         BOOL playing = [[[object session] state][@"current_blind_level"] unsignedIntegerValue] != 0;
         [[observer previousRoundButton] setEnabled:authorized && playing];
         [[observer pauseResumeButton] setEnabled:authorized];

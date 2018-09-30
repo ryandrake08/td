@@ -37,7 +37,7 @@
     [[self tournamentBrowser] search];
 
     // register for KVO
-    [[self KVOController] observe:self keyPaths:@[@"session.state.connected", @"session.state.authorized"] options:0 block:^(id observer, TBTournamentsViewController* object, NSDictionary *change) {
+    [[self KVOController] observe:self keyPaths:@[@"session.connected", @"session.authorized"] options:0 block:^(id observer, TBTournamentsViewController* object, NSDictionary *change) {
         // update table view cell
         [observer reloadTableRowForService:[self currentService]];
     }];
@@ -68,8 +68,8 @@
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"ServiceCell" forIndexPath:indexPath];
 
     NSNetService* cellService = [self netServices][[indexPath row]];
-    BOOL connected = [[[self session] state][@"connected"] boolValue];
-    BOOL authorized = [[[self session] state][@"authorized"] boolValue];
+    BOOL connected = [[self session] connected];
+    BOOL authorized = [[self session] authorized];
 
     // always set name
     [[cell textLabel] setText:[cellService name]];
@@ -94,8 +94,8 @@
 
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
     NSNetService* cellService = [self netServices][[indexPath row]];
-    BOOL connected = [[[self session] state][@"connected"] boolValue];
-    BOOL authorized = [[[self session] state][@"authorized"] boolValue];
+    BOOL connected = [[self session] connected];
+    BOOL authorized = [[self session] authorized];
 
     if(cellService == [self currentService] && connected) {
         // pop actionsheet
@@ -174,7 +174,7 @@
     [self setNetServices:newArray];
 
     // if just one, and not already connected, automatically connect
-    BOOL connected = [[[self session] state][@"connected"] boolValue];
+    BOOL connected = [[self session] connected];
     if([newArray count] == 1 && !connected) {
         // connect
         TournamentService* service = [[TournamentService alloc] initWithNetService:newArray[0]];

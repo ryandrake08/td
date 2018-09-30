@@ -78,7 +78,7 @@
     }];
 
     // update buttons when authorization, connected, or current_blind_level changes
-    [[self KVOController] observe:self keyPaths:@[@"session.state.connected", @"session.state.authorized", @"session.state.current_blind_level"] options:NSKeyValueObservingOptionInitial block:^(id observer, TBViewerViewController* object, NSDictionary *change) {
+    [[self KVOController] observe:self keyPaths:@[@"session.connected", @"session.authorized", @"session.state.current_blind_level"] options:NSKeyValueObservingOptionInitial block:^(id observer, TBViewerViewController* object, NSDictionary *change) {
         // update controls
         [self updateTournamentControls];
     }];
@@ -162,8 +162,8 @@
 
 #pragma mark Enable/disable buttons
 - (void)updateTournamentControls {
-    BOOL connected = [[[self session] state][@"connected"] boolValue];
-    BOOL authorized = [[[self session] state][@"authorized"] boolValue];
+    BOOL connected = [[self session] connected];
+    BOOL authorized = [[self session] authorized];
     BOOL playing = [[[self session] state][@"current_blind_level"] unsignedIntegerValue] != 0;
     [[self previousRoundButton] setEnabled:connected && authorized && playing];
     [[self pauseResumeButton] setEnabled:connected && authorized];

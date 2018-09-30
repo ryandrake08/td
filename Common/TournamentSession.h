@@ -48,6 +48,12 @@
 // tournament state from session
 @property (nonatomic, strong, readonly) NSMutableDictionary* state;
 
+// YES if connected
+@property (nonatomic, assign, readonly) BOOL connected;
+
+// YES if authorized
+@property (nonatomic, assign, readonly) BOOL authorized;
+
 // delegate to receive start, stop, and error callbacks
 @property (nonatomic, weak) id <TournamentSessionDelegate> delegate;
 

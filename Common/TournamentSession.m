@@ -22,6 +22,12 @@
 // tournament state from session
 @property (nonatomic, strong) NSMutableDictionary* state;
 
+// YES if connected
+@property (nonatomic, assign) BOOL connected;
+
+// YES if authorized
+@property (nonatomic, assign) BOOL authorized;
+
 // the connection object, handles networking and JSON serialization
 @property (nonatomic, strong) TournamentConnection* connection;
 
@@ -151,12 +157,12 @@
 - (void)checkAuthorizedWithBlock:(void(^)(BOOL))block {
     [self sendCommand:@"check_authorized" withData:nil andBlock:^(id json) {
         // set internal state if changed
-        if([self state][@"authorized"] != json[@"authorized"]) {
-            [self state][@"authorized"] = json[@"authorized"];
+        if([self authorized] != [json[@"authorized"] boolValue]) {
+            [self setAuthorized:[json[@"authorized"] boolValue]];
         }
         // handle authorization check
         if(block) {
-            block([json[@"authorized"] boolValue]);
+            block([self authorized]);
         }
     }];
 }
@@ -377,14 +383,8 @@
 
         // erase state that is now missing
         NSSet* missing = [json missingKeysPresentInDictionary:[self state]];
-
-        // never erase connected or authorized set. this does not come from daemon
-        NSSet* erase = [missing objectsPassingTest:^BOOL(id obj, BOOL* stop) {
-            return ![obj isEqualToString:@"connected"] && ![obj isEqualToString:@"authorized"];
-        }];
-
-        if([erase count] > 0) {
-            [[self state] removeObjectsForKeys:[erase allObjects]];
+        if([missing count] > 0) {
+            [[self state] removeObjectsForKeys:[missing allObjects]];
         }
     }
 
@@ -418,7 +418,7 @@
     [[self state] removeAllObjects];
 
     // set connected state
-    [self state][@"connected"] = @YES;
+    [self setConnected:YES];
 
     // always check if we're authorized right away
     [self checkAuthorizedWithBlock:nil];
@@ -430,7 +430,7 @@
 
     // and request initial state
     [self getStateWithBlock:^(id json) {
-        [[self state] addEntriesFromDictionary:json];
+        [[self state] setDictionary:json];
         }];
 
     // notify delegate
@@ -453,7 +453,10 @@
     // set state
     [[self configuration] removeAllObjects];
     [[self state] removeAllObjects];
-    [self state][@"connected"] = @NO;
+
+    // set disconnected
+    [self setConnected:NO];
+    [self setAuthorized:NO];
 
     // notify delegate
     if([[self delegate] respondsToSelector:@selector(tournamentSessionDidEnd:)]) {
