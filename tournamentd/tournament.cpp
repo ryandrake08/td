@@ -932,7 +932,7 @@ struct tournament::impl
 
     int authorize(int code)
     {
-        logger(ll::info) << "client " << code << "pre-authorized to administer this tournament\n";
+        logger(ll::info) << "client " << code << " pre-authorized to administer this tournament\n";
         this->pre_auths.emplace(code);
         return code;
     }
