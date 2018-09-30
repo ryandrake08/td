@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="14113" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="14313.18" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
     <device id="watch38" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="watchOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="14033"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="14238.10"/>
     </dependencies>
     <scenes>
         <!--Interface Controller-->
@@ -33,27 +33,30 @@
                         <group width="1" alignment="left" id="JA2-bG-LxC">
                             <items>
                                 <button width="32" height="32" alignment="center" backgroundImage="b_previous" id="8yV-vf-Ad5">
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <connections>
                                         <action selector="previousRoundTapped" destination="AgC-eL-Hgc" id="VCn-ls-HaX"/>
                                     </connections>
                                 </button>
                                 <button width="32" height="32" alignment="center" backgroundImage="b_play_pause" id="nDz-BI-TN4">
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <connections>
                                         <action selector="playPauseTapped" destination="AgC-eL-Hgc" id="z1x-WH-XSY"/>
                                     </connections>
                                 </button>
                                 <button width="32" height="32" alignment="center" backgroundImage="b_next" id="Gmp-B4-4H9">
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <connections>
                                         <action selector="nextRoundTapped" destination="AgC-eL-Hgc" id="2dD-Ju-dXB"/>
                                     </connections>
                                 </button>
                                 <button width="32" height="32" alignment="center" backgroundImage="b_call_clock" id="g08-KH-ZcQ">
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <connections>
                                         <action selector="callClockTapped" destination="AgC-eL-Hgc" id="s6v-8K-wrr"/>
                                     </connections>
                                 </button>
                             </items>
-                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </group>
                         <group width="1" alignment="left" layout="vertical" id="Qmz-R9-uUw">
                             <items>

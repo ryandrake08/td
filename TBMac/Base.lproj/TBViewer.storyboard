@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="aTR-5q-4as">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="aTR-5q-4as">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14113"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14313.18"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -112,7 +112,7 @@
         <scene sceneID="uJB-YA-iUW">
             <objects>
                 <windowController storyboardIdentifier="PlayerWindowController" id="aTR-5q-4as" userLabel="Root Window" sceneMemberID="viewController">
-                    <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" frameAutosaveName="" animationBehavior="default" id="Zol-Ci-1A7">
+                    <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" frameAutosaveName="" animationBehavior="default" id="Zol-Ci-1A7">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowCollectionBehavior key="collectionBehavior" fullScreenPrimary="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
@@ -197,7 +197,7 @@
                                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wfv-BZ-oqx" customClass="TBInvertableButton">
                                                 <rect key="frame" x="0.0" y="0.0" width="64" height="64"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="c_previous" imagePosition="only" alignment="center" alternateImage="a_previous" imageScaling="proportionallyUpOrDown" inset="2" id="TDP-cM-f7F">
+                                                <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="b_previous" imagePosition="only" alignment="center" alternateImage="h_previous" imageScaling="proportionallyUpOrDown" inset="2" id="TDP-cM-f7F">
                                                     <behavior key="behavior" lightByContents="YES"/>
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
@@ -208,7 +208,7 @@
                                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ui8-hn-r4D" customClass="TBInvertableButton">
                                                 <rect key="frame" x="80" y="0.0" width="64" height="64"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="c_play_pause" imagePosition="only" alignment="center" alternateImage="a_play_pause" imageScaling="proportionallyUpOrDown" inset="2" id="NhS-4A-1K3">
+                                                <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="b_play_pause" imagePosition="only" alignment="center" alternateImage="h_play_pause" imageScaling="proportionallyUpOrDown" inset="2" id="NhS-4A-1K3">
                                                     <behavior key="behavior" lightByContents="YES"/>
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
@@ -219,7 +219,7 @@
                                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bPd-To-bhI" customClass="TBInvertableButton">
                                                 <rect key="frame" x="160" y="0.0" width="64" height="64"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="c_next" imagePosition="only" alignment="center" alternateImage="a_next" imageScaling="proportionallyUpOrDown" inset="2" id="pP0-oM-fQi">
+                                                <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="b_next" imagePosition="only" alignment="center" alternateImage="h_next" imageScaling="proportionallyUpOrDown" inset="2" id="pP0-oM-fQi">
                                                     <behavior key="behavior" lightByContents="YES"/>
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
@@ -230,7 +230,7 @@
                                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FaX-vT-soJ" customClass="TBInvertableButton">
                                                 <rect key="frame" x="240" y="0.0" width="64" height="64"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="c_call_clock" imagePosition="only" alignment="center" alternateImage="a_call_clock" imageScaling="proportionallyUpOrDown" inset="2" id="XDS-l0-Bdu">
+                                                <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="b_call_clock" imagePosition="only" alignment="center" alternateImage="h_call_clock" imageScaling="proportionallyUpOrDown" inset="2" id="XDS-l0-Bdu">
                                                     <behavior key="behavior" lightByContents="YES"/>
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
@@ -272,8 +272,8 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <binding destination="qiy-ws-jFz" name="textColor" keyPath="self.textColor" id="R1o-BH-EiR"/>
                                             <binding destination="qiy-ws-jFz" name="value" keyPath="self.session.state.current_round_blinds_text" id="kdM-Rp-32X"/>
+                                            <binding destination="qiy-ws-jFz" name="textColor" keyPath="self.textColor" id="R1o-BH-EiR"/>
                                         </connections>
                                     </textField>
                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="m0u-w9-hKF" customClass="TBResizeTextField">
@@ -361,8 +361,8 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <binding destination="qiy-ws-jFz" name="textColor" keyPath="self.textColor" id="GmN-ES-saT"/>
                                             <binding destination="qiy-ws-jFz" name="value" keyPath="self.session.state.current_round_ante_text" id="GBI-up-icB"/>
+                                            <binding destination="qiy-ws-jFz" name="textColor" keyPath="self.textColor" id="GmN-ES-saT"/>
                                         </connections>
                                     </textField>
                                 </subviews>
@@ -824,7 +824,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="127.0.0.1" drawsBackground="YES" id="HjA-aG-dOL">
                                     <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                                 <connections>
@@ -850,7 +850,7 @@
                                         <decimal key="maximum" value="NaN"/>
                                     </numberFormatter>
                                     <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                                 <connections>
@@ -895,14 +895,14 @@ Gw
         </scene>
     </scenes>
     <resources>
-        <image name="a_call_clock" width="64" height="64"/>
-        <image name="a_next" width="64" height="64"/>
-        <image name="a_play_pause" width="64" height="64"/>
-        <image name="a_previous" width="64" height="64"/>
-        <image name="c_call_clock" width="64" height="64"/>
-        <image name="c_next" width="64" height="64"/>
-        <image name="c_play_pause" width="64" height="64"/>
-        <image name="c_previous" width="64" height="64"/>
+        <image name="b_call_clock" width="64" height="64"/>
+        <image name="b_next" width="64" height="64"/>
+        <image name="b_play_pause" width="64" height="64"/>
+        <image name="b_previous" width="64" height="64"/>
+        <image name="h_call_clock" width="64" height="64"/>
+        <image name="h_next" width="64" height="64"/>
+        <image name="h_play_pause" width="64" height="64"/>
+        <image name="h_previous" width="64" height="64"/>
         <image name="i_chip" width="64" height="64"/>
     </resources>
 </document>
