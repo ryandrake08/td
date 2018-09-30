@@ -610,6 +610,5 @@
         }
     ],
     "previous_blind_level_hold_duration": 2000,
-    "rebalance_policy": 1,
-    "background_color": "maroon"
+    "rebalance_policy": 1
 }

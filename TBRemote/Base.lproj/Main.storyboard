@@ -129,7 +129,6 @@
                                                             </constraints>
                                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                             <state key="normal" image="b_previous"/>
-                                                            <state key="highlighted" image="h_previous"/>
                                                             <connections>
                                                                 <action selector="previousRoundTapped:" destination="npP-K3-F9m" eventType="touchUpInside" id="End-8d-N10"/>
                                                             </connections>
@@ -142,7 +141,6 @@
                                                             </constraints>
                                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                             <state key="normal" image="b_play_pause"/>
-                                                            <state key="highlighted" image="h_play_pause"/>
                                                             <connections>
                                                                 <action selector="pauseResumeTapped:" destination="npP-K3-F9m" eventType="touchUpInside" id="2c7-FZ-gFH"/>
                                                             </connections>
@@ -155,7 +153,6 @@
                                                             </constraints>
                                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                             <state key="normal" image="b_next"/>
-                                                            <state key="highlighted" image="h_next"/>
                                                             <connections>
                                                                 <action selector="nextRoundTapped:" destination="npP-K3-F9m" eventType="touchUpInside" id="Tce-C8-oQH"/>
                                                             </connections>
@@ -168,7 +165,6 @@
                                                             </constraints>
                                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                             <state key="normal" image="b_call_clock"/>
-                                                            <state key="highlighted" image="h_call_clock"/>
                                                             <connections>
                                                                 <action selector="callClockTapped:" destination="npP-K3-F9m" eventType="touchUpInside" id="CNG-Cb-hIb"/>
                                                             </connections>
@@ -691,10 +687,6 @@
         <image name="b_previous" width="64" height="64"/>
         <image name="b_seat" width="64" height="64"/>
         <image name="b_table" width="64" height="64"/>
-        <image name="h_call_clock" width="64" height="64"/>
-        <image name="h_next" width="64" height="64"/>
-        <image name="h_play_pause" width="64" height="64"/>
-        <image name="h_previous" width="64" height="64"/>
         <image name="t_clock" width="32" height="32"/>
         <image name="t_connect" width="32" height="32"/>
         <image name="t_players" width="32" height="32"/>
