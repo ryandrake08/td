@@ -113,6 +113,7 @@ gameinfo::gameinfo() :
     payout_policy(td::payout_policy_t::automatic),
     previous_blind_level_hold_duration(2000),
     rebalance_policy(td::rebalance_policy_t::manual),
+    dirty(true),
     max_expected_players(0),
     tables(0),
     total_chips(0),
@@ -129,6 +130,9 @@ void gameinfo::validate()
     if(this->blind_levels.empty())
     {
         this->blind_levels.resize(1);
+
+        // set dirty
+        this->dirty = true;
     }
 }
 
@@ -145,32 +149,38 @@ void gameinfo::configure(const json& config)
 
     if(config.update_value("name", this->name))
     {
+        this->dirty = true;
         logger(ll::info) << "configuration changed: name -> " << this->name << '\n';
     }
 
     if(config.update_values("funding_sources", this->funding_sources))
     {
+        this->dirty = true;
         logger(ll::info) << "configuration changed: funding_sources -> " << this->funding_sources.size() << " sources\n";
     }
 
     if(config.update_value("previous_blind_level_hold_duration", this->previous_blind_level_hold_duration))
     {
+        this->dirty = true;
         logger(ll::info) << "configuration changed: previous_blind_level_hold_duration -> " << this->previous_blind_level_hold_duration << '\n';
     }
 
     // TODO: changing the rebalance policy could trigger an immediate rebalance. for now, we wait until the next bust-out
     if(config.update_enum_value("rebalance_policy", this->rebalance_policy))
     {
+        this->dirty = true;
         logger(ll::info) << "configuration changed: rebalance_policy -> " << this->rebalance_policy << '\n';
     }
 
     if(config.update_value("background_color", this->background_color))
     {
+        this->dirty = true;
         logger(ll::info) << "configuration changed: background_color -> " << this->background_color << '\n';
     }
 
     if(config.update_values("available_chips", this->available_chips))
     {
+        this->dirty = true;
         logger(ll::info) << "configuration changed: available_chips -> " << this->available_chips.size() << " chips\n";
 
         // always sort chips by denomination
@@ -183,6 +193,7 @@ void gameinfo::configure(const json& config)
 
     if(config.update_value("players", this->players))
     {
+        this->dirty = true;
         logger(ll::info) << "configuration changed: players -> " << this->players.size() << " players\n";
 
         if(!this->seats.empty() || !this->players_finished.empty() || !this->bust_history.empty() || !this->buyins.empty() || !this->unique_entries.empty() || !this->entries.empty())
@@ -194,6 +205,7 @@ void gameinfo::configure(const json& config)
     // changing the table capacity can cause a re-plan
     if(config.update_value("table_capacity", this->table_capacity))
     {
+        this->dirty = true;
         logger(ll::info) << "configuration changed: table_capacity -> " << this->table_capacity << '\n';
 
         if(!this->seats.empty())
@@ -214,6 +226,7 @@ void gameinfo::configure(const json& config)
     auto recalculate(false);
     if(config.update_enum_value("payout_policy", this->payout_policy))
     {
+        this->dirty = true;
         logger(ll::info) << "configuration changed: payout_policy -> " << this->payout_policy << '\n';
 
         recalculate = true;
@@ -221,6 +234,7 @@ void gameinfo::configure(const json& config)
 
     if(config.update_value("payout_currency", this->payout_currency))
     {
+        this->dirty = true;
         logger(ll::info) << "configuration changed: payout_currency -> " << this->payout_currency << '\n';
 
         recalculate = true;
@@ -228,6 +242,7 @@ void gameinfo::configure(const json& config)
 
     if(config.update_value("automatic_payouts", this->automatic_payouts))
     {
+        this->dirty = true;
         logger(ll::info) << "configuration changed: automatic_payouts -> (reconfigured)\n";
 
         recalculate = true;
@@ -235,6 +250,7 @@ void gameinfo::configure(const json& config)
 
     if(config.update_values("forced_payouts", this->forced_payouts))
     {
+        this->dirty = true;
         logger(ll::info) << "configuration changed: forced_payouts -> " << this->forced_payouts.size() << " forced payouts\n";
 
         recalculate = true;
@@ -242,6 +258,7 @@ void gameinfo::configure(const json& config)
 
     if(config.update_value("manual_payouts", this->manual_payouts))
     {
+        this->dirty = true;
         logger(ll::info) << "configuration changed: manual_payouts -> " << this->manual_payouts.size() << " manual payouts\n";
 
         recalculate = true;
@@ -256,6 +273,7 @@ void gameinfo::configure(const json& config)
     // stop the game when reconfiguring blind levels
     if(config.update_values("blind_levels", this->blind_levels))
     {
+        this->dirty = true;
         logger(ll::info) << "configuration changed: blind_levels -> " << this->blind_levels.size() << " blind levels\n";
 
         if(this->is_started())
@@ -266,6 +284,128 @@ void gameinfo::configure(const json& config)
     }
 
     validate();
+
+    // can also load state (useful for loading from snapshot)
+
+    if(config.get_values("seats", this->seats))
+    {
+        this->dirty = true;
+        logger(ll::info) << "state changed: seats -> " << this->seats.size() << "\n";
+    }
+
+    if(config.get_values("players_finished", this->players_finished))
+    {
+        this->dirty = true;
+        logger(ll::info) << "state changed: players_finished -> " << this->players_finished.size() << "\n";
+    }
+
+    if(config.get_values("bust_history", this->bust_history))
+    {
+        this->dirty = true;
+        logger(ll::info) << "state changed: bust_history -> " << this->bust_history.size() << "\n";
+    }
+
+    if(config.get_value("max_expected_players", this->max_expected_players))
+    {
+        this->dirty = true;
+        logger(ll::info) << "state changed: max_expected_players -> " << this->max_expected_players << "\n";
+    }
+
+    if(config.get_values("empty_seats", this->empty_seats))
+    {
+        this->dirty = true;
+        logger(ll::info) << "state changed: empty_seats -> " << this->empty_seats.size() << "\n";
+    }
+
+    if(config.get_value("tables", this->tables))
+    {
+        this->dirty = true;
+        logger(ll::info) << "state changed: tables -> " << this->tables << "\n";
+    }
+
+    if(config.get_values("buyins", this->buyins))
+    {
+        this->dirty = true;
+        logger(ll::info) << "state changed: buyins -> " << this->buyins.size() << "\n";
+    }
+
+    if(config.get_values("unique_entries", this->unique_entries))
+    {
+        this->dirty = true;
+        logger(ll::info) << "state changed: unique_entries -> " << this->unique_entries.size() << "\n";
+    }
+
+    if(config.get_values("entries", this->entries))
+    {
+        this->dirty = true;
+        logger(ll::info) << "state changed: entries -> " << this->entries.size() << "\n";
+    }
+
+    if(config.get_values("payouts", this->payouts))
+    {
+        this->dirty = true;
+        logger(ll::info) << "state changed: payouts -> " << this->payouts.size() << "\n";
+    }
+
+    if(config.get_value("total_chips", this->total_chips))
+    {
+        this->dirty = true;
+        logger(ll::info) << "state changed: total_chips -> " << this->total_chips << "\n";
+    }
+
+    if(config.get_values("total_cost", this->total_cost))
+    {
+        this->dirty = true;
+        logger(ll::info) << "state changed: total_cost -> " << this->total_cost.size() << "\n";
+    }
+
+    if(config.get_values("total_commission", this->total_commission))
+    {
+        this->dirty = true;
+        logger(ll::info) << "state changed: total_commission -> " << this->total_commission.size() << "\n";
+    }
+
+   if(config.get_value("total_equity", this->total_equity))
+    {
+        this->dirty = true;
+        logger(ll::info) << "state changed: total_equity -> " << this->total_equity << "\n";
+    }
+
+    if(config.get_value("current_blind_level", this->current_blind_level))
+    {
+        this->dirty = true;
+        logger(ll::info) << "state changed: current_blind_level -> " << this->current_blind_level << "\n";
+    }
+
+    if(config.get_value("end_of_round", this->end_of_round))
+    {
+        this->dirty = true;
+        logger(ll::info) << "state changed: end_of_round -> " << datetime(this->end_of_round) << "\n";
+    }
+
+    if(config.get_value("end_of_break", this->end_of_break))
+    {
+        this->dirty = true;
+        logger(ll::info) << "state changed: end_of_break -> " << datetime(this->end_of_break) << "\n";
+    }
+
+    if(config.get_value("end_of_action_clock", this->end_of_action_clock))
+    {
+        this->dirty = true;
+        logger(ll::info) << "state changed: end_of_action_clock -> " << datetime(this->end_of_action_clock) << "\n";
+    }
+
+    if(config.get_value("tournament_start", this->tournament_start))
+    {
+        this->dirty = true;
+        logger(ll::info) << "state changed: tournament_start -> " << datetime(this->tournament_start) << "\n";
+    }
+
+    if(config.get_value("paused_time", this->paused_time))
+    {
+        this->dirty = true;
+        logger(ll::info) << "state changed: paused_time -> " << datetime(this->paused_time) << "\n";
+    }
 }
 
 // dump configuration to JSON
@@ -563,8 +703,25 @@ void gameinfo::dump_derived_state(json& state) const
     state.set_value("seated_players", json(seated_players.begin(), seated_players.end()));
 }
 
+// has internal state been updated since last check?
+bool gameinfo::state_is_dirty()
+{
+    if(this->dirty)
+    {
+        this->dirty = false;
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
 void gameinfo::reset_seating()
 {
+    // set state dirty
+    this->dirty = true;
+
     // clear all seating and remove all empty seats
     this->seats.clear();
     this->empty_seats.clear();
@@ -617,6 +774,9 @@ std::size_t gameinfo::plan_seating(std::size_t max_expected)
     {
         throw td::protocol_error("table capacity must be at least 2");
     }
+
+    // set state dirty
+    this->dirty = true;
 
     // reset funding, game state, and seating
     this->stop();
@@ -690,6 +850,9 @@ std::pair<std::string, td::seat> gameinfo::add_player(const td::player_id_t& pla
     }
     else
     {
+        // set state dirty
+        this->dirty = true;
+
         // seat player and remove from empty list
         auto seat(this->empty_seats.front());
         this->seats.insert(std::make_pair(player_id, seat));
@@ -713,6 +876,9 @@ td::seat gameinfo::remove_player(const td::player_id_t& player_id)
         throw td::protocol_error("tried to remove player not seated");
     }
 
+    // set state dirty
+    this->dirty = true;
+
     // remove player and add seat to the end of the empty list
     auto seat(seat_it->second);
     this->empty_seats.push_back(seat);
@@ -729,6 +895,9 @@ std::vector<td::player_movement> gameinfo::bust_player(const td::player_id_t& pl
     {
         throw td::protocol_error("tried to bust player not bought in");
     }
+
+    // set state dirty
+    this->dirty = true;
 
     // remove the player
     this->remove_player(player_id);
@@ -840,6 +1009,9 @@ td::player_movement gameinfo::move_player(const td::player_id_t& player_id, std:
     // pick one at random
     auto index(std::uniform_int_distribution<std::size_t>(0, candidates.size()-1)(this->random_engine));
     auto to_seat_it(candidates[index]);
+
+    // set state dirty
+    this->dirty = true;
 
     // move player
     auto player_seat_it(this->seats.find(player_id));
@@ -976,6 +1148,9 @@ std::size_t gameinfo::try_break_table(std::vector<td::player_movement>& movement
                 ret++;
             }
 
+            // set state dirty
+            this->dirty = true;
+
             // decrement number of tables
             this->tables--;
 
@@ -1015,6 +1190,9 @@ void gameinfo::fund_player(const td::player_id_t& player_id, const td::funding_s
     }
 
     logger(ll::info) << "funding player " << this->player_description(player_id) << " with " << source.name << '\n';
+
+    // set state dirty
+    this->dirty = true;
 
     if(source.type == td::funding_source_type_t::buyin)
     {
@@ -1240,6 +1418,9 @@ void gameinfo::recalculate_payouts()
         {
             logger(ll::info) << "applying forced payout: " << this->forced_payouts.size() << " seats will be paid\n";
 
+            // set state dirty
+            this->dirty = true;
+
             // use the payout structure specified in forced_payouts
             this->payouts.resize(this->forced_payouts.size());
             std::transform(this->forced_payouts.begin(), this->forced_payouts.end(), this->payouts.begin(), [&](const td::monetary_value_nocurrency& c)
@@ -1262,6 +1443,9 @@ void gameinfo::recalculate_payouts()
         {
             logger(ll::info) << "applying manual payout for " << count_unique_entries << " players: " << manual_payout_it->second.size() << " seats will be paid\n";
 
+            // set state dirty
+            this->dirty = true;
+
             // use found payout structure
             this->payouts.resize(manual_payout_it->second.size());
             std::transform(manual_payout_it->second.begin(), manual_payout_it->second.end(), this->payouts.begin(), [&](const td::monetary_value_nocurrency& c)
@@ -1279,6 +1463,9 @@ void gameinfo::recalculate_payouts()
     {
         seats_paid = 1;
     }
+
+    // set state dirty
+    this->dirty = true;
 
     // resize our payout structure
     this->payouts.resize(seats_paid);
@@ -1360,6 +1547,9 @@ void gameinfo::reset_funding()
         throw td::protocol_error("cannot reset funding while tournament is running");
     }
 
+    // set state dirty
+    this->dirty = true;
+
     this->buyins.clear();
     this->unique_entries.clear();
     this->entries.clear();
@@ -1409,6 +1599,9 @@ void gameinfo::start_blind_level(std::size_t blind_level, duration_t offset)
         throw td::protocol_error("not enough blind levels configured");
     }
 
+    // set state dirty
+    this->dirty = true;
+
     this->current_blind_level = blind_level;
     duration_t blind_level_duration(this->blind_levels[this->current_blind_level].duration);
     duration_t time_remaining(blind_level_duration - offset);
@@ -1447,6 +1640,9 @@ void gameinfo::start()
     // start the blind level
     this->start_blind_level(1, duration_t::zero());
 
+    // set state dirty
+    this->dirty = true;
+
     // set tournament start time
     this->tournament_start = this->now();
 }
@@ -1465,6 +1661,9 @@ void gameinfo::start(const time_point_t& starttime)
 
     logger(ll::info) << "starting the tournament in the future:" << datetime(starttime) << '\n';
 
+    // set state dirty
+    this->dirty = true;
+
     // tournament is not started yet
     this->current_blind_level = 0;
     this->end_of_round = time_point_t();
@@ -1480,6 +1679,9 @@ void gameinfo::start(const time_point_t& starttime)
 void gameinfo::stop()
 {
     logger(ll::info) << "stopping the tournament\n";
+
+    // set state dirty
+    this->dirty = true;
 
     this->current_blind_level = 0;
     this->end_of_round = time_point_t();
@@ -1510,6 +1712,9 @@ void gameinfo::pause()
 
     logger(ll::info) << "pausing the tournament\n";
 
+    // set state dirty
+    this->dirty = true;
+
     // save time the clock was paused
     this->paused_time = this->now();
 }
@@ -1528,6 +1733,9 @@ void gameinfo::resume()
     }
 
     logger(ll::info) << "resuming the tournament\n";
+
+    // set state dirty
+    this->dirty = true;
 
     // increment end_of_xxx based on time elapsed since we paused
     auto now(this->now());
@@ -1616,6 +1824,9 @@ void gameinfo::set_action_clock(long duration)
 {
     if(this->end_of_action_clock == time_point_t())
     {
+        // set state dirty
+        this->dirty = true;
+
         this->end_of_action_clock = this->now() + duration_t(duration);
     }
     else
@@ -1627,6 +1838,9 @@ void gameinfo::set_action_clock(long duration)
 // reset the action clock
 void gameinfo::reset_action_clock()
 {
+    // set state dirty
+    this->dirty = true;
+
     this->end_of_action_clock = time_point_t();
 }
 

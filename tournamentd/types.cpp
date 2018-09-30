@@ -283,6 +283,15 @@ td::player json::value() const
 }
 
 template <>
+td::seat json::value() const
+{
+    td::seat ret;
+    this->get_value("table_number", ret.table_number);
+    this->get_value("seat_number", ret.seat_number);
+    return ret;
+}
+
+template <>
 td::manual_payout json::value() const
 {
     td::manual_payout ret;
@@ -305,6 +314,25 @@ template <>
 datetime json::value() const
 {
     return datetime::from_gm(this->value<std::string>());
+}
+
+template <>
+std::pair<td::player_id_t,td::seat> json::value() const
+{
+    std::pair<td::player_id_t,td::seat> ret;
+    this->get_value("player_id", ret.first);
+    this->get_value("table_number", ret.second.table_number);
+    this->get_value("seat_number", ret.second.seat_number);
+    return ret;
+}
+
+template <>
+std::pair<std::string,double> json::value() const
+{
+    std::pair<std::string,double> ret;
+    this->get_value("currency", ret.first);
+    this->get_value("amount", ret.second);
+    return ret;
 }
 
 // ----- construct json from object

@@ -5,8 +5,12 @@
 #include <algorithm>
 #include <cassert>
 #include <cstddef>
+#include <cstdlib>
+#include <cstdio>
+#include <fstream>
 #include <sstream>
 #include <stdexcept>
+#include <string>
 #include <system_error>
 #include <unordered_map>
 #include <unordered_set>
@@ -24,6 +28,9 @@ struct tournament::impl
 
     // accepted authorization codes
     std::unordered_map<int,td::authorized_client> game_auths;
+
+    // snapshot path
+    std::string snapshot_path;
 
     // ----- auth check
 
@@ -129,7 +136,7 @@ struct tournament::impl
             this->game_auths.clear();
             for(auto& auth : auths_vector)
             {
-                logger(ll::debug) << "Authorizing code " << auth.code << " named \"" << auth.name << "\"\n";
+                logger(ll::debug) << "authorizing code " << auth.code << " named \"" << auth.name << "\"\n";
                 this->game_auths.emplace(auth.code, auth);
             }
         }
@@ -941,6 +948,35 @@ struct tournament::impl
         return code;
     }
 
+public:
+    impl() : snapshot_path("/tmp/tournamentd.snapshot.json")
+    {
+        // look in environment for better temp dir
+        auto tmpdir(std::getenv("TMPDIR"));
+        if(tmpdir)
+        {
+            this->snapshot_path = std::string(tmpdir) + "/tournamentd.snapshot.json";
+        }
+
+        try
+        {
+            // try loading existing snapshot (to recover after accidental exits, crashes, etc.
+            this->load_configuration(this->snapshot_path);
+            logger(ll::info) << "loaded snapshot from " << this->snapshot_path << '\n';
+        }
+        catch(const std::runtime_error& e)
+        {
+            logger(ll::debug) << "did not load snapshot from " << this->snapshot_path << ": " << e.what() << '\n';
+        }
+    }
+
+    ~impl()
+    {
+        // remove any snapshot
+        std::remove(this->snapshot_path.c_str());
+        logger(ll::info) << "removed snapshot at " << this->snapshot_path << " because we are cleanly shutting down";
+    }
+
     // listen on both unix socket and inet
     std::pair<std::string, int> listen(const char* unix_socket_directory, int inet_socket_port)
     {
@@ -1005,7 +1041,27 @@ struct tournament::impl
         auto handler(std::bind(&tournament::impl::handle_client_input, this, std::placeholders::_1));
 
         // poll clients for commands, waiting at most 50ms
-        return this->game_server.poll(greeter, handler, 50000);
+        auto quit(this->game_server.poll(greeter, handler, 50000));
+
+        // snapshot if state is dirty
+        if(this->game_info.state_is_dirty())
+        {
+            logger(ll::info) << "saved snapshot to " << this->snapshot_path << '\n';
+
+            // try opening the file
+            std::ofstream snapshot_stream(this->snapshot_path);
+            if(snapshot_stream.good())
+            {
+                // get the snapshot (config + state)
+                json snapshot;
+                this->game_info.dump_configuration(snapshot);
+                this->game_info.dump_state(snapshot);
+                snapshot_stream << snapshot;
+            }
+        }
+
+        // return whether or not the server should quit
+        return quit;
     }
 };
 

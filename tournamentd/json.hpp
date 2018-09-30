@@ -1,6 +1,9 @@
 #pragma once
+#include <deque>
 #include <functional>
 #include <string>
+#include <unordered_map>
+#include <unordered_set>
 #include <vector>
 
 // Forward-declare
@@ -90,7 +93,7 @@ public:
         return false;
     }
 
-    // get collection for name, by way of intermediate json items, return whether json value exists for name
+    // get vector collection for name, by way of intermediate vector json items, return whether json value exists for name
     template <typename T>
     bool get_values(const char* name, std::vector<T>& values) const
     {
@@ -101,6 +104,59 @@ public:
             for(auto& item : array)
             {
                 values.push_back(item.value<T>());
+            }
+            return true;
+        }
+        return false;
+    }
+
+    // get deque collection for name, by way of intermediate vector json items, return whether json value exists for name
+    template <typename T>
+    bool get_values(const char* name, std::deque<T>& values) const
+    {
+        std::vector<T> new_values;
+        if(this->get_values(name, new_values))
+        {
+            values.clear();
+            for(auto& new_value : new_values)
+            {
+                values.push_back(new_value);
+            }
+            return true;
+        }
+        return false;
+    }
+
+    // get map collection for name, by way of intermediate vector of json items, return whether json value exists for name
+    template <typename K, typename V>
+    bool get_values(const char* name, std::unordered_map<K,V>& values) const
+    {
+        // read json into vector of manual_payout
+        std::vector<std::pair<K,V>> new_values;
+        if(this->get_values(name, new_values))
+        {
+            values.clear();
+            for(auto& new_value : new_values)
+            {
+                values.emplace(new_value.first, new_value.second);
+            }
+            return true;
+        }
+        return false;
+    }
+
+    // get map collection for name, by way of intermediate vector of json items, return whether json value exists for name
+    template <typename K>
+    bool get_values(const char* name, std::unordered_set<K>& values) const
+    {
+        // read json into vector of manual_payout
+        std::vector<K> new_values;
+        if(this->get_values(name, new_values))
+        {
+            values.clear();
+            for(auto& new_value : new_values)
+            {
+                values.emplace(new_value);
             }
             return true;
         }

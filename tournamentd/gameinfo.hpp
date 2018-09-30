@@ -61,6 +61,9 @@ class gameinfo
 
     // ----- state -----
 
+    // state is dirty
+    bool dirty;
+
     // players seated in the game
     std::unordered_map<td::player_id_t,td::seat> seats;
 
@@ -194,6 +197,9 @@ public:
 
     // calculate derived state and dump to JSON
     void dump_derived_state(json& state) const;
+
+    // has internal state been updated since last check?
+    bool state_is_dirty();
 
     // ----- seating -----
 
