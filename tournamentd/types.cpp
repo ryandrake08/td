@@ -224,7 +224,7 @@ td::blind_level json::value() const
     this->get_value("little_blind", ret.little_blind);
     this->get_value("big_blind", ret.big_blind);
     this->get_value("ante", ret.ante);
-    this->get_enum_value("ante_type", ret.ante_type);
+    this->get_value("ante_type", reinterpret_cast<int&>(ret.ante_type));
     this->get_value("duration", ret.duration);
     this->get_value("break_duration", ret.break_duration);
     this->get_value("reason", ret.reason);
@@ -263,7 +263,7 @@ td::funding_source json::value() const
 {
     td::funding_source ret;
     this->get_value("name", ret.name);
-    this->get_enum_value("type", ret.type);
+    this->get_value("type", reinterpret_cast<int&>(ret.type));
     this->get_value("forbid_after_blind_level", ret.forbid_after_blind_level);
     this->get_value("chips", ret.chips);
     this->get_value("cost", ret.cost);
@@ -296,7 +296,7 @@ td::manual_payout json::value() const
 {
     td::manual_payout ret;
     this->get_value("buyins_count", ret.buyins_count);
-    this->get_values("payouts", ret.payouts);
+    this->get_value("payouts", ret.payouts);
     return ret;
 }
 
@@ -314,6 +314,13 @@ template <>
 datetime json::value() const
 {
     return datetime::from_gm(this->value<std::string>());
+}
+
+template <>
+std::chrono::system_clock::time_point json::value() const
+{
+    std::chrono::milliseconds duration(this->value<long>());
+    return std::chrono::system_clock::time_point(duration);
 }
 
 template <>
@@ -376,7 +383,7 @@ json::json(const td::blind_level& value) : json()
         this->set_value("ante", value.ante);
     }
 
-    this->set_enum_value("ante_type", value.ante_type);
+    this->set_value("ante_type", static_cast<int>(value.ante_type));
 
     if(value.duration> 0)
     {
@@ -423,7 +430,7 @@ template<>
 json::json(const td::funding_source& value) : json()
 {
     this->set_value("name", value.name);
-    this->set_enum_value("type", value.type);
+    this->set_value("type", static_cast<int>(value.type));
     if(value.forbid_after_blind_level != std::numeric_limits<std::size_t>::max())
     {
         this->set_value("forbid_after_blind_level", value.forbid_after_blind_level);

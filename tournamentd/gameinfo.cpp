@@ -16,7 +16,7 @@ bool json::update_value(const char* name, std::unordered_map<td::player_id_t,td:
 {
     // read json into vector of players
     std::vector<td::player> new_values;
-    if(this->get_values(name, new_values))
+    if(this->get_value(name, new_values))
     {
         // check size first, if equal, deep compare
         if(values.size() == new_values.size())
@@ -64,7 +64,7 @@ bool json::update_value(const char* name, std::unordered_map<size_t, std::vector
 {
     // read json into vector of manual_payout
     std::vector<td::manual_payout> new_values;
-    if(this->get_values(name, new_values))
+    if(this->get_value(name, new_values))
     {
         // check size first, if equal, deep compare
         if(values.size() == new_values.size())
@@ -153,7 +153,7 @@ void gameinfo::configure(const json& config)
         logger(ll::info) << "configuration changed: name -> " << this->name << '\n';
     }
 
-    if(config.update_values("funding_sources", this->funding_sources))
+    if(config.update_value("funding_sources", this->funding_sources))
     {
         this->dirty = true;
         logger(ll::info) << "configuration changed: funding_sources -> " << this->funding_sources.size() << " sources\n";
@@ -166,7 +166,7 @@ void gameinfo::configure(const json& config)
     }
 
     // TODO: changing the rebalance policy could trigger an immediate rebalance. for now, we wait until the next bust-out
-    if(config.update_enum_value("rebalance_policy", this->rebalance_policy))
+    if(config.update_value("rebalance_policy", reinterpret_cast<int&>(this->rebalance_policy)))
     {
         this->dirty = true;
         logger(ll::info) << "configuration changed: rebalance_policy -> " << this->rebalance_policy << '\n';
@@ -178,7 +178,7 @@ void gameinfo::configure(const json& config)
         logger(ll::info) << "configuration changed: background_color -> " << this->background_color << '\n';
     }
 
-    if(config.update_values("available_chips", this->available_chips))
+    if(config.update_value("available_chips", this->available_chips))
     {
         this->dirty = true;
         logger(ll::info) << "configuration changed: available_chips -> " << this->available_chips.size() << " chips\n";
@@ -224,7 +224,7 @@ void gameinfo::configure(const json& config)
 
     // recalculate for any configuration that could alter payouts
     auto recalculate(false);
-    if(config.update_enum_value("payout_policy", this->payout_policy))
+    if(config.update_value("payout_policy", reinterpret_cast<int&>(this->payout_policy)))
     {
         this->dirty = true;
         logger(ll::info) << "configuration changed: payout_policy -> " << this->payout_policy << '\n';
@@ -248,7 +248,7 @@ void gameinfo::configure(const json& config)
         recalculate = true;
     }
 
-    if(config.update_values("forced_payouts", this->forced_payouts))
+    if(config.update_value("forced_payouts", this->forced_payouts))
     {
         this->dirty = true;
         logger(ll::info) << "configuration changed: forced_payouts -> " << this->forced_payouts.size() << " forced payouts\n";
@@ -271,7 +271,7 @@ void gameinfo::configure(const json& config)
     }
 
     // stop the game when reconfiguring blind levels
-    if(config.update_values("blind_levels", this->blind_levels))
+    if(config.update_value("blind_levels", this->blind_levels))
     {
         this->dirty = true;
         logger(ll::info) << "configuration changed: blind_levels -> " << this->blind_levels.size() << " blind levels\n";
@@ -287,19 +287,19 @@ void gameinfo::configure(const json& config)
 
     // can also load state (useful for loading from snapshot)
 
-    if(config.get_values("seats", this->seats))
+    if(config.get_value("seats", this->seats))
     {
         this->dirty = true;
         logger(ll::info) << "state changed: seats -> " << this->seats.size() << "\n";
     }
 
-    if(config.get_values("players_finished", this->players_finished))
+    if(config.get_value("players_finished", this->players_finished))
     {
         this->dirty = true;
         logger(ll::info) << "state changed: players_finished -> " << this->players_finished.size() << "\n";
     }
 
-    if(config.get_values("bust_history", this->bust_history))
+    if(config.get_value("bust_history", this->bust_history))
     {
         this->dirty = true;
         logger(ll::info) << "state changed: bust_history -> " << this->bust_history.size() << "\n";
@@ -311,7 +311,7 @@ void gameinfo::configure(const json& config)
         logger(ll::info) << "state changed: max_expected_players -> " << this->max_expected_players << "\n";
     }
 
-    if(config.get_values("empty_seats", this->empty_seats))
+    if(config.get_value("empty_seats", this->empty_seats))
     {
         this->dirty = true;
         logger(ll::info) << "state changed: empty_seats -> " << this->empty_seats.size() << "\n";
@@ -323,25 +323,25 @@ void gameinfo::configure(const json& config)
         logger(ll::info) << "state changed: tables -> " << this->tables << "\n";
     }
 
-    if(config.get_values("buyins", this->buyins))
+    if(config.get_value("buyins", this->buyins))
     {
         this->dirty = true;
         logger(ll::info) << "state changed: buyins -> " << this->buyins.size() << "\n";
     }
 
-    if(config.get_values("unique_entries", this->unique_entries))
+    if(config.get_value("unique_entries", this->unique_entries))
     {
         this->dirty = true;
         logger(ll::info) << "state changed: unique_entries -> " << this->unique_entries.size() << "\n";
     }
 
-    if(config.get_values("entries", this->entries))
+    if(config.get_value("entries", this->entries))
     {
         this->dirty = true;
         logger(ll::info) << "state changed: entries -> " << this->entries.size() << "\n";
     }
 
-    if(config.get_values("payouts", this->payouts))
+    if(config.get_value("payouts", this->payouts))
     {
         this->dirty = true;
         logger(ll::info) << "state changed: payouts -> " << this->payouts.size() << "\n";
@@ -353,13 +353,13 @@ void gameinfo::configure(const json& config)
         logger(ll::info) << "state changed: total_chips -> " << this->total_chips << "\n";
     }
 
-    if(config.get_values("total_cost", this->total_cost))
+    if(config.get_value("total_cost", this->total_cost))
     {
         this->dirty = true;
         logger(ll::info) << "state changed: total_cost -> " << this->total_cost.size() << "\n";
     }
 
-    if(config.get_values("total_commission", this->total_commission))
+    if(config.get_value("total_commission", this->total_commission))
     {
         this->dirty = true;
         logger(ll::info) << "state changed: total_commission -> " << this->total_commission.size() << "\n";
@@ -416,13 +416,13 @@ void gameinfo::dump_configuration(json& config) const
     config.set_value("name", this->name);
     config.set_value("players", json(this->players.begin(), this->players.end()));
     config.set_value("table_capacity", this->table_capacity);
-    config.set_enum_value("payout_policy",this->payout_policy);
+    config.set_value("payout_policy", static_cast<int>(this->payout_policy));
     config.set_value("payout_currency", this->payout_currency);
     config.set_value("automatic_payouts", this->automatic_payouts);
     config.set_value("forced_payouts", json(this->forced_payouts.begin(), this->forced_payouts.end()));
     config.set_value("manual_payouts", json(this->manual_payouts.begin(), this->manual_payouts.end()));
     config.set_value("previous_blind_level_hold_duration", this->previous_blind_level_hold_duration);
-    config.set_enum_value("rebalance_policy", this->rebalance_policy);
+    config.set_value("rebalance_policy", static_cast<int>(this->rebalance_policy));
     config.set_value("background_color", this->background_color);
     config.set_value("funding_sources", json(this->funding_sources.begin(), this->funding_sources.end()));
     config.set_value("blind_levels", json(this->blind_levels.begin(), this->blind_levels.end()));

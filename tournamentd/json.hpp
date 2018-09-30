@@ -61,41 +61,15 @@ public:
     template <typename T>
     T value() const;
 
-    // return whether json value exists for name
-    bool get_value(const char* name) const;
-
     // get json value for name, return whether json value exists for name
     bool get_value(const char* name, json& value) const;
 
-    // get value for name by way of an intermediate json item, return whether json value exists for name
-    template <typename T>
-    bool get_value(const char* name, T& value) const
-    {
-        json item;
-        if(this->get_value(name, item))
-        {
-            value = item.value<T>();
-            return true;
-        }
-        return false;
-    }
-
-    // get an enum value for name, by casting to int, return whether json value exists for name
-    template <typename T>
-    bool get_enum_value(const char* name, T& value) const
-    {
-        json item;
-        if(this->get_value(name, item))
-        {
-            reinterpret_cast<int&>(value) = item.value<int>();
-            return true;
-        }
-        return false;
-    }
+    // get json vector for name, return whether json value exists for name
+    bool get_value(const char* name, std::vector<json>& value) const;
 
     // get vector collection for name, by way of intermediate vector json items, return whether json value exists for name
     template <typename T>
-    bool get_values(const char* name, std::vector<T>& values) const
+    bool get_value(const char* name, std::vector<T>& values) const
     {
         std::vector<json> array;
         if(this->get_value(name, array))
@@ -112,10 +86,10 @@ public:
 
     // get deque collection for name, by way of intermediate vector json items, return whether json value exists for name
     template <typename T>
-    bool get_values(const char* name, std::deque<T>& values) const
+    bool get_value(const char* name, std::deque<T>& values) const
     {
         std::vector<T> new_values;
-        if(this->get_values(name, new_values))
+        if(this->get_value(name, new_values))
         {
             values.clear();
             for(auto& new_value : new_values)
@@ -129,11 +103,11 @@ public:
 
     // get map collection for name, by way of intermediate vector of json items, return whether json value exists for name
     template <typename K, typename V>
-    bool get_values(const char* name, std::unordered_map<K,V>& values) const
+    bool get_value(const char* name, std::unordered_map<K,V>& values) const
     {
         // read json into vector of manual_payout
         std::vector<std::pair<K,V>> new_values;
-        if(this->get_values(name, new_values))
+        if(this->get_value(name, new_values))
         {
             values.clear();
             for(auto& new_value : new_values)
@@ -147,17 +121,30 @@ public:
 
     // get map collection for name, by way of intermediate vector of json items, return whether json value exists for name
     template <typename K>
-    bool get_values(const char* name, std::unordered_set<K>& values) const
+    bool get_value(const char* name, std::unordered_set<K>& values) const
     {
         // read json into vector of manual_payout
         std::vector<K> new_values;
-        if(this->get_values(name, new_values))
+        if(this->get_value(name, new_values))
         {
             values.clear();
             for(auto& new_value : new_values)
             {
                 values.emplace(new_value);
             }
+            return true;
+        }
+        return false;
+    }
+
+    // get value for name by way of an intermediate json item, return whether json value exists for name
+    template <typename T>
+    bool get_value(const char* name, T& value) const
+    {
+        json item;
+        if(this->get_value(name, item))
+        {
+            value = item.value<T>();
             return true;
         }
         return false;
@@ -170,53 +157,9 @@ public:
         T new_value;
         if(this->get_value(name, new_value))
         {
-            if(value == new_value)
-            {
-                return false;
-            }
-            else
+            if(!(value == new_value))
             {
                 value = new_value;
-                return true;
-            }
-        }
-        return false;
-    }
-
-    // get an enum value for name, by casting to int, return whether value both exists and differs from existing value
-    template <typename T>
-    bool update_enum_value(const char* name, T& value) const
-    {
-        T new_value;
-        if(this->get_enum_value(name, new_value))
-        {
-            if(value == new_value)
-            {
-                return false;
-            }
-            else
-            {
-                value = new_value;
-                return true;
-            }
-        }
-        return false;
-    }
-
-    // get collection for name, by way of intermediate json items, return whether value both exists and differs from existing value
-    template <typename T>
-    bool update_values(const char* name, std::vector<T>& values) const
-    {
-        std::vector<T> new_values;
-        if(this->get_values(name, new_values))
-        {
-            if(values == new_values)
-            {
-                return false;
-            }
-            else
-            {
-                values = new_values;
                 return true;
             }
         }
@@ -224,20 +167,13 @@ public:
     }
 
     // set json value for name
-    void set_json_value(const char* name, const json& value);
+    void set_value(const char* name, const json& value);
 
     // set value for name
     template <typename T>
     void set_value(const char* name, const T& value)
     {
-        set_json_value(name, json(value));
-    }
-
-    // set value for name
-    template <typename T>
-    void set_enum_value(const char* name, const T& value)
-    {
-        set_json_value(name, json(static_cast<int>(value)));
+        set_value(name, json(value));
     }
 
     // true if json is null or is an empty object

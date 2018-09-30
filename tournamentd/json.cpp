@@ -3,14 +3,12 @@
 #include "cJSON/cJSON.h"
 #include <algorithm>
 #include <cstring>
-#include <deque>
 #include <fstream>
 #include <limits>
 #include <memory>
 #include <stdexcept>
 #include <streambuf>
 #include <string>
-#include <unordered_set>
 #include <vector>
 
 // Verify valid ptr
@@ -340,36 +338,7 @@ bool json::value() const
     }
 }
 
-template <>
-std::chrono::system_clock::time_point json::value() const
-{
-    ensure_type(check(this->ptr), cJSON_Number);
-    std::chrono::milliseconds duration(this->ptr->valueint);
-    return std::chrono::system_clock::time_point(duration);
-}
-
-template <>
-std::vector<json> json::value() const
-{
-    ensure_type(check(this->ptr), cJSON_Array);
-    std::vector<json> ret;
-    for(int i=0; i<cJSON_GetArraySize(this->ptr); i++)
-    {
-        auto item(cJSON_GetArrayItem(this->ptr, i));
-        if(item == nullptr)
-        {
-            throw std::out_of_range("array item does not exist: " + std::to_string(i));
-        }
-        ret.push_back(json(cJSON_Duplicate(item, 1)));
-    }
-    return ret;
-}
-
-// Generic JSON getter
-bool json::get_value(const char* name) const
-{
-    return cJSON_GetObjectItem(check(this->ptr), name) != nullptr;
-}
+// Named getters
 
 // Generic JSON getter
 bool json::get_value(const char* name, json& value) const
@@ -383,8 +352,30 @@ bool json::get_value(const char* name, json& value) const
     return false;
 }
 
+// Generic JSON getter
+bool json::get_value(const char* name, std::vector<json>& value) const
+{
+    auto array(cJSON_GetObjectItem(check(this->ptr), name));
+    if(array != nullptr)
+    {
+        ensure_type(array, cJSON_Array);
+        value.clear();
+        for(int i=0; i<cJSON_GetArraySize(array); i++)
+        {
+            auto item(cJSON_GetArrayItem(array, i));
+            if(item == nullptr)
+            {
+                throw std::out_of_range("array item does not exist: " + std::to_string(i));
+            }
+            value.push_back(json(cJSON_Duplicate(item, 1)));
+        }
+        return true;
+    }
+    return false;
+}
+
 // Set json value for name
-void json::set_json_value(const char* name, const json& value)
+void json::set_value(const char* name, const json& value)
 {
     cJSON_AddItemToObject(check(this->ptr), name, cJSON_Duplicate(value.ptr, 1));
 }
