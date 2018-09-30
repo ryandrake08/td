@@ -39,9 +39,6 @@
 
 @interface TournamentSession : NSObject
 
-// cache the current tournament service, in order to reconnect
-@property (nonatomic, strong) TournamentService* currentTournamentService;
-
 // tournament state from session
 @property (nonatomic, strong, readonly) NSMutableDictionary* state;
 
