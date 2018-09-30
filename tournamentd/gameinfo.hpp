@@ -130,9 +130,6 @@ class gameinfo
     // get current time
     static time_point_t now();
 
-    // calculate derived state and dump to JSON
-    void dump_derived_state(json& state) const;
-
     // utility: return a description of a player, by id
     const std::string player_description(const td::player_id_t& player_id) const;
 
@@ -191,6 +188,12 @@ public:
 
     // dump state to JSON
     void dump_state(json& state) const;
+
+    // some configuration gets sent to clients along with state, dump to JSON
+    void dump_configuration_state(json& state) const;
+
+    // calculate derived state and dump to JSON
+    void dump_derived_state(json& state) const;
 
     // ----- seating -----
 

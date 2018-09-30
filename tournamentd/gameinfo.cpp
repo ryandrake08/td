@@ -294,10 +294,6 @@ void gameinfo::dump_state(json& state) const
 {
     logger(ll::debug) << "dumping tournament state\n";
 
-    state.set_value("name", this->name);
-    state.set_value("background_color", this->background_color);
-    state.set_value("funding_sources", json(this->funding_sources.begin(), this->funding_sources.end()));
-    state.set_value("available_chips", json(this->available_chips.begin(), this->available_chips.end()));
     state.set_value("seats", json(this->seats.begin(), this->seats.end()));
     state.set_value("players_finished", json(this->players_finished.begin(), this->players_finished.end()));
     state.set_value("bust_history", json(this->bust_history.begin(), this->bust_history.end()));
@@ -312,9 +308,23 @@ void gameinfo::dump_state(json& state) const
     state.set_value("total_cost", json(this->total_cost.begin(), this->total_cost.end()));
     state.set_value("total_commission", json(this->total_commission.begin(), this->total_commission.end()));
     state.set_value("total_equity", this->total_equity);
-    state.set_value("running", this->end_of_break != time_point_t() && !this->is_paused());
     state.set_value("current_blind_level", this->current_blind_level);
-    this->dump_derived_state(state);
+    state.set_value("end_of_round", this->end_of_round);
+    state.set_value("end_of_break", this->end_of_break);
+    state.set_value("end_of_action_clock", this->end_of_action_clock);
+    state.set_value("tournament_start", this->tournament_start);
+    state.set_value("paused_time", this->paused_time);
+}
+
+// some configuration gets sent to clients along with state, dump to JSON
+void gameinfo::dump_configuration_state(json &state) const
+{
+    logger(ll::debug) << "dumping tournament configuration state\n";
+
+    state.set_value("name", this->name);
+    state.set_value("background_color", this->background_color);
+    state.set_value("funding_sources", json(this->funding_sources.begin(), this->funding_sources.end()));
+    state.set_value("available_chips", json(this->available_chips.begin(), this->available_chips.end()));
 }
 
 // blind level to string
@@ -355,11 +365,12 @@ static std::ostream& operator<<(std::ostream& os, const td::funding_source& src)
 // calculate derived state and dump to JSON
 void gameinfo::dump_derived_state(json& state) const
 {
+    logger(ll::debug) << "dumping tournament derived state\n";
+
     auto now(this->now());
 
     // set current time (for synchronization)
-    auto current_time(std::chrono::duration_cast<duration_t>(now.time_since_epoch()));
-    state.set_value("current_time", current_time.count());
+    state.set_value("current_time", now);
 
     // set elapsed_time if we are past the tournament start
     if(this->tournament_start != time_point_t() && this->tournament_start < now)
@@ -378,6 +389,9 @@ void gameinfo::dump_derived_state(json& state) const
     {
         state.set_value("action_clock_time_remaining", 0);
     }
+
+    // set running (vs paused)
+    state.set_value("running", this->end_of_break != time_point_t() && !this->is_paused());
 
     std::ostringstream os;
     os.imbue(std::locale(""));

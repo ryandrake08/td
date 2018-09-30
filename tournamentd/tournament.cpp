@@ -51,7 +51,9 @@ struct tournament::impl
     void broadcast_state() const
     {
         json bcast;
-        game_info.dump_state(bcast);
+        this->game_info.dump_state(bcast);
+        this->game_info.dump_configuration_state(bcast);
+        this->game_info.dump_derived_state(bcast);
         this->game_server.broadcast(bcast.print());
     }
 
@@ -74,6 +76,8 @@ struct tournament::impl
     void handle_cmd_get_state(json& out) const
     {
         this->game_info.dump_state(out);
+        this->game_info.dump_configuration_state(out);
+        this->game_info.dump_derived_state(out);
     }
 
     void handle_cmd_check_authorized(const json& in, json& out) const
