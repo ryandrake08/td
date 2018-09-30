@@ -20,7 +20,7 @@
                     <connections>
                         <segue destination="y9X-XM-a2y" kind="relationship" relationship="viewControllers" id="oVb-pc-UVW"/>
                         <segue destination="GHW-y1-xaO" kind="relationship" relationship="viewControllers" id="PfU-qY-s83"/>
-                        <segue destination="npP-K3-F9m" kind="relationship" relationship="viewControllers" id="ybM-TD-2l9"/>
+                        <segue destination="Wgh-Ms-U2n" kind="relationship" relationship="viewControllers" id="W3Z-qg-3ox"/>
                         <segue destination="V3a-tx-XLb" kind="relationship" relationship="viewControllers" id="2fF-hI-4vq"/>
                     </connections>
                 </tabBarController>
@@ -99,9 +99,26 @@
             </objects>
             <point key="canvasLocation" x="-2055" y="-75"/>
         </scene>
+        <!--Remote Clock Navigation-->
+        <scene sceneID="Nkx-NE-cNt">
+            <objects>
+                <navigationController navigationBarHidden="YES" id="Wgh-Ms-U2n" userLabel="Remote Clock Navigation" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Clock" image="t_clock" id="FLs-tP-U97"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="oC1-ET-6Rf">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="npP-K3-F9m" kind="relationship" relationship="rootViewController" id="h3g-uV-VKO"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VOk-vi-doS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-3054" y="613"/>
+        </scene>
         <!--Remote Clock-->
         <scene sceneID="54L-L6-6mf">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fZR-tR-VJS" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController definesPresentationContext="YES" id="npP-K3-F9m" userLabel="Remote Clock" customClass="TBRemoteClockViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" sectionFooterHeight="-1" id="xJm-8v-Hwa">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
@@ -378,7 +395,7 @@
                             <outlet property="delegate" destination="npP-K3-F9m" id="bMH-bF-IMh"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Clock" image="t_clock" id="IZo-rZ-VbQ" userLabel="Clock"/>
+                    <navigationItem key="navigationItem" id="a01-3s-MZ6"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="averageStackLabel" destination="XNj-02-a9q" id="z7p-U2-pz8"/>
@@ -397,9 +414,8 @@
                         <segue destination="KPD-fd-iAQ" kind="presentation" identifier="presentActionClockView" modalTransitionStyle="flipHorizontal" id="pp9-zk-Hwi"/>
                     </connections>
                 </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="fZR-tR-VJS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3054.375" y="620.07042253521126"/>
+            <point key="canvasLocation" x="-2059" y="613"/>
         </scene>
         <!--Action Clock-->
         <scene sceneID="2dU-Hq-Xf1">
@@ -450,7 +466,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-2055" y="622"/>
+            <point key="canvasLocation" x="-1059" y="614"/>
         </scene>
         <!--Seating Navigation-->
         <scene sceneID="1gd-b5-tkH">
