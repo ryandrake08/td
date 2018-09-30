@@ -216,3 +216,9 @@ namespace td
         bool operator==(const automatic_payout_parameters& other) const;
     };
 }
+
+// stream insertion
+std::ostream& operator<<(std::ostream& os, const td::funding_source_type_t& value);
+std::ostream& operator<<(std::ostream& os, const td::payout_policy_t& value);
+std::ostream& operator<<(std::ostream& os, const td::rebalance_policy_t& value);
+std::ostream& operator<<(std::ostream& os, const td::ante_type_t& value);

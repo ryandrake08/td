@@ -4,6 +4,54 @@
 
 // ----- initialization
 
+// funding_source_type_t to stream
+std::ostream& operator<<(std::ostream& os, const td::funding_source_type_t& value)
+{
+    switch(value)
+    {
+        case td::funding_source_type_t::buyin: os << "buyin"; break;
+        case td::funding_source_type_t::rebuy: os << "rebuy"; break;
+        case td::funding_source_type_t::addon: os << "addon"; break;
+    }
+    return os;
+}
+
+// funding_source_type_t to stream
+std::ostream& operator<<(std::ostream& os, const td::payout_policy_t& value)
+{
+    switch(value)
+    {
+        case td::payout_policy_t::automatic: os << "automatic"; break;
+        case td::payout_policy_t::forced: os << "forced"; break;
+        case td::payout_policy_t::manual: os << "manual"; break;
+    }
+    return os;
+}
+
+// rebalance_policy_t to stream
+std::ostream& operator<<(std::ostream& os, const td::rebalance_policy_t& value)
+{
+    switch(value)
+    {
+        case td::rebalance_policy_t::manual: os << "manual"; break;
+        case td::rebalance_policy_t::automatic: os << "automatic"; break;
+        case td::rebalance_policy_t::shootout: os << "shootout"; break;
+    }
+    return os;
+}
+
+// ante_type_t to stream
+std::ostream& operator<<(std::ostream& os, const td::ante_type_t& value)
+{
+    switch(value)
+    {
+        case td::ante_type_t::none: os << "none"; break;
+        case td::ante_type_t::traditional: os << "traditional"; break;
+        case td::ante_type_t::bba: os << "bba"; break;
+    }
+    return os;
+}
+
 td::authorized_client::authorized_client() : code(0), added_at(datetime::now())
 {
 }

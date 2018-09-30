@@ -143,15 +143,36 @@ void gameinfo::configure(const json& config)
 {
     logger(ll::info) << "loading tournament configuration\n";
 
-    config.update_value("name", this->name);
-    config.update_values("funding_sources", this->funding_sources);
-    config.update_value("previous_blind_level_hold_duration", this->previous_blind_level_hold_duration);
+    if(config.update_value("name", this->name))
+    {
+        logger(ll::info) << "configuration changed: name -> " << this->name << '\n';
+    }
+
+    if(config.update_values("funding_sources", this->funding_sources))
+    {
+        logger(ll::info) << "configuration changed: funding_sources -> " << this->funding_sources.size() << " sources\n";
+    }
+
+    if(config.update_value("previous_blind_level_hold_duration", this->previous_blind_level_hold_duration))
+    {
+        logger(ll::info) << "configuration changed: previous_blind_level_hold_duration -> " << this->previous_blind_level_hold_duration << '\n';
+    }
+
     // TODO: changing the rebalance policy could trigger an immediate rebalance. for now, we wait until the next bust-out
-    config.update_enum_value("rebalance_policy", this->rebalance_policy);
-    config.update_value("background_color", this->background_color);
+    if(config.update_enum_value("rebalance_policy", this->rebalance_policy))
+    {
+        logger(ll::info) << "configuration changed: rebalance_policy -> " << this->rebalance_policy << '\n';
+    }
+
+    if(config.update_value("background_color", this->background_color))
+    {
+        logger(ll::info) << "configuration changed: background_color -> " << this->background_color << '\n';
+    }
 
     if(config.update_values("available_chips", this->available_chips))
     {
+        logger(ll::info) << "configuration changed: available_chips -> " << this->available_chips.size() << " chips\n";
+
         // always sort chips by denomination
         std::sort(this->available_chips.begin(), this->available_chips.end(),
                   [](const td::chip& c0, const td::chip& c1)
@@ -162,6 +183,8 @@ void gameinfo::configure(const json& config)
 
     if(config.update_value("players", this->players))
     {
+        logger(ll::info) << "configuration changed: players -> " << this->players.size() << " players\n";
+
         if(!this->seats.empty() || !this->players_finished.empty() || !this->bust_history.empty() || !this->buyins.empty() || !this->unique_entries.empty() || !this->entries.empty())
         {
             logger(ll::warning) << "re-coniguring players list while in play is not advised, deleted players may still be in the game\n";
@@ -171,6 +194,8 @@ void gameinfo::configure(const json& config)
     // changing the table capacity can cause a re-plan
     if(config.update_value("table_capacity", this->table_capacity))
     {
+        logger(ll::info) << "configuration changed: table_capacity -> " << this->table_capacity << '\n';
+
         if(!this->seats.empty())
         {
             logger(ll::warning) << "re-configuring table capacity will clear seating plan\n";
@@ -189,26 +214,36 @@ void gameinfo::configure(const json& config)
     auto recalculate(false);
     if(config.update_enum_value("payout_policy", this->payout_policy))
     {
+        logger(ll::info) << "configuration changed: payout_policy -> " << this->payout_policy << '\n';
+
         recalculate = true;
     }
 
     if(config.update_value("payout_currency", this->payout_currency))
     {
+        logger(ll::info) << "configuration changed: payout_currency -> " << this->payout_currency << '\n';
+
         recalculate = true;
     }
 
     if(config.update_value("automatic_payouts", this->automatic_payouts))
     {
+        logger(ll::info) << "configuration changed: automatic_payouts -> (reconfigured)\n";
+
         recalculate = true;
     }
 
     if(config.update_values("forced_payouts", this->forced_payouts))
     {
+        logger(ll::info) << "configuration changed: forced_payouts -> " << this->forced_payouts.size() << " forced payouts\n";
+
         recalculate = true;
     }
 
     if(config.update_value("manual_payouts", this->manual_payouts))
     {
+        logger(ll::info) << "configuration changed: manual_payouts -> " << this->manual_payouts.size() << " manual payouts\n";
+
         recalculate = true;
     }
 
@@ -221,6 +256,8 @@ void gameinfo::configure(const json& config)
     // stop the game when reconfiguring blind levels
     if(config.update_values("blind_levels", this->blind_levels))
     {
+        logger(ll::info) << "configuration changed: blind_levels -> " << this->blind_levels.size() << " blind levels\n";
+
         if(this->is_started())
         {
             logger(ll::warning) << "re-configuring blind levels while in play will stop the game\n";
