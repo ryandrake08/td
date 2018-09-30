@@ -51,6 +51,13 @@ void server::listen(const char* unix_socket_path, const char* inet_service)
     }
 }
 
+// close client connection
+void server::close(const common_socket& sock)
+{
+    this->pimpl->clients.erase(sock);
+    this->pimpl->all.erase(sock);
+}
+
 // poll the server with given timeout
 bool server::poll(const std::function<bool(std::ostream&)>& handle_new_client, const std::function<bool(std::iostream&)>& handle_client, long usec)
 {
@@ -85,24 +92,27 @@ bool server::poll(const std::function<bool(std::ostream&)>& handle_new_client, c
             // handle client i/o
             socketstream ss(*sock);
             auto in_avail(ss.rdbuf()->in_avail());
-            while(in_avail > 0)
+            while(in_avail > 0 && ss.good())
             {
-                if(handle_client(ss) || !ss.good())
+                if(handle_client(ss))
                 {
-                    logger(ll::debug) << "closing client connection\n";
-                    this->pimpl->clients.erase(*sock);
-                    this->pimpl->all.erase(*sock);
+                    logger(ll::info) << "closing client connection gracefully\n";
+                    this->close(*sock);
                 }
 
                 // keep checking until no pending io
                 in_avail = ss.rdbuf()->in_avail();
             }
 
-            if(in_avail < 0)
+            if(!ss.good())
             {
-                logger(ll::debug) << "in_avail < 0, client likely disconnected\n";
-                this->pimpl->clients.erase(*sock);
-                this->pimpl->all.erase(*sock);
+                logger(ll::info) << "closing client connection: stream error\n";
+                this->close(*sock);
+            }
+            else if(in_avail < 0)
+            {
+                logger(ll::info) << "closing client connection: no input available\n";
+                this->close(*sock);
             }
         }
     }

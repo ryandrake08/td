@@ -4,11 +4,16 @@
 #include <memory>
 #include <string>
 
+class common_socket;
+
 class server
 {
     // pimpl
     struct impl;
     std::unique_ptr<impl> pimpl;
+
+    // close client connection
+    void close(const common_socket& sock);
 
 public:
     server();
