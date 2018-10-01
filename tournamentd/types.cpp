@@ -189,17 +189,17 @@ td::seated_player::seated_player(const player_id_t& p, const std::string& n, boo
 {
 }
 
-td::automatic_payout_parameters::automatic_payout_parameters() : percent_seats_paid(0.0), round_payouts(false), payout_shape(0.0)
+td::automatic_payout_parameters::automatic_payout_parameters() : percent_seats_paid(0.0), round_payouts(false), payout_shape(0.0), pay_the_bubble(0.0), pay_knockouts(0.0)
 {
 }
 
-td::automatic_payout_parameters::automatic_payout_parameters(double percent_paid, bool round, double shape) : percent_seats_paid(percent_paid), round_payouts(round), payout_shape(shape)
+td::automatic_payout_parameters::automatic_payout_parameters(double percent_paid, bool round, double shape, double bubble, double knockouts) : percent_seats_paid(percent_paid), round_payouts(round), payout_shape(shape), pay_the_bubble(bubble), pay_knockouts(knockouts)
 {
 }
 
 bool td::automatic_payout_parameters::operator==(const automatic_payout_parameters& other) const
 {
-    return this->percent_seats_paid == other.percent_seats_paid && this->round_payouts == other.round_payouts && this->payout_shape == other.payout_shape;
+    return this->percent_seats_paid == other.percent_seats_paid && this->round_payouts == other.round_payouts && this->payout_shape == other.payout_shape && this->pay_the_bubble == other.pay_the_bubble && this->pay_knockouts == other.pay_knockouts;
 }
 
 #include "json.hpp"
@@ -307,6 +307,8 @@ td::automatic_payout_parameters json::value() const
     this->get_value("percent_seats_paid", ret.percent_seats_paid);
     this->get_value("round_payouts", ret.round_payouts);
     this->get_value("payout_shape", ret.payout_shape);
+    this->get_value("pay_the_bubble", ret.pay_the_bubble);
+    this->get_value("pay_knockouts", ret.pay_knockouts);
     return ret;
 }
 
@@ -538,4 +540,6 @@ json::json(const td::automatic_payout_parameters& value) : json()
     this->set_value("percent_seats_paid", value.percent_seats_paid);
     this->set_value("round_payouts", value.round_payouts);
     this->set_value("payout_shape", value.payout_shape);
+    this->set_value("pay_the_bubble", value.pay_the_bubble);
+    this->set_value("pay_knockouts", value.pay_knockouts);
 }

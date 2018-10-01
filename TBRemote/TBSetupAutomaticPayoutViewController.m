@@ -38,7 +38,14 @@
     } else if([[(TBKVOTableViewCell*)cell keyPath] isEqualToString:@"automatic_payouts.payout_shape"]) {
         TBPayoutShapeNumberFormatter* shapeFormatter = [[TBPayoutShapeNumberFormatter alloc] init];
         [(TBFormattedKVOTableViewCell*)cell setFormatter:shapeFormatter];
+    } else if([[(TBKVOTableViewCell*)cell keyPath] isEqualToString:@"automatic_payouts.pay_the_bubble"]) {
+        NSNumberFormatter* numberFormatter = [[NSNumberFormatter alloc] init];
+        [(TBFormattedKVOTableViewCell*)cell setFormatter:numberFormatter];
+    } else if([[(TBKVOTableViewCell*)cell keyPath] isEqualToString:@"automatic_payouts.pay_knockouts"]) {
+        NSNumberFormatter* numberFormatter = [[NSNumberFormatter alloc] init];
+        [(TBFormattedKVOTableViewCell*)cell setFormatter:numberFormatter];
     }
+
     [(TBKVOTableViewCell*)cell setObject:[self configuration]];
 
     return cell;

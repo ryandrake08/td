@@ -1487,6 +1487,7 @@ void gameinfo::recalculate_payouts()
     }
 
     logger(ll::info) << "recalculating " << (round ? "" : "and rounding ") << "payouts for " << count_unique_entries << " players: " << this->automatic_payouts.percent_seats_paid * 100 << "% (" << seats_paid << " seats) will be paid. payout shape: " << shape << "\n";
+    logger(ll::info) << "setting asiude " << this->automatic_payouts.pay_the_bubble << " for the bubble and " << this->automatic_payouts.pay_knockouts << " for each knockout\n";
 
     // exponent for harmonic series = shape/(shape-1), or 0 -> 0, 0.5 -> -1, 1 -> -inf
     double f;
@@ -1508,12 +1509,16 @@ void gameinfo::recalculate_payouts()
         total += c;
     }
 
+    // total equity, minus set-asides for bubble and knockouts
+    auto knockout_budget(this->automatic_payouts.pay_knockouts * (this->unique_entries.size() - 1));
+    auto total_available(this->total_equity - this->automatic_payouts.pay_the_bubble - knockout_budget);
+
     // next, loop through again generating payouts
     if(round)
     {
         std::transform(comp.begin(), comp.end(), this->payouts.begin(), [&](double c)
         {
-            double amount(std::round(this->total_equity * c / total));
+            double amount(std::round(total_available * c / total));
             return td::monetary_value(amount, this->payout_currency);
         });
 
@@ -1524,7 +1529,7 @@ void gameinfo::recalculate_payouts()
         }));
 
         // remainder (either positive or negative) adjusts first place
-        auto remainder(this->total_equity - total_allocated_payout);
+        auto remainder(total_available - total_allocated_payout);
         this->payouts[0].amount += remainder;
     }
     else
@@ -1534,6 +1539,12 @@ void gameinfo::recalculate_payouts()
             double amount(this->total_equity * c / total);
             return td::monetary_value(amount, this->payout_currency);
         });
+    }
+
+    // if we're paying the bubble, add it last
+    if(this->automatic_payouts.pay_the_bubble > 0.0)
+    {
+        this->payouts.push_back(td::monetary_value(this->automatic_payouts.pay_the_bubble, this->payout_currency));
     }
 }
 

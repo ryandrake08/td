@@ -209,8 +209,14 @@ namespace td
         // configuration: automatic payouts: payout structure shape
         double payout_shape;
 
+        // configuration: automatic payouts: how much to pay the bubble
+        double pay_the_bubble;
+
+        // configuration: automatic payouts: how much to set aside for each knockout
+        double pay_knockouts;
+
         automatic_payout_parameters();
-        automatic_payout_parameters(double percent_paid, bool round, double shape);
+        automatic_payout_parameters(double percent_paid, bool round, double shape, double bubble, double knockouts);
 
         // equality
         bool operator==(const automatic_payout_parameters& other) const;
