@@ -10,7 +10,8 @@
 
 @interface AppDelegate ()
 
-@property (nonatomic, strong) NSObject* activity;
+@property (nonatomic, strong) NSObject* idleSystemSleepDisabledActivity;
+@property (nonatomic, strong) NSObject* displaySleepDisabledActivity;
 
 @end
 
@@ -26,13 +27,21 @@
 
 - (void)applicationDidResignActive:(NSNotification *)aNotification {
     if ([[NSProcessInfo processInfo] respondsToSelector:@selector(beginActivityWithOptions:reason:)]) {
-        [self setActivity:[[NSProcessInfo processInfo] beginActivityWithOptions:NSActivityIdleSystemSleepDisabled reason:@"need to continue timer in the background"]];
+        [self setIdleSystemSleepDisabledActivity:[[NSProcessInfo processInfo] beginActivityWithOptions:NSActivityIdleSystemSleepDisabled reason:@"need to continue timer in the background"]];
+    }
+
+    if ([[NSProcessInfo processInfo] respondsToSelector:@selector(endActivity:)] && [self displaySleepDisabledActivity ]) {
+        [[NSProcessInfo processInfo] endActivity:[self displaySleepDisabledActivity]];
     }
 }
 
 - (void)applicationDidBecomeActive:(NSNotification *)aNotification {
-    if ([[NSProcessInfo processInfo] respondsToSelector:@selector(endActivity:)]) {
-        [[NSProcessInfo processInfo] endActivity:[self activity]];
+    if ([[NSProcessInfo processInfo] respondsToSelector:@selector(endActivity:)] && [self idleSystemSleepDisabledActivity]) {
+        [[NSProcessInfo processInfo] endActivity:[self idleSystemSleepDisabledActivity]];
+    }
+
+    if ([[NSProcessInfo processInfo] respondsToSelector:@selector(beginActivityWithOptions:reason:)]) {
+        [self setDisplaySleepDisabledActivity:[[NSProcessInfo processInfo] beginActivityWithOptions:NSActivityIdleDisplaySleepDisabled reason:@"need to keep clock on screen even when application is idle"]];
     }
 }
 

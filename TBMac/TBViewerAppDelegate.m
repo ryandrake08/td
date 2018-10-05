@@ -23,6 +23,9 @@
 // a tournament broswer
 @property (nonatomic, strong) IBOutlet TournamentBrowser* browser;
 
+// activity to keep display from sleeping
+@property (nonatomic, strong) NSObject* displaySleepDisabledActivity;
+
 @end
 
 @implementation TBViewerAppDelegate
@@ -44,6 +47,18 @@
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
     // Insert code here to tear down your application
+}
+
+- (void)applicationDidResignActive:(NSNotification *)aNotification {
+    if ([[NSProcessInfo processInfo] respondsToSelector:@selector(endActivity:)] && [self displaySleepDisabledActivity ]) {
+        [[NSProcessInfo processInfo] endActivity:[self displaySleepDisabledActivity]];
+    }
+}
+
+- (void)applicationDidBecomeActive:(NSNotification *)aNotification {
+    if ([[NSProcessInfo processInfo] respondsToSelector:@selector(beginActivityWithOptions:reason:)]) {
+        [self setDisplaySleepDisabledActivity:[[NSProcessInfo processInfo] beginActivityWithOptions:NSActivityIdleDisplaySleepDisabled reason:@"need to keep clock on screen even when application is idle"]];
+    }
 }
 
 - (void)updateMenuWithBrowser:(TournamentBrowser*)browser {
