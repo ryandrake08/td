@@ -70,12 +70,24 @@
     if([[self arrangedObjects] count] > 1) {
         // base new round on final round x 2
         NSDictionary* last = [[self arrangedObjects] lastObject];
-        game_name = last[@"game_name"];
-        little_blind = @([last[@"little_blind"] intValue] * 2);
-        big_blind = @([last[@"big_blind"] intValue] * 2);
-        ante = @([last[@"ante"] intValue] * 2);
-        ante_type = last[@"ante_type"];
-        duration = last[@"duration"];
+        if(last[@"game_name"] != nil) {
+            game_name = last[@"game_name"];
+        }
+        if(last[@"little_blind"] != nil) {
+            little_blind = @([last[@"little_blind"] intValue] * 2);
+        }
+        if(last[@"big_blind"] != nil) {
+            big_blind = @([last[@"big_blind"] intValue] * 2);
+        }
+        if(last[@"ante"] != nil) {
+            ante = @([last[@"ante"] intValue] * 2);
+        }
+        if(last[@"ante_type"] != nil) {
+            ante_type = last[@"ante_type"];
+        }
+        if(last[@"duration"] != nil) {
+            duration = last[@"duration"];
+        }
     }
 
     return [@{@"game_name":game_name, @"little_blind":little_blind, @"big_blind":big_blind, @"ante":ante, @"ante_type":ante_type, @"duration":duration} mutableCopy];
