@@ -26,7 +26,7 @@
 
 @implementation TBRemoteWatchDelegate
 
-- (instancetype)initWithSession:(TournamentSession *)session {
+- (instancetype)initWithSession:(TournamentSession *)session API_AVAILABLE(ios(9.0)) {
     if((self = [super init])) {
         if([WCSession isSupported]) {
             // set the tournament session
@@ -76,7 +76,7 @@
     return self;
 }
 
-- (void)sendCachedStateFromTimer:(NSTimer*)timer {
+- (void)sendCachedStateFromTimer:(NSTimer*)timer API_AVAILABLE(ios(9.0)) {
     WCSession* wcSession = [WCSession defaultSession];
     if([wcSession isReachable] && [[self cachedState] count] > 0) {
         // send
@@ -87,7 +87,7 @@
     }
 }
 
-- (void)handleCommand:(NSString*)command {
+- (void)handleCommand:(NSString*)command API_AVAILABLE(ios(9.0)) {
     if(command) {
         NSLog(@"Command received from watch: %@", command);
 
@@ -140,7 +140,7 @@
 
 #pragma mark WCSessionDelegate
 
-- (void)session:(WCSession*)wcSession didReceiveMessage:(NSDictionary<NSString*,id>*)message {
+- (void)session:(WCSession*)wcSession didReceiveMessage:(NSDictionary<NSString*,id>*)message API_AVAILABLE(ios(9.0)) {
     [self performSelectorOnMainThread:@selector(handleCommand:) withObject:message[@"command"] waitUntilDone:NO];
 }
 

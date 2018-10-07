@@ -127,11 +127,11 @@
         // get current background color
         TBColor* color = [[observer view] backgroundColor];
 
-        // Set text label appearance to a complementary color
-        if([[UILabel class] respondsToSelector:@selector(appearanceWhenContainedIn:)]) {
-            [[UILabel appearanceWhenContainedIn:[TBRemoteClockViewController class], nil] setTextColor:[color contrastTextColor]];
-        } else {
+        // Set text label appearance to a complementary color.
+        if(@available(iOS 9, *)) {
             [[UILabel appearanceWhenContainedInInstancesOfClasses:@[[TBRemoteClockViewController class]]] setTextColor:[color contrastTextColor]];
+        } else {
+            [[UILabel appearanceWhenContainedIn:[TBRemoteClockViewController class], nil] setTextColor:[color contrastTextColor]];
         }
 
         // store background mode

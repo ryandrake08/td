@@ -75,8 +75,10 @@
         NSLog(@"Received notification while app not running");
     }
 
-    // Watch delegate
-    [self setWatchDelegate:[[TBRemoteWatchDelegate alloc] initWithSession:[self session]]];
+    // Watch delegate (iOS9+)
+    if(@available(iOS 9.0, *)) {
+        [self setWatchDelegate:[[TBRemoteWatchDelegate alloc] initWithSession:[self session]]];
+    }
 
     return YES;
 }
@@ -223,7 +225,7 @@
         [localNotification setFireDate:[NSDate dateWithTimeIntervalSinceNow:interval]];
         [localNotification setAlertBody:alertBody];
         [localNotification setSoundName:soundName];
-        if([localNotification respondsToSelector:@selector(setAlertTitle:)]) {
+        if(@available(iOS 8.2, *)) {
             [localNotification setAlertTitle:alertTitle];
         }
         NSLog(@"Creating new notification:%@ for %@", [localNotification alertBody], [localNotification fireDate]);

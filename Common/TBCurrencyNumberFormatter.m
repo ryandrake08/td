@@ -41,7 +41,7 @@
 
 + (NSString*)defaultCurrencyCode {
     // pick a default currency based on user's configured locale
-    NSString* code = [[NSLocale currentLocale] currencyCode];
+    NSString* code = [[NSLocale currentLocale] objectForKey:NSLocaleCurrencyCode];
     if([[[self class] supportedCodes] containsObject:code]) {
         return code;
     } else {
@@ -59,7 +59,7 @@
                 name = NSLocalizedString(@"Bucks", @"Special custom currency type");
             } else if([code isEqualToString:@"XPT"]) {
                 name = NSLocalizedString(@"Points", @"Special custom currency type");
-            } else if([[NSLocale currentLocale] respondsToSelector:@selector(localizedStringForCurrencyCode:)]) {
+            } else if(@available(iOS 10.0, macOS 10.12, *)) {
                 name = [[NSLocale currentLocale] localizedStringForCurrencyCode:code];
             } else if([code isEqualToString:@"USD"]) {
                 name = NSLocalizedString(@"US Dollar", @"Currency name");

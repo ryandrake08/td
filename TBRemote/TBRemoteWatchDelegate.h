@@ -12,6 +12,6 @@
 @interface TBRemoteWatchDelegate : NSObject
 
 // Initialize this object to communicate with a supported watch
-- (instancetype)initWithSession:(TournamentSession*)session;
+- (instancetype)initWithSession:(TournamentSession*)session API_AVAILABLE(ios(9.0));
 
 @end
