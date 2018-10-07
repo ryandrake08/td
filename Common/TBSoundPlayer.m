@@ -75,7 +75,6 @@
         id new = change[NSKeyValueChangeNewKey];
         if(![old isEqual:[NSNull null]] && ![new isEqual:[NSNull null]]) {
             if([old integerValue] > kAudioWarningTime && [new integerValue] <= kAudioWarningTime && [new integerValue] != 0) {
-                // time crosses kAudioWarningTime
                 [[self warningSound] play];
             }
         }

@@ -9,6 +9,8 @@
 #import "TBAppDelegate.h"
 #import "NSObject+FBKVOController.h"
 #import "TBRemoteWatchDelegate.h"
+#import "TBUserNotificationDelegate.h"
+#import "TBNotificationAttributes.h"
 #import "TBSettingsViewController.h"
 #import "TournamentSession.h"
 #import "UIResponder+PresentingErrors.h"
@@ -16,6 +18,7 @@
 @interface TBAppDelegate () <TournamentSessionDelegate>
 
 @property (nonatomic, strong) TBRemoteWatchDelegate* watchDelegate;
+@property (nonatomic, strong) TBUserNotificationDelegate* notificationDelegate;
 
 // Background task keeps server running for some time while in the background
 @property (nonatomic, assign)UIBackgroundTaskIdentifier backgroundTask;
@@ -63,16 +66,16 @@
     }
 #endif
 
-    // Register local notifications
-    if([UIApplication instancesRespondToSelector:@selector(registerUserNotificationSettings:)]) {
+    // Notification delegate (iOS10+)
+    if(@available(iOS 10.0, *)) {
+        [self setNotificationDelegate:[[TBUserNotificationDelegate alloc] initWithHandler:^{
+            // switch to clock tab when notification happens
+            [[self rootViewController] setSelectedIndex:2];
+        }]];
+    } else if([UIApplication instancesRespondToSelector:@selector(registerUserNotificationSettings:)]) {
+        // old-style UILocalNotification
         UIUserNotificationSettings* settings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeSound categories:nil];
         [application registerUserNotificationSettings:settings];
-    }
-
-    // Handle launching from a notification
-    UILocalNotification* localNotification = launchOptions[UIApplicationLaunchOptionsLocalNotificationKey];
-    if(localNotification) {
-        NSLog(@"Received notification while app not running");
     }
 
     // Watch delegate (iOS9+)
@@ -160,76 +163,29 @@
 #pragma mark Notification
 
 - (void)updateNotificationsForSessionState:(NSDictionary*)state {
-    // relevant session variables
-    BOOL running = [state[@"running"] boolValue];
-    NSInteger timeRemaining = [state[@"time_remaining"] integerValue];
-    NSInteger breakTimeRemaining = [state[@"break_time_remaining"] integerValue];
-    NSString* nextRoundText = state[@"next_round_text"];
+    // get notification attributes based on timer state
+    TBNotificationAttributes* attributes = [[TBNotificationAttributes alloc] initWithTournamentState:state warningTime:kAudioWarningTime];
+ 
+    if(@available(iOS 10.0, *)) {
+        [[self notificationDelegate] setNotificationAttributes:attributes];
+    } else {
+        // old-style UILocalNotification
+        [[UIApplication sharedApplication] cancelAllLocalNotifications];
 
-    // first, cancel
-    [[UIApplication sharedApplication] cancelAllLocalNotifications];
-
-    // schedule new notification if the clock is running
-    if(running && (timeRemaining > 0 || breakTimeRemaining > 0)) {
-        // use a date components formatter
-        NSDateComponentsFormatter* formatter = [[NSDateComponentsFormatter alloc] init];
-        [formatter setAllowedUnits:NSCalendarUnitHour | NSCalendarUnitMinute];
-        [formatter setIncludesApproximationPhrase:NO];
-        [formatter setIncludesTimeRemainingPhrase:YES];
-        [formatter setMaximumUnitCount:2];
-        [formatter setUnitsStyle:NSDateComponentsFormatterUnitsStyleSpellOut];
-        [formatter setFormattingContext:NSFormattingContextBeginningOfSentence];
-
-        NSTimeInterval interval = 0.0;
-        NSString* alertBody;
-        NSString* alertTitle;
-        NSString* soundName;
-
-        // five possible notifications
-        if(timeRemaining > kAudioWarningTime) {
-            // more than one minute of play left in round
-            interval = (timeRemaining - kAudioWarningTime) / 1000.0;
-            soundName = @"s_warning.caf";
-            alertBody = [NSString localizedStringWithFormat:@"%@ in this round.", [formatter stringFromTimeInterval:kAudioWarningTime/1000.0]];
-            alertTitle = NSLocalizedString(@"Warning", nil);
-        } else if(timeRemaining > 0 && breakTimeRemaining > 0) {
-            // less than one minute of play left in round with break coming up
-            interval = timeRemaining / 1000.0;
-            soundName = @"s_break.caf";
-            alertBody = [NSString localizedStringWithFormat:@"Players are now on break. %@.", [formatter stringFromTimeInterval:breakTimeRemaining/1000.0]];
-            alertTitle = NSLocalizedString(@"Break time", nil);
-        } else if(timeRemaining > 0) {
-            // less than one minute of play left in round and new round coming up
-            interval = timeRemaining / 1000.0;
-            soundName = @"s_next.caf";
-            alertBody = [NSString localizedStringWithFormat:@"New round: %@.", nextRoundText];
-            alertTitle = [nextRoundText copy];
-        } else if(breakTimeRemaining > kAudioWarningTime) {
-            // more than one minute left in break
-            interval = (breakTimeRemaining - kAudioWarningTime) / 1000.0;
-            soundName = @"s_warning.caf";
-            alertBody = [NSString localizedStringWithFormat:@"%@ until next round.", [formatter stringFromTimeInterval:kAudioWarningTime/1000.0]];
-            alertTitle = NSLocalizedString(@"Warning", nil);
-        } else if(breakTimeRemaining > 0) {
-            // less than one minute left in break
-            interval = breakTimeRemaining / 1000.0;
-            soundName = @"s_next.caf";
-            alertBody = [NSString localizedStringWithFormat:@"New round: %@.", nextRoundText];
-            alertTitle = [nextRoundText copy];
+        if(([attributes title] != nil) && ([attributes body] != nil) && ([attributes soundName] != nil) && ([attributes date] != nil)) {
+            // create and schedule old-style local notification
+            UILocalNotification* localNotification = [[UILocalNotification alloc] init];
+            if(@available(iOS 8.2, *)) {
+                [localNotification setAlertTitle:[attributes title]];
+            }
+            [localNotification setAlertBody:[attributes body]];
+            [localNotification setSoundName:[attributes soundName]];
+            [localNotification setTimeZone:[NSTimeZone localTimeZone]];
+            [localNotification setFireDate:[attributes date]];
+            [localNotification setAlertAction:NSLocalizedString(@"Show timer", @"Launch app and show tournament timer")];
+            NSLog(@"Creating new notification:%@ for %@", [localNotification alertBody], [localNotification fireDate]);
+            [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
         }
-
-        // create and schedule local notification
-        UILocalNotification* localNotification = [[UILocalNotification alloc] init];
-        [localNotification setTimeZone:[NSTimeZone localTimeZone]];
-        [localNotification setAlertAction:NSLocalizedString(@"Show timer", @"Launch app and show tournament timer")];
-        [localNotification setFireDate:[NSDate dateWithTimeIntervalSinceNow:interval]];
-        [localNotification setAlertBody:alertBody];
-        [localNotification setSoundName:soundName];
-        if(@available(iOS 8.2, *)) {
-            [localNotification setAlertTitle:alertTitle];
-        }
-        NSLog(@"Creating new notification:%@ for %@", [localNotification alertBody], [localNotification fireDate]);
-        [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
     }
 }
 

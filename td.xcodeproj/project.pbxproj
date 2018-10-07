@@ -144,6 +144,12 @@
 		946EAFB52013440F00BD57DE /* i_piranha_44x58.png in Resources */ = {isa = PBXBuildFile; fileRef = 946EAFB0201343FC00BD57DE /* i_piranha_44x58.png */; };
 		946EAFB62013440F00BD57DE /* i_piranha_64x64.png in Resources */ = {isa = PBXBuildFile; fileRef = 946EAFB2201343FD00BD57DE /* i_piranha_64x64.png */; };
 		946EAFB72013440F00BD57DE /* i_piranha_320x320.png in Resources */ = {isa = PBXBuildFile; fileRef = 946EAFB3201343FD00BD57DE /* i_piranha_320x320.png */; };
+		946F7577216A793B00E9B8CF /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 946F7576216A793A00E9B8CF /* UserNotifications.framework */; };
+		946F7578216A794300E9B8CF /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 946F7576216A793A00E9B8CF /* UserNotifications.framework */; };
+		946F757B216A7CF400E9B8CF /* TBUserNotificationDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 946F757A216A7CF400E9B8CF /* TBUserNotificationDelegate.m */; };
+		946F757C216A7CF400E9B8CF /* TBUserNotificationDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 946F757A216A7CF400E9B8CF /* TBUserNotificationDelegate.m */; };
+		946F757D216A7CF400E9B8CF /* TBUserNotificationDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 946F757A216A7CF400E9B8CF /* TBUserNotificationDelegate.m */; };
+		946F757E216A7CF400E9B8CF /* TBUserNotificationDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 946F757A216A7CF400E9B8CF /* TBUserNotificationDelegate.m */; };
 		9471B3ED1FF87EFF000A314C /* TBActionClockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CDDD221FE39299008ADF24 /* TBActionClockViewController.m */; };
 		9471B3F01FF8A950000A314C /* TBActionClockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9471B3EF1FF8A947000A314C /* TBActionClockViewController.m */; };
 		9471B3F11FF8A950000A314C /* TBActionClockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9471B3EF1FF8A947000A314C /* TBActionClockViewController.m */; };
@@ -271,6 +277,10 @@
 		94E6F18A2011B6230054D94F /* WatchConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E6F1892011B6230054D94F /* WatchConnectivity.framework */; };
 		94E6F18B2011B6310054D94F /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E6F1872011B61A0054D94F /* AudioToolbox.framework */; };
 		94E6F18C2011B6360054D94F /* WatchConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E6F1892011B6230054D94F /* WatchConnectivity.framework */; };
+		94E77A07216A860B0037FA67 /* TBNotificationAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E77A06216A860B0037FA67 /* TBNotificationAttributes.m */; };
+		94E77A08216A860B0037FA67 /* TBNotificationAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E77A06216A860B0037FA67 /* TBNotificationAttributes.m */; };
+		94E77A09216A860B0037FA67 /* TBNotificationAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E77A06216A860B0037FA67 /* TBNotificationAttributes.m */; };
+		94E77A0A216A860B0037FA67 /* TBNotificationAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E77A06216A860B0037FA67 /* TBNotificationAttributes.m */; };
 		94ED00111B76E1E6003CF19B /* TBTableSeatNumberTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 94ED00101B76E1E6003CF19B /* TBTableSeatNumberTransformer.m */; };
 		94F466271B8AF203009BB648 /* TBCurrencyCodeTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F466261B8AF203009BB648 /* TBCurrencyCodeTransformer.m */; };
 		94F51CAE1BC96F53007AD1DD /* TBTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F51CAD1BC96F53007AD1DD /* TBTableViewController.m */; };
@@ -768,6 +778,9 @@
 		946EAFB1201343FD00BD57DE /* i_piranha_22x29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = i_piranha_22x29.png; sourceTree = "<group>"; };
 		946EAFB2201343FD00BD57DE /* i_piranha_64x64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = i_piranha_64x64.png; sourceTree = "<group>"; };
 		946EAFB3201343FD00BD57DE /* i_piranha_320x320.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = i_piranha_320x320.png; sourceTree = "<group>"; };
+		946F7576216A793A00E9B8CF /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.0.sdk/System/Library/Frameworks/UserNotifications.framework; sourceTree = DEVELOPER_DIR; };
+		946F7579216A7CF400E9B8CF /* TBUserNotificationDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBUserNotificationDelegate.h; sourceTree = "<group>"; };
+		946F757A216A7CF400E9B8CF /* TBUserNotificationDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TBUserNotificationDelegate.m; sourceTree = "<group>"; };
 		9471B3EE1FF8A947000A314C /* TBActionClockViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBActionClockViewController.h; path = TBMac/TBActionClockViewController.h; sourceTree = "<group>"; };
 		9471B3EF1FF8A947000A314C /* TBActionClockViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TBActionClockViewController.m; path = TBMac/TBActionClockViewController.m; sourceTree = "<group>"; };
 		9471B3F21FF8BEF1000A314C /* TBActionClockSegue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TBActionClockSegue.h; path = TBMac/TBActionClockSegue.h; sourceTree = "<group>"; };
@@ -882,6 +895,8 @@
 		94E6F1822011B5B30054D94F /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		94E6F1872011B61A0054D94F /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.2.sdk/System/Library/Frameworks/AudioToolbox.framework; sourceTree = DEVELOPER_DIR; };
 		94E6F1892011B6230054D94F /* WatchConnectivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchConnectivity.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.2.sdk/System/Library/Frameworks/WatchConnectivity.framework; sourceTree = DEVELOPER_DIR; };
+		94E77A05216A860B0037FA67 /* TBNotificationAttributes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBNotificationAttributes.h; sourceTree = "<group>"; };
+		94E77A06216A860B0037FA67 /* TBNotificationAttributes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TBNotificationAttributes.m; sourceTree = "<group>"; };
 		94ED000F1B76E1E6003CF19B /* TBTableSeatNumberTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBTableSeatNumberTransformer.h; sourceTree = "<group>"; };
 		94ED00101B76E1E6003CF19B /* TBTableSeatNumberTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBTableSeatNumberTransformer.m; sourceTree = "<group>"; };
 		94F466251B8AF203009BB648 /* TBCurrencyCodeTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBCurrencyCodeTransformer.h; sourceTree = "<group>"; };
@@ -1057,6 +1072,7 @@
 				9457DABF1FE6AB0F0047DF29 /* CoreGraphics.framework in Frameworks */,
 				94C95AFF201AEDBF00400CFC /* MessageUI.framework in Frameworks */,
 				9457DABD1FE6AAF60047DF29 /* UIKit.framework in Frameworks */,
+				946F7578216A794300E9B8CF /* UserNotifications.framework in Frameworks */,
 				94E6F18A2011B6230054D94F /* WatchConnectivity.framework in Frameworks */,
 				9464EC2B1FDC3042009092A4 /* libcJSON_iOS.a in Frameworks */,
 			);
@@ -1110,6 +1126,7 @@
 				94C95AFE201AEDA900400CFC /* MessageUI.framework in Frameworks */,
 				94983378205E021300DE6F33 /* QuartzCore.framework in Frameworks */,
 				9457DAC51FE6AB400047DF29 /* UIKit.framework in Frameworks */,
+				946F7577216A793B00E9B8CF /* UserNotifications.framework in Frameworks */,
 				94E6F18C2011B6360054D94F /* WatchConnectivity.framework in Frameworks */,
 				9464EC281FDC3036009092A4 /* libcJSON_iOS.a in Frameworks */,
 			);
@@ -1343,6 +1360,8 @@
 				94647186200CAA9C00556467 /* TBInvertImage.h */,
 				94647187200CAA9C00556467 /* TBInvertImage.c */,
 				ADB3D19B1BC996C500A9AFFA /* TBNotifications.h */,
+				94E77A05216A860B0037FA67 /* TBNotificationAttributes.h */,
+				94E77A06216A860B0037FA67 /* TBNotificationAttributes.m */,
 				94A7FCBF2027E69B006AD3FC /* TBPayoutPolicyNumberFormatter.h */,
 				94A7FCC02027E69B006AD3FC /* TBPayoutPolicyNumberFormatter.m */,
 				945D83922032459E00DFE032 /* TBPayoutShapeNumberFormatter.h */,
@@ -1355,6 +1374,8 @@
 				942B84DF200DA00C001F8EEB /* TBSoundPlayer.m */,
 				94ED000F1B76E1E6003CF19B /* TBTableSeatNumberTransformer.h */,
 				94ED00101B76E1E6003CF19B /* TBTableSeatNumberTransformer.m */,
+				946F7579216A7CF400E9B8CF /* TBUserNotificationDelegate.h */,
+				946F757A216A7CF400E9B8CF /* TBUserNotificationDelegate.m */,
 				943970161B3F9DB700BB0413 /* TournamentBrowser.h */,
 				943970171B3F9DB700BB0413 /* TournamentBrowser.m */,
 				9476F47C1B3C3EA700A158F8 /* TournamentConnection.h */,
@@ -1378,6 +1399,7 @@
 		AD51C5341AFFC9210084B25E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				946F7576216A793A00E9B8CF /* UserNotifications.framework */,
 				94983377205E021300DE6F33 /* QuartzCore.framework */,
 				94C95AFD201AEDA800400CFC /* MessageUI.framework */,
 				94E6F1892011B6230054D94F /* WatchConnectivity.framework */,
@@ -2019,10 +2041,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				946F757C216A7CF400E9B8CF /* TBUserNotificationDelegate.m in Sources */,
 				94FDEAE61B5AE2D60026B25D /* CFStreamCreatePairWithUnixSocket.c in Sources */,
 				9471B3F01FF8A950000A314C /* TBActionClockViewController.m in Sources */,
 				94C2DA6B200D1306001B95B8 /* TBInvertableImageView.m in Sources */,
 				94CDDD341FE3B349008ADF24 /* TBColor+ContrastTextColor.m in Sources */,
+				94E77A08216A860B0037FA67 /* TBNotificationAttributes.m in Sources */,
 				943B00D41B3F429500CE55D4 /* server.cpp in Sources */,
 				94C2DA75200D184D001B95B8 /* TBImage+Inverted.m in Sources */,
 				AD75ACEF1BA3FEEA00705967 /* TBEllipseImageView.m in Sources */,
@@ -2146,9 +2170,11 @@
 				949D70A21B3C441F008D5CD1 /* socket.cpp in Sources */,
 				AD9ED3E91B90949000C10550 /* TBPlayerSeatingViewController.m in Sources */,
 				949D709C1B3C440E008D5CD1 /* gameinfo.cpp in Sources */,
+				94E77A0A216A860B0037FA67 /* TBNotificationAttributes.m in Sources */,
 				94FDEAFB1B5AEB0B0026B25D /* TBActionClockView.m in Sources */,
 				94BB5FFB1B7F9F1600B33929 /* NSString+CamelCase.m in Sources */,
 				94FDEAEA1B5AE2D60026B25D /* FBKVOController.m in Sources */,
+				946F757E216A7CF400E9B8CF /* TBUserNotificationDelegate.m in Sources */,
 				94C2DA68200D0D33001B95B8 /* TBGraphics.m in Sources */,
 				9476F4A31B3C3EA700A158F8 /* TournamentConnection.m in Sources */,
 				949D709B1B3C440E008D5CD1 /* datetime.cpp in Sources */,
@@ -2191,6 +2217,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9490B41D209D1415007F528D /* TBSetupRoundsDetailsViewController.m in Sources */,
+				94E77A07216A860B0037FA67 /* TBNotificationAttributes.m in Sources */,
 				AD98D9651A7B331A00DA6B8B /* TBSetupFundingViewController.m in Sources */,
 				94C97042203A14B30055A28C /* TBPopoverSegue.m in Sources */,
 				949D70971B3C440D008D5CD1 /* json.cpp in Sources */,
@@ -2220,6 +2247,7 @@
 				949D70961B3C440D008D5CD1 /* gameinfo.cpp in Sources */,
 				94D7290920032C42009EC463 /* TBPlanViewController.m in Sources */,
 				94562E661B65D8CA0017C692 /* TBColorValueTransformer.m in Sources */,
+				946F757B216A7CF400E9B8CF /* TBUserNotificationDelegate.m in Sources */,
 				94FDEAE51B5AE2D60026B25D /* CFStreamCreatePairWithUnixSocket.c in Sources */,
 				94FDEAEB1B5AE2D60026B25D /* NSData+Delimiter.m in Sources */,
 				94562E691B65D8CA0017C692 /* TBDurationNumberFormatter.m in Sources */,
@@ -2330,6 +2358,7 @@
 				ADF635F21BAB8AF800D019AE /* TBEllipseView.m in Sources */,
 				ADF635F31BAB8AF800D019AE /* TBRemoteClockViewController.m in Sources */,
 				9457DAB81FE695AC0047DF29 /* TBInvertableButton_iOS.m in Sources */,
+				946F757D216A7CF400E9B8CF /* TBUserNotificationDelegate.m in Sources */,
 				AD6256F61BB4525A00EE776A /* TBAuthCodeNumberFormatter.m in Sources */,
 				ADF635F51BAB8AF800D019AE /* TournamentSession.m in Sources */,
 				94C2DA67200D0D33001B95B8 /* TBGraphics.m in Sources */,
@@ -2349,6 +2378,7 @@
 				ADD2CC4E1BB3C73900DE3DE5 /* TBSetupFundingViewController.m in Sources */,
 				AD6256A51BB44D8000EE776A /* TBSetupDetailsChipsViewController.m in Sources */,
 				AD6256F31BB44E1100EE776A /* TBSetupDetailsDevicesViewController.m in Sources */,
+				94E77A09216A860B0037FA67 /* TBNotificationAttributes.m in Sources */,
 				94C9703B203A09800055A28C /* TBFundingSourceFormatter.m in Sources */,
 				ADF635FF1BAB8AF800D019AE /* socket.cpp in Sources */,
 				ADD2CC4B1BB3BA8000DE3DE5 /* TBSetupChipsViewController.m in Sources */,
