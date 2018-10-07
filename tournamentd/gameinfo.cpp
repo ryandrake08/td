@@ -544,14 +544,14 @@ void gameinfo::dump_derived_state(json& state) const
     }
 
     // current game name text
-    if(this->is_started())
+    if(this->is_started() && this->current_blind_level < this->blind_levels.size())
     {
         os << blind_levels[this->current_blind_level].game_name;
         state.set_value("current_game_text", os.str()); os.str("");
     }
 
     // next game name text
-    if(this->is_started() && this->current_blind_level + 1 < this->blind_levels.size())
+    if(this->is_started() && this->current_blind_level+1 < this->blind_levels.size())
     {
         os << blind_levels[this->current_blind_level+1].game_name;
         state.set_value("next_game_text", os.str()); os.str("");
@@ -568,33 +568,36 @@ void gameinfo::dump_derived_state(json& state) const
             state.set_value("clock_remaining", time_remaining.count());
             state.set_value("on_break", false);
 
-            // set blinds description
-            os << this->blind_levels[this->current_blind_level].little_blind << '/' << this->blind_levels[this->current_blind_level].big_blind;
-            state.set_value("current_round_blinds_text", os.str()); os.str("");
+            if(this->current_blind_level < this->blind_levels.size())
+            {
+                // set blinds description
+                os << this->blind_levels[this->current_blind_level].little_blind << '/' << this->blind_levels[this->current_blind_level].big_blind;
+                state.set_value("current_round_blinds_text", os.str()); os.str("");
 
-            // set antes description
-            if(this->blind_levels[this->current_blind_level].ante_type == td::ante_type_t::traditional)
-            {
-                // TODO: i18n
-                os << "Ante:" << this->blind_levels[this->current_blind_level].ante;
-            }
-            else if(this->blind_levels[this->current_blind_level].ante_type == td::ante_type_t::bba)
-            {
-                // TODO: i18n
-                os << "BBA:" << this->blind_levels[this->current_blind_level].ante;
-            }
-            state.set_value("current_round_ante_text", os.str()); os.str("");
+                // set antes description
+                if(this->blind_levels[this->current_blind_level].ante_type == td::ante_type_t::traditional)
+                {
+                    // TODO: i18n
+                    os << "Ante:" << this->blind_levels[this->current_blind_level].ante;
+                }
+                else if(this->blind_levels[this->current_blind_level].ante_type == td::ante_type_t::bba)
+                {
+                    // TODO: i18n
+                    os << "BBA:" << this->blind_levels[this->current_blind_level].ante;
+                }
+                state.set_value("current_round_ante_text", os.str()); os.str("");
 
-            // set next round description
-            if(this->blind_levels[this->current_blind_level].break_duration == 0)
-            {
-                os << this->blind_levels[this->current_blind_level+1];
+                // set next round description
+                if(this->blind_levels[this->current_blind_level].break_duration == 0)
+                {
+                    os << this->blind_levels[this->current_blind_level+1];
+                }
+                else if(this->current_blind_level+1 < this->blind_levels.size())
+                {
+                    os << "BREAK"; // TODO: i18n
+                }
+                state.set_value("next_round_text", os.str()); os.str("");
             }
-            else
-            {
-                os << "BREAK"; // TODO: i18n
-            }
-            state.set_value("next_round_text", os.str()); os.str("");
         }
         else if(this->end_of_break != time_point_t() && now < this->end_of_break)
         {
@@ -608,8 +611,11 @@ void gameinfo::dump_derived_state(json& state) const
             state.set_value("current_round_blinds_text", std::string("BREAK")); // TODO: i18n
 
             // set next round description
-            os << this->blind_levels[this->current_blind_level+1];
-            state.set_value("next_round_text", os.str()); os.str("");
+            if(this->current_blind_level+1 < this->blind_levels.size())
+            {
+                os << this->blind_levels[this->current_blind_level+1];
+                state.set_value("next_round_text", os.str()); os.str("");
+            }
         }
     }
 
@@ -1293,6 +1299,11 @@ std::vector<td::player_chips> gameinfo::chips_for_buyin(const td::funding_source
         throw td::protocol_error("tried to calculate chips for a buyin without chips defined");
     }
 
+    if(this->blind_levels.size() < 2)
+    {
+        throw td::protocol_error("tried to calcualate chips for a buyin without at least one blind level defined");
+    }
+
     // ensure our smallest available chip can play the smallest small blind
     if(this->available_chips[0].denomination > this->blind_levels[1].little_blind)
     {
@@ -1614,9 +1625,9 @@ void gameinfo::start_blind_level(std::size_t blind_level, duration_t offset)
     this->dirty = true;
 
     this->current_blind_level = blind_level;
-    duration_t blind_level_duration(this->blind_levels[this->current_blind_level].duration);
+    duration_t blind_level_duration(this->blind_levels[blind_level].duration);
     duration_t time_remaining(blind_level_duration - offset);
-    duration_t break_time_remaining(this->blind_levels[this->current_blind_level].break_duration);
+    duration_t break_time_remaining(this->blind_levels[blind_level].break_duration);
     this->end_of_round = this->now() + time_remaining;
     this->end_of_break = this->end_of_round + break_time_remaining;
 }
@@ -1795,6 +1806,11 @@ bool gameinfo::previous_blind_level(duration_t offset)
     if(!this->is_started())
     {
         throw td::protocol_error("tournament not started");
+    }
+
+    if(this->current_blind_level >= this->blind_levels.size())
+    {
+        throw td::protocol_error("current blind level out of bounds");
     }
 
     // calculate elapsed time in this blind level
