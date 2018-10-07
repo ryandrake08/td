@@ -69,8 +69,10 @@
                 }
             }];
 
-            // only send stored state periodically
-            _sendMessageTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(sendCachedStateFromTimer:) userInfo:nil repeats:YES];
+            // start a timer to send stored state (on iOS 9.3+, timer will be started in -activationDidCompleteWithState:error:
+            if(!@available(iOS 9.3, *)) {
+                _sendMessageTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(sendCachedStateFromTimer:) userInfo:nil repeats:YES];
+            }
         }
     }
     return self;
@@ -142,6 +144,28 @@
 
 - (void)session:(WCSession*)wcSession didReceiveMessage:(NSDictionary<NSString*,id>*)message API_AVAILABLE(ios(9.0)) {
     [self performSelectorOnMainThread:@selector(handleCommand:) withObject:message[@"command"] waitUntilDone:NO];
+}
+
+- (void)session:(nonnull WCSession*)session activationDidCompleteWithState:(WCSessionActivationState)activationState error:(nullable NSError*)error API_AVAILABLE(ios(9.3)) {
+    // start a timer to send stored state
+    if(activationState == WCSessionActivationStateActivated) {
+        [self setSendMessageTimer:[NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(sendCachedStateFromTimer:) userInfo:nil repeats:YES]];
+    }
+}
+
+
+- (void)sessionDidBecomeInactive:(nonnull WCSession*)session API_AVAILABLE(ios(9.3)) {
+    // cancel the timer
+    [[self sendMessageTimer] invalidate];
+    [self setSendMessageTimer:nil];
+}
+
+
+- (void)sessionDidDeactivate:(nonnull WCSession*)session API_AVAILABLE(ios(9.3)) {
+    // set up the WatchConnectivity session
+    WCSession* wcSession = [WCSession defaultSession];
+    [wcSession setDelegate:self];
+    [wcSession activateSession];
 }
 
 @end
