@@ -1842,7 +1842,10 @@ void gameinfo::update()
     {
         // advance to next blind
         auto offset(std::chrono::duration_cast<duration_t>(this->end_of_break - this->now()));
-        this->next_blind_level(offset);
+        if(this->next_blind_level(offset) == false) {
+            // if we're at the last blind level, stop the tournament
+            this->stop();
+        }
     }
 }
 
