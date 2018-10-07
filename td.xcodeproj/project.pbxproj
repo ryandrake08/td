@@ -281,6 +281,8 @@
 		94E77A08216A860B0037FA67 /* TBNotificationAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E77A06216A860B0037FA67 /* TBNotificationAttributes.m */; };
 		94E77A09216A860B0037FA67 /* TBNotificationAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E77A06216A860B0037FA67 /* TBNotificationAttributes.m */; };
 		94E77A0A216A860B0037FA67 /* TBNotificationAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E77A06216A860B0037FA67 /* TBNotificationAttributes.m */; };
+		94E77A0C216A8D120037FA67 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E77A0B216A8D120037FA67 /* UserNotifications.framework */; };
+		94E77A0D216A8D1A0037FA67 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E77A0B216A8D120037FA67 /* UserNotifications.framework */; };
 		94ED00111B76E1E6003CF19B /* TBTableSeatNumberTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 94ED00101B76E1E6003CF19B /* TBTableSeatNumberTransformer.m */; };
 		94F466271B8AF203009BB648 /* TBCurrencyCodeTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F466261B8AF203009BB648 /* TBCurrencyCodeTransformer.m */; };
 		94F51CAE1BC96F53007AD1DD /* TBTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F51CAD1BC96F53007AD1DD /* TBTableViewController.m */; };
@@ -897,6 +899,7 @@
 		94E6F1892011B6230054D94F /* WatchConnectivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchConnectivity.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.2.sdk/System/Library/Frameworks/WatchConnectivity.framework; sourceTree = DEVELOPER_DIR; };
 		94E77A05216A860B0037FA67 /* TBNotificationAttributes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBNotificationAttributes.h; sourceTree = "<group>"; };
 		94E77A06216A860B0037FA67 /* TBNotificationAttributes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TBNotificationAttributes.m; sourceTree = "<group>"; };
+		94E77A0B216A8D120037FA67 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		94ED000F1B76E1E6003CF19B /* TBTableSeatNumberTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBTableSeatNumberTransformer.h; sourceTree = "<group>"; };
 		94ED00101B76E1E6003CF19B /* TBTableSeatNumberTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBTableSeatNumberTransformer.m; sourceTree = "<group>"; };
 		94F466251B8AF203009BB648 /* TBCurrencyCodeTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBCurrencyCodeTransformer.h; sourceTree = "<group>"; };
@@ -1037,6 +1040,7 @@
 				94E6F17F2011B5800054D94F /* AudioToolbox.framework in Frameworks */,
 				94E6F17B2011B54E0054D94F /* CoreGraphics.framework in Frameworks */,
 				942354462169BC61007868FF /* ImageIO.framework in Frameworks */,
+				94E77A0D216A8D1A0037FA67 /* UserNotifications.framework in Frameworks */,
 				9464EC241FDC301D009092A4 /* libcJSON_macOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1104,6 +1108,7 @@
 				94E6F1842011B5C30054D94F /* AudioToolbox.framework in Frameworks */,
 				94E6F1852011B5C70054D94F /* CoreGraphics.framework in Frameworks */,
 				942354472169BC9C007868FF /* ImageIO.framework in Frameworks */,
+				94E77A0C216A8D120037FA67 /* UserNotifications.framework in Frameworks */,
 				9464EC141FDC2F3F009092A4 /* libcJSON_macOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1400,6 +1405,7 @@
 			isa = PBXGroup;
 			children = (
 				946F7576216A793A00E9B8CF /* UserNotifications.framework */,
+				94E77A0B216A8D120037FA67 /* UserNotifications.framework */,
 				94983377205E021300DE6F33 /* QuartzCore.framework */,
 				94C95AFD201AEDA800400CFC /* MessageUI.framework */,
 				94E6F1892011B6230054D94F /* WatchConnectivity.framework */,

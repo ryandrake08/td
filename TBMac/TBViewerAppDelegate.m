@@ -7,11 +7,14 @@
 //
 
 #import "TBViewerAppDelegate.h"
+#import "NSObject+FBKVOController.h"
 #import "TournamentBrowser.h"
 #import "TournamentSession.h"
 #import "TournamentService.h"
 #import "TBViewerViewController.h"
 #import "TBConnectToViewController.h"
+#import "TBUserNotificationDelegate.h"
+#import "TBNotificationAttributes.h"
 
 @interface TBViewerAppDelegate () <TournamentBrowserDelegate, TournamentSessionDelegate>
 
@@ -25,6 +28,9 @@
 
 // activity to keep display from sleeping
 @property (nonatomic, strong) NSObject* displaySleepDisabledActivity;
+
+// notification scheduler
+@property (nonatomic, strong) TBUserNotificationDelegate* notificationDelegate;
 
 @end
 
@@ -43,6 +49,11 @@
 
     // start searching for tournaments
     [[self browser] search];
+
+    // set up notification delegate (macOS 10.14+)
+    if(@available(macOS 10.14, *)) {
+        [self setNotificationDelegate:[[TBUserNotificationDelegate alloc] initWithHandler:nil]];
+    }
 }
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
@@ -53,12 +64,30 @@
     if ([[NSProcessInfo processInfo] respondsToSelector:@selector(endActivity:)] && [self displaySleepDisabledActivity ]) {
         [[NSProcessInfo processInfo] endActivity:[self displaySleepDisabledActivity]];
     }
+
+    // KVO for notifications
+    [[self KVOController] observe:self keyPaths:@[@"session.state.running", @"session.state.next_round_text"] options:NSKeyValueObservingOptionInitial block:^(id observer, TBViewerAppDelegate* object, NSDictionary* change) {
+        NSLog(@"scheduling round notification because app is inactive and %@ changed", change[FBKVONotificationKeyPathKey]);
+
+        // get notification attributes based on timer state
+        TBNotificationAttributes* attributes = [[TBNotificationAttributes alloc] initWithTournamentState:[[object session] state]  warningTime:kAudioWarningTime];
+
+        if(@available(macOS 10.14, *)) {
+            [[self notificationDelegate] setNotificationAttributes:attributes];
+        }
+    }];
+
+    // stop observing KVO while not active
+    [[self KVOController] unobserveAll];
 }
 
 - (void)applicationDidBecomeActive:(NSNotification *)aNotification {
     if ([[NSProcessInfo processInfo] respondsToSelector:@selector(beginActivityWithOptions:reason:)]) {
         [self setDisplaySleepDisabledActivity:[[NSProcessInfo processInfo] beginActivityWithOptions:NSActivityIdleDisplaySleepDisabled reason:@"need to keep clock on screen even when application is idle"]];
     }
+
+    // stop observing KVO while not active
+    [[self KVOController] unobserveAll];
 }
 
 - (void)updateMenuWithBrowser:(TournamentBrowser*)browser {

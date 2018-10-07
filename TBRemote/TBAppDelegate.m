@@ -101,11 +101,36 @@
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
     NSLog(@"applicationWillResignActive");
 
-    // schedule round notification
-    [self updateNotificationsForSessionState:[[self session] state]];
+    // KVO for notifications
+    [[self KVOController] observe:self keyPaths:@[@"session.state.running", @"session.state.next_round_text"] options:NSKeyValueObservingOptionInitial block:^(id observer, TBAppDelegate* object, NSDictionary* change) {
+        // schedule round notification
+        NSLog(@"scheduling round notification because app is inactive and %@ changed", change[FBKVONotificationKeyPathKey]);
 
-    // stop observing KVO while not active
-    [[self KVOController] unobserveAll];
+        // get notification attributes based on timer state
+        TBNotificationAttributes* attributes = [[TBNotificationAttributes alloc] initWithTournamentState:[[object session] state]  warningTime:kAudioWarningTime];
+
+        if(@available(iOS 10.0, *)) {
+            [[self notificationDelegate] setNotificationAttributes:attributes];
+        } else {
+            // old-style UILocalNotification
+            [[UIApplication sharedApplication] cancelAllLocalNotifications];
+
+            if(([attributes title] != nil) && ([attributes body] != nil) && ([attributes soundName] != nil) && ([attributes date] != nil)) {
+                // create and schedule old-style local notification
+                UILocalNotification* localNotification = [[UILocalNotification alloc] init];
+                if(@available(iOS 8.2, *)) {
+                    [localNotification setAlertTitle:[attributes title]];
+                }
+                [localNotification setAlertBody:[attributes body]];
+                [localNotification setSoundName:[attributes soundName]];
+                [localNotification setTimeZone:[NSTimeZone localTimeZone]];
+                [localNotification setFireDate:[attributes date]];
+                [localNotification setAlertAction:NSLocalizedString(@"Show timer", @"Launch app and show tournament timer")];
+                NSLog(@"Creating new notification:%@ for %@", [localNotification alertBody], [localNotification fireDate]);
+                [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
+            }
+        }
+    }];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication*)application {
@@ -141,12 +166,8 @@
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     NSLog(@"applicationDidBecomeActive");
 
-    // KVO for notifications
-    [[self KVOController] observe:self keyPaths:@[@"session.state.running", @"session.state.next_round_text"] options:NSKeyValueObservingOptionInitial block:^(id observer, TBAppDelegate* object, NSDictionary *change) {
-        // schedule round notification (next runloop)
-        NSLog(@"scheduling round notification because %@", change);
-        [self performSelector:@selector(updateNotificationsForSessionState:) withObject:[[object session] state] afterDelay:0.0];
-    }];
+    // stop observing KVO while not active
+    [[self KVOController] unobserveAll];
 }
 
 - (void)applicationWillTerminate:(UIApplication*)application {
@@ -158,35 +179,6 @@
 - (void)tournamentSession:(TournamentSession *)ts error:(NSError *)error {
     // Default error presentation
     [[self rootViewController] presentError:error];
-}
-
-#pragma mark Notification
-
-- (void)updateNotificationsForSessionState:(NSDictionary*)state {
-    // get notification attributes based on timer state
-    TBNotificationAttributes* attributes = [[TBNotificationAttributes alloc] initWithTournamentState:state warningTime:kAudioWarningTime];
- 
-    if(@available(iOS 10.0, *)) {
-        [[self notificationDelegate] setNotificationAttributes:attributes];
-    } else {
-        // old-style UILocalNotification
-        [[UIApplication sharedApplication] cancelAllLocalNotifications];
-
-        if(([attributes title] != nil) && ([attributes body] != nil) && ([attributes soundName] != nil) && ([attributes date] != nil)) {
-            // create and schedule old-style local notification
-            UILocalNotification* localNotification = [[UILocalNotification alloc] init];
-            if(@available(iOS 8.2, *)) {
-                [localNotification setAlertTitle:[attributes title]];
-            }
-            [localNotification setAlertBody:[attributes body]];
-            [localNotification setSoundName:[attributes soundName]];
-            [localNotification setTimeZone:[NSTimeZone localTimeZone]];
-            [localNotification setFireDate:[attributes date]];
-            [localNotification setAlertAction:NSLocalizedString(@"Show timer", @"Launch app and show tournament timer")];
-            NSLog(@"Creating new notification:%@ for %@", [localNotification alertBody], [localNotification fireDate]);
-            [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
-        }
-    }
 }
 
 #pragma mark Accessors

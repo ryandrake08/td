@@ -41,7 +41,9 @@
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse*)response withCompletionHandler:(nonnull void (^)(void))completionHandler  API_AVAILABLE(ios(10.0), macos(10.14)) {
     if([[response actionIdentifier] isEqualToString:UNNotificationDefaultActionIdentifier]) {
         // call notification handler
-        [self notificationHandler]();
+        if([self notificationHandler] != nil) {
+            [self notificationHandler]();
+        }
     }
 
     // call completionHandler
