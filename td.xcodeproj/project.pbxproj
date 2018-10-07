@@ -34,6 +34,8 @@
 		940AF54D1FF7DE7900740295 /* TBViewerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 940AF54B1FF7DE7800740295 /* TBViewerViewController.m */; };
 		94150E7920340B9600D817DD /* TBCurrencyCodeTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F466261B8AF203009BB648 /* TBCurrencyCodeTransformer.m */; };
 		941916DC1B6F215F001253CA /* TBActionClockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEAF91B5AEB0B0026B25D /* TBActionClockView.m */; };
+		942354462169BC61007868FF /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E6F1802011B5980054D94F /* ImageIO.framework */; };
+		942354472169BC9C007868FF /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E6F1802011B5980054D94F /* ImageIO.framework */; };
 		942B84E0200DA00C001F8EEB /* TBSoundPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 942B84DF200DA00C001F8EEB /* TBSoundPlayer.m */; };
 		942B84E1200DA00C001F8EEB /* TBSoundPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 942B84DF200DA00C001F8EEB /* TBSoundPlayer.m */; };
 		942B84E2200DA00C001F8EEB /* TBSoundPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 942B84DF200DA00C001F8EEB /* TBSoundPlayer.m */; };
@@ -1019,6 +1021,7 @@
 				94E6F1832011B5B30054D94F /* AppKit.framework in Frameworks */,
 				94E6F17F2011B5800054D94F /* AudioToolbox.framework in Frameworks */,
 				94E6F17B2011B54E0054D94F /* CoreGraphics.framework in Frameworks */,
+				942354462169BC61007868FF /* ImageIO.framework in Frameworks */,
 				9464EC241FDC301D009092A4 /* libcJSON_macOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1084,6 +1087,7 @@
 				94E6F1862011B5CB0054D94F /* AppKit.framework in Frameworks */,
 				94E6F1842011B5C30054D94F /* AudioToolbox.framework in Frameworks */,
 				94E6F1852011B5C70054D94F /* CoreGraphics.framework in Frameworks */,
+				942354472169BC9C007868FF /* ImageIO.framework in Frameworks */,
 				9464EC141FDC2F3F009092A4 /* libcJSON_macOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
