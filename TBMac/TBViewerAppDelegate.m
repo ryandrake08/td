@@ -61,9 +61,7 @@
 }
 
 - (void)applicationDidResignActive:(NSNotification *)aNotification {
-    if ([[NSProcessInfo processInfo] respondsToSelector:@selector(endActivity:)] && [self displaySleepDisabledActivity ]) {
-        [[NSProcessInfo processInfo] endActivity:[self displaySleepDisabledActivity]];
-    }
+    [[NSProcessInfo processInfo] endActivity:[self displaySleepDisabledActivity]];
 
     // KVO for notifications
     [[self KVOController] observe:self keyPaths:@[@"session.state.running", @"session.state.next_round_text"] options:NSKeyValueObservingOptionInitial block:^(id observer, TBViewerAppDelegate* object, NSDictionary* change) {
@@ -82,9 +80,7 @@
 }
 
 - (void)applicationDidBecomeActive:(NSNotification *)aNotification {
-    if ([[NSProcessInfo processInfo] respondsToSelector:@selector(beginActivityWithOptions:reason:)]) {
-        [self setDisplaySleepDisabledActivity:[[NSProcessInfo processInfo] beginActivityWithOptions:NSActivityIdleDisplaySleepDisabled reason:@"need to keep clock on screen even when application is idle"]];
-    }
+    [self setDisplaySleepDisabledActivity:[[NSProcessInfo processInfo] beginActivityWithOptions:NSActivityIdleDisplaySleepDisabled reason:@"need to keep clock on screen even when application is idle"]];
 
     // stop observing KVO while not active
     [[self KVOController] unobserveAll];
