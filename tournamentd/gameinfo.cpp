@@ -114,7 +114,6 @@ gameinfo::gameinfo() :
     previous_blind_level_hold_duration(2000),
     rebalance_policy(td::rebalance_policy_t::manual),
     dirty(true),
-    max_expected_players(0),
     tables(0),
     total_chips(0),
     total_equity(0.0),
@@ -304,12 +303,6 @@ void gameinfo::configure(const json& config)
         logger(ll::info) << "state changed: bust_history -> " << this->bust_history.size() << "\n";
     }
 
-    if(config.get_value("max_expected_players", this->max_expected_players))
-    {
-        this->dirty = true;
-        logger(ll::info) << "state changed: max_expected_players -> " << this->max_expected_players << "\n";
-    }
-
     if(config.get_value("empty_seats", this->empty_seats))
     {
         this->dirty = true;
@@ -436,7 +429,6 @@ void gameinfo::dump_state(json& state) const
     state.set_value("seats", json(this->seats.begin(), this->seats.end()));
     state.set_value("players_finished", json(this->players_finished.begin(), this->players_finished.end()));
     state.set_value("bust_history", json(this->bust_history.begin(), this->bust_history.end()));
-    state.set_value("max_expected_players", this->max_expected_players);
     state.set_value("empty_seats", json(this->empty_seats.begin(), this->empty_seats.end()));
     state.set_value("tables", this->tables);
     state.set_value("buyins", json(this->buyins.begin(), this->buyins.end()));
@@ -734,7 +726,6 @@ void gameinfo::reset_state()
     // clear all seating and remove all empty seats
     this->seats.clear();
     this->empty_seats.clear();
-    this->max_expected_players = 0;
     this->tables = 0;
 
     // clear all funding
@@ -831,10 +822,7 @@ std::size_t gameinfo::plan_seating(std::size_t max_expected)
     std::shuffle(this->empty_seats.begin(), extra_it, this->random_engine);
     std::shuffle(extra_it, this->empty_seats.end(), this->random_engine);
 
-    // set max
-    this->max_expected_players = max_expected;
-
-    logger(ll::info) << "created " << this->empty_seats.size() << " empty seats for " << this->max_expected_players << " expected players\n";
+    logger(ll::info) << "created " << this->empty_seats.size() << " empty seats for " << max_expected << " expected players\n";
 
     // return number of tables needed
     return this->tables;
@@ -1987,6 +1975,11 @@ std::vector<td::blind_level> gameinfo::gen_blind_levels(long desired_duration, l
         throw td::protocol_error("tried to create a blind structure using invalid level duration");
     }
 
+    if(expected_buyins == 0)
+    {
+        throw td::protocol_error("tried to create a blind structure without specifying number of expected buyins");
+    }
+
     if(this->available_chips.empty())
     {
         throw td::protocol_error("tried to create a blind structure without chips defined");
@@ -1997,13 +1990,6 @@ std::vector<td::blind_level> gameinfo::gen_blind_levels(long desired_duration, l
 
     // assume tournament will end around when there are 10 BB left on the table
     const auto bb_at_end(10);
-
-    // if no expected buyins set, default to max expected
-    if(expected_buyins == 0)
-    {
-        expected_buyins = this->max_expected_players;
-        logger(ll::warning) << "creating a blind structure without specifying number of buyins. defaulting to max expected players\n";
-    }
 
     // count estimated chips in play
     unsigned long chips_in_play(0);

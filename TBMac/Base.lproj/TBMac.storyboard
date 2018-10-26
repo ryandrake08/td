@@ -231,12 +231,6 @@
                                                 <action selector="planTapped:" target="dLJ-5r-r8L" id="VH9-8I-OZq"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Re-Plan Tournament" id="NZQ-4A-hrd">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="replanSeatingTapped:" target="dLJ-5r-r8L" id="85Y-xF-mmc"/>
-                                            </connections>
-                                        </menuItem>
                                         <menuItem isSeparatorItem="YES" id="JPM-Je-wgT"/>
                                         <menuItem title="Show / Hide Main Display" keyEquivalent="d" id="1g9-67-q7x">
                                             <connections>
@@ -378,11 +372,6 @@
                                 <toolbarItem implicitItemIdentifier="21B1560B-E9E5-4590-8D45-BDC208751FA9" label="Results" paletteLabel="Export" tag="-1" image="b_export" id="Rcn-rR-9zf">
                                     <connections>
                                         <action selector="exportResults:" target="bjE-D6-6zO" id="ZmY-no-mMH"/>
-                                    </connections>
-                                </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="9303F932-10EA-45FF-9112-5E2190AFB751" label="Re-Plan" paletteLabel="Re-Plan" tag="-1" image="b_restart" id="PYd-AK-xr2">
-                                    <connections>
-                                        <action selector="replanSeatingTapped:" target="bjE-D6-6zO" id="TIG-vQ-Lix"/>
                                     </connections>
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="1A9ED53F-D961-4530-B9F3-14B1711F604F" label="" paletteLabel="Play" tag="-1" image="b_play_pause" id="VPE-iB-g5a">
@@ -4295,7 +4284,6 @@ DQ
         <image name="b_play_pause" width="64" height="64"/>
         <image name="b_previous" width="64" height="64"/>
         <image name="b_rebalance" width="64" height="64"/>
-        <image name="b_restart" width="64" height="64"/>
         <image name="b_rocket" width="64" height="64"/>
         <image name="b_seat" width="64" height="64"/>
         <image name="b_stop" width="32" height="32"/>

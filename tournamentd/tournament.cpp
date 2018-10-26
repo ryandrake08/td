@@ -263,7 +263,6 @@ struct tournament::impl
     void handle_cmd_plan_seating(const json& in, json& /* out */)
     {
         std::size_t max_expected_players;
-
         if(!in.get_value("max_expected_players", max_expected_players))
         {
             throw td::protocol_error("must specify max_expected_players");

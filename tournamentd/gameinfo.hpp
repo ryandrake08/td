@@ -81,9 +81,6 @@ class gameinfo
     // empty seats
     std::deque<td::seat> empty_seats;
 
-    // maximum number of expected players
-    std::size_t max_expected_players;
-
     // number of tables total
     std::size_t tables;
 
