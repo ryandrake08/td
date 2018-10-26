@@ -64,8 +64,7 @@ class gameinfo
     // state is dirty
     bool dirty;
 
-    // players seated in the game
-    std::unordered_map<td::player_id_t,td::seat> seats;
+    // ---------- results ----------
 
     // finished out players in reverse order of bust out
     std::deque<td::player_id_t> players_finished;
@@ -74,14 +73,21 @@ class gameinfo
     // TODO: make this a pair (buster and busted) to support knockout tournaments
     std::deque<td::player_id_t> bust_history;
 
-    // maximum number of expected players
-    std::size_t max_expected_players;
+    // ---------- seating ----------
+
+    // players seated in the game
+    std::unordered_map<td::player_id_t,td::seat> seats;
 
     // empty seats
     std::deque<td::seat> empty_seats;
 
+    // maximum number of expected players
+    std::size_t max_expected_players;
+
     // number of tables total
     std::size_t tables;
+
+    // ---------- funding ----------
 
     // players who are both currently seated and bought in
     std::unordered_set<td::player_id_t> buyins;
@@ -104,6 +110,8 @@ class gameinfo
 
     // total fund paid out, in payout_currency
     double total_equity;
+
+    // ---------- clock ----------
 
     // Current bind level (index into above vector)
     // Note: blind level 0 is reserved for setup/planning
@@ -144,9 +152,6 @@ class gameinfo
 
     // return a default funding source of the given type. used for quick setup and structure generator
     td::funding_source_id_t source_for_type(const td::funding_source_type_t& type) const;
-
-    // reset seating to an empty, unplanned game
-    void reset_seating();
 
     // move a player to a specific table
     // returns player's original seat and new seat
@@ -201,6 +206,9 @@ public:
     // has internal state been updated since last check?
     bool state_is_dirty();
 
+    // reset game state
+    void reset_state();
+
     // ----- seating -----
 
     // pre-game player seeting, with expected number of players (to predict table count)
@@ -228,9 +236,6 @@ public:
 
     // calculate number of chips per denomination for this funding source, given totals and number of players
     std::vector<td::player_chips> chips_for_buyin(const td::funding_source_id_t& src, std::size_t max_expected_players) const;
-
-    // reset game state
-    void reset_funding();
 
     // ----- both planning and seating -----
 

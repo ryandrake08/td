@@ -242,9 +242,9 @@ struct tournament::impl
         out.set_value("blind_levels", json(levels.begin(), levels.end()));
     }
 
-    void handle_cmd_reset_funding(const json& /* in */, json& /* out */)
+    void handle_cmd_reset_state(const json& /* in */, json& /* out */)
     {
-        this->game_info.reset_funding();
+        this->game_info.reset_state();
     }
 
     void handle_cmd_fund_player(const json& in, json& /* out */)
@@ -583,6 +583,25 @@ struct tournament::impl
                             this->handle_cmd_configure(in, out);
                             this->broadcast_state();
                         }
+                        else if(cmd == "reset_state")
+                        {
+                            /*
+                             command:
+                             reset_state
+
+                             purpose:
+                             Resets all game state to no results, seating, funding, and stops the clock
+
+                             input:
+                             authenticate (integer): Valid authentication code for a tournament admin
+
+                             output:
+                             (none)
+                             */
+                            this->ensure_authorized(in);
+                            this->handle_cmd_reset_state(in, out);
+                            this->broadcast_state();
+                        }
                         else if(cmd == "start_game")
                         {
                             /*
@@ -760,25 +779,6 @@ struct tournament::impl
                              */
                             this->ensure_authorized(in);
                             this->handle_cmd_gen_blind_levels(in, out);
-                        }
-                        else if(cmd == "reset_funding")
-                        {
-                            /*
-                             command:
-                             reset_funding
-
-                             purpose:
-                             Zero out all buyins, unique entries, entries, cash and chips
-
-                             input:
-                             authenticate (integer): Valid authentication code for a tournament admin
-
-                             output:
-                             (none)
-                             */
-                            this->ensure_authorized(in);
-                            this->handle_cmd_reset_funding(in, out);
-                            this->broadcast_state();
                         }
                         else if(cmd == "fund_player")
                         {

@@ -278,8 +278,7 @@ void gameinfo::configure(const json& config)
 
         if(this->is_started())
         {
-            logger(ll::warning) << "re-configuring blind levels while in play will stop the game\n";
-            this->stop();
+            logger(ll::warning) << "re-configuring blind levels while in play may change the current blind level\n";
         }
     }
 
@@ -723,18 +722,33 @@ bool gameinfo::state_is_dirty()
     }
 }
 
-void gameinfo::reset_seating()
+void gameinfo::reset_state()
 {
     // set state dirty
     this->dirty = true;
+
+    // clear results
+    this->players_finished.clear();
+    this->bust_history.clear();
 
     // clear all seating and remove all empty seats
     this->seats.clear();
     this->empty_seats.clear();
     this->max_expected_players = 0;
-
-    // no tables means game is unplanned
     this->tables = 0;
+
+    // clear all funding
+    this->buyins.clear();
+    this->unique_entries.clear();
+    this->entries.clear();
+    this->payouts.clear();
+    this->total_chips = 0;
+    this->total_cost.clear();
+    this->total_commission.clear();
+    this->total_equity = 0.0;
+
+    // stop clock
+    this->stop();
 }
 
 const std::string gameinfo::player_description(const td::player_id_t& player_id) const
@@ -781,17 +795,8 @@ std::size_t gameinfo::plan_seating(std::size_t max_expected)
         throw td::protocol_error("table capacity must be at least 2");
     }
 
-    // set state dirty
-    this->dirty = true;
-
-    // reset funding, game state, and seating
-    this->stop();
-    this->reset_funding();
-    this->reset_seating();
-
-    // reset players finished
-    this->players_finished.clear();
-    this->bust_history.clear();
+    // reset all game state
+    this->reset_state();
 
     // figure out how many tables needed
     this->tables = ((max_expected-1) / this->table_capacity) + 1;
@@ -970,9 +975,8 @@ std::vector<td::player_movement> gameinfo::bust_player(const td::player_id_t& pl
 
         logger(ll::info) << "winning player " << this->player_description(first_place_player_id) << '\n';
 
-        // stop the game and reset all seating (stops additional entrants)
+        // stop the game
         this->stop();
-        this->reset_seating();
     }
 
     return movements;
@@ -1557,29 +1561,6 @@ void gameinfo::recalculate_payouts()
     {
         this->payouts.push_back(td::monetary_value(this->automatic_payouts.pay_the_bubble, this->payout_currency));
     }
-}
-
-void gameinfo::reset_funding()
-{
-    logger(ll::info) << "resetting tournament funding to zero\n";
-
-    // cannot plan seating while game is in progress
-    if(this->is_started())
-    {
-        throw td::protocol_error("cannot reset funding while tournament is running");
-    }
-
-    // set state dirty
-    this->dirty = true;
-
-    this->buyins.clear();
-    this->unique_entries.clear();
-    this->entries.clear();
-    this->payouts.clear();
-    this->total_chips = 0;
-    this->total_cost.clear();
-    this->total_commission.clear();
-    this->total_equity = 0.0;
 }
 
 // quickly set up a game (plan, seat, and buyin, using optional funding source)
