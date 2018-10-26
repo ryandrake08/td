@@ -209,8 +209,7 @@ public:
     // ----- seating -----
 
     // pre-game player seeting, with expected number of players (to predict table count)
-    // returns number of tables needed
-    std::size_t plan_seating(std::size_t max_expected_players);
+    std::vector<td::player_movement> plan_seating(std::size_t max_expected_players);
 
     // add player to an existing game, returning player's seat
     // returns player's seat
@@ -237,6 +236,7 @@ public:
     // ----- both planning and seating -----
 
     // quickly set up a game (plan, seat, and buyin, using optional funding source)
+    // returns all seated players
     std::vector<td::seated_player> quick_setup();
     std::vector<td::seated_player> quick_setup(const td::funding_source_id_t& src);
 

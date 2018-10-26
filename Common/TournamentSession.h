@@ -65,6 +65,7 @@
 - (void)checkAuthorizedWithBlock:(void(^)(BOOL))block;
 - (void)getStateWithBlock:(void(^)(id))block;
 - (void)configure:(id)config withBlock:(void(^)(id))block;
+- (void)resetState;
 - (void)startGameAt:(NSDate*)datetime;
 - (void)startGame;
 - (void)stopGame;
@@ -77,7 +78,7 @@
 - (void)clearActionClock;
 - (void)genBlindLevelsRequest:(NSDictionary*)request withBlock:(void(^)(NSArray*))block;
 - (void)fundPlayer:(id)playerId withFunding:(NSNumber*)sourceId;
-- (void)planSeatingFor:(NSNumber*)expectedPlayers;
+- (void)planSeatingFor:(NSNumber*)expectedPlayers withBlock:(void(^)(NSArray*))block;
 - (void)seatPlayer:(id)playerId withBlock:(void(^)(id playerId,NSNumber* tableNumber,NSNumber* seatNumber,BOOL alreadySeated))block;
 - (void)unseatPlayer:(id)playerId withBlock:(void(^)(id playerId,NSNumber* tableNumber,NSNumber* seatNumber))block;
 - (void)bustPlayer:(id)playerId withBlock:(void(^)(NSArray*))block;

@@ -159,4 +159,31 @@
     }
 }
 
+- (IBAction)resetTapped:(id)sender {
+    if([[[self session] state][@"seats"] count] > 0 || [[[self session] state][@"buyins"] count] > 0) {
+        // alert because this is a very destructive action
+        NSAlert* alert = [[NSAlert alloc] init];
+        [alert setAlertStyle:NSWarningAlertStyle];
+        [alert addButtonWithTitle:NSLocalizedString(@"Reset", nil)];
+        [alert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+        [alert setMessageText:NSLocalizedString(@"Reset tournament", nil)];
+
+        // display a different message if the game is running
+        BOOL playing = [[[self session] state][@"current_blind_level"] unsignedIntegerValue] != 0;
+        if(playing) {
+            [alert setInformativeText:NSLocalizedString(@"This will end the current tournament immediately, then clear any existing seats and buy-ins.", nil)];
+        } else {
+            [alert setInformativeText:NSLocalizedString(@"This will clear any existing seats and buy-ins.", nil)];
+        }
+
+        // present and only perform setup if confirmed by user
+        if([alert runModal] == NSAlertFirstButtonReturn) {
+            [[self session] resetState];
+        }
+    } else {
+        // no warning
+        [[self session] resetState];
+    }
+}
+
 @end

@@ -84,9 +84,9 @@
         // different warning text based on wither game is running
         id playing = [[(TBMacDocument*)[self document] session] state][@"current_blind_level"];
         if([playing boolValue]) {
-            [vc setWarningText:NSLocalizedString(@"Warning: This will end the current tournament immediately, then unseat EVERYONE from the current tournament and clear all buyins.", nil)];
+            [vc setWarningText:NSLocalizedString(@"Warning: This may re-seat players MID-GAME if more tables are required.", nil)];
         } else {
-            [vc setWarningText:NSLocalizedString(@"Warning: This will unseat EVERYONE from the current tournament and clear all buyins.", nil)];
+            [vc setWarningText:NSLocalizedString(@"Warning: This may re-seat players if more tables are required.", nil)];
         }
 
         // default maxPlayers to number of configured players

@@ -171,6 +171,10 @@
     }];
 }
 
+- (void)resetState {
+    [self sendCommand:@"reset_state" withData:nil andBlock:nil];
+}
+
 - (void)startGameAt:(NSDate*)datetime {
     [self sendCommand:@"start_game" withData:@{@"start_at" : datetime} andBlock:nil];
 }
@@ -234,8 +238,13 @@
     [self sendCommand:@"fund_player" withData:@{@"player_id" : playerId, @"source_id" : sourceId} andBlock:nil];
 }
 
-- (void)planSeatingFor:(NSNumber*)expectedPlayers {
-    [self sendCommand:@"plan_seating" withData:@{@"max_expected_players" : expectedPlayers} andBlock:nil];
+- (void)planSeatingFor:(NSNumber*)expectedPlayers withBlock:(void(^)(NSArray*))block {
+    [self sendCommand:@"plan_seating" withData:@{@"max_expected_players" : expectedPlayers} andBlock:^(id json) {
+        // handle player movement
+        if(block) {
+            block(json[@"players_moved"]);
+        }
+    }];
 }
 
 - (void)seatPlayer:(id)playerId withBlock:(void(^)(id,NSNumber*,NSNumber*,BOOL))block {

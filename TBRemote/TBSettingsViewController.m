@@ -148,6 +148,9 @@
         } else if([indexPath row] == 1) {
             // quick setup
             [self quickStartTapped:self];
+        } else if([indexPath row] == 2) {
+            // quick setup
+            [self resetTapped:self];
         }
 
         // deselect
@@ -184,9 +187,9 @@
         // display a different message if the game is running
         id playing = [[self session] state][@"current_blind_level"];
         if([playing boolValue]) {
-            message = NSLocalizedString(@"Warning: This will end the current tournament immediately, then unseat EVERYONE from the current tournament and clear all buyins. Plan to seat at most this many players:", nil);
+            message = NSLocalizedString(@"Warning: This may re-seat players MID-GAME if more tables are required. Plan to seat at most this many players:", nil);
         } else {
-            message = NSLocalizedString(@"Warning: This will unseat EVERYONE from the current tournament and clear all buyins. Plan to seat at most this many players:", nil);
+            message = NSLocalizedString(@"Warning: This may re-seat players if more tables are required. Plan to seat at most this many players:", nil);
         }
     }
 
@@ -206,7 +209,13 @@
 
         // plan seating
         NSLog(@"Planning seating for %@ players", maxPlayers);
-        [[self session] planSeatingFor:maxPlayers];
+        [[self session] planSeatingFor:maxPlayers withBlock:^(NSArray* movements) {
+            if([movements count] > 0) {
+                NSLog(@"Planning resulted in player movements: %@", movements);
+                [[NSNotificationCenter defaultCenter] postNotificationName:kMovementsUpdatedNotification object:movements];
+            }
+        }];
+
 
         // switch to seating screen automatically
         [[[self navigationController] tabBarController] setSelectedIndex:1];
@@ -256,6 +265,33 @@
 
         // switch to clock screen automatically
         [[[self navigationController] tabBarController] setSelectedIndex:2];
+    }
+}
+
+- (IBAction)resetTapped:(id)sender {
+    BOOL alreadyPlanned = [[[self session] state][@"seats"] count] > 0 || [[[self session] state][@"buyins"] count] > 0;
+    if(alreadyPlanned) {
+        // display a different message if the game is running
+        NSString* message;
+        id playing = [[self session] state][@"current_blind_level"];
+        if([playing boolValue]) {
+            message = NSLocalizedString(@"This will end the current tournament immediately, then clear any existing seats and buy-ins.", nil);
+        } else {
+            message = NSLocalizedString(@"This will clear any existing seats and buy-ins.", nil);
+        }
+
+        // alert because this is a very destructive action
+        UIAlertController* alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Reset Tournament", nil) message:message preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil) style:UIAlertActionStyleCancel handler:nil]];
+        [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Reset", nil) style:UIAlertActionStyleDestructive handler:^(UIAlertAction* action) {
+            NSLog(@"Performing destructive reset");
+            [[self session] resetState];
+        }]];
+        [self presentViewController:alert animated:YES completion:nil];
+    } else {
+        // no warning
+        NSLog(@"Performing reset");
+        [[self session] resetState];
     }
 }
 

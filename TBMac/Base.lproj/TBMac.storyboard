@@ -213,6 +213,11 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="9Km-lY-8hr"/>
+                                        <menuItem title="Reset Tournament" keyEquivalent="r" id="zNX-Xn-9dG">
+                                            <connections>
+                                                <action selector="resetTapped:" target="dLJ-5r-r8L" id="0vw-Cg-FZI"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem title="Setup Tournament..." id="h1Y-QG-zfu">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
@@ -225,7 +230,7 @@
                                                 <action selector="authorizeTapped:" target="dLJ-5r-r8L" id="PS3-9K-GLf"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Plan Tournament..." id="lme-kP-HDg" userLabel="Plan Tournament">
+                                        <menuItem title="Plan Tournament..." id="lme-kP-HDg">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="planTapped:" target="dLJ-5r-r8L" id="VH9-8I-OZq"/>
@@ -470,9 +475,14 @@
                                         <segue destination="79P-Qm-Z6L" kind="sheet" identifier="presentPlanView" id="mJ1-px-HDd"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="5AED8755-E587-4E01-A980-593FFBFA5FA5" label="Quick Start" paletteLabel="Quick Start" tag="-1" image="b_rocket" id="ANd-0c-7C0">
+                                <toolbarItem implicitItemIdentifier="5AED8755-E587-4E01-A980-593FFBFA5FA5" label="Reset" paletteLabel="Reset" tag="-1" image="b_restart" id="ANd-0c-7C0">
                                     <connections>
-                                        <action selector="quickStartTapped:" target="bjE-D6-6zO" id="h45-KZ-vpp"/>
+                                        <action selector="resetTapped:" target="bjE-D6-6zO" id="9eT-pn-5lH"/>
+                                    </connections>
+                                </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="5BBA3E72-2560-45B0-8949-6D47E8DA33E8" label="Quick Start" paletteLabel="Quick Start" tag="-1" image="b_rocket" id="FeG-WM-zlN">
+                                    <connections>
+                                        <action selector="quickStartTapped:" target="bjE-D6-6zO" id="v2I-NB-Id9"/>
                                     </connections>
                                 </toolbarItem>
                             </allowedToolbarItems>
@@ -482,7 +492,7 @@
                                 <toolbarItem reference="ZaH-wL-3Cm"/>
                                 <toolbarItem reference="ZaH-wL-3Cm"/>
                                 <toolbarItem reference="ZaH-wL-3Cm"/>
-                                <toolbarItem reference="ANd-0c-7C0"/>
+                                <toolbarItem reference="FeG-WM-zlN"/>
                                 <toolbarItem reference="dkf-E2-LMY"/>
                                 <toolbarItem reference="BiV-xi-hlu"/>
                                 <toolbarItem reference="8hl-BW-ftP"/>
@@ -1349,7 +1359,7 @@ DQ
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5dt-zS-8gM" userLabel="Warning Text Field">
                                 <rect key="frame" x="18" y="49" width="414" height="28"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Warning: This will unseat EVERYONE from the current tournament and clear all buyins." id="bSy-nA-cUl">
+                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Warning: This may re-seat players if more tables are required." id="bSy-nA-cUl">
                                     <font key="font" metaFont="smallSystem"/>
                                     <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -4284,6 +4294,7 @@ DQ
         <image name="b_play_pause" width="64" height="64"/>
         <image name="b_previous" width="64" height="64"/>
         <image name="b_rebalance" width="64" height="64"/>
+        <image name="b_restart" width="64" height="64"/>
         <image name="b_rocket" width="64" height="64"/>
         <image name="b_seat" width="64" height="64"/>
         <image name="b_stop" width="32" height="32"/>

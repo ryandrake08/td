@@ -260,7 +260,7 @@ struct tournament::impl
         this->game_info.fund_player(player_id, source_id);
     }
 
-    void handle_cmd_plan_seating(const json& in, json& /* out */)
+    void handle_cmd_plan_seating(const json& in, json& out)
     {
         std::size_t max_expected_players;
         if(!in.get_value("max_expected_players", max_expected_players))
@@ -268,7 +268,9 @@ struct tournament::impl
             throw td::protocol_error("must specify max_expected_players");
         }
 
-        (void) this->game_info.plan_seating(max_expected_players);
+        auto movements(this->game_info.plan_seating(max_expected_players));
+
+        out.set_value("players_moved", json(movements.begin(), movements.end()));
     }
 
     void handle_cmd_seat_player(const json& in, json& out)
@@ -814,7 +816,7 @@ struct tournament::impl
                              max_expected_players (integer): Maximum number of players expected
 
                              output:
-                             (none)
+                             players_moved (array): Any player movements that have to happen
                              */
                             this->ensure_authorized(in);
                             this->handle_cmd_plan_seating(in, out);
