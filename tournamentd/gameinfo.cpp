@@ -965,16 +965,14 @@ std::vector<td::player_movement> gameinfo::bust_player(const td::player_id_t& pl
 
         case td::rebalance_policy_t::automatic:
             // for automatic rebalancing, try to break tables and rebalance every time a player busts out
-            this->try_break_table(movements);
-            this->try_rebalance(movements);
+            movements = this->rebalance_seating();
             break;
 
         case td::rebalance_policy_t::shootout:
             // for shootout tournaments, only break tables when there is one player left on each table or fewer players
             if(this->tables >= this->seats.size())
             {
-                this->try_break_table(movements);
-                this->try_rebalance(movements);
+                movements = this->rebalance_seating();
             }
             break;
     }
@@ -1013,13 +1011,123 @@ std::vector<td::player_movement> gameinfo::bust_player(const td::player_id_t& pl
     return movements;
 }
 
+template <typename T>
+static constexpr bool has_lower_size(const T& i0, const T& i1)
+{
+    return i0.size() < i1.size();
+}
+
 // try to break and rebalance tables
+// returns description of movements
 std::vector<td::player_movement> gameinfo::rebalance_seating()
 {
-    // try to break table or rebalance
     std::vector<td::player_movement> movements;
-    this->try_break_table(movements);
-    this->try_rebalance(movements);
+
+    if(this->tables > 1)
+    {
+        logger(ll::info) << "attemptying to break a table\n";
+        
+        // break tables while (player_count-1) div table_capacity < tables
+        while(this->seats.size() <= this->table_capacity * (this->tables-1))
+        {
+            logger(ll::info) << "breaking a table. " << this->seats.size() << " players remain at " << this->tables << " tables of " << this->table_capacity << " capacity\n";
+
+            // always break the highest-numbered table
+            auto break_table(this->tables - 1);
+
+            // get each player found to be sitting at the breaking table
+            std::vector<td::player_id_t> to_move;
+            for(auto& seat : this->seats)
+            {
+                if(seat.second.table_number == break_table)
+                {
+                    to_move.push_back(seat.first);
+                }
+            }
+
+            // move each player in list
+            const std::unordered_set<std::size_t> avoid = {break_table};
+            for(auto& player : to_move)
+            {
+                movements.push_back(this->move_player(player, avoid));
+            }
+
+            // set state dirty
+            this->dirty = true;
+
+            // decrement number of tables
+            this->tables--;
+
+            // prune empty table from our open seat list, no need to seat people at unused tables
+            this->empty_seats.erase(std::remove_if(this->empty_seats.begin(), this->empty_seats.end(), [&break_table](const td::seat& seat) { return seat.table_number == break_table; }), this->empty_seats.end());
+
+            logger(ll::info) << "broken table " << break_table << ". " << this->seats.size() << " players now at " << this->tables << " tables\n";
+        }
+    }
+
+    // if we should randomize the non-empty final table seats
+    if(this->tables == 1 && this->final_table_policy == td::final_table_policy_t::randomize)
+    {
+        logger(ll::info) << "randomizing remaining seats\n";
+
+        // get the current list of seats
+        std::vector<td::seat> to;
+        for(const auto& s : this->seats)
+        {
+            to.push_back(s.second);
+        }
+
+        // shuffle it
+        std::shuffle(to.begin(), to.end(), this->random_engine);
+
+        // iterate through again, assigning new seats
+        for(auto& s : this->seats)
+        {
+            const auto& to_seat = to.back();
+
+            logger(ll::info) << "moved player " << this->player_description(s.first) << " from table " << s.second.table_number << ", seat " << s.second.seat_number << " to table " << to_seat.table_number << ", seat " << to_seat.seat_number << '\n';
+
+            // add a new movement
+            movements.push_back(td::player_movement(s.first, this->player_name(s.first), s.second, to.back()));
+
+            // set new seat
+            s.second = to.back();
+            to.pop_back();
+        }
+    }
+
+    // build players-per-table vector
+    auto ppt(this->players_at_tables());
+    if(!ppt.empty())
+    {
+        logger(ll::info) << "attemptying to rebalance tables\n";
+
+        // find smallest and largest tables
+        auto fewest_it(std::min_element(ppt.begin(), ppt.end(), has_lower_size<std::vector<td::player_id_t> >));
+        auto most_it(std::max_element(ppt.begin(), ppt.end(), has_lower_size<std::vector<td::player_id_t> >));
+
+        // if fewest has two fewer players than most (e.g. 6 vs 8), then rebalance
+        while(!most_it->empty() && fewest_it->size() < most_it->size() - 1)
+        {
+            logger(ll::info) << "largest table has " << most_it->size() << " players and smallest table has " << fewest_it->size() << " players\n";
+
+            // pick a random player at the table with the most players
+            auto index(std::uniform_int_distribution<std::size_t>(0, most_it->size()-1)(this->random_engine));
+            auto random_player((*most_it)[index]);
+
+            // subtract iterator to find table number
+            auto table(fewest_it - ppt.begin());
+            movements.push_back(this->move_player(random_player, table));
+
+            // update our lists to stay consistent
+            (*most_it)[index] = most_it->back();
+            most_it->pop_back();
+            fewest_it->push_back(random_player);
+        }
+    }
+
+    // TODO: consolidate any players that moved multiple times
+
     return movements;
 }
 
@@ -1100,135 +1208,6 @@ td::player_movement gameinfo::move_player(const td::player_id_t& player_id, cons
     }
 
     return this->move_player(player_id, smallest_table);
-}
-
-template <typename T>
-static constexpr bool has_lower_size(const T& i0, const T& i1)
-{
-    return i0.size() < i1.size();
-}
-
-// re-balance by moving any player from a large table to a smaller one
-// returns number of movements, or zero, if no players moved
-std::size_t gameinfo::try_rebalance(std::vector<td::player_movement>& movements)
-{
-    logger(ll::info) << "attemptying to rebalance tables\n";
-
-    std::size_t ret(0);
-
-    // build players-per-table vector
-    auto ppt(this->players_at_tables());
-    if(!ppt.empty())
-    {
-        // find smallest and largest tables
-        auto fewest_it(std::min_element(ppt.begin(), ppt.end(), has_lower_size<std::vector<td::player_id_t> >));
-        auto most_it(std::max_element(ppt.begin(), ppt.end(), has_lower_size<std::vector<td::player_id_t> >));
-
-        // if fewest has two fewer players than most (e.g. 6 vs 8), then rebalance
-        while(!most_it->empty() && fewest_it->size() < most_it->size() - 1)
-        {
-            logger(ll::info) << "largest table has " << most_it->size() << " players and smallest table has " << fewest_it->size() << " players\n";
-
-            // pick a random player at the table with the most players
-            auto index(std::uniform_int_distribution<std::size_t>(0, most_it->size()-1)(this->random_engine));
-            auto random_player((*most_it)[index]);
-
-            // subtract iterator to find table number
-            auto table(fewest_it - ppt.begin());
-            movements.push_back(this->move_player(random_player, table));
-            ret++;
-
-            // update our lists to stay consistent
-            (*most_it)[index] = most_it->back();
-            most_it->pop_back();
-            fewest_it->push_back(random_player);
-        }
-    }
-    return ret;
-}
-
-// break a table if possible
-// returns number of movements, or zero, if no players moved
-std::size_t gameinfo::try_break_table(std::vector<td::player_movement>& movements)
-{
-    logger(ll::info) << "attemptying to break a table\n";
-
-    std::size_t ret(0);
-
-    if(this->tables > 1)
-    {
-        // break tables while (player_count-1) div table_capacity < tables
-        while(this->seats.size() <= this->table_capacity * (this->tables-1))
-        {
-            logger(ll::info) << "breaking a table. " << this->seats.size() << " players remain at " << this->tables << " tables of " << this->table_capacity << " capacity\n";
-
-            // always break the highest-numbered table
-            auto break_table(this->tables - 1);
-
-            // get each player found to be sitting at the breaking table
-            std::vector<td::player_id_t> to_move;
-            for(auto& seat : this->seats)
-            {
-                if(seat.second.table_number == break_table)
-                {
-                    to_move.push_back(seat.first);
-                }
-            }
-
-            // move each player in list
-            const std::unordered_set<std::size_t> avoid = {break_table};
-            for(auto& player : to_move)
-            {
-                movements.push_back(this->move_player(player, avoid));
-                ret++;
-            }
-
-            // set state dirty
-            this->dirty = true;
-
-            // decrement number of tables
-            this->tables--;
-
-            // prune empty table from our open seat list, no need to seat people at unused tables
-            this->empty_seats.erase(std::remove_if(this->empty_seats.begin(), this->empty_seats.end(), [&break_table](const td::seat& seat) { return seat.table_number == break_table; }), this->empty_seats.end());
-
-            logger(ll::info) << "broken table " << break_table << ". " << this->seats.size() << " players now at " << this->tables << " tables\n";
-        }
-    }
-
-    // if we should randomize the non-empty final table seats
-    if(this->tables == 1 && this->final_table_policy == td::final_table_policy_t::randomize)
-    {
-        logger(ll::info) << "randomizing remaining seats\n";
-
-        // get the current list of seats
-        std::vector<td::seat> to;
-        for(const auto& s : this->seats)
-        {
-            to.push_back(s.second);
-        }
-
-        // shuffle it
-        std::shuffle(to.begin(), to.end(), this->random_engine);
-
-        // iterate through again, assigning new seats
-        for(auto& s : this->seats)
-        {
-            const auto& to_seat = to.back();
-
-            logger(ll::info) << "moved player " << this->player_description(s.first) << " from table " << s.second.table_number << ", seat " << s.second.seat_number << " to table " << to_seat.table_number << ", seat " << to_seat.seat_number << '\n';
-
-            // add a new movement
-            movements.push_back(td::player_movement(s.first, this->player_name(s.first), s.second, to.back()));
-            ret++;
-
-            // set new seat
-            s.second = to.back();
-            to.pop_back();
-        }
-    }
-
-    return ret;
 }
 
 // fund a player, (re-)buyin or addon

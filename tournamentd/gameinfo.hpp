@@ -164,14 +164,6 @@ class gameinfo
     // returns player's movement
     td::player_movement move_player(const td::player_id_t& player_id, const std::unordered_set<std::size_t>& avoid_tables);
 
-    // re-balance by moving any player from a large table to a smaller one
-    // returns number of movements, or zero, if no players moved
-    std::size_t try_rebalance(std::vector<td::player_movement>& movements);
-
-    // break a table if possible
-    // returns number of movements, or zero, if no players moved
-    std::size_t try_break_table(std::vector<td::player_movement>& movements);
-
     // re-calculate payouts
     void recalculate_payouts();
 
@@ -229,6 +221,7 @@ public:
     std::vector<td::player_movement> bust_player(const td::player_id_t& player_id);
 
     // try to break and rebalance tables
+    // returns description of movements
     std::vector<td::player_movement> rebalance_seating();
 
     // ----- funding -----
