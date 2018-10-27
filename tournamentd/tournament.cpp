@@ -15,6 +15,16 @@
 #include <unordered_map>
 #include <unordered_set>
 
+// poll clients for commands, waiting at most 50ms
+#if !defined SERVER_POLL_TIMEOUT
+#define SERVER_POLL_TIMEOUT 50000
+#endif
+
+// default listen port for tournamentd
+#if !defined(DEFAULT_PORT)
+#define DEFAULT_PORT 25600
+#endif
+
 struct tournament::impl
 {
     // game object
@@ -1042,12 +1052,10 @@ public:
             this->broadcast_state();
         }
 
-        // callback function objects
+        // poll clients for commands
         auto greeter(std::bind(&tournament::impl::handle_new_client, this, std::placeholders::_1));
         auto handler(std::bind(&tournament::impl::handle_client_input, this, std::placeholders::_1));
-
-        // poll clients for commands, waiting at most 50ms
-        auto quit(this->game_server.poll(greeter, handler, 50000));
+        auto quit(this->game_server.poll(greeter, handler, SERVER_POLL_TIMEOUT));
 
         // snapshot if state is dirty
         if(this->game_info.state_is_dirty())
@@ -1081,10 +1089,6 @@ int tournament::authorize(int code)
 {
     return this->pimpl->authorize(code);
 }
-
-#if !defined(DEFAULT_PORT)
-#define DEFAULT_PORT 25600
-#endif
 
 // listen for clients on any available service, returning the unix socket path and port
 std::pair<std::string, int> tournament::listen(const char* unix_socket_directory)
