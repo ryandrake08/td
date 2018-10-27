@@ -229,7 +229,7 @@ public:
     // calculate number of chips per denomination for this funding source, given totals and number of players
     std::vector<td::player_chips> chips_for_buyin(const td::funding_source_id_t& src, std::size_t max_expected_players) const;
 
-    // ----- both planning and seating -----
+    // ----- both seating and funding -----
 
     // quickly set up a game (plan, seat, and buyin, using optional funding source)
     // returns all seated players
@@ -240,9 +240,6 @@ public:
 
     // has the game started?
     bool is_started() const;
-
-    // return current blind level
-    std::size_t get_current_blind_level() const;
 
     // start the game (optionally at certain time);
     void start();

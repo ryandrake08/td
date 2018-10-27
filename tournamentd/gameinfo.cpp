@@ -1651,12 +1651,6 @@ bool gameinfo::is_started() const
     return this->current_blind_level > 0;
 }
 
-// return current blind level
-std::size_t gameinfo::get_current_blind_level() const
-{
-    return this->current_blind_level;
-}
-
 // start the game
 void gameinfo::start()
 {
