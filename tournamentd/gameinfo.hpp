@@ -59,6 +59,9 @@ class gameinfo
     // configuration: clock screen background color (synced to all clients)
     std::string background_color;
 
+    // configuration: how to move players to final table: fill in or randomize
+    td::final_table_policy_t final_table_policy;
+
     // ----- state -----
 
     // state is dirty
@@ -137,6 +140,9 @@ class gameinfo
 
     // get current time
     static time_point_t now();
+
+    // utility: return a player's name by id
+    const std::string player_name(const td::player_id_t& player_id) const;
 
     // utility: return a description of a player, by id
     const std::string player_description(const td::player_id_t& player_id) const;

@@ -113,6 +113,7 @@ gameinfo::gameinfo() :
     payout_policy(td::payout_policy_t::automatic),
     previous_blind_level_hold_duration(2000),
     rebalance_policy(td::rebalance_policy_t::manual),
+    final_table_policy(td::final_table_policy_t::fill),
     dirty(true),
     tables(0),
     total_chips(0),
@@ -175,6 +176,12 @@ void gameinfo::configure(const json& config)
     {
         this->dirty = true;
         logger(ll::info) << "configuration changed: background_color -> " << this->background_color << '\n';
+    }
+
+    if(config.update_value("final_table_policy", reinterpret_cast<int&>(this->final_table_policy)))
+    {
+        this->dirty = true;
+        logger(ll::info) << "configuration changed: final_table_policy -> " << this->final_table_policy << '\n';
     }
 
     if(config.update_value("available_chips", this->available_chips))
@@ -416,6 +423,7 @@ void gameinfo::dump_configuration(json& config) const
     config.set_value("previous_blind_level_hold_duration", this->previous_blind_level_hold_duration);
     config.set_value("rebalance_policy", static_cast<int>(this->rebalance_policy));
     config.set_value("background_color", this->background_color);
+    config.set_value("final_table_policy", static_cast<int>(this->final_table_policy));
     config.set_value("funding_sources", json(this->funding_sources.begin(), this->funding_sources.end()));
     config.set_value("blind_levels", json(this->blind_levels.begin(), this->blind_levels.end()));
     config.set_value("available_chips", json(this->available_chips.begin(), this->available_chips.end()));
@@ -664,14 +672,9 @@ void gameinfo::dump_derived_state(json& state) const
     for(size_t i(0); i<this->players_finished.size(); i++)
     {
         auto player_id(this->players_finished[i]);
-        auto player_it(this->players.find(player_id));
-        if(player_it == this->players.end())
-        {
-            throw std::runtime_error("failed to look up player: " + player_id);
-        }
         size_t j(this->buyins.size()+i);
 
-        td::result result(j+1, player_it->second.name);
+        td::result result(j+1, this->player_name(player_id));
         if(j < this->payouts.size())
         {
             result.payout = this->payouts[j];
@@ -742,14 +745,19 @@ void gameinfo::reset_state()
     this->stop();
 }
 
-const std::string gameinfo::player_description(const td::player_id_t& player_id) const
+const std::string gameinfo::player_name(const td::player_id_t& player_id) const
 {
     auto player_it(this->players.find(player_id));
     if(player_it == this->players.end())
     {
         throw std::runtime_error("failed to look up player: " + player_id);
     }
-    return player_id + " (" + player_it->second.name + ")";
+    return player_it->second.name;
+}
+
+const std::string gameinfo::player_description(const td::player_id_t& player_id) const
+{
+    return player_id + " (" + this->player_name(player_id) + ")";
 }
 
 std::vector<std::vector<td::player_id_t> > gameinfo::players_at_tables() const
@@ -849,15 +857,8 @@ std::vector<td::player_movement> gameinfo::plan_seating(std::size_t max_expected
             new_seats.insert(std::make_pair(p.first, seat));
             this->empty_seats.pop_front();
 
-            // look up player name
-            auto player_it(this->players.find(p.first));
-            if(player_it == this->players.end())
-            {
-                throw std::runtime_error("failed to look up player: " + p.first);
-            }
-
             // record movement
-            movements.push_back(td::player_movement(p.first, player_it->second.name, p.second, seat));
+            movements.push_back(td::player_movement(p.first, this->player_name(p.first), p.second, seat));
         }
 
         // swap
@@ -1062,13 +1063,7 @@ td::player_movement gameinfo::move_player(const td::player_id_t& player_id, std:
 
     logger(ll::info) << "moved player " << this->player_description(player_id) << " from table " << from_seat.table_number << ", seat " << from_seat.seat_number << " to table " << player_seat_it->second.table_number << ", seat " << player_seat_it->second.seat_number << '\n';
 
-    auto player_it(this->players.find(player_id));
-    if(player_it == this->players.end())
-    {
-        throw std::runtime_error("failed to look up player: " + player_id);
-    }
-
-    return td::player_movement(player_id, player_it->second.name, from_seat, player_seat_it->second);
+    return td::player_movement(player_id, this->player_name(player_id), from_seat, player_seat_it->second);
 }
 
 // move a player to the table with the smallest number of players
@@ -1170,7 +1165,7 @@ std::size_t gameinfo::try_break_table(std::vector<td::player_movement>& movement
             // always break the highest-numbered table
             auto break_table(this->tables - 1);
 
-            // get each player found to be sitting at table
+            // get each player found to be sitting at the breaking table
             std::vector<td::player_id_t> to_move;
             for(auto& seat : this->seats)
             {
@@ -1198,6 +1193,38 @@ std::size_t gameinfo::try_break_table(std::vector<td::player_movement>& movement
             this->empty_seats.erase(std::remove_if(this->empty_seats.begin(), this->empty_seats.end(), [&break_table](const td::seat& seat) { return seat.table_number == break_table; }), this->empty_seats.end());
 
             logger(ll::info) << "broken table " << break_table << ". " << this->seats.size() << " players now at " << this->tables << " tables\n";
+        }
+    }
+
+    // if we should randomize the non-empty final table seats
+    if(this->tables == 1 && this->final_table_policy == td::final_table_policy_t::randomize)
+    {
+        logger(ll::info) << "randomizing remaining seats\n";
+
+        // get the current list of seats
+        std::vector<td::seat> to;
+        for(const auto& s : this->seats)
+        {
+            to.push_back(s.second);
+        }
+
+        // shuffle it
+        std::shuffle(to.begin(), to.end(), this->random_engine);
+
+        // iterate through again, assigning new seats
+        for(auto& s : this->seats)
+        {
+            const auto& to_seat = to.back();
+
+            logger(ll::info) << "moved player " << this->player_description(s.first) << " from table " << s.second.table_number << ", seat " << s.second.seat_number << " to table " << to_seat.table_number << ", seat " << to_seat.seat_number << '\n';
+
+            // add a new movement
+            movements.push_back(td::player_movement(s.first, this->player_name(s.first), s.second, to.back()));
+            ret++;
+
+            // set new seat
+            s.second = to.back();
+            to.pop_back();
         }
     }
 

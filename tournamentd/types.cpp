@@ -52,6 +52,17 @@ std::ostream& operator<<(std::ostream& os, const td::ante_type_t& value)
     return os;
 }
 
+// rebalance_policy_t to stream
+std::ostream& operator<<(std::ostream& os, const td::final_table_policy_t& value)
+{
+    switch(value)
+    {
+        case td::final_table_policy_t::fill: os << "fill"; break;
+        case td::final_table_policy_t::randomize: os << "randomize"; break;
+    }
+    return os;
+}
+
 td::authorized_client::authorized_client() : code(0), added_at(datetime::now())
 {
 }

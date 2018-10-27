@@ -32,6 +32,9 @@ namespace td
     // ante type
     enum class ante_type_t { none, traditional, bba };
 
+    // final table policy
+    enum class final_table_policy_t { fill, randomize };
+
     // attributes of an authorized client
     struct authorized_client
     {
@@ -228,3 +231,4 @@ std::ostream& operator<<(std::ostream& os, const td::funding_source_type_t& valu
 std::ostream& operator<<(std::ostream& os, const td::payout_policy_t& value);
 std::ostream& operator<<(std::ostream& os, const td::rebalance_policy_t& value);
 std::ostream& operator<<(std::ostream& os, const td::ante_type_t& value);
+std::ostream& operator<<(std::ostream& os, const td::final_table_policy_t& value);

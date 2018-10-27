@@ -492,6 +492,7 @@ struct tournament::impl
                              previous_blind_level_hold_duration (integer): How long after round starts should prev command go to the previous round (rather than restart)? (ms)
                              rebalance_policy (integer): Policy for rebalancing tables (0 = manual, 1 = when unbalanced, 2 = shootout)
                              background_color (string): Suggested clock user interface color
+                             final_table_policy (integer): Policy for moving players to the final table (0 = fill in, 1 = randomize)
                              */
                             this->ensure_authorized(in);
                             this->handle_cmd_get_config(out);
