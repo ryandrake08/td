@@ -180,9 +180,6 @@ public:
     // initialize game
     gameinfo();
 
-    // validate gameinfo structure
-    void validate();
-
     // load configuration from JSON (object or file)
     void configure(const json& config);
 

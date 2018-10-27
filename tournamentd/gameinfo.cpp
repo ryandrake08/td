@@ -122,20 +122,6 @@ gameinfo::gameinfo() :
 {
 }
 
-void gameinfo::validate()
-{
-    logger(ll::debug) << "validating game configuration / state\n";
-
-    // ensure we have at least one blind level, the setup level
-    if(this->blind_levels.empty())
-    {
-        this->blind_levels.resize(1);
-
-        // set dirty
-        this->dirty = true;
-    }
-}
-
 // get current time
 gameinfo::time_point_t gameinfo::now()
 {
@@ -288,7 +274,14 @@ void gameinfo::configure(const json& config)
         }
     }
 
-    validate();
+    // ensure we have at least one blind level, the setup level
+    if(this->blind_levels.empty())
+    {
+        this->dirty = true;
+        logger(ll::info) << "configuration validated: blind_levels -> " << this->blind_levels.size() << " blind levels\n";
+
+        this->blind_levels.resize(1);
+    }
 
     // can also load state (useful for loading from snapshot)
 
