@@ -16,7 +16,7 @@ td::blind_level::blind_level() : little_blind(0), big_blind(0), ante(0), ante_ty
 {
 }
 
-bool td::blind_level::operator==(const blind_level& other) const
+bool td::blind_level::operator==(const td::blind_level& other) const
 {
     return this->game_name == other.game_name &&
            this->little_blind == other.little_blind &&
@@ -32,7 +32,7 @@ td::chip::chip() : denomination(0), count_available(0)
 {
 }
 
-bool td::chip::operator==(const chip& other) const
+bool td::chip::operator==(const td::chip& other) const
 {
     return this->color == other.color && this->denomination == other.denomination && this->count_available == other.count_available;
 }
@@ -47,7 +47,7 @@ td::monetary_value::monetary_value(double amt, const std::string& curr) : amount
 {
 }
 
-bool td::monetary_value::operator==(const monetary_value& other) const
+bool td::monetary_value::operator==(const td::monetary_value& other) const
 {
     return this->amount == other.amount && this->currency == other.currency;
 }
@@ -60,7 +60,7 @@ td::monetary_value_nocurrency::monetary_value_nocurrency(double amt) : amount(am
 {
 }
 
-bool td::monetary_value_nocurrency::operator==(const monetary_value_nocurrency& other) const
+bool td::monetary_value_nocurrency::operator==(const td::monetary_value_nocurrency& other) const
 {
     return this->amount == other.amount;
 }
@@ -69,7 +69,7 @@ td::funding_source::funding_source() : type(td::funding_source_type_t::buyin), f
 {
 }
 
-bool td::funding_source::operator==(const funding_source& other) const
+bool td::funding_source::operator==(const td::funding_source& other) const
 {
     return this->name == other.name &&
            this->type == other.type &&
@@ -84,7 +84,7 @@ td::player::player() : added_at(datetime::now())
 {
 }
 
-bool td::player::operator==(const player& other) const
+bool td::player::operator==(const td::player& other) const
 {
     return this->player_id == other.player_id && this->name == other.name && this->added_at == other.added_at;
 }
@@ -149,7 +149,7 @@ td::automatic_payout_parameters::automatic_payout_parameters(double percent_paid
 {
 }
 
-bool td::automatic_payout_parameters::operator==(const automatic_payout_parameters& other) const
+bool td::automatic_payout_parameters::operator==(const td::automatic_payout_parameters& other) const
 {
     return this->percent_seats_paid == other.percent_seats_paid && this->round_payouts == other.round_payouts && this->payout_shape == other.payout_shape && this->pay_the_bubble == other.pay_the_bubble && this->pay_knockouts == other.pay_knockouts;
 }
