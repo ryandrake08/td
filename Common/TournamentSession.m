@@ -270,20 +270,8 @@
     }];
 }
 
-- (void)unseatPlayer:(id)playerId withBlock:(void(^)(id,NSNumber*,NSNumber*))block {
-    [self sendCommand:@"unseat_player" withData:@{@"player_id" : playerId} andBlock:^(id json) {
-        // handle seated player
-        id playerUnseated = json[@"player_unseated"];
-        if(playerUnseated) {
-            if(block) {
-                block(playerUnseated[@"player_id"], playerUnseated[@"table_number"], playerUnseated[@"seat_number"]);
-            }
-        } else {
-            if(block) {
-                block(nil, nil, nil);
-            }
-        }
-    }];
+- (void)unseatPlayer:(id)playerId {
+    [self sendCommand:@"unseat_player" withData:@{@"player_id" : playerId} andBlock:nil];
 }
 
 - (void)bustPlayer:(id)playerId withBlock:(void(^)(NSArray*))block {

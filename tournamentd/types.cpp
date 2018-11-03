@@ -141,6 +141,11 @@ td::seated_player::seated_player(const player_id_t& p, const std::string& n, boo
 {
 }
 
+bool td::seated_player::is_seated() const
+{
+    return table_number != std::numeric_limits<std::size_t>::max() && seat_number != std::numeric_limits<std::size_t>::max();
+}
+
 td::automatic_payout_parameters::automatic_payout_parameters() : percent_seats_paid(0.0), round_payouts(false), payout_shape(0.0), pay_the_bubble(0.0), pay_knockouts(0.0)
 {
 }
@@ -469,12 +474,9 @@ json::json(const td::seated_player& value) : json()
     this->set_value("player_id", value.player_id);
     this->set_value("name", value.name);
     this->set_value("buyin", value.buyin);
-    if(value.table_number != std::numeric_limits<std::size_t>::max())
+    if(value.is_seated())
     {
         this->set_value("table_number", value.table_number);
-    }
-    if(value.seat_number != std::numeric_limits<std::size_t>::max())
-    {
         this->set_value("seat_number", value.seat_number);
     }
 }

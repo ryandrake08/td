@@ -243,7 +243,7 @@
             // add unseat function. if selected player is not bought in, then enable the unseat item
             if(![player[@"buyin"] boolValue]) {
                 [actionSheet addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Unseat Player", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction* action) {
-                    [[self session] unseatPlayer:playerId withBlock:nil];
+                    [[self session] unseatPlayer:playerId];
                 }]];
             }
         } else if([indexPath section] == 1) {

@@ -293,12 +293,7 @@ struct tournament::impl
         }
 
         auto seating(this->game_info.add_player(player_id));
-
-        json player_seated;
-        player_seated.set_value("player_id", player_id);
-        player_seated.set_value("table_number", seating.second.table_number);
-        player_seated.set_value("seat_number", seating.second.seat_number);
-        out.set_value(seating.first.c_str(), player_seated);
+        out.set_value(seating.first.c_str(), seating.second);
     }
 
     void handle_cmd_unseat_player(const json& in, json& out)
@@ -310,13 +305,7 @@ struct tournament::impl
             throw td::protocol_error("must specify player");
         }
 
-        auto seating(this->game_info.remove_player(player_id));
-
-        json player_unseated;
-        player_unseated.set_value("player_id", player_id);
-        player_unseated.set_value("table_number", seating.table_number);
-        player_unseated.set_value("seat_number", seating.seat_number);
-        out.set_value("player_unseated", player_unseated);
+        this->game_info.remove_player(player_id);
     }
 
     void handle_cmd_bust_player(const json& in, json& out)
@@ -847,7 +836,9 @@ struct tournament::impl
                              player_id (player id): Player to seat
 
                              output:
-                             player_seated (object): Player, seat, and table numbers
+                             player_seated (object): Player, table, and seat
+                             - or -
+                             already_seated (object): Player, table, and seat
                              */
                             this->ensure_authorized(in);
                             this->handle_cmd_seat_player(in, out);

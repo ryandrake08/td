@@ -30,7 +30,7 @@
             [[self delegate] performSelector:@selector(selectSeatForPlayerId:) withObject:playerId afterDelay:0.0];
         }
     } else {
-        [[self session] unseatPlayer:playerId withBlock:nil];
+        [[self session] unseatPlayer:playerId];
     }
 }
 

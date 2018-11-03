@@ -200,6 +200,9 @@ namespace td
         seated_player();
         seated_player(const player_id_t& p, const std::string& n, bool b);
         seated_player(const player_id_t& p, const std::string& n, bool b, std::size_t t, std::size_t s);
+
+        // is there a valid seat?
+        bool is_seated() const;
     };
 
     // automatic payout parameters

@@ -76,7 +76,7 @@
     NSArray* playerIds = context[@"player_ids"];
     for(id playerId in playerIds) {
         NSLog(@"Unseating player id: %@", playerId);
-        [[self session] unseatPlayer:playerId withBlock:nil];
+        [[self session] unseatPlayer:playerId];
     }
 }
 

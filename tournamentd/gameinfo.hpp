@@ -156,6 +156,9 @@ class gameinfo
     // return a default funding source of the given type. used for quick setup and structure generator
     td::funding_source_id_t source_for_type(const td::funding_source_type_t& type) const;
 
+    // look up all fields for a seated_player
+    td::seated_player find_seated_player(const td::player_id_t& player_id) const;
+
     // move a player to a specific table
     // returns player's original seat and new seat
     td::player_movement move_player(const td::player_id_t& player_id, std::size_t table);
@@ -206,12 +209,12 @@ public:
     // pre-game player seeting, with expected number of players (to predict table count)
     std::vector<td::player_movement> plan_seating(std::size_t max_expected_players);
 
-    // add player to an existing game, returning player's seat
+    // add player to an existing game, returning a message (either player_seated or already_seated) and player's seat
     // returns player's seat
-    std::pair<std::string, td::seat> add_player(const td::player_id_t& player_id);
+    std::pair<std::string, td::seated_player> add_player(const td::player_id_t& player_id);
 
-    // remove a player from the game (as though player never existed in the game), returning seat removed from
-    td::seat remove_player(const td::player_id_t& player_id);
+    // remove a player from the game (as though player never existed in the game), returning a message (player_unseated) and player's seat removed from
+    void remove_player(const td::player_id_t& player_id);
 
     // remove a player from the game, busting him out
     // returns any player movements that happened

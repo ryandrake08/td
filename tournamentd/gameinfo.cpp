@@ -656,18 +656,7 @@ void gameinfo::dump_derived_state(json& state) const
     std::vector<td::seated_player> seated_players;
     for(const auto& p : this->players)
     {
-        auto buyin(this->buyins.find(p.first));
-        auto seat(this->seats.find(p.first));
-        if(seat == this->seats.end())
-        {
-            td::seated_player sp(p.first, p.second.name, buyin != this->buyins.end());
-            seated_players.push_back(sp);
-        }
-        else
-        {
-            td::seated_player sp(p.first, p.second.name, buyin != this->buyins.end(), seat->second.table_number, seat->second.seat_number);
-            seated_players.push_back(sp);
-        }
+        seated_players.push_back(find_seated_player(p.first));
     }
     state.set_value("seated_players", json(seated_players.begin(), seated_players.end()));
 }
@@ -846,15 +835,14 @@ std::vector<td::player_movement> gameinfo::plan_seating(std::size_t max_expected
 }
 
 // add player to an existing game
-std::pair<std::string, td::seat> gameinfo::add_player(const td::player_id_t& player_id)
+std::pair<std::string, td::seated_player> gameinfo::add_player(const td::player_id_t& player_id)
 {
     // find player in existing seating plan
-    auto seat_it(this->seats.find(player_id));
-    if(seat_it != this->seats.end())
+    auto seated(this->find_seated_player(player_id));
+    if(seated.is_seated())
     {
-        auto seat(seat_it->second);
-        logger(ll::info) << "player " << this->player_description(player_id) << " already seated at table " << seat.table_number << ", seat " << seat.seat_number << '\n';
-        return std::make_pair("already_seated", seat);
+        logger(ll::info) << "player " << this->player_description(player_id) << " already seated at table " << seated.table_number << ", seat " << seated.seat_number << '\n';
+        return std::make_pair("already_seated", seated);
     }
     else
     {
@@ -877,17 +865,19 @@ std::pair<std::string, td::seat> gameinfo::add_player(const td::player_id_t& pla
 
         logger(ll::info) << "seated player " << this->player_description(player_id) << " at table " << seat.table_number << ", seat " << seat.seat_number << '\n';
 
-        return std::make_pair("player_seated", seat);
+        seated.table_number = seat.table_number;
+        seated.seat_number = seat.seat_number;
+
+        return std::make_pair("player_seated", seated);
     }
 }
 
 // remove a player
-td::seat gameinfo::remove_player(const td::player_id_t& player_id)
+void gameinfo::remove_player(const td::player_id_t& player_id)
 {
     logger(ll::info) << "removing player " << this->player_description(player_id) << " from game\n";
 
     auto seat_it(this->seats.find(player_id));
-
     if(seat_it == this->seats.end())
     {
         throw td::protocol_error("tried to remove player not seated");
@@ -900,8 +890,6 @@ td::seat gameinfo::remove_player(const td::player_id_t& player_id)
     auto seat(seat_it->second);
     this->empty_seats.push_back(seat);
     this->seats.erase(seat_it);
-
-    return seat;
 }
 
 // remove a player
@@ -1286,6 +1274,21 @@ td::funding_source_id_t gameinfo::source_for_type(const td::funding_source_type_
 
     // throw if none exist
     throw td::protocol_error("no funding sources of given type exist");
+}
+
+// look up all fields for a seated_player
+td::seated_player gameinfo::find_seated_player(const td::player_id_t& player_id) const
+{
+    auto buyin(this->buyins.find(player_id));
+    auto seat(this->seats.find(player_id));
+    if(seat == this->seats.end())
+    {
+        return td::seated_player(player_id, this->player_name(player_id), buyin != this->buyins.end());
+    }
+    else
+    {
+        return td::seated_player(player_id, this->player_name(player_id), buyin != this->buyins.end(), seat->second.table_number, seat->second.seat_number);
+    }
 }
 
 // calculate number of chips per denomination for this funding source, given totals and number of players
