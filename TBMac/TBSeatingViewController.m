@@ -21,11 +21,15 @@
     [super viewDidLoad];
 
     // filter predicate to not show empty seats
-    [[self arrayController] setFilterPredicate:[NSPredicate predicateWithFormat: @"seat_number != nil"]];
+    [[self arrayController] setFilterPredicate:[NSPredicate predicateWithFormat: @"seat_name != nil"]];
 
     // setup sort descriptors
-    NSSortDescriptor* tableNumberSort = [[NSSortDescriptor alloc] initWithKey:@"table_number" ascending:YES];
-    NSSortDescriptor* seatNumberSort = [[NSSortDescriptor alloc] initWithKey:@"seat_number" ascending:YES];
+    NSSortDescriptor* tableNumberSort = [[NSSortDescriptor alloc] initWithKey:@"table_name" ascending:YES comparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        return [obj1 compare:obj2 options:NSCaseInsensitiveSearch|NSNumericSearch];
+    }];
+    NSSortDescriptor* seatNumberSort = [[NSSortDescriptor alloc] initWithKey:@"seat_name" ascending:YES comparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        return [obj1 compare:obj2 options:NSCaseInsensitiveSearch|NSNumericSearch];
+    }];
 
     // set sort descriptors for arrays
     [[self arrayController] setSortDescriptors:@[tableNumberSort, seatNumberSort]];

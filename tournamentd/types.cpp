@@ -101,7 +101,7 @@ td::player_movement::player_movement()
 {
 }
 
-td::player_movement::player_movement(const player_id_t& p, const std::string& n, std::size_t ft, std::size_t fs, std::size_t tt, std::size_t ts) : player_id(p), name(n), from_table_number(ft), from_seat_number(fs), to_table_number(tt), to_seat_number(ts)
+td::player_movement::player_movement(const player_id_t& p, const std::string& n, const std::string& ft, const std::string& fs, const std::string& tt, const std::string& ts) : player_id(p), name(n), from_table_name(ft), from_seat_name(fs), to_table_name(tt), to_seat_name(ts)
 {
 }
 
@@ -129,21 +129,21 @@ td::result::result(size_t p, const std::string& n) : place(p), name(n)
 {
 }
 
-td::seated_player::seated_player() : buyin(false), table_number(std::numeric_limits<std::size_t>::max()), seat_number(std::numeric_limits<std::size_t>::max())
+td::seated_player::seated_player() : buyin(false)
 {
 }
 
-td::seated_player::seated_player(const player_id_t& p, const std::string& n, bool b) : player_id(p), name(n), buyin(b), table_number(std::numeric_limits<std::size_t>::max()), seat_number(std::numeric_limits<std::size_t>::max())
+td::seated_player::seated_player(const player_id_t& p, const std::string& n, bool b) : player_id(p), name(n), buyin(b)
 {
 }
 
-td::seated_player::seated_player(const player_id_t& p, const std::string& n, bool b, std::size_t t, std::size_t s) : player_id(p), name(n), buyin(b), table_number(t), seat_number(s)
+td::seated_player::seated_player(const player_id_t& p, const std::string& n, bool b, const std::string& t, const std::string& s) : player_id(p), name(n), buyin(b), table_name(t), seat_name(s)
 {
 }
 
 bool td::seated_player::is_seated() const
 {
-    return table_number != std::numeric_limits<std::size_t>::max() && seat_number != std::numeric_limits<std::size_t>::max();
+    return !this->table_name.empty() && !seat_name.empty();
 }
 
 td::automatic_payout_parameters::automatic_payout_parameters() : percent_seats_paid(0.0), round_payouts(false), payout_shape(0.0), pay_the_bubble(0.0), pay_knockouts(0.0)
@@ -420,10 +420,10 @@ json::json(const td::player_movement& value) : json()
 {
     this->set_value("player_id", value.player_id);
     this->set_value("name", value.name);
-    this->set_value("from_table_number", value.from_table_number);
-    this->set_value("from_seat_number", value.from_seat_number);
-    this->set_value("to_table_number", value.to_table_number);
-    this->set_value("to_seat_number", value.to_seat_number);
+    this->set_value("from_table_name", value.from_table_name);
+    this->set_value("from_seat_name", value.from_seat_name);
+    this->set_value("to_table_name", value.to_table_name);
+    this->set_value("to_seat_name", value.to_seat_name);
 }
 
 template<>
@@ -476,8 +476,8 @@ json::json(const td::seated_player& value) : json()
     this->set_value("buyin", value.buyin);
     if(value.is_seated())
     {
-        this->set_value("table_number", value.table_number);
-        this->set_value("seat_number", value.seat_number);
+        this->set_value("table_name", value.table_name);
+        this->set_value("seat_name", value.seat_name);
     }
 }
 

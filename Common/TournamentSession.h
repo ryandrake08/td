@@ -79,7 +79,7 @@
 - (void)genBlindLevelsRequest:(NSDictionary*)request withBlock:(void(^)(NSArray*))block;
 - (void)fundPlayer:(id)playerId withFunding:(NSNumber*)sourceId;
 - (void)planSeatingFor:(NSNumber*)expectedPlayers withBlock:(void(^)(NSArray*))block;
-- (void)seatPlayer:(id)playerId withBlock:(void(^)(id playerId,NSNumber* tableNumber,NSNumber* seatNumber,BOOL alreadySeated))block;
+- (void)seatPlayer:(id)playerId withBlock:(void(^)(id playerId,NSString* tableName,NSString* seatName,BOOL alreadySeated))block;
 - (void)unseatPlayer:(id)playerId;
 - (void)bustPlayer:(id)playerId withBlock:(void(^)(NSArray*))block;
 - (void)rebalanceSeatingWithBlock:(void(^)(NSArray*))block;

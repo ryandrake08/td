@@ -148,13 +148,13 @@ namespace td
     {
         player_id_t player_id;
         std::string name;
-        std::size_t from_table_number;
-        std::size_t from_seat_number;
-        std::size_t to_table_number;
-        std::size_t to_seat_number;
+        std::string from_table_name;
+        std::string from_seat_name;
+        std::string to_table_name;
+        std::string to_seat_name;
 
         player_movement();
-        player_movement(const player_id_t& p, const std::string& n, std::size_t ft, std::size_t fs, std::size_t tt, std::size_t ts);
+        player_movement(const player_id_t& p, const std::string& n, const std::string& ft, const std::string& fs, const std::string& tt, const std::string& ts);
     };
 
     // represents a quantity of chips distributed to each player
@@ -194,12 +194,12 @@ namespace td
         player_id_t player_id;
         std::string name;
         bool buyin;
-        std::size_t table_number;
-        std::size_t seat_number;
+        std::string table_name;
+        std::string seat_name;
 
         seated_player();
         seated_player(const player_id_t& p, const std::string& n, bool b);
-        seated_player(const player_id_t& p, const std::string& n, bool b, std::size_t t, std::size_t s);
+        seated_player(const player_id_t& p, const std::string& n, bool b, const std::string& t, const std::string& s);
 
         // is there a valid seat?
         bool is_seated() const;

@@ -247,19 +247,19 @@
     }];
 }
 
-- (void)seatPlayer:(id)playerId withBlock:(void(^)(id,NSNumber*,NSNumber*,BOOL))block {
+- (void)seatPlayer:(id)playerId withBlock:(void(^)(id,NSString*,NSString*,BOOL))block {
     [self sendCommand:@"seat_player" withData:@{@"player_id" : playerId} andBlock:^(id json) {
         // handle seated player
         id playerSeated = json[@"player_seated"];
         if(playerSeated) {
             if(block) {
-                block(playerSeated[@"player_id"], playerSeated[@"table_number"], playerSeated[@"seat_number"], NO);
+                block(playerSeated[@"player_id"], playerSeated[@"table_name"], playerSeated[@"seat_name"], NO);
             }
         } else {
             id alreadySeated = json[@"already_seated"];
             if(alreadySeated) {
                 if(block) {
-                    block(alreadySeated[@"player_id"], alreadySeated[@"table_number"], alreadySeated[@"seat_number"], YES);
+                    block(alreadySeated[@"player_id"], alreadySeated[@"table_name"], alreadySeated[@"seat_name"], YES);
                 }
             } else {
                 if(block) {

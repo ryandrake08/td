@@ -283,7 +283,6 @@
 		94E77A0A216A860B0037FA67 /* TBNotificationAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E77A06216A860B0037FA67 /* TBNotificationAttributes.m */; };
 		94E77A0C216A8D120037FA67 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E77A0B216A8D120037FA67 /* UserNotifications.framework */; };
 		94E77A0D216A8D1A0037FA67 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E77A0B216A8D120037FA67 /* UserNotifications.framework */; };
-		94ED00111B76E1E6003CF19B /* TBTableSeatNumberTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 94ED00101B76E1E6003CF19B /* TBTableSeatNumberTransformer.m */; };
 		94F466271B8AF203009BB648 /* TBCurrencyCodeTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F466261B8AF203009BB648 /* TBCurrencyCodeTransformer.m */; };
 		94F51CAE1BC96F53007AD1DD /* TBTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F51CAD1BC96F53007AD1DD /* TBTableViewController.m */; };
 		94F51CAF1BC96F53007AD1DD /* TBTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F51CAD1BC96F53007AD1DD /* TBTableViewController.m */; };
@@ -900,8 +899,6 @@
 		94E77A05216A860B0037FA67 /* TBNotificationAttributes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBNotificationAttributes.h; sourceTree = "<group>"; };
 		94E77A06216A860B0037FA67 /* TBNotificationAttributes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TBNotificationAttributes.m; sourceTree = "<group>"; };
 		94E77A0B216A8D120037FA67 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
-		94ED000F1B76E1E6003CF19B /* TBTableSeatNumberTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBTableSeatNumberTransformer.h; sourceTree = "<group>"; };
-		94ED00101B76E1E6003CF19B /* TBTableSeatNumberTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBTableSeatNumberTransformer.m; sourceTree = "<group>"; };
 		94F466251B8AF203009BB648 /* TBCurrencyCodeTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBCurrencyCodeTransformer.h; sourceTree = "<group>"; };
 		94F466261B8AF203009BB648 /* TBCurrencyCodeTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBCurrencyCodeTransformer.m; sourceTree = "<group>"; };
 		94F51CAC1BC96F53007AD1DD /* TBTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBTableViewController.h; sourceTree = "<group>"; };
@@ -1377,8 +1374,6 @@
 				ADE299AE1B7B994200F1393B /* TBSound.m */,
 				942B84DE200DA00C001F8EEB /* TBSoundPlayer.h */,
 				942B84DF200DA00C001F8EEB /* TBSoundPlayer.m */,
-				94ED000F1B76E1E6003CF19B /* TBTableSeatNumberTransformer.h */,
-				94ED00101B76E1E6003CF19B /* TBTableSeatNumberTransformer.m */,
 				946F7579216A7CF400E9B8CF /* TBUserNotificationDelegate.h */,
 				946F757A216A7CF400E9B8CF /* TBUserNotificationDelegate.m */,
 				943970161B3F9DB700BB0413 /* TournamentBrowser.h */,
@@ -2296,7 +2291,6 @@
 				9476F4A21B3C3EA700A158F8 /* TournamentConnection.m in Sources */,
 				9462A3F11B781A9A00B29002 /* RSVerticallyCenteredTextFieldCell.m in Sources */,
 				ADDDAA881B93584300D3AF68 /* TBArrayCountTransformer.m in Sources */,
-				94ED00111B76E1E6003CF19B /* TBTableSeatNumberTransformer.m in Sources */,
 				ADCECE861B7B101500767DA6 /* TBPlayersViewController.m in Sources */,
 				ADE299AF1B7B994200F1393B /* TBSound.m in Sources */,
 				943970181B3F9DB700BB0413 /* TournamentBrowser.m in Sources */,

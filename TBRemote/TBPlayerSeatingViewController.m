@@ -46,12 +46,16 @@
         NSArray* seatedPlayers = [[object session] state][@"seated_players"];
 
         // get lists of players
-        NSArray* seated = [seatedPlayers filteredArrayUsingPredicate:[NSPredicate predicateWithFormat: @"seat_number != nil"]];
-        NSArray* unseated = [seatedPlayers filteredArrayUsingPredicate:[NSPredicate predicateWithFormat: @"seat_number = nil"]];
+        NSArray* seated = [seatedPlayers filteredArrayUsingPredicate:[NSPredicate predicateWithFormat: @"seat_name != nil"]];
+        NSArray* unseated = [seatedPlayers filteredArrayUsingPredicate:[NSPredicate predicateWithFormat: @"seat_name = nil"]];
 
         // sort descriptors
-        NSSortDescriptor* tableNumberSort = [[NSSortDescriptor alloc] initWithKey:@"table_number" ascending:YES];
-        NSSortDescriptor* seatNumberSort = [[NSSortDescriptor alloc] initWithKey:@"seat_number" ascending:YES];
+        NSSortDescriptor* tableNumberSort = [[NSSortDescriptor alloc] initWithKey:@"table_name" ascending:YES comparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            return [obj1 compare:obj2 options:NSCaseInsensitiveSearch|NSNumericSearch];
+        }];
+        NSSortDescriptor* seatNumberSort = [[NSSortDescriptor alloc] initWithKey:@"seat_name" ascending:YES comparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            return [obj1 compare:obj2 options:NSCaseInsensitiveSearch|NSNumericSearch];
+        }];
         NSSortDescriptor* nameSort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
 
         // sorted
@@ -101,12 +105,6 @@
     }];
 }
 
-#pragma mark Operations
-
-- (NSString*)displayStringForTableOrSeatNumber:(NSNumber*)number {
-    return [@([number integerValue] + 1) stringValue];
-}
-
 #pragma mark UITableViewDataSource
 
 - (NSString*)tableView:(UITableView*)tableView titleForHeaderInSection:(NSInteger)section {
@@ -126,9 +124,9 @@
 - (NSInteger)tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section {
     NSArray* players;
     if(section == 0) {
-        players = [[self seatedPlayers] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat: @"seat_number != nil"]];
+        players = [[self seatedPlayers] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat: @"seat_name != nil"]];
     } else if(section == 1) {
-        players = [[self unseatedPlayers] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat: @"seat_number = nil"]];
+        players = [[self unseatedPlayers] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat: @"seat_name = nil"]];
     }
     return [players count];
 }
@@ -143,8 +141,8 @@
         player = [self seatedPlayers][[indexPath row]];
 
         // setup cell
-        [(UILabel*)[cell viewWithTag:100] setText:[self displayStringForTableOrSeatNumber:player[@"table_number"]]];
-        [(UILabel*)[cell viewWithTag:101] setText:[self displayStringForTableOrSeatNumber:player[@"seat_number"]]];
+        [(UILabel*)[cell viewWithTag:100] setText:player[@"table_name"]];
+        [(UILabel*)[cell viewWithTag:101] setText:player[@"seat_name"]];
         [(UILabel*)[cell viewWithTag:102] setText:player[@"name"]];
 
         if([player[@"buyin"] boolValue]) {

@@ -214,6 +214,12 @@ void gameinfo::configure(const json& config)
         }
     }
 
+    if(config.update_value("table_names", this->table_names))
+    {
+        this->dirty = true;
+        logger(ll::info) << "configuration changed: table_names -> " << this->table_names.size() << '\n';
+    }
+
     // recalculate for any configuration that could alter payouts
     auto recalculate(false);
     if(config.update_value("payout_policy", reinterpret_cast<int&>(this->payout_policy)))
@@ -408,6 +414,7 @@ void gameinfo::dump_configuration(json& config) const
     config.set_value("name", this->name);
     config.set_value("players", json(this->players.begin(), this->players.end()));
     config.set_value("table_capacity", this->table_capacity);
+    config.set_value("table_names", json(this->table_names.begin(), this->table_names.end()));
     config.set_value("payout_policy", static_cast<int>(this->payout_policy));
     config.set_value("payout_currency", this->payout_currency);
     config.set_value("automatic_payouts", this->automatic_payouts);
@@ -736,6 +743,28 @@ std::vector<std::vector<td::player_id_t> > gameinfo::players_at_tables() const
     return ret;
 }
 
+// utility: return name of given table number or seat number
+const std::string gameinfo::table_name(std::size_t table_number) const
+{
+    if(this->table_names.empty())
+    {
+        // no table names configured. default to to_string of table index + 1 (table 0 -> "1")
+        return std::to_string(table_number+1);
+    }
+    else
+    {
+        // return table name (throws out_of_range if not enough table names configured)
+        // TODO: handle insufficient table_names better
+        return this->table_names.at(table_number);
+    }
+}
+
+const std::string gameinfo::seat_name(std::size_t seat_number) const
+{
+    // seat number is not configurable
+    return std::to_string(seat_number+1);
+}
+
 static std::vector<td::player_movement>& minimize_player_movements(std::vector<td::player_movement>& movements)
 {
     // TODO: collapse any movement chains (A->B, B->C to A->C)
@@ -822,7 +851,12 @@ std::vector<td::player_movement> gameinfo::plan_seating(std::size_t max_expected
             this->empty_seats.pop_front();
 
             // record movement
-            movements.push_back(td::player_movement(p.first, this->player_name(p.first), p.second.table_number, p.second.seat_number, seat.table_number, seat.seat_number));
+            movements.push_back(td::player_movement(p.first,
+                                                    this->player_name(p.first),
+                                                    this->table_name(p.second.table_number),
+                                                    this->seat_name(p.second.seat_number),
+                                                    this->table_name(seat.table_number),
+                                                    this->seat_name(seat.seat_number)));
         }
 
         // swap
@@ -841,7 +875,7 @@ std::pair<std::string, td::seated_player> gameinfo::add_player(const td::player_
     auto seated(this->find_seated_player(player_id));
     if(seated.is_seated())
     {
-        logger(ll::info) << "player " << this->player_description(player_id) << " already seated at table " << seated.table_number << ", seat " << seated.seat_number << '\n';
+        logger(ll::info) << "player " << this->player_description(player_id) << " already seated at table " << seated.table_name << ", seat " << seated.seat_name << '\n';
         return std::make_pair("already_seated", seated);
     }
     else
@@ -863,10 +897,10 @@ std::pair<std::string, td::seated_player> gameinfo::add_player(const td::player_
         this->seats.insert(std::make_pair(player_id, seat));
         this->empty_seats.pop_front();
 
-        logger(ll::info) << "seated player " << this->player_description(player_id) << " at table " << seat.table_number << ", seat " << seat.seat_number << '\n';
+        seated.table_name = this->table_name(seat.table_number);
+        seated.seat_name = this->seat_name(seat.seat_number);
 
-        seated.table_number = seat.table_number;
-        seated.seat_number = seat.seat_number;
+        logger(ll::info) << "seated player " << this->player_description(player_id) << " at table " << seated.table_name << ", seat " << seated.seat_name << '\n';
 
         return std::make_pair("player_seated", seated);
     }
@@ -1046,12 +1080,15 @@ std::vector<td::player_movement> gameinfo::rebalance_seating()
         // iterate through again, assigning new seats
         for(auto& s : this->seats)
         {
-            const auto& to_seat = to.back();
-
-            logger(ll::info) << "moved player " << this->player_description(s.first) << " from table " << s.second.table_number << ", seat " << s.second.seat_number << " to table " << to_seat.table_number << ", seat " << to_seat.seat_number << '\n';
-
             // add a new movement
-            movements.push_back(td::player_movement(s.first, this->player_name(s.first), s.second.table_number, s.second.seat_number, to.back().table_number, to.back().seat_number));
+            td::player_movement movement(s.first,
+                                         this->player_name(s.first),
+                                         this->table_name(s.second.table_number),
+                                         this->seat_name(s.second.seat_number),
+                                         this->table_name(to.back().table_number),
+                                         this->seat_name(to.back().seat_number));
+            movements.push_back(movement);
+            logger(ll::info) << "moved player " << this->player_description(s.first) << " from table " << movement.from_table_name << ", seat " << movement.from_seat_name << " to table " << movement.to_table_name << ", seat " << movement.to_seat_name << '\n';
 
             // set new seat
             s.second = to.back();
@@ -1130,9 +1167,14 @@ td::player_movement gameinfo::move_player(const td::player_id_t& player_id, std:
     this->empty_seats.push_back(from_seat);
     this->empty_seats.erase(to_seat_it);
 
-    logger(ll::info) << "moved player " << this->player_description(player_id) << " from table " << from_seat.table_number << ", seat " << from_seat.seat_number << " to table " << player_seat_it->second.table_number << ", seat " << player_seat_it->second.seat_number << '\n';
-
-    return td::player_movement(player_id, this->player_name(player_id), from_seat.table_number, from_seat.seat_number, player_seat_it->second.table_number, player_seat_it->second.seat_number);
+    td::player_movement movement(player_id,
+                                 this->player_name(player_id),
+                                 this->table_name(from_seat.table_number),
+                                 this->seat_name(from_seat.seat_number),
+                                 this->table_name(player_seat_it->second.table_number),
+                                 this->seat_name(player_seat_it->second.seat_number));
+    logger(ll::info) << "moved player " << this->player_description(player_id) << " from table " << movement.from_table_name << ", seat " << movement.from_seat_name << " to table " << movement.to_table_name << ", seat " << movement.to_seat_name << '\n';
+    return movement;
 }
 
 // move a player to the table with the smallest number of players
@@ -1287,7 +1329,11 @@ td::seated_player gameinfo::find_seated_player(const td::player_id_t& player_id)
     }
     else
     {
-        return td::seated_player(player_id, this->player_name(player_id), buyin != this->buyins.end(), seat->second.table_number, seat->second.seat_number);
+        return td::seated_player(player_id,
+                                 this->player_name(player_id),
+                                 buyin != this->buyins.end(),
+                                 this->table_name(seat->second.table_number),
+                                 this->seat_name(seat->second.seat_number));
     }
 }
 
@@ -1602,7 +1648,7 @@ std::vector<td::seated_player> gameinfo::quick_setup(const td::funding_source_id
         this->fund_player(p.second.player_id, src);
 
         // build a seated_player object
-        td::seated_player sp(p.first, p.second.name, true, seating.second.table_number, seating.second.seat_number);
+        td::seated_player sp(p.first, p.second.name, true, seating.second.table_name, seating.second.seat_name);
         seated_players.push_back(sp);
     }
 

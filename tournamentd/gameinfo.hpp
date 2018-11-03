@@ -26,6 +26,9 @@ class gameinfo
     // configuration: number of players per table
     std::size_t table_capacity;
 
+    // configuration: table names
+    std::vector<std::string> table_names;
+
     // configuration: funding rules
     std::vector<td::funding_source> funding_sources;
 
@@ -149,6 +152,10 @@ class gameinfo
 
     // utility: arrange tables with lists of players
     std::vector<std::vector<td::player_id_t> > players_at_tables() const;
+
+    // utility: return name of given table number or seat number
+    const std::string table_name(std::size_t table_number) const;
+    const std::string seat_name(std::size_t seat_number) const;
 
     // return the maximum number of chips available per player for a given denomination
     size_t max_chips_for(unsigned long denomination, std::size_t players_count) const;

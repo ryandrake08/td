@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14313.18"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -647,14 +647,14 @@
                                                                         <string key="NSValueTransformerName">NSNegateBoolean</string>
                                                                     </dictionary>
                                                                 </binding>
-                                                                <binding destination="LJR-BA-7sj" name="value" keyPath="objectValue.seat_number" id="HtF-JF-uKl">
-                                                                    <dictionary key="options">
-                                                                        <string key="NSValueTransformerName">NSIsNotNil</string>
-                                                                    </dictionary>
-                                                                </binding>
                                                                 <binding destination="S8w-ig-TI4" name="hidden" keyPath="self.session.state.empty_seats" id="Rbc-RG-WTF">
                                                                     <dictionary key="options">
                                                                         <string key="NSValueTransformerName">TBArrayEmptyTransformer</string>
+                                                                    </dictionary>
+                                                                </binding>
+                                                                <binding destination="LJR-BA-7sj" name="value" keyPath="objectValue.seat_name" id="dge-zF-Kvu">
+                                                                    <dictionary key="options">
+                                                                        <string key="NSValueTransformerName">NSIsNotNil</string>
                                                                     </dictionary>
                                                                 </binding>
                                                             </connections>
@@ -663,7 +663,7 @@
                                                 </tableCellView>
                                             </prototypeCellViews>
                                             <connections>
-                                                <binding destination="deM-cL-wST" name="value" keyPath="arrangedObjects.seat_number" id="mHa-Iq-DOM"/>
+                                                <binding destination="deM-cL-wST" name="value" keyPath="arrangedObjects.seat_name" id="mHa-Iq-DOM"/>
                                             </connections>
                                         </tableColumn>
                                     </tableColumns>
@@ -694,7 +694,7 @@
                 </viewController>
                 <arrayController clearsFilterPredicateOnInsertion="NO" automaticallyRearrangesObjects="YES" id="deM-cL-wST">
                     <declaredKeys>
-                        <string>seat_number</string>
+                        <string>seat_name</string>
                     </declaredKeys>
                     <connections>
                         <binding destination="S8w-ig-TI4" name="contentArray" keyPath="self.session.state.seated_players" id="RV6-lV-lpy"/>
@@ -750,11 +750,7 @@
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
                                                                     <connections>
-                                                                        <binding destination="hqU-Jf-C4O" name="value" keyPath="objectValue.table_number" id="LDn-oq-S6c">
-                                                                            <dictionary key="options">
-                                                                                <string key="NSValueTransformerName">TBTableSeatNumberTransformer</string>
-                                                                            </dictionary>
-                                                                        </binding>
+                                                                        <binding destination="hqU-Jf-C4O" name="value" keyPath="objectValue.table_name" id="SY6-Pb-MyG"/>
                                                                     </connections>
                                                                 </textField>
                                                                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wsy-b2-2A2">
@@ -769,7 +765,7 @@
                                                         </tableCellView>
                                                     </prototypeCellViews>
                                                     <connections>
-                                                        <binding destination="lEi-d5-YnD" name="value" keyPath="arrangedObjects.table_number" id="zlU-7s-0cw"/>
+                                                        <binding destination="lEi-d5-YnD" name="value" keyPath="arrangedObjects.table_name" id="zlU-7s-0cw"/>
                                                     </connections>
                                                 </tableColumn>
                                                 <tableColumn width="48" minWidth="48" maxWidth="48" id="m8w-Y8-cRT">
@@ -797,11 +793,7 @@
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
                                                                     <connections>
-                                                                        <binding destination="NYm-hB-jnL" name="value" keyPath="objectValue.seat_number" id="xlC-52-aPA">
-                                                                            <dictionary key="options">
-                                                                                <string key="NSValueTransformerName">TBTableSeatNumberTransformer</string>
-                                                                            </dictionary>
-                                                                        </binding>
+                                                                        <binding destination="NYm-hB-jnL" name="value" keyPath="objectValue.seat_name" id="7my-lS-4J4"/>
                                                                     </connections>
                                                                 </textField>
                                                                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7SX-uo-zKw">
@@ -816,7 +808,7 @@
                                                         </tableCellView>
                                                     </prototypeCellViews>
                                                     <connections>
-                                                        <binding destination="lEi-d5-YnD" name="value" keyPath="arrangedObjects.seat_number" id="LLM-GT-leS"/>
+                                                        <binding destination="lEi-d5-YnD" name="value" keyPath="arrangedObjects.seat_name" id="LLM-GT-leS"/>
                                                     </connections>
                                                 </tableColumn>
                                                 <tableColumn width="248" minWidth="70" maxWidth="1000" id="376-ib-6xN">
@@ -1513,11 +1505,7 @@ DQ
                                                                         </userDefinedRuntimeAttribute>
                                                                     </userDefinedRuntimeAttributes>
                                                                     <connections>
-                                                                        <binding destination="zY8-hh-Kk9" name="value" keyPath="objectValue.from_table_number" id="IUd-AE-Qe4">
-                                                                            <dictionary key="options">
-                                                                                <string key="NSValueTransformerName">TBTableSeatNumberTransformer</string>
-                                                                            </dictionary>
-                                                                        </binding>
+                                                                        <binding destination="zY8-hh-Kk9" name="value" keyPath="objectValue.from_table_name" id="NtY-Qk-ZL2"/>
                                                                     </connections>
                                                                 </textField>
                                                                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CVS-2E-RQp">
@@ -1539,11 +1527,7 @@ DQ
                                                                         </userDefinedRuntimeAttribute>
                                                                     </userDefinedRuntimeAttributes>
                                                                     <connections>
-                                                                        <binding destination="zY8-hh-Kk9" name="value" keyPath="objectValue.from_seat_number" id="e0h-R2-o0m">
-                                                                            <dictionary key="options">
-                                                                                <string key="NSValueTransformerName">TBTableSeatNumberTransformer</string>
-                                                                            </dictionary>
-                                                                        </binding>
+                                                                        <binding destination="zY8-hh-Kk9" name="value" keyPath="objectValue.from_seat_name" id="0h6-Dd-QVL"/>
                                                                     </connections>
                                                                 </textField>
                                                                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SXI-8F-Vzv" userLabel="Arrow">
@@ -1570,11 +1554,7 @@ DQ
                                                                         </userDefinedRuntimeAttribute>
                                                                     </userDefinedRuntimeAttributes>
                                                                     <connections>
-                                                                        <binding destination="zY8-hh-Kk9" name="value" keyPath="objectValue.to_table_number" id="Aop-LQ-cMF">
-                                                                            <dictionary key="options">
-                                                                                <string key="NSValueTransformerName">TBTableSeatNumberTransformer</string>
-                                                                            </dictionary>
-                                                                        </binding>
+                                                                        <binding destination="zY8-hh-Kk9" name="value" keyPath="objectValue.to_table_name" id="zR8-7a-26z"/>
                                                                     </connections>
                                                                 </textField>
                                                                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KoO-Mv-S2l">
@@ -1596,11 +1576,7 @@ DQ
                                                                         </userDefinedRuntimeAttribute>
                                                                     </userDefinedRuntimeAttributes>
                                                                     <connections>
-                                                                        <binding destination="zY8-hh-Kk9" name="value" keyPath="objectValue.to_seat_number" id="N3r-ad-Cgp">
-                                                                            <dictionary key="options">
-                                                                                <string key="NSValueTransformerName">TBTableSeatNumberTransformer</string>
-                                                                            </dictionary>
-                                                                        </binding>
+                                                                        <binding destination="zY8-hh-Kk9" name="value" keyPath="objectValue.to_seat_name" id="mnc-Ra-bgv"/>
                                                                     </connections>
                                                                 </textField>
                                                                 <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="8we-y3-Jbh">
