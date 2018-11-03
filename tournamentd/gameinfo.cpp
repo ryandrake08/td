@@ -747,6 +747,12 @@ std::vector<std::vector<td::player_id_t> > gameinfo::players_at_tables() const
     return ret;
 }
 
+static std::vector<td::player_movement>& minimize_player_movements(std::vector<td::player_movement>& movements)
+{
+    // TODO: collapse any movement chains (A->B, B->C to A->C)
+    return movements;
+}
+
 std::vector<td::player_movement> gameinfo::plan_seating(std::size_t max_expected)
 {
     // return value is any movements that have to happen
@@ -836,7 +842,7 @@ std::vector<td::player_movement> gameinfo::plan_seating(std::size_t max_expected
         logger(ll::info) << "created " << this->empty_seats.size() << " empty seats for " << max_expected << " expected players, re-seating " << new_seats.size() << " players\n";
     }
 
-    return movements;
+    return minimize_player_movements(movements);
 }
 
 // add player to an existing game
@@ -977,7 +983,7 @@ std::vector<td::player_movement> gameinfo::bust_player(const td::player_id_t& pl
         this->stop();
     }
 
-    return movements;
+    return minimize_player_movements(movements);
 }
 
 template <typename T>
@@ -1095,9 +1101,7 @@ std::vector<td::player_movement> gameinfo::rebalance_seating()
         }
     }
 
-    // TODO: consolidate any players that moved multiple times
-
-    return movements;
+    return minimize_player_movements(movements);
 }
 
 // move a player to a specific table
