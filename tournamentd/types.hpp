@@ -232,3 +232,4 @@ std::ostream& operator<<(std::ostream& os, const td::payout_policy_t& value);
 std::ostream& operator<<(std::ostream& os, const td::rebalance_policy_t& value);
 std::ostream& operator<<(std::ostream& os, const td::ante_type_t& value);
 std::ostream& operator<<(std::ostream& os, const td::final_table_policy_t& value);
+std::ostream& operator<<(std::ostream& os, const td::blind_level& level);

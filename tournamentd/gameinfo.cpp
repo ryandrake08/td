@@ -459,41 +459,6 @@ void gameinfo::dump_configuration_state(json &state) const
     state.set_value("available_chips", json(this->available_chips.begin(), this->available_chips.end()));
 }
 
-// blind level to string
-static std::ostream& operator<<(std::ostream& os, const td::blind_level& level)
-{
-    os << level.little_blind << '/' << level.big_blind;
-    if(level.ante_type == td::ante_type_t::traditional)
-    {
-        // TODO: i18n
-        os << " Ante:" << level.ante;
-    }
-    else if(level.ante_type == td::ante_type_t::bba)
-    {
-        // TODO: i18n
-        os << " BBA:" << level.ante;
-    }
-    return os;
-}
-
-// funding source to string
-static std::ostream& operator<<(std::ostream& os, const td::funding_source& src)
-{
-    os << src.name << ": " << src.cost.currency << src.cost.amount;
-    if(src.commission.amount != 0.0)
-    {
-        if(src.commission.currency == src.cost.currency)
-        {
-            os << '+' << src.commission.amount;
-        }
-        else
-        {
-            os << '+' << src.commission.currency << src.commission.amount;
-        }
-    }
-    return os;
-}
-
 // calculate derived state and dump to JSON
 void gameinfo::dump_derived_state(json& state) const
 {
@@ -643,7 +608,18 @@ void gameinfo::dump_derived_state(json& state) const
     auto src_it(std::find_if(this->funding_sources.begin(), this->funding_sources.end(), [](const td::funding_source& s) { return s.type == td::funding_source_type_t::buyin; }));
     if(src_it != this->funding_sources.end())
     {
-        os << *src_it;
+        os << src_it->name << ": " << src_it->cost.currency << src_it->cost.amount;
+        if(src_it->commission.amount != 0.0)
+        {
+            if(src_it->commission.currency == src_it->cost.currency)
+            {
+                os << '+' << src_it->commission.amount;
+            }
+            else
+            {
+                os << '+' << src_it->commission.currency << src_it->commission.amount;
+            }
+        }
     }
     else
     {

@@ -2,66 +2,7 @@
 #include <cassert>
 #include <clocale>
 
-// ----- initialization
-
-// funding_source_type_t to stream
-std::ostream& operator<<(std::ostream& os, const td::funding_source_type_t& value)
-{
-    switch(value)
-    {
-        case td::funding_source_type_t::buyin: os << "buyin"; break;
-        case td::funding_source_type_t::rebuy: os << "rebuy"; break;
-        case td::funding_source_type_t::addon: os << "addon"; break;
-    }
-    return os;
-}
-
-// funding_source_type_t to stream
-std::ostream& operator<<(std::ostream& os, const td::payout_policy_t& value)
-{
-    switch(value)
-    {
-        case td::payout_policy_t::automatic: os << "automatic"; break;
-        case td::payout_policy_t::forced: os << "forced"; break;
-        case td::payout_policy_t::manual: os << "manual"; break;
-    }
-    return os;
-}
-
-// rebalance_policy_t to stream
-std::ostream& operator<<(std::ostream& os, const td::rebalance_policy_t& value)
-{
-    switch(value)
-    {
-        case td::rebalance_policy_t::manual: os << "manual"; break;
-        case td::rebalance_policy_t::automatic: os << "automatic"; break;
-        case td::rebalance_policy_t::shootout: os << "shootout"; break;
-    }
-    return os;
-}
-
-// ante_type_t to stream
-std::ostream& operator<<(std::ostream& os, const td::ante_type_t& value)
-{
-    switch(value)
-    {
-        case td::ante_type_t::none: os << "none"; break;
-        case td::ante_type_t::traditional: os << "traditional"; break;
-        case td::ante_type_t::bba: os << "bba"; break;
-    }
-    return os;
-}
-
-// rebalance_policy_t to stream
-std::ostream& operator<<(std::ostream& os, const td::final_table_policy_t& value)
-{
-    switch(value)
-    {
-        case td::final_table_policy_t::fill: os << "fill"; break;
-        case td::final_table_policy_t::randomize: os << "randomize"; break;
-    }
-    return os;
-}
+// ----- construction
 
 td::authorized_client::authorized_client() : code(0), added_at(datetime::now())
 {
@@ -553,4 +494,82 @@ json::json(const td::automatic_payout_parameters& value) : json()
     this->set_value("payout_shape", value.payout_shape);
     this->set_value("pay_the_bubble", value.pay_the_bubble);
     this->set_value("pay_knockouts", value.pay_knockouts);
+}
+
+// ----- ostream insertion
+
+// funding_source_type_t to stream
+std::ostream& operator<<(std::ostream& os, const td::funding_source_type_t& value)
+{
+    switch(value)
+    {
+        case td::funding_source_type_t::buyin: os << "buyin"; break;
+        case td::funding_source_type_t::rebuy: os << "rebuy"; break;
+        case td::funding_source_type_t::addon: os << "addon"; break;
+    }
+    return os;
+}
+
+// funding_source_type_t to stream
+std::ostream& operator<<(std::ostream& os, const td::payout_policy_t& value)
+{
+    switch(value)
+    {
+        case td::payout_policy_t::automatic: os << "automatic"; break;
+        case td::payout_policy_t::forced: os << "forced"; break;
+        case td::payout_policy_t::manual: os << "manual"; break;
+    }
+    return os;
+}
+
+// rebalance_policy_t to stream
+std::ostream& operator<<(std::ostream& os, const td::rebalance_policy_t& value)
+{
+    switch(value)
+    {
+        case td::rebalance_policy_t::manual: os << "manual"; break;
+        case td::rebalance_policy_t::automatic: os << "automatic"; break;
+        case td::rebalance_policy_t::shootout: os << "shootout"; break;
+    }
+    return os;
+}
+
+// ante_type_t to stream
+std::ostream& operator<<(std::ostream& os, const td::ante_type_t& value)
+{
+    switch(value)
+    {
+        case td::ante_type_t::none: os << "none"; break;
+        case td::ante_type_t::traditional: os << "traditional"; break;
+        case td::ante_type_t::bba: os << "bba"; break;
+    }
+    return os;
+}
+
+// rebalance_policy_t to stream
+std::ostream& operator<<(std::ostream& os, const td::final_table_policy_t& value)
+{
+    switch(value)
+    {
+        case td::final_table_policy_t::fill: os << "fill"; break;
+        case td::final_table_policy_t::randomize: os << "randomize"; break;
+    }
+    return os;
+}
+
+// blind level to string
+std::ostream& operator<<(std::ostream& os, const td::blind_level& level)
+{
+    os << level.little_blind << '/' << level.big_blind;
+    if(level.ante_type == td::ante_type_t::traditional)
+    {
+        // TODO: i18n
+        os << " Ante:" << level.ante;
+    }
+    else if(level.ante_type == td::ante_type_t::bba)
+    {
+        // TODO: i18n
+        os << " BBA:" << level.ante;
+    }
+    return os;
 }
