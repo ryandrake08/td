@@ -833,7 +833,7 @@ std::vector<td::player_movement> gameinfo::plan_seating(std::size_t max_expected
             this->empty_seats.pop_front();
 
             // record movement
-            movements.push_back(td::player_movement(p.first, this->player_name(p.first), p.second, seat));
+            movements.push_back(td::player_movement(p.first, this->player_name(p.first), p.second.table_number, p.second.seat_number, seat.table_number, seat.seat_number));
         }
 
         // swap
@@ -1063,7 +1063,7 @@ std::vector<td::player_movement> gameinfo::rebalance_seating()
             logger(ll::info) << "moved player " << this->player_description(s.first) << " from table " << s.second.table_number << ", seat " << s.second.seat_number << " to table " << to_seat.table_number << ", seat " << to_seat.seat_number << '\n';
 
             // add a new movement
-            movements.push_back(td::player_movement(s.first, this->player_name(s.first), s.second, to.back()));
+            movements.push_back(td::player_movement(s.first, this->player_name(s.first), s.second.table_number, s.second.seat_number, to.back().table_number, to.back().seat_number));
 
             // set new seat
             s.second = to.back();
@@ -1144,7 +1144,7 @@ td::player_movement gameinfo::move_player(const td::player_id_t& player_id, std:
 
     logger(ll::info) << "moved player " << this->player_description(player_id) << " from table " << from_seat.table_number << ", seat " << from_seat.seat_number << " to table " << player_seat_it->second.table_number << ", seat " << player_seat_it->second.seat_number << '\n';
 
-    return td::player_movement(player_id, this->player_name(player_id), from_seat, player_seat_it->second);
+    return td::player_movement(player_id, this->player_name(player_id), from_seat.table_number, from_seat.seat_number, player_seat_it->second.table_number, player_seat_it->second.seat_number);
 }
 
 // move a player to the table with the smallest number of players

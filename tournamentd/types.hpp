@@ -148,11 +148,13 @@ namespace td
     {
         player_id_t player_id;
         std::string name;
-        seat from_seat;
-        seat to_seat;
+        std::size_t from_table_number;
+        std::size_t from_seat_number;
+        std::size_t to_table_number;
+        std::size_t to_seat_number;
 
         player_movement();
-        player_movement(const player_id_t& p, const std::string& n, const seat& f, const seat& t);
+        player_movement(const player_id_t& p, const std::string& n, std::size_t ft, std::size_t fs, std::size_t tt, std::size_t ts);
     };
 
     // represents a quantity of chips distributed to each player
