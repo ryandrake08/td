@@ -115,7 +115,7 @@ gameinfo::gameinfo() :
     rebalance_policy(td::rebalance_policy_t::manual),
     final_table_policy(td::final_table_policy_t::fill),
     dirty(true),
-    tables(0),
+    table_count(0),
     total_chips(0),
     total_equity(0.0),
     current_blind_level(0)
@@ -309,10 +309,10 @@ void gameinfo::configure(const json& config)
         logger(ll::info) << "state changed: empty_seats -> " << this->empty_seats.size() << "\n";
     }
 
-    if(config.get_value("tables", this->tables))
+    if(config.get_value("table_count", this->table_count))
     {
         this->dirty = true;
-        logger(ll::info) << "state changed: tables -> " << this->tables << "\n";
+        logger(ll::info) << "state changed: table_count -> " << this->table_count << "\n";
     }
 
     if(config.get_value("buyins", this->buyins))
@@ -431,7 +431,7 @@ void gameinfo::dump_state(json& state) const
     state.set_value("players_finished", json(this->players_finished.begin(), this->players_finished.end()));
     state.set_value("bust_history", json(this->bust_history.begin(), this->bust_history.end()));
     state.set_value("empty_seats", json(this->empty_seats.begin(), this->empty_seats.end()));
-    state.set_value("tables", this->tables);
+    state.set_value("table_count", this->table_count);
     state.set_value("buyins", json(this->buyins.begin(), this->buyins.end()));
     state.set_value("unique_entries", json(this->unique_entries.begin(), this->unique_entries.end()));
     state.set_value("entries", json(this->entries.begin(), this->entries.end()));
@@ -698,7 +698,7 @@ void gameinfo::reset_state()
     // clear all seating and remove all empty seats
     this->seats.clear();
     this->empty_seats.clear();
-    this->tables = 0;
+    this->table_count = 0;
 
     // clear all funding
     this->buyins.clear();
@@ -732,7 +732,7 @@ const std::string gameinfo::player_description(const td::player_id_t& player_id)
 std::vector<std::vector<td::player_id_t> > gameinfo::players_at_tables() const
 {
     // build up two vectors, outer = tables, inner = players per table
-    std::vector<std::vector<td::player_id_t> > ret(this->tables);
+    std::vector<std::vector<td::player_id_t> > ret(this->table_count);
 
     for(auto& seat : this->seats)
     {
@@ -777,7 +777,7 @@ std::vector<td::player_movement> gameinfo::plan_seating(std::size_t max_expected
     logger(ll::info) << "tables needed: " << tables_needed << "\n";
 
     // if this plan would require a different number of tables than already exist, then we need to re-plan
-    if(tables_needed != this->tables)
+    if(tables_needed != this->table_count)
     {
         // set state dirty
         this->dirty = true;
@@ -786,14 +786,14 @@ std::vector<td::player_movement> gameinfo::plan_seating(std::size_t max_expected
         this->empty_seats.clear();
 
         // set new number of tables
-        this->tables = tables_needed;
+        this->table_count = tables_needed;
 
         // figure out how many seats should be first occupied at each table
-        std::size_t preferred_seats = (max_expected + this->tables - 1) / this->tables;
+        std::size_t preferred_seats = (max_expected + this->table_count - 1) / this->table_count;
         logger(ll::info) << "prefer: " << preferred_seats << " seats per table\n";
 
         // build up preferred seat list
-        for(std::size_t t(0); t<this->tables; t++)
+        for(std::size_t t(0); t<this->table_count; t++)
         {
             for(std::size_t s(0); s<preferred_seats; s++)
             {
@@ -805,7 +805,7 @@ std::vector<td::player_movement> gameinfo::plan_seating(std::size_t max_expected
         auto extra_it(this->empty_seats.end());
 
         // add remaining seats, up to table capacity
-        for(std::size_t t(0); t<this->tables; t++)
+        for(std::size_t t(0); t<this->table_count; t++)
         {
             for(std::size_t s(preferred_seats); s<this->table_capacity; s++)
             {
@@ -939,7 +939,7 @@ std::vector<td::player_movement> gameinfo::bust_player(const td::player_id_t& pl
 
         case td::rebalance_policy_t::shootout:
             // for shootout tournaments, only break tables when there is one player left on each table or fewer players
-            if(this->tables >= this->seats.size())
+            if(this->table_count >= this->seats.size())
             {
                 movements = this->rebalance_seating();
             }
@@ -992,17 +992,17 @@ std::vector<td::player_movement> gameinfo::rebalance_seating()
 {
     std::vector<td::player_movement> movements;
 
-    if(this->tables > 1)
+    if(this->table_count > 1)
     {
         logger(ll::info) << "attemptying to break a table\n";
         
         // break tables while (player_count-1) div table_capacity < tables
-        while(this->seats.size() <= this->table_capacity * (this->tables-1))
+        while(this->seats.size() <= this->table_capacity * (this->table_count-1))
         {
-            logger(ll::info) << "breaking a table. " << this->seats.size() << " players remain at " << this->tables << " tables of " << this->table_capacity << " capacity\n";
+            logger(ll::info) << "breaking a table. " << this->seats.size() << " players remain at " << this->table_count << " tables of " << this->table_capacity << " capacity\n";
 
             // always break the highest-numbered table
-            auto break_table(this->tables - 1);
+            auto break_table(this->table_count - 1);
 
             // get each player found to be sitting at the breaking table
             std::vector<td::player_id_t> to_move;
@@ -1025,17 +1025,17 @@ std::vector<td::player_movement> gameinfo::rebalance_seating()
             this->dirty = true;
 
             // decrement number of tables
-            this->tables--;
+            this->table_count--;
 
             // prune empty table from our open seat list, no need to seat people at unused tables
             this->empty_seats.erase(std::remove_if(this->empty_seats.begin(), this->empty_seats.end(), [&break_table](const td::seat& seat) { return seat.table_number == break_table; }), this->empty_seats.end());
 
-            logger(ll::info) << "broken table " << break_table << ". " << this->seats.size() << " players now at " << this->tables << " tables\n";
+            logger(ll::info) << "broken table " << break_table << ". " << this->seats.size() << " players now at " << this->table_count << " tables\n";
         }
     }
 
     // if we should randomize the non-empty final table seats
-    if(this->tables == 1 && this->final_table_policy == td::final_table_policy_t::randomize)
+    if(this->table_count == 1 && this->final_table_policy == td::final_table_policy_t::randomize)
     {
         logger(ll::info) << "randomizing remaining seats\n";
 

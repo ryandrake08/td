@@ -85,7 +85,7 @@ class gameinfo
     std::deque<td::seat> empty_seats;
 
     // number of tables total
-    std::size_t tables;
+    std::size_t table_count;
 
     // ---------- funding ----------
 

@@ -524,7 +524,7 @@ struct tournament::impl
                              players_finished (array): busted player ids in reverse bust out order, no duplicates
                              bust_history (array): Busted player ids in bust out order, can contain duplicates due to rebuys
                              empty_seats (array): Empty seat assignments
-                             tables (integer): Number of tables currently playing
+                             tables_count (integer): Number of tables currently playing
                              buyins (array): Player ids who are both currently seated and bought in
                              unique_entries (array): Player ids who at one point have bought in
                              entries (array): Player ids for each buyin or rebuy
