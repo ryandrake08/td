@@ -296,7 +296,7 @@ struct tournament::impl
         out.set_value(seating.first.c_str(), seating.second);
     }
 
-    void handle_cmd_unseat_player(const json& in, json& out)
+    void handle_cmd_unseat_player(const json& in, json& /* out */)
     {
         td::player_id_t player_id;
 
@@ -1038,7 +1038,7 @@ public:
         {
             scope_timer timer;
             timer.set_message("broadcast_state: ");
-            
+
             // send to clients
             this->broadcast_state();
         }
