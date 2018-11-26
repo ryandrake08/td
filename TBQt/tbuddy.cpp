@@ -1,11 +1,34 @@
 #include "TBMainWindow.hpp"
 #include <QApplication>
+#include <QCommandLineParser>
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    TBMainWindow w;
-    w.show();
+
+    // set up command line parser
+    QCommandLineParser parser;
+    parser.setApplicationDescription(QCoreApplication::applicationName());
+    parser.addHelpOption();
+    parser.addVersionOption();
+    parser.addPositionalArgument("file", "The file(s) to open.");
+    parser.process(a);
+
+    TBMainWindow* window(nullptr);
+
+    // open a window for every file passed on the command line
+    for(const QString& file : parser.positionalArguments())
+    {
+        window = new TBMainWindow(file);
+        window->show();
+    }
+
+    // if no files passed on the command line, open a window without a file
+    if(window == nullptr)
+    {
+        window = new TBMainWindow;
+        window->show();
+    }
 
     return a.exec();
 }
