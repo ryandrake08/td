@@ -43,7 +43,7 @@ add_executable(tournamentctl tournamentd/main.cpp tournamentd/program_ctl.cpp)
 target_link_libraries(tournamentctl td ${OS_LIBRARIES})
 
 # Unit tests
-add_executable(tournamentd_tests 
+add_executable(tournamentd_tests
     tournamentd/tests/test_main.cpp
     tournamentd/tests/test_tournament.cpp
     tournamentd/tests/test_types.cpp
@@ -57,3 +57,13 @@ add_executable(tournamentd_tests
 )
 target_link_libraries(tournamentd_tests td ${OS_LIBRARIES})
 target_include_directories(tournamentd_tests PRIVATE thirdparty/catch2)
+
+find_package(Qt5Widgets)
+if(Qt5Widgets_FOUND)
+  set(CMAKE_INCLUDE_CURRENT_DIR ON)
+  qt5_wrap_cpp(TBUDDY_MOC TBQt/TBMainWindow.hpp)
+  qt5_wrap_ui(TBUDDY_UI TBQt/TBMainWindow.ui)
+  qt5_add_resources(TBUDDY_RC TBQt/resources.qrc)
+  add_executable(tbuddy TBQt/tbuddy.cpp TBQt/TBMainWindow.cpp ${TBUDDY_MOC} ${TBUDDY_UI} ${TBUDDY_RC})
+  target_link_libraries(tbuddy Qt5::Widgets)
+endif()
