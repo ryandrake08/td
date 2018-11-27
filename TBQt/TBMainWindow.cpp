@@ -1,5 +1,7 @@
 #include "TBMainWindow.hpp"
 #include "ui_TBMainWindow.h"
+#include "TournamentSession.hpp"
+#include "tournamentd/tournament_thread.hpp"
 
 #include <QFile>
 #include <QJsonDocument>
@@ -12,6 +14,9 @@
 
 struct TBMainWindow::impl
 {
+    // tournamentd thread
+    tournament_thread server;
+
     // file name associated with window/document
     QString filename;
 
@@ -117,6 +122,9 @@ struct TBMainWindow::impl
 public:
     impl(const QString& file)
     {
+        // start tournament thread
+        auto service(this->server.start(TournamentSession::client_identifier()));
+
         // load file if not empty
         if(!file.isEmpty())
         {

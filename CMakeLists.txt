@@ -29,7 +29,7 @@ set(CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO "${CMAKE_EXE_LINKER_FLAGS_RELWITHDEBIN
 
 include_directories(thirdparty)
 
-add_library(td STATIC tournamentd/bonjour.cpp tournamentd/datetime.cpp tournamentd/gameinfo.cpp tournamentd/server.cpp tournamentd/socket.cpp tournamentd/tournament.cpp tournamentd/types.cpp)
+add_library(td STATIC tournamentd/bonjour.cpp tournamentd/datetime.cpp tournamentd/gameinfo.cpp tournamentd/server.cpp tournamentd/socket.cpp tournamentd/tournament.cpp tournamentd/tournament_service.cpp tournamentd/tournament_thread.cpp tournamentd/types.cpp)
 target_include_directories(td PRIVATE .)
 find_program(CLANG_TIDY_EXE NAMES "clang-tidy" DOC "Path to clang-tidy executable")
 if(FALSE AND CLANG_TIDY_EXE)
@@ -60,10 +60,11 @@ target_include_directories(tournamentd_tests PRIVATE thirdparty/catch2)
 
 find_package(Qt5Widgets)
 if(Qt5Widgets_FOUND)
+  find_package(Threads REQUIRED)
   set(CMAKE_INCLUDE_CURRENT_DIR ON)
   qt5_wrap_cpp(TBUDDY_MOC TBQt/TBMainWindow.hpp)
   qt5_wrap_ui(TBUDDY_UI TBQt/TBMainWindow.ui)
   qt5_add_resources(TBUDDY_RC TBQt/resources.qrc)
-  add_executable(tbuddy TBQt/tbuddy.cpp TBQt/TBMainWindow.cpp ${TBUDDY_MOC} ${TBUDDY_UI} ${TBUDDY_RC})
-  target_link_libraries(tbuddy Qt5::Widgets)
+  add_executable(tbuddy TBQt/tbuddy.cpp TBQt/TBMainWindow.cpp TBQt/TournamentSession.cpp ${TBUDDY_MOC} ${TBUDDY_UI} ${TBUDDY_RC})
+  target_link_libraries(tbuddy td Qt5::Widgets ${CMAKE_THREAD_LIBS_INIT} ${OS_LIBRARIES})
 endif()
