@@ -18,11 +18,14 @@ class TBMainWindow : public QMainWindow
     std::unique_ptr<Ui::TBMainWindow> ui;
 
 public:
-    // create a main window associated with a file (default = no file)
-    explicit TBMainWindow(const QString& file = QString());
+    // create a main window
+    explicit TBMainWindow();
 
     // destroy main window
     ~TBMainWindow();
+
+    // load a document to be managed by this window
+    bool load_document(const QString& filename);
 
 private slots:
     void on_actionExit_triggered();

@@ -23,9 +23,10 @@ int main(int argc, char *argv[])
     TBMainWindow* window(nullptr);
 
     // open a window for every file passed on the command line
-    for(const QString& file : parser.positionalArguments())
+    for(const QString& filename : parser.positionalArguments())
     {
-        window = new TBMainWindow(file);
+        window = new TBMainWindow;
+        window->load_document(filename);
         window->show();
     }
 
