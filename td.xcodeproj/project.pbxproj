@@ -767,8 +767,8 @@
 		94647186200CAA9C00556467 /* TBInvertImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBInvertImage.h; sourceTree = "<group>"; };
 		94647187200CAA9C00556467 /* TBInvertImage.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = TBInvertImage.c; sourceTree = "<group>"; };
 		9464EC071FDC2D44009092A4 /* libcJSON_macOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libcJSON_macOS.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		9464EC101FDC2F1C009092A4 /* cJSON.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cJSON.c; sourceTree = "<group>"; };
-		9464EC111FDC2F1C009092A4 /* cJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cJSON.h; sourceTree = "<group>"; };
+		9464EC101FDC2F1C009092A4 /* cJSON.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = cJSON.c; path = thirdparty/cJSON/cJSON.c; sourceTree = "<group>"; };
+		9464EC111FDC2F1C009092A4 /* cJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cJSON.h; path = thirdparty/cJSON/cJSON.h; sourceTree = "<group>"; };
 		9464EC1F1FDC2FB5009092A4 /* libcJSON_iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libcJSON_iOS.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		9464EC2C1FDD102B009092A4 /* shared_instance.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = shared_instance.hpp; sourceTree = "<group>"; };
 		9465F96920540768008897D5 /* TBSetupPayoutsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TBSetupPayoutsViewController.h; path = TBMac/TBSetupPayoutsViewController.h; sourceTree = "<group>"; };
@@ -1137,13 +1137,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9407CCCA21B438A700D0C59E /* thirdparty */ = {
+			isa = PBXGroup;
+			children = (
+				9464EC081FDC2D44009092A4 /* cJSON */,
+			);
+			name = thirdparty;
+			sourceTree = "<group>";
+		};
 		9464EC081FDC2D44009092A4 /* cJSON */ = {
 			isa = PBXGroup;
 			children = (
 				9464EC101FDC2F1C009092A4 /* cJSON.c */,
 				9464EC111FDC2F1C009092A4 /* cJSON.h */,
 			);
-			path = cJSON;
+			name = cJSON;
 			sourceTree = "<group>";
 		};
 		9476F4661B3C385400A158F8 /* Supporting Files */ = {
@@ -1424,6 +1432,7 @@
 		AD8E683A1A6C606700E5A4D8 = {
 			isa = PBXGroup;
 			children = (
+				9407CCCA21B438A700D0C59E /* thirdparty */,
 				94D04EC71B7C59EB004F4245 /* Resources */,
 				94FDEAD91B5AD29B0026B25D /* Common */,
 				AD8E68451A6C606700E5A4D8 /* TBMac */,
@@ -1431,7 +1440,6 @@
 				ADA6A1991B97FE8A00C83762 /* TBWatch */,
 				ADA6A1A81B97FE8A00C83762 /* TBWatch Extension */,
 				9476F4EB1B3C3F8300A158F8 /* tournamentd */,
-				9464EC081FDC2D44009092A4 /* cJSON */,
 				AD51C5341AFFC9210084B25E /* Frameworks */,
 				AD8E68441A6C606700E5A4D8 /* Products */,
 			);
@@ -2827,10 +2835,10 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_LABEL = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/thirdparty";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				ONLY_ACTIVE_ARCH = YES;
-				USER_HEADER_SEARCH_PATHS = .;
 				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Debug;
@@ -2895,9 +2903,9 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_LABEL = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/thirdparty";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				USER_HEADER_SEARCH_PATHS = .;
 				VALIDATE_PRODUCT = YES;
 				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};

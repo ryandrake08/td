@@ -27,7 +27,9 @@ set(CMAKE_C_FLAGS_RELWITHDEBINFO "${CMAKE_C_FLAGS_RELWITHDEBINFO} -pg")
 set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${CMAKE_CXX_FLAGS_RELWITHDEBINFO} -pg")
 set(CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO "${CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO} -pg")
 
-add_library(cJSON STATIC cJSON/cJSON.c)
+include_directories(thirdparty)
+
+add_library(cJSON STATIC thirdparty/cJSON/cJSON.c)
 target_compile_options(cJSON PRIVATE -Wno-misleading-indentation)
 
 add_library(td STATIC tournamentd/bonjour.cpp tournamentd/datetime.cpp tournamentd/gameinfo.cpp tournamentd/json.cpp tournamentd/server.cpp tournamentd/socket.cpp tournamentd/tournament.cpp tournamentd/types.cpp)
