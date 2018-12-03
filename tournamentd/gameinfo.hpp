@@ -1,4 +1,5 @@
 #pragma once
+#include "nlohmann/json_fwd.hpp"
 #include "types.hpp"
 #include <deque>
 #include <random>
@@ -191,19 +192,19 @@ public:
     gameinfo();
 
     // load configuration from JSON (object or file)
-    void configure(const json& config);
+    void configure(const nlohmann::json& config);
 
     // dump configuration to JSON
-    void dump_configuration(json& config) const;
+    void dump_configuration(nlohmann::json& config) const;
 
     // dump state to JSON
-    void dump_state(json& state) const;
+    void dump_state(nlohmann::json& state) const;
 
     // some configuration gets sent to clients along with state, dump to JSON
-    void dump_configuration_state(json& state) const;
+    void dump_configuration_state(nlohmann::json& state) const;
 
     // calculate derived state and dump to JSON
-    void dump_derived_state(json& state) const;
+    void dump_derived_state(nlohmann::json& state) const;
 
     // has internal state been updated since last check?
     bool state_is_dirty();

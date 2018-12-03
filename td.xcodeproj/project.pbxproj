@@ -63,13 +63,11 @@
 		943B00CA1B3F427700CE55D4 /* TournamentSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4811B3C3EA700A158F8 /* TournamentSession.m */; };
 		943B00D01B3F429500CE55D4 /* datetime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4D31B3C3F8300A158F8 /* datetime.cpp */; };
 		943B00D11B3F429500CE55D4 /* gameinfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4D51B3C3F8300A158F8 /* gameinfo.cpp */; };
-		943B00D21B3F429500CE55D4 /* json.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4D81B3C3F8300A158F8 /* json.cpp */; };
 		943B00D41B3F429500CE55D4 /* server.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E11B3C3F8300A158F8 /* server.cpp */; };
 		943B00D51B3F429500CE55D4 /* socket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E31B3C3F8300A158F8 /* socket.cpp */; };
 		943B00D61B3F429500CE55D4 /* tournament.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E71B3C3F8300A158F8 /* tournament.cpp */; };
 		943B00D71B3F429500CE55D4 /* types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E91B3C3F8300A158F8 /* types.cpp */; };
 		943FC67E20261FF600B6AA4C /* catch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 943FC67120261EE000B6AA4C /* catch.cpp */; };
-		943FC67F202627EC00B6AA4C /* json.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4D81B3C3F8300A158F8 /* json.cpp */; };
 		943FC68220265A0B00B6AA4C /* libcJSON_macOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9464EC071FDC2D44009092A4 /* libcJSON_macOS.a */; };
 		943FC68A2027D02F00B6AA4C /* TBSetupPayoutPolicyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 943FC6892027D02F00B6AA4C /* TBSetupPayoutPolicyViewController.m */; };
 		945410741B6E5C56001E3373 /* NSDateFormatter+ISO8601.m in Sources */ = {isa = PBXBuildFile; fileRef = 945410731B6E5C56001E3373 /* NSDateFormatter+ISO8601.m */; };
@@ -136,7 +134,6 @@
 		946C65721FFF54830094E4D8 /* datetime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4D31B3C3F8300A158F8 /* datetime.cpp */; };
 		946C65731FFF54830094E4D8 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4DC1B3C3F8300A158F8 /* main.cpp */; };
 		946C65741FFF54930094E4D8 /* program_ctl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 946C656E1FFF54450094E4D8 /* program_ctl.cpp */; };
-		946C65751FFF5BB50094E4D8 /* json.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4D81B3C3F8300A158F8 /* json.cpp */; };
 		946C65781FFF5BD30094E4D8 /* libcJSON_macOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9464EC071FDC2D44009092A4 /* libcJSON_macOS.a */; };
 		946C65791FFF5BEC0094E4D8 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9476F4FB1B3C404400A158F8 /* CoreFoundation.framework */; };
 		946CF8D6200FF0D3008771D4 /* TBCurrencyImageTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE5A5021B8F6C4C002737A8 /* TBCurrencyImageTransformer.m */; };
@@ -173,7 +170,6 @@
 		9476F4ED1B3C3F8300A158F8 /* bonjour.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4D11B3C3F8300A158F8 /* bonjour.cpp */; };
 		9476F4EE1B3C3F8300A158F8 /* datetime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4D31B3C3F8300A158F8 /* datetime.cpp */; };
 		9476F4EF1B3C3F8300A158F8 /* gameinfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4D51B3C3F8300A158F8 /* gameinfo.cpp */; };
-		9476F4F01B3C3F8300A158F8 /* json.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4D81B3C3F8300A158F8 /* json.cpp */; };
 		9476F4F21B3C3F8300A158F8 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4DC1B3C3F8300A158F8 /* main.cpp */; };
 		9476F4F41B3C3F8300A158F8 /* program.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4DF1B3C3F8300A158F8 /* program.cpp */; };
 		9476F4F51B3C3F8300A158F8 /* server.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E11B3C3F8300A158F8 /* server.cpp */; };
@@ -189,12 +185,10 @@
 		949D70941B3C43DB008D5CD1 /* tournament.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E71B3C3F8300A158F8 /* tournament.cpp */; };
 		949D70951B3C440D008D5CD1 /* datetime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4D31B3C3F8300A158F8 /* datetime.cpp */; };
 		949D70961B3C440D008D5CD1 /* gameinfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4D51B3C3F8300A158F8 /* gameinfo.cpp */; };
-		949D70971B3C440D008D5CD1 /* json.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4D81B3C3F8300A158F8 /* json.cpp */; };
 		949D70991B3C440D008D5CD1 /* server.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E11B3C3F8300A158F8 /* server.cpp */; };
 		949D709A1B3C440D008D5CD1 /* types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E91B3C3F8300A158F8 /* types.cpp */; };
 		949D709B1B3C440E008D5CD1 /* datetime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4D31B3C3F8300A158F8 /* datetime.cpp */; };
 		949D709C1B3C440E008D5CD1 /* gameinfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4D51B3C3F8300A158F8 /* gameinfo.cpp */; };
-		949D709D1B3C440E008D5CD1 /* json.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4D81B3C3F8300A158F8 /* json.cpp */; };
 		949D709F1B3C440E008D5CD1 /* server.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E11B3C3F8300A158F8 /* server.cpp */; };
 		949D70A01B3C440E008D5CD1 /* types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E91B3C3F8300A158F8 /* types.cpp */; };
 		949D70A11B3C4411008D5CD1 /* tournament.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E71B3C3F8300A158F8 /* tournament.cpp */; };
@@ -397,7 +391,6 @@
 		ADF635ED1BAB8AF800D019AE /* TBRemoteWatchDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AD5375B31B9F35FB00EF5132 /* TBRemoteWatchDelegate.m */; };
 		ADF635EE1BAB8AF800D019AE /* tournament.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E71B3C3F8300A158F8 /* tournament.cpp */; };
 		ADF635EF1BAB8AF800D019AE /* TournamentService.m in Sources */ = {isa = PBXBuildFile; fileRef = 9439701C1B405DC000BB0413 /* TournamentService.m */; };
-		ADF635F01BAB8AF800D019AE /* json.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4D81B3C3F8300A158F8 /* json.cpp */; };
 		ADF635F11BAB8AF800D019AE /* CFStreamCreatePairWithUnixSocket.c in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEADD1B5AE2D60026B25D /* CFStreamCreatePairWithUnixSocket.c */; };
 		ADF635F21BAB8AF800D019AE /* TBEllipseView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD87A6D81BA2094400E55961 /* TBEllipseView.m */; };
 		ADF635F31BAB8AF800D019AE /* TBRemoteClockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F45A1B3C385400A158F8 /* TBRemoteClockViewController.m */; };
@@ -813,8 +806,6 @@
 		9476F4D41B3C3F8300A158F8 /* datetime.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = datetime.hpp; sourceTree = "<group>"; };
 		9476F4D51B3C3F8300A158F8 /* gameinfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gameinfo.cpp; sourceTree = "<group>"; };
 		9476F4D61B3C3F8300A158F8 /* gameinfo.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = gameinfo.hpp; sourceTree = "<group>"; };
-		9476F4D81B3C3F8300A158F8 /* json.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = json.cpp; sourceTree = "<group>"; };
-		9476F4D91B3C3F8300A158F8 /* json.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = json.hpp; sourceTree = "<group>"; };
 		9476F4DB1B3C3F8300A158F8 /* logger.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = logger.hpp; sourceTree = "<group>"; };
 		9476F4DC1B3C3F8300A158F8 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		9476F4DF1B3C3F8300A158F8 /* program.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = program.cpp; sourceTree = "<group>"; };
@@ -1249,8 +1240,6 @@
 				9476F4D41B3C3F8300A158F8 /* datetime.hpp */,
 				9476F4D51B3C3F8300A158F8 /* gameinfo.cpp */,
 				9476F4D61B3C3F8300A158F8 /* gameinfo.hpp */,
-				9476F4D81B3C3F8300A158F8 /* json.cpp */,
-				9476F4D91B3C3F8300A158F8 /* json.hpp */,
 				9476F4DB1B3C3F8300A158F8 /* logger.hpp */,
 				9476F4DC1B3C3F8300A158F8 /* main.cpp */,
 				94A4C3681D6A40BD00342E13 /* outputdebugstringbuf.hpp */,
@@ -2041,7 +2030,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				943FC67E20261FF600B6AA4C /* catch.cpp in Sources */,
-				943FC67F202627EC00B6AA4C /* json.cpp in Sources */,
 				94A7FCC12027E69B006AD3FC /* TBPayoutPolicyNumberFormatter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2080,7 +2068,6 @@
 				94FDEAF81B5AE7920026B25D /* NSView+BackgroundColor.m in Sources */,
 				9462A3F21B781A9A00B29002 /* RSVerticallyCenteredTextFieldCell.m in Sources */,
 				94BB5FFA1B7F9F1600B33929 /* NSString+CamelCase.m in Sources */,
-				943B00D21B3F429500CE55D4 /* json.cpp in Sources */,
 				94FDEAEF1B5AE2D60026B25D /* NSObject+FBKVOController.m in Sources */,
 				94363BD0200E79C000D52155 /* TBError.m in Sources */,
 				94C2DA62200D0C62001B95B8 /* TBEllipseView.m in Sources */,
@@ -2130,7 +2117,6 @@
 				946C65711FFF54690094E4D8 /* socket.cpp in Sources */,
 				946C65731FFF54830094E4D8 /* main.cpp in Sources */,
 				946C65701FFF54690094E4D8 /* server.cpp in Sources */,
-				946C65751FFF5BB50094E4D8 /* json.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2153,7 +2139,6 @@
 				AD5375B41B9F35FB00EF5132 /* TBRemoteWatchDelegate.m in Sources */,
 				949D70A11B3C4411008D5CD1 /* tournament.cpp in Sources */,
 				9439701F1B405DC000BB0413 /* TournamentService.m in Sources */,
-				949D709D1B3C440E008D5CD1 /* json.cpp in Sources */,
 				9457DAB51FE6934C0047DF29 /* TBImage+Inverted.m in Sources */,
 				9457DAC91FE6B1520047DF29 /* TBInvertableImageView.m in Sources */,
 				942B84E7200DA72B001F8EEB /* TBSoundPlayer.m in Sources */,
@@ -2200,7 +2185,6 @@
 				9476F4ED1B3C3F8300A158F8 /* bonjour.cpp in Sources */,
 				9476F4F71B3C3F8300A158F8 /* tournament.cpp in Sources */,
 				9476F4F21B3C3F8300A158F8 /* main.cpp in Sources */,
-				9476F4F01B3C3F8300A158F8 /* json.cpp in Sources */,
 				9476F4F51B3C3F8300A158F8 /* server.cpp in Sources */,
 				9476F4F81B3C3F8300A158F8 /* types.cpp in Sources */,
 				9476F4EF1B3C3F8300A158F8 /* gameinfo.cpp in Sources */,
@@ -2228,7 +2212,6 @@
 				94E77A07216A860B0037FA67 /* TBNotificationAttributes.m in Sources */,
 				AD98D9651A7B331A00DA6B8B /* TBSetupFundingViewController.m in Sources */,
 				94C97042203A14B30055A28C /* TBPopoverSegue.m in Sources */,
-				949D70971B3C440D008D5CD1 /* json.cpp in Sources */,
 				9462A3F61B7864E900B29002 /* TBSetupDevicesViewController.m in Sources */,
 				94B30DEB200283CC0037192E /* TBMacWindowController.m in Sources */,
 				94F466271B8AF203009BB648 /* TBCurrencyCodeTransformer.m in Sources */,
@@ -2356,7 +2339,6 @@
 				ADD2CC551BB3D35700DE3DE5 /* TBSetupDevicesViewController.m in Sources */,
 				AD452D4F1BC6C685007CF579 /* TBChooseColorViewController.m in Sources */,
 				ADF635EF1BAB8AF800D019AE /* TournamentService.m in Sources */,
-				ADF635F01BAB8AF800D019AE /* json.cpp in Sources */,
 				ADD2CC3F1BB39E9200DE3DE5 /* TBSetupTableViewController.m in Sources */,
 				AD6256A21BB44B9A00EE776A /* TBSetupDetailsPlayerViewController.m in Sources */,
 				9464718A200CAA9C00556467 /* TBInvertImage.c in Sources */,

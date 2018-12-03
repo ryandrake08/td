@@ -5,6 +5,17 @@
 #include <string>
 #include <vector>
 #include "datetime.hpp"
+#include "nlohmann/json_fwd.hpp"
+
+// convert time_point to and from json
+namespace std
+{
+    namespace chrono
+    {
+        void to_json(nlohmann::json& j, const system_clock::time_point& p);
+        void from_json(const nlohmann::json& j, system_clock::time_point& p);
+    };
+};
 
 namespace td
 {
@@ -45,6 +56,8 @@ namespace td
         authorized_client();
         authorized_client(int c, const std::string& name);
     };
+    void to_json(nlohmann::json& j, const td::authorized_client& p);
+    void from_json(const nlohmann::json& j, td::authorized_client& p);
 
     // attributes of a single blind level
     struct blind_level
@@ -63,6 +76,8 @@ namespace td
         // equality
         bool operator==(const blind_level& other) const;
     };
+    void to_json(nlohmann::json& j, const td::blind_level& p);
+    void from_json(const nlohmann::json& j, td::blind_level& p);
 
     // attributes of a single chip denomination
     struct chip
@@ -76,6 +91,8 @@ namespace td
         // equality
         bool operator==(const chip& other) const;
     };
+    void to_json(nlohmann::json& j, const td::chip& p);
+    void from_json(const nlohmann::json& j, td::chip& p);
 
     // represents a monetary value
     // currency names use ISO 4217
@@ -90,6 +107,8 @@ namespace td
         // equality
         bool operator==(const monetary_value& other) const;
     };
+    void to_json(nlohmann::json& j, const td::monetary_value& p);
+    void from_json(const nlohmann::json& j, td::monetary_value& p);
 
     // represents a monetary value without currency
     struct monetary_value_nocurrency
@@ -101,6 +120,8 @@ namespace td
         // equality
         bool operator==(const monetary_value_nocurrency& other) const;
     };
+    void to_json(nlohmann::json& j, const td::monetary_value_nocurrency& p);
+    void from_json(const nlohmann::json& j, td::monetary_value_nocurrency& p);
 
     // attributes of each funding source (buy-in, addon, etc.)
     struct funding_source
@@ -119,6 +140,8 @@ namespace td
         // equality
         bool operator==(const funding_source& other) const;
     };
+    void to_json(nlohmann::json& j, const td::funding_source& p);
+    void from_json(const nlohmann::json& j, td::funding_source& p);
 
     // attributes of each player
     struct player
@@ -132,6 +155,8 @@ namespace td
         // equality
         bool operator==(const player& other) const;
     };
+    void to_json(nlohmann::json& j, const td::player& p);
+    void from_json(const nlohmann::json& j, td::player& p);
 
     // attributes of a single physical seat at the tournament
     struct seat
@@ -142,6 +167,8 @@ namespace td
         seat();
         seat(std::size_t t, std::size_t s);
     };
+    void to_json(nlohmann::json& j, const td::seat& p);
+    void from_json(const nlohmann::json& j, td::seat& p);
 
     // represents a player's movement from one seat to another
     struct player_movement
@@ -156,6 +183,7 @@ namespace td
         player_movement();
         player_movement(const player_id_t& p, const std::string& n, const std::string& ft, const std::string& fs, const std::string& tt, const std::string& ts);
     };
+    void to_json(nlohmann::json& j, const td::player_movement& p);
 
     // represents a quantity of chips distributed to each player
     struct player_chips
@@ -166,6 +194,7 @@ namespace td
         player_chips();
         player_chips(unsigned long d, unsigned long c);
     };
+    void to_json(nlohmann::json& j, const td::player_chips& p);
 
     // represents a manually built payout structure
     struct manual_payout
@@ -176,6 +205,8 @@ namespace td
         manual_payout();
         manual_payout(size_t c, const std::vector<td::monetary_value_nocurrency>& p);
     };
+    void to_json(nlohmann::json& j, const td::manual_payout& p); // TODO: Need this?
+    void from_json(const nlohmann::json& j, td::manual_payout& p);
 
     // represents a tournament result
     struct result
@@ -187,6 +218,7 @@ namespace td
         result();
         explicit result(size_t p, const std::string& n="");
     };
+    void to_json(nlohmann::json& j, const td::result& p);
 
     // represents a player with additional buyin/seat info
     struct seated_player
@@ -204,6 +236,7 @@ namespace td
         // is there a valid seat?
         bool is_seated() const;
     };
+    void to_json(nlohmann::json& j, const td::seated_player& p);
 
     // automatic payout parameters
     struct automatic_payout_parameters
@@ -229,6 +262,8 @@ namespace td
         // equality
         bool operator==(const automatic_payout_parameters& other) const;
     };
+    void to_json(nlohmann::json& j, const td::automatic_payout_parameters& p); // TODO: Needed?
+    void from_json(const nlohmann::json& j, td::automatic_payout_parameters& p);
 }
 
 // stream insertion

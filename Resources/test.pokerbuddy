@@ -360,7 +360,9 @@
     "automatic_payouts": {
         "percent_seats_paid": 0.25,
         "round_payouts": true,
-        "payout_shape": 0.5
+        "payout_shape": 0.5,
+        "pay_the_bubble": 0.0,
+        "pay_knockouts": 0.0
     },
     "forced_payouts": [{ "amount": 120 },{ "amount": 40 },{ "amount": 20 }],
     "manual_payouts": [

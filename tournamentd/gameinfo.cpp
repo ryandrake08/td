@@ -1,7 +1,7 @@
 #include "gameinfo.hpp"
 #include "datetime.hpp"
-#include "json.hpp"
 #include "logger.hpp"
+#include "nlohmann/json.hpp"
 #include <algorithm>
 #include <cmath>
 #include <iomanip>
@@ -10,14 +10,79 @@
 #include <random>
 #include <sstream>
 
-// special update_value for player map
-template <>
-bool json::update_value(const char* name, std::unordered_map<td::player_id_t,td::player>& values) const
+#if 0
+
+// special handling for player map. players are stored in json as an array but deserialized as a map for fast lookup
+static void from_json(const nlohmann::json& j, std::unordered_map<td::player_id_t,td::player>& p)
 {
-    // read json into vector of players
-    std::vector<td::player> new_values;
-    if(this->get_value(name, new_values))
+    p.clear();
+    for(const auto& item : j)
     {
+        p[item.at("player_id")] =  item;
+    }
+}
+
+static void to_json(nlohmann::json& j, const std::unordered_map<td::player_id_t,td::player>& p)
+{
+    j = nlohmann::json::array();
+    for(const auto& kv : p)
+    {
+        j.push_back(kv.second);
+    };
+}
+
+// special handling for manual payouts map. payouts are stored in json as an array but deserialized as a map for fast lookup
+static void from_json(const nlohmann::json& j, std::unordered_map<size_t, std::vector<td::monetary_value_nocurrency>>& p)
+{
+    p.clear();
+    for(const auto& item : j)
+    {
+        std::vector<td::monetary_value_nocurrency> payouts = item.at("payouts");
+        p[item.at("buyins_count")] = payouts;
+    }
+}
+
+static void to_json(nlohmann::json& j, const std::unordered_map<size_t, std::vector<td::monetary_value_nocurrency>>& p)
+{
+    j = nlohmann::json::array();
+    for(const auto& kv : p)
+    {
+        j.push_back(nlohmann::json{{"buyins_count", kv.first}, {"payouts", kv.second}});
+    };
+}
+
+#endif
+
+// update a value from json object j, with key, into value, setting dirty to true if value is updated
+template <typename T>
+static bool update_value(const nlohmann::json& j, const char* key, T& value, bool& dirty, bool unconditional=false)
+{
+    auto it(j.find(key));
+    if(it != j.end())
+    {
+        if(unconditional || value != *it)
+        {
+            it->get_to(value);
+            dirty = true;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    return false;
+}
+
+#if 0
+template <>
+bool update_value(const nlohmann::json& j, const char* key, std::unordered_map<td::player_id_t,td::player>& values, bool& dirty, bool unconditional)
+{
+    auto it(j.find(key));
+    if(it != j.end())
+    {
+        auto new_values(*it);
+
         // check size first, if equal, deep compare
         if(values.size() == new_values.size())
         {
@@ -25,10 +90,10 @@ bool json::update_value(const char* name, std::unordered_map<td::player_id_t,td:
             for(const auto& new_value : new_values)
             {
                 // look up by player_id
-                auto it(values.find(new_value.player_id));
+                auto player_it(values.find(new_value.at("player_id")));
 
                 // if found and the actual value matches test value, continue
-                if(it != values.end() && it->second == new_value)
+                if(player_it != values.end() && player_it->second == new_value.get<td::player>())
                 {
                     matches++;
                 }
@@ -48,35 +113,36 @@ bool json::update_value(const char* name, std::unordered_map<td::player_id_t,td:
 
         // replace values
         values.clear();
-        for(auto& new_value : new_values)
+        for(const auto& new_value : new_values)
         {
-            values.emplace(new_value.player_id, new_value);
+            values.emplace(new_value.at("player_id"), new_value.get<td::player>());
         }
+        dirty = true;
         return true;
     }
-
     return false;
 }
 
-// special update_value for manual payouts map
+// special update_value for manual payouts map. payouts are stored in json as an array but deserialized as a map for fast lookup
 template <>
-bool json::update_value(const char* name, std::unordered_map<size_t, std::vector<td::monetary_value_nocurrency>>& values) const
+bool update_value(const nlohmann::json& j, const char* key, std::unordered_map<size_t, std::vector<td::monetary_value_nocurrency>>& values, bool& dirty, bool unconditional)
 {
-    // read json into vector of manual_payout
-    std::vector<td::manual_payout> new_values;
-    if(this->get_value(name, new_values))
+    auto it(j.find(key));
+    if(it != j.end())
     {
+        auto new_values(*it);
+
         // check size first, if equal, deep compare
         if(values.size() == new_values.size())
         {
             size_t matches(0);
             for(const auto& new_value : new_values)
             {
-                // look up by player_id
-                auto it(values.find(new_value.buyins_count));
+                // look up by number
+                auto buyin_it(values.find(new_value.at("buyins_count")));
 
                 // if found and the actual value matches test value, continue
-                if(it != values.end() && it->second == new_value.payouts)
+                if(buyin_it != values.end() && buyin_it->second == new_value.get<std::vector<td::monetary_value_nocurrency>>())
                 {
                     matches++;
                 }
@@ -96,15 +162,17 @@ bool json::update_value(const char* name, std::unordered_map<size_t, std::vector
 
         // replace values
         values.clear();
-        for(auto& new_value : new_values)
+        for(const auto& new_value : new_values)
         {
-            values.emplace(new_value.buyins_count, new_value.payouts);
+            values.emplace(new_value.at("buyins_count"), new_value.at("payouts"));
         }
+        dirty = true
         return true;
     }
 
     return false;
 }
+#endif
 
 // initialize game
 gameinfo::gameinfo() :
@@ -129,50 +197,43 @@ gameinfo::time_point_t gameinfo::now()
 }
 
 // load configuration from JSON (object or file)
-void gameinfo::configure(const json& config)
+void gameinfo::configure(const nlohmann::json& config)
 {
     logger(ll::info) << "loading tournament configuration\n";
 
-    if(config.update_value("name", this->name))
+    if(update_value(config, "name", this->name, this->dirty))
     {
-        this->dirty = true;
         logger(ll::info) << "configuration changed: name -> " << this->name << '\n';
     }
 
-    if(config.update_value("funding_sources", this->funding_sources))
+    if(update_value(config, "funding_sources", this->funding_sources, this->dirty))
     {
-        this->dirty = true;
         logger(ll::info) << "configuration changed: funding_sources -> " << this->funding_sources.size() << " sources\n";
     }
 
-    if(config.update_value("previous_blind_level_hold_duration", this->previous_blind_level_hold_duration))
+    if(update_value(config, "previous_blind_level_hold_duration", this->previous_blind_level_hold_duration, this->dirty))
     {
-        this->dirty = true;
         logger(ll::info) << "configuration changed: previous_blind_level_hold_duration -> " << this->previous_blind_level_hold_duration << '\n';
     }
 
     // TODO: changing the rebalance policy could trigger an immediate rebalance. for now, we wait until the next bust-out
-    if(config.update_value("rebalance_policy", reinterpret_cast<int&>(this->rebalance_policy)))
+    if(update_value(config, "rebalance_policy", this->rebalance_policy, this->dirty))
     {
-        this->dirty = true;
         logger(ll::info) << "configuration changed: rebalance_policy -> " << this->rebalance_policy << '\n';
     }
 
-    if(config.update_value("background_color", this->background_color))
+    if(update_value(config, "background_color", this->background_color, this->dirty))
     {
-        this->dirty = true;
         logger(ll::info) << "configuration changed: background_color -> " << this->background_color << '\n';
     }
 
-    if(config.update_value("final_table_policy", reinterpret_cast<int&>(this->final_table_policy)))
+    if(update_value(config, "final_table_policy", this->final_table_policy, this->dirty))
     {
-        this->dirty = true;
         logger(ll::info) << "configuration changed: final_table_policy -> " << this->final_table_policy << '\n';
     }
 
-    if(config.update_value("available_chips", this->available_chips))
+    if(update_value(config, "available_chips", this->available_chips, this->dirty))
     {
-        this->dirty = true;
         logger(ll::info) << "configuration changed: available_chips -> " << this->available_chips.size() << " chips\n";
 
         // always sort chips by denomination
@@ -183,9 +244,8 @@ void gameinfo::configure(const json& config)
                   });
     }
 
-    if(config.update_value("players", this->players))
+    if(update_value(config, "players", this->players, this->dirty))
     {
-        this->dirty = true;
         logger(ll::info) << "configuration changed: players -> " << this->players.size() << " players\n";
 
         if(!this->seats.empty() || !this->players_finished.empty() || !this->bust_history.empty() || !this->buyins.empty() || !this->unique_entries.empty() || !this->entries.empty())
@@ -195,9 +255,8 @@ void gameinfo::configure(const json& config)
     }
 
     // changing the table capacity can cause a re-plan
-    if(config.update_value("table_capacity", this->table_capacity))
+    if(update_value(config, "table_capacity", this->table_capacity, this->dirty))
     {
-        this->dirty = true;
         logger(ll::info) << "configuration changed: table_capacity -> " << this->table_capacity << '\n';
 
         if(!this->seats.empty())
@@ -214,49 +273,43 @@ void gameinfo::configure(const json& config)
         }
     }
 
-    if(config.update_value("table_names", this->table_names))
+    if(update_value(config, "table_names", this->table_names, this->dirty))
     {
-        this->dirty = true;
         logger(ll::info) << "configuration changed: table_names -> " << this->table_names.size() << '\n';
     }
 
     // recalculate for any configuration that could alter payouts
     auto recalculate(false);
-    if(config.update_value("payout_policy", reinterpret_cast<int&>(this->payout_policy)))
+    if(update_value(config, "payout_policy", this->payout_policy, this->dirty))
     {
-        this->dirty = true;
         logger(ll::info) << "configuration changed: payout_policy -> " << this->payout_policy << '\n';
 
         recalculate = true;
     }
 
-    if(config.update_value("payout_currency", this->payout_currency))
+    if(update_value(config, "payout_currency", this->payout_currency, this->dirty))
     {
-        this->dirty = true;
         logger(ll::info) << "configuration changed: payout_currency -> " << this->payout_currency << '\n';
 
         recalculate = true;
     }
 
-    if(config.update_value("automatic_payouts", this->automatic_payouts))
+    if(update_value(config, "automatic_payouts", this->automatic_payouts, this->dirty))
     {
-        this->dirty = true;
         logger(ll::info) << "configuration changed: automatic_payouts -> (reconfigured)\n";
 
         recalculate = true;
     }
 
-    if(config.update_value("forced_payouts", this->forced_payouts))
+    if(update_value(config, "forced_payouts", this->forced_payouts, this->dirty))
     {
-        this->dirty = true;
         logger(ll::info) << "configuration changed: forced_payouts -> " << this->forced_payouts.size() << " forced payouts\n";
 
         recalculate = true;
     }
 
-    if(config.update_value("manual_payouts", this->manual_payouts))
+    if(update_value(config, "manual_payouts", this->manual_payouts, this->dirty))
     {
-        this->dirty = true;
         logger(ll::info) << "configuration changed: manual_payouts -> " << this->manual_payouts.size() << " manual payouts\n";
 
         recalculate = true;
@@ -269,9 +322,8 @@ void gameinfo::configure(const json& config)
     }
 
     // stop the game when reconfiguring blind levels
-    if(config.update_value("blind_levels", this->blind_levels))
+    if(update_value(config, "blind_levels", this->blind_levels, this->dirty))
     {
-        this->dirty = true;
         logger(ll::info) << "configuration changed: blind_levels -> " << this->blind_levels.size() << " blind levels\n";
 
         if(this->is_started())
@@ -291,211 +343,192 @@ void gameinfo::configure(const json& config)
 
     // can also load state (useful for loading from snapshot)
 
-    if(config.get_value("seats", this->seats))
+    if(update_value(config, "seats", this->seats, this->dirty, true))
     {
-        this->dirty = true;
         logger(ll::info) << "state changed: seats -> " << this->seats.size() << "\n";
     }
 
-    if(config.get_value("players_finished", this->players_finished))
+    if(update_value(config, "players_finished", this->players_finished, this->dirty, true))
     {
-        this->dirty = true;
         logger(ll::info) << "state changed: players_finished -> " << this->players_finished.size() << "\n";
     }
 
-    if(config.get_value("bust_history", this->bust_history))
+    if(update_value(config, "bust_history", this->bust_history, this->dirty, true))
     {
-        this->dirty = true;
         logger(ll::info) << "state changed: bust_history -> " << this->bust_history.size() << "\n";
     }
 
-    if(config.get_value("empty_seats", this->empty_seats))
+    if(update_value(config, "empty_seats", this->empty_seats, this->dirty, true))
     {
-        this->dirty = true;
         logger(ll::info) << "state changed: empty_seats -> " << this->empty_seats.size() << "\n";
     }
 
-    if(config.get_value("table_count", this->table_count))
+    if(update_value(config, "table_count", this->table_count, this->dirty, true))
     {
-        this->dirty = true;
         logger(ll::info) << "state changed: table_count -> " << this->table_count << "\n";
     }
 
-    if(config.get_value("buyins", this->buyins))
+    if(update_value(config, "buyins", this->buyins, this->dirty, true))
     {
-        this->dirty = true;
         logger(ll::info) << "state changed: buyins -> " << this->buyins.size() << "\n";
     }
 
-    if(config.get_value("unique_entries", this->unique_entries))
+    if(update_value(config, "unique_entries", this->unique_entries, this->dirty, true))
     {
-        this->dirty = true;
         logger(ll::info) << "state changed: unique_entries -> " << this->unique_entries.size() << "\n";
     }
 
-    if(config.get_value("entries", this->entries))
+    if(update_value(config, "entries", this->entries, this->dirty, true))
     {
-        this->dirty = true;
         logger(ll::info) << "state changed: entries -> " << this->entries.size() << "\n";
     }
 
-    if(config.get_value("payouts", this->payouts))
+    if(update_value(config, "payouts", this->payouts, this->dirty, true))
     {
-        this->dirty = true;
         logger(ll::info) << "state changed: payouts -> " << this->payouts.size() << "\n";
     }
 
-    if(config.get_value("total_chips", this->total_chips))
+    if(update_value(config, "total_chips", this->total_chips, this->dirty, true))
     {
-        this->dirty = true;
         logger(ll::info) << "state changed: total_chips -> " << this->total_chips << "\n";
     }
 
-    if(config.get_value("total_cost", this->total_cost))
+    if(update_value(config, "total_cost", this->total_cost, this->dirty, true))
     {
-        this->dirty = true;
         logger(ll::info) << "state changed: total_cost -> " << this->total_cost.size() << "\n";
     }
 
-    if(config.get_value("total_commission", this->total_commission))
+    if(update_value(config, "total_commission", this->total_commission, this->dirty, true))
     {
-        this->dirty = true;
         logger(ll::info) << "state changed: total_commission -> " << this->total_commission.size() << "\n";
     }
 
-   if(config.get_value("total_equity", this->total_equity))
+    if(update_value(config, "total_equity", this->total_equity, this->dirty, true))
     {
-        this->dirty = true;
         logger(ll::info) << "state changed: total_equity -> " << this->total_equity << "\n";
     }
 
-    if(config.get_value("current_blind_level", this->current_blind_level))
+    if(update_value(config, "current_blind_level", this->current_blind_level, this->dirty, true))
     {
-        this->dirty = true;
         logger(ll::info) << "state changed: current_blind_level -> " << this->current_blind_level << "\n";
     }
 
-    if(config.get_value("end_of_round", this->end_of_round))
+    if(update_value(config, "end_of_round", this->end_of_round, this->dirty, true))
     {
-        this->dirty = true;
         logger(ll::info) << "state changed: end_of_round -> " << datetime(this->end_of_round) << "\n";
     }
 
-    if(config.get_value("end_of_break", this->end_of_break))
+    if(update_value(config, "end_of_break", this->end_of_break, this->dirty, true))
     {
-        this->dirty = true;
         logger(ll::info) << "state changed: end_of_break -> " << datetime(this->end_of_break) << "\n";
     }
 
-    if(config.get_value("end_of_action_clock", this->end_of_action_clock))
+    if(update_value(config, "end_of_action_clock", this->end_of_action_clock, this->dirty, true))
     {
-        this->dirty = true;
         logger(ll::info) << "state changed: end_of_action_clock -> " << datetime(this->end_of_action_clock) << "\n";
     }
 
-    if(config.get_value("tournament_start", this->tournament_start))
+    if(update_value(config, "tournament_start", this->tournament_start, this->dirty, true))
     {
-        this->dirty = true;
         logger(ll::info) << "state changed: tournament_start -> " << datetime(this->tournament_start) << "\n";
     }
 
-    if(config.get_value("paused_time", this->paused_time))
+    if(update_value(config, "paused_time", this->paused_time, this->dirty, true))
     {
-        this->dirty = true;
         logger(ll::info) << "state changed: paused_time -> " << datetime(this->paused_time) << "\n";
     }
 }
 
 // dump configuration to JSON
-void gameinfo::dump_configuration(json& config) const
+void gameinfo::dump_configuration(nlohmann::json& config) const
 {
     logger(ll::debug) << "dumping tournament configuration\n";
 
-    config.set_value("name", this->name);
-    config.set_value("players", json(this->players.begin(), this->players.end()));
-    config.set_value("table_capacity", this->table_capacity);
-    config.set_value("table_names", json(this->table_names.begin(), this->table_names.end()));
-    config.set_value("payout_policy", static_cast<int>(this->payout_policy));
-    config.set_value("payout_currency", this->payout_currency);
-    config.set_value("automatic_payouts", this->automatic_payouts);
-    config.set_value("forced_payouts", json(this->forced_payouts.begin(), this->forced_payouts.end()));
-    config.set_value("manual_payouts", json(this->manual_payouts.begin(), this->manual_payouts.end()));
-    config.set_value("previous_blind_level_hold_duration", this->previous_blind_level_hold_duration);
-    config.set_value("rebalance_policy", static_cast<int>(this->rebalance_policy));
-    config.set_value("background_color", this->background_color);
-    config.set_value("final_table_policy", static_cast<int>(this->final_table_policy));
-    config.set_value("funding_sources", json(this->funding_sources.begin(), this->funding_sources.end()));
-    config.set_value("blind_levels", json(this->blind_levels.begin(), this->blind_levels.end()));
-    config.set_value("available_chips", json(this->available_chips.begin(), this->available_chips.end()));
+    config["name"] = this->name;
+    config["players"] = this->players;
+    config["table_capacity"] = this->table_capacity;
+    config["table_names"] = this->table_names;
+    config["payout_policy"] = this->payout_policy;
+    config["payout_currency"] = this->payout_currency;
+    config["automatic_payouts"] = this->automatic_payouts;
+    config["forced_payouts"] = this->forced_payouts;
+    config["manual_payouts"] = this->manual_payouts;
+    config["previous_blind_level_hold_duration"] = this->previous_blind_level_hold_duration;
+    config["rebalance_policy"] = this->rebalance_policy;
+    config["background_color"] = this->background_color;
+    config["final_table_policy"] = this->final_table_policy;
+    config["funding_sources"] = this->funding_sources;
+    config["blind_levels"] = this->blind_levels;
+    config["available_chips"] = this->available_chips;
 }
 
 // dump state to JSON
-void gameinfo::dump_state(json& state) const
+void gameinfo::dump_state(nlohmann::json& state) const
 {
     logger(ll::debug) << "dumping tournament state\n";
 
-    state.set_value("seats", json(this->seats.begin(), this->seats.end()));
-    state.set_value("players_finished", json(this->players_finished.begin(), this->players_finished.end()));
-    state.set_value("bust_history", json(this->bust_history.begin(), this->bust_history.end()));
-    state.set_value("empty_seats", json(this->empty_seats.begin(), this->empty_seats.end()));
-    state.set_value("table_count", this->table_count);
-    state.set_value("buyins", json(this->buyins.begin(), this->buyins.end()));
-    state.set_value("unique_entries", json(this->unique_entries.begin(), this->unique_entries.end()));
-    state.set_value("entries", json(this->entries.begin(), this->entries.end()));
-    state.set_value("payouts", json(this->payouts.begin(), this->payouts.end()));
-    state.set_value("total_chips", this->total_chips);
-    state.set_value("total_cost", json(this->total_cost.begin(), this->total_cost.end()));
-    state.set_value("total_commission", json(this->total_commission.begin(), this->total_commission.end()));
-    state.set_value("total_equity", this->total_equity);
-    state.set_value("current_blind_level", this->current_blind_level);
-    state.set_value("end_of_round", this->end_of_round);
-    state.set_value("end_of_break", this->end_of_break);
-    state.set_value("end_of_action_clock", this->end_of_action_clock);
-    state.set_value("tournament_start", this->tournament_start);
-    state.set_value("paused_time", this->paused_time);
+    state["seats"] = this->seats;
+    state["players_finished"] = this->players_finished;
+    state["bust_history"] = this->bust_history;
+    state["empty_seats"] = this->empty_seats;
+    state["table_count"] = this->table_count;
+    state["buyins"] = this->buyins;
+    state["unique_entries"] = this->unique_entries;
+    state["entries"] = this->entries;
+    state["payouts"] = this->payouts;
+    state["total_chips"] = this->total_chips;
+    state["total_cost"] = this->total_cost;
+    state["total_commission"] = this->total_commission;
+    state["total_equity"] = this->total_equity;
+    state["current_blind_level"] = this->current_blind_level;
+    state["end_of_round"] = this->end_of_round;
+    state["end_of_break"] = this->end_of_break;
+    state["end_of_action_clock"] = this->end_of_action_clock;
+    state["tournament_start"] = this->tournament_start;
+    state["paused_time"] = this->paused_time;
 }
 
 // some configuration gets sent to clients along with state, dump to JSON
-void gameinfo::dump_configuration_state(json &state) const
+void gameinfo::dump_configuration_state(nlohmann::json &state) const
 {
     logger(ll::debug) << "dumping tournament configuration state\n";
 
-    state.set_value("name", this->name);
-    state.set_value("background_color", this->background_color);
-    state.set_value("funding_sources", json(this->funding_sources.begin(), this->funding_sources.end()));
-    state.set_value("available_chips", json(this->available_chips.begin(), this->available_chips.end()));
+    state["name"] = this->name;
+    state["background_color"] = this->background_color;
+    state["funding_sources"] = this->funding_sources;
+    state["available_chips"] = this->available_chips;
 }
 
 // calculate derived state and dump to JSON
-void gameinfo::dump_derived_state(json& state) const
+void gameinfo::dump_derived_state(nlohmann::json& state) const
 {
     logger(ll::debug) << "dumping tournament derived state\n";
 
     auto now(this->now());
 
     // set current time (for synchronization)
-    state.set_value("current_time", now);
+    state["current_time"] = now;
 
     // set elapsed_time if we are past the tournament start
     if(this->tournament_start != time_point_t() && this->tournament_start < now)
     {
         auto elapsed_time(std::chrono::duration_cast<duration_t>(now - this->tournament_start));
-        state.set_value("elapsed_time", elapsed_time.count());
+        state["elapsed_time"] = elapsed_time.count();
     }
 
     // set action clock if ticking
     if(this->end_of_action_clock != time_point_t() && this->end_of_action_clock > now)
     {
         auto action_clock_time_remaining(std::chrono::duration_cast<duration_t>(this->end_of_action_clock - now));
-        state.set_value("action_clock_time_remaining", action_clock_time_remaining.count());
+        state["action_clock_time_remaining"] = action_clock_time_remaining.count();
     }
     else
     {
-        state.set_value("action_clock_time_remaining", 0);
+        state["action_clock_time_remaining"] = 0;
     }
 
     // set running (vs paused)
-    state.set_value("running", this->end_of_break != time_point_t() && !this->is_paused());
+    state["running"] = this->end_of_break != time_point_t() && !this->is_paused();
 
     std::ostringstream os;
     os.imbue(std::locale(""));
@@ -504,21 +537,21 @@ void gameinfo::dump_derived_state(json& state) const
     if(this->is_started())
     {
         os << this->current_blind_level;
-        state.set_value("current_round_number_text", os.str()); os.str("");
+        state["current_round_number_text"] = os.str(); os.str("");
     }
 
     // current game name text
     if(this->is_started() && this->current_blind_level < this->blind_levels.size())
     {
         os << blind_levels[this->current_blind_level].game_name;
-        state.set_value("current_game_text", os.str()); os.str("");
+        state["current_game_text"] = os.str(); os.str("");
     }
 
     // next game name text
     if(this->is_started() && this->current_blind_level+1 < this->blind_levels.size())
     {
         os << blind_levels[this->current_blind_level+1].game_name;
-        state.set_value("next_game_text", os.str()); os.str("");
+        state["next_game_text"] = os.str(); os.str("");
     }
 
     if(!this->is_paused())
@@ -528,15 +561,15 @@ void gameinfo::dump_derived_state(json& state) const
         {
             // within round, set time remaining
             auto time_remaining(std::chrono::duration_cast<duration_t>(this->end_of_round - now));
-            state.set_value("time_remaining", time_remaining.count());
-            state.set_value("clock_remaining", time_remaining.count());
-            state.set_value("on_break", false);
+            state["time_remaining"] = time_remaining.count();
+            state["clock_remaining"] = time_remaining.count();
+            state["on_break"] = false;
 
             if(this->current_blind_level < this->blind_levels.size())
             {
                 // set blinds description
                 os << this->blind_levels[this->current_blind_level].little_blind << '/' << this->blind_levels[this->current_blind_level].big_blind;
-                state.set_value("current_round_blinds_text", os.str()); os.str("");
+                state["current_round_blinds_text"] = os.str(); os.str("");
 
                 // set antes description
                 if(this->blind_levels[this->current_blind_level].ante_type == td::ante_type_t::traditional)
@@ -549,7 +582,7 @@ void gameinfo::dump_derived_state(json& state) const
                     // TODO: i18n
                     os << "BBA:" << this->blind_levels[this->current_blind_level].ante;
                 }
-                state.set_value("current_round_ante_text", os.str()); os.str("");
+                state["current_round_ante_text"] = os.str(); os.str("");
 
                 // set next round description
                 if(this->blind_levels[this->current_blind_level].break_duration == 0)
@@ -560,25 +593,25 @@ void gameinfo::dump_derived_state(json& state) const
                 {
                     os << "BREAK"; // TODO: i18n
                 }
-                state.set_value("next_round_text", os.str()); os.str("");
+                state["next_round_text"] = os.str(); os.str("");
             }
         }
         else if(this->end_of_break != time_point_t() && now < this->end_of_break)
         {
             // within break, set break time remaining
             auto break_time_remaining(std::chrono::duration_cast<duration_t>(this->end_of_break - now));
-            state.set_value("break_time_remaining", break_time_remaining.count());
-            state.set_value("clock_remaining", break_time_remaining.count());
-            state.set_value("on_break", true);
+            state["break_time_remaining"] = break_time_remaining.count();
+            state["clock_remaining"] = break_time_remaining.count();
+            state["on_break"] = true;
 
             // describe break
-            state.set_value("current_round_blinds_text", std::string("BREAK")); // TODO: i18n
+            state["current_round_blinds_text"] = "BREAK"; // TODO: i18n
 
             // set next round description
             if(this->current_blind_level+1 < this->blind_levels.size())
             {
                 os << this->blind_levels[this->current_blind_level+1];
-                state.set_value("next_round_text", os.str()); os.str("");
+                state["next_round_text"] = os.str(); os.str("");
             }
         }
     }
@@ -587,28 +620,28 @@ void gameinfo::dump_derived_state(json& state) const
     if(!this->seats.empty())
     {
         os << this->seats.size();
-        state.set_value("players_left_text", os.str()); os.str("");
+        state["players_left_text"] = os.str(); os.str("");
     }
 
     // unique_entries text
     if(!this->unique_entries.empty())
     {
         os << this->unique_entries.size();
-        state.set_value("unique_entries_text", os.str()); os.str("");
+        state["unique_entries_text"] = os.str(); os.str("");
     }
 
     // entries text
     if(!this->entries.empty())
     {
         os << this->entries.size();
-        state.set_value("entries_text", os.str()); os.str("");
+        state["entries_text"] = os.str(); os.str("");
     }
 
     // average stack text
     if(!this->buyins.empty())
     {
         os << this->total_chips / this->buyins.size();
-        state.set_value("average_stack_text", os.str()); os.str("");
+        state["average_stack_text"] = os.str(); os.str("");
     }
 
     // buyin text
@@ -632,7 +665,7 @@ void gameinfo::dump_derived_state(json& state) const
     {
         os << "NO BUYIN"; // TODO: i18n
     }
-    state.set_value("buyin_text", os.str()); os.str("");
+    state["buyin_text"] = os.str(); os.str("");
 
     // results
     std::vector<td::result> results;
@@ -657,7 +690,7 @@ void gameinfo::dump_derived_state(json& state) const
         }
         results.push_back(result);
     }
-    state.set_value("results", json(results.begin(), results.end()));
+    state["results"] = results;
 
     // seated players
     std::vector<td::seated_player> seated_players;
@@ -665,7 +698,7 @@ void gameinfo::dump_derived_state(json& state) const
     {
         seated_players.push_back(find_seated_player(p.first));
     }
-    state.set_value("seated_players", json(seated_players.begin(), seated_players.end()));
+    state["seated_players"] = seated_players;
 }
 
 // has internal state been updated since last check?

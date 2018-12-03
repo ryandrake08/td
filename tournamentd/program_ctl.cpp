@@ -1,7 +1,7 @@
 #include "program.hpp"
 #include "bonjour.hpp"
-#include "json.hpp"
 #include "logger.hpp"
+#include "nlohmann/json.hpp"
 #include "socket.hpp"
 #include "socketstream.hpp"
 #include <iostream>
@@ -20,12 +20,12 @@ static socketstream make_stream(const std::string& server, const std::string por
     }
 }
 
-static json send_command(std::iostream& stream, const std::string& cmd, const std::string& auth=std::string(), json arg=json())
+static nlohmann::json send_command(std::iostream& stream, const std::string& cmd, const std::string& auth=std::string(), nlohmann::json arg=nlohmann::json())
 {
     // add auth if exists
     if(!auth.empty())
     {
-        arg.set_value("authenticate", std::stol(auth));
+        arg["authenticate"] = std::stol(auth);
     }
 
     // send command with optional json argument
@@ -38,25 +38,18 @@ static json send_command(std::iostream& stream, const std::string& cmd, const st
         stream << cmd << ' ' << arg << '\r' << std::endl;
     }
 
-    // read response
-    std::string response;
-    if(std::getline(stream, response))
-    {
-        // convert line from server to json and return
-        return json::eval(response);
-    }
-    else
-    {
-        return json();
-    }
+    // this might work too
+    nlohmann::json res;
+    stream >> res;
+    return res;
 }
 
-static void print_value_if_exists(const json& object, const std::string& name)
+static void print_value_if_exists(const nlohmann::json& object, const std::string& name)
 {
-    json value;
-    if(object.get_value(name.c_str(), value))
+    auto value(object.find(name));
+    if(value != object.end())
     {
-        std::cout << name << ": " << value << '\n';
+        std::cout << name << ": " << *value << '\n';
     }
 }
 
@@ -195,7 +188,7 @@ public:
                     }
                     else
                     {
-                        auto object(send_command(stream, opt, auth, json::eval(*it++)));
+                        auto object(send_command(stream, opt, auth, *it++));
 
                         // print output raw json
                         std::cout << object << '\n';

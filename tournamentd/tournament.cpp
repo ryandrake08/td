@@ -1,6 +1,6 @@
 #include "tournament.hpp"
-#include "json.hpp"
 #include "logger.hpp"
+#include "nlohmann/json.hpp"
 #include "scope_timer.hpp"
 #include <algorithm>
 #include <cassert>
@@ -8,6 +8,7 @@
 #include <cstdlib>
 #include <cstdio>
 #include <fstream>
+#include <iomanip>
 #include <sstream>
 #include <stdexcept>
 #include <string>
@@ -49,15 +50,9 @@ struct tournament::impl
         return (this->pre_auths.find(code) == this->pre_auths.end()) || (this->game_auths.find(code) == this->game_auths.end());
     }
 
-    void ensure_authorized(const json& in) const
+    void ensure_authorized(const nlohmann::json& in) const
     {
-        int code;
-        if(!in.get_value("authenticate", code))
-        {
-            throw td::protocol_error("must specify authentication code");
-        }
-
-        if(!this->code_authorized(code))
+        if(!this->code_authorized(in.at("authenticate")))
         {
             throw td::protocol_error("unauthorized");
         }
@@ -67,83 +62,55 @@ struct tournament::impl
 
     void broadcast_state() const
     {
-        json bcast;
+        nlohmann::json bcast;
         this->game_info.dump_state(bcast);
         this->game_info.dump_configuration_state(bcast);
         this->game_info.dump_derived_state(bcast);
-        this->game_server.broadcast(bcast.print());
+        this->game_server.broadcast(bcast.dump());
     }
 
     // ----- command handlers available to anyone
 
-    void handle_cmd_version(json& out) const
+    void handle_cmd_version(nlohmann::json& out) const
     {
-        static const char* name = "tournamentd";
-        static const char* version = "0.0.9";
-
-        out.set_value("server_name", name);
-        out.set_value("server_version", version);
+        out["server_name"] = "tournamentd";
+        out["server_version"] = "0.0.9";
     }
 
-    void handle_cmd_get_config(json& out) const
+    void handle_cmd_get_config(nlohmann::json& out) const
     {
         this->game_info.dump_configuration(out);
     }
 
-    void handle_cmd_get_state(json& out) const
+    void handle_cmd_get_state(nlohmann::json& out) const
     {
         this->game_info.dump_state(out);
         this->game_info.dump_configuration_state(out);
         this->game_info.dump_derived_state(out);
     }
 
-    void handle_cmd_check_authorized(const json& in, json& out) const
+    void handle_cmd_check_authorized(const nlohmann::json& in, nlohmann::json& out) const
     {
-        int code;
-        if(!in.get_value("authenticate", code))
-        {
-            throw td::protocol_error("must specify authentication code");
-        }
-
-        if(!this->code_authorized(code))
-        {
-            out.set_value("authorized", false);
-        }
-        else
-        {
-            out.set_value("authorized", true);
-        }
+        auto authorized(this->code_authorized(in.at("authenticate")));
+        out["authorized"] = authorized;
     }
 
-    void handle_cmd_chips_for_buyin(const json& in, json& out) const
+    void handle_cmd_chips_for_buyin(const nlohmann::json& in, nlohmann::json& out) const
     {
-        td::funding_source_id_t source;
-        if(!in.get_value("source_id", source))
-        {
-            throw td::protocol_error("must specify source");
-        }
-
-        std::size_t max_expected_players;
-        if(!in.get_value("max_expected_players", max_expected_players))
-        {
-            throw td::protocol_error("must specify max_expected_players");
-        }
-
-        auto chips(this->game_info.chips_for_buyin(source, max_expected_players));
-
-        out.set_value("chips_for_buyin", json(chips.begin(), chips.end()));
+        auto chips(this->game_info.chips_for_buyin(in.at("source_id"), in.at("max_expected_players")));
+        out["chips_for_buyin"] = chips;
     }
 
     // ----- command handlers available to authorized clients
 
-    void handle_cmd_configure(const json& in, json& out)
+    void handle_cmd_configure(const nlohmann::json& in, nlohmann::json& out)
     {
         // handle auth codes. game_info doesn't handle these
         // read auth codes from input
-        std::vector<td::authorized_client> auths_vector;
-        if(in.get_value("authorized_clients", auths_vector))
+        auto ac_it(in.find("authorized_clients"));
+        if(ac_it != in.end())
         {
-            this->game_auths.clear();
+            std::vector<td::authorized_client> auths_vector(ac_it->begin(), ac_it->end());
             for(auto& auth : auths_vector)
             {
                 logger(ll::debug) << "authorizing code " << auth.code << " named \"" << auth.name << "\"\n";
@@ -152,19 +119,19 @@ struct tournament::impl
         }
 
         // pass auth codes back into output
-        out.set_value("authorized_clients", json(this->game_auths.begin(), this->game_auths.end()));
+        out["authorized_clients"] = this->game_auths;
 
         // configure
         this->game_info.configure(in);
         this->game_info.dump_configuration(out);
     }
 
-    void handle_cmd_start_game(const json& in, json& /* out */)
+    void handle_cmd_start_game(const nlohmann::json& in, nlohmann::json& /* out */)
     {
-        datetime start_at;
-        if(in.get_value("start_at", start_at))
+        auto start_at_it(in.find("start_at"));
+        if(start_at_it != in.end())
         {
-            this->game_info.start(start_at);
+            this->game_info.start(*start_at_it);
         }
         else
         {
@@ -172,46 +139,44 @@ struct tournament::impl
         }
     }
 
-    void handle_cmd_stop_game(const json& /* in */, json& /* out */)
+    void handle_cmd_stop_game(const nlohmann::json& /* in */, nlohmann::json& /* out */)
     {
         this->game_info.stop();
     }
 
-    void handle_cmd_resume_game(const json& /* in */, json& /* out */)
+    void handle_cmd_resume_game(const nlohmann::json& /* in */, nlohmann::json& /* out */)
     {
         this->game_info.resume();
     }
 
-    void handle_cmd_pause_game(const json& /* in */, json& /* out */)
+    void handle_cmd_pause_game(const nlohmann::json& /* in */, nlohmann::json& /* out */)
     {
         this->game_info.pause();
     }
 
-    void handle_cmd_toggle_pause_game(const json& /* in */, json& /* out */)
+    void handle_cmd_toggle_pause_game(const nlohmann::json& /* in */, nlohmann::json& /* out */)
     {
         this->game_info.toggle_pause_resume();
     }
 
-    void handle_cmd_set_previous_level(const json& /* in */, json& out)
+    void handle_cmd_set_previous_level(const nlohmann::json& /* in */, nlohmann::json& out)
     {
         auto blind_level_changed(this->game_info.previous_blind_level());
-
-        out.set_value("blind_level_changed", blind_level_changed);
+        out["blind_level_changed"] = blind_level_changed;
     }
 
-    void handle_cmd_set_next_level(const json& /* in */, json& out)
+    void handle_cmd_set_next_level(const nlohmann::json& /* in */, nlohmann::json& out)
     {
         auto blind_level_changed(this->game_info.next_blind_level());
-
-        out.set_value("blind_level_changed", blind_level_changed);
+        out["blind_level_changed"] = blind_level_changed;
     }
 
-    void handle_cmd_set_action_clock(const json& in, json& /* out */)
+    void handle_cmd_set_action_clock(const nlohmann::json& in, nlohmann::json& /* out */)
     {
-        long duration;
-        if(in.get_value("duration", duration))
+        auto duration_it(in.find("duration"));
+        if(duration_it != in.end())
         {
-            this->game_info.set_action_clock(duration);
+            this->game_info.set_action_clock(*duration_it);
         }
         else
         {
@@ -219,131 +184,72 @@ struct tournament::impl
         }
     }
 
-    void handle_cmd_gen_blind_levels(const json& in, json& out)
+    void handle_cmd_gen_blind_levels(const nlohmann::json& in, nlohmann::json& out)
     {
-        // required parameters
-        long desired_duration;
-        long level_duration;
-
-        if(!in.get_value("desired_duration", desired_duration) || !in.get_value("level_duration", level_duration))
-        {
-            throw td::protocol_error("must specify desired duration, level duration, and chips in play");
-        }
-
-        // optional parameters
-        std::size_t expected_buyins(0);
-        std::size_t expected_rebuys(0);
-        std::size_t expected_addons(0);
-        long break_duration(0);
-        td::ante_type_t antes(td::ante_type_t::none);
-        double ante_sb_ratio(0.2);
-
-        in.get_value("expected_buyins", expected_buyins);
-        in.get_value("expected_rebuys", expected_rebuys);
-        in.get_value("expected_addons", expected_addons);
-        in.get_value("break_duration", break_duration);
-        in.get_value("antes", reinterpret_cast<int&>(antes));
-        in.get_value("ante_sb_ratio", ante_sb_ratio);
-
-        // generate levels
-        auto levels(this->game_info.gen_blind_levels(desired_duration, level_duration, expected_buyins, expected_rebuys, expected_addons, break_duration, antes, ante_sb_ratio));
-
-        // output
-        out.set_value("blind_levels", json(levels.begin(), levels.end()));
+        auto levels(this->game_info.gen_blind_levels(in.at("desired_duration"),
+                                                     in.at("level_duration"),
+                                                     in.value("expected_buyins", 0),
+                                                     in.value("expected_rebuys", 0),
+                                                     in.value("expected_addons", 0),
+                                                     in.value("break_duration", 0),
+                                                     in.value("antes", td::ante_type_t::none),
+                                                     in.value("ante_sb_ratio", 0.2)));
+        out["blind_levels"] = levels;
     }
 
-    void handle_cmd_reset_state(const json& /* in */, json& /* out */)
+    void handle_cmd_reset_state(const nlohmann::json& /* in */, nlohmann::json& /* out */)
     {
         this->game_info.reset_state();
     }
 
-    void handle_cmd_fund_player(const json& in, json& /* out */)
+    void handle_cmd_fund_player(const nlohmann::json& in, nlohmann::json& /* out */)
     {
-        td::player_id_t player_id;
-        td::funding_source_id_t source_id;
-
-        if(!in.get_value("player_id", player_id) || !in.get_value("source_id", source_id))
-        {
-            throw td::protocol_error("must specify player and source");
-        }
-
-        this->game_info.fund_player(player_id, source_id);
+        this->game_info.fund_player(in.at("player_id"), in.at("source_id"));
     }
 
-    void handle_cmd_plan_seating(const json& in, json& out)
+    void handle_cmd_plan_seating(const nlohmann::json& in, nlohmann::json& out)
     {
-        std::size_t max_expected_players;
-        if(!in.get_value("max_expected_players", max_expected_players))
-        {
-            throw td::protocol_error("must specify max_expected_players");
-        }
-
-        auto movements(this->game_info.plan_seating(max_expected_players));
-
-        out.set_value("players_moved", json(movements.begin(), movements.end()));
+        auto movements(this->game_info.plan_seating(in.at("max_expected_players")));
+        out["players_moved"] = movements;
     }
 
-    void handle_cmd_seat_player(const json& in, json& out)
+    void handle_cmd_seat_player(const nlohmann::json& in, nlohmann::json& out)
     {
-        td::player_id_t player_id;
-
-        if(!in.get_value("player_id", player_id))
-        {
-            throw td::protocol_error("must specify player");
-        }
-
-        auto seating(this->game_info.add_player(player_id));
-        out.set_value(seating.first.c_str(), seating.second);
+        auto seating(this->game_info.add_player(in.at("player_id")));
+        out[seating.first] = seating.second;
     }
 
-    void handle_cmd_unseat_player(const json& in, json& /* out */)
+    void handle_cmd_unseat_player(const nlohmann::json& in, nlohmann::json& /* out */)
     {
-        td::player_id_t player_id;
-
-        if(!in.get_value("player_id", player_id))
-        {
-            throw td::protocol_error("must specify player");
-        }
-
-        this->game_info.remove_player(player_id);
+        this->game_info.remove_player(in.at("player_id"));
     }
 
-    void handle_cmd_bust_player(const json& in, json& out)
+    void handle_cmd_bust_player(const nlohmann::json& in, nlohmann::json& out)
     {
-        td::player_id_t player_id;
-
-        if(!in.get_value("player_id", player_id))
-        {
-            throw td::protocol_error("must specify player");
-        }
-
-        auto movements(this->game_info.bust_player(player_id));
-
-        out.set_value("players_moved", json(movements.begin(), movements.end()));
+        auto movements(this->game_info.bust_player(in.at("player_id")));
+        out["players_moved"] = movements;
     }
 
-    void handle_cmd_rebalance_seating(const json& /* in */, json& out)
+    void handle_cmd_rebalance_seating(const nlohmann::json& /* in */, nlohmann::json& out)
     {
         auto movements(this->game_info.rebalance_seating());
-
-        out.set_value("players_moved", json(movements.begin(), movements.end()));
+        out["players_moved"] = movements;
     }
 
-    void handle_cmd_quick_setup(const json& in, json& out)
+    void handle_cmd_quick_setup(const nlohmann::json& in, nlohmann::json& out)
     {
         std::vector<td::seated_player> seated_players;
 
-        td::funding_source_id_t source;
-        if(in.get_value("source_id", source))
+        auto source_it(in.find("source_id"));
+        if(source_it != in.end())
         {
-            seated_players = this->game_info.quick_setup(source);
+            seated_players = this->game_info.quick_setup(*source_it);
         }
         else
         {
             seated_players = this->game_info.quick_setup();
         }
-
-        out.set_value("seated_players", json(seated_players.begin(), seated_players.end()));
+        out["seated_players"] = seated_players;
     }
 
     // handler for new client
@@ -374,7 +280,7 @@ struct tournament::impl
             if(cmd0 != std::string::npos)
             {
                 // build up output
-                json out;
+                nlohmann::json out;
 
                 try
                 {
@@ -384,23 +290,23 @@ struct tournament::impl
                     auto cmd1(input.find_first_of(whitespace, cmd0));
                     if(cmd1 != std::string::npos)
                     {
-                        json in;
+                        nlohmann::json in;
                         auto cmd(input.substr(cmd0, cmd1));
                         auto arg0(input.find_first_not_of(whitespace, cmd1));
                         if(arg0 != std::string::npos)
                         {
                             auto arg(input.substr(arg0, std::string::npos));
-                            in = json::eval(arg);
+                            in = nlohmann::json::parse(arg);
                         }
 
                         // convert command to lower-case for hashing (use ::tolower, assuming ASCII-encoded input)
                         std::transform(cmd.begin(), cmd.end(), cmd.begin(), ::tolower);
 
                         // copy "echo" attribute to output, if sent. This will allow clients to correlate requests with responses
-                        json echo;
-                        if(in.get_value("echo", echo))
+                        auto echo_it(in.find("echo"));
+                        if(echo_it != in.end())
                         {
-                            out.set_value("echo", echo);
+                            out["echo"] = *echo_it;
                         }
 
                         // set message for timer
@@ -932,12 +838,12 @@ struct tournament::impl
                 }
                 catch(const td::protocol_error& e)
                 {
-                    out.set_value("error", e.what());
+                    out["error"] = e.what();
                     logger(ll::warning) << "caught protocol error while processing command: " << e.what() << '\n';
                 }
                 catch(const std::exception& e)
                 {
-                    out.set_value("exception", e.what());
+                    out["exception"] = e.what();
                     logger(ll::warning) << "caught a non protocol error exception while processing command: " << e.what() << '\n';
                 }
 
@@ -1023,8 +929,13 @@ public:
     // load configuration from file
     void load_configuration(const std::string& filename)
     {
-        auto config(json::load(filename));
-        this->game_info.configure(config);
+        std::ifstream config_stream(filename);
+        if(config_stream.good())
+        {
+            nlohmann::json config;
+            config_stream >> config;
+            this->game_info.configure(config);
+        }
     }
 
     // update/poll loop
@@ -1057,8 +968,10 @@ public:
             std::ofstream snapshot_stream(this->snapshot_path);
             if(snapshot_stream.good())
             {
+                snapshot_stream << std::setw(4);
+
                 // get the snapshot (config + state)
-                json snapshot;
+                nlohmann::json snapshot;
                 this->game_info.dump_configuration(snapshot);
                 this->game_info.dump_state(snapshot);
                 snapshot_stream << snapshot;
