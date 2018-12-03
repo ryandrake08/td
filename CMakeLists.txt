@@ -29,9 +29,6 @@ set(CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO "${CMAKE_EXE_LINKER_FLAGS_RELWITHDEBIN
 
 include_directories(thirdparty)
 
-add_library(cJSON STATIC thirdparty/cJSON/cJSON.c)
-target_compile_options(cJSON PRIVATE -Wno-misleading-indentation)
-
 add_library(td STATIC tournamentd/bonjour.cpp tournamentd/datetime.cpp tournamentd/gameinfo.cpp tournamentd/server.cpp tournamentd/socket.cpp tournamentd/tournament.cpp tournamentd/types.cpp)
 target_include_directories(td PRIVATE .)
 find_program(CLANG_TIDY_EXE NAMES "clang-tidy" DOC "Path to clang-tidy executable")
@@ -40,10 +37,10 @@ if(FALSE AND CLANG_TIDY_EXE)
 endif()
 
 add_executable(tournamentd_test tournamentd/catch.cpp)
-target_link_libraries(tournamentd_test td cJSON ${OS_LIBRARIES})
+target_link_libraries(tournamentd_test td ${OS_LIBRARIES})
 
 add_executable(tournamentd tournamentd/main.cpp tournamentd/program.cpp)
-target_link_libraries(tournamentd td cJSON ${OS_LIBRARIES})
+target_link_libraries(tournamentd td ${OS_LIBRARIES})
 
 add_executable(tournamentctl tournamentd/main.cpp tournamentd/program_ctl.cpp)
-target_link_libraries(tournamentctl td cJSON ${OS_LIBRARIES})
+target_link_libraries(tournamentctl td ${OS_LIBRARIES})

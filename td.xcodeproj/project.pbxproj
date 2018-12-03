@@ -68,7 +68,6 @@
 		943B00D61B3F429500CE55D4 /* tournament.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E71B3C3F8300A158F8 /* tournament.cpp */; };
 		943B00D71B3F429500CE55D4 /* types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E91B3C3F8300A158F8 /* types.cpp */; };
 		943FC67E20261FF600B6AA4C /* catch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 943FC67120261EE000B6AA4C /* catch.cpp */; };
-		943FC68220265A0B00B6AA4C /* libcJSON_macOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9464EC071FDC2D44009092A4 /* libcJSON_macOS.a */; };
 		943FC68A2027D02F00B6AA4C /* TBSetupPayoutPolicyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 943FC6892027D02F00B6AA4C /* TBSetupPayoutPolicyViewController.m */; };
 		945410741B6E5C56001E3373 /* NSDateFormatter+ISO8601.m in Sources */ = {isa = PBXBuildFile; fileRef = 945410731B6E5C56001E3373 /* NSDateFormatter+ISO8601.m */; };
 		945410771B6E9A17001E3373 /* NSString+CamelCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 945410761B6E9A17001E3373 /* NSString+CamelCase.m */; };
@@ -119,13 +118,6 @@
 		94647189200CAA9C00556467 /* TBInvertImage.c in Sources */ = {isa = PBXBuildFile; fileRef = 94647187200CAA9C00556467 /* TBInvertImage.c */; };
 		9464718A200CAA9C00556467 /* TBInvertImage.c in Sources */ = {isa = PBXBuildFile; fileRef = 94647187200CAA9C00556467 /* TBInvertImage.c */; };
 		9464718B200CAA9C00556467 /* TBInvertImage.c in Sources */ = {isa = PBXBuildFile; fileRef = 94647187200CAA9C00556467 /* TBInvertImage.c */; };
-		9464EC121FDC2F1C009092A4 /* cJSON.c in Sources */ = {isa = PBXBuildFile; fileRef = 9464EC101FDC2F1C009092A4 /* cJSON.c */; };
-		9464EC131FDC2F30009092A4 /* libcJSON_macOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9464EC071FDC2D44009092A4 /* libcJSON_macOS.a */; };
-		9464EC141FDC2F3F009092A4 /* libcJSON_macOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9464EC071FDC2D44009092A4 /* libcJSON_macOS.a */; };
-		9464EC191FDC2FB5009092A4 /* cJSON.c in Sources */ = {isa = PBXBuildFile; fileRef = 9464EC101FDC2F1C009092A4 /* cJSON.c */; };
-		9464EC241FDC301D009092A4 /* libcJSON_macOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9464EC071FDC2D44009092A4 /* libcJSON_macOS.a */; };
-		9464EC281FDC3036009092A4 /* libcJSON_iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9464EC1F1FDC2FB5009092A4 /* libcJSON_iOS.a */; };
-		9464EC2B1FDC3042009092A4 /* libcJSON_iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9464EC1F1FDC2FB5009092A4 /* libcJSON_iOS.a */; };
 		9465F96B20540768008897D5 /* TBSetupPayoutsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9465F96A20540768008897D5 /* TBSetupPayoutsViewController.m */; };
 		9465F96C205435EB008897D5 /* TBPayoutShapeNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 945D83932032459E00DFE032 /* TBPayoutShapeNumberFormatter.m */; };
 		9465F96F20543B24008897D5 /* TBSetupDependsOnTurnoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9465F96E20543B24008897D5 /* TBSetupDependsOnTurnoutViewController.m */; };
@@ -134,7 +126,6 @@
 		946C65721FFF54830094E4D8 /* datetime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4D31B3C3F8300A158F8 /* datetime.cpp */; };
 		946C65731FFF54830094E4D8 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4DC1B3C3F8300A158F8 /* main.cpp */; };
 		946C65741FFF54930094E4D8 /* program_ctl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 946C656E1FFF54450094E4D8 /* program_ctl.cpp */; };
-		946C65781FFF5BD30094E4D8 /* libcJSON_macOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9464EC071FDC2D44009092A4 /* libcJSON_macOS.a */; };
 		946C65791FFF5BEC0094E4D8 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9476F4FB1B3C404400A158F8 /* CoreFoundation.framework */; };
 		946CF8D6200FF0D3008771D4 /* TBCurrencyImageTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE5A5021B8F6C4C002737A8 /* TBCurrencyImageTransformer.m */; };
 		946CF8D7200FF0D3008771D4 /* TBCurrencyImageTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE5A5021B8F6C4C002737A8 /* TBCurrencyImageTransformer.m */; };
@@ -421,13 +412,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		943FC68020265A0600B6AA4C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = AD8E683B1A6C606700E5A4D8 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 9464EC061FDC2D44009092A4;
-			remoteInfo = cJSON_macOS;
-		};
 		943FC68420266E4F00B6AA4C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = AD8E683B1A6C606700E5A4D8 /* Project object */;
@@ -455,48 +439,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 946C65661FFF54360094E4D8;
 			remoteInfo = tournamentctl;
-		};
-		9464EC151FDC2F50009092A4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = AD8E683B1A6C606700E5A4D8 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 9464EC061FDC2D44009092A4;
-			remoteInfo = cJSON;
-		};
-		9464EC201FDC300B009092A4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = AD8E683B1A6C606700E5A4D8 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 9464EC061FDC2D44009092A4;
-			remoteInfo = cJSON_macOS;
-		};
-		9464EC221FDC301A009092A4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = AD8E683B1A6C606700E5A4D8 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 9464EC061FDC2D44009092A4;
-			remoteInfo = cJSON_macOS;
-		};
-		9464EC251FDC3027009092A4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = AD8E683B1A6C606700E5A4D8 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 9464EC171FDC2FB5009092A4;
-			remoteInfo = cJSON_iOS;
-		};
-		9464EC291FDC303F009092A4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = AD8E683B1A6C606700E5A4D8 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 9464EC171FDC2FB5009092A4;
-			remoteInfo = cJSON_iOS;
-		};
-		946C65761FFF5BCA0094E4D8 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = AD8E683B1A6C606700E5A4D8 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 9464EC061FDC2D44009092A4;
-			remoteInfo = cJSON_macOS;
 		};
 		94EFDF6C1FE574FD00E40EA4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -597,24 +539,6 @@
 			dstSubfolderSpec = 16;
 			files = (
 				9458F706215DF02A00E1DEF3 /* defaults.json in CopyFiles */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		9464EC051FDC2D44009092A4 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "include/$(PRODUCT_NAME)";
-			dstSubfolderSpec = 16;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		9464EC1B1FDC2FB5009092A4 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "include/$(PRODUCT_NAME)";
-			dstSubfolderSpec = 16;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -759,10 +683,6 @@
 		946471802007528600556467 /* NSToolbarBadgedItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSToolbarBadgedItem.h; sourceTree = "<group>"; };
 		94647186200CAA9C00556467 /* TBInvertImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBInvertImage.h; sourceTree = "<group>"; };
 		94647187200CAA9C00556467 /* TBInvertImage.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = TBInvertImage.c; sourceTree = "<group>"; };
-		9464EC071FDC2D44009092A4 /* libcJSON_macOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libcJSON_macOS.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		9464EC101FDC2F1C009092A4 /* cJSON.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = cJSON.c; path = thirdparty/cJSON/cJSON.c; sourceTree = "<group>"; };
-		9464EC111FDC2F1C009092A4 /* cJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cJSON.h; path = thirdparty/cJSON/cJSON.h; sourceTree = "<group>"; };
-		9464EC1F1FDC2FB5009092A4 /* libcJSON_iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libcJSON_iOS.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		9464EC2C1FDD102B009092A4 /* shared_instance.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = shared_instance.hpp; sourceTree = "<group>"; };
 		9465F96920540768008897D5 /* TBSetupPayoutsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TBSetupPayoutsViewController.h; path = TBMac/TBSetupPayoutsViewController.h; sourceTree = "<group>"; };
 		9465F96A20540768008897D5 /* TBSetupPayoutsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TBSetupPayoutsViewController.m; path = TBMac/TBSetupPayoutsViewController.m; sourceTree = "<group>"; };
@@ -1016,7 +936,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				943FC68220265A0B00B6AA4C /* libcJSON_macOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1029,21 +948,6 @@
 				94E6F17B2011B54E0054D94F /* CoreGraphics.framework in Frameworks */,
 				942354462169BC61007868FF /* ImageIO.framework in Frameworks */,
 				94E77A0D216A8D1A0037FA67 /* UserNotifications.framework in Frameworks */,
-				9464EC241FDC301D009092A4 /* libcJSON_macOS.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		9464EC041FDC2D44009092A4 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		9464EC1A1FDC2FB5009092A4 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1051,7 +955,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				946C65781FFF5BD30094E4D8 /* libcJSON_macOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1066,7 +969,6 @@
 				9457DABD1FE6AAF60047DF29 /* UIKit.framework in Frameworks */,
 				946F7578216A794300E9B8CF /* UserNotifications.framework in Frameworks */,
 				94E6F18A2011B6230054D94F /* WatchConnectivity.framework in Frameworks */,
-				9464EC2B1FDC3042009092A4 /* libcJSON_iOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1076,7 +978,6 @@
 			files = (
 				9476F4FA1B3C403F00A158F8 /* CFNetwork.framework in Frameworks */,
 				946C65791FFF5BEC0094E4D8 /* CoreFoundation.framework in Frameworks */,
-				9464EC131FDC2F30009092A4 /* libcJSON_macOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1097,7 +998,6 @@
 				94E6F1852011B5C70054D94F /* CoreGraphics.framework in Frameworks */,
 				942354472169BC9C007868FF /* ImageIO.framework in Frameworks */,
 				94E77A0C216A8D120037FA67 /* UserNotifications.framework in Frameworks */,
-				9464EC141FDC2F3F009092A4 /* libcJSON_macOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1121,30 +1021,12 @@
 				9457DAC51FE6AB400047DF29 /* UIKit.framework in Frameworks */,
 				946F7577216A793B00E9B8CF /* UserNotifications.framework in Frameworks */,
 				94E6F18C2011B6360054D94F /* WatchConnectivity.framework in Frameworks */,
-				9464EC281FDC3036009092A4 /* libcJSON_iOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		9407CCCA21B438A700D0C59E /* thirdparty */ = {
-			isa = PBXGroup;
-			children = (
-				9464EC081FDC2D44009092A4 /* cJSON */,
-			);
-			name = thirdparty;
-			sourceTree = "<group>";
-		};
-		9464EC081FDC2D44009092A4 /* cJSON */ = {
-			isa = PBXGroup;
-			children = (
-				9464EC101FDC2F1C009092A4 /* cJSON.c */,
-				9464EC111FDC2F1C009092A4 /* cJSON.h */,
-			);
-			name = cJSON;
-			sourceTree = "<group>";
-		};
 		9476F4661B3C385400A158F8 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -1421,7 +1303,6 @@
 		AD8E683A1A6C606700E5A4D8 = {
 			isa = PBXGroup;
 			children = (
-				9407CCCA21B438A700D0C59E /* thirdparty */,
 				94D04EC71B7C59EB004F4245 /* Resources */,
 				94FDEAD91B5AD29B0026B25D /* Common */,
 				AD8E68451A6C606700E5A4D8 /* TBMac */,
@@ -1446,8 +1327,6 @@
 				ADF636181BAB8AF800D019AE /* Poker Buddy.app */,
 				AD33BA521BAC634F0011777C /* Poker Buddy.app */,
 				AD33BA641BAC63540011777C /* Poker Buddy.appex */,
-				9464EC071FDC2D44009092A4 /* libcJSON_macOS.a */,
-				9464EC1F1FDC2FB5009092A4 /* libcJSON_iOS.a */,
 				946C65671FFF54360094E4D8 /* tournamentctl */,
 				943FC67720261FC400B6AA4C /* tournamentd_test */,
 			);
@@ -1585,7 +1464,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				943FC68120265A0600B6AA4C /* PBXTargetDependency */,
 			);
 			name = tournamentd_test;
 			productName = tournamentd_test;
@@ -1603,46 +1481,11 @@
 			buildRules = (
 			);
 			dependencies = (
-				9464EC231FDC301A009092A4 /* PBXTargetDependency */,
 			);
 			name = TBViewer;
 			productName = TBViewer;
 			productReference = 944FF4B31B3D04CA000362ED /* Poker Remote.app */;
 			productType = "com.apple.product-type.application";
-		};
-		9464EC061FDC2D44009092A4 /* cJSON_macOS */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 9464EC0D1FDC2D44009092A4 /* Build configuration list for PBXNativeTarget "cJSON_macOS" */;
-			buildPhases = (
-				9464EC031FDC2D44009092A4 /* Sources */,
-				9464EC041FDC2D44009092A4 /* Frameworks */,
-				9464EC051FDC2D44009092A4 /* CopyFiles */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = cJSON_macOS;
-			productName = cJSON;
-			productReference = 9464EC071FDC2D44009092A4 /* libcJSON_macOS.a */;
-			productType = "com.apple.product-type.library.static";
-		};
-		9464EC171FDC2FB5009092A4 /* cJSON_iOS */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 9464EC1C1FDC2FB5009092A4 /* Build configuration list for PBXNativeTarget "cJSON_iOS" */;
-			buildPhases = (
-				9464EC181FDC2FB5009092A4 /* Sources */,
-				9464EC1A1FDC2FB5009092A4 /* Frameworks */,
-				9464EC1B1FDC2FB5009092A4 /* CopyFiles */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = cJSON_iOS;
-			productName = cJSON;
-			productReference = 9464EC1F1FDC2FB5009092A4 /* libcJSON_iOS.a */;
-			productType = "com.apple.product-type.library.static";
 		};
 		946C65661FFF54360094E4D8 /* tournamentctl */ = {
 			isa = PBXNativeTarget;
@@ -1655,7 +1498,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				946C65771FFF5BCA0094E4D8 /* PBXTargetDependency */,
 			);
 			name = tournamentctl;
 			productName = tournamentctl;
@@ -1674,7 +1516,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				9464EC2A1FDC303F009092A4 /* PBXTargetDependency */,
 				AD4610E21BACE87600BEA347 /* PBXTargetDependency */,
 				ADA3B6391BACD8630048E1BD /* PBXTargetDependency */,
 			);
@@ -1694,7 +1535,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				9464EC161FDC2F50009092A4 /* PBXTargetDependency */,
 			);
 			name = tournamentd;
 			productName = tournamentd;
@@ -1749,7 +1589,6 @@
 			dependencies = (
 				945812572011F78B00208575 /* PBXTargetDependency */,
 				945812592011F78B00208575 /* PBXTargetDependency */,
-				9464EC211FDC300B009092A4 /* PBXTargetDependency */,
 			);
 			name = TBMac;
 			productName = "Tournament Buddy";
@@ -1802,7 +1641,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				9464EC261FDC3027009092A4 /* PBXTargetDependency */,
 				AD4610E01BACE87000BEA347 /* PBXTargetDependency */,
 				ADA3B6371BACD8530048E1BD /* PBXTargetDependency */,
 			);
@@ -1831,12 +1669,6 @@
 								enabled = 1;
 							};
 						};
-					};
-					9464EC061FDC2D44009092A4 = {
-						DevelopmentTeam = 9BKETM93L2;
-					};
-					9464EC171FDC2FB5009092A4 = {
-						DevelopmentTeam = 9BKETM93L2;
 					};
 					946C65661FFF54360094E4D8 = {
 						CreatedOnToolsVersion = 9.2;
@@ -1902,8 +1734,6 @@
 				AD33BA541BAC63540011777C /* TBPhone WatchKit Extension */,
 				ADA6A1971B97FE8A00C83762 /* TBRemote WatchKit App */,
 				ADA6A1A31B97FE8A00C83762 /* TBRemote WatchKit Extension */,
-				9464EC061FDC2D44009092A4 /* cJSON_macOS */,
-				9464EC171FDC2FB5009092A4 /* cJSON_iOS */,
 			);
 		};
 /* End PBXProject section */
@@ -2089,22 +1919,6 @@
 				940AF54D1FF7DE7900740295 /* TBViewerViewController.m in Sources */,
 				940AF52C1FF7CE9000740295 /* main.m in Sources */,
 				940AF52A1FF7CE1B00740295 /* TBConnectToViewController.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		9464EC031FDC2D44009092A4 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				9464EC121FDC2F1C009092A4 /* cJSON.c in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		9464EC181FDC2FB5009092A4 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				9464EC191FDC2FB5009092A4 /* cJSON.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2395,11 +2209,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		943FC68120265A0600B6AA4C /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 9464EC061FDC2D44009092A4 /* cJSON_macOS */;
-			targetProxy = 943FC68020265A0600B6AA4C /* PBXContainerItemProxy */;
-		};
 		943FC68520266E4F00B6AA4C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 943FC67620261FC400B6AA4C /* tournamentd_test */;
@@ -2419,36 +2228,6 @@
 			isa = PBXTargetDependency;
 			target = 946C65661FFF54360094E4D8 /* tournamentctl */;
 			targetProxy = 945812582011F78B00208575 /* PBXContainerItemProxy */;
-		};
-		9464EC161FDC2F50009092A4 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 9464EC061FDC2D44009092A4 /* cJSON_macOS */;
-			targetProxy = 9464EC151FDC2F50009092A4 /* PBXContainerItemProxy */;
-		};
-		9464EC211FDC300B009092A4 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 9464EC061FDC2D44009092A4 /* cJSON_macOS */;
-			targetProxy = 9464EC201FDC300B009092A4 /* PBXContainerItemProxy */;
-		};
-		9464EC231FDC301A009092A4 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 9464EC061FDC2D44009092A4 /* cJSON_macOS */;
-			targetProxy = 9464EC221FDC301A009092A4 /* PBXContainerItemProxy */;
-		};
-		9464EC261FDC3027009092A4 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 9464EC171FDC2FB5009092A4 /* cJSON_iOS */;
-			targetProxy = 9464EC251FDC3027009092A4 /* PBXContainerItemProxy */;
-		};
-		9464EC2A1FDC303F009092A4 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 9464EC171FDC2FB5009092A4 /* cJSON_iOS */;
-			targetProxy = 9464EC291FDC303F009092A4 /* PBXContainerItemProxy */;
-		};
-		946C65771FFF5BCA0094E4D8 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 9464EC061FDC2D44009092A4 /* cJSON_macOS */;
-			targetProxy = 946C65761FFF5BCA0094E4D8 /* PBXContainerItemProxy */;
 		};
 		94EFDF6D1FE574FD00E40EA4 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -2590,42 +2369,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.hdnastudio.$(PRODUCT_NAME:rfc1034identifier).macos";
 				PRODUCT_NAME = "Poker Remote";
 				SDKROOT = macosx;
-			};
-			name = Release;
-		};
-		9464EC0E1FDC2D44009092A4 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_WARN_COMMA = NO;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-			};
-			name = Debug;
-		};
-		9464EC0F1FDC2D44009092A4 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_WARN_COMMA = NO;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-			};
-			name = Release;
-		};
-		9464EC1D1FDC2FB5009092A4 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_WARN_COMMA = NO;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-			};
-			name = Debug;
-		};
-		9464EC1E1FDC2FB5009092A4 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_WARN_COMMA = NO;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
 			};
 			name = Release;
 		};
@@ -3017,24 +2760,6 @@
 			buildConfigurations = (
 				944FF4CD1B3D04CA000362ED /* Debug */,
 				944FF4CE1B3D04CA000362ED /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		9464EC0D1FDC2D44009092A4 /* Build configuration list for PBXNativeTarget "cJSON_macOS" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				9464EC0E1FDC2D44009092A4 /* Debug */,
-				9464EC0F1FDC2D44009092A4 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		9464EC1C1FDC2FB5009092A4 /* Build configuration list for PBXNativeTarget "cJSON_iOS" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				9464EC1D1FDC2FB5009092A4 /* Debug */,
-				9464EC1E1FDC2FB5009092A4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
