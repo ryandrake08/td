@@ -166,6 +166,9 @@ namespace td
 
         seat();
         seat(std::size_t t, std::size_t s);
+
+        // equality
+        bool operator==(const seat& other) const;
     };
     void to_json(nlohmann::json& j, const td::seat& p);
     void from_json(const nlohmann::json& j, td::seat& p);
@@ -204,6 +207,9 @@ namespace td
 
         manual_payout();
         manual_payout(size_t c, const std::vector<td::monetary_value_nocurrency>& p);
+
+        // equality
+        bool operator==(const manual_payout& other) const;
     };
     void to_json(nlohmann::json& j, const td::manual_payout& p); // TODO: Need this?
     void from_json(const nlohmann::json& j, td::manual_payout& p);

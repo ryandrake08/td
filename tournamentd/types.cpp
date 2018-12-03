@@ -97,6 +97,11 @@ td::seat::seat(std::size_t t, std::size_t s) : table_number(t), seat_number(s)
 {
 }
 
+bool td::seat::operator==(const td::seat& other) const
+{
+    return this->seat_number == other.seat_number && this->table_number == other.table_number;
+}
+
 td::player_movement::player_movement()
 {
 }
@@ -119,6 +124,11 @@ td::manual_payout::manual_payout() : buyins_count(0)
 
 td::manual_payout::manual_payout(size_t c, const std::vector<td::monetary_value_nocurrency>& p) : buyins_count(c), payouts(p)
 {
+}
+
+bool td::manual_payout::operator==(const td::manual_payout& other) const
+{
+    return this->buyins_count == other.buyins_count && this->payouts == other.payouts;
 }
 
 td::result::result() : place(0)
@@ -286,7 +296,7 @@ void td::to_json(nlohmann::json& j, const td::authorized_client& p)
 
 void td::to_json(nlohmann::json& j, const td::blind_level& p)
 {
-    j = nlohmann::json {};
+    j = nlohmann::json({});
 
     if(!p.game_name.empty())
     {

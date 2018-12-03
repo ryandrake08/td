@@ -22,7 +22,7 @@ class gameinfo
     std::string name;
 
     // configuration: list of all known players (playing or not)
-    std::unordered_map<td::player_id_t,td::player> players;
+    std::vector<td::player> players;
 
     // configuration: number of players per table
     std::size_t table_capacity;
@@ -52,7 +52,7 @@ class gameinfo
     std::vector<td::monetary_value_nocurrency> forced_payouts;
 
     // configuration: manually generated payout structures
-    std::unordered_map<size_t, std::vector<td::monetary_value_nocurrency>> manual_payouts;
+    std::vector<td::manual_payout> manual_payouts;
 
     // configuration: how long after round starts should prev command go to the previous round (rather than restart)? (ms)
     long previous_blind_level_hold_duration;

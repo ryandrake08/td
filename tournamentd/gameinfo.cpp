@@ -10,169 +10,28 @@
 #include <random>
 #include <sstream>
 
-#if 0
-
-// special handling for player map. players are stored in json as an array but deserialized as a map for fast lookup
-static void from_json(const nlohmann::json& j, std::unordered_map<td::player_id_t,td::player>& p)
-{
-    p.clear();
-    for(const auto& item : j)
-    {
-        p[item.at("player_id")] =  item;
-    }
-}
-
-static void to_json(nlohmann::json& j, const std::unordered_map<td::player_id_t,td::player>& p)
-{
-    j = nlohmann::json::array();
-    for(const auto& kv : p)
-    {
-        j.push_back(kv.second);
-    };
-}
-
-// special handling for manual payouts map. payouts are stored in json as an array but deserialized as a map for fast lookup
-static void from_json(const nlohmann::json& j, std::unordered_map<size_t, std::vector<td::monetary_value_nocurrency>>& p)
-{
-    p.clear();
-    for(const auto& item : j)
-    {
-        std::vector<td::monetary_value_nocurrency> payouts = item.at("payouts");
-        p[item.at("buyins_count")] = payouts;
-    }
-}
-
-static void to_json(nlohmann::json& j, const std::unordered_map<size_t, std::vector<td::monetary_value_nocurrency>>& p)
-{
-    j = nlohmann::json::array();
-    for(const auto& kv : p)
-    {
-        j.push_back(nlohmann::json{{"buyins_count", kv.first}, {"payouts", kv.second}});
-    };
-}
-
-#endif
-
 // update a value from json object j, with key, into value, setting dirty to true if value is updated
 template <typename T>
-static bool update_value(const nlohmann::json& j, const char* key, T& value, bool& dirty, bool unconditional=false)
+static bool update_value(const nlohmann::json& j, const char* key, T& value, bool& dirty, bool conditional=true)
 {
+    // find the key. if not present, do nothing and return false
     auto it(j.find(key));
-    if(it != j.end())
+    if(it == j.end())
     {
-        if(unconditional || value != *it)
-        {
-            it->get_to(value);
-            dirty = true;
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-    return false;
-}
-
-#if 0
-template <>
-bool update_value(const nlohmann::json& j, const char* key, std::unordered_map<td::player_id_t,td::player>& values, bool& dirty, bool unconditional)
-{
-    auto it(j.find(key));
-    if(it != j.end())
-    {
-        auto new_values(*it);
-
-        // check size first, if equal, deep compare
-        if(values.size() == new_values.size())
-        {
-            size_t matches(0);
-            for(const auto& new_value : new_values)
-            {
-                // look up by player_id
-                auto player_it(values.find(new_value.at("player_id")));
-
-                // if found and the actual value matches test value, continue
-                if(player_it != values.end() && player_it->second == new_value.get<td::player>())
-                {
-                    matches++;
-                }
-                else
-                {
-                    // no need to test further. data is different
-                    break;
-                }
-            }
-
-            // all values match
-            if(matches == values.size())
-            {
-                return false;
-            }
-        }
-
-        // replace values
-        values.clear();
-        for(const auto& new_value : new_values)
-        {
-            values.emplace(new_value.at("player_id"), new_value.get<td::player>());
-        }
-        dirty = true;
-        return true;
-    }
-    return false;
-}
-
-// special update_value for manual payouts map. payouts are stored in json as an array but deserialized as a map for fast lookup
-template <>
-bool update_value(const nlohmann::json& j, const char* key, std::unordered_map<size_t, std::vector<td::monetary_value_nocurrency>>& values, bool& dirty, bool unconditional)
-{
-    auto it(j.find(key));
-    if(it != j.end())
-    {
-        auto new_values(*it);
-
-        // check size first, if equal, deep compare
-        if(values.size() == new_values.size())
-        {
-            size_t matches(0);
-            for(const auto& new_value : new_values)
-            {
-                // look up by number
-                auto buyin_it(values.find(new_value.at("buyins_count")));
-
-                // if found and the actual value matches test value, continue
-                if(buyin_it != values.end() && buyin_it->second == new_value.get<std::vector<td::monetary_value_nocurrency>>())
-                {
-                    matches++;
-                }
-                else
-                {
-                    // no need to test further. data is different
-                    break;
-                }
-            }
-
-            // all values match
-            if(matches == values.size())
-            {
-                return false;
-            }
-        }
-
-        // replace values
-        values.clear();
-        for(const auto& new_value : new_values)
-        {
-            values.emplace(new_value.at("buyins_count"), new_value.at("payouts"));
-        }
-        dirty = true
-        return true;
+        return false;
     }
 
-    return false;
+    // if we only want to update if value is different, and the value is the same, do nothing and return false
+    T new_value(it->get<T>());
+    if(conditional && value == new_value)
+    {
+        return false;
+    }
+
+    value = new_value;
+    dirty = true;
+    return true;
 }
-#endif
 
 // initialize game
 gameinfo::gameinfo() :
@@ -343,97 +202,97 @@ void gameinfo::configure(const nlohmann::json& config)
 
     // can also load state (useful for loading from snapshot)
 
-    if(update_value(config, "seats", this->seats, this->dirty, true))
+    if(update_value(config, "seats", this->seats, this->dirty, false))
     {
         logger(ll::info) << "state changed: seats -> " << this->seats.size() << "\n";
     }
 
-    if(update_value(config, "players_finished", this->players_finished, this->dirty, true))
+    if(update_value(config, "players_finished", this->players_finished, this->dirty, false))
     {
         logger(ll::info) << "state changed: players_finished -> " << this->players_finished.size() << "\n";
     }
 
-    if(update_value(config, "bust_history", this->bust_history, this->dirty, true))
+    if(update_value(config, "bust_history", this->bust_history, this->dirty, false))
     {
         logger(ll::info) << "state changed: bust_history -> " << this->bust_history.size() << "\n";
     }
 
-    if(update_value(config, "empty_seats", this->empty_seats, this->dirty, true))
+    if(update_value(config, "empty_seats", this->empty_seats, this->dirty, false))
     {
         logger(ll::info) << "state changed: empty_seats -> " << this->empty_seats.size() << "\n";
     }
 
-    if(update_value(config, "table_count", this->table_count, this->dirty, true))
+    if(update_value(config, "table_count", this->table_count, this->dirty, false))
     {
         logger(ll::info) << "state changed: table_count -> " << this->table_count << "\n";
     }
 
-    if(update_value(config, "buyins", this->buyins, this->dirty, true))
+    if(update_value(config, "buyins", this->buyins, this->dirty, false))
     {
         logger(ll::info) << "state changed: buyins -> " << this->buyins.size() << "\n";
     }
 
-    if(update_value(config, "unique_entries", this->unique_entries, this->dirty, true))
+    if(update_value(config, "unique_entries", this->unique_entries, this->dirty, false))
     {
         logger(ll::info) << "state changed: unique_entries -> " << this->unique_entries.size() << "\n";
     }
 
-    if(update_value(config, "entries", this->entries, this->dirty, true))
+    if(update_value(config, "entries", this->entries, this->dirty, false))
     {
         logger(ll::info) << "state changed: entries -> " << this->entries.size() << "\n";
     }
 
-    if(update_value(config, "payouts", this->payouts, this->dirty, true))
+    if(update_value(config, "payouts", this->payouts, this->dirty, false))
     {
         logger(ll::info) << "state changed: payouts -> " << this->payouts.size() << "\n";
     }
 
-    if(update_value(config, "total_chips", this->total_chips, this->dirty, true))
+    if(update_value(config, "total_chips", this->total_chips, this->dirty, false))
     {
         logger(ll::info) << "state changed: total_chips -> " << this->total_chips << "\n";
     }
 
-    if(update_value(config, "total_cost", this->total_cost, this->dirty, true))
+    if(update_value(config, "total_cost", this->total_cost, this->dirty, false))
     {
         logger(ll::info) << "state changed: total_cost -> " << this->total_cost.size() << "\n";
     }
 
-    if(update_value(config, "total_commission", this->total_commission, this->dirty, true))
+    if(update_value(config, "total_commission", this->total_commission, this->dirty, false))
     {
         logger(ll::info) << "state changed: total_commission -> " << this->total_commission.size() << "\n";
     }
 
-    if(update_value(config, "total_equity", this->total_equity, this->dirty, true))
+    if(update_value(config, "total_equity", this->total_equity, this->dirty, false))
     {
         logger(ll::info) << "state changed: total_equity -> " << this->total_equity << "\n";
     }
 
-    if(update_value(config, "current_blind_level", this->current_blind_level, this->dirty, true))
+    if(update_value(config, "current_blind_level", this->current_blind_level, this->dirty, false))
     {
         logger(ll::info) << "state changed: current_blind_level -> " << this->current_blind_level << "\n";
     }
 
-    if(update_value(config, "end_of_round", this->end_of_round, this->dirty, true))
+    if(update_value(config, "end_of_round", this->end_of_round, this->dirty, false))
     {
         logger(ll::info) << "state changed: end_of_round -> " << datetime(this->end_of_round) << "\n";
     }
 
-    if(update_value(config, "end_of_break", this->end_of_break, this->dirty, true))
+    if(update_value(config, "end_of_break", this->end_of_break, this->dirty, false))
     {
         logger(ll::info) << "state changed: end_of_break -> " << datetime(this->end_of_break) << "\n";
     }
 
-    if(update_value(config, "end_of_action_clock", this->end_of_action_clock, this->dirty, true))
+    if(update_value(config, "end_of_action_clock", this->end_of_action_clock, this->dirty, false))
     {
         logger(ll::info) << "state changed: end_of_action_clock -> " << datetime(this->end_of_action_clock) << "\n";
     }
 
-    if(update_value(config, "tournament_start", this->tournament_start, this->dirty, true))
+    if(update_value(config, "tournament_start", this->tournament_start, this->dirty, false))
     {
         logger(ll::info) << "state changed: tournament_start -> " << datetime(this->tournament_start) << "\n";
     }
 
-    if(update_value(config, "paused_time", this->paused_time, this->dirty, true))
+    if(update_value(config, "paused_time", this->paused_time, this->dirty, false))
     {
         logger(ll::info) << "state changed: paused_time -> " << datetime(this->paused_time) << "\n";
     }
@@ -696,7 +555,7 @@ void gameinfo::dump_derived_state(nlohmann::json& state) const
     std::vector<td::seated_player> seated_players;
     for(const auto& p : this->players)
     {
-        seated_players.push_back(find_seated_player(p.first));
+        seated_players.push_back(find_seated_player(p.player_id));
     }
     state["seated_players"] = seated_players;
 }
@@ -745,12 +604,12 @@ void gameinfo::reset_state()
 
 const std::string gameinfo::player_name(const td::player_id_t& player_id) const
 {
-    auto player_it(this->players.find(player_id));
+    auto player_it(std::find_if(this->players.begin(), this->players.end(), [player_id](const td::player& item) { return item.player_id == player_id; }));
     if(player_it == this->players.end())
     {
         throw std::runtime_error("failed to look up player: " + player_id);
     }
-    return player_it->second.name;
+    return player_it->name;
 }
 
 const std::string gameinfo::player_description(const td::player_id_t& player_id) const
@@ -1540,21 +1399,21 @@ void gameinfo::recalculate_payouts()
     {
         // manual payout:
         // look for a payout list given this number of unique entries
-        auto manual_payout_it(this->manual_payouts.find(count_entries));
+        auto manual_payout_it(std::find_if(this->manual_payouts.begin(), this->manual_payouts.end(), [count_entries](const td::manual_payout& item) { return item.buyins_count == count_entries; }));
         if(manual_payout_it == this->manual_payouts.end())
         {
             logger(ll::warning) << "payout_policy is manual but no payout list with " << count_entries << " entries exists. falling back to automatic payouts\n";
         }
         else
         {
-            logger(ll::info) << "applying manual payout for " << count_entries << " entries: " << manual_payout_it->second.size() << " seats will be paid\n";
+            logger(ll::info) << "applying manual payout for " << count_entries << " entries: " << manual_payout_it->payouts.size() << " seats will be paid\n";
 
             // set state dirty
             this->dirty = true;
 
-            // use found payout structure
-            this->payouts.resize(manual_payout_it->second.size());
-            std::transform(manual_payout_it->second.begin(), manual_payout_it->second.end(), this->payouts.begin(), [&](const td::monetary_value_nocurrency& c)
+            // use found payout structure, transforming between monetary_value_nocurrency and monetary_value
+            this->payouts.resize(manual_payout_it->payouts.size());
+            std::transform(manual_payout_it->payouts.begin(), manual_payout_it->payouts.end(), this->payouts.begin(), [&](const td::monetary_value_nocurrency& c)
             {
                 return td::monetary_value(c.amount, this->payout_currency);
             });
@@ -1677,11 +1536,11 @@ std::vector<td::seated_player> gameinfo::quick_setup(const td::funding_source_id
     std::vector<td::seated_player> seated_players;
     for(const auto& p : this->players)
     {
-        auto seating(this->add_player(p.second.player_id));
-        this->fund_player(p.second.player_id, src);
+        auto seating(this->add_player(p.player_id));
+        this->fund_player(p.player_id, src);
 
         // build a seated_player object
-        td::seated_player sp(p.first, p.second.name, true, seating.second.table_name, seating.second.seat_name);
+        td::seated_player sp(p.player_id, p.name, true, seating.second.table_name, seating.second.seat_name);
         seated_players.push_back(sp);
     }
 
