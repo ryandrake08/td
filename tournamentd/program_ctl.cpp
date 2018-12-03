@@ -22,6 +22,8 @@ static socketstream make_stream(const std::string& server, const std::string por
 
 static nlohmann::json send_command(std::iostream& stream, const std::string& cmd, const std::string& auth=std::string(), nlohmann::json arg=nlohmann::json())
 {
+    arg["echo"] = 31337;
+
     // add auth if exists
     if(!auth.empty())
     {
@@ -38,10 +40,18 @@ static nlohmann::json send_command(std::iostream& stream, const std::string& cmd
         stream << cmd << ' ' << arg << '\r' << std::endl;
     }
 
-    // this might work too
+    // read until response
     nlohmann::json res;
-    stream >> res;
-    return res;
+    while(true)
+    {
+        stream >> res;
+        auto echo_it(res.find("echo"));
+        if(echo_it != res.end() && *echo_it == 31337)
+        {
+            res.erase("echo");
+            return res;
+        }
+    }
 }
 
 static void print_value_if_exists(const nlohmann::json& object, const std::string& name)
