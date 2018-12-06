@@ -2,7 +2,7 @@
 #include "TBRuntimeError.hpp"
 #include "TournamentDocument.hpp"
 #include "TournamentSession.hpp"
-#include "tournamentd/tournament_thread.hpp"
+#include "TournamentDaemon.hpp"
 
 #include "ui_TBMainWindow.h"
 
@@ -13,7 +13,7 @@
 struct TBMainWindow::impl
 {
     // tournamentd thread
-    tournament_thread server;
+    TournamentDaemon server;
 
     // tournament document
     TournamentDocument doc;

@@ -1,6 +1,6 @@
-#include "tournament_service.hpp"
+#include "TournamentService.hpp"
 
-struct tournament_service::impl
+struct TournamentService::impl
 {
     std::string path;
     std::string address;
@@ -9,7 +9,7 @@ struct tournament_service::impl
 };
 
 // construct from address and port
-tournament_service::tournament_service(const std::string& address, int port) : pimpl(new impl)
+TournamentService::TournamentService(const std::string& address, int port) : pimpl(new impl)
 {
     this->pimpl->address = address;
     this->pimpl->port = port;
@@ -17,26 +17,26 @@ tournament_service::tournament_service(const std::string& address, int port) : p
 }
 
 // construct from unix socket path
-tournament_service::tournament_service(const std::string& path) : pimpl(new impl)
+TournamentService::TournamentService(const std::string& path) : pimpl(new impl)
 {
     this->pimpl->path = path;
     this->pimpl->name = path.substr(path.find_last_of("/\\") + 1);
 }
 
 // default move constructor
-tournament_service::tournament_service(tournament_service&& other) = default;
+TournamentService::TournamentService(TournamentService&& other) = default;
 
 // default destructor
-tournament_service::~tournament_service() = default;
+TournamentService::~TournamentService() = default;
 
 // is this a remote service?
-bool tournament_service::is_remote() const
+bool TournamentService::is_remote() const
 {
     return this->pimpl->path.empty();
 }
 
 // service name
-std::string tournament_service::name() const
+std::string TournamentService::name() const
 {
     return this->pimpl->name;
 }

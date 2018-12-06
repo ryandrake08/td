@@ -3,7 +3,7 @@
 #include <memory>
 #include <string>
 
-class tournament_service
+class TournamentService
 {
     // pimpl
     struct impl;
@@ -16,19 +16,19 @@ public:
     static const int default_port = 25600;
 
     // construct from address and port
-    tournament_service(const std::string& address, int port);
+    TournamentService(const std::string& address, int port);
 
     // construct from unix socket path
-    tournament_service(const std::string& path);
+    TournamentService(const std::string& path);
 
     // construct from bonjour service
     // TODO: tournament_service(const ???& net_service);
 
     // move constructor
-    tournament_service(tournament_service&& other);
+    TournamentService(TournamentService&& other);
 
     // destructor
-    ~tournament_service();
+    ~TournamentService();
 
     // is this a remote service?
     bool is_remote() const;
