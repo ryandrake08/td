@@ -33,9 +33,9 @@ public:
     // is this a remote service?
     bool is_remote() const;
 
-    // service name
+    // service attributes
+    std::string path() const;
+    std::string address() const;
+    int port() const;
     std::string name() const;
-
-    // retrieve the bonjour service, if applicable
-    // TODO: ??? net_service() const;
 };

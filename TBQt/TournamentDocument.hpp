@@ -1,8 +1,7 @@
 #pragma once
 
+#include <QString>
 #include <memory>
-
-class QString;
 
 class TournamentDocument
 {

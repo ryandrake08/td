@@ -12,6 +12,9 @@
 
 struct TBMainWindow::impl
 {
+    // tournament session
+    TournamentSession session;
+
     // tournamentd thread
     TournamentDaemon server;
 
@@ -23,6 +26,9 @@ public:
     {
         // start tournament thread
         auto service(this->server.start(TournamentSession::client_identifier()));
+
+        // connect to service
+        session.connect(service);
     }
 };
 

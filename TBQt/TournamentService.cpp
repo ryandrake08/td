@@ -35,6 +35,24 @@ bool TournamentService::is_remote() const
     return this->pimpl->path.empty();
 }
 
+// service path
+std::string TournamentService::path() const
+{
+    return this->pimpl->path;
+}
+
+// service address
+std::string TournamentService::address() const
+{
+    return this->pimpl->address;
+}
+
+// service port
+int TournamentService::port() const
+{
+    return this->pimpl->port;
+}
+
 // service name
 std::string TournamentService::name() const
 {

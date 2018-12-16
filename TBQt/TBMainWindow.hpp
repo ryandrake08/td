@@ -27,6 +27,6 @@ public:
     // load a document to be managed by this window
     bool load_document(const QString& filename);
 
-private slots:
+private Q_SLOTS:
     void on_actionExit_triggered();
 };
