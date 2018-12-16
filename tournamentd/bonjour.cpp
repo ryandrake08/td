@@ -4,6 +4,7 @@
 #include <system_error>
 
 #if defined(__APPLE__)
+
 #include <CFNetwork/CFNetwork.h>
 
 struct bonjour_publisher::impl
@@ -75,7 +76,8 @@ public:
         CFRelease(netService);
     }
 };
-#else
+
+#elif defined(__linux__)
 
 #include <avahi-client/client.h>
 #include <avahi-client/publish.h>
@@ -363,6 +365,18 @@ public:
         }
     }
 };
+
+#else
+
+struct bonjour_publisher::impl
+{
+public:
+    impl(const char* name, int port)
+    {
+        logger(ll::info) << "platform does not support zeroconf publishing for " << name << ':' << port << '\n';
+    }
+};
+
 #endif
 
 bonjour_publisher::bonjour_publisher() = default;
