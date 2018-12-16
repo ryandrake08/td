@@ -1,6 +1,5 @@
 #pragma once
 
-#include <functional>
 #include <QByteArray>
 #include <QDateTime>
 #include <QHash>
@@ -9,11 +8,12 @@
 #include <QString>
 #include <QVariant>
 
+#include <functional>
 #include <memory>
 
 class TournamentService;
 
-class TournamentSession : QObject
+class TournamentSession : public QObject
 {
     Q_OBJECT
 
@@ -25,10 +25,9 @@ class TournamentSession : QObject
     void send_command(const QString& cmd, const QVariantHash& arg, const std::function<void(const QVariantHash&)>& result);
 
 private Q_SLOTS:
-    void connected();
-    void disconnected();
-    void bytesWritten(qint64 bytes);
-    void readyRead();
+    void tournament_connected();
+    void tournament_disconnected();
+    void received_data(const QVariantHash& data);
 
 public:
     explicit TournamentSession(QObject* parent=nullptr);
@@ -38,7 +37,7 @@ public:
     static int client_identifier();
 
     // connect to a tournament service
-    bool connect(const TournamentService& tournament);
+    void connect(const TournamentService& tournament);
     void disconnect();
 
     // tournament commands
@@ -67,5 +66,5 @@ public:
     void quick_setup(std::function<void(const QVariantList&)>& handler);
 
     // serialization
-    QByteArray results_as_csv();
+    QByteArray results_as_csv() const;
 };
