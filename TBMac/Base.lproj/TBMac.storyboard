@@ -647,14 +647,14 @@
                                                                         <string key="NSValueTransformerName">NSNegateBoolean</string>
                                                                     </dictionary>
                                                                 </binding>
-                                                                <binding destination="S8w-ig-TI4" name="hidden" keyPath="self.session.state.empty_seats" id="Rbc-RG-WTF">
-                                                                    <dictionary key="options">
-                                                                        <string key="NSValueTransformerName">TBArrayEmptyTransformer</string>
-                                                                    </dictionary>
-                                                                </binding>
                                                                 <binding destination="LJR-BA-7sj" name="value" keyPath="objectValue.seat_name" id="dge-zF-Kvu">
                                                                     <dictionary key="options">
                                                                         <string key="NSValueTransformerName">NSIsNotNil</string>
+                                                                    </dictionary>
+                                                                </binding>
+                                                                <binding destination="S8w-ig-TI4" name="hidden" keyPath="self.session.state.empty_seats" id="Rbc-RG-WTF">
+                                                                    <dictionary key="options">
+                                                                        <string key="NSValueTransformerName">TBArrayEmptyTransformer</string>
                                                                     </dictionary>
                                                                 </binding>
                                                             </connections>
@@ -3872,8 +3872,9 @@ DQ
                         <rect key="frame" x="0.0" y="0.0" width="640" height="420"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <splitView dividerStyle="paneSplitter" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="G4c-rO-5lA">
+                            <splitView fixedFrame="YES" dividerStyle="paneSplitter" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="G4c-rO-5lA">
                                 <rect key="frame" x="0.0" y="0.0" width="640" height="420"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <customView fixedFrame="YES" id="HWT-EE-esT">
                                         <rect key="frame" x="0.0" y="0.0" width="160" height="420"/>
@@ -3911,8 +3912,9 @@ DQ
                                                                             <rect key="frame" x="1" y="1" width="150" height="29"/>
                                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                             <subviews>
-                                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="CP6-Qk-dDB">
+                                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CP6-Qk-dDB">
                                                                                     <rect key="frame" x="1" y="6" width="148" height="17"/>
+                                                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" alignment="left" title="10" id="0q7-Ee-TCX">
                                                                                         <numberFormatter key="formatter" formatterBehavior="default10_4" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="0" maximumIntegerDigits="42" id="xrC-DT-Ntj">
                                                                                             <real key="minimum" value="2"/>
@@ -3926,11 +3928,6 @@ DQ
                                                                                     </connections>
                                                                                 </textField>
                                                                             </subviews>
-                                                                            <constraints>
-                                                                                <constraint firstItem="CP6-Qk-dDB" firstAttribute="centerY" secondItem="ZCZ-UX-ms1" secondAttribute="centerY" id="dbv-9J-fRG"/>
-                                                                                <constraint firstItem="CP6-Qk-dDB" firstAttribute="leading" secondItem="ZCZ-UX-ms1" secondAttribute="leading" constant="3" id="lNY-Ax-mQh"/>
-                                                                                <constraint firstAttribute="trailing" secondItem="CP6-Qk-dDB" secondAttribute="trailing" constant="3" id="m0H-KF-nB1"/>
-                                                                            </constraints>
                                                                             <connections>
                                                                                 <outlet property="textField" destination="CP6-Qk-dDB" id="Ggb-uH-08B"/>
                                                                             </connections>
@@ -4009,12 +4006,6 @@ DQ
                                 </holdingPriorities>
                             </splitView>
                         </subviews>
-                        <constraints>
-                            <constraint firstAttribute="bottom" secondItem="G4c-rO-5lA" secondAttribute="bottom" id="I3p-gX-e3U"/>
-                            <constraint firstItem="G4c-rO-5lA" firstAttribute="leading" secondItem="qOX-pn-qlc" secondAttribute="leading" id="efx-qD-Y1D"/>
-                            <constraint firstAttribute="trailing" secondItem="G4c-rO-5lA" secondAttribute="trailing" id="o78-WE-OP6"/>
-                            <constraint firstItem="G4c-rO-5lA" firstAttribute="top" secondItem="qOX-pn-qlc" secondAttribute="top" id="qFU-qx-tSv"/>
-                        </constraints>
                     </view>
                     <connections>
                         <outlet property="arrayController" destination="WzJ-7v-Ov9" id="ULN-af-00h"/>
