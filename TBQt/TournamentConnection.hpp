@@ -1,6 +1,6 @@
 #pragma once
 
-#include <QHash>
+#include <QMap>
 #include <QIODevice>
 #include <QObject>
 #include <QScopedPointer>
@@ -30,10 +30,10 @@ public:
     void disconnect();
 
     // send a command
-    void send_command(const QString& cmd, const QVariantHash& arg);
+    void send_command(const QString& cmd, const QVariantMap& arg);
 
 Q_SIGNALS:
     void tournament_connected();
     void tournament_disconnected();
-    void received_data(const QVariantHash& data);
+    void received_data(const QVariantMap& data);
 };

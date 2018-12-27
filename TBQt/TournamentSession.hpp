@@ -2,7 +2,7 @@
 
 #include <QByteArray>
 #include <QDateTime>
-#include <QHash>
+#include <QMap>
 #include <QList>
 #include <QObject>
 #include <QString>
@@ -22,12 +22,12 @@ class TournamentSession : public QObject
     std::unique_ptr<impl> pimpl;
 
     // send command
-    void send_command(const QString& cmd, const QVariantHash& arg, const std::function<void(const QVariantHash&)>& result);
+    void send_command(const QString& cmd, const QVariantMap& arg, const std::function<void(const QVariantMap&)>& result);
 
 private Q_SLOTS:
     void tournament_connected();
     void tournament_disconnected();
-    void received_data(const QVariantHash& data);
+    void received_data(const QVariantMap& data);
 
 public:
     explicit TournamentSession(QObject* parent=nullptr);
@@ -42,9 +42,9 @@ public:
 
     // tournament commands
     void check_authorized(const std::function<void(bool)>& handler);
-    void get_state(const std::function<void(const QVariantHash&)>& handler);
-    void get_config(const std::function<void(const QVariantHash&)>& handler);
-    void configure(const QVariantHash& config, const std::function<void(const QVariantHash&)>& handler);
+    void get_state(const std::function<void(const QVariantMap&)>& handler);
+    void get_config(const std::function<void(const QVariantMap&)>& handler);
+    void configure(const QVariantMap& config, const std::function<void(const QVariantMap&)>& handler);
     void reset_state();
     void start_game_at(const QDateTime& datetime);
     void start_game();
@@ -56,7 +56,7 @@ public:
     void set_next_level(const std::function<void(int)>& handler);
     void set_action_clock(int milliseconds);
     void clear_action_clock();
-    void gen_blind_levels(const QVariantHash& request, std::function<void(const QVariantList&)>& handler);
+    void gen_blind_levels(const QVariantMap& request, std::function<void(const QVariantList&)>& handler);
     void fund_player(const QString& player_id, int source);
     void plan_seating_for(int expected_players, std::function<void(const QVariantList&)>& handler);
     void seat_player(const QString& player_id, std::function<void(const QString&, const QString&, const QString&, bool)>& handler);

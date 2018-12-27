@@ -57,12 +57,12 @@ void TournamentConnection::disconnect()
 }
 
 // send a command
-void TournamentConnection::send_command(const QString& cmd, const QVariantHash& arg)
+void TournamentConnection::send_command(const QString& cmd, const QVariantMap& arg)
 {
     qDebug() << "sending command: " << cmd;
 
     // serialize to json
-    auto json_obj(QJsonObject::fromVariantHash(arg));
+    auto json_obj(QJsonObject::fromVariantMap(arg));
 
     // convert to json document
     QJsonDocument json_doc(json_obj);
@@ -97,7 +97,7 @@ void TournamentConnection::readyRead()
     // read the data from the socket line by line
     auto json_data(this->device->readLine());
 
-    // if we read anything, convert it to a QVariantHash
+    // if we read anything, convert it to a QVariantMap
     while(!json_data.isEmpty())
     {
         qDebug() << json_data.size() << "bytes read from tournament";
@@ -105,8 +105,8 @@ void TournamentConnection::readyRead()
         // convert to json document
         auto json_doc(QJsonDocument::fromJson(json_data));
 
-        // ensure non-null document and root of document is an object
-        if(json_doc.isNull() || !json_doc.isObject())
+        // ensure root of document is an object
+        if(!json_doc.isObject())
         {
             // handle invalid json
             throw TBRuntimeError(QObject::tr("Invalid response from server"));
@@ -116,7 +116,7 @@ void TournamentConnection::readyRead()
         auto json_obj(json_doc.object());
 
         // convert to variant map
-        auto response(json_obj.toVariantHash());
+        auto response(json_obj.toVariantMap());
 
         // call signal
         this->received_data(response);

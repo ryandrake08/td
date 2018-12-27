@@ -1,11 +1,12 @@
 #include "TournamentDocument.hpp"
 #include "TBRuntimeError.hpp"
 
+#include <QDebug>
 #include <QDir>
 #include <QFile>
 #include <QJsonDocument>
 #include <QJsonObject>
-#include <QHash>
+#include <QMap>
 #include <QObject>
 #include <QString>
 #include <QVariant>
@@ -18,7 +19,7 @@ struct TournamentDocument::impl
     QString filename;
 
     // configuration represented by the window/document
-    QVariantHash configuration;
+    QVariantMap configuration;
 };
 
 TournamentDocument::TournamentDocument() : pimpl(new impl)
@@ -47,8 +48,8 @@ bool TournamentDocument::load(const QString& filename)
     // convert to json document
     auto json_doc(QJsonDocument::fromJson(json_data));
 
-    // ensure non-null document and root of document is an object
-    if(json_doc.isNull() || !json_doc.isObject())
+    // ensure root of document is an object
+    if(!json_doc.isObject())
     {
         // handle invalid json
         throw TBRuntimeError(QObject::tr("Invalid document %1").arg(QDir::toNativeSeparators(filename)));
@@ -57,19 +58,13 @@ bool TournamentDocument::load(const QString& filename)
     // convert to json object
     auto json_obj(json_doc.object());
 
-    // check for non-empty object
-    if(json_obj.empty())
-    {
-        // handle json object is empty
-        throw TBRuntimeError(QObject::tr("Empty document %1").arg(QDir::toNativeSeparators(filename)));
-    }
-
     // convert to variant map
-    this->pimpl->configuration = json_obj.toVariantHash();
+    this->pimpl->configuration = json_obj.toVariantMap();
 
     // record filename
     this->pimpl->filename = filename;
 
+    // success
     return true;
 }
 
@@ -85,20 +80,13 @@ bool TournamentDocument::save() const
     }
 
     // convert from variant map
-    auto json_obj(QJsonObject::fromVariantHash(this->pimpl->configuration));
-
-    // check for non-empty object
-    if(json_obj.empty())
-    {
-        // handle json object is empty
-        throw TBRuntimeError(QObject::tr("Empty document"));
-    }
+    auto json_obj(QJsonObject::fromVariantMap(this->pimpl->configuration));
 
     // convert to json document
     QJsonDocument json_doc(json_obj);
 
-    // ensure non-null document and root of document is an object
-    if(json_doc.isNull() || !json_doc.isObject())
+    // ensure root of document is an object
+    if(!json_doc.isObject())
     {
         // handle invalid json
         throw TBRuntimeError(QObject::tr("Invalid document"));
