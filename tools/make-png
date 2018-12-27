@@ -1,0 +1,8 @@
+#!/bin/sh
+for pdf in Art/*.pdf; do
+    base=${pdf%.pdf}
+    base=${base#Art}
+#    convert -density 72 ${pdf} Resources/${base}_32x32.png
+    convert -density 144 ${pdf} -depth 4 -colors 16 Resources/${base}_64x64.png
+#    convert -density 288 ${pdf} Resources/${base}_128x128.png
+done

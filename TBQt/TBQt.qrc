@@ -1,0 +1,19 @@
+<RCC>
+    <qresource prefix="/">
+        <file>../Resources/b_export_64x64.png</file>
+        <file>../Resources/b_play_pause_64x64.png</file>
+        <file>../Resources/b_previous_64x64.png</file>
+        <file>../Resources/b_next_64x64.png</file>
+        <file>../Resources/b_rocket_64x64.png</file>
+        <file>../Resources/b_auth_64x64.png</file>
+        <file>../Resources/b_configure_64x64.png</file>
+        <file>../Resources/b_new_64x64.png</file>
+        <file>../Resources/b_rebalance_64x64.png</file>
+        <file>../Resources/b_move_64x64.png</file>
+        <file>../Resources/b_display_64x64.png</file>
+        <file>../Resources/b_arrow_64x64.png</file>
+        <file>../Resources/b_call_clock_64x64.png</file>
+        <file>../Resources/b_restart_64x64.png</file>
+        <file>../Resources/b_stop_64x64.png</file>
+    </qresource>
+</RCC>
