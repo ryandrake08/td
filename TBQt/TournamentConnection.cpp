@@ -39,7 +39,6 @@ void TournamentConnection::connect(const TournamentService& tournament)
         // hook up socket signals
         QObject::connect(socket, SIGNAL(connected()), this, SLOT(connected()));
         QObject::connect(socket, SIGNAL(disconnected()), this, SLOT(disconnected()));
-        QObject::connect(socket, SIGNAL(bytesWritten(qint64)), this, SLOT(bytesWritten(qint64)));
         QObject::connect(socket, SIGNAL(readyRead()), this, SLOT(readyRead()));
 
         // connect
