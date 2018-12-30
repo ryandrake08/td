@@ -1,7 +1,6 @@
 #include "TournamentDocument.hpp"
 #include "TBRuntimeError.hpp"
 
-#include <QDebug>
 #include <QDir>
 #include <QFile>
 #include <QJsonDocument>
@@ -121,4 +120,10 @@ bool TournamentDocument::save_as(const QString& filename)
 
     // save
     return this->save();
+}
+
+// accessors
+const QVariantMap& TournamentDocument::configuration() const
+{
+    return this->pimpl->configuration;
 }

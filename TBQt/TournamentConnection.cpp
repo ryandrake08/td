@@ -2,16 +2,29 @@
 #include "TournamentService.hpp"
 #include "TBRuntimeError.hpp"
 
+#include <QByteArray>
 #include <QDebug>
+#include <QIODevice>
 #include <QLocalSocket>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QTcpSocket>
 
+struct TournamentConnection::impl
+{
+    // The abstract IO device (either a tcp or unix socket)
+    std::unique_ptr<QIODevice> device;
+
+    // buffer for reads
+    QByteArray buffer;
+};
+
 // construct from TournamentService
-TournamentConnection::TournamentConnection(QObject* parent) : QObject(parent)
+TournamentConnection::TournamentConnection(QObject* parent) : QObject(parent), pimpl(new impl)
 {
 }
+
+TournamentConnection::~TournamentConnection() = default;
 
 // connect to TournamentService
 void TournamentConnection::connect(const TournamentService& tournament)
@@ -20,12 +33,12 @@ void TournamentConnection::connect(const TournamentService& tournament)
     {
         // create socket
         QTcpSocket* socket(new QTcpSocket(this->parent()));
-        this->device.reset(socket);
+        this->pimpl->device.reset(socket);
 
         // hook up socket signals
-        QObject::connect(socket, SIGNAL(connected()), this, SLOT(connected()));
-        QObject::connect(socket, SIGNAL(disconnected()), this, SLOT(disconnected()));
-        QObject::connect(socket, SIGNAL(readyRead()), this, SLOT(readyRead()));
+        QObject::connect(socket, SIGNAL(connected()), this, SLOT(on_connected()));
+        QObject::connect(socket, SIGNAL(disconnected()), this, SLOT(on_disconnected()));
+        QObject::connect(socket, SIGNAL(readyRead()), this, SLOT(on_readyRead()));
 
         // connect
         socket->connectToHost(QString::fromStdString(tournament.address()), static_cast<quint16>(tournament.port()));
@@ -34,12 +47,12 @@ void TournamentConnection::connect(const TournamentService& tournament)
     {
         // create socket
         QLocalSocket* socket(new QLocalSocket(this->parent()));
-        this->device.reset(socket);
+        this->pimpl->device.reset(socket);
 
         // hook up socket signals
-        QObject::connect(socket, SIGNAL(connected()), this, SLOT(connected()));
-        QObject::connect(socket, SIGNAL(disconnected()), this, SLOT(disconnected()));
-        QObject::connect(socket, SIGNAL(readyRead()), this, SLOT(readyRead()));
+        QObject::connect(socket, SIGNAL(connected()), this, SLOT(on_connected()));
+        QObject::connect(socket, SIGNAL(disconnected()), this, SLOT(on_disconnected()));
+        QObject::connect(socket, SIGNAL(readyRead()), this, SLOT(on_readyRead()));
 
         // connect
         socket->connectToServer(QString::fromStdString(tournament.path()));
@@ -48,18 +61,18 @@ void TournamentConnection::connect(const TournamentService& tournament)
 
 void TournamentConnection::disconnect()
 {
-    if(this->device)
+    if(this->pimpl->device)
     {
         // close connection
-        this->device->close();
-        this->device.reset();
+        this->pimpl->device->close();
+        this->pimpl->device.reset();
     }
 }
 
 // send a command
 void TournamentConnection::send_command(const QString& cmd, const QVariantMap& arg)
 {
-    qDebug() << "sending command: " << cmd;
+    qDebug() << "sending command:" << cmd;
 
     // serialize to json
     auto json_obj(QJsonObject::fromVariantMap(arg));
@@ -77,30 +90,35 @@ void TournamentConnection::send_command(const QString& cmd, const QVariantMap& a
     cmd_data.append('\n');
 
     // write to socket
-    this->device->write(cmd_data);
+    this->pimpl->device->write(cmd_data);
 }
 
 // slots
 
-void TournamentConnection::connected()
+void TournamentConnection::on_connected()
 {
-    this->tournament_connected();
+    // pass signal through
+    Q_EMIT this->connected();
 }
 
-void TournamentConnection::disconnected()
+void TournamentConnection::on_disconnected()
 {
-    this->tournament_disconnected();
+    // pass signal through
+    Q_EMIT this->disconnected();
 }
 
-void TournamentConnection::readyRead()
+void TournamentConnection::on_readyRead()
 {
-    // read the data from the socket line by line
-    auto json_data(this->device->readLine());
+    // read and append to input buffer
+    this->pimpl->buffer.append(this->pimpl->device->readAll());
 
-    // if we read anything, convert it to a QVariantMap
-    while(!json_data.isEmpty())
+    // iterate line by line
+    auto end(this->pimpl->buffer.indexOf('\n'));
+    while(end != -1)
     {
-        qDebug() << json_data.size() << "bytes read from tournament";
+        qDebug() << "parsing a line" << end << "bytes long";
+
+        auto json_data(this->pimpl->buffer.left(end+1));
 
         // convert to json document
         auto json_doc(QJsonDocument::fromJson(json_data));
@@ -119,9 +137,14 @@ void TournamentConnection::readyRead()
         auto response(json_obj.toVariantMap());
 
         // call signal
-        this->received_data(response);
+        Q_EMIT this->receivedData(response);
 
-        // read next line, if any
-        json_data = this->device->readLine();
+        // remove parsed bytes
+        this->pimpl->buffer.remove(0, end+1);
+
+        // look for next newline
+        end = this->pimpl->buffer.indexOf('\n');
     }
+
+    qDebug() << "done parsing with" << this->pimpl->buffer.size() << "bytes remaining in buffer";
 }

@@ -3,9 +3,6 @@
 #include <QMainWindow>
 #include <memory>
 
-// forward declare
-namespace Ui { class TBMainWindow; }
-
 class TBMainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -14,19 +11,15 @@ class TBMainWindow : public QMainWindow
     struct impl;
     std::unique_ptr<impl> pimpl;
 
-    // moc ui
-    std::unique_ptr<Ui::TBMainWindow> ui;
+private Q_SLOTS:
+    void on_actionExit_triggered();
+    void on_authorizedChanged(bool auth);
 
 public:
     // create a main window
-    explicit TBMainWindow();
-
-    // destroy main window
-    ~TBMainWindow();
+    TBMainWindow();
+    virtual ~TBMainWindow();
 
     // load a document to be managed by this window
     bool load_document(const QString& filename);
-
-private Q_SLOTS:
-    void on_actionExit_triggered();
 };

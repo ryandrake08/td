@@ -31,16 +31,12 @@ struct TournamentSession::impl
 TournamentSession::TournamentSession(QObject* parent) : QObject(parent), pimpl(new impl())
 {
     // hook up TournamentConnection signals
-    QObject::connect(&this->pimpl->connection, SIGNAL(tournament_connected()), this, SLOT(tournament_connected()));
-    QObject::connect(&this->pimpl->connection, SIGNAL(tournament_disconnected()), this, SLOT(tournament_disconnected()));
-    QObject::connect(&this->pimpl->connection, SIGNAL(received_data(const QVariantMap&)), this, SLOT(received_data(const QVariantMap&)));
+    QObject::connect(&this->pimpl->connection, SIGNAL(connected()), this, SLOT(on_connected()));
+    QObject::connect(&this->pimpl->connection, SIGNAL(disconnected()), this, SLOT(on_disconnected()));
+    QObject::connect(&this->pimpl->connection, SIGNAL(receivedData(const QVariantMap&)), this, SLOT(on_receivedData(const QVariantMap&)));
 }
 
-TournamentSession::~TournamentSession()
-{
-    // unhook TournamentConnection signals
-    QObject::disconnect(&this->pimpl->connection, nullptr, nullptr, nullptr);
-}
+TournamentSession::~TournamentSession() = default;
 
 // client identifier (used for authenticating with servers)
 int TournamentSession::client_identifier()
@@ -68,23 +64,32 @@ int TournamentSession::client_identifier()
 void TournamentSession::connect(const TournamentService& tournament)
 {
     // forward to connection
+    qDebug() << "connecting to tournament service:" << QString::fromStdString(tournament.name());
     this->pimpl->connection.connect(tournament);
 }
 
 void TournamentSession::disconnect()
 {
     // reset the object, which is expected to disconnect
+    qDebug() << "disconnecting from tournament service";
     this->pimpl->connection.disconnect();
 }
 
 // slots
-void TournamentSession::tournament_connected()
+void TournamentSession::on_connected()
 {
     // clear state
     this->pimpl->state.clear();
+    qDebug() << "tournament state cleared";
+    Q_EMIT this->stateChanged(this->pimpl->state);
 
     // set connected state
-    this->pimpl->connected = true;
+    if(this->pimpl->connected == false)
+    {
+        this->pimpl->connected = true;
+        qDebug() << "tournament connected";
+        Q_EMIT this->connectedChanged(this->pimpl->connected);
+    }
 
     // always check if we're authorized right away
     this->check_authorized([this](bool authorized)
@@ -93,15 +98,8 @@ void TournamentSession::tournament_connected()
         if(this->pimpl->authorized != authorized)
         {
             this->pimpl->authorized = authorized;
-        }
-
-        if(authorized)
-        {
-            qDebug() << "connected and authorized";
-        }
-        else
-        {
-            qDebug() << "connected but not authorized";
+            qDebug() << (authorized ? "user authorized" : "user not authorized");
+            Q_EMIT this->authorizedChanged(this->pimpl->authorized);
         }
     });
 
@@ -109,19 +107,35 @@ void TournamentSession::tournament_connected()
     this->get_state([this](const QVariantMap& result)
     {
         this->pimpl->state = result;
+        qDebug() << "got initial state";
+        Q_EMIT this->stateChanged(this->pimpl->state);
     });
 }
 
-void TournamentSession::tournament_disconnected()
+void TournamentSession::on_disconnected()
 {
     if(this->pimpl)
     {
         // clear state
         this->pimpl->state.clear();
+        qDebug() << "tournament state cleared";
+        Q_EMIT this->stateChanged(this->pimpl->state);
 
-        // set other state
-        this->pimpl->connected = false;
-        this->pimpl->authorized = false;
+        // clear authorized status
+        if(this->pimpl->authorized)
+        {
+            this->pimpl->authorized = false;
+            qDebug() << "user deauthoriized";
+            Q_EMIT this->authorizedChanged(this->pimpl->authorized);
+        }
+
+        // clear connection status
+        if(this->pimpl->connected)
+        {
+            this->pimpl->connected = false;
+            qDebug() << "tournament disconnected";
+            Q_EMIT this->connectedChanged(this->pimpl->connected);
+        }
     }
     else
     {
@@ -129,7 +143,7 @@ void TournamentSession::tournament_disconnected()
     }
 }
 
-void TournamentSession::received_data(const QVariantMap& data)
+void TournamentSession::on_receivedData(const QVariantMap& data)
 {
     QVariantMap response(data);
 
@@ -140,6 +154,8 @@ void TournamentSession::received_data(const QVariantMap& data)
         // no command key, treat data as state
         // for now, just replace entire QVariantMap. later will want to only update what is changed and delete keys no longer relevant
         this->pimpl->state = response;
+        qDebug() << "tournament state updated";
+        Q_EMIT this->stateChanged(this->pimpl->state);
     }
     else
     {
@@ -301,4 +317,10 @@ void TournamentSession::rebalance_seating(std::function<void(const QVariantList&
 void TournamentSession::quick_setup(std::function<void(const QVariantList&)>& handler)
 {
     this->send_command("quick_setup", QVariantMap(), [handler](const QVariantMap& result) { handler(result["seated_players"].toList()); });
+}
+
+// accessors
+const QVariantMap& TournamentSession::state() const
+{
+    return this->pimpl->state;
 }

@@ -20,7 +20,42 @@
    <string>Hello, World!</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QGridLayout" name="gridLayout"/>
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QTableView" name="leftTableView">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>1</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QTableView" name="centerTableView">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>2</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QTableView" name="rightTableView">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>1</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
@@ -281,7 +316,7 @@
     <string>Resume / Pause</string>
    </property>
    <property name="iconText">
-    <string> </string>
+    <string>Resume / Pause</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+G</string>
@@ -296,7 +331,7 @@
     <string>Previous Round</string>
    </property>
    <property name="iconText">
-    <string> </string>
+    <string>Previous Round</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+Alt+P</string>
@@ -311,7 +346,7 @@
     <string>Next Round</string>
    </property>
    <property name="iconText">
-    <string> </string>
+    <string>Next Round</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+Alt+N</string>
@@ -326,7 +361,7 @@
     <string>Call the Clock</string>
    </property>
    <property name="iconText">
-    <string> </string>
+    <string>Call the Clock</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+Alt+C</string>

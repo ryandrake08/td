@@ -1,11 +1,10 @@
 #pragma once
 
 #include <QMap>
-#include <QIODevice>
 #include <QObject>
-#include <QScopedPointer>
 #include <QString>
 #include <QVariant>
+#include <memory>
 
 class TournamentService;
 
@@ -13,17 +12,19 @@ class TournamentConnection : public QObject
 {
     Q_OBJECT
 
-    // The abstract IO device (either a tcp or unix socket)
-    QScopedPointer<QIODevice> device;
+    // pimpl
+    struct impl;
+    std::unique_ptr<impl> pimpl;
 
 private Q_SLOTS:
-    void connected();
-    void disconnected();
-    void readyRead();
+    void on_connected();
+    void on_disconnected();
+    void on_readyRead();
 
 public:
     // construct
     TournamentConnection(QObject* parent=nullptr);
+    virtual ~TournamentConnection();
 
     // connect to TournamentService
     void connect(const TournamentService& tournament);
@@ -33,7 +34,8 @@ public:
     void send_command(const QString& cmd, const QVariantMap& arg);
 
 Q_SIGNALS:
-    void tournament_connected();
-    void tournament_disconnected();
-    void received_data(const QVariantMap& data);
+    void connected();
+    void disconnected();
+    void receivedData(const QVariantMap& data);
 };
+

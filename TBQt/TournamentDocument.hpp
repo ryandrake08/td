@@ -1,6 +1,8 @@
 #pragma once
 
+#include <QMap>
 #include <QString>
+#include <QVariant>
 #include <memory>
 
 class TournamentDocument
@@ -21,4 +23,8 @@ public:
 
     // save document as file
     bool save_as(const QString& filename);
+
+    // accessors
+    const QVariantMap& configuration() const;
+
 };

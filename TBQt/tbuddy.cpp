@@ -20,20 +20,23 @@ int main(int argc, char *argv[])
     parser.addPositionalArgument("file", "The file(s) to open.");
     parser.process(a);
 
-    TBMainWindow* window(nullptr);
-
-    // open a window for every file passed on the command line
-    for(const QString& filename : parser.positionalArguments())
+    // decide which windows to open
+    if(parser.positionalArguments().size() > 0)
     {
-        window = new TBMainWindow;
-        window->load_document(filename);
-        window->show();
+        // open a window for every file passed on the command line
+        for(const QString& filename : parser.positionalArguments())
+        {
+            auto window(new TBMainWindow);
+            window->setAttribute(Qt::WA_DeleteOnClose);
+            window->load_document(filename);
+            window->show();
+        }
     }
-
-    // if no files passed on the command line, open a window without a file
-    if(window == nullptr)
+    else
     {
-        window = new TBMainWindow;
+        // if no files passed on the command line, open a window without a file
+        auto window(new TBMainWindow);
+        window->setAttribute(Qt::WA_DeleteOnClose);
         window->show();
     }
 

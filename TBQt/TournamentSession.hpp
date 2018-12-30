@@ -7,7 +7,6 @@
 #include <QObject>
 #include <QString>
 #include <QVariant>
-
 #include <functional>
 #include <memory>
 
@@ -25,9 +24,9 @@ class TournamentSession : public QObject
     void send_command(const QString& cmd, const QVariantMap& arg, const std::function<void(const QVariantMap&)>& result);
 
 private Q_SLOTS:
-    void tournament_connected();
-    void tournament_disconnected();
-    void received_data(const QVariantMap& data);
+    void on_connected();
+    void on_disconnected();
+    void on_receivedData(const QVariantMap& data);
 
 public:
     explicit TournamentSession(QObject* parent=nullptr);
@@ -67,4 +66,12 @@ public:
 
     // serialization
     QByteArray results_as_csv() const;
+
+    // accessors
+    const QVariantMap& state() const;
+
+Q_SIGNALS:
+    void connectedChanged(bool conn);
+    void authorizedChanged(bool auth);
+    void stateChanged(const QVariantMap& state);
 };
