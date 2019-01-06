@@ -32,6 +32,10 @@ private Q_SLOTS:
     void on_receivedData(const QVariantMap& data);
 
 public:
+    // constants
+    static const int default_action_clock_request_time = 60000;
+    static const int default_audio_warning_time = 60000;
+
     explicit TournamentSession(QObject* parent=nullptr);
     virtual ~TournamentSession();
 
@@ -56,7 +60,7 @@ public:
     void toggle_pause_game();
     void set_previous_level(const std::function<void(int)>& handler = {});
     void set_next_level(const std::function<void(int)>& handler = {});
-    void set_action_clock(int milliseconds);
+    void set_action_clock(int milliseconds=default_action_clock_request_time);
     void clear_action_clock();
     void gen_blind_levels(const QVariantMap& request, const std::function<void(const QVariantList&)>& handler = {});
     void fund_player(const QString& player_id, int source);

@@ -7,6 +7,7 @@
 #include <QDebug>
 #include <QHash>
 #include <QSettings>
+#include <QTextCodec>
 
 #include <random>
 #include <set>
@@ -370,6 +371,24 @@ void TournamentSession::rebalance_seating(const std::function<void(const QVarian
 void TournamentSession::quick_setup(const std::function<void(const QVariantList&)>& handler)
 {
     this->send_command("quick_setup", QVariantMap(), [handler](const QVariantMap& result) { if(handler) handler(result["seated_players"].toList()); });
+}
+
+// serialization
+QByteArray TournamentSession::results_as_csv() const
+{
+    // header contains column names
+    QString csv(QObject::tr("Player,Finish,Win"));
+
+    // 1 result per line
+    for(const auto& obj : this->pimpl->state["results"].toList())
+    {
+        auto result(obj.toMap());
+        csv.append(QString("\n\"%1\",%2,%3").arg(result["name"].toString(), result["place"].toString(), result["payout"].toString()));
+    }
+
+    // serialize results using WINDOWS-1252
+    auto codec(QTextCodec::codecForName("Windows-1252"));
+    return codec->fromUnicode(csv);
 }
 
 // accessors

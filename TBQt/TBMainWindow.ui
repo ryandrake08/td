@@ -97,11 +97,11 @@
     <addaction name="actionShowMoves"/>
     <addaction name="actionRebalance"/>
     <addaction name="separator"/>
-    <addaction name="actionResumePause"/>
-    <addaction name="actionPrevious"/>
-    <addaction name="actionNext"/>
+    <addaction name="actionPauseResume"/>
+    <addaction name="actionPreviousRound"/>
+    <addaction name="actionNextRound"/>
     <addaction name="actionCallClock"/>
-    <addaction name="actionEnd"/>
+    <addaction name="actionEndGame"/>
     <addaction name="separator"/>
     <addaction name="actionExport"/>
    </widget>
@@ -148,7 +148,7 @@
    <addaction name="actionRebalance"/>
    <addaction name="actionShowMoves"/>
    <addaction name="actionShowDisplay"/>
-   <addaction name="actionResumePause"/>
+   <addaction name="actionPauseResume"/>
   </widget>
   <action name="actionAbout_Poker_Buddy">
    <property name="text">
@@ -311,7 +311,7 @@
     <string>Rebalance</string>
    </property>
   </action>
-  <action name="actionResumePause">
+  <action name="actionPauseResume">
    <property name="icon">
     <iconset resource="TBQt.qrc">
      <normaloff>:/Resources/b_play_pause_64x64.png</normaloff>:/Resources/b_play_pause_64x64.png</iconset>
@@ -326,7 +326,7 @@
     <string>Ctrl+G</string>
    </property>
   </action>
-  <action name="actionPrevious">
+  <action name="actionPreviousRound">
    <property name="icon">
     <iconset resource="TBQt.qrc">
      <normaloff>:/Resources/b_previous_64x64.png</normaloff>:/Resources/b_previous_64x64.png</iconset>
@@ -341,7 +341,7 @@
     <string>Ctrl+Alt+P</string>
    </property>
   </action>
-  <action name="actionNext">
+  <action name="actionNextRound">
    <property name="icon">
     <iconset resource="TBQt.qrc">
      <normaloff>:/Resources/b_next_64x64.png</normaloff>:/Resources/b_next_64x64.png</iconset>
@@ -371,7 +371,7 @@
     <string>Ctrl+Alt+C</string>
    </property>
   </action>
-  <action name="actionEnd">
+  <action name="actionEndGame">
    <property name="icon">
     <iconset resource="TBQt.qrc">
      <normaloff>:/Resources/b_stop_64x64.png</normaloff>:/Resources/b_stop_64x64.png</iconset>

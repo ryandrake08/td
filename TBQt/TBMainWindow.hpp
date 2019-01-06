@@ -13,6 +13,14 @@ class TBMainWindow : public QMainWindow
 
 private Q_SLOTS:
     void on_actionExit_triggered();
+    void on_actionExport_triggered();
+    void on_actionPauseResume_triggered();
+    void on_actionPreviousRound_triggered();
+    void on_actionNextRound_triggered();
+    void on_actionCallClock_triggered();
+    void on_actionEndGame_triggered();
+    void on_actionQuickStart_triggered();
+    void on_actionReset_triggered();
     void on_authorizedChanged(bool auth);
 
 public:

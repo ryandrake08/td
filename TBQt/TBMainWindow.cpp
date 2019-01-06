@@ -8,6 +8,8 @@
 #include "ui_TBMainWindow.h"
 
 #include <QDebug>
+#include <QFile>
+#include <QFileDialog>
 #include <QMessageBox>
 #include <QString>
 #include <QWidget>
@@ -71,6 +73,172 @@ void TBMainWindow::on_actionExit_triggered()
 {
     this->close();
 }
+
+void TBMainWindow::on_actionExport_triggered()
+{
+    QFileDialog picker(this);
+    picker.setAcceptMode(QFileDialog::AcceptSave);
+    picker.setFileMode(QFileDialog::AnyFile);
+    picker.setNameFilter(QObject::tr("CSV Files (*.csv)"));
+    picker.setViewMode(QFileDialog::Detail);
+    if(picker.exec())
+    {
+        auto filenames(picker.selectedFiles());
+        if(filenames.size() == 1)
+        {
+            auto filename(filenames.first());
+            if(!filename.isNull())
+            {
+                // get results
+                auto results(this->pimpl->session.results_as_csv());
+
+                // create and open file
+                QFile file_obj(filename);
+                if(!file_obj.open(QFile::WriteOnly | QFile::Text))
+                {
+                    // handle file open failure
+                    throw TBRuntimeError(QObject::tr("Cannot write file %1:\n%2.").arg(QDir::toNativeSeparators(filename), file_obj.errorString()));
+                }
+
+                // write to file
+                file_obj.write(results);
+
+                // close file
+                file_obj.close();
+            }
+        }
+    }
+}
+
+void TBMainWindow::on_actionPauseResume_triggered()
+{
+    const auto& current_blind_level(this->pimpl->session.state()["current_blind_level"].toInt());
+    if(current_blind_level != 0)
+    {
+        this->pimpl->session.toggle_pause_game();
+    }
+    else
+    {
+        this->pimpl->session.start_game();
+    }
+}
+
+void TBMainWindow::on_actionPreviousRound_triggered()
+{
+    const auto& current_blind_level(this->pimpl->session.state()["current_blind_level"].toInt());
+    if(current_blind_level != 0)
+    {
+        this->pimpl->session.set_previous_level();
+    }
+}
+
+void TBMainWindow::on_actionNextRound_triggered()
+{
+    const auto& current_blind_level(this->pimpl->session.state()["current_blind_level"].toInt());
+    if(current_blind_level != 0)
+    {
+        this->pimpl->session.set_next_level();
+    }
+}
+
+void TBMainWindow::on_actionCallClock_triggered()
+{
+    const auto& current_blind_level(this->pimpl->session.state()["current_blind_level"].toInt());
+    if(current_blind_level != 0)
+    {
+        const auto& action_clock_time_remaining(this->pimpl->session.state()["action_clock_time_remaining"].toInt());
+        if(action_clock_time_remaining == 0)
+        {
+            this->pimpl->session.set_action_clock();
+        }
+        else
+        {
+            this->pimpl->session.clear_action_clock();
+        }
+    }
+}
+
+void TBMainWindow::on_actionEndGame_triggered()
+{
+    const auto& current_blind_level(this->pimpl->session.state()["current_blind_level"].toInt());
+    if(current_blind_level != 0)
+    {
+        this->pimpl->session.stop_game();
+    }
+}
+
+
+void TBMainWindow::on_actionQuickStart_triggered()
+{
+    const auto& seats(this->pimpl->session.state()["seats"].toList());
+    const auto& buyins(this->pimpl->session.state()["buyins"].toList());
+
+    if(seats.size() > 0 || buyins.size() > 0)
+    {
+        // alert because this is a very destructive action
+        QMessageBox message(this);
+        message.setIconPixmap(QPixmap(":/Resources/icon_256x256.png").scaledToHeight(64, Qt::SmoothTransformation));
+        message.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
+        message.setText(QObject::tr("Quick Start"));
+
+        // display a different message if the game is running
+        const auto& current_blind_level(this->pimpl->session.state()["current_blind_level"].toInt());
+        if(current_blind_level != 0)
+        {
+            message.setInformativeText(QObject::tr("Quick Start will end the current tournament immediately, then re-seat and buy in all players."));
+        }
+        else
+        {
+            message.setInformativeText(QObject::tr("Quick Start will clear any existing seats and buy-ins, then re-seat and buy in all players."));
+        }
+
+        // present and only perform setup if confirmed by user
+        if(message.exec() == QMessageBox::Ok)
+        {
+            this->pimpl->session.quick_setup();
+        }
+    }
+    else
+    {
+        this->pimpl->session.quick_setup();
+    }
+}
+
+void TBMainWindow::on_actionReset_triggered()
+{
+    const auto& seats(this->pimpl->session.state()["seats"].toList());
+    const auto& buyins(this->pimpl->session.state()["buyins"].toList());
+
+    if(seats.size() > 0 || buyins.size() > 0)
+    {
+        // alert because this is a very destructive action
+        QMessageBox message(this);
+        message.setIconPixmap(QPixmap(":/Resources/icon_256x256.png").scaledToHeight(64, Qt::SmoothTransformation));
+        message.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
+        message.setText(QObject::tr("Reset tournament"));
+
+        // display a different message if the game is running
+        const auto& current_blind_level(this->pimpl->session.state()["current_blind_level"].toInt());
+        if(current_blind_level != 0)
+        {
+            message.setInformativeText(QObject::tr("This will end the current tournament immediately, then clear any existing seats and buy-ins."));
+        }
+        else
+        {
+            message.setInformativeText(QObject::tr("This will clear any existing seats and buy-ins."));
+        }
+
+        // present and only perform setup if confirmed by user
+        if(message.exec() == QMessageBox::Ok)
+        {
+            this->pimpl->session.reset_state();
+        }
+    }
+    else
+    {
+        this->pimpl->session.reset_state();
+    }
+ }
 
 void TBMainWindow::on_authorizedChanged(bool auth)
 {
