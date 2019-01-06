@@ -891,7 +891,7 @@ public:
             this->load_configuration(this->snapshot_path);
             logger(ll::info) << "loaded snapshot from " << this->snapshot_path << '\n';
         }
-        catch(const std::runtime_error& e)
+        catch(const std::exception& e)
         {
             logger(ll::debug) << "did not load snapshot from " << this->snapshot_path << ": " << e.what() << '\n';
         }
