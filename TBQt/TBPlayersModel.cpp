@@ -8,12 +8,14 @@ TBPlayersModel::TBPlayersModel(const TournamentSession& session, QObject* parent
     this->addHeader("name", QObject::tr("Player Name"));
     this->addHeader("seat_name", QObject::tr("Seated"));
 
-    // observe session
-    QObject::connect(&session, SIGNAL(stateChanged(const QVariantMap&)), this, SLOT(on_stateChanged(const QVariantMap&)));
+    // observe session state
+    QObject::connect(&session, SIGNAL(stateChanged(const QString&, const QVariant&)), this, SLOT(on_stateChanged(const QString&, const QVariant&)));
 }
 
-void TBPlayersModel::on_stateChanged(const QVariantMap& state)
+void TBPlayersModel::on_stateChanged(const QString& key, const QVariant& value)
 {
-    qDebug() << "TBPlayersModel::on_stateChanged";
-    this->setListData(state["seated_players"].toList());
+    if(key == "seated_players")
+    {
+        this->setListData(value.toList());
+    }
 }

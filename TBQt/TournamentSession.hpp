@@ -23,6 +23,9 @@ class TournamentSession : public QObject
     // send command
     void send_command(const QString& cmd, const QVariantMap& arg, const std::function<void(const QVariantMap&)>& result);
 
+    // update state
+    void update(const QVariantMap& new_state);
+
 private Q_SLOTS:
     void on_connected();
     void on_disconnected();
@@ -73,5 +76,5 @@ public:
 Q_SIGNALS:
     void connectedChanged(bool conn);
     void authorizedChanged(bool auth);
-    void stateChanged(const QVariantMap& state);
+    void stateChanged(const QString& key, const QVariant& value);
 };

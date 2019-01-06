@@ -9,6 +9,7 @@
 #include <QSettings>
 
 #include <random>
+#include <set>
 
 struct TournamentSession::impl
 {
@@ -75,13 +76,67 @@ void TournamentSession::disconnect()
     this->pimpl->connection.disconnect();
 }
 
+// update state
+void TournamentSession::update(const QVariantMap& new_state)
+{
+    // replace old state
+    auto old_state = this->pimpl->state;
+    this->pimpl->state = new_state;
+
+    // emit a stateChanged each map item difference
+    auto first1(old_state.constBegin());
+    auto last1(old_state.constEnd());
+    auto first2(new_state.constBegin());
+    auto last2(new_state.constEnd());
+
+    while(first1 != last1 || first2 != last2)
+    {
+        if(first1 == last1 && first2 != last2)
+        {
+            // no more keys in state1, emit for all remaining keys in state2
+            Q_EMIT this->stateChanged(first2.key(), first2.value());
+            qDebug() << "New state:" << first2.key();
+            ++first2;
+        }
+        else if(first2 == last2 && first1 != last1)
+        {
+            // no more keys in state2, emit for all remaining keys in state1
+            Q_EMIT this->stateChanged(first1.key(), first1.value());
+            qDebug() << "Removed state:" << first1.key();
+            ++first1;
+        }
+        else if(first1.key() < first2.key())
+        {
+            // emit for deleted keys
+            Q_EMIT this->stateChanged(first1.key(), first1.value());
+            qDebug() << "Removed state:" << first1.key();
+            ++first1;
+        }
+        else if(first2.key() < first1.key())
+        {
+            // emit for new keys
+            Q_EMIT this->stateChanged(first2.key(), first2.value());
+            qDebug() << "New state:" << first2.key();
+            ++first2;
+        }
+        else
+        {
+            if(first1.value() != first2.value())
+            {
+                Q_EMIT this->stateChanged(first2.key(), first2.value());
+                qDebug() << "State changed:" << first1.key();
+            }
+            ++first1; ++first2;
+        }
+    }
+}
+
 // slots
 void TournamentSession::on_connected()
 {
     // clear state
-    this->pimpl->state.clear();
+    this->update(QVariantMap());
     qDebug() << "tournament state cleared";
-    Q_EMIT this->stateChanged(this->pimpl->state);
 
     // set connected state
     if(this->pimpl->connected == false)
@@ -106,9 +161,8 @@ void TournamentSession::on_connected()
     // and request initial state
     this->get_state([this](const QVariantMap& result)
     {
-        this->pimpl->state = result;
+        this->update(result);
         qDebug() << "got initial state";
-        Q_EMIT this->stateChanged(this->pimpl->state);
     });
 }
 
@@ -117,9 +171,8 @@ void TournamentSession::on_disconnected()
     if(this->pimpl)
     {
         // clear state
-        this->pimpl->state.clear();
+        this->update(QVariantMap());
         qDebug() << "tournament state cleared";
-        Q_EMIT this->stateChanged(this->pimpl->state);
 
         // clear authorized status
         if(this->pimpl->authorized)
@@ -152,10 +205,10 @@ void TournamentSession::on_receivedData(const QVariantMap& data)
     if(command_key.isNull())
     {
         // no command key, treat data as state
-        // for now, just replace entire QVariantMap. later will want to only update what is changed and delete keys no longer relevant
-        this->pimpl->state = response;
+
+        // update state
+        this->update(response);
         qDebug() << "tournament state updated";
-        Q_EMIT this->stateChanged(this->pimpl->state);
     }
     else
     {
