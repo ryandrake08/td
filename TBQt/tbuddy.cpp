@@ -7,7 +7,7 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
 
     // set up application and organization info (for QSettings)
-    QCoreApplication::setApplicationName("tbuddy");
+    QCoreApplication::setApplicationName("Poker Buddy");
     QCoreApplication::setApplicationVersion("1.0");
     QCoreApplication::setOrganizationName("hdnastudio");
     QCoreApplication::setOrganizationDomain("hdnastudio.com");

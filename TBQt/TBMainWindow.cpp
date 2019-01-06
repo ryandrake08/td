@@ -79,6 +79,17 @@ void TBMainWindow::closeEvent(QCloseEvent* /* event */)
     this->pimpl->session.disconnect();
 }
 
+void TBMainWindow::on_actionAbout_Poker_Buddy_triggered()
+{
+    // show about box
+    QMessageBox message(this);
+    message.setIconPixmap(QPixmap(":/Resources/icon_256x256.png").scaledToHeight(64, Qt::SmoothTransformation));
+    message.setWindowTitle(QObject::tr("About %1...").arg(QCoreApplication::applicationName()));
+    message.setText(QCoreApplication::applicationName());
+    message.setInformativeText(QObject::tr("Version %1").arg(QCoreApplication::applicationVersion()));
+    message.exec();
+}
+
 void TBMainWindow::on_actionNew_triggered()
 {
     // open a window with no document
@@ -93,7 +104,7 @@ void TBMainWindow::on_actionOpen_triggered()
     QFileDialog picker(this);
     picker.setAcceptMode(QFileDialog::AcceptOpen);
     picker.setFileMode(QFileDialog::ExistingFiles);
-    picker.setNameFilter(QObject::tr("Poker Buddy Files (*.pokerbuddy)"));
+    picker.setNameFilter(QObject::tr("%1 Files (*.pokerbuddy)").arg(QCoreApplication::applicationName()));
     picker.setViewMode(QFileDialog::Detail);
     if(picker.exec())
     {
@@ -125,7 +136,7 @@ void TBMainWindow::on_actionSaveAs_triggered()
     QFileDialog picker(this);
     picker.setAcceptMode(QFileDialog::AcceptSave);
     picker.setFileMode(QFileDialog::AnyFile);
-    picker.setNameFilter(QObject::tr("Poker Buddy Files (*.pokerbuddy)"));
+    picker.setNameFilter(QObject::tr("%1 Files (*.pokerbuddy)").arg(QCoreApplication::applicationName()));
     picker.setViewMode(QFileDialog::Detail);
     if(picker.exec())
     {
