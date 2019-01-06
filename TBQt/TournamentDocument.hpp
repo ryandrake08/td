@@ -1,19 +1,22 @@
 #pragma once
 
 #include <QMap>
+#include <QObject>
 #include <QString>
 #include <QVariant>
 #include <memory>
 
-class TournamentDocument
+class TournamentDocument : public QObject
 {
+    Q_OBJECT
+
     // pimpl
     struct impl;
     std::unique_ptr<impl> pimpl;
 
 public:
     TournamentDocument();
-    ~TournamentDocument();
+    virtual ~TournamentDocument();
 
     // load document from file
     bool load(const QString& filename);
@@ -25,6 +28,10 @@ public:
     bool save_as(const QString& filename);
 
     // accessors
+    const QString& filename() const;
     const QVariantMap& configuration() const;
 
+Q_SIGNALS:
+    void filenameChanged(const QString& name);
+    void configurationChanged(const QVariantMap& config);
 };

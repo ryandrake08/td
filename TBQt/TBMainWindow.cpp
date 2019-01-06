@@ -10,6 +10,7 @@
 #include <QDebug>
 #include <QFile>
 #include <QFileDialog>
+#include <QFileInfo>
 #include <QMessageBox>
 #include <QString>
 #include <QWidget>
@@ -45,6 +46,9 @@ TBMainWindow::TBMainWindow() : pimpl(new impl)
     // hook up TournamentSession signals
     QObject::connect(&this->pimpl->session, SIGNAL(authorizedChanged(bool)), this, SLOT(on_authorizedChanged(bool)));
 
+    // hook up TournamentDocument signals
+    QObject::connect(&this->pimpl->doc, SIGNAL(filenameChanged(const QString&)), this, SLOT(on_filenameChanged(const QString&)));
+
     // start tournament thread
     auto service(this->pimpl->server.start(TournamentSession::client_identifier()));
 
@@ -75,105 +79,68 @@ void TBMainWindow::closeEvent(QCloseEvent* /* event */)
     this->pimpl->session.disconnect();
 }
 
-void TBMainWindow::on_actionExit_triggered()
+void TBMainWindow::on_actionNew_triggered()
+{
+    // open a window with no document
+    auto window(new TBMainWindow);
+    window->setAttribute(Qt::WA_DeleteOnClose);
+    window->show();
+}
+
+void TBMainWindow::on_actionOpen_triggered()
+{
+    // display file picker and open a window for each selected file
+    QFileDialog picker(this);
+    picker.setAcceptMode(QFileDialog::AcceptOpen);
+    picker.setFileMode(QFileDialog::ExistingFiles);
+    picker.setNameFilter(QObject::tr("Poker Buddy Files (*.pokerbuddy)"));
+    picker.setViewMode(QFileDialog::Detail);
+    if(picker.exec())
+    {
+        for(const auto& filename : picker.selectedFiles())
+        {
+            auto window(new TBMainWindow);
+            window->setAttribute(Qt::WA_DeleteOnClose);
+            window->load_document(filename);
+            window->show();
+        }
+    }
+}
+
+void TBMainWindow::on_actionClose_triggered()
 {
     // close window
     this->close();
 }
 
-void TBMainWindow::on_actionExport_triggered()
+void TBMainWindow::on_actionSave_triggered()
 {
+    // save file
+    this->pimpl->doc.save();
+}
+
+void TBMainWindow::on_actionSaveAs_triggered()
+{
+    // display file picker and save to selected file
     QFileDialog picker(this);
     picker.setAcceptMode(QFileDialog::AcceptSave);
     picker.setFileMode(QFileDialog::AnyFile);
-    picker.setNameFilter(QObject::tr("CSV Files (*.csv)"));
+    picker.setNameFilter(QObject::tr("Poker Buddy Files (*.pokerbuddy)"));
     picker.setViewMode(QFileDialog::Detail);
     if(picker.exec())
     {
-        auto filenames(picker.selectedFiles());
-        if(filenames.size() == 1)
+        for(const auto& filename : picker.selectedFiles())
         {
-            auto filename(filenames.first());
-            if(!filename.isNull())
-            {
-                // get results
-                auto results(this->pimpl->session.results_as_csv());
-
-                // create and open file
-                QFile file_obj(filename);
-                if(!file_obj.open(QFile::WriteOnly | QFile::Text))
-                {
-                    // handle file open failure
-                    throw TBRuntimeError(QObject::tr("Cannot write file %1:\n%2.").arg(QDir::toNativeSeparators(filename), file_obj.errorString()));
-                }
-
-                // write to file
-                file_obj.write(results);
-
-                // close file
-                file_obj.close();
-            }
+            this->pimpl->doc.save_as(filename);
         }
     }
 }
 
-void TBMainWindow::on_actionPauseResume_triggered()
+void TBMainWindow::on_actionExit_triggered()
 {
-    const auto& current_blind_level(this->pimpl->session.state()["current_blind_level"].toInt());
-    if(current_blind_level != 0)
-    {
-        this->pimpl->session.toggle_pause_game();
-    }
-    else
-    {
-        this->pimpl->session.start_game();
-    }
+    // close window
+    this->close();
 }
-
-void TBMainWindow::on_actionPreviousRound_triggered()
-{
-    const auto& current_blind_level(this->pimpl->session.state()["current_blind_level"].toInt());
-    if(current_blind_level != 0)
-    {
-        this->pimpl->session.set_previous_level();
-    }
-}
-
-void TBMainWindow::on_actionNextRound_triggered()
-{
-    const auto& current_blind_level(this->pimpl->session.state()["current_blind_level"].toInt());
-    if(current_blind_level != 0)
-    {
-        this->pimpl->session.set_next_level();
-    }
-}
-
-void TBMainWindow::on_actionCallClock_triggered()
-{
-    const auto& current_blind_level(this->pimpl->session.state()["current_blind_level"].toInt());
-    if(current_blind_level != 0)
-    {
-        const auto& action_clock_time_remaining(this->pimpl->session.state()["action_clock_time_remaining"].toInt());
-        if(action_clock_time_remaining == 0)
-        {
-            this->pimpl->session.set_action_clock();
-        }
-        else
-        {
-            this->pimpl->session.clear_action_clock();
-        }
-    }
-}
-
-void TBMainWindow::on_actionEndGame_triggered()
-{
-    const auto& current_blind_level(this->pimpl->session.state()["current_blind_level"].toInt());
-    if(current_blind_level != 0)
-    {
-        this->pimpl->session.stop_game();
-    }
-}
-
 
 void TBMainWindow::on_actionQuickStart_triggered()
 {
@@ -245,7 +212,126 @@ void TBMainWindow::on_actionReset_triggered()
     {
         this->pimpl->session.reset_state();
     }
- }
+}
+
+void TBMainWindow::on_actionConfigure_triggered()
+{
+
+}
+
+void TBMainWindow::on_actionAuthorize_triggered()
+{
+
+}
+
+void TBMainWindow::on_actionPlan_triggered()
+{
+
+}
+
+void TBMainWindow::on_actionShowDisplay_triggered()
+{
+
+}
+
+void TBMainWindow::on_actionShowMoves_triggered()
+{
+
+}
+
+void TBMainWindow::on_actionRebalance_triggered()
+{
+
+}
+
+void TBMainWindow::on_actionPauseResume_triggered()
+{
+    const auto& current_blind_level(this->pimpl->session.state()["current_blind_level"].toInt());
+    if(current_blind_level != 0)
+    {
+        this->pimpl->session.toggle_pause_game();
+    }
+    else
+    {
+        this->pimpl->session.start_game();
+    }
+}
+
+void TBMainWindow::on_actionPreviousRound_triggered()
+{
+    const auto& current_blind_level(this->pimpl->session.state()["current_blind_level"].toInt());
+    if(current_blind_level != 0)
+    {
+        this->pimpl->session.set_previous_level();
+    }
+}
+
+void TBMainWindow::on_actionNextRound_triggered()
+{
+    const auto& current_blind_level(this->pimpl->session.state()["current_blind_level"].toInt());
+    if(current_blind_level != 0)
+    {
+        this->pimpl->session.set_next_level();
+    }
+}
+
+void TBMainWindow::on_actionCallClock_triggered()
+{
+    const auto& current_blind_level(this->pimpl->session.state()["current_blind_level"].toInt());
+    if(current_blind_level != 0)
+    {
+        const auto& action_clock_time_remaining(this->pimpl->session.state()["action_clock_time_remaining"].toInt());
+        if(action_clock_time_remaining == 0)
+        {
+            this->pimpl->session.set_action_clock();
+        }
+        else
+        {
+            this->pimpl->session.clear_action_clock();
+        }
+    }
+}
+
+void TBMainWindow::on_actionEndGame_triggered()
+{
+    const auto& current_blind_level(this->pimpl->session.state()["current_blind_level"].toInt());
+    if(current_blind_level != 0)
+    {
+        this->pimpl->session.stop_game();
+    }
+}
+
+void TBMainWindow::on_actionExport_triggered()
+{
+    QFileDialog picker(this);
+    picker.setAcceptMode(QFileDialog::AcceptSave);
+    picker.setFileMode(QFileDialog::AnyFile);
+    picker.setNameFilter(QObject::tr("CSV Files (*.csv)"));
+    picker.setViewMode(QFileDialog::Detail);
+    if(picker.exec())
+    {
+        for(const auto& filename : picker.selectedFiles())
+        {
+            // get results
+            auto results(this->pimpl->session.results_as_csv());
+
+            // create and open file
+            QFile file_obj(filename);
+            if(!file_obj.open(QFile::WriteOnly | QFile::Text))
+            {
+                // handle file open failure
+                throw TBRuntimeError(QObject::tr("Cannot write file %1:\n%2.").arg(QDir::toNativeSeparators(filename), file_obj.errorString()));
+            }
+
+            // write to file
+            file_obj.write(results);
+
+            // close file
+            file_obj.close();
+
+        }
+    }
+}
 
 void TBMainWindow::on_authorizedChanged(bool auth)
 {
@@ -259,4 +345,10 @@ void TBMainWindow::on_authorizedChanged(bool auth)
             qDebug() << "configured:" << config.size() << "items";
         });
     }
+}
+
+void TBMainWindow::on_filenameChanged(const QString& filename)
+{
+    // change window title
+    this->setWindowTitle(QFileInfo(filename).fileName());
 }

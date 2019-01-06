@@ -58,10 +58,15 @@ bool TournamentDocument::load(const QString& filename)
     auto json_obj(json_doc.object());
 
     // convert to variant map
-    this->pimpl->configuration = json_obj.toVariantMap();
+    auto config(json_obj.toVariantMap());
+
+    // store configuration
+    this->pimpl->configuration = config;
+    Q_EMIT this->configurationChanged(config);
 
     // record filename
     this->pimpl->filename = filename;
+    Q_EMIT this->filenameChanged(filename);
 
     // success
     return true;
@@ -117,12 +122,18 @@ bool TournamentDocument::save_as(const QString& filename)
 {
     // set new filename
     this->pimpl->filename = filename;
+    Q_EMIT this->filenameChanged(filename);
 
     // save
     return this->save();
 }
 
 // accessors
+const QString& TournamentDocument::filename() const
+{
+    return this->pimpl->filename;
+}
+
 const QVariantMap& TournamentDocument::configuration() const
 {
     return this->pimpl->configuration;
