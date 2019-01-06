@@ -15,5 +15,6 @@
         <file>../Resources/b_call_clock_64x64.png</file>
         <file>../Resources/b_restart_64x64.png</file>
         <file>../Resources/b_stop_64x64.png</file>
+        <file>../Resources/icon_256x256.png</file>
     </qresource>
 </RCC>
