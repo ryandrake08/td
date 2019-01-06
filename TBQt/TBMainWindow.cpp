@@ -83,7 +83,7 @@ void TBMainWindow::on_actionAbout_Poker_Buddy_triggered()
 {
     // show about box
     QMessageBox message(this);
-    message.setIconPixmap(QPixmap(":/Resources/icon_256x256.png").scaledToHeight(64, Qt::SmoothTransformation));
+    message.setIconPixmap(QPixmap(":/Resources/icon_64x64.png"));
     message.setWindowTitle(QObject::tr("About %1...").arg(QCoreApplication::applicationName()));
     message.setText(QCoreApplication::applicationName());
     message.setInformativeText(QObject::tr("Version %1").arg(QCoreApplication::applicationVersion()));
@@ -162,7 +162,7 @@ void TBMainWindow::on_actionQuickStart_triggered()
     {
         // alert because this is a very destructive action
         QMessageBox message(this);
-        message.setIconPixmap(QPixmap(":/Resources/icon_256x256.png").scaledToHeight(64, Qt::SmoothTransformation));
+        message.setIconPixmap(QPixmap(":/Resources/icon_64x64.png"));
         message.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
         message.setText(QObject::tr("Quick Start"));
 
@@ -198,7 +198,7 @@ void TBMainWindow::on_actionReset_triggered()
     {
         // alert because this is a very destructive action
         QMessageBox message(this);
-        message.setIconPixmap(QPixmap(":/Resources/icon_256x256.png").scaledToHeight(64, Qt::SmoothTransformation));
+        message.setIconPixmap(QPixmap(":/Resources/icon_64x64.png"));
         message.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
         message.setText(QObject::tr("Reset tournament"));
 

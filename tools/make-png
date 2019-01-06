@@ -6,3 +6,5 @@ for pdf in Art/*.pdf; do
     convert -density 144 ${pdf} -depth 4 -colors 16 Resources/${base}_64x64.png
 #    convert -density 288 ${pdf} Resources/${base}_128x128.png
 done
+convert -colorspace sRGB Art/piranha_osx.ai -resize 64x64 Resources/icon_64x64.png
+convert -colorspace sRGB Art/piranha_osx.ai -resize 256x256 Resources/icon_256x256.png
