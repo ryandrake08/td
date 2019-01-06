@@ -69,8 +69,15 @@ bool TBMainWindow::load_document(const QString& filename)
     }
 }
 
+void TBMainWindow::closeEvent(QCloseEvent* /* event */)
+{
+    // disconnect from session
+    this->pimpl->session.disconnect();
+}
+
 void TBMainWindow::on_actionExit_triggered()
 {
+    // close window
     this->close();
 }
 

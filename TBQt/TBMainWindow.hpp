@@ -30,4 +30,7 @@ public:
 
     // load a document to be managed by this window
     bool load_document(const QString& filename);
+
+    // override closeEvent to do clean shutdown
+    void closeEvent(QCloseEvent* event);
 };
