@@ -39,6 +39,7 @@ class basic_logstream : public std::basic_ostream<T>
     explicit basic_logstream(std::basic_streambuf<T>* sb, const char* function, ll level) : std::basic_ostream<T>(((1 << static_cast<size_t>(level)) & this->mask) ? sb : nullptr), lock(mutex)
     {
         static const char* level_string[] = { " DEBUG ", " INFO ", " WARNING ", " ERROR " };
+        *this << datetime::local << datetime::setf("%F %T%qqqqqq%z");
         *this << datetime::now() << level_string[static_cast<size_t>(level)] << function << ": ";
     }
 

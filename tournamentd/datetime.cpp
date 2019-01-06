@@ -127,7 +127,7 @@ static inline int mode_iword()
     return i;
 }
 
-static inline int millis_iword()
+static inline int format_iword()
 {
     static int i = std::ios_base::xalloc();
     return i;
@@ -164,25 +164,50 @@ std::ostream& operator<<(std::ostream& os, const datetime& t)
         ::localtime_r(&tt, &tm);
     }
 
-    // output components in iso-8601
-    os << std::put_time(&tm, "%FT%T");
+    // get format to output components
+    auto fmt(static_cast<const char*>(os.pword(format_iword())));
+    if(fmt == nullptr)
+    {
+        fmt = "%FT%T";
+    }
+    std::string fstring(fmt);
 
     // output milliseconds if required
-    if(os.iword(millis_iword()) == 0)
+    auto millis_ofs(fstring.find("%q"));
+    if(millis_ofs != std::string::npos)
     {
-        auto tpbase(sc::from_time_t(tt));
-        auto millis(std::chrono::duration_cast<std::chrono::milliseconds>(t.tp-tpbase).count());
-        os << "." << std::setfill('0') << std::setw(3) << millis;
+        // calculate remaining time in microseconds
+        auto micros(std::chrono::duration_cast<std::chrono::microseconds>(t.tp - sc::from_time_t(tt)));
+
+        // render to a string, including decimal point
+        std::stringstream ss;
+        ss << '.' << std::setw(6) << std::setfill('0') << micros.count();
+        auto micros_str(ss.str());
+
+        // find last q in sequence e.g. %qqqqq
+        auto millis_end(fstring.find_first_not_of('q', millis_ofs+1));
+        auto sublen(millis_end-millis_ofs);
+
+        // replace % with . and each q after % with a digit
+        fstring.replace(millis_ofs, sublen, micros_str, 0, sublen);
     }
 
+    os << std::put_time(&tm, fstring.c_str());
     return os;
 }
 
 // datetime from stream
 std::istream& operator>>(std::istream& is, datetime& t)
 {
+    // get format to input components
+    auto fmt(static_cast<const char*>(is.pword(format_iword())));
+    if(fmt == nullptr)
+    {
+        fmt = "%FT%T";
+    }
+
     struct tm tm({});
-    is >> std::get_time(&tm, "%FT%T");
+    is >> std::get_time(&tm, fmt);
     if(!is.fail())
     {
         if(is.iword(mode_iword()) == 0)
@@ -211,14 +236,24 @@ std::ios& datetime::local(std::ios& os)
     return os;
 }
 
-std::ostream& datetime::millis(std::ostream& os)
+std::ios& datetime::iso8601(std::ios& os)
 {
-    os.iword(millis_iword()) = 0;
+    os.pword(format_iword()) = (void*)"%FT%T";
     return os;
 }
 
-std::ostream& datetime::nomillis(std::ostream& os)
+datetime::setf::setf(const char* format) : f(format)
 {
-    os.iword(millis_iword()) = 1;
+}
+
+std::ostream& operator<<(std::ostream& os, const datetime::setf& obj)
+{
+    os.pword(format_iword()) = (void*)obj.f;
     return os;
+}
+
+std::istream& operator>>(std::istream& is, const datetime::setf& obj)
+{
+    is.pword(format_iword()) = (void*)obj.f;
+    return is;
 }

@@ -41,12 +41,19 @@ public:
     // Stream manipulator: put/get datetime as gmtime
     static std::ios& gm(std::ios& os);
 
-    // Stream manipulator: put/getdatetime is localtime
+    // Stream manipulator: put/get datetime is localtime
     static std::ios& local(std::ios& os);
 
-    // Stream manipulator: put datetime including milliseconds
-    static std::ostream& millis(std::ostream& os);
+    // Stream manipulator: put/get datetime is iso8601 format
+    static std::ios& iso8601(std::ios& os);
 
-    // Stream manipulator: put datetime not including milliseconds
-    static std::ostream& nomillis(std::ostream& os);
+    // Stream manipulator: put/get datetime format string
+    class setf
+    {
+        const char* f;
+    public:
+        explicit setf(const char* format);
+        friend std::ostream& operator<<(std::ostream& os, const setf& obj);
+        friend std::istream& operator>>(std::istream& is, const setf& obj);
+    };
 };
