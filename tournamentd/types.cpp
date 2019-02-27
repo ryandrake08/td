@@ -270,11 +270,11 @@ void td::from_json(const nlohmann::json& j, td::manual_payout& p)
 
 void td::from_json(const nlohmann::json& j, td::automatic_payout_parameters& p)
 {
-    p.percent_seats_paid = j.value("percent_seats_paid", 0);
+    p.percent_seats_paid = j.value("percent_seats_paid", 0.0);
     p.round_payouts = j.value("round_payouts", false);
-    p.payout_shape = j.value("payout_shape", 0);
-    p.pay_the_bubble = j.value("pay_the_bubble", 0);
-    p.pay_knockouts = j.value("pay_knockouts", 0);
+    p.payout_shape = j.value("payout_shape", 0.0);
+    p.pay_the_bubble = j.value("pay_the_bubble", 0.0);
+    p.pay_knockouts = j.value("pay_knockouts", 0.0);
 }
 
 void td::to_json(nlohmann::json& j, const td::authorized_client& p)
@@ -315,7 +315,7 @@ void td::to_json(nlohmann::json& j, const td::blind_level& p)
         j["ante"] = p.ante;
         j["ante_type"] = p.ante_type;
     }
-    if(p.duration> 0)
+    if(p.duration > 0)
     {
         j["duration"] = p.duration;
     }
