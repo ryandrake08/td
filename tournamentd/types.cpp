@@ -8,7 +8,7 @@ td::authorized_client::authorized_client() : code(0), added_at(datetime::now())
 {
 }
 
-td::authorized_client::authorized_client(int c, const std::string& name) : code(c), name(name), added_at(datetime::now())
+td::authorized_client::authorized_client(int c, const std::string& n) : code(c), name(n), added_at(datetime::now())
 {
 }
 
