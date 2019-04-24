@@ -215,7 +215,7 @@
                      NSForegroundColorAttributeName : _badgeTextColor };
         }
     
-        NSRect textSize = [badge boundingRectWithSize:NSZeroSize options:NSStringDrawingOneShot attributes:attr];
+        NSRect textSize = [badge boundingRectWithSize:NSZeroSize options:0 attributes:attr];
         if ( textSize.size.width+(lineWidth*4) >= rect.size.width )
         {
             float maxWidth = size.width-(lineWidth*2);
