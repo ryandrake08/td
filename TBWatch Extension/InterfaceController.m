@@ -91,7 +91,7 @@
     }
 }
 
-- (void)session:(WCSession *)session didReceiveMessage:(NSDictionary<NSString *,id> *)message {
+- (void)session:(WCSession*)session didReceiveMessage:(NSDictionary<NSString*,id>*)message {
     NSDictionary* state = message[@"state"];
     if(state) {
         if(state[@"connected"] || state[@"authorized"] || state[@"current_blind_level"]) {
@@ -150,6 +150,11 @@
             [[self averageStackLabel] setText:state[@"average_stack_text"]];
         }
     }
+}
+
+- (void)session:(WCSession*)session activationDidCompleteWithState:(WCSessionActivationState)activationState error:(nullable NSError*)error API_AVAILABLE(watchos(2.2)) {
+    // Do nothing but log here for now. Not sure why this is now required to implement
+    NSLog(@"Activation completed");
 }
 
 #pragma mark Actions
