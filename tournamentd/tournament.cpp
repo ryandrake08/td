@@ -384,6 +384,7 @@ struct tournament::impl
                              funding_sources (array): Each valid source of funding for this tournament
                              blind_levels (array): Discription of each blind level
                              available_chips (array): Discription of each chip color and denomination
+                             available_tables (array): Discription of each named table
                              payout_policy (integer): Policy for paying out players (0 = automatic, 1 = forced, 2 = depends on turnout)
                              payout_currency (string): Currency used for payouts
                              automatic_payouts (object): Parameters for automatic payout structure generation:
@@ -473,6 +474,7 @@ struct tournament::impl
                              funding_sources (optional, array): Each valid source of funding for this tournament
                              blind_levels (optional, array): Discription of each blind level
                              available_chips (optional, array): Discription of each chip color and denomination
+                             available_tables (optional, array): Discription of each named table
                              automatic_payouts (object): Parameters for automatic payout structure generation:
                                  percent_seats_paid (float): Proportion of players (buyins) paid out
                                  round_payouts (bool): Round payoffs to integer values

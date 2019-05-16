@@ -93,6 +93,19 @@ namespace td
     void to_json(nlohmann::json& j, const td::chip& p);
     void from_json(const nlohmann::json& j, td::chip& p);
 
+    // attributes of a single named table
+    struct table
+    {
+        std::string table_name;
+
+        table();
+
+        // equality
+        bool operator==(const table& other) const;
+    };
+    void to_json(nlohmann::json& j, const td::table& p);
+    void from_json(const nlohmann::json& j, td::table& p);
+
     // represents a monetary value
     // currency names use ISO 4217
     struct monetary_value

@@ -103,6 +103,9 @@
 		945D83A02032B47400DFE032 /* Setup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 945D839E2032B47400DFE032 /* Setup.storyboard */; };
 		945D83A12032B9B500DFE032 /* TBTournamentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4581B3C385400A158F8 /* TBTournamentsViewController.m */; };
 		945D83A22032B9FC00DFE032 /* Setup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 945D839E2032B47400DFE032 /* Setup.storyboard */; };
+		945E1684228D08AC00AA98C1 /* TBSetupTablesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 945E1683228D08AC00AA98C1 /* TBSetupTablesViewController.m */; };
+		945E168B228D22C400AA98C1 /* TBSetupTablesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 945E1686228D187800AA98C1 /* TBSetupTablesViewController.m */; };
+		945E168C228D22CB00AA98C1 /* TBSetupDetailsTablesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 945E1689228D1E7300AA98C1 /* TBSetupDetailsTablesViewController.m */; };
 		945F81ED20FC0D2B00BEEC60 /* TBAnteTypeValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 945F81EC20FC0D2B00BEEC60 /* TBAnteTypeValueTransformer.m */; };
 		9462A3E31B77376000B29002 /* NSFont+LineHeight.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEAF41B5AE7390026B25D /* NSFont+LineHeight.m */; };
 		9462A3E41B77376000B29002 /* NSView+BackgroundColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEAF71B5AE7920026B25D /* NSView+BackgroundColor.m */; };
@@ -669,6 +672,12 @@
 		945D83932032459E00DFE032 /* TBPayoutShapeNumberFormatter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TBPayoutShapeNumberFormatter.m; sourceTree = "<group>"; };
 		945D839F2032B47400DFE032 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Setup.storyboard; sourceTree = "<group>"; };
 		945D83A32035366800DFE032 /* stopwatch.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = stopwatch.hpp; sourceTree = "<group>"; };
+		945E1682228D08AC00AA98C1 /* TBSetupTablesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TBSetupTablesViewController.h; path = TBMac/TBSetupTablesViewController.h; sourceTree = "<group>"; };
+		945E1683228D08AC00AA98C1 /* TBSetupTablesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TBSetupTablesViewController.m; path = TBMac/TBSetupTablesViewController.m; sourceTree = "<group>"; };
+		945E1685228D187800AA98C1 /* TBSetupTablesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBSetupTablesViewController.h; sourceTree = "<group>"; };
+		945E1686228D187800AA98C1 /* TBSetupTablesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBSetupTablesViewController.m; sourceTree = "<group>"; };
+		945E1688228D1E7300AA98C1 /* TBSetupDetailsTablesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBSetupDetailsTablesViewController.h; sourceTree = "<group>"; };
+		945E1689228D1E7300AA98C1 /* TBSetupDetailsTablesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBSetupDetailsTablesViewController.m; sourceTree = "<group>"; };
 		945F81EB20FC0D2B00BEEC60 /* TBAnteTypeValueTransformer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBAnteTypeValueTransformer.h; sourceTree = "<group>"; };
 		945F81EC20FC0D2B00BEEC60 /* TBAnteTypeValueTransformer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TBAnteTypeValueTransformer.m; sourceTree = "<group>"; };
 		9462A3E51B77CB3B00B29002 /* TTTOrdinalNumberFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTOrdinalNumberFormatter.h; sourceTree = "<group>"; };
@@ -1083,6 +1092,8 @@
 				ADD2CC461BB3A11B00DE3DE5 /* TBSetupPlayersViewController.m */,
 				ADD2CC4F1BB3CD3200DE3DE5 /* TBSetupRoundsViewController.h */,
 				ADD2CC501BB3CD3200DE3DE5 /* TBSetupRoundsViewController.m */,
+				945E1685228D187800AA98C1 /* TBSetupTablesViewController.h */,
+				945E1686228D187800AA98C1 /* TBSetupTablesViewController.m */,
 				ADD2CC3D1BB39E9200DE3DE5 /* TBSetupTableViewController.h */,
 				ADD2CC3E1BB39E9200DE3DE5 /* TBSetupTableViewController.m */,
 				AD6256A31BB44D8000EE776A /* TBSetupDetailsChipsViewController.h */,
@@ -1095,6 +1106,8 @@
 				AD6256A11BB44B9A00EE776A /* TBSetupDetailsPlayerViewController.m */,
 				AD6256A91BB44DC700EE776A /* TBSetupDetailsRoundsViewController.h */,
 				AD6256AA1BB44DC700EE776A /* TBSetupDetailsRoundsViewController.m */,
+				945E1688228D1E7300AA98C1 /* TBSetupDetailsTablesViewController.h */,
+				945E1689228D1E7300AA98C1 /* TBSetupDetailsTablesViewController.m */,
 				AD62569D1BB448DD00EE776A /* TBSetupDetailsTableViewController.h */,
 				AD62569E1BB448DD00EE776A /* TBSetupDetailsTableViewController.m */,
 				94F51CAC1BC96F53007AD1DD /* TBTableViewController.h */,
@@ -1392,6 +1405,8 @@
 				AD98D96D1A7B342000DA6B8B /* TBSetupRoundsViewController.m */,
 				9429DC8B217C3909007A7874 /* TBSetupRoundsDetailsViewController.h */,
 				9429DC8A217C3908007A7874 /* TBSetupRoundsDetailsViewController.m */,
+				945E1682228D08AC00AA98C1 /* TBSetupTablesViewController.h */,
+				945E1683228D08AC00AA98C1 /* TBSetupTablesViewController.m */,
 				94D7290A200342EB009EC463 /* TBSetupTabViewController.h */,
 				94D7290B200342EB009EC463 /* TBSetupTabViewController.m */,
 				94D7290D20034F5A009EC463 /* TBSetupViewController.h */,
@@ -2074,6 +2089,7 @@
 				ADD73D291B9692E1006824A1 /* NSDictionary+Changed.m in Sources */,
 				AD8E684C1A6C606700E5A4D8 /* main.m in Sources */,
 				AD2CA95F1BAA7043009A2384 /* TournamentSocketDirectory.m in Sources */,
+				945E1684228D08AC00AA98C1 /* TBSetupTablesViewController.m in Sources */,
 				94C2DA6A200D1306001B95B8 /* TBInvertableImageView.m in Sources */,
 				9476F4A41B3C3EA700A158F8 /* TournamentDaemon.mm in Sources */,
 				AD98D9611A7B330B00DA6B8B /* TBSetupChipsViewController.m in Sources */,
@@ -2162,6 +2178,7 @@
 				ADF635F21BAB8AF800D019AE /* TBEllipseView.m in Sources */,
 				ADF635F31BAB8AF800D019AE /* TBRemoteClockViewController.m in Sources */,
 				9457DAB81FE695AC0047DF29 /* TBInvertableButton_iOS.m in Sources */,
+				945E168C228D22CB00AA98C1 /* TBSetupDetailsTablesViewController.m in Sources */,
 				946F757D216A7CF400E9B8CF /* TBUserNotificationDelegate.m in Sources */,
 				AD6256F61BB4525A00EE776A /* TBAuthCodeNumberFormatter.m in Sources */,
 				ADF635F51BAB8AF800D019AE /* TournamentSession.m in Sources */,
@@ -2177,6 +2194,7 @@
 				ADF635FB1BAB8AF800D019AE /* NSObject+FBKVOController.m in Sources */,
 				9458126B2012657700208575 /* TBClockDateComponentsFormatter.m in Sources */,
 				ADF635FD1BAB8AF800D019AE /* main.m in Sources */,
+				945E168B228D22C400AA98C1 /* TBSetupTablesViewController.m in Sources */,
 				94363BD1200E79C000D52155 /* TBError.m in Sources */,
 				ADF635FE1BAB8AF800D019AE /* NSData+Delimiter.m in Sources */,
 				ADD2CC4E1BB3C73900DE3DE5 /* TBSetupFundingViewController.m in Sources */,

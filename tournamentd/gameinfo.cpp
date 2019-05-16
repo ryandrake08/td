@@ -103,6 +103,11 @@ void gameinfo::configure(const nlohmann::json& config)
                   });
     }
 
+    if(update_value(config, "available_tables", this->available_tables, this->dirty))
+    {
+        logger(ll::info) << "configuration changed: available_tables -> " << this->available_tables.size() << " named tables\n";
+    }
+
     if(update_value(config, "players", this->players, this->dirty))
     {
         logger(ll::info) << "configuration changed: players -> " << this->players.size() << " players\n";
@@ -319,6 +324,7 @@ void gameinfo::dump_configuration(nlohmann::json& config) const
     config["funding_sources"] = this->funding_sources;
     config["blind_levels"] = this->blind_levels;
     config["available_chips"] = this->available_chips;
+    config["available_tables"] = this->available_tables;
 }
 
 // dump state to JSON
@@ -356,6 +362,7 @@ void gameinfo::dump_configuration_state(nlohmann::json &state) const
     state["background_color"] = this->background_color;
     state["funding_sources"] = this->funding_sources;
     state["available_chips"] = this->available_chips;
+    state["available_tables"] = this->available_tables;
 }
 
 // calculate derived state and dump to JSON

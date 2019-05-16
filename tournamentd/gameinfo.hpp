@@ -39,6 +39,9 @@ class gameinfo
     // configuration: description of each chip (for display)
     std::vector<td::chip> available_chips;
 
+    // configuration: description of each named table (for display)
+    std::vector<td::table> available_tables;
+
     // configuration: payout policy
     td::payout_policy_t payout_policy;
 

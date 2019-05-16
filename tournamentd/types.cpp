@@ -36,6 +36,15 @@ bool td::chip::operator==(const td::chip& other) const
     return this->color == other.color && this->denomination == other.denomination && this->count_available == other.count_available;
 }
 
+td::table::table()
+{
+}
+
+bool td::table::operator==(const td::table& other) const
+{
+    return this->table_name == other.table_name;
+}
+
 td::monetary_value::monetary_value() : amount(0.0)
 {
     // use currency of default locale
@@ -225,6 +234,11 @@ void td::from_json(const nlohmann::json& j, td::chip& p)
     p.count_available = j.value("count_available", 0);
 }
 
+void td::from_json(const nlohmann::json& j, td::table& p)
+{
+    p.table_name = j.value("table_name", std::string());
+}
+
 void td::from_json(const nlohmann::json& j, td::monetary_value& p)
 {
     p.amount = j.value("amount", 0.0);
@@ -337,6 +351,16 @@ void td::to_json(nlohmann::json& j, const td::chip& p)
     if(p.count_available > 0)
     {
         j["count_available"] = p.count_available;
+    }
+}
+
+void td::to_json(nlohmann::json& j, const td::table& p)
+{
+    j = nlohmann::json({});
+
+    if(!p.table_name.empty())
+    {
+        j["table_name"] = p.table_name;
     }
 }
 
