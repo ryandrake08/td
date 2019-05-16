@@ -399,20 +399,6 @@ void gameinfo::dump_derived_state(nlohmann::json& state) const
         state["current_round_number_text"] = os.str(); os.str("");
     }
 
-    // current game name text
-    if(this->is_started() && this->current_blind_level < this->blind_levels.size())
-    {
-        os << blind_levels[this->current_blind_level].game_name;
-        state["current_game_text"] = os.str(); os.str("");
-    }
-
-    // next game name text
-    if(this->is_started() && this->current_blind_level+1 < this->blind_levels.size())
-    {
-        os << blind_levels[this->current_blind_level+1].game_name;
-        state["next_game_text"] = os.str(); os.str("");
-    }
-
     if(!this->is_paused())
     {
         // set time remaining based on current clock
@@ -453,6 +439,7 @@ void gameinfo::dump_derived_state(nlohmann::json& state) const
                     os << "BREAK"; // TODO: i18n
                 }
                 state["next_round_text"] = os.str(); os.str("");
+                // TODO: should next_round_text be broken into next_round_blinds_text and next_round_ante_text?
             }
         }
         else if(this->end_of_break != time_point_t() && now < this->end_of_break)

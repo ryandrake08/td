@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" initialViewController="aTR-5q-4as">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" initialViewController="aTR-5q-4as">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -276,22 +276,22 @@
                                             <binding destination="qiy-ws-jFz" name="textColor" keyPath="self.textColor" id="R1o-BH-EiR"/>
                                         </connections>
                                     </textField>
-                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="m0u-w9-hKF" customClass="TBResizeTextField">
-                                        <rect key="frame" x="-2" y="168" width="516" height="64"/>
+                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="QIu-Xo-Xlk" customClass="TBResizeTextField">
+                                        <rect key="frame" x="-2" y="233" width="516" height="39"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="No Limit Texas Hold'em" placeholderString="" usesSingleLineMode="YES" id="q9O-E8-dZX">
-                                            <font key="font" metaFont="system" size="48"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Ante: 10000" placeholderString="" usesSingleLineMode="YES" id="KDg-wX-eee">
+                                            <font key="font" metaFont="system" size="32"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="minFontSize">
-                                                <real key="value" value="24"/>
+                                                <real key="value" value="32"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <binding destination="qiy-ws-jFz" name="value" keyPath="self.session.state.current_game_text" id="MsE-Ug-5hq"/>
-                                            <binding destination="qiy-ws-jFz" name="textColor" keyPath="self.textColor" id="KAA-kd-Idx"/>
+                                            <binding destination="qiy-ws-jFz" name="value" keyPath="self.session.state.current_round_ante_text" id="GBI-up-icB"/>
+                                            <binding destination="qiy-ws-jFz" name="textColor" keyPath="self.textColor" id="GmN-ES-saT"/>
                                         </connections>
                                     </textField>
                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="h0w-xz-gzK" customClass="TBResizeTextField">
@@ -312,8 +312,8 @@
                                         </connections>
                                     </textField>
                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="lYy-03-j6f" customClass="TBResizeTextField">
-                                        <rect key="frame" x="-2" y="32" width="516" height="96"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                        <rect key="frame" x="-2" y="0.0" width="516" height="128"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="200/400" placeholderString="" usesSingleLineMode="YES" id="mIF-BW-eAj">
                                             <font key="font" metaFont="system" size="90"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -327,42 +327,6 @@
                                         <connections>
                                             <binding destination="qiy-ws-jFz" name="value" keyPath="self.session.state.next_round_text" id="Umq-L2-yOg"/>
                                             <binding destination="qiy-ws-jFz" name="textColor" keyPath="self.textColor" id="4gP-be-xs1"/>
-                                        </connections>
-                                    </textField>
-                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="hK2-8o-tob" customClass="TBResizeTextField">
-                                        <rect key="frame" x="-2" y="0.0" width="516" height="32"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Limit Texas Hold'em" placeholderString="" usesSingleLineMode="YES" id="XPh-hh-ArM">
-                                            <font key="font" metaFont="system" size="32"/>
-                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                        </textFieldCell>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="minFontSize">
-                                                <real key="value" value="16"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <binding destination="qiy-ws-jFz" name="value" keyPath="self.session.state.next_game_text" id="UiI-RC-cuJ"/>
-                                            <binding destination="qiy-ws-jFz" name="textColor" keyPath="self.textColor" id="q7O-AC-UBH"/>
-                                        </connections>
-                                    </textField>
-                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="QIu-Xo-Xlk" customClass="TBResizeTextField">
-                                        <rect key="frame" x="-2" y="233" width="516" height="39"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Ante: 10000" placeholderString="" usesSingleLineMode="YES" id="KDg-wX-eee">
-                                            <font key="font" metaFont="system" size="32"/>
-                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                        </textFieldCell>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="minFontSize">
-                                                <real key="value" value="32"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <binding destination="qiy-ws-jFz" name="value" keyPath="self.session.state.current_round_ante_text" id="GBI-up-icB"/>
-                                            <binding destination="qiy-ws-jFz" name="textColor" keyPath="self.textColor" id="GmN-ES-saT"/>
                                         </connections>
                                     </textField>
                                 </subviews>
@@ -895,10 +859,10 @@ Gw
         </scene>
     </scenes>
     <resources>
-        <image name="b_call_clock" width="64" height="64"/>
-        <image name="b_next" width="64" height="64"/>
-        <image name="b_play_pause" width="64" height="64"/>
-        <image name="b_previous" width="64" height="64"/>
+        <image name="b_call_clock" width="32" height="32"/>
+        <image name="b_next" width="32" height="32"/>
+        <image name="b_play_pause" width="32" height="32"/>
+        <image name="b_previous" width="32" height="32"/>
         <image name="i_chip" width="64" height="64"/>
     </resources>
 </document>

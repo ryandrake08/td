@@ -50,9 +50,7 @@
                                   @"session.state.clock_remaining",
                                   @"session.state.current_round_blinds_text",
                                   @"session.state.current_round_ante_text",
-                                  @"session.state.current_game_text",
                                   @"session.state.next_round_text",
-                                  @"session.state.next_game_text",
                                   @"session.state.players_left_text",
                                   @"session.state.average_stack_text"
                                   ];

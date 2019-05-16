@@ -62,7 +62,6 @@ namespace td
     // attributes of a single blind level
     struct blind_level
     {
-        std::string game_name;
         unsigned long little_blind;
         unsigned long big_blind;
         unsigned long ante;

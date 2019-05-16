@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="14313.18" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="14490.70" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
     <device id="watch38" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="watchOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="14238.10"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="14490.21"/>
     </dependencies>
     <scenes>
         <!--Interface Controller-->
@@ -24,9 +24,6 @@
                                 </label>
                                 <label alignment="center" text="Ante:25" minimumScaleFactor="0.29999999999999999" id="cvE-eL-V7D" userLabel="Current Ante Label">
                                     <fontDescription key="font" type="system" pointSize="18"/>
-                                </label>
-                                <label alignment="center" text="No Limit Texas Hold'em" minimumScaleFactor="0.80000000000000004" id="3EP-gl-hZn">
-                                    <fontDescription key="font" type="system" pointSize="12"/>
                                 </label>
                             </items>
                         </group>
@@ -64,9 +61,6 @@
                                 <label alignment="center" text="25/50" minimumScaleFactor="0.29999999999999999" id="hrK-J4-yV0">
                                     <fontDescription key="font" type="system" pointSize="30"/>
                                 </label>
-                                <label alignment="center" text="No Limit Texas Hold'em" minimumScaleFactor="0.80000000000000004" id="toO-ga-DPR">
-                                    <fontDescription key="font" type="system" pointSize="12"/>
-                                </label>
                                 <separator alignment="left" id="9MT-mW-7sA"/>
                                 <label alignment="center" text="Players Left" id="cCT-0o-vr8"/>
                                 <label alignment="center" text="20" id="cXr-82-vmZ">
@@ -86,8 +80,6 @@
                         <outlet property="clockLabel" destination="jfh-q1-fMz" id="Por-zM-4m9"/>
                         <outlet property="currentAnteLabel" destination="cvE-eL-V7D" id="Sgu-aX-Jaa"/>
                         <outlet property="currentBlindsLabel" destination="yNz-nR-m2D" id="WD5-qn-HUI"/>
-                        <outlet property="currentGameLabel" destination="3EP-gl-hZn" id="dZM-fz-GxP"/>
-                        <outlet property="nextGameLabel" destination="toO-ga-DPR" id="sv9-Af-HlL"/>
                         <outlet property="nextRoundButton" destination="Gmp-B4-4H9" id="vaR-LM-ncZ"/>
                         <outlet property="nextRoundLabel" destination="hrK-J4-yV0" id="2a3-cC-eLT"/>
                         <outlet property="pauseResumeButton" destination="nDz-BI-TN4" id="OPm-IJ-Oqb"/>

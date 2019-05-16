@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -3189,7 +3189,6 @@ Gw
                 <customObject id="xwg-d6-l8A" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <arrayController clearsFilterPredicateOnInsertion="NO" automaticallyRearrangesObjects="YES" id="QeO-eZ-sQK" customClass="TBSetupRoundsArrayController">
                     <declaredKeys>
-                        <string>game_name</string>
                         <string>little_blind</string>
                         <string>big_blind</string>
                         <string>ante</string>
@@ -4247,23 +4246,23 @@ DQ
         <image name="NSAddTemplate" width="11" height="11"/>
         <image name="NSListViewTemplate" width="14" height="10"/>
         <image name="NSRemoveTemplate" width="11" height="11"/>
-        <image name="b_arrow" width="64" height="64"/>
-        <image name="b_auth" width="64" height="64"/>
-        <image name="b_call_clock" width="64" height="64"/>
-        <image name="b_configure" width="64" height="64"/>
-        <image name="b_display" width="64" height="64"/>
-        <image name="b_export" width="64" height="64"/>
-        <image name="b_move" width="274" height="274"/>
-        <image name="b_new" width="64" height="64"/>
-        <image name="b_next" width="64" height="64"/>
-        <image name="b_play_pause" width="64" height="64"/>
-        <image name="b_previous" width="64" height="64"/>
-        <image name="b_rebalance" width="64" height="64"/>
-        <image name="b_restart" width="64" height="64"/>
-        <image name="b_rocket" width="64" height="64"/>
-        <image name="b_seat" width="64" height="64"/>
+        <image name="b_arrow" width="32" height="32"/>
+        <image name="b_auth" width="32" height="32"/>
+        <image name="b_call_clock" width="32" height="32"/>
+        <image name="b_configure" width="32" height="32"/>
+        <image name="b_display" width="32" height="32"/>
+        <image name="b_export" width="32" height="32"/>
+        <image name="b_move" width="32" height="32"/>
+        <image name="b_new" width="32" height="32"/>
+        <image name="b_next" width="32" height="32"/>
+        <image name="b_play_pause" width="32" height="32"/>
+        <image name="b_previous" width="32" height="32"/>
+        <image name="b_rebalance" width="32" height="32"/>
+        <image name="b_restart" width="32" height="32"/>
+        <image name="b_rocket" width="32" height="32"/>
+        <image name="b_seat" width="32" height="32"/>
         <image name="b_stop" width="32" height="32"/>
-        <image name="b_table" width="64" height="64"/>
+        <image name="b_table" width="32" height="32"/>
         <image name="m_addon" width="32" height="32"/>
         <image name="m_buyin" width="32" height="32"/>
         <image name="m_rebuy" width="32" height="32"/>

@@ -51,37 +51,31 @@
         {
         },
         {
-            "game_name": "No Limit Texas Hold'em",
             "little_blind": 25,
             "big_blind": 25,
             "duration": 3600000
         },
         {
-            "game_name": "No Limit Texas Hold'em",
             "little_blind": 25,
             "big_blind": 50,
             "duration": 3600000
         },
         {
-            "game_name": "No Limit Texas Hold'em",
             "little_blind": 50,
             "big_blind": 100,
             "duration": 3600000
         },
         {
-            "game_name": "No Limit Texas Hold'em",
             "little_blind": 75,
             "big_blind": 150,
             "duration": 3600000
         },
         {
-            "game_name": "No Limit Texas Hold'em",
             "little_blind": 100,
             "big_blind": 200,
             "duration": 3600000
         },
         {
-            "game_name": "No Limit Texas Hold'em",
             "little_blind": 100,
             "big_blind": 200,
             "ante_type": 1,
@@ -89,7 +83,6 @@
             "duration": 3600000
         },
         {
-            "game_name": "No Limit Texas Hold'em",
             "little_blind": 150,
             "big_blind": 300,
             "ante_type": 1,
@@ -97,7 +90,6 @@
             "duration": 3600000
         },
         {
-            "game_name": "No Limit Texas Hold'em",
             "little_blind": 200,
             "big_blind": 400,
             "ante_type": 1,
@@ -105,7 +97,6 @@
             "duration": 3600000
         },
         {
-            "game_name": "No Limit Texas Hold'em",
             "little_blind": 300,
             "big_blind": 600,
             "ante_type": 1,
@@ -115,7 +106,6 @@
             "reason": "Remove T25 chips"
         },
         {
-            "game_name": "No Limit Texas Hold'em",
             "little_blind": 400,
             "big_blind": 800,
             "ante_type": 1,
@@ -123,7 +113,6 @@
             "duration": 3600000
         },
         {
-            "game_name": "No Limit Texas Hold'em",
             "little_blind": 500,
             "big_blind": 1000,
             "ante_type": 1,
@@ -131,7 +120,6 @@
             "duration": 3600000
         },
         {
-            "game_name": "No Limit Texas Hold'em",
             "little_blind": 600,
             "big_blind": 1200,
             "ante_type": 1,
@@ -139,7 +127,6 @@
             "duration": 3600000
         },
         {
-            "game_name": "No Limit Texas Hold'em",
             "little_blind": 800,
             "big_blind": 1600,
             "ante_type": 1,
@@ -147,7 +134,6 @@
             "duration": 3600000
         },
         {
-            "game_name": "No Limit Texas Hold'em",
             "little_blind": 1000,
             "big_blind": 2000,
             "ante_type": 1,
@@ -155,7 +141,6 @@
             "duration": 3600000
         },
         {
-            "game_name": "No Limit Texas Hold'em",
             "little_blind": 1200,
             "big_blind": 2400,
             "ante_type": 1,
@@ -165,7 +150,6 @@
             "reason": "Remove T100 chips"
         },
         {
-            "game_name": "No Limit Texas Hold'em",
             "little_blind": 1500,
             "big_blind": 3000,
             "ante_type": 1,
@@ -173,7 +157,6 @@
             "duration": 3600000
         },
         {
-            "game_name": "No Limit Texas Hold'em",
             "little_blind": 2000,
             "big_blind": 4000,
             "ante_type": 1,
@@ -181,7 +164,6 @@
             "duration": 3600000
         },
         {
-            "game_name": "No Limit Texas Hold'em",
             "little_blind": 3000,
             "big_blind": 6000,
             "ante_type": 1,
@@ -189,7 +171,6 @@
             "duration": 3600000
         },
         {
-            "game_name": "No Limit Texas Hold'em",
             "little_blind": 4000,
             "big_blind": 8000,
             "ante_type": 1,
@@ -199,7 +180,6 @@
             "reason": "Remove T500 chips"
         },
         {
-            "game_name": "No Limit Texas Hold'em",
             "little_blind": 5000,
             "big_blind": 10000,
             "ante_type": 1,
@@ -207,7 +187,6 @@
             "duration": 3600000
         },
         {
-            "game_name": "No Limit Texas Hold'em",
             "little_blind": 6000,
             "big_blind": 12000,
             "ante_type": 1,
@@ -215,7 +194,6 @@
             "duration": 3600000
         },
         {
-            "game_name": "No Limit Texas Hold'em",
             "little_blind": 8000,
             "big_blind": 16000,
             "ante_type": 1,
@@ -223,7 +201,6 @@
             "duration": 3600000
         },
         {
-            "game_name": "No Limit Texas Hold'em",
             "little_blind": 10000,
             "big_blind": 20000,
             "ante_type": 1,
@@ -231,7 +208,6 @@
             "duration": 3600000
         },
         {
-            "game_name": "No Limit Texas Hold'em",
             "little_blind": 12000,
             "big_blind": 24000,
             "ante_type": 1,
@@ -241,7 +217,6 @@
             "reason": "Remove T1000 chips"
         },
         {
-            "game_name": "No Limit Texas Hold'em",
             "little_blind": 15000,
             "big_blind": 30000,
             "ante_type": 1,
@@ -249,7 +224,6 @@
             "duration": 3600000
         },
         {
-            "game_name": "No Limit Texas Hold'em",
             "little_blind": 20000,
             "big_blind": 40000,
             "ante_type": 1,
@@ -257,7 +231,6 @@
             "duration": 3600000
         },
         {
-            "game_name": "No Limit Texas Hold'em",
             "little_blind": 25000,
             "big_blind": 50000,
             "ante_type": 1,
@@ -265,7 +238,6 @@
             "duration": 3600000
         },
         {
-            "game_name": "No Limit Texas Hold'em",
             "little_blind": 30000,
             "big_blind": 60000,
             "ante_type": 1,
@@ -273,7 +245,6 @@
             "duration": 3600000
         },
         {
-            "game_name": "No Limit Texas Hold'em",
             "little_blind": 40000,
             "big_blind": 80000,
             "ante_type": 1,
@@ -281,7 +252,6 @@
             "duration": 3600000
         },
         {
-            "game_name": "No Limit Texas Hold'em",
             "little_blind": 50000,
             "big_blind": 100000,
             "ante_type": 1,

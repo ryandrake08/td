@@ -17,9 +17,7 @@
 @property (nonatomic, weak) IBOutlet WKInterfaceLabel* clockLabel;
 @property (nonatomic, weak) IBOutlet WKInterfaceLabel* currentBlindsLabel;
 @property (nonatomic, weak) IBOutlet WKInterfaceLabel* currentAnteLabel;
-@property (nonatomic, weak) IBOutlet WKInterfaceLabel* currentGameLabel;
 @property (nonatomic, weak) IBOutlet WKInterfaceLabel* nextRoundLabel;
-@property (nonatomic, weak) IBOutlet WKInterfaceLabel* nextGameLabel;
 @property (nonatomic, weak) IBOutlet WKInterfaceLabel* playersLeftLabel;
 @property (nonatomic, weak) IBOutlet WKInterfaceLabel* averageStackLabel;
 @property (nonatomic, weak) IBOutlet WKInterfaceButton* previousRoundButton;
@@ -130,16 +128,8 @@
             [[self currentAnteLabel] setText:state[@"current_round_ante_text"]];
         }
 
-        if(state[@"current_game_text"]) {
-            [[self currentGameLabel] setText:state[@"current_game_text"]];
-        }
-
         if(state[@"next_round_text"]) {
             [[self nextRoundLabel] setText:state[@"next_round_text"]];
-        }
-
-        if(state[@"next_game_text"]) {
-            [[self nextGameLabel] setText:state[@"next_game_text"]];
         }
 
         if(state[@"players_left_text"]) {

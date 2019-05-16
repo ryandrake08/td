@@ -60,7 +60,6 @@
 }
 
 - (id)newObject {
-    NSString* game_name = NSLocalizedString(@"No Limit Texas Hold'em", nil);
     NSNumber* little_blind = @25;
     NSNumber* big_blind = @50;
     NSNumber* ante = @0;
@@ -70,9 +69,6 @@
     if([[self arrangedObjects] count] > 1) {
         // base new round on final round x 2
         NSDictionary* last = [[self arrangedObjects] lastObject];
-        if(last[@"game_name"] != nil) {
-            game_name = last[@"game_name"];
-        }
         if(last[@"little_blind"] != nil) {
             little_blind = @([last[@"little_blind"] intValue] * 2);
         }
@@ -90,7 +86,7 @@
         }
     }
 
-    return [@{@"game_name":game_name, @"little_blind":little_blind, @"big_blind":big_blind, @"ante":ante, @"ante_type":ante_type, @"duration":duration} mutableCopy];
+    return [@{@"little_blind":little_blind, @"big_blind":big_blind, @"ante":ante, @"ante_type":ante_type, @"duration":duration} mutableCopy];
 }
 
 @end

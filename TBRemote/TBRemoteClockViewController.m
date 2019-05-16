@@ -29,10 +29,8 @@
 // ui
 @property (nonatomic, weak) IBOutlet UILabel* elapsedLabel;
 @property (nonatomic, weak) IBOutlet UILabel* clockLabel;
-@property (nonatomic, weak) IBOutlet UILabel* currentGameLabel;
 @property (nonatomic, weak) IBOutlet UILabel* currentBlindsLabel;
 @property (nonatomic, weak) IBOutlet UILabel* currentAnteLabel;
-@property (nonatomic, weak) IBOutlet UILabel* nextGameLabel;
 @property (nonatomic, weak) IBOutlet UILabel* nextRoundLabel;
 @property (nonatomic, weak) IBOutlet UILabel* playersLeftLabel;
 @property (nonatomic, weak) IBOutlet UILabel* averageStackLabel;
@@ -82,10 +80,6 @@
         [[observer clockLabel] setText:[[object session] state][@"clock_text"]];
     }];
 
-    [[self KVOController] observe:self keyPath:@"session.state.current_game_text" options:NSKeyValueObservingOptionInitial block:^(id observer, TBRemoteClockViewController* object, NSDictionary *change) {
-        [[observer currentGameLabel] setText:[[object session] state][@"current_game_text"]];
-    }];
-
     [[self KVOController] observe:self keyPath:@"session.state.current_round_blinds_text" options:NSKeyValueObservingOptionInitial block:^(id observer, TBRemoteClockViewController* object, NSDictionary *change) {
         [[observer currentBlindsLabel] setText:[[object session] state][@"current_round_blinds_text"]];
     }];
@@ -94,10 +88,6 @@
         [[observer currentAnteLabel] setText:[[object session] state][@"current_round_ante_text"]];
     }];
 
-    [[self KVOController] observe:self keyPath:@"session.state.next_game_text" options:NSKeyValueObservingOptionInitial block:^(id observer, TBRemoteClockViewController* object, NSDictionary *change) {
-        [[observer nextGameLabel] setText:[[object session] state][@"next_game_text"]];
-    }];
-    
     [[self KVOController] observe:self keyPath:@"session.state.next_round_text" options:NSKeyValueObservingOptionInitial block:^(id observer, TBRemoteClockViewController* object, NSDictionary *change) {
         [[observer nextRoundLabel] setText:[[object session] state][@"next_round_text"]];
     }];

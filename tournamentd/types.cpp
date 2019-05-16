@@ -18,8 +18,7 @@ td::blind_level::blind_level() : little_blind(0), big_blind(0), ante(0), ante_ty
 
 bool td::blind_level::operator==(const td::blind_level& other) const
 {
-    return this->game_name == other.game_name &&
-           this->little_blind == other.little_blind &&
+    return this->little_blind == other.little_blind &&
            this->big_blind == other.big_blind &&
            this->ante == other.ante &&
            this->ante_type == other.ante_type &&
@@ -210,7 +209,6 @@ void td::from_json(const nlohmann::json& j, td::authorized_client& p)
 
 void td::from_json(const nlohmann::json& j, td::blind_level& p)
 {
-    p.game_name = j.value("game_name", std::string());
     p.little_blind = j.value("little_blind", 0);
     p.big_blind = j.value("big_blind", 0);
     p.ante = j.value("ante", 0);
@@ -298,10 +296,6 @@ void td::to_json(nlohmann::json& j, const td::blind_level& p)
 {
     j = nlohmann::json({});
 
-    if(!p.game_name.empty())
-    {
-        j["game_name"] = p.game_name;
-    }
     if(p.little_blind > 0)
     {
         j["little_blind"] = p.little_blind;
