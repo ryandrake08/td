@@ -90,7 +90,7 @@ public:
         }
 
         // listen and publish
-        this->publisher.publish(name.c_str(), this->tourney.listen(P_tmpdir).second);
+        this->publisher.publish(name, this->tourney.listen(P_tmpdir).second);
     }
 
     bool run()

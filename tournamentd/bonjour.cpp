@@ -1,5 +1,6 @@
 #include "bonjour.hpp"
 #include "logger.hpp"
+#include <string>
 #include <system_error>
 
 #if defined(__APPLE__)
@@ -33,14 +34,14 @@ struct bonjour_publisher::impl
     }
 
 public:
-    impl(const char* name, int port)
+    impl(const std::string& name, int port)
     {
         logger(ll::info) << "setting up bonjour service for " << name << " with port " << port << '\n';
 
         // describe net service
         CFStringRef theDomain = CFSTR("local.");
         CFStringRef serviceType = CFSTR("_pokerbuddy._tcp");
-        CFStringRef serviceName = CFStringCreateWithCString(kCFAllocatorDefault, name, kCFStringEncodingUTF8);
+        CFStringRef serviceName = CFStringCreateWithCString(kCFAllocatorDefault, name.c_str(), kCFStringEncodingUTF8);
 
         // create net service
         netService = CFNetServiceCreate(nullptr, theDomain, serviceType, serviceName, port);
@@ -310,7 +311,7 @@ struct bonjour_publisher::impl
         }
 
     public:
-        avahi_group(const char* name, int port) : group(nullptr), service_name(name), service_port(port)
+        avahi_group(const std::string& name, int port) : group(nullptr), service_name(name), service_port(port)
         {
             logger(ll::debug) << "constructing entry group object\n";
         }
@@ -412,7 +413,7 @@ struct bonjour_publisher::impl
     }
 
 public:
-    impl(const char* name, int port) : client(nullptr), poller(new avahi_poller()), group(new avahi_group(name, port))
+    impl(const std:string& name, int port) : client(nullptr), poller(new avahi_poller()), group(new avahi_group(name, port))
     {
         logger(ll::info) << "setting up avahi service for " << name << " with port " << port << '\n';
 
@@ -452,7 +453,7 @@ public:
 bonjour_publisher::bonjour_publisher() = default;
 bonjour_publisher::~bonjour_publisher() = default;
 
-void bonjour_publisher::publish(const char* name, int port)
+void bonjour_publisher::publish(const std::string& name, int port)
 {
     this->pimpl = std::unique_ptr<impl>(new impl(name, port));
 }
