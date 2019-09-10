@@ -16,7 +16,7 @@
 
 - (NSRange)rangeOfDataDelimetedBy:(uint8_t)delimiter range:(NSRange)searchRange {
     // look for a byte, return range up to and including byte
-    const char* bytes = [self bytes];
+    const uint8_t* bytes = [self bytes];
     for(NSUInteger i=0; i<searchRange.length; i++) {
         if(bytes[i+searchRange.location] == delimiter) {
             return NSMakeRange(searchRange.location, searchRange.location+i+1);
