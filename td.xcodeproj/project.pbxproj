@@ -1670,7 +1670,7 @@
 		AD8E683B1A6C606700E5A4D8 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0930;
+				LastUpgradeCheck = 1100;
 				ORGANIZATIONNAME = "HDna Studio";
 				TargetAttributes = {
 					943FC67620261FC400B6AA4C = {
@@ -2410,7 +2410,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = "TBRemote/TBRemote-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.hdnastudio.$(PRODUCT_NAME:rfc1034identifier).ios";
 				PRODUCT_NAME = "Poker Remote";
@@ -2423,7 +2422,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = "TBRemote/TBRemote-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.hdnastudio.$(PRODUCT_NAME:rfc1034identifier).ios";
 				PRODUCT_NAME = "Poker Remote";
@@ -2734,7 +2732,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"TBFULL=1",
@@ -2751,7 +2748,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PREPROCESSOR_DEFINITIONS = "TBFULL=1";
 				INFOPLIST_FILE = "TBRemote/TBPhone-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.hdnastudio.$(PRODUCT_NAME:rfc1034identifier).ios";
