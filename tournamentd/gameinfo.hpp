@@ -218,7 +218,7 @@ public:
     // ----- seating -----
 
     // pre-game player seeting, with expected number of players (to predict table count)
-    std::vector<td::player_movement> plan_seating(std::size_t max_expected_players);
+    std::vector<td::player_movement> plan_seating(std::size_t max_expected);
 
     // add player to an existing game, returning a message (either player_seated or already_seated) and player's seat
     // returns player's seat
@@ -241,7 +241,7 @@ public:
     void fund_player(const td::player_id_t& player_id, const td::funding_source_id_t& src);
 
     // calculate number of chips per denomination for this funding source, given totals and number of players
-    std::vector<td::player_chips> chips_for_buyin(const td::funding_source_id_t& src, std::size_t max_expected_players) const;
+    std::vector<td::player_chips> chips_for_buyin(const td::funding_source_id_t& src, std::size_t max_expected) const;
 
     // ----- both seating and funding -----
 

@@ -909,7 +909,7 @@ std::vector<td::player_movement> gameinfo::rebalance_seating()
     if(this->table_count > 1)
     {
         logger(ll::info) << "attemptying to break a table\n";
-        
+
         // break tables while (player_count-1) div table_capacity < tables
         while(this->seats.size() <= this->table_capacity * (this->table_count-1))
         {
@@ -1764,7 +1764,7 @@ void gameinfo::update()
     {
         // advance to next blind
         auto offset(std::chrono::duration_cast<duration_t>(this->end_of_break - this->now()));
-        if(this->next_blind_level(offset) == false) {
+        if(!this->next_blind_level(offset)) {
             // if we're at the last blind level, stop the tournament
             this->stop();
         }

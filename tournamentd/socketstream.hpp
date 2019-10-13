@@ -49,13 +49,13 @@ public:
         }
     }
 
-    basic_socketstreambuf(basic_socketstreambuf&& other) : sock(other.sock), ibuf(other.ibuf), obuf(other.obuf)
+    basic_socketstreambuf(basic_socketstreambuf&& other) noexcept : sock(other.sock), ibuf(other.ibuf), obuf(other.obuf)
     {
         other.ibuf = nullptr;
         other.obuf = nullptr;
     }
 
-    basic_socketstreambuf& operator=(basic_socketstreambuf&& other)
+    basic_socketstreambuf& operator=(basic_socketstreambuf&& other) noexcept
     {
         this->sock = other.sock;
         this->ibuf = other.ibuf;
@@ -136,8 +136,8 @@ class basic_socketstream : public std::basic_iostream<T>
     basic_socketstreambuf<T> buf;
 public:
     explicit basic_socketstream(const common_socket& s) : std::basic_iostream<T>(&buf), buf(s) {}
-    basic_socketstream(basic_socketstream&& other) : std::basic_iostream<T>(&buf), buf(std::move(other.buf)) {}
-    basic_socketstream& operator=(basic_socketstream&& other) { buf = other.buf; }
+    basic_socketstream(basic_socketstream&& other) noexcept : std::basic_iostream<T>(&buf), buf(std::move(other.buf)) {}
+    basic_socketstream& operator=(basic_socketstream&& other) noexcept { buf = other.buf; }
 };
 
 typedef basic_socketstream<char> socketstream;

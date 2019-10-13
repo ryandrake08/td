@@ -91,17 +91,17 @@ struct bonjour_publisher::impl
     class avahi_error_category : public std::error_category
     {
     public:
-        virtual const char* name() const throw() override
+        const char* name() const throw() override
         {
             return "avahi";
         }
 
-        virtual bool equivalent (const std::error_code& code, int condition) const throw() override
+        bool equivalent (const std::error_code& code, int condition) const throw() override
         {
             return *this==code.category() && static_cast<int>(default_error_condition(code.value()).value())==condition;
         }
 
-        virtual std::string message(int ev) const override
+        std::string message(int ev) const override
         {
             return avahi_strerror(ev);
         }
@@ -265,7 +265,7 @@ struct bonjour_publisher::impl
 
         void add_service(const std::string& name, int port)
         {
-            if(avahi_entry_group_is_empty(this->group))
+            if(avahi_entry_group_is_empty(this->group) != 0)
             {
                 logger(ll::info) << "adding avahi service: " << name << ", port: " << port << '\n';
 

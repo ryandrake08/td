@@ -54,7 +54,7 @@ namespace td
         datetime added_at;
 
         authorized_client();
-        authorized_client(int c, const std::string& name);
+        authorized_client(int c, const std::string& n);
     };
     void to_json(nlohmann::json& j, const td::authorized_client& p);
     void from_json(const nlohmann::json& j, td::authorized_client& p);
@@ -128,7 +128,7 @@ namespace td
         double amount;
         monetary_value_nocurrency();
         explicit monetary_value_nocurrency(double amt);
-        
+
         // equality
         bool operator==(const monetary_value_nocurrency& other) const;
     };

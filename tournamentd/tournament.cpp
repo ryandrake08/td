@@ -868,7 +868,7 @@ public:
     {
         // look in environment for better temp dir
         auto tmpdir(std::getenv("TMPDIR"));
-        if(tmpdir)
+        if(tmpdir != nullptr)
         {
             this->snapshot_path = std::string(tmpdir) + "/tournamentd.snapshot.json";
         }
