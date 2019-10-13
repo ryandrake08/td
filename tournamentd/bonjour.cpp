@@ -413,7 +413,7 @@ struct bonjour_publisher::impl
     }
 
 public:
-    impl(const std:string& name, int port) : client(nullptr), poller(new avahi_poller()), group(new avahi_group(name, port))
+    impl(const std::string& name, int port) : client(nullptr), poller(new avahi_poller()), group(new avahi_group(name, port))
     {
         logger(ll::info) << "setting up avahi service for " << name << " with port " << port << '\n';
 
