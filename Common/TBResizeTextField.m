@@ -65,7 +65,7 @@
         // set the font
         [self setFont:newFont];
     } else {
-        NSLog(@"TBResizeTextField: minFontSize %f too large for rect", [self minFontSize]);
+        NSLog(@"TBResizeTextField: minFontSize %f too large for rect %@", [self minFontSize], NSStringFromSize(NSSizeFromCGSize(self.frame.size)));
     }
 }
 
