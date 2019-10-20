@@ -73,13 +73,30 @@
                                     </items>
                                 </menu>
                             </menuItem>
-                            <menuItem title="Help" id="grr-Gd-51H">
+                            <menuItem title="View" id="grr-Gd-51H">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="Help" systemMenu="help" id="ZKS-Ce-ak4">
+                                <menu key="submenu" title="View" systemMenu="help" id="ZKS-Ce-ak4">
                                     <items>
-                                        <menuItem title="TBViewer Help" keyEquivalent="?" id="Q3W-rf-Dd9">
+                                        <menuItem title="Show / Hide Main Display" keyEquivalent="d" id="QkS-HQ-njC">
                                             <connections>
-                                                <action selector="showHelp:" target="l0r-f1-Xxh" id="Yg8-df-JE8"/>
+                                                <action selector="displayTapped:" target="l0r-f1-Xxh" id="bjY-tq-Xzd"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Show / Hide Seating Chart" keyEquivalent="D" id="mPs-Wq-Hbv">
+                                            <connections>
+                                                <action selector="seatingChartTapped:" target="l0r-f1-Xxh" id="fip-YU-A3E"/>
+                                            </connections>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                            </menuItem>
+                            <menuItem title="Help" id="hC9-H9-0Ya">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="Help" systemMenu="help" id="I8d-4w-eeE">
+                                    <items>
+                                        <menuItem title="TBViewer Help" keyEquivalent="?" id="h8H-iR-K8A">
+                                            <connections>
+                                                <action selector="showHelp:" target="l0r-f1-Xxh" id="2nh-iZ-I4A"/>
                                             </connections>
                                         </menuItem>
                                     </items>
@@ -108,16 +125,16 @@
             </objects>
             <point key="canvasLocation" x="893" y="-314"/>
         </scene>
-        <!--Root Window-->
+        <!--Viewer Window-->
         <scene sceneID="uJB-YA-iUW">
             <objects>
-                <windowController storyboardIdentifier="PlayerWindowController" id="aTR-5q-4as" userLabel="Root Window" sceneMemberID="viewController">
+                <windowController storyboardIdentifier="PlayerWindowController" id="aTR-5q-4as" userLabel="Viewer Window" sceneMemberID="viewController">
                     <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" frameAutosaveName="" animationBehavior="default" id="Zol-Ci-1A7">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowCollectionBehavior key="collectionBehavior" fullScreenPrimary="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="0.0" y="0.0" width="1024" height="768"/>
-                        <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1418"/>
+                        <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
                         <value key="minSize" type="size" width="608" height="720"/>
                         <connections>
                             <outlet property="delegate" destination="aTR-5q-4as" id="XYz-uT-6fh"/>
@@ -442,11 +459,11 @@
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
                                                         <tableCellView id="5xM-ud-r4f">
-                                                            <rect key="frame" x="0.0" y="0.0" width="256" height="94"/>
-                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="256" height="64"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                                             <subviews>
                                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qip-et-a95" userLabel="Place" customClass="TBResizeTextField">
-                                                                    <rect key="frame" x="0.0" y="64" width="75" height="32"/>
+                                                                    <rect key="frame" x="0.0" y="34" width="75" height="32"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="800th" id="9be-oy-jIz" customClass="RSVerticallyCenteredTextFieldCell">
                                                                         <numberFormatter key="formatter" formatterBehavior="default10_4" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="0" maximumIntegerDigits="42" id="VgI-WC-EKs" customClass="TTTOrdinalNumberFormatter"/>
@@ -460,7 +477,7 @@
                                                                     </connections>
                                                                 </textField>
                                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dJ7-QL-wNF">
-                                                                    <rect key="frame" x="76" y="65" width="18" height="32"/>
+                                                                    <rect key="frame" x="76" y="35" width="18" height="32"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="justified" title=":" id="3LW-Lu-lPi" customClass="RSVerticallyCenteredTextFieldCell">
                                                                         <font key="font" metaFont="system" size="26"/>
@@ -472,7 +489,7 @@
                                                                     </connections>
                                                                 </textField>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gfD-It-BPt" userLabel="Player" customClass="TBResizeTextField">
-                                                                    <rect key="frame" x="88" y="64" width="167" height="32"/>
+                                                                    <rect key="frame" x="88" y="34" width="167" height="32"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Player Name" usesSingleLineMode="YES" id="ux5-gY-whW" customClass="RSVerticallyCenteredTextFieldCell">
                                                                         <font key="font" metaFont="system" size="26"/>
@@ -489,9 +506,13 @@
                                                                         <binding destination="qiy-ws-jFz" name="textColor" keyPath="self.textColor" id="eq3-iJ-V5s"/>
                                                                     </connections>
                                                                 </textField>
+                                                                <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="ogx-nJ-RX5">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="256" height="5"/>
+                                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                                                </box>
                                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ite-mU-TrB" userLabel="Payout" customClass="TBResizeTextField">
-                                                                    <rect key="frame" x="0.0" y="16" width="254" height="43"/>
-                                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                                                    <rect key="frame" x="1" y="2" width="254" height="32"/>
+                                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="$100" id="zD8-Hh-Low" customClass="RSVerticallyCenteredTextFieldCell">
                                                                         <numberFormatter key="formatter" formatterBehavior="custom10_4" numberStyle="currency" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" minimumFractionDigits="2" maximumFractionDigits="2" id="i4b-LB-jFG" userLabel="Payout Formatter" customClass="TBCurrencyNumberFormatter">
                                                                             <real key="minimum" value="0.0"/>
@@ -505,10 +526,6 @@
                                                                         <binding destination="qiy-ws-jFz" name="textColor" keyPath="self.textColor" id="7Za-PY-L8b"/>
                                                                     </connections>
                                                                 </textField>
-                                                                <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="ogx-nJ-RX5">
-                                                                    <rect key="frame" x="3" y="5" width="250" height="125"/>
-                                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                                                </box>
                                                             </subviews>
                                                             <connections>
                                                                 <outlet property="textField" destination="Ite-mU-TrB" id="KAy-6W-bc7"/>
@@ -552,7 +569,7 @@
                                         </connections>
                                     </textField>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8Ho-qG-zZk" customClass="TBResizeTextField">
-                                        <rect key="frame" x="0.0" y="356" width="256" height="47"/>
+                                        <rect key="frame" x="0.0" y="356" width="256" height="57"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="1" placeholderString="" usesSingleLineMode="YES" id="bWP-Ab-faQ">
                                             <font key="font" metaFont="system" size="48"/>
@@ -878,6 +895,119 @@ Gw
                 <customObject id="dbU-I8-ZDk" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="892" y="-61.5"/>
+        </scene>
+        <!--Seating Chart View Controller-->
+        <scene sceneID="mDU-Ar-7we">
+            <objects>
+                <viewController id="G7w-WP-Lbb" userLabel="Seating Chart View Controller" customClass="TBSeatingChartViewController" sceneMemberID="viewController">
+                    <view key="view" id="baE-bG-5Q6">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SjK-vv-Xr7" userLabel="Top Pane">
+                                <rect key="frame" x="0.0" y="672" width="1024" height="96"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <subviews>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uLm-YN-t5x" customClass="TBResizeTextField">
+                                        <rect key="frame" x="0.0" y="32" width="1024" height="64"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Non-Rebuy Tournament" placeholderString="" usesSingleLineMode="YES" id="q36-Tr-8eS" customClass="RSVerticallyCenteredTextFieldCell">
+                                            <font key="font" metaFont="system" size="48"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="minFontSize">
+                                                <real key="value" value="24"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <binding destination="G7w-WP-Lbb" name="value" keyPath="self.session.state.name" id="wYv-RP-9g3"/>
+                                            <binding destination="G7w-WP-Lbb" name="textColor" keyPath="self.textColor" id="F6d-Nj-idl"/>
+                                        </connections>
+                                    </textField>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jLN-q3-XGB" customClass="TBResizeTextField">
+                                        <rect key="frame" x="0.0" y="0.0" width="1024" height="32"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="$20 Buy-in, No rebuys, No add-ons" placeholderString="" usesSingleLineMode="YES" id="SBg-ss-H8O" customClass="RSVerticallyCenteredTextFieldCell">
+                                            <font key="font" metaFont="system" size="24"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="minFontSize">
+                                                <real key="value" value="12"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <binding destination="G7w-WP-Lbb" name="value" keyPath="self.session.state.buyin_text" id="Bgs-B6-gni"/>
+                                            <binding destination="G7w-WP-Lbb" name="textColor" keyPath="self.textColor" id="8W3-zG-kZG"/>
+                                        </connections>
+                                    </textField>
+                                </subviews>
+                            </customView>
+                            <scrollView wantsLayer="YES" fixedFrame="YES" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lgD-hf-6LU">
+                                <rect key="frame" x="0.0" y="0.0" width="1024" height="672"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <clipView key="contentView" ambiguous="YES" id="1oW-ca-dBC">
+                                    <rect key="frame" x="1" y="1" width="1022" height="670"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <collectionView ambiguous="YES" id="QOz-JK-rAf">
+                                            <rect key="frame" x="0.0" y="0.0" width="1022" height="158"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                                            <collectionViewFlowLayout key="collectionViewLayout" minimumInteritemSpacing="32" minimumLineSpacing="32" id="j46-8Q-N0h">
+                                                <size key="itemSize" width="320" height="240"/>
+                                            </collectionViewFlowLayout>
+                                            <color key="primaryBackgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="secondaryBackgroundColor" name="controlAlternatingRowColor" catalog="System" colorSpace="catalog"/>
+                                            <connections>
+                                                <outlet property="dataSource" destination="G7w-WP-Lbb" id="ZMG-Rp-Hf8"/>
+                                            </connections>
+                                        </collectionView>
+                                    </subviews>
+                                </clipView>
+                                <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="DWL-UK-gIc">
+                                    <rect key="frame" x="1" y="144" width="233" height="15"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                                <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="mMI-oD-cAl">
+                                    <rect key="frame" x="234" y="1" width="15" height="143"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                            </scrollView>
+                        </subviews>
+                    </view>
+                    <connections>
+                        <outlet property="collectionView" destination="QOz-JK-rAf" id="IKQ-gV-gK9"/>
+                    </connections>
+                </viewController>
+                <customObject id="wRh-ed-5zu" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1166" y="1175"/>
+        </scene>
+        <!--Seating Chart Window-->
+        <scene sceneID="YDg-TQ-R8a">
+            <objects>
+                <windowController storyboardIdentifier="SeatingChartWindowController" id="qJl-CM-hjy" userLabel="Seating Chart Window" sceneMemberID="viewController">
+                    <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" frameAutosaveName="" animationBehavior="default" id="IHc-8Q-sIe">
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+                        <windowCollectionBehavior key="collectionBehavior" fullScreenPrimary="YES"/>
+                        <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+                        <rect key="contentRect" x="0.0" y="0.0" width="1024" height="768"/>
+                        <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
+                        <value key="minSize" type="size" width="608" height="720"/>
+                        <connections>
+                            <outlet property="delegate" destination="qJl-CM-hjy" id="w3h-m5-30e"/>
+                        </connections>
+                    </window>
+                    <connections>
+                        <segue destination="G7w-WP-Lbb" kind="relationship" relationship="window.shadowedContentViewController" id="bTb-f9-CET"/>
+                    </connections>
+                </windowController>
+                <customObject id="k88-za-d62" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1166" y="256"/>
         </scene>
     </scenes>
     <resources>

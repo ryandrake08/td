@@ -632,16 +632,15 @@ std::vector<std::vector<td::player_id_t> > gameinfo::players_at_tables() const
 // utility: return name of given table number or seat number
 const std::string gameinfo::table_name(std::size_t table_number) const
 {
-    if(this->table_names.empty())
+    if(this->table_names.size() > table_number)
     {
-        // no table names configured. default to to_string of table index + 1 (table 0 -> "1")
-        return std::to_string(table_number+1);
+        // return table name (throws out_of_range if not enough table names configured, which shouldnt happen given above check)
+        return this->table_names.at(table_number);
     }
     else
     {
-        // return table name (throws out_of_range if not enough table names configured)
-        // TODO: handle insufficient table_names better
-        return this->table_names.at(table_number);
+        // no table name configured. default to to_string of table index + 1 (table 0 -> "1")
+        return std::to_string(table_number+1);
     }
 }
 

@@ -188,6 +188,12 @@
 		949D70A11B3C4411008D5CD1 /* tournament.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E71B3C3F8300A158F8 /* tournament.cpp */; };
 		949D70A21B3C441F008D5CD1 /* socket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E31B3C3F8300A158F8 /* socket.cpp */; };
 		949D70A31B3C441F008D5CD1 /* socket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E31B3C3F8300A158F8 /* socket.cpp */; };
+		949FC50D235450D300AEDA9B /* TBSeatingChartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 949FC50C235450D300AEDA9B /* TBSeatingChartViewController.m */; };
+		949FC50E235450D300AEDA9B /* TBSeatingChartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 949FC50C235450D300AEDA9B /* TBSeatingChartViewController.m */; };
+		949FC5112354597000AEDA9B /* TBSeatingChartCollectionViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 949FC5102354597000AEDA9B /* TBSeatingChartCollectionViewItem.m */; };
+		949FC5122354597000AEDA9B /* TBSeatingChartCollectionViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 949FC5102354597000AEDA9B /* TBSeatingChartCollectionViewItem.m */; };
+		94A0D64623558C88004A9696 /* TBSeatingChartCollectionViewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94A0D64523558C88004A9696 /* TBSeatingChartCollectionViewItem.xib */; };
+		94A0D64723558C88004A9696 /* TBSeatingChartCollectionViewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94A0D64523558C88004A9696 /* TBSeatingChartCollectionViewItem.xib */; };
 		94A7FCC12027E69B006AD3FC /* TBPayoutPolicyNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 94A7FCC02027E69B006AD3FC /* TBPayoutPolicyNumberFormatter.m */; };
 		94A7FCC22027E69B006AD3FC /* TBPayoutPolicyNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 94A7FCC02027E69B006AD3FC /* TBPayoutPolicyNumberFormatter.m */; };
 		94A7FCC52027EB30006AD3FC /* TBSetupDependsOnTurnoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94A7FCC42027EB30006AD3FC /* TBSetupDependsOnTurnoutViewController.m */; };
@@ -757,6 +763,11 @@
 		94983374205E000700DE6F33 /* TBSetupFilesFlowLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBSetupFilesFlowLayout.h; sourceTree = "<group>"; };
 		94983375205E000700DE6F33 /* TBSetupFilesFlowLayout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TBSetupFilesFlowLayout.m; sourceTree = "<group>"; };
 		94983377205E021300DE6F33 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.2.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
+		949FC50B235450D300AEDA9B /* TBSeatingChartViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBSeatingChartViewController.h; sourceTree = "<group>"; };
+		949FC50C235450D300AEDA9B /* TBSeatingChartViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TBSeatingChartViewController.m; sourceTree = "<group>"; };
+		949FC50F2354597000AEDA9B /* TBSeatingChartCollectionViewItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBSeatingChartCollectionViewItem.h; sourceTree = "<group>"; };
+		949FC5102354597000AEDA9B /* TBSeatingChartCollectionViewItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TBSeatingChartCollectionViewItem.m; sourceTree = "<group>"; };
+		94A0D64523558C88004A9696 /* TBSeatingChartCollectionViewItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = TBSeatingChartCollectionViewItem.xib; path = TBMac/TBSeatingChartCollectionViewItem.xib; sourceTree = "<group>"; };
 		94A4C3681D6A40BD00342E13 /* outputdebugstringbuf.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = outputdebugstringbuf.hpp; sourceTree = "<group>"; };
 		94A7FCBF2027E69B006AD3FC /* TBPayoutPolicyNumberFormatter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBPayoutPolicyNumberFormatter.h; sourceTree = "<group>"; };
 		94A7FCC02027E69B006AD3FC /* TBPayoutPolicyNumberFormatter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TBPayoutPolicyNumberFormatter.m; sourceTree = "<group>"; };
@@ -1383,6 +1394,11 @@
 				94C97041203A14B30055A28C /* TBPopoverSegue.m */,
 				ADCECE781B7B0D9D00767DA6 /* TBResultsViewController.h */,
 				ADCECE791B7B0D9D00767DA6 /* TBResultsViewController.m */,
+				949FC50B235450D300AEDA9B /* TBSeatingChartViewController.h */,
+				949FC50C235450D300AEDA9B /* TBSeatingChartViewController.m */,
+				949FC50F2354597000AEDA9B /* TBSeatingChartCollectionViewItem.h */,
+				949FC5102354597000AEDA9B /* TBSeatingChartCollectionViewItem.m */,
+				94A0D64523558C88004A9696 /* TBSeatingChartCollectionViewItem.xib */,
 				AD98D9711A7B343600DA6B8B /* TBSeatingViewController.h */,
 				AD98D9721A7B343600DA6B8B /* TBSeatingViewController.m */,
 				AD98D95F1A7B330B00DA6B8B /* TBSetupChipsViewController.h */,
@@ -1764,6 +1780,7 @@
 				94D04ED01B7C59EB004F4245 /* s_next.caf in Resources */,
 				94D04ED21B7C59EB004F4245 /* s_rebalance.caf in Resources */,
 				94D04ED41B7C59EB004F4245 /* s_start.caf in Resources */,
+				94A0D64723558C88004A9696 /* TBSeatingChartCollectionViewItem.xib in Resources */,
 				94D04ED61B7C59EB004F4245 /* s_warning.caf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1817,6 +1834,7 @@
 				9471B3F51FF8EBC4000A314C /* TBViewer.storyboard in Resources */,
 				94D04ECD1B7C59EB004F4245 /* s_break.caf in Resources */,
 				94D04ECF1B7C59EB004F4245 /* s_next.caf in Resources */,
+				94A0D64623558C88004A9696 /* TBSeatingChartCollectionViewItem.xib in Resources */,
 				94D04ED11B7C59EB004F4245 /* s_rebalance.caf in Resources */,
 				94D04ED31B7C59EB004F4245 /* s_start.caf in Resources */,
 				94D04ED51B7C59EB004F4245 /* s_warning.caf in Resources */,
@@ -1914,10 +1932,12 @@
 				9462A3F21B781A9A00B29002 /* RSVerticallyCenteredTextFieldCell.m in Sources */,
 				94BB5FFA1B7F9F1600B33929 /* NSString+CamelCase.m in Sources */,
 				94FDEAEF1B5AE2D60026B25D /* NSObject+FBKVOController.m in Sources */,
+				949FC50E235450D300AEDA9B /* TBSeatingChartViewController.m in Sources */,
 				94363BD0200E79C000D52155 /* TBError.m in Sources */,
 				94C2DA62200D0C62001B95B8 /* TBEllipseView.m in Sources */,
 				94C2DA85200D2AE7001B95B8 /* TBInvertableButton_macOS.m in Sources */,
 				943B00D11B3F429500CE55D4 /* gameinfo.cpp in Sources */,
+				949FC5122354597000AEDA9B /* TBSeatingChartCollectionViewItem.m in Sources */,
 				ADE299B01B7B9BCA00F1393B /* TBSound.m in Sources */,
 				94D04ED71B7C6A5B004F4245 /* TBCurrencyNumberFormatter.m in Sources */,
 				94FDEAEC1B5AE2D60026B25D /* NSData+Delimiter.m in Sources */,
@@ -2046,6 +2066,7 @@
 				94F466271B8AF203009BB648 /* TBCurrencyCodeTransformer.m in Sources */,
 				949D70941B3C43DB008D5CD1 /* tournament.cpp in Sources */,
 				AD98D96A1A7B33F100DA6B8B /* TBSetupPlayersViewController.m in Sources */,
+				949FC50D235450D300AEDA9B /* TBSeatingChartViewController.m in Sources */,
 				94E16F221B6C99840070F1BA /* TBResizeTextField.m in Sources */,
 				9471B3F71FF8EDAE000A314C /* TBActionClockSegue.m in Sources */,
 				94D7290620031960009EC463 /* TBAuthCodeViewController.m in Sources */,
@@ -2097,6 +2118,7 @@
 				AD75ACEE1BA3FD8800705967 /* TBEllipseImageView.m in Sources */,
 				ADCECE7D1B7B0D9D00767DA6 /* TBResultsViewController.m in Sources */,
 				9465F96B20540768008897D5 /* TBSetupPayoutsViewController.m in Sources */,
+				949FC5112354597000AEDA9B /* TBSeatingChartCollectionViewItem.m in Sources */,
 				94C97037203A01080055A28C /* TBSetupFundingDetailsViewController.m in Sources */,
 				945410741B6E5C56001E3373 /* NSDateFormatter+ISO8601.m in Sources */,
 				941916DC1B6F215F001253CA /* TBActionClockView.m in Sources */,

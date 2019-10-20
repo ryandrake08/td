@@ -15,6 +15,7 @@
 #import "TBPlanViewController.h"
 #import "TBSetupViewController.h"
 #import "TBViewerViewController.h"
+#import "TBSeatingChartViewController.h"
 #import "TournamentSession.h"
 
 @interface TBMacWindowController () <NSWindowDelegate>
@@ -24,6 +25,9 @@
 
 // Viewer window controller
 @property (nonatomic, strong) NSWindowController* viewerWindowController;
+
+// Seating chart window controller
+@property (nonatomic, strong) NSWindowController* seatingChartWindowController;
 
 // current player movements
 @property (nonatomic, strong) NSMutableArray* playerMovements;
@@ -38,19 +42,24 @@
     // create player movements
     [self setPlayerMovements:[[NSMutableArray alloc] init]];
 
-    // setup player window
+    // setup display and seating chart windows
     NSStoryboard* viewerStoryboard = [NSStoryboard storyboardWithName:@"TBViewer" bundle:[NSBundle mainBundle]];
-    [self setViewerWindowController:[viewerStoryboard instantiateInitialController]];
+    [self setViewerWindowController:[viewerStoryboard instantiateControllerWithIdentifier:@"PlayerWindowController"]];
+    [self setSeatingChartWindowController:[viewerStoryboard instantiateControllerWithIdentifier:@"SeatingChartWindowController"]];
 
-    // keep this our content view controller, window, and window controller in the responder chain when the viewer window is open
+    // add new windows into the responder chain
     [self setNextResponder:[[self viewerWindowController] nextResponder]];
-    [[self viewerWindowController] setNextResponder:[self contentViewController]];
+    [[self viewerWindowController] setNextResponder:[self seatingChartWindowController]];
+    [[self seatingChartWindowController] setNextResponder:[self contentViewController]];
 
     // register for KVO
     [[self KVOController] observe:self keyPath:@"document" options:0 block:^(id observer, TBMacWindowController* object, NSDictionary* change) {
-        // setup player view controller
+        // setup other windows' view controllers
         TBViewerViewController* viewerViewController = (TBViewerViewController*)[[object viewerWindowController] contentViewController];
         [viewerViewController setSession:[(TBMacDocument*)[object document] session]];
+
+        TBSeatingChartViewController* seatingChartViewController = (TBSeatingChartViewController*)[[object seatingChartWindowController] contentViewController];
+        [seatingChartViewController setSession:[(TBMacDocument*)[object document] session]];
     }];
 
     // register for notifications
@@ -116,6 +125,7 @@
 - (void)windowWillClose:(NSNotification *)notification {
     // close all other windows
     [[self viewerWindowController] close];
+    [[self seatingChartWindowController] close];
 }
 
 #pragma mark Actions
@@ -134,6 +144,24 @@
             NSScreen* screen = [NSScreen screens][1];
             [[[self viewerWindowController] window] setFrame: [screen frame] display:YES animate:NO];
             [[[self viewerWindowController] window] makeKeyAndOrderFront:screen];
+        }
+    }
+}
+
+- (IBAction)seatingChartTapped:(id)sender {
+    if([[[self seatingChartWindowController] window] isVisible]) {
+        // close viewer window
+        [[self seatingChartWindowController] close];
+    } else {
+        // display viewer window as non-modal
+        [[self seatingChartWindowController] showWindow:self];
+
+        // move to second screen if possible
+        NSArray* screens = [NSScreen screens];
+        if([screens count] > 1) {
+            NSScreen* screen = [NSScreen screens][1];
+            [[[self seatingChartWindowController] window] setFrame: [screen frame] display:YES animate:NO];
+            [[[self seatingChartWindowController] window] makeKeyAndOrderFront:screen];
         }
     }
 }

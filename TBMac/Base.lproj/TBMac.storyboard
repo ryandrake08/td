@@ -237,11 +237,6 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="JPM-Je-wgT"/>
-                                        <menuItem title="Show / Hide Main Display" keyEquivalent="d" id="1g9-67-q7x">
-                                            <connections>
-                                                <action selector="displayTapped:" target="dLJ-5r-r8L" id="hck-fp-Lha"/>
-                                            </connections>
-                                        </menuItem>
                                         <menuItem title="Show Player Moves..." id="qmA-yM-Ssm">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
@@ -297,6 +292,17 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="View" id="Cg5-tz-C6j">
                                     <items>
+                                        <menuItem title="Show / Hide Main Display" keyEquivalent="d" id="1g9-67-q7x">
+                                            <connections>
+                                                <action selector="displayTapped:" target="dLJ-5r-r8L" id="hck-fp-Lha"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Show / Hide Seating Chart" keyEquivalent="D" id="wUc-nc-p1e">
+                                            <connections>
+                                                <action selector="seatingChartTapped:" target="dLJ-5r-r8L" id="ViC-kB-HAP"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="7fY-tO-pm3"/>
                                         <menuItem title="Show Toolbar" keyEquivalent="t" id="HWj-k7-krR">
                                             <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                             <connections>
@@ -417,6 +423,11 @@
                                 <toolbarItem implicitItemIdentifier="4A9598AD-BDEB-4F5A-9AB0-A1F06B53CF6C" label="Display" paletteLabel="Display" tag="-1" image="b_display" id="9Gq-SN-JDg">
                                     <connections>
                                         <action selector="displayTapped:" target="bjE-D6-6zO" id="hhw-vi-Xdr"/>
+                                    </connections>
+                                </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="07A6E69B-7A5E-47B6-AD1A-81BBD5A7D060" label="Seating" paletteLabel="Seating Chart" tag="-1" image="b_seating" id="0TS-ul-Df9">
+                                    <connections>
+                                        <action selector="seatingChartTapped:" target="bjE-D6-6zO" id="pcZ-fZ-dmB"/>
                                     </connections>
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="81AF0BFE-7EDF-4CAD-A052-FEC82EE2E16C" label="Moves" paletteLabel="Player Moves" tag="-1" image="b_move" id="xdp-J0-N7z" customClass="NSToolbarBadgedItem">
@@ -4436,6 +4447,7 @@ DQ
         <image name="b_restart" width="32" height="32"/>
         <image name="b_rocket" width="32" height="32"/>
         <image name="b_seat" width="32" height="32"/>
+        <image name="b_seating" width="32" height="32"/>
         <image name="b_stop" width="32" height="32"/>
         <image name="b_table" width="32" height="32"/>
         <image name="m_addon" width="32" height="32"/>

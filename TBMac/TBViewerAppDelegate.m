@@ -12,6 +12,7 @@
 #import "TournamentSession.h"
 #import "TournamentService.h"
 #import "TBViewerViewController.h"
+#import "TBSeatingChartViewController.h"
 #import "TBConnectToViewController.h"
 #import "TBUserNotificationDelegate.h"
 #import "TBNotificationAttributes.h"
@@ -32,6 +33,12 @@
 // notification scheduler
 @property (nonatomic, strong) TBUserNotificationDelegate* notificationDelegate;
 
+// Viewer window controller
+@property (nonatomic, strong) IBOutlet NSWindowController* viewerWindowController;
+
+// Seating chart window controller
+@property (nonatomic, strong) IBOutlet NSWindowController* seatingChartWindowController;
+
 @end
 
 @implementation TBViewerAppDelegate
@@ -40,9 +47,18 @@
     // set tournament session delegate
     [[self session] setDelegate:self];
 
-    // player view controller
-    id playerViewController = (TBViewerViewController*)[[[[NSApplication sharedApplication] mainWindow] windowController] contentViewController];
-    [playerViewController setSession:[self session]];
+    // setup display and seating chart windows
+    NSStoryboard* viewerStoryboard = [NSStoryboard storyboardWithName:@"TBViewer" bundle:[NSBundle mainBundle]];
+    [self setViewerWindowController:[[[NSApplication sharedApplication] mainWindow] windowController]];
+//    [self setViewerWindowController:[viewerStoryboard instantiateControllerWithIdentifier:@"PlayerWindowController"]];
+    [self setSeatingChartWindowController:[viewerStoryboard instantiateControllerWithIdentifier:@"SeatingChartWindowController"]];
+
+    // setup other windows' view controllers
+    TBViewerViewController* viewerViewController = (TBViewerViewController*)[[self viewerWindowController] contentViewController];
+    [viewerViewController setSession:[self session]];
+
+    TBSeatingChartViewController* seatingChartViewController = (TBSeatingChartViewController*)[[self seatingChartWindowController] contentViewController];
+    [seatingChartViewController setSession:[self session]];
 
     // update the menu
     [self updateMenuWithBrowser:[self browser]];
@@ -134,6 +150,26 @@
         TBConnectToViewController* vc = [segue destinationController];
         [vc setSession:[self session]];
         [vc setPort:kTournamentServiceDefaultPort];
+    }
+}
+
+- (IBAction)displayTapped:(id)sender {
+    if([[[self viewerWindowController] window] isVisible]) {
+        // close viewer window
+        [[self viewerWindowController] close];
+    } else {
+        // display viewer window as non-modal
+        [[self viewerWindowController] showWindow:self];
+    }
+}
+
+- (IBAction)seatingChartTapped:(id)sender {
+    if([[[self seatingChartWindowController] window] isVisible]) {
+        // close viewer window
+        [[self seatingChartWindowController] close];
+    } else {
+        // display viewer window as non-modal
+        [[self seatingChartWindowController] showWindow:self];
     }
 }
 
