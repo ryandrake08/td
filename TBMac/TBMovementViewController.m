@@ -34,8 +34,7 @@
         [[self titleTextField] setStringValue:NSLocalizedString(@"Move players:", nil)];
     }
 
-    // size view content according to number of objects (max: 4)
-    cellsToShow = cellsToShow > 4 ? 4 : cellsToShow;
+    // size view content according to number of objects
     CGSize size = { 450.0f, cellsToShow * 40.0f + 116.0f };
     [self setPreferredContentSize:size];
 }
