@@ -250,6 +250,8 @@ namespace td
         seated_player();
         seated_player(const player_id_t& p, const std::string& n, bool b);
         seated_player(const player_id_t& p, const std::string& n, bool b, const std::string& t, const std::string& s);
+        // represents an empty seat
+        seated_player(const std::string& t, const std::string& s);
 
         // is there a valid seat?
         bool is_seated() const;

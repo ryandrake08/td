@@ -159,6 +159,10 @@ td::seated_player::seated_player(const player_id_t& p, const std::string& n, boo
 {
 }
 
+td::seated_player::seated_player(const std::string& t, const std::string& s) : buyin(false), table_name(t), seat_name(s)
+{
+}
+
 bool td::seated_player::is_seated() const
 {
     return !this->table_name.empty() && !seat_name.empty();

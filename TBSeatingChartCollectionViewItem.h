@@ -11,12 +11,11 @@
 
 @interface TBSeatingChartCollectionViewItem : NSCollectionViewItem
 
-// The session
-@property (nonatomic, strong) TournamentSession* session;
+// Array of seats that represents this table. Data structure is the same as session.seated_players
+@property (nonatomic, copy) NSArray* seats;
 
-// Table name plus custom setter that sets filter
+// Table name
 @property (nonatomic, copy) NSString* tableName;
-- (void)setTableName:(NSString*)tableName;
 
 @end
 

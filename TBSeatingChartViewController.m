@@ -21,9 +21,6 @@
 // Text color
 @property (nonatomic, strong) TBColor* textColor;
 
-// Cache list of table names
-@property (nonatomic, strong) NSMutableArray* tableNames;
-
 @end
 
 @implementation TBSeatingChartViewController
@@ -33,9 +30,6 @@
 
     // alloc colors
     _textColor = [TBColor labelColor];
-
-    // alloc tableNames
-    _tableNames = [[NSMutableArray alloc] init];
 
     // update window title when tournament name changes
     [[self KVOController] observe:self keyPath:@"session.state.name" options:NSKeyValueObservingOptionInitial block:^(id observer, TBSeatingChartViewController* object, NSDictionary *change) {
@@ -48,16 +42,8 @@
     }];
 
     // update chart when seating changes
-    [[self KVOController] observe:self keyPaths:@[@"session.state.seated_players"] options:NSKeyValueObservingOptionInitial block:^(id observer, TBSeatingChartViewController* object, NSDictionary *change) {
-        // iterate throuhg list to find all table names
-        [[self tableNames] removeAllObjects];
-        for (NSDictionary* seatedPlayer in [[object session] state][@"seated_players"]) {
-            NSString* tableName = seatedPlayer[@"table_name"];
-            if([tableName length] && ![[self tableNames] containsObject:tableName]) {
-                [[self tableNames] addObject:tableName];
-            }
-        }
-        // reload
+    [[self KVOController] observe:self keyPaths:@[@"session.state.seated_players", @"session.state.empty_seated_players"] options:NSKeyValueObservingOptionInitial block:^(id observer, TBSeatingChartViewController* object, NSDictionary *change) {
+        // reload collectionView
         [[self collectionView] reloadData];
     }];
 
@@ -80,17 +66,42 @@
     TBSeatingChartCollectionViewItem* item;
 
     if([indexPath section] == 0) {
-        if([indexPath item] < [[self tableNames] count]) {
+
+        // compare vs expected number of tables
+        NSInteger tableCount = [[[self session] state][@"table_count"] integerValue];
+        if([indexPath item] < tableCount) {
             item = (TBSeatingChartCollectionViewItem*)[[self collectionView] makeItemWithIdentifier:@"TBSeatingChartCollectionViewItem" forIndexPath:indexPath];
 
-            // set session
-            [item setSession:[self session]];
+            // get table name for this item
+            NSArray* tablesPlaying = [[self session] state][@"tables_playing"];
+            NSString* tableName = tablesPlaying[[indexPath item]];
 
-            // set table name
-            [item setTableName:[self tableNames][[indexPath item]]];
+            // build up list of seats for this table
+            NSMutableArray* seats = [[NSMutableArray alloc] init];
+
+            // iterate through seated player list to find all seats with correct table name
+            NSArray* seatedPlayers = [[self session] state][@"seated_players"];
+            for(NSDictionary* seatedPlayer in seatedPlayers) {
+                if([tableName isEqualToString:seatedPlayer[@"table_name"]]) {
+                    [seats addObject:seatedPlayer];
+                }
+            }
+
+            // iterate through empty seats adding blank seats
+            NSArray* emptySeats = [[self session] state][@"empty_seated_players"];
+            for(NSDictionary* emptySeat in emptySeats) {
+                if([tableName isEqualToString:emptySeat[@"table_name"]]) {
+                    [seats addObject:emptySeat];
+                }
+            }
+
+            // set item attributes
+            [item setTableName:tableName];
+            [item setSeats:seats];
+
         } else {
-            NSLog(@"TBSeatingChartViewController collectionView:itemForRepresentedObjectAtIndexPath: requested item %zd but table_count is %@",
-                  [indexPath item], [[self session] state][@"table_count"] );
+            NSLog(@"TBSeatingChartViewController collectionView:itemForRepresentedObjectAtIndexPath: requested item %zd but table_count is %zd",
+                  [indexPath item], tableCount );
         }
     } else {
         NSLog(@"TBSeatingChartViewController collectionView:itemForRepresentedObjectAtIndexPath: invalid section");
@@ -100,7 +111,8 @@
 }
 
 - (NSInteger)collectionView:(NSCollectionView*)collectionView numberOfItemsInSection:(NSInteger)section {
-    return [[[self session] state][@"table_count"] integerValue];
+    NSInteger tableCount = [[[self session] state][@"table_count"] integerValue];
+    return tableCount;
 }
 
 @end

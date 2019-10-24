@@ -35,11 +35,4 @@
     [[self tableView] sizeToFit];
 }
 
-- (void)setTableName:(NSString*)tableName {
-    _tableName = [tableName copy];
-    
-    // filter predicate to not show empty seats
-    [[self arrayController] setFilterPredicate:[NSPredicate predicateWithFormat: @"table_name == %@ AND seat_name != nil", tableName]];
-}
-
 @end

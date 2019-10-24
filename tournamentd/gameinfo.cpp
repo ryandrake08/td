@@ -552,6 +552,22 @@ void gameinfo::dump_derived_state(nlohmann::json& state) const
         seated_players.push_back(find_seated_player(p.player_id));
     }
     state["seated_players"] = seated_players;
+
+    // "empty" seated players
+    std::vector<td::seated_player> empty_seated_players;
+    for(const auto& s : this->empty_seats)
+    {
+        empty_seated_players.push_back(td::seated_player(this->table_name(s.table_number), this->seat_name(s.seat_number)));
+    }
+    state["empty_seated_players"] = empty_seated_players;
+
+    // table names in play
+    std::vector<std::string> tables_playing(this->table_count);
+    for(size_t i(0); i<this->table_count; i++)
+    {
+        tables_playing[i] = this->table_name(i);
+    }
+    state["tables_playing"] = tables_playing;
 }
 
 // has internal state been updated since last check?
