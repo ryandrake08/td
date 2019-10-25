@@ -13,13 +13,16 @@
 #import "TBColor+CSS.h"
 #import "TournamentSession.h"
 
-@interface TBSeatingChartViewController () <NSCollectionViewDataSource>
+@interface TBSeatingChartViewController () <NSCollectionViewDataSource, NSCollectionViewDelegateFlowLayout>
 
 // array controller for objects managed by this view controller
 @property (nonatomic, strong) IBOutlet NSCollectionView* collectionView;
 
-// Text color
+// text color
 @property (nonatomic, strong) TBColor* textColor;
+
+// player lists per table
+@property (nonatomic, copy) NSMutableDictionary* tables;
 
 @end
 
@@ -30,6 +33,9 @@
 
     // alloc colors
     _textColor = [TBColor labelColor];
+
+    // alloc tables
+    _tables = [NSMutableDictionary dictionary];
 
     // update window title when tournament name changes
     [[self KVOController] observe:self keyPath:@"session.state.name" options:NSKeyValueObservingOptionInitial block:^(id observer, TBSeatingChartViewController* object, NSDictionary *change) {
@@ -43,6 +49,54 @@
 
     // update chart when seating changes
     [[self KVOController] observe:self keyPaths:@[@"session.state.seated_players", @"session.state.empty_seated_players"] options:NSKeyValueObservingOptionInitial block:^(id observer, TBSeatingChartViewController* object, NSDictionary *change) {
+
+        // delete existing tables and re-create
+        [[self tables] removeAllObjects];
+
+        // iterate through seated player list to build up our table_name keyed dictionary
+        NSArray* seatedPlayers = [[self session] state][@"seated_players"];
+        for(NSDictionary* seatedPlayer in seatedPlayers) {
+            // given this player's table
+            NSString* tableName = seatedPlayer[@"table_name"];
+            if(tableName != nil) {
+                // look up the seating list
+                NSMutableArray* seats = [[self tables] objectForKey:tableName];
+
+                // create if needed
+                if(seats == nil) {
+                    seats = [NSMutableArray array];
+                }
+
+                // now add the seat
+                [seats addObject:seatedPlayer];
+
+                // set it into our dictionary
+                [[self tables] setObject:seats forKey:tableName];
+            }
+        }
+
+        // iterate through empty seats adding blank seats
+        NSArray* emptySeats = [[self session] state][@"empty_seated_players"];
+        for(NSDictionary* emptySeat in emptySeats) {
+            // given this empty seat's table
+            NSString* tableName = emptySeat[@"table_name"];
+            if(tableName != nil) {
+                // look up the seating list
+                NSMutableArray* seats = [[self tables] objectForKey:tableName];
+
+                // create if needed
+                if(seats == nil) {
+                    seats = [NSMutableArray array];
+                }
+
+                // now add the seat
+                [seats addObject:emptySeat];
+
+                // set it into our dictionary
+                [[self tables] setObject:seats forKey:tableName];
+            }
+        }
+
         // reload collectionView
         [[self collectionView] reloadData];
     }];
@@ -76,28 +130,9 @@
             NSArray* tablesPlaying = [[self session] state][@"tables_playing"];
             NSString* tableName = tablesPlaying[[indexPath item]];
 
-            // build up list of seats for this table
-            NSMutableArray* seats = [[NSMutableArray alloc] init];
-
-            // iterate through seated player list to find all seats with correct table name
-            NSArray* seatedPlayers = [[self session] state][@"seated_players"];
-            for(NSDictionary* seatedPlayer in seatedPlayers) {
-                if([tableName isEqualToString:seatedPlayer[@"table_name"]]) {
-                    [seats addObject:seatedPlayer];
-                }
-            }
-
-            // iterate through empty seats adding blank seats
-            NSArray* emptySeats = [[self session] state][@"empty_seated_players"];
-            for(NSDictionary* emptySeat in emptySeats) {
-                if([tableName isEqualToString:emptySeat[@"table_name"]]) {
-                    [seats addObject:emptySeat];
-                }
-            }
-
             // set item attributes
             [item setTableName:tableName];
-            [item setSeats:seats];
+            [item setSeats:[[self tables] objectForKey:tableName]];
 
         } else {
             NSLog(@"TBSeatingChartViewController collectionView:itemForRepresentedObjectAtIndexPath: requested item %zd but table_count is %zd",
@@ -114,5 +149,30 @@
     NSInteger tableCount = [[[self session] state][@"table_count"] integerValue];
     return tableCount;
 }
+
+#pragma mark NSCollectionViewDelegateFlowLayout
+
+- (NSSize)collectionView:(NSCollectionView*)collectionView layout:(NSCollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath*)indexPath {
+    // default size
+    NSSize size = NSMakeSize(320.0f, 108.0f);
+
+    // get table name for this item
+    NSArray* tablesPlaying = [[self session] state][@"tables_playing"];
+    NSString* tableName = tablesPlaying[[indexPath item]];
+
+    // look up seats
+    if(tableName != nil) {
+        // look up the seating list
+        NSArray* seats = [[self tables] objectForKey:tableName];
+
+        // if it exists, calculate height
+        if(seats != nil) {
+            size.height = 20.0f + 35.0f + 8.0f + 25.0f + 35.0f * [seats count] + 20.0f;
+        }
+    }
+
+    return size;
+}
+
 
 @end

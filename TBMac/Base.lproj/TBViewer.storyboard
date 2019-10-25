@@ -956,12 +956,11 @@ Gw
                                         <collectionView ambiguous="YES" id="QOz-JK-rAf">
                                             <rect key="frame" x="0.0" y="0.0" width="1024" height="672"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
-                                            <collectionViewFlowLayout key="collectionViewLayout" minimumInteritemSpacing="32" minimumLineSpacing="32" id="j46-8Q-N0h">
-                                                <size key="itemSize" width="320" height="398"/>
-                                            </collectionViewFlowLayout>
+                                            <collectionViewLayout key="collectionViewLayout" id="yQJ-XW-Nrk" customClass="TBSeatingChartCollectionViewFlowLayout"/>
                                             <color key="primaryBackgroundColor" name="windowBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <connections>
                                                 <outlet property="dataSource" destination="G7w-WP-Lbb" id="ZMG-Rp-Hf8"/>
+                                                <outlet property="delegate" destination="G7w-WP-Lbb" id="1ba-Mm-ywn"/>
                                             </connections>
                                         </collectionView>
                                     </subviews>
