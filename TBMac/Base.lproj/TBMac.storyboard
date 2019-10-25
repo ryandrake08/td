@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14868"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15400"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -462,7 +462,7 @@
                                     <nil key="toolTip"/>
                                     <size key="minSize" width="98" height="32"/>
                                     <size key="maxSize" width="99" height="32"/>
-                                    <textField key="view" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="6Rf-ZI-HFv" customClass="TBResizeTextField">
+                                    <textField key="view" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="6Rf-ZI-HFv">
                                         <rect key="frame" x="0.0" y="14" width="99" height="32"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="01:23:45" placeholderString="" usesSingleLineMode="YES" id="O6X-X7-7oP">
@@ -470,11 +470,6 @@
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="minFontSize">
-                                                <real key="value" value="12"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <binding destination="KGa-Ib-ddT" name="value" keyPath="self.document.session.state.clock_text" id="dJK-7w-7sg"/>
                                         </connections>
@@ -839,7 +834,7 @@
                                                             <rect key="frame" x="111" y="1" width="248" height="24"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
-                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="scL-ar-DBz" customClass="TBResizeTextField">
+                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="scL-ar-DBz">
                                                                     <rect key="frame" x="0.0" y="0.0" width="248" height="24"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                                     <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Player Name" usesSingleLineMode="YES" id="RfH-XU-hFl" customClass="RSVerticallyCenteredTextFieldCell">
@@ -847,11 +842,6 @@
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
-                                                                    <userDefinedRuntimeAttributes>
-                                                                        <userDefinedRuntimeAttribute type="number" keyPath="minFontSize">
-                                                                            <real key="value" value="10"/>
-                                                                        </userDefinedRuntimeAttribute>
-                                                                    </userDefinedRuntimeAttributes>
                                                                     <connections>
                                                                         <binding destination="V43-4X-cAE" name="value" keyPath="objectValue.name" id="M3U-MX-Kpn"/>
                                                                     </connections>
@@ -1480,7 +1470,7 @@ DQ
                                                             <rect key="frame" x="0.0" y="0.0" width="418" height="40"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
-                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="n25-3v-4qt" customClass="TBResizeTextField">
+                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="n25-3v-4qt">
                                                                     <rect key="frame" x="1" y="12" width="236" height="28"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" refusesFirstResponder="YES" sendsActionOnEndEditing="YES" title="Player Name" id="0da-1M-3JV" customClass="RSVerticallyCenteredTextFieldCell">
@@ -1488,11 +1478,6 @@ DQ
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
-                                                                    <userDefinedRuntimeAttributes>
-                                                                        <userDefinedRuntimeAttribute type="number" keyPath="minFontSize">
-                                                                            <real key="value" value="10"/>
-                                                                        </userDefinedRuntimeAttribute>
-                                                                    </userDefinedRuntimeAttributes>
                                                                     <connections>
                                                                         <binding destination="zY8-hh-Kk9" name="value" keyPath="objectValue.name" id="lgW-af-MFn"/>
                                                                     </connections>
@@ -1502,7 +1487,7 @@ DQ
                                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                                                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="b_table" id="7PI-ae-ETm"/>
                                                                 </imageView>
-                                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZZ9-fn-Y9a" customClass="TBResizeTextField">
+                                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZZ9-fn-Y9a">
                                                                     <rect key="frame" x="243" y="14" width="28" height="20"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="8" id="fF8-SK-Yz5" customClass="RSVerticallyCenteredTextFieldCell">
@@ -1510,11 +1495,6 @@ DQ
                                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
-                                                                    <userDefinedRuntimeAttributes>
-                                                                        <userDefinedRuntimeAttribute type="number" keyPath="minFontSize">
-                                                                            <real key="value" value="14"/>
-                                                                        </userDefinedRuntimeAttribute>
-                                                                    </userDefinedRuntimeAttributes>
                                                                     <connections>
                                                                         <binding destination="zY8-hh-Kk9" name="value" keyPath="objectValue.from_table_name" id="NtY-Qk-ZL2"/>
                                                                     </connections>
@@ -1524,7 +1504,7 @@ DQ
                                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                                                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="b_seat" id="I69-8X-1Eg"/>
                                                                 </imageView>
-                                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nHx-Ln-lFS" customClass="TBResizeTextField">
+                                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nHx-Ln-lFS">
                                                                     <rect key="frame" x="279" y="18" width="28" height="20"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="8" id="R18-X2-2Cj" customClass="RSVerticallyCenteredTextFieldCell">
@@ -1532,11 +1512,6 @@ DQ
                                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
-                                                                    <userDefinedRuntimeAttributes>
-                                                                        <userDefinedRuntimeAttribute type="number" keyPath="minFontSize">
-                                                                            <real key="value" value="14"/>
-                                                                        </userDefinedRuntimeAttribute>
-                                                                    </userDefinedRuntimeAttributes>
                                                                     <connections>
                                                                         <binding destination="zY8-hh-Kk9" name="value" keyPath="objectValue.from_seat_name" id="0h6-Dd-QVL"/>
                                                                     </connections>
@@ -1551,7 +1526,7 @@ DQ
                                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                                                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="b_table" id="Phm-X7-GvK"/>
                                                                 </imageView>
-                                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GvH-18-VpV" customClass="TBResizeTextField">
+                                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GvH-18-VpV">
                                                                     <rect key="frame" x="351" y="14" width="28" height="20"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="8" id="vIn-qr-YFl" customClass="RSVerticallyCenteredTextFieldCell">
@@ -1559,11 +1534,6 @@ DQ
                                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
-                                                                    <userDefinedRuntimeAttributes>
-                                                                        <userDefinedRuntimeAttribute type="number" keyPath="minFontSize">
-                                                                            <real key="value" value="14"/>
-                                                                        </userDefinedRuntimeAttribute>
-                                                                    </userDefinedRuntimeAttributes>
                                                                     <connections>
                                                                         <binding destination="zY8-hh-Kk9" name="value" keyPath="objectValue.to_table_name" id="zR8-7a-26z"/>
                                                                     </connections>
@@ -1573,7 +1543,7 @@ DQ
                                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                                                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="b_seat" id="PdE-n2-fD7"/>
                                                                 </imageView>
-                                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GhF-XD-idg" customClass="TBResizeTextField">
+                                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GhF-XD-idg">
                                                                     <rect key="frame" x="387" y="18" width="28" height="20"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="8" id="QhS-vy-zZt" customClass="RSVerticallyCenteredTextFieldCell">
@@ -1581,11 +1551,6 @@ DQ
                                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
-                                                                    <userDefinedRuntimeAttributes>
-                                                                        <userDefinedRuntimeAttribute type="number" keyPath="minFontSize">
-                                                                            <real key="value" value="14"/>
-                                                                        </userDefinedRuntimeAttribute>
-                                                                    </userDefinedRuntimeAttributes>
                                                                     <connections>
                                                                         <binding destination="zY8-hh-Kk9" name="value" keyPath="objectValue.to_seat_name" id="mnc-Ra-bgv"/>
                                                                     </connections>
@@ -4432,7 +4397,7 @@ DQ
         <image name="NSAddTemplate" width="11" height="11"/>
         <image name="NSListViewTemplate" width="14" height="10"/>
         <image name="NSRemoveTemplate" width="11" height="11"/>
-        <image name="b_arrow" width="32" height="32"/>
+        <image name="b_arrow" width="612" height="792"/>
         <image name="b_auth" width="32" height="32"/>
         <image name="b_call_clock" width="32" height="32"/>
         <image name="b_configure" width="32" height="32"/>

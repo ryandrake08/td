@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
     <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -256,29 +256,20 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="250" text="40000/80000" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="24" preferredMaxLayoutWidth="320" translatesAutoresizingMaskIntoConstraints="NO" id="8v5-57-KLb" userLabel="Current Blinds Label">
-                                                    <rect key="frame" x="0.0" y="18.5" width="320" height="108.5"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="250" text="100/200" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="24" preferredMaxLayoutWidth="320" translatesAutoresizingMaskIntoConstraints="NO" id="8v5-57-KLb" userLabel="Current Round Label">
+                                                    <rect key="frame" x="0.0" y="14.5" width="320" height="145.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="108"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Ante:10000" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="320" translatesAutoresizingMaskIntoConstraints="NO" id="lIY-yQ-SqJ" userLabel="Current Ante Label">
-                                                    <rect key="frame" x="0.0" y="127" width="320" height="29"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="lIY-yQ-SqJ" firstAttribute="top" secondItem="8v5-57-KLb" secondAttribute="bottom" id="Ddu-n2-E7v"/>
                                                 <constraint firstItem="l7m-mh-f7P" firstAttribute="top" secondItem="97A-hj-QtU" secondAttribute="top" id="MZu-f9-EDC"/>
                                                 <constraint firstItem="l7m-mh-f7P" firstAttribute="width" secondItem="97A-hj-QtU" secondAttribute="width" id="Mpz-a1-JOc"/>
                                                 <constraint firstItem="8v5-57-KLb" firstAttribute="width" secondItem="97A-hj-QtU" secondAttribute="width" id="QE6-SG-BhX"/>
-                                                <constraint firstItem="lIY-yQ-SqJ" firstAttribute="centerX" secondItem="97A-hj-QtU" secondAttribute="centerX" id="YMK-5i-8AO"/>
-                                                <constraint firstAttribute="bottom" secondItem="lIY-yQ-SqJ" secondAttribute="bottom" constant="4" id="hJm-KH-M0Q"/>
+                                                <constraint firstAttribute="bottom" secondItem="8v5-57-KLb" secondAttribute="bottom" id="hEZ-ur-ZJP"/>
                                                 <constraint firstItem="l7m-mh-f7P" firstAttribute="centerX" secondItem="97A-hj-QtU" secondAttribute="centerX" id="hTy-B8-Q13"/>
-                                                <constraint firstItem="lIY-yQ-SqJ" firstAttribute="width" secondItem="97A-hj-QtU" secondAttribute="width" id="pCt-Wf-DSs"/>
-                                                <constraint firstItem="8v5-57-KLb" firstAttribute="top" secondItem="l7m-mh-f7P" secondAttribute="bottom" constant="4" id="rVy-6w-4xt"/>
+                                                <constraint firstItem="8v5-57-KLb" firstAttribute="top" secondItem="l7m-mh-f7P" secondAttribute="bottom" id="rVy-6w-4xt"/>
                                                 <constraint firstItem="8v5-57-KLb" firstAttribute="centerX" secondItem="97A-hj-QtU" secondAttribute="centerX" id="xd9-5x-ZSG"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -298,8 +289,10 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="250" text="80000/160000 Ante:20000" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="iUc-XK-huR">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="250" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="iUc-XK-huR">
                                                     <rect key="frame" x="0.0" y="18.5" width="320" height="57.5"/>
+                                                    <string key="text">200/400
+Ante: 400</string>
                                                     <fontDescription key="fontDescription" type="system" pointSize="32"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -393,8 +386,7 @@
                         <outlet property="averageStackLabel" destination="XNj-02-a9q" id="z7p-U2-pz8"/>
                         <outlet property="callClockButton" destination="uSo-37-nWA" id="Qff-9f-Yrh"/>
                         <outlet property="clockLabel" destination="lvG-dk-XoB" id="tWg-gi-hcM"/>
-                        <outlet property="currentAnteLabel" destination="lIY-yQ-SqJ" id="ytU-mj-fNz"/>
-                        <outlet property="currentBlindsLabel" destination="8v5-57-KLb" id="N2I-DT-Du4"/>
+                        <outlet property="currentRoundLabel" destination="8v5-57-KLb" id="agv-bo-wTP"/>
                         <outlet property="elapsedLabel" destination="rzA-kD-6XA" id="hnz-6n-kPO"/>
                         <outlet property="nextRoundButton" destination="aQC-kA-VEz" id="WC6-qC-PsL"/>
                         <outlet property="nextRoundLabel" destination="iUc-XK-huR" id="hCw-Bg-4Zi"/>

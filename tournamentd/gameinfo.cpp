@@ -419,22 +419,9 @@ void gameinfo::dump_derived_state(nlohmann::json& state) const
 
             if(this->current_blind_level < this->blind_levels.size())
             {
-                // set blinds description
-                os << this->blind_levels[this->current_blind_level].little_blind << '/' << this->blind_levels[this->current_blind_level].big_blind;
-                state["current_round_blinds_text"] = os.str(); os.str("");
-
-                // set antes description
-                if(this->blind_levels[this->current_blind_level].ante_type == td::ante_type_t::traditional)
-                {
-                    // TODO: i18n
-                    os << "Ante:" << this->blind_levels[this->current_blind_level].ante;
-                }
-                else if(this->blind_levels[this->current_blind_level].ante_type == td::ante_type_t::bba)
-                {
-                    // TODO: i18n
-                    os << "BBA:" << this->blind_levels[this->current_blind_level].ante;
-                }
-                state["current_round_ante_text"] = os.str(); os.str("");
+                // set current round description
+                os << this->blind_levels[this->current_blind_level];
+                state["current_round_text"] = os.str(); os.str("");
 
                 // set next round description
                 if(this->blind_levels[this->current_blind_level].break_duration == 0)
@@ -446,7 +433,6 @@ void gameinfo::dump_derived_state(nlohmann::json& state) const
                     os << "BREAK"; // TODO: i18n
                 }
                 state["next_round_text"] = os.str(); os.str("");
-                // TODO: should next_round_text be broken into next_round_blinds_text and next_round_ante_text?
             }
         }
         else if(this->end_of_break != time_point_t() && now < this->end_of_break)
@@ -457,8 +443,8 @@ void gameinfo::dump_derived_state(nlohmann::json& state) const
             state["clock_remaining"] = break_time_remaining.count();
             state["on_break"] = true;
 
-            // describe break
-            state["current_round_blinds_text"] = "BREAK"; // TODO: i18n
+            // set current round description as break
+            state["current_round_text"] = "BREAK"; // TODO: i18n
 
             // set next round description
             if(this->current_blind_level+1 < this->blind_levels.size())

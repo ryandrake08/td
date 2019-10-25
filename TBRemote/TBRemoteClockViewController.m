@@ -29,8 +29,7 @@
 // ui
 @property (nonatomic, weak) IBOutlet UILabel* elapsedLabel;
 @property (nonatomic, weak) IBOutlet UILabel* clockLabel;
-@property (nonatomic, weak) IBOutlet UILabel* currentBlindsLabel;
-@property (nonatomic, weak) IBOutlet UILabel* currentAnteLabel;
+@property (nonatomic, weak) IBOutlet UILabel* currentRoundLabel;
 @property (nonatomic, weak) IBOutlet UILabel* nextRoundLabel;
 @property (nonatomic, weak) IBOutlet UILabel* playersLeftLabel;
 @property (nonatomic, weak) IBOutlet UILabel* averageStackLabel;
@@ -80,12 +79,8 @@
         [[observer clockLabel] setText:[[object session] state][@"clock_text"]];
     }];
 
-    [[self KVOController] observe:self keyPath:@"session.state.current_round_blinds_text" options:NSKeyValueObservingOptionInitial block:^(id observer, TBRemoteClockViewController* object, NSDictionary *change) {
-        [[observer currentBlindsLabel] setText:[[object session] state][@"current_round_blinds_text"]];
-    }];
-
-    [[self KVOController] observe:self keyPath:@"session.state.current_round_ante_text" options:NSKeyValueObservingOptionInitial block:^(id observer, TBRemoteClockViewController* object, NSDictionary *change) {
-        [[observer currentAnteLabel] setText:[[object session] state][@"current_round_ante_text"]];
+    [[self KVOController] observe:self keyPath:@"session.state.current_round_text" options:NSKeyValueObservingOptionInitial block:^(id observer, TBRemoteClockViewController* object, NSDictionary *change) {
+        [[observer currentRoundLabel] setText:[[object session] state][@"current_round_text"]];
     }];
 
     [[self KVOController] observe:self keyPath:@"session.state.next_round_text" options:NSKeyValueObservingOptionInitial block:^(id observer, TBRemoteClockViewController* object, NSDictionary *change) {

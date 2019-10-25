@@ -556,15 +556,10 @@ std::ostream& operator<<(std::ostream& os, const td::final_table_policy_t& value
 std::ostream& operator<<(std::ostream& os, const td::blind_level& level)
 {
     os << level.little_blind << '/' << level.big_blind;
-    if(level.ante_type == td::ante_type_t::traditional)
+    if(level.ante_type != td::ante_type_t::none)
     {
         // TODO: i18n
-        os << " Ante:" << level.ante;
-    }
-    else if(level.ante_type == td::ante_type_t::bba)
-    {
-        // TODO: i18n
-        os << " BBA:" << level.ante;
+        os << "\nAnte: " << level.ante;
     }
     return os;
 }

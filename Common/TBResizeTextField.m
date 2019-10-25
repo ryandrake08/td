@@ -14,7 +14,7 @@
 @property (nonatomic, assign) IBInspectable CGFloat minFontSize;
 
 // cut down on transient memory allocations by keeping font/size combos in this cache
-@property (nonatomic, strong) NSMutableArray* fontAttributesCache;
+@property (nonatomic, strong) NSMutableDictionary* fontAttributesCache;
 
 @end
 
@@ -29,7 +29,7 @@
 
     // create the cache if missing
     if([self fontAttributesCache] == nil) {
-        [self setFontAttributesCache:[[NSMutableArray alloc] init]];
+        [self setFontAttributesCache:[[NSMutableDictionary alloc] init]];
     }
 
     // start with a small font size and go larger until rect is larger than one of the frame's dimensions
@@ -44,21 +44,21 @@
         NSUInteger cacheIndex = (NSUInteger)(i - [self minFontSize]);
         if([[self fontAttributesCache] count] > cacheIndex) {
             // font exists in our cache, select it
-            tryFontAttributes = [self fontAttributesCache][cacheIndex];
+            tryFontAttributes = [[self fontAttributesCache] objectForKey:@(i)];
             tryFont = tryFontAttributes[NSFontAttributeName];
         } else {
             // allocate a new font
             tryFont = [NSFont fontWithName:[[self font] fontName] size:i];
             tryFontAttributes = @{NSFontAttributeName:tryFont};
             // insert into cache
-            [[self fontAttributesCache] insertObject:tryFontAttributes atIndex:cacheIndex];
+            [[self fontAttributesCache] setObject:tryFontAttributes forKey:@(i)];
         }
 
         // measure the selected font
         strSize = [[self stringValue] sizeWithAttributes:tryFontAttributes];
 
         // increment the size for possible next iteration
-        i++;
+        i *= 1.25f;
     } while(strSize.width < self.frame.size.width && strSize.height < self.frame.size.height);
 
     if(newFont != nil) {

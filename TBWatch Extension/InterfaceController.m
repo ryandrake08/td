@@ -15,8 +15,7 @@
 
 // ui
 @property (nonatomic, weak) IBOutlet WKInterfaceLabel* clockLabel;
-@property (nonatomic, weak) IBOutlet WKInterfaceLabel* currentBlindsLabel;
-@property (nonatomic, weak) IBOutlet WKInterfaceLabel* currentAnteLabel;
+@property (nonatomic, weak) IBOutlet WKInterfaceLabel* currentRoundLabel;
 @property (nonatomic, weak) IBOutlet WKInterfaceLabel* nextRoundLabel;
 @property (nonatomic, weak) IBOutlet WKInterfaceLabel* playersLeftLabel;
 @property (nonatomic, weak) IBOutlet WKInterfaceLabel* averageStackLabel;
@@ -120,12 +119,8 @@
             [self updateClockLabel];
         }
 
-        if(state[@"current_round_blinds_text"]) {
-            [[self currentBlindsLabel] setText:state[@"current_round_blinds_text"]];
-        }
-
-        if(state[@"current_round_ante_text"]) {
-            [[self currentAnteLabel] setText:state[@"current_round_ante_text"]];
+        if(state[@"current_round_text"]) {
+            [[self currentRoundLabel] setText:state[@"current_round_text"]];
         }
 
         if(state[@"next_round_text"]) {

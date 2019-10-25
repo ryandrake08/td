@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="14868" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="15400" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
     <device id="watch38"/>
     <dependencies>
         <deployment identifier="watchOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="14643"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="15400"/>
     </dependencies>
     <scenes>
         <!--Interface Controller-->
@@ -14,14 +14,13 @@
                     <items>
                         <group width="1" alignment="left" layout="vertical" id="cQx-30-C5d">
                             <items>
-                                <label alignment="center" text="0:59:59" minimumScaleFactor="0.80000000000000004" id="jfh-q1-fMz">
+                                <label alignment="center" text="0:59:59" textAlignment="center" minimumScaleFactor="0.80000000000000004" id="jfh-q1-fMz">
                                     <fontDescription key="font" type="boldSystem" pointSize="40"/>
                                 </label>
-                                <label alignment="center" text="25/50" minimumScaleFactor="0.29999999999999999" id="yNz-nR-m2D" userLabel="Current Blinds Label">
+                                <label alignment="center" textAlignment="center" numberOfLines="0" minimumScaleFactor="0.29999999999999999" id="yNz-nR-m2D" userLabel="Current Blinds Label">
+                                    <string key="text">100/200
+Ante: 200</string>
                                     <fontDescription key="font" type="system" pointSize="30"/>
-                                </label>
-                                <label alignment="center" text="Ante:25" minimumScaleFactor="0.29999999999999999" id="cvE-eL-V7D" userLabel="Current Ante Label">
-                                    <fontDescription key="font" type="system" pointSize="18"/>
                                 </label>
                             </items>
                         </group>
@@ -55,18 +54,20 @@
                         </group>
                         <group width="1" alignment="left" layout="vertical" id="Qmz-R9-uUw">
                             <items>
-                                <label alignment="center" text="Next Round" id="wq8-vl-cbU"/>
-                                <label alignment="center" text="25/50" minimumScaleFactor="0.29999999999999999" id="hrK-J4-yV0">
+                                <label alignment="center" text="Next Round" textAlignment="center" id="wq8-vl-cbU"/>
+                                <label alignment="center" textAlignment="center" numberOfLines="0" minimumScaleFactor="0.29999999999999999" id="hrK-J4-yV0">
+                                    <string key="text">200/400
+Ante: 400</string>
                                     <fontDescription key="font" type="system" pointSize="30"/>
                                 </label>
                                 <separator alignment="left" id="9MT-mW-7sA"/>
-                                <label alignment="center" text="Players Left" id="cCT-0o-vr8"/>
-                                <label alignment="center" text="20" id="cXr-82-vmZ">
+                                <label alignment="center" text="Players Left" textAlignment="center" id="cCT-0o-vr8"/>
+                                <label alignment="center" text="20" textAlignment="center" id="cXr-82-vmZ">
                                     <fontDescription key="font" type="system" pointSize="30"/>
                                 </label>
                                 <separator alignment="left" id="jiK-hl-yIV"/>
                                 <label alignment="center" text="Average Stack" id="eyC-E0-sji"/>
-                                <label alignment="center" text="1,000" minimumScaleFactor="0.80000000000000004" id="5nn-ha-mOM">
+                                <label alignment="center" text="1,000" textAlignment="center" minimumScaleFactor="0.80000000000000004" id="5nn-ha-mOM">
                                     <fontDescription key="font" type="system" pointSize="30"/>
                                 </label>
                             </items>
@@ -76,8 +77,7 @@
                         <outlet property="averageStackLabel" destination="5nn-ha-mOM" id="O0B-FY-2t0"/>
                         <outlet property="callClockButton" destination="g08-KH-ZcQ" id="osX-36-JKd"/>
                         <outlet property="clockLabel" destination="jfh-q1-fMz" id="Por-zM-4m9"/>
-                        <outlet property="currentAnteLabel" destination="cvE-eL-V7D" id="Sgu-aX-Jaa"/>
-                        <outlet property="currentBlindsLabel" destination="yNz-nR-m2D" id="WD5-qn-HUI"/>
+                        <outlet property="currentRoundLabel" destination="yNz-nR-m2D" id="tOY-o7-gM1"/>
                         <outlet property="nextRoundButton" destination="Gmp-B4-4H9" id="vaR-LM-ncZ"/>
                         <outlet property="nextRoundLabel" destination="hrK-J4-yV0" id="2a3-cC-eLT"/>
                         <outlet property="pauseResumeButton" destination="nDz-BI-TN4" id="OPm-IJ-Oqb"/>
