@@ -448,7 +448,7 @@
                                         <rect key="frame" x="29" y="14" width="47" height="19"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" title="Name" id="2j1-Rf-xju">
-                                            <font key="font" metaFont="systemBold" size="15"/>
+                                            <font key="font" size="15" name="IBMPlexSans-Bold"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
@@ -465,8 +465,8 @@
                                     <textField key="view" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="6Rf-ZI-HFv">
                                         <rect key="frame" x="0.0" y="14" width="99" height="32"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
-                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="01:23:45" placeholderString="" usesSingleLineMode="YES" id="O6X-X7-7oP">
-                                            <font key="font" metaFont="systemBold" size="22"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="01:23:45" placeholderString="" id="O6X-X7-7oP">
+                                            <font key="font" size="22" name="IBMPlexSans-Bold"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>

@@ -6,6 +6,14 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="IBMPlexSans-Bold.otf">
+            <string>IBMPlexSans-Bold</string>
+        </array>
+        <array key="IBMPlexSans-Regular.otf">
+            <string>IBMPlexSans</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Root-->
         <scene sceneID="yl2-sM-qoP">
@@ -219,14 +227,14 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="750" text="0:59:59" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rzA-kD-6XA">
-                                                    <rect key="frame" x="129.5" y="4" width="61.5" height="20.5"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <rect key="frame" x="0.0" y="4" width="320" height="22.5"/>
+                                                    <fontDescription key="fontDescription" name="IBMPlexSans" family="IBM Plex Sans" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="250" text="00:59:59" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="64" translatesAutoresizingMaskIntoConstraints="NO" id="lvG-dk-XoB">
-                                                    <rect key="frame" x="0.0" y="28.5" width="320" height="87.5"/>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="108"/>
+                                                    <rect key="frame" x="0.0" y="30.5" width="320" height="85.5"/>
+                                                    <fontDescription key="fontDescription" name="IBMPlexSans-Bold" family="IBM Plex Sans" pointSize="108"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -238,6 +246,7 @@
                                                 <constraint firstItem="lvG-dk-XoB" firstAttribute="top" secondItem="rzA-kD-6XA" secondAttribute="bottom" constant="4" id="bRm-Es-Uej"/>
                                                 <constraint firstItem="rzA-kD-6XA" firstAttribute="centerX" secondItem="mtx-Ij-0su" secondAttribute="centerX" id="ecV-Gq-eLr"/>
                                                 <constraint firstItem="rzA-kD-6XA" firstAttribute="top" secondItem="mtx-Ij-0su" secondAttribute="top" constant="4" id="gZS-8C-1hy"/>
+                                                <constraint firstItem="rzA-kD-6XA" firstAttribute="width" secondItem="mtx-Ij-0su" secondAttribute="width" id="lnp-NW-55b"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -258,7 +267,7 @@
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="250" text="100/200" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="24" preferredMaxLayoutWidth="320" translatesAutoresizingMaskIntoConstraints="NO" id="8v5-57-KLb" userLabel="Current Round Label">
                                                     <rect key="frame" x="0.0" y="14.5" width="320" height="145.5"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="108"/>
+                                                    <fontDescription key="fontDescription" name="IBMPlexSans" family="IBM Plex Sans" pointSize="108"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -289,11 +298,9 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="250" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="iUc-XK-huR">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="250" text="200/400" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="iUc-XK-huR">
                                                     <rect key="frame" x="0.0" y="18.5" width="320" height="57.5"/>
-                                                    <string key="text">200/400
-Ante: 400</string>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="32"/>
+                                                    <fontDescription key="fontDescription" name="IBMPlexSans" family="IBM Plex Sans" pointSize="32"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -319,7 +326,7 @@ Ante: 400</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3YT-Rz-ZAy" userLabel="Side By Side">
-                                                    <rect key="frame" x="0.0" y="-2" width="320" height="64"/>
+                                                    <rect key="frame" x="0.0" y="-1.5" width="320" height="63"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="750" text="Players Left" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BtR-bB-nGx">
                                                             <rect key="frame" x="0.0" y="4.5" width="160" height="17"/>
@@ -328,8 +335,8 @@ Ante: 400</string>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="250" text="20" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="ffF-bI-CzQ">
-                                                            <rect key="frame" x="0.0" y="21.5" width="160" height="38.5"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="32"/>
+                                                            <rect key="frame" x="0.0" y="21.5" width="160" height="37.5"/>
+                                                            <fontDescription key="fontDescription" name="IBMPlexSans" family="IBM Plex Sans" pointSize="32"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -340,8 +347,8 @@ Ante: 400</string>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="250" text="10,000" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="XNj-02-a9q">
-                                                            <rect key="frame" x="160" y="21.5" width="160" height="38.5"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="32"/>
+                                                            <rect key="frame" x="160" y="21.5" width="160" height="37.5"/>
+                                                            <fontDescription key="fontDescription" name="IBMPlexSans" family="IBM Plex Sans" pointSize="32"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>

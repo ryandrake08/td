@@ -116,6 +116,18 @@
 		9462A3F11B781A9A00B29002 /* RSVerticallyCenteredTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9462A3F01B781A9A00B29002 /* RSVerticallyCenteredTextFieldCell.m */; };
 		9462A3F21B781A9A00B29002 /* RSVerticallyCenteredTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9462A3F01B781A9A00B29002 /* RSVerticallyCenteredTextFieldCell.m */; };
 		9462A3F61B7864E900B29002 /* TBSetupDevicesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9462A3F41B7864E900B29002 /* TBSetupDevicesViewController.m */; };
+		946404402363DB740057BAC4 /* IBMPlexSans-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 9464043F2363DB740057BAC4 /* IBMPlexSans-Bold.otf */; };
+		946404412363DB740057BAC4 /* IBMPlexSans-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 9464043F2363DB740057BAC4 /* IBMPlexSans-Bold.otf */; };
+		946404422363DB740057BAC4 /* IBMPlexSans-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 9464043F2363DB740057BAC4 /* IBMPlexSans-Bold.otf */; };
+		946404432363DB740057BAC4 /* IBMPlexSans-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 9464043F2363DB740057BAC4 /* IBMPlexSans-Bold.otf */; };
+		946404442363DB740057BAC4 /* IBMPlexSans-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 9464043F2363DB740057BAC4 /* IBMPlexSans-Bold.otf */; };
+		946404452363DB740057BAC4 /* IBMPlexSans-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 9464043F2363DB740057BAC4 /* IBMPlexSans-Bold.otf */; };
+		946404472363DCEA0057BAC4 /* IBMPlexSans-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 946404462363DCEA0057BAC4 /* IBMPlexSans-Regular.otf */; };
+		946404482363DCEA0057BAC4 /* IBMPlexSans-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 946404462363DCEA0057BAC4 /* IBMPlexSans-Regular.otf */; };
+		946404492363DCEA0057BAC4 /* IBMPlexSans-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 946404462363DCEA0057BAC4 /* IBMPlexSans-Regular.otf */; };
+		9464044A2363DCEA0057BAC4 /* IBMPlexSans-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 946404462363DCEA0057BAC4 /* IBMPlexSans-Regular.otf */; };
+		9464044B2363DCEA0057BAC4 /* IBMPlexSans-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 946404462363DCEA0057BAC4 /* IBMPlexSans-Regular.otf */; };
+		9464044C2363DCEA0057BAC4 /* IBMPlexSans-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 946404462363DCEA0057BAC4 /* IBMPlexSans-Regular.otf */; };
 		946471812007528F00556467 /* NSToolbarBadgedItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 9464717F2007528600556467 /* NSToolbarBadgedItem.m */; };
 		94647188200CAA9C00556467 /* TBInvertImage.c in Sources */ = {isa = PBXBuildFile; fileRef = 94647187200CAA9C00556467 /* TBInvertImage.c */; };
 		94647189200CAA9C00556467 /* TBInvertImage.c in Sources */ = {isa = PBXBuildFile; fileRef = 94647187200CAA9C00556467 /* TBInvertImage.c */; };
@@ -696,6 +708,8 @@
 		9462A3F01B781A9A00B29002 /* RSVerticallyCenteredTextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSVerticallyCenteredTextFieldCell.m; sourceTree = "<group>"; };
 		9462A3F31B7864E900B29002 /* TBSetupDevicesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBSetupDevicesViewController.h; path = TBMac/TBSetupDevicesViewController.h; sourceTree = "<group>"; };
 		9462A3F41B7864E900B29002 /* TBSetupDevicesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TBSetupDevicesViewController.m; path = TBMac/TBSetupDevicesViewController.m; sourceTree = "<group>"; };
+		9464043F2363DB740057BAC4 /* IBMPlexSans-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "IBMPlexSans-Bold.otf"; sourceTree = "<group>"; };
+		946404462363DCEA0057BAC4 /* IBMPlexSans-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "IBMPlexSans-Regular.otf"; sourceTree = "<group>"; };
 		9464717F2007528600556467 /* NSToolbarBadgedItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSToolbarBadgedItem.m; sourceTree = "<group>"; };
 		946471802007528600556467 /* NSToolbarBadgedItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSToolbarBadgedItem.h; sourceTree = "<group>"; };
 		94647186200CAA9C00556467 /* TBInvertImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBInvertImage.h; sourceTree = "<group>"; };
@@ -1175,6 +1189,8 @@
 		94D04EC71B7C59EB004F4245 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				946404462363DCEA0057BAC4 /* IBMPlexSans-Regular.otf */,
+				9464043F2363DB740057BAC4 /* IBMPlexSans-Bold.otf */,
 				9476F4CD1B3C3F8300A158F8 /* defaults.json */,
 				946EAFB1201343FD00BD57DE /* i_piranha_22x29.png */,
 				946EAFB0201343FC00BD57DE /* i_piranha_44x58.png */,
@@ -1781,11 +1797,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				940AF52E1FF7CECA00740295 /* TBMac.xcassets in Resources */,
+				946404412363DB740057BAC4 /* IBMPlexSans-Bold.otf in Resources */,
 				94BD8D391FF7F4360047EB68 /* TBViewer.storyboard in Resources */,
 				94D04ECE1B7C59EB004F4245 /* s_break.caf in Resources */,
 				94D04ED01B7C59EB004F4245 /* s_next.caf in Resources */,
 				94D04ED21B7C59EB004F4245 /* s_rebalance.caf in Resources */,
 				94D04ED41B7C59EB004F4245 /* s_start.caf in Resources */,
+				946404482363DCEA0057BAC4 /* IBMPlexSans-Regular.otf in Resources */,
 				94A0D64723558C88004A9696 /* TBSeatingChartCollectionViewItem.xib in Resources */,
 				94D04ED61B7C59EB004F4245 /* s_warning.caf in Resources */,
 			);
@@ -1801,6 +1819,8 @@
 				947D7AAA200D8C8A00EAD496 /* TBRemoteLaunchScreen.storyboard in Resources */,
 				94C2DA80200D27D7001B95B8 /* s_break.caf in Resources */,
 				94C2DA81200D27D7001B95B8 /* s_next.caf in Resources */,
+				946404432363DB740057BAC4 /* IBMPlexSans-Bold.otf in Resources */,
+				9464044A2363DCEA0057BAC4 /* IBMPlexSans-Regular.otf in Resources */,
 				942B84E5200DA6FA001F8EEB /* s_rebalance.caf in Resources */,
 				942B84E6200DA6FA001F8EEB /* s_start.caf in Resources */,
 				ADA5DAC01B949CB1004F50C8 /* s_warning.caf in Resources */,
@@ -1812,6 +1832,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9464044B2363DCEA0057BAC4 /* IBMPlexSans-Regular.otf in Resources */,
+				946404442363DB740057BAC4 /* IBMPlexSans-Bold.otf in Resources */,
 				AD33BA4A1BAC634F0011777C /* Assets.xcassets in Resources */,
 				AD33BA4B1BAC634F0011777C /* Interface.storyboard in Resources */,
 				AD33BA491BAC634F0011777C /* s_break.caf in Resources */,
@@ -1840,6 +1862,8 @@
 				9471B3F51FF8EBC4000A314C /* TBViewer.storyboard in Resources */,
 				94D04ECD1B7C59EB004F4245 /* s_break.caf in Resources */,
 				94D04ECF1B7C59EB004F4245 /* s_next.caf in Resources */,
+				946404402363DB740057BAC4 /* IBMPlexSans-Bold.otf in Resources */,
+				946404472363DCEA0057BAC4 /* IBMPlexSans-Regular.otf in Resources */,
 				94A0D64623558C88004A9696 /* TBSeatingChartCollectionViewItem.xib in Resources */,
 				94D04ED11B7C59EB004F4245 /* s_rebalance.caf in Resources */,
 				94D04ED31B7C59EB004F4245 /* s_start.caf in Resources */,
@@ -1851,6 +1875,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9464044C2363DCEA0057BAC4 /* IBMPlexSans-Regular.otf in Resources */,
+				946404452363DB740057BAC4 /* IBMPlexSans-Bold.otf in Resources */,
 				ADA6A19E1B97FE8A00C83762 /* Assets.xcassets in Resources */,
 				ADA6A19C1B97FE8A00C83762 /* Interface.storyboard in Resources */,
 				AD7E5D011B9FE766004654E9 /* s_break.caf in Resources */,
@@ -1877,10 +1903,12 @@
 				ADF636121BAB8AF800D019AE /* TBRemote.xcassets in Resources */,
 				ADF6360F1BAB8AF800D019AE /* Main.storyboard in Resources */,
 				945D83A22032B9FC00DFE032 /* Setup.storyboard in Resources */,
+				946404492363DCEA0057BAC4 /* IBMPlexSans-Regular.otf in Resources */,
 				947D7AA8200D8BD300EAD496 /* TBPhoneLaunchScreen.storyboard in Resources */,
 				94CDDD1F1FE1826C008ADF24 /* TBChipTableViewCell.xib in Resources */,
 				94C2DA7E200D27CD001B95B8 /* s_break.caf in Resources */,
 				94C2DA7F200D27CD001B95B8 /* s_next.caf in Resources */,
+				946404422363DB740057BAC4 /* IBMPlexSans-Bold.otf in Resources */,
 				942B84E3200DA6F1001F8EEB /* s_rebalance.caf in Resources */,
 				942B84E4200DA6F1001F8EEB /* s_start.caf in Resources */,
 				ADF636101BAB8AF800D019AE /* s_warning.caf in Resources */,

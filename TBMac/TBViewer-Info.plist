@@ -30,6 +30,10 @@
 	<string>Copyright © 2015 HDna Studio. All rights reserved.</string>
 	<key>NSMainStoryboardFile</key>
 	<string>TBViewer</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>IBMPlexSans-Bold.otf</string>
+	</array>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
 </dict>
