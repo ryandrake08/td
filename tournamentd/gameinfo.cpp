@@ -424,15 +424,18 @@ void gameinfo::dump_derived_state(nlohmann::json& state) const
                 state["current_round_text"] = os.str(); os.str("");
 
                 // set next round description
-                if(this->blind_levels[this->current_blind_level].break_duration == 0)
+                if(this->current_blind_level+1 < this->blind_levels.size())
                 {
-                    os << this->blind_levels[this->current_blind_level+1];
+                    if(this->blind_levels[this->current_blind_level].break_duration == 0)
+                    {
+                        os << this->blind_levels[this->current_blind_level+1];
+                    }
+                    else if(this->current_blind_level+1 < this->blind_levels.size())
+                    {
+                        os << "BREAK"; // TODO: i18n
+                    }
+                    state["next_round_text"] = os.str(); os.str("");
                 }
-                else if(this->current_blind_level+1 < this->blind_levels.size())
-                {
-                    os << "BREAK"; // TODO: i18n
-                }
-                state["next_round_text"] = os.str(); os.str("");
             }
         }
         else if(this->end_of_break != time_point_t() && now < this->end_of_break)
