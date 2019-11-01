@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15400"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15505"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -448,7 +448,7 @@
                                         <rect key="frame" x="29" y="14" width="47" height="19"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" title="Name" id="2j1-Rf-xju">
-                                            <font key="font" size="15" name="IBMPlexSans-Bold"/>
+                                            <font key="font" metaFont="systemBold" size="15"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
@@ -460,13 +460,13 @@
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="5A542159-C189-4BF5-BC14-D2EFB4171C3A" label="" paletteLabel="Timer" id="W39-tg-lhP">
                                     <nil key="toolTip"/>
-                                    <size key="minSize" width="98" height="32"/>
+                                    <size key="minSize" width="98" height="24"/>
                                     <size key="maxSize" width="99" height="32"/>
                                     <textField key="view" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="6Rf-ZI-HFv">
                                         <rect key="frame" x="0.0" y="14" width="99" height="32"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="01:23:45" placeholderString="" id="O6X-X7-7oP">
-                                            <font key="font" size="22" name="IBMPlexSans-Bold"/>
+                                            <font key="font" metaFont="systemBold" size="22"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
@@ -2835,6 +2835,7 @@ Gw
                                         </textField>
                                     </subviews>
                                 </view>
+                                <font key="titleFont" metaFont="smallSystem"/>
                             </box>
                         </subviews>
                     </view>
@@ -3592,6 +3593,7 @@ DQ
                                         </textField>
                                     </subviews>
                                 </view>
+                                <font key="titleFont" metaFont="smallSystem"/>
                             </box>
                         </subviews>
                     </view>
@@ -3687,6 +3689,7 @@ DQ
                                         </slider>
                                     </subviews>
                                 </view>
+                                <font key="titleFont" metaFont="smallSystem"/>
                             </box>
                             <box fixedFrame="YES" title="Payout Shape" translatesAutoresizingMaskIntoConstraints="NO" id="twE-bN-YiT">
                                 <rect key="frame" x="17" y="231" width="606" height="82"/>
@@ -3718,6 +3721,7 @@ DQ
                                         </textField>
                                     </subviews>
                                 </view>
+                                <font key="titleFont" metaFont="smallSystem"/>
                             </box>
                             <box fixedFrame="YES" title="Advanced" translatesAutoresizingMaskIntoConstraints="NO" id="JD6-ka-oW9">
                                 <rect key="frame" x="17" y="88" width="606" height="139"/>
@@ -3787,6 +3791,7 @@ DQ
                                         </textField>
                                     </subviews>
                                 </view>
+                                <font key="titleFont" metaFont="smallSystem"/>
                             </box>
                         </subviews>
                     </view>
