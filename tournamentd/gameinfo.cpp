@@ -406,55 +406,52 @@ void gameinfo::dump_derived_state(nlohmann::json& state) const
         state["current_round_number_text"] = os.str(); os.str("");
     }
 
-    if(!this->is_paused())
+    // set time remaining based on current clock
+    if(this->end_of_round != time_point_t() && now < this->end_of_round)
     {
-        // set time remaining based on current clock
-        if(this->end_of_round != time_point_t() && now < this->end_of_round)
+        // within round, set time remaining
+        auto time_remaining(std::chrono::duration_cast<duration_t>(this->end_of_round - now));
+        state["time_remaining"] = time_remaining.count();
+        state["clock_remaining"] = time_remaining.count();
+        state["on_break"] = false;
+
+        if(this->current_blind_level < this->blind_levels.size())
         {
-            // within round, set time remaining
-            auto time_remaining(std::chrono::duration_cast<duration_t>(this->end_of_round - now));
-            state["time_remaining"] = time_remaining.count();
-            state["clock_remaining"] = time_remaining.count();
-            state["on_break"] = false;
-
-            if(this->current_blind_level < this->blind_levels.size())
-            {
-                // set current round description
-                os << this->blind_levels[this->current_blind_level];
-                state["current_round_text"] = os.str(); os.str("");
-
-                // set next round description
-                if(this->current_blind_level+1 < this->blind_levels.size())
-                {
-                    if(this->blind_levels[this->current_blind_level].break_duration == 0)
-                    {
-                        os << this->blind_levels[this->current_blind_level+1];
-                    }
-                    else if(this->current_blind_level+1 < this->blind_levels.size())
-                    {
-                        os << "BREAK"; // TODO: i18n
-                    }
-                    state["next_round_text"] = os.str(); os.str("");
-                }
-            }
-        }
-        else if(this->end_of_break != time_point_t() && now < this->end_of_break)
-        {
-            // within break, set break time remaining
-            auto break_time_remaining(std::chrono::duration_cast<duration_t>(this->end_of_break - now));
-            state["break_time_remaining"] = break_time_remaining.count();
-            state["clock_remaining"] = break_time_remaining.count();
-            state["on_break"] = true;
-
-            // set current round description as break
-            state["current_round_text"] = "BREAK"; // TODO: i18n
+            // set current round description
+            os << this->blind_levels[this->current_blind_level];
+            state["current_round_text"] = os.str(); os.str("");
 
             // set next round description
             if(this->current_blind_level+1 < this->blind_levels.size())
             {
-                os << this->blind_levels[this->current_blind_level+1];
+                if(this->blind_levels[this->current_blind_level].break_duration == 0)
+                {
+                    os << this->blind_levels[this->current_blind_level+1];
+                }
+                else if(this->current_blind_level+1 < this->blind_levels.size())
+                {
+                    os << "BREAK"; // TODO: i18n
+                }
                 state["next_round_text"] = os.str(); os.str("");
             }
+        }
+    }
+    else if(this->end_of_break != time_point_t() && now < this->end_of_break)
+    {
+        // within break, set break time remaining
+        auto break_time_remaining(std::chrono::duration_cast<duration_t>(this->end_of_break - now));
+        state["break_time_remaining"] = break_time_remaining.count();
+        state["clock_remaining"] = break_time_remaining.count();
+        state["on_break"] = true;
+
+        // set current round description as break
+        state["current_round_text"] = "BREAK"; // TODO: i18n
+
+        // set next round description
+        if(this->current_blind_level+1 < this->blind_levels.size())
+        {
+            os << this->blind_levels[this->current_blind_level+1];
+            state["next_round_text"] = os.str(); os.str("");
         }
     }
 
