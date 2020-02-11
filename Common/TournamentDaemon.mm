@@ -23,6 +23,9 @@
     // dispatch group to wait on indicating daemon is fully stopped
     dispatch_group_t group;
 
+    // dispatch semaphore to guard access to running flag
+    dispatch_semaphore_t lock;
+
     // listening port
     int port;
 
@@ -38,6 +41,7 @@
     if((self = [super init])) {
         running = NO;
         group = dispatch_group_create();
+        lock = dispatch_semaphore_create(1);
         netService = nil;
         port = 0;
     }
@@ -62,11 +66,15 @@
     // server is listening. mark as running and run in background
     running = YES;
     dispatch_group_async(group, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        dispatch_semaphore_wait(self->lock, DISPATCH_TIME_FOREVER);
         while(self->running)
         {
+            dispatch_semaphore_signal(self->lock);
             auto quit = tourney->run();
+            dispatch_semaphore_wait(self->lock, DISPATCH_TIME_FOREVER);
             self->running = self->running && !quit;
         }
+        dispatch_semaphore_signal(self->lock);
     });
 
     // store the port
@@ -101,7 +109,9 @@
     port = 0;
 
     // signal block execution to stop
+    dispatch_semaphore_wait(self->lock, DISPATCH_TIME_FOREVER);
     running = NO;
+    dispatch_semaphore_signal(self->lock);
 
     // wait for a block execution
     dispatch_group_wait(group, DISPATCH_TIME_FOREVER);
