@@ -26,25 +26,31 @@ enum class ll
 template <typename T>
 class basic_logstream : public std::basic_ostream<T>
 {
-    // mutex
+    // global mutex to serialize access to basic_logstream and members
     static std::mutex mutex;
 
-    // internally wrapped lock
+    // lock held for the life of the object to serialize basic_logstream creation and limit number globally to one
     std::lock_guard<std::mutex> lock;
 
     // bitmask enabling each log level
     static unsigned mask;
 
-    // private constructor constructs given streambuf
-    explicit basic_logstream(std::basic_streambuf<T>* sb, const char* function, ll level) : std::basic_ostream<T>(((1 << static_cast<size_t>(level)) & this->mask) ? sb : nullptr), lock(mutex)
+    // private constructor constructs given streambuf, function name, and log level
+    explicit basic_logstream(std::basic_streambuf<T>* sb, const char* function, ll level) : lock(mutex), std::basic_ostream<T>(nullptr)
     {
+        // set the streambuf only if given loglevel is allowed by the global mask
+        if((1 << static_cast<size_t>(level)) & this->mask)
+        {
+            this->rdbuf(sb);
+        }
+
+        // prepend the time, log level, and function
         static const char* level_string[] = { " DEBUG ", " INFO ", " WARNING ", " ERROR " };
-        *this << datetime::local << datetime::setf("%F %T%qqqqqq%z");
-        *this << datetime::now() << level_string[static_cast<size_t>(level)] << function << ": ";
+        *this << datetime::local << datetime::setf("%F %T%qqqqqq%z") << datetime::now() << level_string[static_cast<size_t>(level)] << function << ": ";
     }
 
 public:
-    // public constructor constructs given function name and logger level
+    // public constructor creates a debugstreambuf and constructs given function name and logger level
     explicit basic_logstream(const char* function, ll level=ll::debug) : basic_logstream(debugstreambuf(), function, level)
     {
     }
@@ -52,6 +58,9 @@ public:
     // set enabled logs
     static void set_enabled(std::initializer_list<ll> logs)
     {
+        // synchronize access to global mask
+        std::lock_guard<std::mutex> set_lock(basic_logstream<T>::mutex);
+
         mask = 0;
         for(auto level : logs)
         {
