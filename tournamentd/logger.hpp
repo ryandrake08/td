@@ -36,7 +36,7 @@ class basic_logstream : public std::basic_ostream<T>
     static unsigned mask;
 
     // private constructor constructs given streambuf, function name, and log level
-    explicit basic_logstream(std::basic_streambuf<T>* sb, const char* function, ll level) : lock(mutex), std::basic_ostream<T>(nullptr)
+    explicit basic_logstream(std::basic_streambuf<T>* sb, const char* function, ll level) : std::basic_ostream<T>(nullptr), lock(mutex)
     {
         // set the streambuf only if given loglevel is allowed by the global mask
         if((1 << static_cast<size_t>(level)) & this->mask)
