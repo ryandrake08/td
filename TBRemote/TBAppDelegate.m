@@ -79,9 +79,7 @@
     }
 
     // Watch delegate (iOS9+)
-    if(@available(iOS 9.0, *)) {
-        [self setWatchDelegate:[[TBRemoteWatchDelegate alloc] initWithSession:[self session]]];
-    }
+    [self setWatchDelegate:[[TBRemoteWatchDelegate alloc] initWithSession:[self session]]];
 
     return YES;
 }
