@@ -97,7 +97,7 @@
 + (NSArray*)blindLevelNamesForConfiguration:(NSDictionary*)config {
     NSMutableArray* names = [[NSMutableArray alloc] initWithObjects:NSLocalizedString(@"Start", @"The start of the tournament"), nil];
     for(NSInteger i=1; i<[config[@"blind_levels"] count]; i++) {
-        [names addObject:[NSString stringWithFormat:NSLocalizedString(@"Round %ld", @"Numbered blind level"), i]];
+        [names addObject:[NSString stringWithFormat:NSLocalizedString(@"Round %zd", @"Numbered blind level"), i]];
     }
     return names;
 }
