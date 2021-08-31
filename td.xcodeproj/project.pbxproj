@@ -1158,8 +1158,8 @@
 			children = (
 				9476F4D11B3C3F8300A158F8 /* bonjour.cpp */,
 				9476F4D21B3C3F8300A158F8 /* bonjour.hpp */,
-				943FC67020261E9C00B6AA4C /* catch.hpp */,
 				943FC67120261EE000B6AA4C /* catch.cpp */,
+				943FC67020261E9C00B6AA4C /* catch.hpp */,
 				9476F4D31B3C3F8300A158F8 /* datetime.cpp */,
 				9476F4D41B3C3F8300A158F8 /* datetime.hpp */,
 				9476F4D51B3C3F8300A158F8 /* gameinfo.cpp */,

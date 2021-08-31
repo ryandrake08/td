@@ -1,7 +1,9 @@
 #include "tournament.hpp"
+#include "gameinfo.hpp"
 #include "logger.hpp"
 #include "nlohmann/json.hpp"
 #include "scope_timer.hpp"
+#include "server.hpp"
 #include <algorithm>
 #include <cassert>
 #include <cstddef>
