@@ -185,12 +185,12 @@ bool td::automatic_payout_parameters::operator==(const td::automatic_payout_para
 
 // ----- convert types to and from json
 
-static void to_json(nlohmann::json& j, const datetime& p)
+void to_json(nlohmann::json& j, const datetime& p)
 {
     j = p.gmtime();
 }
 
-static void from_json(const nlohmann::json& j, datetime& p)
+void from_json(const nlohmann::json& j, datetime& p)
 {
     p = datetime::from_gm(j);
 }

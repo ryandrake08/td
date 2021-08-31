@@ -7,6 +7,10 @@
 #include "datetime.hpp"
 #include "nlohmann/json_fwd.hpp"
 
+// convert datetime to and from json
+void to_json(nlohmann::json& j, const datetime& p);
+void from_json(const nlohmann::json& j, datetime& p);
+
 // convert time_point to and from json
 namespace std
 {
