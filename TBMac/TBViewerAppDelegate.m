@@ -184,6 +184,16 @@
 
 - (void)tournamentBrowser:(TournamentBrowser*)tournamentBroswer didUpdateServices:(NSArray*)services {
     [self updateMenuWithBrowser:tournamentBroswer];
+
+    // if just one, and not already connected, automatically connect
+    BOOL connected = [[self session] connected];
+    if([services count] == 1 && !connected) {
+        // connect
+        NSError* error;
+        if(![[self session] connectToTournamentService:services[0] error:&error]) {
+            [[NSApplication sharedApplication] presentError:error];
+        }
+    }
 }
 
 @end
