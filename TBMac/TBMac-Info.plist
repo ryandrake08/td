@@ -84,5 +84,11 @@
 			</dict>
 		</dict>
 	</array>
+	<key>NSBonjourServices</key>
+	<array>
+		<string>_pokerbuddy._tcp</string>
+	</array>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>Allow others to view and manage tournaments on your local network.</string>
 </dict>
 </plist>

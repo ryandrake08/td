@@ -39,5 +39,11 @@
 	</array>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>View and manage tournaments on your local network.</string>
+	<key>NSBonjourServices</key>
+	<array>
+		<string>_pokerbuddy._tcp</string>
+	</array>
 </dict>
 </plist>

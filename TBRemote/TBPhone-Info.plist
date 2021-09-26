@@ -103,5 +103,11 @@
 			</dict>
 		</dict>
 	</array>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>Allow others to view and manage tournaments on your local network.</string>
+	<key>NSBonjourServices</key>
+	<array>
+		<string>_pokerbuddy._tcp</string>
+	</array>
 </dict>
 </plist>
