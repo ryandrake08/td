@@ -49,7 +49,7 @@
 
     // setup display and seating chart windows
     NSStoryboard* viewerStoryboard = [NSStoryboard storyboardWithName:@"TBViewer" bundle:[NSBundle mainBundle]];
-    [self setViewerWindowController:[[[NSApplication sharedApplication] mainWindow] windowController]];
+    [self setViewerWindowController:[[[NSApplication sharedApplication] windows][0] windowController]];
 //    [self setViewerWindowController:[viewerStoryboard instantiateControllerWithIdentifier:@"PlayerWindowController"]];
     [self setSeatingChartWindowController:[viewerStoryboard instantiateControllerWithIdentifier:@"SeatingChartWindowController"]];
 
