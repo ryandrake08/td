@@ -49,7 +49,7 @@ struct tournament::impl
 
     bool code_authorized(int code) const
     {
-        return (this->pre_auths.find(code) == this->pre_auths.end()) || (this->game_auths.find(code) == this->game_auths.end());
+        return (this->pre_auths.find(code) != this->pre_auths.end()) || (this->game_auths.find(code) != this->game_auths.end());
     }
 
     void ensure_authorized(const nlohmann::json& in) const
