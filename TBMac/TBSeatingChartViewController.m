@@ -22,7 +22,7 @@
 @property (nonatomic, strong) TBColor* textColor;
 
 // player lists per table
-@property (nonatomic, copy) NSMutableDictionary* tables;
+@property (nonatomic, strong) NSMutableDictionary* tables;
 
 @end
 
@@ -117,15 +117,13 @@
 #pragma mark NSCollectionViewDataSource
 
 - (NSCollectionViewItem*)collectionView:(NSCollectionView*)collectionView itemForRepresentedObjectAtIndexPath:(NSIndexPath*)indexPath {
-    TBSeatingChartCollectionViewItem* item;
+    TBSeatingChartCollectionViewItem* item = (TBSeatingChartCollectionViewItem*)[[self collectionView] makeItemWithIdentifier:@"TBSeatingChartCollectionViewItem" forIndexPath:indexPath];
 
     if([indexPath section] == 0) {
 
         // compare vs expected number of tables
         NSInteger tableCount = [[[self session] state][@"table_count"] integerValue];
         if([indexPath item] < tableCount) {
-            item = (TBSeatingChartCollectionViewItem*)[[self collectionView] makeItemWithIdentifier:@"TBSeatingChartCollectionViewItem" forIndexPath:indexPath];
-
             // get table name for this item
             NSArray* tablesPlaying = [[self session] state][@"tables_playing"];
             NSString* tableName = tablesPlaying[[indexPath item]];
