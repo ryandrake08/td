@@ -21,8 +21,8 @@
 
 @property (nonatomic, strong) TournamentSession* session;
 @property (nonatomic, strong) IBOutlet TournamentBrowser* tournamentBrowser;
-@property (nonatomic, strong) NSNetService* currentService;
-@property (nonatomic, copy) NSArray* netServices;
+@property (nonatomic, strong) TournamentService* currentTournamentService;
+@property (nonatomic, copy) NSArray* tournamentServices;
 @end
 
 @implementation TBTournamentsViewController
@@ -39,7 +39,7 @@
     // register for KVO
     [[self KVOController] observe:self keyPaths:@[@"session.connected", @"session.authorized"] options:0 block:^(id observer, TBTournamentsViewController* object, NSDictionary *change) {
         // update table view cell
-        [observer reloadTableRowForService:[self currentService]];
+        [observer reloadTableRowForService:[self currentTournamentService]];
     }];
 }
 
@@ -61,13 +61,13 @@
 }
 
 - (NSInteger)tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section {
-    return [[self netServices] count];
+    return [[self tournamentServices] count];
 }
 
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath {
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"ServiceCell" forIndexPath:indexPath];
 
-    NSNetService* cellService = [self netServices][[indexPath row]];
+    TournamentService* cellService = [self tournamentServices][[indexPath row]];
     BOOL connected = [[self session] connected];
     BOOL authorized = [[self session] authorized];
 
@@ -75,7 +75,7 @@
     [[cell textLabel] setText:[cellService name]];
 
     // set checkmark and accessory text if connected
-    if(cellService == [self currentService] && connected) {
+    if(cellService == [self currentTournamentService] && connected) {
         if(authorized) {
             [[cell detailTextLabel] setText:NSLocalizedString(@"Admin", nil)];
         } else {
@@ -93,18 +93,18 @@
 #pragma mark UITableViewDelegate
 
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
-    NSNetService* cellService = [self netServices][[indexPath row]];
+    TournamentService* cellService = [self tournamentServices][[indexPath row]];
     BOOL connected = [[self session] connected];
     BOOL authorized = [[self session] authorized];
 
-    if(cellService == [self currentService] && connected) {
+    if(cellService == [self currentTournamentService] && connected) {
         // pop actionsheet
         UIAlertController* actionSheet = [UIAlertController alertControllerWithTitle:[cellService name] message:nil preferredStyle:UIAlertControllerStyleActionSheet];
         [actionSheet addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil) style:UIAlertActionStyleCancel handler:nil]];
         [actionSheet addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Leave Game", nil) style:UIAlertActionStyleDestructive handler:^(UIAlertAction* action) {
             // disconnect
             [[self session] disconnect];
-            [self setCurrentService:nil];
+            [self setCurrentTournamentService:nil];
         }]];
         if(!authorized) {
             [actionSheet addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Administer Game", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction* actionSheetAction) {
@@ -135,11 +135,10 @@
         [self presentViewController:actionSheet animated:YES completion:nil];
     } else {
         // connect
-        TournamentService* service = [[TournamentService alloc] initWithNetService:cellService];
         NSError* error;
-        if([[self session] connectToTournamentService:service error:&error]) {
+        if([[self session] connectToTournamentService:cellService error:&error]) {
             // store as current service
-            [self setCurrentService:cellService];
+            [self setCurrentTournamentService:cellService];
 
             // switch to clock screen automatically
             [[[self navigationController] tabBarController] setSelectedIndex:2];
@@ -153,8 +152,8 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
-- (void)reloadTableRowForService:(NSNetService*)service {
-    NSUInteger i = [[self netServices] indexOfObject:service];
+- (void)reloadTableRowForService:(TournamentService*)service {
+    NSUInteger i = [[self tournamentServices] indexOfObject:service];
     if(i != NSNotFound) {
         NSIndexPath* indexPath = [NSIndexPath indexPathForRow:i inSection:0];
         [[self tableView] reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -164,24 +163,16 @@
 #pragma mark TournamentBroswerDelegate
 
 - (void)tournamentBrowser:(TournamentBrowser*)tournamentBroswer didUpdateServices:(NSArray*)services {
-    // filter out all but real NSNetServices
-    NSMutableArray* newArray = [[NSMutableArray alloc] init];
-    for(TournamentService* ts in services) {
-        if([ts netService] != nil) {
-            [newArray addObject:[ts netService]];
-        }
-    }
-    [self setNetServices:newArray];
+    [self setTournamentServices:services];
 
     // if just one, and not already connected, automatically connect
     BOOL connected = [[self session] connected];
-    if([newArray count] == 1 && !connected) {
+    if([services count] == 1 && !connected) {
         // connect
-        TournamentService* service = [[TournamentService alloc] initWithNetService:newArray[0]];
         NSError* error;
-        if([[self session] connectToTournamentService:service error:&error]) {
+        if([[self session] connectToTournamentService:services[0] error:&error]) {
             // store as current service
-            [self setCurrentService:newArray[0]];
+            [self setCurrentTournamentService:services[0]];
 
             // switch to clock screen automatically
             TBAppDelegate* appDelegate = (TBAppDelegate*)[[UIApplication sharedApplication] delegate];
