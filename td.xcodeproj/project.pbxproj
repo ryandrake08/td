@@ -67,7 +67,6 @@
 		943B00D51B3F429500CE55D4 /* socket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E31B3C3F8300A158F8 /* socket.cpp */; };
 		943B00D61B3F429500CE55D4 /* tournament.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E71B3C3F8300A158F8 /* tournament.cpp */; };
 		943B00D71B3F429500CE55D4 /* types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E91B3C3F8300A158F8 /* types.cpp */; };
-		943FC67E20261FF600B6AA4C /* catch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 943FC67120261EE000B6AA4C /* catch.cpp */; };
 		943FC68A2027D02F00B6AA4C /* TBSetupPayoutPolicyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 943FC6892027D02F00B6AA4C /* TBSetupPayoutPolicyViewController.m */; };
 		945410741B6E5C56001E3373 /* NSDateFormatter+ISO8601.m in Sources */ = {isa = PBXBuildFile; fileRef = 945410731B6E5C56001E3373 /* NSDateFormatter+ISO8601.m */; };
 		945410771B6E9A17001E3373 /* NSString+CamelCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 945410761B6E9A17001E3373 /* NSString+CamelCase.m */; };
@@ -208,7 +207,6 @@
 		949FC5122354597000AEDA9B /* TBSeatingChartCollectionViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 949FC5102354597000AEDA9B /* TBSeatingChartCollectionViewItem.m */; };
 		94A0D64623558C88004A9696 /* TBSeatingChartCollectionViewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94A0D64523558C88004A9696 /* TBSeatingChartCollectionViewItem.xib */; };
 		94A0D64723558C88004A9696 /* TBSeatingChartCollectionViewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94A0D64523558C88004A9696 /* TBSeatingChartCollectionViewItem.xib */; };
-		94A7FCC12027E69B006AD3FC /* TBPayoutPolicyNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 94A7FCC02027E69B006AD3FC /* TBPayoutPolicyNumberFormatter.m */; };
 		94A7FCC22027E69B006AD3FC /* TBPayoutPolicyNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 94A7FCC02027E69B006AD3FC /* TBPayoutPolicyNumberFormatter.m */; };
 		94A7FCC52027EB30006AD3FC /* TBSetupDependsOnTurnoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94A7FCC42027EB30006AD3FC /* TBSetupDependsOnTurnoutViewController.m */; };
 		94A7FCC82027F54B006AD3FC /* TBSetupPayoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94A7FCC72027F54B006AD3FC /* TBSetupPayoutViewController.m */; };
@@ -654,8 +652,6 @@
 		943A4D772021925E00CA03E1 /* TBSetupPayoutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBSetupPayoutViewController.h; path = TBMac/TBSetupPayoutViewController.h; sourceTree = "<group>"; };
 		943F85501FF8F3E200E1C4AD /* TBMac.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = TBMac.entitlements; path = TBMac/TBMac.entitlements; sourceTree = "<group>"; };
 		943F85511FF8F3FE00E1C4AD /* TBViewer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = TBViewer.entitlements; path = TBMac/TBViewer.entitlements; sourceTree = "<group>"; };
-		943FC67020261E9C00B6AA4C /* catch.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = catch.hpp; sourceTree = "<group>"; };
-		943FC67120261EE000B6AA4C /* catch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = catch.cpp; sourceTree = "<group>"; };
 		943FC67720261FC400B6AA4C /* tournamentd_test */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = tournamentd_test; sourceTree = BUILT_PRODUCTS_DIR; };
 		943FC6882027D02F00B6AA4C /* TBSetupPayoutPolicyViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBSetupPayoutPolicyViewController.h; sourceTree = "<group>"; };
 		943FC6892027D02F00B6AA4C /* TBSetupPayoutPolicyViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TBSetupPayoutPolicyViewController.m; sourceTree = "<group>"; };
@@ -1158,8 +1154,6 @@
 			children = (
 				9476F4D11B3C3F8300A158F8 /* bonjour.cpp */,
 				9476F4D21B3C3F8300A158F8 /* bonjour.hpp */,
-				943FC67120261EE000B6AA4C /* catch.cpp */,
-				943FC67020261E9C00B6AA4C /* catch.hpp */,
 				9476F4D31B3C3F8300A158F8 /* datetime.cpp */,
 				9476F4D41B3C3F8300A158F8 /* datetime.hpp */,
 				9476F4D51B3C3F8300A158F8 /* gameinfo.cpp */,
@@ -1708,7 +1702,7 @@
 		AD8E683B1A6C606700E5A4D8 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1250;
+				LastUpgradeCheck = 1300;
 				ORGANIZATIONNAME = "HDna Studio";
 				TargetAttributes = {
 					943FC67620261FC400B6AA4C = {
@@ -1926,8 +1920,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				943FC67E20261FF600B6AA4C /* catch.cpp in Sources */,
-				94A7FCC12027E69B006AD3FC /* TBPayoutPolicyNumberFormatter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
