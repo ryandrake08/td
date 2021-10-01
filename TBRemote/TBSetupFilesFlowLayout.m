@@ -43,7 +43,7 @@
                 CATransform3D rotationTransform = CATransform3DMakeRotation(normalizedDistance * M_PI_2 * 0.8, 0.0, 1.0, 0.0);
                 CATransform3D zoomTransform = CATransform3DMakeScale(zoom, zoom, 1.0);
                 layoutAttributes.transform3D = CATransform3DConcat(zoomTransform, rotationTransform);
-                layoutAttributes.zIndex = absNormalizedDistance;
+                layoutAttributes.zIndex = (NSInteger)absNormalizedDistance;
                 CGFloat alpha = (1.0 - absNormalizedDistance) + 0.1;
                 layoutAttributes.alpha = (alpha > 1.0) ? 1.0 : alpha;
             } else {

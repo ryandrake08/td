@@ -25,11 +25,13 @@
     NSURL* docDirectoryUrl = [fileManager URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:&error];
     if(docDirectoryUrl == nil) {
         [self presentError:error];
+        return;
     }
     // get directory contents
     NSArray* contents = [fileManager contentsOfDirectoryAtURL:docDirectoryUrl includingPropertiesForKeys:@[] options:NSDirectoryEnumerationSkipsHiddenFiles error:&error];
     if(contents == nil) {
         [self presentError:error];
+        return;
     }
 
     // set new content
@@ -68,11 +70,12 @@
     UIImageView* imageView = (UIImageView*)[cell viewWithTag:100];
     UILabel* label = (UILabel*)[cell viewWithTag:101];
 
-    if([indexPath row] >= [[self documents] count]) {
+    NSUInteger urow = (NSUInteger)[indexPath row];
+    if(urow >= [[self documents] count]) {
         [imageView setImage:[UIImage imageNamed:@"f_new"]];
         [label setText:NSLocalizedString(@"Save As New...", @"Save as a new file")];
     } else {
-        NSURL* url = [self documents][[indexPath row]];
+        NSURL* url = [self documents][urow];
         [imageView setImage:[UIImage imageNamed:@"f_piranha"]];
         [label setText:[url lastPathComponent]];
     }

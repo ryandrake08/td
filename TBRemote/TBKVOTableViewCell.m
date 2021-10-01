@@ -258,16 +258,17 @@
 #pragma mark UIPickerViewDelegate
 
 - (void)pickerView:(UIPickerView*)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-    if(row < 0) {
+    NSUInteger urow = (NSUInteger)row;
+    if(urow < 0) {
         NSLog(@"TBPickableTextTableViewCell: picker deselected");
-    } else if(row >= [[self allowedValues] count]) {
+    } else if(urow >= [[self allowedValues] count]) {
         NSLog(@"TBPickableTextTableViewCell: selected row out of bounds");
     } else {
         // set the textfield
-        [[self textField] setText:[self allowedValueTitles][row]];
+        [[self textField] setText:[self allowedValueTitles][urow]];
 
         // set the underlying value
-        [self setUnderlyingValue:[self allowedValues][row]];
+        [self setUnderlyingValue:[self allowedValues][urow]];
     }
 }
 

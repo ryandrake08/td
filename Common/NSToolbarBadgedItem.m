@@ -148,8 +148,8 @@
     {
         NSSize size = [rep size];
         NSBitmapImageRep *newRep = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes: NULL
-                                                                           pixelsWide: size.width
-                                                                           pixelsHigh: size.height
+                                                                           pixelsWide: (NSInteger)size.width
+                                                                           pixelsHigh: (NSInteger)size.height
                                                                         bitsPerSample: 8
                                                                       samplesPerPixel: 4
                                                                              hasAlpha: YES

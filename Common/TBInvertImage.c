@@ -25,13 +25,13 @@ CGImageRef TBCreateInvertedImage(CGImageRef image)
     CGContextDrawImage(context, CGRectMake(0, 0, width, height), image);
 
     // run through every pixel, a scan line at a time...
-    for(int y = 0; y < height; y++)
+    for(size_t y = 0; y < height; y++)
     {
         // get a pointer to the start of this scan line
         unsigned char* linePointer = &buffer[y * width * 4];
 
         // step through the pixels one by one...
-        for(int x = 0; x < width; x++)
+        for(size_t x = 0; x < width; x++)
         {
             // get RGB values. We're dealing with premultiplied alpha
             // here, so we need to divide by the alpha channel (if it

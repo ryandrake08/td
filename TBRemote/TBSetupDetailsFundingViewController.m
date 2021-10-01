@@ -66,7 +66,7 @@
         // build up list of blind levels
         NSMutableArray* blindLevelIndices = [[NSMutableArray alloc] initWithObjects:@0, nil];
         NSArray* names = [TournamentSession blindLevelNamesForConfiguration:[self configuration]];
-        for(NSInteger i=1; i<[[self configuration][@"blind_levels"] count]; i++) {
+        for(NSUInteger i=1; i<[[self configuration][@"blind_levels"] count]; i++) {
             [blindLevelIndices addObject:@(i)];
         }
         [(TBPickableTextTableViewCell*)cell setAllowedValues:blindLevelIndices withTitles:names];
