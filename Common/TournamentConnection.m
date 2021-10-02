@@ -162,7 +162,7 @@
 
         // remove written bytes
         if(bytesWritten > 0) {
-            [[self outputBuffer] replaceBytesInRange:NSMakeRange(0, bytesWritten) withBytes:NULL length:0];
+            [[self outputBuffer] replaceBytesInRange:NSMakeRange(0, (NSUInteger)bytesWritten) withBytes:NULL length:0];
         }
     }
 }
@@ -183,7 +183,7 @@
 
         if(bytesRead > 0) {
             // append to [self inputBuffer]
-            [[self inputBuffer] appendBytes:bytes length:bytesRead];
+            [[self inputBuffer] appendBytes:bytes length:(NSUInteger)bytesRead];
         }
     }
 }

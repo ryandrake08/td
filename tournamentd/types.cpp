@@ -222,20 +222,20 @@ void td::from_json(const nlohmann::json& j, td::authorized_client& p)
 
 void td::from_json(const nlohmann::json& j, td::blind_level& p)
 {
-    p.little_blind = j.value("little_blind", 0);
-    p.big_blind = j.value("big_blind", 0);
-    p.ante = j.value("ante", 0);
+    p.little_blind = j.value("little_blind", 0UL);
+    p.big_blind = j.value("big_blind", 0UL);
+    p.ante = j.value("ante", 0UL);
     p.ante_type = j.value("ante_type", td::ante_type_t::none);
-    p.duration = j.value("duration", 0);
-    p.break_duration = j.value("break_duration", 0);
+    p.duration = j.value("duration", 0L);
+    p.break_duration = j.value("break_duration", 0L);
     p.reason = j.value("reason", std::string());
 }
 
 void td::from_json(const nlohmann::json& j, td::chip& p)
 {
     p.color = j.value("color", std::string());
-    p.denomination = j.value("denomination", 0);
-    p.count_available = j.value("count_available", 0);
+    p.denomination = j.value("denomination", 0UL);
+    p.count_available = j.value("count_available", 0UL);
 }
 
 void td::from_json(const nlohmann::json& j, td::table& p)
@@ -259,7 +259,7 @@ void td::from_json(const nlohmann::json& j, td::funding_source& p)
     p.name = j.value("name", std::string());
     p.type = j.value("type", td::funding_source_type_t::buyin);
     p.forbid_after_blind_level = j.value("forbid_after_blind_level", std::numeric_limits<std::size_t>::max());
-    p.chips = j.value("chips", 0);
+    p.chips = j.value("chips", 0UL);
     p.cost = j.value("cost", td::monetary_value());
     p.commission = j.value("commission", td::monetary_value());
     p.equity = j.value("equity", td::monetary_value_nocurrency());
@@ -274,13 +274,13 @@ void td::from_json(const nlohmann::json& j, td::player& p)
 
 void td::from_json(const nlohmann::json& j, td::seat& p)
 {
-    p.table_number = j.value("table_number", 0);
-    p.seat_number = j.value("seat_number", 0);
+    p.table_number = j.value("table_number", std::size_t{0});
+    p.seat_number = j.value("seat_number", std::size_t{0});
 }
 
 void td::from_json(const nlohmann::json& j, td::manual_payout& p)
 {
-    p.buyins_count = j.value("buyins_count", 0);
+    p.buyins_count = j.value("buyins_count", std::size_t{0});
     p.payouts = j.value("payouts", std::vector<td::monetary_value_nocurrency>());
 }
 

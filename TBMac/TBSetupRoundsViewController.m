@@ -103,7 +103,7 @@
         return @(rowIndex+1);
     } else if([[aTableColumn identifier] isEqualToString:@"Start Time"]) {
         long totalDuration = 0;
-        for(NSInteger i=0; i<rowIndex; i++) {
+        for(NSUInteger i=0; i<(NSUInteger)rowIndex; i++) {
             NSDictionary* object = [[self arrayController] arrangedObjects][i];
             long duration = [object[@"duration"] longValue];
             long breakDuration = [object[@"break_duration"] longValue];

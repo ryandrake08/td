@@ -21,12 +21,13 @@
 #pragma mark UICollectionViewDataSource
 
 - (NSInteger)collectionView:(UICollectionView*)collectionView numberOfItemsInSection:(NSInteger)section {
-    return [[TBColor allColorNames] count];
+    return (NSInteger)[[TBColor allColorNames] count];
 }
 
 - (UICollectionViewCell*)collectionView:(UICollectionView*)collectionView cellForItemAtIndexPath:(NSIndexPath*)indexPath {
     UICollectionViewCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ChooseColorCell" forIndexPath:indexPath];
-    NSString* colorName = [TBColor allColorNames][[indexPath row]];
+    NSUInteger urow = (NSUInteger)[indexPath row];
+    NSString* colorName = [TBColor allColorNames][urow];
     [(TBEllipseView*)[cell viewWithTag:100] setColor:[TBColor colorWithName:colorName]];
     return cell;
 }
@@ -34,7 +35,8 @@
 #pragma mark UICollectionViewDelegate
 
 - (void)collectionView:(UICollectionView*)collectionView didSelectItemAtIndexPath:(NSIndexPath*)indexPath {
-    [self object][@"color"] = [TBColor allColorNames][[indexPath row]];
+    NSUInteger urow = (NSUInteger)[indexPath row];
+    [self object][@"color"] = [TBColor allColorNames][urow];
     [[NSNotificationCenter defaultCenter] postNotificationName:kConfigurationUpdatedNotification object:nil];
     [[self navigationController] popViewControllerAnimated:YES];
 }

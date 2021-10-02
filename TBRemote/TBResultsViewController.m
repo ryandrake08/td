@@ -54,7 +54,7 @@
 }
 
 - (NSInteger)tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section {
-    return [[[self session] state][@"results"] count];
+    return (NSInteger)[[[self session] state][@"results"] count];
 }
 
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath {
@@ -63,7 +63,8 @@
         UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"ResultsCell" forIndexPath:indexPath];
 
         // get result for this row
-        NSDictionary* result = [[self session] state][@"results"][[indexPath row]];
+        NSUInteger urow = (NSUInteger)[indexPath row];
+        NSDictionary* result = [[self session] state][@"results"][urow];
 
         // place
         TTTOrdinalNumberFormatter* placeFormatter = [[TTTOrdinalNumberFormatter alloc] init];

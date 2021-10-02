@@ -3,6 +3,7 @@
 #include "outputdebugstringbuf.hpp"
 #include <fstream>
 #include <mutex>
+#include <limits>
 
 // Macro to include current function in log
 #if __STDC_VERSION__ < 199901L && __cplusplus < 201103L
@@ -75,4 +76,4 @@ typedef basic_logstream<wchar_t> wlogstream;
 
 // class variables
 template<typename T> std::mutex basic_logstream<T>::mutex;
-template<typename T> unsigned basic_logstream<T>::mask = -1;
+template<typename T> unsigned basic_logstream<T>::mask = std::numeric_limits<unsigned>::max();

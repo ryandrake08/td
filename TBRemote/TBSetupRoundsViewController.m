@@ -43,7 +43,8 @@
 
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath {
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"SetupRoundsCell" forIndexPath:indexPath];
-    NSDictionary* object = [self arrangedObjects][[indexPath row]];
+    NSUInteger urow = (NSUInteger)[indexPath row];
+    NSDictionary* object = [self arrangedObjects][urow];
     TBDurationNumberFormatter* durationFormatter = [[TBDurationNumberFormatter alloc] init];
     [[cell textLabel] setText:[durationFormatter stringForObjectValue:object[@"duration"]]];
     [[cell detailTextLabel] setText:[self formattedStringForRound:object]];

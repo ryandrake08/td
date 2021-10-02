@@ -166,11 +166,9 @@
         if(selectedIndex == NSNotFound) {
             NSLog(@"TBPickableTextTableViewCell text entered is not an allowed title");
         } else {
-            NSInteger selectRow = selectedIndex;
-
             // get picker and select the right row
             UIPickerView* picker = (UIPickerView*)[[self textField] inputView];
-            [picker selectRow:selectRow inComponent:0 animated:NO];
+            [picker selectRow:(NSInteger)selectedIndex inComponent:0 animated:NO];
         }
     }
 }
@@ -244,7 +242,7 @@
 #pragma mark UIPickerViewDataSource
 
 - (NSInteger)pickerView:(UIPickerView*)pickerView numberOfRowsInComponent:(NSInteger)component {
-    return [[self allowedValueTitles] count];
+    return (NSInteger)[[self allowedValueTitles] count];
 }
 
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView*)pickerView {
@@ -252,7 +250,7 @@
 }
 
 - (NSString*)pickerView:(UIPickerView*)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-    return [self allowedValueTitles][row];
+    return [self allowedValueTitles][(NSUInteger)row];
 }
 
 #pragma mark UIPickerViewDelegate

@@ -190,10 +190,10 @@ struct tournament::impl
     {
         auto levels(this->game_info.gen_blind_levels(in.at("desired_duration"),
                                                      in.at("level_duration"),
-                                                     in.value("expected_buyins", 0),
-                                                     in.value("expected_rebuys", 0),
-                                                     in.value("expected_addons", 0),
-                                                     in.value("break_duration", 0),
+                                                     in.value("expected_buyins", std::size_t{0}),
+                                                     in.value("expected_rebuys", std::size_t{0}),
+                                                     in.value("expected_addons", std::size_t{0}),
+                                                     in.value("break_duration", 0L),
                                                      in.value("antes", td::ante_type_t::none),
                                                      in.value("ante_sb_ratio", 0.2)));
         out["blind_levels"] = levels;

@@ -64,7 +64,7 @@
 
 - (void)setPayoutForSelectedRow {
     // get payout array for currently selected row
-    NSInteger selectedRow = [[self tableView] selectedRow];
+    NSUInteger selectedRow = (NSUInteger)[[self tableView] selectedRow];
 
     // find object to bind to
     NSDictionary* object = [[self arrayController] arrangedObjects][selectedRow];

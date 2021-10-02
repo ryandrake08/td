@@ -19,7 +19,7 @@
 }
 
 - (NSInteger)tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section {
-    return [[self arrangedObjects] count];
+    return (NSInteger)[[self arrangedObjects] count];
 }
 
 - (UITableViewCellEditingStyle)tableView:(UITableView*)tableView editingStyleForRowAtIndexPath:(NSIndexPath*)indexPath {
@@ -29,7 +29,8 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete from the data source
-        [[self arrangedObjects] removeObjectAtIndex:[indexPath row]];
+        NSUInteger urow = (NSUInteger)[indexPath row];
+        [[self arrangedObjects] removeObjectAtIndex:urow];
 
         // notify that configuration changed (delete)
         [[NSNotificationCenter defaultCenter] postNotificationName:kConfigurationUpdatedNotification object:nil];
@@ -56,7 +57,8 @@
 
 // returns the object for a given indexPath
 - (id)arrangedObjectForIndexPath:(NSIndexPath*)indexPath {
-    return [self arrangedObjects][[indexPath row]];
+    NSUInteger urow = (NSUInteger)[indexPath row];
+    return [self arrangedObjects][urow];
 }
 
 // generates a new object (MUST be overridden by subclasses)
@@ -92,7 +94,7 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:kConfigurationUpdatedNotification object:nil];
 
     // figure out last added indexPath
-    NSIndexPath* newIndexPath = [NSIndexPath indexPathForRow:[[self arrangedObjects] count]-1 inSection:0];
+    NSIndexPath* newIndexPath = [NSIndexPath indexPathForRow:(NSInteger)[[self arrangedObjects] count]-1 inSection:0];
 
     // Insert to the table and scroll
     [[self tableView] insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];

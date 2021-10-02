@@ -44,7 +44,7 @@
     [[[self arrayController] arrangedObjects] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL* stop) {
         if([obj[@"player_id"] isEqualToString:playerId]) {
             [[self arrayController] setSelectionIndex:idx];
-            [[self tableView] scrollRowToVisible:idx];
+            [[self tableView] scrollRowToVisible:(NSInteger)idx];
             *stop = YES;
         }
     }];
@@ -89,9 +89,11 @@
 - (void)menuNeedsUpdate:(NSMenu*)menu {
     // find the selected indexes
     NSIndexSet* indexSet = [[self tableView] selectedRowIndexes];
+    NSUInteger urow = (NSUInteger)[[self tableView] clickedRow];
+
     // If the clicked row is in selectedIndexes, then process all selectedIndexes. Otherwise, process only clickedRow.
-    if ([[self tableView] clickedRow] != -1 && ![indexSet containsIndex:[[self tableView] clickedRow]]) {
-        indexSet = [NSIndexSet indexSetWithIndex:[[self tableView] clickedRow]];
+    if ([[self tableView] clickedRow] != -1 && ![indexSet containsIndex:urow]) {
+        indexSet = [NSIndexSet indexSetWithIndex:urow];
     }
 
     // array to hold all players
@@ -100,7 +102,7 @@
 
     // build array of affected player_ids and count how many are bought in
     [indexSet enumerateIndexesUsingBlock:^(NSUInteger row, BOOL* stop) {
-        NSTableCellView* cell = [[self tableView] viewAtColumn:0 row:row makeIfNecessary:YES];
+        NSTableCellView* cell = [[self tableView] viewAtColumn:0 row:(NSInteger)row makeIfNecessary:YES];
         NSDictionary* player = [cell objectValue];
         [playerIds addObject:player[@"player_id"]];
         if([player[@"buyin"] boolValue]) {
@@ -122,7 +124,7 @@
     // only add funding sources if one item selected, logic for which funding sources are allowed depends on player
     if([indexSet count] == 1) {
         // get player for this row
-        NSUInteger row = [indexSet firstIndex];
+        NSInteger row = (NSInteger)[indexSet firstIndex];
         NSTableCellView* cell = [[self tableView] viewAtColumn:0 row:row makeIfNecessary:YES];
         NSDictionary* player = [cell objectValue];
 
@@ -157,7 +159,7 @@
                     }
                 }
 
-                [menu insertItem:item atIndex:idx];
+                [menu insertItem:item atIndex:(NSInteger)idx];
             }
         }];
     }
@@ -184,7 +186,7 @@
     NSTableView* tableView = (NSTableView*)[[cell superview] superview];
 
     // select cell
-    NSInteger row = [tableView rowForView:cell];
+    NSUInteger row = (NSUInteger)[tableView rowForView:cell];
     NSIndexSet* indexSet = [NSIndexSet indexSetWithIndex:row];
     [tableView selectRowIndexes:indexSet byExtendingSelection:NO];
 

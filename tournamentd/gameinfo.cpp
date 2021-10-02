@@ -1564,7 +1564,7 @@ public:
                 auto random_player((*most_it)[index]);
 
                 // subtract iterator to find table number
-                auto table(fewest_it - ppt.begin());
+                auto table(static_cast<std::size_t>(fewest_it - ppt.begin()));
                 movements.push_back(this->move_player(random_player, table));
 
                 // update our lists to stay consistent
@@ -2105,7 +2105,7 @@ public:
         logger(ll::debug) << "total expected rounds: " << rounds_in_play << '\n';
 
         // calculate about 10% more rounds
-        std::size_t count(rounds_in_play + rounds_in_play / 10 + 1);
+        auto count(rounds_in_play + rounds_in_play / 10 + 1);
 
         // first round small blind = smallest chip denomination
         auto first_round_sb(this->available_chips.begin()->denomination);
@@ -2126,7 +2126,7 @@ public:
         auto blind_increase_factor(std::pow(static_cast<double>(last_round_sb) / static_cast<double>(first_round_sb), 1.0/static_cast<double>(rounds_in_play-1)));
 
         // pass to other generator
-        return this->gen_count_blind_levels(count, level_duration, chip_up_break_duration, blind_increase_factor, antes, ante_sb_ratio);
+        return this->gen_count_blind_levels(static_cast<std::size_t>(count), level_duration, chip_up_break_duration, blind_increase_factor, antes, ante_sb_ratio);
     }
 
     impl() :

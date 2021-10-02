@@ -206,7 +206,7 @@
     if (self.enableDigit == YES) {
         CGFloat lineHeight = self.digitFont.lineHeight;
         CGFloat markingDistanceFromCenter = arect.size.width/2.0f - lineHeight/4.0f - 15 + self.digitOffset;
-        NSInteger offset = 4;
+        NSUInteger offset = 4;
 
         for(unsigned i = 0; i < 12; i ++){
             NSString *secondNumber = [NSString stringWithFormat:@"%@%d", i==0 ? @" ": @"", (i + 1) * 5];

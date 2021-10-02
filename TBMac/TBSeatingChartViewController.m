@@ -126,7 +126,8 @@
         if([indexPath item] < tableCount) {
             // get table name for this item
             NSArray* tablesPlaying = [[self session] state][@"tables_playing"];
-            NSString* tableName = tablesPlaying[[indexPath item]];
+            NSUInteger uitem = (NSUInteger)[indexPath item];
+            NSString* tableName = tablesPlaying[uitem];
 
             // set item attributes
             [item setTableName:tableName];
@@ -156,7 +157,8 @@
 
     // get table name for this item
     NSArray* tablesPlaying = [[self session] state][@"tables_playing"];
-    NSString* tableName = tablesPlaying[[indexPath item]];
+    NSUInteger uitem = (NSUInteger)[indexPath item];
+    NSString* tableName = tablesPlaying[uitem];
 
     // look up seats
     if(tableName != nil) {

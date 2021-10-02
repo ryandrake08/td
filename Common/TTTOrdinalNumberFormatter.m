@@ -120,7 +120,7 @@ static NSString * const kTTTOrdinalNumberFormatterDefaultOrdinalIndicator = @"."
 
 - (NSString *)enOrdinalIndicatorStringFromNumber:(NSNumber *)number {
     // If number % 100 is 11, 12, or 13
-    if (NSLocationInRange([number integerValue] % 100, NSMakeRange(11, 3))) {
+    if (NSLocationInRange([number unsignedIntegerValue] % 100, NSMakeRange(11, 3))) {
         return @"th";
     }
 
@@ -217,7 +217,7 @@ static NSString * const kTTTOrdinalNumberFormatterDefaultOrdinalIndicator = @"."
 
 - (NSString *)svOrdinalIndicatorStringFromNumber:(NSNumber *)number {
     // If number % 100 is 11 or 12, ordinals are 11:e and 12:e.
-    if (NSLocationInRange([number integerValue] % 100, NSMakeRange(11, 2))) {
+    if (NSLocationInRange([number unsignedIntegerValue] % 100, NSMakeRange(11, 2))) {
         return @":e";
     }
     
@@ -309,8 +309,8 @@ static NSString * const kTTTOrdinalNumberFormatterDefaultOrdinalIndicator = @"."
     [super encodeWithCoder:aCoder];
 
     [aCoder encodeObject:self.ordinalIndicator forKey:NSStringFromSelector(@selector(ordinalIndicator))];
-    [aCoder encodeInteger:self.grammaticalGender forKey:NSStringFromSelector(@selector(grammaticalGender))];
-    [aCoder encodeInteger:self.grammaticalNumber forKey:NSStringFromSelector(@selector(grammaticalNumber))];
+    [aCoder encodeInteger:(NSInteger)self.grammaticalGender forKey:NSStringFromSelector(@selector(grammaticalGender))];
+    [aCoder encodeInteger:(NSInteger)self.grammaticalNumber forKey:NSStringFromSelector(@selector(grammaticalNumber))];
 }
 
 @end

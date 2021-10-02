@@ -16,7 +16,7 @@ class basic_socketstreambuf : public std::basic_streambuf<T>
     typedef typename std::basic_streambuf<char_type>::traits_type traits_type;
 
     common_socket sock;
-    static const int char_size = sizeof(char_type);
+    static const std::size_t char_size = sizeof(char_type);
     static const std::size_t SIZE = 8192;
     char_type* ibuf;
     char_type* obuf;
@@ -65,12 +65,12 @@ public:
     }
 
 private:
-    ptrdiff_t output_buffer()
+    std::ptrdiff_t output_buffer()
     {
         auto num(buf_type::pptr() - buf_type::pbase());
         if(num > 0)
         {
-            if(this->sock.send(obuf, num * char_size) != num)
+            if(this->sock.send(obuf, static_cast<size_t>(num) * char_size) != num)
             {
                 return traits_type::eof();
             }

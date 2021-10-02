@@ -21,6 +21,6 @@
 @property (nonatomic, strong) NSString* warningText;
 
 // Number of players to plan for
-@property (nonatomic, assign) NSInteger numberOfPlayers;
+@property (nonatomic, assign) NSUInteger numberOfPlayers;
 
 @end

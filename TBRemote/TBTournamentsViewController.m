@@ -61,13 +61,14 @@
 }
 
 - (NSInteger)tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section {
-    return [[self tournamentServices] count];
+    return (NSInteger)[[self tournamentServices] count];
 }
 
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath {
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"ServiceCell" forIndexPath:indexPath];
 
-    TournamentService* cellService = [self tournamentServices][[indexPath row]];
+    NSUInteger urow = (NSUInteger)[indexPath row];
+    TournamentService* cellService = [self tournamentServices][urow];
     BOOL connected = [[self session] connected];
     BOOL authorized = [[self session] authorized];
 
@@ -93,7 +94,8 @@
 #pragma mark UITableViewDelegate
 
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
-    TournamentService* cellService = [self tournamentServices][[indexPath row]];
+    NSUInteger urow = (NSUInteger)[indexPath row];
+    TournamentService* cellService = [self tournamentServices][urow];
     BOOL connected = [[self session] connected];
     BOOL authorized = [[self session] authorized];
 
@@ -155,7 +157,7 @@
 - (void)reloadTableRowForService:(TournamentService*)service {
     NSUInteger i = [[self tournamentServices] indexOfObject:service];
     if(i != NSNotFound) {
-        NSIndexPath* indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+        NSIndexPath* indexPath = [NSIndexPath indexPathForRow:(NSInteger)i inSection:0];
         [[self tableView] reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
 }

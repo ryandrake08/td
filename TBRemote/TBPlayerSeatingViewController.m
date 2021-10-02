@@ -128,17 +128,19 @@
     } else if(section == 1) {
         players = [[self unseatedPlayers] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat: @"seat_name = nil"]];
     }
-    return [players count];
+    return (NSInteger)[players count];
 }
 
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath {
     NSDictionary* player;
+    NSUInteger urow = (NSUInteger)[indexPath row];
+
     if([indexPath section] == 0) {
         // create a cell
         UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"SeatedCell" forIndexPath:indexPath];
 
         // get player for this row
-        player = [self seatedPlayers][[indexPath row]];
+        player = [self seatedPlayers][urow];
 
         // setup cell
         [(UILabel*)[cell viewWithTag:100] setText:player[@"table_name"]];
@@ -156,7 +158,7 @@
         UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"UnseatedCell" forIndexPath:indexPath];
 
         // get player for this row
-        player = [self unseatedPlayers][[indexPath row]];
+        player = [self unseatedPlayers][urow];
 
         // setup cell
         [(UILabel*)[cell viewWithTag:200] setText:player[@"name"]];
@@ -186,9 +188,10 @@
         // get list of players who have already bought in
         NSArray* uniqueEntries = [[self session] state][@"unique_entries"];
 
+        NSUInteger urow = (NSUInteger)[indexPath row];
         if([indexPath section] == 0) {
             // get player for this row
-            player = [self seatedPlayers][[indexPath row]];
+            player = [self seatedPlayers][urow];
             NSString* playerId = player[@"player_id"];
 
             // set title
@@ -246,7 +249,7 @@
             }
         } else if([indexPath section] == 1) {
             // get player for this row
-            player = [self unseatedPlayers][[indexPath row]];
+            player = [self unseatedPlayers][urow];
             NSString* playerId = player[@"player_id"];
 
             // set title

@@ -202,7 +202,7 @@
 - (NSInteger)tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section {
     if(section == 5) {
         NSArray* availableChips = [[self session] state][@"available_chips"];
-        return [availableChips count];
+        return (NSInteger)[availableChips count];
     } else {
         return [super tableView:tableView numberOfRowsInSection:section];
     }
@@ -212,7 +212,8 @@
     if([indexPath section] == 5) {
         // relevent state
         NSArray* availableChips = [[self session] state][@"available_chips"];
-        NSDictionary* chip = availableChips[[indexPath row]];
+        NSUInteger urow = (NSUInteger)[indexPath row];
+        NSDictionary* chip = availableChips[urow];
 
         // create a cell
         TBChipTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"ChipCell" forIndexPath:indexPath];
