@@ -53,9 +53,13 @@
         // delete existing tables and re-create
         [[self tables] removeAllObjects];
 
-        // iterate through seated player list to build up our table_name keyed dictionary
+        // combine seated players and empty seats to make seating chart
         NSArray* seatedPlayers = [[self session] state][@"seated_players"];
-        for(NSDictionary* seatedPlayer in seatedPlayers) {
+        NSArray* emptySeats = [[self session] state][@"empty_seated_players"];
+        NSArray* allPlayers = [seatedPlayers arrayByAddingObjectsFromArray:emptySeats];
+
+        // iterate through list to build up our table_name keyed dictionary
+        for(NSDictionary* seatedPlayer in allPlayers) {
             // given this player's table
             NSString* tableName = seatedPlayer[@"table_name"];
             if(tableName != nil) {
@@ -65,35 +69,13 @@
                 // create if needed
                 if(seats == nil) {
                     seats = [NSMutableArray array];
+
+                    // set it into our dictionary
+                    [[self tables] setObject:seats forKey:tableName];
                 }
 
                 // now add the seat
                 [seats addObject:seatedPlayer];
-
-                // set it into our dictionary
-                [[self tables] setObject:seats forKey:tableName];
-            }
-        }
-
-        // iterate through empty seats adding blank seats
-        NSArray* emptySeats = [[self session] state][@"empty_seated_players"];
-        for(NSDictionary* emptySeat in emptySeats) {
-            // given this empty seat's table
-            NSString* tableName = emptySeat[@"table_name"];
-            if(tableName != nil) {
-                // look up the seating list
-                NSMutableArray* seats = [[self tables] objectForKey:tableName];
-
-                // create if needed
-                if(seats == nil) {
-                    seats = [NSMutableArray array];
-                }
-
-                // now add the seat
-                [seats addObject:emptySeat];
-
-                // set it into our dictionary
-                [[self tables] setObject:seats forKey:tableName];
             }
         }
 
