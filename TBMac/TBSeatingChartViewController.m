@@ -48,17 +48,13 @@
     }];
 
     // update chart when seating changes
-    [[self KVOController] observe:self keyPaths:@[@"session.state.seated_players", @"session.state.empty_seated_players"] options:NSKeyValueObservingOptionInitial block:^(id observer, TBSeatingChartViewController* object, NSDictionary *change) {
+    [[self KVOController] observe:self keyPaths:@[@"session.state.seating_chart"] options:NSKeyValueObservingOptionInitial block:^(id observer, TBSeatingChartViewController* object, NSDictionary *change) {
 
         // delete existing tables and re-create
         [[self tables] removeAllObjects];
 
-        // combine seated players and empty seats to make seating chart
-        NSArray* seatedPlayers = [[self session] state][@"seated_players"];
-        NSArray* emptySeats = [[self session] state][@"empty_seated_players"];
-        NSArray* allPlayers = [seatedPlayers arrayByAddingObjectsFromArray:emptySeats];
-
         // iterate through list to build up our table_name keyed dictionary
+        NSArray* allPlayers = [[self session] state][@"seating_chart"];
         for(NSDictionary* seatedPlayer in allPlayers) {
             // given this player's table
             NSString* tableName = seatedPlayer[@"table_name"];

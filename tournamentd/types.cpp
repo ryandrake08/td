@@ -159,13 +159,13 @@ td::seated_player::seated_player(const player_id_t& p, const std::string& n, boo
 {
 }
 
-td::seated_player::seated_player(const std::string& t, const std::string& s) : buyin(false), table_name(t), seat_name(s)
-{
-}
-
 bool td::seated_player::is_seated() const
 {
     return !this->table_name.empty() && !seat_name.empty();
+}
+
+td::seating_chart_entry::seating_chart_entry(const std::string& t, const std::string& s, const std::string& n) : table_name(t), seat_name(s), player_name(n)
+{
 }
 
 td::automatic_payout_parameters::automatic_payout_parameters() : percent_seats_paid(0.0), round_payouts(false), payout_shape(0.0), pay_the_bubble(0.0), pay_knockouts(0.0)
@@ -489,6 +489,16 @@ void td::to_json(nlohmann::json& j, const td::seated_player& p)
         j["table_name"] = p.table_name;
         j["seat_name"] = p.seat_name;
     }
+}
+
+void td::to_json(nlohmann::json& j, const td::seating_chart_entry& p)
+{
+    j = nlohmann::json
+    {
+        {"player_name", p.player_name},
+        {"table_name", p.table_name},
+        {"seat_name", p.seat_name}
+    };
 }
 
 // ----- ostream insertion

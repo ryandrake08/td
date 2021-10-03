@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="15400" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19162" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15400"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19162"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -27,11 +27,11 @@
                 <scrollView autohidesScrollers="YES" horizontalLineScroll="34" horizontalPageScroll="10" verticalLineScroll="34" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hVI-KH-GKN">
                     <rect key="frame" x="20" y="20" width="280" height="315"/>
                     <clipView key="contentView" id="7lE-su-NbV">
-                        <rect key="frame" x="1" y="0.0" width="278" height="314"/>
+                        <rect key="frame" x="1" y="1" width="278" height="313"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" multipleSelection="NO" autosaveColumns="NO" typeSelect="NO" rowHeight="32" rowSizeStyle="automatic" headerView="0Jp-Jg-f2h" viewBased="YES" id="OEB-AH-cTw">
-                                <rect key="frame" x="0.0" y="0.0" width="278" height="289"/>
+                                <rect key="frame" x="0.0" y="0.0" width="278" height="288"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -39,7 +39,6 @@
                                 <tableColumns>
                                     <tableColumn width="64" minWidth="64" maxWidth="64" id="FZy-Mt-sRk">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Seat">
-                                            <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                         </tableHeaderCell>
@@ -51,11 +50,11 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView id="3bK-QJ-uas">
-                                                <rect key="frame" x="1" y="1" width="64" height="32"/>
+                                                <rect key="frame" x="1" y="1" width="69" height="32"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uAd-a1-ejS">
-                                                        <rect key="frame" x="0.0" y="2" width="64" height="30"/>
+                                                        <rect key="frame" x="0.0" y="2" width="69" height="30"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="1" id="anN-B9-taD">
                                                             <font key="font" metaFont="system" size="26"/>
@@ -76,9 +75,8 @@
                                             <binding destination="fxr-Eh-zhm" name="value" keyPath="arrangedObjects.seat_name" id="v68-k1-GQn"/>
                                         </connections>
                                     </tableColumn>
-                                    <tableColumn width="173" minWidth="40" maxWidth="1000" id="aOJ-aw-P8F">
+                                    <tableColumn width="165.5" minWidth="40" maxWidth="1000" id="aOJ-aw-P8F">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Player">
-                                            <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                         </tableHeaderCell>
@@ -90,11 +88,11 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView id="g3q-aG-6Rl">
-                                                <rect key="frame" x="68" y="1" width="173" height="32"/>
+                                                <rect key="frame" x="73" y="1" width="169" height="32"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iLO-eq-N0y">
-                                                        <rect key="frame" x="0.0" y="2" width="172" height="30"/>
+                                                        <rect key="frame" x="0.0" y="2" width="168" height="30"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Player" id="p2g-UV-lY7">
                                                             <font key="font" metaFont="system" size="26"/>
@@ -102,7 +100,7 @@
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
                                                         <connections>
-                                                            <binding destination="g3q-aG-6Rl" name="value" keyPath="objectValue.name" id="BUh-O2-h5Z"/>
+                                                            <binding destination="g3q-aG-6Rl" name="value" keyPath="objectValue.player_name" id="xvc-et-C4a"/>
                                                         </connections>
                                                     </textField>
                                                 </subviews>
@@ -112,43 +110,7 @@
                                             </tableCellView>
                                         </prototypeCellViews>
                                         <connections>
-                                            <binding destination="fxr-Eh-zhm" name="value" keyPath="arrangedObjects.name" id="Gat-m2-O6H"/>
-                                        </connections>
-                                    </tableColumn>
-                                    <tableColumn width="32" minWidth="32" maxWidth="32" id="ebI-d6-cPf">
-                                        <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
-                                            <font key="font" metaFont="smallSystem"/>
-                                            <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </tableHeaderCell>
-                                        <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="ufS-ud-NAw">
-                                            <font key="font" metaFont="system"/>
-                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                        </textFieldCell>
-                                        <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
-                                        <prototypeCellViews>
-                                            <tableCellView id="158-lZ-lTp">
-                                                <rect key="frame" x="244" y="1" width="32" height="32"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                <subviews>
-                                                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VMp-al-3wG">
-                                                        <rect key="frame" x="0.0" y="0.0" width="32" height="32"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="TBSetupPayoutsViewController" id="N9C-QV-Nj4"/>
-                                                        <connections>
-                                                            <binding destination="158-lZ-lTp" name="hidden" keyPath="objectValue.buyin" id="mqa-YX-yXI">
-                                                                <dictionary key="options">
-                                                                    <string key="NSValueTransformerName">NSNegateBoolean</string>
-                                                                </dictionary>
-                                                            </binding>
-                                                        </connections>
-                                                    </imageView>
-                                                </subviews>
-                                            </tableCellView>
-                                        </prototypeCellViews>
-                                        <connections>
-                                            <binding destination="fxr-Eh-zhm" name="value" keyPath="arrangedObjects.buyin" id="LrM-8P-hcS"/>
+                                            <binding destination="fxr-Eh-zhm" name="value" keyPath="arrangedObjects.player_name" id="XS6-ci-QSm"/>
                                         </connections>
                                     </tableColumn>
                                 </tableColumns>
@@ -159,14 +121,14 @@
                         </subviews>
                     </clipView>
                     <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="aLS-as-i9C">
-                        <rect key="frame" x="0.0" y="305" width="262" height="15"/>
+                        <rect key="frame" x="1" y="299" width="278" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                     <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="Nqh-dA-Y7D">
                         <rect key="frame" x="224" y="17" width="15" height="102"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <tableHeaderView key="headerView" id="0Jp-Jg-f2h">
+                    <tableHeaderView key="headerView" wantsLayer="YES" id="0Jp-Jg-f2h">
                         <rect key="frame" x="0.0" y="0.0" width="278" height="25"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </tableHeaderView>
@@ -197,7 +159,4 @@
             </connections>
         </viewController>
     </objects>
-    <resources>
-        <image name="TBSetupPayoutsViewController" width="32" height="32"/>
-    </resources>
 </document>

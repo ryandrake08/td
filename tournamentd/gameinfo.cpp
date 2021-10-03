@@ -1146,21 +1146,25 @@ public:
         }
         state["results"] = results;
 
-        // seated players
+        // seating chart
+        std::vector<td::seating_chart_entry> seating_chart;
+
+        // seated players (and seating chart)
         std::vector<td::seated_player> seated_players;
         for(const auto& p : this->players)
         {
-            seated_players.push_back(find_seated_player(p.player_id));
+            auto seated_player(find_seated_player(p.player_id));
+            seated_players.push_back(seated_player);
+            seating_chart.push_back(td::seating_chart_entry(seated_player.table_name, seated_player.seat_name, seated_player.name));
         }
         state["seated_players"] = seated_players;
 
-        // "empty" seated players
-        std::vector<td::seated_player> empty_seated_players;
+        // "empty" seated players for seating chart
         for(const auto& s : this->empty_seats)
         {
-            empty_seated_players.push_back(td::seated_player(this->table_name(s.table_number), this->seat_name(s.seat_number)));
+            seating_chart.push_back(td::seating_chart_entry(this->table_name(s.table_number), this->seat_name(s.seat_number)));
         }
-        state["empty_seated_players"] = empty_seated_players;
+        state["seating_chart"] = seating_chart;
 
         // table names in play
         std::vector<std::string> tables_playing(this->table_count);

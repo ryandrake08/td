@@ -254,13 +254,22 @@ namespace td
         seated_player();
         seated_player(const player_id_t& p, const std::string& n, bool b);
         seated_player(const player_id_t& p, const std::string& n, bool b, const std::string& t, const std::string& s);
-        // represents an empty seat
-        seated_player(const std::string& t, const std::string& s);
 
         // is there a valid seat?
         bool is_seated() const;
     };
     void to_json(nlohmann::json& j, const td::seated_player& p);
+
+    // information needed to display the seating chart
+    struct seating_chart_entry
+    {
+        std::string table_name;
+        std::string seat_name;
+        std::string player_name;
+
+        seating_chart_entry(const std::string& t, const std::string& s, const std::string& n=std::string());
+    };
+    void to_json(nlohmann::json& j, const td::seating_chart_entry& p);
 
     // automatic payout parameters
     struct automatic_payout_parameters
