@@ -270,25 +270,6 @@ class gameinfo::impl
         throw td::protocol_error("no funding sources of given type exist");
     }
 
-    // look up all fields for a seated_player
-    td::seated_player find_seated_player(const td::player_id_t& player_id) const
-    {
-        auto buyin(this->buyins.find(player_id));
-        auto seat(this->seats.find(player_id));
-        if(seat == this->seats.end())
-        {
-            return td::seated_player(player_id, this->player_name(player_id), buyin != this->buyins.end());
-        }
-        else
-        {
-            return td::seated_player(player_id,
-                                     this->player_name(player_id),
-                                     buyin != this->buyins.end(),
-                                     this->table_name(seat->second.table_number),
-                                     this->seat_name(seat->second.seat_number));
-        }
-    }
-
     // move a player to a specific table
     // returns player's original seat and new seat
     td::player_movement move_player(const td::player_id_t& player_id, std::size_t table)
@@ -1151,18 +1132,25 @@ public:
 
         // seated players (and seating chart)
         std::vector<td::seated_player> seated_players;
-        for(const auto& p : this->players)
+        for(const auto& s : this->seats)
         {
-            auto seated_player(find_seated_player(p.player_id));
+            td::seated_player seated_player(s.first,
+                                            this->player_name(s.first),
+                                            this->buyins.find(s.first) != this->buyins.end(),
+                                            this->table_name(s.second.table_number),
+                                            this->seat_name(s.second.seat_number));
             seated_players.push_back(seated_player);
-            seating_chart.push_back(td::seating_chart_entry(seated_player.table_name, seated_player.seat_name, seated_player.name));
+
+            td::seating_chart_entry seating_entry(seated_player.table_name, seated_player.seat_name, seated_player.name);
+            seating_chart.push_back(seating_entry);
         }
         state["seated_players"] = seated_players;
 
         // "empty" seated players for seating chart
         for(const auto& s : this->empty_seats)
         {
-            seating_chart.push_back(td::seating_chart_entry(this->table_name(s.table_number), this->seat_name(s.seat_number)));
+            td::seating_chart_entry seating_entry(this->table_name(s.table_number), this->seat_name(s.seat_number));
+            seating_chart.push_back(seating_entry);
         }
         state["seating_chart"] = seating_chart;
 
@@ -1324,9 +1312,16 @@ public:
     std::pair<std::string, td::seated_player> add_player(const td::player_id_t& player_id)
     {
         // find player in existing seating plan
-        auto seated(this->find_seated_player(player_id));
-        if(seated.is_seated())
+        auto seat(this->seats.find(player_id));
+        if(seat != this->seats.end())
         {
+            // create a seated player struct
+            td::seated_player seated(player_id,
+                                     this->player_name(player_id),
+                                     this->buyins.find(player_id) != this->buyins.end(),
+                                     this->table_name(seat->second.table_number),
+                                     this->seat_name(seat->second.seat_number));
+
             logger(ll::info) << "player " << this->player_description(player_id) << " already seated at table " << seated.table_name << ", seat " << seated.seat_name << '\n';
             return std::make_pair("already_seated", seated);
         }
@@ -1344,16 +1339,19 @@ public:
             // set state dirty
             this->dirty = true;
 
-            // seat player and remove from empty list
-            auto seat(this->empty_seats.front());
-            this->seats.insert(std::make_pair(player_id, seat));
+            // move seat definition from empty_seats to seats, seating player
+            auto empty_seat(this->empty_seats.front());
+            this->seats.insert(std::make_pair(player_id, empty_seat));
             this->empty_seats.pop_front();
 
-            seated.table_name = this->table_name(seat.table_number);
-            seated.seat_name = this->seat_name(seat.seat_number);
+            // create a seated_player struct
+            td::seated_player seated(player_id,
+                                     this->player_name(player_id),
+                                     this->buyins.find(player_id) != this->buyins.end(),
+                                     this->table_name(empty_seat.table_number),
+                                     this->seat_name(empty_seat.seat_number));
 
             logger(ll::info) << "seated player " << this->player_description(player_id) << " at table " << seated.table_name << ", seat " << seated.seat_name << '\n';
-
             return std::make_pair("player_seated", seated);
         }
     }

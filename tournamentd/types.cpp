@@ -147,21 +147,8 @@ td::result::result(size_t p, const std::string& n) : place(p), name(n)
 {
 }
 
-td::seated_player::seated_player() : buyin(false)
-{
-}
-
-td::seated_player::seated_player(const player_id_t& p, const std::string& n, bool b) : player_id(p), name(n), buyin(b)
-{
-}
-
 td::seated_player::seated_player(const player_id_t& p, const std::string& n, bool b, const std::string& t, const std::string& s) : player_id(p), name(n), buyin(b), table_name(t), seat_name(s)
 {
-}
-
-bool td::seated_player::is_seated() const
-{
-    return !this->table_name.empty() && !seat_name.empty();
 }
 
 td::seating_chart_entry::seating_chart_entry(const std::string& t, const std::string& s, const std::string& n) : table_name(t), seat_name(s), player_name(n)
@@ -481,14 +468,10 @@ void td::to_json(nlohmann::json& j, const td::seated_player& p)
     {
         {"player_id", p.player_id},
         {"name", p.name},
-        {"buyin", p.buyin}
+        {"buyin", p.buyin},
+        {"table_name", p.table_name},
+        {"seat_name", p.seat_name}
     };
-
-    if(p.is_seated())
-    {
-        j["table_name"] = p.table_name;
-        j["seat_name"] = p.seat_name;
-    }
 }
 
 void td::to_json(nlohmann::json& j, const td::seating_chart_entry& p)

@@ -251,12 +251,7 @@ namespace td
         std::string table_name;
         std::string seat_name;
 
-        seated_player();
-        seated_player(const player_id_t& p, const std::string& n, bool b);
         seated_player(const player_id_t& p, const std::string& n, bool b, const std::string& t, const std::string& s);
-
-        // is there a valid seat?
-        bool is_seated() const;
     };
     void to_json(nlohmann::json& j, const td::seated_player& p);
 
