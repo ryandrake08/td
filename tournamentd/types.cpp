@@ -147,11 +147,19 @@ td::result::result(size_t p, const std::string& n) : place(p), name(n)
 {
 }
 
-td::seated_player::seated_player(const player_id_t& p, const std::string& n, bool b, const std::string& t, const std::string& s) : player_id(p), name(n), buyin(b), table_name(t), seat_name(s)
+td::seated_player::seated_player(const player_id_t& p, bool b, const std::string& n) : player_id(p), buyin(b), player_name(n)
 {
 }
 
-td::seating_chart_entry::seating_chart_entry(const std::string& t, const std::string& s, const std::string& n) : table_name(t), seat_name(s), player_name(n)
+td::seated_player::seated_player(const player_id_t& p, bool b, const std::string& n, const std::string& t, const std::string& s) : player_id(p), buyin(b), player_name(n), table_name(t), seat_name(s)
+{
+}
+
+td::seating_chart_entry::seating_chart_entry(const std::string& t, const std::string& s) : table_name(t), seat_name(s)
+{
+}
+
+td::seating_chart_entry::seating_chart_entry(const std::string& n, const std::string& t, const std::string& s) : player_name(n), table_name(t), seat_name(s)
 {
 }
 
@@ -464,24 +472,47 @@ void td::to_json(nlohmann::json& j, const td::result& p)
 
 void td::to_json(nlohmann::json& j, const td::seated_player& p)
 {
-    j = nlohmann::json
+    if(p.seat_name.empty())
     {
-        {"player_id", p.player_id},
-        {"name", p.name},
-        {"buyin", p.buyin},
-        {"table_name", p.table_name},
-        {"seat_name", p.seat_name}
-    };
+        j = nlohmann::json
+        {
+            {"player_id", p.player_id},
+            {"buyin", p.buyin},
+            {"player_name", p.player_name}
+        };
+    }
+    else
+    {
+        j = nlohmann::json
+        {
+            {"player_id", p.player_id},
+            {"buyin", p.buyin},
+            {"player_name", p.player_name},
+            {"table_name", p.table_name},
+            {"seat_name", p.seat_name}
+        };
+    }
 }
 
 void td::to_json(nlohmann::json& j, const td::seating_chart_entry& p)
 {
-    j = nlohmann::json
+    if(p.player_name.empty())
     {
-        {"player_name", p.player_name},
-        {"table_name", p.table_name},
-        {"seat_name", p.seat_name}
-    };
+        j = nlohmann::json
+        {
+            {"table_name", p.table_name},
+            {"seat_name", p.seat_name}
+        };
+    }
+    else
+    {
+        j = nlohmann::json
+        {
+            {"player_name", p.player_name},
+            {"table_name", p.table_name},
+            {"seat_name", p.seat_name}
+        };
+    }
 }
 
 // ----- ostream insertion

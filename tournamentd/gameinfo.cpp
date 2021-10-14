@@ -1127,24 +1127,38 @@ public:
         }
         state["results"] = results;
 
-        // seating chart
-        std::vector<td::seating_chart_entry> seating_chart;
-
-        // seated players (and seating chart)
+        // seated players
         std::vector<td::seated_player> seated_players;
-        for(const auto& s : this->seats)
+        for(const auto& p : this->players)
         {
-            td::seated_player seated_player(s.first,
-                                            this->player_name(s.first),
-                                            this->buyins.find(s.first) != this->buyins.end(),
-                                            this->table_name(s.second.table_number),
-                                            this->seat_name(s.second.seat_number));
-            seated_players.push_back(seated_player);
-
-            td::seating_chart_entry seating_entry(seated_player.table_name, seated_player.seat_name, seated_player.name);
-            seating_chart.push_back(seating_entry);
+            auto buyin(this->buyins.find(p.player_id));
+            auto seat(this->seats.find(p.player_id));
+            if(seat == this->seats.end())
+            {
+                td::seated_player seated_player(p.player_id,
+                                                buyin != this->buyins.end(),
+                                                this->player_name(p.player_id));
+                seated_players.push_back(seated_player);
+            }
+            else
+            {
+                td::seated_player seated_player(p.player_id,
+                                                buyin != this->buyins.end(),
+                                                this->player_name(p.player_id),
+                                                this->table_name(seat->second.table_number),
+                                                this->seat_name(seat->second.seat_number));
+                seated_players.push_back(seated_player);
+            }
         }
         state["seated_players"] = seated_players;
+
+        // seating chart
+        std::vector<td::seating_chart_entry> seating_chart;
+        for(const auto& s : this->seats)
+        {
+            td::seating_chart_entry seating_entry(this->player_name(s.first), this->table_name(s.second.table_number), this->seat_name(s.second.seat_number));
+            seating_chart.push_back(seating_entry);
+        }
 
         // "empty" seated players for seating chart
         for(const auto& s : this->empty_seats)
@@ -1317,8 +1331,8 @@ public:
         {
             // create a seated player struct
             td::seated_player seated(player_id,
-                                     this->player_name(player_id),
                                      this->buyins.find(player_id) != this->buyins.end(),
+                                     this->player_name(player_id),
                                      this->table_name(seat->second.table_number),
                                      this->seat_name(seat->second.seat_number));
 
@@ -1346,8 +1360,8 @@ public:
 
             // create a seated_player struct
             td::seated_player seated(player_id,
-                                     this->player_name(player_id),
                                      this->buyins.find(player_id) != this->buyins.end(),
+                                     this->player_name(player_id),
                                      this->table_name(empty_seat.table_number),
                                      this->seat_name(empty_seat.seat_number));
 
@@ -1808,7 +1822,7 @@ public:
             this->fund_player(p.player_id, src);
 
             // build a seated_player object
-            td::seated_player sp(p.player_id, p.name, true, seating.second.table_name, seating.second.seat_name);
+            td::seated_player sp(p.player_id, true, p.name, seating.second.table_name, seating.second.seat_name);
             seated_players.push_back(sp);
         }
 

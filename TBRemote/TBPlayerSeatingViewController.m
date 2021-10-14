@@ -56,7 +56,7 @@
         NSSortDescriptor* seatNumberSort = [[NSSortDescriptor alloc] initWithKey:@"seat_name" ascending:YES comparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
             return [obj1 compare:obj2 options:NSCaseInsensitiveSearch|NSNumericSearch];
         }];
-        NSSortDescriptor* nameSort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
+        NSSortDescriptor* nameSort = [[NSSortDescriptor alloc] initWithKey:@"player_name" ascending:YES];
 
         // sorted
         [self setSeatedPlayers:[seated sortedArrayUsingDescriptors:@[tableNumberSort, seatNumberSort]]];
@@ -145,7 +145,7 @@
         // setup cell
         [(UILabel*)[cell viewWithTag:100] setText:player[@"table_name"]];
         [(UILabel*)[cell viewWithTag:101] setText:player[@"seat_name"]];
-        [(UILabel*)[cell viewWithTag:102] setText:player[@"name"]];
+        [(UILabel*)[cell viewWithTag:102] setText:player[@"player_name"]];
 
         if([player[@"buyin"] boolValue]) {
             [(UIImageView*)[cell viewWithTag:103] setImage:[self currencyImage]];
@@ -161,7 +161,7 @@
         player = [self unseatedPlayers][urow];
 
         // setup cell
-        [(UILabel*)[cell viewWithTag:200] setText:player[@"name"]];
+        [(UILabel*)[cell viewWithTag:200] setText:player[@"player_name"]];
         return cell;
     } else {
         NSLog(@"TBPlayerSeatingViewController tableView:cellForRowAtIndexPath: invalid section");
@@ -195,7 +195,7 @@
             NSString* playerId = player[@"player_id"];
 
             // set title
-            [actionSheet setTitle:player[@"name"]];
+            [actionSheet setTitle:player[@"player_name"]];
 
             // BUSINESS LOGIC AROUND WHICH FUNDING SOURCES ARE ALLOWED WHEN
 
@@ -206,21 +206,21 @@
                     if([source[@"type"] isEqual:kFundingTypeBuyin]) {
                         // buyins can happen at any time before forbid_after_blind_level, for any non-playing player
                         if(![player[@"buyin"] boolValue]) {
-                            [actionSheet addAction:[UIAlertAction actionWithTitle:source[@"name"] style:UIAlertActionStyleDefault handler:^(UIAlertAction* action) {
+                            [actionSheet addAction:[UIAlertAction actionWithTitle:source[@"player_name"] style:UIAlertActionStyleDefault handler:^(UIAlertAction* action) {
                                 [[self session] fundPlayer:playerId withFunding:@(idx)];
                             }]];
                         }
                     } else if([source[@"type"] isEqual:kFundingTypeRebuy]) {
                         // rebuys can happen after round 0, before forbid_after_blind_level, for any player that has bought in at least once
                         if([currentBlindLevel unsignedIntegerValue] > 0 && [uniqueEntries containsObject:player[@"player_id"]]) {
-                            [actionSheet addAction:[UIAlertAction actionWithTitle:source[@"name"] style:UIAlertActionStyleDefault handler:^(UIAlertAction* action) {
+                            [actionSheet addAction:[UIAlertAction actionWithTitle:source[@"player_name"] style:UIAlertActionStyleDefault handler:^(UIAlertAction* action) {
                                 [[self session] fundPlayer:playerId withFunding:@(idx)];
                             }]];
                         }
                     } else {
                         // addons can happen at any time before forbid_after_blind_level, for any playing player
                         if([player[@"buyin"] boolValue]) {
-                            [actionSheet addAction:[UIAlertAction actionWithTitle:source[@"name"] style:UIAlertActionStyleDefault handler:^(UIAlertAction* action) {
+                            [actionSheet addAction:[UIAlertAction actionWithTitle:source[@"player_name"] style:UIAlertActionStyleDefault handler:^(UIAlertAction* action) {
                                 [[self session] fundPlayer:playerId withFunding:@(idx)];
                             }]];
                         }
@@ -253,7 +253,7 @@
             NSString* playerId = player[@"player_id"];
 
             // set title
-            [actionSheet setTitle:player[@"name"]];
+            [actionSheet setTitle:player[@"player_name"]];
 
             // set buttons
             [actionSheet addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Seat Player", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction* action) {
@@ -267,7 +267,7 @@
                     if([source[@"type"] isEqual:kFundingTypeBuyin]) {
                         // buyins can happen at any time before forbid_after_blind_level, for any non-playing player
                         if(![player[@"buyin"] boolValue]) {
-                            NSString* titleString = [NSLocalizedString(@"Seat Player + ", nil) stringByAppendingString:source[@"name"]];
+                            NSString* titleString = [NSLocalizedString(@"Seat Player + ", nil) stringByAppendingString:source[@"player_name"]];
                             [actionSheet addAction:[UIAlertAction actionWithTitle:titleString style:UIAlertActionStyleDefault handler:^(UIAlertAction* action) {
                                 [[self session] seatPlayer:playerId withBlock:nil];
                                 [[self session] fundPlayer:playerId withFunding:@(idx)];

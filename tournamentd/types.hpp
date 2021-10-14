@@ -246,23 +246,29 @@ namespace td
     struct seated_player
     {
         player_id_t player_id;
-        std::string name;
         bool buyin;
+        std::string player_name;
         std::string table_name;
         std::string seat_name;
 
-        seated_player(const player_id_t& p, const std::string& n, bool b, const std::string& t, const std::string& s);
+        // unseated player
+        seated_player(const player_id_t& p, bool b, const std::string& n);
+        // seated player
+        seated_player(const player_id_t& p, bool b, const std::string& n, const std::string& t, const std::string& s);
     };
     void to_json(nlohmann::json& j, const td::seated_player& p);
 
     // information needed to display the seating chart
     struct seating_chart_entry
     {
+        std::string player_name;
         std::string table_name;
         std::string seat_name;
-        std::string player_name;
 
-        seating_chart_entry(const std::string& t, const std::string& s, const std::string& n=std::string());
+        // empty seat
+        seating_chart_entry(const std::string& t, const std::string& s);
+        // seat with player
+        seating_chart_entry(const std::string& n, const std::string& t, const std::string& s);
     };
     void to_json(nlohmann::json& j, const td::seating_chart_entry& p);
 

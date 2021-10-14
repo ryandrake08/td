@@ -11,7 +11,7 @@
 
 @interface TBSeatingChartCollectionViewItem : NSCollectionViewItem
 
-// Array of seats that represents this table. Data structure is the same as session.seated_players
+// Array of seats that represents this table. Data structure is session.seating_chart_entry
 @property (nonatomic, copy) NSArray* seats;
 
 // Table name

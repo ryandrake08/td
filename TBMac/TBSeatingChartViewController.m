@@ -55,9 +55,9 @@
 
         // iterate through list to build up our table_name keyed dictionary
         NSArray* allPlayers = [[self session] state][@"seating_chart"];
-        for(NSDictionary* seatedPlayer in allPlayers) {
+        for(NSDictionary* seatingChartEntry in allPlayers) {
             // given this player's table
-            NSString* tableName = seatedPlayer[@"table_name"];
+            NSString* tableName = seatingChartEntry[@"table_name"];
             if(tableName != nil) {
                 // look up the seating list
                 NSMutableArray* seats = [[self tables] objectForKey:tableName];
@@ -71,7 +71,7 @@
                 }
 
                 // now add the seat
-                [seats addObject:seatedPlayer];
+                [seats addObject:seatingChartEntry];
             }
         }
 
