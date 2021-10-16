@@ -206,21 +206,21 @@
                     if([source[@"type"] isEqual:kFundingTypeBuyin]) {
                         // buyins can happen at any time before forbid_after_blind_level, for any non-playing player
                         if(![player[@"buyin"] boolValue]) {
-                            [actionSheet addAction:[UIAlertAction actionWithTitle:source[@"player_name"] style:UIAlertActionStyleDefault handler:^(UIAlertAction* action) {
+                            [actionSheet addAction:[UIAlertAction actionWithTitle:source[@"name"] style:UIAlertActionStyleDefault handler:^(UIAlertAction* action) {
                                 [[self session] fundPlayer:playerId withFunding:@(idx)];
                             }]];
                         }
                     } else if([source[@"type"] isEqual:kFundingTypeRebuy]) {
                         // rebuys can happen after round 0, before forbid_after_blind_level, for any player that has bought in at least once
                         if([currentBlindLevel unsignedIntegerValue] > 0 && [uniqueEntries containsObject:player[@"player_id"]]) {
-                            [actionSheet addAction:[UIAlertAction actionWithTitle:source[@"player_name"] style:UIAlertActionStyleDefault handler:^(UIAlertAction* action) {
+                            [actionSheet addAction:[UIAlertAction actionWithTitle:source[@"name"] style:UIAlertActionStyleDefault handler:^(UIAlertAction* action) {
                                 [[self session] fundPlayer:playerId withFunding:@(idx)];
                             }]];
                         }
                     } else {
                         // addons can happen at any time before forbid_after_blind_level, for any playing player
                         if([player[@"buyin"] boolValue]) {
-                            [actionSheet addAction:[UIAlertAction actionWithTitle:source[@"player_name"] style:UIAlertActionStyleDefault handler:^(UIAlertAction* action) {
+                            [actionSheet addAction:[UIAlertAction actionWithTitle:source[@"name"] style:UIAlertActionStyleDefault handler:^(UIAlertAction* action) {
                                 [[self session] fundPlayer:playerId withFunding:@(idx)];
                             }]];
                         }
@@ -267,7 +267,7 @@
                     if([source[@"type"] isEqual:kFundingTypeBuyin]) {
                         // buyins can happen at any time before forbid_after_blind_level, for any non-playing player
                         if(![player[@"buyin"] boolValue]) {
-                            NSString* titleString = [NSLocalizedString(@"Seat Player + ", nil) stringByAppendingString:source[@"player_name"]];
+                            NSString* titleString = [NSLocalizedString(@"Seat Player + ", nil) stringByAppendingString:source[@"name"]];
                             [actionSheet addAction:[UIAlertAction actionWithTitle:titleString style:UIAlertActionStyleDefault handler:^(UIAlertAction* action) {
                                 [[self session] seatPlayer:playerId withBlock:nil];
                                 [[self session] fundPlayer:playerId withFunding:@(idx)];
