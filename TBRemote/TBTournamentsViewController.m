@@ -158,7 +158,9 @@
     NSUInteger i = [[self tournamentServices] indexOfObject:service];
     if(i != NSNotFound) {
         NSIndexPath* indexPath = [NSIndexPath indexPathForRow:(NSInteger)i inSection:0];
-        [[self tableView] reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        if([self isViewLoaded] && [[self view] window] != nil) {
+            [[self tableView] reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        }
     }
 }
 
