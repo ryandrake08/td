@@ -235,6 +235,7 @@
 		94C2DA81200D27D7001B95B8 /* s_next.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04EC91B7C59EB004F4245 /* s_next.caf */; };
 		94C2DA84200D2AE7001B95B8 /* TBInvertableButton_macOS.m in Sources */ = {isa = PBXBuildFile; fileRef = 94C2DA82200D2AE7001B95B8 /* TBInvertableButton_macOS.m */; };
 		94C2DA85200D2AE7001B95B8 /* TBInvertableButton_macOS.m in Sources */ = {isa = PBXBuildFile; fileRef = 94C2DA82200D2AE7001B95B8 /* TBInvertableButton_macOS.m */; };
+		94C7E3D4271BECAE00A3F91F /* TBStringNotEmptyTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 94C7E3D3271BECAE00A3F91F /* TBStringNotEmptyTransformer.m */; };
 		94C95AFE201AEDA900400CFC /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94C95AFD201AEDA800400CFC /* MessageUI.framework */; };
 		94C95AFF201AEDBF00400CFC /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94C95AFD201AEDA800400CFC /* MessageUI.framework */; };
 		94C97037203A01080055A28C /* TBSetupFundingDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94C97036203A01080055A28C /* TBSetupFundingDetailsViewController.m */; };
@@ -802,6 +803,8 @@
 		94C2DA6F200D147C001B95B8 /* TBChipTableCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBChipTableCellView.h; path = TBMac/TBChipTableCellView.h; sourceTree = "<group>"; };
 		94C2DA82200D2AE7001B95B8 /* TBInvertableButton_macOS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBInvertableButton_macOS.m; sourceTree = "<group>"; };
 		94C2DA83200D2AE7001B95B8 /* TBInvertableButton_macOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBInvertableButton_macOS.h; sourceTree = "<group>"; };
+		94C7E3D2271BECAE00A3F91F /* TBStringNotEmptyTransformer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBStringNotEmptyTransformer.h; sourceTree = "<group>"; };
+		94C7E3D3271BECAE00A3F91F /* TBStringNotEmptyTransformer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TBStringNotEmptyTransformer.m; sourceTree = "<group>"; };
 		94C95AFD201AEDA800400CFC /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.2.sdk/System/Library/Frameworks/MessageUI.framework; sourceTree = DEVELOPER_DIR; };
 		94C97035203A01080055A28C /* TBSetupFundingDetailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TBSetupFundingDetailsViewController.h; path = TBMac/TBSetupFundingDetailsViewController.h; sourceTree = "<group>"; };
 		94C97036203A01080055A28C /* TBSetupFundingDetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TBSetupFundingDetailsViewController.m; path = TBMac/TBSetupFundingDetailsViewController.m; sourceTree = "<group>"; };
@@ -1291,6 +1294,8 @@
 				ADE299AE1B7B994200F1393B /* TBSound.m */,
 				942B84DE200DA00C001F8EEB /* TBSoundPlayer.h */,
 				942B84DF200DA00C001F8EEB /* TBSoundPlayer.m */,
+				94C7E3D2271BECAE00A3F91F /* TBStringNotEmptyTransformer.h */,
+				94C7E3D3271BECAE00A3F91F /* TBStringNotEmptyTransformer.m */,
 				946F7579216A7CF400E9B8CF /* TBUserNotificationDelegate.h */,
 				946F757A216A7CF400E9B8CF /* TBUserNotificationDelegate.m */,
 				943970161B3F9DB700BB0413 /* TournamentBrowser.h */,
@@ -2141,6 +2146,7 @@
 				945E1684228D08AC00AA98C1 /* TBSetupTablesViewController.m in Sources */,
 				94C2DA6A200D1306001B95B8 /* TBInvertableImageView.m in Sources */,
 				9476F4A41B3C3EA700A158F8 /* TournamentDaemon.mm in Sources */,
+				94C7E3D4271BECAE00A3F91F /* TBStringNotEmptyTransformer.m in Sources */,
 				AD98D9611A7B330B00DA6B8B /* TBSetupChipsViewController.m in Sources */,
 				9429DC8C217C3909007A7874 /* TBSetupRoundsDetailsViewController.m in Sources */,
 				AD75ACEE1BA3FD8800705967 /* TBEllipseImageView.m in Sources */,
