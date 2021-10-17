@@ -1444,14 +1444,13 @@ DQ
                                         <rect key="frame" x="16" y="16" width="160" height="64"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="border" alignment="center" drawsBackground="YES" id="4Qm-IR-tdJ">
-                                            <numberFormatter key="formatter" formatterBehavior="custom10_4" positiveFormat="#" localizesFormat="NO" numberStyle="decimal" allowsFloats="NO" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="1" maximumIntegerDigits="1" decimalSeparator="." groupingSeparator="," id="h3V-Fh-Pey"/>
+                                            <numberFormatter key="formatter" formatterBehavior="custom10_4" localizesFormat="NO" numberStyle="decimal" allowsFloats="NO" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" id="h3V-Fh-Pey">
+                                                <real key="minimum" value="0.0"/>
+                                            </numberFormatter>
                                             <font key="font" metaFont="system" size="48"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
-                                        <connections>
-                                            <binding destination="79P-Qm-Z6L" name="value" keyPath="self.numberOfPlayers" id="QRv-zE-jDY"/>
-                                        </connections>
                                     </textField>
                                 </subviews>
                                 <constraints>
@@ -2071,18 +2070,18 @@ Gw
         <scene sceneID="b3w-rD-sYI">
             <objects>
                 <viewController title="Chips" id="uhM-Sw-nmb" userLabel="Setup Chips" customClass="TBSetupChipsViewController" sceneMemberID="viewController">
-                    <customView key="view" misplaced="YES" id="d8b-7O-wZl">
+                    <customView key="view" id="d8b-7O-wZl">
                         <rect key="frame" x="0.0" y="0.0" width="640" height="372"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView autohidesScrollers="YES" horizontalLineScroll="31" horizontalPageScroll="10" verticalLineScroll="31" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zeT-qn-TRy">
-                                <rect key="frame" x="0.0" y="20" width="640" height="256"/>
+                                <rect key="frame" x="0.0" y="20" width="640" height="352"/>
                                 <clipView key="contentView" drawsBackground="NO" id="d3K-8r-GCL">
-                                    <rect key="frame" x="1" y="1" width="638" height="254"/>
+                                    <rect key="frame" x="1" y="1" width="638" height="350"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" autosaveColumns="NO" rowHeight="29" rowSizeStyle="automatic" headerView="QHB-rP-M8L" viewBased="YES" id="z8G-GW-0zX">
-                                            <rect key="frame" x="0.0" y="0.0" width="638" height="231"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="638" height="327"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -4470,26 +4469,26 @@ DQ
         <scene sceneID="8iz-4M-s8h">
             <objects>
                 <viewController title="Depends on Turnout" id="y9Y-jl-FZ4" userLabel="Depends on Turnout Payouts" customClass="TBSetupDependsOnTurnoutViewController" sceneMemberID="viewController">
-                    <view key="view" misplaced="YES" id="qOX-pn-qlc">
+                    <view key="view" id="qOX-pn-qlc">
                         <rect key="frame" x="0.0" y="0.0" width="640" height="372"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <splitView dividerStyle="paneSplitter" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="G4c-rO-5lA">
-                                <rect key="frame" x="0.0" y="0.0" width="640" height="276"/>
+                                <rect key="frame" x="0.0" y="0.0" width="640" height="372"/>
                                 <subviews>
                                     <customView misplaced="YES" id="HWT-EE-esT">
-                                        <rect key="frame" x="0.0" y="0.0" width="160" height="276"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="160" height="372"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
                                             <scrollView fixedFrame="YES" autohidesScrollers="YES" horizontalLineScroll="31" horizontalPageScroll="10" verticalLineScroll="31" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dgn-sm-1g7">
-                                                <rect key="frame" x="0.0" y="20" width="160" height="256"/>
+                                                <rect key="frame" x="0.0" y="20" width="160" height="352"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <clipView key="contentView" id="MGT-M5-ulS">
-                                                    <rect key="frame" x="1" y="1" width="158" height="254"/>
+                                                    <rect key="frame" x="1" y="1" width="158" height="350"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="sequential" alternatingRowBackgroundColors="YES" columnSelection="YES" autosaveColumns="NO" rowHeight="29" rowSizeStyle="automatic" headerView="CIj-9Z-xUn" viewBased="YES" id="ewo-RO-lUF">
-                                                            <rect key="frame" x="0.0" y="0.0" width="158" height="231"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="158" height="327"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <size key="intercellSpacing" width="3" height="2"/>
                                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -4565,7 +4564,7 @@ DQ
                                                 </tableHeaderView>
                                             </scrollView>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ZS3-FD-tRY" userLabel="Add">
-                                                <rect key="frame" x="0.0" y="-25" width="29" height="23"/>
+                                                <rect key="frame" x="0.0" y="311" width="29" height="23"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="29" id="hkO-Gl-w3l"/>
                                                     <constraint firstAttribute="height" constant="21" id="oCF-Fy-1LA"/>
@@ -4579,7 +4578,7 @@ DQ
                                                 </connections>
                                             </button>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="IOy-E1-SHE" userLabel="Remove">
-                                                <rect key="frame" x="28" y="-25" width="29" height="23"/>
+                                                <rect key="frame" x="28" y="311" width="29" height="23"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="29" id="V1K-xM-NeU"/>
                                                     <constraint firstAttribute="height" constant="21" id="h7V-u6-vA2"/>
@@ -4602,7 +4601,7 @@ DQ
                                         </constraints>
                                     </customView>
                                     <containerView fixedFrame="YES" id="m7T-g6-slr">
-                                        <rect key="frame" x="170" y="0.0" width="470" height="276"/>
+                                        <rect key="frame" x="170" y="0.0" width="470" height="372"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <connections>
                                             <segue destination="tHD-7b-Ew5" kind="embed" identifier="embedPayoutView" id="df0-lD-5UZ"/>

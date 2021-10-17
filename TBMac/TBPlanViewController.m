@@ -22,6 +22,13 @@
 
 #pragma mark Actions
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+
+    // set default value for text field
+    [[self playersTextField] setIntegerValue:(NSInteger)[self numberOfPlayers]];
+}
+
 - (IBAction)doneButtonDidChange:(id)sender {
     NSInteger players = [[self playersTextField] integerValue];
     if(players != 0) {
