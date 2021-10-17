@@ -1481,7 +1481,7 @@ public:
 
         // remove player and add seat to the end of the empty list
         auto seat(seat_it->second);
-        this->empty_seats.push_back(seat);
+        this->empty_seats.push_front(seat);
         this->seats.erase(seat_it);
     }
 
