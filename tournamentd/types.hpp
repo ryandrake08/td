@@ -200,7 +200,7 @@ namespace td
         std::string to_seat_name;
 
         player_movement();
-        player_movement(const player_id_t& p, const std::string& n, const std::string& ft, const std::string& fs, const std::string& tt, const std::string& ts);
+        player_movement(const player_id_t& p, const std::string& n, const std::string& ft, const std::string& fs, const std::string& tt=std::string(), const std::string& ts=std::string());
     };
     void to_json(nlohmann::json& j, const td::player_movement& p);
 

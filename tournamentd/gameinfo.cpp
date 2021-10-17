@@ -354,7 +354,114 @@ class gameinfo::impl
         }
 
         return this->move_player(player_id, smallest_table);
+    }
 
+    // seat a player, returning the seat. this may cause a table to be added!
+    td::seat seat_player(const td::player_id_t& player_id)
+    {
+        auto seat_it(this->seats.find(player_id));
+        if(seat_it != this->seats.end())
+        {
+            throw td::protocol_error("tried to seat a player that is already seated");
+        }
+
+        // set state dirty
+        this->dirty = true;
+
+        // if there are no empty seats, we need to add a table
+        if(this->empty_seats.empty())
+        {
+            // check configuration: table capacity should be sane
+            if(this->table_capacity < 2)
+            {
+                throw td::protocol_error("table capacity must be at least 2");
+            }
+
+            // add a table full of new seats
+            for(std::size_t s(0); s<this->table_capacity; s++)
+            {
+                this->empty_seats.push_back(td::seat(this->table_count, s));
+            }
+
+            // randomize seats
+            std::shuffle(this->empty_seats.begin(), this->empty_seats.end(), this->random_engine);
+
+            // increment number of tables
+            this->table_count++;
+        }
+
+        // move seat definition from empty_seats to seats, seating player
+        auto seat(this->empty_seats.front());
+        this->seats.insert(std::make_pair(player_id, seat));
+        this->empty_seats.pop_front();
+
+        // return the seat used
+        return seat;
+    }
+
+    // ensure this->seats and this->empty_seats respect this->table_capacity configuration
+    std::vector<td::player_movement> validate_table_capacity()
+    {
+        // return value is any movements that have to happen
+        std::vector<td::player_movement> movements;
+
+        // set state dirty
+        this->dirty = true;
+
+        // create a new list of empty seats
+        this->empty_seats.clear();
+        for(size_t t(0); t<this->table_count; t++)
+        {
+            for(size_t s(0); s<this->table_capacity; s++)
+            {
+                this->empty_seats.push_back(td::seat(t,s));
+            }
+        }
+
+        // unseat any players with seat number > table_capacity
+        for(auto seat_it(this->seats.begin()); seat_it != this->seats.end(); /* do not increment */ )
+        {
+            if(seat_it->second.seat_number >= this->table_capacity)
+            {
+                // player is sitting in a seat that no longer exists.
+
+                // prepare half a player_movement
+                td::player_movement m(seat_it->first,
+                                      this->player_name(seat_it->first),
+                                      this->table_name(seat_it->second.table_number),
+                                      this->seat_name(seat_it->second.seat_number));
+                movements.push_back(m);
+
+                // remove player and add seat to the end of the empty list
+                this->seats.erase(seat_it++);
+            }
+            else
+            {
+                // player is in a seat that still exists.
+
+                // remove from the new list of empty seats
+                this->empty_seats.erase(std::remove(this->empty_seats.begin(), this->empty_seats.end(), seat_it->second), this->empty_seats.end());
+
+                // incrememnt and continue iterating
+                seat_it++;
+            }
+        }
+
+        // randomize empty seats
+        std::shuffle(this->empty_seats.begin(), this->empty_seats.end(), this->random_engine);
+
+        // add unseated players back to valid empty_seats
+        for(auto& movement : movements)
+        {
+            // seat the player
+            auto seat(this->seat_player(movement.player_id));
+
+            // complete the movement
+            movement.to_table_name = this->table_name(seat.table_number);
+            movement.to_seat_name = this->seat_name(seat.seat_number);
+        }
+
+        return movements;
     }
 
     // re-calculate payouts
@@ -728,8 +835,8 @@ public:
             std::size_t total_seats = this->seats.size() + this->empty_seats.size();
             if(total_seats >= 2)
             {
-                // re-plan seating, if needed. TODO: for now, ignore any movements
-                (void) this->plan_seating(total_seats);
+                // remove all seats and empty_seats that no longer exist. TODO: ignoring player_movements for now
+                (void) this->validate_table_capacity();
             }
         }
 
@@ -1326,15 +1433,15 @@ public:
     std::pair<std::string, td::seated_player> add_player(const td::player_id_t& player_id)
     {
         // find player in existing seating plan
-        auto seat(this->seats.find(player_id));
-        if(seat != this->seats.end())
+        auto seat_it(this->seats.find(player_id));
+        if(seat_it != this->seats.end())
         {
             // create a seated player struct
             td::seated_player seated(player_id,
                                      this->buyins.find(player_id) != this->buyins.end(),
                                      this->player_name(player_id),
-                                     this->table_name(seat->second.table_number),
-                                     this->seat_name(seat->second.seat_number));
+                                     this->table_name(seat_it->second.table_number),
+                                     this->seat_name(seat_it->second.seat_number));
 
             logger(ll::info) << "player " << this->player_description(player_id) << " already seated at table " << seated.table_name << ", seat " << seated.seat_name << '\n';
             return std::make_pair("already_seated", seated);
@@ -1343,27 +1450,15 @@ public:
         {
             logger(ll::info) << "adding player " << this->player_description(player_id) << " to game\n";
 
-            // while no more empty seats left
-            while(this->empty_seats.empty())
-            {
-                // plan for one more player. TODO: unfortunately, this may re-seat all players if # of tables changes, have to ignore these for now
-                (void) this->plan_seating(this->seats.size()+1);
-            }
-
-            // set state dirty
-            this->dirty = true;
-
-            // move seat definition from empty_seats to seats, seating player
-            auto empty_seat(this->empty_seats.front());
-            this->seats.insert(std::make_pair(player_id, empty_seat));
-            this->empty_seats.pop_front();
+            // seat the player
+            auto seat(this->seat_player(player_id));
 
             // create a seated_player struct
             td::seated_player seated(player_id,
                                      this->buyins.find(player_id) != this->buyins.end(),
                                      this->player_name(player_id),
-                                     this->table_name(empty_seat.table_number),
-                                     this->seat_name(empty_seat.seat_number));
+                                     this->table_name(seat.table_number),
+                                     this->seat_name(seat.seat_number));
 
             logger(ll::info) << "seated player " << this->player_description(player_id) << " at table " << seated.table_name << ", seat " << seated.seat_name << '\n';
             return std::make_pair("player_seated", seated);
@@ -1478,7 +1573,7 @@ public:
         return i0.size() < i1.size();
     }
 
-    // try to break and rebalance tables
+    // try to break tables, then rebalance seating
     // returns description of movements
     std::vector<td::player_movement> rebalance_seating()
     {
@@ -1486,7 +1581,7 @@ public:
 
         if(this->table_count > 1)
         {
-            logger(ll::info) << "attemptying to break a table\n";
+            logger(ll::info) << "attempting to break a table\n";
 
             // break tables while (player_count-1) div table_capacity < tables
             while(this->seats.size() <= this->table_capacity * (this->table_count-1))
@@ -1524,39 +1619,39 @@ public:
 
                 logger(ll::info) << "broken table " << break_table << ". " << this->seats.size() << " players now at " << this->table_count << " tables\n";
             }
-        }
 
-        // if we should randomize the non-empty final table seats
-        if(this->table_count == 1 && this->final_table_policy == td::final_table_policy_t::randomize)
-        {
-            logger(ll::info) << "randomizing remaining seats\n";
-
-            // get the current list of seats
-            std::vector<td::seat> to;
-            for(const auto& s : this->seats)
+            // if we should randomize the non-empty final table seats
+            if(this->table_count == 1 && this->final_table_policy == td::final_table_policy_t::randomize)
             {
-                to.push_back(s.second);
-            }
+                logger(ll::info) << "randomizing remaining seats\n";
 
-            // shuffle it
-            std::shuffle(to.begin(), to.end(), this->random_engine);
+                // get the current list of seats
+                std::vector<td::seat> to;
+                for(const auto& s : this->seats)
+                {
+                    to.push_back(s.second);
+                }
 
-            // iterate through again, assigning new seats
-            for(auto& s : this->seats)
-            {
-                // add a new movement
-                td::player_movement movement(s.first,
-                                             this->player_name(s.first),
-                                             this->table_name(s.second.table_number),
-                                             this->seat_name(s.second.seat_number),
-                                             this->table_name(to.back().table_number),
-                                             this->seat_name(to.back().seat_number));
-                movements.push_back(movement);
-                logger(ll::info) << "moved player " << this->player_description(s.first) << " from table " << movement.from_table_name << ", seat " << movement.from_seat_name << " to table " << movement.to_table_name << ", seat " << movement.to_seat_name << '\n';
+                // shuffle it
+                std::shuffle(to.begin(), to.end(), this->random_engine);
 
-                // set new seat
-                s.second = to.back();
-                to.pop_back();
+                // iterate through again, assigning new seats
+                for(auto& s : this->seats)
+                {
+                    // add a new movement
+                    td::player_movement movement(s.first,
+                                                 this->player_name(s.first),
+                                                 this->table_name(s.second.table_number),
+                                                 this->seat_name(s.second.seat_number),
+                                                 this->table_name(to.back().table_number),
+                                                 this->seat_name(to.back().seat_number));
+                    movements.push_back(movement);
+                    logger(ll::info) << "moved player " << this->player_description(s.first) << " from table " << movement.from_table_name << ", seat " << movement.from_seat_name << " to table " << movement.to_table_name << ", seat " << movement.to_seat_name << '\n';
+
+                    // set new seat
+                    s.second = to.back();
+                    to.pop_back();
+                }
             }
         }
 
@@ -1564,7 +1659,7 @@ public:
         auto ppt(this->players_at_tables());
         if(!ppt.empty())
         {
-            logger(ll::info) << "attemptying to rebalance tables\n";
+            logger(ll::info) << "attempting to rebalance tables\n";
 
             // find smallest and largest tables
             auto fewest_it(std::min_element(ppt.begin(), ppt.end(), has_lower_size<std::vector<td::player_id_t> >));
@@ -1811,18 +1906,15 @@ public:
         // reset state
         this->reset_state();
 
-        // plan for all players
-        this->plan_seating(this->players.size());
-
-        // seat and fund them
+        // seat and fund all players
         std::vector<td::seated_player> seated_players;
         for(const auto& p : this->players)
         {
-            auto seating(this->add_player(p.player_id));
+            auto seat(this->seat_player(p.player_id));
             this->fund_player(p.player_id, src);
 
             // build a seated_player object
-            td::seated_player sp(p.player_id, true, p.name, seating.second.table_name, seating.second.seat_name);
+            td::seated_player sp(p.player_id, true, p.name, this->table_name(seat.table_number), this->seat_name(seat.seat_number));
             seated_players.push_back(sp);
         }
 
