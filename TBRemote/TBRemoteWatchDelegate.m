@@ -65,12 +65,6 @@
                     [self cachedState][key] = change[NSKeyValueChangeNewKey];
                 }
             }];
-
-            // start a timer to send stored state (on iOS 9.3+, timer will be started in -activationDidCompleteWithState:error:
-            if(@available(iOS 9.3, *)) {
-            } else {
-                _sendMessageTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(sendCachedStateFromTimer:) userInfo:nil repeats:YES];
-            }
         }
     }
     return self;

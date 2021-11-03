@@ -116,9 +116,7 @@
             if(([attributes title] != nil) && ([attributes body] != nil) && ([attributes soundName] != nil) && ([attributes date] != nil)) {
                 // create and schedule old-style local notification
                 UILocalNotification* localNotification = [[UILocalNotification alloc] init];
-                if(@available(iOS 8.2, *)) {
-                    [localNotification setAlertTitle:[attributes title]];
-                }
+                [localNotification setAlertTitle:[attributes title]];
                 [localNotification setAlertBody:[attributes body]];
                 [localNotification setSoundName:[attributes soundName]];
                 [localNotification setTimeZone:[NSTimeZone localTimeZone]];
