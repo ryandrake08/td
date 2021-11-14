@@ -179,39 +179,6 @@ common_socket common_socket::accept() const
     return common_socket(new impl(sock));
 }
 
-static int do_select(SOCKET max_fd, fd_set* fds, long usec)
-{
-    // timeout
-    timeval tv;
-    tv.tv_sec = usec / 1000000;
-    tv.tv_usec = usec % 1000000;
-
-    // handle infinite timeout
-    timeval* ptv(usec < 0 ? nullptr : &tv);
-
-    // do the select
-    auto ready(::select(max_fd, fds, nullptr, nullptr, ptv));
-    if(ready == SOCKET_ERROR)
-    {
-        throw std::system_error(errno, std::system_category(), "select");
-    }
-
-    return ready;
-}
-
-// select on this socket
-bool common_socket::select(long usec)
-{
-    // single fd
-    fd_set fds;
-    FD_ZERO(&fds);
-    if(this->pimpl)
-    {
-        FD_SET(this->pimpl->fd, &fds);
-    }
-    return do_select(this->pimpl->fd+1, &fds, usec) > 0;
-}
-
 // select on multiple sockets
 std::set<common_socket> common_socket::select(const std::set<common_socket>& sockets, long usec)
 {
@@ -221,15 +188,27 @@ std::set<common_socket> common_socket::select(const std::set<common_socket>& soc
     std::for_each(sockets.begin(), sockets.end(), [&fds](const common_socket& s) { if(s.pimpl) { FD_SET(s.pimpl->fd, &fds); } } );
 
     // set is ordered, so max fd is the last element
-    auto max_fd(sockets.begin() == sockets.end() ? 0 :sockets.rbegin()->pimpl->fd+1);
+    auto max_fd(sockets.begin() == sockets.end() ? 0 : sockets.rbegin()->pimpl->fd+1);
+
+    // set the timeout
+    timeval tv;
+    tv.tv_sec = usec / 1000000;
+    tv.tv_usec = usec % 1000000;
+
+    // handle infinite timeout
+    timeval* ptv(usec < 0 ? nullptr : &tv);
 
     // do the select
-    do_select(max_fd, &fds, usec);
+    auto err(::select(max_fd, &fds, nullptr, nullptr, ptv));
+    if(err == SOCKET_ERROR)
+    {
+        throw std::system_error(errno, std::system_category(), "select");
+    }
 
     // copy sockets returned
-    std::set<common_socket> ret;
-    std::copy_if(sockets.begin(), sockets.end(), std::inserter(ret, ret.end()), [&fds](const common_socket& s) { return FD_ISSET(s.pimpl->fd, &fds); } );
-    return ret;
+    std::set<common_socket> sockets_selected;
+    std::copy_if(sockets.begin(), sockets.end(), std::inserter(sockets_selected, sockets_selected.end()), [&fds](const common_socket& s) { return FD_ISSET(s.pimpl->fd, &fds); } );
+    return sockets_selected;
 }
 
 long common_socket::peek(void* buf, std::size_t bytes) const

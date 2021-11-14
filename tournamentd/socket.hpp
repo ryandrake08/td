@@ -23,9 +23,6 @@ public:
     // create a new socket by accepting on a listening socket
     common_socket accept() const;
 
-    // select on this socket
-    bool select(long usec=-1);
-
     // select on multiple sockets
     static std::set<common_socket> select(const std::set<common_socket>& sockets, long usec=-1);
 
