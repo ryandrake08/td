@@ -1,6 +1,4 @@
 #include "types.hpp"
-#include <cassert>
-#include <clocale>
 
 // ----- construction
 
@@ -47,8 +45,6 @@ bool td::table::operator==(const td::table& other) const
 
 td::monetary_value::monetary_value() : amount(0.0)
 {
-    // use currency of default locale
-    this->currency = std::localeconv()->int_curr_symbol;
 }
 
 td::monetary_value::monetary_value(double amt, const std::string& curr) : amount(amt), currency(curr)
@@ -365,6 +361,11 @@ void td::to_json(nlohmann::json& j, const td::table& p)
 
 void td::to_json(nlohmann::json& j, const td::monetary_value& p)
 {
+    if(p.currency.empty())
+    {
+        throw std::out_of_range("tried to output monetary_value without currency");
+    }
+
     j = nlohmann::json
     {
         {"amount", p.amount},

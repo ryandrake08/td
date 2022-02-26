@@ -136,8 +136,8 @@
 - (NSView *)tableView:(NSTableView*)aTableView viewForTableColumn:(NSTableColumn*)aTableColumn row:(NSInteger)rowIndex {
     NSTableCellView* result = [aTableView makeViewWithIdentifier:aTableColumn.identifier owner:self];
     if([[aTableColumn identifier] isEqualToString:@"Payout"]) {
-        NSDictionary* object = [[[self resultsArrayController] arrangedObjects] objectAtIndex:(NSUInteger)rowIndex];
-        [[[result textField] formatter] setCurrencyCode:object[@"payout"][@"currency"]];
+        NSString* payoutCurrency = [[self session] state][@"payout_currency"];
+        [[[result textField] formatter] setCurrencyCode:payoutCurrency];
     } else if([[aTableColumn identifier] isEqualToString:@"Chip"]) {
         TBChipTableCellView* chipTableCellView = (TBChipTableCellView*)result;
         [[chipTableCellView colorEllipseView] bind:@"color" toObject:chipTableCellView withKeyPath:@"objectValue.color" options:@{NSValueTransformerNameBindingOption:@"TBColorValueTransformer"}];

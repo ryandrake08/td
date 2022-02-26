@@ -85,7 +85,7 @@
     if([[segue identifier] isEqualToString:@"presentRoundsDetailsView"]) {
         TBSetupRoundsDetailsViewController* vc = (TBSetupRoundsDetailsViewController*)[segue destinationController];
 
-        // set configuration (so TBSetupFundingDetailsViewController knows payout currency)
+        // set configuration (so TBSetupRoundsDetailsViewController can change blind level configuration)
         [vc setConfiguration:[self representedObject]];
 
         // get document from sheet parent

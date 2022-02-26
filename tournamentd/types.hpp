@@ -235,7 +235,7 @@ namespace td
     {
         size_t place;
         std::string name;
-        monetary_value payout;
+        monetary_value_nocurrency payout;
 
         result();
         explicit result(size_t p, const std::string& n="");

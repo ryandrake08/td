@@ -26,8 +26,8 @@
 - (NSView *)tableView:(NSTableView*)aTableView viewForTableColumn:(NSTableColumn*)aTableColumn row:(NSInteger)rowIndex {
     NSTableCellView* result = [aTableView makeViewWithIdentifier:aTableColumn.identifier owner:self];
     if([[aTableColumn identifier] isEqualToString:@"Payout"]) {
-        NSDictionary* object = [[[self arrayController] arrangedObjects] objectAtIndex:(NSUInteger)rowIndex];
-        [[[result textField] formatter] setCurrencyCode:object[@"payout"][@"currency"]];
+        NSString* payoutCurrency = [[self session] state][@"payout_currency"];
+        [[[result textField] formatter] setCurrencyCode:payoutCurrency];
     }
     return result;
 }

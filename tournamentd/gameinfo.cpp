@@ -132,7 +132,7 @@ class gameinfo::impl
     std::deque<td::player_id_t> entries;
 
     // payout structure
-    std::vector<td::monetary_value> payouts;
+    std::vector<td::monetary_value_nocurrency> payouts;
 
     // total game currency (chips) in play
     unsigned long total_chips;
@@ -486,11 +486,7 @@ class gameinfo::impl
                 this->dirty = true;
 
                 // use the payout structure specified in forced_payouts
-                this->payouts.resize(this->forced_payouts.size());
-                std::transform(this->forced_payouts.begin(), this->forced_payouts.end(), this->payouts.begin(), [&](const td::monetary_value_nocurrency& c)
-                {
-                    return td::monetary_value(c.amount, this->payout_currency);
-                });
+                this->payouts = this->forced_payouts;
                 return;
             }
         }
@@ -510,12 +506,8 @@ class gameinfo::impl
                 // set state dirty
                 this->dirty = true;
 
-                // use found payout structure, transforming between monetary_value_nocurrency and monetary_value
-                this->payouts.resize(manual_payout_it->payouts.size());
-                std::transform(manual_payout_it->payouts.begin(), manual_payout_it->payouts.end(), this->payouts.begin(), [&](const td::monetary_value_nocurrency& c)
-                {
-                    return td::monetary_value(c.amount, this->payout_currency);
-                });
+                // use found payout structure
+                this->payouts = manual_payout_it->payouts;
                 return;
             }
         }
@@ -583,32 +575,32 @@ class gameinfo::impl
             std::transform(comp.begin(), comp.end(), this->payouts.begin(), [&](double c)
             {
                 double amount(std::round(total_available * c / total));
-                return td::monetary_value(amount, this->payout_currency);
+                return td::monetary_value_nocurrency(amount);
             });
 
             // count how much total was calculated after rounding
-            auto total_allocated_payout(std::accumulate(this->payouts.begin(), this->payouts.end(), 0.0, [](int sum, const td::monetary_value& curr)
+            auto total_allocated_payout(std::accumulate(this->payouts.begin(), this->payouts.end(), 0.0, [](int sum, const td::monetary_value_nocurrency& curr)
             {
                 return sum + curr.amount;
             }));
 
             // remainder (either positive or negative) adjusts first place
             auto remainder(total_available - total_allocated_payout);
-            this->payouts[0].amount += remainder;
+            this->payouts[0] = td::monetary_value_nocurrency(this->payouts[0].amount + remainder);
         }
         else
         {
             std::transform(comp.begin(), comp.end(), this->payouts.begin(), [&](double c)
             {
                 double amount(this->total_equity * c / total);
-                return td::monetary_value(amount, this->payout_currency);
+                return td::monetary_value_nocurrency(amount);
             });
         }
 
         // if we're paying the bubble, add it last
         if(this->automatic_payouts.pay_the_bubble > 0.0)
         {
-            this->payouts.push_back(td::monetary_value(this->automatic_payouts.pay_the_bubble, this->payout_currency));
+            this->payouts.push_back(td::monetary_value_nocurrency(this->automatic_payouts.pay_the_bubble));
         }
     }
 
@@ -1066,6 +1058,7 @@ public:
         state["funding_sources"] = this->funding_sources;
         state["available_chips"] = this->available_chips;
         state["available_tables"] = this->available_tables;
+        state["payout_currency"] = this->payout_currency;
     }
 
     // calculate derived state and dump to JSON
@@ -1211,6 +1204,7 @@ public:
 
         // results
         std::vector<td::result> results;
+        // do players currently playing first
         for(size_t j(0); j<this->buyins.size(); j++)
         {
             td::result result(j+1);
@@ -1220,6 +1214,7 @@ public:
             }
             results.push_back(result);
         }
+        // then do players out, in reverse bustout order
         for(size_t i(0); i<this->players_finished.size(); i++)
         {
             auto player_id(this->players_finished[i]);
