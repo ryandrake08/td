@@ -174,6 +174,12 @@ class gameinfo::impl
 
     // ----- private methods -----
 
+    // utility: return whether a player exists (by id)
+    bool player_exists(const td::player_id_t& player_id) const
+    {
+        return std::find_if(this->players.begin(), this->players.end(), [player_id](const td::player& item) { return item.player_id == player_id; }) != this->players.end();
+    }
+
     // utility: return a player's name by id
     const std::string player_name(const td::player_id_t& player_id) const
     {
@@ -807,9 +813,43 @@ public:
         {
             logger(ll::info) << "configuration changed: players -> " << this->players.size() << " players\n";
 
+            // changing players is dangerous, since any removed players might be in existing game state. check one by one
             if(!this->seats.empty() || !this->players_finished.empty() || !this->bust_history.empty() || !this->buyins.empty() || !this->unique_entries.empty() || !this->entries.empty())
             {
                 logger(ll::warning) << "re-coniguring players list while in play is not advised, deleted players may still be in the game\n";
+
+                // remove missing players from internal state
+
+                // remove missing players from seats map
+                for(auto i(this->seats.begin()), last(this->seats.end()); i != last; ) {
+                    if(!this->player_exists(i->first)) {
+                        i = this->seats.erase(i);
+                    } else {
+                        ++i;
+                    }
+                }
+
+                // remove missing players from buyins set
+                for(auto i(this->buyins.begin()), last(this->buyins.end()); i != last; ) {
+                    if(!this->player_exists(*i)) {
+                        i = this->buyins.erase(i);
+                    } else {
+                        ++i;
+                    }
+                }
+
+                // remove missing players from unique_entries set
+                for(auto i(this->unique_entries.begin()), last(this->unique_entries.end()); i != last; ) {
+                    if(!this->player_exists(*i)) {
+                        i = this->unique_entries.erase(i);
+                    } else {
+                        ++i;
+                    }
+                }
+
+                this->players_finished.erase(std::remove_if(this->players_finished.begin(), this->players_finished.end(), [this](const td::player_id_t& p) { return !this->player_exists(p); }), this->players_finished.end());
+                this->bust_history.erase(std::remove_if(this->bust_history.begin(), this->bust_history.end(), [this](const td::player_id_t& p) { return !this->player_exists(p); }), this->bust_history.end());
+                this->entries.erase(std::remove_if(this->entries.begin(), this->entries.end(), [this](const td::player_id_t& p) { return !this->player_exists(p); }), this->entries.end());
             }
         }
 
