@@ -67,31 +67,15 @@
 #endif
 
     // Notification delegate (iOS10+)
-    if(@available(iOS 10.0, *)) {
-        [self setNotificationDelegate:[[TBUserNotificationDelegate alloc] initWithHandler:^{
-            // switch to clock tab when notification happens
-            [[self rootViewController] setSelectedIndex:2];
-        }]];
-    } else if([UIApplication instancesRespondToSelector:@selector(registerUserNotificationSettings:)]) {
-        // old-style UILocalNotification
-        UIUserNotificationSettings* settings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeSound categories:nil];
-        [application registerUserNotificationSettings:settings];
-    }
+    [self setNotificationDelegate:[[TBUserNotificationDelegate alloc] initWithHandler:^{
+        // switch to clock tab when notification happens
+        [[self rootViewController] setSelectedIndex:2];
+    }]];
 
     // Watch delegate (iOS9+)
     [self setWatchDelegate:[[TBRemoteWatchDelegate alloc] initWithSession:[self session]]];
 
     return YES;
-}
-
-- (void)application:(UIApplication*)application didReceiveLocalNotification:(UILocalNotification*)notification {
-    UIApplicationState state = [application applicationState];
-
-    NSLog(@"Received notification while app in state: %ld", (long)state);
-    if(state != UIApplicationStateActive) {
-        // switch to clock tab if app is inactive or running in the background
-        [[self rootViewController] setSelectedIndex:2];
-    }
 }
 
 - (void)applicationWillResignActive:(UIApplication*)application {
@@ -106,26 +90,7 @@
 
         // get notification attributes based on timer state
         TBNotificationAttributes* attributes = [[TBNotificationAttributes alloc] initWithTournamentState:[[object session] state]  warningTime:kAudioWarningTime];
-
-        if(@available(iOS 10.0, *)) {
-            [[self notificationDelegate] setNotificationAttributes:attributes];
-        } else {
-            // old-style UILocalNotification
-            [[UIApplication sharedApplication] cancelAllLocalNotifications];
-
-            if(([attributes title] != nil) && ([attributes body] != nil) && ([attributes soundName] != nil) && ([attributes date] != nil)) {
-                // create and schedule old-style local notification
-                UILocalNotification* localNotification = [[UILocalNotification alloc] init];
-                [localNotification setAlertTitle:[attributes title]];
-                [localNotification setAlertBody:[attributes body]];
-                [localNotification setSoundName:[attributes soundName]];
-                [localNotification setTimeZone:[NSTimeZone localTimeZone]];
-                [localNotification setFireDate:[attributes date]];
-                [localNotification setAlertAction:NSLocalizedString(@"Show timer", @"Launch app and show tournament timer")];
-                NSLog(@"Creating new notification:%@ for %@", [localNotification alertBody], [localNotification fireDate]);
-                [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
-            }
-        }
+        [[self notificationDelegate] setNotificationAttributes:attributes];
     }];
 }
 

@@ -136,7 +136,7 @@
     if([[[self session] state][@"seats"] count] > 0 || [[[self session] state][@"buyins"] count] > 0) {
         // alert because this is a very destructive action
         NSAlert* alert = [[NSAlert alloc] init];
-        [alert setAlertStyle:NSWarningAlertStyle];
+        [alert setAlertStyle:NSAlertStyleWarning];
         [alert addButtonWithTitle:NSLocalizedString(@"Setup", nil)];
         [alert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
         [alert setMessageText:NSLocalizedString(@"Quick Start", nil)];
@@ -163,7 +163,7 @@
     if([[[self session] state][@"seats"] count] > 0 || [[[self session] state][@"buyins"] count] > 0) {
         // alert because this is a very destructive action
         NSAlert* alert = [[NSAlert alloc] init];
-        [alert setAlertStyle:NSWarningAlertStyle];
+        [alert setAlertStyle:NSAlertStyleWarning];
         [alert addButtonWithTitle:NSLocalizedString(@"Reset", nil)];
         [alert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
         [alert setMessageText:NSLocalizedString(@"Reset tournament", nil)];
