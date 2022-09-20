@@ -1707,15 +1707,15 @@
 		AD8E683B1A6C606700E5A4D8 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1330;
+				LastUpgradeCheck = 1340;
 				ORGANIZATIONNAME = "HDna Studio";
 				TargetAttributes = {
 					943FC67620261FC400B6AA4C = {
 						CreatedOnToolsVersion = 9.2;
-						DevelopmentTeam = 9BKETM93L2;
+						DevelopmentTeam = HPHFHR2YAZ;
 					};
 					944FF4B21B3D04CA000362ED = {
-						DevelopmentTeam = 9BKETM93L2;
+						DevelopmentTeam = HPHFHR2YAZ;
 						SystemCapabilities = {
 							com.apple.Sandbox = {
 								enabled = 1;
@@ -1724,26 +1724,26 @@
 					};
 					946C65661FFF54360094E4D8 = {
 						CreatedOnToolsVersion = 9.2;
-						DevelopmentTeam = 9BKETM93L2;
+						DevelopmentTeam = HPHFHR2YAZ;
 					};
 					9476F4291B3C37D000A158F8 = {
-						DevelopmentTeam = 9BKETM93L2;
+						DevelopmentTeam = HPHFHR2YAZ;
 					};
 					9476F4C51B3C3F3D00A158F8 = {
-						DevelopmentTeam = 9BKETM93L2;
+						DevelopmentTeam = HPHFHR2YAZ;
 					};
 					94EFDF681FE574BF00E40EA4 = {
 						CreatedOnToolsVersion = 9.2;
-						DevelopmentTeam = 9BKETM93L2;
+						DevelopmentTeam = HPHFHR2YAZ;
 					};
 					AD33BA441BAC634F0011777C = {
-						DevelopmentTeam = 9BKETM93L2;
+						DevelopmentTeam = HPHFHR2YAZ;
 					};
 					AD33BA541BAC63540011777C = {
-						DevelopmentTeam = 9BKETM93L2;
+						DevelopmentTeam = HPHFHR2YAZ;
 					};
 					AD8E68421A6C606700E5A4D8 = {
-						DevelopmentTeam = 9BKETM93L2;
+						DevelopmentTeam = HPHFHR2YAZ;
 						SystemCapabilities = {
 							com.apple.Sandbox = {
 								enabled = 1;
@@ -1751,13 +1751,13 @@
 						};
 					};
 					ADA6A1971B97FE8A00C83762 = {
-						DevelopmentTeam = 9BKETM93L2;
+						DevelopmentTeam = HPHFHR2YAZ;
 					};
 					ADA6A1A31B97FE8A00C83762 = {
-						DevelopmentTeam = 9BKETM93L2;
+						DevelopmentTeam = HPHFHR2YAZ;
 					};
 					ADF635E11BAB8AF800D019AE = {
-						DevelopmentTeam = 9BKETM93L2;
+						DevelopmentTeam = HPHFHR2YAZ;
 					};
 				};
 			};
@@ -2622,6 +2622,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = HPHFHR2YAZ;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -2650,7 +2651,7 @@
 				GCC_WARN_UNUSED_LABEL = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/thirdparty";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				ONLY_ACTIVE_ARCH = YES;
 				WATCHOS_DEPLOYMENT_TARGET = 2.0;
@@ -2703,6 +2704,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = HPHFHR2YAZ;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -2727,7 +2729,7 @@
 				GCC_WARN_UNUSED_LABEL = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/thirdparty";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				VALIDATE_PRODUCT = YES;
 				WATCHOS_DEPLOYMENT_TARGET = 2.0;
