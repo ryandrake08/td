@@ -56,9 +56,9 @@ CGImageRef TBCreateInvertedImage(CGImageRef image)
             // multiply by alpha again, divide by 255 to undo the
             // scaling before, store the new values and advance
             // the pointer we're reading pixel data from
-            linePointer[0] = r * linePointer[3] / 255;
-            linePointer[1] = g * linePointer[3] / 255;
-            linePointer[2] = b * linePointer[3] / 255;
+            linePointer[0] = (unsigned char)(r * linePointer[3] / 255);
+            linePointer[1] = (unsigned char)(g * linePointer[3] / 255);
+            linePointer[2] = (unsigned char)(b * linePointer[3] / 255);
             linePointer += 4;
         }
     }

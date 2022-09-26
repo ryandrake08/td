@@ -176,6 +176,7 @@
 
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wgnu"
+#pragma GCC diagnostic ignored "-Wconversion"
 
         float iconsize = size.width * 0.5f;
         float lineWidth = MAX(1, iconsize * 0.11f);
