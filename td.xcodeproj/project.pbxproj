@@ -184,6 +184,9 @@
 		9476F4FA1B3C403F00A158F8 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9476F4F91B3C403F00A158F8 /* CFNetwork.framework */; };
 		947D7AA8200D8BD300EAD496 /* TBPhoneLaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 947D7AA7200D8BD300EAD496 /* TBPhoneLaunchScreen.storyboard */; };
 		947D7AAA200D8C8A00EAD496 /* TBRemoteLaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 947D7AA9200D8C8A00EAD496 /* TBRemoteLaunchScreen.storyboard */; };
+		9481CBA728D94CDF00440B59 /* tournamentd in Resources */ = {isa = PBXBuildFile; fileRef = 9476F4C61B3C3F3D00A158F8 /* tournamentd */; };
+		9481CBA828D94CDF00440B59 /* Poker Remote.app in Resources */ = {isa = PBXBuildFile; fileRef = 944FF4B31B3D04CA000362ED /* Poker Remote.app */; };
+		9481CBA928D94CDF00440B59 /* tournamentctl in Resources */ = {isa = PBXBuildFile; fileRef = 946C65671FFF54360094E4D8 /* tournamentctl */; };
 		948E3DB2236248DF007132A9 /* TBSeatingChartCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 948E3DB1236248DF007132A9 /* TBSeatingChartCollectionViewFlowLayout.m */; };
 		948E3DB3236248DF007132A9 /* TBSeatingChartCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 948E3DB1236248DF007132A9 /* TBSeatingChartCollectionViewFlowLayout.m */; };
 		94983373205DDF3500DE6F33 /* TBSetupFilesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94983372205DDF3500DE6F33 /* TBSetupFilesViewController.m */; };
@@ -461,6 +464,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 946C65661FFF54360094E4D8;
 			remoteInfo = tournamentctl;
+		};
+		9481CBA528D94CC100440B59 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AD8E683B1A6C606700E5A4D8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 944FF4B21B3D04CA000362ED;
+			remoteInfo = TBViewer;
 		};
 		94EFDF6C1FE574FD00E40EA4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1639,6 +1649,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				9481CBA628D94CC100440B59 /* PBXTargetDependency */,
 				945812572011F78B00208575 /* PBXTargetDependency */,
 				945812592011F78B00208575 /* PBXTargetDependency */,
 			);
@@ -1855,6 +1866,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9481CBA728D94CDF00440B59 /* tournamentd in Resources */,
+				9481CBA828D94CDF00440B59 /* Poker Remote.app in Resources */,
+				9481CBA928D94CDF00440B59 /* tournamentctl in Resources */,
 				94AD40E120134AA900AB90A3 /* piranha.icns in Resources */,
 				AD8E68541A6C606700E5A4D8 /* TBMac.xcassets in Resources */,
 				94B30DE320020AFF0037192E /* TBMac.storyboard in Resources */,
@@ -2302,6 +2316,11 @@
 			isa = PBXTargetDependency;
 			target = 946C65661FFF54360094E4D8 /* tournamentctl */;
 			targetProxy = 945812582011F78B00208575 /* PBXContainerItemProxy */;
+		};
+		9481CBA628D94CC100440B59 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 944FF4B21B3D04CA000362ED /* TBViewer */;
+			targetProxy = 9481CBA528D94CC100440B59 /* PBXContainerItemProxy */;
 		};
 		94EFDF6D1FE574FD00E40EA4 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
