@@ -73,8 +73,8 @@
     [savePanel setShowsTagField:NO];
     [savePanel setTitle:NSLocalizedString(@"Export Results...", @"Export results to a file")];
     [savePanel setAllowedFileTypes:@[@"CSV"]];
-    [savePanel beginSheetModalForWindow:[[self view] window] completionHandler:^(NSInteger result) {
-        if(result == NSFileHandlingPanelOKButton) {
+    [savePanel beginSheetModalForWindow:[[self view] window] completionHandler:^(NSModalResponse result) {
+        if(result == NSModalResponseOK) {
             [[self document] saveToURL:[savePanel URL] ofType:@"CSV" forSaveOperation:NSSaveToOperation completionHandler:^(NSError* errorOrNil) {
                 NSLog(@"%@", errorOrNil);
             }];

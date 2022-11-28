@@ -313,7 +313,7 @@
 		94FDEAF81B5AE7920026B25D /* NSView+BackgroundColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEAF71B5AE7920026B25D /* NSView+BackgroundColor.m */; };
 		94FDEAFA1B5AEB0B0026B25D /* TBActionClockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEAF91B5AEB0B0026B25D /* TBActionClockView.m */; };
 		94FDEAFB1B5AEB0B0026B25D /* TBActionClockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEAF91B5AEB0B0026B25D /* TBActionClockView.m */; };
-		AD2B800E1BACC63600E2FE9C /* Poker Buddy.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = AD33BA641BAC63540011777C /* Poker Buddy.appex */; };
+		AD2B800E1BACC63600E2FE9C /* Poker Buddy.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = AD33BA641BAC63540011777C /* Poker Buddy.appex */; };
 		AD2CA95F1BAA7043009A2384 /* TournamentSocketDirectory.m in Sources */ = {isa = PBXBuildFile; fileRef = AD2CA95E1BAA7043009A2384 /* TournamentSocketDirectory.m */; };
 		AD2CA9601BAA70F9009A2384 /* TournamentSocketDirectory.m in Sources */ = {isa = PBXBuildFile; fileRef = AD2CA95E1BAA7043009A2384 /* TournamentSocketDirectory.m */; };
 		AD2CA9611BAA7134009A2384 /* TournamentSocketDirectory.m in Sources */ = {isa = PBXBuildFile; fileRef = AD2CA95E1BAA7043009A2384 /* TournamentSocketDirectory.m */; };
@@ -365,7 +365,7 @@
 		ADA5DAC01B949CB1004F50C8 /* s_warning.caf in Resources */ = {isa = PBXBuildFile; fileRef = 94D04ECC1B7C59EB004F4245 /* s_warning.caf */; };
 		ADA6A19C1B97FE8A00C83762 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ADA6A19A1B97FE8A00C83762 /* Interface.storyboard */; };
 		ADA6A19E1B97FE8A00C83762 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ADA6A19D1B97FE8A00C83762 /* Assets.xcassets */; };
-		ADA6A1A51B97FE8A00C83762 /* Poker Remote.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = ADA6A1A41B97FE8A00C83762 /* Poker Remote.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		ADA6A1A51B97FE8A00C83762 /* Poker Remote.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = ADA6A1A41B97FE8A00C83762 /* Poker Remote.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		ADA6A1AD1B97FE8A00C83762 /* InterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA6A1AC1B97FE8A00C83762 /* InterfaceController.m */; };
 		ADA6A1B01B97FE8A00C83762 /* ExtensionDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA6A1AF1B97FE8A00C83762 /* ExtensionDelegate.m */; };
 		ADA6A1B31B97FE8A00C83762 /* NotificationController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA6A1B21B97FE8A00C83762 /* NotificationController.m */; };
@@ -593,15 +593,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 		};
-		AD33BA4D1BAC634F0011777C /* Embed App Extensions */ = {
+		AD33BA4D1BAC634F0011777C /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				AD2B800E1BACC63600E2FE9C /* Poker Buddy.appex in Embed App Extensions */,
+				AD2B800E1BACC63600E2FE9C /* Poker Buddy.appex in Embed Foundation Extensions */,
 			);
-			name = "Embed App Extensions";
+			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		AD33BA6A1BAC665B0011777C /* Embed Watch Content */ = {
@@ -615,15 +615,15 @@
 			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		ADA6A1BF1B97FE8A00C83762 /* Embed App Extensions */ = {
+		ADA6A1BF1B97FE8A00C83762 /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				ADA6A1A51B97FE8A00C83762 /* Poker Remote.appex in Embed App Extensions */,
+				ADA6A1A51B97FE8A00C83762 /* Poker Remote.appex in Embed Foundation Extensions */,
 			);
-			name = "Embed App Extensions";
+			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		ADA6A1C11B97FE8A00C83762 /* Embed Watch Content */ = {
@@ -1608,7 +1608,7 @@
 			buildConfigurationList = AD33BA4F1BAC634F0011777C /* Build configuration list for PBXNativeTarget "TBPhone WatchKit App" */;
 			buildPhases = (
 				AD33BA471BAC634F0011777C /* Resources */,
-				AD33BA4D1BAC634F0011777C /* Embed App Extensions */,
+				AD33BA4D1BAC634F0011777C /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
@@ -1663,7 +1663,7 @@
 			buildConfigurationList = ADA6A1C01B97FE8A00C83762 /* Build configuration list for PBXNativeTarget "TBRemote WatchKit App" */;
 			buildPhases = (
 				ADA6A1961B97FE8A00C83762 /* Resources */,
-				ADA6A1BF1B97FE8A00C83762 /* Embed App Extensions */,
+				ADA6A1BF1B97FE8A00C83762 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
@@ -1718,7 +1718,7 @@
 		AD8E683B1A6C606700E5A4D8 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1340;
+				LastUpgradeCheck = 1410;
 				ORGANIZATIONNAME = "HDna Studio";
 				TargetAttributes = {
 					943FC67620261FC400B6AA4C = {
@@ -2642,6 +2642,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = HPHFHR2YAZ;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -2674,9 +2675,9 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/thirdparty";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				ONLY_ACTIVE_ARCH = YES;
-				WATCHOS_DEPLOYMENT_TARGET = 2.0;
+				WATCHOS_DEPLOYMENT_TARGET = 4.0;
 			};
 			name = Debug;
 		};
@@ -2727,6 +2728,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = HPHFHR2YAZ;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -2755,9 +2757,9 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/thirdparty";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				VALIDATE_PRODUCT = YES;
-				WATCHOS_DEPLOYMENT_TARGET = 2.0;
+				WATCHOS_DEPLOYMENT_TARGET = 4.0;
 			};
 			name = Release;
 		};
