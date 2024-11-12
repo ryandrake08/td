@@ -76,7 +76,7 @@
     [super viewDidLoad];
 
     // filter predicate to not show fake "setup" round
-    NSPredicate* predicate = [NSPredicate predicateWithFormat: @"%K != %@", @"duration", nil];
+    NSPredicate* predicate = [NSPredicate predicateWithFormat: @"duration != nil"];
     [[self arrayController] setFilterPredicate:predicate];
 }
 

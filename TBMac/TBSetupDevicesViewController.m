@@ -34,7 +34,7 @@
     [super viewDidLoad];
 
     // filter predicate to not show this computer's auth code
-    NSPredicate* predicate = [NSPredicate predicateWithFormat: @"%K != %@", @"code", [TournamentSession clientIdentifier]];
+    NSPredicate* predicate = [NSPredicate predicateWithFormat: @"code != %@", [TournamentSession clientIdentifier]];
     [[self arrayController] setFilterPredicate:predicate];
 
     // setup sort descriptors
