@@ -36,9 +36,6 @@ struct tournament::impl
     // server to handle remote connections
     server game_server;
 
-    // pre-authorized codes
-    std::unordered_set<int> pre_auths;
-
     // accepted authorization codes
     std::unordered_map<int,td::authorized_client> game_auths;
 
@@ -49,7 +46,7 @@ struct tournament::impl
 
     bool code_authorized(int code) const
     {
-        return (this->pre_auths.find(code) != this->pre_auths.end()) || (this->game_auths.find(code) != this->game_auths.end());
+        return (this->game_auths.find(code) != this->game_auths.end());
     }
 
     void ensure_authorized(const nlohmann::json& in) const
@@ -861,7 +858,7 @@ struct tournament::impl
     int authorize(int code)
     {
         logger(ll::info) << "client " << code << " pre-authorized to administer this tournament\n";
-        this->pre_auths.emplace(code);
+        this->game_auths.emplace(code, td::authorized_client(code, "Pre-authorized client"));
         return code;
     }
 
