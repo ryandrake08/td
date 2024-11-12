@@ -56,6 +56,17 @@ struct tournament::impl
             throw td::protocol_error("unauthorized");
         }
     }
+    
+    std::vector<td::authorized_client> all_auths() const
+    {
+        std::vector<td::authorized_client> auths;
+        auths.reserve(this->game_auths.size());
+        for(auto kv : this->game_auths)
+        {
+            auths.push_back(kv.second);
+        }
+        return auths;
+    }
 
     // ----- broadcast helpers
 
@@ -78,6 +89,8 @@ struct tournament::impl
 
     void handle_cmd_get_config(nlohmann::json& out) const
     {
+        // pass auth codes back into output
+        out["authorized_clients"] = this->all_auths();
         this->game_info.dump_configuration(out);
     }
 
@@ -118,7 +131,7 @@ struct tournament::impl
         }
 
         // pass auth codes back into output
-        out["authorized_clients"] = this->game_auths;
+        out["authorized_clients"] = this->all_auths();
 
         // configure
         this->game_info.configure(in);
