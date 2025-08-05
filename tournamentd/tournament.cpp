@@ -943,6 +943,8 @@ public:
     // load configuration from file
     void load_configuration(const std::string& filename)
     {
+        // TODO: Consider whether this should throw an exception for non-existent files
+        // Currently it silently ignores missing files, which may not be the desired behavior
         std::ifstream config_stream(filename);
         if(config_stream.good())
         {

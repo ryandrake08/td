@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8.11)
+cmake_minimum_required(VERSION 3.5)
 project(td)
 
 include(CMakeToolsHelpers OPTIONAL)
@@ -18,7 +18,7 @@ else()
 endif()
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -Wextra")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -Wall -Wextra")
 set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -O0 -ggdb -DDEBUG=1")
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0 -ggdb -DDEBUG=1")
 set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -O3")
@@ -41,3 +41,13 @@ target_link_libraries(tournamentd td ${OS_LIBRARIES})
 
 add_executable(tournamentctl tournamentd/main.cpp tournamentd/program_ctl.cpp)
 target_link_libraries(tournamentctl td ${OS_LIBRARIES})
+
+# Unit tests
+add_executable(tournamentd_tests 
+    tournamentd/tests/test_main.cpp
+    tournamentd/tests/test_tournament.cpp
+    tournamentd/tests/test_types.cpp
+    thirdparty/catch2/catch_amalgamated.cpp
+)
+target_link_libraries(tournamentd_tests td ${OS_LIBRARIES})
+target_include_directories(tournamentd_tests PRIVATE thirdparty/catch2)
