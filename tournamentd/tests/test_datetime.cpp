@@ -30,28 +30,26 @@ TEST_CASE("DateTime named constructors", "[datetime]") {
         REQUIRE_FALSE(dt1 != dt2); // Should be very close
     }
 
-    // Note: from_gm and from_local with tm struct may not be implemented yet
-    // These tests are commented out to allow compilation
-    // SECTION("from_gm with tm struct") {
-    //     std::tm tm_s = {};
-    //     tm_s.tm_year = 123; // 2023
-    //     tm_s.tm_mon = 0;    // January
-    //     tm_s.tm_mday = 1;   // 1st
-    //     tm_s.tm_hour = 12;
-    //     tm_s.tm_min = 30;
-    //     tm_s.tm_sec = 45;
-    //
-    //     REQUIRE_NOTHROW(datetime::from_gm(tm_s));
-    // }
-    //
-    // SECTION("from_local with tm struct") {
-    //     std::tm tm_s = {};
-    //     tm_s.tm_year = 123; // 2023
-    //     tm_s.tm_mon = 5;    // June
-    //     tm_s.tm_mday = 15;  // 15th
-    //
-    //     REQUIRE_NOTHROW(datetime::from_local(tm_s));
-    // }
+    SECTION("from_gm with tm struct") {
+        std::tm tm_s = {};
+        tm_s.tm_year = 123; // 2023
+        tm_s.tm_mon = 0;    // January
+        tm_s.tm_mday = 1;   // 1st
+        tm_s.tm_hour = 12;
+        tm_s.tm_min = 30;
+        tm_s.tm_sec = 45;
+
+        REQUIRE_NOTHROW(datetime::from_gm(tm_s));
+    }
+
+    SECTION("from_local with tm struct") {
+        std::tm tm_s = {};
+        tm_s.tm_year = 123; // 2023
+        tm_s.tm_mon = 5;    // June
+        tm_s.tm_mday = 15;  // 15th
+
+        REQUIRE_NOTHROW(datetime::from_local(tm_s));
+    }
 
     SECTION("from_gm with ISO8601 string") {
         REQUIRE_NOTHROW(datetime::from_gm("2023-01-01T12:30:45Z"));

@@ -62,6 +62,26 @@ static int current_century()
     return (tm.tm_year / 100) * 100;
 }
 
+datetime datetime::from_gm(const std::tm& tm_s)
+{
+    // Make a copy since timegm may modify the tm structure
+    struct tm tm = tm_s;
+    // Convert GMT tm to time_t using timegm
+    auto tt(::timegm(&tm));
+    auto time_pt(std::chrono::system_clock::from_time_t(tt));
+    return datetime(time_pt);
+}
+
+datetime datetime::from_local(const std::tm& tm_s)
+{
+    // Make a copy since mktime may modify the tm structure
+    struct tm tm = tm_s;
+    // Convert local tm to time_t using mktime
+    auto tt(::mktime(&tm));
+    auto time_pt(std::chrono::system_clock::from_time_t(tt));
+    return datetime(time_pt);
+}
+
 // Named constructor (from NMEA0183)
 datetime datetime::from_nmea0183(const std::string& timebuf, const std::string& datebuf)
 {
