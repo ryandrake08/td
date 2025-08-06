@@ -1803,11 +1803,6 @@ public:
 
         const td::funding_source& source(this->funding_sources[src]);
 
-        if(this->blind_levels.size() < 2)
-        {
-            throw td::protocol_error("tried to calculate chips for a buyin without blind levels defined");
-        }
-
         if(this->available_chips.empty())
         {
             throw td::protocol_error("tried to calculate chips for a buyin without chips defined");

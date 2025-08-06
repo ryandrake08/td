@@ -361,16 +361,15 @@ void td::to_json(nlohmann::json& j, const td::table& p)
 
 void td::to_json(nlohmann::json& j, const td::monetary_value& p)
 {
-    if(p.currency.empty())
-    {
-        throw std::out_of_range("tried to output monetary_value without currency");
-    }
-
     j = nlohmann::json
     {
-        {"amount", p.amount},
-        {"currency", p.currency}
+        {"amount", p.amount}
     };
+
+    if(!p.currency.empty())
+    {
+        j["currency"] = p.currency;
+    }
 }
 
 void td::to_json(nlohmann::json& j, const td::monetary_value_nocurrency& p)

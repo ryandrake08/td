@@ -7,14 +7,14 @@ TEST_CASE("Tournament creation and basic operations", "[tournament]") {
         tournament t;
         REQUIRE_NOTHROW(t);
     }
-    
+
     SECTION("Tournament authorization") {
         tournament t;
         SECTION("Valid authorization code") {
             int result = t.authorize(12345);
             REQUIRE(result == 12345);
         }
-        
+
         SECTION("Multiple authorization codes") {
             int code1 = t.authorize(11111);
             int code2 = t.authorize(22222);
@@ -22,14 +22,14 @@ TEST_CASE("Tournament creation and basic operations", "[tournament]") {
             REQUIRE(code2 == 22222);
         }
     }
-    
+
     SECTION("Tournament configuration loading") {
         tournament t;
         SECTION("Non-existent file should not crash") {
             REQUIRE_NOTHROW(t.load_configuration("nonexistent_file.json"));
         }
     }
-    
+
     SECTION("Tournament run loop") {
         tournament t;
         SECTION("Run returns boolean") {

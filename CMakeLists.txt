@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.10)
 project(td)
 
 include(CMakeToolsHelpers OPTIONAL)
@@ -47,6 +47,12 @@ add_executable(tournamentd_tests
     tournamentd/tests/test_main.cpp
     tournamentd/tests/test_tournament.cpp
     tournamentd/tests/test_types.cpp
+    tournamentd/tests/test_datetime.cpp
+    tournamentd/tests/test_socket.cpp
+    tournamentd/tests/test_server.cpp
+    tournamentd/tests/test_gameinfo.cpp
+    tournamentd/tests/test_bonjour.cpp
+    tournamentd/tests/test_integration.cpp
     thirdparty/catch2/catch_amalgamated.cpp
 )
 target_link_libraries(tournamentd_tests td ${OS_LIBRARIES})
