@@ -95,6 +95,12 @@ add_executable(tournamentd_tests
 )
 target_link_libraries(tournamentd_tests td ${OS_LIBRARIES})
 
+# Configure Qt5 paths for different platforms
+if(DEFINED MACOSX)
+	# macOS: Add Homebrew Qt5 installation path
+	list(APPEND CMAKE_PREFIX_PATH "/usr/local/opt/qt@5")
+endif()
+
 find_package(Qt5 COMPONENTS Core Network Widgets QUIET)
 if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND)
 	find_package(Threads REQUIRED)
