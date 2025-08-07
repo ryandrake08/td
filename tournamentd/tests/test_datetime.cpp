@@ -27,7 +27,11 @@ TEST_CASE("DateTime named constructors", "[datetime]") {
     SECTION("now() returns current time") {
         auto dt1 = datetime::now();
         auto dt2 = datetime::now();
-        REQUIRE_FALSE(dt1 != dt2); // Should be very close
+        // Check that times are within 1 second of each other (very generous)
+        auto tp1 = static_cast<std::chrono::system_clock::time_point>(dt1);
+        auto tp2 = static_cast<std::chrono::system_clock::time_point>(dt2);
+        auto diff = std::chrono::duration_cast<std::chrono::milliseconds>(tp2 - tp1);
+        REQUIRE(std::abs(diff.count()) < 1000); // Less than 1 second difference
     }
 
     SECTION("from_gm with tm struct") {
