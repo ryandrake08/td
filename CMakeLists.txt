@@ -36,9 +36,6 @@ if(FALSE AND CLANG_TIDY_EXE)
   set_target_properties(td PROPERTIES CXX_CLANG_TIDY "${CLANG_TIDY_EXE};-header-filter=.*td/tournamentd.*;-checks=-*,cert*,misc*,modernize*,-modernize-make-unique,-modernize-pass-by-value,performance*,readability*,-readability-else-after-return")
 endif()
 
-add_executable(tournamentd_test tournamentd/catch.cpp tournamentd/catch.hpp)
-target_link_libraries(tournamentd_test td ${OS_LIBRARIES})
-
 add_executable(tournamentd tournamentd/main.cpp tournamentd/program.cpp)
 target_link_libraries(tournamentd td ${OS_LIBRARIES})
 
