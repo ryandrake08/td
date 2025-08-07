@@ -83,12 +83,16 @@ TEST_CASE("Bonjour service publishing", "[bonjour][publish]") {
         // Empty service name
         REQUIRE_NOTHROW(bp.publish("", 25600));
 
-        // Very long service name
-        std::string long_name(255, 'A');
-        REQUIRE_NOTHROW(bp.publish(long_name, 25600));
+        // Service name at maximum length (63 chars) should work
+        std::string max_length_name(63, 'A');
+        REQUIRE_NOTHROW(bp.publish(max_length_name, 25600));
 
-        // Extremely long service name should throw due to Bonjour limits
-        std::string very_long_name(1000, 'B');
+        // Service name over maximum length should throw due to Avahi limits  
+        std::string over_limit_name(64, 'B');
+        REQUIRE_THROWS(bp.publish(over_limit_name, 25600));
+
+        // Very long service name should also throw
+        std::string very_long_name(1000, 'C');
         REQUIRE_THROWS(bp.publish(very_long_name, 25600));
 
         // Port 0 (might be used for dynamic port assignment)

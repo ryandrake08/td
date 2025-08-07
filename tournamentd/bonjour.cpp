@@ -85,6 +85,7 @@ public:
 #include <avahi-common/thread-watch.h>
 #include <avahi-common/malloc.h>
 #include <avahi-common/error.h>
+#include <avahi-common/domain.h>
 #include <cassert>
 #include <string>
 
@@ -138,6 +139,20 @@ struct bonjour_publisher::impl
 
     void add_service(const std::string& name, int port)
     {
+        // validate service name before attempting to add it
+        if(!avahi_is_valid_service_name(name.c_str()))
+        {
+            // handle empty string by using fallback name
+            if(name.empty())
+            {
+                logger(ll::warning) << "Empty service name provided, using fallback\n";
+                this->add_service("service-" + std::to_string(port), port);
+                return;
+            }
+            // for other invalid names (like very long ones), throw exception
+            throw std::invalid_argument("Invalid service name: " + name);
+        }
+
         if(avahi_entry_group_is_empty(this->group) != AVAHI_OK)
         {
             logger(ll::info) << "adding avahi service: " << name << ", port: " << port << '\n';
@@ -164,8 +179,9 @@ struct bonjour_publisher::impl
                     throw std::system_error(avahi_client_errno(this->client), avahi_error_category(), "avahi_entry_group_reset");
                 }
 
-                // try re-publishing
+                // try re-publishing with alternative name
                 this->add_service(bonjour_publisher::impl::alternative_name(name), port);
+                return; // recursive call handles commit, avoid double commit
             }
             else if(ret != AVAHI_OK)
             {
@@ -298,7 +314,7 @@ struct bonjour_publisher::impl
     }
 
 public:
-    impl(const std::string& name, int port) : service_name(name), service_port(port)
+    impl(const std::string& name, int port) : service_name(name), service_port(port), threaded_poll(nullptr), client(nullptr), group(nullptr)
     {
         logger(ll::debug) << "creating poller\n";
 
