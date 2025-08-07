@@ -696,3 +696,4 @@ TEST_CASE("DateTime JSON serialization", "[types][datetime_json]") {
         REQUIRE(std::abs(diff) <= 1);
     }
 }
+

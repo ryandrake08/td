@@ -494,3 +494,4 @@ TEST_CASE("Cross-component data flow", "[integration][data_flow]") {
         REQUIRE_NOTHROW(gi2.quick_setup());
     }
 }
+

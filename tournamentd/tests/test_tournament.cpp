@@ -38,3 +38,4 @@ TEST_CASE("Tournament creation and basic operations", "[tournament]") {
         }
     }
 }
+

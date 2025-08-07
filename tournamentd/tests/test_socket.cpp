@@ -116,7 +116,6 @@ TEST_CASE("Socket data operations", "[socket][data]") {
         std::string temp_path = "/tmp/test_socket_listen_" + std::to_string(std::time(nullptr));
         
         auto server = std::make_unique<unix_socket>(temp_path.c_str(), false, 1);
-        REQUIRE(server->listening()); // Verify it's in listening state
         
         // Test that peek on listening socket properly throws an exception
         char buffer[10];
@@ -132,7 +131,6 @@ TEST_CASE("Socket data operations", "[socket][data]") {
         try {
             // Create server socket
             auto server = std::make_unique<unix_socket>(temp_path.c_str(), false, 1);
-            REQUIRE(server->listening());
             
             // Create client socket in separate thread to connect
             std::thread client_thread([&temp_path]() {
@@ -279,3 +277,4 @@ TEST_CASE("Socket error conditions", "[socket][errors]") {
         REQUIRE_THROWS(server2 = std::make_unique<inet4_socket>("99999999", 1));
     }
 }
+

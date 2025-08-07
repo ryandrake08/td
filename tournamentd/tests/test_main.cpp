@@ -10,3 +10,4 @@ struct LoggerDisabler {
 };
 
 static LoggerDisabler logger_disabler;
+

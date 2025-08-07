@@ -358,3 +358,4 @@ TEST_CASE("Server resource management", "[server][resources]") {
         }
     }
 }
+

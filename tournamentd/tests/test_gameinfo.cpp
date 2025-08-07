@@ -633,3 +633,4 @@ TEST_CASE("GameInfo integration scenarios", "[gameinfo][integration]") {
         REQUIRE(final_state.is_object());
     }
 }
+

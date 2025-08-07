@@ -90,11 +90,10 @@ add_executable(tournamentd_tests
 	tournamentd/tests/test_gameinfo.cpp
 	tournamentd/tests/test_bonjour.cpp
 	tournamentd/tests/test_integration.cpp
-	thirdparty/catch2/catch_amalgamated.cpp
-	thirdparty/catch2/catch_amalgamated.hpp
+	thirdparty/catch_amalgamated.cpp
+	thirdparty/catch_amalgamated.hpp
 )
 target_link_libraries(tournamentd_tests td ${OS_LIBRARIES})
-target_include_directories(tournamentd_tests PRIVATE thirdparty/catch2)
 
 find_package(Qt5 COMPONENTS Core Network Widgets QUIET)
 if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND)

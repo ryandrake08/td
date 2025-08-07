@@ -83,15 +83,23 @@ TEST_CASE("Bonjour service publishing", "[bonjour][publish]") {
         // Empty service name
         REQUIRE_NOTHROW(bp.publish("", 25600));
 
-        // Service name at maximum length (63 chars) should work
+#ifdef __APPLE__
+        // macOS allows up to 255 characters
+        std::string max_length_name(255, 'A');
+        REQUIRE_NOTHROW(bp.publish(max_length_name, 25600));
+
+        std::string over_limit_name(256, 'B');
+        REQUIRE_THROWS(bp.publish(over_limit_name, 25600));
+#else
+        // Linux/Avahi and other platforms: 63 characters maximum
         std::string max_length_name(63, 'A');
         REQUIRE_NOTHROW(bp.publish(max_length_name, 25600));
 
-        // Service name over maximum length should throw due to Avahi limits  
         std::string over_limit_name(64, 'B');
         REQUIRE_THROWS(bp.publish(over_limit_name, 25600));
+#endif
 
-        // Very long service name should also throw
+        // Very long service name should throw on all platforms
         std::string very_long_name(1000, 'C');
         REQUIRE_THROWS(bp.publish(very_long_name, 25600));
 
@@ -220,13 +228,13 @@ TEST_CASE("Bonjour error handling", "[bonjour][errors]") {
         std::vector<std::thread> threads;
         std::vector<std::unique_ptr<bonjour_publisher>> publishers(num_threads);
 
-        for (int t = 0; t < num_threads; ++t) {
+        for (size_t t = 0; t < num_threads; ++t) {
             publishers[t] = std::make_unique<bonjour_publisher>();
 
             threads.emplace_back([&publishers, t]() {
                 for (int i = 0; i < services_per_thread; ++i) {
                     std::string service_name = "Thread" + std::to_string(t) + "Service" + std::to_string(i);
-                    int port = 26000 + t * 100 + i;
+                    int port = 26000 + (int)t * 100 + i;
 
                     REQUIRE_NOTHROW(publishers[t]->publish(service_name, port));
 

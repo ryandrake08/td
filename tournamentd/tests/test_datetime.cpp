@@ -187,3 +187,4 @@ TEST_CASE("DateTime edge cases", "[datetime]") {
         REQUIRE_NOTHROW(datetime::from_gm("2038-01-19T03:14:07Z"));
     }
 }
+
