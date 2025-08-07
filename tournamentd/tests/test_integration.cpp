@@ -8,6 +8,10 @@
 #include <thread>
 #include <chrono>
 #include <sstream>
+
+#if !defined(P_tmpdir)
+#define P_tmpdir "/tmp/"
+#endif
 #include <functional>
 #include <fstream>
 #include <memory>
@@ -22,7 +26,12 @@ TEST_CASE("Tournament integration - basic tournament lifecycle", "[integration][
         REQUIRE(auth_code == 12345);
 
         // Try to listen (might fail in test environment, but shouldn't crash)
-        std::string temp_path = "/tmp/integration_test_" + std::to_string(std::time(nullptr));
+        // Use same temporary directory logic as the actual daemon
+        const char* tmpdir = std::getenv("TMPDIR");
+        if(tmpdir == nullptr) {
+            tmpdir = P_tmpdir;
+        }
+        std::string temp_path = tmpdir;
 
         try {
             auto listen_result = t.listen(temp_path.c_str());
@@ -259,7 +268,13 @@ TEST_CASE("Full tournament daemon simulation", "[integration][full_daemon]") {
                 }}
             };
 
-            std::string config_file = "/tmp/full_daemon_config_" + std::to_string(std::time(nullptr)) + ".json";
+            // Use same temporary directory logic as the actual daemon
+            const char* tmpdir = std::getenv("TMPDIR");
+            if(tmpdir == nullptr) {
+                tmpdir = P_tmpdir;
+            }
+
+            std::string config_file = std::string(tmpdir) + "/full_daemon_config_" + std::to_string(std::time(nullptr)) + ".json";
             std::ofstream file(config_file);
             file << config.dump();
             file.close();
@@ -267,8 +282,7 @@ TEST_CASE("Full tournament daemon simulation", "[integration][full_daemon]") {
             t.load_configuration(config_file);
 
             // 3. Start listening for connections
-            std::string socket_path = "/tmp/tournament_daemon_" + std::to_string(std::time(nullptr));
-            auto listen_result = t.listen(socket_path.c_str());
+            auto listen_result = t.listen(tmpdir);
 
             // 4. Publish service for discovery
             bp.publish("Full Integration Tournament", listen_result.second);
