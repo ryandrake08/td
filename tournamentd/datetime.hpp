@@ -27,6 +27,7 @@ public:
     std::string localtime() const;
 
     // Operators
+    bool operator==(const datetime& other) const;
     bool operator!=(const datetime& other) const;
     bool operator<(const datetime& other) const;
 

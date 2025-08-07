@@ -436,6 +436,10 @@ unix_socket::unix_socket(const char* path, bool client, int backlog)
     sockaddr_un addr;
 
     // first check size of path
+    if(std::strlen(path) == 0)
+    {
+        throw std::invalid_argument("unix_socket: path cannot be empty");
+    }
     if(std::strlen(path) > sizeof(addr.sun_path)-1)
     {
         throw std::invalid_argument("unix_socket: path length too long");
@@ -492,6 +496,16 @@ unix_socket::unix_socket(const char* path, bool client, int backlog)
 
 inet_socket::inet_socket(const char* host, const char* service, int family) : common_socket()
 {
+    // validate parameters
+    if(!host || std::strlen(host) == 0)
+    {
+        throw std::invalid_argument("inet_socket: host cannot be empty");
+    }
+    if(!service || std::strlen(service) == 0)
+    {
+        throw std::invalid_argument("inet_socket: service cannot be empty");
+    }
+    
     // set up hints
     addrinfo hints = {0,0,0,0,0,nullptr,nullptr,nullptr};
     hints.ai_family = family;
@@ -535,6 +549,23 @@ inet_socket::inet_socket(const char* host, const char* service, int family) : co
 
 inet_socket::inet_socket(const char* service, int family, int backlog) : common_socket()
 {
+    // validate parameters
+    if(!service || std::strlen(service) == 0)
+    {
+        throw std::invalid_argument("inet_socket: service cannot be empty");
+    }
+    
+    // validate port number if it's numeric
+    char* endptr;
+    long port = std::strtol(service, &endptr, 10);
+    if(*endptr == '\0') // service is purely numeric
+    {
+        if(port < 0 || port > 65535)
+        {
+            throw std::invalid_argument("inet_socket: port number out of valid range (0-65535)");
+        }
+    }
+    
     // set up hints
     addrinfo hints = {0,0,0,0,0,nullptr,nullptr,nullptr};
     hints.ai_family = family;

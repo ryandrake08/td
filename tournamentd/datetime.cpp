@@ -120,6 +120,11 @@ datetime datetime::from_nmea0183(const std::string& timebuf, const std::string& 
 
 
 // Operators
+bool datetime::operator==(const datetime& other) const
+{
+    return this->tp == other.tp;
+}
+
 bool datetime::operator!=(const datetime& other) const
 {
     return this->tp != other.tp;

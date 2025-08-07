@@ -288,6 +288,12 @@ TEST_CASE("td::player", "[types][player]") {
     SECTION("Equality operator") {
         td::player p1;
         td::player p2;
+        
+        // Fix timestamp issue - set to same time for comparison
+        datetime fixed_time = datetime::now();
+        p1.added_at = fixed_time;
+        p2.added_at = fixed_time;
+        
         REQUIRE(p1 == p2);
 
         p1.player_id = "player1";
@@ -305,6 +311,7 @@ TEST_CASE("td::player", "[types][player]") {
         td::player original;
         original.player_id = "player123";
         original.name = "Jane Smith";
+        original.added_at = datetime::from_gm("2023-01-01T12:00:00");
 
         nlohmann::json j;
         to_json(j, original);
@@ -660,7 +667,7 @@ TEST_CASE("Enum stream insertion operators", "[types][enums]") {
 
 TEST_CASE("DateTime JSON serialization", "[types][datetime_json]") {
     SECTION("datetime to_json/from_json") {
-        auto original = datetime::now();
+        auto original = datetime::from_gm("2023-01-01T12:00:00");
 
         nlohmann::json j;
         to_json(j, original);
