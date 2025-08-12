@@ -56,7 +56,7 @@ struct tournament::impl
             throw td::protocol_error("unauthorized");
         }
     }
-    
+
     std::vector<td::authorized_client> all_auths() const
     {
         std::vector<td::authorized_client> auths;
@@ -103,7 +103,9 @@ struct tournament::impl
 
     void handle_cmd_check_authorized(const nlohmann::json& in, nlohmann::json& out) const
     {
-        auto authorized(this->code_authorized(in.at("authenticate")));
+        auto code(in.at("authenticate"));
+        auto authorized(this->code_authorized(code));
+        logger(ll::debug) << "code " << code << " is " << (authorized ? "authorized\n" : "not authorized\n");
         out["authorized"] = authorized;
     }
 
