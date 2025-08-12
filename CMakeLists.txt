@@ -108,7 +108,7 @@ if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND)
 	qt5_wrap_cpp(TBUDDY_MOC TBQt/TBBaseMainWindow.hpp TBQt/TBMainWindow.hpp TBQt/TBPlayersModel.hpp TBQt/TBVariantListTableModel.hpp TBQt/TournamentConnection.hpp TBQt/TournamentDocument.hpp TBQt/TournamentSession.hpp)
 	qt5_wrap_ui(TBUDDY_UI TBQt/TBMainWindow.ui)
 	qt5_add_resources(TBUDDY_RC TBQt/TBQt.qrc)
-	qt5_wrap_cpp(TBVIEWER_MOC TBQt/TBBaseMainWindow.hpp TBQt/TBViewerMainWindow.hpp TBQt/TBPlayersModel.hpp TBQt/TBVariantListTableModel.hpp TBQt/TournamentConnection.hpp TBQt/TournamentSession.hpp)
+	qt5_wrap_cpp(TBVIEWER_MOC TBQt/TBBaseMainWindow.hpp TBQt/TBViewerMainWindow.hpp TBQt/TBConnectToDialog.hpp TBQt/TBPlayersModel.hpp TBQt/TBVariantListTableModel.hpp TBQt/TournamentConnection.hpp TBQt/TournamentSession.hpp)
 	qt5_wrap_ui(TBVIEWER_UI TBQt/TBViewerMainWindow.ui)
 	qt5_add_resources(TBVIEWER_RC TBQt/TBQt.qrc)
 	add_executable(tbuddy
@@ -147,6 +147,8 @@ if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND)
 		TBQt/TBBaseMainWindow.hpp
 		TBQt/TBViewerMainWindow.cpp
 		TBQt/TBViewerMainWindow.hpp
+		TBQt/TBConnectToDialog.cpp
+		TBQt/TBConnectToDialog.hpp
 		TBQt/TBPlayersModel.cpp
 		TBQt/TBPlayersModel.hpp
 		TBQt/TBRuntimeError.cpp

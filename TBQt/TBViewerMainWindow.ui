@@ -121,6 +121,13 @@
      <height>22</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuConnect">
+    <property name="title">
+     <string>Connect</string>
+    </property>
+    <addaction name="actionConnectToTournament"/>
+    <addaction name="actionDisconnect"/>
+   </widget>
    <widget class="QMenu" name="menuTournament">
     <property name="title">
      <string>Tournament</string>
@@ -136,6 +143,7 @@
     </property>
     <addaction name="actionAbout_Poker_Remote"/>
    </widget>
+   <addaction name="menuConnect"/>
    <addaction name="menuTournament"/>
    <addaction name="menuHelp"/>
   </widget>
@@ -213,6 +221,25 @@
    </property>
    <property name="menuRole">
     <enum>QAction::QuitRole</enum>
+   </property>
+  </action>
+  <action name="actionConnectToTournament">
+   <property name="text">
+    <string>Connect to Tournament...</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+C</string>
+   </property>
+  </action>
+  <action name="actionDisconnect">
+   <property name="text">
+    <string>Disconnect</string>
+   </property>
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+D</string>
    </property>
   </action>
  </widget>

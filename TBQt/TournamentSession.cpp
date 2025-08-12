@@ -28,14 +28,22 @@ struct TournamentSession::impl
 
     // true if authorized
     bool authorized;
+
+    // last connection error
+    QString last_error;
 };
 
 TournamentSession::TournamentSession(QObject* parent) : QObject(parent), pimpl(new impl())
 {
+    // initialize state
+    pimpl->connected = false;
+    pimpl->authorized = false;
+
     // hook up TournamentConnection signals
     QObject::connect(&this->pimpl->connection, SIGNAL(connected()), this, SLOT(on_connected()));
     QObject::connect(&this->pimpl->connection, SIGNAL(disconnected()), this, SLOT(on_disconnected()));
     QObject::connect(&this->pimpl->connection, SIGNAL(receivedData(const QVariantMap&)), this, SLOT(on_receivedData(const QVariantMap&)));
+    QObject::connect(&this->pimpl->connection, SIGNAL(errorOccurred(const QString&)), this, SLOT(on_connectionError(const QString&)));
 }
 
 TournamentSession::~TournamentSession() = default;
@@ -224,9 +232,29 @@ void TournamentSession::on_receivedData(const QVariantMap& data)
     }
 }
 
+void TournamentSession::on_connectionError(const QString& error)
+{
+    // store last error
+    this->pimpl->last_error = error;
+    
+    // emit error signals
+    qDebug() << "Connection error:" << error;
+    Q_EMIT this->connectionError(error);
+    Q_EMIT this->networkError(error);
+}
+
 // send command
 void TournamentSession::send_command(const QString& cmd, const QVariantMap& arg=QVariantMap(), const std::function<void(const QVariantMap&)>& handler=std::function<void(const QVariantMap&)>())
 {
+    // validate connection state
+    if(!this->pimpl->connected)
+    {
+        QString error = QObject::tr("Cannot send command '%1': not connected to tournament server").arg(cmd);
+        qDebug() << error;
+        Q_EMIT this->commandError(cmd, error);
+        return;
+    }
+
     QVariantMap argument(arg);
 
     // append to every command: authentication
@@ -395,4 +423,19 @@ QByteArray TournamentSession::results_as_csv() const
 const QVariantMap& TournamentSession::state() const
 {
     return this->pimpl->state;
+}
+
+bool TournamentSession::is_connected() const
+{
+    return this->pimpl->connected;
+}
+
+bool TournamentSession::is_authorized() const
+{
+    return this->pimpl->authorized;
+}
+
+QString TournamentSession::last_error() const
+{
+    return this->pimpl->last_error;
 }

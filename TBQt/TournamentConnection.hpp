@@ -20,6 +20,7 @@ private Q_SLOTS:
     void on_connected();
     void on_disconnected();
     void on_readyRead();
+    void on_error();
 
 public:
     // construct
@@ -37,5 +38,6 @@ Q_SIGNALS:
     void connected();
     void disconnected();
     void receivedData(const QVariantMap& data);
+    void errorOccurred(const QString& error);
 };
 

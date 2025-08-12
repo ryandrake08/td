@@ -30,6 +30,7 @@ private Q_SLOTS:
     void on_connected();
     void on_disconnected();
     void on_receivedData(const QVariantMap& data);
+    void on_connectionError(const QString& error);
 
 public:
     // constants
@@ -76,9 +77,15 @@ public:
 
     // accessors
     const QVariantMap& state() const;
+    bool is_connected() const;
+    bool is_authorized() const;
+    QString last_error() const;
 
 Q_SIGNALS:
     void connectedChanged(bool conn);
     void authorizedChanged(bool auth);
     void stateChanged(const QString& key, const QVariant& value);
+    void connectionError(const QString& error);
+    void commandError(const QString& command, const QString& error);
+    void networkError(const QString& error);
 };

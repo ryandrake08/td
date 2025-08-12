@@ -1,6 +1,8 @@
 #include "TBViewerMainWindow.hpp"
+#include "TBConnectToDialog.hpp"
 #include "TBPlayersModel.hpp"
 #include "TBRuntimeError.hpp"
+#include "TournamentService.hpp"
 #include "TournamentSession.hpp"
 
 #include "ui_TBViewerMainWindow.h"
@@ -23,11 +25,10 @@ TBViewerMainWindow::TBViewerMainWindow() : TBBaseMainWindow(), pimpl(new impl)
 
     // hook up TournamentSession signals
     QObject::connect(&this->getSession(), SIGNAL(authorizedChanged(bool)), this, SLOT(on_authorizedChanged(bool)));
+    QObject::connect(&this->getSession(), SIGNAL(connectedChanged(bool)), this, SLOT(on_connectedChanged(bool)));
 
-    // TODO: Viewer should connect to external daemon via service discovery
-    // For now, create a placeholder implementation that doesn't start its own daemon
-    // This will be completed in Stage 1.2 when we implement proper networking
-    qDebug() << "TBViewerMainWindow: Session initialized (external connection not yet implemented)";
+    // initialize connection state
+    on_connectedChanged(false); // start with disconnected state
 }
 
 TBViewerMainWindow::~TBViewerMainWindow() = default;
@@ -69,7 +70,41 @@ void TBViewerMainWindow::on_actionCallClock_triggered()
     this->callClockAction();
 }
 
+void TBViewerMainWindow::on_actionConnectToTournament_triggered()
+{
+    TBConnectToDialog dialog(this);
+    dialog.set_host("localhost"); // default host
+    dialog.set_port(TournamentService::default_port);
+    
+    if(dialog.exec() == QDialog::Accepted)
+    {
+        QString host = dialog.host();
+        int port = dialog.port();
+        
+        qDebug() << "Connecting to tournament at" << host << ":" << port;
+        
+        // create tournament service and connect
+        TournamentService service(host.toStdString(), port);
+        this->getSession().connect(service);
+    }
+}
+
+void TBViewerMainWindow::on_actionDisconnect_triggered()
+{
+    qDebug() << "Disconnecting from tournament";
+    this->getSession().disconnect();
+}
+
 void TBViewerMainWindow::on_authorizedChanged(bool auth)
 {
     qDebug() << "TBViewerMainWindow::on_authorized:" << auth;
+}
+
+void TBViewerMainWindow::on_connectedChanged(bool connected)
+{
+    qDebug() << "TBViewerMainWindow::on_connected:" << connected;
+    
+    // update menu state
+    this->pimpl->ui.actionConnectToTournament->setEnabled(!connected);
+    this->pimpl->ui.actionDisconnect->setEnabled(connected);
 }

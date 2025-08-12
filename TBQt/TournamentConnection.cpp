@@ -39,6 +39,7 @@ void TournamentConnection::connect(const TournamentService& tournament)
         QObject::connect(socket, SIGNAL(connected()), this, SLOT(on_connected()));
         QObject::connect(socket, SIGNAL(disconnected()), this, SLOT(on_disconnected()));
         QObject::connect(socket, SIGNAL(readyRead()), this, SLOT(on_readyRead()));
+        QObject::connect(socket, SIGNAL(errorOccurred(QAbstractSocket::SocketError)), this, SLOT(on_error()));
 
         // connect
         socket->connectToHost(QString::fromStdString(tournament.address()), static_cast<quint16>(tournament.port()));
@@ -53,6 +54,7 @@ void TournamentConnection::connect(const TournamentService& tournament)
         QObject::connect(socket, SIGNAL(connected()), this, SLOT(on_connected()));
         QObject::connect(socket, SIGNAL(disconnected()), this, SLOT(on_disconnected()));
         QObject::connect(socket, SIGNAL(readyRead()), this, SLOT(on_readyRead()));
+        QObject::connect(socket, SIGNAL(errorOccurred(QLocalSocket::LocalSocketError)), this, SLOT(on_error()));
 
         // connect
         socket->connectToServer(QString::fromStdString(tournament.path()));
@@ -74,6 +76,13 @@ void TournamentConnection::send_command(const QString& cmd, const QVariantMap& a
 {
     qDebug() << "sending command:" << cmd;
 
+    // check if device is valid and connected
+    if(!this->pimpl->device || !this->pimpl->device->isOpen())
+    {
+        Q_EMIT this->errorOccurred(QObject::tr("Not connected to tournament server"));
+        return;
+    }
+
     // serialize to json
     auto json_obj(QJsonObject::fromVariantMap(arg));
 
@@ -90,7 +99,11 @@ void TournamentConnection::send_command(const QString& cmd, const QVariantMap& a
     cmd_data.append('\n');
 
     // write to socket
-    this->pimpl->device->write(cmd_data);
+    auto bytes_written = this->pimpl->device->write(cmd_data);
+    if(bytes_written == -1)
+    {
+        Q_EMIT this->errorOccurred(QObject::tr("Failed to send command: %1").arg(cmd));
+    }
 }
 
 // slots
@@ -126,8 +139,9 @@ void TournamentConnection::on_readyRead()
         // ensure root of document is an object
         if(!json_doc.isObject())
         {
-            // handle invalid json
-            throw TBRuntimeError(QObject::tr("Invalid response from server"));
+            // emit error instead of throwing
+            Q_EMIT this->errorOccurred(QObject::tr("Invalid response from server"));
+            return;
         }
 
         // convert to json object
@@ -147,4 +161,26 @@ void TournamentConnection::on_readyRead()
     }
 
     qDebug() << "done parsing with" << this->pimpl->buffer.size() << "bytes remaining in buffer";
+}
+
+void TournamentConnection::on_error()
+{
+    QString errorString;
+    
+    // get error string from the socket
+    if(auto tcpSocket = qobject_cast<QTcpSocket*>(this->pimpl->device.get()))
+    {
+        errorString = tcpSocket->errorString();
+    }
+    else if(auto localSocket = qobject_cast<QLocalSocket*>(this->pimpl->device.get()))
+    {
+        errorString = localSocket->errorString();
+    }
+    else
+    {
+        errorString = QObject::tr("Unknown socket error");
+    }
+
+    qDebug() << "Connection error:" << errorString;
+    Q_EMIT this->errorOccurred(errorString);
 }
