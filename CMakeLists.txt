@@ -105,11 +105,16 @@ find_package(Qt5 COMPONENTS Core Network Widgets QUIET)
 if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND)
 	find_package(Threads REQUIRED)
 	set(CMAKE_INCLUDE_CURRENT_DIR ON)
-	qt5_wrap_cpp(TBUDDY_MOC TBQt/TBMainWindow.hpp TBQt/TBPlayersModel.hpp TBQt/TBVariantListTableModel.hpp TBQt/TournamentConnection.hpp TBQt/TournamentDocument.hpp TBQt/TournamentSession.hpp)
+	qt5_wrap_cpp(TBUDDY_MOC TBQt/TBBaseMainWindow.hpp TBQt/TBMainWindow.hpp TBQt/TBPlayersModel.hpp TBQt/TBVariantListTableModel.hpp TBQt/TournamentConnection.hpp TBQt/TournamentDocument.hpp TBQt/TournamentSession.hpp)
 	qt5_wrap_ui(TBUDDY_UI TBQt/TBMainWindow.ui)
 	qt5_add_resources(TBUDDY_RC TBQt/TBQt.qrc)
+	qt5_wrap_cpp(TBVIEWER_MOC TBQt/TBBaseMainWindow.hpp TBQt/TBViewerMainWindow.hpp TBQt/TBPlayersModel.hpp TBQt/TBVariantListTableModel.hpp TBQt/TournamentConnection.hpp TBQt/TournamentSession.hpp)
+	qt5_wrap_ui(TBVIEWER_UI TBQt/TBViewerMainWindow.ui)
+	qt5_add_resources(TBVIEWER_RC TBQt/TBQt.qrc)
 	add_executable(tbuddy
 		TBQt/tbuddy.cpp
+		TBQt/TBBaseMainWindow.cpp
+		TBQt/TBBaseMainWindow.hpp
 		TBQt/TBMainWindow.cpp
 		TBQt/TBMainWindow.hpp
 		TBQt/TBPlayersModel.cpp
@@ -135,4 +140,32 @@ if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND)
 	target_compile_definitions(tbuddy PRIVATE QT_NO_KEYWORDS)
 	target_link_libraries(tbuddy td Qt5::Network Qt5::Widgets ${CMAKE_THREAD_LIBS_INIT} ${OS_LIBRARIES})
 	set_target_properties(tbuddy PROPERTIES MACOSX_BUNDLE TRUE MACOSX_BUNDLE_INFO_PLIST ${CMAKE_SOURCE_DIR}/TBQt/TBQt-Info.plist)
+
+	add_executable(tbviewer
+		TBQt/tbviewer.cpp
+		TBQt/TBBaseMainWindow.cpp
+		TBQt/TBBaseMainWindow.hpp
+		TBQt/TBViewerMainWindow.cpp
+		TBQt/TBViewerMainWindow.hpp
+		TBQt/TBPlayersModel.cpp
+		TBQt/TBPlayersModel.hpp
+		TBQt/TBRuntimeError.cpp
+		TBQt/TBRuntimeError.hpp
+		TBQt/TBVariantListTableModel.cpp
+		TBQt/TBVariantListTableModel.hpp
+		TBQt/TournamentConnection.cpp
+		TBQt/TournamentConnection.hpp
+		TBQt/TournamentDaemon.cpp
+		TBQt/TournamentDaemon.hpp
+		TBQt/TournamentService.cpp
+		TBQt/TournamentService.hpp
+		TBQt/TournamentSession.cpp
+		TBQt/TournamentSession.hpp
+		${TBVIEWER_MOC}
+		${TBVIEWER_UI}
+		${TBVIEWER_RC}
+	)
+	target_compile_definitions(tbviewer PRIVATE QT_NO_KEYWORDS)
+	target_link_libraries(tbviewer td Qt5::Network Qt5::Widgets ${CMAKE_THREAD_LIBS_INIT} ${OS_LIBRARIES})
+	set_target_properties(tbviewer PROPERTIES MACOSX_BUNDLE TRUE MACOSX_BUNDLE_INFO_PLIST ${CMAKE_SOURCE_DIR}/TBQt/TBQt-Info.plist)
 endif()

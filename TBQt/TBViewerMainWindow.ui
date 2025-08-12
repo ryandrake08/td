@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>TBViewerMainWindow</class>
+ <widget class="QMainWindow" name="TBViewerMainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>600</width>
+    <height>400</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Tournament Display</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="TBQt.qrc">
+    <normaloff>:/Resources/icon_256x256.png</normaloff>:/Resources/icon_256x256.png</iconset>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <layout class="QHBoxLayout" name="controlsLayout">
+      <item>
+       <widget class="QPushButton" name="previousRoundButton">
+        <property name="text">
+         <string>Previous Round</string>
+        </property>
+        <property name="icon">
+         <iconset resource="TBQt.qrc">
+          <normaloff>:/Resources/b_previous_64x64.png</normaloff>:/Resources/b_previous_64x64.png</iconset>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pauseResumeButton">
+        <property name="text">
+         <string>Pause/Resume</string>
+        </property>
+        <property name="icon">
+         <iconset resource="TBQt.qrc">
+          <normaloff>:/Resources/b_play_pause_64x64.png</normaloff>:/Resources/b_play_pause_64x64.png</iconset>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="nextRoundButton">
+        <property name="text">
+         <string>Next Round</string>
+        </property>
+        <property name="icon">
+         <iconset resource="TBQt.qrc">
+          <normaloff>:/Resources/b_next_64x64.png</normaloff>:/Resources/b_next_64x64.png</iconset>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="callClockButton">
+        <property name="text">
+         <string>Call Clock</string>
+        </property>
+        <property name="icon">
+         <iconset resource="TBQt.qrc">
+          <normaloff>:/Resources/b_call_clock_64x64.png</normaloff>:/Resources/b_call_clock_64x64.png</iconset>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="displayLayout">
+      <item>
+       <widget class="QTableView" name="chipsTableView">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>1</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QTableView" name="resultsTableView">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>2</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuTournament">
+    <property name="title">
+     <string>Tournament</string>
+    </property>
+    <addaction name="actionPauseResume"/>
+    <addaction name="actionPreviousRound"/>
+    <addaction name="actionNextRound"/>
+    <addaction name="actionCallClock"/>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+    <addaction name="actionAbout_Poker_Remote"/>
+   </widget>
+   <addaction name="menuTournament"/>
+   <addaction name="menuHelp"/>
+  </widget>
+  <action name="actionAbout_Poker_Remote">
+   <property name="text">
+    <string>About Poker Remote...</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::AboutRole</enum>
+   </property>
+  </action>
+  <action name="actionPauseResume">
+   <property name="icon">
+    <iconset resource="TBQt.qrc">
+     <normaloff>:/Resources/b_play_pause_64x64.png</normaloff>:/Resources/b_play_pause_64x64.png</iconset>
+   </property>
+   <property name="text">
+    <string>Resume / Pause</string>
+   </property>
+   <property name="iconText">
+    <string>Resume / Pause</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+G</string>
+   </property>
+  </action>
+  <action name="actionPreviousRound">
+   <property name="icon">
+    <iconset resource="TBQt.qrc">
+     <normaloff>:/Resources/b_previous_64x64.png</normaloff>:/Resources/b_previous_64x64.png</iconset>
+   </property>
+   <property name="text">
+    <string>Previous Round</string>
+   </property>
+   <property name="iconText">
+    <string>Previous Round</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Alt+P</string>
+   </property>
+  </action>
+  <action name="actionNextRound">
+   <property name="icon">
+    <iconset resource="TBQt.qrc">
+     <normaloff>:/Resources/b_next_64x64.png</normaloff>:/Resources/b_next_64x64.png</iconset>
+   </property>
+   <property name="text">
+    <string>Next Round</string>
+   </property>
+   <property name="iconText">
+    <string>Next Round</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Alt+N</string>
+   </property>
+  </action>
+  <action name="actionCallClock">
+   <property name="icon">
+    <iconset resource="TBQt.qrc">
+     <normaloff>:/Resources/b_call_clock_64x64.png</normaloff>:/Resources/b_call_clock_64x64.png</iconset>
+   </property>
+   <property name="text">
+    <string>Call the Clock</string>
+   </property>
+   <property name="iconText">
+    <string>Call the Clock</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Alt+C</string>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="text">
+    <string>E&amp;xit</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::QuitRole</enum>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources>
+  <include location="TBQt.qrc"/>
+ </resources>
+ <connections/>
+</ui>

@@ -1,9 +1,9 @@
 #pragma once
 
-#include <QMainWindow>
+#include "TBBaseMainWindow.hpp"
 #include <memory>
 
-class TBMainWindow : public QMainWindow
+class TBMainWindow : public TBBaseMainWindow
 {
     Q_OBJECT
 
@@ -36,7 +36,7 @@ private Q_SLOTS:
     void on_actionExport_triggered();
 
     // other slots
-    void on_authorizedChanged(bool auth);
+    void on_authorizedChanged(bool auth) override;
     void on_filenameChanged(const QString& filename);
 
 public:
@@ -46,7 +46,4 @@ public:
 
     // load a document to be managed by this window
     bool load_document(const QString& filename);
-
-    // override closeEvent to do clean shutdown
-    void closeEvent(QCloseEvent* event);
 };

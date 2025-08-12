@@ -20,40 +20,34 @@ struct TBMainWindow::impl
     // moc ui
     Ui::TBMainWindow ui;
 
-    // tournament session
-    TournamentSession session;
-
-    // tournamentd thread
+    // tournamentd thread (full client runs its own daemon)
     TournamentDaemon server;
 
     // tournament document
     TournamentDocument doc;
 };
 
-TBMainWindow::TBMainWindow() : pimpl(new impl)
+TBMainWindow::TBMainWindow() : TBBaseMainWindow(), pimpl(new impl)
 {
     // set up moc
     this->pimpl->ui.setupUi(this);
 
-    // set up rest of window
-    this->setUnifiedTitleAndToolBarOnMac(true);
-
     // set up left model and view
     qDebug() << "setting up the models and views";
-    auto playersModel(new TBPlayersModel(this->pimpl->session, this));
+    auto playersModel(new TBPlayersModel(this->getSession(), this));
     this->pimpl->ui.leftTableView->setModel(playersModel);
-
-    // hook up TournamentSession signals
-    QObject::connect(&this->pimpl->session, SIGNAL(authorizedChanged(bool)), this, SLOT(on_authorizedChanged(bool)));
 
     // hook up TournamentDocument signals
     QObject::connect(&this->pimpl->doc, SIGNAL(filenameChanged(const QString&)), this, SLOT(on_filenameChanged(const QString&)));
 
-    // start tournament thread
+    // hook up TournamentSession signals
+    QObject::connect(&this->getSession(), SIGNAL(authorizedChanged(bool)), this, SLOT(on_authorizedChanged(bool)));
+
+    // start tournament thread (full client runs its own daemon)
     auto service(this->pimpl->server.start(TournamentSession::client_identifier()));
 
     // connect to service
-    this->pimpl->session.connect(service);
+    this->getSession().connect(service);
 }
 
 TBMainWindow::~TBMainWindow() = default;
@@ -73,11 +67,7 @@ bool TBMainWindow::load_document(const QString& filename)
     }
 }
 
-void TBMainWindow::closeEvent(QCloseEvent* /* event */)
-{
-    // disconnect from session
-    this->pimpl->session.disconnect();
-}
+// closeEvent is now handled by base class
 
 void TBMainWindow::on_actionAbout_Poker_Buddy_triggered()
 {
@@ -155,8 +145,8 @@ void TBMainWindow::on_actionExit_triggered()
 
 void TBMainWindow::on_actionQuickStart_triggered()
 {
-    const auto& seats(this->pimpl->session.state()["seats"].toList());
-    const auto& buyins(this->pimpl->session.state()["buyins"].toList());
+    const auto& seats(this->getSession().state()["seats"].toList());
+    const auto& buyins(this->getSession().state()["buyins"].toList());
 
     if(seats.size() > 0 || buyins.size() > 0)
     {
@@ -167,7 +157,7 @@ void TBMainWindow::on_actionQuickStart_triggered()
         message.setText(QObject::tr("Quick Start"));
 
         // display a different message if the game is running
-        const auto& current_blind_level(this->pimpl->session.state()["current_blind_level"].toInt());
+        const auto& current_blind_level(this->getSession().state()["current_blind_level"].toInt());
         if(current_blind_level != 0)
         {
             message.setInformativeText(QObject::tr("Quick Start will end the current tournament immediately, then re-seat and buy in all players."));
@@ -180,19 +170,19 @@ void TBMainWindow::on_actionQuickStart_triggered()
         // present and only perform setup if confirmed by user
         if(message.exec() == QMessageBox::Ok)
         {
-            this->pimpl->session.quick_setup();
+            this->getSession().quick_setup();
         }
     }
     else
     {
-        this->pimpl->session.quick_setup();
+        this->getSession().quick_setup();
     }
 }
 
 void TBMainWindow::on_actionReset_triggered()
 {
-    const auto& seats(this->pimpl->session.state()["seats"].toList());
-    const auto& buyins(this->pimpl->session.state()["buyins"].toList());
+    const auto& seats(this->getSession().state()["seats"].toList());
+    const auto& buyins(this->getSession().state()["buyins"].toList());
 
     if(seats.size() > 0 || buyins.size() > 0)
     {
@@ -203,7 +193,7 @@ void TBMainWindow::on_actionReset_triggered()
         message.setText(QObject::tr("Reset tournament"));
 
         // display a different message if the game is running
-        const auto& current_blind_level(this->pimpl->session.state()["current_blind_level"].toInt());
+        const auto& current_blind_level(this->getSession().state()["current_blind_level"].toInt());
         if(current_blind_level != 0)
         {
             message.setInformativeText(QObject::tr("This will end the current tournament immediately, then clear any existing seats and buy-ins."));
@@ -216,12 +206,12 @@ void TBMainWindow::on_actionReset_triggered()
         // present and only perform setup if confirmed by user
         if(message.exec() == QMessageBox::Ok)
         {
-            this->pimpl->session.reset_state();
+            this->getSession().reset_state();
         }
     }
     else
     {
-        this->pimpl->session.reset_state();
+        this->getSession().reset_state();
     }
 }
 
@@ -257,58 +247,58 @@ void TBMainWindow::on_actionRebalance_triggered()
 
 void TBMainWindow::on_actionPauseResume_triggered()
 {
-    const auto& current_blind_level(this->pimpl->session.state()["current_blind_level"].toInt());
+    const auto& current_blind_level(this->getSession().state()["current_blind_level"].toInt());
     if(current_blind_level != 0)
     {
-        this->pimpl->session.toggle_pause_game();
+        this->getSession().toggle_pause_game();
     }
     else
     {
-        this->pimpl->session.start_game();
+        this->getSession().start_game();
     }
 }
 
 void TBMainWindow::on_actionPreviousRound_triggered()
 {
-    const auto& current_blind_level(this->pimpl->session.state()["current_blind_level"].toInt());
+    const auto& current_blind_level(this->getSession().state()["current_blind_level"].toInt());
     if(current_blind_level != 0)
     {
-        this->pimpl->session.set_previous_level();
+        this->getSession().set_previous_level();
     }
 }
 
 void TBMainWindow::on_actionNextRound_triggered()
 {
-    const auto& current_blind_level(this->pimpl->session.state()["current_blind_level"].toInt());
+    const auto& current_blind_level(this->getSession().state()["current_blind_level"].toInt());
     if(current_blind_level != 0)
     {
-        this->pimpl->session.set_next_level();
+        this->getSession().set_next_level();
     }
 }
 
 void TBMainWindow::on_actionCallClock_triggered()
 {
-    const auto& current_blind_level(this->pimpl->session.state()["current_blind_level"].toInt());
+    const auto& current_blind_level(this->getSession().state()["current_blind_level"].toInt());
     if(current_blind_level != 0)
     {
-        const auto& action_clock_time_remaining(this->pimpl->session.state()["action_clock_time_remaining"].toInt());
+        const auto& action_clock_time_remaining(this->getSession().state()["action_clock_time_remaining"].toInt());
         if(action_clock_time_remaining == 0)
         {
-            this->pimpl->session.set_action_clock();
+            this->getSession().set_action_clock();
         }
         else
         {
-            this->pimpl->session.clear_action_clock();
+            this->getSession().clear_action_clock();
         }
     }
 }
 
 void TBMainWindow::on_actionEndGame_triggered()
 {
-    const auto& current_blind_level(this->pimpl->session.state()["current_blind_level"].toInt());
+    const auto& current_blind_level(this->getSession().state()["current_blind_level"].toInt());
     if(current_blind_level != 0)
     {
-        this->pimpl->session.stop_game();
+        this->getSession().stop_game();
     }
 }
 
@@ -324,7 +314,7 @@ void TBMainWindow::on_actionExport_triggered()
         for(const auto& filename : picker.selectedFiles())
         {
             // get results
-            auto results(this->pimpl->session.results_as_csv());
+            auto results(this->getSession().results_as_csv());
 
             // create and open file
             QFile file_obj(filename);
@@ -351,7 +341,7 @@ void TBMainWindow::on_authorizedChanged(bool auth)
     if(auth)
     {
         qDebug() << "sending configuration:" << this->pimpl->doc.configuration().size() << "items";
-        this->pimpl->session.configure(this->pimpl->doc.configuration(), [](const QVariantMap& config)
+        this->getSession().configure(this->pimpl->doc.configuration(), [](const QVariantMap& config)
         {
             qDebug() << "configured:" << config.size() << "items";
         });

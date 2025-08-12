@@ -1,11 +1,28 @@
-#include "TBMainWindow.hpp"
+#include "TBViewerMainWindow.hpp"
 #include <QApplication>
+#include <QCommandLineParser>
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    TBMainWindow w;
-    w.show();
+
+    // set up application and organization info (for QSettings)
+    QCoreApplication::setApplicationName("Poker Remote");
+    QCoreApplication::setApplicationVersion("1.0");
+    QCoreApplication::setOrganizationName("hdnastudio");
+    QCoreApplication::setOrganizationDomain("hdnastudio.com");
+
+    // set up command line parser
+    QCommandLineParser parser;
+    parser.setApplicationDescription(QCoreApplication::applicationName());
+    parser.addHelpOption();
+    parser.addVersionOption();
+    parser.process(a);
+
+    // open a single viewer window (no file arguments for viewer)
+    auto window(new TBViewerMainWindow);
+    window->setAttribute(Qt::WA_DeleteOnClose);
+    window->show();
 
     return a.exec();
 }
