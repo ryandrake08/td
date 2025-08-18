@@ -38,4 +38,8 @@ public:
 
     // remove data
     bool removeRows(int row, int count, const QModelIndex &parent = QModelIndex()) override;
+
+protected:
+    // accessor for subclasses to get raw row data
+    QVariantMap getRowData(int row) const;
 };

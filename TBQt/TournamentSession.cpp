@@ -236,7 +236,7 @@ void TournamentSession::on_connectionError(const QString& error)
 {
     // store last error
     this->pimpl->last_error = error;
-    
+
     // emit error signals
     qDebug() << "Connection error:" << error;
     Q_EMIT this->connectionError(error);
@@ -371,12 +371,12 @@ void TournamentSession::seat_player(const QString& player_id, const std::functio
         if(result.contains("player_seated"))
         {
             auto player_seated(result["player_seated"].toMap());
-            handler(player_seated["player_id"].toString(), player_seated["table_name"].toString(), player_seated["seat_name"].toString(), false);
+            if(handler) handler(player_seated["player_id"].toString(), player_seated["table_name"].toString(), player_seated["seat_name"].toString(), false);
         }
         else if(result.contains("already_seated"))
         {
             auto already_seated(result["already_seated"].toMap());
-            handler(already_seated["player_id"].toString(), already_seated["table_name"].toString(), already_seated["seat_name"].toString(), true);
+            if(handler) handler(already_seated["player_id"].toString(), already_seated["table_name"].toString(), already_seated["seat_name"].toString(), true);
         }
     });
 }

@@ -1,5 +1,8 @@
 #include "TBMainWindow.hpp"
 #include "TBPlayersModel.hpp"
+#include "TBSeatingModel.hpp"
+#include "TBResultsModel.hpp"
+#include "TBManageButtonDelegate.hpp"
 #include "TBRuntimeError.hpp"
 #include "TournamentDocument.hpp"
 #include "TournamentSession.hpp"
@@ -11,9 +14,15 @@
 #include <QFile>
 #include <QFileDialog>
 #include <QFileInfo>
+#include <QHeaderView>
 #include <QMessageBox>
 #include <QString>
 #include <QWidget>
+#include <QLabel>
+#include <QTimer>
+#include <QMenu>
+#include <QAction>
+#include <QCursor>
 
 struct TBMainWindow::impl
 {
@@ -25,6 +34,9 @@ struct TBMainWindow::impl
 
     // tournament document
     TournamentDocument doc;
+
+    // current filename for window title
+    QString currentFilename;
 };
 
 TBMainWindow::TBMainWindow() : TBBaseMainWindow(), pimpl(new impl)
@@ -32,22 +44,84 @@ TBMainWindow::TBMainWindow() : TBBaseMainWindow(), pimpl(new impl)
     // set up moc
     this->pimpl->ui.setupUi(this);
 
-    // set up left model and view
+    // set up models and views for all three panes
     qDebug() << "setting up the models and views";
+
+    // left pane: players model (all players with seat/unseat checkboxes)
     auto playersModel(new TBPlayersModel(this->getSession(), this));
     this->pimpl->ui.leftTableView->setModel(playersModel);
+
+    // configure column sizing for players view
+    QHeaderView* playersHeader = this->pimpl->ui.leftTableView->horizontalHeader();
+    playersHeader->setStretchLastSection(false); // Don't auto-stretch last column
+    playersHeader->setSectionResizeMode(0, QHeaderView::Stretch);        // Player Name: stretch to fill
+    playersHeader->setSectionResizeMode(1, QHeaderView::ResizeToContents); // Seated: fit content
+
+    // connect player model signals to session
+    QObject::connect(playersModel, &TBPlayersModel::seatPlayerRequested,
+                     &this->getSession(), [this](const QString& playerId) {
+                         this->getSession().seat_player(playerId);
+                     });
+    QObject::connect(playersModel, &TBPlayersModel::unseatPlayerRequested,
+                     &this->getSession(), &TournamentSession::unseat_player);
+
+    // center pane: seating model (seated players with table/seat/paid/manage)
+    auto seatingModel(new TBSeatingModel(this->getSession(), this));
+    this->pimpl->ui.centerTableView->setModel(seatingModel);
+
+    // set up button delegate for the "Manage" column (column 4)
+    auto manageDelegate(new TBManageButtonDelegate(this));
+    this->pimpl->ui.centerTableView->setItemDelegateForColumn(4, manageDelegate);
+
+    // connect manage button delegate signal to context menu handler
+    QObject::connect(manageDelegate, &TBManageButtonDelegate::buttonClicked,
+                     this, &TBMainWindow::on_manageButtonClicked);
+
+    // configure column sizing for seating view
+    QHeaderView* seatingHeader = this->pimpl->ui.centerTableView->horizontalHeader();
+    seatingHeader->setStretchLastSection(false); // Don't auto-stretch last column
+    seatingHeader->setSectionResizeMode(0, QHeaderView::ResizeToContents); // Table: fit content
+    seatingHeader->setSectionResizeMode(1, QHeaderView::ResizeToContents); // Seat: fit content
+    seatingHeader->setSectionResizeMode(2, QHeaderView::Stretch);          // Player Name: stretch to fill
+    seatingHeader->setSectionResizeMode(3, QHeaderView::ResizeToContents); // Paid: fit content
+    seatingHeader->setSectionResizeMode(4, QHeaderView::ResizeToContents); // Manage: fit content
+
+    // connect seating model signals to session methods
+    QObject::connect(seatingModel, &TBSeatingModel::fundPlayerRequested,
+                     &this->getSession(), &TournamentSession::fund_player);
+    QObject::connect(seatingModel, &TBSeatingModel::bustPlayerRequested,
+                     &this->getSession(), [this](const QString& playerId) {
+                         this->getSession().bust_player(playerId);
+                     });
+    QObject::connect(seatingModel, &TBSeatingModel::unseatPlayerRequested,
+                     &this->getSession(), &TournamentSession::unseat_player);
+
+    // right pane: results model (finished players with place/name/payout)
+    auto resultsModel(new TBResultsModel(this->getSession(), this));
+    this->pimpl->ui.rightTableView->setModel(resultsModel);
+
+    // configure column sizing for results view
+    QHeaderView* resultsHeader = this->pimpl->ui.rightTableView->horizontalHeader();
+    resultsHeader->setStretchLastSection(false); // Don't auto-stretch last column
+    resultsHeader->setSectionResizeMode(0, QHeaderView::ResizeToContents); // Place: fit content
+    resultsHeader->setSectionResizeMode(1, QHeaderView::Stretch);          // Player Name: stretch to fill
+    resultsHeader->setSectionResizeMode(2, QHeaderView::ResizeToContents); // Payout: fit content
 
     // hook up TournamentDocument signals
     QObject::connect(&this->pimpl->doc, SIGNAL(filenameChanged(const QString&)), this, SLOT(on_filenameChanged(const QString&)));
 
     // hook up TournamentSession signals
     QObject::connect(&this->getSession(), SIGNAL(authorizedChanged(bool)), this, SLOT(on_authorizedChanged(bool)));
+    QObject::connect(&this->getSession(), SIGNAL(stateChanged(const QString&, const QVariant&)), this, SLOT(on_tournamentStateChanged(const QString&, const QVariant&)));
 
     // start tournament thread (full client runs its own daemon)
     auto service(this->pimpl->server.start(TournamentSession::client_identifier()));
 
     // connect to service
     this->getSession().connect(service);
+
+    // set initial window title
+    this->updateWindowTitle();
 }
 
 TBMainWindow::~TBMainWindow() = default;
@@ -346,10 +420,290 @@ void TBMainWindow::on_authorizedChanged(bool auth)
             qDebug() << "configured:" << config.size() << "items";
         });
     }
+
+    // Update action button states when authorization changes
+    this->updateActionButtons();
 }
 
 void TBMainWindow::on_filenameChanged(const QString& filename)
 {
-    // change window title
-    this->setWindowTitle(QFileInfo(filename).fileName());
+    // store filename and update window title
+    this->pimpl->currentFilename = QFileInfo(filename).fileName();
+    this->updateWindowTitle();
+}
+
+void TBMainWindow::on_tournamentStateChanged(const QString& key, const QVariant& /*value*/)
+{
+    if(key == "name")
+    {
+        // update window title with tournament name
+        this->updateWindowTitle();
+    }
+    else if(key == "running" || key == "current_time" || key == "end_of_round" ||
+            key == "current_blind_level" || key == "action_clock_time_remaining")
+    {
+        // update tournament clock display
+        this->updateTournamentClock();
+        // update action button states
+        this->updateActionButtons();
+    }
+}
+
+void TBMainWindow::updateTournamentClock()
+{
+    const QVariantMap& state = this->getSession().state();
+
+    bool running = state["running"].toBool();
+    int currentBlindLevel = state["current_blind_level"].toInt();
+    qint64 currentTime = state["current_time"].toLongLong();
+    qint64 endOfRound = state["end_of_round"].toLongLong();
+    int actionClockTimeRemaining = state["action_clock_time_remaining"].toInt();
+
+    QString clockText;
+
+    if(!running || currentBlindLevel == 0)
+    {
+        clockText = tr("PAUSED");
+    }
+    else if(actionClockTimeRemaining > 0)
+    {
+        // Show action clock countdown
+        int seconds = actionClockTimeRemaining / 1000;
+        int minutes = seconds / 60;
+        seconds = seconds % 60;
+        clockText = QString("ACTION %1:%2").arg(minutes).arg(seconds, 2, 10, QChar('0'));
+    }
+    else if(endOfRound > currentTime)
+    {
+        // Show round countdown
+        qint64 timeRemaining = endOfRound - currentTime;
+        int seconds = (timeRemaining / 1000) % 60;
+        int minutes = (timeRemaining / 60000) % 60;
+        int hours = timeRemaining / 3600000;
+
+        if(hours > 0)
+        {
+            clockText = QString("%1:%2:%3").arg(hours).arg(minutes, 2, 10, QChar('0')).arg(seconds, 2, 10, QChar('0'));
+        }
+        else
+        {
+            clockText = QString("%1:%2").arg(minutes).arg(seconds, 2, 10, QChar('0'));
+        }
+    }
+    else
+    {
+        clockText = tr("BREAK");
+    }
+
+    this->pimpl->ui.actionTournamentClock->setText(clockText);
+}
+
+void TBMainWindow::updateActionButtons()
+{
+    const QVariantMap& state = this->getSession().state();
+    bool authorized = this->getSession().is_authorized();
+
+    bool running = state["running"].toBool();
+    int currentBlindLevel = state["current_blind_level"].toInt();
+    int actionClockTimeRemaining = state["action_clock_time_remaining"].toInt();
+
+    // Enable/disable actions based on tournament state and authorization
+    this->pimpl->ui.actionQuickStart->setEnabled(authorized);
+    this->pimpl->ui.actionReset->setEnabled(authorized);
+    this->pimpl->ui.actionConfigure->setEnabled(authorized && currentBlindLevel == 0);
+    this->pimpl->ui.actionAuthorize->setEnabled(authorized);
+    this->pimpl->ui.actionPlan->setEnabled(authorized);
+
+    // Tournament control actions
+    this->pimpl->ui.actionPauseResume->setEnabled(authorized);
+    this->pimpl->ui.actionPreviousRound->setEnabled(authorized && currentBlindLevel > 0);
+    this->pimpl->ui.actionNextRound->setEnabled(authorized && currentBlindLevel > 0);
+    this->pimpl->ui.actionCallClock->setEnabled(authorized && currentBlindLevel > 0);
+    this->pimpl->ui.actionEndGame->setEnabled(authorized && currentBlindLevel > 0);
+
+    // Update pause/resume button text
+    if(running)
+    {
+        this->pimpl->ui.actionPauseResume->setText(tr("Pause"));
+        this->pimpl->ui.actionPauseResume->setIconText(tr("Pause"));
+    }
+    else
+    {
+        if(currentBlindLevel == 0)
+        {
+            this->pimpl->ui.actionPauseResume->setText(tr("Start Tournament"));
+            this->pimpl->ui.actionPauseResume->setIconText(tr("Start"));
+        }
+        else
+        {
+            this->pimpl->ui.actionPauseResume->setText(tr("Resume"));
+            this->pimpl->ui.actionPauseResume->setIconText(tr("Resume"));
+        }
+    }
+
+    // Update call clock button text
+    if(actionClockTimeRemaining > 0)
+    {
+        this->pimpl->ui.actionCallClock->setText(tr("Clear Clock"));
+        this->pimpl->ui.actionCallClock->setIconText(tr("Clear Clock"));
+    }
+    else
+    {
+        this->pimpl->ui.actionCallClock->setText(tr("Call the Clock"));
+        this->pimpl->ui.actionCallClock->setIconText(tr("Call Clock"));
+    }
+}
+
+void TBMainWindow::updateWindowTitle(const QString& filename)
+{
+    // Update current filename if provided
+    if(!filename.isEmpty())
+    {
+        this->pimpl->currentFilename = filename;
+    }
+
+    // Get tournament name from session state
+    const QVariantMap& state = this->getSession().state();
+    QString tournamentName = state["name"].toString();
+
+    // Build window title
+    QString windowTitle;
+    if(this->pimpl->currentFilename.isEmpty())
+    {
+        windowTitle = tr("Untitled");
+    }
+    else
+    {
+        windowTitle = this->pimpl->currentFilename;
+    }
+
+    // Add tournament name if available
+    if(!tournamentName.isEmpty())
+    {
+        windowTitle += QString(" (%1)").arg(tournamentName);
+    }
+
+    this->setWindowTitle(windowTitle);
+}
+
+void TBMainWindow::on_manageButtonClicked(const QModelIndex& index)
+{
+    // Get the tournament session state
+    const QVariantMap& sessionState = this->getSession().state();
+    QVariantList seatedPlayers = sessionState["seated_players"].toList();
+
+    // Get player data for this row
+    if (index.row() >= seatedPlayers.size())
+        return;
+
+    QVariantMap playerData = seatedPlayers[index.row()].toMap();
+    QString playerId = playerData["player_id"].toString();
+
+    if (playerId.isEmpty())
+        return;
+
+    // BUSINESS LOGIC FOR CREATING CONTEXT MENU (matching TBSeatingViewController.m)
+
+    // Get tournament state information
+    int currentBlindLevel = sessionState["current_blind_level"].toInt();
+    bool playerHasBuyin = playerData["buyin"].toBool();
+    QVariantList uniqueEntries = sessionState["unique_entries"].toList();
+    QVariantList fundingSources = sessionState["funding_sources"].toList();
+
+    // Build QMenu
+    QMenu contextMenu(this);
+
+    // BUSINESS LOGIC FOR FUNDING SOURCES (matching TBSeatingViewController.m)
+
+    // Add funding source menu items
+    bool hasFundingSources = false;
+    for (int idx = 0; idx < fundingSources.size(); ++idx)
+    {
+        QVariantMap source = fundingSources[idx].toMap();
+        QString sourceName = source["name"].toString();
+        int sourceType = source["type"].toInt();
+        QVariant forbidAfterLevel = source["forbid_after_blind_level"];
+
+        // Check if this funding source is still allowed (not past forbid_after_blind_level)
+        bool allowed = true;
+        if (!forbidAfterLevel.isNull())
+        {
+            int forbidLevel = forbidAfterLevel.toInt();
+            if (currentBlindLevel > forbidLevel)
+                allowed = false;
+        }
+
+        if (!allowed)
+            continue;
+
+        // Determine if this funding source should be enabled based on business rules
+        bool enabled = false;
+
+        if (sourceType == TournamentSession::FundingTypeBuyin)
+        {
+            // Buyins can happen at any time before forbid_after_blind_level, for any non-playing player
+            if (!playerHasBuyin)
+                enabled = true;
+        }
+        else if (sourceType == TournamentSession::FundingTypeRebuy)
+        {
+            // Rebuys can happen after round 0, before forbid_after_blind_level, for any player that has bought in at least once
+            if (currentBlindLevel > 0 && uniqueEntries.contains(playerId))
+                enabled = true;
+        }
+        else // Addon (FundingTypeAddon or any other type)
+        {
+            // Addons can happen at any time before forbid_after_blind_level, for any playing player
+            if (playerHasBuyin)
+                enabled = true;
+        }
+
+        // Create menu action for this funding source
+        QAction* action = contextMenu.addAction(sourceName);
+        action->setEnabled(enabled);
+
+        if (enabled)
+        {
+            QObject::connect(action, &QAction::triggered, this, [this, playerId, idx]() {
+                this->getSession().fund_player(playerId, idx);
+            });
+        }
+
+        hasFundingSources = true;
+    }
+
+    // Add separator if we have funding sources
+    if (hasFundingSources)
+    {
+        contextMenu.addSeparator();
+    }
+
+    // BUSINESS LOGIC FOR BUST AND UNSEAT (matching TBSeatingViewController.m)
+
+    // Bust Player: enabled if game is running (current_blind_level > 0) AND player has bought in
+    QAction* bustAction = contextMenu.addAction(tr("Bust Player"));
+    bool bustEnabled = (currentBlindLevel > 0) && playerHasBuyin;
+    bustAction->setEnabled(bustEnabled);
+
+    if (bustEnabled)
+    {
+        QObject::connect(bustAction, &QAction::triggered, this, [this, playerId]() {
+            this->getSession().bust_player(playerId);
+        });
+    }
+
+    // Unseat Player: enabled if player has NOT bought in
+    QAction* unseatAction = contextMenu.addAction(tr("Unseat Player"));
+    bool unseatEnabled = !playerHasBuyin;
+    unseatAction->setEnabled(unseatEnabled);
+
+    if (unseatEnabled)
+    {
+        QObject::connect(unseatAction, &QAction::triggered, this, [this, playerId]() {
+            this->getSession().unseat_player(playerId);
+        });
+    }
+
+    // Show context menu at the mouse cursor position
+    contextMenu.exec(QCursor::pos());
 }

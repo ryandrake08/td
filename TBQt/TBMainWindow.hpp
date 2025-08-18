@@ -35,9 +35,16 @@ private Q_SLOTS:
     void on_actionEndGame_triggered();
     void on_actionExport_triggered();
 
+    void on_manageButtonClicked(const QModelIndex& index);
+
     // other slots
     void on_authorizedChanged(bool auth) override;
     void on_filenameChanged(const QString& filename);
+    void on_tournamentStateChanged(const QString& key, const QVariant& value);
+
+    void updateTournamentClock();
+    void updateActionButtons();
+    void updateWindowTitle(const QString& filename = QString());
 
 public:
     // create a main window

@@ -132,3 +132,12 @@ bool TBVariantListTableModel::removeRows(int row, int count, const QModelIndex &
     endRemoveRows();
     return false;
 }
+
+QVariantMap TBVariantListTableModel::getRowData(int row) const
+{
+    if (row >= 0 && row < this->pimpl->model_data.size())
+    {
+        return this->pimpl->model_data[row].toMap();
+    }
+    return QVariantMap();
+}

@@ -37,6 +37,11 @@ public:
     static const int default_action_clock_request_time = 60000;
     static const int default_audio_warning_time = 60000;
 
+    // funding types (sync with enum funding_source_type_t in types.hpp)
+    static const int FundingTypeBuyin = 0;
+    static const int FundingTypeRebuy = 1;
+    static const int FundingTypeAddon = 2;
+
     explicit TournamentSession(QObject* parent=nullptr);
     virtual ~TournamentSession();
 

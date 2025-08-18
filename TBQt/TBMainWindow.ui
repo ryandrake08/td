@@ -148,7 +148,9 @@
    <addaction name="actionRebalance"/>
    <addaction name="actionShowMoves"/>
    <addaction name="actionShowDisplay"/>
+   <addaction name="separator"/>
    <addaction name="actionPauseResume"/>
+   <addaction name="actionTournamentClock"/>
   </widget>
   <action name="actionAbout_Poker_Buddy">
    <property name="text">
@@ -393,6 +395,14 @@
    </property>
    <property name="iconText">
     <string>Results</string>
+   </property>
+  </action>
+  <action name="actionTournamentClock">
+   <property name="text">
+    <string>--:--</string>
+   </property>
+   <property name="toolTip">
+    <string>Tournament clock</string>
    </property>
   </action>
  </widget>
