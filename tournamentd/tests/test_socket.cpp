@@ -114,24 +114,24 @@ TEST_CASE("inet6_socket creation", "[socket][inet6_socket]") {
 TEST_CASE("Socket data operations", "[socket][data]") {
     SECTION("Listening socket error handling") {
         std::string temp_path = "/tmp/test_socket_listen_" + std::to_string(std::time(nullptr));
-        
+
         auto server = std::make_unique<unix_socket>(temp_path.c_str(), false, 1);
-        
+
         // Test that peek on listening socket properly throws an exception
         char buffer[10];
         REQUIRE_THROWS_AS(server->peek(buffer, sizeof(buffer)), std::system_error);
-        
+
         // Cleanup
         std::remove(temp_path.c_str());
     }
-    
+
     SECTION("Connected socket peek operation") {
         std::string temp_path = "/tmp/test_socket_peek_" + std::to_string(std::time(nullptr));
-        
+
         try {
             // Create server socket
             auto server = std::make_unique<unix_socket>(temp_path.c_str(), false, 1);
-            
+
             // Create client socket in separate thread to connect
             std::thread client_thread([&temp_path]() {
                 std::this_thread::sleep_for(std::chrono::milliseconds(10)); // Let server start accepting
@@ -144,22 +144,22 @@ TEST_CASE("Socket data operations", "[socket][data]") {
                     // Client connection may fail in test environment, that's ok
                 }
             });
-            
+
             // Accept connection
             auto accepted = server->accept();
-            
+
             // Test peek on connected socket
             char buffer[10];
             long result = accepted.peek(buffer, sizeof(buffer));
             REQUIRE(result >= 0); // Should not crash and return valid result
-            
+
             client_thread.join();
-            
+
         } catch (const std::exception& e) {
             // Connection setup may fail in test environment
             WARN("Connected socket test failed (expected in some test environments): " << e.what());
         }
-        
+
         // Cleanup
         std::remove(temp_path.c_str());
     }
@@ -277,4 +277,3 @@ TEST_CASE("Socket error conditions", "[socket][errors]") {
         REQUIRE_THROWS(server2 = std::make_unique<inet4_socket>("99999999", 1));
     }
 }
-

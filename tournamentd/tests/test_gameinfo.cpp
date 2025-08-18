@@ -266,7 +266,7 @@ TEST_CASE("GameInfo player management", "[gameinfo][players]") {
 
         gi.add_player("p1");
         gi.add_player("p2");
-        
+
         // Fund players so they can be busted
         gi.fund_player("p1", 0);
         gi.fund_player("p2", 0);
@@ -507,7 +507,7 @@ TEST_CASE("GameInfo clock management", "[gameinfo][clock]") {
         REQUIRE_NOTHROW(gi.reset_action_clock());
 
         REQUIRE_NOTHROW(gi.set_action_clock(0));
-        
+
         // Reset before setting another clock
         gi.reset_action_clock();
         REQUIRE_NOTHROW(gi.set_action_clock(-1000)); // Negative values are allowed
@@ -633,4 +633,3 @@ TEST_CASE("GameInfo integration scenarios", "[gameinfo][integration]") {
         REQUIRE(final_state.is_object());
     }
 }
-

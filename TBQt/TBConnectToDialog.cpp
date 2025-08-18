@@ -46,7 +46,7 @@ TBConnectToDialog::TBConnectToDialog(QWidget* parent)
     pimpl->button_box = new QDialogButtonBox(this);
     pimpl->connect_button = pimpl->button_box->addButton("Connect", QDialogButtonBox::AcceptRole);
     pimpl->cancel_button = pimpl->button_box->addButton("Cancel", QDialogButtonBox::RejectRole);
-    
+
     main_layout->addWidget(pimpl->button_box);
 
     // initially disable connect button until host is entered

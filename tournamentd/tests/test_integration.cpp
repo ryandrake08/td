@@ -323,7 +323,7 @@ TEST_CASE("Error handling integration", "[integration][error_handling]") {
 
         // Try to listen on invalid path (should throw)
         REQUIRE_THROWS(s.listen("/invalid/path/socket"));
-        
+
         // Server should still be functional for other operations
         // (poll will work even if listen failed)
         auto handle_new_client = [](std::ostream&) -> bool { return true; };
@@ -494,4 +494,3 @@ TEST_CASE("Cross-component data flow", "[integration][data_flow]") {
         REQUIRE_NOTHROW(gi2.quick_setup());
     }
 }
-

@@ -18,7 +18,7 @@ class server
 public:
     server();
     ~server();
-    
+
     // listen on given unix socket path and optional internet service
     void listen(const char* unix_socket_path, const char* inet_service=nullptr);
 

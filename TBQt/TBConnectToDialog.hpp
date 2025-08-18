@@ -21,7 +21,7 @@ public:
     // accessors
     QString host() const;
     void set_host(const QString& host);
-    
+
     int port() const;
     void set_port(int port);
 

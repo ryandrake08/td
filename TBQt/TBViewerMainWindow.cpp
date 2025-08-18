@@ -75,14 +75,14 @@ void TBViewerMainWindow::on_actionConnectToTournament_triggered()
     TBConnectToDialog dialog(this);
     dialog.set_host("localhost"); // default host
     dialog.set_port(TournamentService::default_port);
-    
+
     if(dialog.exec() == QDialog::Accepted)
     {
         QString host = dialog.host();
         int port = dialog.port();
-        
+
         qDebug() << "Connecting to tournament at" << host << ":" << port;
-        
+
         // create tournament service and connect
         TournamentService service(host.toStdString(), port);
         this->getSession().connect(service);
@@ -103,7 +103,7 @@ void TBViewerMainWindow::on_authorizedChanged(bool auth)
 void TBViewerMainWindow::on_connectedChanged(bool connected)
 {
     qDebug() << "TBViewerMainWindow::on_connected:" << connected;
-    
+
     // update menu state
     this->pimpl->ui.actionConnectToTournament->setEnabled(!connected);
     this->pimpl->ui.actionDisconnect->setEnabled(connected);

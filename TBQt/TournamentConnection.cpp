@@ -166,7 +166,7 @@ void TournamentConnection::on_readyRead()
 void TournamentConnection::on_error()
 {
     QString errorString;
-    
+
     // get error string from the socket
     if(auto tcpSocket = qobject_cast<QTcpSocket*>(this->pimpl->device.get()))
     {

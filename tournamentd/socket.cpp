@@ -505,7 +505,7 @@ inet_socket::inet_socket(const char* host, const char* service, int family) : co
     {
         throw std::invalid_argument("inet_socket: service cannot be empty");
     }
-    
+
     // set up hints
     addrinfo hints = {0,0,0,0,0,nullptr,nullptr,nullptr};
     hints.ai_family = family;
@@ -554,7 +554,7 @@ inet_socket::inet_socket(const char* service, int family, int backlog) : common_
     {
         throw std::invalid_argument("inet_socket: service cannot be empty");
     }
-    
+
     // validate port number if it's numeric
     char* endptr;
     long port = std::strtol(service, &endptr, 10);
@@ -565,7 +565,7 @@ inet_socket::inet_socket(const char* service, int family, int backlog) : common_
             throw std::invalid_argument("inet_socket: port number out of valid range (0-65535)");
         }
     }
-    
+
     // set up hints
     addrinfo hints = {0,0,0,0,0,nullptr,nullptr,nullptr};
     hints.ai_family = family;

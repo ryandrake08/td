@@ -288,12 +288,12 @@ TEST_CASE("td::player", "[types][player]") {
     SECTION("Equality operator") {
         td::player p1;
         td::player p2;
-        
+
         // Fix timestamp issue - set to same time for comparison
         datetime fixed_time = datetime::now();
         p1.added_at = fixed_time;
         p2.added_at = fixed_time;
-        
+
         REQUIRE(p1 == p2);
 
         p1.player_id = "player1";
@@ -696,4 +696,3 @@ TEST_CASE("DateTime JSON serialization", "[types][datetime_json]") {
         REQUIRE(std::abs(diff) <= 1);
     }
 }
-
