@@ -23,6 +23,8 @@
 #include <QMenu>
 #include <QAction>
 #include <QCursor>
+#include <QInputDialog>
+#include <QDateTime>
 
 struct TBMainWindow::impl
 {
@@ -58,12 +60,11 @@ TBMainWindow::TBMainWindow() : TBBaseMainWindow(), pimpl(new impl)
     playersHeader->setSectionResizeMode(1, QHeaderView::ResizeToContents); // Seated: fit content
 
     // connect player model signals to session
-    QObject::connect(playersModel, &TBPlayersModel::seatPlayerRequested,
-                     &this->getSession(), [this](const QString& playerId) {
+    QObject::connect(playersModel, &TBPlayersModel::seatPlayerRequested, &this->getSession(),
+                     [this](const QString& playerId) {
                          this->getSession().seat_player(playerId);
                      });
-    QObject::connect(playersModel, &TBPlayersModel::unseatPlayerRequested,
-                     &this->getSession(), &TournamentSession::unseat_player);
+    QObject::connect(playersModel, &TBPlayersModel::unseatPlayerRequested, &this->getSession(), &TournamentSession::unseat_player);
 
     // center pane: seating model (seated players with table/seat/paid/manage)
     auto seatingModel(new TBSeatingModel(this->getSession(), this));
@@ -74,8 +75,7 @@ TBMainWindow::TBMainWindow() : TBBaseMainWindow(), pimpl(new impl)
     this->pimpl->ui.centerTableView->setItemDelegateForColumn(4, manageDelegate);
 
     // connect manage button delegate signal to context menu handler
-    QObject::connect(manageDelegate, &TBManageButtonDelegate::buttonClicked,
-                     this, &TBMainWindow::on_manageButtonClicked);
+    QObject::connect(manageDelegate, &TBManageButtonDelegate::buttonClicked, this, &TBMainWindow::on_manageButtonClicked);
 
     // configure column sizing for seating view
     QHeaderView* seatingHeader = this->pimpl->ui.centerTableView->horizontalHeader();
@@ -87,14 +87,12 @@ TBMainWindow::TBMainWindow() : TBBaseMainWindow(), pimpl(new impl)
     seatingHeader->setSectionResizeMode(4, QHeaderView::ResizeToContents); // Manage: fit content
 
     // connect seating model signals to session methods
-    QObject::connect(seatingModel, &TBSeatingModel::fundPlayerRequested,
-                     &this->getSession(), &TournamentSession::fund_player);
-    QObject::connect(seatingModel, &TBSeatingModel::bustPlayerRequested,
-                     &this->getSession(), [this](const QString& playerId) {
+    QObject::connect(seatingModel, &TBSeatingModel::fundPlayerRequested, &this->getSession(), &TournamentSession::fund_player);
+    QObject::connect(seatingModel, &TBSeatingModel::bustPlayerRequested, &this->getSession(),
+                     [this](const QString& playerId) {
                          this->getSession().bust_player(playerId);
                      });
-    QObject::connect(seatingModel, &TBSeatingModel::unseatPlayerRequested,
-                     &this->getSession(), &TournamentSession::unseat_player);
+    QObject::connect(seatingModel, &TBSeatingModel::unseatPlayerRequested, &this->getSession(), &TournamentSession::unseat_player);
 
     // right pane: results model (finished players with place/name/payout)
     auto resultsModel(new TBResultsModel(this->getSession(), this));
@@ -291,32 +289,122 @@ void TBMainWindow::on_actionReset_triggered()
 
 void TBMainWindow::on_actionConfigure_triggered()
 {
-
+    // Stub implementation - Setup Tournament dialog will be implemented later
+    // This should invoke the comprehensive setup dialog with all configuration tabs
+    // (Players, Tables, Chips, Rounds, Funding, Payouts, Devices)
+    QMessageBox::information(this, tr("Setup Tournament"),
+                            tr("Setup Tournament dialog is not yet implemented.\n\n"
+                            "This will be implemented in a future stage with comprehensive "
+                            "configuration tabs for Players, Tables, Chips, Rounds, Funding, "
+                            "Payouts, and Device authorization."));
 }
 
 void TBMainWindow::on_actionAuthorize_triggered()
 {
+    // Create a simple authorization dialog
+    bool ok;
+    QString codeText = QInputDialog::getText(this, tr("Authorize Remote Device"),
+                                            tr("Enter 5-digit authorization code:"), QLineEdit::Normal,
+                                            "", &ok);
 
+    if (ok && !codeText.isEmpty())
+    {
+        // Parse the code as an integer
+        bool valid;
+        int authCode = codeText.toInt(&valid);
+
+        if (valid && authCode >= 10000 && authCode <= 99999)
+        {
+            // TODO: Add authorized client to configuration
+            // Need to implement configuration management similar to TBMacDocument
+            // The client should be added to the "authorized_clients" array in configuration
+            // and then configure() should be called to update the session
+
+            QMessageBox::information(this, tr("Authorize Remote Device"),
+                                    tr("Authorization functionality requires configuration management.\n\n"
+                                    "This will be implemented when the Setup Tournament dialog is added."));
+        }
+        else
+        {
+            QMessageBox::warning(this, tr("Invalid Code"),
+                                tr("Authorization code must be a 5-digit number."));
+        }
+    }
 }
 
 void TBMainWindow::on_actionPlan_triggered()
 {
+    // Get current number of players from configuration
+    const QVariantMap& config = this->getSession().state();
+    QVariantList players = config["players"].toList();
+    int defaultPlayerCount = players.size();
 
+    // Create dialog to get number of players to plan for
+    bool ok;
+    int playerCount = QInputDialog::getInt(this, tr("Plan Tournament"),
+                                          tr("Number of players to plan seating for:"),
+                                          defaultPlayerCount, 1, 10000, 1, &ok);
+
+    if (ok)
+    {
+        // Plan seating for the specified number of players
+        this->getSession().plan_seating_for(playerCount, [this](const QVariantList& movements) {
+            if (!movements.isEmpty())
+            {
+                // TODO: Create dedicated TBMovementDialog class to replace this simple message box
+                // This dialog should be reusable for both Plan Tournament and Show Player Moves
+                this->showPlayerMovements(movements);
+            }
+            else
+            {
+                QMessageBox::information(this, tr("Plan Tournament"),
+                                        tr("No player movements required."));
+            }
+        });
+    }
 }
 
 void TBMainWindow::on_actionShowDisplay_triggered()
 {
-
+    // Stub implementation - Main Display window will be implemented later
+    // This should show/hide the tournament display window (same as TBViewer functionality)
+    QMessageBox::information(this, tr("Show / Hide Main Display"),
+                            tr("Main Display window is not yet implemented.\n\n"
+                            "This will show/hide a tournament display window with the same "
+                            "functionality as the TBViewer application."));
 }
 
 void TBMainWindow::on_actionShowMoves_triggered()
 {
+    // Get current movements from session state and display them
+    const QVariantMap& state = this->getSession().state();
+    QVariantList movements = state["movements"].toList();
 
+    if (!movements.isEmpty())
+    {
+        this->showPlayerMovements(movements);
+    }
+    else
+    {
+        QMessageBox::information(this, tr("Show Player Moves"),
+                                tr("No player movements are currently pending."));
+    }
 }
 
 void TBMainWindow::on_actionRebalance_triggered()
 {
-
+    // Rebalance seating and show movements if any are generated
+    this->getSession().rebalance_seating([this](const QVariantList& movements) {
+        if (!movements.isEmpty())
+        {
+            this->showPlayerMovements(movements);
+        }
+        else
+        {
+            QMessageBox::information(this, tr("Rebalance Tables"),
+                                    tr("Tables are already balanced. No player movements required."));
+        }
+    });
 }
 
 void TBMainWindow::on_actionPauseResume_triggered()
@@ -406,6 +494,24 @@ void TBMainWindow::on_actionExport_triggered()
 
         }
     }
+}
+
+void TBMainWindow::on_actionShowHideMainDisplay_triggered()
+{
+    // Stub implementation - will be implemented later
+    // This should show/hide the main display window
+    QMessageBox::information(this, tr("Show / Hide Main Display"),
+                            tr("Main Display window functionality is not yet implemented.\n\n"
+                            "This will show/hide a secondary tournament display window."));
+}
+
+void TBMainWindow::on_actionShowHideSeatingChart_triggered()
+{
+    // Stub implementation - will be implemented later
+    // This should show/hide the seating chart window
+    QMessageBox::information(this, tr("Show / Hide Seating Chart"),
+                            tr("Seating Chart window functionality is not yet implemented.\n\n"
+                            "This will show/hide a graphical seating chart window."));
 }
 
 void TBMainWindow::on_authorizedChanged(bool auth)
@@ -588,18 +694,32 @@ void TBMainWindow::updateWindowTitle(const QString& filename)
 
 void TBMainWindow::on_manageButtonClicked(const QModelIndex& index)
 {
-    // Get the tournament session state
+    // Get player ID directly from the model using Qt::UserRole
+    QString playerId = index.data(Qt::UserRole).toString();
+
+    if (playerId.isEmpty())
+        return;
+
+    // Get the tournament session state to find the player data
     const QVariantMap& sessionState = this->getSession().state();
     QVariantList seatedPlayers = sessionState["seated_players"].toList();
 
-    // Get player data for this row
-    if (index.row() >= seatedPlayers.size())
-        return;
+    // Find the player data by player_id (reliable lookup)
+    QVariantMap playerData;
+    bool found = false;
 
-    QVariantMap playerData = seatedPlayers[index.row()].toMap();
-    QString playerId = playerData["player_id"].toString();
+    for (const QVariant& playerVariant : seatedPlayers)
+    {
+        QVariantMap player = playerVariant.toMap();
+        if (player["player_id"].toString() == playerId)
+        {
+            playerData = player;
+            found = true;
+            break;
+        }
+    }
 
-    if (playerId.isEmpty())
+    if (!found)
         return;
 
     // BUSINESS LOGIC FOR CREATING CONTEXT MENU (matching TBSeatingViewController.m)
@@ -706,4 +826,25 @@ void TBMainWindow::on_manageButtonClicked(const QModelIndex& index)
 
     // Show context menu at the mouse cursor position
     contextMenu.exec(QCursor::pos());
+}
+
+void TBMainWindow::showPlayerMovements(const QVariantList& movements)
+{
+    // TODO: Replace this simple implementation with a dedicated TBMovementDialog
+    // This should be a proper dialog with a table view showing movement details
+
+    QString movementText = tr("Player movements:\n\n");
+    for (const QVariant& movement : movements)
+    {
+        QVariantMap moveData = movement.toMap();
+        QString playerName = moveData["name"].toString();
+        QString fromTable = moveData["from_table_name"].toString();
+        QString fromSeat = moveData["from_seat_name"].toString();
+        QString toTable = moveData["to_table_name"].toString();
+        QString toSeat = moveData["to_seat_name"].toString();
+
+        movementText += QString("%1: %2 %3 → %4 %5\n").arg(playerName, fromTable, fromSeat, toTable, toSeat);
+    }
+
+    QMessageBox::information(this, tr("Player Movements"), movementText);
 }

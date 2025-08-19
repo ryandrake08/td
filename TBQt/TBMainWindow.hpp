@@ -34,6 +34,8 @@ private Q_SLOTS:
     void on_actionCallClock_triggered();
     void on_actionEndGame_triggered();
     void on_actionExport_triggered();
+    void on_actionShowHideMainDisplay_triggered();
+    void on_actionShowHideSeatingChart_triggered();
 
     void on_manageButtonClicked(const QModelIndex& index);
 
@@ -45,6 +47,9 @@ private Q_SLOTS:
     void updateTournamentClock();
     void updateActionButtons();
     void updateWindowTitle(const QString& filename = QString());
+
+    // helper functions to show dialogs
+    void showPlayerMovements(const QVariantList& movements);
 
 public:
     // create a main window

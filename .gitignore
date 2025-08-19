@@ -20,4 +20,5 @@ Defaults.tournbuddy
 **/packages/*
 *.opendb
 *.swp
+._*
 .claude

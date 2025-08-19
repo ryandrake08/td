@@ -86,6 +86,13 @@ QVariant TBSeatingModel::data(const QModelIndex &index, int role) const
         }
     }
 
+    // Handle Qt::UserRole to provide player_id for any column
+    if (role == Qt::UserRole)
+    {
+        QVariantMap rowData = this->getRowData(index.row());
+        return rowData["player_id"].toString();
+    }
+
     // For all other cases, use the base implementation
     return TBVariantListTableModel::data(index, role);
 }
