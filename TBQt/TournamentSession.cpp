@@ -156,7 +156,7 @@ void TournamentSession::on_connected()
     }
 
     // always check if we're authorized right away
-    this->check_authorized([this](bool authorized)
+    this->check_authorized_with_handler([this](bool authorized)
     {
         // set internal state if changed
         if(this->pimpl->authorized != authorized)
@@ -168,7 +168,7 @@ void TournamentSession::on_connected()
     });
 
     // and request initial state
-    this->get_state([this](const QVariantMap& result)
+    this->get_state_with_handler([this](const QVariantMap& result)
     {
         this->update(result);
         qDebug() << "got initial state";
@@ -274,22 +274,42 @@ void TournamentSession::send_command(const QString& cmd, const QVariantMap& arg=
 }
 
 // tournament commands
-void TournamentSession::check_authorized(const std::function<void(bool)>& handler)
+void TournamentSession::check_authorized()
+{
+    check_authorized_with_handler({});
+}
+
+void TournamentSession::check_authorized_with_handler(const std::function<void(bool)>& handler)
 {
     this->send_command("check_authorized", QVariantMap(), [handler](const QVariantMap& result) { if(handler) handler(result["authorized"].toBool()); });
 }
 
-void TournamentSession::get_state(const std::function<void(const QVariantMap&)>& handler)
+void TournamentSession::get_state()
+{
+    get_state_with_handler({});
+}
+
+void TournamentSession::get_state_with_handler(const std::function<void(const QVariantMap&)>& handler)
 {
     this->send_command("get_state", QVariantMap(), [handler](const QVariantMap& result) { if(handler) handler(result); });
 }
 
-void TournamentSession::get_config(const std::function<void(const QVariantMap&)>& handler)
+void TournamentSession::get_config()
+{
+    get_config_with_handler({});
+}
+
+void TournamentSession::get_config_with_handler(const std::function<void(const QVariantMap&)>& handler)
 {
     this->send_command("get_config", QVariantMap(), [handler](const QVariantMap& result) { if(handler) handler(result); });
 }
 
-void TournamentSession::configure(const QVariantMap& config, const std::function<void(const QVariantMap&)>& handler)
+void TournamentSession::configure(const QVariantMap& config)
+{
+    configure_with_handler(config, {});
+}
+
+void TournamentSession::configure_with_handler(const QVariantMap& config, const std::function<void(const QVariantMap&)>& handler)
 {
     this->send_command("configure", config, [handler](const QVariantMap& result) { if(handler) handler(result); });
 }
@@ -329,12 +349,22 @@ void TournamentSession::toggle_pause_game()
     this->send_command("toggle_pause_game");
 }
 
-void TournamentSession::set_previous_level(const std::function<void(int)>& handler)
+void TournamentSession::set_previous_level()
+{
+    set_previous_level_with_handler({});
+}
+
+void TournamentSession::set_previous_level_with_handler(const std::function<void(int)>& handler)
 {
     this->send_command("set_previous_level", QVariantMap(), [handler](const QVariantMap& result) { if(handler) handler(result["blind_level_changed"].toInt()); });
 }
 
-void TournamentSession::set_next_level(const std::function<void(int)>& handler)
+void TournamentSession::set_next_level()
+{
+    set_next_level_with_handler({});
+}
+
+void TournamentSession::set_next_level_with_handler(const std::function<void(int)>& handler)
 {
     this->send_command("set_next_level", QVariantMap(), [handler](const QVariantMap& result) { if(handler) handler(result["blind_level_changed"].toInt()); });
 }
@@ -349,7 +379,12 @@ void TournamentSession::clear_action_clock()
     this->send_command("clear_action_clock");
 }
 
-void TournamentSession::gen_blind_levels(const QVariantMap& request, const std::function<void(const QVariantList&)>& handler)
+void TournamentSession::gen_blind_levels(const QVariantMap& request)
+{
+    gen_blind_levels_with_handler(request, {});
+}
+
+void TournamentSession::gen_blind_levels_with_handler(const QVariantMap& request, const std::function<void(const QVariantList&)>& handler)
 {
     this->send_command("gen_blind_levels", request, [handler](const QVariantMap& result) { if(handler) handler(result["blind_levels"].toList()); });
 }
@@ -359,12 +394,22 @@ void TournamentSession::fund_player(const QString& player_id, int source)
     this->send_command("fund_player", QVariantMap{{"player_id", player_id}, {"source_id", source}});
 }
 
-void TournamentSession::plan_seating_for(int expected_players, const std::function<void(const QVariantList&)>& handler)
+void TournamentSession::plan_seating_for(int expected_players)
+{
+    plan_seating_for_with_handler(expected_players, {});
+}
+
+void TournamentSession::plan_seating_for_with_handler(int expected_players, const std::function<void(const QVariantList&)>& handler)
 {
     this->send_command("plan_seating_for", QVariantMap{{"max_expected_players", expected_players}}, [handler](const QVariantMap& result) { if(handler) handler(result["players_moved"].toList()); });
 }
 
-void TournamentSession::seat_player(const QString& player_id, const std::function<void(const QString&, const QString&, const QString&, bool)>& handler)
+void TournamentSession::seat_player(const QString& player_id)
+{
+    seat_player_with_handler(player_id, {});
+}
+
+void TournamentSession::seat_player_with_handler(const QString& player_id, const std::function<void(const QString&, const QString&, const QString&, bool)>& handler)
 {
     this->send_command("seat_player", QVariantMap{{"player_id", player_id}}, [handler](const QVariantMap& result)
     {
@@ -386,17 +431,32 @@ void TournamentSession::unseat_player(const QString& player_id)
     this->send_command("unseat_player", QVariantMap{{"player_id", player_id}});
 }
 
-void TournamentSession::bust_player(const QString& player_id, const std::function<void(const QVariantList&)>& handler)
+void TournamentSession::bust_player(const QString& player_id)
+{
+    bust_player_with_handler(player_id, {});
+}
+
+void TournamentSession::bust_player_with_handler(const QString& player_id, const std::function<void(const QVariantList&)>& handler)
 {
     this->send_command("bust_player", QVariantMap{{"player_id", player_id}}, [handler](const QVariantMap& result) { if(handler) handler(result["players_moved"].toList()); });
 }
 
-void TournamentSession::rebalance_seating(const std::function<void(const QVariantList&)>& handler)
+void TournamentSession::rebalance_seating()
+{
+    rebalance_seating_with_handler({});
+}
+
+void TournamentSession::rebalance_seating_with_handler(const std::function<void(const QVariantList&)>& handler)
 {
     this->send_command("rebalance_seating", QVariantMap(), [handler](const QVariantMap& result) { if(handler) handler(result["players_moved"].toList()); });
 }
 
-void TournamentSession::quick_setup(const std::function<void(const QVariantList&)>& handler)
+void TournamentSession::quick_setup()
+{
+    quick_setup_with_handler({});
+}
+
+void TournamentSession::quick_setup_with_handler(const std::function<void(const QVariantList&)>& handler)
 {
     this->send_command("quick_setup", QVariantMap(), [handler](const QVariantMap& result) { if(handler) handler(result["seated_players"].toList()); });
 }

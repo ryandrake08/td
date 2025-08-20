@@ -53,10 +53,14 @@ public:
     void disconnect();
 
     // tournament commands
-    void check_authorized(const std::function<void(bool)>& handler = {});
-    void get_state(const std::function<void(const QVariantMap&)>& handler = {});
-    void get_config(const std::function<void(const QVariantMap&)>& handler = {});
-    void configure(const QVariantMap& config, const std::function<void(const QVariantMap&)>& handler = {});
+    void check_authorized();
+    void check_authorized_with_handler(const std::function<void(bool)>& handler);
+    void get_state();
+    void get_state_with_handler(const std::function<void(const QVariantMap&)>& handler);
+    void get_config();
+    void get_config_with_handler(const std::function<void(const QVariantMap&)>& handler);
+    void configure(const QVariantMap& config);
+    void configure_with_handler(const QVariantMap& config, const std::function<void(const QVariantMap&)>& handler);
     void reset_state();
     void start_game_at(const QDateTime& datetime);
     void start_game();
@@ -64,18 +68,26 @@ public:
     void resume_game();
     void pause_game();
     void toggle_pause_game();
-    void set_previous_level(const std::function<void(int)>& handler = {});
-    void set_next_level(const std::function<void(int)>& handler = {});
+    void set_previous_level();
+    void set_previous_level_with_handler(const std::function<void(int)>& handler);
+    void set_next_level();
+    void set_next_level_with_handler(const std::function<void(int)>& handler);
     void set_action_clock(int milliseconds=default_action_clock_request_time);
     void clear_action_clock();
-    void gen_blind_levels(const QVariantMap& request, const std::function<void(const QVariantList&)>& handler = {});
+    void gen_blind_levels(const QVariantMap& request);
+    void gen_blind_levels_with_handler(const QVariantMap& request, const std::function<void(const QVariantList&)>& handler);
     void fund_player(const QString& player_id, int source);
-    void plan_seating_for(int expected_players, const std::function<void(const QVariantList&)>& handler = {});
-    void seat_player(const QString& player_id, const std::function<void(const QString&, const QString&, const QString&, bool)>& handler = {});
+    void plan_seating_for(int expected_players);
+    void plan_seating_for_with_handler(int expected_players, const std::function<void(const QVariantList&)>& handler);
+    void seat_player(const QString& player_id);
+    void seat_player_with_handler(const QString& player_id, const std::function<void(const QString&, const QString&, const QString&, bool)>& handler);
     void unseat_player(const QString& player_id);
-    void bust_player(const QString& player_id, const std::function<void(const QVariantList&)>& handler = {});
-    void rebalance_seating(const std::function<void(const QVariantList&)>& handler = {});
-    void quick_setup(const std::function<void(const QVariantList&)>& handler = {});
+    void bust_player(const QString& player_id);
+    void bust_player_with_handler(const QString& player_id, const std::function<void(const QVariantList&)>& handler);
+    void rebalance_seating();
+    void rebalance_seating_with_handler(const std::function<void(const QVariantList&)>& handler);
+    void quick_setup();
+    void quick_setup_with_handler(const std::function<void(const QVariantList&)>& handler);
 
     // serialization
     QByteArray results_as_csv() const;

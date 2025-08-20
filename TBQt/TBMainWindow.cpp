@@ -60,10 +60,7 @@ TBMainWindow::TBMainWindow() : TBBaseMainWindow(), pimpl(new impl)
     playersHeader->setSectionResizeMode(1, QHeaderView::ResizeToContents); // Seated: fit content
 
     // connect player model signals to session
-    QObject::connect(playersModel, &TBPlayersModel::seatPlayerRequested, &this->getSession(),
-                     [this](const QString& playerId) {
-                         this->getSession().seat_player(playerId);
-                     });
+    QObject::connect(playersModel, &TBPlayersModel::seatPlayerRequested, &this->getSession(), &TournamentSession::seat_player);
     QObject::connect(playersModel, &TBPlayersModel::unseatPlayerRequested, &this->getSession(), &TournamentSession::unseat_player);
 
     // center pane: seating model (seated players with table/seat/paid/manage)
@@ -88,10 +85,7 @@ TBMainWindow::TBMainWindow() : TBBaseMainWindow(), pimpl(new impl)
 
     // connect seating model signals to session methods
     QObject::connect(seatingModel, &TBSeatingModel::fundPlayerRequested, &this->getSession(), &TournamentSession::fund_player);
-    QObject::connect(seatingModel, &TBSeatingModel::bustPlayerRequested, &this->getSession(),
-                     [this](const QString& playerId) {
-                         this->getSession().bust_player(playerId);
-                     });
+    QObject::connect(seatingModel, &TBSeatingModel::bustPlayerRequested, &this->getSession(), &TournamentSession::bust_player);
     QObject::connect(seatingModel, &TBSeatingModel::unseatPlayerRequested, &this->getSession(), &TournamentSession::unseat_player);
 
     // right pane: results model (finished players with place/name/payout)
@@ -348,7 +342,7 @@ void TBMainWindow::on_actionPlan_triggered()
     if (ok)
     {
         // Plan seating for the specified number of players
-        this->getSession().plan_seating_for(playerCount, [this](const QVariantList& movements) {
+        this->getSession().plan_seating_for_with_handler(playerCount, [this](const QVariantList& movements) {
             if (!movements.isEmpty())
             {
                 // TODO: Create dedicated TBMovementDialog class to replace this simple message box
@@ -394,7 +388,7 @@ void TBMainWindow::on_actionShowMoves_triggered()
 void TBMainWindow::on_actionRebalance_triggered()
 {
     // Rebalance seating and show movements if any are generated
-    this->getSession().rebalance_seating([this](const QVariantList& movements) {
+    this->getSession().rebalance_seating_with_handler([this](const QVariantList& movements) {
         if (!movements.isEmpty())
         {
             this->showPlayerMovements(movements);
@@ -521,7 +515,7 @@ void TBMainWindow::on_authorizedChanged(bool auth)
     if(auth)
     {
         qDebug() << "sending configuration:" << this->pimpl->doc.configuration().size() << "items";
-        this->getSession().configure(this->pimpl->doc.configuration(), [](const QVariantMap& config)
+        this->getSession().configure_with_handler(this->pimpl->doc.configuration(), [](const QVariantMap& config)
         {
             qDebug() << "configured:" << config.size() << "items";
         });
