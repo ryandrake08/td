@@ -20,7 +20,7 @@ static socketstream make_stream(const std::string& server, const std::string por
     }
 }
 
-static nlohmann::json send_command(std::iostream& stream, const std::string& cmd, const std::string& auth=std::string(), nlohmann::json arg=nlohmann::json())
+static void send_command(std::iostream& stream, const std::string& cmd, const std::string& auth=std::string(), nlohmann::json arg=nlohmann::json())
 {
     arg["echo"] = 31337;
 
@@ -49,17 +49,13 @@ static nlohmann::json send_command(std::iostream& stream, const std::string& cmd
         if(echo_it != res.end() && *echo_it == 31337)
         {
             res.erase("echo");
-            return res;
+            break;
         }
     }
-}
 
-static void print_value_if_exists(const nlohmann::json& object, const std::string& name)
-{
-    auto value(object.find(name));
-    if(value != object.end())
-    {
-        std::cout << name << ": " << *value << '\n';
+    // Print all fields except "echo"
+    for(auto& [key, value] : res.items()) {
+        std::cout << key << ": " << value << '\n';
     }
 }
 
@@ -153,56 +149,18 @@ public:
                 auto stream(make_stream(server, port, unix_path));
 
                 // handle command
-                if(opt == "version")
+                if(opt == "bust_player")
                 {
-                    // send command
-                    auto object(send_command(stream, opt));
-
-                    // print output object
-                    print_value_if_exists(object, "server_name");
-                    print_value_if_exists(object, "server_version");
-                }
-                else if(opt == "check_authorized")
-                {
-                    // send command
-                    auto object(send_command(stream, opt, auth));
-
-                    // print output object
-                    print_value_if_exists(object, "authorized");
-                }
-                else if(opt == "get_config")
-                {
-                    // send command
-                    auto object(send_command(stream, opt, auth));
-
-                    // print output raw json
-                    std::cout << object << '\n';
-                }
-                else if(opt == "get_state")
-                {
-                    // send command
-                    auto object(send_command(stream, opt));
-
-                    // print output raw json
-                    std::cout << object << '\n';
+                    // prepare argument
+                    nlohmann::json arg;
+                    arg["player_id"] = *it++;
+                    send_command(stream, opt, auth, arg);
                 }
                 else
                 {
-                    // arbitrary command with optional arg
-                    if(it == cmdline.end())
-                    {
-                        auto object(send_command(stream, opt, auth));
-
-                        // print output raw json
-                        std::cout << object << '\n';
-                    }
-                    else
-                    {
-                        auto object(send_command(stream, opt, auth, *it++));
-
-                        // print output raw json
-                        std::cout << object << '\n';
-                    }
+                    // all other commands with optional arg
+                    nlohmann::json arg = (it != cmdline.end()) ? nlohmann::json(*it++) : nlohmann::json();
+                    send_command(stream, opt, auth, arg);
                 }
             }
         }
