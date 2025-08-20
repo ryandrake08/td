@@ -5,6 +5,7 @@
 #include "socket.hpp"
 #include "socketstream.hpp"
 #include <iostream>
+#include <random>
 
 static socketstream make_stream(const std::string& server, const std::string port, const std::string& unix_path=std::string())
 {
@@ -48,14 +49,15 @@ static void send_command(std::iostream& stream, const std::string& cmd, const st
         auto echo_it(res.find("echo"));
         if(echo_it != res.end() && *echo_it == 31337)
         {
-            res.erase("echo");
             break;
         }
     }
 
     // Print all fields except "echo"
-    for(auto& [key, value] : res.items()) {
-        std::cout << key << ": " << value << '\n';
+    for(auto it = res.begin(); it != res.end(); ++it) {
+        if(it.key() != "echo") {
+            std::cout << it.key() << ": " << it.value() << '\n';
+        }
     }
 }
 
@@ -78,7 +80,40 @@ public:
             "\n"
             " Commands:\n"
             "\n"
-            "\tversion: Get tournamentd version\n";
+            " Basic Info:\n"
+            "\tversion: Get tournamentd version\n"
+            "\tcheck_authorized: Check if auth code is valid\n"
+            "\tget_config: Get tournament configuration\n"
+            "\tget_state: Get tournament state\n"
+            "\n"
+            " Tournament Setup and Planning:\n"
+            "\tconfigure [config_json]: Configure tournament\n"
+            "\tplan_seating_for <max_players>: Plan seating arrangement\n"
+            "\tquick_setup [max_players]: Quick tournament setup\n"
+            "\tgen_blind_levels <chips> <target_min> <level_min> <structure>: Generate blind structure\n"
+            "\tfund_player <player_id> <source_id>: Fund player buy-in/rebuy/addon\n"
+            "\n"
+            " Tournament Control:\n"
+            "\treset_state: Reset tournament to initial state\n"
+            "\tstart_game: Start the tournament\n"
+            "\tstop_game: Stop the tournament\n"
+            "\tpause_game: Pause the tournament\n"
+            "\tresume_game: Resume the tournament\n"
+            "\ttoggle_pause_game: Toggle pause state\n"
+            "\tset_previous_level: Move to previous blind level\n"
+            "\tset_next_level: Move to next blind level\n"
+            "\n"
+            " Seating Control:\n"
+            "\tseat_player <player_id>: Seat a player\n"
+            "\tunseat_player <player_id>: Unseat a player\n"
+            "\tbust_player <player_id>: Bust player from tournament\n"
+            "\trebalance_seating: Rebalance table seating\n"
+            "\n"
+            " Action Clock Control:\n"
+            "\tset_action_clock <duration_ms>: Set action clock\n"
+            "\n"
+            " Utilities:\n"
+            "\tchips_for_buyin <source_id> <max_players>: Calculate chip distribution\n";
 
 #if !defined(DEBUG)
         // disable ll::debug
@@ -149,11 +184,60 @@ public:
                 auto stream(make_stream(server, port, unix_path));
 
                 // handle command
-                if(opt == "bust_player")
+                if(opt == "bust_player" || opt == "seat_player" || opt == "unseat_player")
                 {
-                    // prepare argument
+                    // commands that need player_id
                     nlohmann::json arg;
                     arg["player_id"] = *it++;
+                    send_command(stream, opt, auth, arg);
+                }
+                else if(opt == "fund_player")
+                {
+                    // needs player_id and source_id
+                    nlohmann::json arg;
+                    arg["player_id"] = *it++;
+                    arg["source_id"] = std::stol(*it++);
+                    send_command(stream, opt, auth, arg);
+                }
+                else if(opt == "plan_seating_for")
+                {
+                    // needs max_expected_players
+                    nlohmann::json arg;
+                    arg["max_expected_players"] = std::stol(*it++);
+                    send_command(stream, opt, auth, arg);
+                }
+                else if(opt == "chips_for_buyin")
+                {
+                    // needs source_id and max_expected_players
+                    nlohmann::json arg;
+                    arg["source_id"] = std::stol(*it++);
+                    arg["max_expected_players"] = std::stol(*it++);
+                    send_command(stream, opt, auth, arg);
+                }
+                else if(opt == "set_action_clock")
+                {
+                    // needs clock duration in milliseconds
+                    nlohmann::json arg;
+                    arg["duration"] = std::stol(*it++);
+                    send_command(stream, opt, auth, arg);
+                }
+                else if(opt == "gen_blind_levels")
+                {
+                    // needs starting_chips, target_duration, level_duration, structure
+                    nlohmann::json arg;
+                    arg["starting_chips"] = std::stol(*it++);
+                    arg["target_duration"] = std::stol(*it++);
+                    arg["level_duration"] = std::stol(*it++);
+                    arg["structure"] = *it++;
+                    send_command(stream, opt, auth, arg);
+                }
+                else if(opt == "quick_setup")
+                {
+                    // optional max_expected_players
+                    nlohmann::json arg;
+                    if(it != cmdline.end()) {
+                        arg["max_expected_players"] = std::stol(*it++);
+                    }
                     send_command(stream, opt, auth, arg);
                 }
                 else
