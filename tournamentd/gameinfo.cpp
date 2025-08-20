@@ -290,6 +290,7 @@ class gameinfo::impl
             {
                 // store iterator itself
                 candidates.push_back(seat_it);
+                logger(ll::info) << "candidate table " << seat_it->table_number << ", seat " << seat_it->seat_number << '\n';
             }
         }
 
@@ -312,8 +313,10 @@ class gameinfo::impl
         auto player_seat_it(this->seats.find(player_id));
         auto from_seat(player_seat_it->second);
         player_seat_it->second = *to_seat_it;
-        this->empty_seats.push_back(from_seat);
+
+        // update empty seats. push_back invalidates all iterators, so we cannot use to_seat_it after calling it
         this->empty_seats.erase(to_seat_it);
+        this->empty_seats.push_back(from_seat);
 
         td::player_movement movement(player_id,
                                      this->player_name(player_id),
@@ -321,7 +324,7 @@ class gameinfo::impl
                                      this->seat_name(from_seat.seat_number),
                                      this->table_name(player_seat_it->second.table_number),
                                      this->seat_name(player_seat_it->second.seat_number));
-        logger(ll::info) << "moved player " << this->player_description(player_id) << " from table " << movement.from_table_name << ", seat " << movement.from_seat_name << " to table " << movement.to_table_name << ", seat " << movement.to_seat_name << '\n';
+        logger(ll::info) << "moved player " << this->player_description(player_id) << " from table named " << movement.from_table_name << ", seat named " << movement.from_seat_name << " to table named " << movement.to_table_name << ", seat named " << movement.to_seat_name << '\n';
         return movement;
     }
 
