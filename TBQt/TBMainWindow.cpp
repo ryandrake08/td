@@ -3,6 +3,7 @@
 #include "TBSeatingModel.hpp"
 #include "TBResultsModel.hpp"
 #include "TBManageButtonDelegate.hpp"
+#include "TBMovementDialog.hpp"
 #include "TBRuntimeError.hpp"
 #include "TournamentDocument.hpp"
 #include "TournamentSession.hpp"
@@ -345,8 +346,6 @@ void TBMainWindow::on_actionPlan_triggered()
         this->getSession().plan_seating_for_with_handler(playerCount, [this](const QVariantList& movements) {
             if (!movements.isEmpty())
             {
-                // TODO: Create dedicated TBMovementDialog class to replace this simple message box
-                // This dialog should be reusable for both Plan Tournament and Show Player Moves
                 this->showPlayerMovements(movements);
             }
             else
@@ -824,21 +823,7 @@ void TBMainWindow::on_manageButtonClicked(const QModelIndex& index)
 
 void TBMainWindow::showPlayerMovements(const QVariantList& movements)
 {
-    // TODO: Replace this simple implementation with a dedicated TBMovementDialog
-    // This should be a proper dialog with a table view showing movement details
-
-    QString movementText = tr("Player movements:\n\n");
-    for (const QVariant& movement : movements)
-    {
-        QVariantMap moveData = movement.toMap();
-        QString playerName = moveData["name"].toString();
-        QString fromTable = moveData["from_table_name"].toString();
-        QString fromSeat = moveData["from_seat_name"].toString();
-        QString toTable = moveData["to_table_name"].toString();
-        QString toSeat = moveData["to_seat_name"].toString();
-
-        movementText += QString("%1: %2 %3 → %4 %5\n").arg(playerName, fromTable, fromSeat, toTable, toSeat);
-    }
-
-    QMessageBox::information(this, tr("Player Movements"), movementText);
+    TBMovementDialog dialog(this);
+    dialog.setMovements(movements);
+    dialog.exec();
 }

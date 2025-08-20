@@ -18,8 +18,7 @@ struct TBConnectToDialog::impl
     QDialogButtonBox* button_box;
 };
 
-TBConnectToDialog::TBConnectToDialog(QWidget* parent)
-    : QDialog(parent), pimpl(new impl())
+TBConnectToDialog::TBConnectToDialog(QWidget* parent) : QDialog(parent), pimpl(new impl())
 {
     setWindowTitle("Connect to Tournament");
     setModal(true);
