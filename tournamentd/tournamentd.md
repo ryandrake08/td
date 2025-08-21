@@ -1197,7 +1197,7 @@ The following error messages are emitted by the tournament daemon code:
 #### Authorization Errors
 - `"unauthorized"` - Client authentication failed (from `ensure_authorized()`)
 
-#### Command Errors  
+#### Command Errors
 - `"unknown command"` - Unrecognized command name
 
 #### Configuration Errors
@@ -1212,7 +1212,7 @@ The following error messages are emitted by the tournament daemon code:
 #### Tournament State Errors
 - `"tournament already started"` - Operation not allowed after tournament begins
 - `"tournament not started"` - Operation requires active tournament
-- `"tournament already paused"` - Cannot pause already paused tournament  
+- `"tournament already paused"` - Cannot pause already paused tournament
 - `"tournament not paused"` - Cannot resume unpaused tournament
 - `"cannot start without blind levels configured"` - Missing required blind structure
 
@@ -1231,7 +1231,7 @@ The following error messages are emitted by the tournament daemon code:
 - `"expected players must be at least 2"` - Invalid seating plan parameters
 - `"expected players less than currently seated players"` - Seating plan conflict
 
-#### Chip Management Errors  
+#### Chip Management Errors
 - `"tried to calculate chips for a buyin without chips defined"` - Missing chip configuration
 - `"smallest chip available is larger than the smallest little blind"` - Chip/blind mismatch
 - `"buyin is not a multiple of the smallest chip available"` - Buy-in amount incompatible with chips
@@ -1255,6 +1255,150 @@ The following error messages are emitted by the tournament daemon code:
 - Daemon sends disconnect notification before shutdown
 - Clients should save state and attempt reconnection
 - Tournament state is persisted across daemon restarts
+
+## JSON Data Structure Reference
+
+The tournament daemon provides tournament information through four distinct JSON dump methods. Each serves a different purpose and contains specific fields that clients need to understand.
+
+### dump_configuration(config)
+
+Contains complete tournament configuration that rarely changes. Used for initial client setup and configuration dialogs.
+
+**Configuration Fields:**
+```json
+{
+  "name": "Tournament Name",                           // Tournament display name
+  "players": [...],                                   // Array of all registered players
+  "table_capacity": 9,                                // Maximum players per table
+  "table_names": ["Table 1", "Table 2"],            // Available table names
+  "payout_policy": "automatic",                       // Payout calculation method
+  "payout_currency": "USD",                          // Currency for payouts
+  "automatic_payouts": {...},                        // Automatic payout parameters
+  "forced_payouts": [...],                           // Fixed payout structure
+  "manual_payouts": [...],                           // Manual payout overrides
+  "previous_blind_level_hold_duration": 30000,       // ms to wait before allowing previous round
+  "rebalance_policy": "fill_tables",                 // Player movement policy
+  "background_color": "#000000",                     // Clock display background color
+  "final_table_policy": "fill_in",                   // Final table seating method
+  "funding_sources": [...],                          // Available buy-ins/rebuys
+  "blind_levels": [...],                             // Complete blind structure
+  "available_chips": [...],                          // Chip denominations and colors
+  "available_tables": [...]                          // Table configurations
+}
+```
+
+### dump_state(state)
+
+Contains current tournament state that changes during play. This is the primary game state.
+
+**State Fields:**
+```json
+{
+  "seats": [...],                                    // All table/seat assignments
+  "players_finished": [...],                         // Players eliminated/finished
+  "bust_history": [...],                             // Elimination order and times
+  "empty_seats": [...],                              // Available seats
+  "table_count": 3,                                  // Number of active tables
+  "buyins": [...],                                   // All player buy-in records
+  "unique_entries": 45,                              // Distinct players who entered
+  "entries": 47,                                     // Total entries (including rebuys)
+  "payouts": [...],                                  // Calculated prize distribution
+  "total_chips": 150000,                             // Total chips in play
+  "total_cost": 2350.00,                             // Total money collected
+  "total_commission": 235.00,                        // House commission taken
+  "total_equity": 2115.00,                           // Prize pool amount
+  "current_blind_level": 4,                          // Current round index (0-based)
+  "end_of_round": 1703181600000,                     // Round end timestamp (ms since epoch)
+  "end_of_break": 0,                                 // Break end timestamp (0 if not on break)
+  "end_of_action_clock": 0,                          // Action clock end (0 if not active)
+  "tournament_start": 1703178000000,                 // Tournament start timestamp
+  "paused_time": 0                                   // Accumulated pause time (ms)
+}
+```
+
+### dump_configuration_state(state)
+
+Contains configuration items that are commonly needed with state updates. Sent along with state for client convenience.
+
+**Configuration State Fields:**
+```json
+{
+  "name": "Tournament Name",                         // Tournament display name
+  "background_color": "#000000",                     // Clock background color
+  "funding_sources": [...],                          // Available buy-ins (for display)
+  "available_chips": [...],                          // Chip info (for chip display)
+  "available_tables": [...],                         // Table configurations
+  "payout_currency": "USD"                           // Currency symbol
+}
+```
+
+### dump_derived_state(state)
+
+Contains calculated/derived values that are computed in real-time, not stored as member variables.
+
+**Derived State Fields:**
+```json
+{
+  "current_time": 1703181550000,                     // Server time (ms since epoch) - for sync
+  "elapsed_time": 3550000,                           // Time since tournament start (ms)
+  "action_clock_time_remaining": 45000,              // Action clock countdown (ms, 0 if inactive)
+  "running": true,                                   // Tournament active (not paused)
+  "time_remaining": 450000,                          // Round time left (ms)
+  "clock_remaining": 450000,                         // Clock display time (round or break)
+  "on_break": false,                                 // Currently on break
+  "current_round_text": "200/400 (50)",             // Current round description
+  "next_round_text": "300/600 (75)",                // Next round description
+  "buyin_text": "$50 + $5 (3000 chips)",            // Formatted buyin description
+  "current_round_number_text": "5",                 // Current round number as formatted text
+  "players_left_text": "23",                        // Players remaining as formatted text
+  "entries_text": "45",                             // Total entries as formatted text
+  "average_stack_text": "6,521",                   // Average stack as formatted text with commas
+  "elapsed_time_text": "2:15:30",                  // Elapsed time as formatted HH:MM:SS text
+  "clock_text": "12:45",                            // Tournament clock as formatted MM:SS text
+  "break_time_remaining": 0                          // Break countdown (ms, 0 if not on break)
+}
+```
+
+### Client Data Access Patterns
+
+Based on this structure, clients should access tournament data as follows:
+
+**Tournament Info Display:**
+- Tournament name: `state.name`
+- Buyin information: `state.buyin_text` (formatted description from derived state)
+
+**Tournament Statistics:**
+- Current round: `state.current_round_number_text` (formatted text)
+- Players left: `state.players_left_text` (formatted text)
+- Total entries: `state.entries_text` (formatted text)
+- Average stack: `state.average_stack_text` (formatted text with commas)
+
+**Time Display:**
+- Elapsed time: `state.elapsed_time_text` (formatted HH:MM:SS text)
+- Clock display: `state.clock_text` (formatted MM:SS text)
+- Tournament clock: Use `state.clock_text` directly
+
+**Round Information:**
+- Current round info: `state.current_round_text` (formatted string)
+- Next round info: `state.next_round_text` (formatted string)
+- Blind levels: `state.configuration.blind_levels` (array of blind structures)
+
+**Chip Information:**
+- Available chips: `state.configuration.available_chips`
+- Each chip has: `{name: "Color", value: denomination}`
+
+**Results Display:**
+- Tournament results: `state.payouts` (final standings and prizes)
+- Results format: `{place: N, name: "Player", payout: {amount: X.XX}}`
+
+### Important Notes
+
+1. **Time Synchronization**: Use `current_time` from derived state for client-server sync
+2. **Derived vs Stored**: Derived state is calculated each time, stored state persists
+3. **Configuration Overlap**: Some config items appear in both configuration and configuration_state. Clients should heavily favor reading these items from state instead of configuration. Configuration should rarely need to be read and acted upon by the client.
+4. **Real-time Updates**: State and derived state change frequently, configuration rarely changes
+5. **Time Formats**: All timestamps are milliseconds since Unix epoch
+6. **Round Indexing**: `current_blind_level` is 0-based, display as 1-based to users
 
 ---
 

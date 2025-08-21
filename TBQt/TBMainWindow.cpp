@@ -5,6 +5,7 @@
 #include "TBManageButtonDelegate.hpp"
 #include "TBMovementDialog.hpp"
 #include "TBRuntimeError.hpp"
+#include "TBViewerMainWindow.hpp"
 #include "TournamentDocument.hpp"
 #include "TournamentSession.hpp"
 #include "TournamentDaemon.hpp"
@@ -37,6 +38,9 @@ struct TBMainWindow::impl
 
     // tournament document
     TournamentDocument doc;
+
+    // tournament display window (show/hide)
+    TBViewerMainWindow displayWindow;
 
     // current filename for window title
     QString currentFilename;
@@ -113,8 +117,17 @@ TBMainWindow::TBMainWindow() : TBBaseMainWindow(), pimpl(new impl)
     // connect to service
     this->getSession().connect(service);
 
+    // initialize tournament display window (hidden initially)
+    this->pimpl->displayWindow.hide();
+
+    // connect display window to same tournament service
+    this->pimpl->displayWindow.connectToTournament(service);
+
     // set initial window title
     this->updateWindowTitle();
+
+    // initialize display menu text
+    this->updateDisplayMenuText();
 }
 
 TBMainWindow::~TBMainWindow() = default;
@@ -359,12 +372,26 @@ void TBMainWindow::on_actionPlan_triggered()
 
 void TBMainWindow::on_actionShowDisplay_triggered()
 {
-    // Stub implementation - Main Display window will be implemented later
-    // This should show/hide the tournament display window (same as TBViewer functionality)
-    QMessageBox::information(this, tr("Show / Hide Main Display"),
-                            tr("Main Display window is not yet implemented.\n\n"
-                            "This will show/hide a tournament display window with the same "
-                            "functionality as the TBViewer application."));
+    // Toggle the tournament display window visibility
+    if (this->pimpl->displayWindow.isVisible())
+    {
+        this->pimpl->displayWindow.hide();
+    }
+    else
+    {
+        this->pimpl->displayWindow.show();
+        this->pimpl->displayWindow.raise();
+        this->pimpl->displayWindow.activateWindow();
+    }
+    updateDisplayMenuText();
+}
+
+void TBMainWindow::updateDisplayMenuText()
+{
+    // Update menu text based on display window visibility
+    bool isVisible = this->pimpl->displayWindow.isVisible();
+    QString menuText = isVisible ? tr("Hide Main Display") : tr("Show Main Display");
+    this->pimpl->ui.actionShowDisplay->setText(menuText);
 }
 
 void TBMainWindow::on_actionShowMoves_triggered()

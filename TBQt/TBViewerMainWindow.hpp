@@ -1,6 +1,7 @@
 #pragma once
 
 #include "TBBaseMainWindow.hpp"
+#include "TournamentService.hpp"
 #include <memory>
 
 class TBViewerMainWindow : public TBBaseMainWindow
@@ -25,9 +26,21 @@ private Q_SLOTS:
     // other slots
     void on_authorizedChanged(bool auth) override;
     void on_connectedChanged(bool connected);
+    void on_tournamentStateChanged(const QString& key, const QVariant& value);
+
+private:
+    // tournament display update methods
+    void updateTournamentDisplay();
+    void updateTournamentInfo(const QVariantMap& state);
+    void updateTournamentStats(const QVariantMap& state);
+    void updateTournamentClock(const QVariantMap& state);
+    void updateModels(const QVariantMap& state);
 
 public:
     // create a viewer main window
     TBViewerMainWindow();
     virtual ~TBViewerMainWindow();
+
+    // connect to a tournament service
+    void connectToTournament(const TournamentService& service);
 };

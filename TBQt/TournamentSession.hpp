@@ -26,6 +26,9 @@ class TournamentSession : public QObject
     // update state
     void update(const QVariantMap& new_state);
 
+    // format clock time for display
+    QString formatClockTime(qint64 timeValue, qint64 currentTime, bool countingDown);
+
 private Q_SLOTS:
     void on_connected();
     void on_disconnected();

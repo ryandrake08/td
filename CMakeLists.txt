@@ -105,18 +105,24 @@ find_package(Qt5 COMPONENTS Core Network Widgets QUIET)
 if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND)
 	find_package(Threads REQUIRED)
 	set(CMAKE_INCLUDE_CURRENT_DIR ON)
-	qt5_wrap_cpp(TBUDDY_MOC TBQt/TBBaseMainWindow.hpp TBQt/TBMainWindow.hpp TBQt/TBPlayersModel.hpp TBQt/TBSeatingModel.hpp TBQt/TBManageButtonDelegate.hpp TBQt/TBMovementDialog.hpp TBQt/TBResultsModel.hpp TBQt/TBVariantListTableModel.hpp TBQt/TournamentConnection.hpp TBQt/TournamentDocument.hpp TBQt/TournamentSession.hpp)
-	qt5_wrap_ui(TBUDDY_UI TBQt/TBMainWindow.ui)
+	qt5_wrap_cpp(TBUDDY_MOC TBQt/TBBaseMainWindow.hpp TBQt/TBChipDisplayDelegate.hpp TBQt/TBMainWindow.hpp TBQt/TBViewerMainWindow.hpp TBQt/TBConnectToDialog.hpp TBQt/TBPlayersModel.hpp TBQt/TBSeatingModel.hpp TBQt/TBManageButtonDelegate.hpp TBQt/TBMovementDialog.hpp TBQt/TBResultsModel.hpp TBQt/TBVariantListTableModel.hpp TBQt/TournamentConnection.hpp TBQt/TournamentDocument.hpp TBQt/TournamentSession.hpp)
+	qt5_wrap_ui(TBUDDY_UI TBQt/TBMainWindow.ui TBQt/TBViewerMainWindow.ui)
 	qt5_add_resources(TBUDDY_RC TBQt/TBQt.qrc)
-	qt5_wrap_cpp(TBVIEWER_MOC TBQt/TBBaseMainWindow.hpp TBQt/TBViewerMainWindow.hpp TBQt/TBConnectToDialog.hpp TBQt/TBPlayersModel.hpp TBQt/TBVariantListTableModel.hpp TBQt/TournamentConnection.hpp TBQt/TournamentSession.hpp)
+	qt5_wrap_cpp(TBVIEWER_MOC TBQt/TBBaseMainWindow.hpp TBQt/TBChipDisplayDelegate.hpp TBQt/TBViewerMainWindow.hpp TBQt/TBConnectToDialog.hpp TBQt/TBPlayersModel.hpp TBQt/TBResultsModel.hpp TBQt/TBVariantListTableModel.hpp TBQt/TournamentConnection.hpp TBQt/TournamentSession.hpp)
 	qt5_wrap_ui(TBVIEWER_UI TBQt/TBViewerMainWindow.ui)
 	qt5_add_resources(TBVIEWER_RC TBQt/TBQt.qrc)
 	add_executable(tbuddy
 		TBQt/tbuddy.cpp
 		TBQt/TBBaseMainWindow.cpp
 		TBQt/TBBaseMainWindow.hpp
+		TBQt/TBChipDisplayDelegate.cpp
+		TBQt/TBChipDisplayDelegate.hpp
 		TBQt/TBMainWindow.cpp
 		TBQt/TBMainWindow.hpp
+		TBQt/TBViewerMainWindow.cpp
+		TBQt/TBViewerMainWindow.hpp
+		TBQt/TBConnectToDialog.cpp
+		TBQt/TBConnectToDialog.hpp
 		TBQt/TBPlayersModel.cpp
 		TBQt/TBPlayersModel.hpp
 		TBQt/TBSeatingModel.cpp
@@ -153,12 +159,16 @@ if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND)
 		TBQt/tbviewer.cpp
 		TBQt/TBBaseMainWindow.cpp
 		TBQt/TBBaseMainWindow.hpp
+		TBQt/TBChipDisplayDelegate.cpp
+		TBQt/TBChipDisplayDelegate.hpp
 		TBQt/TBViewerMainWindow.cpp
 		TBQt/TBViewerMainWindow.hpp
 		TBQt/TBConnectToDialog.cpp
 		TBQt/TBConnectToDialog.hpp
 		TBQt/TBPlayersModel.cpp
 		TBQt/TBPlayersModel.hpp
+		TBQt/TBResultsModel.cpp
+		TBQt/TBResultsModel.hpp
 		TBQt/TBRuntimeError.cpp
 		TBQt/TBRuntimeError.hpp
 		TBQt/TBVariantListTableModel.cpp

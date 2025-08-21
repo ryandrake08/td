@@ -44,9 +44,11 @@ private Q_SLOTS:
     void on_filenameChanged(const QString& filename);
     void on_tournamentStateChanged(const QString& key, const QVariant& value);
 
+    // updaters for various changeable UI controls
     void updateTournamentClock();
     void updateActionButtons();
     void updateWindowTitle(const QString& filename = QString());
+    void updateDisplayMenuText();
 
     // helper functions to show dialogs
     void showPlayerMovements(const QVariantList& movements);

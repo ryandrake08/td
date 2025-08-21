@@ -5,6 +5,7 @@
 #include "TBRuntimeError.hpp"
 
 #include <QDebug>
+#include <QDateTime>
 #include <QHash>
 #include <QSettings>
 #include <QTextCodec>
@@ -92,6 +93,31 @@ void TournamentSession::update(const QVariantMap& new_state)
     auto old_state = this->pimpl->state;
     this->pimpl->state = new_state;
 
+    // special handling for the clocks because we may need to add an offset to what the daemon provides
+    if (this->pimpl->state.contains("clock_remaining") && this->pimpl->state.contains("current_time"))
+    {
+        // format time for display
+        qint64 clockRemaining = this->pimpl->state.value("clock_remaining").toLongLong();
+        qint64 currentTime = this->pimpl->state.value("current_time").toLongLong();
+
+        QString clockText = formatClockTime(clockRemaining, currentTime, true);
+        this->pimpl->state["clock_text"] = clockText;
+    }
+
+    if (this->pimpl->state.contains("elapsed_time") && this->pimpl->state.contains("current_time"))
+    {
+        qint64 elapsedTime = this->pimpl->state.value("elapsed_time").toLongLong();
+        qint64 currentTime = this->pimpl->state.value("current_time").toLongLong();
+
+        QString elapsedText = formatClockTime(elapsedTime, currentTime, false);
+        this->pimpl->state["elapsed_time_text"] = elapsedText;
+    }
+
+    if (!this->pimpl->state.value("running", true).toBool())
+    {
+        this->pimpl->state["clock_text"] = QObject::tr("PAUSED");
+    }
+
     // emit a stateChanged each map item difference
     auto first1(old_state.constBegin());
     auto last1(old_state.constEnd());
@@ -137,6 +163,56 @@ void TournamentSession::update(const QVariantMap& new_state)
             }
             ++first1; ++first2;
         }
+    }
+}
+
+// format clock time for display
+QString TournamentSession::formatClockTime(qint64 timeValue, qint64 currentTime, bool countingDown)
+{
+    // Calculate time offset based on current system time vs daemon time
+    qint64 systemTime = QDateTime::currentMSecsSinceEpoch();
+    qint64 timeOffset = systemTime - currentTime;
+
+    qint64 adjustedTime;
+    if (countingDown)
+    {
+        // For countdown clocks, subtract the offset
+        adjustedTime = timeValue - timeOffset;
+        if (adjustedTime < 0)
+        {
+            adjustedTime = 0;
+        }
+    }
+    else
+    {
+        // For elapsed time, add the offset
+        adjustedTime = timeValue + timeOffset;
+        if (adjustedTime < 0)
+        {
+            adjustedTime = 0;
+        }
+    }
+
+    // Convert to seconds
+    int totalSeconds = adjustedTime / 1000;
+
+    if (countingDown)
+    {
+        // Format as MM:SS for countdown
+        int minutes = totalSeconds / 60;
+        int seconds = totalSeconds % 60;
+        return QString("%1:%2").arg(minutes, 2, 10, QChar('0')).arg(seconds, 2, 10, QChar('0'));
+    }
+    else
+    {
+        // Format as HH:MM:SS for elapsed time
+        int hours = totalSeconds / 3600;
+        int minutes = (totalSeconds % 3600) / 60;
+        int seconds = totalSeconds % 60;
+        return QString("%1:%2:%3")
+                .arg(hours, 2, 10, QChar('0'))
+                .arg(minutes, 2, 10, QChar('0'))
+                .arg(seconds, 2, 10, QChar('0'));
     }
 }
 
