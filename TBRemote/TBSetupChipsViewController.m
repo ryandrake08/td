@@ -25,13 +25,13 @@
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath {
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"SetupChipCell" forIndexPath:indexPath];
     NSDictionary* object = [super arrangedObjectForIndexPath:indexPath];
-    
+
     [(UILabel*)[cell viewWithTag:101] setText:[object[@"denomination"] stringValue]];
     [(UILabel*)[cell viewWithTag:102] setText:[object[@"count_available"] stringValue]];
 
     // set up ellipse view
     [(TBEllipseView*)[cell viewWithTag:100] setColor:[TBColor colorWithName:object[@"color"]]];
-    
+
     return cell;
 }
 

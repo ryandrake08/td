@@ -21,10 +21,8 @@
         _badgeLineColor = [NSColor redColor];
         _badgeFillColor = [NSColor redColor];
         _badgeShadowColor = [NSColor clearColor];
-        
         _badgeTextColor = [NSColor whiteColor];
         _badgeTextShadowColor = [NSColor clearColor];
-        
         _badgeFontName = nil;
     }
     return self;
@@ -36,7 +34,7 @@
     {
         [super awakeFromNib];
     }
-    
+
     [self refreshBadge];
 }
 
@@ -73,42 +71,42 @@
 - (void)setBadgeFontName:(NSString *)badgeFontName
 {
     _badgeFontName = [badgeFontName copy];
-    
+
     [self refreshBadge];
 }
 
 - (void)setBadgeTextColor:(NSColor *)badgeTextColor
 {
     _badgeTextColor = [badgeTextColor copy];
-    
+
     [self refreshBadge];
 }
 
 - (void)setBadgeTextShadowColor:(NSColor *)badgeTextShadowColor
 {
     _badgeTextShadowColor = [badgeTextShadowColor copy];
-    
+
     [self refreshBadge];
 }
 
 - (void)setBadgeFillColor:(NSColor *)badgeFillColor
 {
     _badgeFillColor = [badgeFillColor copy];
-    
+
     [self refreshBadge];
 }
 
 - (void)setBadgeLineColor:(NSColor *)badgeLineColor
 {
     _badgeLineColor = [badgeLineColor copy];
-    
+
     [self refreshBadge];
 }
 
 - (void)setBadgeShadowColor:(NSColor *)badgeShadowColor
 {
     _badgeShadowColor = [badgeShadowColor copy];
-    
+
     [self refreshBadge];
 }
 
@@ -139,10 +137,10 @@
     NSArray * colors = @[ (id)[colorblend CGColor], (id)[_badgeFillColor CGColor], (id)[_badgeFillColor CGColor]];
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     CGGradientRef gradient = CGGradientCreateWithColors (colorSpace, (CFArrayRef)colors, locations);
-    
+
     NSMutableParagraphStyle * paragraphStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
     [paragraphStyle setMinimumLineHeight:0.0f];
-    
+
     NSImage * newImage = [[NSImage alloc] initWithSize:[image size]];
     for ( NSImageRep * rep in [image representations] )
     {
@@ -157,11 +155,11 @@
                                                                        colorSpaceName: NSDeviceRGBColorSpace
                                                                           bytesPerRow: 0
                                                                          bitsPerPixel: 32];
-        
+
         NSGraphicsContext *ctx = [NSGraphicsContext graphicsContextWithBitmapImageRep: newRep];
         [NSGraphicsContext saveGraphicsState];
         [NSGraphicsContext setCurrentContext: ctx];
-        
+
         CGContextRef  context = (CGContextRef)[[NSGraphicsContext currentContext] graphicsPort];
         CGContextSaveGState(context);
         CGContextSetAllowsFontSmoothing(context, TRUE);
@@ -169,7 +167,7 @@
         CGContextSetAllowsFontSubpixelQuantization(context, TRUE);
         CGContextSetAllowsFontSubpixelPositioning(context, TRUE);
         CGContextSetBlendMode(context, kCGBlendModeCopy);
-        
+
         NSRect imageRect = NSMakeRect(0, 0, size.width, size.height);
         CGImageRef ref = [image CGImageForProposedRect:&imageRect context:[NSGraphicsContext currentContext] hints:nil];
         CGContextDrawImage(context, imageRect, ref);
@@ -185,7 +183,7 @@
         CGSize shadowOffset = (_badgeShadowColor.alphaComponent > FLT_EPSILON) ? CGSizeMake(lineWidth*0.25f, -lineWidth) : CGSizeZero;
         NSPoint indent = NSMakePoint((size.width) - (iconsize + lineWidth + shadowOffset.width), lineWidth - shadowOffset.height);
         NSRect rect = NSMakeRect(indent.x, indent.y, iconsize, iconsize);
-        
+
         // work out the area
         NSFont * font;
         if(_badgeFontName == nil) {
@@ -193,7 +191,7 @@
         } else {
             font = [NSFont fontWithName:_badgeFontName size:pointSize];
         }
-        
+
         // update the shadow offset
         NSDictionary *attr =nil;
         if (_badgeTextShadowColor.alphaComponent > FLT_EPSILON)
@@ -203,7 +201,7 @@
             shadow.shadowColor = _badgeTextShadowColor;
             shadow.shadowBlurRadius = 0.5f;
             shadow.shadowOffset = CGSizeMake(fontShadowPointOffset, -fontShadowPointOffset);
-            
+
             attr = @{NSParagraphStyleAttributeName : paragraphStyle,
                      NSFontAttributeName : font,
                      NSShadowAttributeName : shadow,
@@ -215,7 +213,7 @@
                      NSFontAttributeName : font,
                      NSForegroundColorAttributeName : _badgeTextColor };
         }
-    
+
         NSRect textSize = [badge boundingRectWithSize:NSZeroSize options:0 attributes:attr];
         if ( textSize.size.width+(lineWidth*4) >= rect.size.width )
         {
@@ -223,7 +221,7 @@
             float width = MIN(textSize.size.width+(lineWidth*4), maxWidth);
             rect.origin.x -= (width - rect.size.width);
             rect.size.width = width;
-            
+
             float newRadius = radius - (radius * ((width - rect.size.width) / (maxWidth-rect.size.width)));
             radius = MAX(iconsize * 0.4f, newRadius);
         }
@@ -232,7 +230,7 @@
 
         CGPoint startPoint = CGPointMake(CGRectGetMidX(rect), CGRectGetMinY(rect));
         CGPoint endPoint = CGPointMake(CGRectGetMidX(rect), CGRectGetMaxY(rect));
-        
+
         // Draw the ellipse
         CGFloat minx = CGRectGetMinX(rect);
         CGFloat midx = CGRectGetMidX(rect);
@@ -240,7 +238,7 @@
         CGFloat miny = CGRectGetMinY(rect);
         CGFloat midy = CGRectGetMidY(rect);
         CGFloat maxy = CGRectGetMaxY(rect);
-        
+
         // Draw the fill with shadow
         if (_badgeShadowColor.alphaComponent > FLT_EPSILON)
         {
@@ -257,7 +255,7 @@
             CGContextDrawPath(context, kCGPathFill);
             CGContextRestoreGState(context);
         }
-        
+
         // Draw the gradiant
         CGContextSaveGState(context);
         CGContextBeginPath(context);
@@ -269,7 +267,7 @@
         CGContextClosePath(context);
         CGContextClip(context);
         CGContextDrawLinearGradient (context, gradient, startPoint, endPoint, 0);
-        
+
         // Draw the text
 //        NSRect textBounds = [badge boundingRectWithSize:NSZeroSize
 //                                                options:NSStringDrawingUsesDeviceMetrics
@@ -288,7 +286,7 @@
         [badge drawInRect:rect withAttributes:attr];
 //        [badge drawWithRect:rect options:NSStringDrawingTruncatesLastVisibleLine attributes:attr];
         CGContextRestoreGState(context);
-        
+
         // Draw the stroke
         CGContextBeginPath(context);
         CGContextMoveToPoint(context, minx+0.5f, midy+0.5f);
@@ -297,27 +295,27 @@
         CGContextAddArcToPoint(context, maxx+0.5f, maxy+0.5f, midx+0.5f, maxy+0.5f, radius);
         CGContextAddArcToPoint(context, minx+0.5f, maxy+0.5f, minx+0.5f, midy+0.5f, radius);
         CGContextClosePath(context);
-        
+
         CGContextSetLineWidth(context, lineWidth);
         CGContextSetStrokeColorWithColor(context, [_badgeLineColor CGColor]);
         CGContextDrawPath(context, kCGPathStroke);
-        
+
         // Debug Draw center line
         //        CGContextBeginPath(context);
         //        CGContextMoveToPoint(context, minx, midy);
         //        CGContextAddLineToPoint(context, maxx, midy);
         //        CGContextClosePath(context);
         //        CGContextDrawPath(context, kCGPathStroke);
-        
+
         CGContextFlush(context);
         CGContextRestoreGState(context);
-        
+
         [newImage addRepresentation:newRep];
     }
-    
+
     CFRelease(colorSpace);
     CFRelease(gradient);
-    
+
     return newImage;
 }
 

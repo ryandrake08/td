@@ -21,7 +21,7 @@
         TBAuthCodeNumberFormatter* codeFormatter = [[TBAuthCodeNumberFormatter alloc] init];
         [(TBFormattedKVOTableViewCell*)cell setFormatter:codeFormatter];
     }
-    
+
     return [self setObjectToCell:cell];
 }
 

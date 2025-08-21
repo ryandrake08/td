@@ -90,7 +90,7 @@
 
         // save
         [self saveConfig];
-        
+
         // reload table
         [[self tableView] reloadData];
     }];

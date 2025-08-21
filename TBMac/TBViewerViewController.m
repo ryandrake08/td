@@ -56,7 +56,7 @@
 
     // alloc colors
     _textColor = [TBColor labelColor];
-    
+
     // bind button state
     [[self previousRoundButton] bind:@"imageInverted" toObject:self withKeyPath:@"backgroundIsDark" options:nil];
     [[self previousRoundButton] bind:@"alternateImageInverted" toObject:self withKeyPath:@"backgroundIsDark" options:nil];

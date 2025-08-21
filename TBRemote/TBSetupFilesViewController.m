@@ -40,7 +40,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     // Do any additional setup after loading the view.
     [self refreshDocuments];
 }
@@ -110,7 +110,7 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView performAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
-	
+
 }
 */
 

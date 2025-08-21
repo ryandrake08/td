@@ -150,7 +150,7 @@
         CGFloat graduationWidth = 1.0;
         CGFloat graduationLength = 5.0;
         CGFloat graduationOffset = 10.0;
-        
+
         for (int i = 0; i<60; i++) {
             if ([self.delegate respondsToSelector:@selector(analogClock:graduationColorForIndex:)]) {
                 graduationColor = [self.delegate analogClock:self graduationColorForIndex:i];

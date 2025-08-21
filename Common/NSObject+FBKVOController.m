@@ -1,7 +1,7 @@
 /**
  Copyright (c) 2014-present, Facebook, Inc.
  All rights reserved.
- 
+
  This source code is licensed under the BSD-style license found in the
  LICENSE file in the root directory of this source tree. An additional grant
  of patent rights can be found in the PATENTS file in the same directory.
@@ -27,13 +27,13 @@ static void *NSObjectKVOControllerNonRetainingKey = &NSObjectKVOControllerNonRet
 - (FBKVOController *)KVOController
 {
   id controller = objc_getAssociatedObject(self, NSObjectKVOControllerKey);
-  
+
   // lazily create the KVOController
   if (nil == controller) {
     controller = [FBKVOController controllerWithObserver:self];
     self.KVOController = controller;
   }
-  
+
   return controller;
 }
 
@@ -45,12 +45,12 @@ static void *NSObjectKVOControllerNonRetainingKey = &NSObjectKVOControllerNonRet
 - (FBKVOController *)KVOControllerNonRetaining
 {
   id controller = objc_getAssociatedObject(self, NSObjectKVOControllerNonRetainingKey);
-  
+
   if (nil == controller) {
     controller = [[FBKVOController alloc] initWithObserver:self retainObserved:NO];
     self.KVOControllerNonRetaining = controller;
   }
-  
+
   return controller;
 }
 
