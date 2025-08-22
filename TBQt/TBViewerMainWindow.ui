@@ -57,6 +57,7 @@
     <property name="title">
      <string>&amp;View</string>
     </property>
+    <addaction name="actionShowHideMainDisplay"/>
     <addaction name="actionShowSeatingChart"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
@@ -143,6 +144,14 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+Alt+C</string>
+   </property>
+  </action>
+  <action name="actionShowHideMainDisplay">
+   <property name="text">
+    <string>Show/Hide &amp;Main Display</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+M</string>
    </property>
   </action>
   <action name="actionShowSeatingChart">

@@ -5,7 +5,7 @@
 #include <memory>
 
 class TBSeatingChartWindow;
-class TBTournamentDisplayWidget;
+class TBTournamentDisplayWindow;
 
 class TBViewerMainWindow : public TBBaseMainWindow
 {
@@ -26,6 +26,7 @@ private Q_SLOTS:
     void on_actionNextRound_triggered();
     void on_actionCallClock_triggered();
     void on_actionShowSeatingChart_triggered();
+    void on_actionShowHideMainDisplay_triggered();
 
     // other slots
     void on_authorizedChanged(bool auth) override;

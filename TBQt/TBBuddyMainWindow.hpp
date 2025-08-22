@@ -3,7 +3,7 @@
 #include "TBBaseMainWindow.hpp"
 #include <memory>
 
-class TBMainWindow : public TBBaseMainWindow
+class TBBuddyMainWindow : public TBBaseMainWindow
 {
     Q_OBJECT
 
@@ -55,8 +55,8 @@ private Q_SLOTS:
 
 public:
     // create a main window
-    TBMainWindow();
-    virtual ~TBMainWindow();
+    TBBuddyMainWindow();
+    virtual ~TBBuddyMainWindow();
 
     // load a document to be managed by this window
     bool load_document(const QString& filename);

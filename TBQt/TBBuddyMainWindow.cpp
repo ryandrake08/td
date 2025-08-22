@@ -1,4 +1,4 @@
-#include "TBMainWindow.hpp"
+#include "TBBuddyMainWindow.hpp"
 #include "TBPlayersModel.hpp"
 #include "TBSeatingModel.hpp"
 #include "TBResultsModel.hpp"
@@ -6,12 +6,12 @@
 #include "TBMovementDialog.hpp"
 #include "TBRuntimeError.hpp"
 #include "TBSeatingChartWindow.hpp"
-#include "TBTournamentDisplayWidget.hpp"
+#include "TBTournamentDisplayWindow.hpp"
 #include "TournamentDocument.hpp"
 #include "TournamentSession.hpp"
 #include "TournamentDaemon.hpp"
 
-#include "ui_TBMainWindow.h"
+#include "ui_TBBuddyMainWindow.h"
 
 #include <QDebug>
 #include <QFile>
@@ -30,10 +30,10 @@
 #include <QDateTime>
 #include <QVBoxLayout>
 
-struct TBMainWindow::impl
+struct TBBuddyMainWindow::impl
 {
     // moc ui
-    Ui::TBMainWindow ui;
+    Ui::TBBuddyMainWindow ui;
 
     // tournamentd thread (full client runs its own daemon)
     TournamentDaemon server;
@@ -41,10 +41,9 @@ struct TBMainWindow::impl
     // tournament document
     TournamentDocument doc;
 
-    // tournament display window (show/hide) - QWidget* needed for window management
-    QWidget* displayWindow;
-    // Note: displayWidget is a child of displayWindow, managed by Qt parent-child ownership
-    // Access via displayWindow->findChild<TBTournamentDisplayWidget*>() when needed
+    // tournament display window (show/hide)
+    TBTournamentDisplayWindow* displayWindow;
+    // Note: displayWindow is now a proper window, not a widget-in-window
 
     // seating chart window - will be created when needed to pass session reference
     TBSeatingChartWindow* seatingChartWindow;
@@ -53,7 +52,7 @@ struct TBMainWindow::impl
     QString currentFilename;
 };
 
-TBMainWindow::TBMainWindow() : TBBaseMainWindow(), pimpl(new impl)
+TBBuddyMainWindow::TBBuddyMainWindow() : TBBaseMainWindow(), pimpl(new impl)
 {
     // set up moc
     this->pimpl->ui.setupUi(this);
@@ -87,7 +86,7 @@ TBMainWindow::TBMainWindow() : TBBaseMainWindow(), pimpl(new impl)
     this->pimpl->ui.centerTableView->setItemDelegateForColumn(4, manageDelegate);
 
     // connect manage button delegate signal to context menu handler
-    QObject::connect(manageDelegate, &TBManageButtonDelegate::buttonClicked, this, &TBMainWindow::on_manageButtonClicked);
+    QObject::connect(manageDelegate, &TBManageButtonDelegate::buttonClicked, this, &TBBuddyMainWindow::on_manageButtonClicked);
 
     // configure column sizing for seating view
     QHeaderView* seatingHeader = this->pimpl->ui.centerTableView->horizontalHeader();
@@ -127,19 +126,10 @@ TBMainWindow::TBMainWindow() : TBBaseMainWindow(), pimpl(new impl)
     // connect to service
     this->getSession().connect(service);
 
-    // initialize tournament display widget in separate window (hidden initially)
-    pimpl->displayWindow = new QWidget();
-    pimpl->displayWindow->setWindowTitle("Tournament Display");
-    pimpl->displayWindow->setMinimumSize(800, 600);
-    pimpl->displayWindow->resize(1200, 800);
-
-    QVBoxLayout* displayLayout = new QVBoxLayout(pimpl->displayWindow);
-    displayLayout->setContentsMargins(0, 0, 0, 0);
-
-    // Create display widget as child of display window - Qt manages lifetime
-    auto* displayWidget = new TBTournamentDisplayWidget(this->getSession(), pimpl->displayWindow);
-    displayLayout->addWidget(displayWidget);
-
+    // initialize tournament display window (hidden initially)
+    pimpl->displayWindow = new TBTournamentDisplayWindow(this->getSession(), this);
+    pimpl->displayWindow->setAttribute(Qt::WA_DeleteOnClose, false);
+    pimpl->displayWindow->resize(900, 700);
     pimpl->displayWindow->hide();
 
     // set initial window title
@@ -149,10 +139,10 @@ TBMainWindow::TBMainWindow() : TBBaseMainWindow(), pimpl(new impl)
     this->updateDisplayMenuText();
 }
 
-TBMainWindow::~TBMainWindow() = default;
+TBBuddyMainWindow::~TBBuddyMainWindow() = default;
 
 // load a document to be managed by this window
-bool TBMainWindow::load_document(const QString& filename)
+bool TBBuddyMainWindow::load_document(const QString& filename)
 {
     try
     {
@@ -168,7 +158,7 @@ bool TBMainWindow::load_document(const QString& filename)
 
 // closeEvent is now handled by base class
 
-void TBMainWindow::on_actionAbout_Poker_Buddy_triggered()
+void TBBuddyMainWindow::on_actionAbout_Poker_Buddy_triggered()
 {
     // show about box
     QMessageBox message(this);
@@ -179,15 +169,15 @@ void TBMainWindow::on_actionAbout_Poker_Buddy_triggered()
     message.exec();
 }
 
-void TBMainWindow::on_actionNew_triggered()
+void TBBuddyMainWindow::on_actionNew_triggered()
 {
     // open a window with no document
-    auto window(new TBMainWindow);
+    auto window(new TBBuddyMainWindow);
     window->setAttribute(Qt::WA_DeleteOnClose);
     window->show();
 }
 
-void TBMainWindow::on_actionOpen_triggered()
+void TBBuddyMainWindow::on_actionOpen_triggered()
 {
     // display file picker and open a window for each selected file
     QFileDialog picker(this);
@@ -199,7 +189,7 @@ void TBMainWindow::on_actionOpen_triggered()
     {
         for(const auto& filename : picker.selectedFiles())
         {
-            auto window(new TBMainWindow);
+            auto window(new TBBuddyMainWindow);
             window->setAttribute(Qt::WA_DeleteOnClose);
             window->load_document(filename);
             window->show();
@@ -207,19 +197,19 @@ void TBMainWindow::on_actionOpen_triggered()
     }
 }
 
-void TBMainWindow::on_actionClose_triggered()
+void TBBuddyMainWindow::on_actionClose_triggered()
 {
     // close window
     this->close();
 }
 
-void TBMainWindow::on_actionSave_triggered()
+void TBBuddyMainWindow::on_actionSave_triggered()
 {
     // save file
     this->pimpl->doc.save();
 }
 
-void TBMainWindow::on_actionSaveAs_triggered()
+void TBBuddyMainWindow::on_actionSaveAs_triggered()
 {
     // display file picker and save to selected file
     QFileDialog picker(this);
@@ -236,13 +226,13 @@ void TBMainWindow::on_actionSaveAs_triggered()
     }
 }
 
-void TBMainWindow::on_actionExit_triggered()
+void TBBuddyMainWindow::on_actionExit_triggered()
 {
     // close window
     this->close();
 }
 
-void TBMainWindow::on_actionQuickStart_triggered()
+void TBBuddyMainWindow::on_actionQuickStart_triggered()
 {
     const auto& seats(this->getSession().state()["seats"].toList());
     const auto& buyins(this->getSession().state()["buyins"].toList());
@@ -278,7 +268,7 @@ void TBMainWindow::on_actionQuickStart_triggered()
     }
 }
 
-void TBMainWindow::on_actionReset_triggered()
+void TBBuddyMainWindow::on_actionReset_triggered()
 {
     const auto& seats(this->getSession().state()["seats"].toList());
     const auto& buyins(this->getSession().state()["buyins"].toList());
@@ -314,7 +304,7 @@ void TBMainWindow::on_actionReset_triggered()
     }
 }
 
-void TBMainWindow::on_actionConfigure_triggered()
+void TBBuddyMainWindow::on_actionConfigure_triggered()
 {
     // Stub implementation - Setup Tournament dialog will be implemented later
     // This should invoke the comprehensive setup dialog with all configuration tabs
@@ -326,7 +316,7 @@ void TBMainWindow::on_actionConfigure_triggered()
                             "Payouts, and Device authorization."));
 }
 
-void TBMainWindow::on_actionAuthorize_triggered()
+void TBBuddyMainWindow::on_actionAuthorize_triggered()
 {
     // Create a simple authorization dialog
     bool ok;
@@ -359,7 +349,7 @@ void TBMainWindow::on_actionAuthorize_triggered()
     }
 }
 
-void TBMainWindow::on_actionPlan_triggered()
+void TBBuddyMainWindow::on_actionPlan_triggered()
 {
     // Get current number of players from configuration
     const QVariantMap& config = this->getSession().state();
@@ -389,7 +379,7 @@ void TBMainWindow::on_actionPlan_triggered()
     }
 }
 
-void TBMainWindow::on_actionShowDisplay_triggered()
+void TBBuddyMainWindow::on_actionShowDisplay_triggered()
 {
     // Toggle the tournament display window visibility
     if (this->pimpl->displayWindow->isVisible())
@@ -405,7 +395,7 @@ void TBMainWindow::on_actionShowDisplay_triggered()
     updateDisplayMenuText();
 }
 
-void TBMainWindow::updateDisplayMenuText()
+void TBBuddyMainWindow::updateDisplayMenuText()
 {
     // Update menu text based on display window visibility
     bool isVisible = this->pimpl->displayWindow->isVisible();
@@ -413,7 +403,7 @@ void TBMainWindow::updateDisplayMenuText()
     this->pimpl->ui.actionShowDisplay->setText(menuText);
 }
 
-void TBMainWindow::on_actionShowMoves_triggered()
+void TBBuddyMainWindow::on_actionShowMoves_triggered()
 {
     // Get current movements from session state and display them
     const QVariantMap& state = this->getSession().state();
@@ -430,7 +420,7 @@ void TBMainWindow::on_actionShowMoves_triggered()
     }
 }
 
-void TBMainWindow::on_actionRebalance_triggered()
+void TBBuddyMainWindow::on_actionRebalance_triggered()
 {
     // Rebalance seating and show movements if any are generated
     this->getSession().rebalance_seating_with_handler([this](const QVariantList& movements) {
@@ -446,7 +436,7 @@ void TBMainWindow::on_actionRebalance_triggered()
     });
 }
 
-void TBMainWindow::on_actionPauseResume_triggered()
+void TBBuddyMainWindow::on_actionPauseResume_triggered()
 {
     const auto& current_blind_level(this->getSession().state()["current_blind_level"].toInt());
     if(current_blind_level != 0)
@@ -459,7 +449,7 @@ void TBMainWindow::on_actionPauseResume_triggered()
     }
 }
 
-void TBMainWindow::on_actionPreviousRound_triggered()
+void TBBuddyMainWindow::on_actionPreviousRound_triggered()
 {
     const auto& current_blind_level(this->getSession().state()["current_blind_level"].toInt());
     if(current_blind_level != 0)
@@ -468,7 +458,7 @@ void TBMainWindow::on_actionPreviousRound_triggered()
     }
 }
 
-void TBMainWindow::on_actionNextRound_triggered()
+void TBBuddyMainWindow::on_actionNextRound_triggered()
 {
     const auto& current_blind_level(this->getSession().state()["current_blind_level"].toInt());
     if(current_blind_level != 0)
@@ -477,7 +467,7 @@ void TBMainWindow::on_actionNextRound_triggered()
     }
 }
 
-void TBMainWindow::on_actionCallClock_triggered()
+void TBBuddyMainWindow::on_actionCallClock_triggered()
 {
     const auto& current_blind_level(this->getSession().state()["current_blind_level"].toInt());
     if(current_blind_level != 0)
@@ -494,7 +484,7 @@ void TBMainWindow::on_actionCallClock_triggered()
     }
 }
 
-void TBMainWindow::on_actionEndGame_triggered()
+void TBBuddyMainWindow::on_actionEndGame_triggered()
 {
     const auto& current_blind_level(this->getSession().state()["current_blind_level"].toInt());
     if(current_blind_level != 0)
@@ -503,7 +493,7 @@ void TBMainWindow::on_actionEndGame_triggered()
     }
 }
 
-void TBMainWindow::on_actionExport_triggered()
+void TBBuddyMainWindow::on_actionExport_triggered()
 {
     QFileDialog picker(this);
     picker.setAcceptMode(QFileDialog::AcceptSave);
@@ -535,7 +525,7 @@ void TBMainWindow::on_actionExport_triggered()
     }
 }
 
-void TBMainWindow::on_actionShowHideMainDisplay_triggered()
+void TBBuddyMainWindow::on_actionShowHideMainDisplay_triggered()
 {
     // Stub implementation - will be implemented later
     // This should show/hide the main display window
@@ -544,7 +534,7 @@ void TBMainWindow::on_actionShowHideMainDisplay_triggered()
                             "This will show/hide a secondary tournament display window."));
 }
 
-void TBMainWindow::on_actionShowHideSeatingChart_triggered()
+void TBBuddyMainWindow::on_actionShowHideSeatingChart_triggered()
 {
     // Show the seating chart window
     pimpl->seatingChartWindow->show();
@@ -552,9 +542,9 @@ void TBMainWindow::on_actionShowHideSeatingChart_triggered()
     pimpl->seatingChartWindow->activateWindow();
 }
 
-void TBMainWindow::on_authorizedChanged(bool auth)
+void TBBuddyMainWindow::on_authorizedChanged(bool auth)
 {
-    qDebug() << "TBMainWindow::on_authorized:" << auth;
+    qDebug() << "TBBuddyMainWindow::on_authorized:" << auth;
 
     if(auth)
     {
@@ -569,14 +559,14 @@ void TBMainWindow::on_authorizedChanged(bool auth)
     this->updateActionButtons();
 }
 
-void TBMainWindow::on_filenameChanged(const QString& filename)
+void TBBuddyMainWindow::on_filenameChanged(const QString& filename)
 {
     // store filename and update window title
     this->pimpl->currentFilename = QFileInfo(filename).fileName();
     this->updateWindowTitle();
 }
 
-void TBMainWindow::on_tournamentStateChanged(const QString& key, const QVariant& /*value*/)
+void TBBuddyMainWindow::on_tournamentStateChanged(const QString& key, const QVariant& /*value*/)
 {
     if(key == "name")
     {
@@ -593,7 +583,7 @@ void TBMainWindow::on_tournamentStateChanged(const QString& key, const QVariant&
     }
 }
 
-void TBMainWindow::updateTournamentClock()
+void TBBuddyMainWindow::updateTournamentClock()
 {
     const QVariantMap& state = this->getSession().state();
 
@@ -642,7 +632,7 @@ void TBMainWindow::updateTournamentClock()
     this->pimpl->ui.actionTournamentClock->setText(clockText);
 }
 
-void TBMainWindow::updateActionButtons()
+void TBBuddyMainWindow::updateActionButtons()
 {
     const QVariantMap& state = this->getSession().state();
     bool authorized = this->getSession().is_authorized();
@@ -698,7 +688,7 @@ void TBMainWindow::updateActionButtons()
     }
 }
 
-void TBMainWindow::updateWindowTitle(const QString& filename)
+void TBBuddyMainWindow::updateWindowTitle(const QString& filename)
 {
     // Update current filename if provided
     if(!filename.isEmpty())
@@ -730,7 +720,7 @@ void TBMainWindow::updateWindowTitle(const QString& filename)
     this->setWindowTitle(windowTitle);
 }
 
-void TBMainWindow::on_manageButtonClicked(const QModelIndex& index)
+void TBBuddyMainWindow::on_manageButtonClicked(const QModelIndex& index)
 {
     // Get player ID directly from the model using Qt::UserRole
     QString playerId = index.data(Qt::UserRole).toString();
@@ -866,7 +856,7 @@ void TBMainWindow::on_manageButtonClicked(const QModelIndex& index)
     contextMenu.exec(QCursor::pos());
 }
 
-void TBMainWindow::showPlayerMovements(const QVariantList& movements)
+void TBBuddyMainWindow::showPlayerMovements(const QVariantList& movements)
 {
     TBMovementDialog dialog(this);
     dialog.setMovements(movements);

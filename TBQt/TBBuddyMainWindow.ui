@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>TBMainWindow</class>
- <widget class="QMainWindow" name="TBMainWindow">
+ <class>TBBuddyMainWindow</class>
+ <widget class="QMainWindow" name="TBBuddyMainWindow">
   <property name="geometry">
    <rect>
     <x>0</x>

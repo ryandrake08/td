@@ -1,4 +1,4 @@
-#include "TBMainWindow.hpp"
+#include "TBBuddyMainWindow.hpp"
 #include <QApplication>
 #include <QCommandLineParser>
 
@@ -26,7 +26,7 @@ int main(int argc, char *argv[])
         // open a window for every file passed on the command line
         for(const QString& filename : parser.positionalArguments())
         {
-            auto window(new TBMainWindow);
+            auto window(new TBBuddyMainWindow);
             window->setAttribute(Qt::WA_DeleteOnClose);
             window->load_document(filename);
             window->show();
@@ -35,7 +35,7 @@ int main(int argc, char *argv[])
     else
     {
         // if no files passed on the command line, open a window without a file
-        auto window(new TBMainWindow);
+        auto window(new TBBuddyMainWindow);
         window->setAttribute(Qt::WA_DeleteOnClose);
         window->show();
     }

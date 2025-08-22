@@ -2,7 +2,7 @@
 #include "TBConnectToDialog.hpp"
 #include "TBRuntimeError.hpp"
 #include "TBSeatingChartWindow.hpp"
-#include "TBTournamentDisplayWidget.hpp"
+#include "TBTournamentDisplayWindow.hpp"
 #include "TournamentService.hpp"
 #include "TournamentSession.hpp"
 
@@ -25,12 +25,11 @@ struct TBViewerMainWindow::impl
     // seating chart window - will be created when needed to pass session reference
     TBSeatingChartWindow* seatingChartWindow;
 
-    // Tournament display widget - will be created and managed as central widget
-    // Note: We don't store a pointer since it becomes a child of this window
-    // Access via centralWidget() when needed
+    // Tournament display window - will be created when needed
+    TBTournamentDisplayWindow* displayWindow;
 
-    impl(TournamentSession& session) : seatingChartWindow(nullptr) {
-        Q_UNUSED(session) // Will be used for seatingChartWindow initialization
+    impl(TournamentSession& session) : seatingChartWindow(nullptr), displayWindow(nullptr) {
+        Q_UNUSED(session) // Will be used for window initialization
     }
 };
 
@@ -42,10 +41,8 @@ TBViewerMainWindow::TBViewerMainWindow() : TBBaseMainWindow(), pimpl(new impl(th
     // Initialize seating chart window with session reference
     pimpl->seatingChartWindow = new TBSeatingChartWindow(this->getSession(), this);
 
-    // Create and set up the tournament display widget as central widget
-    // Qt parent-child ownership manages the lifetime automatically
-    auto* displayWidget = new TBTournamentDisplayWidget(this->getSession(), this);
-    setCentralWidget(displayWidget);
+    // Note: Tournament display window will be created on-demand when menu action is triggered
+    // No central widget needed - this is now a dummy window with menu only
 
     // hook up TournamentSession signals
     QObject::connect(&this->getSession(), SIGNAL(authorizedChanged(bool)), this, SLOT(on_authorizedChanged(bool)));
@@ -104,6 +101,24 @@ void TBViewerMainWindow::on_actionShowSeatingChart_triggered()
     pimpl->seatingChartWindow->show();
     pimpl->seatingChartWindow->raise();
     pimpl->seatingChartWindow->activateWindow();
+}
+
+void TBViewerMainWindow::on_actionShowHideMainDisplay_triggered()
+{
+    // Create display window if it doesn't exist
+    if (!pimpl->displayWindow) {
+        pimpl->displayWindow = new TBTournamentDisplayWindow(this->getSession(), this);
+        pimpl->displayWindow->setAttribute(Qt::WA_DeleteOnClose, false);
+    }
+    
+    // Toggle visibility
+    if (pimpl->displayWindow->isVisible()) {
+        pimpl->displayWindow->hide();
+    } else {
+        pimpl->displayWindow->show();
+        pimpl->displayWindow->raise();
+        pimpl->displayWindow->activateWindow();
+    }
 }
 
 void TBViewerMainWindow::on_actionConnectToTournament_triggered()
