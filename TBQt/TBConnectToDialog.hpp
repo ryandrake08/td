@@ -3,16 +3,15 @@
 #include <QDialog>
 #include <memory>
 
-class QLineEdit;
-class QSpinBox;
+QT_BEGIN_NAMESPACE
+namespace Ui { class TBConnectToDialog; }
+QT_END_NAMESPACE
 
 class TBConnectToDialog : public QDialog
 {
     Q_OBJECT
 
-    // pimpl
-    struct impl;
-    std::unique_ptr<impl> pimpl;
+    std::unique_ptr<Ui::TBConnectToDialog> ui;
 
 public:
     explicit TBConnectToDialog(QWidget* parent = nullptr);
@@ -26,8 +25,6 @@ public:
     void set_port(int port);
 
 private Q_SLOTS:
-    void on_connectButton_clicked();
-    void on_cancelButton_clicked();
-    void on_host_textChanged();
-    void update_connect_button_state();
+    void on_hostEdit_textChanged();
+    void updateConnectButtonState();
 };

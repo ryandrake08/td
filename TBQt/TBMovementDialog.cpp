@@ -1,70 +1,33 @@
 #include "TBMovementDialog.hpp"
+#include "ui_TBMovementDialog.h"
 
-#include <QVBoxLayout>
-#include <QHBoxLayout>
-#include <QTableView>
 #include <QStandardItemModel>
 #include <QHeaderView>
-#include <QPushButton>
-#include <QLabel>
-#include <QDialogButtonBox>
 
-struct TBMovementDialog::impl
+TBMovementDialog::TBMovementDialog(QWidget* parent) 
+    : QDialog(parent), ui(new Ui::TBMovementDialog), model(new QStandardItemModel(this))
 {
-    // Keep widgets that are accessed by public methods
-    QTableView* tableView;
-    QStandardItemModel* model;
-    QLabel* titleLabel;
-};
-
-TBMovementDialog::TBMovementDialog(QWidget* parent) : QDialog(parent), pimpl(new impl)
-{
-    setWindowTitle(tr("Player Movements"));
-    setModal(true);
-    resize(600, 400);
-
-    // Create main layout
-    auto mainLayout = new QVBoxLayout(this);
-
-    // Title label
-    pimpl->titleLabel = new QLabel(tr("The following player movements are required:"), this);
-    pimpl->titleLabel->setWordWrap(true);
-    mainLayout->addWidget(pimpl->titleLabel);
-
-    // Create table view and model
-    pimpl->tableView = new QTableView(this);
-    pimpl->model = new QStandardItemModel(this);
-
+    ui->setupUi(this);
+    
     // Set up model headers
-    pimpl->model->setHorizontalHeaderLabels({
+    model->setHorizontalHeaderLabels({
         tr("Player"),
         tr("From Table"),
         tr("From Seat"),
         tr("To Table"),
         tr("To Seat")
     });
-
-    pimpl->tableView->setModel(pimpl->model);
-    pimpl->tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
-    pimpl->tableView->setSelectionMode(QAbstractItemView::SingleSelection);
-    pimpl->tableView->setAlternatingRowColors(true);
-    pimpl->tableView->setSortingEnabled(false);
-
+    
+    ui->tableView->setModel(model);
+    
     // Configure column sizing
-    QHeaderView* header = pimpl->tableView->horizontalHeader();
+    QHeaderView* header = ui->tableView->horizontalHeader();
     header->setStretchLastSection(true);
     header->setSectionResizeMode(0, QHeaderView::Stretch);          // Player Name: stretch to fill
     header->setSectionResizeMode(1, QHeaderView::ResizeToContents); // From Table: fit content
     header->setSectionResizeMode(2, QHeaderView::ResizeToContents); // From Seat: fit content
     header->setSectionResizeMode(3, QHeaderView::ResizeToContents); // To Table: fit content
     header->setSectionResizeMode(4, QHeaderView::ResizeToContents); // To Seat: fit content
-
-    mainLayout->addWidget(pimpl->tableView);
-
-    // Create button box with OK button - use local variable, don't store
-    auto* buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok, this);
-    connect(buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
-    mainLayout->addWidget(buttonBox);
 }
 
 TBMovementDialog::~TBMovementDialog() = default;
@@ -72,54 +35,54 @@ TBMovementDialog::~TBMovementDialog() = default;
 void TBMovementDialog::setMovements(const QVariantList& movements)
 {
     // Clear existing data
-    pimpl->model->setRowCount(0);
-
+    model->setRowCount(0);
+    
     if (movements.isEmpty())
     {
-        pimpl->titleLabel->setText(tr("No player movements are required."));
+        ui->titleLabel->setText(tr("No player movements are required."));
         return;
     }
-
+    
     // Set title based on number of movements
     if (movements.size() == 1)
     {
-        pimpl->titleLabel->setText(tr("The following player movement is required:"));
+        ui->titleLabel->setText(tr("The following player movement is required:"));
     }
     else
     {
-        pimpl->titleLabel->setText(tr("The following %1 player movements are required:").arg(movements.size()));
+        ui->titleLabel->setText(tr("The following %1 player movements are required:").arg(movements.size()));
     }
-
+    
     // Populate model with movement data
-    pimpl->model->setRowCount(movements.size());
-
+    model->setRowCount(movements.size());
+    
     for (int row = 0; row < movements.size(); ++row)
     {
         QVariantMap moveData = movements[row].toMap();
-
+        
         QString playerName = moveData["name"].toString();
         QString fromTable = moveData["from_table_name"].toString();
         QString fromSeat = moveData["from_seat_name"].toString();
         QString toTable = moveData["to_table_name"].toString();
         QString toSeat = moveData["to_seat_name"].toString();
-
-        pimpl->model->setItem(row, 0, new QStandardItem(playerName));
-        pimpl->model->setItem(row, 1, new QStandardItem(fromTable));
-        pimpl->model->setItem(row, 2, new QStandardItem(fromSeat));
-        pimpl->model->setItem(row, 3, new QStandardItem(toTable));
-        pimpl->model->setItem(row, 4, new QStandardItem(toSeat));
-
+        
+        model->setItem(row, 0, new QStandardItem(playerName));
+        model->setItem(row, 1, new QStandardItem(fromTable));
+        model->setItem(row, 2, new QStandardItem(fromSeat));
+        model->setItem(row, 3, new QStandardItem(toTable));
+        model->setItem(row, 4, new QStandardItem(toSeat));
+        
         // Make all items non-editable
         for (int col = 0; col < 5; ++col)
         {
-            QStandardItem* item = pimpl->model->item(row, col);
+            QStandardItem* item = model->item(row, col);
             if (item)
             {
                 item->setFlags(item->flags() & ~Qt::ItemIsEditable);
             }
         }
     }
-
+    
     // Auto-resize columns to content after populating data
-    pimpl->tableView->resizeColumnsToContents();
+    ui->tableView->resizeColumnsToContents();
 }

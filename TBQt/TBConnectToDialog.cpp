@@ -1,104 +1,55 @@
 #include "TBConnectToDialog.hpp"
+#include "ui_TBConnectToDialog.h"
 #include "TournamentService.hpp"
 
-#include <QDialogButtonBox>
-#include <QFormLayout>
-#include <QLineEdit>
-#include <QSpinBox>
-#include <QVBoxLayout>
 #include <QPushButton>
-#include <QLabel>
 
-struct TBConnectToDialog::impl
+TBConnectToDialog::TBConnectToDialog(QWidget* parent) : QDialog(parent), ui(new Ui::TBConnectToDialog)
 {
-    // Store only what we need to access later via public methods
-    // Buttons and layouts are managed by Qt parent-child ownership
-    QLineEdit* host_edit;
-    QSpinBox* port_spinbox;
-    QPushButton* connect_button;
-};
-
-TBConnectToDialog::TBConnectToDialog(QWidget* parent) : QDialog(parent), pimpl(new impl())
-{
-    setWindowTitle("Connect to Tournament");
-    setModal(true);
-    resize(350, 150);
-
-    // create layout
-    auto main_layout = new QVBoxLayout(this);
-    auto form_layout = new QFormLayout();
-
-    // host input
-    pimpl->host_edit = new QLineEdit(this);
-    pimpl->host_edit->setPlaceholderText("Tournament server address");
-    form_layout->addRow("Host:", pimpl->host_edit);
-
-    // port input
-    pimpl->port_spinbox = new QSpinBox(this);
-    pimpl->port_spinbox->setRange(1, 65535);
-    pimpl->port_spinbox->setValue(TournamentService::default_port);
-    form_layout->addRow("Port:", pimpl->port_spinbox);
-
-    main_layout->addLayout(form_layout);
-
-    // button box - use local variables for construction, don't store unnecessarily
-    auto* button_box = new QDialogButtonBox(this);
-    pimpl->connect_button = button_box->addButton("Connect", QDialogButtonBox::AcceptRole);
-    auto* cancel_button = button_box->addButton("Cancel", QDialogButtonBox::RejectRole);
-
-    main_layout->addWidget(button_box);
-
-    // initially disable connect button until host is entered
-    pimpl->connect_button->setEnabled(false);
-
-    // connect signals
-    connect(pimpl->connect_button, &QPushButton::clicked, this, &TBConnectToDialog::on_connectButton_clicked);
-    connect(cancel_button, &QPushButton::clicked, this, &TBConnectToDialog::on_cancelButton_clicked);
-    connect(pimpl->host_edit, &QLineEdit::textChanged, this, &TBConnectToDialog::on_host_textChanged);
-
-    // focus host edit
-    pimpl->host_edit->setFocus();
+    ui->setupUi(this);
+    
+    // Set default port value
+    ui->portSpinBox->setValue(TournamentService::default_port);
+    
+    // Initially disable OK button until host is entered
+    ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
+    
+    // Connect signals
+    connect(ui->hostEdit, &QLineEdit::textChanged, this, &TBConnectToDialog::on_hostEdit_textChanged);
+    
+    // Focus host edit
+    ui->hostEdit->setFocus();
 }
 
 TBConnectToDialog::~TBConnectToDialog() = default;
 
 QString TBConnectToDialog::host() const
 {
-    return pimpl->host_edit->text().trimmed();
+    return ui->hostEdit->text().trimmed();
 }
 
 void TBConnectToDialog::set_host(const QString& host)
 {
-    pimpl->host_edit->setText(host);
+    ui->hostEdit->setText(host);
 }
 
 int TBConnectToDialog::port() const
 {
-    return pimpl->port_spinbox->value();
+    return ui->portSpinBox->value();
 }
 
 void TBConnectToDialog::set_port(int port)
 {
-    pimpl->port_spinbox->setValue(port);
+    ui->portSpinBox->setValue(port);
 }
 
-void TBConnectToDialog::on_connectButton_clicked()
+void TBConnectToDialog::on_hostEdit_textChanged()
 {
-    accept();
+    updateConnectButtonState();
 }
 
-void TBConnectToDialog::on_cancelButton_clicked()
-{
-    reject();
-}
-
-void TBConnectToDialog::on_host_textChanged()
-{
-    update_connect_button_state();
-}
-
-void TBConnectToDialog::update_connect_button_state()
+void TBConnectToDialog::updateConnectButtonState()
 {
     bool enabled = !host().isEmpty();
-    pimpl->connect_button->setEnabled(enabled);
+    ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(enabled);
 }

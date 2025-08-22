@@ -2,20 +2,19 @@
 
 #include <QDialog>
 #include <QVariant>
+#include <memory>
 
 QT_BEGIN_NAMESPACE
-class QTableView;
+namespace Ui { class TBMovementDialog; }
 class QStandardItemModel;
-class QPushButton;
 QT_END_NAMESPACE
 
 class TBMovementDialog : public QDialog
 {
     Q_OBJECT
 
-    // pimpl
-    struct impl;
-    std::unique_ptr<impl> pimpl;
+    std::unique_ptr<Ui::TBMovementDialog> ui;
+    QStandardItemModel* model;
 
 public:
     explicit TBMovementDialog(QWidget* parent = nullptr);
