@@ -6,6 +6,7 @@
 #include <memory>
 
 // Widget representing a single tournament table with seats and players
+// Matches macOS TBSeatingChartCollectionViewItem design
 class TBTableWidget : public QWidget
 {
     Q_OBJECT
@@ -25,9 +26,7 @@ public:
     // Get preferred size for this table
     QSize sizeHint() const override;
 
-protected:
-    void paintEvent(QPaintEvent* event) override;
-
 private:
-    void updateLayout();
+    void setupUI();
+    void updateSeatsTable();
 };

@@ -1,11 +1,12 @@
 #pragma once
 
-#include "TBBaseMainWindow.hpp"
-#include <QVariantMap>
+#include <QMainWindow>
 #include <memory>
 
+class TournamentSession;
+
 // Tournament seating chart display window
-class TBSeatingChartWindow : public TBBaseMainWindow
+class TBSeatingChartWindow : public QMainWindow
 {
     Q_OBJECT
 
@@ -14,17 +15,16 @@ class TBSeatingChartWindow : public TBBaseMainWindow
     std::unique_ptr<impl> pimpl;
 
 public:
-    explicit TBSeatingChartWindow(QWidget* parent = nullptr);
+    explicit TBSeatingChartWindow(TournamentSession& tournamentSession, QWidget* parent = nullptr);
     virtual ~TBSeatingChartWindow() override;
 
 private Q_SLOTS:
-    void on_authorizedChanged(bool auth) override;
     void on_tournamentStateChanged(const QString& key, const QVariant& value);
     void updateSeatingChart();
     void updateWindowTitle();
+    void updateTournamentInfo();
     void updateBackgroundColor();
 
 private:
-    void setupUI();
     void rebuildTableWidgets();
 };

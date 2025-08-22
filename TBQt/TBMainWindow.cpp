@@ -46,8 +46,8 @@ struct TBMainWindow::impl
     // Note: displayWidget is a child of displayWindow, managed by Qt parent-child ownership
     // Access via displayWindow->findChild<TBTournamentDisplayWidget*>() when needed
 
-    // seating chart window
-    TBSeatingChartWindow seatingChartWindow;
+    // seating chart window - will be created when needed to pass session reference
+    TBSeatingChartWindow* seatingChartWindow;
 
     // current filename for window title
     QString currentFilename;
@@ -57,6 +57,9 @@ TBMainWindow::TBMainWindow() : TBBaseMainWindow(), pimpl(new impl)
 {
     // set up moc
     this->pimpl->ui.setupUi(this);
+    
+    // Initialize seating chart window with session reference
+    pimpl->seatingChartWindow = new TBSeatingChartWindow(this->getSession(), this);
 
     // set up models and views for all three panes
     qDebug() << "setting up the models and views";
@@ -544,9 +547,9 @@ void TBMainWindow::on_actionShowHideMainDisplay_triggered()
 void TBMainWindow::on_actionShowHideSeatingChart_triggered()
 {
     // Show the seating chart window
-    pimpl->seatingChartWindow.show();
-    pimpl->seatingChartWindow.raise();
-    pimpl->seatingChartWindow.activateWindow();
+    pimpl->seatingChartWindow->show();
+    pimpl->seatingChartWindow->raise();
+    pimpl->seatingChartWindow->activateWindow();
 }
 
 void TBMainWindow::on_authorizedChanged(bool auth)

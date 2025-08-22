@@ -22,20 +22,25 @@ struct TBViewerMainWindow::impl
     // moc ui
     Ui::TBViewerMainWindow ui;
 
-    // seating chart window
-    TBSeatingChartWindow seatingChartWindow;
+    // seating chart window - will be created when needed to pass session reference
+    TBSeatingChartWindow* seatingChartWindow;
 
     // Tournament display widget - will be created and managed as central widget
     // Note: We don't store a pointer since it becomes a child of this window
     // Access via centralWidget() when needed
 
-    impl(TournamentSession&) : seatingChartWindow() {}
+    impl(TournamentSession& session) : seatingChartWindow(nullptr) {
+        Q_UNUSED(session) // Will be used for seatingChartWindow initialization
+    }
 };
 
 TBViewerMainWindow::TBViewerMainWindow() : TBBaseMainWindow(), pimpl(new impl(this->getSession()))
 {
     // set up moc ui
     pimpl->ui.setupUi(this);
+    
+    // Initialize seating chart window with session reference
+    pimpl->seatingChartWindow = new TBSeatingChartWindow(this->getSession(), this);
 
     // Create and set up the tournament display widget as central widget
     // Qt parent-child ownership manages the lifetime automatically
@@ -96,9 +101,9 @@ void TBViewerMainWindow::on_actionCallClock_triggered()
 void TBViewerMainWindow::on_actionShowSeatingChart_triggered()
 {
     // Show the seating chart window
-    pimpl->seatingChartWindow.show();
-    pimpl->seatingChartWindow.raise();
-    pimpl->seatingChartWindow.activateWindow();
+    pimpl->seatingChartWindow->show();
+    pimpl->seatingChartWindow->raise();
+    pimpl->seatingChartWindow->activateWindow();
 }
 
 void TBViewerMainWindow::on_actionConnectToTournament_triggered()
