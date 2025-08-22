@@ -56,7 +56,7 @@ TBBuddyMainWindow::TBBuddyMainWindow() : TBBaseMainWindow(), pimpl(new impl)
 {
     // set up moc
     this->pimpl->ui.setupUi(this);
-    
+
     // Initialize seating chart window with session reference
     pimpl->seatingChartWindow = new TBSeatingChartWindow(this->getSession(), this);
 

@@ -9,7 +9,7 @@ struct TBFlowLayout::impl
     QList<QLayoutItem *> itemList;
     int hSpace;
     int vSpace;
-    
+
     impl(int hSpacing, int vSpacing) : hSpace(hSpacing), vSpace(vSpacing) {}
 };
 
@@ -115,34 +115,34 @@ int TBFlowLayout::doLayout(const QRect &rect, bool testOnly) const
     int left, top, right, bottom;
     getContentsMargins(&left, &top, &right, &bottom);
     QRect effectiveRect = rect.adjusted(+left, +top, -right, -bottom);
-    
+
     if (pimpl->itemList.isEmpty()) {
         return rect.y() + bottom;
     }
-    
+
     // First pass: calculate how many items fit per row and total content width
     QList<QList<QLayoutItem*>> rows;
     QList<int> rowWidths;
     QList<QLayoutItem*> currentRow;
     int currentRowWidth = 0;
     int maxRowWidth = 0;
-    
+
     for (QLayoutItem *item : pimpl->itemList) {
         const QWidget *wid = item->widget();
         int spaceX = horizontalSpacing();
         if (spaceX == -1)
             spaceX = wid->style()->layoutSpacing(
                 QSizePolicy::PushButton, QSizePolicy::PushButton, Qt::Horizontal);
-        
+
         int itemWidth = item->sizeHint().width();
         int nextRowWidth = currentRowWidth + itemWidth + (currentRow.isEmpty() ? 0 : spaceX);
-        
+
         if (nextRowWidth > effectiveRect.width() && !currentRow.isEmpty()) {
             // Finish current row and start new one
             rows.append(currentRow);
             rowWidths.append(currentRowWidth);
             maxRowWidth = qMax(maxRowWidth, currentRowWidth);
-            
+
             currentRow.clear();
             currentRow.append(item);
             currentRowWidth = itemWidth;
@@ -152,44 +152,44 @@ int TBFlowLayout::doLayout(const QRect &rect, bool testOnly) const
             currentRowWidth = nextRowWidth;
         }
     }
-    
+
     // Add the last row
     if (!currentRow.isEmpty()) {
         rows.append(currentRow);
         rowWidths.append(currentRowWidth);
         maxRowWidth = qMax(maxRowWidth, currentRowWidth);
     }
-    
+
     // Second pass: position items with centered rows
     int y = effectiveRect.y();
     int totalHeight = 0;
-    
+
     for (int rowIndex = 0; rowIndex < rows.size(); ++rowIndex) {
         const QList<QLayoutItem*>& row = rows[rowIndex];
         int rowWidth = rowWidths[rowIndex];
-        
+
         // Center the row horizontally
         int startX = effectiveRect.x() + (effectiveRect.width() - rowWidth) / 2;
         int x = startX;
         int lineHeight = 0;
-        
+
         for (QLayoutItem *item : row) {
             const QWidget *wid = item->widget();
             int spaceX = horizontalSpacing();
             if (spaceX == -1)
                 spaceX = wid->style()->layoutSpacing(
                     QSizePolicy::PushButton, QSizePolicy::PushButton, Qt::Horizontal);
-            
+
             if (!testOnly)
                 item->setGeometry(QRect(QPoint(x, y), item->sizeHint()));
-            
+
             x += item->sizeHint().width();
             if (item != row.last()) // Don't add spacing after last item in row
                 x += spaceX;
-            
+
             lineHeight = qMax(lineHeight, item->sizeHint().height());
         }
-        
+
         // Move to next row
         if (rowIndex < rows.size() - 1) {
             int spaceY = verticalSpacing();
@@ -200,10 +200,10 @@ int TBFlowLayout::doLayout(const QRect &rect, bool testOnly) const
             }
             y += lineHeight + spaceY;
         }
-        
+
         totalHeight = y + lineHeight - effectiveRect.y();
     }
-    
+
     return totalHeight + bottom;
 }
 

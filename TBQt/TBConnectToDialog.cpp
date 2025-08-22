@@ -7,16 +7,16 @@
 TBConnectToDialog::TBConnectToDialog(QWidget* parent) : QDialog(parent), ui(new Ui::TBConnectToDialog)
 {
     ui->setupUi(this);
-    
+
     // Set default port value
     ui->portSpinBox->setValue(TournamentService::default_port);
-    
+
     // Initially disable OK button until host is entered
     ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
-    
+
     // Connect signals
     connect(ui->hostEdit, &QLineEdit::textChanged, this, &TBConnectToDialog::on_hostEdit_textChanged);
-    
+
     // Focus host edit
     ui->hostEdit->setFocus();
 }

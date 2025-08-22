@@ -37,7 +37,7 @@ TBViewerMainWindow::TBViewerMainWindow() : TBBaseMainWindow(), pimpl(new impl(th
 {
     // set up moc ui
     pimpl->ui.setupUi(this);
-    
+
     // Initialize seating chart window with session reference
     pimpl->seatingChartWindow = new TBSeatingChartWindow(this->getSession(), this);
 
@@ -110,7 +110,7 @@ void TBViewerMainWindow::on_actionShowHideMainDisplay_triggered()
         pimpl->displayWindow = new TBTournamentDisplayWindow(this->getSession(), this);
         pimpl->displayWindow->setAttribute(Qt::WA_DeleteOnClose, false);
     }
-    
+
     // Toggle visibility
     if (pimpl->displayWindow->isVisible()) {
         pimpl->displayWindow->hide();

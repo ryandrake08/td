@@ -12,14 +12,14 @@ struct TBSeatingChartWindow::impl
 {
     // UI
     std::unique_ptr<Ui::TBSeatingChartWindow> ui;
-    
+
     // Session reference
     TournamentSession& session;
-    
+
     // Internal data
     QMap<QString, QVariantList> tables; // Table name -> list of seats
     QList<TBTableWidget*> tableWidgets;
-    
+
     impl(TournamentSession& sess) : ui(new Ui::TBSeatingChartWindow), session(sess) {}
 };
 
@@ -76,11 +76,11 @@ void TBSeatingChartWindow::updateWindowTitle()
 void TBSeatingChartWindow::updateTournamentInfo()
 {
     const QVariantMap& state = pimpl->session.state();
-    
+
     // Tournament name
     QString tournamentName = state.value("name", "Tournament").toString();
     pimpl->ui->tournamentNameLabel->setText(tournamentName);
-    
+
     // Buyin information - use formatted buyin_text from derived state
     QString buyinText = state.value("buyin_text").toString();
     if (buyinText.isEmpty()) {
