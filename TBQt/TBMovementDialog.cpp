@@ -11,10 +11,10 @@
 
 struct TBMovementDialog::impl
 {
+    // Keep widgets that are accessed by public methods
     QTableView* tableView;
     QStandardItemModel* model;
     QLabel* titleLabel;
-    QDialogButtonBox* buttonBox;
 };
 
 TBMovementDialog::TBMovementDialog(QWidget* parent) : QDialog(parent), pimpl(new impl)
@@ -61,10 +61,10 @@ TBMovementDialog::TBMovementDialog(QWidget* parent) : QDialog(parent), pimpl(new
 
     mainLayout->addWidget(pimpl->tableView);
 
-    // Create button box with OK button
-    pimpl->buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok, this);
-    connect(pimpl->buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
-    mainLayout->addWidget(pimpl->buttonBox);
+    // Create button box with OK button - use local variable, don't store
+    auto* buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok, this);
+    connect(buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
+    mainLayout->addWidget(buttonBox);
 }
 
 TBMovementDialog::~TBMovementDialog() = default;

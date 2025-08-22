@@ -11,11 +11,11 @@
 
 struct TBConnectToDialog::impl
 {
+    // Store only what we need to access later via public methods
+    // Buttons and layouts are managed by Qt parent-child ownership
     QLineEdit* host_edit;
     QSpinBox* port_spinbox;
     QPushButton* connect_button;
-    QPushButton* cancel_button;
-    QDialogButtonBox* button_box;
 };
 
 TBConnectToDialog::TBConnectToDialog(QWidget* parent) : QDialog(parent), pimpl(new impl())
@@ -41,19 +41,19 @@ TBConnectToDialog::TBConnectToDialog(QWidget* parent) : QDialog(parent), pimpl(n
 
     main_layout->addLayout(form_layout);
 
-    // button box
-    pimpl->button_box = new QDialogButtonBox(this);
-    pimpl->connect_button = pimpl->button_box->addButton("Connect", QDialogButtonBox::AcceptRole);
-    pimpl->cancel_button = pimpl->button_box->addButton("Cancel", QDialogButtonBox::RejectRole);
+    // button box - use local variables for construction, don't store unnecessarily
+    auto* button_box = new QDialogButtonBox(this);
+    pimpl->connect_button = button_box->addButton("Connect", QDialogButtonBox::AcceptRole);
+    auto* cancel_button = button_box->addButton("Cancel", QDialogButtonBox::RejectRole);
 
-    main_layout->addWidget(pimpl->button_box);
+    main_layout->addWidget(button_box);
 
     // initially disable connect button until host is entered
     pimpl->connect_button->setEnabled(false);
 
     // connect signals
     connect(pimpl->connect_button, &QPushButton::clicked, this, &TBConnectToDialog::on_connectButton_clicked);
-    connect(pimpl->cancel_button, &QPushButton::clicked, this, &TBConnectToDialog::on_cancelButton_clicked);
+    connect(cancel_button, &QPushButton::clicked, this, &TBConnectToDialog::on_cancelButton_clicked);
     connect(pimpl->host_edit, &QLineEdit::textChanged, this, &TBConnectToDialog::on_host_textChanged);
 
     // focus host edit

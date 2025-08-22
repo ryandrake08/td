@@ -5,7 +5,8 @@
 #include "TBManageButtonDelegate.hpp"
 #include "TBMovementDialog.hpp"
 #include "TBRuntimeError.hpp"
-#include "TBViewerMainWindow.hpp"
+#include "TBSeatingChartWindow.hpp"
+#include "TBTournamentDisplayWidget.hpp"
 #include "TournamentDocument.hpp"
 #include "TournamentSession.hpp"
 #include "TournamentDaemon.hpp"
@@ -27,6 +28,7 @@
 #include <QCursor>
 #include <QInputDialog>
 #include <QDateTime>
+#include <QVBoxLayout>
 
 struct TBMainWindow::impl
 {
@@ -39,8 +41,13 @@ struct TBMainWindow::impl
     // tournament document
     TournamentDocument doc;
 
-    // tournament display window (show/hide)
-    TBViewerMainWindow displayWindow;
+    // tournament display window (show/hide) - QWidget* needed for window management
+    QWidget* displayWindow;
+    // Note: displayWidget is a child of displayWindow, managed by Qt parent-child ownership
+    // Access via displayWindow->findChild<TBTournamentDisplayWidget*>() when needed
+
+    // seating chart window
+    TBSeatingChartWindow seatingChartWindow;
 
     // current filename for window title
     QString currentFilename;
@@ -117,11 +124,20 @@ TBMainWindow::TBMainWindow() : TBBaseMainWindow(), pimpl(new impl)
     // connect to service
     this->getSession().connect(service);
 
-    // initialize tournament display window (hidden initially)
-    this->pimpl->displayWindow.hide();
+    // initialize tournament display widget in separate window (hidden initially)
+    pimpl->displayWindow = new QWidget();
+    pimpl->displayWindow->setWindowTitle("Tournament Display");
+    pimpl->displayWindow->setMinimumSize(800, 600);
+    pimpl->displayWindow->resize(1200, 800);
 
-    // connect display window to same tournament service
-    this->pimpl->displayWindow.connectToTournament(service);
+    QVBoxLayout* displayLayout = new QVBoxLayout(pimpl->displayWindow);
+    displayLayout->setContentsMargins(0, 0, 0, 0);
+
+    // Create display widget as child of display window - Qt manages lifetime
+    auto* displayWidget = new TBTournamentDisplayWidget(this->getSession(), pimpl->displayWindow);
+    displayLayout->addWidget(displayWidget);
+
+    pimpl->displayWindow->hide();
 
     // set initial window title
     this->updateWindowTitle();
@@ -373,15 +389,15 @@ void TBMainWindow::on_actionPlan_triggered()
 void TBMainWindow::on_actionShowDisplay_triggered()
 {
     // Toggle the tournament display window visibility
-    if (this->pimpl->displayWindow.isVisible())
+    if (this->pimpl->displayWindow->isVisible())
     {
-        this->pimpl->displayWindow.hide();
+        this->pimpl->displayWindow->hide();
     }
     else
     {
-        this->pimpl->displayWindow.show();
-        this->pimpl->displayWindow.raise();
-        this->pimpl->displayWindow.activateWindow();
+        this->pimpl->displayWindow->show();
+        this->pimpl->displayWindow->raise();
+        this->pimpl->displayWindow->activateWindow();
     }
     updateDisplayMenuText();
 }
@@ -389,7 +405,7 @@ void TBMainWindow::on_actionShowDisplay_triggered()
 void TBMainWindow::updateDisplayMenuText()
 {
     // Update menu text based on display window visibility
-    bool isVisible = this->pimpl->displayWindow.isVisible();
+    bool isVisible = this->pimpl->displayWindow->isVisible();
     QString menuText = isVisible ? tr("Hide Main Display") : tr("Show Main Display");
     this->pimpl->ui.actionShowDisplay->setText(menuText);
 }
@@ -527,11 +543,10 @@ void TBMainWindow::on_actionShowHideMainDisplay_triggered()
 
 void TBMainWindow::on_actionShowHideSeatingChart_triggered()
 {
-    // Stub implementation - will be implemented later
-    // This should show/hide the seating chart window
-    QMessageBox::information(this, tr("Show / Hide Seating Chart"),
-                            tr("Seating Chart window functionality is not yet implemented.\n\n"
-                            "This will show/hide a graphical seating chart window."));
+    // Show the seating chart window
+    pimpl->seatingChartWindow.show();
+    pimpl->seatingChartWindow.raise();
+    pimpl->seatingChartWindow.activateWindow();
 }
 
 void TBMainWindow::on_authorizedChanged(bool auth)

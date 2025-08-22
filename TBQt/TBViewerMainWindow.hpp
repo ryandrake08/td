@@ -4,6 +4,9 @@
 #include "TournamentService.hpp"
 #include <memory>
 
+class TBSeatingChartWindow;
+class TBTournamentDisplayWidget;
+
 class TBViewerMainWindow : public TBBaseMainWindow
 {
     Q_OBJECT
@@ -22,19 +25,11 @@ private Q_SLOTS:
     void on_actionPreviousRound_triggered();
     void on_actionNextRound_triggered();
     void on_actionCallClock_triggered();
+    void on_actionShowSeatingChart_triggered();
 
     // other slots
     void on_authorizedChanged(bool auth) override;
     void on_connectedChanged(bool connected);
-    void on_tournamentStateChanged(const QString& key, const QVariant& value);
-
-private:
-    // tournament display update methods
-    void updateTournamentDisplay();
-    void updateTournamentInfo(const QVariantMap& state);
-    void updateTournamentStats(const QVariantMap& state);
-    void updateTournamentClock(const QVariantMap& state);
-    void updateModels(const QVariantMap& state);
 
 public:
     // create a viewer main window

@@ -17,325 +17,14 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>Tournament Display</string>
+   <string>Poker Remote</string>
   </property>
   <property name="windowIcon">
    <iconset resource="TBQt.qrc">
     <normaloff>:/Resources/icon_256x256.png</normaloff>:/Resources/icon_256x256.png</iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QVBoxLayout" name="mainVerticalLayout">
-    <item>
-     <!-- Top pane: Tournament name and funding sources -->
-     <widget class="QFrame" name="tournamentInfoFrame">
-      <property name="frameShape">
-       <enum>QFrame::StyledPanel</enum>
-      </property>
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <layout class="QVBoxLayout" name="tournamentInfoLayout">
-       <item>
-        <widget class="QLabel" name="tournamentNameLabel">
-         <property name="font">
-          <font>
-           <pointsize>16</pointsize>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="text">
-          <string>Tournament Name</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="fundingSourcesLabel">
-         <property name="text">
-          <string>Funding Sources Description</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-         <property name="wordWrap">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-    </item>
-    <item>
-     <!-- Main content area -->
-     <layout class="QHBoxLayout" name="mainContentLayout">
-      <item>
-       <!-- Left column container widget -->
-       <widget class="QWidget" name="leftColumnWidget">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-          <horstretch>1</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <layout class="QVBoxLayout" name="leftColumnLayout">
-        <item>
-         <!-- Upper-left pane: Round info, players left, etc. -->
-         <widget class="QFrame" name="tournamentStatsFrame">
-          <property name="frameShape">
-           <enum>QFrame::StyledPanel</enum>
-          </property>
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-            <horstretch>0</horstretch>
-            <verstretch>1</verstretch>
-           </sizepolicy>
-          </property>
-          <layout class="QFormLayout" name="tournamentStatsLayout">
-           <item row="0" column="0">
-            <widget class="QLabel" name="currentRoundLabel">
-             <property name="text">
-              <string>Current Round:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="1">
-            <widget class="QLabel" name="currentRoundValue">
-             <property name="text">
-              <string>1</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="QLabel" name="playersLeftLabel">
-             <property name="text">
-              <string>Players Left:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="1">
-            <widget class="QLabel" name="playersLeftValue">
-             <property name="text">
-              <string>0</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="0">
-            <widget class="QLabel" name="totalEntriesLabel">
-             <property name="text">
-              <string>Total Entries:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="1">
-            <widget class="QLabel" name="totalEntriesValue">
-             <property name="text">
-              <string>0</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="0">
-            <widget class="QLabel" name="averageStackLabel">
-             <property name="text">
-              <string>Average Stack:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="1">
-            <widget class="QLabel" name="averageStackValue">
-             <property name="text">
-              <string>0</string>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="0">
-            <widget class="QLabel" name="elapsedTimeLabel">
-             <property name="text">
-              <string>Elapsed Time:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="1">
-            <widget class="QLabel" name="elapsedTimeValue">
-             <property name="text">
-              <string>00:00:00</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </item>
-        <item>
-         <!-- Lower-left pane: Chip information -->
-         <widget class="QTableView" name="chipsTableView">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-            <horstretch>0</horstretch>
-            <verstretch>1</verstretch>
-           </sizepolicy>
-          </property>
-         </widget>
-        </item>
-       </layout>
-       </widget>
-      </item>
-      <item>
-       <!-- Center column container widget -->
-       <widget class="QWidget" name="centerColumnWidget">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-          <horstretch>2</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <layout class="QVBoxLayout" name="centerColumnLayout">
-        <property name="sizeConstraint">
-         <enum>QLayout::SetDefaultConstraint</enum>
-        </property>
-        <item>
-         <!-- Action buttons -->
-         <layout class="QHBoxLayout" name="actionButtonsLayout">
-          <item>
-           <widget class="QPushButton" name="previousRoundButton">
-            <property name="text">
-             <string>Previous</string>
-            </property>
-            <property name="icon">
-             <iconset resource="TBQt.qrc">
-              <normaloff>:/Resources/b_previous_64x64.png</normaloff>:/Resources/b_previous_64x64.png</iconset>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="pauseResumeButton">
-            <property name="text">
-             <string>Pause</string>
-            </property>
-            <property name="icon">
-             <iconset resource="TBQt.qrc">
-              <normaloff>:/Resources/b_play_pause_64x64.png</normaloff>:/Resources/b_play_pause_64x64.png</iconset>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="nextRoundButton">
-            <property name="text">
-             <string>Next</string>
-            </property>
-            <property name="icon">
-             <iconset resource="TBQt.qrc">
-              <normaloff>:/Resources/b_next_64x64.png</normaloff>:/Resources/b_next_64x64.png</iconset>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="callClockButton">
-            <property name="text">
-             <string>Call Clock</string>
-            </property>
-            <property name="icon">
-             <iconset resource="TBQt.qrc">
-              <normaloff>:/Resources/b_call_clock_64x64.png</normaloff>:/Resources/b_call_clock_64x64.png</iconset>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <!-- Tournament clock display -->
-         <widget class="QFrame" name="clockFrame">
-          <property name="frameShape">
-           <enum>QFrame::StyledPanel</enum>
-          </property>
-          <layout class="QVBoxLayout" name="clockLayout">
-           <item>
-            <widget class="QLabel" name="tournamentClockLabel">
-             <property name="font">
-              <font>
-               <pointsize>24</pointsize>
-               <weight>75</weight>
-               <bold>true</bold>
-              </font>
-             </property>
-             <property name="text">
-              <string>00:00</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLabel" name="currentRoundInfoLabel">
-             <property name="text">
-              <string>Round 1: 25/50</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLabel" name="nextRoundInfoLabel">
-             <property name="text">
-              <string>Next: 50/100</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </item>
-        <item>
-         <spacer name="centerVerticalSpacer">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>40</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-       </layout>
-       </widget>
-      </item>
-      <item>
-       <!-- Right column container widget -->
-       <widget class="QWidget" name="rightColumnWidget">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-          <horstretch>1</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <layout class="QVBoxLayout" name="rightColumnLayout">
-         <item>
-          <!-- Tournament results -->
-          <widget class="QTableView" name="resultsTableView">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-      </item>
-     </layout>
-    </item>
-   </layout>
+   <!-- Central widget will be replaced programmatically with TBTournamentDisplayWidget -->
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
@@ -346,38 +35,66 @@
      <height>22</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuConnect">
+   <widget class="QMenu" name="menuFile">
     <property name="title">
-     <string>Connect</string>
+     <string>&amp;File</string>
     </property>
     <addaction name="actionConnectToTournament"/>
     <addaction name="actionDisconnect"/>
+    <addaction name="separator"/>
+    <addaction name="actionExit"/>
    </widget>
    <widget class="QMenu" name="menuTournament">
     <property name="title">
-     <string>Tournament</string>
+     <string>&amp;Tournament</string>
     </property>
     <addaction name="actionPauseResume"/>
     <addaction name="actionPreviousRound"/>
     <addaction name="actionNextRound"/>
     <addaction name="actionCallClock"/>
    </widget>
+   <widget class="QMenu" name="menuView">
+    <property name="title">
+     <string>&amp;View</string>
+    </property>
+    <addaction name="actionShowSeatingChart"/>
+   </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
-     <string>Help</string>
+     <string>&amp;Help</string>
     </property>
     <addaction name="actionAbout_Poker_Remote"/>
    </widget>
-   <addaction name="menuConnect"/>
+   <addaction name="menuFile"/>
    <addaction name="menuTournament"/>
+   <addaction name="menuView"/>
    <addaction name="menuHelp"/>
   </widget>
-  <action name="actionAbout_Poker_Remote">
+  <action name="actionConnectToTournament">
    <property name="text">
-    <string>About Poker Remote...</string>
+    <string>&amp;Connect to Tournament...</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+C</string>
+   </property>
+  </action>
+  <action name="actionDisconnect">
+   <property name="text">
+    <string>&amp;Disconnect</string>
+   </property>
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+D</string>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="text">
+    <string>E&amp;xit</string>
    </property>
    <property name="menuRole">
-    <enum>QAction::AboutRole</enum>
+    <enum>QAction::QuitRole</enum>
    </property>
   </action>
   <action name="actionPauseResume">
@@ -386,10 +103,7 @@
      <normaloff>:/Resources/b_play_pause_64x64.png</normaloff>:/Resources/b_play_pause_64x64.png</iconset>
    </property>
    <property name="text">
-    <string>Resume / Pause</string>
-   </property>
-   <property name="iconText">
-    <string>Resume / Pause</string>
+    <string>&amp;Pause/Resume</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+G</string>
@@ -401,10 +115,7 @@
      <normaloff>:/Resources/b_previous_64x64.png</normaloff>:/Resources/b_previous_64x64.png</iconset>
    </property>
    <property name="text">
-    <string>Previous Round</string>
-   </property>
-   <property name="iconText">
-    <string>Previous Round</string>
+    <string>&amp;Previous Round</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+Alt+P</string>
@@ -416,10 +127,7 @@
      <normaloff>:/Resources/b_next_64x64.png</normaloff>:/Resources/b_next_64x64.png</iconset>
    </property>
    <property name="text">
-    <string>Next Round</string>
-   </property>
-   <property name="iconText">
-    <string>Next Round</string>
+    <string>&amp;Next Round</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+Alt+N</string>
@@ -431,40 +139,26 @@
      <normaloff>:/Resources/b_call_clock_64x64.png</normaloff>:/Resources/b_call_clock_64x64.png</iconset>
    </property>
    <property name="text">
-    <string>Call the Clock</string>
-   </property>
-   <property name="iconText">
-    <string>Call the Clock</string>
+    <string>&amp;Call the Clock</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+Alt+C</string>
    </property>
   </action>
-  <action name="actionExit">
+  <action name="actionShowSeatingChart">
    <property name="text">
-    <string>E&amp;xit</string>
+    <string>Show &amp;Seating Chart</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
+  </action>
+  <action name="actionAbout_Poker_Remote">
+   <property name="text">
+    <string>&amp;About Poker Remote...</string>
    </property>
    <property name="menuRole">
-    <enum>QAction::QuitRole</enum>
-   </property>
-  </action>
-  <action name="actionConnectToTournament">
-   <property name="text">
-    <string>Connect to Tournament...</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+Shift+C</string>
-   </property>
-  </action>
-  <action name="actionDisconnect">
-   <property name="text">
-    <string>Disconnect</string>
-   </property>
-   <property name="enabled">
-    <bool>false</bool>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+Shift+D</string>
+    <enum>QAction::AboutRole</enum>
    </property>
   </action>
  </widget>
