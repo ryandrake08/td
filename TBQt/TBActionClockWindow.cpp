@@ -14,9 +14,7 @@ struct TBActionClockWindow::impl
     // Child widgets
     TBActionClockWidget* clockWidget;
 
-    explicit impl(TournamentSession& sess, TBActionClockWindow* parent) : session(sess), clockWidget(new TBActionClockWidget(parent))
-    {
-    }
+    explicit impl(TournamentSession& sess, TBActionClockWindow* parent) : session(sess), clockWidget(new TBActionClockWidget(parent)) {}
 };
 
 TBActionClockWindow::TBActionClockWindow(TournamentSession& session, QWidget* parent) : QWidget(parent), pimpl(new impl(session, this))

@@ -5,8 +5,7 @@
 #include <QHeaderView>
 #include <QStandardItemModel>
 
-TBMovementDialog::TBMovementDialog(QWidget* parent)
-    : QDialog(parent), ui(new Ui::TBMovementDialog), model(new QStandardItemModel(this))
+TBMovementDialog::TBMovementDialog(QWidget* parent) : QDialog(parent), ui(new Ui::TBMovementDialog), model(new QStandardItemModel(this))
 {
     ui->setupUi(this);
 

@@ -13,10 +13,10 @@ struct TBBaseMainWindow::impl
     TournamentSession session;
 
     // common child windows
-    TBSeatingChartWindow seatingChartWindow;
-    TBTournamentDisplayWindow displayWindow;
+    TBSeatingChartWindow* seatingChartWindow;
+    TBTournamentDisplayWindow* displayWindow;
 
-    explicit impl(TBBaseMainWindow* parent) : seatingChartWindow(session, parent), displayWindow(session, parent) {}
+    explicit impl(TBBaseMainWindow* parent) : seatingChartWindow(new TBSeatingChartWindow(session, parent)), displayWindow(new TBTournamentDisplayWindow(session, parent)) {}
 };
 
 TBBaseMainWindow::TBBaseMainWindow(QWidget* parent) : QMainWindow(parent), pimpl(new impl(this))
@@ -42,12 +42,12 @@ TournamentSession& TBBaseMainWindow::getSession()
 
 bool TBBaseMainWindow::isSeatingChartWindowVisible() const
 {
-    return pimpl->seatingChartWindow.isVisible();
+    return pimpl->seatingChartWindow->isVisible();
 }
 
 bool TBBaseMainWindow::isDisplayWindowVisible() const
 {
-    return pimpl->displayWindow.isVisible();
+    return pimpl->displayWindow->isVisible();
 }
 
 void TBBaseMainWindow::on_actionExit_triggered()
@@ -105,30 +105,30 @@ void TBBaseMainWindow::on_actionCallClock_triggered()
 
 void TBBaseMainWindow::on_actionShowHideSeatingChart_triggered()
 {
-    if (pimpl->seatingChartWindow.isVisible())
+    if (pimpl->seatingChartWindow->isVisible())
     {
-        pimpl->seatingChartWindow.hide();
+        pimpl->seatingChartWindow->hide();
     }
     else
     {
-        pimpl->seatingChartWindow.show();
-        pimpl->seatingChartWindow.raise();
-        pimpl->seatingChartWindow.activateWindow();
+        pimpl->seatingChartWindow->show();
+        pimpl->seatingChartWindow->raise();
+        pimpl->seatingChartWindow->activateWindow();
     }
     this->updateSeatingChartMenuText();
 }
 
 void TBBaseMainWindow::on_actionShowHideMainDisplay_triggered()
 {
-    if (pimpl->displayWindow.isVisible())
+    if (pimpl->displayWindow->isVisible())
     {
-        pimpl->displayWindow.hide();
+        pimpl->displayWindow->hide();
     }
     else
     {
-        pimpl->displayWindow.show();
-        pimpl->displayWindow.raise();
-        pimpl->displayWindow.activateWindow();
+        pimpl->displayWindow->show();
+        pimpl->displayWindow->raise();
+        pimpl->displayWindow->activateWindow();
     }
     this->updateDisplayMenuText();
 }

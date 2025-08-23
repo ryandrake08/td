@@ -10,8 +10,7 @@
 // Initialize CSS color lookup table with common colors from TBColor+CSS.m
 const QMap<QString, QString> TBChipDisplayDelegate::cssColors = TBChipDisplayDelegate::createCssColorMap();
 
-TBChipDisplayDelegate::TBChipDisplayDelegate(QObject* parent)
-    : QStyledItemDelegate(parent)
+TBChipDisplayDelegate::TBChipDisplayDelegate(QObject* parent) : QStyledItemDelegate(parent)
 {
 }
 

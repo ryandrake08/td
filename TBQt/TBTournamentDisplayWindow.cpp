@@ -24,8 +24,7 @@ struct TBTournamentDisplayWindow::impl
     // Child windows
     TBActionClockWindow* actionClockWindow;
 
-    explicit impl(TournamentSession& sess, TBTournamentDisplayWindow* parent)
-        : session(sess), actionClockWindow(new TBActionClockWindow(sess, parent)) {}
+    explicit impl(TournamentSession& sess, TBTournamentDisplayWindow* parent) : session(sess), actionClockWindow(new TBActionClockWindow(sess, parent)) {}
 };
 
 TBTournamentDisplayWindow::TBTournamentDisplayWindow(TournamentSession& session, QWidget* parent) : QMainWindow(parent), pimpl(new impl(session, this))
