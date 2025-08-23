@@ -1,6 +1,6 @@
 #include "TBSeatingModel.hpp"
+
 #include "TournamentSession.hpp"
-#include <QDebug>
 
 TBSeatingModel::TBSeatingModel(const TournamentSession& session, QObject* parent) : TBVariantListTableModel(parent)
 {

@@ -1,12 +1,15 @@
 #include "TBSeatingChartWindow.hpp"
-#include "ui_TBSeatingChartWindow.h"
-#include "TBTableWidget.hpp"
+
 #include "TBFlowLayout.hpp"
+#include "TBTableWidget.hpp"
+
 #include "TournamentSession.hpp"
 
+#include "ui_TBSeatingChartWindow.h"
+
 #include <QLabel>
-#include <QVariantMap>
 #include <QVariantList>
+#include <QVariantMap>
 
 struct TBSeatingChartWindow::impl
 {

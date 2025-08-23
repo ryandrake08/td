@@ -1,11 +1,11 @@
 #include "TBChipDisplayDelegate.hpp"
 
-#include <QPainter>
-#include <QStyleOptionViewItem>
 #include <QApplication>
-#include <QPixmap>
-#include <QDir>
 #include <QDebug>
+#include <QDir>
+#include <QPainter>
+#include <QPixmap>
+#include <QStyleOptionViewItem>
 
 // Initialize CSS color lookup table with common colors from TBColor+CSS.m
 const QMap<QString, QString> TBChipDisplayDelegate::cssColors = TBChipDisplayDelegate::createCssColorMap();

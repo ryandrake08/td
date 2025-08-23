@@ -1,11 +1,12 @@
 #include "TournamentSession.hpp"
 
-#include "TournamentConnection.hpp"
-#include "TournamentService.hpp"
 #include "TBRuntimeError.hpp"
 
-#include <QDebug>
+#include "TournamentConnection.hpp"
+#include "TournamentService.hpp"
+
 #include <QDateTime>
+#include <QDebug>
 #include <QHash>
 #include <QSettings>
 #include <QTextCodec>

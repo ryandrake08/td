@@ -1,7 +1,9 @@
 #include "TBBaseMainWindow.hpp"
-#include "TournamentSession.hpp"
+
 #include "TBSeatingChartWindow.hpp"
 #include "TBTournamentDisplayWindow.hpp"
+
+#include "TournamentSession.hpp"
 
 #include <QCloseEvent>
 

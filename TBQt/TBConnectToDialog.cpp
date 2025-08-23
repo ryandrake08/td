@@ -1,6 +1,8 @@
 #include "TBConnectToDialog.hpp"
-#include "ui_TBConnectToDialog.h"
+
 #include "TournamentService.hpp"
+
+#include "ui_TBConnectToDialog.h"
 
 #include <QPushButton>
 

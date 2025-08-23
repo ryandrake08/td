@@ -1,8 +1,9 @@
 #include "TBMovementDialog.hpp"
+
 #include "ui_TBMovementDialog.h"
 
-#include <QStandardItemModel>
 #include <QHeaderView>
+#include <QStandardItemModel>
 
 TBMovementDialog::TBMovementDialog(QWidget* parent)
     : QDialog(parent), ui(new Ui::TBMovementDialog), model(new QStandardItemModel(this))

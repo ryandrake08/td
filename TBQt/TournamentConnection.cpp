@@ -1,13 +1,14 @@
 #include "TournamentConnection.hpp"
-#include "TournamentService.hpp"
+
 #include "TBRuntimeError.hpp"
 
+#include "TournamentService.hpp"
+
 #include <QByteArray>
-#include <QDebug>
 #include <QIODevice>
-#include <QLocalSocket>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QLocalSocket>
 #include <QTcpSocket>
 
 struct TournamentConnection::impl

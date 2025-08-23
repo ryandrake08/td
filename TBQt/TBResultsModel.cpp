@@ -1,6 +1,6 @@
 #include "TBResultsModel.hpp"
+
 #include "TournamentSession.hpp"
-#include <QDebug>
 
 TBResultsModel::TBResultsModel(const TournamentSession& session, QObject* parent) : TBVariantListTableModel(parent)
 {

@@ -1,12 +1,12 @@
 #include "TBTableWidget.hpp"
 
-#include <QVBoxLayout>
-#include <QLabel>
-#include <QTableView>
-#include <QStandardItemModel>
-#include <QHeaderView>
 #include <QFont>
 #include <QFrame>
+#include <QHeaderView>
+#include <QLabel>
+#include <QStandardItemModel>
+#include <QTableView>
+#include <QVBoxLayout>
 
 struct TBTableWidget::impl
 {

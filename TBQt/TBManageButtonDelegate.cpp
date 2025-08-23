@@ -1,9 +1,10 @@
 #include "TBManageButtonDelegate.hpp"
-#include <QPainter>
-#include <QStyleOptionButton>
+
 #include <QApplication>
 #include <QMouseEvent>
+#include <QPainter>
 #include <QStyle>
+#include <QStyleOptionButton>
 
 TBManageButtonDelegate::TBManageButtonDelegate(QObject* parent) : QStyledItemDelegate(parent)
 {

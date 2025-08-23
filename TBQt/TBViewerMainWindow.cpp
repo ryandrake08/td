@@ -1,21 +1,23 @@
 #include "TBViewerMainWindow.hpp"
+
 #include "TBConnectToDialog.hpp"
 #include "TBRuntimeError.hpp"
 #include "TBSeatingChartWindow.hpp"
 #include "TBTournamentDisplayWindow.hpp"
+
 #include "TournamentService.hpp"
 #include "TournamentSession.hpp"
 
 #include "ui_TBViewerMainWindow.h"
 
-#include <QDebug>
+#include <QApplication>
 #include <QDateTime>
+#include <QDebug>
 #include <QMessageBox>
 #include <QString>
-#include <QWidget>
-#include <QTimer>
 #include <QTime>
-#include <QApplication>
+#include <QTimer>
+#include <QWidget>
 
 struct TBViewerMainWindow::impl
 {

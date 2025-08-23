@@ -1,6 +1,5 @@
 #pragma once
 
-#include <QMap>
 #include <QObject>
 #include <QString>
 #include <QVariant>
@@ -40,4 +39,3 @@ Q_SIGNALS:
     void receivedData(const QVariantMap& data);
     void errorOccurred(const QString& error);
 };
-

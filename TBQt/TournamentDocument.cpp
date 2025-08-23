@@ -1,4 +1,5 @@
 #include "TournamentDocument.hpp"
+
 #include "TBRuntimeError.hpp"
 
 #include <QDir>

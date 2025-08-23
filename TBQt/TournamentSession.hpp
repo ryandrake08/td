@@ -2,8 +2,6 @@
 
 #include <QByteArray>
 #include <QDateTime>
-#include <QMap>
-#include <QList>
 #include <QObject>
 #include <QString>
 #include <QVariant>

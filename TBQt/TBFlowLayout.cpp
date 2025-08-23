@@ -1,8 +1,8 @@
 #include "TBFlowLayout.hpp"
 
-#include <QWidget>
 #include <QRect>
 #include <QStyle>
+#include <QWidget>
 
 struct TBFlowLayout::impl
 {

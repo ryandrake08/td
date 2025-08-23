@@ -1,5 +1,7 @@
 #include "TournamentDaemon.hpp"
+
 #include "TournamentService.hpp"
+
 #include "../tournamentd/bonjour.hpp"
 #include "../tournamentd/logger.hpp"
 #include "../tournamentd/tournament.hpp"

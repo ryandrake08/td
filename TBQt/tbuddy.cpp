@@ -1,4 +1,5 @@
 #include "TBBuddyMainWindow.hpp"
+
 #include <QApplication>
 #include <QCommandLineParser>
 

@@ -1,11 +1,14 @@
 #include "TBTournamentDisplayWindow.hpp"
-#include "ui_TBTournamentDisplayWindow.h"
+
 #include "TBActionClockWidget.hpp"
 #include "TBChipDisplayDelegate.hpp"
 #include "TBPlayersModel.hpp"
 #include "TBResultsModel.hpp"
 #include "TBVariantListTableModel.hpp"
+
 #include "TournamentSession.hpp"
+
+#include "ui_TBTournamentDisplayWindow.h"
 
 #include <QHeaderView>
 #include <QIcon>

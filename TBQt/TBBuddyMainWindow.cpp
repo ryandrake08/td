@@ -1,34 +1,35 @@
 #include "TBBuddyMainWindow.hpp"
-#include "TBPlayersModel.hpp"
-#include "TBSeatingModel.hpp"
-#include "TBResultsModel.hpp"
 #include "TBManageButtonDelegate.hpp"
 #include "TBMovementDialog.hpp"
+#include "TBPlayersModel.hpp"
+#include "TBResultsModel.hpp"
 #include "TBRuntimeError.hpp"
 #include "TBSeatingChartWindow.hpp"
+#include "TBSeatingModel.hpp"
 #include "TBTournamentDisplayWindow.hpp"
+
+#include "TournamentDaemon.hpp"
 #include "TournamentDocument.hpp"
 #include "TournamentSession.hpp"
-#include "TournamentDaemon.hpp"
 
 #include "ui_TBBuddyMainWindow.h"
 
+#include <QAction>
+#include <QCursor>
+#include <QDateTime>
 #include <QDebug>
 #include <QFile>
 #include <QFileDialog>
 #include <QFileInfo>
 #include <QHeaderView>
+#include <QInputDialog>
+#include <QLabel>
+#include <QMenu>
 #include <QMessageBox>
 #include <QString>
-#include <QWidget>
-#include <QLabel>
 #include <QTimer>
-#include <QMenu>
-#include <QAction>
-#include <QCursor>
-#include <QInputDialog>
-#include <QDateTime>
 #include <QVBoxLayout>
+#include <QWidget>
 
 struct TBBuddyMainWindow::impl
 {
