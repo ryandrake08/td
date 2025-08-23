@@ -161,8 +161,6 @@ void TournamentConnection::on_readyRead()
         // look for next newline
         end = this->pimpl->buffer.indexOf('\n');
     }
-
-    qDebug() << "done parsing with" << this->pimpl->buffer.size() << "bytes remaining in buffer";
 }
 
 void TournamentConnection::on_error()

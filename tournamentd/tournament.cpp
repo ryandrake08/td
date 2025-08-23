@@ -877,16 +877,23 @@ struct tournament::impl
         return code;
     }
 
-public:
-    impl() : snapshot_path("/tmp/tournamentd.snapshot.json")
+    static const std::string get_snapshot_path()
     {
         // look in environment for better temp dir
         auto tmpdir(std::getenv("TMPDIR"));
         if(tmpdir != nullptr)
         {
-            this->snapshot_path = std::string(tmpdir) + "/tournamentd.snapshot.json";
+            return std::string(tmpdir) + "/tournamentd.snapshot.json";
+        }
+        else
+        {
+            return "/tmp/tournamentd.snapshot.json";
         }
 
+    }
+
+    void load_snapshot()
+    {
         try
         {
             // try loading existing snapshot (to recover after accidental exits, crashes, etc.
@@ -899,11 +906,22 @@ public:
         }
     }
 
-    ~impl()
+    void remove_snapshot()
     {
         // remove any snapshot
         std::remove(this->snapshot_path.c_str());
         logger(ll::info) << "removed snapshot at " << this->snapshot_path << " because we are cleanly shutting down";
+    }
+
+public:
+    impl() : snapshot_path(get_snapshot_path())
+    {
+        this->load_snapshot();
+    }
+
+    ~impl()
+    {
+        this->remove_snapshot();
     }
 
     // listen on both unix socket and inet
@@ -980,8 +998,6 @@ public:
         // snapshot if state is dirty
         if(this->game_info.state_is_dirty())
         {
-            logger(ll::info) << "saved snapshot to " << this->snapshot_path << '\n';
-
             // try opening the file
             std::ofstream snapshot_stream(this->snapshot_path);
             if(snapshot_stream.good())
@@ -993,6 +1009,8 @@ public:
                 this->game_info.dump_configuration(snapshot);
                 this->game_info.dump_state(snapshot);
                 snapshot_stream << snapshot;
+
+                logger(ll::info) << "saved snapshot to " << this->snapshot_path << '\n';
             }
         }
 

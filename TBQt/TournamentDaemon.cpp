@@ -38,11 +38,7 @@ TournamentDaemon::~TournamentDaemon()
 // start the daemon, pre-authorizing given client code, returning service
 TournamentService TournamentDaemon::start(int code)
 {
-#if defined(DEBUG)
-    logger_enable(ll::error, ll::warning, ll::info, ll::debug);
-#else
     logger_enable(ll::error, ll::warning, ll::info);
-#endif
 
     // obtain temporary directory from TMPDIR environment
     const char* tmpdir(std::getenv("TMPDIR"));

@@ -87,7 +87,7 @@ bool server::poll(const std::function<bool(std::ostream&)>& handle_new_client, c
         }
         else
         {
-            logger(ll::info) << "handling client communication\n";
+            logger(ll::debug) << "handling client communication\n";
 
             // handle client i/o
             socketstream ss(*sock);
