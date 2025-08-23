@@ -473,146 +473,6 @@ class gameinfo::impl
         return movements;
     }
 
-    // re-calculate payouts
-    void recalculate_payouts()
-    {
-        // some policies depend on the number of entries
-        auto count_entries(this->entries.size());
-
-        if(this->payout_policy == td::payout_policy_t::forced)
-        {
-            // force payout:
-            // overrides everyting. disregard number of players
-            if(this->forced_payouts.empty())
-            {
-                logger(ll::warning) << "payout_policy is forced but no forced_payouts exist. falling back to automatic payouts\n";
-            }
-            else
-            {
-                logger(ll::info) << "applying forced payout: " << this->forced_payouts.size() << " seats will be paid\n";
-
-                // set state dirty
-                this->dirty = true;
-
-                // use the payout structure specified in forced_payouts
-                this->payouts = this->forced_payouts;
-                return;
-            }
-        }
-        else if(this->payout_policy == td::payout_policy_t::manual)
-        {
-            // manual payout:
-            // look for a payout list given this number of unique entries
-            auto manual_payout_it(std::find_if(this->manual_payouts.begin(), this->manual_payouts.end(), [count_entries](const td::manual_payout& item) { return item.buyins_count == count_entries; }));
-            if(manual_payout_it == this->manual_payouts.end())
-            {
-                logger(ll::warning) << "payout_policy is manual but no payout list with " << count_entries << " entries exists. falling back to automatic payouts\n";
-            }
-            else
-            {
-                logger(ll::info) << "applying manual payout for " << count_entries << " entries: " << manual_payout_it->payouts.size() << " seats will be paid\n";
-
-                // set state dirty
-                this->dirty = true;
-
-                // use found payout structure
-                this->payouts = manual_payout_it->payouts;
-                return;
-            }
-        }
-
-        // automatic calculation, if no manual payout found:
-        // first, calculate how many places pay, given configuration and number of entries
-        std::size_t seats_paid(static_cast<std::size_t>(count_entries * this->automatic_payouts.percent_seats_paid + 0.5));
-        if(seats_paid == 0)
-        {
-            seats_paid = 1;
-        }
-
-        // set state dirty
-        this->dirty = true;
-
-        // resize our payout structure
-        this->payouts.resize(seats_paid);
-
-        // should we round payouts?
-        bool round(this->automatic_payouts.round_payouts);
-
-        // payout shape. 0 = flat, 1 = winner takes all
-        double shape(this->automatic_payouts.payout_shape);
-        if(shape < 0.0)
-        {
-            logger(ll::warning) << "payout_shape must be >= 0. clamping to 0\n";
-            shape = 0.0;
-        }
-        if(shape > 1.0)
-        {
-            logger(ll::warning) << "payout_shape must be <= 1. clamping to 1\n";
-            shape = 1.0;
-        }
-
-        logger(ll::info) << "recalculating " << (round ? "" : "and rounding ") << "payouts for " << count_entries << " entries: " << this->automatic_payouts.percent_seats_paid * 100 << "% (" << seats_paid << " seats) will be paid. payout shape: " << shape << "\n";
-        logger(ll::info) << "setting asiude " << this->automatic_payouts.pay_the_bubble << " for the bubble and " << this->automatic_payouts.pay_knockouts << " for each knockout\n";
-
-        // exponent for harmonic series = shape/(shape-1), or 0 -> 0, 0.5 -> -1, 1 -> -inf
-        double f;
-        if(shape >= 1.0) {
-            f = -INFINITY;
-        } else {
-            f = shape / (shape-1.0);
-        }
-
-        // ratio for each seat is comp[seat]:total
-        std::vector<double> comp(seats_paid);
-        double total(0.0);
-
-        // generate proportional payouts based on harmonic series, place^f / sum(1 -> k)
-        for(size_t n(0); n<seats_paid; n++)
-        {
-            double c(std::pow(n+1,f));
-            comp[n] = c;
-            total += c;
-        }
-
-        // total equity, minus set-asides for bubble and knockouts
-        auto knockout_budget(this->automatic_payouts.pay_knockouts * (count_entries - 1));
-        auto total_available(this->total_equity - this->automatic_payouts.pay_the_bubble - knockout_budget);
-
-        // next, loop through again generating payouts
-        if(round)
-        {
-            std::transform(comp.begin(), comp.end(), this->payouts.begin(), [&](double c)
-            {
-                double amount(std::round(total_available * c / total));
-                return td::monetary_value_nocurrency(amount);
-            });
-
-            // count how much total was calculated after rounding
-            auto total_allocated_payout(std::accumulate(this->payouts.begin(), this->payouts.end(), 0.0, [](int sum, const td::monetary_value_nocurrency& curr)
-            {
-                return sum + curr.amount;
-            }));
-
-            // remainder (either positive or negative) adjusts first place
-            auto remainder(total_available - total_allocated_payout);
-            this->payouts[0] = td::monetary_value_nocurrency(this->payouts[0].amount + remainder);
-        }
-        else
-        {
-            std::transform(comp.begin(), comp.end(), this->payouts.begin(), [&](double c)
-            {
-                double amount(this->total_equity * c / total);
-                return td::monetary_value_nocurrency(amount);
-            });
-        }
-
-        // if we're paying the bubble, add it last
-        if(this->automatic_payouts.pay_the_bubble > 0.0)
-        {
-            this->payouts.push_back(td::monetary_value_nocurrency(this->automatic_payouts.pay_the_bubble));
-        }
-    }
-
     // is paused
     bool is_paused() const
     {
@@ -758,6 +618,146 @@ class gameinfo::impl
 
     // ----- public methods -----
 public:
+
+    // re-calculate payouts
+    void recalculate_payouts()
+    {
+        // some policies depend on the number of entries
+        auto count_entries(this->entries.size());
+
+        if(this->payout_policy == td::payout_policy_t::forced)
+        {
+            // force payout:
+            // overrides everyting. disregard number of players
+            if(this->forced_payouts.empty())
+            {
+                logger(ll::warning) << "payout_policy is forced but no forced_payouts exist. falling back to automatic payouts\n";
+            }
+            else
+            {
+                logger(ll::info) << "applying forced payout: " << this->forced_payouts.size() << " seats will be paid\n";
+
+                // set state dirty
+                this->dirty = true;
+
+                // use the payout structure specified in forced_payouts
+                this->payouts = this->forced_payouts;
+                return;
+            }
+        }
+        else if(this->payout_policy == td::payout_policy_t::manual)
+        {
+            // manual payout:
+            // look for a payout list given this number of unique entries
+            auto manual_payout_it(std::find_if(this->manual_payouts.begin(), this->manual_payouts.end(), [count_entries](const td::manual_payout& item) { return item.buyins_count == count_entries; }));
+            if(manual_payout_it == this->manual_payouts.end())
+            {
+                logger(ll::warning) << "payout_policy is manual but no payout list with " << count_entries << " entries exists. falling back to automatic payouts\n";
+            }
+            else
+            {
+                logger(ll::info) << "applying manual payout for " << count_entries << " entries: " << manual_payout_it->payouts.size() << " seats will be paid\n";
+
+                // set state dirty
+                this->dirty = true;
+
+                // use found payout structure
+                this->payouts = manual_payout_it->payouts;
+                return;
+            }
+        }
+
+        // automatic calculation, if no manual payout found:
+        // first, calculate how many places pay, given configuration and number of entries
+        std::size_t seats_paid(static_cast<std::size_t>(count_entries * this->automatic_payouts.percent_seats_paid + 0.5));
+        if(seats_paid == 0)
+        {
+            seats_paid = 1;
+        }
+
+        // set state dirty
+        this->dirty = true;
+
+        // resize our payout structure
+        this->payouts.resize(seats_paid);
+
+        // should we round payouts?
+        bool round(this->automatic_payouts.round_payouts);
+
+        // payout shape. 0 = flat, 1 = winner takes all
+        double shape(this->automatic_payouts.payout_shape);
+        if(shape < 0.0)
+        {
+            logger(ll::warning) << "payout_shape must be >= 0. clamping to 0\n";
+            shape = 0.0;
+        }
+        if(shape > 1.0)
+        {
+            logger(ll::warning) << "payout_shape must be <= 1. clamping to 1\n";
+            shape = 1.0;
+        }
+
+        logger(ll::info) << "recalculating " << (round ? "" : "and rounding ") << "payouts for " << count_entries << " entries: " << this->automatic_payouts.percent_seats_paid * 100 << "% (" << seats_paid << " seats) will be paid. payout shape: " << shape << "\n";
+        logger(ll::info) << "setting asiude " << this->automatic_payouts.pay_the_bubble << " for the bubble and " << this->automatic_payouts.pay_knockouts << " for each knockout\n";
+
+        // exponent for harmonic series = shape/(shape-1), or 0 -> 0, 0.5 -> -1, 1 -> -inf
+        double f;
+        if(shape >= 1.0) {
+            f = -INFINITY;
+        } else {
+            f = shape / (shape-1.0);
+        }
+
+        // ratio for each seat is comp[seat]:total
+        std::vector<double> comp(seats_paid);
+        double total(0.0);
+
+        // generate proportional payouts based on harmonic series, place^f / sum(1 -> k)
+        for(size_t n(0); n<seats_paid; n++)
+        {
+            double c(std::pow(n+1,f));
+            comp[n] = c;
+            total += c;
+        }
+
+        // total equity, minus set-asides for bubble and knockouts
+        auto knockout_budget(this->automatic_payouts.pay_knockouts * (count_entries - 1));
+        auto total_available(this->total_equity - this->automatic_payouts.pay_the_bubble - knockout_budget);
+
+        // next, loop through again generating payouts
+        if(round)
+        {
+            std::transform(comp.begin(), comp.end(), this->payouts.begin(), [&](double c)
+            {
+                double amount(std::round(total_available * c / total));
+                return td::monetary_value_nocurrency(amount);
+            });
+
+            // count how much total was calculated after rounding
+            auto total_allocated_payout(std::accumulate(this->payouts.begin(), this->payouts.end(), 0.0, [](int sum, const td::monetary_value_nocurrency& curr)
+            {
+                return sum + curr.amount;
+            }));
+
+            // remainder (either positive or negative) adjusts first place
+            auto remainder(total_available - total_allocated_payout);
+            this->payouts[0] = td::monetary_value_nocurrency(this->payouts[0].amount + remainder);
+        }
+        else
+        {
+            std::transform(comp.begin(), comp.end(), this->payouts.begin(), [&](double c)
+            {
+                double amount(this->total_equity * c / total);
+                return td::monetary_value_nocurrency(amount);
+            });
+        }
+
+        // if we're paying the bubble, add it last
+        if(this->automatic_payouts.pay_the_bubble > 0.0)
+        {
+            this->payouts.push_back(td::monetary_value_nocurrency(this->automatic_payouts.pay_the_bubble));
+        }
+    }
 
     // load configuration from JSON (object or file)
     void configure(const nlohmann::json& config)
@@ -1787,9 +1787,6 @@ public:
         this->total_cost[source.cost.currency] += source.cost.amount;
         this->total_commission[source.commission.currency] += source.commission.amount;
         this->total_equity += source.equity.amount;
-
-        // automatically recalculate
-        this->recalculate_payouts();
     }
 
     // calculate number of chips per denomination for this funding source, given totals and number of players
@@ -1950,6 +1947,9 @@ public:
             td::seated_player sp(p.player_id, true, p.name, this->table_name(seat.table_number), this->seat_name(seat.seat_number));
             seated_players.push_back(sp);
         }
+
+        // recalculate payouts after all players are funded
+        this->recalculate_payouts();
 
         return seated_players;
     }
@@ -2373,6 +2373,7 @@ std::vector<td::player_movement> gameinfo::rebalance_seating()
 void gameinfo::fund_player(const td::player_id_t& player_id, const td::funding_source_id_t& src)
 {
     this->pimpl->fund_player(player_id, src);
+    this->pimpl->recalculate_payouts();
 }
 
 // calculate number of chips per denomination for this funding source, given totals and number of players
