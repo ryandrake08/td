@@ -29,7 +29,6 @@ class TBTournamentDisplayWindow : public QMainWindow
     void updateNextRoundInfo();
     void updateAvailableChips();
     void updateActionClock();
-    void positionActionClock();
 
 private Q_SLOTS:
     void on_tournamentStateChanged(const QString& key, const QVariant& value);
@@ -41,6 +40,4 @@ private Q_SLOTS:
 public:
     explicit TBTournamentDisplayWindow(TournamentSession& session, QWidget* parent = nullptr);
     virtual ~TBTournamentDisplayWindow() override;
-protected:
-    void resizeEvent(QResizeEvent* event) override;
 };

@@ -1,6 +1,6 @@
 #include "TBTournamentDisplayWindow.hpp"
 
-#include "TBActionClockWidget.hpp"
+#include "TBActionClockWindow.hpp"
 #include "TBChipDisplayDelegate.hpp"
 #include "TBPlayersModel.hpp"
 #include "TBResultsModel.hpp"
@@ -12,7 +12,6 @@
 
 #include <QHeaderView>
 #include <QIcon>
-#include <QResizeEvent>
 
 struct TBTournamentDisplayWindow::impl
 {
@@ -22,10 +21,11 @@ struct TBTournamentDisplayWindow::impl
     // Session reference
     TournamentSession& session;
 
-    // Internal data
-    TBActionClockWidget actionClock;
+    // Child windows
+    TBActionClockWindow* actionClockWindow;
 
-    explicit impl(TournamentSession& sess, TBTournamentDisplayWindow* parent) : session(sess), actionClock(parent) {}
+    explicit impl(TournamentSession& sess, TBTournamentDisplayWindow* parent)
+        : session(sess), actionClockWindow(new TBActionClockWindow(sess, parent)) {}
 };
 
 TBTournamentDisplayWindow::TBTournamentDisplayWindow(TournamentSession& session, QWidget* parent) : QMainWindow(parent), pimpl(new impl(session, this))
@@ -73,6 +73,11 @@ TBTournamentDisplayWindow::TBTournamentDisplayWindow(TournamentSession& session,
     QObject::connect(pimpl->ui.pauseResumeButton, &QPushButton::clicked, this, &TBTournamentDisplayWindow::on_pauseResumeButtonClicked);
     QObject::connect(pimpl->ui.nextRoundButton, &QPushButton::clicked, this, &TBTournamentDisplayWindow::on_nextRoundButtonClicked);
     QObject::connect(pimpl->ui.callClockButton, &QPushButton::clicked, this, &TBTournamentDisplayWindow::on_callClockButtonClicked);
+
+    // Connect action clock window signals
+    QObject::connect(pimpl->actionClockWindow, &TBActionClockWindow::clockCanceled, this, [this]() {
+        pimpl->session.clear_action_clock();
+    });
 
     // Initial update
     this->updateTournamentName();
@@ -143,14 +148,6 @@ void TBTournamentDisplayWindow::on_tournamentStateChanged(const QString& key, co
     {
         this->updateActionClock();
     }
-}
-
-void TBTournamentDisplayWindow::resizeEvent(QResizeEvent* event)
-{
-    QMainWindow::resizeEvent(event);
-
-    // Reposition action clock when window is resized
-    positionActionClock();
 }
 
 void TBTournamentDisplayWindow::on_previousRoundButtonClicked()
@@ -264,47 +261,22 @@ void TBTournamentDisplayWindow::updateAvailableChips()
 void TBTournamentDisplayWindow::updateActionClock()
 {
     const QVariantMap& state = pimpl->session.state();
+    int timeRemaining = state.value("action_clock_time_remaining").toInt();
 
-    // Check if action clock is active and get remaining time
-    if (state.contains("action_clock_time_remaining"))
+    if (timeRemaining > 0)
     {
-        QVariant clockValue = state.value("action_clock_time_remaining");
-        bool ok = false;
-        double timeRemaining = clockValue.toDouble(&ok);
-
-        if (ok && timeRemaining > 0)
+        // Clock is active - show the window
+        if (!pimpl->actionClockWindow->isVisible())
         {
-            pimpl->actionClock.setTimeRemaining(timeRemaining);
-            positionActionClock(); // Ensure proper positioning when showing
-        }
-        else
-        {
-            pimpl->actionClock.setTimeRemaining(0); // This will hide the clock
+            pimpl->actionClockWindow->showCenteredOverParent();
         }
     }
     else
     {
-        // No action clock data, hide the clock
-        pimpl->actionClock.setTimeRemaining(0);
-    }
-}
-
-void TBTournamentDisplayWindow::positionActionClock()
-{
-    // Position the action clock overlay in the center of the tournament clock area
-    // Get the tournament clock group box from the UI
-    QWidget* clockGroupBox = pimpl->ui.tournamentClockGroupBox;
-    if (clockGroupBox) {
-        // Get the center of the clock group box in window coordinates
-        QRect clockRect = clockGroupBox->geometry();
-        QPoint clockCenter = clockRect.center();
-
-        // Center the action clock widget on the tournament clock area
-        QSize actionClockSize = pimpl->actionClock.sizeHint();
-        QPoint actionClockPos(clockCenter.x() - actionClockSize.width() / 2,
-                             clockCenter.y() - actionClockSize.height() / 2);
-
-        pimpl->actionClock.move(actionClockPos);
-        pimpl->actionClock.resize(actionClockSize);
+        // Clock is not active - hide the window
+        if (pimpl->actionClockWindow->isVisible())
+        {
+            pimpl->actionClockWindow->hide();
+        }
     }
 }
