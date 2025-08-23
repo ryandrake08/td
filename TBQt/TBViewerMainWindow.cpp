@@ -22,27 +22,19 @@ struct TBViewerMainWindow::impl
     // moc ui
     Ui::TBViewerMainWindow ui;
 
-    // seating chart window - will be created when needed to pass session reference
-    TBSeatingChartWindow* seatingChartWindow;
+    // seating chart window
+    TBSeatingChartWindow seatingChartWindow;
 
-    // Tournament display window - will be created when needed
-    TBTournamentDisplayWindow* displayWindow;
+    // Tournament display window
+    TBTournamentDisplayWindow displayWindow;
 
-    impl(TournamentSession& session) : seatingChartWindow(nullptr), displayWindow(nullptr) {
-        Q_UNUSED(session) // Will be used for window initialization
-    }
+    explicit impl(TournamentSession& sess, TBViewerMainWindow* parent) : seatingChartWindow(sess, parent), displayWindow(sess, parent) { }
 };
 
-TBViewerMainWindow::TBViewerMainWindow() : TBBaseMainWindow(), pimpl(new impl(this->getSession()))
+TBViewerMainWindow::TBViewerMainWindow() : TBBaseMainWindow(), pimpl(new impl(this->getSession(), this))
 {
     // set up moc ui
     pimpl->ui.setupUi(this);
-
-    // Initialize seating chart window with session reference
-    pimpl->seatingChartWindow = new TBSeatingChartWindow(this->getSession(), this);
-
-    // Note: Tournament display window will be created on-demand when menu action is triggered
-    // No central widget needed - this is now a dummy window with menu only
 
     // hook up TournamentSession signals
     QObject::connect(&this->getSession(), SIGNAL(authorizedChanged(bool)), this, SLOT(on_authorizedChanged(bool)));
@@ -50,6 +42,10 @@ TBViewerMainWindow::TBViewerMainWindow() : TBBaseMainWindow(), pimpl(new impl(th
 
     // initialize connection state
     on_connectedChanged(false); // start with disconnected state
+
+    // initialize display menu text
+    this->updateDisplayMenuText();
+    this->updateSeatingChartMenuText();
 }
 
 TBViewerMainWindow::~TBViewerMainWindow() = default;
@@ -95,30 +91,36 @@ void TBViewerMainWindow::on_actionCallClock_triggered()
     this->getSession().set_action_clock(60000); // 60 seconds default
 }
 
-void TBViewerMainWindow::on_actionShowSeatingChart_triggered()
+void TBViewerMainWindow::on_actionShowHideSeatingChart_triggered()
 {
-    // Show the seating chart window
-    pimpl->seatingChartWindow->show();
-    pimpl->seatingChartWindow->raise();
-    pimpl->seatingChartWindow->activateWindow();
+    // Toggle visibility
+    if (pimpl->seatingChartWindow.isVisible())
+    {
+        pimpl->seatingChartWindow.hide();
+    }
+    else
+    {
+        pimpl->seatingChartWindow.show();
+        pimpl->seatingChartWindow.raise();
+        pimpl->seatingChartWindow.activateWindow();
+    }
+    this->updateSeatingChartMenuText();
 }
 
 void TBViewerMainWindow::on_actionShowHideMainDisplay_triggered()
 {
-    // Create display window if it doesn't exist
-    if (!pimpl->displayWindow) {
-        pimpl->displayWindow = new TBTournamentDisplayWindow(this->getSession(), this);
-        pimpl->displayWindow->setAttribute(Qt::WA_DeleteOnClose, false);
-    }
-
     // Toggle visibility
-    if (pimpl->displayWindow->isVisible()) {
-        pimpl->displayWindow->hide();
-    } else {
-        pimpl->displayWindow->show();
-        pimpl->displayWindow->raise();
-        pimpl->displayWindow->activateWindow();
+    if (pimpl->displayWindow.isVisible())
+    {
+        pimpl->displayWindow.hide();
     }
+    else
+    {
+        pimpl->displayWindow.show();
+        pimpl->displayWindow.raise();
+        pimpl->displayWindow.activateWindow();
+    }
+    this->updateDisplayMenuText();
 }
 
 void TBViewerMainWindow::on_actionConnectToTournament_triggered()
@@ -160,8 +162,21 @@ void TBViewerMainWindow::on_connectedChanged(bool connected)
     pimpl->ui.actionDisconnect->setEnabled(connected);
 }
 
-// Tournament display is now handled by TBTournamentDisplayWidget
+void TBViewerMainWindow::updateDisplayMenuText()
+{
+    // Update menu text based on display window visibility
+    bool isVisible = this->pimpl->displayWindow.isVisible();
+    QString menuText = isVisible ? tr("Hide Main Display") : tr("Show Main Display");
+    this->pimpl->ui.actionShowHideMainDisplay->setText(menuText);
+}
 
+void TBViewerMainWindow::updateSeatingChartMenuText()
+{
+    // Update menu text based on seating chart window visibility
+    bool isVisible = this->pimpl->seatingChartWindow.isVisible();
+    QString menuText = isVisible ? tr("Hide Seating Chart") : tr("Show Seating Chart");
+    this->pimpl->ui.actionShowHideSeatingChart->setText(menuText);
+}
 
 void TBViewerMainWindow::connectToTournament(const TournamentService& service)
 {

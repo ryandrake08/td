@@ -15,6 +15,9 @@ class TBTableWidget : public QWidget
     struct impl;
     std::unique_ptr<impl> pimpl;
 
+    // updaters for various changeable UI controls
+    void updateSeatsTable();
+
 public:
     explicit TBTableWidget(QWidget* parent = nullptr);
     virtual ~TBTableWidget() override;
@@ -25,8 +28,4 @@ public:
 
     // Get preferred size for this table
     QSize sizeHint() const override;
-
-private:
-    void setupUI();
-    void updateSeatsTable();
 };

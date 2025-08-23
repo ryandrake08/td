@@ -12,95 +12,124 @@
 struct TBTournamentDisplayWindow::impl
 {
     // UI
-    std::unique_ptr<Ui::TBTournamentDisplayWindow> ui;
+    Ui::TBTournamentDisplayWindow ui;
 
     // Session reference
     TournamentSession& session;
 
-    impl(TournamentSession& sess) : ui(new Ui::TBTournamentDisplayWindow), session(sess) {}
+    explicit impl(TournamentSession& sess) : session(sess) {}
 };
 
-TBTournamentDisplayWindow::TBTournamentDisplayWindow(TournamentSession& session, QWidget* parent)
-    : QMainWindow(parent), pimpl(new impl(session))
+TBTournamentDisplayWindow::TBTournamentDisplayWindow(TournamentSession& session, QWidget* parent) : QMainWindow(parent), pimpl(new impl(session))
 {
-    setupUI();
-    connectSignals();
-
-    // Initial update
-    updateWindowTitle();
-    updateTournamentDisplay();
-}
-
-TBTournamentDisplayWindow::~TBTournamentDisplayWindow() = default;
-
-TournamentSession& TBTournamentDisplayWindow::getSession() const
-{
-    return pimpl->session;
-}
-
-void TBTournamentDisplayWindow::setupUI()
-{
-    pimpl->ui->setupUi(this);
+    pimpl->ui.setupUi(this);
 
     // Set up chips model
     auto chipsModel = new TBVariantListTableModel(this);
     chipsModel->addHeader("color", tr("Color"));
     chipsModel->addHeader("denomination", tr("Denomination"));
-    pimpl->ui->chipsTableView->setModel(chipsModel);
+    pimpl->ui.chipsTableView->setModel(chipsModel);
 
     // Set custom delegate for chip color display with ellipses
     auto chipDelegate = new TBChipDisplayDelegate(this);
-    pimpl->ui->chipsTableView->setItemDelegate(chipDelegate);
+    pimpl->ui.chipsTableView->setItemDelegate(chipDelegate);
 
     // Configure column sizing for chips view
-    QHeaderView* chipsHeader = pimpl->ui->chipsTableView->horizontalHeader();
+    QHeaderView* chipsHeader = pimpl->ui.chipsTableView->horizontalHeader();
     chipsHeader->setStretchLastSection(false);
     chipsHeader->setSectionResizeMode(0, QHeaderView::ResizeToContents);
     chipsHeader->setSectionResizeMode(1, QHeaderView::Stretch);
 
     // Set up results model
     auto resultsModel = new TBResultsModel(pimpl->session, this);
-    pimpl->ui->resultsTableView->setModel(resultsModel);
+    pimpl->ui.resultsTableView->setModel(resultsModel);
 
     // Configure column sizing for results view
-    QHeaderView* resultsHeader = pimpl->ui->resultsTableView->horizontalHeader();
+    QHeaderView* resultsHeader = pimpl->ui.resultsTableView->horizontalHeader();
     resultsHeader->setStretchLastSection(false);
     resultsHeader->setSectionResizeMode(0, QHeaderView::ResizeToContents);
     resultsHeader->setSectionResizeMode(1, QHeaderView::Stretch);
     resultsHeader->setSectionResizeMode(2, QHeaderView::ResizeToContents);
 
     // Set button icons if available
-    pimpl->ui->previousRoundButton->setIcon(QIcon(":/Resources/b_previous_64x64.png"));
-    pimpl->ui->pauseResumeButton->setIcon(QIcon(":/Resources/b_play_pause_64x64.png"));
-    pimpl->ui->nextRoundButton->setIcon(QIcon(":/Resources/b_next_64x64.png"));
-    pimpl->ui->callClockButton->setIcon(QIcon(":/Resources/b_call_clock_64x64.png"));
-}
+    pimpl->ui.previousRoundButton->setIcon(QIcon(":/Resources/b_previous_64x64.png"));
+    pimpl->ui.pauseResumeButton->setIcon(QIcon(":/Resources/b_play_pause_64x64.png"));
+    pimpl->ui.nextRoundButton->setIcon(QIcon(":/Resources/b_next_64x64.png"));
+    pimpl->ui.callClockButton->setIcon(QIcon(":/Resources/b_call_clock_64x64.png"));
 
-void TBTournamentDisplayWindow::connectSignals()
-{
     // Connect to session state changes
-    QObject::connect(&pimpl->session, &TournamentSession::stateChanged,
-                    this, &TBTournamentDisplayWindow::on_tournamentStateChanged);
+    QObject::connect(&pimpl->session, &TournamentSession::stateChanged, this, &TBTournamentDisplayWindow::on_tournamentStateChanged);
 
     // Connect button signals
-    QObject::connect(pimpl->ui->previousRoundButton, &QPushButton::clicked,
-                    this, &TBTournamentDisplayWindow::on_previousRoundButtonClicked);
-    QObject::connect(pimpl->ui->pauseResumeButton, &QPushButton::clicked,
-                    this, &TBTournamentDisplayWindow::on_pauseResumeButtonClicked);
-    QObject::connect(pimpl->ui->nextRoundButton, &QPushButton::clicked,
-                    this, &TBTournamentDisplayWindow::on_nextRoundButtonClicked);
-    QObject::connect(pimpl->ui->callClockButton, &QPushButton::clicked,
-                    this, &TBTournamentDisplayWindow::on_callClockButtonClicked);
+    QObject::connect(pimpl->ui.previousRoundButton, &QPushButton::clicked, this, &TBTournamentDisplayWindow::on_previousRoundButtonClicked);
+    QObject::connect(pimpl->ui.pauseResumeButton, &QPushButton::clicked, this, &TBTournamentDisplayWindow::on_pauseResumeButtonClicked);
+    QObject::connect(pimpl->ui.nextRoundButton, &QPushButton::clicked, this, &TBTournamentDisplayWindow::on_nextRoundButtonClicked);
+    QObject::connect(pimpl->ui.callClockButton, &QPushButton::clicked, this, &TBTournamentDisplayWindow::on_callClockButtonClicked);
+
+    // Initial update
+    this->updateTournamentName();
+    this->updateTournamentBuyin();
+    this->updateCurrentRoundNumber();
+    this->updatePlayersLeft();
+    this->updateTotalEntries();
+    this->updateAverageStack();
+    this->updateElapsedTime();
+    this->updateTournamentClock();
+    this->updateCurrentRoundInfo();
+    this->updateNextRoundInfo();
+    this->updateAvailableChips();
 }
+
+TBTournamentDisplayWindow::~TBTournamentDisplayWindow() = default;
 
 void TBTournamentDisplayWindow::on_tournamentStateChanged(const QString& key, const QVariant& value)
 {
-    Q_UNUSED(key)
     Q_UNUSED(value)
 
-    // Update the display whenever tournament state changes
-    updateTournamentDisplay();
-    updateWindowTitle();
+    if (key == "name")
+    {
+        this->updateTournamentName();
+    }
+    else if (key == "buyin_text")
+    {
+        this->updateTournamentBuyin();
+    }
+    else if (key == "current_round_number_text")
+    {
+        this->updateCurrentRoundNumber();
+    }
+    else if (key == "players_left_text")
+    {
+        this->updatePlayersLeft();
+    }
+    else if (key == "entries_text")
+    {
+        this->updateTotalEntries();
+    }
+    else if (key == "average_stack_text")
+    {
+        this->updateAverageStack();
+    }
+    else if (key == "elapsed_time_text")
+    {
+        this->updateElapsedTime();
+    }
+    else if (key == "clock_text")
+    {
+        this->updateTournamentClock();
+    }
+    else if (key == "current_round_text")
+    {
+        this->updateCurrentRoundInfo();
+    }
+    else if (key == "next_round_text")
+    {
+        this->updateNextRoundInfo();
+    }
+    else if (key == "available_chips")
+    {
+        this->updateAvailableChips();
+    }
 }
 
 void TBTournamentDisplayWindow::on_previousRoundButtonClicked()
@@ -123,83 +152,90 @@ void TBTournamentDisplayWindow::on_callClockButtonClicked()
     pimpl->session.set_action_clock(60000); // 60 seconds default
 }
 
-void TBTournamentDisplayWindow::updateTournamentDisplay()
+void TBTournamentDisplayWindow::updateTournamentName()
 {
     const QVariantMap& state = pimpl->session.state();
 
-    // Update tournament name and funding sources
-    updateTournamentInfo(state);
+    // Tournament name
+    QString tournamentName = state.value("name").toString();
+    pimpl->ui.tournamentNameLabel->setText(tournamentName);
 
-    // Update tournament statistics
-    updateTournamentStats(state);
-
-    // Update tournament clock and round info
-    updateTournamentClock(state);
-
-    // Update chips and results models
-    updateModels(state);
+    // Window title
+    if (tournamentName.isEmpty())
+    {
+        setWindowTitle("Tournament Display");
+    }
+    else
+    {
+        setWindowTitle(QString("Tournament Display: %1").arg(tournamentName));
+    }
 }
 
-void TBTournamentDisplayWindow::updateTournamentInfo(const QVariantMap& state)
+void TBTournamentDisplayWindow::updateTournamentBuyin()
 {
-    // Tournament name - from configuration that gets sent with state
-    QString tournamentName = state.value("name", "Tournament").toString();
-    pimpl->ui->tournamentNameLabel->setText(tournamentName);
+    const QVariantMap& state = pimpl->session.state();
 
     // Buyin information - use formatted buyin_text from derived state
-    pimpl->ui->fundingSourcesLabel->setText(state.value("buyin_text").toString());
+    pimpl->ui.fundingSourcesLabel->setText(state.value("buyin_text").toString());
 }
 
-void TBTournamentDisplayWindow::updateTournamentStats(const QVariantMap& state)
-{
-    // Current round - use formatted text from derived state
-    pimpl->ui->currentRoundValue->setText(state.value("current_round_number_text").toString());
-
-    // Players left - use formatted text from derived state
-    pimpl->ui->playersLeftValue->setText(state.value("players_left_text").toString());
-
-    // Total entries - use formatted text from derived state
-    pimpl->ui->totalEntriesValue->setText(state.value("entries_text").toString());
-
-    // Average stack - use formatted text from derived state
-    pimpl->ui->averageStackValue->setText(state.value("average_stack_text").toString());
-
-    // Elapsed time - use formatted text from derived state
-    pimpl->ui->elapsedTimeValue->setText(state.value("elapsed_time_text").toString());
-}
-
-void TBTournamentDisplayWindow::updateTournamentClock(const QVariantMap& state)
-{
-    // Tournament clock - use formatted text from derived state
-    pimpl->ui->tournamentClockLabel->setText(state.value("clock_text").toString());
-
-    // Current and next round info - use derived state formatted strings
-    pimpl->ui->currentRoundInfoLabel->setText(state.value("current_round_text").toString());
-    pimpl->ui->nextRoundInfoLabel->setText(state.value("next_round_text").toString());
-}
-
-void TBTournamentDisplayWindow::updateModels(const QVariantMap& state)
-{
-    // Update chips model
-    auto chipsModel = qobject_cast<TBVariantListTableModel*>(pimpl->ui->chipsTableView->model());
-    if (chipsModel)
-    {
-        // Use available_chips from configuration state
-        QVariantList chips = state.value("available_chips").toList();
-        chipsModel->setListData(chips);
-    }
-
-    // Results model updates itself automatically via signal connection
-}
-
-void TBTournamentDisplayWindow::updateWindowTitle()
+void TBTournamentDisplayWindow::updateCurrentRoundNumber()
 {
     const QVariantMap& state = pimpl->session.state();
-    QString tournamentName = state.value("name").toString();
+    pimpl->ui.currentRoundValue->setText(state.value("current_round_number_text").toString());
+}
 
-    if (tournamentName.isEmpty()) {
-        setWindowTitle("Tournament Display");
-    } else {
-        setWindowTitle(QString("Tournament Display: %1").arg(tournamentName));
+void TBTournamentDisplayWindow::updatePlayersLeft()
+{
+    const QVariantMap& state = pimpl->session.state();
+    pimpl->ui.playersLeftValue->setText(state.value("players_left_text").toString());
+}
+
+void TBTournamentDisplayWindow::updateTotalEntries()
+{
+    const QVariantMap& state = pimpl->session.state();
+    pimpl->ui.totalEntriesValue->setText(state.value("entries_text").toString());
+}
+
+void TBTournamentDisplayWindow::updateAverageStack()
+{
+    const QVariantMap& state = pimpl->session.state();
+    pimpl->ui.averageStackValue->setText(state.value("average_stack_text").toString());
+}
+
+void TBTournamentDisplayWindow::updateElapsedTime()
+{
+    const QVariantMap& state = pimpl->session.state();
+    pimpl->ui.elapsedTimeValue->setText(state.value("elapsed_time_text").toString());
+}
+
+void TBTournamentDisplayWindow::updateTournamentClock()
+{
+    const QVariantMap& state = pimpl->session.state();
+    pimpl->ui.tournamentClockLabel->setText(state.value("clock_text").toString());
+}
+
+void TBTournamentDisplayWindow::updateCurrentRoundInfo()
+{
+    const QVariantMap& state = pimpl->session.state();
+    pimpl->ui.currentRoundInfoLabel->setText(state.value("current_round_text").toString());
+}
+
+void TBTournamentDisplayWindow::updateNextRoundInfo()
+{
+    const QVariantMap& state = pimpl->session.state();
+    pimpl->ui.nextRoundInfoLabel->setText(state.value("next_round_text").toString());
+}
+
+void TBTournamentDisplayWindow::updateAvailableChips()
+{
+    // Update chips model
+    auto chipsModel = qobject_cast<TBVariantListTableModel*>(pimpl->ui.chipsTableView->model());
+    if (chipsModel)
+    {
+        const QVariantMap& state = pimpl->session.state();
+
+        // Use available_chips from configuration state
+        chipsModel->setListData(state.value("available_chips").toList());
     }
 }

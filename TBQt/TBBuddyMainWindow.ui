@@ -93,7 +93,7 @@
     <addaction name="actionAuthorize"/>
     <addaction name="actionPlan"/>
     <addaction name="separator"/>
-    <addaction name="actionShowDisplay"/>
+    <addaction name="actionShowHideMainDisplay"/>
     <addaction name="actionShowMoves"/>
     <addaction name="actionRebalance"/>
     <addaction name="separator"/>
@@ -155,7 +155,7 @@
    <addaction name="actionExport"/>
    <addaction name="actionRebalance"/>
    <addaction name="actionShowMoves"/>
-   <addaction name="actionShowDisplay"/>
+   <addaction name="actionShowHideMainDisplay"/>
    <addaction name="separator"/>
    <addaction name="actionPauseResume"/>
    <addaction name="actionTournamentClock"/>
@@ -282,7 +282,7 @@
     <string>Plan</string>
    </property>
   </action>
-  <action name="actionShowDisplay">
+  <action name="actionShowHideMainDisplay">
    <property name="icon">
     <iconset resource="TBQt.qrc">
      <normaloff>:/Resources/b_display_64x64.png</normaloff>:/Resources/b_display_64x64.png</iconset>
@@ -411,14 +411,6 @@
    </property>
    <property name="toolTip">
     <string>Tournament clock</string>
-   </property>
-  </action>
-  <action name="actionShowHideMainDisplay">
-   <property name="text">
-    <string>Show / Hide Main Display</string>
-   </property>
-   <property name="checkable">
-    <bool>true</bool>
    </property>
   </action>
   <action name="actionShowHideSeatingChart">

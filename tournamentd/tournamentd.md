@@ -1148,7 +1148,7 @@ State updates are sent automatically to all connected clients when tournament st
 - `seats` (array): All seat definitions
 - `empty_seats` (number): Number of unoccupied seats
 - `table_count` (number): Number of active tables
-- `tables_playing` (number): Number of tables with players
+- `tables_playing` (array): List of active tables
 
 #### Financial Information
 - `total_cost` (object): Total buy-in costs collected

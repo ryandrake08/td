@@ -15,6 +15,10 @@ class TBViewerMainWindow : public TBBaseMainWindow
     struct impl;
     std::unique_ptr<impl> pimpl;
 
+    // updaters for various changeable UI controls
+    void updateDisplayMenuText();
+    void updateSeatingChartMenuText();
+
 private Q_SLOTS:
     // ui slots - limited viewer functionality
     void on_actionAbout_Poker_Remote_triggered();
@@ -25,7 +29,7 @@ private Q_SLOTS:
     void on_actionPreviousRound_triggered();
     void on_actionNextRound_triggered();
     void on_actionCallClock_triggered();
-    void on_actionShowSeatingChart_triggered();
+    void on_actionShowHideSeatingChart_triggered();
     void on_actionShowHideMainDisplay_triggered();
 
     // other slots

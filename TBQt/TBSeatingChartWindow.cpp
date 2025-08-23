@@ -11,7 +11,7 @@
 struct TBSeatingChartWindow::impl
 {
     // UI
-    std::unique_ptr<Ui::TBSeatingChartWindow> ui;
+    Ui::TBSeatingChartWindow ui;
 
     // Session reference
     TournamentSession& session;
@@ -20,27 +20,25 @@ struct TBSeatingChartWindow::impl
     QMap<QString, QVariantList> tables; // Table name -> list of seats
     QList<TBTableWidget*> tableWidgets;
 
-    impl(TournamentSession& sess) : ui(new Ui::TBSeatingChartWindow), session(sess) {}
+    explicit impl(TournamentSession& sess) : session(sess) {}
 };
 
-TBSeatingChartWindow::TBSeatingChartWindow(TournamentSession& tournamentSession, QWidget* parent)
-    : QMainWindow(parent), pimpl(new impl(tournamentSession))
+TBSeatingChartWindow::TBSeatingChartWindow(TournamentSession& sess, QWidget* parent) : QMainWindow(parent), pimpl(new impl(sess))
 {
-    pimpl->ui->setupUi(this);
+    pimpl->ui.setupUi(this);
 
     // Set up flow layout for the table grid
     auto* flowLayout = new TBFlowLayout(15, 15); // 15px spacing horizontal and vertical
-    pimpl->ui->scrollAreaWidgetContents->setLayout(flowLayout);
+    pimpl->ui.scrollAreaWidgetContents->setLayout(flowLayout);
 
     // Connect to session state changes
-    QObject::connect(&pimpl->session, &TournamentSession::stateChanged,
-                    this, &TBSeatingChartWindow::on_tournamentStateChanged);
+    QObject::connect(&pimpl->session, &TournamentSession::stateChanged, this, &TBSeatingChartWindow::on_tournamentStateChanged);
 
     // Initial update
-    updateWindowTitle();
-    updateTournamentInfo();
-    updateSeatingChart();
+    updateTournamentName();
+    updateTournamentBuyin();
     updateBackgroundColor();
+    updateSeatingChart();
 }
 
 TBSeatingChartWindow::~TBSeatingChartWindow() = default;
@@ -49,53 +47,59 @@ void TBSeatingChartWindow::on_tournamentStateChanged(const QString& key, const Q
 {
     Q_UNUSED(value)
 
-    if (key == "seating_chart") {
-        updateSeatingChart();
-    } else if (key == "name") {
-        updateWindowTitle();
-        updateTournamentInfo();
-    } else if (key == "buyin_text") {
-        updateTournamentInfo();
-    } else if (key == "background_color") {
+    if (key == "name")
+    {
+        updateTournamentName();
+    }
+    else if (key == "buyin_text")
+    {
+        updateTournamentBuyin();
+    }
+    else if (key == "background_color")
+    {
         updateBackgroundColor();
     }
-}
-
-void TBSeatingChartWindow::updateWindowTitle()
-{
-    const QVariantMap& state = pimpl->session.state();
-    QString tournamentName = state.value("name").toString();
-
-    if (tournamentName.isEmpty()) {
-        setWindowTitle("Tournament Seating Chart");
-    } else {
-        setWindowTitle(QString("Seating Chart: %1").arg(tournamentName));
+    else if (key == "seating_chart")
+    {
+        updateSeatingChart();
     }
 }
 
-void TBSeatingChartWindow::updateTournamentInfo()
+void TBSeatingChartWindow::updateTournamentName()
 {
     const QVariantMap& state = pimpl->session.state();
 
     // Tournament name
-    QString tournamentName = state.value("name", "Tournament").toString();
-    pimpl->ui->tournamentNameLabel->setText(tournamentName);
+    QString tournamentName = state.value("name").toString();
+    pimpl->ui.tournamentNameLabel->setText(tournamentName);
+
+    // Window title
+    if (tournamentName.isEmpty())
+    {
+        setWindowTitle("Tournament Seating Chart");
+    }
+    else
+    {
+        setWindowTitle(QString("Seating Chart: %1").arg(tournamentName));
+    }
+}
+
+void TBSeatingChartWindow::updateTournamentBuyin()
+{
+    const QVariantMap& state = pimpl->session.state();
 
     // Buyin information - use formatted buyin_text from derived state
-    QString buyinText = state.value("buyin_text").toString();
-    if (buyinText.isEmpty()) {
-        pimpl->ui->buyinLabel->setText("Tournament Information");
-    } else {
-        pimpl->ui->buyinLabel->setText(buyinText);
-    }
+    pimpl->ui.buyinLabel->setText(state.value("buyin_text").toString());
 }
 
 void TBSeatingChartWindow::updateBackgroundColor()
 {
     const QVariantMap& state = pimpl->session.state();
-    QString backgroundColorName = state.value("background_color").toString();
 
-    if (!backgroundColorName.isEmpty()) {
+    // Background color
+    QString backgroundColorName = state.value("background_color").toString();
+    if (!backgroundColorName.isEmpty())
+    {
         // TODO: Implement background color support when CSS color parsing is added
         // For now, use default colors
     }
@@ -104,57 +108,57 @@ void TBSeatingChartWindow::updateBackgroundColor()
 void TBSeatingChartWindow::updateSeatingChart()
 {
     const QVariantMap& state = pimpl->session.state();
-    QVariantList seatingChart = state.value("seating_chart").toList();
 
     // Clear existing tables data
     pimpl->tables.clear();
 
     // Build tables dictionary from seating chart
-    for (const QVariant& entryVariant : seatingChart) {
+    QVariantList seatingChart = state.value("seating_chart").toList();
+    for (const QVariant& entryVariant : seatingChart)
+    {
         QVariantMap entry = entryVariant.toMap();
         QString tableName = entry.value("table_name").toString();
 
-        if (!tableName.isEmpty()) {
+        if (!tableName.isEmpty())
+        {
             // Add seat to table's seat list
-            if (!pimpl->tables.contains(tableName)) {
+            if (!pimpl->tables.contains(tableName))
+            {
                 pimpl->tables[tableName] = QVariantList();
             }
             pimpl->tables[tableName].append(entry);
         }
     }
 
-    // Rebuild table widgets
-    rebuildTableWidgets();
-}
-
-void TBSeatingChartWindow::rebuildTableWidgets()
-{
     // Get the flow layout
-    TBFlowLayout* flowLayout = static_cast<TBFlowLayout*>(pimpl->ui->scrollAreaWidgetContents->layout());
-    if (!flowLayout) {
+    auto flowLayout = static_cast<TBFlowLayout*>(pimpl->ui.scrollAreaWidgetContents->layout());
+    if (!flowLayout)
+    {
         return;
     }
 
     // Clear ALL existing widgets from the layout (tables and message labels)
     QLayoutItem* item;
-    while ((item = flowLayout->takeAt(0)) != nullptr) {
-        if (QWidget* widget = item->widget()) {
+    while ((item = flowLayout->takeAt(0)) != nullptr)
+    {
+        if (QWidget* widget = item->widget())
+        {
             widget->deleteLater();
         }
         delete item;
     }
     pimpl->tableWidgets.clear();
 
-    const QVariantMap& state = pimpl->session.state();
-    QVariantList tablesPlaying = state.value("tables_playing").toList();
-
     // Create table widgets for each active table
-    for (const QVariant& tableNameVariant : tablesPlaying) {
+    QVariantList tablesPlaying = state.value("tables_playing").toList();
+    for (const QVariant& tableNameVariant : tablesPlaying)
+    {
         QString tableName = tableNameVariant.toString();
 
-        if (!tableName.isEmpty()) {
+        if (!tableName.isEmpty())
+        {
             // Create table widget
-            TBTableWidget* tableWidget = new TBTableWidget(pimpl->ui->scrollAreaWidgetContents);
+            TBTableWidget* tableWidget = new TBTableWidget(pimpl->ui.scrollAreaWidgetContents);
             tableWidget->setTableName(tableName);
 
             // Set seats for this table
@@ -168,7 +172,8 @@ void TBSeatingChartWindow::rebuildTableWidgets()
     }
 
     // If no tables, show message
-    if (pimpl->tableWidgets.isEmpty()) {
+    if (pimpl->tableWidgets.isEmpty())
+    {
         QLabel* messageLabel = new QLabel("No active tables in tournament");
         messageLabel->setAlignment(Qt::AlignCenter);
         messageLabel->setStyleSheet("color: gray; font-size: 14px; margin: 50px;");
@@ -177,6 +182,6 @@ void TBSeatingChartWindow::rebuildTableWidgets()
     }
 
     // Force layout update
-    pimpl->ui->scrollAreaWidgetContents->updateGeometry();
+    pimpl->ui.scrollAreaWidgetContents->updateGeometry();
     flowLayout->update();
 }

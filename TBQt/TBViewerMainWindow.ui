@@ -58,7 +58,7 @@
      <string>&amp;View</string>
     </property>
     <addaction name="actionShowHideMainDisplay"/>
-    <addaction name="actionShowSeatingChart"/>
+    <addaction name="actionShowHideSeatingChart"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -154,7 +154,7 @@
     <string>Ctrl+M</string>
    </property>
   </action>
-  <action name="actionShowSeatingChart">
+  <action name="actionShowHideSeatingChart">
    <property name="text">
     <string>Show &amp;Seating Chart</string>
    </property>

@@ -11,6 +11,16 @@ class TBBuddyMainWindow : public TBBaseMainWindow
     struct impl;
     std::unique_ptr<impl> pimpl;
 
+    // updaters for various changeable UI controls
+    void updateTournamentClock();
+    void updateActionButtons();
+    void updateWindowTitle(const QString& filename = QString());
+    void updateDisplayMenuText();
+    void updateSeatingChartMenuText();
+
+    // helper functions to show dialogs
+    void showPlayerMovements(const QVariantList& movements);
+
 private Q_SLOTS:
     // ui slots
     void on_actionAbout_Poker_Buddy_triggered();
@@ -25,7 +35,6 @@ private Q_SLOTS:
     void on_actionConfigure_triggered();
     void on_actionAuthorize_triggered();
     void on_actionPlan_triggered();
-    void on_actionShowDisplay_triggered();
     void on_actionShowMoves_triggered();
     void on_actionRebalance_triggered();
     void on_actionPauseResume_triggered();
@@ -34,8 +43,8 @@ private Q_SLOTS:
     void on_actionCallClock_triggered();
     void on_actionEndGame_triggered();
     void on_actionExport_triggered();
-    void on_actionShowHideMainDisplay_triggered();
     void on_actionShowHideSeatingChart_triggered();
+    void on_actionShowHideMainDisplay_triggered();
 
     void on_manageButtonClicked(const QModelIndex& index);
 
@@ -43,15 +52,6 @@ private Q_SLOTS:
     void on_authorizedChanged(bool auth) override;
     void on_filenameChanged(const QString& filename);
     void on_tournamentStateChanged(const QString& key, const QVariant& value);
-
-    // updaters for various changeable UI controls
-    void updateTournamentClock();
-    void updateActionButtons();
-    void updateWindowTitle(const QString& filename = QString());
-    void updateDisplayMenuText();
-
-    // helper functions to show dialogs
-    void showPlayerMovements(const QVariantList& movements);
 
 public:
     // create a main window

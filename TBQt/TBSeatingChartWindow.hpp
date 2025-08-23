@@ -14,17 +14,16 @@ class TBSeatingChartWindow : public QMainWindow
     struct impl;
     std::unique_ptr<impl> pimpl;
 
-public:
-    explicit TBSeatingChartWindow(TournamentSession& tournamentSession, QWidget* parent = nullptr);
-    virtual ~TBSeatingChartWindow() override;
+    // updaters for various changeable UI controls
+    void updateTournamentName();
+    void updateTournamentBuyin();
+    void updateBackgroundColor();
+    void updateSeatingChart();
 
 private Q_SLOTS:
     void on_tournamentStateChanged(const QString& key, const QVariant& value);
-    void updateSeatingChart();
-    void updateWindowTitle();
-    void updateTournamentInfo();
-    void updateBackgroundColor();
 
-private:
-    void rebuildTableWidgets();
+public:
+    explicit TBSeatingChartWindow(TournamentSession& tournamentSession, QWidget* parent = nullptr);
+    virtual ~TBSeatingChartWindow() override;
 };

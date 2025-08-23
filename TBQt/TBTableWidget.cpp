@@ -23,15 +23,7 @@ struct TBTableWidget::impl
     impl() : tableNameLabel(nullptr), seatsTableView(nullptr), seatsModel(nullptr), mainLayout(nullptr) {}
 };
 
-TBTableWidget::TBTableWidget(QWidget* parent)
-    : QWidget(parent), pimpl(new impl)
-{
-    setupUI();
-}
-
-TBTableWidget::~TBTableWidget() = default;
-
-void TBTableWidget::setupUI()
+TBTableWidget::TBTableWidget(QWidget* parent) : QWidget(parent), pimpl(new impl)
 {
     // Set fixed width matching macOS (320px)
     setFixedWidth(320);
@@ -90,6 +82,8 @@ void TBTableWidget::setupUI()
     setPalette(palette);
 }
 
+TBTableWidget::~TBTableWidget() = default;
+
 void TBTableWidget::setTableName(const QString& name)
 {
     pimpl->tableName = name;
@@ -107,7 +101,10 @@ void TBTableWidget::setSeats(const QVariantList& seatList)
 
 void TBTableWidget::updateSeatsTable()
 {
-    if (!pimpl->seatsModel) return;
+    if (!pimpl->seatsModel)
+    {
+        return;
+    }
 
     // Clear existing data
     pimpl->seatsModel->setRowCount(0);

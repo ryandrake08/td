@@ -41,24 +41,22 @@ struct TBBuddyMainWindow::impl
     // tournament document
     TournamentDocument doc;
 
-    // tournament display window (show/hide)
-    TBTournamentDisplayWindow* displayWindow;
-    // Note: displayWindow is now a proper window, not a widget-in-window
-
-    // seating chart window - will be created when needed to pass session reference
-    TBSeatingChartWindow* seatingChartWindow;
-
     // current filename for window title
     QString currentFilename;
+
+    // seating chart window
+    TBSeatingChartWindow seatingChartWindow;
+
+    // tournament display window
+    TBTournamentDisplayWindow displayWindow;
+
+    explicit impl(TournamentSession& sess, TBBuddyMainWindow* parent) : seatingChartWindow(sess, parent), displayWindow(sess, parent) { }
 };
 
-TBBuddyMainWindow::TBBuddyMainWindow() : TBBaseMainWindow(), pimpl(new impl)
+TBBuddyMainWindow::TBBuddyMainWindow() : TBBaseMainWindow(), pimpl(new impl(getSession(), this))
 {
     // set up moc
     this->pimpl->ui.setupUi(this);
-
-    // Initialize seating chart window with session reference
-    pimpl->seatingChartWindow = new TBSeatingChartWindow(this->getSession(), this);
 
     // set up models and views for all three panes
     qDebug() << "setting up the models and views";
@@ -126,17 +124,12 @@ TBBuddyMainWindow::TBBuddyMainWindow() : TBBaseMainWindow(), pimpl(new impl)
     // connect to service
     this->getSession().connect(service);
 
-    // initialize tournament display window (hidden initially)
-    pimpl->displayWindow = new TBTournamentDisplayWindow(this->getSession(), this);
-    pimpl->displayWindow->setAttribute(Qt::WA_DeleteOnClose, false);
-    pimpl->displayWindow->resize(900, 700);
-    pimpl->displayWindow->hide();
-
     // set initial window title
     this->updateWindowTitle();
 
     // initialize display menu text
     this->updateDisplayMenuText();
+    this->updateSeatingChartMenuText();
 }
 
 TBBuddyMainWindow::~TBBuddyMainWindow() = default;
@@ -379,30 +372,6 @@ void TBBuddyMainWindow::on_actionPlan_triggered()
     }
 }
 
-void TBBuddyMainWindow::on_actionShowDisplay_triggered()
-{
-    // Toggle the tournament display window visibility
-    if (this->pimpl->displayWindow->isVisible())
-    {
-        this->pimpl->displayWindow->hide();
-    }
-    else
-    {
-        this->pimpl->displayWindow->show();
-        this->pimpl->displayWindow->raise();
-        this->pimpl->displayWindow->activateWindow();
-    }
-    updateDisplayMenuText();
-}
-
-void TBBuddyMainWindow::updateDisplayMenuText()
-{
-    // Update menu text based on display window visibility
-    bool isVisible = this->pimpl->displayWindow->isVisible();
-    QString menuText = isVisible ? tr("Hide Main Display") : tr("Show Main Display");
-    this->pimpl->ui.actionShowDisplay->setText(menuText);
-}
-
 void TBBuddyMainWindow::on_actionShowMoves_triggered()
 {
     // Get current movements from session state and display them
@@ -525,21 +494,36 @@ void TBBuddyMainWindow::on_actionExport_triggered()
     }
 }
 
-void TBBuddyMainWindow::on_actionShowHideMainDisplay_triggered()
-{
-    // Stub implementation - will be implemented later
-    // This should show/hide the main display window
-    QMessageBox::information(this, tr("Show / Hide Main Display"),
-                            tr("Main Display window functionality is not yet implemented.\n\n"
-                            "This will show/hide a secondary tournament display window."));
-}
-
 void TBBuddyMainWindow::on_actionShowHideSeatingChart_triggered()
 {
-    // Show the seating chart window
-    pimpl->seatingChartWindow->show();
-    pimpl->seatingChartWindow->raise();
-    pimpl->seatingChartWindow->activateWindow();
+    // Toggle visibility
+    if (pimpl->seatingChartWindow.isVisible())
+    {
+        pimpl->seatingChartWindow.hide();
+    }
+    else
+    {
+        pimpl->seatingChartWindow.show();
+        pimpl->seatingChartWindow.raise();
+        pimpl->seatingChartWindow.activateWindow();
+    }
+    this->updateSeatingChartMenuText();
+}
+
+void TBBuddyMainWindow::on_actionShowHideMainDisplay_triggered()
+{
+    // Toggle visibility
+    if (pimpl->displayWindow.isVisible())
+    {
+        pimpl->displayWindow.hide();
+    }
+    else
+    {
+        pimpl->displayWindow.show();
+        pimpl->displayWindow.raise();
+        pimpl->displayWindow.activateWindow();
+    }
+    this->updateDisplayMenuText();
 }
 
 void TBBuddyMainWindow::on_authorizedChanged(bool auth)
@@ -581,6 +565,142 @@ void TBBuddyMainWindow::on_tournamentStateChanged(const QString& key, const QVar
         // update action button states
         this->updateActionButtons();
     }
+}
+
+void TBBuddyMainWindow::on_manageButtonClicked(const QModelIndex& index)
+{
+    // Get player ID directly from the model using Qt::UserRole
+    QString playerId = index.data(Qt::UserRole).toString();
+
+    if (playerId.isEmpty())
+        return;
+
+    // Get the tournament session state to find the player data
+    const QVariantMap& sessionState = this->getSession().state();
+    QVariantList seatedPlayers = sessionState["seated_players"].toList();
+
+    // Find the player data by player_id (reliable lookup)
+    QVariantMap playerData;
+    bool found = false;
+
+    for (const QVariant& playerVariant : seatedPlayers)
+    {
+        QVariantMap player = playerVariant.toMap();
+        if (player["player_id"].toString() == playerId)
+        {
+            playerData = player;
+            found = true;
+            break;
+        }
+    }
+
+    if (!found)
+        return;
+
+    // BUSINESS LOGIC FOR CREATING CONTEXT MENU (matching TBSeatingViewController.m)
+
+    // Get tournament state information
+    int currentBlindLevel = sessionState["current_blind_level"].toInt();
+    bool playerHasBuyin = playerData["buyin"].toBool();
+    QVariantList uniqueEntries = sessionState["unique_entries"].toList();
+    QVariantList fundingSources = sessionState["funding_sources"].toList();
+
+    // Build QMenu
+    QMenu contextMenu(this);
+
+    // BUSINESS LOGIC FOR FUNDING SOURCES (matching TBSeatingViewController.m)
+
+    // Add funding source menu items
+    bool hasFundingSources = false;
+    for (int idx = 0; idx < fundingSources.size(); ++idx)
+    {
+        QVariantMap source = fundingSources[idx].toMap();
+        QString sourceName = source["name"].toString();
+        int sourceType = source["type"].toInt();
+        QVariant forbidAfterLevel = source["forbid_after_blind_level"];
+
+        // Check if this funding source is still allowed (not past forbid_after_blind_level)
+        bool allowed = true;
+        if (!forbidAfterLevel.isNull())
+        {
+            int forbidLevel = forbidAfterLevel.toInt();
+            if (currentBlindLevel > forbidLevel)
+                allowed = false;
+        }
+
+        if (!allowed)
+            continue;
+
+        // Determine if this funding source should be enabled based on business rules
+        bool enabled = false;
+
+        if (sourceType == TournamentSession::FundingTypeBuyin)
+        {
+            // Buyins can happen at any time before forbid_after_blind_level, for any non-playing player
+            if (!playerHasBuyin)
+                enabled = true;
+        }
+        else if (sourceType == TournamentSession::FundingTypeRebuy)
+        {
+            // Rebuys can happen after round 0, before forbid_after_blind_level, for any player that has bought in at least once
+            if (currentBlindLevel > 0 && uniqueEntries.contains(playerId))
+                enabled = true;
+        }
+        else // Addon (FundingTypeAddon or any other type)
+        {
+            // Addons can happen at any time before forbid_after_blind_level, for any playing player
+            if (playerHasBuyin)
+                enabled = true;
+        }
+
+        // Create menu action for this funding source
+        QAction* action = contextMenu.addAction(sourceName);
+        action->setEnabled(enabled);
+
+        if (enabled)
+        {
+            QObject::connect(action, &QAction::triggered, this, [this, playerId, idx]() {
+                this->getSession().fund_player(playerId, idx);
+            });
+        }
+
+        hasFundingSources = true;
+    }
+
+    // Add separator if we have funding sources
+    if (hasFundingSources)
+    {
+        contextMenu.addSeparator();
+    }
+
+    // BUSINESS LOGIC FOR BUST AND UNSEAT (matching TBSeatingViewController.m)
+
+    // Bust Player: enabled if game is running (current_blind_level > 0) AND player has bought in
+    QAction* bustAction = contextMenu.addAction(tr("Bust Player"));
+    bool bustEnabled = (currentBlindLevel > 0) && playerHasBuyin;
+    bustAction->setEnabled(bustEnabled);
+
+    if (bustEnabled)
+    {
+        QObject::connect(bustAction, &QAction::triggered, this, [this, playerId]() {
+            this->getSession().bust_player(playerId);
+        });
+    }
+
+    // Unseat Player: enabled if player has NOT bought in
+    QAction* unseatAction = contextMenu.addAction(tr("Unseat Player"));
+    bool unseatEnabled = !playerHasBuyin;
+    unseatAction->setEnabled(unseatEnabled);
+
+    if (unseatEnabled)
+    {
+        QObject::connect(unseatAction, &QAction::triggered, this, [this, playerId]() {
+            this->getSession().unseat_player(playerId);
+        });
+    }
+
+    // Show context menu at the mouse cursor position
+    contextMenu.exec(QCursor::pos());
 }
 
 void TBBuddyMainWindow::updateTournamentClock()
@@ -720,140 +840,20 @@ void TBBuddyMainWindow::updateWindowTitle(const QString& filename)
     this->setWindowTitle(windowTitle);
 }
 
-void TBBuddyMainWindow::on_manageButtonClicked(const QModelIndex& index)
+void TBBuddyMainWindow::updateDisplayMenuText()
 {
-    // Get player ID directly from the model using Qt::UserRole
-    QString playerId = index.data(Qt::UserRole).toString();
+    // Update menu text based on display window visibility
+    bool isVisible = this->pimpl->displayWindow.isVisible();
+    QString menuText = isVisible ? tr("Hide Main Display") : tr("Show Main Display");
+    this->pimpl->ui.actionShowHideMainDisplay->setText(menuText);
+}
 
-    if (playerId.isEmpty())
-        return;
-
-    // Get the tournament session state to find the player data
-    const QVariantMap& sessionState = this->getSession().state();
-    QVariantList seatedPlayers = sessionState["seated_players"].toList();
-
-    // Find the player data by player_id (reliable lookup)
-    QVariantMap playerData;
-    bool found = false;
-
-    for (const QVariant& playerVariant : seatedPlayers)
-    {
-        QVariantMap player = playerVariant.toMap();
-        if (player["player_id"].toString() == playerId)
-        {
-            playerData = player;
-            found = true;
-            break;
-        }
-    }
-
-    if (!found)
-        return;
-
-    // BUSINESS LOGIC FOR CREATING CONTEXT MENU (matching TBSeatingViewController.m)
-
-    // Get tournament state information
-    int currentBlindLevel = sessionState["current_blind_level"].toInt();
-    bool playerHasBuyin = playerData["buyin"].toBool();
-    QVariantList uniqueEntries = sessionState["unique_entries"].toList();
-    QVariantList fundingSources = sessionState["funding_sources"].toList();
-
-    // Build QMenu
-    QMenu contextMenu(this);
-
-    // BUSINESS LOGIC FOR FUNDING SOURCES (matching TBSeatingViewController.m)
-
-    // Add funding source menu items
-    bool hasFundingSources = false;
-    for (int idx = 0; idx < fundingSources.size(); ++idx)
-    {
-        QVariantMap source = fundingSources[idx].toMap();
-        QString sourceName = source["name"].toString();
-        int sourceType = source["type"].toInt();
-        QVariant forbidAfterLevel = source["forbid_after_blind_level"];
-
-        // Check if this funding source is still allowed (not past forbid_after_blind_level)
-        bool allowed = true;
-        if (!forbidAfterLevel.isNull())
-        {
-            int forbidLevel = forbidAfterLevel.toInt();
-            if (currentBlindLevel > forbidLevel)
-                allowed = false;
-        }
-
-        if (!allowed)
-            continue;
-
-        // Determine if this funding source should be enabled based on business rules
-        bool enabled = false;
-
-        if (sourceType == TournamentSession::FundingTypeBuyin)
-        {
-            // Buyins can happen at any time before forbid_after_blind_level, for any non-playing player
-            if (!playerHasBuyin)
-                enabled = true;
-        }
-        else if (sourceType == TournamentSession::FundingTypeRebuy)
-        {
-            // Rebuys can happen after round 0, before forbid_after_blind_level, for any player that has bought in at least once
-            if (currentBlindLevel > 0 && uniqueEntries.contains(playerId))
-                enabled = true;
-        }
-        else // Addon (FundingTypeAddon or any other type)
-        {
-            // Addons can happen at any time before forbid_after_blind_level, for any playing player
-            if (playerHasBuyin)
-                enabled = true;
-        }
-
-        // Create menu action for this funding source
-        QAction* action = contextMenu.addAction(sourceName);
-        action->setEnabled(enabled);
-
-        if (enabled)
-        {
-            QObject::connect(action, &QAction::triggered, this, [this, playerId, idx]() {
-                this->getSession().fund_player(playerId, idx);
-            });
-        }
-
-        hasFundingSources = true;
-    }
-
-    // Add separator if we have funding sources
-    if (hasFundingSources)
-    {
-        contextMenu.addSeparator();
-    }
-
-    // BUSINESS LOGIC FOR BUST AND UNSEAT (matching TBSeatingViewController.m)
-
-    // Bust Player: enabled if game is running (current_blind_level > 0) AND player has bought in
-    QAction* bustAction = contextMenu.addAction(tr("Bust Player"));
-    bool bustEnabled = (currentBlindLevel > 0) && playerHasBuyin;
-    bustAction->setEnabled(bustEnabled);
-
-    if (bustEnabled)
-    {
-        QObject::connect(bustAction, &QAction::triggered, this, [this, playerId]() {
-            this->getSession().bust_player(playerId);
-        });
-    }
-
-    // Unseat Player: enabled if player has NOT bought in
-    QAction* unseatAction = contextMenu.addAction(tr("Unseat Player"));
-    bool unseatEnabled = !playerHasBuyin;
-    unseatAction->setEnabled(unseatEnabled);
-
-    if (unseatEnabled)
-    {
-        QObject::connect(unseatAction, &QAction::triggered, this, [this, playerId]() {
-            this->getSession().unseat_player(playerId);
-        });
-    }
-
-    // Show context menu at the mouse cursor position
-    contextMenu.exec(QCursor::pos());
+void TBBuddyMainWindow::updateSeatingChartMenuText()
+{
+    // Update menu text based on seating chart window visibility
+    bool isVisible = this->pimpl->seatingChartWindow.isVisible();
+    QString menuText = isVisible ? tr("Hide Seating Chart") : tr("Show Seating Chart");
+    this->pimpl->ui.actionShowHideSeatingChart->setText(menuText);
 }
 
 void TBBuddyMainWindow::showPlayerMovements(const QVariantList& movements)

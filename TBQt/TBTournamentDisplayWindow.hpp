@@ -16,27 +16,27 @@ class TBTournamentDisplayWindow : public QMainWindow
     struct impl;
     std::unique_ptr<impl> pimpl;
 
-public:
-    explicit TBTournamentDisplayWindow(TournamentSession& session, QWidget* parent = nullptr);
-    virtual ~TBTournamentDisplayWindow() override;
-
-    // Access to session for external connections
-    TournamentSession& getSession() const;
+    // updaters for various changeable UI controls
+    void updateTournamentName();
+    void updateTournamentBuyin();
+    void updateCurrentRoundNumber();
+    void updatePlayersLeft();
+    void updateTotalEntries();
+    void updateAverageStack();
+    void updateElapsedTime();
+    void updateTournamentClock();
+    void updateCurrentRoundInfo();
+    void updateNextRoundInfo();
+    void updateAvailableChips();
 
 private Q_SLOTS:
     void on_tournamentStateChanged(const QString& key, const QVariant& value);
     void on_previousRoundButtonClicked();
-    void on_pauseResumeButtonClicked(); 
+    void on_pauseResumeButtonClicked();
     void on_nextRoundButtonClicked();
     void on_callClockButtonClicked();
 
-private:
-    void setupUI();
-    void connectSignals();
-    void updateTournamentDisplay();
-    void updateTournamentInfo(const QVariantMap& state);
-    void updateTournamentStats(const QVariantMap& state);
-    void updateTournamentClock(const QVariantMap& state);
-    void updateModels(const QVariantMap& state);
-    void updateWindowTitle();
+public:
+    explicit TBTournamentDisplayWindow(TournamentSession& session, QWidget* parent = nullptr);
+    virtual ~TBTournamentDisplayWindow() override;
 };
