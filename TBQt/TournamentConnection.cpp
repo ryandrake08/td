@@ -5,6 +5,7 @@
 #include "TournamentService.hpp"
 
 #include <QByteArray>
+#include <QDebug>
 #include <QIODevice>
 #include <QJsonDocument>
 #include <QJsonObject>

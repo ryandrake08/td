@@ -51,9 +51,6 @@ TBBuddyMainWindow::TBBuddyMainWindow() : TBBaseMainWindow(), pimpl(new impl())
     // set up moc
     this->pimpl->ui.setupUi(this);
 
-    // set up models and views for all three panes
-    qDebug() << "setting up the models and views";
-
     // left pane: players model (all players with seat/unseat checkboxes)
     auto playersModel(new TBPlayersModel(this->getSession(), this));
     this->pimpl->ui.leftTableView->setModel(playersModel);
@@ -434,7 +431,6 @@ void TBBuddyMainWindow::on_actionExport_triggered()
     }
 }
 
-
 void TBBuddyMainWindow::on_authorizedChanged(bool auth)
 {
     qDebug() << "TBBuddyMainWindow::on_authorized:" << auth;
@@ -620,21 +616,12 @@ void TBBuddyMainWindow::updateTournamentClock()
     int currentBlindLevel = state["current_blind_level"].toInt();
     qint64 currentTime = state["current_time"].toLongLong();
     qint64 endOfRound = state["end_of_round"].toLongLong();
-    int actionClockTimeRemaining = state["action_clock_time_remaining"].toInt();
 
     QString clockText;
 
     if(!running || currentBlindLevel == 0)
     {
         clockText = tr("PAUSED");
-    }
-    else if(actionClockTimeRemaining > 0)
-    {
-        // Show action clock countdown
-        int seconds = actionClockTimeRemaining / 1000;
-        int minutes = seconds / 60;
-        seconds = seconds % 60;
-        clockText = QString("ACTION %1:%2").arg(minutes).arg(seconds, 2, 10, QChar('0'));
     }
     else if(endOfRound > currentTime)
     {
@@ -681,7 +668,7 @@ void TBBuddyMainWindow::updateActionButtons()
     this->pimpl->ui.actionPauseResume->setEnabled(authorized);
     this->pimpl->ui.actionPreviousRound->setEnabled(authorized && currentBlindLevel > 0);
     this->pimpl->ui.actionNextRound->setEnabled(authorized && currentBlindLevel > 0);
-    this->pimpl->ui.actionCallClock->setEnabled(authorized && currentBlindLevel > 0);
+    this->pimpl->ui.actionCallClock->setEnabled(authorized && currentBlindLevel > 0 && actionClockTimeRemaining == 0);
     this->pimpl->ui.actionEndGame->setEnabled(authorized && currentBlindLevel > 0);
 
     // Update pause/resume button text
@@ -702,18 +689,6 @@ void TBBuddyMainWindow::updateActionButtons()
             this->pimpl->ui.actionPauseResume->setText(tr("Resume"));
             this->pimpl->ui.actionPauseResume->setIconText(tr("Resume"));
         }
-    }
-
-    // Update call clock button text
-    if(actionClockTimeRemaining > 0)
-    {
-        this->pimpl->ui.actionCallClock->setText(tr("Clear Clock"));
-        this->pimpl->ui.actionCallClock->setIconText(tr("Clear Clock"));
-    }
-    else
-    {
-        this->pimpl->ui.actionCallClock->setText(tr("Call the Clock"));
-        this->pimpl->ui.actionCallClock->setIconText(tr("Call Clock"));
     }
 }
 

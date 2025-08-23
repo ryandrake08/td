@@ -14,7 +14,6 @@ struct TBActionClockWidget::impl
 {
     // Clock state - driven entirely by tournament daemon
     double seconds = 0.0;
-    bool isVisible = false;
 
     // Configuration properties (matching TBActionClockView)
     bool enableShadows = true;
@@ -40,8 +39,7 @@ struct TBActionClockWidget::impl
     double digitOffset = 0.0;
 };
 
-TBActionClockWidget::TBActionClockWidget(QWidget* parent)
-    : QWidget(parent), pimpl(new impl)
+TBActionClockWidget::TBActionClockWidget(QWidget* parent) : QWidget(parent), pimpl(new impl)
 {
     setAttribute(Qt::WA_TransparentForMouseEvents, true);
     setAttribute(Qt::WA_TranslucentBackground, true);
@@ -49,9 +47,6 @@ TBActionClockWidget::TBActionClockWidget(QWidget* parent)
 
     // Default size matching macOS design
     resize(200, 200);
-
-    // Hide by default
-    hide();
 }
 
 TBActionClockWidget::~TBActionClockWidget() = default;
@@ -60,30 +55,10 @@ void TBActionClockWidget::setTimeRemaining(double seconds)
 {
     pimpl->seconds = seconds;
 
-    // Show/hide based on whether we have time remaining
-    if (seconds > 0 && !pimpl->isVisible) {
-        pimpl->isVisible = true;
-        show();
-        raise(); // Ensure we're on top
-    } else if (seconds <= 0 && pimpl->isVisible) {
-        pimpl->isVisible = false;
-        hide();
-    }
-
-    // Always update display when time changes
+    // Just update display - window handles visibility
     update();
 }
 
-void TBActionClockWidget::show()
-{
-    QWidget::show();
-    raise(); // Ensure we're on top
-}
-
-void TBActionClockWidget::hide()
-{
-    QWidget::hide();
-}
 
 void TBActionClockWidget::setEnableShadows(bool enable)
 {
@@ -132,26 +107,26 @@ void TBActionClockWidget::paintEvent(QPaintEvent* event)
     const double radius = qMin(rect.width(), rect.height()) / 2.0 - pimpl->borderWidth;
 
     // Draw clock face with shadow if enabled
-    if (pimpl->enableShadows) {
+    if (pimpl->enableShadows)
+    {
         // Shadow effect
         QRadialGradient shadowGradient(center.x() + 2, center.y() + 2, radius + 5);
         shadowGradient.setColorAt(0, QColor(0, 0, 0, 100));
         shadowGradient.setColorAt(1, QColor(0, 0, 0, 0));
         painter.setBrush(QBrush(shadowGradient));
         painter.setPen(Qt::NoPen);
-        painter.drawEllipse(center.x() - radius + 2, center.y() - radius + 2,
-                           radius * 2, radius * 2);
+        painter.drawEllipse(center.x() - radius + 2, center.y() - radius + 2, radius * 2, radius * 2);
     }
 
     // Clock face background
     painter.setBrush(QBrush(pimpl->faceBackgroundColor));
     QPen borderPen(pimpl->borderColor, pimpl->borderWidth);
     painter.setPen(borderPen);
-    painter.drawEllipse(center.x() - radius, center.y() - radius,
-                       radius * 2, radius * 2);
+    painter.drawEllipse(center.x() - radius, center.y() - radius, radius * 2, radius * 2);
 
     // Draw graduations (minute marks) if enabled
-    if (pimpl->enableGraduations) {
+    if (pimpl->enableGraduations)
+    {
         painter.setBrush(Qt::NoBrush);
         QPen graduationPen(pimpl->digitColor, 1.0);
         painter.setPen(graduationPen);
@@ -162,17 +137,16 @@ void TBActionClockWidget::paintEvent(QPaintEvent* event)
             const double startRadius = radius - length;
             const double endRadius = radius - 2.0;
 
-            const QPointF start(center.x() + startRadius * qSin(angle),
-                               center.y() - startRadius * qCos(angle));
-            const QPointF end(center.x() + endRadius * qSin(angle),
-                             center.y() - endRadius * qCos(angle));
+            const QPointF start(center.x() + startRadius * qSin(angle), center.y() - startRadius * qCos(angle));
+            const QPointF end(center.x() + endRadius * qSin(angle), center.y() - endRadius * qCos(angle));
 
             painter.drawLine(start, end);
         }
     }
 
     // Draw digits (5, 10, 15, etc.) if enabled
-    if (pimpl->enableDigit) {
+    if (pimpl->enableDigit)
+    {
         QFont digitFont = font();
         digitFont.setPointSize(12);
         digitFont.setBold(true);
@@ -182,44 +156,44 @@ void TBActionClockWidget::paintEvent(QPaintEvent* event)
         const QFontMetrics fm(digitFont);
         const double digitRadius = radius - 25.0 - pimpl->digitOffset;
 
-        for (int i = 1; i <= 12; ++i) {
+        for (int i = 1; i <= 12; ++i)
+        {
             const QString text = QString::number(i * 5);
             const QRect textRect = fm.boundingRect(text);
             const double angle = i * 30.0 * M_PI / 180.0; // 30 degrees per number
 
-            const QPointF textPos(center.x() + digitRadius * qSin(angle) - textRect.width() / 2,
-                                 center.y() - digitRadius * qCos(angle) + textRect.height() / 2);
+            const QPointF textPos(center.x() + digitRadius * qSin(angle) - textRect.width() / 2, center.y() - digitRadius * qCos(angle) + textRect.height() / 2);
 
             painter.drawText(textPos, text);
         }
     }
 
     // Draw countdown arc if enabled
-    if (pimpl->enableArc && pimpl->seconds > 0) {
+    if (pimpl->enableArc && pimpl->seconds > 0)
+    {
         const double arcRadius = radius - 15.0;
-        const QRectF arcRect(center.x() - arcRadius, center.y() - arcRadius,
-                            arcRadius * 2, arcRadius * 2);
+        const QRectF arcRect(center.x() - arcRadius, center.y() - arcRadius, arcRadius * 2, arcRadius * 2);
 
         // Calculate arc angle (0-360 degrees, starting from 12 o'clock)
         const double totalAngle = 360.0;
-        const double remainingAngle = pimpl->arcFillsIn ?
-            (pimpl->seconds / 60.0) * totalAngle :
-            ((60.0 - pimpl->seconds) / 60.0) * totalAngle;
+        const double remainingAngle = pimpl->arcFillsIn ? (pimpl->seconds / 60.0) * totalAngle : ((60.0 - pimpl->seconds) / 60.0) * totalAngle;
 
         // Draw arc background
         QPen arcPen(pimpl->arcBorderColor, pimpl->arcBorderWidth);
         painter.setPen(arcPen);
         painter.setBrush(QBrush(pimpl->arcBackgroundColor));
 
-        // Start angle is -90 degrees (12 o'clock position)
-        const int startAngle = -90 * 16; // Qt uses 1/16th degree units
-        const int spanAngle = remainingAngle * 16;
+        // Start angle is 90 degrees (12 o'clock position)
+        // Span angle is negative to go clockwise from top
+        const int startAngle = 90 * 16; // Qt uses 1/16th degree units
+        const int spanAngle = -remainingAngle * 16;
 
         painter.drawPie(arcRect, startAngle, spanAngle);
     }
 
     // Draw clock hand pointing to remaining time
-    if (pimpl->seconds > 0) {
+    if (pimpl->seconds > 0)
+    {
         QPen handPen(pimpl->handColor, pimpl->handWidth);
         painter.setPen(handPen);
 
@@ -227,10 +201,8 @@ void TBActionClockWidget::paintEvent(QPaintEvent* event)
         const double handAngle = (pimpl->seconds / 60.0) * 360.0 * M_PI / 180.0;
 
         // Hand positions
-        const QPointF handTip(center.x() + pimpl->handLength * qSin(handAngle),
-                             center.y() - pimpl->handLength * qCos(handAngle));
-        const QPointF handBack(center.x() - pimpl->handOffsideLength * qSin(handAngle),
-                              center.y() + pimpl->handOffsideLength * qCos(handAngle));
+        const QPointF handTip(center.x() + pimpl->handLength * qSin(handAngle), center.y() - pimpl->handLength * qCos(handAngle));
+        const QPointF handBack(center.x() - pimpl->handOffsideLength * qSin(handAngle), center.y() + pimpl->handOffsideLength * qCos(handAngle));
 
         painter.drawLine(handBack, handTip);
 

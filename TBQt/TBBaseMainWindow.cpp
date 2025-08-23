@@ -89,18 +89,16 @@ void TBBaseMainWindow::on_actionNextRound_triggered()
 void TBBaseMainWindow::on_actionCallClock_triggered()
 {
     const auto& current_blind_level(this->getSession().state()["current_blind_level"].toInt());
-    if(current_blind_level != 0)
+    const auto& actionClockTimeRemaining(this->getSession().state()["action_clock_time_remaining"].toInt());
+    if(current_blind_level != 0 && actionClockTimeRemaining == 0)
     {
-        const auto& action_clock_time_remaining(this->getSession().state()["action_clock_time_remaining"].toInt());
-        if(action_clock_time_remaining == 0)
-        {
-            this->getSession().set_action_clock(TournamentSession::kActionClockRequestTime);
-        }
-        else
-        {
-            this->getSession().clear_action_clock();
-        }
+        this->getSession().set_action_clock(TournamentSession::kActionClockRequestTime);
     }
+}
+
+void TBBaseMainWindow::on_actionClearClock_triggered()
+{
+    this->getSession().clear_action_clock();
 }
 
 void TBBaseMainWindow::on_actionShowHideSeatingChart_triggered()

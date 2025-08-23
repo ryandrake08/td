@@ -14,6 +14,9 @@ class TBActionClockWindow : public QWidget
     struct impl;
     std::unique_ptr<impl> pimpl;
 
+    // updaters for various changeable UI controls
+    void updateActionClock();
+
 private Q_SLOTS:
     void on_tournamentStateChanged(const QString& key, const QVariant& value);
 
@@ -23,10 +26,10 @@ protected:
 public:
     explicit TBActionClockWindow(TournamentSession& session, QWidget* parent = nullptr);
     virtual ~TBActionClockWindow();
-    
+
     // Show and center the window over the parent with 3/4 size
     void showCenteredOverParent();
-    
+
 Q_SIGNALS:
     void clockCanceled();
 };

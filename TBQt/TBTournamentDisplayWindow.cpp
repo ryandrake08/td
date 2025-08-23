@@ -90,7 +90,6 @@ TBTournamentDisplayWindow::TBTournamentDisplayWindow(TournamentSession& session,
     this->updateCurrentRoundInfo();
     this->updateNextRoundInfo();
     this->updateAvailableChips();
-    this->updateActionClock();
 }
 
 TBTournamentDisplayWindow::~TBTournamentDisplayWindow() = default;
@@ -143,30 +142,47 @@ void TBTournamentDisplayWindow::on_tournamentStateChanged(const QString& key, co
     {
         this->updateAvailableChips();
     }
-    else if (key == "action_clock_time_remaining")
-    {
-        this->updateActionClock();
-    }
 }
 
 void TBTournamentDisplayWindow::on_previousRoundButtonClicked()
 {
-    pimpl->session.set_previous_level();
+    const auto& current_blind_level(pimpl->session.state()["current_blind_level"].toInt());
+    if(current_blind_level != 0)
+    {
+        pimpl->session.set_previous_level();
+    }
 }
 
 void TBTournamentDisplayWindow::on_pauseResumeButtonClicked()
 {
-    pimpl->session.toggle_pause_game();
+    const auto& current_blind_level(pimpl->session.state()["current_blind_level"].toInt());
+    if(current_blind_level != 0)
+    {
+        pimpl->session.toggle_pause_game();
+    }
+    else
+    {
+        pimpl->session.start_game();
+    }
 }
 
 void TBTournamentDisplayWindow::on_nextRoundButtonClicked()
 {
-    pimpl->session.set_next_level();
+    const auto& current_blind_level(pimpl->session.state()["current_blind_level"].toInt());
+    if(current_blind_level != 0)
+    {
+        pimpl->session.set_next_level();
+    }
 }
 
 void TBTournamentDisplayWindow::on_callClockButtonClicked()
 {
-    pimpl->session.set_action_clock(60000); // 60 seconds default
+    const auto& current_blind_level(pimpl->session.state()["current_blind_level"].toInt());
+    const auto& actionClockTimeRemaining(pimpl->session.state()["action_clock_time_remaining"].toInt());
+    if(current_blind_level != 0 && actionClockTimeRemaining == 0)
+    {
+        pimpl->session.set_action_clock(TournamentSession::kActionClockRequestTime);
+    }
 }
 
 void TBTournamentDisplayWindow::updateTournamentName()
@@ -254,28 +270,5 @@ void TBTournamentDisplayWindow::updateAvailableChips()
 
         // Use available_chips from configuration state
         chipsModel->setListData(state.value("available_chips").toList());
-    }
-}
-
-void TBTournamentDisplayWindow::updateActionClock()
-{
-    const QVariantMap& state = pimpl->session.state();
-    int timeRemaining = state.value("action_clock_time_remaining").toInt();
-
-    if (timeRemaining > 0)
-    {
-        // Clock is active - show the window
-        if (!pimpl->actionClockWindow->isVisible())
-        {
-            pimpl->actionClockWindow->showCenteredOverParent();
-        }
-    }
-    else
-    {
-        // Clock is not active - hide the window
-        if (pimpl->actionClockWindow->isVisible())
-        {
-            pimpl->actionClockWindow->hide();
-        }
     }
 }

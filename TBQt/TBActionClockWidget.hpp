@@ -16,8 +16,6 @@ public:
 
     // Clock state management - driven by tournament daemon
     void setTimeRemaining(double seconds);
-    void show();
-    void hide();
 
     // Configuration properties
     void setEnableShadows(bool enable);

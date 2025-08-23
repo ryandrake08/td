@@ -59,7 +59,6 @@ int TBVariantListTableModel::rowCount(const QModelIndex &parent) const
 {
     if(parent.isValid())
     {
-        qDebug() << "parent is valid";
         return 0;
     }
     else
@@ -72,7 +71,6 @@ int TBVariantListTableModel::columnCount(const QModelIndex &parent) const
 {
     if(parent.isValid())
     {
-        qDebug() << "parent is valid";
         return 0;
     }
     else

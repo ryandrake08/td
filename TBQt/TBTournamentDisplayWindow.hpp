@@ -28,7 +28,6 @@ class TBTournamentDisplayWindow : public QMainWindow
     void updateCurrentRoundInfo();
     void updateNextRoundInfo();
     void updateAvailableChips();
-    void updateActionClock();
 
 private Q_SLOTS:
     void on_tournamentStateChanged(const QString& key, const QVariant& value);

@@ -453,7 +453,7 @@ void TournamentSession::set_action_clock(int milliseconds)
 
 void TournamentSession::clear_action_clock()
 {
-    this->send_command("clear_action_clock");
+    this->send_command("set_action_clock");
 }
 
 void TournamentSession::gen_blind_levels(const QVariantMap& request)

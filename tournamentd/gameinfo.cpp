@@ -2157,6 +2157,12 @@ public:
                 this->stop();
             }
         }
+
+        // if the action clock has expired, reset it so that a new one can be called without the client having to manually reset it
+        if(this->end_of_action_clock != time_point_t() && this->end_of_action_clock <= sc::now())
+        {
+            this->reset_action_clock();
+        }
     }
 
     // set the action clock (when someone 'needs the clock called on them'

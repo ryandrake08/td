@@ -1,7 +1,6 @@
 #include "TBChipDisplayDelegate.hpp"
 
 #include <QApplication>
-#include <QDebug>
 #include <QDir>
 #include <QPainter>
 #include <QPixmap>
@@ -51,12 +50,6 @@ void TBChipDisplayDelegate::paint(QPainter* painter, const QStyleOptionViewItem&
 
         // Draw chip image on top of the colored ellipse
         static QPixmap chipImage(":/Resources/i_chip_64x64.png");
-        static bool debugLogged = false;
-        if (!debugLogged) {
-            qDebug() << "Chip image loaded:" << !chipImage.isNull() << "Size:" << chipImage.size();
-            qDebug() << "Available resources:" << QDir(":/").entryList();
-            debugLogged = true;
-        }
 
         if (!chipImage.isNull())
         {

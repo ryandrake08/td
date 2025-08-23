@@ -32,7 +32,7 @@ TBActionClockWindow::TBActionClockWindow(TournamentSession& session, QWidget* pa
     QObject::connect(&pimpl->session, &TournamentSession::stateChanged, this, &TBActionClockWindow::on_tournamentStateChanged);
 
     // Initialize clock state
-    this->on_tournamentStateChanged("action_clock_time_remaining", QVariant());
+    this->updateActionClock();
 }
 
 TBActionClockWindow::~TBActionClockWindow() = default;
@@ -65,27 +65,12 @@ void TBActionClockWindow::showCenteredOverParent()
 
 void TBActionClockWindow::on_tournamentStateChanged(const QString& key, const QVariant& value)
 {
+    Q_UNUSED(value);
+
     if (key == "action_clock_time_remaining")
     {
-        const QVariantMap& state = pimpl->session.state();
-        int timeRemaining = state["action_clock_time_remaining"].toInt();
-
-        if (timeRemaining > 0)
-        {
-            // Clock is active - update display
-            double seconds = timeRemaining / 1000.0;
-            pimpl->clockWidget->setTimeRemaining(seconds);
-            pimpl->clockWidget->setVisible(true);
-        }
-        else
-        {
-            // Clock is not active - hide
-            pimpl->clockWidget->setVisible(false);
-            hide();
-        }
+        this->updateActionClock();
     }
-
-    Q_UNUSED(value);
 }
 
 void TBActionClockWindow::closeEvent(QCloseEvent* event)
@@ -93,4 +78,31 @@ void TBActionClockWindow::closeEvent(QCloseEvent* event)
     // Closing the window cancels the clock
     Q_EMIT clockCanceled();
     event->accept();
+}
+
+void TBActionClockWindow::updateActionClock()
+{
+    const QVariantMap& state = pimpl->session.state();
+
+    int timeRemaining = state["action_clock_time_remaining"].toInt();
+    if (timeRemaining > 0)
+    {
+        // Clock is active - update display and show window
+        double seconds = timeRemaining / 1000.0;
+        pimpl->clockWidget->setTimeRemaining(seconds);
+
+        // Show window if not already visible
+        if (!isVisible())
+        {
+            showCenteredOverParent();
+        }
+    }
+    else
+    {
+        // Clock is not active - hide window
+        if (isVisible())
+        {
+            hide();
+        }
+    }
 }
