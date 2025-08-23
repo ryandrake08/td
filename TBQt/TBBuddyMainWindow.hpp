@@ -15,8 +15,8 @@ class TBBuddyMainWindow : public TBBaseMainWindow
     void updateTournamentClock();
     void updateActionButtons();
     void updateWindowTitle(const QString& filename = QString());
-    void updateDisplayMenuText();
-    void updateSeatingChartMenuText();
+    void updateDisplayMenuText() override;
+    void updateSeatingChartMenuText() override;
 
     // helper functions to show dialogs
     void showPlayerMovements(const QVariantList& movements);
@@ -29,7 +29,6 @@ private Q_SLOTS:
     void on_actionClose_triggered();
     void on_actionSave_triggered();
     void on_actionSaveAs_triggered();
-    void on_actionExit_triggered();
     void on_actionQuickStart_triggered();
     void on_actionReset_triggered();
     void on_actionConfigure_triggered();
@@ -37,14 +36,8 @@ private Q_SLOTS:
     void on_actionPlan_triggered();
     void on_actionShowMoves_triggered();
     void on_actionRebalance_triggered();
-    void on_actionPauseResume_triggered();
-    void on_actionPreviousRound_triggered();
-    void on_actionNextRound_triggered();
-    void on_actionCallClock_triggered();
     void on_actionEndGame_triggered();
     void on_actionExport_triggered();
-    void on_actionShowHideSeatingChart_triggered();
-    void on_actionShowHideMainDisplay_triggered();
 
     void on_manageButtonClicked(const QModelIndex& index);
 

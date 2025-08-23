@@ -36,14 +36,29 @@ private Q_SLOTS:
     void on_connectionError(const QString& error);
 
 public:
-    // constants
-    static const int default_action_clock_request_time = 60000;
-    static const int default_audio_warning_time = 60000;
+    // funding types
+    static const int kFundingTypeBuyin = 0;
+    static const int kFundingTypeRebuy = 1;
+    static const int kFundingTypeAddon = 2;
 
-    // funding types (sync with enum funding_source_type_t in types.hpp)
-    static const int FundingTypeBuyin = 0;
-    static const int FundingTypeRebuy = 1;
-    static const int FundingTypeAddon = 2;
+    // rebalance policies
+    static const int kRebalanceManual = 0;
+    static const int kRebalanceAutomatic = 1;
+    static const int kRebalanceShootout = 2;
+
+    // payout policies
+    static const int kPayoutAutomatic = 0;
+    static const int kPayoutForced = 1;
+    static const int kPayoutManual = 2;
+
+    // ante types
+    static const int kAnteTypeNone = 0;
+    static const int kAnteTypeTraditional = 1;
+    static const int kAnteTypeBigBlind = 2;
+
+    // action clock
+    static const int kActionClockRequestTime = 60000;
+
 
     explicit TournamentSession(QObject* parent=nullptr);
     virtual ~TournamentSession();
@@ -75,7 +90,7 @@ public:
     void set_previous_level_with_handler(const std::function<void(int)>& handler);
     void set_next_level();
     void set_next_level_with_handler(const std::function<void(int)>& handler);
-    void set_action_clock(int milliseconds=default_action_clock_request_time);
+    void set_action_clock(int milliseconds);
     void clear_action_clock();
     void gen_blind_levels(const QVariantMap& request);
     void gen_blind_levels_with_handler(const QVariantMap& request, const std::function<void(const QVariantList&)>& handler);

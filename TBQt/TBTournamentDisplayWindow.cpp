@@ -1,5 +1,6 @@
 #include "TBTournamentDisplayWindow.hpp"
 #include "ui_TBTournamentDisplayWindow.h"
+#include "TBActionClockWidget.hpp"
 #include "TBChipDisplayDelegate.hpp"
 #include "TBPlayersModel.hpp"
 #include "TBResultsModel.hpp"
@@ -8,6 +9,7 @@
 
 #include <QHeaderView>
 #include <QIcon>
+#include <QResizeEvent>
 
 struct TBTournamentDisplayWindow::impl
 {
@@ -17,10 +19,13 @@ struct TBTournamentDisplayWindow::impl
     // Session reference
     TournamentSession& session;
 
-    explicit impl(TournamentSession& sess) : session(sess) {}
+    // Internal data
+    TBActionClockWidget actionClock;
+
+    explicit impl(TournamentSession& sess, TBTournamentDisplayWindow* parent) : session(sess), actionClock(parent) {}
 };
 
-TBTournamentDisplayWindow::TBTournamentDisplayWindow(TournamentSession& session, QWidget* parent) : QMainWindow(parent), pimpl(new impl(session))
+TBTournamentDisplayWindow::TBTournamentDisplayWindow(TournamentSession& session, QWidget* parent) : QMainWindow(parent), pimpl(new impl(session, this))
 {
     pimpl->ui.setupUi(this);
 
@@ -78,6 +83,7 @@ TBTournamentDisplayWindow::TBTournamentDisplayWindow(TournamentSession& session,
     this->updateCurrentRoundInfo();
     this->updateNextRoundInfo();
     this->updateAvailableChips();
+    this->updateActionClock();
 }
 
 TBTournamentDisplayWindow::~TBTournamentDisplayWindow() = default;
@@ -130,6 +136,18 @@ void TBTournamentDisplayWindow::on_tournamentStateChanged(const QString& key, co
     {
         this->updateAvailableChips();
     }
+    else if (key == "action_clock_time_remaining")
+    {
+        this->updateActionClock();
+    }
+}
+
+void TBTournamentDisplayWindow::resizeEvent(QResizeEvent* event)
+{
+    QMainWindow::resizeEvent(event);
+
+    // Reposition action clock when window is resized
+    positionActionClock();
 }
 
 void TBTournamentDisplayWindow::on_previousRoundButtonClicked()
@@ -237,5 +255,53 @@ void TBTournamentDisplayWindow::updateAvailableChips()
 
         // Use available_chips from configuration state
         chipsModel->setListData(state.value("available_chips").toList());
+    }
+}
+
+void TBTournamentDisplayWindow::updateActionClock()
+{
+    const QVariantMap& state = pimpl->session.state();
+
+    // Check if action clock is active and get remaining time
+    if (state.contains("action_clock_time_remaining"))
+    {
+        QVariant clockValue = state.value("action_clock_time_remaining");
+        bool ok = false;
+        double timeRemaining = clockValue.toDouble(&ok);
+
+        if (ok && timeRemaining > 0)
+        {
+            pimpl->actionClock.setTimeRemaining(timeRemaining);
+            positionActionClock(); // Ensure proper positioning when showing
+        }
+        else
+        {
+            pimpl->actionClock.setTimeRemaining(0); // This will hide the clock
+        }
+    }
+    else
+    {
+        // No action clock data, hide the clock
+        pimpl->actionClock.setTimeRemaining(0);
+    }
+}
+
+void TBTournamentDisplayWindow::positionActionClock()
+{
+    // Position the action clock overlay in the center of the tournament clock area
+    // Get the tournament clock group box from the UI
+    QWidget* clockGroupBox = pimpl->ui.tournamentClockGroupBox;
+    if (clockGroupBox) {
+        // Get the center of the clock group box in window coordinates
+        QRect clockRect = clockGroupBox->geometry();
+        QPoint clockCenter = clockRect.center();
+
+        // Center the action clock widget on the tournament clock area
+        QSize actionClockSize = pimpl->actionClock.sizeHint();
+        QPoint actionClockPos(clockCenter.x() - actionClockSize.width() / 2,
+                             clockCenter.y() - actionClockSize.height() / 2);
+
+        pimpl->actionClock.move(actionClockPos);
+        pimpl->actionClock.resize(actionClockSize);
     }
 }

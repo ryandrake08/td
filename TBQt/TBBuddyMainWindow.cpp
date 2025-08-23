@@ -43,17 +43,9 @@ struct TBBuddyMainWindow::impl
 
     // current filename for window title
     QString currentFilename;
-
-    // seating chart window
-    TBSeatingChartWindow seatingChartWindow;
-
-    // tournament display window
-    TBTournamentDisplayWindow displayWindow;
-
-    explicit impl(TournamentSession& sess, TBBuddyMainWindow* parent) : seatingChartWindow(sess, parent), displayWindow(sess, parent) { }
 };
 
-TBBuddyMainWindow::TBBuddyMainWindow() : TBBaseMainWindow(), pimpl(new impl(getSession(), this))
+TBBuddyMainWindow::TBBuddyMainWindow() : TBBaseMainWindow(), pimpl(new impl())
 {
     // set up moc
     this->pimpl->ui.setupUi(this);
@@ -217,12 +209,6 @@ void TBBuddyMainWindow::on_actionSaveAs_triggered()
             this->pimpl->doc.save_as(filename);
         }
     }
-}
-
-void TBBuddyMainWindow::on_actionExit_triggered()
-{
-    // close window
-    this->close();
 }
 
 void TBBuddyMainWindow::on_actionQuickStart_triggered()
@@ -405,53 +391,6 @@ void TBBuddyMainWindow::on_actionRebalance_triggered()
     });
 }
 
-void TBBuddyMainWindow::on_actionPauseResume_triggered()
-{
-    const auto& current_blind_level(this->getSession().state()["current_blind_level"].toInt());
-    if(current_blind_level != 0)
-    {
-        this->getSession().toggle_pause_game();
-    }
-    else
-    {
-        this->getSession().start_game();
-    }
-}
-
-void TBBuddyMainWindow::on_actionPreviousRound_triggered()
-{
-    const auto& current_blind_level(this->getSession().state()["current_blind_level"].toInt());
-    if(current_blind_level != 0)
-    {
-        this->getSession().set_previous_level();
-    }
-}
-
-void TBBuddyMainWindow::on_actionNextRound_triggered()
-{
-    const auto& current_blind_level(this->getSession().state()["current_blind_level"].toInt());
-    if(current_blind_level != 0)
-    {
-        this->getSession().set_next_level();
-    }
-}
-
-void TBBuddyMainWindow::on_actionCallClock_triggered()
-{
-    const auto& current_blind_level(this->getSession().state()["current_blind_level"].toInt());
-    if(current_blind_level != 0)
-    {
-        const auto& action_clock_time_remaining(this->getSession().state()["action_clock_time_remaining"].toInt());
-        if(action_clock_time_remaining == 0)
-        {
-            this->getSession().set_action_clock();
-        }
-        else
-        {
-            this->getSession().clear_action_clock();
-        }
-    }
-}
 
 void TBBuddyMainWindow::on_actionEndGame_triggered()
 {
@@ -494,37 +433,6 @@ void TBBuddyMainWindow::on_actionExport_triggered()
     }
 }
 
-void TBBuddyMainWindow::on_actionShowHideSeatingChart_triggered()
-{
-    // Toggle visibility
-    if (pimpl->seatingChartWindow.isVisible())
-    {
-        pimpl->seatingChartWindow.hide();
-    }
-    else
-    {
-        pimpl->seatingChartWindow.show();
-        pimpl->seatingChartWindow.raise();
-        pimpl->seatingChartWindow.activateWindow();
-    }
-    this->updateSeatingChartMenuText();
-}
-
-void TBBuddyMainWindow::on_actionShowHideMainDisplay_triggered()
-{
-    // Toggle visibility
-    if (pimpl->displayWindow.isVisible())
-    {
-        pimpl->displayWindow.hide();
-    }
-    else
-    {
-        pimpl->displayWindow.show();
-        pimpl->displayWindow.raise();
-        pimpl->displayWindow.activateWindow();
-    }
-    this->updateDisplayMenuText();
-}
 
 void TBBuddyMainWindow::on_authorizedChanged(bool auth)
 {
@@ -634,19 +542,19 @@ void TBBuddyMainWindow::on_manageButtonClicked(const QModelIndex& index)
         // Determine if this funding source should be enabled based on business rules
         bool enabled = false;
 
-        if (sourceType == TournamentSession::FundingTypeBuyin)
+        if (sourceType == TournamentSession::kFundingTypeBuyin)
         {
             // Buyins can happen at any time before forbid_after_blind_level, for any non-playing player
             if (!playerHasBuyin)
                 enabled = true;
         }
-        else if (sourceType == TournamentSession::FundingTypeRebuy)
+        else if (sourceType == TournamentSession::kFundingTypeRebuy)
         {
             // Rebuys can happen after round 0, before forbid_after_blind_level, for any player that has bought in at least once
             if (currentBlindLevel > 0 && uniqueEntries.contains(playerId))
                 enabled = true;
         }
-        else // Addon (FundingTypeAddon or any other type)
+        else // Addon (kFundingTypeAddon or any other type)
         {
             // Addons can happen at any time before forbid_after_blind_level, for any playing player
             if (playerHasBuyin)
@@ -843,7 +751,7 @@ void TBBuddyMainWindow::updateWindowTitle(const QString& filename)
 void TBBuddyMainWindow::updateDisplayMenuText()
 {
     // Update menu text based on display window visibility
-    bool isVisible = this->pimpl->displayWindow.isVisible();
+    bool isVisible = this->isDisplayWindowVisible();
     QString menuText = isVisible ? tr("Hide Main Display") : tr("Show Main Display");
     this->pimpl->ui.actionShowHideMainDisplay->setText(menuText);
 }
@@ -851,7 +759,7 @@ void TBBuddyMainWindow::updateDisplayMenuText()
 void TBBuddyMainWindow::updateSeatingChartMenuText()
 {
     // Update menu text based on seating chart window visibility
-    bool isVisible = this->pimpl->seatingChartWindow.isVisible();
+    bool isVisible = this->isSeatingChartWindowVisible();
     QString menuText = isVisible ? tr("Hide Seating Chart") : tr("Show Seating Chart");
     this->pimpl->ui.actionShowHideSeatingChart->setText(menuText);
 }
