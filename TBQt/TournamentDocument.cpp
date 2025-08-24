@@ -139,3 +139,9 @@ const QVariantMap& TournamentDocument::configuration() const
 {
     return this->pimpl->configuration;
 }
+
+void TournamentDocument::setConfiguration(const QVariantMap& configuration)
+{
+    this->pimpl->configuration = configuration;
+    Q_EMIT this->configurationChanged(configuration);
+}

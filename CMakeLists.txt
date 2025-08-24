@@ -105,7 +105,7 @@ find_package(Qt5 COMPONENTS Core Network Widgets QUIET)
 if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND)
 	find_package(Threads REQUIRED)
 	set(CMAKE_INCLUDE_CURRENT_DIR ON)
-	qt5_wrap_cpp(TBUDDY_MOC TBQt/TBActionClockWidget.hpp TBQt/TBActionClockWindow.hpp TBQt/TBBaseMainWindow.hpp TBQt/TBChipDisplayDelegate.hpp TBQt/TBFlowLayout.hpp TBQt/TBBuddyMainWindow.hpp TBQt/TBInvertableButton.hpp TBQt/TBInvertableImageLabel.hpp TBQt/TBSeatingChartWindow.hpp TBQt/TBTableWidget.hpp TBQt/TBTournamentDisplayWindow.hpp TBQt/TBPlayersModel.hpp TBQt/TBSeatingModel.hpp TBQt/TBManageButtonDelegate.hpp TBQt/TBMovementDialog.hpp TBQt/TBResultsModel.hpp TBQt/TBVariantListTableModel.hpp TBQt/TournamentConnection.hpp TBQt/TournamentDocument.hpp TBQt/TournamentSession.hpp)
+	qt5_wrap_cpp(TBUDDY_MOC TBQt/TBActionClockWidget.hpp TBQt/TBActionClockWindow.hpp TBQt/TBBaseMainWindow.hpp TBQt/TBChipDisplayDelegate.hpp TBQt/TBFlowLayout.hpp TBQt/TBBuddyMainWindow.hpp TBQt/TBInvertableButton.hpp TBQt/TBInvertableImageLabel.hpp TBQt/TBSeatingChartWindow.hpp TBQt/TBSetupDialog.hpp TBQt/TBTableWidget.hpp TBQt/TBTournamentDisplayWindow.hpp TBQt/TBPlayersModel.hpp TBQt/TBSeatingModel.hpp TBQt/TBManageButtonDelegate.hpp TBQt/TBMovementDialog.hpp TBQt/TBResultsModel.hpp TBQt/TBVariantListTableModel.hpp TBQt/TournamentConnection.hpp TBQt/TournamentDocument.hpp TBQt/TournamentSession.hpp)
 	qt5_wrap_ui(TBUDDY_UI TBQt/TBBuddyMainWindow.ui TBQt/TBMovementDialog.ui TBQt/TBSeatingChartWindow.ui TBQt/TBTournamentDisplayWindow.ui)
 	qt5_add_resources(TBUDDY_RC TBQt/TBQt.qrc)
 	add_executable(tbuddy
@@ -142,6 +142,8 @@ if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND)
 		TBQt/TBResultsModel.hpp
 		TBQt/TBRuntimeError.cpp
 		TBQt/TBRuntimeError.hpp
+		TBQt/TBSetupDialog.cpp
+		TBQt/TBSetupDialog.hpp
 		TBQt/TBVariantListTableModel.cpp
 		TBQt/TBVariantListTableModel.hpp
 		TBQt/TBManageButtonDelegate.cpp

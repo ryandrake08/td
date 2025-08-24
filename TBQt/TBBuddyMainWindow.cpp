@@ -6,6 +6,7 @@
 #include "TBRuntimeError.hpp"
 #include "TBSeatingChartWindow.hpp"
 #include "TBSeatingModel.hpp"
+#include "TBSetupDialog.hpp"
 #include "TBTournamentDisplayWindow.hpp"
 
 #include "TournamentDaemon.hpp"
@@ -283,14 +284,18 @@ void TBBuddyMainWindow::on_actionReset_triggered()
 
 void TBBuddyMainWindow::on_actionConfigure_triggered()
 {
-    // Stub implementation - Setup Tournament dialog will be implemented later
-    // This should invoke the comprehensive setup dialog with all configuration tabs
-    // (Players, Tables, Chips, Rounds, Funding, Payouts, Devices)
-    QMessageBox::information(this, tr("Setup Tournament"),
-                            tr("Setup Tournament dialog is not yet implemented.\n\n"
-                            "This will be implemented in a future stage with comprehensive "
-                            "configuration tabs for Players, Tables, Chips, Rounds, Funding, "
-                            "Payouts, and Device authorization."));
+    // Create and show the setup dialog
+    TBSetupDialog dialog(this);
+    
+    // Set current configuration from tournament document
+    dialog.setConfiguration(pimpl->doc.configuration());
+    
+    if (dialog.exec() == QDialog::Accepted)
+    {
+        // Get the updated configuration and apply it to the tournament document
+        QVariantMap newConfiguration = dialog.configuration();
+        pimpl->doc.setConfiguration(newConfiguration);
+    }
 }
 
 void TBBuddyMainWindow::on_actionAuthorize_triggered()
