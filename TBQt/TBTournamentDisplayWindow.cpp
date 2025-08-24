@@ -2,6 +2,7 @@
 
 #include "TBActionClockWindow.hpp"
 #include "TBChipDisplayDelegate.hpp"
+#include "TBInvertableButton.hpp"
 #include "TBPlayersModel.hpp"
 #include "TBResultsModel.hpp"
 #include "TBVariantListTableModel.hpp"
@@ -24,12 +25,35 @@ struct TBTournamentDisplayWindow::impl
     // Child windows
     TBActionClockWindow* actionClockWindow;
 
-    explicit impl(TournamentSession& sess, TBTournamentDisplayWindow* parent) : session(sess), actionClockWindow(new TBActionClockWindow(sess, parent)) {}
+    // Background theme tracking
+    bool backgroundIsDark;
+
+    explicit impl(TournamentSession& sess, TBTournamentDisplayWindow* parent) : session(sess),
+          actionClockWindow(new TBActionClockWindow(sess, parent)),
+          backgroundIsDark(false) {}
 };
 
 TBTournamentDisplayWindow::TBTournamentDisplayWindow(TournamentSession& session, QWidget* parent) : QMainWindow(parent), pimpl(new impl(session, this))
 {
     pimpl->ui.setupUi(this);
+
+    // Set original icons using the setOriginalIcon method
+    pimpl->ui.previousRoundButton->setOriginalIcon(QIcon(":/Resources/b_previous_64x64.png"));
+    pimpl->ui.pauseResumeButton->setOriginalIcon(QIcon(":/Resources/b_play_pause_64x64.png"));
+    pimpl->ui.nextRoundButton->setOriginalIcon(QIcon(":/Resources/b_next_64x64.png"));
+    pimpl->ui.callClockButton->setOriginalIcon(QIcon(":/Resources/b_call_clock_64x64.png"));
+
+    // Connect button signals (these are auto-connected by Qt's naming convention)
+    QObject::connect(pimpl->ui.previousRoundButton, &QPushButton::clicked, this, &TBTournamentDisplayWindow::on_previousRoundButtonClicked);
+    QObject::connect(pimpl->ui.pauseResumeButton, &QPushButton::clicked, this, &TBTournamentDisplayWindow::on_pauseResumeButtonClicked);
+    QObject::connect(pimpl->ui.nextRoundButton, &QPushButton::clicked, this, &TBTournamentDisplayWindow::on_nextRoundButtonClicked);
+    QObject::connect(pimpl->ui.callClockButton, &QPushButton::clicked, this, &TBTournamentDisplayWindow::on_callClockButtonClicked);
+
+    // Connect background theme changes to button inversion
+    QObject::connect(this, &TBTournamentDisplayWindow::backgroundIsDarkChanged, pimpl->ui.previousRoundButton, &TBInvertableButton::setImageInverted);
+    QObject::connect(this, &TBTournamentDisplayWindow::backgroundIsDarkChanged, pimpl->ui.pauseResumeButton, &TBInvertableButton::setImageInverted);
+    QObject::connect(this, &TBTournamentDisplayWindow::backgroundIsDarkChanged, pimpl->ui.nextRoundButton, &TBInvertableButton::setImageInverted);
+    QObject::connect(this, &TBTournamentDisplayWindow::backgroundIsDarkChanged, pimpl->ui.callClockButton, &TBInvertableButton::setImageInverted);
 
     // Set up chips model
     auto chipsModel = new TBVariantListTableModel(this);
@@ -58,20 +82,8 @@ TBTournamentDisplayWindow::TBTournamentDisplayWindow(TournamentSession& session,
     resultsHeader->setSectionResizeMode(1, QHeaderView::Stretch);
     resultsHeader->setSectionResizeMode(2, QHeaderView::ResizeToContents);
 
-    // Set button icons if available
-    pimpl->ui.previousRoundButton->setIcon(QIcon(":/Resources/b_previous_64x64.png"));
-    pimpl->ui.pauseResumeButton->setIcon(QIcon(":/Resources/b_play_pause_64x64.png"));
-    pimpl->ui.nextRoundButton->setIcon(QIcon(":/Resources/b_next_64x64.png"));
-    pimpl->ui.callClockButton->setIcon(QIcon(":/Resources/b_call_clock_64x64.png"));
-
     // Connect to session state changes
     QObject::connect(&pimpl->session, &TournamentSession::stateChanged, this, &TBTournamentDisplayWindow::on_tournamentStateChanged);
-
-    // Connect button signals
-    QObject::connect(pimpl->ui.previousRoundButton, &QPushButton::clicked, this, &TBTournamentDisplayWindow::on_previousRoundButtonClicked);
-    QObject::connect(pimpl->ui.pauseResumeButton, &QPushButton::clicked, this, &TBTournamentDisplayWindow::on_pauseResumeButtonClicked);
-    QObject::connect(pimpl->ui.nextRoundButton, &QPushButton::clicked, this, &TBTournamentDisplayWindow::on_nextRoundButtonClicked);
-    QObject::connect(pimpl->ui.callClockButton, &QPushButton::clicked, this, &TBTournamentDisplayWindow::on_callClockButtonClicked);
 
     // Connect action clock window signals
     QObject::connect(pimpl->actionClockWindow, &TBActionClockWindow::clockCanceled, this, [this]() {
@@ -271,4 +283,19 @@ void TBTournamentDisplayWindow::updateAvailableChips()
         // Use available_chips from configuration state
         chipsModel->setListData(state.value("available_chips").toList());
     }
+}
+
+bool TBTournamentDisplayWindow::backgroundIsDark() const
+{
+    return pimpl->backgroundIsDark;
+}
+
+void TBTournamentDisplayWindow::setBackgroundIsDark(bool isDark)
+{
+    if (pimpl->backgroundIsDark == isDark) {
+        return;
+    }
+
+    pimpl->backgroundIsDark = isDark;
+    Q_EMIT backgroundIsDarkChanged(isDark);
 }

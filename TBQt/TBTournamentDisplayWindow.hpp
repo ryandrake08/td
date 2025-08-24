@@ -11,6 +11,7 @@ class TournamentSession;
 class TBTournamentDisplayWindow : public QMainWindow
 {
     Q_OBJECT
+    Q_PROPERTY(bool backgroundIsDark READ backgroundIsDark WRITE setBackgroundIsDark NOTIFY backgroundIsDarkChanged)
 
     // pimpl
     struct impl;
@@ -39,4 +40,11 @@ private Q_SLOTS:
 public:
     explicit TBTournamentDisplayWindow(TournamentSession& session, QWidget* parent = nullptr);
     virtual ~TBTournamentDisplayWindow() override;
+
+    // Background theme properties
+    bool backgroundIsDark() const;
+    void setBackgroundIsDark(bool isDark);
+
+Q_SIGNALS:
+    void backgroundIsDarkChanged(bool isDark);
 };

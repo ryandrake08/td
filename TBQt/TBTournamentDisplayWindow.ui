@@ -296,28 +296,28 @@
               <number>10</number>
              </property>
              <item>
-              <widget class="QPushButton" name="previousRoundButton">
+              <widget class="TBInvertableButton" name="previousRoundButton">
                <property name="text">
                 <string>Previous Round</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="pauseResumeButton">
+              <widget class="TBInvertableButton" name="pauseResumeButton">
                <property name="text">
                 <string>Pause/Resume</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="nextRoundButton">
+              <widget class="TBInvertableButton" name="nextRoundButton">
                <property name="text">
                 <string>Next Round</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="callClockButton">
+              <widget class="TBInvertableButton" name="callClockButton">
                <property name="text">
                 <string>Call Clock</string>
                </property>
@@ -457,6 +457,13 @@
    </layout>
   </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>TBInvertableButton</class>
+   <extends>QPushButton</extends>
+   <header>TBQt/TBInvertableButton.hpp</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
