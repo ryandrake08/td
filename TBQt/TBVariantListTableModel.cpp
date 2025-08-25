@@ -33,6 +33,11 @@ void TBVariantListTableModel::setListData(const QVariantList& list_data)
     this->endResetModel();
 }
 
+QVariantList TBVariantListTableModel::listData() const
+{
+    return this->pimpl->model_data;
+}
+
 void TBVariantListTableModel::addHeader(const QString& key, const QString& column)
 {
     this->pimpl->header_data.push_back(TBVariantListTableModel::impl::KeyColumn(key, column));
@@ -99,8 +104,23 @@ QVariant TBVariantListTableModel::data(const QModelIndex &index, int role) const
 
 bool TBVariantListTableModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
+    if (!index.isValid() || role != Qt::EditRole)
+        return false;
+    
+    if (index.row() >= this->pimpl->model_data.size() || index.column() >= this->pimpl->header_data.size())
+        return false;
+        
     if (data(index, role) != value) {
-        // FIXME: Implement me!
+        // Get the row data as a mutable map
+        QVariantMap rowData = this->pimpl->model_data[index.row()].toMap();
+        QString key = this->pimpl->header_data[index.column()].key;
+        
+        // Update the value
+        rowData[key] = value;
+        
+        // Store the updated row back
+        this->pimpl->model_data[index.row()] = rowData;
+        
         Q_EMIT dataChanged(index, index, QVector<int>() << role);
         return true;
     }
@@ -112,7 +132,7 @@ Qt::ItemFlags TBVariantListTableModel::flags(const QModelIndex &index) const
     if (!index.isValid())
         return Qt::NoItemFlags;
 
-    return Qt::ItemIsEditable; // FIXME: Implement me!
+    return Qt::ItemIsEnabled | Qt::ItemIsSelectable | Qt::ItemIsEditable;
 }
 
 bool TBVariantListTableModel::insertRows(int row, int count, const QModelIndex &parent)

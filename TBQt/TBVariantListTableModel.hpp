@@ -19,6 +19,7 @@ public:
 
     // set data
     void setListData(const QVariantList& model);
+    QVariantList listData() const;
     void addHeader(const QString& key, const QString& column);
 
     // header

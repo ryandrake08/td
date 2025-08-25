@@ -1,5 +1,7 @@
 #include "TBSetupDialog.hpp"
 
+#include "TBSetupPlayersWidget.hpp"
+
 #include <QDialogButtonBox>
 #include <QTabWidget>
 #include <QVBoxLayout>
@@ -9,6 +11,8 @@ struct TBSetupDialog::impl
     QTabWidget* tabWidget;
     QDialogButtonBox* buttonBox;
     QVariantMap configuration;
+    
+    TBSetupPlayersWidget* playersTab;
 };
 
 TBSetupDialog::TBSetupDialog(QWidget* parent) : QDialog(parent), pimpl(new impl())
@@ -25,9 +29,12 @@ TBSetupDialog::TBSetupDialog(QWidget* parent) : QDialog(parent), pimpl(new impl(
     // Create tab widget with 7 tabs matching macOS structure
     pimpl->tabWidget = new QTabWidget(this);
 
-    // Create placeholder widgets for each tab
+    // Create players tab
+    pimpl->playersTab = new TBSetupPlayersWidget(this);
+    pimpl->tabWidget->addTab(pimpl->playersTab, tr("Players"));
+    
+    // Create placeholder widgets for remaining tabs
     // These will be replaced with proper implementations in subsequent stages
-    pimpl->tabWidget->addTab(new QWidget(), tr("Players"));
     pimpl->tabWidget->addTab(new QWidget(), tr("Tables"));
     pimpl->tabWidget->addTab(new QWidget(), tr("Chips"));
     pimpl->tabWidget->addTab(new QWidget(), tr("Rounds"));
@@ -53,9 +60,21 @@ TBSetupDialog::~TBSetupDialog()
 void TBSetupDialog::setConfiguration(const QVariantMap& configuration)
 {
     pimpl->configuration = configuration;
+    
+    // Set configuration for each tab
+    pimpl->playersTab->setConfiguration(configuration);
 }
 
 QVariantMap TBSetupDialog::configuration() const
 {
-    return pimpl->configuration;
+    QVariantMap config = pimpl->configuration;
+    
+    // Merge configuration from each tab
+    QVariantMap playersConfig = pimpl->playersTab->configuration();
+    for (auto it = playersConfig.begin(); it != playersConfig.end(); ++it)
+    {
+        config[it.key()] = it.value();
+    }
+    
+    return config;
 }
