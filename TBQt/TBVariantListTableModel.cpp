@@ -86,7 +86,7 @@ int TBVariantListTableModel::columnCount(const QModelIndex &parent) const
 
 QVariant TBVariantListTableModel::data(const QModelIndex &index, int role) const
 {
-    if(index.isValid() && role == Qt::DisplayRole)
+    if(index.isValid() && (role == Qt::DisplayRole || role == Qt::EditRole))
     {
         // get model row
         if(this->pimpl->model_data.size() > index.row() && this->pimpl->header_data.size() > index.column())

@@ -105,8 +105,8 @@ find_package(Qt5 COMPONENTS Core Network Widgets QUIET)
 if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND)
 	find_package(Threads REQUIRED)
 	set(CMAKE_INCLUDE_CURRENT_DIR ON)
-	qt5_wrap_cpp(TBUDDY_MOC TBQt/TBActionClockWidget.hpp TBQt/TBActionClockWindow.hpp TBQt/TBBaseMainWindow.hpp TBQt/TBChipDisplayDelegate.hpp TBQt/TBDateEditDelegate.hpp TBQt/TBFlowLayout.hpp TBQt/TBBuddyMainWindow.hpp TBQt/TBInvertableButton.hpp TBQt/TBInvertableImageLabel.hpp TBQt/TBSeatingChartWindow.hpp TBQt/TBSetupDialog.hpp TBQt/TBSetupPlayersWidget.hpp TBQt/TBSetupTabWidget.hpp TBQt/TBTableWidget.hpp TBQt/TBTournamentDisplayWindow.hpp TBQt/TBPlayersModel.hpp TBQt/TBSeatingModel.hpp TBQt/TBManageButtonDelegate.hpp TBQt/TBMovementDialog.hpp TBQt/TBResultsModel.hpp TBQt/TBVariantListTableModel.hpp TBQt/TournamentConnection.hpp TBQt/TournamentDocument.hpp TBQt/TournamentSession.hpp)
-	qt5_wrap_ui(TBUDDY_UI TBQt/TBBuddyMainWindow.ui TBQt/TBMovementDialog.ui TBQt/TBSeatingChartWindow.ui TBQt/TBSetupPlayersWidget.ui TBQt/TBTournamentDisplayWindow.ui)
+	qt5_wrap_cpp(TBUDDY_MOC TBQt/TBActionClockWidget.hpp TBQt/TBActionClockWindow.hpp TBQt/TBAnteTypeDelegate.hpp TBQt/TBBaseMainWindow.hpp TBQt/TBChipDisplayDelegate.hpp TBQt/TBColorDisplayDelegate.hpp TBQt/TBDateEditDelegate.hpp TBQt/TBFlowLayout.hpp TBQt/TBFundingTypeDelegate.hpp TBQt/TBBuddyMainWindow.hpp TBQt/TBInvertableButton.hpp TBQt/TBInvertableImageLabel.hpp TBQt/TBSeatingChartWindow.hpp TBQt/TBSetupDialog.hpp TBQt/TBSetupChipsWidget.hpp TBQt/TBSetupDevicesWidget.hpp TBQt/TBSetupFundingWidget.hpp TBQt/TBSetupPayoutsWidget.hpp TBQt/TBSetupPlayersWidget.hpp TBQt/TBSetupRoundsWidget.hpp TBQt/TBSetupTablesWidget.hpp TBQt/TBSetupTabWidget.hpp TBQt/TBTableWidget.hpp TBQt/TBTournamentDisplayWindow.hpp TBQt/TBPlayersModel.hpp TBQt/TBSeatingModel.hpp TBQt/TBManageButtonDelegate.hpp TBQt/TBMovementDialog.hpp TBQt/TBResultsModel.hpp TBQt/TBVariantListTableModel.hpp TBQt/TournamentConnection.hpp TBQt/TournamentDocument.hpp TBQt/TournamentSession.hpp)
+	qt5_wrap_ui(TBUDDY_UI TBQt/TBBuddyMainWindow.ui TBQt/TBMovementDialog.ui TBQt/TBSeatingChartWindow.ui TBQt/TBSetupChipsWidget.ui TBQt/TBSetupDevicesWidget.ui TBQt/TBSetupFundingWidget.ui TBQt/TBSetupPayoutsWidget.ui TBQt/TBSetupPlayersWidget.ui TBQt/TBSetupRoundsWidget.ui TBQt/TBSetupTablesWidget.ui TBQt/TBTournamentDisplayWindow.ui)
 	qt5_add_resources(TBUDDY_RC TBQt/TBQt.qrc)
 	add_executable(tbuddy
 		TBQt/tbuddy.cpp
@@ -116,10 +116,16 @@ if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND)
 		TBQt/TBActionClockWindow.hpp
 		TBQt/TBBaseMainWindow.cpp
 		TBQt/TBBaseMainWindow.hpp
+		TBQt/TBAnteTypeDelegate.cpp
+		TBQt/TBAnteTypeDelegate.hpp
 		TBQt/TBChipDisplayDelegate.cpp
 		TBQt/TBChipDisplayDelegate.hpp
+		TBQt/TBColorDisplayDelegate.cpp
+		TBQt/TBColorDisplayDelegate.hpp
 		TBQt/TBDateEditDelegate.cpp
 		TBQt/TBDateEditDelegate.hpp
+		TBQt/TBFundingTypeDelegate.cpp
+		TBQt/TBFundingTypeDelegate.hpp
 		TBQt/TBFlowLayout.cpp
 		TBQt/TBFlowLayout.hpp
 		TBQt/TBBuddyMainWindow.cpp
@@ -146,8 +152,20 @@ if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND)
 		TBQt/TBRuntimeError.hpp
 		TBQt/TBSetupDialog.cpp
 		TBQt/TBSetupDialog.hpp
+		TBQt/TBSetupChipsWidget.cpp
+		TBQt/TBSetupChipsWidget.hpp
+		TBQt/TBSetupDevicesWidget.cpp
+		TBQt/TBSetupDevicesWidget.hpp
+		TBQt/TBSetupFundingWidget.cpp
+		TBQt/TBSetupFundingWidget.hpp
+		TBQt/TBSetupPayoutsWidget.cpp
+		TBQt/TBSetupPayoutsWidget.hpp
 		TBQt/TBSetupPlayersWidget.cpp
 		TBQt/TBSetupPlayersWidget.hpp
+		TBQt/TBSetupRoundsWidget.cpp
+		TBQt/TBSetupRoundsWidget.hpp
+		TBQt/TBSetupTablesWidget.cpp
+		TBQt/TBSetupTablesWidget.hpp
 		TBQt/TBSetupTabWidget.cpp
 		TBQt/TBSetupTabWidget.hpp
 		TBQt/TBVariantListTableModel.cpp
