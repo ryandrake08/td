@@ -1,4 +1,5 @@
 #include "TBSetupPayoutsWidget.hpp"
+#include "TournamentSession.hpp"
 
 #include "TBVariantListTableModel.hpp"
 
@@ -72,11 +73,18 @@ TBSetupPayoutsWidget::TBSetupPayoutsWidget(QWidget* parent) : TBSetupTabWidget(p
             this, &TBSetupPayoutsWidget::on_turnoutSelectionChanged);
 
     // Connect automatic payout signals
-    connect(pimpl->ui.percentSeatsPaidSlider, &QSlider::valueChanged, this, &TBSetupPayoutsWidget::on_modelDataChanged);
-    connect(pimpl->ui.payoutShapeSlider, &QSlider::valueChanged, this, &TBSetupPayoutsWidget::on_modelDataChanged);
+    connect(pimpl->ui.percentSeatsPaidSlider, &QSlider::valueChanged, this, &TBSetupPayoutsWidget::on_percentSeatsSliderChanged);
+    connect(pimpl->ui.percentSeatsPaidSpinBox, QOverload<int>::of(&QSpinBox::valueChanged), this, &TBSetupPayoutsWidget::on_percentSeatsSpinBoxChanged);
+    connect(pimpl->ui.payoutShapeSlider, &QSlider::valueChanged, this, &TBSetupPayoutsWidget::on_payoutShapeChanged);
     connect(pimpl->ui.payTheBubbleSpinBox, QOverload<double>::of(&QDoubleSpinBox::valueChanged), this, &TBSetupPayoutsWidget::on_modelDataChanged);
     connect(pimpl->ui.payKnockoutsSpinBox, QOverload<double>::of(&QDoubleSpinBox::valueChanged), this, &TBSetupPayoutsWidget::on_modelDataChanged);
     connect(pimpl->ui.roundPayoutsCheckBox, &QCheckBox::toggled, this, &TBSetupPayoutsWidget::on_modelDataChanged);
+
+    // Connect tab selection to update payout policy
+    connect(pimpl->ui.payoutTabWidget, &QTabWidget::currentChanged, this, &TBSetupPayoutsWidget::on_payoutTabChanged);
+
+    // Initialize payout shape description
+    pimpl->ui.payoutShapeDescriptionLabel->setText(payoutShapeDescription(0.2));
 
     // Connect data change signals
     connect(pimpl->manualModel, &QAbstractItemModel::dataChanged, this, &TBSetupPayoutsWidget::on_modelDataChanged);
@@ -90,10 +98,20 @@ TBSetupPayoutsWidget::~TBSetupPayoutsWidget()
 
 void TBSetupPayoutsWidget::setConfiguration(const QVariantMap& configuration)
 {
+    // Set payout policy tab selection
+    int payoutPolicy = configuration.value("payout_policy", 0).toInt();
+    pimpl->ui.payoutTabWidget->setCurrentIndex(payoutPolicy);
+
     // Set automatic payout parameters
     QVariantMap automaticPayouts = configuration.value("automatic_payouts").toMap();
-    pimpl->ui.percentSeatsPaidSlider->setValue(static_cast<int>(automaticPayouts.value("percent_seats_paid", 0.15).toDouble() * 100));
-    pimpl->ui.payoutShapeSlider->setValue(static_cast<int>(automaticPayouts.value("payout_shape", 2.0).toDouble() * 10));
+    int percentSeats = static_cast<int>(automaticPayouts.value("percent_seats_paid", 0.15).toDouble() * 100);
+    pimpl->ui.percentSeatsPaidSlider->setValue(percentSeats);
+    pimpl->ui.percentSeatsPaidSpinBox->setValue(percentSeats);
+
+    int shapeValue = static_cast<int>(automaticPayouts.value("payout_shape", 0.2).toDouble() * 100);
+    pimpl->ui.payoutShapeSlider->setValue(shapeValue);
+    pimpl->ui.payoutShapeDescriptionLabel->setText(payoutShapeDescription(shapeValue / 100.0));
+
     pimpl->ui.payTheBubbleSpinBox->setValue(automaticPayouts.value("pay_the_bubble", 0.0).toDouble());
     pimpl->ui.payKnockoutsSpinBox->setValue(automaticPayouts.value("pay_knockouts", 0.0).toDouble());
     pimpl->ui.roundPayoutsCheckBox->setChecked(automaticPayouts.value("round_payouts", false).toBool());
@@ -111,10 +129,13 @@ QVariantMap TBSetupPayoutsWidget::configuration() const
 {
     QVariantMap config;
 
+    // Set payout policy based on current tab
+    config["payout_policy"] = pimpl->ui.payoutTabWidget->currentIndex();
+
     // Build automatic payout parameters
     QVariantMap automaticPayouts;
     automaticPayouts["percent_seats_paid"] = pimpl->ui.percentSeatsPaidSlider->value() / 100.0;
-    automaticPayouts["payout_shape"] = pimpl->ui.payoutShapeSlider->value() / 10.0;
+    automaticPayouts["payout_shape"] = pimpl->ui.payoutShapeSlider->value() / 100.0;
     automaticPayouts["pay_the_bubble"] = pimpl->ui.payTheBubbleSpinBox->value();
     automaticPayouts["pay_knockouts"] = pimpl->ui.payKnockoutsSpinBox->value();
     automaticPayouts["round_payouts"] = pimpl->ui.roundPayoutsCheckBox->isChecked();
@@ -236,4 +257,52 @@ QVariantMap TBSetupPayoutsWidget::createDefaultTurnoutLevel(int buyinsCount) con
     level["buyins_count"] = buyinsCount;
     level["payouts"] = QVariantList(); // Empty payouts list
     return level;
+}
+
+void TBSetupPayoutsWidget::on_percentSeatsSliderChanged(int value)
+{
+    pimpl->ui.percentSeatsPaidSpinBox->setValue(value);
+    on_modelDataChanged();
+}
+
+void TBSetupPayoutsWidget::on_percentSeatsSpinBoxChanged(int value)
+{
+    pimpl->ui.percentSeatsPaidSlider->setValue(value);
+    on_modelDataChanged();
+}
+
+void TBSetupPayoutsWidget::on_payoutShapeChanged(int value)
+{
+    double shape = value / 100.0;
+    pimpl->ui.payoutShapeDescriptionLabel->setText(payoutShapeDescription(shape));
+    on_modelDataChanged();
+}
+
+void TBSetupPayoutsWidget::on_payoutTabChanged(int index)
+{
+    // Update payout_policy based on selected tab
+    // 0 = Automatic, 1 = Manual, 2 = Depends on Turnout
+    // We only handle Automatic here - other tabs would need their own handling
+    if (index == 0) // Automatic tab selected
+    {
+        // This will be handled in configuration() method
+    }
+    on_modelDataChanged();
+}
+
+QString TBSetupPayoutsWidget::payoutShapeDescription(double shape) const
+{
+    if (shape <= 0.0) {
+        return tr("Same To Everyone");
+    } else if (shape < 0.25) {
+        return tr("Relatively Flat");
+    } else if (shape < 0.5) {
+        return tr("Balanced");
+    } else if (shape < 0.75) {
+        return tr("Top Heavy");
+    } else if (shape < 1.0) {
+        return tr("Reward Deep");
+    } else {
+        return tr("Winner Takes All");
+    }
 }

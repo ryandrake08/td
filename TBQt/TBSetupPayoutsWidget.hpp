@@ -25,9 +25,14 @@ private Q_SLOTS:
     void on_removeTurnoutButtonClicked();
     void on_turnoutSelectionChanged();
     void on_modelDataChanged();
+    void on_percentSeatsSliderChanged(int value);
+    void on_percentSeatsSpinBoxChanged(int value);
+    void on_payoutShapeChanged(int value);
+    void on_payoutTabChanged(int index);
 
 private:
     void updateTurnoutPayoutsDisplay();
     QVariantMap createDefaultPayout(double amount) const;
     QVariantMap createDefaultTurnoutLevel(int buyinsCount) const;
+    QString payoutShapeDescription(double shape) const;
 };

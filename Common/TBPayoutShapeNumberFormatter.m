@@ -27,7 +27,7 @@
     } else if(shape < 1.0) {
         return NSLocalizedString(@"Reward Deep", @"Very aggressive payout structure, highly favorable to players deep in the money");
     } else {
-        return NSLocalizedString(@"Winner Takes All", @"Flat payout structure, favorable to players just in the money");
+        return NSLocalizedString(@"Winner Takes All", @"Most aggressive payout structure, winner wins everything");
     }
 }
 
