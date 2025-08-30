@@ -20,13 +20,11 @@ public:
 
 private Q_SLOTS:
     void on_addRoundButtonClicked();
-    void on_addBreakButtonClicked();
+    void on_generateButtonClicked();
     void on_removeButtonClicked();
     void on_modelDataChanged();
 
 private:
     QVariantMap createDefaultRound(int littleBlind, int bigBlind) const;
-    QVariantMap createBreakRound(int duration, const QString& reason) const;
     int calculateNextBlindLevel() const;
-    int calculateCumulativeTime(int roundIndex) const;
 };

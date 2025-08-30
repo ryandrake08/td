@@ -19,8 +19,7 @@ struct TBSetupPlayersWidget::impl
     impl() : nextPlayerNumber(1) {}
 };
 
-TBSetupPlayersWidget::TBSetupPlayersWidget(QWidget* parent)
-    : TBSetupTabWidget(parent), pimpl(new impl())
+TBSetupPlayersWidget::TBSetupPlayersWidget(QWidget* parent) : TBSetupTabWidget(parent), pimpl(new impl())
 {
     // Setup UI from .ui file
     pimpl->ui.setupUi(this);
@@ -32,11 +31,15 @@ TBSetupPlayersWidget::TBSetupPlayersWidget(QWidget* parent)
 
     pimpl->ui.tableView->setModel(pimpl->model);
 
+    // Enable sorting and set default sort by Name column (ascending)
+    pimpl->ui.tableView->setSortingEnabled(true);
+    pimpl->ui.tableView->sortByColumn(0, Qt::AscendingOrder);
+
     // Configure column behavior
     QHeaderView* header = pimpl->ui.tableView->horizontalHeader();
     header->setSectionResizeMode(0, QHeaderView::Stretch);      // Player Name: stretch
     header->setSectionResizeMode(1, QHeaderView::ResizeToContents); // Member Since: fit content
-    
+
     // Set date delegate for "Member Since" column (column 1)
     pimpl->ui.tableView->setItemDelegateForColumn(1, new TBDateEditDelegate(this));
 

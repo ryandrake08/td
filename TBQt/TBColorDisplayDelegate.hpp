@@ -15,7 +15,11 @@ public:
     void updateEditorGeometry(QWidget* editor, const QStyleOptionViewItem& option, const QModelIndex& index) const override;
 
     void paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const override;
-    QString displayText(const QVariant& value, const QLocale& locale) const override;
+    
+    bool eventFilter(QObject* watched, QEvent* event) override;
+
+private Q_SLOTS:
+    void onColorButtonClicked();
 
 private:
     QColor parseColor(const QString& colorString) const;

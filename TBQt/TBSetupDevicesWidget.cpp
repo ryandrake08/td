@@ -7,7 +7,6 @@
 
 #include <QDateTime>
 #include <QHeaderView>
-#include <QInputDialog>
 #include <QRandomGenerator>
 
 struct TBSetupDevicesWidget::impl
@@ -16,34 +15,36 @@ struct TBSetupDevicesWidget::impl
     TBVariantListTableModel* model;
 };
 
-TBSetupDevicesWidget::TBSetupDevicesWidget(QWidget* parent)
-    : TBSetupTabWidget(parent), pimpl(new impl())
+TBSetupDevicesWidget::TBSetupDevicesWidget(QWidget* parent) : TBSetupTabWidget(parent), pimpl(new impl())
 {
     // Setup UI from .ui file
     pimpl->ui.setupUi(this);
-    
+
     // Create and configure model
     pimpl->model = new TBVariantListTableModel(this);
     pimpl->model->addHeader("code", tr("Code"));
     pimpl->model->addHeader("name", tr("Device Name"));
     pimpl->model->addHeader("added_at", tr("Authorized"));
-    
+
     pimpl->ui.tableView->setModel(pimpl->model);
-    
+
+    // Enable sorting and set default sort by device name
+    pimpl->ui.tableView->sortByColumn(1, Qt::AscendingOrder);
+
     // Configure column behavior
     QHeaderView* header = pimpl->ui.tableView->horizontalHeader();
     header->setSectionResizeMode(0, QHeaderView::ResizeToContents); // Code
     header->setSectionResizeMode(1, QHeaderView::Stretch);          // Device Name
     header->setSectionResizeMode(2, QHeaderView::ResizeToContents); // Authorized
-    
+
     // Set date delegate for Authorized column (column 2)
     pimpl->ui.tableView->setItemDelegateForColumn(2, new TBDateEditDelegate(this));
-    
+
     // Connect signals
     connect(pimpl->ui.addButton, &QPushButton::clicked, this, &TBSetupDevicesWidget::on_addDeviceButtonClicked);
     connect(pimpl->ui.removeButton, &QPushButton::clicked, this, &TBSetupDevicesWidget::on_removeDeviceButtonClicked);
     connect(pimpl->model, &QAbstractItemModel::dataChanged, this, &TBSetupDevicesWidget::on_modelDataChanged);
-    
+
     // Connect selection model after setting the model
     connect(pimpl->ui.tableView->selectionModel(), &QItemSelectionModel::selectionChanged,
             [this]() {
@@ -77,22 +78,13 @@ bool TBSetupDevicesWidget::validateConfiguration() const
 
 void TBSetupDevicesWidget::on_addDeviceButtonClicked()
 {
-    bool ok;
-    QString deviceName = QInputDialog::getText(this, tr("Authorize Device"),
-                                              tr("Device name:"),
-                                              QLineEdit::Normal,
-                                              tr("Remote Device"), &ok);
-    if (!ok || deviceName.isEmpty())
-        return;
-    
     QVariantMap newDevice = createNewDevice();
-    newDevice["name"] = deviceName;
-    
+
     // Add to model
     QVariantList devices = pimpl->model->listData();
     devices.append(newDevice);
     pimpl->model->setListData(devices);
-    
+
     Q_EMIT configurationChanged();
 }
 
@@ -101,10 +93,10 @@ void TBSetupDevicesWidget::on_removeDeviceButtonClicked()
     QModelIndexList selectedRows = pimpl->ui.tableView->selectionModel()->selectedRows();
     if (selectedRows.isEmpty())
         return;
-    
+
     // Get the row to remove (take the first selected row)
     int row = selectedRows.first().row();
-    
+
     // Remove from model
     QVariantList devices = pimpl->model->listData();
     if (row >= 0 && row < devices.size())

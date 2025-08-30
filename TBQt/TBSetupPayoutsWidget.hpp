@@ -28,6 +28,6 @@ private Q_SLOTS:
 
 private:
     void updateTurnoutPayoutsDisplay();
-    QVariantMap createDefaultPayout(int place, double amount) const;
+    QVariantMap createDefaultPayout(double amount) const;
     QVariantMap createDefaultTurnoutLevel(int buyinsCount) const;
 };

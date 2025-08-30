@@ -18,6 +18,8 @@ public:
     QVariantMap configuration() const override;
     bool validateConfiguration() const override;
 
+    void setRoundsData(const QVariantList& rounds);
+
 private Q_SLOTS:
     void on_addFundingButtonClicked();
     void on_removeFundingButtonClicked();

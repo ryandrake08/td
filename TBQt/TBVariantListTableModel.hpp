@@ -18,9 +18,10 @@ public:
     virtual ~TBVariantListTableModel() override;
 
     // set data
-    void setListData(const QVariantList& model);
-    QVariantList listData() const;
+    virtual void setListData(const QVariantList& model);
+    virtual QVariantList listData() const;
     void addHeader(const QString& key, const QString& column);
+    void addIndexHeader(const QString& key, const QString& column, int offset = 1);
 
     // header
     QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;

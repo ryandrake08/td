@@ -21,5 +21,6 @@ public:
 private Q_SLOTS:
     void on_addTableButtonClicked();
     void on_removeTableButtonClicked();
+    void on_playersPerTableChanged();
     void on_modelDataChanged();
 };

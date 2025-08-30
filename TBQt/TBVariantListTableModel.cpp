@@ -11,8 +11,11 @@ struct TBVariantListTableModel::impl
     {
         QString key;
         QString column;
-        KeyColumn() {}
-        KeyColumn(const QString& k, const QString& c) : key(k), column(c) {}
+        bool isIndexColumn;
+        int indexOffset;
+        KeyColumn() : isIndexColumn(false), indexOffset(1) {}
+        KeyColumn(const QString& k, const QString& c) : key(k), column(c), isIndexColumn(false), indexOffset(1) {}
+        KeyColumn(const QString& k, const QString& c, int offset) : key(k), column(c), isIndexColumn(true), indexOffset(offset) {}
     };
 
     QVector<KeyColumn> header_data;
@@ -41,6 +44,11 @@ QVariantList TBVariantListTableModel::listData() const
 void TBVariantListTableModel::addHeader(const QString& key, const QString& column)
 {
     this->pimpl->header_data.push_back(TBVariantListTableModel::impl::KeyColumn(key, column));
+}
+
+void TBVariantListTableModel::addIndexHeader(const QString& key, const QString& column, int offset)
+{
+    this->pimpl->header_data.push_back(TBVariantListTableModel::impl::KeyColumn(key, column, offset));
 }
 
 QVariant TBVariantListTableModel::headerData(int section, Qt::Orientation orientation, int role) const
@@ -91,9 +99,19 @@ QVariant TBVariantListTableModel::data(const QModelIndex &index, int role) const
         // get model row
         if(this->pimpl->model_data.size() > index.row() && this->pimpl->header_data.size() > index.column())
         {
-            auto row_data(this->pimpl->model_data[index.row()].toMap());
-            auto key(this->pimpl->header_data[index.column()].key);
-            return row_data[key];
+            const auto& columnInfo = this->pimpl->header_data[index.column()];
+
+            if (columnInfo.isIndexColumn)
+            {
+                // Return computed index value
+                return index.row() + columnInfo.indexOffset;
+            }
+            else
+            {
+                // Return data from model
+                auto row_data(this->pimpl->model_data[index.row()].toMap());
+                return row_data[columnInfo.key];
+            }
         }
 
         qDebug() << "TBVariantListTableModel::data: index =" << index << ", headers size =" << this->pimpl->header_data.size() << ", data size =" << this->pimpl->model_data.size();
@@ -106,21 +124,26 @@ bool TBVariantListTableModel::setData(const QModelIndex &index, const QVariant &
 {
     if (!index.isValid() || role != Qt::EditRole)
         return false;
-    
+
     if (index.row() >= this->pimpl->model_data.size() || index.column() >= this->pimpl->header_data.size())
         return false;
-        
+
+    const auto& columnInfo = this->pimpl->header_data[index.column()];
+
+    // Index columns are not editable
+    if (columnInfo.isIndexColumn)
+        return false;
+
     if (data(index, role) != value) {
         // Get the row data as a mutable map
         QVariantMap rowData = this->pimpl->model_data[index.row()].toMap();
-        QString key = this->pimpl->header_data[index.column()].key;
-        
+
         // Update the value
-        rowData[key] = value;
-        
+        rowData[columnInfo.key] = value;
+
         // Store the updated row back
         this->pimpl->model_data[index.row()] = rowData;
-        
+
         Q_EMIT dataChanged(index, index, QVector<int>() << role);
         return true;
     }
@@ -131,6 +154,16 @@ Qt::ItemFlags TBVariantListTableModel::flags(const QModelIndex &index) const
 {
     if (!index.isValid())
         return Qt::NoItemFlags;
+
+    if (index.column() < this->pimpl->header_data.size())
+    {
+        const auto& columnInfo = this->pimpl->header_data[index.column()];
+        if (columnInfo.isIndexColumn)
+        {
+            // Index columns are not editable
+            return Qt::ItemIsEnabled | Qt::ItemIsSelectable;
+        }
+    }
 
     return Qt::ItemIsEnabled | Qt::ItemIsSelectable | Qt::ItemIsEditable;
 }

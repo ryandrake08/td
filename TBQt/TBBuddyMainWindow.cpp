@@ -286,10 +286,10 @@ void TBBuddyMainWindow::on_actionConfigure_triggered()
 {
     // Create and show the setup dialog
     TBSetupDialog dialog(this);
-    
+
     // Set current configuration from tournament document
     dialog.setConfiguration(pimpl->doc.configuration());
-    
+
     if (dialog.exec() == QDialog::Accepted)
     {
         // Get the updated configuration and apply it to the tournament document

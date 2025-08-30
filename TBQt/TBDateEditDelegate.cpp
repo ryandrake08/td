@@ -3,8 +3,7 @@
 #include <QDateEdit>
 #include <QDateTime>
 
-TBDateEditDelegate::TBDateEditDelegate(QObject* parent)
-    : QStyledItemDelegate(parent)
+TBDateEditDelegate::TBDateEditDelegate(QObject* parent) : QStyledItemDelegate(parent)
 {
 }
 
@@ -12,7 +11,7 @@ QWidget* TBDateEditDelegate::createEditor(QWidget* parent, const QStyleOptionVie
 {
     Q_UNUSED(option)
     Q_UNUSED(index)
-    
+
     QDateEdit* editor = new QDateEdit(parent);
     editor->setDisplayFormat("yyyy-MM-dd");
     editor->setCalendarPopup(true);
@@ -24,10 +23,10 @@ void TBDateEditDelegate::setEditorData(QWidget* editor, const QModelIndex& index
     QDateEdit* dateEdit = qobject_cast<QDateEdit*>(editor);
     if (!dateEdit)
         return;
-    
+
     QString dateString = index.model()->data(index, Qt::EditRole).toString();
     QDateTime dateTime = QDateTime::fromString(dateString, Qt::ISODate);
-    
+
     if (dateTime.isValid())
     {
         dateEdit->setDate(dateTime.date());
@@ -44,11 +43,11 @@ void TBDateEditDelegate::setModelData(QWidget* editor, QAbstractItemModel* model
     QDateEdit* dateEdit = qobject_cast<QDateEdit*>(editor);
     if (!dateEdit)
         return;
-    
+
     QDate date = dateEdit->date();
     QDateTime dateTime(date, QTime(0, 0, 0));
     QString isoString = dateTime.toString(Qt::ISODate);
-    
+
     model->setData(index, isoString, Qt::EditRole);
 }
 
@@ -61,14 +60,14 @@ void TBDateEditDelegate::updateEditorGeometry(QWidget* editor, const QStyleOptio
 QString TBDateEditDelegate::displayText(const QVariant& value, const QLocale& locale) const
 {
     Q_UNUSED(locale)
-    
+
     QString dateString = value.toString();
     QDateTime dateTime = QDateTime::fromString(dateString, Qt::ISODate);
-    
+
     if (dateTime.isValid())
     {
         return dateTime.date().toString("MMM d, yyyy");
     }
-    
+
     return dateString;
 }

@@ -19,6 +19,127 @@
      <property name="currentIndex">
       <number>0</number>
      </property>
+     <widget class="QWidget" name="automaticTab">
+      <attribute name="title">
+       <string>Automatic</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="automaticLayout">
+       <item>
+        <widget class="QLabel" name="automaticLabel">
+         <property name="text">
+          <string>Configure automatic payout distribution:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QFormLayout" name="automaticFormLayout">
+         <item row="0" column="0">
+          <widget class="QLabel" name="percentSeatsPaidLabel">
+           <property name="text">
+            <string>Percent Seats Paid:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QSlider" name="percentSeatsPaidSlider">
+           <property name="minimum">
+            <number>5</number>
+           </property>
+           <property name="maximum">
+            <number>50</number>
+           </property>
+           <property name="value">
+            <number>15</number>
+           </property>
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="payoutShapeLabel">
+           <property name="text">
+            <string>Payout Shape:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QSlider" name="payoutShapeSlider">
+           <property name="minimum">
+            <number>10</number>
+           </property>
+           <property name="maximum">
+            <number>40</number>
+           </property>
+           <property name="value">
+            <number>20</number>
+           </property>
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="0">
+          <widget class="QLabel" name="payTheBubbleLabel">
+           <property name="text">
+            <string>Pay the Bubble:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1">
+          <widget class="QDoubleSpinBox" name="payTheBubbleSpinBox">
+           <property name="minimum">
+            <double>0.000000000000000</double>
+           </property>
+           <property name="maximum">
+            <double>999.990000000000009</double>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="0">
+          <widget class="QLabel" name="payKnockoutsLabel">
+           <property name="text">
+            <string>Pay Knockouts:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="1">
+          <widget class="QDoubleSpinBox" name="payKnockoutsSpinBox">
+           <property name="minimum">
+            <double>0.000000000000000</double>
+           </property>
+           <property name="maximum">
+            <double>999.990000000000009</double>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="0">
+          <widget class="QLabel" name="roundPayoutsLabel">
+           <property name="text">
+            <string>Round Payouts:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="1">
+          <widget class="QCheckBox" name="roundPayoutsCheckBox"/>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <spacer name="automaticSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
      <widget class="QWidget" name="manualTab">
       <attribute name="title">
        <string>Manual</string>

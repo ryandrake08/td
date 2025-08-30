@@ -1,21 +1,27 @@
 #include "TBAnteTypeDelegate.hpp"
+#include "TournamentSession.hpp"
 
 #include <QComboBox>
 
-TBAnteTypeDelegate::TBAnteTypeDelegate(QObject* parent)
-    : QStyledItemDelegate(parent)
+TBAnteTypeDelegate::TBAnteTypeDelegate(QObject* parent) : QStyledItemDelegate(parent)
 {
 }
 
 QWidget* TBAnteTypeDelegate::createEditor(QWidget* parent, const QStyleOptionViewItem& option, const QModelIndex& index) const
 {
     Q_UNUSED(option)
-    Q_UNUSED(index)
-    
+
+    // Check if there's an ante for this row
+    QModelIndex anteIndex = index.model()->index(index.row(), 5); // Ante column
+    int ante = anteIndex.data(Qt::EditRole).toInt();
+    if (ante <= 0)
+    {
+        return nullptr; // No editor when no ante
+    }
+
     QComboBox* comboBox = new QComboBox(parent);
-    comboBox->addItem(tr("None"), 0);
-    comboBox->addItem(tr("Traditional"), 1);
-    comboBox->addItem(tr("Big Blind"), 2);
+    comboBox->addItem(tr("Traditional"), TournamentSession::kAnteTypeTraditional);
+    comboBox->addItem(tr("Big Blind"), TournamentSession::kAnteTypeBigBlind);
     return comboBox;
 }
 
@@ -24,7 +30,7 @@ void TBAnteTypeDelegate::setEditorData(QWidget* editor, const QModelIndex& index
     QComboBox* comboBox = qobject_cast<QComboBox*>(editor);
     if (!comboBox)
         return;
-    
+
     int anteType = index.model()->data(index, Qt::EditRole).toInt();
     int comboIndex = comboBox->findData(anteType);
     if (comboIndex >= 0)
@@ -38,7 +44,7 @@ void TBAnteTypeDelegate::setModelData(QWidget* editor, QAbstractItemModel* model
     QComboBox* comboBox = qobject_cast<QComboBox*>(editor);
     if (!comboBox)
         return;
-    
+
     int anteType = comboBox->currentData().toInt();
     model->setData(index, anteType, Qt::EditRole);
 }
@@ -46,26 +52,25 @@ void TBAnteTypeDelegate::setModelData(QWidget* editor, QAbstractItemModel* model
 QString TBAnteTypeDelegate::displayText(const QVariant& value, const QLocale& locale) const
 {
     Q_UNUSED(locale)
-    
-    int anteType = value.toInt();
-    return anteTypeToString(anteType);
+
+    // The model already handles the display logic in its data() method
+    // Just return the formatted text that the model provides
+    return value.toString();
 }
 
 QString TBAnteTypeDelegate::anteTypeToString(int anteType)
 {
     switch (anteType)
     {
-        case 0: return QObject::tr("None");
-        case 1: return QObject::tr("Traditional");
-        case 2: return QObject::tr("Big Blind");
-        default: return QObject::tr("Unknown");
+        case TournamentSession::kAnteTypeTraditional: return QObject::tr("Traditional");
+        case TournamentSession::kAnteTypeBigBlind: return QObject::tr("Big Blind");
+        default: return QString(); // Empty for no ante or unknown
     }
 }
 
 int TBAnteTypeDelegate::anteTypeFromString(const QString& text)
 {
-    if (text == QObject::tr("None")) return 0;
-    if (text == QObject::tr("Traditional")) return 1;
-    if (text == QObject::tr("Big Blind")) return 2;
-    return 0; // Default to None
+    if (text == QObject::tr("Traditional")) return TournamentSession::kAnteTypeTraditional;
+    if (text == QObject::tr("Big Blind")) return TournamentSession::kAnteTypeBigBlind;
+    return TournamentSession::kAnteTypeTraditional; // Default to Traditional when there's an ante
 }

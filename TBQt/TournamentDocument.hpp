@@ -29,7 +29,7 @@ public:
     // accessors
     const QString& filename() const;
     const QVariantMap& configuration() const;
-    
+
     // mutators
     void setConfiguration(const QVariantMap& configuration);
 

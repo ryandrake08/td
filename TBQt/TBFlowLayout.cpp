@@ -13,14 +13,12 @@ struct TBFlowLayout::impl
     impl(int hSpacing, int vSpacing) : hSpace(hSpacing), vSpace(vSpacing) {}
 };
 
-TBFlowLayout::TBFlowLayout(QWidget *parent, int margin, int hSpacing, int vSpacing)
-    : QLayout(parent), pimpl(new impl(hSpacing, vSpacing))
+TBFlowLayout::TBFlowLayout(QWidget *parent, int margin, int hSpacing, int vSpacing) : QLayout(parent), pimpl(new impl(hSpacing, vSpacing))
 {
     setContentsMargins(margin, margin, margin, margin);
 }
 
-TBFlowLayout::TBFlowLayout(int margin, int hSpacing, int vSpacing)
-    : pimpl(new impl(hSpacing, vSpacing))
+TBFlowLayout::TBFlowLayout(int margin, int hSpacing, int vSpacing) : pimpl(new impl(hSpacing, vSpacing))
 {
     setContentsMargins(margin, margin, margin, margin);
 }

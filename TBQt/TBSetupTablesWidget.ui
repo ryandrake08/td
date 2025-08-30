@@ -65,6 +65,23 @@
        </property>
       </spacer>
      </item>
+     <item>
+      <widget class="QLabel" name="playersPerTableLabel">
+       <property name="text">
+        <string>Players per table:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="playersPerTableComboBox">
+       <property name="minimumSize">
+        <size>
+         <width>60</width>
+         <height>0</height>
+        </size>
+       </property>
+      </widget>
+     </item>
     </layout>
    </item>
   </layout>

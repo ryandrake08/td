@@ -43,19 +43,19 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="addBreakButton">
+      <widget class="QPushButton" name="removeButton">
        <property name="text">
-        <string>Add Break</string>
+        <string>Remove Round</string>
+       </property>
+       <property name="enabled">
+        <bool>false</bool>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="removeButton">
+      <widget class="QPushButton" name="generateButton">
        <property name="text">
-        <string>Remove</string>
-       </property>
-       <property name="enabled">
-        <bool>false</bool>
+        <string>Generate</string>
        </property>
       </widget>
      </item>
