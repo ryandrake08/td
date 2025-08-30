@@ -86,9 +86,7 @@ TBTournamentDisplayWindow::TBTournamentDisplayWindow(TournamentSession& session,
     QObject::connect(&pimpl->session, &TournamentSession::stateChanged, this, &TBTournamentDisplayWindow::on_tournamentStateChanged);
 
     // Connect action clock window signals
-    QObject::connect(pimpl->actionClockWindow, &TBActionClockWindow::clockCanceled, this, [this]() {
-        pimpl->session.clear_action_clock();
-    });
+    QObject::connect(pimpl->actionClockWindow, &TBActionClockWindow::clockCanceled, this, &TBTournamentDisplayWindow::onActionClockCanceled);
 
     // Initial update
     this->updateTournamentName();
@@ -102,6 +100,11 @@ TBTournamentDisplayWindow::TBTournamentDisplayWindow(TournamentSession& session,
     this->updateCurrentRoundInfo();
     this->updateNextRoundInfo();
     this->updateAvailableChips();
+}
+
+void TBTournamentDisplayWindow::onActionClockCanceled()
+{
+    pimpl->session.clear_action_clock();
 }
 
 TBTournamentDisplayWindow::~TBTournamentDisplayWindow() = default;

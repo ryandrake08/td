@@ -14,6 +14,9 @@ public:
     void setModelData(QWidget* editor, QAbstractItemModel* model, const QModelIndex& index) const override;
     QString displayText(const QVariant& value, const QLocale& locale) const override;
 
+private Q_SLOTS:
+    void onDetailsButtonClicked();
+
 private:
     bool showDetailsDialog(QWidget* parent, QVariantMap& fundingData) const;
 };

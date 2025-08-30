@@ -17,4 +17,7 @@ public:
 
     void setConfiguration(const QVariantMap& configuration);
     QVariantMap configuration() const;
+
+private Q_SLOTS:
+    void onRoundsConfigurationChanged();
 };

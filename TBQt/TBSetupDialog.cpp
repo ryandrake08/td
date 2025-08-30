@@ -80,12 +80,7 @@ TBSetupDialog::TBSetupDialog(QWidget* parent) : QDialog(parent), pimpl(new impl(
     connect(pimpl->buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
 
     // Connect rounds tab changes to update funding tab
-    connect(pimpl->roundsTab, &TBSetupTabWidget::configurationChanged, this, [this]() {
-        // Update funding tab with latest rounds data when rounds configuration changes
-        QVariantMap roundsConfig = pimpl->roundsTab->configuration();
-        QVariantList rounds = roundsConfig.value("blind_levels").toList();
-        pimpl->fundingTab->setRoundsData(rounds);
-    });
+    connect(pimpl->roundsTab, &TBSetupTabWidget::configurationChanged, this, &TBSetupDialog::onRoundsConfigurationChanged);
 }
 
 TBSetupDialog::~TBSetupDialog()
@@ -158,4 +153,12 @@ QVariantMap TBSetupDialog::configuration() const
     }
 
     return config;
+}
+
+void TBSetupDialog::onRoundsConfigurationChanged()
+{
+    // Update funding tab with latest rounds data when rounds configuration changes
+    QVariantMap roundsConfig = pimpl->roundsTab->configuration();
+    QVariantList rounds = roundsConfig.value("blind_levels").toList();
+    pimpl->fundingTab->setRoundsData(rounds);
 }

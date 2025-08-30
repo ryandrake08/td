@@ -136,3 +136,20 @@ bool TBFundingDetailsDelegate::showDetailsDialog(QWidget* parent, QVariantMap& f
 
     return false;
 }
+
+void TBFundingDetailsDelegate::onDetailsButtonClicked()
+{
+    QPushButton* button = qobject_cast<QPushButton*>(sender());
+    if (!button)
+        return;
+        
+    QModelIndex index = button->property("modelIndex").value<QModelIndex>();
+    if (!index.isValid())
+        return;
+        
+    QVariantMap rowData = index.model()->index(index.row(), 0).data(Qt::UserRole).toMap();
+    if (showDetailsDialog(button, rowData))
+    {
+        button->setProperty("modifiedData", rowData);
+    }
+}

@@ -36,6 +36,7 @@ private Q_SLOTS:
     void on_pauseResumeButtonClicked();
     void on_nextRoundButtonClicked();
     void on_callClockButtonClicked();
+    void onActionClockCanceled();
 
 public:
     explicit TBTournamentDisplayWindow(TournamentSession& session, QWidget* parent = nullptr);
