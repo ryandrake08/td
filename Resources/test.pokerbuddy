@@ -2713,7 +2713,7 @@
         }
     ],
     "payout_policy": 0,
-    "table_names": [],
+    "table_names": ["Table 1", "Table 2", "Feature Table"],
     "background_color": "",
     "payout_currency": "USD",
     "authorized_clients": [],

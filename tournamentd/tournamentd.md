@@ -1267,18 +1267,18 @@ Contains complete tournament configuration that rarely changes. Used for initial
 **Configuration Fields:**
 ```json
 {
-  "name": "Tournament Name",                           // Tournament display name
-  "players": [...],                                   // Array of all registered players
-  "table_capacity": 9,                                // Maximum players per table
-  "table_names": ["Table 1", "Table 2"],            // Available table names
-  "payout_policy": "automatic",                       // Payout calculation method
+  "name": "Tournament Name",                         // Tournament display name
+  "players": [...],                                  // Array of all registered players
+  "table_capacity": 9,                               // Maximum players per table
+  "table_names": ["Table 1", "Table 2"],             // Available table names
+  "payout_policy": "automatic",                      // Payout calculation method
   "payout_currency": "USD",                          // Currency for payouts
   "automatic_payouts": {...},                        // Automatic payout parameters
   "forced_payouts": [...],                           // Fixed payout structure
   "manual_payouts": [...],                           // Manual payout overrides
   "previous_blind_level_hold_duration": 30000,       // ms to wait before allowing previous round
   "rebalance_policy": "fill_tables",                 // Player movement policy
-  "background_color": "#000000",                     // Clock display background color
+  "background_color": "#000000",                   // Clock display background color
   "final_table_policy": "fill_in",                   // Final table seating method
   "funding_sources": [...],                          // Available buy-ins/rebuys
   "blind_levels": [...],                             // Complete blind structure
