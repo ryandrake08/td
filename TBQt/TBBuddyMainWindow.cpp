@@ -295,6 +295,12 @@ void TBBuddyMainWindow::on_actionConfigure_triggered()
         // Get the updated configuration and apply it to the tournament document
         QVariantMap newConfiguration = dialog.configuration();
         pimpl->doc.setConfiguration(newConfiguration);
+        
+        // Apply configuration changes to the session if we're authorized
+        if (this->getSession().is_authorized())
+        {
+            this->getSession().configure(newConfiguration);
+        }
     }
 }
 
