@@ -7,6 +7,7 @@
 #include "ui_TBSetupPayoutsWidget.h"
 
 #include <QHeaderView>
+#include <QSortFilterProxyModel>
 
 struct TBSetupPayoutsWidget::impl
 {
@@ -28,10 +29,8 @@ TBSetupPayoutsWidget::TBSetupPayoutsWidget(QWidget* parent) : TBSetupTabWidget(p
     pimpl->manualModel->addHeader("amount", tr("Payout"));
     pimpl->manualModel->addHeader("currency", tr("Currency"));
 
-    pimpl->ui.manualTableView->setModel(pimpl->manualModel);
-
-    // Enable sorting for manual payouts
-    pimpl->ui.manualTableView->sortByColumn(0, Qt::AscendingOrder);
+    // Set up manual table view with sorting
+    setupTableViewWithSorting(pimpl->ui.manualTableView, pimpl->manualModel, 0, Qt::AscendingOrder);
 
     // Configure manual table columns
     QHeaderView* manualHeader = pimpl->ui.manualTableView->horizontalHeader();
@@ -43,14 +42,12 @@ TBSetupPayoutsWidget::TBSetupPayoutsWidget(QWidget* parent) : TBSetupTabWidget(p
     pimpl->turnoutModel = new TBVariantListTableModel(this);
     pimpl->turnoutModel->addHeader("buyins_count", tr("Buy-ins"));
 
-    pimpl->ui.turnoutTableView->setModel(pimpl->turnoutModel);
+    // Set up turnout table view with sorting
+    setupTableViewWithSorting(pimpl->ui.turnoutTableView, pimpl->turnoutModel, 0, Qt::AscendingOrder);
 
     // Configure turnout table columns
     QHeaderView* turnoutHeader = pimpl->ui.turnoutTableView->horizontalHeader();
     turnoutHeader->setSectionResizeMode(0, QHeaderView::Stretch); // Buy-ins
-
-    // Enable sorting for turnout levels
-    pimpl->ui.turnoutTableView->sortByColumn(0, Qt::AscendingOrder);
 
     // Create and configure turnout payouts model
     pimpl->turnoutPayoutsModel = new TBVariantListTableModel(this);
@@ -58,7 +55,8 @@ TBSetupPayoutsWidget::TBSetupPayoutsWidget(QWidget* parent) : TBSetupTabWidget(p
     pimpl->turnoutPayoutsModel->addHeader("amount", tr("Payout"));
     pimpl->turnoutPayoutsModel->addHeader("currency", tr("Currency"));
 
-    pimpl->ui.turnoutPayoutsTableView->setModel(pimpl->turnoutPayoutsModel);
+    // Set up turnout payouts table view with sorting
+    setupTableViewWithSorting(pimpl->ui.turnoutPayoutsTableView, pimpl->turnoutPayoutsModel, 0, Qt::AscendingOrder);
 
     // Configure turnout payouts table columns
     QHeaderView* turnoutPayoutsHeader = pimpl->ui.turnoutPayoutsTableView->horizontalHeader();
@@ -177,20 +175,20 @@ QVariantMap TBSetupPayoutsWidget::configuration() const
         forcedPayouts[i] = payout;
     }
     config["forced_payouts"] = forcedPayouts;
-    
+
     // Get manual payouts and clean up any currency fields in nested payouts
     QVariantList manualPayouts = pimpl->turnoutModel->listData();
     for (int i = 0; i < manualPayouts.size(); ++i) {
         QVariantMap level = manualPayouts[i].toMap();
         QVariantList payouts = level.value("payouts").toList();
-        
+
         // Remove currency field from each payout since they are nocurrency structures
         for (int j = 0; j < payouts.size(); ++j) {
             QVariantMap payout = payouts[j].toMap();
             payout.remove("currency");
             payouts[j] = payout;
         }
-        
+
         level["payouts"] = payouts;
         manualPayouts[i] = level;
     }
@@ -217,11 +215,10 @@ void TBSetupPayoutsWidget::on_addPayoutButtonClicked()
 
 void TBSetupPayoutsWidget::on_removePayoutButtonClicked()
 {
-    QModelIndexList selectedRows = pimpl->ui.manualTableView->selectionModel()->selectedRows();
-    if (selectedRows.isEmpty())
+    int row = getSelectedSourceRow(pimpl->ui.manualTableView);
+    if (row < 0)
         return;
 
-    int row = selectedRows.first().row();
     QVariantList payouts = pimpl->manualModel->listData();
     if (row >= 0 && row < payouts.size())
     {
@@ -245,11 +242,10 @@ void TBSetupPayoutsWidget::on_addTurnoutButtonClicked()
 
 void TBSetupPayoutsWidget::on_removeTurnoutButtonClicked()
 {
-    QModelIndexList selectedRows = pimpl->ui.turnoutTableView->selectionModel()->selectedRows();
-    if (selectedRows.isEmpty())
+    int row = getSelectedSourceRow(pimpl->ui.turnoutTableView);
+    if (row < 0)
         return;
 
-    int row = selectedRows.first().row();
     QVariantList levels = pimpl->turnoutModel->listData();
     if (row >= 0 && row < levels.size())
     {
@@ -276,11 +272,9 @@ void TBSetupPayoutsWidget::on_modelDataChanged()
 
 void TBSetupPayoutsWidget::on_addTurnoutPayoutButtonClicked()
 {
-    QModelIndexList selectedRows = pimpl->ui.turnoutTableView->selectionModel()->selectedRows();
-    if (selectedRows.isEmpty())
+    int row = getSelectedSourceRow(pimpl->ui.turnoutTableView);
+    if (row < 0)
         return;
-
-    int row = selectedRows.first().row();
     QVariantList turnoutLevels = pimpl->turnoutModel->listData();
     if (row < 0 || row >= turnoutLevels.size())
         return;
@@ -305,16 +299,13 @@ void TBSetupPayoutsWidget::on_addTurnoutPayoutButtonClicked()
 
 void TBSetupPayoutsWidget::on_removeTurnoutPayoutButtonClicked()
 {
-    QModelIndexList selectedRows = pimpl->ui.turnoutPayoutsTableView->selectionModel()->selectedRows();
-    if (selectedRows.isEmpty())
+    int turnoutRow = getSelectedSourceRow(pimpl->ui.turnoutTableView);
+    if (turnoutRow < 0)
         return;
 
-    QModelIndexList turnoutSelectedRows = pimpl->ui.turnoutTableView->selectionModel()->selectedRows();
-    if (turnoutSelectedRows.isEmpty())
+    int payoutRow = getSelectedSourceRow(pimpl->ui.turnoutPayoutsTableView);
+    if (payoutRow < 0)
         return;
-
-    int turnoutRow = turnoutSelectedRows.first().row();
-    int payoutRow = selectedRows.first().row();
 
     QVariantList turnoutLevels = pimpl->turnoutModel->listData();
     if (turnoutRow < 0 || turnoutRow >= turnoutLevels.size())
@@ -345,14 +336,12 @@ void TBSetupPayoutsWidget::on_turnoutPayoutSelectionChanged()
 
 void TBSetupPayoutsWidget::updateTurnoutPayoutsDisplay()
 {
-    QModelIndexList selectedRows = pimpl->ui.turnoutTableView->selectionModel()->selectedRows();
-    if (selectedRows.isEmpty())
+    int row = getSelectedSourceRow(pimpl->ui.turnoutTableView);
+    if (row < 0)
     {
         pimpl->turnoutPayoutsModel->setListData(QVariantList());
         return;
     }
-
-    int row = selectedRows.first().row();
     QVariantList turnoutLevels = pimpl->turnoutModel->listData();
     if (row < 0 || row >= turnoutLevels.size())
     {
@@ -362,14 +351,14 @@ void TBSetupPayoutsWidget::updateTurnoutPayoutsDisplay()
 
     QVariantMap selectedLevel = turnoutLevels[row].toMap();
     QVariantList payouts = selectedLevel.value("payouts").toList();
-    
+
     // Add currency field to each payout entry for display
     for (int i = 0; i < payouts.size(); ++i) {
         QVariantMap payout = payouts[i].toMap();
         payout["currency"] = pimpl->payoutCurrency;
         payouts[i] = payout;
     }
-    
+
     pimpl->turnoutPayoutsModel->setListData(payouts);
 }
 

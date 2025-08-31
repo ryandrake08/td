@@ -3,6 +3,9 @@
 #include <QWidget>
 #include <QVariantMap>
 
+class QTableView;
+class TBVariantListTableModel;
+
 class TBSetupTabWidget : public QWidget
 {
     Q_OBJECT
@@ -18,6 +21,11 @@ public:
     // Called when any other tab's configuration changes
     // Override in derived classes to handle dependencies
     virtual void onOtherTabConfigurationChanged(const QVariantMap&) {};
+
+protected:
+    // Helper methods for sorting functionality
+    void setupTableViewWithSorting(QTableView* tableView, TBVariantListTableModel* sourceModel, int defaultSortColumn = 0, Qt::SortOrder defaultSortOrder = Qt::AscendingOrder);
+    int getSelectedSourceRow(QTableView* tableView);
 
 Q_SIGNALS:
     void configurationChanged();

@@ -7,6 +7,7 @@
 
 #include <QDateTime>
 #include <QHeaderView>
+#include <QSortFilterProxyModel>
 #include <QUuid>
 
 struct TBSetupPlayersWidget::impl
@@ -29,11 +30,8 @@ TBSetupPlayersWidget::TBSetupPlayersWidget(QWidget* parent) : TBSetupTabWidget(p
     pimpl->model->addHeader("name", tr("Player Name"));
     pimpl->model->addHeader("added_at", tr("Member Since"));
 
-    pimpl->ui.tableView->setModel(pimpl->model);
-
-    // Enable sorting and set default sort by Name column (ascending)
-    pimpl->ui.tableView->setSortingEnabled(true);
-    pimpl->ui.tableView->sortByColumn(0, Qt::AscendingOrder);
+    // Set up table view with sorting
+    setupTableViewWithSorting(pimpl->ui.tableView, pimpl->model, 0, Qt::AscendingOrder);
 
     // Configure column behavior
     QHeaderView* header = pimpl->ui.tableView->horizontalHeader();
@@ -118,12 +116,9 @@ void TBSetupPlayersWidget::on_addPlayerButtonClicked()
 
 void TBSetupPlayersWidget::on_removePlayerButtonClicked()
 {
-    QModelIndexList selectedRows = pimpl->ui.tableView->selectionModel()->selectedRows();
-    if (selectedRows.isEmpty())
+    int row = getSelectedSourceRow(pimpl->ui.tableView);
+    if (row < 0)
         return;
-
-    // Get the row to remove (take the first selected row)
-    int row = selectedRows.first().row();
 
     // Remove from model
     QVariantList players = pimpl->model->listData();

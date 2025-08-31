@@ -10,6 +10,7 @@
 #include "ui_TBSetupFundingWidget.h"
 
 #include <QHeaderView>
+#include <QSortFilterProxyModel>
 
 struct TBSetupFundingWidget::impl
 {
@@ -31,10 +32,8 @@ TBSetupFundingWidget::TBSetupFundingWidget(QWidget* parent) : TBSetupTabWidget(p
     pimpl->model->addHeader("cost_amount", tr("Details"));
     pimpl->model->addHeader("forbid_after_blind_level", tr("Forbid After Level"));
 
-    pimpl->ui.tableView->setModel(pimpl->model);
-
-    // Enable sorting and set default sort by name
-    pimpl->ui.tableView->sortByColumn(0, Qt::AscendingOrder);
+    // Set up table view with sorting
+    setupTableViewWithSorting(pimpl->ui.tableView, pimpl->model, 1, Qt::AscendingOrder);
 
     // Configure column behavior
     QHeaderView* header = pimpl->ui.tableView->horizontalHeader();
@@ -191,12 +190,9 @@ void TBSetupFundingWidget::on_addFundingButtonClicked()
 
 void TBSetupFundingWidget::on_removeFundingButtonClicked()
 {
-    QModelIndexList selectedRows = pimpl->ui.tableView->selectionModel()->selectedRows();
-    if (selectedRows.isEmpty())
+    int row = getSelectedSourceRow(pimpl->ui.tableView);
+    if (row < 0)
         return;
-
-    // Get the row to remove (take the first selected row)
-    int row = selectedRows.first().row();
 
     // Remove from model
     QVariantList funding = pimpl->model->listData();

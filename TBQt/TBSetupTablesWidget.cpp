@@ -5,6 +5,7 @@
 #include "ui_TBSetupTablesWidget.h"
 
 #include <QHeaderView>
+#include <QSortFilterProxyModel>
 
 struct TBSetupTablesWidget::impl
 {
@@ -26,11 +27,8 @@ TBSetupTablesWidget::TBSetupTablesWidget(QWidget* parent) : TBSetupTabWidget(par
     pimpl->model->addIndexHeader("table_number", tr("Table #"), 1);
     pimpl->model->addHeader("table_name", tr("Table Name"));
 
-    pimpl->ui.tableView->setModel(pimpl->model);
-
-    // Enable sorting and set default sort by table number
-    pimpl->ui.tableView->setSortingEnabled(true);
-    pimpl->ui.tableView->sortByColumn(0, Qt::AscendingOrder);
+    // Set up table view with sorting
+    setupTableViewWithSorting(pimpl->ui.tableView, pimpl->model, 0, Qt::AscendingOrder);
 
     // Configure column behavior
     QHeaderView* header = pimpl->ui.tableView->horizontalHeader();
@@ -110,12 +108,9 @@ void TBSetupTablesWidget::on_addTableButtonClicked()
 
 void TBSetupTablesWidget::on_removeTableButtonClicked()
 {
-    QModelIndexList selectedRows = pimpl->ui.tableView->selectionModel()->selectedRows();
-    if (selectedRows.isEmpty())
+    int row = getSelectedSourceRow(pimpl->ui.tableView);
+    if (row < 0)
         return;
-
-    // Get the row to remove (take the first selected row)
-    int row = selectedRows.first().row();
 
     // Remove from model
     QVariantList tables = pimpl->model->listData();

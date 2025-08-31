@@ -7,6 +7,7 @@
 
 #include <QHeaderView>
 #include <QRandomGenerator>
+#include <QSortFilterProxyModel>
 
 struct TBSetupChipsWidget::impl
 {
@@ -27,10 +28,8 @@ TBSetupChipsWidget::TBSetupChipsWidget(QWidget* parent) : TBSetupTabWidget(paren
     pimpl->model->addHeader("denomination", tr("Denomination"));
     pimpl->model->addHeader("count_available", tr("Count"));
 
-    pimpl->ui.tableView->setModel(pimpl->model);
-
-    // Enable sorting and set default sort by denomination
-    pimpl->ui.tableView->sortByColumn(1, Qt::AscendingOrder);
+    // Set up table view with sorting
+    setupTableViewWithSorting(pimpl->ui.tableView, pimpl->model, 1, Qt::AscendingOrder);
 
     // Configure column behavior
     QHeaderView* header = pimpl->ui.tableView->horizontalHeader();
@@ -146,12 +145,9 @@ void TBSetupChipsWidget::on_addChipButtonClicked()
 
 void TBSetupChipsWidget::on_removeChipButtonClicked()
 {
-    QModelIndexList selectedRows = pimpl->ui.tableView->selectionModel()->selectedRows();
-    if (selectedRows.isEmpty())
+    int row = getSelectedSourceRow(pimpl->ui.tableView);
+    if (row < 0)
         return;
-
-    // Get the row to remove (take the first selected row)
-    int row = selectedRows.first().row();
 
     // Remove from model
     QVariantList chips = pimpl->model->listData();
