@@ -1,6 +1,7 @@
 #pragma once
 
 #include "TBSetupTabWidget.hpp"
+#include "TournamentSession.hpp"
 #include <memory>
 
 class TBSetupFundingWidget : public TBSetupTabWidget
@@ -25,5 +26,5 @@ private Q_SLOTS:
     void on_modelDataChanged();
 
 private:
-    QVariantMap createDefaultFunding(int fundingType) const;
+    QVariantMap createDefaultFunding(TournamentSession::FundingType fundingType) const;
 };

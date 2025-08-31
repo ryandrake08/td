@@ -137,7 +137,7 @@ QVariantMap TBSetupRoundsWidget::createDefaultRound(int littleBlind, int bigBlin
     round["little_blind"] = littleBlind;
     round["big_blind"] = bigBlind;
     round["ante"] = 0;
-    round["ante_type"] = TournamentSession::kAnteTypeNone;
+    round["ante_type"] = TournamentSession::toInt(TournamentSession::AnteType::None);
     round["duration"] = 20; // 20 minutes default
     round["break_duration"] = 0; // No break by default
     round["reason"] = QString(); // Empty break reason

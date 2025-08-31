@@ -576,3 +576,76 @@ QString TournamentSession::last_error() const
 {
     return this->pimpl->last_error;
 }
+
+// String conversion helper implementations
+QString TournamentSession::toString(FundingType type)
+{
+    switch (type) {
+        case FundingType::Buyin: return QObject::tr("Buy-in");
+        case FundingType::Rebuy: return QObject::tr("Rebuy");
+        case FundingType::Addon: return QObject::tr("Add-on");
+        default: return QObject::tr("Unknown");
+    }
+}
+
+QString TournamentSession::toString(RebalancePolicy policy)
+{
+    switch (policy) {
+        case RebalancePolicy::Manual: return QObject::tr("Manual");
+        case RebalancePolicy::Automatic: return QObject::tr("Automatic");
+        case RebalancePolicy::Shootout: return QObject::tr("Shootout");
+        default: return QObject::tr("Unknown");
+    }
+}
+
+QString TournamentSession::toString(PayoutPolicy policy)
+{
+    switch (policy) {
+        case PayoutPolicy::Automatic: return QObject::tr("Automatic");
+        case PayoutPolicy::Forced: return QObject::tr("Forced");
+        case PayoutPolicy::Manual: return QObject::tr("Manual");
+        default: return QObject::tr("Unknown");
+    }
+}
+
+QString TournamentSession::toString(AnteType type)
+{
+    switch (type) {
+        case AnteType::None: return QObject::tr("None");
+        case AnteType::Traditional: return QObject::tr("Traditional");
+        case AnteType::BigBlind: return QObject::tr("Big Blind");
+        default: return QObject::tr("None");
+    }
+}
+
+TournamentSession::FundingType TournamentSession::fundingTypeFromString(const QString& str)
+{
+    if (str == QObject::tr("Buy-in")) return FundingType::Buyin;
+    if (str == QObject::tr("Rebuy")) return FundingType::Rebuy;
+    if (str == QObject::tr("Add-on")) return FundingType::Addon;
+    return FundingType::Buyin; // Default fallback
+}
+
+TournamentSession::RebalancePolicy TournamentSession::rebalancePolicyFromString(const QString& str)
+{
+    if (str == QObject::tr("Manual")) return RebalancePolicy::Manual;
+    if (str == QObject::tr("Automatic")) return RebalancePolicy::Automatic;
+    if (str == QObject::tr("Shootout")) return RebalancePolicy::Shootout;
+    return RebalancePolicy::Manual; // Default fallback
+}
+
+TournamentSession::PayoutPolicy TournamentSession::payoutPolicyFromString(const QString& str)
+{
+    if (str == QObject::tr("Automatic")) return PayoutPolicy::Automatic;
+    if (str == QObject::tr("Forced")) return PayoutPolicy::Forced;
+    if (str == QObject::tr("Manual")) return PayoutPolicy::Manual;
+    return PayoutPolicy::Automatic; // Default fallback
+}
+
+TournamentSession::AnteType TournamentSession::anteTypeFromString(const QString& str)
+{
+    if (str == QObject::tr("Traditional")) return AnteType::Traditional;
+    if (str == QObject::tr("Big Blind")) return AnteType::BigBlind;
+    if (str == QObject::tr("None")) return AnteType::None;
+    return AnteType::None; // Default fallback to None
+}

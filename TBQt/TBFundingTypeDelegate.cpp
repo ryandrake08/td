@@ -13,9 +13,9 @@ QWidget* TBFundingTypeDelegate::createEditor(QWidget* parent, const QStyleOption
     Q_UNUSED(index)
 
     QComboBox* comboBox = new QComboBox(parent);
-    comboBox->addItem(tr("Buy-in"), TournamentSession::kFundingTypeBuyin);
-    comboBox->addItem(tr("Rebuy"), TournamentSession::kFundingTypeRebuy);
-    comboBox->addItem(tr("Add-on"), TournamentSession::kFundingTypeAddon);
+    comboBox->addItem(TournamentSession::toString(TournamentSession::FundingType::Buyin), TournamentSession::toInt(TournamentSession::FundingType::Buyin));
+    comboBox->addItem(TournamentSession::toString(TournamentSession::FundingType::Rebuy), TournamentSession::toInt(TournamentSession::FundingType::Rebuy));
+    comboBox->addItem(TournamentSession::toString(TournamentSession::FundingType::Addon), TournamentSession::toInt(TournamentSession::FundingType::Addon));
     return comboBox;
 }
 
@@ -48,16 +48,5 @@ QString TBFundingTypeDelegate::displayText(const QVariant& value, const QLocale&
     Q_UNUSED(locale)
 
     int fundingType = value.toInt();
-    return fundingTypeToString(fundingType);
-}
-
-QString TBFundingTypeDelegate::fundingTypeToString(int fundingType)
-{
-    switch (fundingType)
-    {
-        case TournamentSession::kFundingTypeBuyin: return QObject::tr("Buy-in");
-        case TournamentSession::kFundingTypeRebuy: return QObject::tr("Rebuy");
-        case TournamentSession::kFundingTypeAddon: return QObject::tr("Add-on");
-        default: return QObject::tr("Unknown");
-    }
+    return TournamentSession::toString(TournamentSession::toFundingType(fundingType));
 }

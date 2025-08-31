@@ -544,19 +544,19 @@ void TBBuddyMainWindow::on_manageButtonClicked(const QModelIndex& index)
         // Determine if this funding source should be enabled based on business rules
         bool enabled = false;
 
-        if (sourceType == TournamentSession::kFundingTypeBuyin)
+        if (TournamentSession::toFundingType(sourceType) == TournamentSession::FundingType::Buyin)
         {
             // Buyins can happen at any time before forbid_after_blind_level, for any non-playing player
             if (!playerHasBuyin)
                 enabled = true;
         }
-        else if (sourceType == TournamentSession::kFundingTypeRebuy)
+        else if (TournamentSession::toFundingType(sourceType) == TournamentSession::FundingType::Rebuy)
         {
             // Rebuys can happen after round 0, before forbid_after_blind_level, for any player that has bought in at least once
             if (currentBlindLevel > 0 && uniqueEntries.contains(playerId))
                 enabled = true;
         }
-        else // Addon (kFundingTypeAddon or any other type)
+        else // Addon (FundingType::Addon or any other type)
         {
             // Addons can happen at any time before forbid_after_blind_level, for any playing player
             if (playerHasBuyin)

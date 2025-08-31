@@ -168,7 +168,7 @@ bool TBSetupFundingWidget::validateConfiguration() const
     for (const QVariant& fundingVariant : funding)
     {
         QVariantMap fundingItem = fundingVariant.toMap();
-        if (fundingItem["type"].toInt() == TournamentSession::kFundingTypeBuyin)
+        if (TournamentSession::toFundingType(fundingItem["type"].toInt()) == TournamentSession::FundingType::Buyin)
         {
             return true;
         }
@@ -179,7 +179,7 @@ bool TBSetupFundingWidget::validateConfiguration() const
 
 void TBSetupFundingWidget::on_addFundingButtonClicked()
 {
-    QVariantMap newFunding = createDefaultFunding(TournamentSession::kFundingTypeBuyin);
+    QVariantMap newFunding = createDefaultFunding(TournamentSession::FundingType::Buyin);
 
     // Add to model
     QVariantList funding = pimpl->model->listData();
@@ -213,12 +213,11 @@ void TBSetupFundingWidget::on_modelDataChanged()
     Q_EMIT configurationChanged();
 }
 
-QVariantMap TBSetupFundingWidget::createDefaultFunding(int fundingType) const
+QVariantMap TBSetupFundingWidget::createDefaultFunding(TournamentSession::FundingType fundingType) const
 {
     QVariantMap funding;
-    funding["name"] = (fundingType == TournamentSession::kFundingTypeBuyin) ? tr("Buy-in") : 
-                      (fundingType == TournamentSession::kFundingTypeRebuy) ? tr("Rebuy") : tr("Add-on");
-    funding["type"] = fundingType;
+    funding["name"] = TournamentSession::toString(fundingType);
+    funding["type"] = TournamentSession::toInt(fundingType);
     funding["chips"] = 1500; // Default chip count
     funding["cost_amount"] = 20.0; // Default cost
     funding["cost_currency"] = TBCurrency::defaultCurrencyCode();

@@ -20,8 +20,8 @@ QWidget* TBAnteTypeDelegate::createEditor(QWidget* parent, const QStyleOptionVie
     }
 
     QComboBox* comboBox = new QComboBox(parent);
-    comboBox->addItem(tr("Traditional"), TournamentSession::kAnteTypeTraditional);
-    comboBox->addItem(tr("Big Blind"), TournamentSession::kAnteTypeBigBlind);
+    comboBox->addItem(TournamentSession::toString(TournamentSession::AnteType::Traditional), TournamentSession::toInt(TournamentSession::AnteType::Traditional));
+    comboBox->addItem(TournamentSession::toString(TournamentSession::AnteType::BigBlind), TournamentSession::toInt(TournamentSession::AnteType::BigBlind));
     return comboBox;
 }
 
@@ -56,21 +56,4 @@ QString TBAnteTypeDelegate::displayText(const QVariant& value, const QLocale& lo
     // The model already handles the display logic in its data() method
     // Just return the formatted text that the model provides
     return value.toString();
-}
-
-QString TBAnteTypeDelegate::anteTypeToString(int anteType)
-{
-    switch (anteType)
-    {
-        case TournamentSession::kAnteTypeTraditional: return QObject::tr("Traditional");
-        case TournamentSession::kAnteTypeBigBlind: return QObject::tr("Big Blind");
-        default: return QString(); // Empty for no ante or unknown
-    }
-}
-
-int TBAnteTypeDelegate::anteTypeFromString(const QString& text)
-{
-    if (text == QObject::tr("Traditional")) return TournamentSession::kAnteTypeTraditional;
-    if (text == QObject::tr("Big Blind")) return TournamentSession::kAnteTypeBigBlind;
-    return TournamentSession::kAnteTypeTraditional; // Default to Traditional when there's an ante
 }

@@ -34,25 +34,68 @@ private Q_SLOTS:
     void on_connectionError(const QString& error);
 
 public:
-    // funding types
-    static const int kFundingTypeBuyin = 0;
-    static const int kFundingTypeRebuy = 1;
-    static const int kFundingTypeAddon = 2;
+    // Type-safe enums
+    enum class FundingType : int
+    {
+        Buyin = 0,
+        Rebuy = 1,
+        Addon = 2
+    };
 
-    // rebalance policies
-    static const int kRebalanceManual = 0;
-    static const int kRebalanceAutomatic = 1;
-    static const int kRebalanceShootout = 2;
+    enum class RebalancePolicy : int
+    {
+        Manual = 0,
+        Automatic = 1,
+        Shootout = 2
+    };
 
-    // payout policies
-    static const int kPayoutAutomatic = 0;
-    static const int kPayoutForced = 1;
-    static const int kPayoutManual = 2;
+    enum class PayoutPolicy : int
+    {
+        Automatic = 0,
+        Forced = 1,
+        Manual = 2
+    };
 
-    // ante types
-    static const int kAnteTypeNone = 0;
-    static const int kAnteTypeTraditional = 1;
-    static const int kAnteTypeBigBlind = 2;
+    enum class AnteType : int
+    {
+        None = 0,
+        Traditional = 1,
+        BigBlind = 2
+    };
+
+    // Conversion helpers for JSON serialization and use in Qt controls
+    static constexpr int toInt(FundingType type) { return static_cast<int>(type); }
+    static constexpr int toInt(RebalancePolicy policy) { return static_cast<int>(policy); }
+    static constexpr int toInt(PayoutPolicy policy) { return static_cast<int>(policy); }
+    static constexpr int toInt(AnteType type) { return static_cast<int>(type); }
+
+    static FundingType toFundingType(int value) {
+        Q_ASSERT(value >= 0 && value <= 2);
+        return (value >= 0 && value <= 2) ? static_cast<FundingType>(value) : FundingType::Buyin;
+    }
+    static RebalancePolicy toRebalancePolicy(int value) {
+        Q_ASSERT(value >= 0 && value <= 2);
+        return (value >= 0 && value <= 2) ? static_cast<RebalancePolicy>(value) : RebalancePolicy::Manual;
+    }
+    static PayoutPolicy toPayoutPolicy(int value) {
+        Q_ASSERT(value >= 0 && value <= 2);
+        return (value >= 0 && value <= 2) ? static_cast<PayoutPolicy>(value) : PayoutPolicy::Automatic;
+    }
+    static AnteType toAnteType(int value) {
+        Q_ASSERT(value >= 0 && value <= 2);
+        return (value >= 0 && value <= 2) ? static_cast<AnteType>(value) : AnteType::None;
+    }
+
+    // String conversion helpers
+    static QString toString(FundingType type);
+    static QString toString(RebalancePolicy policy);
+    static QString toString(PayoutPolicy policy);
+    static QString toString(AnteType type);
+
+    static FundingType fundingTypeFromString(const QString& str);
+    static RebalancePolicy rebalancePolicyFromString(const QString& str);
+    static PayoutPolicy payoutPolicyFromString(const QString& str);
+    static AnteType anteTypeFromString(const QString& str);
 
     // action clock
     static const int kActionClockRequestTime = 60000;

@@ -55,12 +55,7 @@ QVariant TBRoundsModel::data(const QModelIndex &index, int role) const
 
             // Show ante type when there's an ante
             int anteType = baseData.toInt();
-            switch (anteType)
-            {
-                case TournamentSession::kAnteTypeTraditional: return tr("Traditional");
-                case TournamentSession::kAnteTypeBigBlind: return tr("Big Blind");
-                default: return QString();
-            }
+            return TournamentSession::toString(TournamentSession::toAnteType(anteType));
         }
         else if (index.column() == 7) // Break column
         {
