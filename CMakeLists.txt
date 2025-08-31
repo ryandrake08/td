@@ -225,6 +225,8 @@ if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND)
 		TBQt/TBSetupTablesWidget.hpp
 		TBQt/TBSetupTabWidget.cpp
 		TBQt/TBSetupTabWidget.hpp
+		TBQt/TBTableViewUtils.cpp
+		TBQt/TBTableViewUtils.hpp
 		TBQt/TBTableWidget.cpp
 		TBQt/TBTableWidget.hpp
 		TBQt/TBTournamentDisplayWindow.cpp
@@ -303,6 +305,8 @@ if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND)
 		TBQt/TBRuntimeError.hpp
 		TBQt/TBSeatingChartWindow.cpp
 		TBQt/TBSeatingChartWindow.hpp
+		TBQt/TBTableViewUtils.cpp
+		TBQt/TBTableViewUtils.hpp
 		TBQt/TBTableWidget.cpp
 		TBQt/TBTableWidget.hpp
 		TBQt/TBTournamentDisplayWindow.cpp

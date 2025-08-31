@@ -5,6 +5,7 @@
 #include "TBCurrency.hpp"
 #include "TBFundingDetailsDelegate.hpp"
 #include "TBFundingTypeDelegate.hpp"
+#include "TBTableViewUtils.hpp"
 #include "TBVariantListTableModel.hpp"
 
 #include "ui_TBSetupFundingWidget.h"
@@ -33,7 +34,7 @@ TBSetupFundingWidget::TBSetupFundingWidget(QWidget* parent) : TBSetupTabWidget(p
     pimpl->model->addHeader("forbid_after_blind_level", tr("Forbid After Level"));
 
     // Set up table view with sorting
-    setupTableViewWithSorting(pimpl->ui.tableView, pimpl->model, 1, Qt::AscendingOrder);
+    TBTableViewUtils::setupTableViewWithSorting(this, pimpl->ui.tableView, pimpl->model, 1, Qt::AscendingOrder);
 
     // Configure column behavior
     QHeaderView* header = pimpl->ui.tableView->horizontalHeader();
@@ -190,7 +191,7 @@ void TBSetupFundingWidget::on_addFundingButtonClicked()
 
 void TBSetupFundingWidget::on_removeFundingButtonClicked()
 {
-    int row = getSelectedSourceRow(pimpl->ui.tableView);
+    int row = TBTableViewUtils::getSelectedSourceRow(pimpl->ui.tableView);
     if (row < 0)
         return;
 

@@ -2,6 +2,7 @@
 #include "TournamentSession.hpp"
 
 #include "TBCurrency.hpp"
+#include "TBTableViewUtils.hpp"
 #include "TBVariantListTableModel.hpp"
 
 #include "ui_TBSetupPayoutsWidget.h"
@@ -30,7 +31,7 @@ TBSetupPayoutsWidget::TBSetupPayoutsWidget(QWidget* parent) : TBSetupTabWidget(p
     pimpl->manualModel->addHeader("currency", tr("Currency"));
 
     // Set up manual table view with sorting
-    setupTableViewWithSorting(pimpl->ui.manualTableView, pimpl->manualModel, 0, Qt::AscendingOrder);
+    TBTableViewUtils::setupTableViewWithSorting(this, pimpl->ui.manualTableView, pimpl->manualModel, 0, Qt::AscendingOrder);
 
     // Configure manual table columns
     QHeaderView* manualHeader = pimpl->ui.manualTableView->horizontalHeader();
@@ -43,7 +44,7 @@ TBSetupPayoutsWidget::TBSetupPayoutsWidget(QWidget* parent) : TBSetupTabWidget(p
     pimpl->turnoutModel->addHeader("buyins_count", tr("Buy-ins"));
 
     // Set up turnout table view with sorting
-    setupTableViewWithSorting(pimpl->ui.turnoutTableView, pimpl->turnoutModel, 0, Qt::AscendingOrder);
+    TBTableViewUtils::setupTableViewWithSorting(this, pimpl->ui.turnoutTableView, pimpl->turnoutModel, 0, Qt::AscendingOrder);
 
     // Configure turnout table columns
     QHeaderView* turnoutHeader = pimpl->ui.turnoutTableView->horizontalHeader();
@@ -56,7 +57,7 @@ TBSetupPayoutsWidget::TBSetupPayoutsWidget(QWidget* parent) : TBSetupTabWidget(p
     pimpl->turnoutPayoutsModel->addHeader("currency", tr("Currency"));
 
     // Set up turnout payouts table view with sorting
-    setupTableViewWithSorting(pimpl->ui.turnoutPayoutsTableView, pimpl->turnoutPayoutsModel, 0, Qt::AscendingOrder);
+    TBTableViewUtils::setupTableViewWithSorting(this, pimpl->ui.turnoutPayoutsTableView, pimpl->turnoutPayoutsModel, 0, Qt::AscendingOrder);
 
     // Configure turnout payouts table columns
     QHeaderView* turnoutPayoutsHeader = pimpl->ui.turnoutPayoutsTableView->horizontalHeader();
@@ -215,7 +216,7 @@ void TBSetupPayoutsWidget::on_addPayoutButtonClicked()
 
 void TBSetupPayoutsWidget::on_removePayoutButtonClicked()
 {
-    int row = getSelectedSourceRow(pimpl->ui.manualTableView);
+    int row = TBTableViewUtils::getSelectedSourceRow(pimpl->ui.manualTableView);
     if (row < 0)
         return;
 
@@ -242,7 +243,7 @@ void TBSetupPayoutsWidget::on_addTurnoutButtonClicked()
 
 void TBSetupPayoutsWidget::on_removeTurnoutButtonClicked()
 {
-    int row = getSelectedSourceRow(pimpl->ui.turnoutTableView);
+    int row = TBTableViewUtils::getSelectedSourceRow(pimpl->ui.turnoutTableView);
     if (row < 0)
         return;
 
@@ -272,7 +273,7 @@ void TBSetupPayoutsWidget::on_modelDataChanged()
 
 void TBSetupPayoutsWidget::on_addTurnoutPayoutButtonClicked()
 {
-    int row = getSelectedSourceRow(pimpl->ui.turnoutTableView);
+    int row = TBTableViewUtils::getSelectedSourceRow(pimpl->ui.turnoutTableView);
     if (row < 0)
         return;
     QVariantList turnoutLevels = pimpl->turnoutModel->listData();
@@ -299,11 +300,11 @@ void TBSetupPayoutsWidget::on_addTurnoutPayoutButtonClicked()
 
 void TBSetupPayoutsWidget::on_removeTurnoutPayoutButtonClicked()
 {
-    int turnoutRow = getSelectedSourceRow(pimpl->ui.turnoutTableView);
+    int turnoutRow = TBTableViewUtils::getSelectedSourceRow(pimpl->ui.turnoutTableView);
     if (turnoutRow < 0)
         return;
 
-    int payoutRow = getSelectedSourceRow(pimpl->ui.turnoutPayoutsTableView);
+    int payoutRow = TBTableViewUtils::getSelectedSourceRow(pimpl->ui.turnoutPayoutsTableView);
     if (payoutRow < 0)
         return;
 
@@ -336,7 +337,7 @@ void TBSetupPayoutsWidget::on_turnoutPayoutSelectionChanged()
 
 void TBSetupPayoutsWidget::updateTurnoutPayoutsDisplay()
 {
-    int row = getSelectedSourceRow(pimpl->ui.turnoutTableView);
+    int row = TBTableViewUtils::getSelectedSourceRow(pimpl->ui.turnoutTableView);
     if (row < 0)
     {
         pimpl->turnoutPayoutsModel->setListData(QVariantList());

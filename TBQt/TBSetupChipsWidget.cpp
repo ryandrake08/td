@@ -1,6 +1,7 @@
 #include "TBSetupChipsWidget.hpp"
 
 #include "TBColorDisplayDelegate.hpp"
+#include "TBTableViewUtils.hpp"
 #include "TBVariantListTableModel.hpp"
 
 #include "ui_TBSetupChipsWidget.h"
@@ -29,7 +30,7 @@ TBSetupChipsWidget::TBSetupChipsWidget(QWidget* parent) : TBSetupTabWidget(paren
     pimpl->model->addHeader("count_available", tr("Count"));
 
     // Set up table view with sorting
-    setupTableViewWithSorting(pimpl->ui.tableView, pimpl->model, 1, Qt::AscendingOrder);
+    TBTableViewUtils::setupTableViewWithSorting(this, pimpl->ui.tableView, pimpl->model, 1, Qt::AscendingOrder);
 
     // Configure column behavior
     QHeaderView* header = pimpl->ui.tableView->horizontalHeader();
@@ -145,7 +146,7 @@ void TBSetupChipsWidget::on_addChipButtonClicked()
 
 void TBSetupChipsWidget::on_removeChipButtonClicked()
 {
-    int row = getSelectedSourceRow(pimpl->ui.tableView);
+    int row = TBTableViewUtils::getSelectedSourceRow(pimpl->ui.tableView);
     if (row < 0)
         return;
 

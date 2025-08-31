@@ -1,5 +1,6 @@
 #include "TBSetupTablesWidget.hpp"
 
+#include "TBTableViewUtils.hpp"
 #include "TBVariantListTableModel.hpp"
 
 #include "ui_TBSetupTablesWidget.h"
@@ -28,7 +29,7 @@ TBSetupTablesWidget::TBSetupTablesWidget(QWidget* parent) : TBSetupTabWidget(par
     pimpl->model->addHeader("table_name", tr("Table Name"));
 
     // Set up table view with sorting
-    setupTableViewWithSorting(pimpl->ui.tableView, pimpl->model, 0, Qt::AscendingOrder);
+    TBTableViewUtils::setupTableViewWithSorting(this, pimpl->ui.tableView, pimpl->model, 0, Qt::AscendingOrder);
 
     // Configure column behavior
     QHeaderView* header = pimpl->ui.tableView->horizontalHeader();
@@ -108,7 +109,7 @@ void TBSetupTablesWidget::on_addTableButtonClicked()
 
 void TBSetupTablesWidget::on_removeTableButtonClicked()
 {
-    int row = getSelectedSourceRow(pimpl->ui.tableView);
+    int row = TBTableViewUtils::getSelectedSourceRow(pimpl->ui.tableView);
     if (row < 0)
         return;
 

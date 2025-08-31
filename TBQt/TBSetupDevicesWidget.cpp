@@ -1,6 +1,7 @@
 #include "TBSetupDevicesWidget.hpp"
 
 #include "TBDateEditDelegate.hpp"
+#include "TBTableViewUtils.hpp"
 #include "TBVariantListTableModel.hpp"
 
 #include "ui_TBSetupDevicesWidget.h"
@@ -28,7 +29,7 @@ TBSetupDevicesWidget::TBSetupDevicesWidget(QWidget* parent) : TBSetupTabWidget(p
     pimpl->model->addHeader("added_at", tr("Authorized"));
 
     // Set up table view with sorting
-    setupTableViewWithSorting(pimpl->ui.tableView, pimpl->model, 1, Qt::AscendingOrder);
+    TBTableViewUtils::setupTableViewWithSorting(this, pimpl->ui.tableView, pimpl->model, 1, Qt::AscendingOrder);
 
     // Configure column behavior
     QHeaderView* header = pimpl->ui.tableView->horizontalHeader();
@@ -89,7 +90,7 @@ void TBSetupDevicesWidget::on_addDeviceButtonClicked()
 
 void TBSetupDevicesWidget::on_removeDeviceButtonClicked()
 {
-    int row = getSelectedSourceRow(pimpl->ui.tableView);
+    int row = TBTableViewUtils::getSelectedSourceRow(pimpl->ui.tableView);
     if (row < 0)
         return;
 

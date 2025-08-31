@@ -23,9 +23,6 @@ public:
     virtual void onOtherTabConfigurationChanged(const QVariantMap&) {};
 
 protected:
-    // Helper methods for sorting functionality
-    void setupTableViewWithSorting(QTableView* tableView, TBVariantListTableModel* sourceModel, int defaultSortColumn = 0, Qt::SortOrder defaultSortOrder = Qt::AscendingOrder);
-    int getSelectedSourceRow(QTableView* tableView);
 
 Q_SIGNALS:
     void configurationChanged();

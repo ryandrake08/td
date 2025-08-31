@@ -1,6 +1,7 @@
 #include "TBSetupPlayersWidget.hpp"
 
 #include "TBDateEditDelegate.hpp"
+#include "TBTableViewUtils.hpp"
 #include "TBVariantListTableModel.hpp"
 
 #include "ui_TBSetupPlayersWidget.h"
@@ -31,7 +32,7 @@ TBSetupPlayersWidget::TBSetupPlayersWidget(QWidget* parent) : TBSetupTabWidget(p
     pimpl->model->addHeader("added_at", tr("Member Since"));
 
     // Set up table view with sorting
-    setupTableViewWithSorting(pimpl->ui.tableView, pimpl->model, 0, Qt::AscendingOrder);
+    TBTableViewUtils::setupTableViewWithSorting(this, pimpl->ui.tableView, pimpl->model, 0, Qt::AscendingOrder);
 
     // Configure column behavior
     QHeaderView* header = pimpl->ui.tableView->horizontalHeader();
@@ -116,7 +117,7 @@ void TBSetupPlayersWidget::on_addPlayerButtonClicked()
 
 void TBSetupPlayersWidget::on_removePlayerButtonClicked()
 {
-    int row = getSelectedSourceRow(pimpl->ui.tableView);
+    int row = TBTableViewUtils::getSelectedSourceRow(pimpl->ui.tableView);
     if (row < 0)
         return;
 
