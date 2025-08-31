@@ -15,7 +15,7 @@ public:
     void updateEditorGeometry(QWidget* editor, const QStyleOptionViewItem& option, const QModelIndex& index) const override;
 
     void paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const override;
-    
+
     bool eventFilter(QObject* watched, QEvent* event) override;
 
 private Q_SLOTS:

@@ -1,8 +1,9 @@
 #include "TBResultsModel.hpp"
 
+#include "TBCurrency.hpp"
 #include "TournamentSession.hpp"
 
-TBResultsModel::TBResultsModel(const TournamentSession& session, QObject* parent) : TBVariantListTableModel(parent)
+TBResultsModel::TBResultsModel(const TournamentSession& session, QObject* parent) : TBVariantListTableModel(parent), m_session(session)
 {
     // set headers for this kind of model
     this->addHeader("place", QObject::tr("Place"));
@@ -68,18 +69,15 @@ QVariant TBResultsModel::data(const QModelIndex &index, int role) const
             // Extract amount from monetary_value_nocurrency structure
             double amount = payoutData["amount"].toDouble();
 
-            // Format as currency with default $ symbol for now
-            if (amount > 0)
-            {
-                return QString("$%1").arg(amount, 0, 'f', 2);
-            }
-            else
-            {
-                return QString("$0.00");
-            }
+            // Format using tournament's payout currency
+            QString payoutCurrency = m_session.state().value("payout_currency", TBCurrency::defaultCurrencyCode()).toString();
+
+            return TBCurrency::formatAmount(amount, payoutCurrency);
         }
 
-        return QString("$0.00"); // Fallback if no payout data
+        // Fallback if no payout data - use tournament currency for consistency
+        QString payoutCurrency = m_session.state().value("payout_currency", TBCurrency::defaultCurrencyCode()).toString();
+        return TBCurrency::formatAmount(0.0, payoutCurrency);
     }
 
     // Handle text alignment for all columns

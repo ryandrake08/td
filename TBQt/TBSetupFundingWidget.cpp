@@ -2,6 +2,7 @@
 #include "TournamentSession.hpp"
 
 #include "TBBlindLevelDelegate.hpp"
+#include "TBCurrency.hpp"
 #include "TBFundingDetailsDelegate.hpp"
 #include "TBFundingTypeDelegate.hpp"
 #include "TBVariantListTableModel.hpp"
@@ -54,8 +55,8 @@ TBSetupFundingWidget::TBSetupFundingWidget(QWidget* parent) : TBSetupTabWidget(p
     pimpl->ui.tableView->setItemDelegateForColumn(4, pimpl->blindLevelDelegate);
 
     // Setup payout currency dropdown
-    pimpl->ui.payoutCurrencyComboBox->addItems({"USD", "EUR", "GBP", "CAD", "AUD"});
-    pimpl->ui.payoutCurrencyComboBox->setCurrentText("USD");
+    pimpl->ui.payoutCurrencyComboBox->addItems(TBCurrency::supportedCodes());
+    pimpl->ui.payoutCurrencyComboBox->setCurrentText(TBCurrency::defaultCurrencyCode());
 
     // Connect signals
     connect(pimpl->ui.addButton, &QPushButton::clicked, this, &TBSetupFundingWidget::on_addFundingButtonClicked);
@@ -98,7 +99,7 @@ void TBSetupFundingWidget::setConfiguration(const QVariantMap& configuration)
         // Store complete funding data for details delegate
         displayItem["cost_currency"] = cost["currency"];
         displayItem["commission_amount"] = fundingItem.value("commission").toMap().value("amount", 0.0);
-        displayItem["commission_currency"] = fundingItem.value("commission").toMap().value("currency", "USD");
+        displayItem["commission_currency"] = fundingItem.value("commission").toMap().value("currency", TBCurrency::defaultCurrencyCode());
         displayItem["equity_amount"] = fundingItem.value("equity").toMap().value("amount", 0.0);
 
         displayFunding.append(displayItem);
@@ -107,7 +108,7 @@ void TBSetupFundingWidget::setConfiguration(const QVariantMap& configuration)
     pimpl->model->setListData(displayFunding);
 
     // Set payout currency dropdown
-    QString payoutCurrency = configuration.value("payout_currency", "USD").toString();
+    QString payoutCurrency = configuration.value("payout_currency", TBCurrency::defaultCurrencyCode()).toString();
     pimpl->ui.payoutCurrencyComboBox->setCurrentText(payoutCurrency);
 }
 
@@ -220,18 +221,14 @@ QVariantMap TBSetupFundingWidget::createDefaultFunding(int fundingType) const
     funding["type"] = fundingType;
     funding["chips"] = 1500; // Default chip count
     funding["cost_amount"] = 20.0; // Default cost
-    funding["cost_currency"] = getDefaultCurrency();
+    funding["cost_currency"] = TBCurrency::defaultCurrencyCode();
     funding["commission_amount"] = 0.0;
-    funding["commission_currency"] = getDefaultCurrency();
+    funding["commission_currency"] = TBCurrency::defaultCurrencyCode();
     funding["equity_amount"] = 20.0;
     // Don't set forbid_after_blind_level - missing key means "Never"
     return funding;
 }
 
-QString TBSetupFundingWidget::getDefaultCurrency() const
-{
-    return "USD"; // Default currency
-}
 
 void TBSetupFundingWidget::setRoundsData(const QVariantList& rounds)
 {

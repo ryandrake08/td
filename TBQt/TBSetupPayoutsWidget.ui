@@ -280,7 +280,16 @@
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
+         <property name="childrenCollapsible">
+          <bool>false</bool>
+         </property>
          <widget class="QTableView" name="turnoutTableView">
+          <property name="maximumWidth">
+           <number>200</number>
+          </property>
+          <property name="minimumWidth">
+           <number>150</number>
+          </property>
           <property name="alternatingRowColors">
            <bool>true</bool>
           </property>
@@ -315,14 +324,14 @@
          <item>
           <widget class="QPushButton" name="addTurnoutButton">
            <property name="text">
-            <string>Add Turnout Level</string>
+            <string>Add Number of Buyins</string>
            </property>
           </widget>
          </item>
          <item>
           <widget class="QPushButton" name="removeTurnoutButton">
            <property name="text">
-            <string>Remove Level</string>
+            <string>Remove Number of Buyins</string>
            </property>
            <property name="enabled">
             <bool>false</bool>
@@ -341,6 +350,26 @@
             </size>
            </property>
           </spacer>
+         </item>
+         <item>
+          <widget class="QPushButton" name="addTurnoutPayoutButton">
+           <property name="text">
+            <string>Add Payout</string>
+           </property>
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="removeTurnoutPayoutButton">
+           <property name="text">
+            <string>Remove Payout</string>
+           </property>
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+          </widget>
          </item>
         </layout>
        </item>

@@ -19,7 +19,7 @@ QWidget* TBColorDisplayDelegate::createEditor(QWidget* parent, const QStyleOptio
 
     QPushButton* button = new QPushButton(parent);
     button->setText(tr("Choose Color..."));
-    
+
     // Install event filter to prevent premature editor destruction
     button->installEventFilter(const_cast<TBColorDisplayDelegate*>(this));
 
@@ -115,7 +115,7 @@ void TBColorDisplayDelegate::onColorButtonClicked()
     QPushButton* button = qobject_cast<QPushButton*>(sender());
     if (!button)
         return;
-        
+
     QColor currentColor = parseColor(button->property("currentColorString").toString());
     QColor color = QColorDialog::getColor(currentColor, button->window(), tr("Select Chip Color"));
 
@@ -147,7 +147,7 @@ bool TBColorDisplayDelegate::eventFilter(QObject* watched, QEvent* event)
             return true;
         }
     }
-    
+
     return QStyledItemDelegate::eventFilter(watched, event);
 }
 

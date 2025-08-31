@@ -23,7 +23,10 @@ private Q_SLOTS:
     void on_removePayoutButtonClicked();
     void on_addTurnoutButtonClicked();
     void on_removeTurnoutButtonClicked();
+    void on_addTurnoutPayoutButtonClicked();
+    void on_removeTurnoutPayoutButtonClicked();
     void on_turnoutSelectionChanged();
+    void on_turnoutPayoutSelectionChanged();
     void on_modelDataChanged();
     void on_percentSeatsSliderChanged(int value);
     void on_percentSeatsSpinBoxChanged(int value);

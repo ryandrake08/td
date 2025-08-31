@@ -1,4 +1,5 @@
 #include "TBFundingDetailsDelegate.hpp"
+#include "TBCurrency.hpp"
 
 #include <QDialog>
 #include <QDialogButtonBox>
@@ -73,8 +74,8 @@ bool TBFundingDetailsDelegate::showDetailsDialog(QWidget* parent, QVariantMap& f
     costSpinBox->setValue(fundingData.value("cost_amount", 20.0).toDouble());
 
     QComboBox* costCurrencyCombo = new QComboBox(&dialog);
-    costCurrencyCombo->addItems({"USD", "EUR", "GBP", "CAD", "AUD"});
-    costCurrencyCombo->setCurrentText(fundingData.value("cost_currency", "USD").toString());
+    costCurrencyCombo->addItems(TBCurrency::supportedCodes());
+    costCurrencyCombo->setCurrentText(fundingData.value("cost_currency", TBCurrency::defaultCurrencyCode()).toString());
 
     // Commission/Fee amount and currency
     QDoubleSpinBox* feeSpinBox = new QDoubleSpinBox(&dialog);
@@ -83,8 +84,8 @@ bool TBFundingDetailsDelegate::showDetailsDialog(QWidget* parent, QVariantMap& f
     feeSpinBox->setValue(fundingData.value("commission_amount", 0.0).toDouble());
 
     QComboBox* feeCurrencyCombo = new QComboBox(&dialog);
-    feeCurrencyCombo->addItems({"USD", "EUR", "GBP", "CAD", "AUD"});
-    feeCurrencyCombo->setCurrentText(fundingData.value("commission_currency", "USD").toString());
+    feeCurrencyCombo->addItems(TBCurrency::supportedCodes());
+    feeCurrencyCombo->setCurrentText(fundingData.value("commission_currency", TBCurrency::defaultCurrencyCode()).toString());
 
     // Equity amount (currency not editable, uses tournament payout currency)
     QDoubleSpinBox* equitySpinBox = new QDoubleSpinBox(&dialog);
@@ -92,7 +93,7 @@ bool TBFundingDetailsDelegate::showDetailsDialog(QWidget* parent, QVariantMap& f
     equitySpinBox->setDecimals(2);
     equitySpinBox->setValue(fundingData.value("equity_amount", 20.0).toDouble());
 
-    QString payoutCurrency = "USD"; // Default
+    QString payoutCurrency = TBCurrency::defaultCurrencyCode(); // Default
     // Get payout currency from parent widget if available
     QWidget* parentWidget = parent;
     while (parentWidget && !parentWidget->inherits("TBSetupFundingWidget"))
@@ -142,11 +143,11 @@ void TBFundingDetailsDelegate::onDetailsButtonClicked()
     QPushButton* button = qobject_cast<QPushButton*>(sender());
     if (!button)
         return;
-        
+
     QModelIndex index = button->property("modelIndex").value<QModelIndex>();
     if (!index.isValid())
         return;
-        
+
     QVariantMap rowData = index.model()->index(index.row(), 0).data(Qt::UserRole).toMap();
     if (showDetailsDialog(button, rowData))
     {

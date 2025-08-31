@@ -27,5 +27,4 @@ private Q_SLOTS:
 
 private:
     QVariantMap createDefaultFunding(int fundingType) const;
-    QString getDefaultCurrency() const;
 };

@@ -9,6 +9,9 @@ class TBResultsModel : public TBVariantListTableModel
 {
     Q_OBJECT
 
+private:
+    const TournamentSession& m_session;
+
 private Q_SLOTS:
     void on_stateChanged(const QString& key, const QVariant& value);
 
