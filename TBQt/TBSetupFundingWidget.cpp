@@ -216,8 +216,8 @@ void TBSetupFundingWidget::on_modelDataChanged()
 QVariantMap TBSetupFundingWidget::createDefaultFunding(int fundingType) const
 {
     QVariantMap funding;
-    funding["name"] = (fundingType == 0) ? tr("Buy-in") :
-                     (fundingType == 1) ? tr("Rebuy") : tr("Add-on");
+    funding["name"] = (fundingType == TournamentSession::kFundingTypeBuyin) ? tr("Buy-in") : 
+                      (fundingType == TournamentSession::kFundingTypeRebuy) ? tr("Rebuy") : tr("Add-on");
     funding["type"] = fundingType;
     funding["chips"] = 1500; // Default chip count
     funding["cost_amount"] = 20.0; // Default cost
@@ -229,8 +229,9 @@ QVariantMap TBSetupFundingWidget::createDefaultFunding(int fundingType) const
     return funding;
 }
 
-
-void TBSetupFundingWidget::setRoundsData(const QVariantList& rounds)
+void TBSetupFundingWidget::onOtherTabConfigurationChanged(const QVariantMap& fullConfiguration)
 {
+    // Extract rounds data from full configuration and update blind level dropdown
+    QVariantList rounds = fullConfiguration.value("blind_levels").toList();
     pimpl->blindLevelDelegate->setBlindLevels(rounds);
 }

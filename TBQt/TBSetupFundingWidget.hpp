@@ -17,8 +17,7 @@ public:
     void setConfiguration(const QVariantMap& configuration) override;
     QVariantMap configuration() const override;
     bool validateConfiguration() const override;
-
-    void setRoundsData(const QVariantList& rounds);
+    void onOtherTabConfigurationChanged(const QVariantMap& fullConfiguration) override;
 
 private Q_SLOTS:
     void on_addFundingButtonClicked();

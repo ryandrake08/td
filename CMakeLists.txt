@@ -148,6 +148,7 @@ if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND)
 		TBQt/TBSeatingChartWindow.ui
 		TBQt/TBSetupChipsWidget.ui
 		TBQt/TBSetupDevicesWidget.ui
+		TBQt/TBSetupDialog.ui
 		TBQt/TBSetupFundingWidget.ui
 		TBQt/TBSetupPayoutsWidget.ui
 		TBQt/TBSetupPlayersWidget.ui

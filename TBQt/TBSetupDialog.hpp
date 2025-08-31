@@ -19,5 +19,5 @@ public:
     QVariantMap configuration() const;
 
 private Q_SLOTS:
-    void onRoundsConfigurationChanged();
+    void onTabConfigurationChanged();
 };
