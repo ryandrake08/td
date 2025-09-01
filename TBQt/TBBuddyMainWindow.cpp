@@ -7,6 +7,7 @@
 #include "TBSeatingChartWindow.hpp"
 #include "TBSeatingModel.hpp"
 #include "TBSetupDialog.hpp"
+#include "TBTableViewUtils.hpp"
 #include "TBTournamentDisplayWindow.hpp"
 
 #include "TournamentDaemon.hpp"
@@ -27,6 +28,7 @@
 #include <QLabel>
 #include <QMenu>
 #include <QMessageBox>
+#include <QSortFilterProxyModel>
 #include <QString>
 #include <QTimer>
 #include <QVBoxLayout>
@@ -54,7 +56,7 @@ TBBuddyMainWindow::TBBuddyMainWindow() : TBBaseMainWindow(), pimpl(new impl())
 
     // left pane: players model (all players with seat/unseat checkboxes)
     auto playersModel(new TBPlayersModel(this->getSession(), this));
-    this->pimpl->ui.leftTableView->setModel(playersModel);
+    (void)TBTableViewUtils::setupTableViewWithSorting(this, this->pimpl->ui.leftTableView, playersModel, -1);
 
     // configure column sizing for players view
     QHeaderView* playersHeader = this->pimpl->ui.leftTableView->horizontalHeader();
@@ -68,7 +70,7 @@ TBBuddyMainWindow::TBBuddyMainWindow() : TBBaseMainWindow(), pimpl(new impl())
 
     // center pane: seating model (seated players with table/seat/paid/manage)
     auto seatingModel(new TBSeatingModel(this->getSession(), this));
-    this->pimpl->ui.centerTableView->setModel(seatingModel);
+    (void)TBTableViewUtils::setupTableViewWithSorting(this, this->pimpl->ui.centerTableView, seatingModel, -1);
 
     // set up button delegate for the "Manage" column (column 4)
     auto manageDelegate(new TBManageButtonDelegate(this));
@@ -93,7 +95,10 @@ TBBuddyMainWindow::TBBuddyMainWindow() : TBBaseMainWindow(), pimpl(new impl())
 
     // right pane: results model (finished players with place/name/payout)
     auto resultsModel(new TBResultsModel(this->getSession(), this));
-    this->pimpl->ui.rightTableView->setModel(resultsModel);
+
+    // Set up table view with sorting, using UserRole for numeric sorting
+    auto resultsProxyModel = TBTableViewUtils::setupTableViewWithSorting(this, this->pimpl->ui.rightTableView, resultsModel, 0, Qt::AscendingOrder);
+    resultsProxyModel->setSortRole(Qt::UserRole); // Use UserRole for numeric sorting
 
     // configure column sizing for results view
     QHeaderView* resultsHeader = this->pimpl->ui.rightTableView->horizontalHeader();

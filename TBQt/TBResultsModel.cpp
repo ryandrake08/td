@@ -27,8 +27,14 @@ QVariant TBResultsModel::data(const QModelIndex &index, int role) const
     if (!index.isValid())
         return QVariant();
 
+    // Handle sorting role for place column to sort numerically
+    if ((role == Qt::UserRole || role == Qt::EditRole) && index.column() == 0) // "place" column
+    {
+        QVariantMap rowData = this->getRowData(index.row());
+        return rowData["place"].toInt(); // Return raw integer for sorting
+    }
     // Handle display role for place column to show ordinals (1st, 2nd, 3rd, etc.)
-    if (role == Qt::DisplayRole && index.column() == 0) // "place" column
+    else if (role == Qt::DisplayRole && index.column() == 0) // "place" column
     {
         QVariantMap rowData = this->getRowData(index.row());
         int place = rowData["place"].toInt();
