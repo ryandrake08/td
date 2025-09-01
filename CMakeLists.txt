@@ -25,7 +25,7 @@ else()
 endif()
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -Wall -Wextra")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")
 set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -O0 -ggdb -DDEBUG=1 -fsanitize=address")
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0 -ggdb -DDEBUG=1 -fsanitize=address")
 set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -O3")
@@ -59,6 +59,7 @@ add_library(td STATIC
 	tournamentd/types.hpp
 )
 target_include_directories(td PRIVATE .)
+target_compile_features(td PUBLIC cxx_std_11)
 
 find_program(CLANG_TIDY_EXE NAMES "clang-tidy" DOC "Path to clang-tidy executable")
 if(FALSE AND CLANG_TIDY_EXE)
@@ -71,6 +72,7 @@ add_executable(tournamentd
 	tournamentd/program.hpp
 )
 target_link_libraries(tournamentd td ${OS_LIBRARIES})
+target_compile_features(tournamentd PUBLIC cxx_std_11)
 
 add_executable(tournamentctl
 	tournamentd/main.cpp
@@ -78,6 +80,7 @@ add_executable(tournamentctl
 	tournamentd/program.hpp
 )
 target_link_libraries(tournamentctl td ${OS_LIBRARIES})
+target_compile_features(tournamentctl PUBLIC cxx_std_11)
 
 # Unit tests
 add_executable(tournamentd_tests
@@ -94,6 +97,7 @@ add_executable(tournamentd_tests
 	thirdparty/catch_amalgamated.hpp
 )
 target_link_libraries(tournamentd_tests td ${OS_LIBRARIES})
+target_compile_features(tournamentd_tests PUBLIC cxx_std_14)
 
 # Configure Qt5 paths for different platforms
 if(DEFINED MACOSX)
@@ -255,6 +259,7 @@ if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND AND Qt5Multimedia_FOU
 	)
 	target_compile_definitions(tbuddy PRIVATE QT_NO_KEYWORDS)
 	target_link_libraries(tbuddy td Qt5::Network Qt5::Widgets Qt5::Multimedia ${CMAKE_THREAD_LIBS_INIT} ${OS_LIBRARIES})
+	target_compile_features(tbuddy PUBLIC cxx_std_11)
 	set_target_properties(tbuddy PROPERTIES MACOSX_BUNDLE TRUE MACOSX_BUNDLE_INFO_PLIST ${CMAKE_SOURCE_DIR}/TBQt/TBQt-Info.plist)
 
 	qt5_wrap_cpp(TBVIEWER_MOC
@@ -338,5 +343,6 @@ if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND AND Qt5Multimedia_FOU
 	)
 	target_compile_definitions(tbviewer PRIVATE QT_NO_KEYWORDS)
 	target_link_libraries(tbviewer td Qt5::Network Qt5::Widgets Qt5::Multimedia ${CMAKE_THREAD_LIBS_INIT} ${OS_LIBRARIES})
+	target_compile_features(tbviewer PUBLIC cxx_std_11)
 	set_target_properties(tbviewer PROPERTIES MACOSX_BUNDLE TRUE MACOSX_BUNDLE_INFO_PLIST ${CMAKE_SOURCE_DIR}/TBQt/TBQt-Info.plist)
 endif()
