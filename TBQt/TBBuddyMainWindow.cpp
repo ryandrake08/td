@@ -5,6 +5,7 @@
 #include "TBResultsModel.hpp"
 #include "TBRuntimeError.hpp"
 #include "TBSeatingChartWindow.hpp"
+#include "TBSeatingCompoundSortProxyModel.hpp"
 #include "TBSeatingModel.hpp"
 #include "TBSetupDialog.hpp"
 #include "TBTableViewUtils.hpp"
@@ -70,7 +71,15 @@ TBBuddyMainWindow::TBBuddyMainWindow() : TBBaseMainWindow(), pimpl(new impl())
 
     // center pane: seating model (seated players with table/seat/paid/manage)
     auto seatingModel(new TBSeatingModel(this->getSession(), this));
-    (void)TBTableViewUtils::setupTableViewWithSorting(this, this->pimpl->ui.centerTableView, seatingModel, -1);
+
+    // Set up center pane with compound sorting (table first, then seat)
+    TBSeatingCompoundSortProxyModel* seatingProxyModel = new TBSeatingCompoundSortProxyModel(this);
+    seatingProxyModel->setSourceModel(seatingModel);
+    this->pimpl->ui.centerTableView->setModel(seatingProxyModel);
+    this->pimpl->ui.centerTableView->setSortingEnabled(true);
+
+    // Reset to unsorted state by default
+    seatingProxyModel->sort(-1);
 
     // set up button delegate for the "Manage" column (column 4)
     auto manageDelegate(new TBManageButtonDelegate(this));

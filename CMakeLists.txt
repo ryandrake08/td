@@ -126,6 +126,7 @@ if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND)
 		TBQt/TBResultsModel.hpp
 		TBQt/TBRoundsModel.hpp
 		TBQt/TBSeatingChartWindow.hpp
+		TBQt/TBSeatingCompoundSortProxyModel.hpp
 		TBQt/TBSeatingModel.hpp
 		TBQt/TBSetupChipsWidget.hpp
 		TBQt/TBSetupDevicesWidget.hpp
@@ -205,6 +206,8 @@ if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND)
 		TBQt/TBRuntimeError.hpp
 		TBQt/TBSeatingChartWindow.cpp
 		TBQt/TBSeatingChartWindow.hpp
+		TBQt/TBSeatingCompoundSortProxyModel.cpp
+		TBQt/TBSeatingCompoundSortProxyModel.hpp
 		TBQt/TBSeatingModel.cpp
 		TBQt/TBSeatingModel.hpp
 		TBQt/TBSetupChipsWidget.cpp
