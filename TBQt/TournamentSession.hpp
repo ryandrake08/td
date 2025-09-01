@@ -163,6 +163,7 @@ Q_SIGNALS:
     void connectedChanged(bool conn);
     void authorizedChanged(bool auth);
     void stateChanged(const QString& key, const QVariant& value);
+    void playerMovementsUpdated(const QVariantList& movements);
     void connectionError(const QString& error);
     void commandError(const QString& command, const QString& error);
     void networkError(const QString& error);

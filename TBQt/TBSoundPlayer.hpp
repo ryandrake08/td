@@ -14,6 +14,7 @@ class TBSoundPlayer : public QObject
 
 private Q_SLOTS:
     void on_stateChanged(const QString& key, const QVariant& value);
+    void on_playerMovementsUpdated(const QVariantList& movements);
 
 public:
     explicit TBSoundPlayer(QObject* parent = nullptr);

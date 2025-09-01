@@ -478,7 +478,18 @@ void TournamentSession::plan_seating_for(int expected_players)
 
 void TournamentSession::plan_seating_for_with_handler(int expected_players, const std::function<void(const QVariantList&)>& handler)
 {
-    this->send_command("plan_seating_for", QVariantMap{{"max_expected_players", expected_players}}, [handler](const QVariantMap& result) { if(handler) handler(result["players_moved"].toList()); });
+    this->send_command("plan_seating_for", QVariantMap{{"max_expected_players", expected_players}},
+                       [this, handler](const QVariantMap& result) {
+                           QVariantList movements = result["players_moved"].toList();
+                           if (!movements.isEmpty())
+                           {
+                               playerMovementsUpdated(movements);
+                           }
+                           if (handler)
+                           {
+                               handler(movements);
+                           }
+                       });
 }
 
 void TournamentSession::seat_player(const QString& player_id)
@@ -515,7 +526,18 @@ void TournamentSession::bust_player(const QString& player_id)
 
 void TournamentSession::bust_player_with_handler(const QString& player_id, const std::function<void(const QVariantList&)>& handler)
 {
-    this->send_command("bust_player", QVariantMap{{"player_id", player_id}}, [handler](const QVariantMap& result) { if(handler) handler(result["players_moved"].toList()); });
+    this->send_command("bust_player", QVariantMap{{"player_id", player_id}},
+                       [this, handler](const QVariantMap& result) {
+                           QVariantList movements = result["players_moved"].toList();
+                           if (!movements.isEmpty())
+                           {
+                               playerMovementsUpdated(movements);
+                           }
+                           if (handler)
+                           {
+                               handler(movements);
+                           }
+                       });
 }
 
 void TournamentSession::rebalance_seating()
@@ -525,7 +547,18 @@ void TournamentSession::rebalance_seating()
 
 void TournamentSession::rebalance_seating_with_handler(const std::function<void(const QVariantList&)>& handler)
 {
-    this->send_command("rebalance_seating", QVariantMap(), [handler](const QVariantMap& result) { if(handler) handler(result["players_moved"].toList()); });
+    this->send_command("rebalance_seating", QVariantMap(),
+                       [this, handler](const QVariantMap& result) {
+                           QVariantList movements = result["players_moved"].toList();
+                           if (!movements.isEmpty())
+                           {
+                               playerMovementsUpdated(movements);
+                           }
+                           if (handler)
+                           {
+                               handler(movements);
+                           }
+                       });
 }
 
 void TournamentSession::quick_setup()

@@ -48,6 +48,9 @@ struct TBBuddyMainWindow::impl
 
     // current filename for window title
     QString currentFilename;
+
+    // player movement tracking
+    QVariantList pendingMovements;
 };
 
 TBBuddyMainWindow::TBBuddyMainWindow() : TBBaseMainWindow(), pimpl(new impl())
@@ -99,7 +102,7 @@ TBBuddyMainWindow::TBBuddyMainWindow() : TBBaseMainWindow(), pimpl(new impl())
 
     // connect seating model signals to session methods
     QObject::connect(seatingModel, &TBSeatingModel::fundPlayerRequested, &this->getSession(), &TournamentSession::fund_player);
-    QObject::connect(seatingModel, &TBSeatingModel::bustPlayerRequested, &this->getSession(), &TournamentSession::bust_player);
+    QObject::connect(seatingModel, &TBSeatingModel::bustPlayerRequested, this, &TBBuddyMainWindow::on_bustPlayer);
     QObject::connect(seatingModel, &TBSeatingModel::unseatPlayerRequested, &this->getSession(), &TournamentSession::unseat_player);
 
     // right pane: results model (finished players with place/name/payout)
@@ -122,6 +125,7 @@ TBBuddyMainWindow::TBBuddyMainWindow() : TBBaseMainWindow(), pimpl(new impl())
     // hook up TournamentSession signals
     QObject::connect(&this->getSession(), SIGNAL(authorizedChanged(bool)), this, SLOT(on_authorizedChanged(bool)));
     QObject::connect(&this->getSession(), SIGNAL(stateChanged(const QString&, const QVariant&)), this, SLOT(on_tournamentStateChanged(const QString&, const QVariant&)));
+    QObject::connect(&this->getSession(), SIGNAL(playerMovementsUpdated(const QVariantList&)), this, SLOT(on_playerMovementsUpdated(const QVariantList&)));
 
     // start tournament thread (full client runs its own daemon)
     auto service(this->pimpl->server.start(TournamentSession::client_identifier()));
@@ -361,21 +365,21 @@ void TBBuddyMainWindow::on_actionPlan_triggered()
     // Create dialog to get number of players to plan for
     bool ok;
     int playerCount = QInputDialog::getInt(this, tr("Plan Tournament"),
-                                          tr("Number of players to plan seating for:"),
-                                          defaultPlayerCount, 1, 10000, 1, &ok);
+                                           tr("Number of players to plan seating for:"),
+                                           defaultPlayerCount, 1, 10000, 1, &ok);
 
     if (ok)
     {
         // Plan seating for the specified number of players
-        this->getSession().plan_seating_for_with_handler(playerCount, [this](const QVariantList& movements) {
+        this->getSession().plan_seating_for_with_handler(playerCount, [this](const QVariantList& movements)
+        {
             if (!movements.isEmpty())
             {
                 this->showPlayerMovements(movements);
             }
             else
             {
-                QMessageBox::information(this, tr("Plan Tournament"),
-                                        tr("No player movements required."));
+                QMessageBox::information(this, tr("Plan Tournament"), tr("No player movements required."));
             }
         });
     }
@@ -383,13 +387,18 @@ void TBBuddyMainWindow::on_actionPlan_triggered()
 
 void TBBuddyMainWindow::on_actionShowMoves_triggered()
 {
-    // Get current movements from session state and display them
-    const QVariantMap& state = this->getSession().state();
-    QVariantList movements = state["movements"].toList();
+    // Show pending player movements and clear them after viewing
+    const QVariantList& movements = pimpl->pendingMovements;
 
     if (!movements.isEmpty())
     {
         this->showPlayerMovements(movements);
+
+        // Clear movements after viewing
+        pimpl->pendingMovements.clear();
+
+        // Update movement badge
+        updateMovementBadge();
     }
     else
     {
@@ -401,15 +410,15 @@ void TBBuddyMainWindow::on_actionShowMoves_triggered()
 void TBBuddyMainWindow::on_actionRebalance_triggered()
 {
     // Rebalance seating and show movements if any are generated
-    this->getSession().rebalance_seating_with_handler([this](const QVariantList& movements) {
+    this->getSession().rebalance_seating_with_handler([this](const QVariantList& movements)
+    {
         if (!movements.isEmpty())
         {
             this->showPlayerMovements(movements);
         }
         else
         {
-            QMessageBox::information(this, tr("Rebalance Tables"),
-                                    tr("Tables are already balanced. No player movements required."));
+            QMessageBox::information(this, tr("Rebalance Tables"), tr("Tables are already balanced. No player movements required."));
         }
     });
 }
@@ -613,7 +622,7 @@ void TBBuddyMainWindow::on_manageButtonClicked(const QModelIndex& index)
     if (bustEnabled)
     {
         QObject::connect(bustAction, &QAction::triggered, this, [this, playerId]() {
-            this->getSession().bust_player(playerId);
+            this->on_bustPlayer(playerId);
         });
     }
 
@@ -765,9 +774,49 @@ void TBBuddyMainWindow::updateSeatingChartMenuText()
     this->pimpl->ui.actionShowHideSeatingChart->setText(menuText);
 }
 
+void TBBuddyMainWindow::updateMovementBadge()
+{
+    // Update the Show Moves action text with movement count badge
+    int count = pimpl->pendingMovements.size();
+    QString baseText = tr("Show Player Moves...");
+
+    if (count > 0)
+    {
+        QString badgeText = QString("%1 (%2)").arg(baseText).arg(count);
+        pimpl->ui.actionShowMoves->setText(badgeText);
+    }
+    else
+    {
+        pimpl->ui.actionShowMoves->setText(baseText);
+    }
+}
+
 void TBBuddyMainWindow::showPlayerMovements(const QVariantList& movements)
 {
     TBMovementDialog dialog(this);
     dialog.setMovements(movements);
     dialog.exec();
+}
+
+void TBBuddyMainWindow::on_playerMovementsUpdated(const QVariantList& movements)
+{
+    // Add new movements to pending movements list
+    for (const auto& movement : movements)
+    {
+        pimpl->pendingMovements.append(movement);
+    }
+
+    // Update movement badge
+    updateMovementBadge();
+}
+
+void TBBuddyMainWindow::on_bustPlayer(const QString& playerId)
+{
+    this->getSession().bust_player_with_handler(playerId, [this](const QVariantList& movements)
+    {
+        if (!movements.isEmpty())
+        {
+            this->showPlayerMovements(movements);
+        }
+    });
 }

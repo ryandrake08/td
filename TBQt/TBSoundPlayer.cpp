@@ -52,6 +52,9 @@ void TBSoundPlayer::setSession(const TournamentSession& session)
 {
     // Connect to session state changes
     connect(&session, &TournamentSession::stateChanged, this, &TBSoundPlayer::on_stateChanged);
+
+    // Connect to player movement updates
+    connect(&session, &TournamentSession::playerMovementsUpdated, this, &TBSoundPlayer::on_playerMovementsUpdated);
 }
 
 void TBSoundPlayer::on_stateChanged(const QString& key, const QVariant& value)
@@ -122,4 +125,12 @@ void TBSoundPlayer::on_stateChanged(const QString& key, const QVariant& value)
     // Handle player movements/rebalancing
     // Note: The macOS version listens for kMovementsUpdatedNotification
     // We could add this when movements are implemented, or listen for relevant state changes
+}
+
+void TBSoundPlayer::on_playerMovementsUpdated(const QVariantList& movements)
+{
+    Q_UNUSED(movements)
+
+    // Play rebalance sound when player movements occur (equivalent to macOS kMovementsUpdatedNotification)
+    pimpl->rebalanceSound->play();
 }

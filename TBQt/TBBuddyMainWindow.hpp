@@ -17,6 +17,7 @@ class TBBuddyMainWindow : public TBBaseMainWindow
     void updateWindowTitle(const QString& filename = QString());
     void updateDisplayMenuText() override;
     void updateSeatingChartMenuText() override;
+    void updateMovementBadge();
 
     // helper functions to show dialogs
     void showPlayerMovements(const QVariantList& movements);
@@ -45,6 +46,8 @@ private Q_SLOTS:
     void on_authorizedChanged(bool auth) override;
     void on_filenameChanged(const QString& filename);
     void on_tournamentStateChanged(const QString& key, const QVariant& value);
+    void on_playerMovementsUpdated(const QVariantList& movements);
+    void on_bustPlayer(const QString& playerId);
 
 public:
     // create a main window
