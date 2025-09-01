@@ -250,11 +250,12 @@ namespace td
         std::string player_name;
         std::string table_name;
         std::string seat_name;
+        seat seat_position;  // numeric table and seat numbers
 
         // unseated player
         seated_player(const player_id_t& p, bool b, const std::string& n);
         // seated player
-        seated_player(const player_id_t& p, bool b, const std::string& n, const std::string& t, const std::string& s);
+        seated_player(const player_id_t& p, bool b, const std::string& n, const std::string& t, const std::string& s, const seat& pos);
     };
     void to_json(nlohmann::json& j, const td::seated_player& p);
 

@@ -438,6 +438,7 @@ struct seated_player {
     std::string player_name;       // Player name
     std::string table_name;        // Assigned table (if seated)
     std::string seat_name;         // Assigned seat (if seated)
+    seat seat_position;            // Numeric table and seat numbers
 };
 ```
 
@@ -446,7 +447,11 @@ struct seated_player {
 {
   "player_id": "550e8400-e29b-41d4-a716-446655440000",
   "buyin": true,
-  "player_name": "John Smith"
+  "player_name": "John Smith",
+  "seat_position": {
+    "table_number": 0,
+    "seat_number": 0
+  }
 }
 ```
 
@@ -457,13 +462,19 @@ struct seated_player {
   "buyin": true,
   "player_name": "John Smith",
   "table_name": "Table 1",
-  "seat_name": "Seat 3"
+  "seat_name": "Seat 3",
+  "seat_position": {
+    "table_number": 1,
+    "seat_number": 3
+  }
 }
 ```
 
 **Serialization Notes:**
 - Table and seat information only included when player is seated
 - Conditional serialization based on `seat_name.empty()`
+- `seat_position` always included with numeric table and seat numbers
+- For unseated players, `seat_position` contains zeros
 
 #### seating_chart_entry
 Represents seating chart information for display.

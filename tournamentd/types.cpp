@@ -143,11 +143,11 @@ td::result::result(size_t p, const std::string& n) : place(p), name(n)
 {
 }
 
-td::seated_player::seated_player(const player_id_t& p, bool b, const std::string& n) : player_id(p), buyin(b), player_name(n)
+td::seated_player::seated_player(const player_id_t& p, bool b, const std::string& n) : player_id(p), buyin(b), player_name(n), seat_position()
 {
 }
 
-td::seated_player::seated_player(const player_id_t& p, bool b, const std::string& n, const std::string& t, const std::string& s) : player_id(p), buyin(b), player_name(n), table_name(t), seat_name(s)
+td::seated_player::seated_player(const player_id_t& p, bool b, const std::string& n, const std::string& t, const std::string& s, const seat& pos) : player_id(p), buyin(b), player_name(n), table_name(t), seat_name(s), seat_position(pos)
 {
 }
 
@@ -478,7 +478,8 @@ void td::to_json(nlohmann::json& j, const td::seated_player& p)
         {
             {"player_id", p.player_id},
             {"buyin", p.buyin},
-            {"player_name", p.player_name}
+            {"player_name", p.player_name},
+            {"seat_position", p.seat_position}
         };
     }
     else
@@ -489,7 +490,8 @@ void td::to_json(nlohmann::json& j, const td::seated_player& p)
             {"buyin", p.buyin},
             {"player_name", p.player_name},
             {"table_name", p.table_name},
-            {"seat_name", p.seat_name}
+            {"seat_name", p.seat_name},
+            {"seat_position", p.seat_position}
         };
     }
 }

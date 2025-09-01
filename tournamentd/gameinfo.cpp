@@ -1291,7 +1291,8 @@ public:
                                                 buyin != this->buyins.end(),
                                                 this->player_name(p.player_id),
                                                 this->table_name(seat->second.table_number),
-                                                this->seat_name(seat->second.seat_number));
+                                                this->seat_name(seat->second.seat_number),
+                                                seat->second);
                 seated_players.push_back(seated_player);
             }
         }
@@ -1479,7 +1480,8 @@ public:
                                      this->buyins.find(player_id) != this->buyins.end(),
                                      this->player_name(player_id),
                                      this->table_name(seat_it->second.table_number),
-                                     this->seat_name(seat_it->second.seat_number));
+                                     this->seat_name(seat_it->second.seat_number),
+                                     seat_it->second);
 
             logger(ll::info) << "player " << this->player_description(player_id) << " already seated at table " << seated.table_name << ", seat " << seated.seat_name << '\n';
             return std::make_pair("already_seated", seated);
@@ -1496,7 +1498,8 @@ public:
                                      this->buyins.find(player_id) != this->buyins.end(),
                                      this->player_name(player_id),
                                      this->table_name(seat.table_number),
-                                     this->seat_name(seat.seat_number));
+                                     this->seat_name(seat.seat_number),
+                                     seat);
 
             logger(ll::info) << "seated player " << this->player_description(player_id) << " at table " << seated.table_name << ", seat " << seated.seat_name << '\n';
             return std::make_pair("player_seated", seated);
@@ -1943,8 +1946,8 @@ public:
             auto seat(this->seat_player(p.player_id));
             this->fund_player(p.player_id, src);
 
-            // build a seated_player object
-            td::seated_player sp(p.player_id, true, p.name, this->table_name(seat.table_number), this->seat_name(seat.seat_number));
+            // build a seated_player object with numeric seat position
+            td::seated_player sp(p.player_id, true, p.name, this->table_name(seat.table_number), this->seat_name(seat.seat_number), seat);
             seated_players.push_back(sp);
         }
 

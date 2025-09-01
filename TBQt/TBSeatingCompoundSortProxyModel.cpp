@@ -17,45 +17,35 @@ bool TBSeatingCompoundSortProxyModel::lessThan(const QModelIndex& left, const QM
     }
 
     // Always sort by table first, then seat - regardless of which column was clicked
-
-    // Get table values (column 0: "Table")
-    QString leftTable = source->data(source->index(left.row(), 0), Qt::DisplayRole).toString();
-    QString rightTable = source->data(source->index(right.row(), 0), Qt::DisplayRole).toString();
-
-    if (leftTable != rightTable)
+    // Use UserRole to get numeric table_number and seat_number values
+    
+    // Get numeric table numbers (column 0 with UserRole)
+    QVariant leftTableVar = source->data(source->index(left.row(), 0), Qt::UserRole);
+    QVariant rightTableVar = source->data(source->index(right.row(), 0), Qt::UserRole);
+    
+    if (leftTableVar.isValid() && rightTableVar.isValid())
     {
-        // Try to extract numeric table numbers from table names
-        bool leftOk, rightOk;
-        int leftTableNum = leftTable.toInt(&leftOk);
-        int rightTableNum = rightTable.toInt(&rightOk);
-
-        if (leftOk && rightOk)
+        qulonglong leftTableNum = leftTableVar.toULongLong();
+        qulonglong rightTableNum = rightTableVar.toULongLong();
+        
+        if (leftTableNum != rightTableNum)
         {
             return leftTableNum < rightTableNum;
         }
-        else
+        
+        // If table numbers are the same, sort by seat number (column 1 with UserRole)
+        QVariant leftSeatVar = source->data(source->index(left.row(), 1), Qt::UserRole);
+        QVariant rightSeatVar = source->data(source->index(right.row(), 1), Qt::UserRole);
+        
+        if (leftSeatVar.isValid() && rightSeatVar.isValid())
         {
-            // Fallback to string comparison if not numeric
-            return leftTable < rightTable;
+            qulonglong leftSeatNum = leftSeatVar.toULongLong();
+            qulonglong rightSeatNum = rightSeatVar.toULongLong();
+            
+            return leftSeatNum < rightSeatNum;
         }
     }
-
-    // If tables are the same, sort by seat (column 1: "Seat")
-    QString leftSeat = source->data(source->index(left.row(), 1), Qt::DisplayRole).toString();
-    QString rightSeat = source->data(source->index(right.row(), 1), Qt::DisplayRole).toString();
-
-    // Convert to int for proper numeric sorting
-    bool leftOk, rightOk;
-    int leftSeatNum = leftSeat.toInt(&leftOk);
-    int rightSeatNum = rightSeat.toInt(&rightOk);
-
-    if (leftOk && rightOk)
-    {
-        return leftSeatNum < rightSeatNum;
-    }
-    else
-    {
-        // Fallback to string comparison if not numeric
-        return leftSeat < rightSeat;
-    }
+    
+    // Fallback to default sorting if UserRole data is not available
+    return QSortFilterProxyModel::lessThan(left, right);
 }

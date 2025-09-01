@@ -44,6 +44,22 @@ QVariant TBSeatingModel::data(const QModelIndex &index, int role) const
     if (!index.isValid())
         return QVariant();
 
+    // Handle UserRole for numeric sorting on Table and Seat columns
+    if (role == Qt::UserRole)
+    {
+        QVariantMap rowData = this->getRowData(index.row());
+        QVariantMap seatPosition = rowData["seat_position"].toMap();
+
+        if (index.column() == 0) // "Table" column
+        {
+            return seatPosition["table_number"].toULongLong();
+        }
+        else if (index.column() == 1) // "Seat" column
+        {
+            return seatPosition["seat_number"].toULongLong();
+        }
+    }
+
     // Handle checkbox for the "Paid" column (column 3)
     if (index.column() == 3) // "buyin" column
     {

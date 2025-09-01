@@ -502,19 +502,25 @@ TEST_CASE("td::seated_player", "[types][seated_player]") {
         REQUIRE(sp.player_name == "John");
         REQUIRE(sp.table_name.empty());
         REQUIRE(sp.seat_name.empty());
+        REQUIRE(sp.seat_position.table_number == 0);
+        REQUIRE(sp.seat_position.seat_number == 0);
     }
 
-    SECTION("Constructor for seated player") {
-        td::seated_player sp("player2", false, "Jane", "Table1", "Seat3");
-        REQUIRE(sp.player_id == "player2");
-        REQUIRE(sp.buyin == false);
-        REQUIRE(sp.player_name == "Jane");
-        REQUIRE(sp.table_name == "Table1");
-        REQUIRE(sp.seat_name == "Seat3");
+    SECTION("Constructor for seated player with numeric position") {
+        td::seat pos(2, 5);
+        td::seated_player sp("player3", true, "Bob", "Table 2", "Seat 5", pos);
+        REQUIRE(sp.player_id == "player3");
+        REQUIRE(sp.buyin == true);
+        REQUIRE(sp.player_name == "Bob");
+        REQUIRE(sp.table_name == "Table 2");
+        REQUIRE(sp.seat_name == "Seat 5");
+        REQUIRE(sp.seat_position.table_number == 2);
+        REQUIRE(sp.seat_position.seat_number == 5);
     }
 
     SECTION("JSON serialization") {
-        td::seated_player original("p1", true, "Alice", "T1", "S1");
+        td::seat pos(1, 3);
+        td::seated_player original("p1", true, "Alice", "T1", "S1", pos);
 
         nlohmann::json j;
         to_json(j, original);
