@@ -387,23 +387,16 @@ void TBBuddyMainWindow::on_actionPlan_triggered()
 
 void TBBuddyMainWindow::on_actionShowMoves_triggered()
 {
-    // Show pending player movements and clear them after viewing
+    // Show pending player movements
     const QVariantList& movements = pimpl->pendingMovements;
 
     if (!movements.isEmpty())
     {
         this->showPlayerMovements(movements);
-
-        // Clear movements after viewing
-        pimpl->pendingMovements.clear();
-
-        // Update movement badge
-        updateMovementBadge();
     }
     else
     {
-        QMessageBox::information(this, tr("Show Player Moves"),
-                                tr("No player movements are currently pending."));
+        QMessageBox::information(this, tr("Show Player Moves"), tr("No player movements are currently pending."));
     }
 }
 
@@ -795,7 +788,13 @@ void TBBuddyMainWindow::showPlayerMovements(const QVariantList& movements)
 {
     TBMovementDialog dialog(this);
     dialog.setMovements(movements);
-    dialog.exec();
+
+    if (dialog.exec() == QDialog::Accepted)
+    {
+        // User clicked OK - clear pending movements
+        pimpl->pendingMovements.clear();
+        updateMovementBadge();
+    }
 }
 
 void TBBuddyMainWindow::on_playerMovementsUpdated(const QVariantList& movements)
