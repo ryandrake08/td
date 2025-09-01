@@ -34,7 +34,7 @@ private Q_SLOTS:
     void on_connectionError(const QString& error);
 
 public:
-    // Type-safe enums
+    // type-safe enums
     enum class FundingType : int
     {
         Buyin = 0,
@@ -63,7 +63,7 @@ public:
         BigBlind = 2
     };
 
-    // Conversion helpers for JSON serialization and use in Qt controls
+    // conversion helpers for JSON serialization and use in Qt controls
     static constexpr int toInt(FundingType type) { return static_cast<int>(type); }
     static constexpr int toInt(RebalancePolicy policy) { return static_cast<int>(policy); }
     static constexpr int toInt(PayoutPolicy policy) { return static_cast<int>(policy); }
@@ -86,7 +86,7 @@ public:
         return (value >= 0 && value <= 2) ? static_cast<AnteType>(value) : AnteType::None;
     }
 
-    // String conversion helpers
+    // string conversion helpers
     static QString toString(FundingType type);
     static QString toString(RebalancePolicy policy);
     static QString toString(PayoutPolicy policy);
@@ -100,6 +100,8 @@ public:
     // action clock
     static const int kActionClockRequestTime = 60000;
 
+    // audio warning
+    static const int kAudioWarningTime = 60;
 
     explicit TournamentSession(QObject* parent=nullptr);
     virtual ~TournamentSession();

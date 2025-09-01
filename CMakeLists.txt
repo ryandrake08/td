@@ -101,8 +101,8 @@ if(DEFINED MACOSX)
 	list(APPEND CMAKE_PREFIX_PATH "/usr/local/opt/qt@5")
 endif()
 
-find_package(Qt5 COMPONENTS Core Network Widgets QUIET)
-if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND)
+find_package(Qt5 COMPONENTS Core Network Widgets Multimedia QUIET)
+if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND AND Qt5Multimedia_FOUND)
 	find_package(Threads REQUIRED)
 	set(CMAKE_INCLUDE_CURRENT_DIR ON)
 	qt5_wrap_cpp(TBUDDY_MOC
@@ -128,6 +128,7 @@ if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND)
 		TBQt/TBSeatingChartWindow.hpp
 		TBQt/TBSeatingCompoundSortProxyModel.hpp
 		TBQt/TBSeatingModel.hpp
+		TBQt/TBSoundPlayer.hpp
 		TBQt/TBSetupChipsWidget.hpp
 		TBQt/TBSetupDevicesWidget.hpp
 		TBQt/TBSetupDialog.hpp
@@ -210,6 +211,8 @@ if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND)
 		TBQt/TBSeatingCompoundSortProxyModel.hpp
 		TBQt/TBSeatingModel.cpp
 		TBQt/TBSeatingModel.hpp
+		TBQt/TBSoundPlayer.cpp
+		TBQt/TBSoundPlayer.hpp
 		TBQt/TBSetupChipsWidget.cpp
 		TBQt/TBSetupChipsWidget.hpp
 		TBQt/TBSetupDevicesWidget.cpp
@@ -251,7 +254,7 @@ if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND)
 		${TBUDDY_RC}
 	)
 	target_compile_definitions(tbuddy PRIVATE QT_NO_KEYWORDS)
-	target_link_libraries(tbuddy td Qt5::Network Qt5::Widgets ${CMAKE_THREAD_LIBS_INIT} ${OS_LIBRARIES})
+	target_link_libraries(tbuddy td Qt5::Network Qt5::Widgets Qt5::Multimedia ${CMAKE_THREAD_LIBS_INIT} ${OS_LIBRARIES})
 	set_target_properties(tbuddy PROPERTIES MACOSX_BUNDLE TRUE MACOSX_BUNDLE_INFO_PLIST ${CMAKE_SOURCE_DIR}/TBQt/TBQt-Info.plist)
 
 	qt5_wrap_cpp(TBVIEWER_MOC
@@ -266,6 +269,7 @@ if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND)
 		TBQt/TBPlayersModel.hpp
 		TBQt/TBResultsModel.hpp
 		TBQt/TBSeatingChartWindow.hpp
+		TBQt/TBSoundPlayer.hpp
 		TBQt/TBTableWidget.hpp
 		TBQt/TBTournamentDisplayWindow.hpp
 		TBQt/TBVariantListTableModel.hpp
@@ -308,6 +312,8 @@ if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND)
 		TBQt/TBRuntimeError.hpp
 		TBQt/TBSeatingChartWindow.cpp
 		TBQt/TBSeatingChartWindow.hpp
+		TBQt/TBSoundPlayer.cpp
+		TBQt/TBSoundPlayer.hpp
 		TBQt/TBTableViewUtils.cpp
 		TBQt/TBTableViewUtils.hpp
 		TBQt/TBTableWidget.cpp
@@ -331,6 +337,6 @@ if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND)
 		${TBVIEWER_RC}
 	)
 	target_compile_definitions(tbviewer PRIVATE QT_NO_KEYWORDS)
-	target_link_libraries(tbviewer td Qt5::Network Qt5::Widgets ${CMAKE_THREAD_LIBS_INIT} ${OS_LIBRARIES})
+	target_link_libraries(tbviewer td Qt5::Network Qt5::Widgets Qt5::Multimedia ${CMAKE_THREAD_LIBS_INIT} ${OS_LIBRARIES})
 	set_target_properties(tbviewer PROPERTIES MACOSX_BUNDLE TRUE MACOSX_BUNDLE_INFO_PLIST ${CMAKE_SOURCE_DIR}/TBQt/TBQt-Info.plist)
 endif()

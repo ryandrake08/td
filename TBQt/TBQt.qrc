@@ -18,5 +18,10 @@
         <file>../Resources/i_chip_64x64.png</file>
         <file>../Resources/icon_64x64.png</file>
         <file>../Resources/icon_256x256.png</file>
+        <file>../Resources/s_break.wav</file>
+        <file>../Resources/s_next.wav</file>
+        <file>../Resources/s_rebalance.wav</file>
+        <file>../Resources/s_start.wav</file>
+        <file>../Resources/s_warning.wav</file>
     </qresource>
 </RCC>

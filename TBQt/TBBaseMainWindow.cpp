@@ -1,6 +1,7 @@
 #include "TBBaseMainWindow.hpp"
 
 #include "TBSeatingChartWindow.hpp"
+#include "TBSoundPlayer.hpp"
 #include "TBTournamentDisplayWindow.hpp"
 
 #include "TournamentSession.hpp"
@@ -16,13 +17,19 @@ struct TBBaseMainWindow::impl
     TBSeatingChartWindow* seatingChartWindow;
     TBTournamentDisplayWindow* displayWindow;
 
-    explicit impl(TBBaseMainWindow* parent) : seatingChartWindow(new TBSeatingChartWindow(session, parent)), displayWindow(new TBTournamentDisplayWindow(session, parent)) {}
+    // sound notifications
+    TBSoundPlayer* soundPlayer;
+
+    explicit impl(TBBaseMainWindow* parent) : seatingChartWindow(new TBSeatingChartWindow(session, parent)), displayWindow(new TBTournamentDisplayWindow(session, parent)), soundPlayer(new TBSoundPlayer(parent)) {}
 };
 
 TBBaseMainWindow::TBBaseMainWindow(QWidget* parent) : QMainWindow(parent), pimpl(new impl(this))
 {
     // set up rest of window
     this->setUnifiedTitleAndToolBarOnMac(true);
+
+    // initialize sound player with session
+    pimpl->soundPlayer->setSession(pimpl->session);
 }
 
 TBBaseMainWindow::~TBBaseMainWindow() = default;
