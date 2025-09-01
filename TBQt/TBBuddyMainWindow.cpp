@@ -120,12 +120,12 @@ TBBuddyMainWindow::TBBuddyMainWindow() : TBBaseMainWindow(), pimpl(new impl())
     resultsHeader->setSectionResizeMode(2, QHeaderView::ResizeToContents); // Payout: fit content
 
     // hook up TournamentDocument signals
-    QObject::connect(&this->pimpl->doc, SIGNAL(filenameChanged(const QString&)), this, SLOT(on_filenameChanged(const QString&)));
+    QObject::connect(&this->pimpl->doc, &TournamentDocument::filenameChanged, this, &TBBuddyMainWindow::on_filenameChanged);
 
     // hook up TournamentSession signals
-    QObject::connect(&this->getSession(), SIGNAL(authorizedChanged(bool)), this, SLOT(on_authorizedChanged(bool)));
-    QObject::connect(&this->getSession(), SIGNAL(stateChanged(const QString&, const QVariant&)), this, SLOT(on_tournamentStateChanged(const QString&, const QVariant&)));
-    QObject::connect(&this->getSession(), SIGNAL(playerMovementsUpdated(const QVariantList&)), this, SLOT(on_playerMovementsUpdated(const QVariantList&)));
+    QObject::connect(&this->getSession(), &TournamentSession::authorizedChanged, this, &TBBuddyMainWindow::on_authorizedChanged);
+    QObject::connect(&this->getSession(), &TournamentSession::stateChanged, this, &TBBuddyMainWindow::on_tournamentStateChanged);
+    QObject::connect(&this->getSession(), &TournamentSession::playerMovementsUpdated, this, &TBBuddyMainWindow::on_playerMovementsUpdated);
 
     // start tournament thread (full client runs its own daemon)
     auto service(this->pimpl->server.start(TournamentSession::client_identifier()));

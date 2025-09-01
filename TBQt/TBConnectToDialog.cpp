@@ -17,7 +17,7 @@ TBConnectToDialog::TBConnectToDialog(QWidget* parent) : QDialog(parent), ui(new 
     ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
 
     // Connect signals
-    connect(ui->hostEdit, &QLineEdit::textChanged, this, &TBConnectToDialog::on_hostEdit_textChanged);
+    QObject::connect(ui->hostEdit, &QLineEdit::textChanged, this, &TBConnectToDialog::on_hostEdit_textChanged);
 
     // Focus host edit
     ui->hostEdit->setFocus();

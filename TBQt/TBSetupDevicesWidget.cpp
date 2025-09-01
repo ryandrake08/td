@@ -41,12 +41,12 @@ TBSetupDevicesWidget::TBSetupDevicesWidget(QWidget* parent) : TBSetupTabWidget(p
     pimpl->ui.tableView->setItemDelegateForColumn(2, new TBDateEditDelegate(this));
 
     // Connect signals
-    connect(pimpl->ui.addButton, &QPushButton::clicked, this, &TBSetupDevicesWidget::on_addDeviceButtonClicked);
-    connect(pimpl->ui.removeButton, &QPushButton::clicked, this, &TBSetupDevicesWidget::on_removeDeviceButtonClicked);
-    connect(pimpl->model, &QAbstractItemModel::dataChanged, this, &TBSetupDevicesWidget::on_modelDataChanged);
+    QObject::connect(pimpl->ui.addButton, &QPushButton::clicked, this, &TBSetupDevicesWidget::on_addDeviceButtonClicked);
+    QObject::connect(pimpl->ui.removeButton, &QPushButton::clicked, this, &TBSetupDevicesWidget::on_removeDeviceButtonClicked);
+    QObject::connect(pimpl->model, &QAbstractItemModel::dataChanged, this, &TBSetupDevicesWidget::on_modelDataChanged);
 
     // Connect selection model after setting the model
-    connect(pimpl->ui.tableView->selectionModel(), &QItemSelectionModel::selectionChanged,
+    QObject::connect(pimpl->ui.tableView->selectionModel(), &QItemSelectionModel::selectionChanged,
             [this]() {
                 bool hasSelection = pimpl->ui.tableView->selectionModel()->hasSelection();
                 pimpl->ui.removeButton->setEnabled(hasSelection);

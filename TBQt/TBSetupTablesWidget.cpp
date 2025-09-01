@@ -44,13 +44,13 @@ TBSetupTablesWidget::TBSetupTablesWidget(QWidget* parent) : TBSetupTabWidget(par
     pimpl->ui.playersPerTableComboBox->setCurrentIndex(6); // Default to 8 players per table
 
     // Connect signals
-    connect(pimpl->ui.addButton, &QPushButton::clicked, this, &TBSetupTablesWidget::on_addTableButtonClicked);
-    connect(pimpl->ui.removeButton, &QPushButton::clicked, this, &TBSetupTablesWidget::on_removeTableButtonClicked);
-    connect(pimpl->ui.playersPerTableComboBox, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &TBSetupTablesWidget::on_playersPerTableChanged);
-    connect(pimpl->model, &QAbstractItemModel::dataChanged, this, &TBSetupTablesWidget::on_modelDataChanged);
+    QObject::connect(pimpl->ui.addButton, &QPushButton::clicked, this, &TBSetupTablesWidget::on_addTableButtonClicked);
+    QObject::connect(pimpl->ui.removeButton, &QPushButton::clicked, this, &TBSetupTablesWidget::on_removeTableButtonClicked);
+    QObject::connect(pimpl->ui.playersPerTableComboBox, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &TBSetupTablesWidget::on_playersPerTableChanged);
+    QObject::connect(pimpl->model, &QAbstractItemModel::dataChanged, this, &TBSetupTablesWidget::on_modelDataChanged);
 
     // Connect selection model after setting the model
-    connect(pimpl->ui.tableView->selectionModel(), &QItemSelectionModel::selectionChanged,
+    QObject::connect(pimpl->ui.tableView->selectionModel(), &QItemSelectionModel::selectionChanged,
             [this]() {
                 bool hasSelection = pimpl->ui.tableView->selectionModel()->hasSelection();
                 pimpl->ui.removeButton->setEnabled(hasSelection);

@@ -31,8 +31,8 @@ TBViewerMainWindow::TBViewerMainWindow() : TBBaseMainWindow(), pimpl(new impl())
     pimpl->ui.setupUi(this);
 
     // hook up TournamentSession signals
-    QObject::connect(&this->getSession(), SIGNAL(authorizedChanged(bool)), this, SLOT(on_authorizedChanged(bool)));
-    QObject::connect(&this->getSession(), SIGNAL(connectedChanged(bool)), this, SLOT(on_connectedChanged(bool)));
+    QObject::connect(&this->getSession(), &TournamentSession::authorizedChanged, this, &TBViewerMainWindow::on_authorizedChanged);
+    QObject::connect(&this->getSession(), &TournamentSession::connectedChanged, this, &TBViewerMainWindow::on_connectedChanged);
 
     // initialize connection state
     on_connectedChanged(false); // start with disconnected state

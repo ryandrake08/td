@@ -43,12 +43,12 @@ TBSetupPlayersWidget::TBSetupPlayersWidget(QWidget* parent) : TBSetupTabWidget(p
     pimpl->ui.tableView->setItemDelegateForColumn(1, new TBDateEditDelegate(this));
 
     // Connect signals
-    connect(pimpl->ui.addButton, &QPushButton::clicked, this, &TBSetupPlayersWidget::on_addPlayerButtonClicked);
-    connect(pimpl->ui.removeButton, &QPushButton::clicked, this, &TBSetupPlayersWidget::on_removePlayerButtonClicked);
-    connect(pimpl->model, &QAbstractItemModel::dataChanged, this, &TBSetupPlayersWidget::on_modelDataChanged);
+    QObject::connect(pimpl->ui.addButton, &QPushButton::clicked, this, &TBSetupPlayersWidget::on_addPlayerButtonClicked);
+    QObject::connect(pimpl->ui.removeButton, &QPushButton::clicked, this, &TBSetupPlayersWidget::on_removePlayerButtonClicked);
+    QObject::connect(pimpl->model, &QAbstractItemModel::dataChanged, this, &TBSetupPlayersWidget::on_modelDataChanged);
 
     // Connect selection model after setting the model
-    connect(pimpl->ui.tableView->selectionModel(), &QItemSelectionModel::selectionChanged,
+    QObject::connect(pimpl->ui.tableView->selectionModel(), &QItemSelectionModel::selectionChanged,
             [this]() {
                 bool hasSelection = pimpl->ui.tableView->selectionModel()->hasSelection();
                 pimpl->ui.removeButton->setEnabled(hasSelection);

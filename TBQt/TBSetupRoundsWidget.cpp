@@ -51,13 +51,13 @@ TBSetupRoundsWidget::TBSetupRoundsWidget(QWidget* parent) : TBSetupTabWidget(par
     pimpl->ui.tableView->setItemDelegateForColumn(6, new TBAnteTypeDelegate(this));
 
     // Connect signals
-    connect(pimpl->ui.addRoundButton, &QPushButton::clicked, this, &TBSetupRoundsWidget::on_addRoundButtonClicked);
-    connect(pimpl->ui.generateButton, &QPushButton::clicked, this, &TBSetupRoundsWidget::on_generateButtonClicked);
-    connect(pimpl->ui.removeButton, &QPushButton::clicked, this, &TBSetupRoundsWidget::on_removeButtonClicked);
-    connect(pimpl->model, &QAbstractItemModel::dataChanged, this, &TBSetupRoundsWidget::on_modelDataChanged);
+    QObject::connect(pimpl->ui.addRoundButton, &QPushButton::clicked, this, &TBSetupRoundsWidget::on_addRoundButtonClicked);
+    QObject::connect(pimpl->ui.generateButton, &QPushButton::clicked, this, &TBSetupRoundsWidget::on_generateButtonClicked);
+    QObject::connect(pimpl->ui.removeButton, &QPushButton::clicked, this, &TBSetupRoundsWidget::on_removeButtonClicked);
+    QObject::connect(pimpl->model, &QAbstractItemModel::dataChanged, this, &TBSetupRoundsWidget::on_modelDataChanged);
 
     // Connect selection model after setting the model
-    connect(pimpl->ui.tableView->selectionModel(), &QItemSelectionModel::selectionChanged,
+    QObject::connect(pimpl->ui.tableView->selectionModel(), &QItemSelectionModel::selectionChanged,
             [this]() {
                 bool hasSelection = pimpl->ui.tableView->selectionModel()->hasSelection();
                 pimpl->ui.removeButton->setEnabled(hasSelection);

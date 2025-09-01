@@ -38,10 +38,10 @@ void TournamentConnection::connect(const TournamentService& tournament)
         this->pimpl->device.reset(socket);
 
         // hook up socket signals
-        QObject::connect(socket, SIGNAL(connected()), this, SLOT(on_connected()));
-        QObject::connect(socket, SIGNAL(disconnected()), this, SLOT(on_disconnected()));
-        QObject::connect(socket, SIGNAL(readyRead()), this, SLOT(on_readyRead()));
-        QObject::connect(socket, SIGNAL(errorOccurred(QAbstractSocket::SocketError)), this, SLOT(on_error()));
+        QObject::connect(socket, &QTcpSocket::connected, this, &TournamentConnection::on_connected);
+        QObject::connect(socket, &QTcpSocket::disconnected, this, &TournamentConnection::on_disconnected);
+        QObject::connect(socket, &QTcpSocket::readyRead, this, &TournamentConnection::on_readyRead);
+        QObject::connect(socket, QOverload<QAbstractSocket::SocketError>::of(&QTcpSocket::errorOccurred), this, &TournamentConnection::on_error);
 
         // connect
         socket->connectToHost(QString::fromStdString(tournament.address()), static_cast<quint16>(tournament.port()));
@@ -53,10 +53,10 @@ void TournamentConnection::connect(const TournamentService& tournament)
         this->pimpl->device.reset(socket);
 
         // hook up socket signals
-        QObject::connect(socket, SIGNAL(connected()), this, SLOT(on_connected()));
-        QObject::connect(socket, SIGNAL(disconnected()), this, SLOT(on_disconnected()));
-        QObject::connect(socket, SIGNAL(readyRead()), this, SLOT(on_readyRead()));
-        QObject::connect(socket, SIGNAL(errorOccurred(QLocalSocket::LocalSocketError)), this, SLOT(on_error()));
+        QObject::connect(socket, &QLocalSocket::connected, this, &TournamentConnection::on_connected);
+        QObject::connect(socket, &QLocalSocket::disconnected, this, &TournamentConnection::on_disconnected);
+        QObject::connect(socket, &QLocalSocket::readyRead, this, &TournamentConnection::on_readyRead);
+        QObject::connect(socket, QOverload<QLocalSocket::LocalSocketError>::of(&QLocalSocket::errorOccurred), this, &TournamentConnection::on_error);
 
         // connect
         socket->connectToServer(QString::fromStdString(tournament.path()));

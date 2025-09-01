@@ -66,46 +66,46 @@ TBSetupPayoutsWidget::TBSetupPayoutsWidget(QWidget* parent) : TBSetupTabWidget(p
     turnoutPayoutsHeader->setSectionResizeMode(2, QHeaderView::ResizeToContents); // Currency
 
     // Connect signals for manual tab
-    connect(pimpl->ui.addPayoutButton, &QPushButton::clicked, this, &TBSetupPayoutsWidget::on_addPayoutButtonClicked);
-    connect(pimpl->ui.removePayoutButton, &QPushButton::clicked, this, &TBSetupPayoutsWidget::on_removePayoutButtonClicked);
+    QObject::connect(pimpl->ui.addPayoutButton, &QPushButton::clicked, this, &TBSetupPayoutsWidget::on_addPayoutButtonClicked);
+    QObject::connect(pimpl->ui.removePayoutButton, &QPushButton::clicked, this, &TBSetupPayoutsWidget::on_removePayoutButtonClicked);
 
     // Connect signals for turnout tab
-    connect(pimpl->ui.addTurnoutButton, &QPushButton::clicked, this, &TBSetupPayoutsWidget::on_addTurnoutButtonClicked);
-    connect(pimpl->ui.removeTurnoutButton, &QPushButton::clicked, this, &TBSetupPayoutsWidget::on_removeTurnoutButtonClicked);
-    connect(pimpl->ui.addTurnoutPayoutButton, &QPushButton::clicked, this, &TBSetupPayoutsWidget::on_addTurnoutPayoutButtonClicked);
-    connect(pimpl->ui.removeTurnoutPayoutButton, &QPushButton::clicked, this, &TBSetupPayoutsWidget::on_removeTurnoutPayoutButtonClicked);
+    QObject::connect(pimpl->ui.addTurnoutButton, &QPushButton::clicked, this, &TBSetupPayoutsWidget::on_addTurnoutButtonClicked);
+    QObject::connect(pimpl->ui.removeTurnoutButton, &QPushButton::clicked, this, &TBSetupPayoutsWidget::on_removeTurnoutButtonClicked);
+    QObject::connect(pimpl->ui.addTurnoutPayoutButton, &QPushButton::clicked, this, &TBSetupPayoutsWidget::on_addTurnoutPayoutButtonClicked);
+    QObject::connect(pimpl->ui.removeTurnoutPayoutButton, &QPushButton::clicked, this, &TBSetupPayoutsWidget::on_removeTurnoutPayoutButtonClicked);
 
     // Connect selection models
-    connect(pimpl->ui.manualTableView->selectionModel(), &QItemSelectionModel::selectionChanged,
+    QObject::connect(pimpl->ui.manualTableView->selectionModel(), &QItemSelectionModel::selectionChanged,
             [this]() {
                 bool hasSelection = pimpl->ui.manualTableView->selectionModel()->hasSelection();
                 pimpl->ui.removePayoutButton->setEnabled(hasSelection);
             });
 
-    connect(pimpl->ui.turnoutTableView->selectionModel(), &QItemSelectionModel::selectionChanged,
+    QObject::connect(pimpl->ui.turnoutTableView->selectionModel(), &QItemSelectionModel::selectionChanged,
             this, &TBSetupPayoutsWidget::on_turnoutSelectionChanged);
 
-    connect(pimpl->ui.turnoutPayoutsTableView->selectionModel(), &QItemSelectionModel::selectionChanged,
+    QObject::connect(pimpl->ui.turnoutPayoutsTableView->selectionModel(), &QItemSelectionModel::selectionChanged,
             this, &TBSetupPayoutsWidget::on_turnoutPayoutSelectionChanged);
 
     // Connect automatic payout signals
-    connect(pimpl->ui.percentSeatsPaidSlider, &QSlider::valueChanged, this, &TBSetupPayoutsWidget::on_percentSeatsSliderChanged);
-    connect(pimpl->ui.percentSeatsPaidSpinBox, QOverload<int>::of(&QSpinBox::valueChanged), this, &TBSetupPayoutsWidget::on_percentSeatsSpinBoxChanged);
-    connect(pimpl->ui.payoutShapeSlider, &QSlider::valueChanged, this, &TBSetupPayoutsWidget::on_payoutShapeChanged);
-    connect(pimpl->ui.payTheBubbleSpinBox, QOverload<double>::of(&QDoubleSpinBox::valueChanged), this, &TBSetupPayoutsWidget::on_modelDataChanged);
-    connect(pimpl->ui.payKnockoutsSpinBox, QOverload<double>::of(&QDoubleSpinBox::valueChanged), this, &TBSetupPayoutsWidget::on_modelDataChanged);
-    connect(pimpl->ui.roundPayoutsCheckBox, &QCheckBox::toggled, this, &TBSetupPayoutsWidget::on_modelDataChanged);
+    QObject::connect(pimpl->ui.percentSeatsPaidSlider, &QSlider::valueChanged, this, &TBSetupPayoutsWidget::on_percentSeatsSliderChanged);
+    QObject::connect(pimpl->ui.percentSeatsPaidSpinBox, QOverload<int>::of(&QSpinBox::valueChanged), this, &TBSetupPayoutsWidget::on_percentSeatsSpinBoxChanged);
+    QObject::connect(pimpl->ui.payoutShapeSlider, &QSlider::valueChanged, this, &TBSetupPayoutsWidget::on_payoutShapeChanged);
+    QObject::connect(pimpl->ui.payTheBubbleSpinBox, QOverload<double>::of(&QDoubleSpinBox::valueChanged), this, &TBSetupPayoutsWidget::on_modelDataChanged);
+    QObject::connect(pimpl->ui.payKnockoutsSpinBox, QOverload<double>::of(&QDoubleSpinBox::valueChanged), this, &TBSetupPayoutsWidget::on_modelDataChanged);
+    QObject::connect(pimpl->ui.roundPayoutsCheckBox, &QCheckBox::toggled, this, &TBSetupPayoutsWidget::on_modelDataChanged);
 
     // Connect tab selection to update payout policy
-    connect(pimpl->ui.payoutTabWidget, &QTabWidget::currentChanged, this, &TBSetupPayoutsWidget::on_payoutTabChanged);
+    QObject::connect(pimpl->ui.payoutTabWidget, &QTabWidget::currentChanged, this, &TBSetupPayoutsWidget::on_payoutTabChanged);
 
     // Initialize payout shape description
     pimpl->ui.payoutShapeDescriptionLabel->setText(payoutShapeDescription(0.2));
 
     // Connect data change signals
-    connect(pimpl->manualModel, &QAbstractItemModel::dataChanged, this, &TBSetupPayoutsWidget::on_modelDataChanged);
-    connect(pimpl->turnoutModel, &QAbstractItemModel::dataChanged, this, &TBSetupPayoutsWidget::on_modelDataChanged);
-    connect(pimpl->turnoutPayoutsModel, &QAbstractItemModel::dataChanged, this, &TBSetupPayoutsWidget::on_modelDataChanged);
+    QObject::connect(pimpl->manualModel, &QAbstractItemModel::dataChanged, this, &TBSetupPayoutsWidget::on_modelDataChanged);
+    QObject::connect(pimpl->turnoutModel, &QAbstractItemModel::dataChanged, this, &TBSetupPayoutsWidget::on_modelDataChanged);
+    QObject::connect(pimpl->turnoutPayoutsModel, &QAbstractItemModel::dataChanged, this, &TBSetupPayoutsWidget::on_modelDataChanged);
 }
 
 TBSetupPayoutsWidget::~TBSetupPayoutsWidget()

@@ -23,7 +23,7 @@ QWidget* TBColorDisplayDelegate::createEditor(QWidget* parent, const QStyleOptio
     // Install event filter to prevent premature editor destruction
     button->installEventFilter(const_cast<TBColorDisplayDelegate*>(this));
 
-    connect(button, &QPushButton::clicked, this, &TBColorDisplayDelegate::onColorButtonClicked);
+    QObject::connect(button, &QPushButton::clicked, this, &TBColorDisplayDelegate::onColorButtonClicked);
 
     return button;
 }

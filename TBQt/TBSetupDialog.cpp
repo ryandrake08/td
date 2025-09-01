@@ -31,7 +31,7 @@ TBSetupDialog::TBSetupDialog(QWidget* parent) : QDialog(parent), pimpl(new impl(
     {
         pimpl->tabs.append(tab);
         pimpl->ui.tabWidget->addTab(tab, title);
-        connect(tab, &TBSetupTabWidget::configurationChanged, this, &TBSetupDialog::onTabConfigurationChanged);
+        QObject::connect(tab, &TBSetupTabWidget::configurationChanged, this, &TBSetupDialog::onTabConfigurationChanged);
         return tab;
     };
 

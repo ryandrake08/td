@@ -19,7 +19,7 @@ QWidget* TBFundingDetailsDelegate::createEditor(QWidget* parent, const QStyleOpt
 
     QPushButton* button = new QPushButton(tr("Details..."), parent);
 
-    connect(button, &QPushButton::clicked, [button, index, this]() {
+    QObject::connect(button, &QPushButton::clicked, [button, index, this]() {
         QVariantMap rowData = index.model()->index(index.row(), 0).data(Qt::UserRole).toMap();
         if (showDetailsDialog(button, rowData))
         {
@@ -122,8 +122,8 @@ bool TBFundingDetailsDelegate::showDetailsDialog(QWidget* parent, QVariantMap& f
     QDialogButtonBox* buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, &dialog);
     layout->addRow(buttonBox);
 
-    connect(buttonBox, &QDialogButtonBox::accepted, &dialog, &QDialog::accept);
-    connect(buttonBox, &QDialogButtonBox::rejected, &dialog, &QDialog::reject);
+    QObject::connect(buttonBox, &QDialogButtonBox::accepted, &dialog, &QDialog::accept);
+    QObject::connect(buttonBox, &QDialogButtonBox::rejected, &dialog, &QDialog::reject);
 
     if (dialog.exec() == QDialog::Accepted)
     {

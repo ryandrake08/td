@@ -59,13 +59,13 @@ TBSetupFundingWidget::TBSetupFundingWidget(QWidget* parent) : TBSetupTabWidget(p
     pimpl->ui.payoutCurrencyComboBox->setCurrentText(TBCurrency::defaultCurrencyCode());
 
     // Connect signals
-    connect(pimpl->ui.addButton, &QPushButton::clicked, this, &TBSetupFundingWidget::on_addFundingButtonClicked);
-    connect(pimpl->ui.removeButton, &QPushButton::clicked, this, &TBSetupFundingWidget::on_removeFundingButtonClicked);
-    connect(pimpl->ui.payoutCurrencyComboBox, QOverload<const QString&>::of(&QComboBox::currentTextChanged), this, &TBSetupFundingWidget::on_modelDataChanged);
-    connect(pimpl->model, &QAbstractItemModel::dataChanged, this, &TBSetupFundingWidget::on_modelDataChanged);
+    QObject::connect(pimpl->ui.addButton, &QPushButton::clicked, this, &TBSetupFundingWidget::on_addFundingButtonClicked);
+    QObject::connect(pimpl->ui.removeButton, &QPushButton::clicked, this, &TBSetupFundingWidget::on_removeFundingButtonClicked);
+    QObject::connect(pimpl->ui.payoutCurrencyComboBox, QOverload<const QString&>::of(&QComboBox::currentTextChanged), this, &TBSetupFundingWidget::on_modelDataChanged);
+    QObject::connect(pimpl->model, &QAbstractItemModel::dataChanged, this, &TBSetupFundingWidget::on_modelDataChanged);
 
     // Connect selection model after setting the model
-    connect(pimpl->ui.tableView->selectionModel(), &QItemSelectionModel::selectionChanged,
+    QObject::connect(pimpl->ui.tableView->selectionModel(), &QItemSelectionModel::selectionChanged,
             [this]() {
                 bool hasSelection = pimpl->ui.tableView->selectionModel()->hasSelection();
                 pimpl->ui.removeButton->setEnabled(hasSelection);

@@ -11,7 +11,7 @@ TBResultsModel::TBResultsModel(const TournamentSession& session, QObject* parent
     this->addHeader("payout", QObject::tr("Payout"));
 
     // observe session state
-    QObject::connect(&session, SIGNAL(stateChanged(const QString&, const QVariant&)), this, SLOT(on_stateChanged(const QString&, const QVariant&)));
+    QObject::connect(&session, &TournamentSession::stateChanged, this, &TBResultsModel::on_stateChanged);
 }
 
 void TBResultsModel::on_stateChanged(const QString& key, const QVariant& value)

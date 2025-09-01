@@ -12,7 +12,7 @@ TBSeatingModel::TBSeatingModel(const TournamentSession& session, QObject* parent
     this->addHeader("manage", QObject::tr("Manage"));
 
     // observe session state
-    QObject::connect(&session, SIGNAL(stateChanged(const QString&, const QVariant&)), this, SLOT(on_stateChanged(const QString&, const QVariant&)));
+    QObject::connect(&session, &TournamentSession::stateChanged, this, &TBSeatingModel::on_stateChanged);
 }
 
 void TBSeatingModel::on_stateChanged(const QString& key, const QVariant& value)

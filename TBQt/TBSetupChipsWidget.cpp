@@ -42,12 +42,12 @@ TBSetupChipsWidget::TBSetupChipsWidget(QWidget* parent) : TBSetupTabWidget(paren
     pimpl->ui.tableView->setItemDelegateForColumn(0, new TBColorDisplayDelegate(this));
 
     // Connect signals
-    connect(pimpl->ui.addButton, &QPushButton::clicked, this, &TBSetupChipsWidget::on_addChipButtonClicked);
-    connect(pimpl->ui.removeButton, &QPushButton::clicked, this, &TBSetupChipsWidget::on_removeChipButtonClicked);
-    connect(pimpl->model, &QAbstractItemModel::dataChanged, this, &TBSetupChipsWidget::on_modelDataChanged);
+    QObject::connect(pimpl->ui.addButton, &QPushButton::clicked, this, &TBSetupChipsWidget::on_addChipButtonClicked);
+    QObject::connect(pimpl->ui.removeButton, &QPushButton::clicked, this, &TBSetupChipsWidget::on_removeChipButtonClicked);
+    QObject::connect(pimpl->model, &QAbstractItemModel::dataChanged, this, &TBSetupChipsWidget::on_modelDataChanged);
 
     // Connect selection model after setting the model
-    connect(pimpl->ui.tableView->selectionModel(), &QItemSelectionModel::selectionChanged,
+    QObject::connect(pimpl->ui.tableView->selectionModel(), &QItemSelectionModel::selectionChanged,
             [this]() {
                 bool hasSelection = pimpl->ui.tableView->selectionModel()->hasSelection();
                 pimpl->ui.removeButton->setEnabled(hasSelection);

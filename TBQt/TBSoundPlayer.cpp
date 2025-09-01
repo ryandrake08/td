@@ -51,10 +51,10 @@ TBSoundPlayer::~TBSoundPlayer() = default;
 void TBSoundPlayer::setSession(const TournamentSession& session)
 {
     // Connect to session state changes
-    connect(&session, &TournamentSession::stateChanged, this, &TBSoundPlayer::on_stateChanged);
+    QObject::connect(&session, &TournamentSession::stateChanged, this, &TBSoundPlayer::on_stateChanged);
 
     // Connect to player movement updates
-    connect(&session, &TournamentSession::playerMovementsUpdated, this, &TBSoundPlayer::on_playerMovementsUpdated);
+    QObject::connect(&session, &TournamentSession::playerMovementsUpdated, this, &TBSoundPlayer::on_playerMovementsUpdated);
 }
 
 void TBSoundPlayer::on_stateChanged(const QString& key, const QVariant& value)

@@ -42,10 +42,10 @@ TournamentSession::TournamentSession(QObject* parent) : QObject(parent), pimpl(n
     pimpl->authorized = false;
 
     // hook up TournamentConnection signals
-    QObject::connect(&this->pimpl->connection, SIGNAL(connected()), this, SLOT(on_connected()));
-    QObject::connect(&this->pimpl->connection, SIGNAL(disconnected()), this, SLOT(on_disconnected()));
-    QObject::connect(&this->pimpl->connection, SIGNAL(receivedData(const QVariantMap&)), this, SLOT(on_receivedData(const QVariantMap&)));
-    QObject::connect(&this->pimpl->connection, SIGNAL(errorOccurred(const QString&)), this, SLOT(on_connectionError(const QString&)));
+    QObject::connect(&this->pimpl->connection, &TournamentConnection::connected, this, &TournamentSession::on_connected);
+    QObject::connect(&this->pimpl->connection, &TournamentConnection::disconnected, this, &TournamentSession::on_disconnected);
+    QObject::connect(&this->pimpl->connection, &TournamentConnection::receivedData, this, &TournamentSession::on_receivedData);
+    QObject::connect(&this->pimpl->connection, &TournamentConnection::errorOccurred, this, &TournamentSession::on_connectionError);
 }
 
 TournamentSession::~TournamentSession() = default;
