@@ -5,6 +5,14 @@
 #include <thread>
 #include <memory>
 #include <vector>
+#ifdef __APPLE__
+// macOS allows up to 255 characters
+#define MAX_SERVICE_NAME_LENGTH 255
+#else
+// Linux/Avahi and other platforms: 63 characters maximum
+#define MAX_SERVICE_NAME_LENGTH 63
+#endif
+
 
 TEST_CASE("Bonjour publisher creation and destruction", "[bonjour][basic]") {
     SECTION("Default constructor") {
@@ -77,31 +85,52 @@ TEST_CASE("Bonjour service publishing", "[bonjour][publish]") {
         REQUIRE_NOTHROW(bp.publish("MaxPort", 65535));   // Maximum port
     }
 
+    SECTION("Multiple publishers") {
+        bonjour_publisher bp1;
+        bonjour_publisher bp2;
+
+        // Test publishing two services simultaneously
+        REQUIRE_NOTHROW(bp1.publish("TestTournament", 25600));
+        REQUIRE_NOTHROW(bp2.publish("AnotherTournament", 25601));
+
+        // Test publishing two services simultaneously with the same name, different port
+        // Note, this should publish an alternate name, due to collision
+        // TODO: Unable to verify the alternate name
+        REQUIRE_NOTHROW(bp1.publish("SameTournament", 25602));
+        REQUIRE_NOTHROW(bp2.publish("SameTournament", 25603));
+
+        // Test publishing two services simultaneously with the same name, different port
+        // but using the maximum size name. This should also publish an alternate name,
+        // due to collision and the name chosen should still be a valid name, size-wise
+        // TODO: Unable to verify the alternate name
+        std::string max_length_name(MAX_SERVICE_NAME_LENGTH, 'A');
+        REQUIRE_NOTHROW(bp1.publish(max_length_name, 25604));
+        REQUIRE_NOTHROW(bp2.publish(max_length_name, 25605));
+
+        // Test publishing two services simultaneously with the same port, different name
+        REQUIRE_NOTHROW(bp1.publish("Port-25606", 25606));
+        REQUIRE_NOTHROW(bp2.publish("OtherPort-25606", 25606));
+
+        // Test publishing two services simultaneously with the same name and port
+        REQUIRE_NOTHROW(bp1.publish("IdenticalTournament", 25607));
+        REQUIRE_NOTHROW(bp2.publish("IdenticalTournament", 25607));
+    }
+
     SECTION("Publish edge cases") {
         bonjour_publisher bp;
 
         // Empty service name
         REQUIRE_NOTHROW(bp.publish("", 25600));
 
-#ifdef __APPLE__
-        // macOS allows up to 255 characters
-        std::string max_length_name(255, 'A');
+        std::string max_length_name(MAX_SERVICE_NAME_LENGTH, 'A');
         REQUIRE_NOTHROW(bp.publish(max_length_name, 25600));
 
-        std::string over_limit_name(256, 'B');
-        REQUIRE_THROWS(bp.publish(over_limit_name, 25600));
-#else
-        // Linux/Avahi and other platforms: 63 characters maximum
-        std::string max_length_name(63, 'A');
-        REQUIRE_NOTHROW(bp.publish(max_length_name, 25600));
-
-        std::string over_limit_name(64, 'B');
-        REQUIRE_THROWS(bp.publish(over_limit_name, 25600));
-#endif
+        std::string over_limit_name(MAX_SERVICE_NAME_LENGTH+1, 'B');
+        REQUIRE_THROWS(bp.publish(over_limit_name, 25601));
 
         // Very long service name should throw on all platforms
         std::string very_long_name(1000, 'C');
-        REQUIRE_THROWS(bp.publish(very_long_name, 25600));
+        REQUIRE_THROWS(bp.publish(very_long_name, 25602));
 
         // Port 0 (might be used for dynamic port assignment)
         REQUIRE_NOTHROW(bp.publish("ZeroPort", 0));

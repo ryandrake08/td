@@ -139,20 +139,6 @@ struct bonjour_publisher::impl
 
     void add_service(const std::string& name, int port)
     {
-        // validate service name before attempting to add it
-        if(!avahi_is_valid_service_name(name.c_str()))
-        {
-            // handle empty string by using fallback name
-            if(name.empty())
-            {
-                logger(ll::warning) << "Empty service name provided, using fallback\n";
-                this->add_service("service-" + std::to_string(port), port);
-                return;
-            }
-            // for other invalid names (like very long ones), throw exception
-            throw std::invalid_argument("Invalid service name: " + name);
-        }
-
         if(avahi_entry_group_is_empty(this->group) != AVAHI_OK)
         {
             logger(ll::info) << "adding avahi service: " << name << ", port: " << port << '\n';
@@ -212,7 +198,7 @@ struct bonjour_publisher::impl
             case AVAHI_ENTRY_GROUP_COLLISION :
             {
                 /* A service name collision with a remote service
-                    * happened. Let's pick a new name */
+                 * happened. Let's pick a new name */
                 logger(ll::debug) << "AVAHI_ENTRY_GROUP_COLLISION\n";
                 this->add_service(bonjour_publisher::impl::alternative_name(this->service_name), this->service_port);
                 break;
@@ -316,6 +302,22 @@ struct bonjour_publisher::impl
 public:
     impl(const std::string& name, int port) : service_name(name), service_port(port), threaded_poll(nullptr), client(nullptr), group(nullptr)
     {
+        // handle empty string by using fallback name
+        if(this->service_name.empty())
+        {
+            this->service_name = "service-" + std::to_string(this->service_port);
+            logger(ll::warning) << "empty service name provided, using fallback: " << this->service_name << "\n";
+        }
+
+        // validate service name before attempting to do anything
+        if(!avahi_is_valid_service_name(this->service_name.c_str()))
+        {
+            logger(ll::error) << this->service_name << " is an invalid service name!\n";
+
+            // for other invalid names (like very long ones), throw exception
+            throw std::invalid_argument("Invalid service name: " + this->service_name);
+        }
+
         logger(ll::debug) << "creating poller\n";
 
         // create poller
@@ -325,7 +327,7 @@ public:
             throw std::system_error(AVAHI_ERR_FAILURE, avahi_error_category(), "avahi_threaded_poll_new");
         }
 
-        logger(ll::info) << "setting up avahi service for " << name << " with port " << port << '\n';
+        logger(ll::info) << "setting up avahi service for " << this->service_name << " with port " << this->service_port << '\n';
 
         // create client
         int error;
@@ -346,7 +348,16 @@ public:
 
     ~impl()
     {
-        logger(ll::info) << "shutting down avahi service\n";
+        logger(ll::info) << "shutting down avahi service for " << this->service_name << " with port " << this->service_port << '\n';
+
+        // stop poller
+        if(this->threaded_poll != nullptr)
+        {
+            logger(ll::debug) << "stopping poller\n";
+
+            // stop
+            avahi_threaded_poll_stop(this->threaded_poll);
+        }
 
         // destroy group first
         if(this->group != nullptr)
@@ -357,20 +368,6 @@ public:
             this->group = nullptr;
         }
 
-        // stop poller
-        if(this->threaded_poll != nullptr)
-        {
-            logger(ll::debug) << "freeing poller\n";
-
-            // stop
-            avahi_threaded_poll_stop(this->threaded_poll);
-
-            // avahi bug: looks like avahi_client_free will try to free this for us, causing double-free if we free it here
-            // might be fixed in avahi 0.7
-            //avahi_threaded_poll_free(this->threaded_poll);
-            this->threaded_poll = nullptr;
-        }
-
         // free client
         if(this->client != nullptr)
         {
@@ -378,6 +375,15 @@ public:
 
             avahi_client_free(this->client);
             this->client = nullptr;
+        }
+
+        // free poller
+        if(this->threaded_poll != nullptr)
+        {
+            logger(ll::debug) << "freeing poller\n";
+
+            avahi_threaded_poll_free(this->threaded_poll);
+            this->threaded_poll = nullptr;
         }
     }
 };
