@@ -1,4 +1,4 @@
-#include <catch_amalgamated.hpp>
+#include <Catch2/catch.hpp>
 #include "../tournament.hpp"
 #include "../gameinfo.hpp"
 #include "../server.hpp"
@@ -181,7 +181,7 @@ TEST_CASE("Bonjour service publishing integration", "[integration][bonjour_servi
 
         // Simulate multiple tournament instances
         for (int i = 1; i <= 3; ++i) {
-            auto bp = std::make_unique<bonjour_publisher>();
+            auto bp = std::unique_ptr<bonjour_publisher>(new bonjour_publisher());
             std::string service_name = "Tournament Instance " + std::to_string(i);
             int port = 25600 + i - 1;
 

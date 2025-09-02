@@ -1,5 +1,5 @@
 #define CATCH_CONFIG_MAIN
-#include <catch_amalgamated.hpp>
+#include <Catch2/catch.hpp>
 #include "../logger.hpp"
 
 // Disable all logging for tests to reduce noise
@@ -10,4 +10,3 @@ struct LoggerDisabler {
 };
 
 static LoggerDisabler logger_disabler;
-

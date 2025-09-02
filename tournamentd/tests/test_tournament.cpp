@@ -1,4 +1,4 @@
-#include <catch_amalgamated.hpp>
+#include <Catch2/catch.hpp>
 #include "../tournament.hpp"
 #include <stdexcept>
 
@@ -38,4 +38,3 @@ TEST_CASE("Tournament creation and basic operations", "[tournament]") {
         }
     }
 }
-

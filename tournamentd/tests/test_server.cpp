@@ -1,4 +1,4 @@
-#include <catch_amalgamated.hpp>
+#include <Catch2/catch.hpp>
 #include "../server.hpp"
 #include <sstream>
 #include <functional>
@@ -9,17 +9,17 @@
 TEST_CASE("Server creation and destruction", "[server][basic]") {
     SECTION("Default constructor") {
         std::unique_ptr<server> s;
-        REQUIRE_NOTHROW(s = std::make_unique<server>());
+        REQUIRE_NOTHROW(s = std::unique_ptr<server>(new server()));
     }
 
     SECTION("Server destruction") {
-        auto s = std::make_unique<server>();
+        auto s = std::unique_ptr<server>(new server());
         REQUIRE_NOTHROW(s.reset());
     }
 
     SECTION("Multiple server instances") {
-        auto s1 = std::make_unique<server>();
-        auto s2 = std::make_unique<server>();
+        auto s1 = std::unique_ptr<server>(new server());
+        auto s2 = std::unique_ptr<server>(new server());
         REQUIRE(s1 != nullptr);
         REQUIRE(s2 != nullptr);
     }
@@ -358,4 +358,3 @@ TEST_CASE("Server resource management", "[server][resources]") {
         }
     }
 }
-

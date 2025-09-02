@@ -1,4 +1,4 @@
-#include <catch_amalgamated.hpp>
+#include <Catch2/catch.hpp>
 #include "../bonjour.hpp"
 #include <string>
 #include <chrono>
@@ -9,17 +9,17 @@
 TEST_CASE("Bonjour publisher creation and destruction", "[bonjour][basic]") {
     SECTION("Default constructor") {
         std::unique_ptr<bonjour_publisher> bp;
-        REQUIRE_NOTHROW(bp = std::make_unique<bonjour_publisher>());
+        REQUIRE_NOTHROW(bp = std::unique_ptr<bonjour_publisher>(new bonjour_publisher()));
     }
 
     SECTION("Destruction") {
-        auto bp = std::make_unique<bonjour_publisher>();
+        auto bp = std::unique_ptr<bonjour_publisher>(new bonjour_publisher());
         REQUIRE_NOTHROW(bp.reset());
     }
 
     SECTION("Multiple instances") {
-        auto bp1 = std::make_unique<bonjour_publisher>();
-        auto bp2 = std::make_unique<bonjour_publisher>();
+        auto bp1 = std::unique_ptr<bonjour_publisher>(new bonjour_publisher());
+        auto bp2 = std::unique_ptr<bonjour_publisher>(new bonjour_publisher());
         REQUIRE(bp1 != nullptr);
         REQUIRE(bp2 != nullptr);
     }
@@ -210,7 +210,7 @@ TEST_CASE("Bonjour error handling", "[bonjour][errors]") {
         std::vector<std::unique_ptr<bonjour_publisher>> publishers;
 
         for (int i = 0; i < 50; ++i) {
-            auto bp = std::make_unique<bonjour_publisher>();
+            auto bp = std::unique_ptr<bonjour_publisher>(new bonjour_publisher());
             std::string service_name = "ResourceTest" + std::to_string(i);
 
             REQUIRE_NOTHROW(bp->publish(service_name, 25600 + i));
@@ -229,7 +229,7 @@ TEST_CASE("Bonjour error handling", "[bonjour][errors]") {
         std::vector<std::unique_ptr<bonjour_publisher>> publishers(num_threads);
 
         for (size_t t = 0; t < num_threads; ++t) {
-            publishers[t] = std::make_unique<bonjour_publisher>();
+            publishers[t] = std::unique_ptr<bonjour_publisher>(new bonjour_publisher());
 
             threads.emplace_back([&publishers, t]() {
                 for (int i = 0; i < services_per_thread; ++i) {
@@ -298,7 +298,7 @@ TEST_CASE("Bonjour service information", "[bonjour][service_info]") {
 
         // Simulate multiple tournament instances running
         for (int i = 1; i <= 3; ++i) {
-            auto bp = std::make_unique<bonjour_publisher>();
+            auto bp = std::unique_ptr<bonjour_publisher>(new bonjour_publisher());
             std::string service_name = "Tournament " + std::to_string(i);
             int port = 25600 + i - 1;
 

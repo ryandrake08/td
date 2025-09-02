@@ -73,7 +73,7 @@ add_library(qmdnsengine STATIC
 	thirdparty/qmdnsengine/src/service.cpp
 )
 target_compile_features(qmdnsengine PUBLIC cxx_std_11)
-target_include_directories(qmdnsengine PUBLIC 
+target_include_directories(qmdnsengine PUBLIC
 	thirdparty/qmdnsengine/include
 	"${CMAKE_CURRENT_BINARY_DIR}"
 )
@@ -136,11 +136,10 @@ add_executable(tournamentd_tests
 	tournamentd/tests/test_gameinfo.cpp
 	tournamentd/tests/test_bonjour.cpp
 	tournamentd/tests/test_integration.cpp
-	thirdparty/catch_amalgamated.cpp
-	thirdparty/catch_amalgamated.hpp
+	thirdparty/Catch2/catch.hpp
 )
 target_link_libraries(tournamentd_tests td ${OS_LIBRARIES})
-target_compile_features(tournamentd_tests PUBLIC cxx_std_14)
+target_compile_features(tournamentd_tests PUBLIC cxx_std_11)
 
 # Configure Qt5 paths for different platforms
 if(DEFINED MACOSX)
@@ -164,13 +163,13 @@ if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND AND Qt5Multimedia_FOU
 		thirdparty/qmdnsengine/src/cache_p.h
 		thirdparty/qmdnsengine/src/server_p.h
 	)
-	
+
 	# Add MOC files to qmdnsengine target
 	target_sources(qmdnsengine PRIVATE ${QMDNSENGINE_MOC})
-	
+
 	# Link qmdnsengine to Qt5 modules now that Qt5 is found
 	target_link_libraries(qmdnsengine Qt5::Core Qt5::Network)
-	
+
 	find_package(Threads REQUIRED)
 	set(CMAKE_INCLUDE_CURRENT_DIR ON)
 	qt5_wrap_cpp(TBUDDY_MOC

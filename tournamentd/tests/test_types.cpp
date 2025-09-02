@@ -1,4 +1,4 @@
-#include <catch_amalgamated.hpp>
+#include <Catch2/catch.hpp>
 #include "../types.hpp"
 #include "nlohmann/json.hpp"
 #include <sstream>

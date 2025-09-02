@@ -1,4 +1,4 @@
-#include <catch_amalgamated.hpp>
+#include <Catch2/catch.hpp>
 #include "../socket.hpp"
 #include <sstream>
 #include <thread>
@@ -16,13 +16,13 @@ TEST_CASE("unix_socket creation and operations", "[socket][unix_socket]") {
 
         SECTION("Server socket creation") {
             std::unique_ptr<unix_socket> server;
-            REQUIRE_NOTHROW(server = std::make_unique<unix_socket>(temp_path.c_str(), false, 1));
+            REQUIRE_NOTHROW(server = std::unique_ptr<unix_socket>(new unix_socket(temp_path.c_str(), false, 1)));
         }
 
         SECTION("Client socket creation with non-existent server") {
             // This should throw due to connection failure - no server listening
             std::unique_ptr<unix_socket> client;
-            REQUIRE_THROWS(client = std::make_unique<unix_socket>(temp_path.c_str(), true));
+            REQUIRE_THROWS(client = std::unique_ptr<unix_socket>(new unix_socket(temp_path.c_str(), true)));
         }
     }
 
@@ -31,7 +31,7 @@ TEST_CASE("unix_socket creation and operations", "[socket][unix_socket]") {
 
         try {
             // Create server socket
-            auto server = std::make_unique<unix_socket>(temp_path.c_str(), false, 1);
+            auto server = std::unique_ptr<unix_socket>(new unix_socket(temp_path.c_str(), false, 1));
 
             // Test server socket properties
             std::ostringstream oss;
@@ -54,19 +54,19 @@ TEST_CASE("inet4_socket creation", "[socket][inet4_socket]") {
     SECTION("IPv4 client socket creation") {
         SECTION("Connection to non-existent host should throw") {
             std::unique_ptr<inet4_socket> client;
-            REQUIRE_THROWS(client = std::make_unique<inet4_socket>("nonexistent.example.com", "12345"));
+            REQUIRE_THROWS(client = std::unique_ptr<inet4_socket>(new inet4_socket("nonexistent.example.com", "12345")));
         }
 
         SECTION("Connection to localhost with invalid port") {
             std::unique_ptr<inet4_socket> client;
-            REQUIRE_THROWS(client = std::make_unique<inet4_socket>("127.0.0.1", "99999"));
+            REQUIRE_THROWS(client = std::unique_ptr<inet4_socket>(new inet4_socket("127.0.0.1", "99999")));
         }
     }
 
     SECTION("IPv4 server socket creation") {
         SECTION("Bind to available port") {
             try {
-                auto server = std::make_unique<inet4_socket>("0", 1); // Bind to any available port
+                auto server = std::unique_ptr<inet4_socket>(new inet4_socket("0", 1)); // Bind to any available port
 
                 std::ostringstream oss;
                 oss << *server;
@@ -80,7 +80,7 @@ TEST_CASE("inet4_socket creation", "[socket][inet4_socket]") {
 
         SECTION("Bind to specific high port") {
             try {
-                auto server = std::make_unique<inet4_socket>("54321", 1);
+                auto server = std::unique_ptr<inet4_socket>(new inet4_socket("54321", 1));
 
             } catch (const std::exception& e) {
                 // Port might be in use or binding restricted
@@ -94,14 +94,14 @@ TEST_CASE("inet6_socket creation", "[socket][inet6_socket]") {
     SECTION("IPv6 client socket creation") {
         SECTION("Connection to non-existent host should throw") {
             std::unique_ptr<inet6_socket> client;
-            REQUIRE_THROWS(client = std::make_unique<inet6_socket>("::1", "12345"));
+            REQUIRE_THROWS(client = std::unique_ptr<inet6_socket>(new inet6_socket("::1", "12345")));
         }
     }
 
     SECTION("IPv6 server socket creation") {
         SECTION("Bind to IPv6 any address") {
             try {
-                auto server = std::make_unique<inet6_socket>("0", 1);
+                auto server = std::unique_ptr<inet6_socket>(new inet6_socket("0", 1));
 
             } catch (const std::exception& e) {
                 // IPv6 might not be available in all environments
@@ -115,7 +115,7 @@ TEST_CASE("Socket data operations", "[socket][data]") {
     SECTION("Listening socket error handling") {
         std::string temp_path = "/tmp/test_socket_listen_" + std::to_string(std::time(nullptr));
 
-        auto server = std::make_unique<unix_socket>(temp_path.c_str(), false, 1);
+        auto server = std::unique_ptr<unix_socket>(new unix_socket(temp_path.c_str(), false, 1));
 
         // Test that peek on listening socket properly throws an exception
         char buffer[10];
@@ -130,7 +130,7 @@ TEST_CASE("Socket data operations", "[socket][data]") {
 
         try {
             // Create server socket
-            auto server = std::make_unique<unix_socket>(temp_path.c_str(), false, 1);
+            auto server = std::unique_ptr<unix_socket>(new unix_socket(temp_path.c_str(), false, 1));
 
             // Create client socket in separate thread to connect
             std::thread client_thread([&temp_path]() {
@@ -177,7 +177,7 @@ TEST_CASE("Socket select functionality", "[socket][select]") {
         std::string temp_path = "/tmp/test_socket_select_" + std::to_string(std::time(nullptr));
 
         try {
-            auto server = std::make_unique<unix_socket>(temp_path.c_str(), false, 1);
+            auto server = std::unique_ptr<unix_socket>(new unix_socket(temp_path.c_str(), false, 1));
             std::set<common_socket> socket_set = {*server};
 
             // Should timeout quickly with no activity
@@ -201,8 +201,8 @@ TEST_CASE("Socket comparison and equality", "[socket][comparison]") {
         std::string temp_path2 = "/tmp/test_socket_eq2_" + std::to_string(std::time(nullptr)) + "_2";
 
         try {
-            auto socket1 = std::make_unique<unix_socket>(temp_path1.c_str(), false, 1);
-            auto socket2 = std::make_unique<unix_socket>(temp_path2.c_str(), false, 1);
+            auto socket1 = std::unique_ptr<unix_socket>(new unix_socket(temp_path1.c_str(), false, 1));
+            auto socket2 = std::unique_ptr<unix_socket>(new unix_socket(temp_path2.c_str(), false, 1));
 
             // Test inequality (different sockets should not be equal)
             REQUIRE(*socket1 != *socket2);
@@ -224,7 +224,7 @@ TEST_CASE("Socket stream insertion", "[socket][stream]") {
         std::string temp_path = "/tmp/test_socket_stream_" + std::to_string(std::time(nullptr));
 
         try {
-            auto server = std::make_unique<unix_socket>(temp_path.c_str(), false, 1);
+            auto server = std::unique_ptr<unix_socket>(new unix_socket(temp_path.c_str(), false, 1));
 
             std::ostringstream oss;
             oss << *server;
@@ -241,7 +241,7 @@ TEST_CASE("Socket stream insertion", "[socket][stream]") {
 
     SECTION("Stream insertion for inet socket") {
         try {
-            auto server = std::make_unique<inet4_socket>("0", 1);
+            auto server = std::unique_ptr<inet4_socket>(new inet4_socket("0", 1));
 
             std::ostringstream oss;
             oss << *server;
@@ -259,21 +259,21 @@ TEST_CASE("Socket error conditions", "[socket][errors]") {
     SECTION("Invalid unix socket path") {
         // Test with invalid paths
         std::unique_ptr<unix_socket> server1, server2;
-        REQUIRE_THROWS(server1 = std::make_unique<unix_socket>("", false, 1));
-        REQUIRE_THROWS(server2 = std::make_unique<unix_socket>("/dev/null/invalid/path", false, 1));
+        REQUIRE_THROWS(server1 = std::unique_ptr<unix_socket>(new unix_socket("", false, 1)));
+        REQUIRE_THROWS(server2 = std::unique_ptr<unix_socket>(new unix_socket("/dev/null/invalid/path", false, 1)));
     }
 
     SECTION("Invalid inet socket parameters") {
         // Test with invalid parameters
         std::unique_ptr<inet4_socket> client1, client2, server;
-        REQUIRE_THROWS(client1 = std::make_unique<inet4_socket>("", "80"));
-        REQUIRE_THROWS(client2 = std::make_unique<inet4_socket>("localhost", ""));
-        REQUIRE_THROWS(server = std::make_unique<inet4_socket>("", 1));
+        REQUIRE_THROWS(client1 = std::unique_ptr<inet4_socket>(new inet4_socket("", "80")));
+        REQUIRE_THROWS(client2 = std::unique_ptr<inet4_socket>(new inet4_socket("localhost", "")));
+        REQUIRE_THROWS(server = std::unique_ptr<inet4_socket>(new inet4_socket("", 1)));
     }
 
     SECTION("Invalid port numbers") {
         std::unique_ptr<inet4_socket> server1, server2;
-        REQUIRE_THROWS(server1 = std::make_unique<inet4_socket>("-1", 1));
-        REQUIRE_THROWS(server2 = std::make_unique<inet4_socket>("99999999", 1));
+        REQUIRE_THROWS(server1 = std::unique_ptr<inet4_socket>(new inet4_socket("-1", 1)));
+        REQUIRE_THROWS(server2 = std::unique_ptr<inet4_socket>(new inet4_socket("99999999", 1)));
     }
 }

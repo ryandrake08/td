@@ -308,7 +308,6 @@
 		94F45B2C2E4542310096979D /* socket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E31B3C3F8300A158F8 /* socket.cpp */; };
 		94F45B2D2E4542310096979D /* tournament.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E71B3C3F8300A158F8 /* tournament.cpp */; };
 		94F45B2E2E4542310096979D /* types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E91B3C3F8300A158F8 /* types.cpp */; };
-		94F45B392E4544140096979D /* catch_amalgamated.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 94F45B382E4544140096979D /* catch_amalgamated.cpp */; settings = {COMPILER_FLAGS = "-Wno-sign-conversion"; }; };
 		94F45B3A2E4546A10096979D /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9476F4F91B3C403F00A158F8 /* CFNetwork.framework */; };
 		94F45B3B2E4546A50096979D /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9476F4FB1B3C404400A158F8 /* CoreFoundation.framework */; };
 		94F466271B8AF203009BB648 /* TBCurrencyCodeTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F466261B8AF203009BB648 /* TBCurrencyCodeTransformer.m */; };
@@ -863,6 +862,7 @@
 		94D7290B200342EB009EC463 /* TBSetupTabViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TBSetupTabViewController.m; path = TBMac/TBSetupTabViewController.m; sourceTree = "<group>"; };
 		94D7290D20034F5A009EC463 /* TBSetupViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TBSetupViewController.h; path = TBMac/TBSetupViewController.h; sourceTree = "<group>"; };
 		94D7290E20034F5A009EC463 /* TBSetupViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TBSetupViewController.m; path = TBMac/TBSetupViewController.m; sourceTree = "<group>"; };
+		94DD73B12E66A78300B17F6C /* catch.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = catch.hpp; sourceTree = "<group>"; };
 		94E6F1772011B34A0054D94F /* WatchConnectivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchConnectivity.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS4.2.sdk/System/Library/Frameworks/WatchConnectivity.framework; sourceTree = DEVELOPER_DIR; };
 		94E6F17A2011B54E0054D94F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		94E6F17C2011B55B0054D94F /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
@@ -885,8 +885,6 @@
 		94F45B1E2E4541B40096979D /* test_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = test_types.cpp; sourceTree = "<group>"; };
 		94F45B312E4542AC0096979D /* json.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = json.hpp; sourceTree = "<group>"; };
 		94F45B322E4542AC0096979D /* json_fwd.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = json_fwd.hpp; sourceTree = "<group>"; };
-		94F45B372E4544130096979D /* catch_amalgamated.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = catch_amalgamated.hpp; sourceTree = "<group>"; };
-		94F45B382E4544140096979D /* catch_amalgamated.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = catch_amalgamated.cpp; sourceTree = "<group>"; };
 		94F466251B8AF203009BB648 /* TBCurrencyCodeTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBCurrencyCodeTransformer.h; sourceTree = "<group>"; };
 		94F466261B8AF203009BB648 /* TBCurrencyCodeTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBCurrencyCodeTransformer.m; sourceTree = "<group>"; };
 		94F51CAC1BC96F53007AD1DD /* TBTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBTableViewController.h; sourceTree = "<group>"; };
@@ -1246,6 +1244,14 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		94DD73B02E66A78300B17F6C /* Catch2 */ = {
+			isa = PBXGroup;
+			children = (
+				94DD73B12E66A78300B17F6C /* catch.hpp */,
+			);
+			path = Catch2;
+			sourceTree = "<group>";
+		};
 		94F45B152E4541B40096979D /* tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -1265,8 +1271,7 @@
 		94F45B2F2E4542AC0096979D /* thirdparty */ = {
 			isa = PBXGroup;
 			children = (
-				94F45B382E4544140096979D /* catch_amalgamated.cpp */,
-				94F45B372E4544130096979D /* catch_amalgamated.hpp */,
+				94DD73B02E66A78300B17F6C /* Catch2 */,
 				94F45B302E4542AC0096979D /* nlohmann */,
 			);
 			path = thirdparty;
@@ -2015,7 +2020,6 @@
 				94F45B2B2E4542310096979D /* server.cpp in Sources */,
 				94F45B2C2E4542310096979D /* socket.cpp in Sources */,
 				94F45B2D2E4542310096979D /* tournament.cpp in Sources */,
-				94F45B392E4544140096979D /* catch_amalgamated.cpp in Sources */,
 				94F45B2E2E4542310096979D /* types.cpp in Sources */,
 				94F45B1F2E4541B40096979D /* test_bonjour.cpp in Sources */,
 				94F45B202E4541B40096979D /* test_datetime.cpp in Sources */,
@@ -2690,7 +2694,7 @@
 				CLANG_ANALYZER_SECURITY_FLOATLOOPCOUNTER = YES;
 				CLANG_ANALYZER_SECURITY_INSECUREAPI_RAND = YES;
 				CLANG_ANALYZER_SECURITY_INSECUREAPI_STRCPY = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_TIDY_BUGPRONE_REDUNDANT_BRANCH_CONDITION = YES;
@@ -2777,7 +2781,7 @@
 				CLANG_ANALYZER_SECURITY_FLOATLOOPCOUNTER = YES;
 				CLANG_ANALYZER_SECURITY_INSECUREAPI_RAND = YES;
 				CLANG_ANALYZER_SECURITY_INSECUREAPI_STRCPY = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_TIDY_BUGPRONE_REDUNDANT_BRANCH_CONDITION = YES;

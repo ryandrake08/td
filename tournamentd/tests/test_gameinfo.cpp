@@ -1,4 +1,4 @@
-#include <catch_amalgamated.hpp>
+#include <Catch2/catch.hpp>
 #include "../gameinfo.hpp"
 #include "../datetime.hpp"
 #include "nlohmann/json.hpp"
@@ -10,17 +10,17 @@
 TEST_CASE("GameInfo creation and destruction", "[gameinfo][basic]") {
     SECTION("Default constructor") {
         std::unique_ptr<gameinfo> gi;
-        REQUIRE_NOTHROW(gi = std::make_unique<gameinfo>());
+        REQUIRE_NOTHROW(gi = std::unique_ptr<gameinfo>(new gameinfo()));
     }
 
     SECTION("Destruction") {
-        auto gi = std::make_unique<gameinfo>();
+        auto gi = std::unique_ptr<gameinfo>(new gameinfo());
         REQUIRE_NOTHROW(gi.reset());
     }
 
     SECTION("Multiple instances") {
-        auto gi1 = std::make_unique<gameinfo>();
-        auto gi2 = std::make_unique<gameinfo>();
+        auto gi1 = std::unique_ptr<gameinfo>(new gameinfo());
+        auto gi2 = std::unique_ptr<gameinfo>(new gameinfo());
         REQUIRE(gi1 != nullptr);
         REQUIRE(gi2 != nullptr);
     }
