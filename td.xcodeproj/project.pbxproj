@@ -52,7 +52,6 @@
 		94363BD2200E79C000D52155 /* TBError.m in Sources */ = {isa = PBXBuildFile; fileRef = 94363BCE200E79C000D52155 /* TBError.m */; };
 		94363BD7200E84FB00D52155 /* UIResponder+PresentingErrors.m in Sources */ = {isa = PBXBuildFile; fileRef = 94363BD4200E84FB00D52155 /* UIResponder+PresentingErrors.m */; };
 		94363BD8200E84FB00D52155 /* UIResponder+PresentingErrors.m in Sources */ = {isa = PBXBuildFile; fileRef = 94363BD4200E84FB00D52155 /* UIResponder+PresentingErrors.m */; };
-		943970181B3F9DB700BB0413 /* TournamentBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 943970171B3F9DB700BB0413 /* TournamentBrowser.m */; };
 		943970191B3F9DB700BB0413 /* TournamentBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 943970171B3F9DB700BB0413 /* TournamentBrowser.m */; };
 		9439701A1B3F9DB700BB0413 /* TournamentBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 943970171B3F9DB700BB0413 /* TournamentBrowser.m */; };
 		9439701D1B405DC000BB0413 /* TournamentService.m in Sources */ = {isa = PBXBuildFile; fileRef = 9439701C1B405DC000BB0413 /* TournamentService.m */; };
@@ -433,7 +432,6 @@
 		ADF635F61BAB8AF800D019AE /* NSObject+AssociatedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD4F1241B91FE2400DAF567 /* NSObject+AssociatedObject.m */; };
 		ADF635F71BAB8AF800D019AE /* TBColor+CSS.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEADB1B5AE2560026B25D /* TBColor+CSS.m */; };
 		ADF635F81BAB8AF800D019AE /* server.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4E11B3C3F8300A158F8 /* server.cpp */; };
-		ADF635F91BAB8AF800D019AE /* TournamentBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 943970171B3F9DB700BB0413 /* TournamentBrowser.m */; };
 		ADF635FA1BAB8AF800D019AE /* TBResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADDDAA8A1B93BCEE00D3AF68 /* TBResultsViewController.m */; };
 		ADF635FB1BAB8AF800D019AE /* NSObject+FBKVOController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FDEAE41B5AE2D60026B25D /* NSObject+FBKVOController.m */; };
 		ADF635FD1BAB8AF800D019AE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4651B3C385400A158F8 /* main.m */; };
@@ -2273,7 +2271,6 @@
 				ADDDAA881B93584300D3AF68 /* TBArrayCountTransformer.m in Sources */,
 				ADCECE861B7B101500767DA6 /* TBPlayersViewController.m in Sources */,
 				ADE299AF1B7B994200F1393B /* TBSound.m in Sources */,
-				943970181B3F9DB700BB0413 /* TournamentBrowser.m in Sources */,
 				949D709A1B3C440D008D5CD1 /* types.cpp in Sources */,
 				94C9703E203A0C170055A28C /* TBFundingSourceValueTransformer.m in Sources */,
 				94C2DA65200D0D33001B95B8 /* TBGraphics.m in Sources */,
@@ -2348,7 +2345,6 @@
 				945D83A12032B9B500DFE032 /* TBTournamentsViewController.m in Sources */,
 				ADF635F71BAB8AF800D019AE /* TBColor+CSS.m in Sources */,
 				ADF635F81BAB8AF800D019AE /* server.cpp in Sources */,
-				ADF635F91BAB8AF800D019AE /* TournamentBrowser.m in Sources */,
 				ADF635FA1BAB8AF800D019AE /* TBResultsViewController.m in Sources */,
 				ADF635FB1BAB8AF800D019AE /* NSObject+FBKVOController.m in Sources */,
 				9458126B2012657700208575 /* TBClockDateComponentsFormatter.m in Sources */,

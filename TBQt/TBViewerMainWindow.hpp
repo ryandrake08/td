@@ -6,6 +6,7 @@
 
 class TBSeatingChartWindow;
 class TBTournamentDisplayWindow;
+class TournamentBrowser;
 
 class TBViewerMainWindow : public TBBaseMainWindow
 {
@@ -18,6 +19,7 @@ class TBViewerMainWindow : public TBBaseMainWindow
     // updaters for various changeable UI controls
     void updateDisplayMenuText() override;
     void updateSeatingChartMenuText() override;
+    void updateServiceMenu();
 
 private Q_SLOTS:
     // ui slots - limited viewer functionality
@@ -28,6 +30,7 @@ private Q_SLOTS:
     // other slots
     void on_authorizedChanged(bool auth) override;
     void on_connectedChanged(bool connected);
+    void on_servicesUpdated(const QVariantList& services);
 
 public:
     // create a viewer main window

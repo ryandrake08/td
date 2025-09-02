@@ -37,7 +37,7 @@
    </property>
    <widget class="QMenu" name="menuFile">
     <property name="title">
-     <string>&amp;File</string>
+     <string>&amp;Connect</string>
     </property>
     <addaction name="actionConnectToTournament"/>
     <addaction name="actionDisconnect"/>

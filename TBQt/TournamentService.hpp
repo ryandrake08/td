@@ -3,6 +3,10 @@
 #include <memory>
 #include <string>
 
+namespace QMdnsEngine {
+    class Service;
+}
+
 class TournamentService
 {
     // pimpl
@@ -11,8 +15,7 @@ class TournamentService
 
 public:
     // constants
-    static constexpr const char* type = "_pokerbuddy._tcp.";
-    static constexpr const char* domain = "local.";
+    static constexpr const char* type = "_pokerbuddy._tcp.local.";
     static const int default_port = 25600;
 
     // construct from address and port
@@ -21,8 +24,8 @@ public:
     // construct from unix socket path
     TournamentService(const std::string& path);
 
-    // construct from bonjour service
-    // TODO: tournament_service(const ???& net_service);
+    // construct from qmdnsengine service
+    TournamentService(const QMdnsEngine::Service& service);
 
     // move constructor
     TournamentService(TournamentService&& other);
@@ -38,4 +41,8 @@ public:
     std::string address() const;
     int port() const;
     std::string name() const;
+
+    // comparison operators
+    bool operator==(const TournamentService& other) const;
+    bool operator==(const QMdnsEngine::Service& service) const;
 };

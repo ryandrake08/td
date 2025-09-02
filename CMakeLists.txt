@@ -36,6 +36,49 @@ set(CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO "${CMAKE_EXE_LINKER_FLAGS_RELWITHDEBIN
 
 include_directories(thirdparty)
 
+# Configure qmdnsengine library
+configure_file(thirdparty/qmdnsengine/qmdnsengine_export.h.in "${CMAKE_CURRENT_BINARY_DIR}/qmdnsengine_export.h")
+
+add_library(qmdnsengine STATIC
+	"${CMAKE_CURRENT_BINARY_DIR}/qmdnsengine_export.h"
+	thirdparty/qmdnsengine/include/qmdnsengine/abstractserver.h
+	thirdparty/qmdnsengine/include/qmdnsengine/bitmap.h
+	thirdparty/qmdnsengine/include/qmdnsengine/browser.h
+	thirdparty/qmdnsengine/include/qmdnsengine/cache.h
+	thirdparty/qmdnsengine/include/qmdnsengine/dns.h
+	thirdparty/qmdnsengine/include/qmdnsengine/hostname.h
+	thirdparty/qmdnsengine/include/qmdnsengine/mdns.h
+	thirdparty/qmdnsengine/include/qmdnsengine/message.h
+	thirdparty/qmdnsengine/include/qmdnsengine/prober.h
+	thirdparty/qmdnsengine/include/qmdnsengine/provider.h
+	thirdparty/qmdnsengine/include/qmdnsengine/query.h
+	thirdparty/qmdnsengine/include/qmdnsengine/record.h
+	thirdparty/qmdnsengine/include/qmdnsengine/resolver.h
+	thirdparty/qmdnsengine/include/qmdnsengine/server.h
+	thirdparty/qmdnsengine/include/qmdnsengine/service.h
+	thirdparty/qmdnsengine/src/abstractserver.cpp
+	thirdparty/qmdnsengine/src/bitmap.cpp
+	thirdparty/qmdnsengine/src/browser.cpp
+	thirdparty/qmdnsengine/src/cache.cpp
+	thirdparty/qmdnsengine/src/dns.cpp
+	thirdparty/qmdnsengine/src/hostname.cpp
+	thirdparty/qmdnsengine/src/mdns.cpp
+	thirdparty/qmdnsengine/src/message.cpp
+	thirdparty/qmdnsengine/src/prober.cpp
+	thirdparty/qmdnsengine/src/provider.cpp
+	thirdparty/qmdnsengine/src/query.cpp
+	thirdparty/qmdnsengine/src/record.cpp
+	thirdparty/qmdnsengine/src/resolver.cpp
+	thirdparty/qmdnsengine/src/server.cpp
+	thirdparty/qmdnsengine/src/service.cpp
+)
+target_compile_features(qmdnsengine PUBLIC cxx_std_11)
+target_include_directories(qmdnsengine PUBLIC 
+	thirdparty/qmdnsengine/include
+	"${CMAKE_CURRENT_BINARY_DIR}"
+)
+target_compile_definitions(qmdnsengine PRIVATE QMDNSENGINE_LIBRARY)
+
 add_library(td STATIC
 	tournamentd/bonjour.cpp
 	tournamentd/bonjour.hpp
@@ -107,6 +150,27 @@ endif()
 
 find_package(Qt5 COMPONENTS Core Network Widgets Multimedia QUIET)
 if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND AND Qt5Multimedia_FOUND)
+	# Generate MOC files for qmdnsengine
+	qt5_wrap_cpp(QMDNSENGINE_MOC
+		thirdparty/qmdnsengine/include/qmdnsengine/abstractserver.h
+		thirdparty/qmdnsengine/include/qmdnsengine/browser.h
+		thirdparty/qmdnsengine/include/qmdnsengine/cache.h
+		thirdparty/qmdnsengine/include/qmdnsengine/hostname.h
+		thirdparty/qmdnsengine/include/qmdnsengine/prober.h
+		thirdparty/qmdnsengine/include/qmdnsengine/provider.h
+		thirdparty/qmdnsengine/include/qmdnsengine/resolver.h
+		thirdparty/qmdnsengine/include/qmdnsengine/server.h
+		thirdparty/qmdnsengine/src/browser_p.h
+		thirdparty/qmdnsengine/src/cache_p.h
+		thirdparty/qmdnsengine/src/server_p.h
+	)
+	
+	# Add MOC files to qmdnsengine target
+	target_sources(qmdnsengine PRIVATE ${QMDNSENGINE_MOC})
+	
+	# Link qmdnsengine to Qt5 modules now that Qt5 is found
+	target_link_libraries(qmdnsengine Qt5::Core Qt5::Network)
+	
 	find_package(Threads REQUIRED)
 	set(CMAKE_INCLUDE_CURRENT_DIR ON)
 	qt5_wrap_cpp(TBUDDY_MOC
@@ -258,7 +322,7 @@ if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND AND Qt5Multimedia_FOU
 		${TBUDDY_RC}
 	)
 	target_compile_definitions(tbuddy PRIVATE QT_NO_KEYWORDS)
-	target_link_libraries(tbuddy td Qt5::Network Qt5::Widgets Qt5::Multimedia ${CMAKE_THREAD_LIBS_INIT} ${OS_LIBRARIES})
+	target_link_libraries(tbuddy td qmdnsengine Qt5::Network Qt5::Widgets Qt5::Multimedia ${CMAKE_THREAD_LIBS_INIT} ${OS_LIBRARIES})
 	target_compile_features(tbuddy PUBLIC cxx_std_11)
 	set_target_properties(tbuddy PROPERTIES MACOSX_BUNDLE TRUE MACOSX_BUNDLE_INFO_PLIST ${CMAKE_SOURCE_DIR}/TBQt/TBQt-Info.plist)
 
@@ -278,12 +342,14 @@ if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND AND Qt5Multimedia_FOU
 		TBQt/TBTableWidget.hpp
 		TBQt/TBTournamentDisplayWindow.hpp
 		TBQt/TBVariantListTableModel.hpp
+		TBQt/TournamentBrowser.hpp
 		TBQt/TBViewerMainWindow.hpp
 		TBQt/TournamentConnection.hpp
 		TBQt/TournamentSession.hpp)
 	qt5_wrap_ui(TBVIEWER_UI
 		TBQt/TBConnectToDialog.ui
 		TBQt/TBSeatingChartWindow.ui
+		TBQt/TBTournamentDisplayWindow.ui
 		TBQt/TBViewerMainWindow.ui)
 	qt5_add_resources(TBVIEWER_RC
 		TBQt/TBQt.qrc)
@@ -329,6 +395,8 @@ if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND AND Qt5Multimedia_FOU
 		TBQt/TBVariantListTableModel.hpp
 		TBQt/TBViewerMainWindow.cpp
 		TBQt/TBViewerMainWindow.hpp
+		TBQt/TournamentBrowser.cpp
+		TBQt/TournamentBrowser.hpp
 		TBQt/TournamentConnection.cpp
 		TBQt/TournamentConnection.hpp
 		TBQt/TournamentDaemon.cpp
@@ -342,7 +410,7 @@ if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND AND Qt5Multimedia_FOU
 		${TBVIEWER_RC}
 	)
 	target_compile_definitions(tbviewer PRIVATE QT_NO_KEYWORDS)
-	target_link_libraries(tbviewer td Qt5::Network Qt5::Widgets Qt5::Multimedia ${CMAKE_THREAD_LIBS_INIT} ${OS_LIBRARIES})
+	target_link_libraries(tbviewer td qmdnsengine Qt5::Network Qt5::Widgets Qt5::Multimedia ${CMAKE_THREAD_LIBS_INIT} ${OS_LIBRARIES})
 	target_compile_features(tbviewer PUBLIC cxx_std_11)
 	set_target_properties(tbviewer PROPERTIES MACOSX_BUNDLE TRUE MACOSX_BUNDLE_INFO_PLIST ${CMAKE_SOURCE_DIR}/TBQt/TBQt-Info.plist)
 endif()
