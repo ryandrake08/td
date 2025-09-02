@@ -36,49 +36,6 @@ set(CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO "${CMAKE_EXE_LINKER_FLAGS_RELWITHDEBIN
 
 include_directories(thirdparty)
 
-# Configure qmdnsengine library
-configure_file(thirdparty/qmdnsengine/qmdnsengine_export.h.in "${CMAKE_CURRENT_BINARY_DIR}/qmdnsengine_export.h")
-
-add_library(qmdnsengine STATIC
-	"${CMAKE_CURRENT_BINARY_DIR}/qmdnsengine_export.h"
-	thirdparty/qmdnsengine/include/qmdnsengine/abstractserver.h
-	thirdparty/qmdnsengine/include/qmdnsengine/bitmap.h
-	thirdparty/qmdnsengine/include/qmdnsengine/browser.h
-	thirdparty/qmdnsengine/include/qmdnsengine/cache.h
-	thirdparty/qmdnsengine/include/qmdnsengine/dns.h
-	thirdparty/qmdnsengine/include/qmdnsengine/hostname.h
-	thirdparty/qmdnsengine/include/qmdnsengine/mdns.h
-	thirdparty/qmdnsengine/include/qmdnsengine/message.h
-	thirdparty/qmdnsengine/include/qmdnsengine/prober.h
-	thirdparty/qmdnsengine/include/qmdnsengine/provider.h
-	thirdparty/qmdnsengine/include/qmdnsengine/query.h
-	thirdparty/qmdnsengine/include/qmdnsengine/record.h
-	thirdparty/qmdnsengine/include/qmdnsengine/resolver.h
-	thirdparty/qmdnsengine/include/qmdnsengine/server.h
-	thirdparty/qmdnsengine/include/qmdnsengine/service.h
-	thirdparty/qmdnsengine/src/abstractserver.cpp
-	thirdparty/qmdnsengine/src/bitmap.cpp
-	thirdparty/qmdnsengine/src/browser.cpp
-	thirdparty/qmdnsengine/src/cache.cpp
-	thirdparty/qmdnsengine/src/dns.cpp
-	thirdparty/qmdnsengine/src/hostname.cpp
-	thirdparty/qmdnsengine/src/mdns.cpp
-	thirdparty/qmdnsengine/src/message.cpp
-	thirdparty/qmdnsengine/src/prober.cpp
-	thirdparty/qmdnsengine/src/provider.cpp
-	thirdparty/qmdnsengine/src/query.cpp
-	thirdparty/qmdnsengine/src/record.cpp
-	thirdparty/qmdnsengine/src/resolver.cpp
-	thirdparty/qmdnsengine/src/server.cpp
-	thirdparty/qmdnsengine/src/service.cpp
-)
-target_compile_features(qmdnsengine PUBLIC cxx_std_11)
-target_include_directories(qmdnsengine PUBLIC
-	thirdparty/qmdnsengine/include
-	"${CMAKE_CURRENT_BINARY_DIR}"
-)
-target_compile_definitions(qmdnsengine PRIVATE QMDNSENGINE_LIBRARY)
-
 add_library(td STATIC
 	tournamentd/bonjour.cpp
 	tournamentd/bonjour.hpp
@@ -147,8 +104,51 @@ if(DEFINED MACOSX)
 	list(APPEND CMAKE_PREFIX_PATH "/usr/local/opt/qt@5")
 endif()
 
-find_package(Qt5 COMPONENTS Core Network Widgets Multimedia QUIET)
+find_package(Qt5 COMPONENTS Core Network Widgets Multimedia)
 if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND AND Qt5Multimedia_FOUND)
+	# Configure qmdnsengine library
+	configure_file(thirdparty/qmdnsengine/qmdnsengine_export.h.in "${CMAKE_CURRENT_BINARY_DIR}/qmdnsengine_export.h")
+
+	add_library(qmdnsengine STATIC
+		"${CMAKE_CURRENT_BINARY_DIR}/qmdnsengine_export.h"
+		thirdparty/qmdnsengine/include/qmdnsengine/abstractserver.h
+		thirdparty/qmdnsengine/include/qmdnsengine/bitmap.h
+		thirdparty/qmdnsengine/include/qmdnsengine/browser.h
+		thirdparty/qmdnsengine/include/qmdnsengine/cache.h
+		thirdparty/qmdnsengine/include/qmdnsengine/dns.h
+		thirdparty/qmdnsengine/include/qmdnsengine/hostname.h
+		thirdparty/qmdnsengine/include/qmdnsengine/mdns.h
+		thirdparty/qmdnsengine/include/qmdnsengine/message.h
+		thirdparty/qmdnsengine/include/qmdnsengine/prober.h
+		thirdparty/qmdnsengine/include/qmdnsengine/provider.h
+		thirdparty/qmdnsengine/include/qmdnsengine/query.h
+		thirdparty/qmdnsengine/include/qmdnsengine/record.h
+		thirdparty/qmdnsengine/include/qmdnsengine/resolver.h
+		thirdparty/qmdnsengine/include/qmdnsengine/server.h
+		thirdparty/qmdnsengine/include/qmdnsengine/service.h
+		thirdparty/qmdnsengine/src/abstractserver.cpp
+		thirdparty/qmdnsengine/src/bitmap.cpp
+		thirdparty/qmdnsengine/src/browser.cpp
+		thirdparty/qmdnsengine/src/cache.cpp
+		thirdparty/qmdnsengine/src/dns.cpp
+		thirdparty/qmdnsengine/src/hostname.cpp
+		thirdparty/qmdnsengine/src/mdns.cpp
+		thirdparty/qmdnsengine/src/message.cpp
+		thirdparty/qmdnsengine/src/prober.cpp
+		thirdparty/qmdnsengine/src/provider.cpp
+		thirdparty/qmdnsengine/src/query.cpp
+		thirdparty/qmdnsengine/src/record.cpp
+		thirdparty/qmdnsengine/src/resolver.cpp
+		thirdparty/qmdnsengine/src/server.cpp
+		thirdparty/qmdnsengine/src/service.cpp
+	)
+	target_compile_features(qmdnsengine PUBLIC cxx_std_11)
+	target_include_directories(qmdnsengine PUBLIC
+		thirdparty/qmdnsengine/include
+		"${CMAKE_CURRENT_BINARY_DIR}"
+	)
+	target_compile_definitions(qmdnsengine PRIVATE QMDNSENGINE_LIBRARY)
+
 	# Generate MOC files for qmdnsengine
 	qt5_wrap_cpp(QMDNSENGINE_MOC
 		thirdparty/qmdnsengine/include/qmdnsengine/abstractserver.h
