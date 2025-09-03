@@ -57,7 +57,7 @@ TBAuthCodeDialog::TBAuthCodeDialog(QWidget* parent) : QDialog(parent), pimpl(std
     }
 
     mainLayout->addLayout(codeLayout);
-    
+
     // Add some spacing before buttons
     mainLayout->addSpacing(20);
 
