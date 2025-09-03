@@ -23,5 +23,7 @@
         <file>../Resources/s_rebalance.wav</file>
         <file>../Resources/s_start.wav</file>
         <file>../Resources/s_warning.wav</file>
+        <file>../Resources/IBMPlexSans-Bold.otf</file>
+        <file>../Resources/IBMPlexSans-Regular.otf</file>
     </qresource>
 </RCC>

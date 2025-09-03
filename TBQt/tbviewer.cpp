@@ -3,10 +3,15 @@
 
 #include <QApplication>
 #include <QCommandLineParser>
+#include <QFontDatabase>
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+
+    // Load IBM Plex Sans fonts
+    QFontDatabase::addApplicationFont(":/IBMPlexSans-Bold.otf");
+    QFontDatabase::addApplicationFont(":/IBMPlexSans-Regular.otf");
 
     // set up application and organization info (for QSettings)
     QCoreApplication::setApplicationName("Poker Remote");

@@ -193,6 +193,7 @@ if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND AND Qt5Multimedia_FOU
 		TBQt/TBPlayersModel.hpp
 		TBQt/TBResultsModel.hpp
 		TBQt/TBRoundsModel.hpp
+		TBQt/TBScalableLabel.hpp
 		TBQt/TBSeatingChartWindow.hpp
 		TBQt/TBSeatingCompoundSortProxyModel.hpp
 		TBQt/TBSeatingModel.hpp
@@ -276,6 +277,8 @@ if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND AND Qt5Multimedia_FOU
 		TBQt/TBRoundsModel.hpp
 		TBQt/TBRuntimeError.cpp
 		TBQt/TBRuntimeError.hpp
+		TBQt/TBScalableLabel.cpp
+		TBQt/TBScalableLabel.hpp
 		TBQt/TBSeatingChartWindow.cpp
 		TBQt/TBSeatingChartWindow.hpp
 		TBQt/TBSeatingCompoundSortProxyModel.cpp
@@ -342,6 +345,7 @@ if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND AND Qt5Multimedia_FOU
 		TBQt/TBInvertableImageLabel.hpp
 		TBQt/TBPlayersModel.hpp
 		TBQt/TBResultsModel.hpp
+		TBQt/TBScalableLabel.hpp
 		TBQt/TBSeatingChartWindow.hpp
 		TBQt/SignalHandler.hpp
 		TBQt/TBSoundPlayer.hpp
@@ -387,6 +391,8 @@ if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND AND Qt5Multimedia_FOU
 		TBQt/TBResultsModel.hpp
 		TBQt/TBRuntimeError.cpp
 		TBQt/TBRuntimeError.hpp
+		TBQt/TBScalableLabel.cpp
+		TBQt/TBScalableLabel.hpp
 		TBQt/TBSeatingChartWindow.cpp
 		TBQt/TBSeatingChartWindow.hpp
 		TBQt/SignalHandler.cpp

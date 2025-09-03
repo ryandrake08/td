@@ -10,14 +10,14 @@
     <height>700</height>
    </rect>
   </property>
-  <property name="windowTitle">
-   <string>Tournament Display</string>
-  </property>
   <property name="minimumSize">
    <size>
     <width>1160</width>
     <height>500</height>
    </size>
+  </property>
+  <property name="windowTitle">
+   <string>Tournament Display</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="mainLayout">
@@ -37,53 +37,37 @@
      <number>15</number>
     </property>
     <item>
-     <!-- Main Content Area: 3 columns (Left, Center, Right) with 1:2:1 ratio -->
      <layout class="QHBoxLayout" name="contentLayout">
       <property name="spacing">
        <number>15</number>
       </property>
       <item>
-       <!-- Left Column: Statistics (top) and Chips (bottom) - Stretch factor 1 -->
-       <widget class="QWidget" name="leftColumnWidget">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-          <horstretch>1</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
+       <layout class="QVBoxLayout" name="leftColumnLayout">
+        <property name="spacing">
+         <number>10</number>
         </property>
-        <property name="minimumSize">
-         <size>
-          <width>300</width>
-          <height>400</height>
-         </size>
+        <property name="leftMargin">
+         <number>0</number>
         </property>
-        <layout class="QVBoxLayout" name="leftColumnLayout">
-         <property name="spacing">
-          <number>10</number>
-         </property>
-         <property name="leftMargin">
-          <number>0</number>
-         </property>
-         <property name="topMargin">
-          <number>0</number>
-         </property>
-         <property name="rightMargin">
-          <number>0</number>
-         </property>
-         <property name="bottomMargin">
-          <number>0</number>
-         </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
         <item>
-         <!-- Upper Left: Tournament Statistics - Stretch to fill remaining space -->
          <widget class="QGroupBox" name="tournamentStatsGroupBox">
-          <property name="title">
-           <string>Tournament Statistics</string>
-          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
             <horstretch>0</horstretch>
             <verstretch>1</verstretch>
            </sizepolicy>
+          </property>
+          <property name="title">
+           <string>Tournament Statistics</string>
           </property>
           <layout class="QFormLayout" name="statsFormLayout">
            <property name="horizontalSpacing">
@@ -166,85 +150,68 @@
          </widget>
         </item>
         <item>
-         <!-- Lower Left: Chip Display - Size to fit content -->
          <widget class="QGroupBox" name="chipsGroupBox">
-          <property name="title">
-           <string>Tournament Chips</string>
-          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
+          <property name="title">
+           <string>Tournament Chips</string>
+          </property>
           <layout class="QVBoxLayout" name="chipsLayout">
            <item>
             <widget class="QTableView" name="chipsTableView">
-             <property name="alternatingRowColors">
-              <bool>true</bool>
-             </property>
-             <property name="selectionBehavior">
-              <enum>QAbstractItemView::SelectRows</enum>
-             </property>
-             <property name="selectionMode">
-              <enum>QAbstractItemView::NoSelection</enum>
-             </property>
              <property name="verticalScrollBarPolicy">
               <enum>Qt::ScrollBarAsNeeded</enum>
              </property>
              <property name="horizontalScrollBarPolicy">
               <enum>Qt::ScrollBarAsNeeded</enum>
              </property>
+             <property name="alternatingRowColors">
+              <bool>true</bool>
+             </property>
+             <property name="selectionMode">
+              <enum>QAbstractItemView::NoSelection</enum>
+             </property>
+             <property name="selectionBehavior">
+              <enum>QAbstractItemView::SelectRows</enum>
+             </property>
             </widget>
            </item>
           </layout>
          </widget>
         </item>
-        </layout>
-       </widget>
+       </layout>
       </item>
       <item>
-       <!-- Center Column: Controls (top) and Clock/Rounds (bottom) - Stretch factor 2 -->
-       <widget class="QWidget" name="centerColumnWidget">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-          <horstretch>2</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
+       <layout class="QVBoxLayout" name="centerColumnLayout">
+        <property name="spacing">
+         <number>10</number>
         </property>
-        <property name="minimumSize">
-         <size>
-          <width>500</width>
-          <height>400</height>
-         </size>
+        <property name="leftMargin">
+         <number>0</number>
         </property>
-        <layout class="QVBoxLayout" name="centerColumnLayout">
-         <property name="spacing">
-          <number>10</number>
-         </property>
-         <property name="leftMargin">
-          <number>0</number>
-         </property>
-         <property name="topMargin">
-          <number>0</number>
-         </property>
-         <property name="rightMargin">
-          <number>0</number>
-         </property>
-         <property name="bottomMargin">
-          <number>0</number>
-         </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
         <item>
-         <!-- Tournament Header -->
          <widget class="QFrame" name="tournamentHeaderFrame">
-          <property name="frameShape">
-           <enum>QFrame::NoFrame</enum>
-          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::NoFrame</enum>
           </property>
           <layout class="QVBoxLayout" name="headerLayout">
            <property name="spacing">
@@ -264,27 +231,27 @@
            </property>
            <item>
             <widget class="QLabel" name="tournamentNameLabel">
+             <property name="styleSheet">
+              <string>font-size: 18px; font-weight: bold;</string>
+             </property>
              <property name="text">
               <string>Tournament Name</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignCenter</set>
              </property>
-             <property name="styleSheet">
-              <string>font-size: 18px; font-weight: bold;</string>
-             </property>
             </widget>
            </item>
            <item>
             <widget class="QLabel" name="fundingSourcesLabel">
+             <property name="styleSheet">
+              <string>font-size: 14px;</string>
+             </property>
              <property name="text">
               <string>Funding Sources</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignCenter</set>
-             </property>
-             <property name="styleSheet">
-              <string>font-size: 14px;</string>
              </property>
             </widget>
            </item>
@@ -292,38 +259,39 @@
          </widget>
         </item>
         <item>
-         <!-- Tournament Controls - Fixed size to fit content -->
          <widget class="QFrame" name="controlsFrame">
-          <property name="frameShape">
-           <enum>QFrame::NoFrame</enum>
-          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
+          <property name="frameShape">
+           <enum>QFrame::NoFrame</enum>
+          </property>
           <layout class="QVBoxLayout" name="controlsLayout">
            <property name="spacing">
             <number>10</number>
            </property>
            <item>
-            <!-- Control Buttons -->
             <layout class="QHBoxLayout" name="clockButtonsLayout">
              <property name="spacing">
               <number>15</number>
              </property>
              <item>
               <widget class="TBInvertableButton" name="previousRoundButton">
-               <property name="text">
-                <string>Previous
-Round</string>
-               </property>
                <property name="minimumSize">
                 <size>
                  <width>100</width>
                  <height>80</height>
                 </size>
+               </property>
+               <property name="styleSheet">
+                <string>font-size: 11px;</string>
+               </property>
+               <property name="text">
+                <string>Previous
+Round</string>
                </property>
                <property name="iconSize">
                 <size>
@@ -331,25 +299,25 @@ Round</string>
                  <height>32</height>
                 </size>
                </property>
-               <property name="textBelowIcon">
+               <property name="textBelowIcon" stdset="0">
                 <bool>true</bool>
-               </property>
-               <property name="styleSheet">
-                <string>font-size: 11px;</string>
                </property>
               </widget>
              </item>
              <item>
               <widget class="TBInvertableButton" name="pauseResumeButton">
-               <property name="text">
-                <string>Pause/
-Resume</string>
-               </property>
                <property name="minimumSize">
                 <size>
                  <width>100</width>
                  <height>80</height>
                 </size>
+               </property>
+               <property name="styleSheet">
+                <string>font-size: 11px;</string>
+               </property>
+               <property name="text">
+                <string>Pause/
+Resume</string>
                </property>
                <property name="iconSize">
                 <size>
@@ -357,25 +325,25 @@ Resume</string>
                  <height>32</height>
                 </size>
                </property>
-               <property name="textBelowIcon">
+               <property name="textBelowIcon" stdset="0">
                 <bool>true</bool>
-               </property>
-               <property name="styleSheet">
-                <string>font-size: 11px;</string>
                </property>
               </widget>
              </item>
              <item>
               <widget class="TBInvertableButton" name="nextRoundButton">
-               <property name="text">
-                <string>Next
-Round</string>
-               </property>
                <property name="minimumSize">
                 <size>
                  <width>100</width>
                  <height>80</height>
                 </size>
+               </property>
+               <property name="styleSheet">
+                <string>font-size: 11px;</string>
+               </property>
+               <property name="text">
+                <string>Next
+Round</string>
                </property>
                <property name="iconSize">
                 <size>
@@ -383,25 +351,25 @@ Round</string>
                  <height>32</height>
                 </size>
                </property>
-               <property name="textBelowIcon">
+               <property name="textBelowIcon" stdset="0">
                 <bool>true</bool>
-               </property>
-               <property name="styleSheet">
-                <string>font-size: 11px;</string>
                </property>
               </widget>
              </item>
              <item>
               <widget class="TBInvertableButton" name="callClockButton">
-               <property name="text">
-                <string>Call
-Clock</string>
-               </property>
                <property name="minimumSize">
                 <size>
                  <width>100</width>
                  <height>80</height>
                 </size>
+               </property>
+               <property name="styleSheet">
+                <string>font-size: 11px;</string>
+               </property>
+               <property name="text">
+                <string>Call
+Clock</string>
                </property>
                <property name="iconSize">
                 <size>
@@ -409,11 +377,8 @@ Clock</string>
                  <height>32</height>
                 </size>
                </property>
-               <property name="textBelowIcon">
+               <property name="textBelowIcon" stdset="0">
                 <bool>true</bool>
-               </property>
-               <property name="styleSheet">
-                <string>font-size: 11px;</string>
                </property>
               </widget>
              </item>
@@ -423,28 +388,36 @@ Clock</string>
          </widget>
         </item>
         <item>
-         <!-- Tournament Clock Section -->
          <widget class="QGroupBox" name="tournamentClockGroupBox">
-          <property name="title">
-           <string>Tournament Clock</string>
-          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
             <horstretch>0</horstretch>
             <verstretch>1</verstretch>
            </sizepolicy>
           </property>
+          <property name="title">
+           <string>Tournament Clock</string>
+          </property>
           <layout class="QVBoxLayout" name="clockLayout">
            <item>
-            <widget class="QLabel" name="tournamentClockLabel">
+            <widget class="TBScalableLabel" name="tournamentClockLabel">
+             <property name="styleSheet">
+              <string>font-weight: bold;</string>
+             </property>
              <property name="text">
               <string>—</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignCenter</set>
              </property>
-             <property name="styleSheet">
-              <string>font-size: 24px; font-weight: bold;</string>
+             <property name="minimumFontSize" stdset="0">
+              <number>32</number>
+             </property>
+             <property name="maximumFontSize" stdset="0">
+              <number>128</number>
+             </property>
+             <property name="fontFamily" stdset="0">
+              <string>IBM Plex Sans</string>
              </property>
             </widget>
            </item>
@@ -452,20 +425,19 @@ Clock</string>
          </widget>
         </item>
         <item>
-         <!-- Current Round Section -->
          <widget class="QGroupBox" name="currentRoundGroupBox">
-          <property name="title">
-           <string>Current Round</string>
-          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
             <horstretch>0</horstretch>
             <verstretch>1</verstretch>
            </sizepolicy>
           </property>
+          <property name="title">
+           <string>Current Round</string>
+          </property>
           <layout class="QVBoxLayout" name="currentRoundLayout">
            <item>
-            <widget class="QLabel" name="currentRoundInfoLabel">
+            <widget class="TBScalableLabel" name="currentRoundInfoLabel">
              <property name="text">
               <string>Current Round Information</string>
              </property>
@@ -475,26 +447,34 @@ Clock</string>
              <property name="wordWrap">
               <bool>true</bool>
              </property>
+             <property name="minimumFontSize" stdset="0">
+              <number>32</number>
+             </property>
+             <property name="maximumFontSize" stdset="0">
+              <number>128</number>
+             </property>
+             <property name="fontFamily" stdset="0">
+              <string>IBM Plex Sans</string>
+             </property>
             </widget>
            </item>
           </layout>
          </widget>
         </item>
         <item>
-         <!-- Next Round Section -->
          <widget class="QGroupBox" name="nextRoundGroupBox">
-          <property name="title">
-           <string>Next Round</string>
-          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
             <horstretch>0</horstretch>
             <verstretch>1</verstretch>
            </sizepolicy>
           </property>
+          <property name="title">
+           <string>Next Round</string>
+          </property>
           <layout class="QVBoxLayout" name="nextRoundLayout">
            <item>
-            <widget class="QLabel" name="nextRoundInfoLabel">
+            <widget class="TBScalableLabel" name="nextRoundInfoLabel">
              <property name="text">
               <string>Next Round Information</string>
              </property>
@@ -504,45 +484,41 @@ Clock</string>
              <property name="wordWrap">
               <bool>true</bool>
              </property>
+             <property name="minimumFontSize" stdset="0">
+              <number>32</number>
+             </property>
+             <property name="maximumFontSize" stdset="0">
+              <number>128</number>
+             </property>
+             <property name="fontFamily" stdset="0">
+              <string>IBM Plex Sans</string>
+             </property>
             </widget>
            </item>
           </layout>
          </widget>
         </item>
-        </layout>
-       </widget>
+       </layout>
       </item>
       <item>
-       <!-- Right Column: Results Display (full height) - Stretch factor 1 -->
-       <widget class="QWidget" name="rightColumnWidget">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-          <horstretch>1</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
+       <layout class="QVBoxLayout" name="rightColumnLayout">
+        <property name="spacing">
+         <number>10</number>
         </property>
-        <layout class="QVBoxLayout" name="rightColumnLayout">
-         <property name="spacing">
-          <number>10</number>
-         </property>
-         <property name="leftMargin">
-          <number>0</number>
-         </property>
-         <property name="topMargin">
-          <number>0</number>
-         </property>
-         <property name="rightMargin">
-          <number>0</number>
-         </property>
-         <property name="bottomMargin">
-          <number>0</number>
-         </property>
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
         <item>
-         <!-- Results Display - Expand to fill all available space -->
          <widget class="QGroupBox" name="resultsGroupBox">
-          <property name="title">
-           <string>Tournament Results</string>
-          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
             <horstretch>0</horstretch>
@@ -555,31 +531,33 @@ Clock</string>
             <height>400</height>
            </size>
           </property>
+          <property name="title">
+           <string>Tournament Results</string>
+          </property>
           <layout class="QVBoxLayout" name="resultsLayout">
            <item>
             <widget class="QTableView" name="resultsTableView">
-             <property name="alternatingRowColors">
-              <bool>true</bool>
-             </property>
-             <property name="selectionBehavior">
-              <enum>QAbstractItemView::SelectRows</enum>
-             </property>
-             <property name="selectionMode">
-              <enum>QAbstractItemView::SingleSelection</enum>
-             </property>
              <property name="verticalScrollBarPolicy">
               <enum>Qt::ScrollBarAsNeeded</enum>
              </property>
              <property name="horizontalScrollBarPolicy">
               <enum>Qt::ScrollBarAsNeeded</enum>
              </property>
+             <property name="alternatingRowColors">
+              <bool>true</bool>
+             </property>
+             <property name="selectionMode">
+              <enum>QAbstractItemView::SingleSelection</enum>
+             </property>
+             <property name="selectionBehavior">
+              <enum>QAbstractItemView::SelectRows</enum>
+             </property>
             </widget>
            </item>
           </layout>
          </widget>
         </item>
-        </layout>
-       </widget>
+       </layout>
       </item>
      </layout>
     </item>
@@ -591,6 +569,11 @@ Clock</string>
    <class>TBInvertableButton</class>
    <extends>QPushButton</extends>
    <header>TBQt/TBInvertableButton.hpp</header>
+  </customwidget>
+  <customwidget>
+   <class>TBScalableLabel</class>
+   <extends>QLabel</extends>
+   <header>TBQt/TBScalableLabel.hpp</header>
   </customwidget>
  </customwidgets>
  <resources/>
