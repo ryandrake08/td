@@ -365,7 +365,7 @@ void TBBuddyMainWindow::on_actionPlan_triggered()
     if (ok)
     {
         // Plan seating for the specified number of players
-        this->getSession().plan_seating_for_with_handler(playerCount, [this](const QVariantList& movements)
+        this->getSession().plan_seating_with_handler(playerCount, [this](const QVariantList& movements)
         {
             if (!movements.isEmpty())
             {

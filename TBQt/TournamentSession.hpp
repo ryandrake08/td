@@ -138,8 +138,8 @@ public:
     void gen_blind_levels(const QVariantMap& request);
     void gen_blind_levels_with_handler(const QVariantMap& request, const std::function<void(const QVariantList&)>& handler);
     void fund_player(const QString& player_id, int source);
-    void plan_seating_for(int expected_players);
-    void plan_seating_for_with_handler(int expected_players, const std::function<void(const QVariantList&)>& handler);
+    void plan_seating(int expected_players);
+    void plan_seating_with_handler(int expected_players, const std::function<void(const QVariantList&)>& handler);
     void seat_player(const QString& player_id);
     void seat_player_with_handler(const QString& player_id, const std::function<void(const QString&, const QString&, const QString&, bool)>& handler);
     void unseat_player(const QString& player_id);

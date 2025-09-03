@@ -88,7 +88,7 @@ public:
             "\n"
             " Tournament Setup and Planning:\n"
             "\tconfigure [config_json]: Configure tournament\n"
-            "\tplan_seating_for <max_players>: Plan seating arrangement\n"
+            "\tplan_seating <max_players>: Plan seating arrangement\n"
             "\tquick_setup [max_players]: Quick tournament setup\n"
             "\tgen_blind_levels <chips> <target_min> <level_min> <structure>: Generate blind structure\n"
             "\tfund_player <player_id> <source_id>: Fund player buy-in/rebuy/addon\n"
@@ -199,7 +199,7 @@ public:
                     arg["source_id"] = std::stol(*it++);
                     send_command(stream, opt, auth, arg);
                 }
-                else if(opt == "plan_seating_for")
+                else if(opt == "plan_seating")
                 {
                     // needs max_expected_players
                     nlohmann::json arg;

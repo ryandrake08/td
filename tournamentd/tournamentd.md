@@ -979,7 +979,7 @@ Add buy-in/rebuy/add-on for a player.
 
 #### Seating Commands
 
-##### plan_seating_for
+##### plan_seating
 Generate seating plan for expected players.
 
 **Request:**

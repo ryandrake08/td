@@ -471,14 +471,14 @@ void TournamentSession::fund_player(const QString& player_id, int source)
     this->send_command("fund_player", QVariantMap{{"player_id", player_id}, {"source_id", source}});
 }
 
-void TournamentSession::plan_seating_for(int expected_players)
+void TournamentSession::plan_seating(int expected_players)
 {
-    plan_seating_for_with_handler(expected_players, {});
+    plan_seating_with_handler(expected_players, {});
 }
 
-void TournamentSession::plan_seating_for_with_handler(int expected_players, const std::function<void(const QVariantList&)>& handler)
+void TournamentSession::plan_seating_with_handler(int expected_players, const std::function<void(const QVariantList&)>& handler)
 {
-    this->send_command("plan_seating_for", QVariantMap{{"max_expected_players", expected_players}},
+    this->send_command("plan_seating", QVariantMap{{"max_expected_players", expected_players}},
                        [this, handler](const QVariantMap& result) {
                            QVariantList movements = result["players_moved"].toList();
                            if (!movements.isEmpty())
