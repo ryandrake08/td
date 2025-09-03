@@ -1,4 +1,5 @@
 #include "TBViewerMainWindow.hpp"
+#include "SignalHandler.hpp"
 
 #include <QApplication>
 #include <QCommandLineParser>
@@ -12,6 +13,10 @@ int main(int argc, char *argv[])
     QCoreApplication::setApplicationVersion("1.0");
     QCoreApplication::setOrganizationName("hdnastudio");
     QCoreApplication::setOrganizationDomain("hdnastudio.com");
+
+    // set up signal handler for graceful shutdown
+    SignalHandler signalHandler;
+    QObject::connect(&signalHandler, &SignalHandler::shutdownRequested, &a, &QApplication::closeAllWindows);
 
     // set up command line parser
     QCommandLineParser parser;
