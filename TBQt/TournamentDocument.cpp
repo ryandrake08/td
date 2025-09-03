@@ -145,3 +145,18 @@ void TournamentDocument::setConfiguration(const QVariantMap& configuration)
     this->pimpl->configuration = configuration;
     Q_EMIT this->configurationChanged(configuration);
 }
+
+void TournamentDocument::addAuthorizedClient(const QVariantMap& client)
+{
+    // Get authorized clients list directly from configuration
+    QVariantList authorizedClients = this->pimpl->configuration.value("authorized_clients").toList();
+
+    // Add the new client
+    authorizedClients.append(client);
+
+    // Update the authorized_clients field directly in the configuration
+    this->pimpl->configuration["authorized_clients"] = authorizedClients;
+
+    // Emit the signal to notify listeners of the configuration change
+    Q_EMIT this->configurationChanged(this->pimpl->configuration);
+}

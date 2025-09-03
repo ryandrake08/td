@@ -33,6 +33,9 @@ public:
     // mutators
     void setConfiguration(const QVariantMap& configuration);
 
+    // add authorized client to configuration
+    void addAuthorizedClient(const QVariantMap& client);
+
 Q_SIGNALS:
     void filenameChanged(const QString& name);
     void configurationChanged(const QVariantMap& config);

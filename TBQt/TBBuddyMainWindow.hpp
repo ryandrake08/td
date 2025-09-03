@@ -45,6 +45,7 @@ private Q_SLOTS:
     // other slots
     void on_authorizedChanged(bool auth) override;
     void on_filenameChanged(const QString& filename);
+    void on_configurationChanged(const QVariantMap& config);
     void on_tournamentStateChanged(const QString& key, const QVariant& value);
     void on_playerMovementsUpdated(const QVariantList& movements);
     void on_bustPlayer(const QString& playerId);

@@ -1,4 +1,5 @@
 #include "TBBuddyMainWindow.hpp"
+#include "TBAuthCodeDialog.hpp"
 #include "TBManageButtonDelegate.hpp"
 #include "TBMovementDialog.hpp"
 #include "TBPlayersModel.hpp"
@@ -121,6 +122,7 @@ TBBuddyMainWindow::TBBuddyMainWindow() : TBBaseMainWindow(), pimpl(new impl())
 
     // hook up TournamentDocument signals
     QObject::connect(&this->pimpl->doc, &TournamentDocument::filenameChanged, this, &TBBuddyMainWindow::on_filenameChanged);
+    QObject::connect(&this->pimpl->doc, &TournamentDocument::configurationChanged, this, &TBBuddyMainWindow::on_configurationChanged);
 
     // hook up TournamentSession signals
     QObject::connect(&this->getSession(), &TournamentSession::authorizedChanged, this, &TBBuddyMainWindow::on_authorizedChanged);
@@ -324,33 +326,27 @@ void TBBuddyMainWindow::on_actionConfigure_triggered()
 
 void TBBuddyMainWindow::on_actionAuthorize_triggered()
 {
-    // Create a simple authorization dialog
-    bool ok;
-    QString codeText = QInputDialog::getText(this, tr("Authorize Remote Device"),
-                                            tr("Enter 5-digit authorization code:"), QLineEdit::Normal,
-                                            "", &ok);
+    // Create the specialized authorization code dialog
+    TBAuthCodeDialog dialog(this);
 
-    if (ok && !codeText.isEmpty())
+    if (dialog.exec() == QDialog::Accepted)
     {
-        // Parse the code as an integer
-        bool valid;
-        int authCode = codeText.toInt(&valid);
-
-        if (valid && authCode >= 10000 && authCode <= 99999)
+        int authCode = dialog.getAuthCode();
+        if (authCode >= 10000 && authCode <= 99999)
         {
-            // TODO: Add authorized client to configuration
-            // Need to implement configuration management similar to TBMacDocument
-            // The client should be added to the "authorized_clients" array in configuration
-            // and then configure() should be called to update the session
+            // Create new authorized client entry
+            QVariantMap newClient;
+            newClient["code"] = authCode;
+            newClient["added_at"] = QDateTime::currentDateTime().toString(Qt::ISODate);
 
-            QMessageBox::information(this, tr("Authorize Remote Device"),
-                                    tr("Authorization functionality requires configuration management.\n\n"
-                                    "This will be implemented when the Setup Tournament dialog is added."));
+            // Add to document (this will automatically reconfigure the session via signal)
+            this->pimpl->doc.addAuthorizedClient(newClient);
+
+            QMessageBox::information(this, tr("Remote Device Authorized"), QObject::tr("Authorization code %1 has been added to the tournament configuration.").arg(authCode));
         }
         else
         {
-            QMessageBox::warning(this, tr("Invalid Code"),
-                                tr("Authorization code must be a 5-digit number."));
+            QMessageBox::warning(this, tr("Invalid Code"), QObject::tr("Authorization code must be a 5-digit number."));
         }
     }
 }
@@ -364,9 +360,7 @@ void TBBuddyMainWindow::on_actionPlan_triggered()
 
     // Create dialog to get number of players to plan for
     bool ok;
-    int playerCount = QInputDialog::getInt(this, tr("Plan Tournament"),
-                                           tr("Number of players to plan seating for:"),
-                                           defaultPlayerCount, 1, 10000, 1, &ok);
+    int playerCount = QInputDialog::getInt(this, QObject::tr("Plan Tournament"), QObject::tr("Number of players to plan seating for:"), defaultPlayerCount, 1, 10000, 1, &ok);
 
     if (ok)
     {
@@ -480,6 +474,12 @@ void TBBuddyMainWindow::on_filenameChanged(const QString& filename)
     // store filename and update window title
     this->pimpl->currentFilename = QFileInfo(filename).fileName();
     this->updateWindowTitle();
+}
+
+void TBBuddyMainWindow::on_configurationChanged(const QVariantMap& config)
+{
+    // Automatically reconfigure the session when document configuration changes
+    this->getSession().configure(config);
 }
 
 void TBBuddyMainWindow::on_tournamentStateChanged(const QString& key, const QVariant& /*value*/)
