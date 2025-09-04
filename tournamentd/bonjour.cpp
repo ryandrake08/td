@@ -17,9 +17,9 @@ struct bonjour_publisher::impl
             return "CFStreamError";
         }
 
-        virtual bool equivalent (const std::error_code& code, int condition) const throw() override
+        virtual bool equivalent(const std::error_code& code, int condition) const throw() override
         {
-            return *this==code.category() && static_cast<int>(default_error_condition(code.value()).value())==condition;
+            return *this == code.category() && static_cast<int>(default_error_condition(code.value()).value()) == condition;
         }
 
         virtual std::string message(int ev) const override
@@ -58,7 +58,7 @@ public:
         CFStreamError error;
         if(CFNetServiceRegisterWithOptions(netService, options, &error) == 0)
         {
-            CFNetServiceUnscheduleFromRunLoop(netService, CFRunLoopGetCurrent(),kCFRunLoopCommonModes);
+            CFNetServiceUnscheduleFromRunLoop(netService, CFRunLoopGetCurrent(), kCFRunLoopCommonModes);
             CFNetServiceSetClient(netService, nullptr, nullptr);
             CFRelease(netService);
 
@@ -82,10 +82,10 @@ public:
 #include <avahi-client/client.h>
 #include <avahi-client/publish.h>
 #include <avahi-common/alternative.h>
-#include <avahi-common/thread-watch.h>
-#include <avahi-common/malloc.h>
-#include <avahi-common/error.h>
 #include <avahi-common/domain.h>
+#include <avahi-common/error.h>
+#include <avahi-common/malloc.h>
+#include <avahi-common/thread-watch.h>
 #include <cassert>
 #include <string>
 
@@ -99,9 +99,9 @@ struct bonjour_publisher::impl
             return "avahi";
         }
 
-        bool equivalent (const std::error_code& code, int condition) const throw() override
+        bool equivalent(const std::error_code& code, int condition) const throw() override
         {
-            return *this==code.category() && static_cast<int>(default_error_condition(code.value()).value())==condition;
+            return *this == code.category() && static_cast<int>(default_error_condition(code.value()).value()) == condition;
         }
 
         std::string message(int ev) const override
@@ -188,34 +188,33 @@ struct bonjour_publisher::impl
     void entry_group_callback(AvahiEntryGroup* /* g */, AvahiEntryGroupState state)
     {
         // called whenever the entry group state changes
-        switch (state)
+        switch(state)
         {
-            case AVAHI_ENTRY_GROUP_ESTABLISHED :
-                /* The entry group has been established successfully */
-                logger(ll::debug) << "AVAHI_ENTRY_GROUP_ESTABLISHED\n";
-                break;
+        case AVAHI_ENTRY_GROUP_ESTABLISHED:
+            /* The entry group has been established successfully */
+            logger(ll::debug) << "AVAHI_ENTRY_GROUP_ESTABLISHED\n";
+            break;
 
-            case AVAHI_ENTRY_GROUP_COLLISION :
-            {
-                /* A service name collision with a remote service
-                 * happened. Let's pick a new name */
-                logger(ll::debug) << "AVAHI_ENTRY_GROUP_COLLISION\n";
-                this->add_service(bonjour_publisher::impl::alternative_name(this->service_name), this->service_port);
-                break;
+        case AVAHI_ENTRY_GROUP_COLLISION:
+        {
+            /* A service name collision with a remote service
+             * happened. Let's pick a new name */
+            logger(ll::debug) << "AVAHI_ENTRY_GROUP_COLLISION\n";
+            this->add_service(bonjour_publisher::impl::alternative_name(this->service_name), this->service_port);
+            break;
+        }
+        case AVAHI_ENTRY_GROUP_FAILURE:
+            logger(ll::debug) << "AVAHI_ENTRY_GROUP_FAILURE\n";
+            throw std::system_error(avahi_client_errno(this->client), avahi_error_category(), "entry_group_callback callback");
+            break;
 
-            }
-            case AVAHI_ENTRY_GROUP_FAILURE :
-                logger(ll::debug) << "AVAHI_ENTRY_GROUP_FAILURE\n";
-                throw std::system_error(avahi_client_errno(this->client), avahi_error_category(), "entry_group_callback callback");
-                break;
+        case AVAHI_ENTRY_GROUP_UNCOMMITED:
+            logger(ll::debug) << "AVAHI_ENTRY_GROUP_UNCOMMITED\n";
+            break;
 
-            case AVAHI_ENTRY_GROUP_UNCOMMITED:
-                logger(ll::debug) << "AVAHI_ENTRY_GROUP_UNCOMMITED\n";
-                break;
-
-            case AVAHI_ENTRY_GROUP_REGISTERING:
-                logger(ll::debug) << "AVAHI_ENTRY_GROUP_REGISTERING\n";
-                break;
+        case AVAHI_ENTRY_GROUP_REGISTERING:
+            logger(ll::debug) << "AVAHI_ENTRY_GROUP_REGISTERING\n";
+            break;
         }
     }
 
@@ -229,66 +228,66 @@ struct bonjour_publisher::impl
     void client_callback(AvahiClient* c, AvahiClientState state)
     {
         // Called whenever the client or server state changes
-        switch (state)
+        switch(state)
         {
-            case AVAHI_CLIENT_S_RUNNING:
-                logger(ll::debug) << "AVAHI_CLIENT_S_RUNNING\n";
-                /* The server has startup successfully and registered its host
-                 * name on the network, so it's time to create our services */
+        case AVAHI_CLIENT_S_RUNNING:
+            logger(ll::debug) << "AVAHI_CLIENT_S_RUNNING\n";
+            /* The server has startup successfully and registered its host
+             * name on the network, so it's time to create our services */
 
-                // first create our entry group if it doesn't yet exist
+            // first create our entry group if it doesn't yet exist
+            if(this->group == nullptr)
+            {
+                logger(ll::debug) << "creating entry group\n";
+
+                this->group = avahi_entry_group_new(c, static_entry_group_callback, this);
                 if(this->group == nullptr)
                 {
-                    logger(ll::debug) << "creating entry group\n";
-
-                    this->group = avahi_entry_group_new(c, static_entry_group_callback, this);
-                    if(this->group == nullptr)
-                    {
-                        throw std::system_error(avahi_client_errno(c), avahi_error_category(), "avahi_entry_group_new");
-                    }
+                    throw std::system_error(avahi_client_errno(c), avahi_error_category(), "avahi_entry_group_new");
                 }
+            }
 
-                // publish the service
-                this->add_service(this->service_name, this->service_port);
-                break;
+            // publish the service
+            this->add_service(this->service_name, this->service_port);
+            break;
 
-            case AVAHI_CLIENT_FAILURE:
-                logger(ll::debug) << "AVAHI_CLIENT_FAILURE\n";
-                throw std::system_error(avahi_client_errno(c), avahi_error_category(), "client_callback callback");
-                break;
+        case AVAHI_CLIENT_FAILURE:
+            logger(ll::debug) << "AVAHI_CLIENT_FAILURE\n";
+            throw std::system_error(avahi_client_errno(c), avahi_error_category(), "client_callback callback");
+            break;
 
-            case AVAHI_CLIENT_S_COLLISION:
-                logger(ll::debug) << "AVAHI_CLIENT_S_COLLISION\n";
-                /* Let's drop our registered services. When the server is back
-                 * in AVAHI_SERVER_RUNNING state we will register them
-                 * again with the new host name. */
-                if(this->group != nullptr)
+        case AVAHI_CLIENT_S_COLLISION:
+            logger(ll::debug) << "AVAHI_CLIENT_S_COLLISION\n";
+            /* Let's drop our registered services. When the server is back
+             * in AVAHI_SERVER_RUNNING state we will register them
+             * again with the new host name. */
+            if(this->group != nullptr)
+            {
+                if(avahi_entry_group_reset(this->group) != AVAHI_OK)
                 {
-                    if(avahi_entry_group_reset(this->group) != AVAHI_OK)
-                    {
-                        throw std::system_error(avahi_client_errno(c), avahi_error_category(), "avahi_entry_group_reset");
-                    }
+                    throw std::system_error(avahi_client_errno(c), avahi_error_category(), "avahi_entry_group_reset");
                 }
-                break;
+            }
+            break;
 
-            case AVAHI_CLIENT_S_REGISTERING:
-                logger(ll::debug) << "AVAHI_CLIENT_S_REGISTERING\n";
-                /* The server records are now being established. This
-                 * might be caused by a host name change. We need to wait
-                 * for our own records to register until the host name is
-                 * properly esatblished. */
-                if(this->group != nullptr)
+        case AVAHI_CLIENT_S_REGISTERING:
+            logger(ll::debug) << "AVAHI_CLIENT_S_REGISTERING\n";
+            /* The server records are now being established. This
+             * might be caused by a host name change. We need to wait
+             * for our own records to register until the host name is
+             * properly esatblished. */
+            if(this->group != nullptr)
+            {
+                if(avahi_entry_group_reset(this->group) != AVAHI_OK)
                 {
-                    if(avahi_entry_group_reset(this->group) != AVAHI_OK)
-                    {
-                        throw std::system_error(avahi_client_errno(c), avahi_error_category(), "avahi_entry_group_reset");
-                    }
+                    throw std::system_error(avahi_client_errno(c), avahi_error_category(), "avahi_entry_group_reset");
                 }
-                break;
+            }
+            break;
 
-            case AVAHI_CLIENT_CONNECTING:
-                logger(ll::debug) << "AVAHI_CLIENT_CONNECTING\n";
-                break;
+        case AVAHI_CLIENT_CONNECTING:
+            logger(ll::debug) << "AVAHI_CLIENT_CONNECTING\n";
+            break;
         }
     }
 

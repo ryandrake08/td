@@ -69,19 +69,23 @@ public:
     static constexpr int toInt(PayoutPolicy policy) { return static_cast<int>(policy); }
     static constexpr int toInt(AnteType type) { return static_cast<int>(type); }
 
-    static FundingType toFundingType(int value) {
+    static FundingType toFundingType(int value)
+    {
         Q_ASSERT(value >= 0 && value <= 2);
         return (value >= 0 && value <= 2) ? static_cast<FundingType>(value) : FundingType::Buyin;
     }
-    static RebalancePolicy toRebalancePolicy(int value) {
+    static RebalancePolicy toRebalancePolicy(int value)
+    {
         Q_ASSERT(value >= 0 && value <= 2);
         return (value >= 0 && value <= 2) ? static_cast<RebalancePolicy>(value) : RebalancePolicy::Manual;
     }
-    static PayoutPolicy toPayoutPolicy(int value) {
+    static PayoutPolicy toPayoutPolicy(int value)
+    {
         Q_ASSERT(value >= 0 && value <= 2);
         return (value >= 0 && value <= 2) ? static_cast<PayoutPolicy>(value) : PayoutPolicy::Automatic;
     }
-    static AnteType toAnteType(int value) {
+    static AnteType toAnteType(int value)
+    {
         Q_ASSERT(value >= 0 && value <= 2);
         return (value >= 0 && value <= 2) ? static_cast<AnteType>(value) : AnteType::None;
     }
@@ -103,7 +107,7 @@ public:
     // audio warning
     static const int kAudioWarningTime = 60;
 
-    explicit TournamentSession(QObject* parent=nullptr);
+    explicit TournamentSession(QObject* parent = nullptr);
     virtual ~TournamentSession();
 
     // client identifier (used for authenticating with servers)

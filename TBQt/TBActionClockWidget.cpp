@@ -1,12 +1,12 @@
 #include "TBActionClockWidget.hpp"
 
-#include <QPainter>
-#include <QPaintEvent>
+#include <QBrush>
 #include <QFont>
 #include <QFontMetrics>
-#include <QPen>
-#include <QBrush>
 #include <QLinearGradient>
+#include <QPaintEvent>
+#include <QPainter>
+#include <QPen>
 #include <QRadialGradient>
 #include <QtMath>
 
@@ -59,7 +59,6 @@ void TBActionClockWidget::setTimeRemaining(double seconds)
     update();
 }
 
-
 void TBActionClockWidget::setEnableShadows(bool enable)
 {
     pimpl->enableShadows = enable;
@@ -107,7 +106,7 @@ void TBActionClockWidget::paintEvent(QPaintEvent* event)
     const double radius = qMin(rect.width(), rect.height()) / 2.0 - pimpl->borderWidth;
 
     // Draw clock face with shadow if enabled
-    if (pimpl->enableShadows)
+    if(pimpl->enableShadows)
     {
         // Shadow effect
         QRadialGradient shadowGradient(center.x() + 2, center.y() + 2, radius + 5);
@@ -125,14 +124,15 @@ void TBActionClockWidget::paintEvent(QPaintEvent* event)
     painter.drawEllipse(center.x() - radius, center.y() - radius, radius * 2, radius * 2);
 
     // Draw graduations (minute marks) if enabled
-    if (pimpl->enableGraduations)
+    if(pimpl->enableGraduations)
     {
         painter.setBrush(Qt::NoBrush);
         QPen graduationPen(pimpl->digitColor, 1.0);
         painter.setPen(graduationPen);
 
-        for (int i = 0; i < 60; ++i) {
-            const double angle = i * 6.0 * M_PI / 180.0; // 6 degrees per minute
+        for(int i = 0; i < 60; ++i)
+        {
+            const double angle = i * 6.0 * M_PI / 180.0;     // 6 degrees per minute
             const double length = (i % 5 == 0) ? 12.0 : 8.0; // Longer marks for 5-minute intervals
             const double startRadius = radius - length;
             const double endRadius = radius - 2.0;
@@ -145,7 +145,7 @@ void TBActionClockWidget::paintEvent(QPaintEvent* event)
     }
 
     // Draw digits (5, 10, 15, etc.) if enabled
-    if (pimpl->enableDigit)
+    if(pimpl->enableDigit)
     {
         QFont digitFont = font();
         digitFont.setPointSize(12);
@@ -156,7 +156,7 @@ void TBActionClockWidget::paintEvent(QPaintEvent* event)
         const QFontMetrics fm(digitFont);
         const double digitRadius = radius - 25.0 - pimpl->digitOffset;
 
-        for (int i = 1; i <= 12; ++i)
+        for(int i = 1; i <= 12; ++i)
         {
             const QString text = QString::number(i * 5);
             const QRect textRect = fm.boundingRect(text);
@@ -169,7 +169,7 @@ void TBActionClockWidget::paintEvent(QPaintEvent* event)
     }
 
     // Draw countdown arc if enabled
-    if (pimpl->enableArc && pimpl->seconds > 0)
+    if(pimpl->enableArc && pimpl->seconds > 0)
     {
         const double arcRadius = radius - 15.0;
         const QRectF arcRect(center.x() - arcRadius, center.y() - arcRadius, arcRadius * 2, arcRadius * 2);
@@ -192,7 +192,7 @@ void TBActionClockWidget::paintEvent(QPaintEvent* event)
     }
 
     // Draw clock hand pointing to remaining time
-    if (pimpl->seconds > 0)
+    if(pimpl->seconds > 0)
     {
         QPen handPen(pimpl->handColor, pimpl->handWidth);
         painter.setPen(handPen);

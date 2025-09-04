@@ -77,16 +77,17 @@ TBSetupPayoutsWidget::TBSetupPayoutsWidget(QWidget* parent) : TBSetupTabWidget(p
 
     // Connect selection models
     QObject::connect(pimpl->ui.manualTableView->selectionModel(), &QItemSelectionModel::selectionChanged,
-            [this]() {
-                bool hasSelection = pimpl->ui.manualTableView->selectionModel()->hasSelection();
-                pimpl->ui.removePayoutButton->setEnabled(hasSelection);
-            });
+                     [this]()
+    {
+        bool hasSelection = pimpl->ui.manualTableView->selectionModel()->hasSelection();
+        pimpl->ui.removePayoutButton->setEnabled(hasSelection);
+    });
 
     QObject::connect(pimpl->ui.turnoutTableView->selectionModel(), &QItemSelectionModel::selectionChanged,
-            this, &TBSetupPayoutsWidget::on_turnoutSelectionChanged);
+                     this, &TBSetupPayoutsWidget::on_turnoutSelectionChanged);
 
     QObject::connect(pimpl->ui.turnoutPayoutsTableView->selectionModel(), &QItemSelectionModel::selectionChanged,
-            this, &TBSetupPayoutsWidget::on_turnoutPayoutSelectionChanged);
+                     this, &TBSetupPayoutsWidget::on_turnoutPayoutSelectionChanged);
 
     // Connect automatic payout signals
     QObject::connect(pimpl->ui.percentSeatsPaidSlider, &QSlider::valueChanged, this, &TBSetupPayoutsWidget::on_percentSeatsSliderChanged);
@@ -139,7 +140,8 @@ void TBSetupPayoutsWidget::setConfiguration(const QVariantMap& configuration)
     QVariantList forcedPayouts = configuration.value("forced_payouts").toList();
 
     // Add payout currency to each forced payout entry
-    for (int i = 0; i < forcedPayouts.size(); ++i) {
+    for(int i = 0; i < forcedPayouts.size(); ++i)
+    {
         QVariantMap payout = forcedPayouts[i].toMap();
         payout["currency"] = pimpl->payoutCurrency;
         forcedPayouts[i] = payout;
@@ -170,7 +172,8 @@ QVariantMap TBSetupPayoutsWidget::configuration() const
 
     // Get forced payouts and remove currency field (since forced_payouts only contains amount)
     QVariantList forcedPayouts = pimpl->manualModel->listData();
-    for (int i = 0; i < forcedPayouts.size(); ++i) {
+    for(int i = 0; i < forcedPayouts.size(); ++i)
+    {
         QVariantMap payout = forcedPayouts[i].toMap();
         payout.remove("currency"); // Remove currency since forced_payouts is nocurrency structure
         forcedPayouts[i] = payout;
@@ -179,12 +182,14 @@ QVariantMap TBSetupPayoutsWidget::configuration() const
 
     // Get manual payouts and clean up any currency fields in nested payouts
     QVariantList manualPayouts = pimpl->turnoutModel->listData();
-    for (int i = 0; i < manualPayouts.size(); ++i) {
+    for(int i = 0; i < manualPayouts.size(); ++i)
+    {
         QVariantMap level = manualPayouts[i].toMap();
         QVariantList payouts = level.value("payouts").toList();
 
         // Remove currency field from each payout since they are nocurrency structures
-        for (int j = 0; j < payouts.size(); ++j) {
+        for(int j = 0; j < payouts.size(); ++j)
+        {
             QVariantMap payout = payouts[j].toMap();
             payout.remove("currency");
             payouts[j] = payout;
@@ -217,11 +222,11 @@ void TBSetupPayoutsWidget::on_addPayoutButtonClicked()
 void TBSetupPayoutsWidget::on_removePayoutButtonClicked()
 {
     int row = TBTableViewUtils::getSelectedSourceRow(pimpl->ui.manualTableView);
-    if (row < 0)
+    if(row < 0)
         return;
 
     QVariantList payouts = pimpl->manualModel->listData();
-    if (row >= 0 && row < payouts.size())
+    if(row >= 0 && row < payouts.size())
     {
         payouts.removeAt(row);
         pimpl->manualModel->setListData(payouts);
@@ -244,11 +249,11 @@ void TBSetupPayoutsWidget::on_addTurnoutButtonClicked()
 void TBSetupPayoutsWidget::on_removeTurnoutButtonClicked()
 {
     int row = TBTableViewUtils::getSelectedSourceRow(pimpl->ui.turnoutTableView);
-    if (row < 0)
+    if(row < 0)
         return;
 
     QVariantList levels = pimpl->turnoutModel->listData();
-    if (row >= 0 && row < levels.size())
+    if(row >= 0 && row < levels.size())
     {
         levels.removeAt(row);
         pimpl->turnoutModel->setListData(levels);
@@ -274,10 +279,10 @@ void TBSetupPayoutsWidget::on_modelDataChanged()
 void TBSetupPayoutsWidget::on_addTurnoutPayoutButtonClicked()
 {
     int row = TBTableViewUtils::getSelectedSourceRow(pimpl->ui.turnoutTableView);
-    if (row < 0)
+    if(row < 0)
         return;
     QVariantList turnoutLevels = pimpl->turnoutModel->listData();
-    if (row < 0 || row >= turnoutLevels.size())
+    if(row < 0 || row >= turnoutLevels.size())
         return;
 
     QVariantMap selectedLevel = turnoutLevels[row].toMap();
@@ -301,21 +306,21 @@ void TBSetupPayoutsWidget::on_addTurnoutPayoutButtonClicked()
 void TBSetupPayoutsWidget::on_removeTurnoutPayoutButtonClicked()
 {
     int turnoutRow = TBTableViewUtils::getSelectedSourceRow(pimpl->ui.turnoutTableView);
-    if (turnoutRow < 0)
+    if(turnoutRow < 0)
         return;
 
     int payoutRow = TBTableViewUtils::getSelectedSourceRow(pimpl->ui.turnoutPayoutsTableView);
-    if (payoutRow < 0)
+    if(payoutRow < 0)
         return;
 
     QVariantList turnoutLevels = pimpl->turnoutModel->listData();
-    if (turnoutRow < 0 || turnoutRow >= turnoutLevels.size())
+    if(turnoutRow < 0 || turnoutRow >= turnoutLevels.size())
         return;
 
     QVariantMap selectedLevel = turnoutLevels[turnoutRow].toMap();
     QVariantList payouts = selectedLevel.value("payouts").toList();
 
-    if (payoutRow >= 0 && payoutRow < payouts.size())
+    if(payoutRow >= 0 && payoutRow < payouts.size())
     {
         payouts.removeAt(payoutRow);
         selectedLevel["payouts"] = payouts;
@@ -338,13 +343,13 @@ void TBSetupPayoutsWidget::on_turnoutPayoutSelectionChanged()
 void TBSetupPayoutsWidget::updateTurnoutPayoutsDisplay()
 {
     int row = TBTableViewUtils::getSelectedSourceRow(pimpl->ui.turnoutTableView);
-    if (row < 0)
+    if(row < 0)
     {
         pimpl->turnoutPayoutsModel->setListData(QVariantList());
         return;
     }
     QVariantList turnoutLevels = pimpl->turnoutModel->listData();
-    if (row < 0 || row >= turnoutLevels.size())
+    if(row < 0 || row >= turnoutLevels.size())
     {
         pimpl->turnoutPayoutsModel->setListData(QVariantList());
         return;
@@ -354,7 +359,8 @@ void TBSetupPayoutsWidget::updateTurnoutPayoutsDisplay()
     QVariantList payouts = selectedLevel.value("payouts").toList();
 
     // Add currency field to each payout entry for display
-    for (int i = 0; i < payouts.size(); ++i) {
+    for(int i = 0; i < payouts.size(); ++i)
+    {
         QVariantMap payout = payouts[i].toMap();
         payout["currency"] = pimpl->payoutCurrency;
         payouts[i] = payout;
@@ -403,7 +409,7 @@ void TBSetupPayoutsWidget::on_payoutTabChanged(int index)
     // Update payout_policy based on selected tab
     // 0 = Automatic, 1 = Manual, 2 = Depends on Turnout
     // We only handle Automatic here - other tabs would need their own handling
-    if (index == 0) // Automatic tab selected
+    if(index == 0) // Automatic tab selected
     {
         // This will be handled in configuration() method
     }
@@ -412,17 +418,28 @@ void TBSetupPayoutsWidget::on_payoutTabChanged(int index)
 
 QString TBSetupPayoutsWidget::payoutShapeDescription(double shape) const
 {
-    if (shape <= 0.0) {
+    if(shape <= 0.0)
+    {
         return tr("Same To Everyone");
-    } else if (shape < 0.25) {
+    }
+    else if(shape < 0.25)
+    {
         return tr("Relatively Flat");
-    } else if (shape < 0.5) {
+    }
+    else if(shape < 0.5)
+    {
         return tr("Balanced");
-    } else if (shape < 0.75) {
+    }
+    else if(shape < 0.75)
+    {
         return tr("Top Heavy");
-    } else if (shape < 1.0) {
+    }
+    else if(shape < 1.0)
+    {
         return tr("Reward Deep");
-    } else {
+    }
+    else
+    {
         return tr("Winner Takes All");
     }
 }

@@ -11,7 +11,7 @@ TBSeatingCompoundSortProxyModel::TBSeatingCompoundSortProxyModel(QObject* parent
 bool TBSeatingCompoundSortProxyModel::lessThan(const QModelIndex& left, const QModelIndex& right) const
 {
     QAbstractItemModel* source = this->sourceModel();
-    if (!source)
+    if(!source)
     {
         return QSortFilterProxyModel::lessThan(left, right);
     }
@@ -23,12 +23,12 @@ bool TBSeatingCompoundSortProxyModel::lessThan(const QModelIndex& left, const QM
     QVariant leftTableVar = source->data(source->index(left.row(), 0), Qt::UserRole);
     QVariant rightTableVar = source->data(source->index(right.row(), 0), Qt::UserRole);
 
-    if (leftTableVar.isValid() && rightTableVar.isValid())
+    if(leftTableVar.isValid() && rightTableVar.isValid())
     {
         qulonglong leftTableNum = leftTableVar.toULongLong();
         qulonglong rightTableNum = rightTableVar.toULongLong();
 
-        if (leftTableNum != rightTableNum)
+        if(leftTableNum != rightTableNum)
         {
             return leftTableNum < rightTableNum;
         }
@@ -37,7 +37,7 @@ bool TBSeatingCompoundSortProxyModel::lessThan(const QModelIndex& left, const QM
         QVariant leftSeatVar = source->data(source->index(left.row(), 1), Qt::UserRole);
         QVariant rightSeatVar = source->data(source->index(right.row(), 1), Qt::UserRole);
 
-        if (leftSeatVar.isValid() && rightSeatVar.isValid())
+        if(leftSeatVar.isValid() && rightSeatVar.isValid())
         {
             qulonglong leftSeatNum = leftSeatVar.toULongLong();
             qulonglong rightSeatNum = rightSeatVar.toULongLong();

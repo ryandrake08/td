@@ -1,9 +1,9 @@
-#include <Catch2/catch.hpp>
 #include "../bonjour.hpp"
-#include <string>
+#include <Catch2/catch.hpp>
 #include <chrono>
-#include <thread>
 #include <memory>
+#include <string>
+#include <thread>
 #include <vector>
 #ifdef __APPLE__
 // macOS allows up to 255 characters
@@ -13,26 +13,30 @@
 #define MAX_SERVICE_NAME_LENGTH 63
 #endif
 
-
-TEST_CASE("Bonjour publisher creation and destruction", "[bonjour][basic]") {
-    SECTION("Default constructor") {
+TEST_CASE("Bonjour publisher creation and destruction", "[bonjour][basic]")
+{
+    SECTION("Default constructor")
+    {
         std::unique_ptr<bonjour_publisher> bp;
         REQUIRE_NOTHROW(bp = std::unique_ptr<bonjour_publisher>(new bonjour_publisher()));
     }
 
-    SECTION("Destruction") {
+    SECTION("Destruction")
+    {
         auto bp = std::unique_ptr<bonjour_publisher>(new bonjour_publisher());
         REQUIRE_NOTHROW(bp.reset());
     }
 
-    SECTION("Multiple instances") {
+    SECTION("Multiple instances")
+    {
         auto bp1 = std::unique_ptr<bonjour_publisher>(new bonjour_publisher());
         auto bp2 = std::unique_ptr<bonjour_publisher>(new bonjour_publisher());
         REQUIRE(bp1 != nullptr);
         REQUIRE(bp2 != nullptr);
     }
 
-    SECTION("RAII behavior") {
+    SECTION("RAII behavior")
+    {
         {
             bonjour_publisher bp;
             // Should clean up automatically when going out of scope
@@ -41,8 +45,10 @@ TEST_CASE("Bonjour publisher creation and destruction", "[bonjour][basic]") {
     }
 }
 
-TEST_CASE("Bonjour service publishing", "[bonjour][publish]") {
-    SECTION("Publish with valid parameters") {
+TEST_CASE("Bonjour service publishing", "[bonjour][publish]")
+{
+    SECTION("Publish with valid parameters")
+    {
         bonjour_publisher bp;
 
         // Test publishing with various valid parameters
@@ -51,7 +57,8 @@ TEST_CASE("Bonjour service publishing", "[bonjour][publish]") {
         REQUIRE_NOTHROW(bp.publish("Tournament123", 30000));
     }
 
-    SECTION("Publish with various service names") {
+    SECTION("Publish with various service names")
+    {
         bonjour_publisher bp;
 
         // Test different service name formats
@@ -72,20 +79,22 @@ TEST_CASE("Bonjour service publishing", "[bonjour][publish]") {
         REQUIRE_NOTHROW(bp.publish("锦标赛", 25610));
     }
 
-    SECTION("Publish with various port numbers") {
+    SECTION("Publish with various port numbers")
+    {
         bonjour_publisher bp;
 
         // Test different port ranges
-        REQUIRE_NOTHROW(bp.publish("LowPort", 1024));    // Low user port
-        REQUIRE_NOTHROW(bp.publish("MidPort", 25600));   // Default tournament port
-        REQUIRE_NOTHROW(bp.publish("HighPort", 65000));  // High port number
+        REQUIRE_NOTHROW(bp.publish("LowPort", 1024));   // Low user port
+        REQUIRE_NOTHROW(bp.publish("MidPort", 25600));  // Default tournament port
+        REQUIRE_NOTHROW(bp.publish("HighPort", 65000)); // High port number
 
         // Edge cases for port numbers
-        REQUIRE_NOTHROW(bp.publish("Port1", 1));         // Very low port
-        REQUIRE_NOTHROW(bp.publish("MaxPort", 65535));   // Maximum port
+        REQUIRE_NOTHROW(bp.publish("Port1", 1));       // Very low port
+        REQUIRE_NOTHROW(bp.publish("MaxPort", 65535)); // Maximum port
     }
 
-    SECTION("Multiple publishers") {
+    SECTION("Multiple publishers")
+    {
         bonjour_publisher bp1;
         bonjour_publisher bp2;
 
@@ -116,7 +125,8 @@ TEST_CASE("Bonjour service publishing", "[bonjour][publish]") {
         REQUIRE_NOTHROW(bp2.publish("IdenticalTournament", 25607));
     }
 
-    SECTION("Publish edge cases") {
+    SECTION("Publish edge cases")
+    {
         bonjour_publisher bp;
 
         // Empty service name
@@ -125,7 +135,7 @@ TEST_CASE("Bonjour service publishing", "[bonjour][publish]") {
         std::string max_length_name(MAX_SERVICE_NAME_LENGTH, 'A');
         REQUIRE_NOTHROW(bp.publish(max_length_name, 25600));
 
-        std::string over_limit_name(MAX_SERVICE_NAME_LENGTH+1, 'B');
+        std::string over_limit_name(MAX_SERVICE_NAME_LENGTH + 1, 'B');
         REQUIRE_THROWS(bp.publish(over_limit_name, 25601));
 
         // Very long service name should throw on all platforms
@@ -143,8 +153,10 @@ TEST_CASE("Bonjour service publishing", "[bonjour][publish]") {
     }
 }
 
-TEST_CASE("Bonjour service republishing", "[bonjour][republish]") {
-    SECTION("Multiple publish calls with same service") {
+TEST_CASE("Bonjour service republishing", "[bonjour][republish]")
+{
+    SECTION("Multiple publish calls with same service")
+    {
         bonjour_publisher bp;
 
         // Publish same service multiple times (should update or handle gracefully)
@@ -154,7 +166,8 @@ TEST_CASE("Bonjour service republishing", "[bonjour][republish]") {
         REQUIRE_NOTHROW(bp.publish("SameService", 25600)); // Back to original port
     }
 
-    SECTION("Publish different services in sequence") {
+    SECTION("Publish different services in sequence")
+    {
         bonjour_publisher bp;
 
         // Publish different services one after another
@@ -166,11 +179,13 @@ TEST_CASE("Bonjour service republishing", "[bonjour][republish]") {
         REQUIRE_NOTHROW(bp.publish("Service1", 25603));
     }
 
-    SECTION("Rapid publishing") {
+    SECTION("Rapid publishing")
+    {
         bonjour_publisher bp;
 
         // Rapidly publish many services (stress test)
-        for (int i = 0; i < 10; ++i) {
+        for(int i = 0; i < 10; ++i)
+        {
             std::string service_name = "RapidService" + std::to_string(i);
             int port = 25600 + i;
             REQUIRE_NOTHROW(bp.publish(service_name, port));
@@ -178,8 +193,10 @@ TEST_CASE("Bonjour service republishing", "[bonjour][republish]") {
     }
 }
 
-TEST_CASE("Bonjour service lifecycle", "[bonjour][lifecycle]") {
-    SECTION("Publish and destroy publisher") {
+TEST_CASE("Bonjour service lifecycle", "[bonjour][lifecycle]")
+{
+    SECTION("Publish and destroy publisher")
+    {
         {
             bonjour_publisher bp;
             bp.publish("LifecycleTest", 25600);
@@ -196,7 +213,8 @@ TEST_CASE("Bonjour service lifecycle", "[bonjour][lifecycle]") {
         }
     }
 
-    SECTION("Multiple publishers with different services") {
+    SECTION("Multiple publishers with different services")
+    {
         bonjour_publisher bp1;
         bonjour_publisher bp2;
         bonjour_publisher bp3;
@@ -209,7 +227,8 @@ TEST_CASE("Bonjour service lifecycle", "[bonjour][lifecycle]") {
         std::this_thread::sleep_for(std::chrono::milliseconds(10));
     }
 
-    SECTION("Publisher reuse") {
+    SECTION("Publisher reuse")
+    {
         bonjour_publisher bp;
 
         // Use same publisher for multiple different services over time
@@ -224,8 +243,10 @@ TEST_CASE("Bonjour service lifecycle", "[bonjour][lifecycle]") {
     }
 }
 
-TEST_CASE("Bonjour error handling", "[bonjour][errors]") {
-    SECTION("Network unavailability") {
+TEST_CASE("Bonjour error handling", "[bonjour][errors]")
+{
+    SECTION("Network unavailability")
+    {
         bonjour_publisher bp;
 
         // These should not crash even if Bonjour/Avahi is not available
@@ -234,11 +255,13 @@ TEST_CASE("Bonjour error handling", "[bonjour][errors]") {
         REQUIRE_NOTHROW(bp.publish("AnotherNetworkTest", 25601));
     }
 
-    SECTION("System resource exhaustion simulation") {
+    SECTION("System resource exhaustion simulation")
+    {
         // Create many publishers to test resource handling
         std::vector<std::unique_ptr<bonjour_publisher>> publishers;
 
-        for (int i = 0; i < 50; ++i) {
+        for(int i = 0; i < 50; ++i)
+        {
             auto bp = std::unique_ptr<bonjour_publisher>(new bonjour_publisher());
             std::string service_name = "ResourceTest" + std::to_string(i);
 
@@ -249,7 +272,8 @@ TEST_CASE("Bonjour error handling", "[bonjour][errors]") {
         // All publishers going out of scope should clean up properly
     }
 
-    SECTION("Concurrent publishing") {
+    SECTION("Concurrent publishing")
+    {
         // Test thread safety by publishing from multiple threads
         const int num_threads = 5;
         const int services_per_thread = 10;
@@ -257,11 +281,14 @@ TEST_CASE("Bonjour error handling", "[bonjour][errors]") {
         std::vector<std::thread> threads;
         std::vector<std::unique_ptr<bonjour_publisher>> publishers(num_threads);
 
-        for (size_t t = 0; t < num_threads; ++t) {
+        for(size_t t = 0; t < num_threads; ++t)
+        {
             publishers[t] = std::unique_ptr<bonjour_publisher>(new bonjour_publisher());
 
-            threads.emplace_back([&publishers, t]() {
-                for (int i = 0; i < services_per_thread; ++i) {
+            threads.emplace_back([&publishers, t]()
+            {
+                for(int i = 0; i < services_per_thread; ++i)
+                {
                     std::string service_name = "Thread" + std::to_string(t) + "Service" + std::to_string(i);
                     int port = 26000 + (int)t * 100 + i;
 
@@ -274,14 +301,17 @@ TEST_CASE("Bonjour error handling", "[bonjour][errors]") {
         }
 
         // Wait for all threads to complete
-        for (auto& thread : threads) {
+        for(auto& thread : threads)
+        {
             thread.join();
         }
     }
 }
 
-TEST_CASE("Bonjour platform compatibility", "[bonjour][platform]") {
-    SECTION("Cross-platform service names") {
+TEST_CASE("Bonjour platform compatibility", "[bonjour][platform]")
+{
+    SECTION("Cross-platform service names")
+    {
         bonjour_publisher bp;
 
         // Test service names that should work across different platforms
@@ -294,7 +324,8 @@ TEST_CASE("Bonjour platform compatibility", "[bonjour][platform]") {
         REQUIRE_NOTHROW(bp.publish("DNSSafe123", 25604));
     }
 
-    SECTION("Service discovery protocol compliance") {
+    SECTION("Service discovery protocol compliance")
+    {
         bonjour_publisher bp;
 
         // Test names that comply with DNS-SD standards
@@ -308,8 +339,10 @@ TEST_CASE("Bonjour platform compatibility", "[bonjour][platform]") {
     }
 }
 
-TEST_CASE("Bonjour service information", "[bonjour][service_info]") {
-    SECTION("Standard tournament service") {
+TEST_CASE("Bonjour service information", "[bonjour][service_info]")
+{
+    SECTION("Standard tournament service")
+    {
         bonjour_publisher bp;
 
         // Publish service similar to what the actual tournament daemon would use
@@ -322,11 +355,13 @@ TEST_CASE("Bonjour service information", "[bonjour][service_info]") {
         REQUIRE_NOTHROW(bp.publish("Tournament Director - localhost", 25602));
     }
 
-    SECTION("Multiple tournament instances") {
+    SECTION("Multiple tournament instances")
+    {
         std::vector<std::unique_ptr<bonjour_publisher>> publishers;
 
         // Simulate multiple tournament instances running
-        for (int i = 1; i <= 3; ++i) {
+        for(int i = 1; i <= 3; ++i)
+        {
             auto bp = std::unique_ptr<bonjour_publisher>(new bonjour_publisher());
             std::string service_name = "Tournament " + std::to_string(i);
             int port = 25600 + i - 1;

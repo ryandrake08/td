@@ -1,8 +1,8 @@
 #pragma once
 
-#include <QWidget>
-#include <QVariantList>
 #include <QString>
+#include <QVariantList>
+#include <QWidget>
 #include <memory>
 
 // Widget representing a single tournament table with seats and players

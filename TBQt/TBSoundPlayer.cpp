@@ -60,18 +60,18 @@ void TBSoundPlayer::setSession(const TournamentSession& session)
 void TBSoundPlayer::on_stateChanged(const QString& key, const QVariant& value)
 {
     // Handle blind level changes (tournament start/next round)
-    if (key == "current_blind_level")
+    if(key == "current_blind_level")
     {
         int newBlindLevel = value.toInt();
 
-        if (pimpl->previousBlindLevel != -1)
+        if(pimpl->previousBlindLevel != -1)
         { // Not the first update
-            if (pimpl->previousBlindLevel == 0 && newBlindLevel != 0)
+            if(pimpl->previousBlindLevel == 0 && newBlindLevel != 0)
             {
                 // Round zero to non-zero: tournament start
                 pimpl->startSound->play();
             }
-            else if (pimpl->previousBlindLevel != 0 && newBlindLevel != 0 && pimpl->previousBlindLevel != newBlindLevel)
+            else if(pimpl->previousBlindLevel != 0 && newBlindLevel != 0 && pimpl->previousBlindLevel != newBlindLevel)
             {
                 // Round non-zero to different non-zero: next/previous round
                 pimpl->nextSound->play();
@@ -83,11 +83,11 @@ void TBSoundPlayer::on_stateChanged(const QString& key, const QVariant& value)
     }
 
     // Handle break changes
-    else if (key == "on_break")
+    else if(key == "on_break")
     {
         bool newOnBreak = value.toBool();
 
-        if (!pimpl->previousOnBreak && newOnBreak)
+        if(!pimpl->previousOnBreak && newOnBreak)
         {
             // Break started
             pimpl->breakSound->play();
@@ -97,11 +97,11 @@ void TBSoundPlayer::on_stateChanged(const QString& key, const QVariant& value)
     }
 
     // Handle time remaining warnings
-    else if (key == "time_remaining")
+    else if(key == "time_remaining")
     {
         int newTimeRemaining = value.toInt();
 
-        if (pimpl->previousTimeRemaining > TournamentSession::kAudioWarningTime && newTimeRemaining <= TournamentSession::kAudioWarningTime && newTimeRemaining != 0)
+        if(pimpl->previousTimeRemaining > TournamentSession::kAudioWarningTime && newTimeRemaining <= TournamentSession::kAudioWarningTime && newTimeRemaining != 0)
         {
             pimpl->warningSound->play();
         }
@@ -110,11 +110,11 @@ void TBSoundPlayer::on_stateChanged(const QString& key, const QVariant& value)
     }
 
     // Handle break time remaining warnings
-    else if (key == "break_time_remaining")
+    else if(key == "break_time_remaining")
     {
         int newBreakTimeRemaining = value.toInt();
 
-        if (pimpl->previousBreakTimeRemaining > TournamentSession::kAudioWarningTime && newBreakTimeRemaining <= TournamentSession::kAudioWarningTime && newBreakTimeRemaining != 0)
+        if(pimpl->previousBreakTimeRemaining > TournamentSession::kAudioWarningTime && newBreakTimeRemaining <= TournamentSession::kAudioWarningTime && newBreakTimeRemaining != 0)
         {
             pimpl->warningSound->play();
         }

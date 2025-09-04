@@ -1,14 +1,14 @@
 #include "TBAuthCodeDialog.hpp"
 
-#include <QVBoxLayout>
-#include <QHBoxLayout>
-#include <QGridLayout>
-#include <QLabel>
-#include <QPushButton>
-#include <QLineEdit>
 #include <QDialogButtonBox>
-#include <QRegExpValidator>
+#include <QGridLayout>
+#include <QHBoxLayout>
 #include <QKeyEvent>
+#include <QLabel>
+#include <QLineEdit>
+#include <QPushButton>
+#include <QRegExpValidator>
+#include <QVBoxLayout>
 
 struct TBAuthCodeDialog::impl
 {
@@ -21,7 +21,7 @@ struct TBAuthCodeDialog::impl
     explicit impl() : okButton(nullptr), cancelButton(nullptr), instructionLabel(nullptr), authCode(0)
     {
         // Initialize code fields
-        for (int i = 0; i < 5; ++i)
+        for(int i = 0; i < 5; ++i)
         {
             codeFields[i] = nullptr;
         }
@@ -45,7 +45,8 @@ TBAuthCodeDialog::TBAuthCodeDialog(QWidget* parent) : QDialog(parent), pimpl(std
     QRegExp digitRegex("[0-9]");
     QRegExpValidator* digitValidator = new QRegExpValidator(digitRegex, this);
 
-    for (int i = 0; i < 5; ++i) {
+    for(int i = 0; i < 5; ++i)
+    {
         pimpl->codeFields[i] = new QLineEdit(this);
         pimpl->codeFields[i]->setMaxLength(1);
         pimpl->codeFields[i]->setValidator(digitValidator);
@@ -75,7 +76,8 @@ TBAuthCodeDialog::TBAuthCodeDialog(QWidget* parent) : QDialog(parent), pimpl(std
     QObject::connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
 
     // connect signals
-    for (int i = 0; i < 5; ++i) {
+    for(int i = 0; i < 5; ++i)
+    {
         QObject::connect(pimpl->codeFields[i], &QLineEdit::textChanged, this, &TBAuthCodeDialog::onCodeFieldChanged);
     }
 
@@ -90,27 +92,28 @@ TBAuthCodeDialog::TBAuthCodeDialog(QWidget* parent) : QDialog(parent), pimpl(std
 
 TBAuthCodeDialog::~TBAuthCodeDialog() = default;
 
-
 void TBAuthCodeDialog::onCodeFieldChanged()
 {
     QLineEdit* sender = qobject_cast<QLineEdit*>(QObject::sender());
-    if (!sender) return;
+    if(!sender)
+        return;
 
     // Find which field sent the signal
     int currentIndex = -1;
-    for (int i = 0; i < 5; ++i)
+    for(int i = 0; i < 5; ++i)
     {
-        if (pimpl->codeFields[i] == sender)
+        if(pimpl->codeFields[i] == sender)
         {
             currentIndex = i;
             break;
         }
     }
 
-    if (currentIndex == -1) return;
+    if(currentIndex == -1)
+        return;
 
     // If field has text and it's not the last field, move to next
-    if (!sender->text().isEmpty() && currentIndex < 4)
+    if(!sender->text().isEmpty() && currentIndex < 4)
     {
         pimpl->codeFields[currentIndex + 1]->setFocus();
         pimpl->codeFields[currentIndex + 1]->selectAll();
@@ -118,9 +121,9 @@ void TBAuthCodeDialog::onCodeFieldChanged()
 
     // Check if all fields are filled
     bool allFilled = true;
-    for (int i = 0; i < 5; ++i)
+    for(int i = 0; i < 5; ++i)
     {
-        if (pimpl->codeFields[i]->text().isEmpty())
+        if(pimpl->codeFields[i]->text().isEmpty())
         {
             allFilled = false;
             break;
@@ -130,7 +133,7 @@ void TBAuthCodeDialog::onCodeFieldChanged()
     pimpl->okButton->setEnabled(allFilled);
 
     // If all filled, auto-submit
-    if (allFilled)
+    if(allFilled)
     {
         onAccepted();
     }
@@ -140,7 +143,7 @@ void TBAuthCodeDialog::onAccepted()
 {
     // Build the 5-digit code
     QString codeString;
-    for (int i = 0; i < 5; ++i)
+    for(int i = 0; i < 5; ++i)
     {
         codeString += pimpl->codeFields[i]->text();
     }
@@ -148,7 +151,7 @@ void TBAuthCodeDialog::onAccepted()
     bool ok;
     pimpl->authCode = codeString.toInt(&ok);
 
-    if (ok && pimpl->authCode >= 10000 && pimpl->authCode <= 99999)
+    if(ok && pimpl->authCode >= 10000 && pimpl->authCode <= 99999)
     {
         accept();
     }

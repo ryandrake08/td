@@ -20,15 +20,15 @@ void TBPlayersModel::on_stateChanged(const QString& key, const QVariant& value)
     }
 }
 
-QVariant TBPlayersModel::data(const QModelIndex &index, int role) const
+QVariant TBPlayersModel::data(const QModelIndex& index, int role) const
 {
-    if (!index.isValid())
+    if(!index.isValid())
         return QVariant();
 
     // Handle checkbox for the "Seated" column (column 1)
-    if (index.column() == 1) // "seat_name" column
+    if(index.column() == 1) // "seat_name" column
     {
-        if (role == Qt::CheckStateRole)
+        if(role == Qt::CheckStateRole)
         {
             // Get the player data for this row
             QVariantMap rowData = this->getRowData(index.row());
@@ -37,19 +37,19 @@ QVariant TBPlayersModel::data(const QModelIndex &index, int role) const
             // Checkbox is checked if seat_name is not empty
             return seatName.isEmpty() ? Qt::Unchecked : Qt::Checked;
         }
-        else if (role == Qt::DisplayRole)
+        else if(role == Qt::DisplayRole)
         {
             // Show "Seat" label next to the checkbox
             return tr("Seat");
         }
-        else if (role == Qt::TextAlignmentRole)
+        else if(role == Qt::TextAlignmentRole)
         {
             // Center "Seated" column content horizontally and vertically
             return static_cast<int>(Qt::AlignCenter);
         }
     }
     // Handle text alignment for "Player Name" column (column 0)
-    else if (index.column() == 0 && role == Qt::TextAlignmentRole)
+    else if(index.column() == 0 && role == Qt::TextAlignmentRole)
     {
         // Left-justify and center vertically for Player Name
         return static_cast<int>(Qt::AlignLeft | Qt::AlignVCenter);
@@ -59,13 +59,13 @@ QVariant TBPlayersModel::data(const QModelIndex &index, int role) const
     return TBVariantListTableModel::data(index, role);
 }
 
-bool TBPlayersModel::setData(const QModelIndex &index, const QVariant &value, int role)
+bool TBPlayersModel::setData(const QModelIndex& index, const QVariant& value, int role)
 {
-    if (!index.isValid())
+    if(!index.isValid())
         return false;
 
     // Handle checkbox toggle for the "Seated" column (column 1)
-    if (index.column() == 1 && role == Qt::CheckStateRole)
+    if(index.column() == 1 && role == Qt::CheckStateRole)
     {
         Qt::CheckState checkState = static_cast<Qt::CheckState>(value.toInt());
 
@@ -74,7 +74,7 @@ bool TBPlayersModel::setData(const QModelIndex &index, const QVariant &value, in
         QString playerName = rowData["player_name"].toString();
         QString playerId = rowData["player_id"].toString();
 
-        if (checkState == Qt::Checked)
+        if(checkState == Qt::Checked)
         {
             // Request to seat the player via signal
             Q_EMIT seatPlayerRequested(playerId);
@@ -93,15 +93,15 @@ bool TBPlayersModel::setData(const QModelIndex &index, const QVariant &value, in
     return TBVariantListTableModel::setData(index, value, role);
 }
 
-Qt::ItemFlags TBPlayersModel::flags(const QModelIndex &index) const
+Qt::ItemFlags TBPlayersModel::flags(const QModelIndex& index) const
 {
-    if (!index.isValid())
+    if(!index.isValid())
         return Qt::NoItemFlags;
 
     Qt::ItemFlags flags = Qt::ItemIsEnabled | Qt::ItemIsSelectable;
 
     // Make the "Seated" column (column 1) checkable
-    if (index.column() == 1)
+    if(index.column() == 1)
     {
         flags |= Qt::ItemIsUserCheckable;
     }

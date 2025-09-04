@@ -21,13 +21,13 @@ QWidget* TBDateEditDelegate::createEditor(QWidget* parent, const QStyleOptionVie
 void TBDateEditDelegate::setEditorData(QWidget* editor, const QModelIndex& index) const
 {
     QDateEdit* dateEdit = qobject_cast<QDateEdit*>(editor);
-    if (!dateEdit)
+    if(!dateEdit)
         return;
 
     QString dateString = index.model()->data(index, Qt::EditRole).toString();
     QDateTime dateTime = QDateTime::fromString(dateString, Qt::ISODate);
 
-    if (dateTime.isValid())
+    if(dateTime.isValid())
     {
         dateEdit->setDate(dateTime.date());
     }
@@ -41,7 +41,7 @@ void TBDateEditDelegate::setEditorData(QWidget* editor, const QModelIndex& index
 void TBDateEditDelegate::setModelData(QWidget* editor, QAbstractItemModel* model, const QModelIndex& index) const
 {
     QDateEdit* dateEdit = qobject_cast<QDateEdit*>(editor);
-    if (!dateEdit)
+    if(!dateEdit)
         return;
 
     QDate date = dateEdit->date();
@@ -64,7 +64,7 @@ QString TBDateEditDelegate::displayText(const QVariant& value, const QLocale& lo
     QString dateString = value.toString();
     QDateTime dateTime = QDateTime::fromString(dateString, Qt::ISODate);
 
-    if (dateTime.isValid())
+    if(dateTime.isValid())
     {
         return dateTime.date().toString("MMM d, yyyy");
     }

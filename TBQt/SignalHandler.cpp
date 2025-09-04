@@ -1,11 +1,11 @@
 #include "SignalHandler.hpp"
 
-#include <QSocketNotifier>
 #include <QDebug>
+#include <QSocketNotifier>
 
 #include <csignal>
-#include <unistd.h>
 #include <sys/socket.h>
+#include <unistd.h>
 
 // Static member definition
 int SignalHandler::sigtermFd[2];
@@ -13,7 +13,7 @@ int SignalHandler::sigtermFd[2];
 SignalHandler::SignalHandler(QObject* parent) : QObject(parent)
 {
     // Create a socket pair for self-pipe trick
-    if (::socketpair(AF_UNIX, SOCK_STREAM, 0, sigtermFd) == -1)
+    if(::socketpair(AF_UNIX, SOCK_STREAM, 0, sigtermFd) == -1)
     {
         qWarning() << "Failed to create signal socket pair";
         return;
@@ -29,19 +29,19 @@ SignalHandler::SignalHandler(QObject* parent) : QObject(parent)
     sigemptyset(&term_action.sa_mask);
     term_action.sa_flags = SA_RESTART;
 
-    if (sigaction(SIGINT, &term_action, nullptr) == -1)
+    if(sigaction(SIGINT, &term_action, nullptr) == -1)
     {
         qWarning() << "Failed to install SIGINT handler";
         return;
     }
 
-    if (sigaction(SIGTERM, &term_action, nullptr) == -1)
+    if(sigaction(SIGTERM, &term_action, nullptr) == -1)
     {
         qWarning() << "Failed to install SIGTERM handler";
         return;
     }
 
-    if (sigaction(SIGQUIT, &term_action, nullptr) == -1)
+    if(sigaction(SIGQUIT, &term_action, nullptr) == -1)
     {
         qWarning() << "Failed to install SIGQUIT handler";
         return;
@@ -50,17 +50,17 @@ SignalHandler::SignalHandler(QObject* parent) : QObject(parent)
 
 SignalHandler::~SignalHandler()
 {
-    if (snTerm)
+    if(snTerm)
     {
         snTerm->setEnabled(false);
     }
 
-    if (sigtermFd[0] != -1)
+    if(sigtermFd[0] != -1)
     {
         close(sigtermFd[0]);
     }
 
-    if (sigtermFd[1] != -1)
+    if(sigtermFd[1] != -1)
     {
         close(sigtermFd[1]);
     }

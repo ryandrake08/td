@@ -68,7 +68,7 @@ QVariant TBVariantListTableModel::headerData(int section, Qt::Orientation orient
     return QVariant();
 }
 
-int TBVariantListTableModel::rowCount(const QModelIndex &parent) const
+int TBVariantListTableModel::rowCount(const QModelIndex& parent) const
 {
     if(parent.isValid())
     {
@@ -80,7 +80,7 @@ int TBVariantListTableModel::rowCount(const QModelIndex &parent) const
     }
 }
 
-int TBVariantListTableModel::columnCount(const QModelIndex &parent) const
+int TBVariantListTableModel::columnCount(const QModelIndex& parent) const
 {
     if(parent.isValid())
     {
@@ -92,7 +92,7 @@ int TBVariantListTableModel::columnCount(const QModelIndex &parent) const
     }
 }
 
-QVariant TBVariantListTableModel::data(const QModelIndex &index, int role) const
+QVariant TBVariantListTableModel::data(const QModelIndex& index, int role) const
 {
     if(index.isValid() && (role == Qt::DisplayRole || role == Qt::EditRole))
     {
@@ -101,7 +101,7 @@ QVariant TBVariantListTableModel::data(const QModelIndex &index, int role) const
         {
             const auto& columnInfo = this->pimpl->header_data[index.column()];
 
-            if (columnInfo.isIndexColumn)
+            if(columnInfo.isIndexColumn)
             {
                 // Return computed index value
                 return index.row() + columnInfo.indexOffset;
@@ -120,21 +120,22 @@ QVariant TBVariantListTableModel::data(const QModelIndex &index, int role) const
     return QVariant();
 }
 
-bool TBVariantListTableModel::setData(const QModelIndex &index, const QVariant &value, int role)
+bool TBVariantListTableModel::setData(const QModelIndex& index, const QVariant& value, int role)
 {
-    if (!index.isValid() || role != Qt::EditRole)
+    if(!index.isValid() || role != Qt::EditRole)
         return false;
 
-    if (index.row() >= this->pimpl->model_data.size() || index.column() >= this->pimpl->header_data.size())
+    if(index.row() >= this->pimpl->model_data.size() || index.column() >= this->pimpl->header_data.size())
         return false;
 
     const auto& columnInfo = this->pimpl->header_data[index.column()];
 
     // Index columns are not editable
-    if (columnInfo.isIndexColumn)
+    if(columnInfo.isIndexColumn)
         return false;
 
-    if (data(index, role) != value) {
+    if(data(index, role) != value)
+    {
         // Get the row data as a mutable map
         QVariantMap rowData = this->pimpl->model_data[index.row()].toMap();
 
@@ -150,15 +151,15 @@ bool TBVariantListTableModel::setData(const QModelIndex &index, const QVariant &
     return false;
 }
 
-Qt::ItemFlags TBVariantListTableModel::flags(const QModelIndex &index) const
+Qt::ItemFlags TBVariantListTableModel::flags(const QModelIndex& index) const
 {
-    if (!index.isValid())
+    if(!index.isValid())
         return Qt::NoItemFlags;
 
-    if (index.column() < this->pimpl->header_data.size())
+    if(index.column() < this->pimpl->header_data.size())
     {
         const auto& columnInfo = this->pimpl->header_data[index.column()];
-        if (columnInfo.isIndexColumn)
+        if(columnInfo.isIndexColumn)
         {
             // Index columns are not editable
             return Qt::ItemIsEnabled | Qt::ItemIsSelectable;
@@ -168,7 +169,7 @@ Qt::ItemFlags TBVariantListTableModel::flags(const QModelIndex &index) const
     return Qt::ItemIsEnabled | Qt::ItemIsSelectable | Qt::ItemIsEditable;
 }
 
-bool TBVariantListTableModel::insertRows(int row, int count, const QModelIndex &parent)
+bool TBVariantListTableModel::insertRows(int row, int count, const QModelIndex& parent)
 {
     beginInsertRows(parent, row, row + count - 1);
     // FIXME: Implement me!
@@ -176,7 +177,7 @@ bool TBVariantListTableModel::insertRows(int row, int count, const QModelIndex &
     return false;
 }
 
-bool TBVariantListTableModel::removeRows(int row, int count, const QModelIndex &parent)
+bool TBVariantListTableModel::removeRows(int row, int count, const QModelIndex& parent)
 {
     beginRemoveRows(parent, row, row + count - 1);
     // FIXME: Implement me!
@@ -186,7 +187,7 @@ bool TBVariantListTableModel::removeRows(int row, int count, const QModelIndex &
 
 QVariantMap TBVariantListTableModel::getRowData(int row) const
 {
-    if (row >= 0 && row < this->pimpl->model_data.size())
+    if(row >= 0 && row < this->pimpl->model_data.size())
     {
         return this->pimpl->model_data[row].toMap();
     }

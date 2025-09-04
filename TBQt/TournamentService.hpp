@@ -3,7 +3,8 @@
 #include <memory>
 #include <string>
 
-namespace QMdnsEngine {
+namespace QMdnsEngine
+{
     class Service;
 }
 

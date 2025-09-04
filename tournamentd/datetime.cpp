@@ -5,8 +5,8 @@
 #include <utility>
 
 #if defined(_WIN32)
-#define gmtime_r(a,b) gmtime((a))
-#define localtime_r(a,b) localtime((a))
+#define gmtime_r(a, b) gmtime((a))
+#define localtime_r(a, b) localtime((a))
 #define timegm(a) _mkgmtime((a))
 #endif
 
@@ -85,7 +85,7 @@ datetime datetime::from_local(const std::tm& tm_s)
 // Named constructor (from NMEA0183)
 datetime datetime::from_nmea0183(const std::string& timebuf, const std::string& datebuf)
 {
-    struct tm tm {0,0,0,0,0,0,0,0,0,0,nullptr};
+    struct tm tm { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, nullptr };
     if(datebuf != std::string())
     {
         // Parse month, date, year from NMEA
@@ -117,7 +117,6 @@ datetime datetime::from_nmea0183(const std::string& timebuf, const std::string& 
     auto time_pt(std::chrono::system_clock::from_time_t(tt));
     return datetime(time_pt + fractional);
 }
-
 
 // Operators
 bool datetime::operator==(const datetime& other) const
@@ -210,8 +209,8 @@ std::ostream& operator<<(std::ostream& os, const datetime& t)
         auto micros_str(ss.str());
 
         // find last q in sequence e.g. %qqqqq
-        auto millis_end(fstring.find_first_not_of('q', millis_ofs+1));
-        auto sublen(millis_end-millis_ofs);
+        auto millis_end(fstring.find_first_not_of('q', millis_ofs + 1));
+        auto sublen(millis_end - millis_ofs);
 
         // replace % with . and each q after % with a digit
         fstring.replace(millis_ofs, sublen, micros_str, 0, sublen);

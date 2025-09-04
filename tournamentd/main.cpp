@@ -1,8 +1,8 @@
 #include "program.hpp"
 #include <algorithm>
 #include <clocale>
-#include <cstdlib>
 #include <csignal>
+#include <cstdlib>
 #include <exception>
 #include <iostream>
 #include <vector>
@@ -112,8 +112,7 @@ int main(int argc, char** argv)
                 signal_handler::signal_caught = 0;
             }
 #endif
-        }
-        while(restarting);
+        } while(restarting);
 
         std::cerr << "FATAL ERROR: caught signal " << signal_handler::signal_caught << std::endl;
         return EXIT_FAILURE;

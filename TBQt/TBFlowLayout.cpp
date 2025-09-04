@@ -6,14 +6,14 @@
 
 struct TBFlowLayout::impl
 {
-    QList<QLayoutItem *> itemList;
+    QList<QLayoutItem*> itemList;
     int hSpace;
     int vSpace;
 
     impl(int hSpacing, int vSpacing) : hSpace(hSpacing), vSpace(vSpacing) {}
 };
 
-TBFlowLayout::TBFlowLayout(QWidget *parent, int margin, int hSpacing, int vSpacing) : QLayout(parent), pimpl(new impl(hSpacing, vSpacing))
+TBFlowLayout::TBFlowLayout(QWidget* parent, int margin, int hSpacing, int vSpacing) : QLayout(parent), pimpl(new impl(hSpacing, vSpacing))
 {
     setContentsMargins(margin, margin, margin, margin);
 }
@@ -25,30 +25,36 @@ TBFlowLayout::TBFlowLayout(int margin, int hSpacing, int vSpacing) : pimpl(new i
 
 TBFlowLayout::~TBFlowLayout()
 {
-    QLayoutItem *item;
-    while ((item = takeAt(0)))
+    QLayoutItem* item;
+    while((item = takeAt(0)))
         delete item;
 }
 
-void TBFlowLayout::addItem(QLayoutItem *item)
+void TBFlowLayout::addItem(QLayoutItem* item)
 {
     pimpl->itemList.append(item);
 }
 
 int TBFlowLayout::horizontalSpacing() const
 {
-    if (pimpl->hSpace >= 0) {
+    if(pimpl->hSpace >= 0)
+    {
         return pimpl->hSpace;
-    } else {
+    }
+    else
+    {
         return smartSpacing(QStyle::PM_LayoutHorizontalSpacing);
     }
 }
 
 int TBFlowLayout::verticalSpacing() const
 {
-    if (pimpl->vSpace >= 0) {
+    if(pimpl->vSpace >= 0)
+    {
         return pimpl->vSpace;
-    } else {
+    }
+    else
+    {
         return smartSpacing(QStyle::PM_LayoutVerticalSpacing);
     }
 }
@@ -58,14 +64,14 @@ int TBFlowLayout::count() const
     return pimpl->itemList.size();
 }
 
-QLayoutItem *TBFlowLayout::itemAt(int index) const
+QLayoutItem* TBFlowLayout::itemAt(int index) const
 {
     return pimpl->itemList.value(index);
 }
 
-QLayoutItem *TBFlowLayout::takeAt(int index)
+QLayoutItem* TBFlowLayout::takeAt(int index)
 {
-    if (index >= 0 && index < pimpl->itemList.size())
+    if(index >= 0 && index < pimpl->itemList.size())
         return pimpl->itemList.takeAt(index);
     return nullptr;
 }
@@ -86,7 +92,7 @@ int TBFlowLayout::heightForWidth(int width) const
     return height;
 }
 
-void TBFlowLayout::setGeometry(const QRect &rect)
+void TBFlowLayout::setGeometry(const QRect& rect)
 {
     QLayout::setGeometry(rect);
     doLayout(rect, false);
@@ -100,7 +106,7 @@ QSize TBFlowLayout::sizeHint() const
 QSize TBFlowLayout::minimumSize() const
 {
     QSize size;
-    for (const QLayoutItem *item : pimpl->itemList)
+    for(const QLayoutItem* item : pimpl->itemList)
         size = size.expandedTo(item->minimumSize());
 
     const QMargins margins = contentsMargins();
@@ -108,13 +114,14 @@ QSize TBFlowLayout::minimumSize() const
     return size;
 }
 
-int TBFlowLayout::doLayout(const QRect &rect, bool testOnly) const
+int TBFlowLayout::doLayout(const QRect& rect, bool testOnly) const
 {
     int left, top, right, bottom;
     getContentsMargins(&left, &top, &right, &bottom);
     QRect effectiveRect = rect.adjusted(+left, +top, -right, -bottom);
 
-    if (pimpl->itemList.isEmpty()) {
+    if(pimpl->itemList.isEmpty())
+    {
         return rect.y() + bottom;
     }
 
@@ -125,17 +132,19 @@ int TBFlowLayout::doLayout(const QRect &rect, bool testOnly) const
     int currentRowWidth = 0;
     int maxRowWidth = 0;
 
-    for (QLayoutItem *item : pimpl->itemList) {
-        const QWidget *wid = item->widget();
+    for(QLayoutItem* item : pimpl->itemList)
+    {
+        const QWidget* wid = item->widget();
         int spaceX = horizontalSpacing();
-        if (spaceX == -1)
+        if(spaceX == -1)
             spaceX = wid->style()->layoutSpacing(
                 QSizePolicy::PushButton, QSizePolicy::PushButton, Qt::Horizontal);
 
         int itemWidth = item->sizeHint().width();
         int nextRowWidth = currentRowWidth + itemWidth + (currentRow.isEmpty() ? 0 : spaceX);
 
-        if (nextRowWidth > effectiveRect.width() && !currentRow.isEmpty()) {
+        if(nextRowWidth > effectiveRect.width() && !currentRow.isEmpty())
+        {
             // Finish current row and start new one
             rows.append(currentRow);
             rowWidths.append(currentRowWidth);
@@ -144,7 +153,9 @@ int TBFlowLayout::doLayout(const QRect &rect, bool testOnly) const
             currentRow.clear();
             currentRow.append(item);
             currentRowWidth = itemWidth;
-        } else {
+        }
+        else
+        {
             // Add to current row
             currentRow.append(item);
             currentRowWidth = nextRowWidth;
@@ -152,7 +163,8 @@ int TBFlowLayout::doLayout(const QRect &rect, bool testOnly) const
     }
 
     // Add the last row
-    if (!currentRow.isEmpty()) {
+    if(!currentRow.isEmpty())
+    {
         rows.append(currentRow);
         rowWidths.append(currentRowWidth);
         maxRowWidth = qMax(maxRowWidth, currentRowWidth);
@@ -162,7 +174,8 @@ int TBFlowLayout::doLayout(const QRect &rect, bool testOnly) const
     int y = effectiveRect.y();
     int totalHeight = 0;
 
-    for (int rowIndex = 0; rowIndex < rows.size(); ++rowIndex) {
+    for(int rowIndex = 0; rowIndex < rows.size(); ++rowIndex)
+    {
         const QList<QLayoutItem*>& row = rows[rowIndex];
         int rowWidth = rowWidths[rowIndex];
 
@@ -171,28 +184,31 @@ int TBFlowLayout::doLayout(const QRect &rect, bool testOnly) const
         int x = startX;
         int lineHeight = 0;
 
-        for (QLayoutItem *item : row) {
-            const QWidget *wid = item->widget();
+        for(QLayoutItem* item : row)
+        {
+            const QWidget* wid = item->widget();
             int spaceX = horizontalSpacing();
-            if (spaceX == -1)
+            if(spaceX == -1)
                 spaceX = wid->style()->layoutSpacing(
                     QSizePolicy::PushButton, QSizePolicy::PushButton, Qt::Horizontal);
 
-            if (!testOnly)
+            if(!testOnly)
                 item->setGeometry(QRect(QPoint(x, y), item->sizeHint()));
 
             x += item->sizeHint().width();
-            if (item != row.last()) // Don't add spacing after last item in row
+            if(item != row.last()) // Don't add spacing after last item in row
                 x += spaceX;
 
             lineHeight = qMax(lineHeight, item->sizeHint().height());
         }
 
         // Move to next row
-        if (rowIndex < rows.size() - 1) {
+        if(rowIndex < rows.size() - 1)
+        {
             int spaceY = verticalSpacing();
-            if (spaceY == -1 && !row.isEmpty()) {
-                const QWidget *wid = row.first()->widget();
+            if(spaceY == -1 && !row.isEmpty())
+            {
+                const QWidget* wid = row.first()->widget();
                 spaceY = wid->style()->layoutSpacing(
                     QSizePolicy::PushButton, QSizePolicy::PushButton, Qt::Vertical);
             }
@@ -207,13 +223,18 @@ int TBFlowLayout::doLayout(const QRect &rect, bool testOnly) const
 
 int TBFlowLayout::smartSpacing(QStyle::PixelMetric pm) const
 {
-    QObject *parent = this->parent();
-    if (!parent) {
+    QObject* parent = this->parent();
+    if(!parent)
+    {
         return -1;
-    } else if (parent->isWidgetType()) {
-        QWidget *pw = static_cast<QWidget *>(parent);
+    }
+    else if(parent->isWidgetType())
+    {
+        QWidget* pw = static_cast<QWidget*>(parent);
         return pw->style()->pixelMetric(pm, nullptr, pw);
-    } else {
-        return static_cast<QLayout *>(parent)->spacing();
+    }
+    else
+    {
+        return static_cast<QLayout*>(parent)->spacing();
     }
 }

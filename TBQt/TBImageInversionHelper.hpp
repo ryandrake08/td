@@ -1,7 +1,7 @@
 #pragma once
 
-#include <QPixmap>
 #include <QIcon>
+#include <QPixmap>
 
 // Utility class for image inversion operations
 // Provides shared functionality for invertible UI components

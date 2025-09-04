@@ -22,12 +22,12 @@ QWidget* TBFundingTypeDelegate::createEditor(QWidget* parent, const QStyleOption
 void TBFundingTypeDelegate::setEditorData(QWidget* editor, const QModelIndex& index) const
 {
     QComboBox* comboBox = qobject_cast<QComboBox*>(editor);
-    if (!comboBox)
+    if(!comboBox)
         return;
 
     int fundingType = index.model()->data(index, Qt::EditRole).toInt();
     int comboIndex = comboBox->findData(fundingType);
-    if (comboIndex >= 0)
+    if(comboIndex >= 0)
     {
         comboBox->setCurrentIndex(comboIndex);
     }
@@ -36,7 +36,7 @@ void TBFundingTypeDelegate::setEditorData(QWidget* editor, const QModelIndex& in
 void TBFundingTypeDelegate::setModelData(QWidget* editor, QAbstractItemModel* model, const QModelIndex& index) const
 {
     QComboBox* comboBox = qobject_cast<QComboBox*>(editor);
-    if (!comboBox)
+    if(!comboBox)
         return;
 
     int fundingType = comboBox->currentData().toInt();

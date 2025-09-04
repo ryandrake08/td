@@ -23,7 +23,7 @@ private Q_SLOTS:
 
 public:
     // construct
-    TournamentConnection(QObject* parent=nullptr);
+    TournamentConnection(QObject* parent = nullptr);
     virtual ~TournamentConnection();
 
     // connect to TournamentService

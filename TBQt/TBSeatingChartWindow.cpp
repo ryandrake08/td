@@ -50,19 +50,19 @@ void TBSeatingChartWindow::on_tournamentStateChanged(const QString& key, const Q
 {
     Q_UNUSED(value)
 
-    if (key == "name")
+    if(key == "name")
     {
         updateTournamentName();
     }
-    else if (key == "buyin_text")
+    else if(key == "buyin_text")
     {
         updateTournamentBuyin();
     }
-    else if (key == "background_color")
+    else if(key == "background_color")
     {
         updateBackgroundColor();
     }
-    else if (key == "seating_chart")
+    else if(key == "seating_chart")
     {
         updateSeatingChart();
     }
@@ -77,7 +77,7 @@ void TBSeatingChartWindow::updateTournamentName()
     pimpl->ui.tournamentNameLabel->setText(tournamentName);
 
     // Window title
-    if (tournamentName.isEmpty())
+    if(tournamentName.isEmpty())
     {
         setWindowTitle("Tournament Seating Chart");
     }
@@ -101,7 +101,7 @@ void TBSeatingChartWindow::updateBackgroundColor()
 
     // Background color
     QString backgroundColorName = state.value("background_color").toString();
-    if (!backgroundColorName.isEmpty())
+    if(!backgroundColorName.isEmpty())
     {
         // TODO: Implement background color support when CSS color parsing is added
         // For now, use default colors
@@ -117,15 +117,15 @@ void TBSeatingChartWindow::updateSeatingChart()
 
     // Build tables dictionary from seating chart
     QVariantList seatingChart = state.value("seating_chart").toList();
-    for (const QVariant& entryVariant : seatingChart)
+    for(const QVariant& entryVariant : seatingChart)
     {
         QVariantMap entry = entryVariant.toMap();
         QString tableName = entry.value("table_name").toString();
 
-        if (!tableName.isEmpty())
+        if(!tableName.isEmpty())
         {
             // Add seat to table's seat list
-            if (!pimpl->tables.contains(tableName))
+            if(!pimpl->tables.contains(tableName))
             {
                 pimpl->tables[tableName] = QVariantList();
             }
@@ -135,16 +135,16 @@ void TBSeatingChartWindow::updateSeatingChart()
 
     // Get the flow layout
     auto flowLayout = static_cast<TBFlowLayout*>(pimpl->ui.scrollAreaWidgetContents->layout());
-    if (!flowLayout)
+    if(!flowLayout)
     {
         return;
     }
 
     // Clear ALL existing widgets from the layout (tables and message labels)
     QLayoutItem* item;
-    while ((item = flowLayout->takeAt(0)) != nullptr)
+    while((item = flowLayout->takeAt(0)) != nullptr)
     {
-        if (QWidget* widget = item->widget())
+        if(QWidget* widget = item->widget())
         {
             widget->deleteLater();
         }
@@ -154,11 +154,11 @@ void TBSeatingChartWindow::updateSeatingChart()
 
     // Create table widgets for each active table
     QVariantList tablesPlaying = state.value("tables_playing").toList();
-    for (const QVariant& tableNameVariant : tablesPlaying)
+    for(const QVariant& tableNameVariant : tablesPlaying)
     {
         QString tableName = tableNameVariant.toString();
 
-        if (!tableName.isEmpty())
+        if(!tableName.isEmpty())
         {
             // Create table widget
             TBTableWidget* tableWidget = new TBTableWidget(pimpl->ui.scrollAreaWidgetContents);
@@ -175,7 +175,7 @@ void TBSeatingChartWindow::updateSeatingChart()
     }
 
     // If no tables, show message
-    if (pimpl->tableWidgets.isEmpty())
+    if(pimpl->tableWidgets.isEmpty())
     {
         QLabel* messageLabel = new QLabel("No active tables in tournament");
         messageLabel->setAlignment(Qt::AlignCenter);

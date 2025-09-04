@@ -1,11 +1,11 @@
-#include "TBBuddyMainWindow.hpp"
 #include "SignalHandler.hpp"
+#include "TBBuddyMainWindow.hpp"
 
 #include <QApplication>
 #include <QCommandLineParser>
 #include <QFontDatabase>
 
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
     QApplication a(argc, argv);
 

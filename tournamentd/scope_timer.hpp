@@ -1,7 +1,7 @@
 #pragma once
-#include <string>
 #include "logger.hpp"
 #include "stopwatch.hpp"
+#include <string>
 
 class scope_timer
 {

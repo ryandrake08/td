@@ -1,13 +1,13 @@
-#include "program.hpp"
 #include "bonjour.hpp"
 #include "logger.hpp"
 #include "nlohmann/json.hpp"
+#include "program.hpp"
 #include "socket.hpp"
 #include "socketstream.hpp"
 #include <iostream>
 #include <random>
 
-static socketstream make_stream(const std::string& server, const std::string port, const std::string& unix_path=std::string())
+static socketstream make_stream(const std::string& server, const std::string port, const std::string& unix_path = std::string())
 {
     if(unix_path.empty())
     {
@@ -21,7 +21,7 @@ static socketstream make_stream(const std::string& server, const std::string por
     }
 }
 
-static void send_command(std::iostream& stream, const std::string& cmd, const std::string& auth=std::string(), nlohmann::json arg=nlohmann::json())
+static void send_command(std::iostream& stream, const std::string& cmd, const std::string& auth = std::string(), nlohmann::json arg = nlohmann::json())
 {
     arg["echo"] = 31337;
 
@@ -54,8 +54,10 @@ static void send_command(std::iostream& stream, const std::string& cmd, const st
     }
 
     // Print all fields except "echo"
-    for(auto it = res.begin(); it != res.end(); ++it) {
-        if(it.key() != "echo") {
+    for(auto it = res.begin(); it != res.end(); ++it)
+    {
+        if(it.key() != "echo")
+        {
             std::cout << it.key() << ": " << it.value() << '\n';
         }
     }
@@ -121,7 +123,7 @@ public:
 #endif
 
         // parse command-line
-        for(auto it(cmdline.begin()+1); it != cmdline.end();)
+        for(auto it(cmdline.begin() + 1); it != cmdline.end();)
         {
             auto opt(*it++);
 
@@ -133,7 +135,8 @@ public:
                 }
                 else
                 {
-                    std::cerr << "No parameter for " << opt << "\n" << usage;
+                    std::cerr << "No parameter for " << opt << "\n"
+                              << usage;
                     std::exit(EXIT_FAILURE);
                 }
             }
@@ -145,7 +148,8 @@ public:
                 }
                 else
                 {
-                    std::cerr << "No parameter for " << opt << "\n" << usage;
+                    std::cerr << "No parameter for " << opt << "\n"
+                              << usage;
                     std::exit(EXIT_FAILURE);
                 }
             }
@@ -157,7 +161,8 @@ public:
                 }
                 else
                 {
-                    std::cerr << "No parameter for " << opt << "\n" << usage;
+                    std::cerr << "No parameter for " << opt << "\n"
+                              << usage;
                     std::exit(EXIT_FAILURE);
                 }
             }
@@ -169,7 +174,8 @@ public:
                 }
                 else
                 {
-                    std::cerr << "No parameter for " << opt << "\n" << usage;
+                    std::cerr << "No parameter for " << opt << "\n"
+                              << usage;
                     std::exit(EXIT_FAILURE);
                 }
             }
@@ -235,7 +241,8 @@ public:
                 {
                     // optional max_expected_players
                     nlohmann::json arg;
-                    if(it != cmdline.end()) {
+                    if(it != cmdline.end())
+                    {
                         arg["max_expected_players"] = std::stol(*it++);
                     }
                     send_command(stream, opt, auth, arg);

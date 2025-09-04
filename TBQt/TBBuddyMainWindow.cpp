@@ -65,8 +65,8 @@ TBBuddyMainWindow::TBBuddyMainWindow() : TBBaseMainWindow(), pimpl(new impl())
 
     // configure column sizing for players view
     QHeaderView* playersHeader = this->pimpl->ui.leftTableView->horizontalHeader();
-    playersHeader->setStretchLastSection(false); // Don't auto-stretch last column
-    playersHeader->setSectionResizeMode(0, QHeaderView::Stretch);        // Player Name: stretch to fill
+    playersHeader->setStretchLastSection(false);                           // Don't auto-stretch last column
+    playersHeader->setSectionResizeMode(0, QHeaderView::Stretch);          // Player Name: stretch to fill
     playersHeader->setSectionResizeMode(1, QHeaderView::ResizeToContents); // Seated: fit content
 
     // connect player model signals to session
@@ -94,7 +94,7 @@ TBBuddyMainWindow::TBBuddyMainWindow() : TBBaseMainWindow(), pimpl(new impl())
 
     // configure column sizing for seating view
     QHeaderView* seatingHeader = this->pimpl->ui.centerTableView->horizontalHeader();
-    seatingHeader->setStretchLastSection(false); // Don't auto-stretch last column
+    seatingHeader->setStretchLastSection(false);                           // Don't auto-stretch last column
     seatingHeader->setSectionResizeMode(0, QHeaderView::ResizeToContents); // Table: fit content
     seatingHeader->setSectionResizeMode(1, QHeaderView::ResizeToContents); // Seat: fit content
     seatingHeader->setSectionResizeMode(2, QHeaderView::Stretch);          // Player Name: stretch to fill
@@ -115,7 +115,7 @@ TBBuddyMainWindow::TBBuddyMainWindow() : TBBaseMainWindow(), pimpl(new impl())
 
     // configure column sizing for results view
     QHeaderView* resultsHeader = this->pimpl->ui.rightTableView->horizontalHeader();
-    resultsHeader->setStretchLastSection(false); // Don't auto-stretch last column
+    resultsHeader->setStretchLastSection(false);                           // Don't auto-stretch last column
     resultsHeader->setSectionResizeMode(0, QHeaderView::ResizeToContents); // Place: fit content
     resultsHeader->setSectionResizeMode(1, QHeaderView::Stretch);          // Player Name: stretch to fill
     resultsHeader->setSectionResizeMode(2, QHeaderView::ResizeToContents); // Payout: fit content
@@ -310,14 +310,14 @@ void TBBuddyMainWindow::on_actionConfigure_triggered()
     // Set current configuration from tournament document
     dialog.setConfiguration(pimpl->doc.configuration());
 
-    if (dialog.exec() == QDialog::Accepted)
+    if(dialog.exec() == QDialog::Accepted)
     {
         // Get the updated configuration and apply it to the tournament document
         QVariantMap newConfiguration = dialog.configuration();
         pimpl->doc.setConfiguration(newConfiguration);
 
         // Apply configuration changes to the session if we're authorized
-        if (this->getSession().is_authorized())
+        if(this->getSession().is_authorized())
         {
             this->getSession().configure(newConfiguration);
         }
@@ -329,10 +329,10 @@ void TBBuddyMainWindow::on_actionAuthorize_triggered()
     // Create the specialized authorization code dialog
     TBAuthCodeDialog dialog(this);
 
-    if (dialog.exec() == QDialog::Accepted)
+    if(dialog.exec() == QDialog::Accepted)
     {
         int authCode = dialog.getAuthCode();
-        if (authCode >= 10000 && authCode <= 99999)
+        if(authCode >= 10000 && authCode <= 99999)
         {
             // Create new authorized client entry
             QVariantMap newClient;
@@ -362,12 +362,12 @@ void TBBuddyMainWindow::on_actionPlan_triggered()
     bool ok;
     int playerCount = QInputDialog::getInt(this, QObject::tr("Plan Tournament"), QObject::tr("Number of players to plan seating for:"), defaultPlayerCount, 1, 10000, 1, &ok);
 
-    if (ok)
+    if(ok)
     {
         // Plan seating for the specified number of players
         this->getSession().plan_seating_with_handler(playerCount, [this](const QVariantList& movements)
         {
-            if (!movements.isEmpty())
+            if(!movements.isEmpty())
             {
                 this->showPlayerMovements(movements);
             }
@@ -384,7 +384,7 @@ void TBBuddyMainWindow::on_actionShowMoves_triggered()
     // Show pending player movements
     const QVariantList& movements = pimpl->pendingMovements;
 
-    if (!movements.isEmpty())
+    if(!movements.isEmpty())
     {
         this->showPlayerMovements(movements);
     }
@@ -399,7 +399,7 @@ void TBBuddyMainWindow::on_actionRebalance_triggered()
     // Rebalance seating and show movements if any are generated
     this->getSession().rebalance_seating_with_handler([this](const QVariantList& movements)
     {
-        if (!movements.isEmpty())
+        if(!movements.isEmpty())
         {
             this->showPlayerMovements(movements);
         }
@@ -409,7 +409,6 @@ void TBBuddyMainWindow::on_actionRebalance_triggered()
         }
     });
 }
-
 
 void TBBuddyMainWindow::on_actionEndGame_triggered()
 {
@@ -447,7 +446,6 @@ void TBBuddyMainWindow::on_actionExport_triggered()
 
             // close file
             file_obj.close();
-
         }
     }
 }
@@ -504,7 +502,7 @@ void TBBuddyMainWindow::on_manageButtonClicked(const QModelIndex& index)
     // Get player ID directly from the model using Qt::UserRole
     QString playerId = index.data(Qt::UserRole).toString();
 
-    if (playerId.isEmpty())
+    if(playerId.isEmpty())
         return;
 
     // Get the tournament session state to find the player data
@@ -515,10 +513,10 @@ void TBBuddyMainWindow::on_manageButtonClicked(const QModelIndex& index)
     QVariantMap playerData;
     bool found = false;
 
-    for (const QVariant& playerVariant : seatedPlayers)
+    for(const QVariant& playerVariant : seatedPlayers)
     {
         QVariantMap player = playerVariant.toMap();
-        if (player["player_id"].toString() == playerId)
+        if(player["player_id"].toString() == playerId)
         {
             playerData = player;
             found = true;
@@ -526,7 +524,7 @@ void TBBuddyMainWindow::on_manageButtonClicked(const QModelIndex& index)
         }
     }
 
-    if (!found)
+    if(!found)
         return;
 
     // BUSINESS LOGIC FOR CREATING CONTEXT MENU (matching TBSeatingViewController.m)
@@ -544,7 +542,7 @@ void TBBuddyMainWindow::on_manageButtonClicked(const QModelIndex& index)
 
     // Add funding source menu items
     bool hasFundingSources = false;
-    for (int idx = 0; idx < fundingSources.size(); ++idx)
+    for(int idx = 0; idx < fundingSources.size(); ++idx)
     {
         QVariantMap source = fundingSources[idx].toMap();
         QString sourceName = source["name"].toString();
@@ -553,35 +551,35 @@ void TBBuddyMainWindow::on_manageButtonClicked(const QModelIndex& index)
 
         // Check if this funding source is still allowed (not past forbid_after_blind_level)
         bool allowed = true;
-        if (!forbidAfterLevel.isNull())
+        if(!forbidAfterLevel.isNull())
         {
             int forbidLevel = forbidAfterLevel.toInt();
-            if (currentBlindLevel > forbidLevel)
+            if(currentBlindLevel > forbidLevel)
                 allowed = false;
         }
 
-        if (!allowed)
+        if(!allowed)
             continue;
 
         // Determine if this funding source should be enabled based on business rules
         bool enabled = false;
 
-        if (TournamentSession::toFundingType(sourceType) == TournamentSession::FundingType::Buyin)
+        if(TournamentSession::toFundingType(sourceType) == TournamentSession::FundingType::Buyin)
         {
             // Buyins can happen at any time before forbid_after_blind_level, for any non-playing player
-            if (!playerHasBuyin)
+            if(!playerHasBuyin)
                 enabled = true;
         }
-        else if (TournamentSession::toFundingType(sourceType) == TournamentSession::FundingType::Rebuy)
+        else if(TournamentSession::toFundingType(sourceType) == TournamentSession::FundingType::Rebuy)
         {
             // Rebuys can happen after round 0, before forbid_after_blind_level, for any player that has bought in at least once
-            if (currentBlindLevel > 0 && uniqueEntries.contains(playerId))
+            if(currentBlindLevel > 0 && uniqueEntries.contains(playerId))
                 enabled = true;
         }
         else // Addon (FundingType::Addon or any other type)
         {
             // Addons can happen at any time before forbid_after_blind_level, for any playing player
-            if (playerHasBuyin)
+            if(playerHasBuyin)
                 enabled = true;
         }
 
@@ -589,9 +587,10 @@ void TBBuddyMainWindow::on_manageButtonClicked(const QModelIndex& index)
         QAction* action = contextMenu.addAction(sourceName);
         action->setEnabled(enabled);
 
-        if (enabled)
+        if(enabled)
         {
-            QObject::connect(action, &QAction::triggered, this, [this, playerId, idx]() {
+            QObject::connect(action, &QAction::triggered, this, [this, playerId, idx]()
+            {
                 this->getSession().fund_player(playerId, idx);
             });
         }
@@ -600,7 +599,7 @@ void TBBuddyMainWindow::on_manageButtonClicked(const QModelIndex& index)
     }
 
     // Add separator if we have funding sources
-    if (hasFundingSources)
+    if(hasFundingSources)
     {
         contextMenu.addSeparator();
     }
@@ -612,9 +611,10 @@ void TBBuddyMainWindow::on_manageButtonClicked(const QModelIndex& index)
     bool bustEnabled = (currentBlindLevel > 0) && playerHasBuyin;
     bustAction->setEnabled(bustEnabled);
 
-    if (bustEnabled)
+    if(bustEnabled)
     {
-        QObject::connect(bustAction, &QAction::triggered, this, [this, playerId]() {
+        QObject::connect(bustAction, &QAction::triggered, this, [this, playerId]()
+        {
             this->on_bustPlayer(playerId);
         });
     }
@@ -624,9 +624,10 @@ void TBBuddyMainWindow::on_manageButtonClicked(const QModelIndex& index)
     bool unseatEnabled = !playerHasBuyin;
     unseatAction->setEnabled(unseatEnabled);
 
-    if (unseatEnabled)
+    if(unseatEnabled)
     {
-        QObject::connect(unseatAction, &QAction::triggered, this, [this, playerId]() {
+        QObject::connect(unseatAction, &QAction::triggered, this, [this, playerId]()
+        {
             this->getSession().unseat_player(playerId);
         });
     }
@@ -773,7 +774,7 @@ void TBBuddyMainWindow::updateMovementBadge()
     int count = pimpl->pendingMovements.size();
     QString baseText = tr("Show Player Moves...");
 
-    if (count > 0)
+    if(count > 0)
     {
         QString badgeText = QString("%1 (%2)").arg(baseText).arg(count);
         pimpl->ui.actionShowMoves->setText(badgeText);
@@ -789,7 +790,7 @@ void TBBuddyMainWindow::showPlayerMovements(const QVariantList& movements)
     TBMovementDialog dialog(this);
     dialog.setMovements(movements);
 
-    if (dialog.exec() == QDialog::Accepted)
+    if(dialog.exec() == QDialog::Accepted)
     {
         // User clicked OK - clear pending movements
         pimpl->pendingMovements.clear();
@@ -800,7 +801,7 @@ void TBBuddyMainWindow::showPlayerMovements(const QVariantList& movements)
 void TBBuddyMainWindow::on_playerMovementsUpdated(const QVariantList& movements)
 {
     // Add new movements to pending movements list
-    for (const auto& movement : movements)
+    for(const auto& movement : movements)
     {
         pimpl->pendingMovements.append(movement);
     }
@@ -813,7 +814,7 @@ void TBBuddyMainWindow::on_bustPlayer(const QString& playerId)
 {
     this->getSession().bust_player_with_handler(playerId, [this](const QVariantList& movements)
     {
-        if (!movements.isEmpty())
+        if(!movements.isEmpty())
         {
             this->showPlayerMovements(movements);
         }

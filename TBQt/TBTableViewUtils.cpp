@@ -16,7 +16,7 @@ QSortFilterProxyModel* TBTableViewUtils::setupTableViewWithSorting(QWidget* pare
     tableView->setSortingEnabled(true);
 
     // Set default sort if requested
-    if (defaultSortColumn >= 0)
+    if(defaultSortColumn >= 0)
     {
         tableView->sortByColumn(defaultSortColumn, defaultSortOrder);
     }
@@ -32,12 +32,12 @@ QSortFilterProxyModel* TBTableViewUtils::setupTableViewWithSorting(QWidget* pare
 int TBTableViewUtils::getSelectedSourceRow(QTableView* tableView)
 {
     QModelIndexList selectedRows = tableView->selectionModel()->selectedRows();
-    if (selectedRows.isEmpty())
+    if(selectedRows.isEmpty())
         return -1;
 
     // Get the proxy model from the table view
     QSortFilterProxyModel* proxyModel = qobject_cast<QSortFilterProxyModel*>(tableView->model());
-    if (!proxyModel)
+    if(!proxyModel)
         return -1; // Fallback if not using proxy model
 
     // Map from proxy to source model

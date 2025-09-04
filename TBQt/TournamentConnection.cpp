@@ -133,7 +133,7 @@ void TournamentConnection::on_readyRead()
     {
         qDebug() << "parsing a line" << end << "bytes long";
 
-        auto json_data(this->pimpl->buffer.left(end+1));
+        auto json_data(this->pimpl->buffer.left(end + 1));
 
         // convert to json document
         auto json_doc(QJsonDocument::fromJson(json_data));
@@ -156,7 +156,7 @@ void TournamentConnection::on_readyRead()
         Q_EMIT this->receivedData(response);
 
         // remove parsed bytes
-        this->pimpl->buffer.remove(0, end+1);
+        this->pimpl->buffer.remove(0, end + 1);
 
         // look for next newline
         end = this->pimpl->buffer.indexOf('\n');

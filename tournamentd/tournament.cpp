@@ -7,8 +7,8 @@
 #include <algorithm>
 #include <cassert>
 #include <cstddef>
-#include <cstdlib>
 #include <cstdio>
+#include <cstdlib>
 #include <fstream>
 #include <iomanip>
 #include <sstream>
@@ -37,7 +37,7 @@ struct tournament::impl
     server game_server;
 
     // accepted authorization codes
-    std::unordered_map<int,td::authorized_client> game_auths;
+    std::unordered_map<int, td::authorized_client> game_auths;
 
     // snapshot path
     std::string snapshot_path;
@@ -202,9 +202,9 @@ struct tournament::impl
     {
         auto levels(this->game_info.gen_blind_levels(in.at("desired_duration"),
                                                      in.at("level_duration"),
-                                                     in.value("expected_buyins", std::size_t{0}),
-                                                     in.value("expected_rebuys", std::size_t{0}),
-                                                     in.value("expected_addons", std::size_t{0}),
+                                                     in.value("expected_buyins", std::size_t { 0 }),
+                                                     in.value("expected_rebuys", std::size_t { 0 }),
+                                                     in.value("expected_addons", std::size_t { 0 }),
                                                      in.value("break_duration", 0L),
                                                      in.value("antes", td::ante_type_t::none),
                                                      in.value("ante_sb_ratio", 0.2)));
@@ -898,7 +898,6 @@ struct tournament::impl
         {
             return "/tmp/tournamentd.snapshot.json";
         }
-
     }
 
     void load_snapshot()
@@ -1043,7 +1042,7 @@ int tournament::authorize(int code)
 std::pair<std::string, int> tournament::listen(const char* unix_socket_directory)
 {
     // start at default port, and increment until we find one that binds
-    for(int port(DEFAULT_PORT); port < DEFAULT_PORT+100; port++)
+    for(int port(DEFAULT_PORT); port < DEFAULT_PORT + 100; port++)
     {
         try
         {
@@ -1063,7 +1062,7 @@ std::pair<std::string, int> tournament::listen(const char* unix_socket_directory
     }
 
     // fail
-    return std::pair<std::string,int>();
+    return std::pair<std::string, int>();
 }
 
 // load configuration from file

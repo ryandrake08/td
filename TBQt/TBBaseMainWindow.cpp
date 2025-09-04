@@ -110,7 +110,7 @@ void TBBaseMainWindow::on_actionClearClock_triggered()
 
 void TBBaseMainWindow::on_actionShowHideSeatingChart_triggered()
 {
-    if (pimpl->seatingChartWindow->isVisible())
+    if(pimpl->seatingChartWindow->isVisible())
     {
         pimpl->seatingChartWindow->hide();
     }
@@ -125,7 +125,7 @@ void TBBaseMainWindow::on_actionShowHideSeatingChart_triggered()
 
 void TBBaseMainWindow::on_actionShowHideMainDisplay_triggered()
 {
-    if (pimpl->displayWindow->isVisible())
+    if(pimpl->displayWindow->isVisible())
     {
         pimpl->displayWindow->hide();
     }

@@ -47,10 +47,11 @@ TBSetupDevicesWidget::TBSetupDevicesWidget(QWidget* parent) : TBSetupTabWidget(p
 
     // Connect selection model after setting the model
     QObject::connect(pimpl->ui.tableView->selectionModel(), &QItemSelectionModel::selectionChanged,
-            [this]() {
-                bool hasSelection = pimpl->ui.tableView->selectionModel()->hasSelection();
-                pimpl->ui.removeButton->setEnabled(hasSelection);
-            });
+                     [this]()
+    {
+        bool hasSelection = pimpl->ui.tableView->selectionModel()->hasSelection();
+        pimpl->ui.removeButton->setEnabled(hasSelection);
+    });
 }
 
 TBSetupDevicesWidget::~TBSetupDevicesWidget()
@@ -91,12 +92,12 @@ void TBSetupDevicesWidget::on_addDeviceButtonClicked()
 void TBSetupDevicesWidget::on_removeDeviceButtonClicked()
 {
     int row = TBTableViewUtils::getSelectedSourceRow(pimpl->ui.tableView);
-    if (row < 0)
+    if(row < 0)
         return;
 
     // Remove from model
     QVariantList devices = pimpl->model->listData();
-    if (row >= 0 && row < devices.size())
+    if(row >= 0 && row < devices.size())
     {
         devices.removeAt(row);
         pimpl->model->setListData(devices);

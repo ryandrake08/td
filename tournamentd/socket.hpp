@@ -24,7 +24,7 @@ public:
     common_socket accept() const;
 
     // select on multiple sockets
-    static std::set<common_socket> select(const std::set<common_socket>& sockets, long usec=-1);
+    static std::set<common_socket> select(const std::set<common_socket>& sockets, long usec = -1);
 
     // does socket have data available
     long peek(void* buf, std::size_t bytes) const;
@@ -49,7 +49,7 @@ class unix_socket : public common_socket
 {
 public:
     // create a unix socket by either connecting or binding/listening
-    explicit unix_socket(const char* path, bool client=false, int backlog=5);
+    explicit unix_socket(const char* path, bool client = false, int backlog = 5);
 };
 
 class inet_socket : public common_socket
@@ -71,7 +71,7 @@ public:
     inet4_socket(const char* host, const char* service);
 
     // create a listening socket by binding to a port
-    explicit inet4_socket(const char* service, int backlog=5);
+    explicit inet4_socket(const char* service, int backlog = 5);
 };
 
 class inet6_socket : public inet_socket
@@ -81,5 +81,5 @@ public:
     inet6_socket(const char* host, const char* service);
 
     // create a listening socket by binding to a port
-    explicit inet6_socket(const char* service, int backlog=5);
+    explicit inet6_socket(const char* service, int backlog = 5);
 };

@@ -21,7 +21,7 @@ private Q_SLOTS:
 private:
     static void unixSignalHandler(int unused);
 
-    QSocketNotifier *snTerm;
+    QSocketNotifier* snTerm;
 
     static int sigtermFd[2];
 };

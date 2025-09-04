@@ -1,7 +1,7 @@
 #include "TBColorDisplayDelegate.hpp"
 
-#include <QColorDialog>
 #include <QColor>
+#include <QColorDialog>
 #include <QDebug>
 #include <QEvent>
 #include <QPainter>
@@ -31,7 +31,7 @@ QWidget* TBColorDisplayDelegate::createEditor(QWidget* parent, const QStyleOptio
 void TBColorDisplayDelegate::setEditorData(QWidget* editor, const QModelIndex& index) const
 {
     QPushButton* button = qobject_cast<QPushButton*>(editor);
-    if (!button)
+    if(!button)
         return;
 
     QString colorString = index.model()->data(index, Qt::EditRole).toString();
@@ -39,12 +39,12 @@ void TBColorDisplayDelegate::setEditorData(QWidget* editor, const QModelIndex& i
 
     button->setProperty("currentColorString", colorString);
 
-    if (color.isValid())
+    if(color.isValid())
     {
         button->setText(color.name());
         QString style = QString("background-color: %1; color: %2;")
-            .arg(color.name())
-            .arg(color.lightness() > 128 ? "black" : "white");
+                            .arg(color.name())
+                            .arg(color.lightness() > 128 ? "black" : "white");
         button->setStyleSheet(style);
     }
     else
@@ -57,11 +57,11 @@ void TBColorDisplayDelegate::setEditorData(QWidget* editor, const QModelIndex& i
 void TBColorDisplayDelegate::setModelData(QWidget* editor, QAbstractItemModel* model, const QModelIndex& index) const
 {
     QPushButton* button = qobject_cast<QPushButton*>(editor);
-    if (!button)
+    if(!button)
         return;
 
     QColor selectedColor = button->property("selectedColor").value<QColor>();
-    if (selectedColor.isValid())
+    if(selectedColor.isValid())
     {
         model->setData(index, selectedColor.name(), Qt::EditRole);
     }
@@ -78,7 +78,7 @@ void TBColorDisplayDelegate::paint(QPainter* painter, const QStyleOptionViewItem
     QString colorString = index.data().toString();
     QColor color = parseColor(colorString);
 
-    if (color.isValid())
+    if(color.isValid())
     {
         // Draw color swatch only (no text)
         QRect colorRect = option.rect.adjusted(4, 4, -4, -4);
@@ -94,14 +94,13 @@ void TBColorDisplayDelegate::paint(QPainter* painter, const QStyleOptionViewItem
     }
 }
 
-
 QColor TBColorDisplayDelegate::parseColor(const QString& colorString) const
 {
-    if (colorString.isEmpty())
+    if(colorString.isEmpty())
         return QColor();
 
     // Handle hex colors
-    if (colorString.startsWith("#"))
+    if(colorString.startsWith("#"))
         return QColor(colorString);
 
     // Handle named colors
@@ -113,7 +112,7 @@ QColor TBColorDisplayDelegate::parseColor(const QString& colorString) const
 void TBColorDisplayDelegate::onColorButtonClicked()
 {
     QPushButton* button = qobject_cast<QPushButton*>(sender());
-    if (!button)
+    if(!button)
         return;
 
     QColor currentColor = parseColor(button->property("currentColorString").toString());
@@ -121,7 +120,7 @@ void TBColorDisplayDelegate::onColorButtonClicked()
 
     // Check if button still exists after modal dialog
     QPushButton* stillValidButton = qobject_cast<QPushButton*>(sender());
-    if (!stillValidButton || !color.isValid())
+    if(!stillValidButton || !color.isValid())
         return;
 
     stillValidButton->setProperty("selectedColor", color);
@@ -129,18 +128,18 @@ void TBColorDisplayDelegate::onColorButtonClicked()
 
     // Update button background to show the color
     QString style = QString("background-color: %1; color: %2;")
-        .arg(color.name())
-        .arg(color.lightness() > 128 ? "black" : "white");
+                        .arg(color.name())
+                        .arg(color.lightness() > 128 ? "black" : "white");
     stillValidButton->setStyleSheet(style);
 }
 
 bool TBColorDisplayDelegate::eventFilter(QObject* watched, QEvent* event)
 {
     // Check if this is a focus out event on our button editor
-    if (event->type() == QEvent::FocusOut)
+    if(event->type() == QEvent::FocusOut)
     {
         QPushButton* button = qobject_cast<QPushButton*>(watched);
-        if (button)
+        if(button)
         {
             // Block focus out events to prevent Qt from destroying the editor
             // while the color dialog is open

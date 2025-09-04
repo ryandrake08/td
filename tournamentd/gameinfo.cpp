@@ -14,8 +14,8 @@
 #include <unordered_set>
 
 // update a value from json object j, with key, into value, setting dirty to true if value is updated
-template <typename T>
-static bool update_value(const nlohmann::json& j, const char* key, T& value, bool& dirty, bool conditional=true)
+template<typename T>
+static bool update_value(const nlohmann::json& j, const char* key, T& value, bool& dirty, bool conditional = true)
 {
     // find the key. if not present, do nothing and return false
     auto it(j.find(key));
@@ -112,7 +112,7 @@ class gameinfo::impl
     // ---------- seating ----------
 
     // players seated in the game
-    std::unordered_map<td::player_id_t,td::seat> seats;
+    std::unordered_map<td::player_id_t, td::seat> seats;
 
     // empty seats
     std::deque<td::seat> empty_seats;
@@ -138,8 +138,8 @@ class gameinfo::impl
     unsigned long total_chips;
 
     // total funds received, for each currency
-    std::unordered_map<std::string,double> total_cost;
-    std::unordered_map<std::string,double> total_commission;
+    std::unordered_map<std::string, double> total_cost;
+    std::unordered_map<std::string, double> total_commission;
 
     // total fund paid out, in payout_currency
     double total_equity;
@@ -177,13 +177,19 @@ class gameinfo::impl
     // utility: return whether a player exists (by id)
     bool player_exists(const td::player_id_t& player_id) const
     {
-        return std::find_if(this->players.begin(), this->players.end(), [player_id](const td::player& item) { return item.player_id == player_id; }) != this->players.end();
+        return std::find_if(this->players.begin(), this->players.end(), [player_id](const td::player& item)
+        {
+            return item.player_id == player_id;
+        }) != this->players.end();
     }
 
     // utility: return a player's name by id
     const std::string player_name(const td::player_id_t& player_id) const
     {
-        auto player_it(std::find_if(this->players.begin(), this->players.end(), [player_id](const td::player& item) { return item.player_id == player_id; }));
+        auto player_it(std::find_if(this->players.begin(), this->players.end(), [player_id](const td::player& item)
+        {
+            return item.player_id == player_id;
+        }));
         if(player_it == this->players.end())
         {
             throw std::runtime_error("failed to look up player: " + player_id);
@@ -198,17 +204,17 @@ class gameinfo::impl
     }
 
     // utility: arrange tables with lists of players
-    std::vector<std::vector<td::player_id_t> > players_at_tables() const
+    std::vector<std::vector<td::player_id_t>> players_at_tables() const
     {
         // build up two vectors, outer = tables, inner = players per table
-        std::vector<std::vector<td::player_id_t> > ret(this->table_count);
+        std::vector<std::vector<td::player_id_t>> ret(this->table_count);
 
         for(auto& seat : this->seats)
         {
             ret[seat.second.table_number].push_back(seat.first);
         }
 
-        for(std::size_t i(0); i<ret.size(); i++)
+        for(std::size_t i(0); i < ret.size(); i++)
         {
             logger(ll::debug) << "table " << i << " has " << ret[i].size() << " players\n";
         }
@@ -227,14 +233,14 @@ class gameinfo::impl
         else
         {
             // no table name configured. default to to_string of table index + 1 (table 0 -> "1")
-            return std::to_string(table_number+1);
+            return std::to_string(table_number + 1);
         }
     }
 
     const std::string seat_name(std::size_t seat_number) const
     {
         // seat number is not configurable
-        return std::to_string(seat_number+1);
+        return std::to_string(seat_number + 1);
     }
 
     // return the maximum number of chips available per player for a given denomination
@@ -246,7 +252,10 @@ class gameinfo::impl
         }
 
         // find denomination in available_chips
-        auto it(std::find_if(this->available_chips.begin(), this->available_chips.end(), [denomination](const td::chip& c) { return c.denomination == denomination; }));
+        auto it(std::find_if(this->available_chips.begin(), this->available_chips.end(), [denomination](const td::chip& c)
+        {
+            return c.denomination == denomination;
+        }));
         if(it == this->available_chips.end())
         {
             throw td::protocol_error("denomination not found in chip set");
@@ -264,7 +273,7 @@ class gameinfo::impl
         }
 
         // simple: return the first source that matches
-        for(td::funding_source_id_t src(0); src<this->funding_sources.size(); src++)
+        for(td::funding_source_id_t src(0); src < this->funding_sources.size(); src++)
         {
             if(this->funding_sources[src].type == type)
             {
@@ -303,7 +312,7 @@ class gameinfo::impl
         }
 
         // pick one at random
-        auto index(std::uniform_int_distribution<std::size_t>(0, candidates.size()-1)(this->random_engine));
+        auto index(std::uniform_int_distribution<std::size_t>(0, candidates.size() - 1)(this->random_engine));
         auto to_seat_it(candidates[index]);
 
         // set state dirty
@@ -387,7 +396,7 @@ class gameinfo::impl
             }
 
             // add a table full of new seats
-            for(std::size_t s(0); s<this->table_capacity; s++)
+            for(std::size_t s(0); s < this->table_capacity; s++)
             {
                 this->empty_seats.push_back(td::seat(this->table_count, s));
             }
@@ -419,16 +428,16 @@ class gameinfo::impl
 
         // create a new list of empty seats
         this->empty_seats.clear();
-        for(size_t t(0); t<this->table_count; t++)
+        for(size_t t(0); t < this->table_count; t++)
         {
-            for(size_t s(0); s<this->table_capacity; s++)
+            for(size_t s(0); s < this->table_capacity; s++)
             {
-                this->empty_seats.push_back(td::seat(t,s));
+                this->empty_seats.push_back(td::seat(t, s));
             }
         }
 
         // unseat any players with seat number > table_capacity
-        for(auto seat_it(this->seats.begin()); seat_it != this->seats.end(); /* do not increment */ )
+        for(auto seat_it(this->seats.begin()); seat_it != this->seats.end(); /* do not increment */)
         {
             if(seat_it->second.seat_number >= this->table_capacity)
             {
@@ -547,9 +556,9 @@ class gameinfo::impl
         auto ideal_small(static_cast<double>(last_round_denom));
 
         // output
-        std::vector<td::blind_level> levels(count+1);
+        std::vector<td::blind_level> levels(count + 1);
 
-        for(size_t i(1); i<count+1; i++)
+        for(size_t i(1); i < count + 1; i++)
         {
             // calculate nearest chip denomination
             auto round_denom(calculate_round_denomination(ideal_small, this->available_chips));
@@ -618,7 +627,6 @@ class gameinfo::impl
 
     // ----- public methods -----
 public:
-
     // re-calculate payouts
     void recalculate_payouts()
     {
@@ -649,7 +657,10 @@ public:
         {
             // manual payout:
             // look for a payout list given this number of unique entries
-            auto manual_payout_it(std::find_if(this->manual_payouts.begin(), this->manual_payouts.end(), [count_entries](const td::manual_payout& item) { return item.buyins_count == count_entries; }));
+            auto manual_payout_it(std::find_if(this->manual_payouts.begin(), this->manual_payouts.end(), [count_entries](const td::manual_payout& item)
+            {
+                return item.buyins_count == count_entries;
+            }));
             if(manual_payout_it == this->manual_payouts.end())
             {
                 logger(ll::warning) << "payout_policy is manual but no payout list with " << count_entries << " entries exists. falling back to automatic payouts\n";
@@ -702,10 +713,13 @@ public:
 
         // exponent for harmonic series = shape/(shape-1), or 0 -> 0, 0.5 -> -1, 1 -> -inf
         double f;
-        if(shape >= 1.0) {
+        if(shape >= 1.0)
+        {
             f = -INFINITY;
-        } else {
-            f = shape / (shape-1.0);
+        }
+        else
+        {
+            f = shape / (shape - 1.0);
         }
 
         // ratio for each seat is comp[seat]:total
@@ -713,9 +727,9 @@ public:
         double total(0.0);
 
         // generate proportional payouts based on harmonic series, place^f / sum(1 -> k)
-        for(size_t n(0); n<seats_paid; n++)
+        for(size_t n(0); n < seats_paid; n++)
         {
-            double c(std::pow(n+1,f));
+            double c(std::pow(n + 1, f));
             comp[n] = c;
             total += c;
         }
@@ -802,9 +816,9 @@ public:
             // always sort chips by denomination
             std::sort(this->available_chips.begin(), this->available_chips.end(),
                       [](const td::chip& c0, const td::chip& c1)
-                      {
-                          return c0.denomination < c1.denomination;
-                      });
+            {
+                return c0.denomination < c1.denomination;
+            });
         }
 
         if(update_value(config, "available_tables", this->available_tables, this->dirty))
@@ -824,35 +838,59 @@ public:
                 // remove missing players from internal state
 
                 // remove missing players from seats map
-                for(auto i(this->seats.begin()), last(this->seats.end()); i != last; ) {
-                    if(!this->player_exists(i->first)) {
+                for(auto i(this->seats.begin()), last(this->seats.end()); i != last;)
+                {
+                    if(!this->player_exists(i->first))
+                    {
                         i = this->seats.erase(i);
-                    } else {
+                    }
+                    else
+                    {
                         ++i;
                     }
                 }
 
                 // remove missing players from buyins set
-                for(auto i(this->buyins.begin()), last(this->buyins.end()); i != last; ) {
-                    if(!this->player_exists(*i)) {
+                for(auto i(this->buyins.begin()), last(this->buyins.end()); i != last;)
+                {
+                    if(!this->player_exists(*i))
+                    {
                         i = this->buyins.erase(i);
-                    } else {
+                    }
+                    else
+                    {
                         ++i;
                     }
                 }
 
                 // remove missing players from unique_entries set
-                for(auto i(this->unique_entries.begin()), last(this->unique_entries.end()); i != last; ) {
-                    if(!this->player_exists(*i)) {
+                for(auto i(this->unique_entries.begin()), last(this->unique_entries.end()); i != last;)
+                {
+                    if(!this->player_exists(*i))
+                    {
                         i = this->unique_entries.erase(i);
-                    } else {
+                    }
+                    else
+                    {
                         ++i;
                     }
                 }
 
-                this->players_finished.erase(std::remove_if(this->players_finished.begin(), this->players_finished.end(), [this](const td::player_id_t& p) { return !this->player_exists(p); }), this->players_finished.end());
-                this->bust_history.erase(std::remove_if(this->bust_history.begin(), this->bust_history.end(), [this](const td::player_id_t& p) { return !this->player_exists(p); }), this->bust_history.end());
-                this->entries.erase(std::remove_if(this->entries.begin(), this->entries.end(), [this](const td::player_id_t& p) { return !this->player_exists(p); }), this->entries.end());
+                this->players_finished.erase(std::remove_if(this->players_finished.begin(), this->players_finished.end(), [this](const td::player_id_t& p)
+                {
+                    return !this->player_exists(p);
+                }),
+                                             this->players_finished.end());
+                this->bust_history.erase(std::remove_if(this->bust_history.begin(), this->bust_history.end(), [this](const td::player_id_t& p)
+                {
+                    return !this->player_exists(p);
+                }),
+                                         this->bust_history.end());
+                this->entries.erase(std::remove_if(this->entries.begin(), this->entries.end(), [this](const td::player_id_t& p)
+                {
+                    return !this->player_exists(p);
+                }),
+                                    this->entries.end());
             }
         }
 
@@ -871,7 +909,7 @@ public:
             if(total_seats >= 2)
             {
                 // remove all seats and empty_seats that no longer exist. TODO: ignoring player_movements for now
-                (void) this->validate_table_capacity();
+                (void)this->validate_table_capacity();
             }
         }
 
@@ -1092,7 +1130,7 @@ public:
     }
 
     // some configuration gets sent to clients along with state, dump to JSON
-    void dump_configuration_state(nlohmann::json &state) const
+    void dump_configuration_state(nlohmann::json& state) const
     {
         logger(ll::debug) << "dumping tournament configuration state\n";
 
@@ -1142,7 +1180,8 @@ public:
         if(this->is_started())
         {
             os << this->current_blind_level;
-            state["current_round_number_text"] = os.str(); os.str("");
+            state["current_round_number_text"] = os.str();
+            os.str("");
         }
 
         // set time remaining based on current clock
@@ -1158,20 +1197,22 @@ public:
             {
                 // set current round description
                 os << this->blind_levels[this->current_blind_level];
-                state["current_round_text"] = os.str(); os.str("");
+                state["current_round_text"] = os.str();
+                os.str("");
 
                 // set next round description
-                if(this->current_blind_level+1 < this->blind_levels.size())
+                if(this->current_blind_level + 1 < this->blind_levels.size())
                 {
                     if(this->blind_levels[this->current_blind_level].break_duration == 0)
                     {
-                        os << this->blind_levels[this->current_blind_level+1];
+                        os << this->blind_levels[this->current_blind_level + 1];
                     }
-                    else if(this->current_blind_level+1 < this->blind_levels.size())
+                    else if(this->current_blind_level + 1 < this->blind_levels.size())
                     {
                         os << "BREAK"; // TODO: i18n
                     }
-                    state["next_round_text"] = os.str(); os.str("");
+                    state["next_round_text"] = os.str();
+                    os.str("");
                 }
             }
         }
@@ -1187,10 +1228,11 @@ public:
             state["current_round_text"] = "BREAK"; // TODO: i18n
 
             // set next round description
-            if(this->current_blind_level+1 < this->blind_levels.size())
+            if(this->current_blind_level + 1 < this->blind_levels.size())
             {
-                os << this->blind_levels[this->current_blind_level+1];
-                state["next_round_text"] = os.str(); os.str("");
+                os << this->blind_levels[this->current_blind_level + 1];
+                state["next_round_text"] = os.str();
+                os.str("");
             }
         }
 
@@ -1198,32 +1240,39 @@ public:
         if(!this->seats.empty())
         {
             os << this->seats.size();
-            state["players_left_text"] = os.str(); os.str("");
+            state["players_left_text"] = os.str();
+            os.str("");
         }
 
         // unique_entries text
         if(!this->unique_entries.empty())
         {
             os << this->unique_entries.size();
-            state["unique_entries_text"] = os.str(); os.str("");
+            state["unique_entries_text"] = os.str();
+            os.str("");
         }
 
         // entries text
         if(!this->entries.empty())
         {
             os << this->entries.size();
-            state["entries_text"] = os.str(); os.str("");
+            state["entries_text"] = os.str();
+            os.str("");
         }
 
         // average stack text
         if(!this->buyins.empty())
         {
             os << this->total_chips / this->buyins.size();
-            state["average_stack_text"] = os.str(); os.str("");
+            state["average_stack_text"] = os.str();
+            os.str("");
         }
 
         // buyin text
-        auto src_it(std::find_if(this->funding_sources.begin(), this->funding_sources.end(), [](const td::funding_source& s) { return s.type == td::funding_source_type_t::buyin; }));
+        auto src_it(std::find_if(this->funding_sources.begin(), this->funding_sources.end(), [](const td::funding_source& s)
+        {
+            return s.type == td::funding_source_type_t::buyin;
+        }));
         if(src_it != this->funding_sources.end())
         {
             os << src_it->name << ": " << src_it->cost.currency << src_it->cost.amount;
@@ -1243,14 +1292,15 @@ public:
         {
             os << "NO BUYIN"; // TODO: i18n
         }
-        state["buyin_text"] = os.str(); os.str("");
+        state["buyin_text"] = os.str();
+        os.str("");
 
         // results
         std::vector<td::result> results;
         // do players currently playing first
-        for(size_t j(0); j<this->buyins.size(); j++)
+        for(size_t j(0); j < this->buyins.size(); j++)
         {
-            td::result result(j+1);
+            td::result result(j + 1);
             if(j < this->payouts.size())
             {
                 result.payout = this->payouts[j];
@@ -1258,12 +1308,12 @@ public:
             results.push_back(result);
         }
         // then do players out, in reverse bustout order
-        for(size_t i(0); i<this->players_finished.size(); i++)
+        for(size_t i(0); i < this->players_finished.size(); i++)
         {
             auto player_id(this->players_finished[i]);
-            size_t j(this->buyins.size()+i);
+            size_t j(this->buyins.size() + i);
 
-            td::result result(j+1, this->player_name(player_id));
+            td::result result(j + 1, this->player_name(player_id));
             if(j < this->payouts.size())
             {
                 result.payout = this->payouts[j];
@@ -1316,7 +1366,7 @@ public:
 
         // table names in play
         std::vector<std::string> tables_playing(this->table_count);
-        for(size_t i(0); i<this->table_count; i++)
+        for(size_t i(0); i < this->table_count; i++)
         {
             tables_playing[i] = this->table_name(i);
         }
@@ -1397,7 +1447,7 @@ public:
         }
 
         // figure out how many tables needed
-        auto tables_needed(((max_expected-1) / this->table_capacity) + 1);
+        auto tables_needed(((max_expected - 1) / this->table_capacity) + 1);
         logger(ll::info) << "tables needed: " << tables_needed << "\n";
 
         // if this plan would require a different number of tables than already exist, then we need to re-plan
@@ -1417,11 +1467,11 @@ public:
             logger(ll::info) << "prefer: " << preferred_seats << " seats per table\n";
 
             // build up preferred seat list
-            for(std::size_t t(0); t<this->table_count; t++)
+            for(std::size_t t(0); t < this->table_count; t++)
             {
-                for(std::size_t s(0); s<preferred_seats; s++)
+                for(std::size_t s(0); s < preferred_seats; s++)
                 {
-                    this->empty_seats.push_back(td::seat(t,s));
+                    this->empty_seats.push_back(td::seat(t, s));
                 }
             }
 
@@ -1429,11 +1479,11 @@ public:
             auto extra_it(this->empty_seats.end());
 
             // add remaining seats, up to table capacity
-            for(std::size_t t(0); t<this->table_count; t++)
+            for(std::size_t t(0); t < this->table_count; t++)
             {
-                for(std::size_t s(preferred_seats); s<this->table_capacity; s++)
+                for(std::size_t s(preferred_seats); s < this->table_capacity; s++)
                 {
-                    this->empty_seats.push_back(td::seat(t,s));
+                    this->empty_seats.push_back(td::seat(t, s));
                 }
             }
 
@@ -1442,7 +1492,7 @@ public:
             std::shuffle(extra_it, this->empty_seats.end(), this->random_engine);
 
             // re-seat players and record movements
-            std::unordered_map<td::player_id_t,td::seat> new_seats;
+            std::unordered_map<td::player_id_t, td::seat> new_seats;
             for(const auto& p : this->seats)
             {
                 // seat player and remove from empty list
@@ -1555,23 +1605,23 @@ public:
 
         switch(this->rebalance_policy)
         {
-            case td::rebalance_policy_t::manual:
-                // for manual rebalancing, do nothing with tables when a player busts out
-                logger(ll::debug) << "manual rebalancing in effect. not trying to break tables or rebalance\n";
-                break;
+        case td::rebalance_policy_t::manual:
+            // for manual rebalancing, do nothing with tables when a player busts out
+            logger(ll::debug) << "manual rebalancing in effect. not trying to break tables or rebalance\n";
+            break;
 
-            case td::rebalance_policy_t::automatic:
-                // for automatic rebalancing, try to break tables and rebalance every time a player busts out
+        case td::rebalance_policy_t::automatic:
+            // for automatic rebalancing, try to break tables and rebalance every time a player busts out
+            movements = this->rebalance_seating();
+            break;
+
+        case td::rebalance_policy_t::shootout:
+            // for shootout tournaments, only break tables when there is one player left on each table or fewer players
+            if(this->table_count >= this->seats.size())
+            {
                 movements = this->rebalance_seating();
-                break;
-
-            case td::rebalance_policy_t::shootout:
-                // for shootout tournaments, only break tables when there is one player left on each table or fewer players
-                if(this->table_count >= this->seats.size())
-                {
-                    movements = this->rebalance_seating();
-                }
-                break;
+            }
+            break;
         }
 
         // collect bought-in players still seated
@@ -1580,7 +1630,7 @@ public:
             const std::unordered_set<td::player_id_t>& container;
             std::vector<td::player_id_t> playing;
             collector(const std::unordered_set<td::player_id_t>& c) : container(c) {}
-            void operator()(const std::pair<td::player_id_t,td::seat>& s)
+            void operator()(const std::pair<td::player_id_t, td::seat>& s)
             {
                 if(container.find(s.first) != container.end())
                 {
@@ -1608,7 +1658,7 @@ public:
         return minimize_player_movements(movements);
     }
 
-    template <typename T>
+    template<typename T>
     static constexpr bool has_lower_size(const T& i0, const T& i1)
     {
         return i0.size() < i1.size();
@@ -1625,7 +1675,7 @@ public:
             logger(ll::info) << "attempting to break a table\n";
 
             // break tables while (player_count-1) div table_capacity < tables
-            while(this->seats.size() <= this->table_capacity * (this->table_count-1))
+            while(this->seats.size() <= this->table_capacity * (this->table_count - 1))
             {
                 logger(ll::info) << "breaking a table. " << this->seats.size() << " players remain at " << this->table_count << " tables of " << this->table_capacity << " capacity\n";
 
@@ -1643,7 +1693,7 @@ public:
                 }
 
                 // move each player in list
-                const std::unordered_set<std::size_t> avoid = {break_table};
+                const std::unordered_set<std::size_t> avoid = { break_table };
                 for(auto& player : to_move)
                 {
                     movements.push_back(this->move_player(player, avoid));
@@ -1656,7 +1706,11 @@ public:
                 this->table_count--;
 
                 // prune empty table from our open seat list, no need to seat people at unused tables
-                this->empty_seats.erase(std::remove_if(this->empty_seats.begin(), this->empty_seats.end(), [&break_table](const td::seat& seat) { return seat.table_number == break_table; }), this->empty_seats.end());
+                this->empty_seats.erase(std::remove_if(this->empty_seats.begin(), this->empty_seats.end(), [&break_table](const td::seat& seat)
+                {
+                    return seat.table_number == break_table;
+                }),
+                                        this->empty_seats.end());
 
                 logger(ll::info) << "broken table " << break_table << ". " << this->seats.size() << " players now at " << this->table_count << " tables\n";
             }
@@ -1703,8 +1757,8 @@ public:
             logger(ll::info) << "attempting to rebalance tables\n";
 
             // find smallest and largest tables
-            auto fewest_it(std::min_element(ppt.begin(), ppt.end(), has_lower_size<std::vector<td::player_id_t> >));
-            auto most_it(std::max_element(ppt.begin(), ppt.end(), has_lower_size<std::vector<td::player_id_t> >));
+            auto fewest_it(std::min_element(ppt.begin(), ppt.end(), has_lower_size<std::vector<td::player_id_t>>));
+            auto most_it(std::max_element(ppt.begin(), ppt.end(), has_lower_size<std::vector<td::player_id_t>>));
 
             // if fewest has two fewer players than most (e.g. 6 vs 8), then rebalance
             while(!most_it->empty() && fewest_it->size() < most_it->size() - 1)
@@ -1712,7 +1766,7 @@ public:
                 logger(ll::info) << "largest table has " << most_it->size() << " players and smallest table has " << fewest_it->size() << " players\n";
 
                 // pick a random player at the table with the most players
-                auto index(std::uniform_int_distribution<std::size_t>(0, most_it->size()-1)(this->random_engine));
+                auto index(std::uniform_int_distribution<std::size_t>(0, most_it->size() - 1)(this->random_engine));
                 auto random_player((*most_it)[index]);
 
                 // subtract iterator to find table number
@@ -1823,7 +1877,7 @@ public:
         }
 
         // counts for each denomination
-        std::unordered_map<unsigned long,unsigned long> q;
+        std::unordered_map<unsigned long, unsigned long> q;
 
         // step 1: fund using highest denominaton chips available
         auto remain(source.chips);
@@ -1845,12 +1899,12 @@ public:
 
             // add chips and remove from remainder
             auto count(remain / d);
-            while(count+q[d] > this->max_chips_for(d, max_expected))
+            while(count + q[d] > this->max_chips_for(d, max_expected))
             {
                 count--;
             }
             q[d] += count;
-            remain -= count*d;
+            remain -= count * d;
 
             logger(ll::info) << "initial chips: T" << d << ": " << q[d] << '\n';
         }
@@ -1864,7 +1918,7 @@ public:
 
             // step 2: loop through and shoot for stacks of at least 8
             const unsigned long target(8);
-            for(auto cit1(this->available_chips.rbegin()), cit0(cit1+1); cit0 != this->available_chips.rend(); cit1++, cit0++)
+            for(auto cit1(this->available_chips.rbegin()), cit0(cit1 + 1); cit0 != this->available_chips.rend(); cit1++, cit0++)
             {
                 auto d0(cit0->denomination);
                 auto d1(cit1->denomination);
@@ -1878,7 +1932,7 @@ public:
 
                     // add lower denomination chips and remove from remainder
                     auto count(remain / d0);
-                    if(count+q[d0] > this->max_chips_for(d0, max_expected))
+                    if(count + q[d0] > this->max_chips_for(d0, max_expected))
                     {
                         // put it back if we exceed our available quantity
                         q[d1]++;
@@ -1889,7 +1943,7 @@ public:
                     else
                     {
                         q[d0] += count;
-                        remain -= count*d0;
+                        remain -= count * d0;
                         logger(ll::debug) << "move chips: T" << d1 << ": 1 -> T" << d0 << ": " << count << '\n';
                     }
 
@@ -1900,8 +1954,7 @@ public:
             }
 
             // step 3: keep doing the above until no chips left to move
-        }
-        while(moved_a_chip);
+        } while(moved_a_chip);
 
         // check that we can represent buyin with our chip set
         if(remain != 0)
@@ -2095,7 +2148,7 @@ public:
     }
 
     // advance to next blind level
-    bool next_blind_level(duration_t offset=duration_t::zero())
+    bool next_blind_level(duration_t offset = duration_t::zero())
     {
         if(!this->is_started())
         {
@@ -2114,7 +2167,7 @@ public:
     }
 
     // return to prevous blind level
-    bool previous_blind_level(duration_t offset=duration_t::zero())
+    bool previous_blind_level(duration_t offset = duration_t::zero())
     {
         if(!this->is_started())
         {
@@ -2155,7 +2208,8 @@ public:
         {
             // advance to next blind
             auto offset(std::chrono::duration_cast<duration_t>(this->end_of_break - sc::now()));
-            if(!this->next_blind_level(offset)) {
+            if(!this->next_blind_level(offset))
+            {
                 // if we're at the last blind level, stop the tournament
                 this->stop();
             }
@@ -2273,7 +2327,7 @@ public:
         // solve for f: y = x * f ^ (r-1)
         //
         // f = (y/x) ^ 1/(r-1)
-        auto blind_increase_factor(std::pow(static_cast<double>(last_round_sb) / static_cast<double>(first_round_sb), 1.0/static_cast<double>(rounds_in_play-1)));
+        auto blind_increase_factor(std::pow(static_cast<double>(last_round_sb) / static_cast<double>(first_round_sb), 1.0 / static_cast<double>(rounds_in_play - 1)));
 
         // pass to other generator
         return this->gen_count_blind_levels(static_cast<std::size_t>(count), level_duration, chip_up_break_duration, blind_increase_factor, antes, ante_sb_ratio);
@@ -2320,7 +2374,7 @@ void gameinfo::dump_state(nlohmann::json& state) const
 }
 
 // some configuration gets sent to clients along with state, dump to JSON
-void gameinfo::dump_configuration_state(nlohmann::json &state) const
+void gameinfo::dump_configuration_state(nlohmann::json& state) const
 {
     this->pimpl->dump_configuration_state(state);
 }

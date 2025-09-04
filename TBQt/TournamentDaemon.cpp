@@ -54,7 +54,7 @@ TournamentService TournamentDaemon::start(int code)
 
     // server is listening. mark as running and run in background
     this->pimpl->running = true;
-    this->pimpl->thread = std::thread([this,tourney]()
+    this->pimpl->thread = std::thread([this, tourney]()
     {
         std::unique_lock<std::mutex> lock(this->pimpl->running_mutex);
         while(this->pimpl->running)

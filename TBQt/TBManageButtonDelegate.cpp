@@ -20,13 +20,13 @@ void TBManageButtonDelegate::paint(QPainter* painter, const QStyleOptionViewItem
 
     // Try to add a standard list icon (simple approach)
     buttonOption.icon = QApplication::style()->standardIcon(QStyle::SP_FileDialogDetailedView);
-    if (!buttonOption.icon.isNull())
+    if(!buttonOption.icon.isNull())
     {
         buttonOption.iconSize = QSize(16, 16);
     }
 
     // Check if mouse is over this button
-    if (option.state & QStyle::State_MouseOver)
+    if(option.state & QStyle::State_MouseOver)
         buttonOption.state |= QStyle::State_MouseOver;
 
     // Draw the button
@@ -37,14 +37,14 @@ bool TBManageButtonDelegate::editorEvent(QEvent* event, QAbstractItemModel* mode
 {
     Q_UNUSED(model)
 
-    if (event->type() == QEvent::MouseButtonPress)
+    if(event->type() == QEvent::MouseButtonPress)
     {
         QMouseEvent* mouseEvent = static_cast<QMouseEvent*>(event);
-        if (mouseEvent->button() == Qt::LeftButton)
+        if(mouseEvent->button() == Qt::LeftButton)
         {
             // Check if click is within the button area (with padding)
             QRect buttonRect = option.rect.adjusted(4, 4, -4, -4);
-            if (buttonRect.contains(mouseEvent->pos()))
+            if(buttonRect.contains(mouseEvent->pos()))
             {
                 Q_EMIT buttonClicked(index);
                 return true;

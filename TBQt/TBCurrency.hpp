@@ -1,9 +1,9 @@
 #pragma once
 
+#include <QObject>
+#include <QPixmap>
 #include <QString>
 #include <QStringList>
-#include <QPixmap>
-#include <QObject>
 
 class TBCurrency : public QObject
 {

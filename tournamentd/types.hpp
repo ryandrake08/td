@@ -1,11 +1,11 @@
 #pragma once
+#include "datetime.hpp"
+#include "nlohmann/json_fwd.hpp"
 #include <chrono>
 #include <cstddef>
 #include <stdexcept>
 #include <string>
 #include <vector>
-#include "datetime.hpp"
-#include "nlohmann/json_fwd.hpp"
 
 // convert datetime to and from json
 void to_json(nlohmann::json& j, const datetime& p);
@@ -36,19 +36,43 @@ namespace td
     typedef size_t funding_source_id_t;
 
     // type of funding source (buyin, rebuy, addon)
-    enum class funding_source_type_t { buyin, rebuy, addon };
+    enum class funding_source_type_t
+    {
+        buyin,
+        rebuy,
+        addon
+    };
 
     // type of payout policy (automatic, forced, manual)
-    enum class payout_policy_t { automatic, forced, manual };
+    enum class payout_policy_t
+    {
+        automatic,
+        forced,
+        manual
+    };
 
     // type of rebalance policy (manual, automatic, shootout)
-    enum class rebalance_policy_t { manual, automatic, shootout };
+    enum class rebalance_policy_t
+    {
+        manual,
+        automatic,
+        shootout
+    };
 
     // ante type
-    enum class ante_type_t { none, traditional, bba };
+    enum class ante_type_t
+    {
+        none,
+        traditional,
+        bba
+    };
 
     // final table policy
-    enum class final_table_policy_t { fill, randomize };
+    enum class final_table_policy_t
+    {
+        fill,
+        randomize
+    };
 
     // attributes of an authorized client
     struct authorized_client
@@ -200,7 +224,7 @@ namespace td
         std::string to_seat_name;
 
         player_movement();
-        player_movement(const player_id_t& p, const std::string& n, const std::string& ft, const std::string& fs, const std::string& tt=std::string(), const std::string& ts=std::string());
+        player_movement(const player_id_t& p, const std::string& n, const std::string& ft, const std::string& fs, const std::string& tt = std::string(), const std::string& ts = std::string());
     };
     void to_json(nlohmann::json& j, const td::player_movement& p);
 
@@ -238,7 +262,7 @@ namespace td
         monetary_value_nocurrency payout;
 
         result();
-        explicit result(size_t p, const std::string& n="");
+        explicit result(size_t p, const std::string& n = "");
     };
     void to_json(nlohmann::json& j, const td::result& p);
 
@@ -250,7 +274,7 @@ namespace td
         std::string player_name;
         std::string table_name;
         std::string seat_name;
-        seat seat_position;  // numeric table and seat numbers
+        seat seat_position; // numeric table and seat numbers
 
         // unseated player
         seated_player(const player_id_t& p, bool b, const std::string& n);

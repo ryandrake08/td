@@ -24,7 +24,7 @@ bool TBInvertableImageLabel::imageInverted() const
 
 void TBInvertableImageLabel::setImageInverted(bool inverted)
 {
-    if (m_imageInverted == inverted)
+    if(m_imageInverted == inverted)
     {
         return;
     }
@@ -35,11 +35,11 @@ void TBInvertableImageLabel::setImageInverted(bool inverted)
 
 void TBInvertableImageLabel::updateImagePixmap()
 {
-    if (m_imageInverted && !m_invertedPixmap.isNull())
+    if(m_imageInverted && !m_invertedPixmap.isNull())
     {
         setPixmap(m_invertedPixmap);
     }
-    else if (!m_originalPixmap.isNull())
+    else if(!m_originalPixmap.isNull())
     {
         setPixmap(m_originalPixmap);
     }

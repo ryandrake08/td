@@ -17,14 +17,14 @@ static QString tournamentSocketDirectory()
 {
     // Try cache directory first (equivalent to NSCachesDirectory)
     QString cacheDir = QStandardPaths::writableLocation(QStandardPaths::CacheLocation);
-    if (!cacheDir.isEmpty())
+    if(!cacheDir.isEmpty())
     {
         return cacheDir;
     }
 
     // Try temp directory
     QString tempDir = QStandardPaths::writableLocation(QStandardPaths::TempLocation);
-    if (!tempDir.isEmpty())
+    if(!tempDir.isEmpty())
     {
         return tempDir;
     }
@@ -67,12 +67,12 @@ TournamentBrowser::~TournamentBrowser() = default;
 QVariantList TournamentBrowser::serviceList() const
 {
     QVariantList list;
-    for (const auto& service : pimpl->services)
+    for(const auto& service : pimpl->services)
     {
         QVariantMap map;
         map["name"] = QString::fromStdString(service->name());
         map["isRemote"] = service->is_remote();
-        if (service->is_remote())
+        if(service->is_remote())
         {
             map["address"] = QString::fromStdString(service->address());
             map["port"] = service->port();
@@ -89,9 +89,9 @@ QVariantList TournamentBrowser::serviceList() const
 QVariantList TournamentBrowser::localServiceList() const
 {
     QVariantList list;
-    for (const auto& service : pimpl->services)
+    for(const auto& service : pimpl->services)
     {
-        if (!service->is_remote())
+        if(!service->is_remote())
         {
             QVariantMap map;
             map["name"] = QString::fromStdString(service->name());
@@ -106,9 +106,9 @@ QVariantList TournamentBrowser::localServiceList() const
 QVariantList TournamentBrowser::remoteServiceList() const
 {
     QVariantList list;
-    for (const auto& service : pimpl->services)
+    for(const auto& service : pimpl->services)
     {
-        if (service->is_remote())
+        if(service->is_remote())
         {
             QVariantMap map;
             map["name"] = QString::fromStdString(service->name());
@@ -124,9 +124,9 @@ QVariantList TournamentBrowser::remoteServiceList() const
 void TournamentBrowser::on_serviceAdded(const QMdnsEngine::Service& service)
 {
     // Check if we already have this service
-    for (const auto& existingService : pimpl->services)
+    for(const auto& existingService : pimpl->services)
     {
-        if (*existingService == service)
+        if(*existingService == service)
         {
             return; // Already have this service
         }
@@ -141,10 +141,10 @@ void TournamentBrowser::on_serviceAdded(const QMdnsEngine::Service& service)
 void TournamentBrowser::on_serviceRemoved(const QMdnsEngine::Service& service)
 {
     // Find and remove the service
-    for (int i = 0; i < pimpl->services.size(); ++i)
+    for(int i = 0; i < pimpl->services.size(); ++i)
     {
         const auto& existingService = pimpl->services[i];
-        if (*existingService == service)
+        if(*existingService == service)
         {
             delete existingService;
             pimpl->services.removeAt(i);
@@ -158,10 +158,10 @@ void TournamentBrowser::on_serviceRemoved(const QMdnsEngine::Service& service)
 void TournamentBrowser::on_serviceUpdated(const QMdnsEngine::Service& service)
 {
     // Find and update the service
-    for (int i = 0; i < pimpl->services.size(); ++i)
+    for(int i = 0; i < pimpl->services.size(); ++i)
     {
         const auto& existingService = pimpl->services[i];
-        if (*existingService == service)
+        if(*existingService == service)
         {
             // Service details might have changed - recreate it
             delete existingService;
@@ -183,7 +183,7 @@ void TournamentBrowser::addLocalServices()
     filters << QStringLiteral("tournamentd.*.sock");
     QStringList socketFiles = dir.entryList(filters, QDir::Files);
 
-    for (const QString& fileName : socketFiles)
+    for(const QString& fileName : socketFiles)
     {
         QString fullPath = dir.absoluteFilePath(fileName);
         pimpl->services.append(new TournamentService(fullPath.toStdString()));

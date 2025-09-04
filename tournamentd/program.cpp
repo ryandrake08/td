@@ -4,7 +4,7 @@
 #include "tournament.hpp"
 
 #if !defined(P_tmpdir)
-#define    P_tmpdir "/tmp/"
+#define P_tmpdir "/tmp/"
 #endif
 
 struct program::impl
@@ -35,7 +35,7 @@ public:
 #endif
 
         // parse command-line
-        for(auto it(cmdline.begin()+1); it != cmdline.end();)
+        for(auto it(cmdline.begin() + 1); it != cmdline.end();)
         {
             auto cmd(*it++);
 
@@ -48,7 +48,8 @@ public:
                 }
                 else
                 {
-                    std::cerr << "No parameter for " << cmd << "\n" << usage;
+                    std::cerr << "No parameter for " << cmd << "\n"
+                              << usage;
                     std::exit(EXIT_FAILURE);
                 }
             }
@@ -61,7 +62,8 @@ public:
                 }
                 else
                 {
-                    std::cerr << "No parameter for " << cmd << "\n" << usage;
+                    std::cerr << "No parameter for " << cmd << "\n"
+                              << usage;
                     std::exit(EXIT_FAILURE);
                 }
             }
@@ -73,7 +75,8 @@ public:
                 }
                 else
                 {
-                    std::cerr << "No parameter for " << cmd << "\n" << usage;
+                    std::cerr << "No parameter for " << cmd << "\n"
+                              << usage;
                     std::exit(EXIT_FAILURE);
                 }
             }
@@ -84,7 +87,8 @@ public:
             }
             else
             {
-                std::cerr << "Unknown option: " << *it << "\n" << usage;
+                std::cerr << "Unknown option: " << *it << "\n"
+                          << usage;
                 std::exit(EXIT_FAILURE);
             }
         }

@@ -27,7 +27,7 @@ template<typename K, typename V>
 std::shared_ptr<V> get_shared_instance(const K& key)
 {
     static std::mutex m;
-    static std::unordered_map<K,std::weak_ptr<V>> cache_map;
+    static std::unordered_map<K, std::weak_ptr<V>> cache_map;
 
     std::lock_guard<std::mutex> lock(m);
 
@@ -48,14 +48,14 @@ std::shared_ptr<V> get_shared_instance(const K0& key0, const K1& key1)
     // hash function (for unordered_map)
     struct pair_hash
     {
-        std::size_t operator()(const std::pair<K0, K1> &x) const
+        std::size_t operator()(const std::pair<K0, K1>& x) const
         {
             return std::hash<K0>()(x.first) ^ std::hash<K1>()(x.second);
         }
     };
 
     static std::mutex m;
-    static std::unordered_map<std::pair<K0,K1>,std::weak_ptr<V>, pair_hash> cache_map;
+    static std::unordered_map<std::pair<K0, K1>, std::weak_ptr<V>, pair_hash> cache_map;
 
     std::lock_guard<std::mutex> lock(m);
 

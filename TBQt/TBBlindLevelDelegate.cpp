@@ -17,7 +17,7 @@ QWidget* TBBlindLevelDelegate::createEditor(QWidget* parent, const QStyleOptionV
     comboBox->addItem(tr("Start"), 0);
 
     // Add blind levels from rounds (skip round 0, start from round 1)
-    for (int i = 1; i < m_rounds.size(); i++)
+    for(int i = 1; i < m_rounds.size(); i++)
     {
         QString levelName = QString("Level %1").arg(i);
         comboBox->addItem(levelName, i);
@@ -32,22 +32,22 @@ QWidget* TBBlindLevelDelegate::createEditor(QWidget* parent, const QStyleOptionV
 void TBBlindLevelDelegate::setEditorData(QWidget* editor, const QModelIndex& index) const
 {
     QComboBox* comboBox = qobject_cast<QComboBox*>(editor);
-    if (!comboBox)
+    if(!comboBox)
         return;
 
     QVariant data = index.model()->data(index, Qt::EditRole);
-    if (!data.isValid() || data.isNull())
+    if(!data.isValid() || data.isNull())
     {
         // Key doesn't exist, select "Never"
         int comboIndex = comboBox->findData(-1);
-        if (comboIndex >= 0)
+        if(comboIndex >= 0)
             comboBox->setCurrentIndex(comboIndex);
         return;
     }
 
     int blindLevel = data.toInt();
     int comboIndex = comboBox->findData(blindLevel);
-    if (comboIndex >= 0)
+    if(comboIndex >= 0)
     {
         comboBox->setCurrentIndex(comboIndex);
     }
@@ -56,11 +56,11 @@ void TBBlindLevelDelegate::setEditorData(QWidget* editor, const QModelIndex& ind
 void TBBlindLevelDelegate::setModelData(QWidget* editor, QAbstractItemModel* model, const QModelIndex& index) const
 {
     QComboBox* comboBox = qobject_cast<QComboBox*>(editor);
-    if (!comboBox)
+    if(!comboBox)
         return;
 
     int blindLevel = comboBox->currentData().toInt();
-    if (blindLevel < 0)
+    if(blindLevel < 0)
     {
         // "Never" selected - remove the key by setting to invalid QVariant
         model->setData(index, QVariant(), Qt::EditRole);
@@ -76,19 +76,19 @@ QString TBBlindLevelDelegate::displayText(const QVariant& value, const QLocale& 
     Q_UNUSED(locale)
 
     // Check if the key exists in the data - if not, show "Never"
-    if (!value.isValid() || value.isNull())
+    if(!value.isValid() || value.isNull())
     {
         return tr("Never");
     }
 
     int blindLevel = value.toInt();
 
-    if (blindLevel < 0)
+    if(blindLevel < 0)
     {
         return tr("Never");
     }
 
-    if (blindLevel == 0)
+    if(blindLevel == 0)
     {
         return tr("Start");
     }

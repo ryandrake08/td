@@ -22,40 +22,48 @@ void TBResultsModel::on_stateChanged(const QString& key, const QVariant& value)
     }
 }
 
-QVariant TBResultsModel::data(const QModelIndex &index, int role) const
+QVariant TBResultsModel::data(const QModelIndex& index, int role) const
 {
-    if (!index.isValid())
+    if(!index.isValid())
         return QVariant();
 
     // Handle sorting role for place column to sort numerically
-    if ((role == Qt::UserRole || role == Qt::EditRole) && index.column() == 0) // "place" column
+    if((role == Qt::UserRole || role == Qt::EditRole) && index.column() == 0) // "place" column
     {
         QVariantMap rowData = this->getRowData(index.row());
         return rowData["place"].toInt(); // Return raw integer for sorting
     }
     // Handle display role for place column to show ordinals (1st, 2nd, 3rd, etc.)
-    else if (role == Qt::DisplayRole && index.column() == 0) // "place" column
+    else if(role == Qt::DisplayRole && index.column() == 0) // "place" column
     {
         QVariantMap rowData = this->getRowData(index.row());
         int place = rowData["place"].toInt();
 
-        if (place > 0)
+        if(place > 0)
         {
             // Convert to ordinal format (1st, 2nd, 3rd, etc.)
             QString suffix;
-            if (place % 100 >= 11 && place % 100 <= 13)
+            if(place % 100 >= 11 && place % 100 <= 13)
             {
                 // Special case for 11th, 12th, 13th
                 suffix = "th";
             }
             else
             {
-                switch (place % 10)
+                switch(place % 10)
                 {
-                    case 1: suffix = "st"; break;
-                    case 2: suffix = "nd"; break;
-                    case 3: suffix = "rd"; break;
-                    default: suffix = "th"; break;
+                case 1:
+                    suffix = "st";
+                    break;
+                case 2:
+                    suffix = "nd";
+                    break;
+                case 3:
+                    suffix = "rd";
+                    break;
+                default:
+                    suffix = "th";
+                    break;
                 }
             }
 
@@ -65,12 +73,12 @@ QVariant TBResultsModel::data(const QModelIndex &index, int role) const
         return rowData["place"]; // Fallback to original value
     }
     // Handle display role for payout column to extract amount from monetary structure
-    else if (role == Qt::DisplayRole && index.column() == 2) // "payout" column
+    else if(role == Qt::DisplayRole && index.column() == 2) // "payout" column
     {
         QVariantMap rowData = this->getRowData(index.row());
         QVariantMap payoutData = rowData["payout"].toMap();
 
-        if (!payoutData.isEmpty())
+        if(!payoutData.isEmpty())
         {
             // Extract amount from monetary_value_nocurrency structure
             double amount = payoutData["amount"].toDouble();
@@ -87,14 +95,14 @@ QVariant TBResultsModel::data(const QModelIndex &index, int role) const
     }
 
     // Handle text alignment for all columns
-    if (role == Qt::TextAlignmentRole)
+    if(role == Qt::TextAlignmentRole)
     {
-        if (index.column() == 1) // "Player Name" column
+        if(index.column() == 1) // "Player Name" column
         {
             // Left-justify and center vertically for Player Name
             return static_cast<int>(Qt::AlignLeft | Qt::AlignVCenter);
         }
-        else if (index.column() == 2) // "Payout" column
+        else if(index.column() == 2) // "Payout" column
         {
             // Right-justify and center vertically for Payout (currency amounts)
             return static_cast<int>(Qt::AlignRight | Qt::AlignVCenter);

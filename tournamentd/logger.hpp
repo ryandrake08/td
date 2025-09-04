@@ -2,19 +2,19 @@
 #include "datetime.hpp"
 #include "outputdebugstringbuf.hpp"
 #include <fstream>
-#include <mutex>
 #include <limits>
+#include <mutex>
 
 // Macro to include current function in log
 #if __STDC_VERSION__ < 199901L && __cplusplus < 201103L
-# if __GNUC__ >= 2
-#  define __func__ __FUNCTION__
-# else
-#  define __func__ "<unknown>"
-# endif
+#if __GNUC__ >= 2
+#define __func__ __FUNCTION__
+#else
+#define __func__ "<unknown>"
+#endif
 #endif
 #define logger(...) logstream(__func__, __VA_ARGS__)
-#define logger_enable(...) logstream::set_enabled({__VA_ARGS__})
+#define logger_enable(...) logstream::set_enabled({ __VA_ARGS__ })
 
 enum class ll
 {
@@ -24,7 +24,7 @@ enum class ll
     error = 3
 };
 
-template <typename T>
+template<typename T>
 class basic_logstream : public std::basic_ostream<T>
 {
     // global mutex to serialize access to basic_logstream and members
@@ -52,7 +52,7 @@ class basic_logstream : public std::basic_ostream<T>
 
 public:
     // public constructor creates a debugstreambuf and constructs given function name and logger level
-    explicit basic_logstream(const char* function, ll level=ll::debug) : basic_logstream(debugstreambuf(), function, level)
+    explicit basic_logstream(const char* function, ll level = ll::debug) : basic_logstream(debugstreambuf(), function, level)
     {
     }
 

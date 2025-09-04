@@ -48,10 +48,11 @@ TBSetupChipsWidget::TBSetupChipsWidget(QWidget* parent) : TBSetupTabWidget(paren
 
     // Connect selection model after setting the model
     QObject::connect(pimpl->ui.tableView->selectionModel(), &QItemSelectionModel::selectionChanged,
-            [this]() {
-                bool hasSelection = pimpl->ui.tableView->selectionModel()->hasSelection();
-                pimpl->ui.removeButton->setEnabled(hasSelection);
-            });
+                     [this]()
+    {
+        bool hasSelection = pimpl->ui.tableView->selectionModel()->hasSelection();
+        pimpl->ui.removeButton->setEnabled(hasSelection);
+    });
 }
 
 TBSetupChipsWidget::~TBSetupChipsWidget()
@@ -65,11 +66,11 @@ void TBSetupChipsWidget::setConfiguration(const QVariantMap& configuration)
 
     // Track used colors
     pimpl->usedColors.clear();
-    for (const QVariant& chipVariant : chips)
+    for(const QVariant& chipVariant : chips)
     {
         QVariantMap chip = chipVariant.toMap();
         QString color = chip.value("color").toString();
-        if (!color.isEmpty())
+        if(!color.isEmpty())
         {
             pimpl->usedColors.append(color);
         }
@@ -96,19 +97,19 @@ void TBSetupChipsWidget::on_addChipButtonClicked()
 
     // Find the next unused denomination
     int nextDenomination = 1;
-    for (int denomination : defaultDenominations)
+    for(int denomination : defaultDenominations)
     {
         bool used = false;
-        for (const QVariant& chipVariant : existingChips)
+        for(const QVariant& chipVariant : existingChips)
         {
             QVariantMap chip = chipVariant.toMap();
-            if (chip.value("denomination").toInt() == denomination)
+            if(chip.value("denomination").toInt() == denomination)
             {
                 used = true;
                 break;
             }
         }
-        if (!used)
+        if(!used)
         {
             nextDenomination = denomination;
             break;
@@ -116,14 +117,14 @@ void TBSetupChipsWidget::on_addChipButtonClicked()
     }
 
     // If all defaults are used, double the highest denomination
-    if (nextDenomination == 1 && !existingChips.isEmpty())
+    if(nextDenomination == 1 && !existingChips.isEmpty())
     {
         int maxDenomination = 0;
-        for (const QVariant& chipVariant : existingChips)
+        for(const QVariant& chipVariant : existingChips)
         {
             QVariantMap chip = chipVariant.toMap();
             int denomination = chip.value("denomination").toInt();
-            if (denomination > maxDenomination)
+            if(denomination > maxDenomination)
             {
                 maxDenomination = denomination;
             }
@@ -147,12 +148,12 @@ void TBSetupChipsWidget::on_addChipButtonClicked()
 void TBSetupChipsWidget::on_removeChipButtonClicked()
 {
     int row = TBTableViewUtils::getSelectedSourceRow(pimpl->ui.tableView);
-    if (row < 0)
+    if(row < 0)
         return;
 
     // Remove from model
     QVariantList chips = pimpl->model->listData();
-    if (row >= 0 && row < chips.size())
+    if(row >= 0 && row < chips.size())
     {
         chips.removeAt(row);
         pimpl->model->setListData(chips);
@@ -170,7 +171,8 @@ QString TBSetupChipsWidget::generateRandomColor() const
     QString color;
     int attempts = 0;
 
-    do {
+    do
+    {
         // Generate random RGB values avoiding very dark or very light colors
         int r = QRandomGenerator::global()->bounded(50, 206); // 50-205 range
         int g = QRandomGenerator::global()->bounded(50, 206);
@@ -178,7 +180,7 @@ QString TBSetupChipsWidget::generateRandomColor() const
 
         color = QColor(r, g, b).name();
         attempts++;
-    } while (pimpl->usedColors.contains(color) && attempts < 20);
+    } while(pimpl->usedColors.contains(color) && attempts < 20);
 
     pimpl->usedColors.append(color);
     return color;
@@ -187,5 +189,5 @@ QString TBSetupChipsWidget::generateRandomColor() const
 QList<int> TBSetupChipsWidget::getDefaultDenominations() const
 {
     // Standard poker chip denominations
-    return {1, 5, 10, 25, 50, 100, 500, 1000, 5000, 10000};
+    return { 1, 5, 10, 25, 50, 100, 500, 1000, 5000, 10000 };
 }

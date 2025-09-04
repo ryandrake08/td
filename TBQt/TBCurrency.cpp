@@ -10,18 +10,18 @@ struct TBCurrency::impl
 {
     enum class Type
     {
-        Standard,  // Uses Qt locale formatting
-        Custom     // Uses custom formatting rules
+        Standard, // Uses Qt locale formatting
+        Custom    // Uses custom formatting rules
     };
 
     struct CurrencyInfo
     {
-        QString code;              // "USD", "EUR", etc.
-        QString displayName;       // Localized name (filled at runtime)
-        QString imageResource;     // Resource path for image
-        Type type;                 // Standard or Custom
-        QString customSymbol;      // For custom currencies only
-        QString customFormat;      // For custom currencies only
+        QString code;          // "USD", "EUR", etc.
+        QString displayName;   // Localized name (filled at runtime)
+        QString imageResource; // Resource path for image
+        Type type;             // Standard or Custom
+        QString customSymbol;  // For custom currencies only
+        QString customFormat;  // For custom currencies only
     };
 
     static const QMap<QString, CurrencyInfo>& supportedCurrencies()
@@ -35,16 +35,16 @@ struct TBCurrency::impl
         QMap<QString, CurrencyInfo> currencies;
 
         // Standard currencies - displayName filled at runtime
-        currencies["USD"] = {"USD", "", ":/images/b_note_dollar_64x64.png", Type::Standard, "", ""};
-        currencies["EUR"] = {"EUR", "", ":/images/b_note_euro_64x64.png", Type::Standard, "", ""};
-        currencies["INR"] = {"INR", "", ":/images/b_note_rupee_64x64.png", Type::Standard, "", ""};
-        currencies["GBP"] = {"GBP", "", ":/images/b_note_sterling_64x64.png", Type::Standard, "", ""};
-        currencies["JPY"] = {"JPY", "", ":/images/b_note_yen_yuan_64x64.png", Type::Standard, "", ""};
-        currencies["CNY"] = {"CNY", "", ":/images/b_note_yen_yuan_64x64.png", Type::Standard, "", ""};
+        currencies["USD"] = { "USD", "", ":/images/b_note_dollar_64x64.png", Type::Standard, "", "" };
+        currencies["EUR"] = { "EUR", "", ":/images/b_note_euro_64x64.png", Type::Standard, "", "" };
+        currencies["INR"] = { "INR", "", ":/images/b_note_rupee_64x64.png", Type::Standard, "", "" };
+        currencies["GBP"] = { "GBP", "", ":/images/b_note_sterling_64x64.png", Type::Standard, "", "" };
+        currencies["JPY"] = { "JPY", "", ":/images/b_note_yen_yuan_64x64.png", Type::Standard, "", "" };
+        currencies["CNY"] = { "CNY", "", ":/images/b_note_yen_yuan_64x64.png", Type::Standard, "", "" };
 
         // Custom currencies with localized names
-        currencies["XBP"] = {"XBP", QObject::tr("Bucks"), ":/images/b_note_dollar_64x64.png", Type::Custom, QObject::tr("Bucks"), "#,##0 ¤"};
-        currencies["XPT"] = {"XPT", QObject::tr("Points"), ":/images/b_note_dollar_64x64.png", Type::Custom, QObject::tr("Points"), "#,##0 ¤"};
+        currencies["XBP"] = { "XBP", QObject::tr("Bucks"), ":/images/b_note_dollar_64x64.png", Type::Custom, QObject::tr("Bucks"), "#,##0 ¤" };
+        currencies["XPT"] = { "XPT", QObject::tr("Points"), ":/images/b_note_dollar_64x64.png", Type::Custom, QObject::tr("Points"), "#,##0 ¤" };
 
         return currencies;
     }
@@ -56,10 +56,13 @@ struct TBCurrency::impl
         // Dynamic fraction digits: 0 for whole numbers, 2 for decimals
         bool isWholeNumber = (amount == static_cast<long long>(amount));
 
-        if (isWholeNumber) {
+        if(isWholeNumber)
+        {
             // Format as integer currency
             return locale.toCurrencyString(static_cast<long long>(amount), currencyCode);
-        } else {
+        }
+        else
+        {
             // Format with 2 decimal places
             return locale.toCurrencyString(amount, currencyCode);
         }
@@ -88,7 +91,8 @@ QStringList TBCurrency::supportedCodes()
 QStringList TBCurrency::supportedNames()
 {
     QStringList names;
-    for (const auto& code : supportedCodes()) {
+    for(const auto& code : supportedCodes())
+    {
         names.append(currencyName(code));
     }
     return names;
@@ -100,9 +104,12 @@ QString TBCurrency::defaultCurrencyCode()
     QLocale locale;
     QString localeCode = locale.currencySymbol(QLocale::CurrencyIsoCode);
 
-    if (isValidCurrency(localeCode)) {
+    if(isValidCurrency(localeCode))
+    {
         return localeCode;
-    } else {
+    }
+    else
+    {
         return "USD"; // Fallback
     }
 }
@@ -112,20 +119,25 @@ QString TBCurrency::currencyName(const QString& currencyCode)
     const auto& currencies = impl::supportedCurrencies();
     auto it = currencies.find(currencyCode);
 
-    if (it == currencies.end()) {
+    if(it == currencies.end())
+    {
         return QObject::tr("Unknown");
     }
 
     const impl::CurrencyInfo& info = it.value();
 
-    if (info.type == impl::Type::Custom) {
+    if(info.type == impl::Type::Custom)
+    {
         return info.displayName; // Already localized
-    } else {
+    }
+    else
+    {
         // Use Qt's locale system for standard currencies
         QLocale locale;
         QString localizedName = locale.currencySymbol(QLocale::CurrencyDisplayName);
 
-        if (localizedName.isEmpty()) {
+        if(localizedName.isEmpty())
+        {
             // Fallback to currency code if no localized name available
             return currencyCode;
         }
@@ -139,16 +151,20 @@ QString TBCurrency::formatAmount(double amount, const QString& currencyCode)
     const auto& currencies = impl::supportedCurrencies();
     auto it = currencies.find(currencyCode);
 
-    if (it == currencies.end()) {
+    if(it == currencies.end())
+    {
         // Fallback to USD formatting for unknown currencies
         return impl::formatStandardCurrency(amount, "USD");
     }
 
     const impl::CurrencyInfo& info = it.value();
 
-    if (info.type == impl::Type::Standard) {
+    if(info.type == impl::Type::Standard)
+    {
         return impl::formatStandardCurrency(amount, currencyCode);
-    } else {
+    }
+    else
+    {
         return impl::formatCustomCurrency(amount, info);
     }
 }
@@ -158,7 +174,8 @@ QString TBCurrency::currencyImagePath(const QString& currencyCode)
     const auto& currencies = impl::supportedCurrencies();
     auto it = currencies.find(currencyCode);
 
-    if (it != currencies.end()) {
+    if(it != currencies.end())
+    {
         return it.value().imageResource;
     }
 

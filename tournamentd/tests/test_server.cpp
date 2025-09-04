@@ -1,23 +1,27 @@
-#include <Catch2/catch.hpp>
 #include "../server.hpp"
-#include <sstream>
-#include <functional>
+#include <Catch2/catch.hpp>
 #include <chrono>
-#include <thread>
+#include <functional>
 #include <memory>
+#include <sstream>
+#include <thread>
 
-TEST_CASE("Server creation and destruction", "[server][basic]") {
-    SECTION("Default constructor") {
+TEST_CASE("Server creation and destruction", "[server][basic]")
+{
+    SECTION("Default constructor")
+    {
         std::unique_ptr<server> s;
         REQUIRE_NOTHROW(s = std::unique_ptr<server>(new server()));
     }
 
-    SECTION("Server destruction") {
+    SECTION("Server destruction")
+    {
         auto s = std::unique_ptr<server>(new server());
         REQUIRE_NOTHROW(s.reset());
     }
 
-    SECTION("Multiple server instances") {
+    SECTION("Multiple server instances")
+    {
         auto s1 = std::unique_ptr<server>(new server());
         auto s2 = std::unique_ptr<server>(new server());
         REQUIRE(s1 != nullptr);
@@ -25,40 +29,54 @@ TEST_CASE("Server creation and destruction", "[server][basic]") {
     }
 }
 
-TEST_CASE("Server listen functionality", "[server][listen]") {
-    SECTION("Listen on unix socket only") {
+TEST_CASE("Server listen functionality", "[server][listen]")
+{
+    SECTION("Listen on unix socket only")
+    {
         server s;
         std::string temp_path = "/tmp/test_server_" + std::to_string(std::time(nullptr));
 
-        try {
+        try
+        {
             REQUIRE_NOTHROW(s.listen(temp_path.c_str()));
-        } catch (const std::exception& e) {
+        }
+        catch(const std::exception& e)
+        {
             WARN("Server listen on unix socket failed: " << e.what());
         }
     }
 
-    SECTION("Listen on unix socket and inet service") {
+    SECTION("Listen on unix socket and inet service")
+    {
         server s;
         std::string temp_path = "/tmp/test_server_inet_" + std::to_string(std::time(nullptr));
 
-        try {
+        try
+        {
             // Use port 0 to let system assign available port
             REQUIRE_NOTHROW(s.listen(temp_path.c_str(), "0"));
-        } catch (const std::exception& e) {
+        }
+        catch(const std::exception& e)
+        {
             WARN("Server listen on unix+inet failed: " << e.what());
         }
     }
 
-    SECTION("Listen with null unix path") {
+    SECTION("Listen with null unix path")
+    {
         server s;
-        try {
+        try
+        {
             REQUIRE_NOTHROW(s.listen(nullptr, "0"));
-        } catch (const std::exception& e) {
+        }
+        catch(const std::exception& e)
+        {
             WARN("Server listen with null unix path failed: " << e.what());
         }
     }
 
-    SECTION("Invalid listen parameters") {
+    SECTION("Invalid listen parameters")
+    {
         server s;
 
         // Listen with invalid parameters should throw exceptions
@@ -67,19 +85,23 @@ TEST_CASE("Server listen functionality", "[server][listen]") {
     }
 }
 
-TEST_CASE("Server poll functionality", "[server][poll]") {
-    SECTION("Poll with no clients") {
+TEST_CASE("Server poll functionality", "[server][poll]")
+{
+    SECTION("Poll with no clients")
+    {
         server s;
 
         bool new_client_called = false;
         bool handle_client_called = false;
 
-        auto handle_new_client = [&new_client_called](std::ostream&) -> bool {
+        auto handle_new_client = [&new_client_called](std::ostream&) -> bool
+        {
             new_client_called = true;
             return true;
         };
 
-        auto handle_client = [&handle_client_called](std::iostream&) -> bool {
+        auto handle_client = [&handle_client_called](std::iostream&) -> bool
+        {
             handle_client_called = true;
             return true;
         };
@@ -93,23 +115,27 @@ TEST_CASE("Server poll functionality", "[server][poll]") {
         REQUIRE_FALSE(handle_client_called);
     }
 
-    SECTION("Poll with listening server") {
+    SECTION("Poll with listening server")
+    {
         server s;
         std::string temp_path = "/tmp/test_server_poll_" + std::to_string(std::time(nullptr));
 
-        try {
+        try
+        {
             s.listen(temp_path.c_str());
 
             bool new_client_called = false;
             bool handle_client_called = false;
 
-            auto handle_new_client = [&new_client_called](std::ostream& os) -> bool {
+            auto handle_new_client = [&new_client_called](std::ostream& os) -> bool
+            {
                 new_client_called = true;
                 os << "Welcome!" << std::endl;
                 return true;
             };
 
-            auto handle_client = [&handle_client_called](std::iostream&) -> bool {
+            auto handle_client = [&handle_client_called](std::iostream&) -> bool
+            {
                 handle_client_called = true;
                 return true;
             };
@@ -121,17 +147,25 @@ TEST_CASE("Server poll functionality", "[server][poll]") {
             REQUIRE_FALSE(result);
             REQUIRE_FALSE(new_client_called);
             REQUIRE_FALSE(handle_client_called);
-
-        } catch (const std::exception& e) {
+        }
+        catch(const std::exception& e)
+        {
             WARN("Server poll test failed: " << e.what());
         }
     }
 
-    SECTION("Poll with short timeout") {
+    SECTION("Poll with short timeout")
+    {
         server s;
 
-        auto handle_new_client = [](std::ostream&) -> bool { return true; };
-        auto handle_client = [](std::iostream&) -> bool { return true; };
+        auto handle_new_client = [](std::ostream&) -> bool
+        {
+            return true;
+        };
+        auto handle_client = [](std::iostream&) -> bool
+        {
+            return true;
+        };
 
         // Poll with short timeout should return quickly when not listening
         auto start = std::chrono::steady_clock::now();
@@ -146,8 +180,10 @@ TEST_CASE("Server poll functionality", "[server][poll]") {
     }
 }
 
-TEST_CASE("Server broadcast functionality", "[server][broadcast]") {
-    SECTION("Broadcast with no clients") {
+TEST_CASE("Server broadcast functionality", "[server][broadcast]")
+{
+    SECTION("Broadcast with no clients")
+    {
         server s;
 
         // Broadcasting with no clients should not crash
@@ -156,23 +192,27 @@ TEST_CASE("Server broadcast functionality", "[server][broadcast]") {
         REQUIRE_NOTHROW(s.broadcast("Multi\nLine\nMessage"));
     }
 
-    SECTION("Broadcast with listening server") {
+    SECTION("Broadcast with listening server")
+    {
         server s;
         std::string temp_path = "/tmp/test_server_broadcast_" + std::to_string(std::time(nullptr));
 
-        try {
+        try
+        {
             s.listen(temp_path.c_str());
 
             // Should not crash even with no connected clients
             REQUIRE_NOTHROW(s.broadcast("Test broadcast message"));
             REQUIRE_NOTHROW(s.broadcast("{\"type\":\"test\",\"message\":\"json format\"}"));
-
-        } catch (const std::exception& e) {
+        }
+        catch(const std::exception& e)
+        {
             WARN("Server broadcast test failed: " << e.what());
         }
     }
 
-    SECTION("Broadcast various message types") {
+    SECTION("Broadcast various message types")
+    {
         server s;
 
         // Test different message content
@@ -187,30 +227,37 @@ TEST_CASE("Server broadcast functionality", "[server][broadcast]") {
     }
 }
 
-TEST_CASE("Server client handling", "[server][clients]") {
-    SECTION("Client handler return values") {
+TEST_CASE("Server client handling", "[server][clients]")
+{
+    SECTION("Client handler return values")
+    {
         server s;
 
         // Test handlers that return different values
-        auto handle_new_client_true = [](std::ostream& os) -> bool {
+        auto handle_new_client_true = [](std::ostream& os) -> bool
+        {
             os << "Hello" << std::endl;
             return true;
         };
 
-        auto handle_new_client_false = [](std::ostream& os) -> bool {
+        auto handle_new_client_false = [](std::ostream& os) -> bool
+        {
             os << "Goodbye" << std::endl;
             return false;
         };
 
-        auto handle_client_true = [](std::iostream& ios) -> bool {
+        auto handle_client_true = [](std::iostream& ios) -> bool
+        {
             std::string line;
-            if (std::getline(ios, line)) {
+            if(std::getline(ios, line))
+            {
                 ios << "Echo: " << line << std::endl;
             }
             return true;
         };
 
-        auto handle_client_false = [](std::iostream&) -> bool {
+        auto handle_client_false = [](std::iostream&) -> bool
+        {
             return false;
         };
 
@@ -219,14 +266,17 @@ TEST_CASE("Server client handling", "[server][clients]") {
         REQUIRE_NOTHROW(s.poll(handle_new_client_false, handle_client_false, 1000));
     }
 
-    SECTION("Client handler exceptions") {
+    SECTION("Client handler exceptions")
+    {
         server s;
 
-        auto handle_new_client_throw = [](std::ostream&) -> bool {
+        auto handle_new_client_throw = [](std::ostream&) -> bool
+        {
             throw std::runtime_error("Handler error");
         };
 
-        auto handle_client_throw = [](std::iostream&) -> bool {
+        auto handle_client_throw = [](std::iostream&) -> bool
+        {
             throw std::logic_error("Client handler error");
         };
 
@@ -235,14 +285,17 @@ TEST_CASE("Server client handling", "[server][clients]") {
     }
 }
 
-TEST_CASE("Server stream operations", "[server][streams]") {
-    SECTION("Client handler stream usage") {
+TEST_CASE("Server stream operations", "[server][streams]")
+{
+    SECTION("Client handler stream usage")
+    {
         server s;
 
         bool handler_called = false;
         std::string written_data;
 
-        auto handle_new_client = [&](std::ostream& os) -> bool {
+        auto handle_new_client = [&](std::ostream& os) -> bool
+        {
             handler_called = true;
 
             // Test various stream operations
@@ -257,10 +310,12 @@ TEST_CASE("Server stream operations", "[server][streams]") {
             return true;
         };
 
-        auto handle_client = [](std::iostream& ios) -> bool {
+        auto handle_client = [](std::iostream& ios) -> bool
+        {
             // Test bidirectional stream operations
             std::string input;
-            if (std::getline(ios, input)) {
+            if(std::getline(ios, input))
+            {
                 ios << "Response to: " << input << std::endl;
             }
 
@@ -273,52 +328,68 @@ TEST_CASE("Server stream operations", "[server][streams]") {
     }
 }
 
-TEST_CASE("Server multiple listen calls", "[server][multiple_listen]") {
-    SECTION("Multiple listen calls") {
+TEST_CASE("Server multiple listen calls", "[server][multiple_listen]")
+{
+    SECTION("Multiple listen calls")
+    {
         server s;
         std::string temp_path1 = "/tmp/test_server_multi1_" + std::to_string(std::time(nullptr));
         std::string temp_path2 = "/tmp/test_server_multi2_" + std::to_string(std::time(nullptr)) + "_2";
 
-        try {
+        try
+        {
             // First listen call
             REQUIRE_NOTHROW(s.listen(temp_path1.c_str()));
 
             // Second listen call (should handle gracefully)
             REQUIRE_NOTHROW(s.listen(temp_path2.c_str()));
-
-        } catch (const std::exception& e) {
+        }
+        catch(const std::exception& e)
+        {
             WARN("Multiple listen test failed: " << e.what());
         }
     }
 
-    SECTION("Listen after poll") {
+    SECTION("Listen after poll")
+    {
         server s;
         std::string temp_path = "/tmp/test_server_listen_after_poll_" + std::to_string(std::time(nullptr));
 
-        auto handle_new_client = [](std::ostream&) -> bool { return true; };
-        auto handle_client = [](std::iostream&) -> bool { return true; };
+        auto handle_new_client = [](std::ostream&) -> bool
+        {
+            return true;
+        };
+        auto handle_client = [](std::iostream&) -> bool
+        {
+            return true;
+        };
 
         // Poll first (with no listening sockets)
         REQUIRE_NOTHROW(s.poll(handle_new_client, handle_client, 1000));
 
-        try {
+        try
+        {
             // Then listen
             REQUIRE_NOTHROW(s.listen(temp_path.c_str()));
 
             // Poll again
             REQUIRE_NOTHROW(s.poll(handle_new_client, handle_client, 1000));
-
-        } catch (const std::exception& e) {
+        }
+        catch(const std::exception& e)
+        {
             WARN("Listen after poll test failed: " << e.what());
         }
     }
 }
 
-TEST_CASE("Server resource management", "[server][resources]") {
-    SECTION("Server cleanup on destruction") {
+TEST_CASE("Server resource management", "[server][resources]")
+{
+    SECTION("Server cleanup on destruction")
+    {
         std::string temp_path = "/tmp/test_server_cleanup_" + std::to_string(std::time(nullptr));
 
-        try {
+        try
+        {
             {
                 server s;
                 s.listen(temp_path.c_str());
@@ -330,30 +401,40 @@ TEST_CASE("Server resource management", "[server][resources]") {
                 server s2;
                 REQUIRE_NOTHROW(s2.listen(temp_path.c_str()));
             }
-
-        } catch (const std::exception& e) {
+        }
+        catch(const std::exception& e)
+        {
             WARN("Server cleanup test failed: " << e.what());
         }
     }
 
-    SECTION("Multiple server instances with different paths") {
+    SECTION("Multiple server instances with different paths")
+    {
         std::string temp_path1 = "/tmp/test_server_inst1_" + std::to_string(std::time(nullptr));
         std::string temp_path2 = "/tmp/test_server_inst2_" + std::to_string(std::time(nullptr)) + "_2";
 
-        try {
+        try
+        {
             server s1, s2;
 
             REQUIRE_NOTHROW(s1.listen(temp_path1.c_str()));
             REQUIRE_NOTHROW(s2.listen(temp_path2.c_str()));
 
             // Both should be able to poll independently
-            auto handle_new_client = [](std::ostream&) -> bool { return true; };
-            auto handle_client = [](std::iostream&) -> bool { return true; };
+            auto handle_new_client = [](std::ostream&) -> bool
+            {
+                return true;
+            };
+            auto handle_client = [](std::iostream&) -> bool
+            {
+                return true;
+            };
 
             REQUIRE_NOTHROW(s1.poll(handle_new_client, handle_client, 1000));
             REQUIRE_NOTHROW(s2.poll(handle_new_client, handle_client, 1000));
-
-        } catch (const std::exception& e) {
+        }
+        catch(const std::exception& e)
+        {
             WARN("Multiple server instances test failed: " << e.what());
         }
     }

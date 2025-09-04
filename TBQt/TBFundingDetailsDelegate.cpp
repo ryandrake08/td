@@ -1,11 +1,11 @@
 #include "TBFundingDetailsDelegate.hpp"
 #include "TBCurrency.hpp"
 
+#include <QComboBox>
 #include <QDialog>
 #include <QDialogButtonBox>
 #include <QDoubleSpinBox>
 #include <QFormLayout>
-#include <QComboBox>
 #include <QLabel>
 #include <QPushButton>
 
@@ -19,9 +19,10 @@ QWidget* TBFundingDetailsDelegate::createEditor(QWidget* parent, const QStyleOpt
 
     QPushButton* button = new QPushButton(tr("Details..."), parent);
 
-    QObject::connect(button, &QPushButton::clicked, [button, index, this]() {
+    QObject::connect(button, &QPushButton::clicked, [button, index, this]()
+    {
         QVariantMap rowData = index.model()->index(index.row(), 0).data(Qt::UserRole).toMap();
-        if (showDetailsDialog(button, rowData))
+        if(showDetailsDialog(button, rowData))
         {
             button->setProperty("modifiedData", rowData);
         }
@@ -39,15 +40,15 @@ void TBFundingDetailsDelegate::setEditorData(QWidget* editor, const QModelIndex&
 void TBFundingDetailsDelegate::setModelData(QWidget* editor, QAbstractItemModel* model, const QModelIndex& index) const
 {
     QPushButton* button = qobject_cast<QPushButton*>(editor);
-    if (!button)
+    if(!button)
         return;
 
     QVariantMap modifiedData = button->property("modifiedData").toMap();
-    if (!modifiedData.isEmpty())
+    if(!modifiedData.isEmpty())
     {
         // Update the row data with modified funding data
         model->setData(model->index(index.row(), 0), modifiedData, Qt::UserRole);
-        model->dataChanged(model->index(index.row(), 0), model->index(index.row(), model->columnCount()-1));
+        model->dataChanged(model->index(index.row(), 0), model->index(index.row(), model->columnCount() - 1));
     }
 }
 
@@ -96,14 +97,14 @@ bool TBFundingDetailsDelegate::showDetailsDialog(QWidget* parent, QVariantMap& f
     QString payoutCurrency = TBCurrency::defaultCurrencyCode(); // Default
     // Get payout currency from parent widget if available
     QWidget* parentWidget = parent;
-    while (parentWidget && !parentWidget->inherits("TBSetupFundingWidget"))
+    while(parentWidget && !parentWidget->inherits("TBSetupFundingWidget"))
     {
         parentWidget = parentWidget->parentWidget();
     }
-    if (parentWidget)
+    if(parentWidget)
     {
         QComboBox* currencyCombo = parentWidget->findChild<QComboBox*>("payoutCurrencyComboBox");
-        if (currencyCombo)
+        if(currencyCombo)
         {
             payoutCurrency = currencyCombo->currentText();
         }
@@ -125,7 +126,7 @@ bool TBFundingDetailsDelegate::showDetailsDialog(QWidget* parent, QVariantMap& f
     QObject::connect(buttonBox, &QDialogButtonBox::accepted, &dialog, &QDialog::accept);
     QObject::connect(buttonBox, &QDialogButtonBox::rejected, &dialog, &QDialog::reject);
 
-    if (dialog.exec() == QDialog::Accepted)
+    if(dialog.exec() == QDialog::Accepted)
     {
         fundingData["cost_amount"] = costSpinBox->value();
         fundingData["cost_currency"] = costCurrencyCombo->currentText();
@@ -141,15 +142,15 @@ bool TBFundingDetailsDelegate::showDetailsDialog(QWidget* parent, QVariantMap& f
 void TBFundingDetailsDelegate::onDetailsButtonClicked()
 {
     QPushButton* button = qobject_cast<QPushButton*>(sender());
-    if (!button)
+    if(!button)
         return;
 
     QModelIndex index = button->property("modelIndex").value<QModelIndex>();
-    if (!index.isValid())
+    if(!index.isValid())
         return;
 
     QVariantMap rowData = index.model()->index(index.row(), 0).data(Qt::UserRole).toMap();
-    if (showDetailsDialog(button, rowData))
+    if(showDetailsDialog(button, rowData))
     {
         button->setProperty("modifiedData", rowData);
     }

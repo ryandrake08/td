@@ -4,7 +4,10 @@
 #include <memory>
 
 QT_BEGIN_NAMESPACE
-namespace Ui { class TBConnectToDialog; }
+namespace Ui
+{
+    class TBConnectToDialog;
+}
 QT_END_NAMESPACE
 
 class TBConnectToDialog : public QDialog

@@ -1,7 +1,7 @@
 #pragma once
 
-#include <QWidget>
 #include <QVariantMap>
+#include <QWidget>
 
 class QTableView;
 class TBVariantListTableModel;
@@ -23,7 +23,6 @@ public:
     virtual void onOtherTabConfigurationChanged(const QVariantMap&) {};
 
 protected:
-
 Q_SIGNALS:
     void configurationChanged();
 };

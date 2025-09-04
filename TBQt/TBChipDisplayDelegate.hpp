@@ -1,8 +1,8 @@
 #pragma once
 
-#include <QStyledItemDelegate>
 #include <QColor>
 #include <QMap>
+#include <QStyledItemDelegate>
 
 // Custom delegate for rendering chip colors as ellipses in table views
 class TBChipDisplayDelegate : public QStyledItemDelegate

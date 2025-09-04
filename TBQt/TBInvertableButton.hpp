@@ -1,7 +1,7 @@
 #pragma once
 
-#include <QPushButton>
 #include <QPixmap>
+#include <QPushButton>
 
 class TBInvertableButton : public QPushButton
 {

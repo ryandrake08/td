@@ -58,10 +58,11 @@ TBSetupRoundsWidget::TBSetupRoundsWidget(QWidget* parent) : TBSetupTabWidget(par
 
     // Connect selection model after setting the model
     QObject::connect(pimpl->ui.tableView->selectionModel(), &QItemSelectionModel::selectionChanged,
-            [this]() {
-                bool hasSelection = pimpl->ui.tableView->selectionModel()->hasSelection();
-                pimpl->ui.removeButton->setEnabled(hasSelection);
-            });
+                     [this]()
+    {
+        bool hasSelection = pimpl->ui.tableView->selectionModel()->hasSelection();
+        pimpl->ui.removeButton->setEnabled(hasSelection);
+    });
 }
 
 TBSetupRoundsWidget::~TBSetupRoundsWidget()
@@ -110,7 +111,7 @@ void TBSetupRoundsWidget::on_generateButtonClicked()
 void TBSetupRoundsWidget::on_removeButtonClicked()
 {
     QModelIndexList selectedRows = pimpl->ui.tableView->selectionModel()->selectedRows();
-    if (selectedRows.isEmpty())
+    if(selectedRows.isEmpty())
         return;
 
     // Get the row to remove (take the first selected row)
@@ -118,7 +119,7 @@ void TBSetupRoundsWidget::on_removeButtonClicked()
 
     // Remove from model
     QVariantList rounds = pimpl->model->listData();
-    if (row >= 0 && row < rounds.size())
+    if(row >= 0 && row < rounds.size())
     {
         rounds.removeAt(row);
         pimpl->model->setListData(rounds);
@@ -138,7 +139,7 @@ QVariantMap TBSetupRoundsWidget::createDefaultRound(int littleBlind, int bigBlin
     round["big_blind"] = bigBlind;
     round["ante"] = 0;
     round["ante_type"] = TournamentSession::toInt(TournamentSession::AnteType::None);
-    round["duration"] = 20; // 20 minutes default
+    round["duration"] = 20;      // 20 minutes default
     round["break_duration"] = 0; // No break by default
     round["reason"] = QString(); // Empty break reason
     return round;
@@ -148,24 +149,26 @@ int TBSetupRoundsWidget::calculateNextBlindLevel() const
 {
     QVariantList rounds = pimpl->model->listData();
 
-    if (rounds.isEmpty())
+    if(rounds.isEmpty())
         return 2; // Start with 1/2 blinds
 
     // Find the highest big blind
     int maxBigBlind = 0;
-    for (const QVariant& roundVariant : rounds)
+    for(const QVariant& roundVariant : rounds)
     {
         QVariantMap round = roundVariant.toMap();
         int bigBlind = round.value("big_blind").toInt();
-        if (bigBlind > maxBigBlind)
+        if(bigBlind > maxBigBlind)
         {
             maxBigBlind = bigBlind;
         }
     }
 
     // Double the highest big blind, or use standard progression
-    if (maxBigBlind == 0) return 2;
-    if (maxBigBlind < 10) return maxBigBlind * 2;
+    if(maxBigBlind == 0)
+        return 2;
+    if(maxBigBlind < 10)
+        return maxBigBlind * 2;
 
     // For higher levels, use more gradual increases
     return static_cast<int>(maxBigBlind * 1.5);

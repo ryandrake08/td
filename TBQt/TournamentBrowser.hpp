@@ -3,7 +3,8 @@
 #include <QObject>
 #include <QVariantList>
 
-namespace QMdnsEngine {
+namespace QMdnsEngine
+{
     class Server;
     class Browser;
     class Service;

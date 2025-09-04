@@ -39,7 +39,7 @@ TBActionClockWindow::~TBActionClockWindow() = default;
 
 void TBActionClockWindow::showCenteredOverParent()
 {
-    if (!parentWidget())
+    if(!parentWidget())
     {
         show();
         return;
@@ -67,7 +67,7 @@ void TBActionClockWindow::on_tournamentStateChanged(const QString& key, const QV
 {
     Q_UNUSED(value);
 
-    if (key == "action_clock_time_remaining")
+    if(key == "action_clock_time_remaining")
     {
         this->updateActionClock();
     }
@@ -85,14 +85,14 @@ void TBActionClockWindow::updateActionClock()
     const QVariantMap& state = pimpl->session.state();
 
     int timeRemaining = state["action_clock_time_remaining"].toInt();
-    if (timeRemaining > 0)
+    if(timeRemaining > 0)
     {
         // Clock is active - update display and show window
         double seconds = timeRemaining / 1000.0;
         pimpl->clockWidget->setTimeRemaining(seconds);
 
         // Show window if not already visible
-        if (!isVisible())
+        if(!isVisible())
         {
             showCenteredOverParent();
         }
@@ -100,7 +100,7 @@ void TBActionClockWindow::updateActionClock()
     else
     {
         // Clock is not active - hide window
-        if (isVisible())
+        if(isVisible())
         {
             hide();
         }

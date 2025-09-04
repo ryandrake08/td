@@ -6,7 +6,7 @@
 
 QPixmap TBImageInversionHelper::createInvertedPixmap(const QPixmap& original)
 {
-    if (original.isNull())
+    if(original.isNull())
     {
         return QPixmap();
     }
@@ -14,10 +14,10 @@ QPixmap TBImageInversionHelper::createInvertedPixmap(const QPixmap& original)
     QImage image = original.toImage().convertToFormat(QImage::Format_ARGB32);
 
     // Invert RGB values while preserving alpha
-    for (int y = 0; y < image.height(); ++y)
+    for(int y = 0; y < image.height(); ++y)
     {
         QRgb* line = reinterpret_cast<QRgb*>(image.scanLine(y));
-        for (int x = 0; x < image.width(); ++x)
+        for(int x = 0; x < image.width(); ++x)
         {
             QRgb pixel = line[x];
             int alpha = qAlpha(pixel);
@@ -33,7 +33,7 @@ QPixmap TBImageInversionHelper::createInvertedPixmap(const QPixmap& original)
 
 QIcon TBImageInversionHelper::createInvertedIcon(const QIcon& original)
 {
-    if (original.isNull())
+    if(original.isNull())
     {
         return QIcon();
     }
@@ -41,7 +41,7 @@ QIcon TBImageInversionHelper::createInvertedIcon(const QIcon& original)
     QIcon invertedIcon;
     QList<QSize> availableSizes = original.availableSizes();
 
-    for (const QSize& size : availableSizes)
+    for(const QSize& size : availableSizes)
     {
         QPixmap originalPixmap = original.pixmap(size);
         QPixmap invertedPixmap = createInvertedPixmap(originalPixmap);

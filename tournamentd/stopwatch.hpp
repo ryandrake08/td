@@ -1,7 +1,7 @@
 #pragma once
 #include <chrono>
 
-template <typename T>
+template<typename T>
 class basic_stopwatch
 {
     // start and end points
@@ -21,7 +21,7 @@ public:
     }
 
     // duration_cast helper
-    template <typename D>
+    template<typename D>
     std::chrono::duration<D> elapsed() const
     {
         return std::chrono::duration_cast<std::chrono::duration<D>>(elapsed());
@@ -37,7 +37,7 @@ public:
     }
 
     // duration_cast helper
-    template <typename D>
+    template<typename D>
     std::chrono::duration<D> lap()
     {
         return std::chrono::duration_cast<std::chrono::duration<D>>(lap());

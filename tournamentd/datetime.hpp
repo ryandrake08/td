@@ -20,7 +20,7 @@ public:
     static datetime from_local(const std::string& iso8601);
     static datetime from_gm(const char* iso8601);
     static datetime from_local(const char* iso8601);
-    static datetime from_nmea0183(const std::string& timebuf, const std::string& datebuf=std::string());
+    static datetime from_nmea0183(const std::string& timebuf, const std::string& datebuf = std::string());
 
     // Renderers
     std::string gmtime() const;
@@ -52,6 +52,7 @@ public:
     class setf
     {
         const char* f;
+
     public:
         explicit setf(const char* format);
         friend std::ostream& operator<<(std::ostream& os, const setf& obj);

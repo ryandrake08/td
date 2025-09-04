@@ -20,13 +20,11 @@ TBMovementDialog::TBMovementDialog(QWidget* parent) : QDialog(parent), pimpl(new
     pimpl->ui.setupUi(this);
 
     // Set up model headers
-    pimpl->model->setHorizontalHeaderLabels({
-        tr("Player"),
-        tr("From Table"),
-        tr("From Seat"),
-        tr("To Table"),
-        tr("To Seat")
-    });
+    pimpl->model->setHorizontalHeaderLabels({ tr("Player"),
+                                              tr("From Table"),
+                                              tr("From Seat"),
+                                              tr("To Table"),
+                                              tr("To Seat") });
 
     pimpl->ui.tableView->setModel(pimpl->model);
 
@@ -50,14 +48,14 @@ void TBMovementDialog::setMovements(const QVariantList& movements)
     // Clear existing data
     pimpl->model->setRowCount(0);
 
-    if (movements.isEmpty())
+    if(movements.isEmpty())
     {
         pimpl->ui.titleLabel->setText(tr("No player movements are required."));
         return;
     }
 
     // Set title based on number of movements
-    if (movements.size() == 1)
+    if(movements.size() == 1)
     {
         pimpl->ui.titleLabel->setText(tr("The following player movement is required:"));
     }
@@ -69,7 +67,7 @@ void TBMovementDialog::setMovements(const QVariantList& movements)
     // Populate model with movement data
     pimpl->model->setRowCount(movements.size());
 
-    for (int row = 0; row < movements.size(); ++row)
+    for(int row = 0; row < movements.size(); ++row)
     {
         QVariantMap moveData = movements[row].toMap();
 
@@ -86,10 +84,10 @@ void TBMovementDialog::setMovements(const QVariantList& movements)
         pimpl->model->setItem(row, 4, new QStandardItem(toSeat));
 
         // Make all items non-editable
-        for (int col = 0; col < 5; ++col)
+        for(int col = 0; col < 5; ++col)
         {
             QStandardItem* item = pimpl->model->item(row, col);
-            if (item)
+            if(item)
             {
                 item->setFlags(item->flags() & ~Qt::ItemIsEditable);
             }

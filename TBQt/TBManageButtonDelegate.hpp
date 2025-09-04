@@ -1,7 +1,7 @@
 #pragma once
 
-#include <QStyledItemDelegate>
 #include <QModelIndex>
+#include <QStyledItemDelegate>
 
 class QWidget;
 class QStyleOptionViewItem;

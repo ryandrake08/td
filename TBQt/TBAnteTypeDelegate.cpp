@@ -14,7 +14,7 @@ QWidget* TBAnteTypeDelegate::createEditor(QWidget* parent, const QStyleOptionVie
     // Check if there's an ante for this row
     QModelIndex anteIndex = index.model()->index(index.row(), 5); // Ante column
     int ante = anteIndex.data(Qt::EditRole).toInt();
-    if (ante <= 0)
+    if(ante <= 0)
     {
         return nullptr; // No editor when no ante
     }
@@ -28,12 +28,12 @@ QWidget* TBAnteTypeDelegate::createEditor(QWidget* parent, const QStyleOptionVie
 void TBAnteTypeDelegate::setEditorData(QWidget* editor, const QModelIndex& index) const
 {
     QComboBox* comboBox = qobject_cast<QComboBox*>(editor);
-    if (!comboBox)
+    if(!comboBox)
         return;
 
     int anteType = index.model()->data(index, Qt::EditRole).toInt();
     int comboIndex = comboBox->findData(anteType);
-    if (comboIndex >= 0)
+    if(comboIndex >= 0)
     {
         comboBox->setCurrentIndex(comboIndex);
     }
@@ -42,7 +42,7 @@ void TBAnteTypeDelegate::setEditorData(QWidget* editor, const QModelIndex& index
 void TBAnteTypeDelegate::setModelData(QWidget* editor, QAbstractItemModel* model, const QModelIndex& index) const
 {
     QComboBox* comboBox = qobject_cast<QComboBox*>(editor);
-    if (!comboBox)
+    if(!comboBox)
         return;
 
     int anteType = comboBox->currentData().toInt();

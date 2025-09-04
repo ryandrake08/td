@@ -1,24 +1,28 @@
-#include <Catch2/catch.hpp>
-#include "../gameinfo.hpp"
 #include "../datetime.hpp"
+#include "../gameinfo.hpp"
 #include "nlohmann/json.hpp"
-#include <vector>
-#include <thread>
+#include <Catch2/catch.hpp>
 #include <chrono>
 #include <memory>
+#include <thread>
+#include <vector>
 
-TEST_CASE("GameInfo creation and destruction", "[gameinfo][basic]") {
-    SECTION("Default constructor") {
+TEST_CASE("GameInfo creation and destruction", "[gameinfo][basic]")
+{
+    SECTION("Default constructor")
+    {
         std::unique_ptr<gameinfo> gi;
         REQUIRE_NOTHROW(gi = std::unique_ptr<gameinfo>(new gameinfo()));
     }
 
-    SECTION("Destruction") {
+    SECTION("Destruction")
+    {
         auto gi = std::unique_ptr<gameinfo>(new gameinfo());
         REQUIRE_NOTHROW(gi.reset());
     }
 
-    SECTION("Multiple instances") {
+    SECTION("Multiple instances")
+    {
         auto gi1 = std::unique_ptr<gameinfo>(new gameinfo());
         auto gi2 = std::unique_ptr<gameinfo>(new gameinfo());
         REQUIRE(gi1 != nullptr);
@@ -26,47 +30,37 @@ TEST_CASE("GameInfo creation and destruction", "[gameinfo][basic]") {
     }
 }
 
-TEST_CASE("GameInfo configuration", "[gameinfo][configuration]") {
-    SECTION("Configure with empty JSON") {
+TEST_CASE("GameInfo configuration", "[gameinfo][configuration]")
+{
+    SECTION("Configure with empty JSON")
+    {
         gameinfo gi;
         nlohmann::json empty_config = nlohmann::json::object();
         REQUIRE_NOTHROW(gi.configure(empty_config));
     }
 
-    SECTION("Configure with basic JSON") {
+    SECTION("Configure with basic JSON")
+    {
         gameinfo gi;
         nlohmann::json config = {
-            {"blind_levels", {{{"little_blind", 25}, {"big_blind", 50}, {"duration", 1200}}}},
-            {"chips", {{{"denomination", 25}, {"count_available", 100}}}},
-            {"tables", {{{"table_name", "Table 1"}}}},
-            {"players", {{{"player_id", "player1"}, {"name", "John Doe"}}}}
+            { "blind_levels", { { { "little_blind", 25 }, { "big_blind", 50 }, { "duration", 1200 } } } },
+            { "chips", { { { "denomination", 25 }, { "count_available", 100 } } } },
+            { "tables", { { { "table_name", "Table 1" } } } },
+            { "players", { { { "player_id", "player1" }, { "name", "John Doe" } } } }
         };
 
         REQUIRE_NOTHROW(gi.configure(config));
     }
 
-    SECTION("Configure with comprehensive JSON") {
+    SECTION("Configure with comprehensive JSON")
+    {
         gameinfo gi;
         nlohmann::json config = {
-            {"blind_levels", {
-                {{"little_blind", 25}, {"big_blind", 50}, {"ante", 0}, {"duration", 1200}, {"break_duration", 0}},
-                {{"little_blind", 50}, {"big_blind", 100}, {"ante", 10}, {"duration", 1200}, {"break_duration", 300}}
-            }},
-            {"chips", {
-                {{"denomination", 25}, {"count_available", 100}, {"color", "green"}},
-                {{"denomination", 100}, {"count_available", 50}, {"color", "black"}}
-            }},
-            {"tables", {
-                {{"table_name", "Table 1"}},
-                {{"table_name", "Table 2"}}
-            }},
-            {"players", {
-                {{"player_id", "p1"}, {"name", "Alice"}},
-                {{"player_id", "p2"}, {"name", "Bob"}}
-            }},
-            {"funding_sources", {
-                {{"name", "Buy-in"}, {"type", 0}, {"chips", 1000}, {"cost", {{"amount", 50.0}, {"currency", "USD"}}}}
-            }}
+            { "blind_levels", { { { "little_blind", 25 }, { "big_blind", 50 }, { "ante", 0 }, { "duration", 1200 }, { "break_duration", 0 } }, { { "little_blind", 50 }, { "big_blind", 100 }, { "ante", 10 }, { "duration", 1200 }, { "break_duration", 300 } } } },
+            { "chips", { { { "denomination", 25 }, { "count_available", 100 }, { "color", "green" } }, { { "denomination", 100 }, { "count_available", 50 }, { "color", "black" } } } },
+            { "tables", { { { "table_name", "Table 1" } }, { { "table_name", "Table 2" } } } },
+            { "players", { { { "player_id", "p1" }, { "name", "Alice" } }, { { "player_id", "p2" }, { "name", "Bob" } } } },
+            { "funding_sources", { { { "name", "Buy-in" }, { "type", 0 }, { "chips", 1000 }, { "cost", { { "amount", 50.0 }, { "currency", "USD" } } } } } }
         };
 
         REQUIRE_NOTHROW(gi.configure(config));
@@ -76,8 +70,10 @@ TEST_CASE("GameInfo configuration", "[gameinfo][configuration]") {
     // SECTION("Configure with invalid JSON") { ... }
 }
 
-TEST_CASE("GameInfo JSON dumping", "[gameinfo][json_dump]") {
-    SECTION("Dump configuration") {
+TEST_CASE("GameInfo JSON dumping", "[gameinfo][json_dump]")
+{
+    SECTION("Dump configuration")
+    {
         gameinfo gi;
         nlohmann::json config;
 
@@ -85,7 +81,8 @@ TEST_CASE("GameInfo JSON dumping", "[gameinfo][json_dump]") {
         REQUIRE(config.is_object());
     }
 
-    SECTION("Dump state") {
+    SECTION("Dump state")
+    {
         gameinfo gi;
         nlohmann::json state;
 
@@ -93,7 +90,8 @@ TEST_CASE("GameInfo JSON dumping", "[gameinfo][json_dump]") {
         REQUIRE(state.is_object());
     }
 
-    SECTION("Dump configuration state") {
+    SECTION("Dump configuration state")
+    {
         gameinfo gi;
         nlohmann::json config_state;
 
@@ -101,7 +99,8 @@ TEST_CASE("GameInfo JSON dumping", "[gameinfo][json_dump]") {
         REQUIRE(config_state.is_object());
     }
 
-    SECTION("Dump derived state") {
+    SECTION("Dump derived state")
+    {
         gameinfo gi;
         nlohmann::json derived_state;
 
@@ -109,13 +108,14 @@ TEST_CASE("GameInfo JSON dumping", "[gameinfo][json_dump]") {
         REQUIRE(derived_state.is_object());
     }
 
-    SECTION("Configuration roundtrip") {
+    SECTION("Configuration roundtrip")
+    {
         gameinfo gi1;
 
         // Configure with some data
         nlohmann::json original_config = {
-            {"blind_levels", {{{"little_blind", 100}, {"big_blind", 200}}}},
-            {"players", {{{"player_id", "test"}, {"name", "Test Player"}}}}
+            { "blind_levels", { { { "little_blind", 100 }, { "big_blind", 200 } } } },
+            { "players", { { { "player_id", "test" }, { "name", "Test Player" } } } }
         };
         gi1.configure(original_config);
 
@@ -134,15 +134,17 @@ TEST_CASE("GameInfo JSON dumping", "[gameinfo][json_dump]") {
     }
 }
 
-TEST_CASE("GameInfo state management", "[gameinfo][state]") {
-    SECTION("State dirty flag") {
+TEST_CASE("GameInfo state management", "[gameinfo][state]")
+{
+    SECTION("State dirty flag")
+    {
         gameinfo gi;
 
         // Initial state should be dirty (newly constructed object)
         REQUIRE(gi.state_is_dirty());
 
         // After configuration, state might be dirty
-        nlohmann::json config = {{"players", {{{"player_id", "p1"}, {"name", "Player 1"}}}}};
+        nlohmann::json config = { { "players", { { { "player_id", "p1" }, { "name", "Player 1" } } } } };
         gi.configure(config);
 
         // Check and clear dirty flag
@@ -153,13 +155,14 @@ TEST_CASE("GameInfo state management", "[gameinfo][state]") {
         gi.state_is_dirty(); // Check without requiring specific value
     }
 
-    SECTION("Reset state") {
+    SECTION("Reset state")
+    {
         gameinfo gi;
 
         // Configure with some data
         nlohmann::json config = {
-            {"players", {{{"player_id", "p1"}, {"name", "Player 1"}}}},
-            {"blind_levels", {{{"little_blind", 25}, {"big_blind", 50}}}}
+            { "players", { { { "player_id", "p1" }, { "name", "Player 1" } } } },
+            { "blind_levels", { { { "little_blind", 25 }, { "big_blind", 50 } } } }
         };
         gi.configure(config);
 
@@ -171,14 +174,15 @@ TEST_CASE("GameInfo state management", "[gameinfo][state]") {
         REQUIRE_NOTHROW(gi.dump_state(state));
     }
 
-    SECTION("Update game state") {
+    SECTION("Update game state")
+    {
         gameinfo gi;
 
         // Update should not crash even with no configuration
         REQUIRE_NOTHROW(gi.update());
 
         // Configure and update
-        nlohmann::json config = {{"blind_levels", {{{"little_blind", 25}, {"big_blind", 50}}}}};
+        nlohmann::json config = { { "blind_levels", { { { "little_blind", 25 }, { "big_blind", 50 } } } } };
         gi.configure(config);
 
         REQUIRE_NOTHROW(gi.update());
@@ -186,15 +190,17 @@ TEST_CASE("GameInfo state management", "[gameinfo][state]") {
     }
 }
 
-TEST_CASE("GameInfo player management", "[gameinfo][players]") {
-    SECTION("Add player to empty game") {
+TEST_CASE("GameInfo player management", "[gameinfo][players]")
+{
+    SECTION("Add player to empty game")
+    {
         gameinfo gi;
 
         // Configure with basic setup
         nlohmann::json config = {
-            {"players", {{{"player_id", "p1"}, {"name", "Player 1"}}}},
-            {"tables", {{{"table_name", "Table 1"}}}},
-            {"blind_levels", {{{"little_blind", 25}, {"big_blind", 50}}}}
+            { "players", { { { "player_id", "p1" }, { "name", "Player 1" } } } },
+            { "tables", { { { "table_name", "Table 1" } } } },
+            { "blind_levels", { { { "little_blind", 25 }, { "big_blind", 50 } } } }
         };
         gi.configure(config);
 
@@ -204,17 +210,14 @@ TEST_CASE("GameInfo player management", "[gameinfo][players]") {
         REQUIRE(result.second.player_id == "p1");
     }
 
-    SECTION("Add multiple players") {
+    SECTION("Add multiple players")
+    {
         gameinfo gi;
 
         nlohmann::json config = {
-            {"players", {
-                {{"player_id", "p1"}, {"name", "Player 1"}},
-                {{"player_id", "p2"}, {"name", "Player 2"}},
-                {{"player_id", "p3"}, {"name", "Player 3"}}
-            }},
-            {"tables", {{{"table_name", "Table 1"}}}},
-            {"blind_levels", {{{"little_blind", 25}, {"big_blind", 50}}}}
+            { "players", { { { "player_id", "p1" }, { "name", "Player 1" } }, { { "player_id", "p2" }, { "name", "Player 2" } }, { { "player_id", "p3" }, { "name", "Player 3" } } } },
+            { "tables", { { { "table_name", "Table 1" } } } },
+            { "blind_levels", { { { "little_blind", 25 }, { "big_blind", 50 } } } }
         };
         gi.configure(config);
 
@@ -226,13 +229,14 @@ TEST_CASE("GameInfo player management", "[gameinfo][players]") {
         REQUIRE_NOTHROW(gi.add_player("p1"));
     }
 
-    SECTION("Remove player") {
+    SECTION("Remove player")
+    {
         gameinfo gi;
 
         nlohmann::json config = {
-            {"players", {{{"player_id", "p1"}, {"name", "Player 1"}}}},
-            {"tables", {{{"table_name", "Table 1"}}}},
-            {"blind_levels", {{{"little_blind", 25}, {"big_blind", 50}}}}
+            { "players", { { { "player_id", "p1" }, { "name", "Player 1" } } } },
+            { "tables", { { { "table_name", "Table 1" } } } },
+            { "blind_levels", { { { "little_blind", 25 }, { "big_blind", 50 } } } }
         };
         gi.configure(config);
 
@@ -245,22 +249,15 @@ TEST_CASE("GameInfo player management", "[gameinfo][players]") {
         REQUIRE_THROWS(gi.remove_player("nonexistent"));
     }
 
-    SECTION("Bust player") {
+    SECTION("Bust player")
+    {
         gameinfo gi;
 
         nlohmann::json config = {
-            {"players", {
-                {{"player_id", "p1"}, {"name", "Player 1"}},
-                {{"player_id", "p2"}, {"name", "Player 2"}}
-            }},
-            {"funding_sources", {{
-                {"name", "Buy-in"},
-                {"type", 0},
-                {"chips", 1000},
-                {"cost", {{"amount", 50.0}, {"currency", "USD"}}}
-            }}},
-            {"tables", {{{"table_name", "Table 1"}}}},
-            {"blind_levels", {{{"little_blind", 25}, {"big_blind", 50}}}}
+            { "players", { { { "player_id", "p1" }, { "name", "Player 1" } }, { { "player_id", "p2" }, { "name", "Player 2" } } } },
+            { "funding_sources", { { { "name", "Buy-in" }, { "type", 0 }, { "chips", 1000 }, { "cost", { { "amount", 50.0 }, { "currency", "USD" } } } } } },
+            { "tables", { { { "table_name", "Table 1" } } } },
+            { "blind_levels", { { { "little_blind", 25 }, { "big_blind", 50 } } } }
         };
         gi.configure(config);
 
@@ -280,21 +277,16 @@ TEST_CASE("GameInfo player management", "[gameinfo][players]") {
     }
 }
 
-TEST_CASE("GameInfo seating management", "[gameinfo][seating]") {
-    SECTION("Plan seating") {
+TEST_CASE("GameInfo seating management", "[gameinfo][seating]")
+{
+    SECTION("Plan seating")
+    {
         gameinfo gi;
 
         nlohmann::json config = {
-            {"players", {
-                {{"player_id", "p1"}, {"name", "Player 1"}},
-                {{"player_id", "p2"}, {"name", "Player 2"}},
-                {{"player_id", "p3"}, {"name", "Player 3"}}
-            }},
-            {"tables", {
-                {{"table_name", "Table 1"}},
-                {{"table_name", "Table 2"}}
-            }},
-            {"blind_levels", {{{"little_blind", 25}, {"big_blind", 50}}}}
+            { "players", { { { "player_id", "p1" }, { "name", "Player 1" } }, { { "player_id", "p2" }, { "name", "Player 2" } }, { { "player_id", "p3" }, { "name", "Player 3" } } } },
+            { "tables", { { { "table_name", "Table 1" } }, { { "table_name", "Table 2" } } } },
+            { "blind_levels", { { { "little_blind", 25 }, { "big_blind", 50 } } } }
         };
         gi.configure(config);
 
@@ -310,20 +302,14 @@ TEST_CASE("GameInfo seating management", "[gameinfo][seating]") {
         REQUIRE_THROWS(gi.plan_seating(1));
     }
 
-    SECTION("Rebalance seating") {
+    SECTION("Rebalance seating")
+    {
         gameinfo gi;
 
         nlohmann::json config = {
-            {"players", {
-                {{"player_id", "p1"}, {"name", "Player 1"}},
-                {{"player_id", "p2"}, {"name", "Player 2"}},
-                {{"player_id", "p3"}, {"name", "Player 3"}}
-            }},
-            {"tables", {
-                {{"table_name", "Table 1"}},
-                {{"table_name", "Table 2"}}
-            }},
-            {"blind_levels", {{{"little_blind", 25}, {"big_blind", 50}}}}
+            { "players", { { { "player_id", "p1" }, { "name", "Player 1" } }, { { "player_id", "p2" }, { "name", "Player 2" } }, { { "player_id", "p3" }, { "name", "Player 3" } } } },
+            { "tables", { { { "table_name", "Table 1" } }, { { "table_name", "Table 2" } } } },
+            { "blind_levels", { { { "little_blind", 25 }, { "big_blind", 50 } } } }
         };
         gi.configure(config);
 
@@ -338,20 +324,17 @@ TEST_CASE("GameInfo seating management", "[gameinfo][seating]") {
     }
 }
 
-TEST_CASE("GameInfo funding management", "[gameinfo][funding]") {
-    SECTION("Fund player") {
+TEST_CASE("GameInfo funding management", "[gameinfo][funding]")
+{
+    SECTION("Fund player")
+    {
         gameinfo gi;
 
         nlohmann::json config = {
-            {"players", {{{"player_id", "p1"}, {"name", "Player 1"}}}},
-            {"funding_sources", {{
-                {"name", "Buy-in"},
-                {"type", 0},
-                {"chips", 1000},
-                {"cost", {{"amount", 50.0}, {"currency", "USD"}}}
-            }}},
-            {"tables", {{{"table_name", "Table 1"}}}},
-            {"blind_levels", {{{"little_blind", 25}, {"big_blind", 50}}}}
+            { "players", { { { "player_id", "p1" }, { "name", "Player 1" } } } },
+            { "funding_sources", { { { "name", "Buy-in" }, { "type", 0 }, { "chips", 1000 }, { "cost", { { "amount", 50.0 }, { "currency", "USD" } } } } } },
+            { "tables", { { { "table_name", "Table 1" } } } },
+            { "blind_levels", { { { "little_blind", 25 }, { "big_blind", 50 } } } }
         };
         gi.configure(config);
 
@@ -370,17 +353,16 @@ TEST_CASE("GameInfo funding management", "[gameinfo][funding]") {
     // SECTION("Calculate chips for buyin") - SKIPPED due to infinite loop issue
 }
 
-TEST_CASE("GameInfo quick setup", "[gameinfo][quick_setup]") {
-    SECTION("Quick setup without funding source") {
+TEST_CASE("GameInfo quick setup", "[gameinfo][quick_setup]")
+{
+    SECTION("Quick setup without funding source")
+    {
         gameinfo gi;
 
         nlohmann::json config = {
-            {"players", {
-                {{"player_id", "p1"}, {"name", "Player 1"}},
-                {{"player_id", "p2"}, {"name", "Player 2"}}
-            }},
-            {"tables", {{{"table_name", "Table 1"}}}},
-            {"blind_levels", {{{"little_blind", 25}, {"big_blind", 50}}}}
+            { "players", { { { "player_id", "p1" }, { "name", "Player 1" } }, { { "player_id", "p2" }, { "name", "Player 2" } } } },
+            { "tables", { { { "table_name", "Table 1" } } } },
+            { "blind_levels", { { { "little_blind", 25 }, { "big_blind", 50 } } } }
         };
         gi.configure(config);
 
@@ -388,22 +370,15 @@ TEST_CASE("GameInfo quick setup", "[gameinfo][quick_setup]") {
         REQUIRE_THROWS(gi.quick_setup());
     }
 
-    SECTION("Quick setup with funding source") {
+    SECTION("Quick setup with funding source")
+    {
         gameinfo gi;
 
         nlohmann::json config = {
-            {"players", {
-                {{"player_id", "p1"}, {"name", "Player 1"}},
-                {{"player_id", "p2"}, {"name", "Player 2"}}
-            }},
-            {"funding_sources", {{
-                {"name", "Buy-in"},
-                {"type", 0},
-                {"chips", 1000},
-                {"cost", {{"amount", 50.0}, {"currency", "USD"}}}
-            }}},
-            {"tables", {{{"table_name", "Table 1"}}}},
-            {"blind_levels", {{{"little_blind", 25}, {"big_blind", 50}}}}
+            { "players", { { { "player_id", "p1" }, { "name", "Player 1" } }, { { "player_id", "p2" }, { "name", "Player 2" } } } },
+            { "funding_sources", { { { "name", "Buy-in" }, { "type", 0 }, { "chips", 1000 }, { "cost", { { "amount", 50.0 }, { "currency", "USD" } } } } } },
+            { "tables", { { { "table_name", "Table 1" } } } },
+            { "blind_levels", { { { "little_blind", 25 }, { "big_blind", 50 } } } }
         };
         gi.configure(config);
 
@@ -415,14 +390,13 @@ TEST_CASE("GameInfo quick setup", "[gameinfo][quick_setup]") {
     }
 }
 
-TEST_CASE("GameInfo clock management", "[gameinfo][clock]") {
-    SECTION("Game start/stop") {
+TEST_CASE("GameInfo clock management", "[gameinfo][clock]")
+{
+    SECTION("Game start/stop")
+    {
         gameinfo gi;
 
-        nlohmann::json config = {{"blind_levels", {
-            {{"little_blind", 25}, {"big_blind", 50}},
-            {{"little_blind", 50}, {"big_blind", 100}}
-        }}};
+        nlohmann::json config = { { "blind_levels", { { { "little_blind", 25 }, { "big_blind", 50 } }, { { "little_blind", 50 }, { "big_blind", 100 } } } } };
         gi.configure(config);
 
         // Initially not started
@@ -442,13 +416,11 @@ TEST_CASE("GameInfo clock management", "[gameinfo][clock]") {
         // Note: start(future_time) doesn't immediately set is_started() to true
     }
 
-    SECTION("Game pause/resume") {
+    SECTION("Game pause/resume")
+    {
         gameinfo gi;
 
-        nlohmann::json config = {{"blind_levels", {
-            {{"little_blind", 25}, {"big_blind", 50}},
-            {{"little_blind", 50}, {"big_blind", 100}}
-        }}};
+        nlohmann::json config = { { "blind_levels", { { { "little_blind", 25 }, { "big_blind", 50 } }, { { "little_blind", 50 }, { "big_blind", 100 } } } } };
         gi.configure(config);
 
         gi.start();
@@ -460,15 +432,12 @@ TEST_CASE("GameInfo clock management", "[gameinfo][clock]") {
         REQUIRE_NOTHROW(gi.toggle_pause_resume());
     }
 
-    SECTION("Blind level progression") {
+    SECTION("Blind level progression")
+    {
         gameinfo gi;
 
         nlohmann::json config = {
-            {"blind_levels", {
-                {{"little_blind", 25}, {"big_blind", 50}, {"duration", 100}},
-                {{"little_blind", 50}, {"big_blind", 100}, {"duration", 100}},
-                {{"little_blind", 100}, {"big_blind", 200}, {"duration", 100}}
-            }}
+            { "blind_levels", { { { "little_blind", 25 }, { "big_blind", 50 }, { "duration", 100 } }, { { "little_blind", 50 }, { "big_blind", 100 }, { "duration", 100 } }, { { "little_blind", 100 }, { "big_blind", 200 }, { "duration", 100 } } } }
         };
         gi.configure(config);
 
@@ -493,13 +462,11 @@ TEST_CASE("GameInfo clock management", "[gameinfo][clock]") {
         REQUIRE_NOTHROW(prev_result3);
     }
 
-    SECTION("Action clock") {
+    SECTION("Action clock")
+    {
         gameinfo gi;
 
-        nlohmann::json config = {{"blind_levels", {
-            {{"little_blind", 25}, {"big_blind", 50}},
-            {{"little_blind", 50}, {"big_blind", 100}}
-        }}};
+        nlohmann::json config = { { "blind_levels", { { { "little_blind", 25 }, { "big_blind", 50 } }, { { "little_blind", 50 }, { "big_blind", 100 } } } } };
         gi.configure(config);
 
         // Action clock operations should not crash
@@ -514,7 +481,8 @@ TEST_CASE("GameInfo clock management", "[gameinfo][clock]") {
     }
 }
 
-TEST_CASE("GameInfo blind level generation", "[gameinfo][blind_generation]") {
+TEST_CASE("GameInfo blind level generation", "[gameinfo][blind_generation]")
+{
     // SKIP: These tests require complex setup and available_chips configuration
     /*SECTION("Generate basic blind levels") {
         gameinfo gi;
@@ -569,37 +537,19 @@ TEST_CASE("GameInfo blind level generation", "[gameinfo][blind_generation]") {
     }*/
 }
 
-TEST_CASE("GameInfo integration scenarios", "[gameinfo][integration]") {
-    SECTION("Complete tournament flow") {
+TEST_CASE("GameInfo integration scenarios", "[gameinfo][integration]")
+{
+    SECTION("Complete tournament flow")
+    {
         gameinfo gi;
 
         // Configure a complete tournament
         nlohmann::json config = {
-            {"players", {
-                {{"player_id", "p1"}, {"name", "Alice"}},
-                {{"player_id", "p2"}, {"name", "Bob"}},
-                {{"player_id", "p3"}, {"name", "Charlie"}},
-                {{"player_id", "p4"}, {"name", "Diana"}}
-            }},
-            {"funding_sources", {{
-                {"name", "Buy-in"},
-                {"type", 0},
-                {"chips", 1500},
-                {"cost", {{"amount", 100.0}, {"currency", "USD"}}}
-            }}},
-            {"tables", {
-                {{"table_name", "Table 1"}},
-                {{"table_name", "Table 2"}}
-            }},
-            {"blind_levels", {
-                {{"little_blind", 25}, {"big_blind", 50}, {"duration", 1200}},
-                {{"little_blind", 50}, {"big_blind", 100}, {"duration", 1200}},
-                {{"little_blind", 100}, {"big_blind", 200}, {"duration", 1200}}
-            }},
-            {"chips", {
-                {{"denomination", 25}, {"count_available", 200}},
-                {{"denomination", 100}, {"count_available", 100}}
-            }}
+            { "players", { { { "player_id", "p1" }, { "name", "Alice" } }, { { "player_id", "p2" }, { "name", "Bob" } }, { { "player_id", "p3" }, { "name", "Charlie" } }, { { "player_id", "p4" }, { "name", "Diana" } } } },
+            { "funding_sources", { { { "name", "Buy-in" }, { "type", 0 }, { "chips", 1500 }, { "cost", { { "amount", 100.0 }, { "currency", "USD" } } } } } },
+            { "tables", { { { "table_name", "Table 1" } }, { { "table_name", "Table 2" } } } },
+            { "blind_levels", { { { "little_blind", 25 }, { "big_blind", 50 }, { "duration", 1200 } }, { { "little_blind", 50 }, { "big_blind", 100 }, { "duration", 1200 } }, { { "little_blind", 100 }, { "big_blind", 200 }, { "duration", 1200 } } } },
+            { "chips", { { { "denomination", 25 }, { "count_available", 200 } }, { { "denomination", 100 }, { "count_available", 100 } } } }
         };
 
         REQUIRE_NOTHROW(gi.configure(config));

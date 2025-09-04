@@ -66,10 +66,11 @@ TBSetupFundingWidget::TBSetupFundingWidget(QWidget* parent) : TBSetupTabWidget(p
 
     // Connect selection model after setting the model
     QObject::connect(pimpl->ui.tableView->selectionModel(), &QItemSelectionModel::selectionChanged,
-            [this]() {
-                bool hasSelection = pimpl->ui.tableView->selectionModel()->hasSelection();
-                pimpl->ui.removeButton->setEnabled(hasSelection);
-            });
+                     [this]()
+    {
+        bool hasSelection = pimpl->ui.tableView->selectionModel()->hasSelection();
+        pimpl->ui.removeButton->setEnabled(hasSelection);
+    });
 }
 
 TBSetupFundingWidget::~TBSetupFundingWidget()
@@ -82,7 +83,7 @@ void TBSetupFundingWidget::setConfiguration(const QVariantMap& configuration)
 
     // Flatten nested cost/commission/equity structures for display
     QVariantList displayFunding;
-    for (const QVariant& fundingVariant : funding)
+    for(const QVariant& fundingVariant : funding)
     {
         QVariantMap fundingItem = fundingVariant.toMap();
         QVariantMap displayItem;
@@ -120,7 +121,7 @@ QVariantMap TBSetupFundingWidget::configuration() const
     QVariantList displayFunding = pimpl->model->listData();
     QVariantList funding;
 
-    for (const QVariant& displayVariant : displayFunding)
+    for(const QVariant& displayVariant : displayFunding)
     {
         QVariantMap displayItem = displayVariant.toMap();
         QVariantMap fundingItem;
@@ -130,7 +131,7 @@ QVariantMap TBSetupFundingWidget::configuration() const
         fundingItem["chips"] = displayItem["chips"];
         // Only include forbid_after_blind_level if it's a valid value (not "Never")
         QVariant forbidLevel = displayItem["forbid_after_blind_level"];
-        if (forbidLevel.isValid() && !forbidLevel.isNull() && forbidLevel.toInt() >= 0)
+        if(forbidLevel.isValid() && !forbidLevel.isNull() && forbidLevel.toInt() >= 0)
         {
             fundingItem["forbid_after_blind_level"] = forbidLevel;
         }
@@ -165,10 +166,10 @@ bool TBSetupFundingWidget::validateConfiguration() const
     // At least one funding source (buy-in) is required
     QVariantList funding = pimpl->model->listData();
 
-    for (const QVariant& fundingVariant : funding)
+    for(const QVariant& fundingVariant : funding)
     {
         QVariantMap fundingItem = fundingVariant.toMap();
-        if (TournamentSession::toFundingType(fundingItem["type"].toInt()) == TournamentSession::FundingType::Buyin)
+        if(TournamentSession::toFundingType(fundingItem["type"].toInt()) == TournamentSession::FundingType::Buyin)
         {
             return true;
         }
@@ -192,12 +193,12 @@ void TBSetupFundingWidget::on_addFundingButtonClicked()
 void TBSetupFundingWidget::on_removeFundingButtonClicked()
 {
     int row = TBTableViewUtils::getSelectedSourceRow(pimpl->ui.tableView);
-    if (row < 0)
+    if(row < 0)
         return;
 
     // Remove from model
     QVariantList funding = pimpl->model->listData();
-    if (row >= 0 && row < funding.size())
+    if(row >= 0 && row < funding.size())
     {
         funding.removeAt(row);
         pimpl->model->setListData(funding);
@@ -215,7 +216,7 @@ QVariantMap TBSetupFundingWidget::createDefaultFunding(TournamentSession::Fundin
     QVariantMap funding;
     funding["name"] = TournamentSession::toString(fundingType);
     funding["type"] = TournamentSession::toInt(fundingType);
-    funding["chips"] = 1500; // Default chip count
+    funding["chips"] = 1500;       // Default chip count
     funding["cost_amount"] = 20.0; // Default cost
     funding["cost_currency"] = TBCurrency::defaultCurrencyCode();
     funding["commission_amount"] = 0.0;

@@ -37,7 +37,7 @@ TBSetupTablesWidget::TBSetupTablesWidget(QWidget* parent) : TBSetupTabWidget(par
     header->setSectionResizeMode(1, QHeaderView::Stretch);          // Table Name: stretch to fill
 
     // Populate players per table dropdown (2-12)
-    for (int i = 2; i <= 12; i++)
+    for(int i = 2; i <= 12; i++)
     {
         pimpl->ui.playersPerTableComboBox->addItem(QString::number(i), i);
     }
@@ -51,10 +51,11 @@ TBSetupTablesWidget::TBSetupTablesWidget(QWidget* parent) : TBSetupTabWidget(par
 
     // Connect selection model after setting the model
     QObject::connect(pimpl->ui.tableView->selectionModel(), &QItemSelectionModel::selectionChanged,
-            [this]() {
-                bool hasSelection = pimpl->ui.tableView->selectionModel()->hasSelection();
-                pimpl->ui.removeButton->setEnabled(hasSelection);
-            });
+                     [this]()
+    {
+        bool hasSelection = pimpl->ui.tableView->selectionModel()->hasSelection();
+        pimpl->ui.removeButton->setEnabled(hasSelection);
+    });
 }
 
 TBSetupTablesWidget::~TBSetupTablesWidget()
@@ -72,7 +73,7 @@ void TBSetupTablesWidget::setConfiguration(const QVariantMap& configuration)
     // Set players per table if available
     int playersPerTable = configuration.value("players_per_table", 8).toInt();
     int index = pimpl->ui.playersPerTableComboBox->findData(playersPerTable);
-    if (index >= 0)
+    if(index >= 0)
     {
         pimpl->ui.playersPerTableComboBox->setCurrentIndex(index);
     }
@@ -110,12 +111,12 @@ void TBSetupTablesWidget::on_addTableButtonClicked()
 void TBSetupTablesWidget::on_removeTableButtonClicked()
 {
     int row = TBTableViewUtils::getSelectedSourceRow(pimpl->ui.tableView);
-    if (row < 0)
+    if(row < 0)
         return;
 
     // Remove from model
     QVariantList tables = pimpl->model->listData();
-    if (row >= 0 && row < tables.size())
+    if(row >= 0 && row < tables.size())
     {
         tables.removeAt(row);
         pimpl->model->setListData(tables);

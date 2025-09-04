@@ -11,16 +11,16 @@
 
 #include "ui_TBViewerMainWindow.h"
 
+#include <QAction>
 #include <QApplication>
 #include <QDateTime>
 #include <QDebug>
+#include <QMenu>
 #include <QMessageBox>
 #include <QString>
 #include <QTime>
 #include <QTimer>
 #include <QWidget>
-#include <QMenu>
-#include <QAction>
 
 struct TBViewerMainWindow::impl
 {
@@ -112,7 +112,7 @@ void TBViewerMainWindow::on_connectedChanged(bool connected)
     pimpl->ui.actionDisconnect->setEnabled(connected);
 
     // automatically show display window when connected
-    if (connected && !this->isDisplayWindowVisible())
+    if(connected && !this->isDisplayWindowVisible())
     {
         // Use the same logic as the menu action to show the display window
         pimpl->ui.actionShowHideMainDisplay->trigger();
@@ -148,12 +148,12 @@ void TBViewerMainWindow::on_servicesUpdated(const QVariantList& services)
 
     // If just one service and not already connected, automatically connect (like macOS)
     bool connected = this->getSession().is_connected();
-    if (services.size() == 1 && !connected)
+    if(services.size() == 1 && !connected)
     {
         QVariantMap serviceMap = services[0].toMap();
 
         // Create TournamentService from the service data and connect directly
-        if (serviceMap["isRemote"].toBool())
+        if(serviceMap["isRemote"].toBool())
         {
             TournamentService service(serviceMap["address"].toString().toStdString(), serviceMap["port"].toInt());
             this->connectToTournament(service);
@@ -172,7 +172,7 @@ void TBViewerMainWindow::updateServiceMenu()
     QMenu* fileMenu = pimpl->ui.menuFile;
 
     // Remove existing service actions (items with tag 0, like macOS implementation)
-    for (QAction* action : pimpl->serviceActions)
+    for(QAction* action : pimpl->serviceActions)
     {
         fileMenu->removeAction(action);
         delete action;
@@ -187,7 +187,7 @@ void TBViewerMainWindow::updateServiceMenu()
     QAction* insertBefore = pimpl->ui.actionExit;
 
     // Add local services section
-    if (!localServices.isEmpty())
+    if(!localServices.isEmpty())
     {
         // Add separator
         QAction* separator = new QAction(this);
@@ -202,7 +202,7 @@ void TBViewerMainWindow::updateServiceMenu()
         fileMenu->insertAction(insertBefore, header);
 
         // Add local service items
-        for (const QVariant& serviceVar : localServices)
+        for(const QVariant& serviceVar : localServices)
         {
             QVariantMap serviceMap = serviceVar.toMap();
             QAction* serviceAction = new QAction(serviceMap["name"].toString(), this);
@@ -224,7 +224,7 @@ void TBViewerMainWindow::updateServiceMenu()
     }
 
     // Add remote services section
-    if (!remoteServices.isEmpty())
+    if(!remoteServices.isEmpty())
     {
         // Add separator
         QAction* separator = new QAction(this);
@@ -239,7 +239,7 @@ void TBViewerMainWindow::updateServiceMenu()
         fileMenu->insertAction(insertBefore, header);
 
         // Add remote service items
-        for (const QVariant& serviceVar : remoteServices)
+        for(const QVariant& serviceVar : remoteServices)
         {
             QVariantMap serviceMap = serviceVar.toMap();
             QAction* serviceAction = new QAction(serviceMap["name"].toString(), this);
@@ -252,7 +252,7 @@ void TBViewerMainWindow::updateServiceMenu()
             {
                 QVariantMap serviceMap = serviceAction->data().toMap();
                 TournamentService service(serviceMap["address"].toString().toStdString(),
-                                        serviceMap["port"].toInt());
+                                          serviceMap["port"].toInt());
                 this->connectToTournament(service);
             });
 

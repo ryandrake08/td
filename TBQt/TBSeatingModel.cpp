@@ -23,13 +23,13 @@ void TBSeatingModel::on_stateChanged(const QString& key, const QVariant& value)
         QVariantList allPlayers = value.toList();
         QVariantList seatedPlayers;
 
-        for (const QVariant& playerVariant : allPlayers)
+        for(const QVariant& playerVariant : allPlayers)
         {
             QVariantMap player = playerVariant.toMap();
             QString seatName = player["seat_name"].toString();
 
             // Only include players that have been assigned a seat
-            if (!seatName.isEmpty())
+            if(!seatName.isEmpty())
             {
                 seatedPlayers.append(playerVariant);
             }
@@ -39,31 +39,31 @@ void TBSeatingModel::on_stateChanged(const QString& key, const QVariant& value)
     }
 }
 
-QVariant TBSeatingModel::data(const QModelIndex &index, int role) const
+QVariant TBSeatingModel::data(const QModelIndex& index, int role) const
 {
-    if (!index.isValid())
+    if(!index.isValid())
         return QVariant();
 
     // Handle UserRole for numeric sorting on Table and Seat columns
-    if (role == Qt::UserRole)
+    if(role == Qt::UserRole)
     {
         QVariantMap rowData = this->getRowData(index.row());
         QVariantMap seatPosition = rowData["seat_position"].toMap();
 
-        if (index.column() == 0) // "Table" column
+        if(index.column() == 0) // "Table" column
         {
             return seatPosition["table_number"].toULongLong();
         }
-        else if (index.column() == 1) // "Seat" column
+        else if(index.column() == 1) // "Seat" column
         {
             return seatPosition["seat_number"].toULongLong();
         }
     }
 
     // Handle checkbox for the "Paid" column (column 3)
-    if (index.column() == 3) // "buyin" column
+    if(index.column() == 3) // "buyin" column
     {
-        if (role == Qt::CheckStateRole)
+        if(role == Qt::CheckStateRole)
         {
             // Get the player data for this row
             QVariantMap rowData = this->getRowData(index.row());
@@ -72,25 +72,25 @@ QVariant TBSeatingModel::data(const QModelIndex &index, int role) const
             // Checkbox is checked if player has bought in
             return hasBuyin ? Qt::Checked : Qt::Unchecked;
         }
-        else if (role == Qt::DisplayRole)
+        else if(role == Qt::DisplayRole)
         {
             // Don't show text in the checkbox column
             return QVariant();
         }
     }
     // Handle button for the "Manage" column (column 4)
-    else if (index.column() == 4) // "manage" column
+    else if(index.column() == 4) // "manage" column
     {
-        if (role == Qt::DisplayRole)
+        if(role == Qt::DisplayRole)
         {
             return tr("Manage");
         }
     }
 
     // Handle text alignment for all columns
-    if (role == Qt::TextAlignmentRole)
+    if(role == Qt::TextAlignmentRole)
     {
-        if (index.column() == 2) // "Player Name" column
+        if(index.column() == 2) // "Player Name" column
         {
             // Left-justify and center vertically for Player Name
             return static_cast<int>(Qt::AlignLeft | Qt::AlignVCenter);
@@ -103,7 +103,7 @@ QVariant TBSeatingModel::data(const QModelIndex &index, int role) const
     }
 
     // Handle Qt::UserRole to provide player_id for any column
-    if (role == Qt::UserRole)
+    if(role == Qt::UserRole)
     {
         QVariantMap rowData = this->getRowData(index.row());
         return rowData["player_id"].toString();
@@ -113,15 +113,15 @@ QVariant TBSeatingModel::data(const QModelIndex &index, int role) const
     return TBVariantListTableModel::data(index, role);
 }
 
-Qt::ItemFlags TBSeatingModel::flags(const QModelIndex &index) const
+Qt::ItemFlags TBSeatingModel::flags(const QModelIndex& index) const
 {
-    if (!index.isValid())
+    if(!index.isValid())
         return Qt::NoItemFlags;
 
     Qt::ItemFlags flags = Qt::ItemIsEnabled | Qt::ItemIsSelectable;
 
     // Make the "Paid" column (column 3) show checkboxes but not editable
-    if (index.column() == 3)
+    if(index.column() == 3)
     {
         flags |= Qt::ItemIsUserCheckable;
         // Note: We don't add Qt::ItemIsEditable to make it read-only

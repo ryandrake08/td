@@ -10,19 +10,19 @@
 #if defined(_WIN32)
 #define STRICT 1
 #define WIN32_LEAN_AND_MEAN 1
+#include <WS2tcpip.h>
 #include <windows.h>
 #include <winsock2.h>
-#include <WS2tcpip.h>
 typedef int socklen_t;
 #endif
 #if defined(__unix) || defined(__APPLE__)
 #include <arpa/inet.h>
+#include <netdb.h>
 #include <netinet/in.h>
 #include <sys/ioctl.h>
 #include <sys/socket.h>
 #include <sys/un.h>
 #include <unistd.h>
-#include <netdb.h>
 typedef int SOCKET;
 static const SOCKET INVALID_SOCKET = -1;
 static const int SOCKET_ERROR = -1;
@@ -38,7 +38,7 @@ public:
 
     bool equivalent(const std::error_code& code, int condition) const throw() override
     {
-        return *this==code.category() && static_cast<int>(default_error_condition(code.value()).value())==condition;
+        return *this == code.category() && static_cast<int>(default_error_condition(code.value()).value()) == condition;
     }
 
     std::string message(int ev) const override
@@ -54,7 +54,7 @@ public:
     socket_initializer()
     {
 #if defined(_WIN32)
-        WORD ver(MAKEWORD(1,1));
+        WORD ver(MAKEWORD(1, 1));
         WSADATA data;
         auto res = WSAStartup(ver, &data);
         assert(res == 0);
@@ -80,7 +80,13 @@ struct addrinfo_ptr
 {
     addrinfo* ptr;
     addrinfo_ptr() : ptr(nullptr) {}
-    ~addrinfo_ptr() { if(ptr != nullptr) { ::freeaddrinfo(ptr); } }
+    ~addrinfo_ptr()
+    {
+        if(ptr != nullptr)
+        {
+            ::freeaddrinfo(ptr);
+        }
+    }
     addrinfo_ptr(const addrinfo_ptr& other) = delete;
     addrinfo_ptr& operator=(const addrinfo_ptr&) = delete;
 };
@@ -185,10 +191,16 @@ std::set<common_socket> common_socket::select(const std::set<common_socket>& soc
     // iterate through set, and add to our fd_set
     fd_set fds;
     FD_ZERO(&fds);
-    std::for_each(sockets.begin(), sockets.end(), [&fds](const common_socket& s) { if(s.pimpl) { FD_SET(s.pimpl->fd, &fds); } } );
+    std::for_each(sockets.begin(), sockets.end(), [&fds](const common_socket& s)
+    {
+        if(s.pimpl)
+        {
+            FD_SET(s.pimpl->fd, &fds);
+        }
+    });
 
     // set is ordered, so max fd is the last element
-    auto max_fd(sockets.begin() == sockets.end() ? 0 : sockets.rbegin()->pimpl->fd+1);
+    auto max_fd(sockets.begin() == sockets.end() ? 0 : sockets.rbegin()->pimpl->fd + 1);
 
     // set the timeout
     timeval tv;
@@ -207,7 +219,10 @@ std::set<common_socket> common_socket::select(const std::set<common_socket>& soc
 
     // copy sockets returned
     std::set<common_socket> sockets_selected;
-    std::copy_if(sockets.begin(), sockets.end(), std::inserter(sockets_selected, sockets_selected.end()), [&fds](const common_socket& s) { return FD_ISSET(s.pimpl->fd, &fds); } );
+    std::copy_if(sockets.begin(), sockets.end(), std::inserter(sockets_selected, sockets_selected.end()), [&fds](const common_socket& s)
+    {
+        return FD_ISSET(s.pimpl->fd, &fds);
+    });
     return sockets_selected;
 }
 
@@ -286,7 +301,6 @@ long common_socket::peek(void* buf, std::size_t bytes) const
         return len;
     }
 }
-
 
 long common_socket::recv(void* buf, std::size_t bytes)
 {
@@ -440,13 +454,13 @@ unix_socket::unix_socket(const char* path, bool client, int backlog)
     {
         throw std::invalid_argument("unix_socket: path cannot be empty");
     }
-    if(std::strlen(path) > sizeof(addr.sun_path)-1)
+    if(std::strlen(path) > sizeof(addr.sun_path) - 1)
     {
         throw std::invalid_argument("unix_socket: path length too long");
     }
 
     // set up addr
-    std::strncpy(addr.sun_path, path, sizeof(addr.sun_path)-1);
+    std::strncpy(addr.sun_path, path, sizeof(addr.sun_path) - 1);
     addr.sun_family = AF_UNIX;
 #if defined(__APPLE__)
     addr.sun_len = static_cast<unsigned char>(SUN_LEN(&addr));
@@ -507,7 +521,7 @@ inet_socket::inet_socket(const char* host, const char* service, int family) : co
     }
 
     // set up hints
-    addrinfo hints = {0,0,0,0,0,nullptr,nullptr,nullptr};
+    addrinfo hints = { 0, 0, 0, 0, 0, nullptr, nullptr, nullptr };
     hints.ai_family = family;
     hints.ai_socktype = SOCK_STREAM;
     hints.ai_flags = 0;
@@ -567,7 +581,7 @@ inet_socket::inet_socket(const char* service, int family, int backlog) : common_
     }
 
     // set up hints
-    addrinfo hints = {0,0,0,0,0,nullptr,nullptr,nullptr};
+    addrinfo hints = { 0, 0, 0, 0, 0, nullptr, nullptr, nullptr };
     hints.ai_family = family;
     hints.ai_socktype = SOCK_STREAM;
     hints.ai_flags = AI_PASSIVE;

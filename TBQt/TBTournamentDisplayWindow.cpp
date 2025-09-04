@@ -29,8 +29,8 @@ struct TBTournamentDisplayWindow::impl
     bool backgroundIsDark;
 
     explicit impl(TournamentSession& sess, TBTournamentDisplayWindow* parent) : session(sess),
-          actionClockWindow(new TBActionClockWindow(sess, parent)),
-          backgroundIsDark(false) {}
+                                                                                actionClockWindow(new TBActionClockWindow(sess, parent)),
+                                                                                backgroundIsDark(false) {}
 };
 
 TBTournamentDisplayWindow::TBTournamentDisplayWindow(TournamentSession& session, QWidget* parent) : QMainWindow(parent), pimpl(new impl(session, this))
@@ -113,47 +113,47 @@ void TBTournamentDisplayWindow::on_tournamentStateChanged(const QString& key, co
 {
     Q_UNUSED(value)
 
-    if (key == "name")
+    if(key == "name")
     {
         this->updateTournamentName();
     }
-    else if (key == "buyin_text")
+    else if(key == "buyin_text")
     {
         this->updateTournamentBuyin();
     }
-    else if (key == "current_round_number_text")
+    else if(key == "current_round_number_text")
     {
         this->updateCurrentRoundNumber();
     }
-    else if (key == "players_left_text")
+    else if(key == "players_left_text")
     {
         this->updatePlayersLeft();
     }
-    else if (key == "entries_text")
+    else if(key == "entries_text")
     {
         this->updateTotalEntries();
     }
-    else if (key == "average_stack_text")
+    else if(key == "average_stack_text")
     {
         this->updateAverageStack();
     }
-    else if (key == "elapsed_time_text")
+    else if(key == "elapsed_time_text")
     {
         this->updateElapsedTime();
     }
-    else if (key == "clock_text")
+    else if(key == "clock_text")
     {
         this->updateTournamentClock();
     }
-    else if (key == "current_round_text")
+    else if(key == "current_round_text")
     {
         this->updateCurrentRoundInfo();
     }
-    else if (key == "next_round_text")
+    else if(key == "next_round_text")
     {
         this->updateNextRoundInfo();
     }
-    else if (key == "available_chips")
+    else if(key == "available_chips")
     {
         this->updateAvailableChips();
     }
@@ -209,7 +209,7 @@ void TBTournamentDisplayWindow::updateTournamentName()
     pimpl->ui.tournamentNameLabel->setText(tournamentName);
 
     // Window title
-    if (tournamentName.isEmpty())
+    if(tournamentName.isEmpty())
     {
         setWindowTitle("Tournament Display");
     }
@@ -279,7 +279,7 @@ void TBTournamentDisplayWindow::updateAvailableChips()
 {
     // Update chips model
     auto chipsModel = qobject_cast<TBVariantListTableModel*>(pimpl->ui.chipsTableView->model());
-    if (chipsModel)
+    if(chipsModel)
     {
         const QVariantMap& state = pimpl->session.state();
 
@@ -295,7 +295,8 @@ bool TBTournamentDisplayWindow::backgroundIsDark() const
 
 void TBTournamentDisplayWindow::setBackgroundIsDark(bool isDark)
 {
-    if (pimpl->backgroundIsDark == isDark) {
+    if(pimpl->backgroundIsDark == isDark)
+    {
         return;
     }
 

@@ -36,7 +36,7 @@ TBSetupPlayersWidget::TBSetupPlayersWidget(QWidget* parent) : TBSetupTabWidget(p
 
     // Configure column behavior
     QHeaderView* header = pimpl->ui.tableView->horizontalHeader();
-    header->setSectionResizeMode(0, QHeaderView::Stretch);      // Player Name: stretch
+    header->setSectionResizeMode(0, QHeaderView::Stretch);          // Player Name: stretch
     header->setSectionResizeMode(1, QHeaderView::ResizeToContents); // Member Since: fit content
 
     // Set date delegate for "Member Since" column (column 1)
@@ -49,10 +49,11 @@ TBSetupPlayersWidget::TBSetupPlayersWidget(QWidget* parent) : TBSetupTabWidget(p
 
     // Connect selection model after setting the model
     QObject::connect(pimpl->ui.tableView->selectionModel(), &QItemSelectionModel::selectionChanged,
-            [this]() {
-                bool hasSelection = pimpl->ui.tableView->selectionModel()->hasSelection();
-                pimpl->ui.removeButton->setEnabled(hasSelection);
-            });
+                     [this]()
+    {
+        bool hasSelection = pimpl->ui.tableView->selectionModel()->hasSelection();
+        pimpl->ui.removeButton->setEnabled(hasSelection);
+    });
 }
 
 TBSetupPlayersWidget::~TBSetupPlayersWidget()
@@ -66,18 +67,18 @@ void TBSetupPlayersWidget::setConfiguration(const QVariantMap& configuration)
 
     // Update next player number based on existing players
     pimpl->nextPlayerNumber = 1;
-    for (const QVariant& playerVariant : players)
+    for(const QVariant& playerVariant : players)
     {
         QVariantMap player = playerVariant.toMap();
         QString name = player.value("name").toString();
 
         // Check if name matches pattern "Player X"
-        if (name.startsWith("Player "))
+        if(name.startsWith("Player "))
         {
             QString numberPart = name.mid(7); // Remove "Player " prefix
             bool ok;
             int number = numberPart.toInt(&ok);
-            if (ok && number >= pimpl->nextPlayerNumber)
+            if(ok && number >= pimpl->nextPlayerNumber)
             {
                 pimpl->nextPlayerNumber = number + 1;
             }
@@ -118,12 +119,12 @@ void TBSetupPlayersWidget::on_addPlayerButtonClicked()
 void TBSetupPlayersWidget::on_removePlayerButtonClicked()
 {
     int row = TBTableViewUtils::getSelectedSourceRow(pimpl->ui.tableView);
-    if (row < 0)
+    if(row < 0)
         return;
 
     // Remove from model
     QVariantList players = pimpl->model->listData();
-    if (row >= 0 && row < players.size())
+    if(row >= 0 && row < players.size())
     {
         players.removeAt(row);
         pimpl->model->setListData(players);

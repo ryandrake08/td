@@ -61,7 +61,7 @@ TBTableWidget::TBTableWidget(QWidget* parent) : QWidget(parent), pimpl(new impl)
 
     // Set up model
     pimpl->seatsModel = new QStandardItemModel(this);
-    pimpl->seatsModel->setHorizontalHeaderLabels({"Seat", "Player"});
+    pimpl->seatsModel->setHorizontalHeaderLabels({ "Seat", "Player" });
     pimpl->seatsTableView->setModel(pimpl->seatsModel);
 
     // Configure columns - seat number narrow, player name wide
@@ -87,7 +87,8 @@ TBTableWidget::~TBTableWidget() = default;
 void TBTableWidget::setTableName(const QString& name)
 {
     pimpl->tableName = name;
-    if (pimpl->tableNameLabel) {
+    if(pimpl->tableNameLabel)
+    {
         pimpl->tableNameLabel->setText(name);
     }
     updateSeatsTable();
@@ -101,7 +102,7 @@ void TBTableWidget::setSeats(const QVariantList& seatList)
 
 void TBTableWidget::updateSeatsTable()
 {
-    if (!pimpl->seatsModel)
+    if(!pimpl->seatsModel)
     {
         return;
     }
@@ -109,18 +110,22 @@ void TBTableWidget::updateSeatsTable()
     // Clear existing data
     pimpl->seatsModel->setRowCount(0);
 
-    if (pimpl->seats.isEmpty()) {
+    if(pimpl->seats.isEmpty())
+    {
         // Add a single row showing "No players seated"
         pimpl->seatsModel->setRowCount(1);
         pimpl->seatsModel->setItem(0, 0, new QStandardItem("—"));
         pimpl->seatsModel->setItem(0, 1, new QStandardItem("(no players seated)"));
 
         // Make items non-editable and style them
-        for (int col = 0; col < 2; ++col) {
+        for(int col = 0; col < 2; ++col)
+        {
             QStandardItem* item = pimpl->seatsModel->item(0, col);
-            if (item) {
+            if(item)
+            {
                 item->setFlags(item->flags() & ~Qt::ItemIsEditable);
-                if (col == 1) {
+                if(col == 1)
+                {
                     QFont font = item->font();
                     font.setItalic(true);
                     item->setFont(font);
@@ -128,10 +133,13 @@ void TBTableWidget::updateSeatsTable()
                 }
             }
         }
-    } else {
+    }
+    else
+    {
         // Sort seats by seat_name (numerical sorting)
         QVariantList sortedSeats = pimpl->seats;
-        std::sort(sortedSeats.begin(), sortedSeats.end(), [](const QVariant& a, const QVariant& b) {
+        std::sort(sortedSeats.begin(), sortedSeats.end(), [](const QVariant& a, const QVariant& b)
+        {
             QString seatA = a.toMap().value("seat_name").toString();
             QString seatB = b.toMap().value("seat_name").toString();
             return seatA.toInt() < seatB.toInt(); // Numerical comparison
@@ -139,7 +147,8 @@ void TBTableWidget::updateSeatsTable()
 
         // Populate with seat data
         pimpl->seatsModel->setRowCount(sortedSeats.size());
-        for (int row = 0; row < sortedSeats.size(); ++row) {
+        for(int row = 0; row < sortedSeats.size(); ++row)
+        {
             QVariantMap seat = sortedSeats[row].toMap();
             QString playerName = seat.value("player_name").toString();
             QString seatName = seat.value("seat_name").toString();
@@ -155,7 +164,8 @@ void TBTableWidget::updateSeatsTable()
             QStandardItem* playerItem = new QStandardItem(displayName);
             playerItem->setFlags(playerItem->flags() & ~Qt::ItemIsEditable);
 
-            if (playerName.isEmpty()) {
+            if(playerName.isEmpty())
+            {
                 // Style empty seats
                 QFont font = playerItem->font();
                 font.setItalic(true);

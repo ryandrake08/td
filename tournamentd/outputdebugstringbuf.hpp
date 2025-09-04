@@ -2,7 +2,7 @@
 #include <sstream>
 #include <vector>
 
-#if defined (_WIN32)
+#if defined(_WIN32)
 #include <Windows.h>
 
 template<typename TChar, typename TTraits = std::char_traits<TChar>>
@@ -21,13 +21,14 @@ public:
 
     static_assert(std::is_same<TChar, char>::value || std::is_same<TChar, wchar_t>::value, "basic_outputdebugstringbuf only supports char and wchar_t types");
 
-    virtual int sync() try
+    virtual int sync()
+    try
     {
         MessageOutputer<TChar, TTraits>()(pbase(), pptr());
         setp(_buffer.data(), _buffer.data(), _buffer.data() + _buffer.size());
         return 0;
     }
-    catch (...)
+    catch(...)
     {
         return -1;
     }
@@ -35,7 +36,8 @@ public:
     virtual int_type overflow(int_type c = TTraits::eof())
     {
         auto syncRet = sync();
-        if (c != TTraits::eof()) {
+        if(c != TTraits::eof())
+        {
             _buffer[0] = c;
             setp(_buffer.data(), _buffer.data() + 1, _buffer.data() + _buffer.size());
         }

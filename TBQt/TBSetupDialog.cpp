@@ -1,12 +1,12 @@
 #include "TBSetupDialog.hpp"
 
-#include "TBSetupPlayersWidget.hpp"
-#include "TBSetupTablesWidget.hpp"
 #include "TBSetupChipsWidget.hpp"
-#include "TBSetupRoundsWidget.hpp"
+#include "TBSetupDevicesWidget.hpp"
 #include "TBSetupFundingWidget.hpp"
 #include "TBSetupPayoutsWidget.hpp"
-#include "TBSetupDevicesWidget.hpp"
+#include "TBSetupPlayersWidget.hpp"
+#include "TBSetupRoundsWidget.hpp"
+#include "TBSetupTablesWidget.hpp"
 
 #include "ui_TBSetupDialog.h"
 
@@ -79,7 +79,7 @@ QVariantMap TBSetupDialog::configuration() const
     for(auto* tab : pimpl->tabs)
     {
         QVariantMap tabConfig = tab->configuration();
-        for (auto it = tabConfig.begin(); it != tabConfig.end(); ++it)
+        for(auto it = tabConfig.begin(); it != tabConfig.end(); ++it)
         {
             config[it.key()] = it.value();
         }

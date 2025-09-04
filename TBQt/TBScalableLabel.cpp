@@ -1,11 +1,11 @@
 #include "TBScalableLabel.hpp"
 
-#include <QPainter>
-#include <QFontMetrics>
-#include <QResizeEvent>
-#include <QRect>
-#include <QFontDatabase>
 #include <QApplication>
+#include <QFontDatabase>
+#include <QFontMetrics>
+#include <QPainter>
+#include <QRect>
+#include <QResizeEvent>
 
 TBScalableLabel::TBScalableLabel(QWidget* parent) : QLabel(parent), m_minimumFontSize(8), m_maximumFontSize(72)
 {
@@ -14,8 +14,7 @@ TBScalableLabel::TBScalableLabel(QWidget* parent) : QLabel(parent), m_minimumFon
     setWordWrap(true);
 }
 
-TBScalableLabel::TBScalableLabel(const QString& text, QWidget* parent)
-    : QLabel(text, parent), m_minimumFontSize(8), m_maximumFontSize(72)
+TBScalableLabel::TBScalableLabel(const QString& text, QWidget* parent) : QLabel(text, parent), m_minimumFontSize(8), m_maximumFontSize(72)
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     setAlignment(Qt::AlignCenter);
@@ -69,7 +68,8 @@ void TBScalableLabel::paintEvent(QPaintEvent* event)
 
 void TBScalableLabel::updateFontSize()
 {
-    if (text().isEmpty() || size().isEmpty()) {
+    if(text().isEmpty() || size().isEmpty())
+    {
         return;
     }
 
@@ -82,13 +82,13 @@ void TBScalableLabel::updateFontSize()
 
     // Update font if size changed
     QFont currentFont = font();
-    if (currentFont.pointSize() != optimalSize || (!m_fontFamily.isEmpty() && currentFont.family() != m_fontFamily))
+    if(currentFont.pointSize() != optimalSize || (!m_fontFamily.isEmpty() && currentFont.family() != m_fontFamily))
     {
         currentFont.setPointSize(optimalSize);
-        if (!m_fontFamily.isEmpty())
+        if(!m_fontFamily.isEmpty())
         {
             QString styleName;
-            if (currentFont.bold())
+            if(currentFont.bold())
             {
                 styleName = "Bold";
             }
@@ -97,10 +97,10 @@ void TBScalableLabel::updateFontSize()
                 styleName = "Regular";
             }
             QFontDatabase fontDb;
-            if (fontDb.hasFamily(m_fontFamily))
+            if(fontDb.hasFamily(m_fontFamily))
             {
                 currentFont.setFamily(m_fontFamily);
-                if (!fontDb.styles(m_fontFamily).contains(styleName))
+                if(!fontDb.styles(m_fontFamily).contains(styleName))
                 {
                     // Fallback to maintaining bold weight if specific style not available
                     currentFont.setBold(currentFont.bold());
@@ -113,7 +113,8 @@ void TBScalableLabel::updateFontSize()
 
 int TBScalableLabel::calculateOptimalFontSize(const QRect& rect) const
 {
-    if (rect.width() <= 0 || rect.height() <= 0 || text().isEmpty()) {
+    if(rect.width() <= 0 || rect.height() <= 0 || text().isEmpty())
+    {
         return m_minimumFontSize;
     }
 
@@ -122,16 +123,16 @@ int TBScalableLabel::calculateOptimalFontSize(const QRect& rect) const
     int maxSize = m_maximumFontSize;
     int optimalSize = minSize;
 
-    while (minSize <= maxSize)
+    while(minSize <= maxSize)
     {
         int testSize = (minSize + maxSize) / 2;
 
         QFont testFont = font();
         testFont.setPointSize(testSize);
-        if (!m_fontFamily.isEmpty())
+        if(!m_fontFamily.isEmpty())
         {
             QString styleName;
-            if (testFont.bold())
+            if(testFont.bold())
             {
                 styleName = "Bold";
             }
@@ -140,10 +141,10 @@ int TBScalableLabel::calculateOptimalFontSize(const QRect& rect) const
                 styleName = "Regular";
             }
             QFontDatabase fontDb;
-            if (fontDb.hasFamily(m_fontFamily))
+            if(fontDb.hasFamily(m_fontFamily))
             {
                 testFont.setFamily(m_fontFamily);
-                if (!fontDb.styles(m_fontFamily).contains(styleName))
+                if(!fontDb.styles(m_fontFamily).contains(styleName))
                 {
                     // Fallback to maintaining bold weight if specific style not available
                     testFont.setBold(testFont.bold());
@@ -153,7 +154,7 @@ int TBScalableLabel::calculateOptimalFontSize(const QRect& rect) const
         QFontMetrics fm(testFont);
 
         QRect boundingRect;
-        if (wordWrap())
+        if(wordWrap())
         {
             // For word-wrapped text, calculate bounding rectangle
             boundingRect = fm.boundingRect(rect, alignment() | Qt::TextWordWrap, text());
@@ -166,14 +167,14 @@ int TBScalableLabel::calculateOptimalFontSize(const QRect& rect) const
 
         // Check if text fits within available space (with some padding)
         const int padding = 4;
-        if (boundingRect.width() <= rect.width() - padding && boundingRect.height() <= rect.height() - padding)
+        if(boundingRect.width() <= rect.width() - padding && boundingRect.height() <= rect.height() - padding)
         {
             optimalSize = testSize;
-            minSize = testSize + 1;  // Try larger
+            minSize = testSize + 1; // Try larger
         }
         else
         {
-            maxSize = testSize - 1;  // Try smaller
+            maxSize = testSize - 1; // Try smaller
         }
     }
 

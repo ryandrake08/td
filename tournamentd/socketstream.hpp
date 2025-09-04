@@ -7,7 +7,7 @@
 
 // streambuf for manipulating a character-based socket
 
-template <typename T>
+template<typename T>
 class basic_socketstreambuf : public std::basic_streambuf<T>
 {
     typedef T char_type;
@@ -130,10 +130,11 @@ private:
 typedef basic_socketstreambuf<char> socketstreambuf;
 typedef basic_socketstreambuf<wchar_t> wsocketstreambuf;
 
-template <typename T>
+template<typename T>
 class basic_socketstream : public std::basic_iostream<T>
 {
     basic_socketstreambuf<T> buf;
+
 public:
     explicit basic_socketstream(const common_socket& s) : std::basic_iostream<T>(&buf), buf(s) {}
     basic_socketstream(basic_socketstream&& other) noexcept : std::basic_iostream<T>(&buf), buf(std::move(other.buf)) {}

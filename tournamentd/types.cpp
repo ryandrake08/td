@@ -265,13 +265,13 @@ void td::from_json(const nlohmann::json& j, td::player& p)
 
 void td::from_json(const nlohmann::json& j, td::seat& p)
 {
-    p.table_number = j.value("table_number", std::size_t{0});
-    p.seat_number = j.value("seat_number", std::size_t{0});
+    p.table_number = j.value("table_number", std::size_t { 0 });
+    p.seat_number = j.value("seat_number", std::size_t { 0 });
 }
 
 void td::from_json(const nlohmann::json& j, td::manual_payout& p)
 {
-    p.buyins_count = j.value("buyins_count", std::size_t{0});
+    p.buyins_count = j.value("buyins_count", std::size_t { 0 });
     p.payouts = j.value("payouts", std::vector<td::monetary_value_nocurrency>());
 }
 
@@ -286,9 +286,8 @@ void td::from_json(const nlohmann::json& j, td::automatic_payout_parameters& p)
 
 void td::to_json(nlohmann::json& j, const td::authorized_client& p)
 {
-    j = nlohmann::json
-    {
-        {"code", p.code}
+    j = nlohmann::json {
+        { "code", p.code }
     };
 
     if(!p.name.empty())
@@ -334,9 +333,8 @@ void td::to_json(nlohmann::json& j, const td::blind_level& p)
 
 void td::to_json(nlohmann::json& j, const td::chip& p)
 {
-    j = nlohmann::json
-    {
-        {"denomination", p.denomination}
+    j = nlohmann::json {
+        { "denomination", p.denomination }
     };
 
     if(!p.color.empty())
@@ -361,9 +359,8 @@ void td::to_json(nlohmann::json& j, const td::table& p)
 
 void td::to_json(nlohmann::json& j, const td::monetary_value& p)
 {
-    j = nlohmann::json
-    {
-        {"amount", p.amount}
+    j = nlohmann::json {
+        { "amount", p.amount }
     };
 
     if(!p.currency.empty())
@@ -374,22 +371,20 @@ void td::to_json(nlohmann::json& j, const td::monetary_value& p)
 
 void td::to_json(nlohmann::json& j, const td::monetary_value_nocurrency& p)
 {
-    j = nlohmann::json
-    {
-        {"amount", p.amount}
+    j = nlohmann::json {
+        { "amount", p.amount }
     };
 }
 
 void td::to_json(nlohmann::json& j, const td::funding_source& p)
 {
-    j = nlohmann::json
-    {
-        {"name", p.name},
-        {"type", p.type},
-        {"chips", p.chips},
-        {"cost", p.cost},
-        {"commission", p.commission},
-        {"equity", p.equity}
+    j = nlohmann::json {
+        { "name", p.name },
+        { "type", p.type },
+        { "chips", p.chips },
+        { "cost", p.cost },
+        { "commission", p.commission },
+        { "equity", p.equity }
     };
 
     if(p.forbid_after_blind_level != std::numeric_limits<std::size_t>::max())
@@ -400,73 +395,66 @@ void td::to_json(nlohmann::json& j, const td::funding_source& p)
 
 void td::to_json(nlohmann::json& j, const td::player& p)
 {
-    j = nlohmann::json
-    {
-        {"player_id", p.player_id},
-        {"name", p.name},
-        {"added_at", p.added_at}
+    j = nlohmann::json {
+        { "player_id", p.player_id },
+        { "name", p.name },
+        { "added_at", p.added_at }
     };
 }
 
 void td::to_json(nlohmann::json& j, const td::seat& p)
 {
-    j = nlohmann::json
-    {
-        {"table_number", p.table_number},
-        {"seat_number", p.seat_number}
+    j = nlohmann::json {
+        { "table_number", p.table_number },
+        { "seat_number", p.seat_number }
     };
 }
 
 void td::to_json(nlohmann::json& j, const td::manual_payout& p)
 {
-    j = nlohmann::json
-    {
-        {"buyins_count", p.buyins_count},
-        {"payouts", p.payouts}
+    j = nlohmann::json {
+        { "buyins_count", p.buyins_count },
+        { "payouts", p.payouts }
     };
 }
 
 void td::to_json(nlohmann::json& j, const td::automatic_payout_parameters& p)
 {
-    j = nlohmann::json
-    {
-        {"percent_seats_paid", p.percent_seats_paid},
-        {"round_payouts", p.round_payouts},
-        {"payout_shape", p.payout_shape},
-        {"pay_the_bubble", p.pay_the_bubble},
-        {"pay_knockouts", p.pay_knockouts}
+    j = nlohmann::json {
+        { "percent_seats_paid", p.percent_seats_paid },
+        { "round_payouts", p.round_payouts },
+        { "payout_shape", p.payout_shape },
+        { "pay_the_bubble", p.pay_the_bubble },
+        { "pay_knockouts", p.pay_knockouts }
     };
 }
 
 void td::to_json(nlohmann::json& j, const td::player_movement& p)
 {
-    j = nlohmann::json
-    {
-        {"player_id", p.player_id},
-        {"name", p.name},
-        {"from_table_name", p.from_table_name},
-        {"from_seat_name", p.from_seat_name},
-        {"to_table_name", p.to_table_name},
-        {"to_seat_name", p.to_seat_name}
+    j = nlohmann::json {
+        { "player_id", p.player_id },
+        { "name", p.name },
+        { "from_table_name", p.from_table_name },
+        { "from_seat_name", p.from_seat_name },
+        { "to_table_name", p.to_table_name },
+        { "to_seat_name", p.to_seat_name }
     };
 }
 
 void td::to_json(nlohmann::json& j, const td::player_chips& p)
 {
-    j = nlohmann::json
-    {
-        {"denomination", p.denomination},
-        {"chips", p.chips}
+    j = nlohmann::json {
+        { "denomination", p.denomination },
+        { "chips", p.chips }
     };
 }
 
 void td::to_json(nlohmann::json& j, const td::result& p)
 {
-    j = nlohmann::json
-    {
-        {"place", p.place},
-        {"name", p.name},
-        {"payout", p.payout}
+    j = nlohmann::json {
+        { "place", p.place },
+        { "name", p.name },
+        { "payout", p.payout }
     };
 }
 
@@ -474,24 +462,22 @@ void td::to_json(nlohmann::json& j, const td::seated_player& p)
 {
     if(p.seat_name.empty())
     {
-        j = nlohmann::json
-        {
-            {"player_id", p.player_id},
-            {"buyin", p.buyin},
-            {"player_name", p.player_name},
-            {"seat_position", p.seat_position}
+        j = nlohmann::json {
+            { "player_id", p.player_id },
+            { "buyin", p.buyin },
+            { "player_name", p.player_name },
+            { "seat_position", p.seat_position }
         };
     }
     else
     {
-        j = nlohmann::json
-        {
-            {"player_id", p.player_id},
-            {"buyin", p.buyin},
-            {"player_name", p.player_name},
-            {"table_name", p.table_name},
-            {"seat_name", p.seat_name},
-            {"seat_position", p.seat_position}
+        j = nlohmann::json {
+            { "player_id", p.player_id },
+            { "buyin", p.buyin },
+            { "player_name", p.player_name },
+            { "table_name", p.table_name },
+            { "seat_name", p.seat_name },
+            { "seat_position", p.seat_position }
         };
     }
 }
@@ -500,19 +486,17 @@ void td::to_json(nlohmann::json& j, const td::seating_chart_entry& p)
 {
     if(p.player_name.empty())
     {
-        j = nlohmann::json
-        {
-            {"table_name", p.table_name},
-            {"seat_name", p.seat_name}
+        j = nlohmann::json {
+            { "table_name", p.table_name },
+            { "seat_name", p.seat_name }
         };
     }
     else
     {
-        j = nlohmann::json
-        {
-            {"player_name", p.player_name},
-            {"table_name", p.table_name},
-            {"seat_name", p.seat_name}
+        j = nlohmann::json {
+            { "player_name", p.player_name },
+            { "table_name", p.table_name },
+            { "seat_name", p.seat_name }
         };
     }
 }
@@ -524,9 +508,15 @@ std::ostream& operator<<(std::ostream& os, const td::funding_source_type_t& valu
 {
     switch(value)
     {
-        case td::funding_source_type_t::buyin: os << "buyin"; break;
-        case td::funding_source_type_t::rebuy: os << "rebuy"; break;
-        case td::funding_source_type_t::addon: os << "addon"; break;
+    case td::funding_source_type_t::buyin:
+        os << "buyin";
+        break;
+    case td::funding_source_type_t::rebuy:
+        os << "rebuy";
+        break;
+    case td::funding_source_type_t::addon:
+        os << "addon";
+        break;
     }
     return os;
 }
@@ -536,9 +526,15 @@ std::ostream& operator<<(std::ostream& os, const td::payout_policy_t& value)
 {
     switch(value)
     {
-        case td::payout_policy_t::automatic: os << "automatic"; break;
-        case td::payout_policy_t::forced: os << "forced"; break;
-        case td::payout_policy_t::manual: os << "manual"; break;
+    case td::payout_policy_t::automatic:
+        os << "automatic";
+        break;
+    case td::payout_policy_t::forced:
+        os << "forced";
+        break;
+    case td::payout_policy_t::manual:
+        os << "manual";
+        break;
     }
     return os;
 }
@@ -548,9 +544,15 @@ std::ostream& operator<<(std::ostream& os, const td::rebalance_policy_t& value)
 {
     switch(value)
     {
-        case td::rebalance_policy_t::manual: os << "manual"; break;
-        case td::rebalance_policy_t::automatic: os << "automatic"; break;
-        case td::rebalance_policy_t::shootout: os << "shootout"; break;
+    case td::rebalance_policy_t::manual:
+        os << "manual";
+        break;
+    case td::rebalance_policy_t::automatic:
+        os << "automatic";
+        break;
+    case td::rebalance_policy_t::shootout:
+        os << "shootout";
+        break;
     }
     return os;
 }
@@ -560,9 +562,15 @@ std::ostream& operator<<(std::ostream& os, const td::ante_type_t& value)
 {
     switch(value)
     {
-        case td::ante_type_t::none: os << "none"; break;
-        case td::ante_type_t::traditional: os << "traditional"; break;
-        case td::ante_type_t::bba: os << "bba"; break;
+    case td::ante_type_t::none:
+        os << "none";
+        break;
+    case td::ante_type_t::traditional:
+        os << "traditional";
+        break;
+    case td::ante_type_t::bba:
+        os << "bba";
+        break;
     }
     return os;
 }
@@ -572,8 +580,12 @@ std::ostream& operator<<(std::ostream& os, const td::final_table_policy_t& value
 {
     switch(value)
     {
-        case td::final_table_policy_t::fill: os << "fill"; break;
-        case td::final_table_policy_t::randomize: os << "randomize"; break;
+    case td::final_table_policy_t::fill:
+        os << "fill";
+        break;
+    case td::final_table_policy_t::randomize:
+        os << "randomize";
+        break;
     }
     return os;
 }

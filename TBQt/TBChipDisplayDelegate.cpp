@@ -18,14 +18,14 @@ TBChipDisplayDelegate::~TBChipDisplayDelegate() = default;
 void TBChipDisplayDelegate::paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const
 {
     // Only handle color column (column 0) specially
-    if (index.column() == 0)
+    if(index.column() == 0)
     {
         // Get the color string from the model
         QString colorString = index.data(Qt::DisplayRole).toString();
         QColor chipColor = parseColor(colorString);
 
         // Draw selection background if selected
-        if (option.state & QStyle::State_Selected)
+        if(option.state & QStyle::State_Selected)
         {
             painter->fillRect(option.rect, option.palette.highlight());
         }
@@ -35,8 +35,8 @@ void TBChipDisplayDelegate::paint(QPainter* painter, const QStyleOptionViewItem&
         }
 
         // Calculate chip display size and position - make it larger to see the image better
-        int chipSize = qMin(option.rect.height() - 2, 24); // Larger size, less margin
-        int chipX = option.rect.x() + 4; // Smaller left margin
+        int chipSize = qMin(option.rect.height() - 2, 24);                   // Larger size, less margin
+        int chipX = option.rect.x() + 4;                                     // Smaller left margin
         int chipY = option.rect.y() + (option.rect.height() - chipSize) / 2; // Center vertically
 
         QRect chipRect(chipX, chipY, chipSize, chipSize);
@@ -51,7 +51,7 @@ void TBChipDisplayDelegate::paint(QPainter* painter, const QStyleOptionViewItem&
         // Draw chip image on top of the colored ellipse
         static QPixmap chipImage(":/Resources/i_chip_64x64.png");
 
-        if (!chipImage.isNull())
+        if(!chipImage.isNull())
         {
             // Try drawing with composition mode to ensure visibility
             painter->setCompositionMode(QPainter::CompositionMode_SourceOver);
@@ -70,7 +70,6 @@ void TBChipDisplayDelegate::paint(QPainter* painter, const QStyleOptionViewItem&
             painter->drawLine(chipRect.topLeft(), chipRect.bottomRight());
             painter->drawLine(chipRect.topRight(), chipRect.bottomLeft());
         }
-
     }
     else
     {
@@ -84,7 +83,7 @@ QSize TBChipDisplayDelegate::sizeHint(const QStyleOptionViewItem& option, const 
     QSize size = QStyledItemDelegate::sizeHint(option, index);
 
     // For color column, ensure minimum height for ellipse
-    if (index.column() == 0)
+    if(index.column() == 0)
     {
         size.setHeight(qMax(size.height(), 28)); // Minimum 28px height for 20px ellipse + margins
     }
@@ -94,34 +93,34 @@ QSize TBChipDisplayDelegate::sizeHint(const QStyleOptionViewItem& option, const 
 
 QColor TBChipDisplayDelegate::parseColor(const QString& colorString) const
 {
-    if (colorString.isEmpty())
+    if(colorString.isEmpty())
     {
         return QColor(128, 128, 128); // Default gray
     }
 
     // Try hex color first (starts with #)
-    if (colorString.startsWith("#"))
+    if(colorString.startsWith("#"))
     {
         return QColor(colorString);
     }
 
     // Try CSS color name lookup
     QString lowerColorName = colorString.toLower();
-    if (cssColors.contains(lowerColorName))
+    if(cssColors.contains(lowerColorName))
     {
         return QColor(cssColors[lowerColorName]);
     }
 
     // Try as direct hex without #
     QColor directHex(QString("#") + colorString);
-    if (directHex.isValid())
+    if(directHex.isValid())
     {
         return directHex;
     }
 
     // Fall back to Qt color parsing
     QColor qtColor(colorString);
-    if (qtColor.isValid())
+    if(qtColor.isValid())
     {
         return qtColor;
     }

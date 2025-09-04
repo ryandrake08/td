@@ -74,12 +74,12 @@ std::string TournamentService::name() const
 // comparison operators
 bool TournamentService::operator==(const TournamentService& other) const
 {
-    if (this->is_remote() != other.is_remote())
+    if(this->is_remote() != other.is_remote())
     {
         return false;
     }
 
-    if (this->is_remote())
+    if(this->is_remote())
     {
         return this->pimpl->address == other.pimpl->address && this->pimpl->port == other.pimpl->port;
     }
@@ -91,7 +91,7 @@ bool TournamentService::operator==(const TournamentService& other) const
 
 bool TournamentService::operator==(const QMdnsEngine::Service& service) const
 {
-    if (!this->is_remote())
+    if(!this->is_remote())
     {
         return false;
     }

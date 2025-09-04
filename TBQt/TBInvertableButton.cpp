@@ -34,7 +34,7 @@ bool TBInvertableButton::textBelowIcon() const
 
 void TBInvertableButton::setImageInverted(bool inverted)
 {
-    if (m_imageInverted == inverted)
+    if(m_imageInverted == inverted)
     {
         return;
     }
@@ -45,7 +45,7 @@ void TBInvertableButton::setImageInverted(bool inverted)
 
 void TBInvertableButton::setTextBelowIcon(bool below)
 {
-    if (m_textBelowIcon == below)
+    if(m_textBelowIcon == below)
     {
         return;
     }
@@ -56,11 +56,11 @@ void TBInvertableButton::setTextBelowIcon(bool below)
 
 void TBInvertableButton::updateButtonIcon()
 {
-    if (m_imageInverted && !m_invertedIcon.isNull())
+    if(m_imageInverted && !m_invertedIcon.isNull())
     {
         setIcon(m_invertedIcon);
     }
-    else if (!m_originalIcon.isNull())
+    else if(!m_originalIcon.isNull())
     {
         setIcon(m_originalIcon);
     }
@@ -68,7 +68,7 @@ void TBInvertableButton::updateButtonIcon()
 
 void TBInvertableButton::paintEvent(QPaintEvent* event)
 {
-    if (!m_textBelowIcon)
+    if(!m_textBelowIcon)
     {
         // Use default painting when not using text below icon layout
         QPushButton::paintEvent(event);
@@ -87,7 +87,7 @@ void TBInvertableButton::paintEvent(QPaintEvent* event)
 
     // Get the current icon
     QIcon currentIcon = icon();
-    if (!currentIcon.isNull())
+    if(!currentIcon.isNull())
     {
         // Calculate icon position (centered horizontally, in upper portion)
         QSize iconSize = this->iconSize();
@@ -98,14 +98,14 @@ void TBInvertableButton::paintEvent(QPaintEvent* event)
 
         // Draw the icon
         QIcon::Mode mode = isEnabled() ? QIcon::Normal : QIcon::Disabled;
-        if (isDown())
+        if(isDown())
             mode = QIcon::Selected;
         currentIcon.paint(&painter, iconRect, Qt::AlignCenter, mode);
     }
 
     // Draw the text below the icon
     QString buttonText = text();
-    if (!buttonText.isEmpty())
+    if(!buttonText.isEmpty())
     {
         // Calculate text area (below icon)
         int textY = 8 + iconSize().height() + 4; // Icon position + icon height + small gap
@@ -115,7 +115,7 @@ void TBInvertableButton::paintEvent(QPaintEvent* event)
 
         // Set up text drawing
         painter.setPen(isEnabled() ? palette().color(QPalette::ButtonText)
-                                  : palette().color(QPalette::Disabled, QPalette::ButtonText));
+                                   : palette().color(QPalette::Disabled, QPalette::ButtonText));
         painter.setFont(font());
 
         // Draw text centered and with word wrapping
