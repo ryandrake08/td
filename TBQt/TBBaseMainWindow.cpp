@@ -24,7 +24,7 @@ struct TBBaseMainWindow::impl
     // sound notifications
     TBSoundPlayer* soundPlayer;
 
-    explicit impl(TBBaseMainWindow* parent) : seatingChartWindow(new TBSeatingChartWindow(session, parent)), displayWindow(new TBTournamentDisplayWindow(session, parent)), soundPlayer(new TBSoundPlayer(parent)) {}
+    explicit impl(TBBaseMainWindow* parent) : seatingChartWindow(nullptr), displayWindow(nullptr), soundPlayer(new TBSoundPlayer(parent)) {}
 };
 
 TBBaseMainWindow::TBBaseMainWindow(QWidget* parent) : QMainWindow(parent), pimpl(new impl(this))
@@ -53,12 +53,12 @@ TournamentSession& TBBaseMainWindow::getSession()
 
 bool TBBaseMainWindow::isSeatingChartWindowVisible() const
 {
-    return pimpl->seatingChartWindow->isVisible();
+    return pimpl->seatingChartWindow && pimpl->seatingChartWindow->isVisible();
 }
 
 bool TBBaseMainWindow::isDisplayWindowVisible() const
 {
-    return pimpl->displayWindow->isVisible();
+    return pimpl->displayWindow && pimpl->displayWindow->isVisible();
 }
 
 void TBBaseMainWindow::on_actionExit_triggered()
@@ -114,12 +114,22 @@ void TBBaseMainWindow::on_actionClearClock_triggered()
 
 void TBBaseMainWindow::on_actionShowHideSeatingChart_triggered()
 {
-    if(pimpl->seatingChartWindow->isVisible())
+    if(pimpl->seatingChartWindow && pimpl->seatingChartWindow->isVisible())
     {
-        pimpl->seatingChartWindow->hide();
+        // Close and destroy the window
+        pimpl->seatingChartWindow->close();
+        pimpl->seatingChartWindow->deleteLater();
+        pimpl->seatingChartWindow = nullptr;
     }
     else
     {
+        // Create new window if it doesn't exist
+        if(!pimpl->seatingChartWindow)
+        {
+            pimpl->seatingChartWindow = new TBSeatingChartWindow(pimpl->session, this);
+        }
+
+        // Apply settings and show
         this->applyDisplaySettings(pimpl->seatingChartWindow, "SeatingChart");
         pimpl->seatingChartWindow->raise();
         pimpl->seatingChartWindow->activateWindow();
@@ -129,12 +139,22 @@ void TBBaseMainWindow::on_actionShowHideSeatingChart_triggered()
 
 void TBBaseMainWindow::on_actionShowHideMainDisplay_triggered()
 {
-    if(pimpl->displayWindow->isVisible())
+    if(pimpl->displayWindow && pimpl->displayWindow->isVisible())
     {
-        pimpl->displayWindow->hide();
+        // Close and destroy the window
+        pimpl->displayWindow->close();
+        pimpl->displayWindow->deleteLater();
+        pimpl->displayWindow = nullptr;
     }
     else
     {
+        // Create new window if it doesn't exist
+        if(!pimpl->displayWindow)
+        {
+            pimpl->displayWindow = new TBTournamentDisplayWindow(pimpl->session, this);
+        }
+
+        // Apply settings and show
         this->applyDisplaySettings(pimpl->displayWindow, "TournamentDisplay");
         pimpl->displayWindow->raise();
         pimpl->displayWindow->activateWindow();
@@ -179,27 +199,26 @@ void TBBaseMainWindow::applyDisplaySettings(QMainWindow* window, const QString& 
 
     QSettings settings;
 
+    // Get available screens
+    QList<QScreen*> screens = QApplication::screens();
+
+    // Get the screen index for this window type
+    int screenIndex = settings.value(QString("Display/%1Screen").arg(windowType), 0).toInt();
+    if(screenIndex >= 0 && screenIndex < screens.size())
+    {
+
+        // Move window to the specified screen
+        QScreen* targetScreen = screens[screenIndex];
+        QRect screenGeometry = targetScreen->geometry();
+
+        // Move to the screen and then go fullscreen
+        window->move(screenGeometry.topLeft());
+    }
+
     // Check if this window type should start fullscreen
     bool startFullscreen = settings.value(QString("Display/%1Fullscreen").arg(windowType), false).toBool();
-
     if(startFullscreen)
     {
-        // Get the screen index for this window type
-        int screenIndex = settings.value(QString("Display/%1Screen").arg(windowType), 0).toInt();
-
-        // Get available screens
-        QList<QScreen*> screens = QApplication::screens();
-
-        if(screenIndex >= 0 && screenIndex < screens.size())
-        {
-            // Move window to the specified screen
-            QScreen* targetScreen = screens[screenIndex];
-            QRect screenGeometry = targetScreen->geometry();
-
-            // Move to the screen and then go fullscreen
-            window->move(screenGeometry.topLeft());
-        }
-
         // Show fullscreen
         window->showFullScreen();
     }
