@@ -130,7 +130,6 @@ int TBFlowLayout::doLayout(const QRect& rect, bool testOnly) const
     QList<int> rowWidths;
     QList<QLayoutItem*> currentRow;
     int currentRowWidth = 0;
-    int maxRowWidth = 0;
 
     for(QLayoutItem* item : pimpl->itemList)
     {
@@ -148,7 +147,6 @@ int TBFlowLayout::doLayout(const QRect& rect, bool testOnly) const
             // Finish current row and start new one
             rows.append(currentRow);
             rowWidths.append(currentRowWidth);
-            maxRowWidth = qMax(maxRowWidth, currentRowWidth);
 
             currentRow.clear();
             currentRow.append(item);
@@ -167,7 +165,6 @@ int TBFlowLayout::doLayout(const QRect& rect, bool testOnly) const
     {
         rows.append(currentRow);
         rowWidths.append(currentRowWidth);
-        maxRowWidth = qMax(maxRowWidth, currentRowWidth);
     }
 
     // Second pass: position items with centered rows
