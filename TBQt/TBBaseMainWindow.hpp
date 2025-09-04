@@ -45,4 +45,7 @@ protected:
     // visibility accessor methods for child windows
     bool isSeatingChartWindowVisible() const;
     bool isDisplayWindowVisible() const;
+
+    // display settings application for child windows
+    void applyDisplaySettings(QMainWindow* window, const QString& windowType);
 };

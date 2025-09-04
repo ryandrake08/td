@@ -7,7 +7,10 @@
 #include "TournamentSession.hpp"
 
 #include <QAction>
+#include <QApplication>
 #include <QCloseEvent>
+#include <QScreen>
+#include <QSettings>
 
 struct TBBaseMainWindow::impl
 {
@@ -117,7 +120,7 @@ void TBBaseMainWindow::on_actionShowHideSeatingChart_triggered()
     }
     else
     {
-        pimpl->seatingChartWindow->show();
+        this->applyDisplaySettings(pimpl->seatingChartWindow, "SeatingChart");
         pimpl->seatingChartWindow->raise();
         pimpl->seatingChartWindow->activateWindow();
     }
@@ -132,7 +135,7 @@ void TBBaseMainWindow::on_actionShowHideMainDisplay_triggered()
     }
     else
     {
-        pimpl->displayWindow->show();
+        this->applyDisplaySettings(pimpl->displayWindow, "TournamentDisplay");
         pimpl->displayWindow->raise();
         pimpl->displayWindow->activateWindow();
     }
@@ -144,10 +147,11 @@ void TBBaseMainWindow::updateDisplayMenuText()
     // Update menu text based on display window visibility
     bool isVisible = this->isDisplayWindowVisible();
     QString menuText = isVisible ? tr("Hide Main Display") : tr("Show Main Display");
-    
+
     // Find the action by name (both derived classes use the same name)
     QAction* action = this->findChild<QAction*>("actionShowHideMainDisplay");
-    if (action) {
+    if(action)
+    {
         action->setText(menuText);
     }
 }
@@ -157,10 +161,46 @@ void TBBaseMainWindow::updateSeatingChartMenuText()
     // Update menu text based on seating chart window visibility
     bool isVisible = this->isSeatingChartWindowVisible();
     QString menuText = isVisible ? tr("Hide Seating Chart") : tr("Show Seating Chart");
-    
+
     // Find the action by name (both derived classes use the same name)
     QAction* action = this->findChild<QAction*>("actionShowHideSeatingChart");
-    if (action) {
+    if(action)
+    {
         action->setText(menuText);
+    }
+}
+
+void TBBaseMainWindow::applyDisplaySettings(QMainWindow* window, const QString& windowType)
+{
+    if (!window) {
+        return;
+    }
+    
+    QSettings settings;
+    
+    // Check if this window type should start fullscreen
+    bool startFullscreen = settings.value(QString("Display/%1Fullscreen").arg(windowType), false).toBool();
+    
+    if (startFullscreen) {
+        // Get the screen index for this window type
+        int screenIndex = settings.value(QString("Display/%1Screen").arg(windowType), 0).toInt();
+        
+        // Get available screens
+        QList<QScreen*> screens = QApplication::screens();
+        
+        if (screenIndex >= 0 && screenIndex < screens.size()) {
+            // Move window to the specified screen
+            QScreen* targetScreen = screens[screenIndex];
+            QRect screenGeometry = targetScreen->geometry();
+            
+            // Move to the screen and then go fullscreen
+            window->move(screenGeometry.topLeft());
+        }
+        
+        // Show fullscreen
+        window->showFullScreen();
+    } else {
+        // Show normally
+        window->show();
     }
 }
