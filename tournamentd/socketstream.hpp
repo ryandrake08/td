@@ -40,7 +40,7 @@ public:
             }
             if(this->obuf != nullptr)
             {
-                this->sync();
+                basic_socketstreambuf::sync();
                 delete[] this->obuf;
             }
         }

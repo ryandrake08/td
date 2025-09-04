@@ -26,7 +26,7 @@ TBFlowLayout::TBFlowLayout(int margin, int hSpacing, int vSpacing) : pimpl(new i
 TBFlowLayout::~TBFlowLayout()
 {
     QLayoutItem* item;
-    while((item = takeAt(0)))
+    while((item = TBFlowLayout::takeAt(0)))
         delete item;
 }
 
