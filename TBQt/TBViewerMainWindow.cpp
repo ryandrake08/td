@@ -3,6 +3,7 @@
 #include "TBConnectToDialog.hpp"
 #include "TBRuntimeError.hpp"
 #include "TBSeatingChartWindow.hpp"
+#include "TBSettingsDialog.hpp"
 #include "TBTournamentDisplayWindow.hpp"
 #include "TournamentBrowser.hpp"
 
@@ -62,6 +63,12 @@ TBViewerMainWindow::TBViewerMainWindow() : TBBaseMainWindow(), pimpl(new impl())
 
 TBViewerMainWindow::~TBViewerMainWindow() = default;
 
+void TBViewerMainWindow::on_actionSettings_triggered()
+{
+    TBSettingsDialog dialog(this);
+    dialog.exec();
+}
+
 void TBViewerMainWindow::on_actionAbout_Poker_Remote_triggered()
 {
     // show about box
@@ -118,7 +125,6 @@ void TBViewerMainWindow::on_connectedChanged(bool connected)
         pimpl->ui.actionShowHideMainDisplay->trigger();
     }
 }
-
 
 void TBViewerMainWindow::connectToTournament(const TournamentService& service)
 {

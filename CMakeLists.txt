@@ -110,7 +110,7 @@ if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND AND Qt5Multimedia_FOU
 	set(ORGANIZATION_NAME "HDna Studio")
 	set(APPLICATION_VERSION "1.0")
 	set(BUILD_VERSION "1")
-	
+
 	# Platform-specific icon file extensions
 	if(APPLE)
 		set(ICON_EXTENSION "icns")
@@ -119,21 +119,21 @@ if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND AND Qt5Multimedia_FOU
 	else()
 		set(ICON_EXTENSION "png")
 	endif()
-	
+
 	# tbuddy configuration
 	set(TBUDDY_APPLICATION_NAME "Poker Buddy")
 	set(TBUDDY_BUNDLE_NAME "Poker Buddy")
 	set(TBUDDY_BUNDLE_IDENTIFIER "com.hdnastudio.Poker-Buddy.qt")
 	set(TBUDDY_BUNDLE_EXECUTABLE "tbuddy")
 	set(TBUDDY_ICON_FILE "tbuddy.${ICON_EXTENSION}")
-	
+
 	# tbviewer configuration
 	set(TBVIEWER_APPLICATION_NAME "Poker Remote")
 	set(TBVIEWER_BUNDLE_NAME "Poker Remote")
 	set(TBVIEWER_BUNDLE_IDENTIFIER "com.hdnastudio.Poker-Remote.qt")
 	set(TBVIEWER_BUNDLE_EXECUTABLE "tbviewer")
 	set(TBVIEWER_ICON_FILE "tbviewer.${ICON_EXTENSION}")
-	
+
 	# Configure platform-specific files from templates
 	if(APPLE)
 		configure_file(TBQt/tbuddy-Info.plist.in "${CMAKE_CURRENT_BINARY_DIR}/tbuddy-Info.plist" @ONLY)
@@ -145,7 +145,7 @@ if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND AND Qt5Multimedia_FOU
 		configure_file(TBQt/tbuddy.desktop.in "${CMAKE_CURRENT_BINARY_DIR}/tbuddy.desktop" @ONLY)
 		configure_file(TBQt/tbviewer.desktop.in "${CMAKE_CURRENT_BINARY_DIR}/tbviewer.desktop" @ONLY)
 	endif()
-	
+
 	# Configure C++ header from template
 	configure_file(TBQt/TBQtAppConfig.hpp.in "${CMAKE_CURRENT_BINARY_DIR}/TBQtAppConfig.hpp" @ONLY)
 
@@ -240,6 +240,7 @@ if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND AND Qt5Multimedia_FOU
 		TBQt/TBSeatingChartWindow.hpp
 		TBQt/TBSeatingCompoundSortProxyModel.hpp
 		TBQt/TBSeatingModel.hpp
+		TBQt/TBSettingsDialog.hpp
 		TBQt/SignalHandler.hpp
 		TBQt/TBSoundPlayer.hpp
 		TBQt/TBSetupChipsWidget.hpp
@@ -269,6 +270,7 @@ if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND AND Qt5Multimedia_FOU
 		TBQt/TBSetupPlayersWidget.ui
 		TBQt/TBSetupRoundsWidget.ui
 		TBQt/TBSetupTablesWidget.ui
+		TBQt/TBSettingsDialog.ui
 		TBQt/TBTournamentDisplayWindow.ui)
 	qt5_add_resources(TBUDDY_RC
 		TBQt/TBQt.qrc)
@@ -328,6 +330,8 @@ if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND AND Qt5Multimedia_FOU
 		TBQt/TBSeatingCompoundSortProxyModel.hpp
 		TBQt/TBSeatingModel.cpp
 		TBQt/TBSeatingModel.hpp
+		TBQt/TBSettingsDialog.cpp
+		TBQt/TBSettingsDialog.hpp
 		TBQt/SignalHandler.cpp
 		TBQt/SignalHandler.hpp
 		TBQt/TBSoundPlayer.cpp
@@ -378,12 +382,12 @@ if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND AND Qt5Multimedia_FOU
 	target_compile_features(tbuddy PUBLIC cxx_std_11)
 	# Platform-specific target properties and icon handling
 	if(APPLE)
-		set_target_properties(tbuddy PROPERTIES 
-			MACOSX_BUNDLE TRUE 
+		set_target_properties(tbuddy PROPERTIES
+			MACOSX_BUNDLE TRUE
 			MACOSX_BUNDLE_INFO_PLIST ${CMAKE_CURRENT_BINARY_DIR}/tbuddy-Info.plist
 			MACOSX_BUNDLE_ICON_FILE ${TBUDDY_ICON_FILE}
 		)
-		
+
 		# Copy icon file to macOS bundle
 		add_custom_command(TARGET tbuddy POST_BUILD
 			COMMAND ${CMAKE_COMMAND} -E copy
@@ -416,6 +420,7 @@ if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND AND Qt5Multimedia_FOU
 		TBQt/TBResultsModel.hpp
 		TBQt/TBScalableLabel.hpp
 		TBQt/TBSeatingChartWindow.hpp
+		TBQt/TBSettingsDialog.hpp
 		TBQt/SignalHandler.hpp
 		TBQt/TBSoundPlayer.hpp
 		TBQt/TBTableWidget.hpp
@@ -428,6 +433,7 @@ if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND AND Qt5Multimedia_FOU
 	qt5_wrap_ui(TBVIEWER_UI
 		TBQt/TBConnectToDialog.ui
 		TBQt/TBSeatingChartWindow.ui
+		TBQt/TBSettingsDialog.ui
 		TBQt/TBTournamentDisplayWindow.ui
 		TBQt/TBViewerMainWindow.ui)
 	qt5_add_resources(TBVIEWER_RC
@@ -464,6 +470,8 @@ if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND AND Qt5Multimedia_FOU
 		TBQt/TBScalableLabel.hpp
 		TBQt/TBSeatingChartWindow.cpp
 		TBQt/TBSeatingChartWindow.hpp
+		TBQt/TBSettingsDialog.cpp
+		TBQt/TBSettingsDialog.hpp
 		TBQt/SignalHandler.cpp
 		TBQt/SignalHandler.hpp
 		TBQt/TBSoundPlayer.cpp
@@ -498,12 +506,12 @@ if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND AND Qt5Multimedia_FOU
 	target_compile_features(tbviewer PUBLIC cxx_std_11)
 	# Platform-specific target properties and icon handling
 	if(APPLE)
-		set_target_properties(tbviewer PROPERTIES 
-			MACOSX_BUNDLE TRUE 
+		set_target_properties(tbviewer PROPERTIES
+			MACOSX_BUNDLE TRUE
 			MACOSX_BUNDLE_INFO_PLIST ${CMAKE_CURRENT_BINARY_DIR}/tbviewer-Info.plist
 			MACOSX_BUNDLE_ICON_FILE ${TBVIEWER_ICON_FILE}
 		)
-		
+
 		# Copy icon file to macOS bundle
 		add_custom_command(TARGET tbviewer POST_BUILD
 			COMMAND ${CMAKE_COMMAND} -E copy

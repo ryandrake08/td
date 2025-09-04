@@ -172,34 +172,39 @@ void TBBaseMainWindow::updateSeatingChartMenuText()
 
 void TBBaseMainWindow::applyDisplaySettings(QMainWindow* window, const QString& windowType)
 {
-    if (!window) {
+    if(!window)
+    {
         return;
     }
-    
+
     QSettings settings;
-    
+
     // Check if this window type should start fullscreen
     bool startFullscreen = settings.value(QString("Display/%1Fullscreen").arg(windowType), false).toBool();
-    
-    if (startFullscreen) {
+
+    if(startFullscreen)
+    {
         // Get the screen index for this window type
         int screenIndex = settings.value(QString("Display/%1Screen").arg(windowType), 0).toInt();
-        
+
         // Get available screens
         QList<QScreen*> screens = QApplication::screens();
-        
-        if (screenIndex >= 0 && screenIndex < screens.size()) {
+
+        if(screenIndex >= 0 && screenIndex < screens.size())
+        {
             // Move window to the specified screen
             QScreen* targetScreen = screens[screenIndex];
             QRect screenGeometry = targetScreen->geometry();
-            
+
             // Move to the screen and then go fullscreen
             window->move(screenGeometry.topLeft());
         }
-        
+
         // Show fullscreen
         window->showFullScreen();
-    } else {
+    }
+    else
+    {
         // Show normally
         window->show();
     }

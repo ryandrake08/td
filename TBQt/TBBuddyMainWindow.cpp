@@ -8,6 +8,7 @@
 #include "TBSeatingChartWindow.hpp"
 #include "TBSeatingCompoundSortProxyModel.hpp"
 #include "TBSeatingModel.hpp"
+#include "TBSettingsDialog.hpp"
 #include "TBSetupDialog.hpp"
 #include "TBTableViewUtils.hpp"
 #include "TBTournamentDisplayWindow.hpp"
@@ -161,6 +162,12 @@ bool TBBuddyMainWindow::load_document(const QString& filename)
 }
 
 // closeEvent is now handled by base class
+
+void TBBuddyMainWindow::on_actionSettings_triggered()
+{
+    TBSettingsDialog dialog(this);
+    dialog.exec();
+}
 
 void TBBuddyMainWindow::on_actionAbout_Poker_Buddy_triggered()
 {
@@ -751,7 +758,6 @@ void TBBuddyMainWindow::updateWindowTitle(const QString& filename)
 
     this->setWindowTitle(windowTitle);
 }
-
 
 void TBBuddyMainWindow::updateMovementBadge()
 {
