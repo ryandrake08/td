@@ -134,9 +134,17 @@ if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND AND Qt5Multimedia_FOU
 	set(TBVIEWER_BUNDLE_EXECUTABLE "tbviewer")
 	set(TBVIEWER_ICON_FILE "tbviewer.${ICON_EXTENSION}")
 	
-	# Configure Info.plist files from templates
-	configure_file(TBQt/tbuddy-Info.plist.in "${CMAKE_CURRENT_BINARY_DIR}/tbuddy-Info.plist" @ONLY)
-	configure_file(TBQt/tbviewer-Info.plist.in "${CMAKE_CURRENT_BINARY_DIR}/tbviewer-Info.plist" @ONLY)
+	# Configure platform-specific files from templates
+	if(APPLE)
+		configure_file(TBQt/tbuddy-Info.plist.in "${CMAKE_CURRENT_BINARY_DIR}/tbuddy-Info.plist" @ONLY)
+		configure_file(TBQt/tbviewer-Info.plist.in "${CMAKE_CURRENT_BINARY_DIR}/tbviewer-Info.plist" @ONLY)
+	elseif(WIN32)
+		# Windows resource files - TODO: implement when needed
+	else()
+		# Linux desktop files
+		configure_file(TBQt/tbuddy.desktop.in "${CMAKE_CURRENT_BINARY_DIR}/tbuddy.desktop" @ONLY)
+		configure_file(TBQt/tbviewer.desktop.in "${CMAKE_CURRENT_BINARY_DIR}/tbviewer.desktop" @ONLY)
+	endif()
 	
 	# Configure C++ header from template
 	configure_file(TBQt/TBQtAppConfig.hpp.in "${CMAKE_CURRENT_BINARY_DIR}/TBQtAppConfig.hpp" @ONLY)
@@ -387,8 +395,12 @@ if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND AND Qt5Multimedia_FOU
 		# set_target_properties(tbuddy PROPERTIES WIN32_EXECUTABLE TRUE)
 		# TODO: Add Windows resource script (.rc) with icon reference
 	else()
-		# Linux: Set application icon through desktop file or Qt resources
-		# TODO: Add .desktop file generation with Icon= entry
+		# Linux: Install desktop file and icon
+		install(FILES "${CMAKE_CURRENT_BINARY_DIR}/tbuddy.desktop"
+			DESTINATION share/applications)
+		install(FILES "${CMAKE_SOURCE_DIR}/Resources/${TBUDDY_ICON_FILE}"
+			DESTINATION share/icons/hicolor/1024x1024/apps
+			RENAME "${TBUDDY_BUNDLE_EXECUTABLE}.png")
 	endif()
 
 	qt5_wrap_cpp(TBVIEWER_MOC
@@ -503,7 +515,11 @@ if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND AND Qt5Multimedia_FOU
 		# set_target_properties(tbviewer PROPERTIES WIN32_EXECUTABLE TRUE)
 		# TODO: Add Windows resource script (.rc) with icon reference
 	else()
-		# Linux: Set application icon through desktop file or Qt resources
-		# TODO: Add .desktop file generation with Icon= entry
+		# Linux: Install desktop file and icon
+		install(FILES "${CMAKE_CURRENT_BINARY_DIR}/tbviewer.desktop"
+			DESTINATION share/applications)
+		install(FILES "${CMAKE_SOURCE_DIR}/Resources/${TBVIEWER_ICON_FILE}"
+			DESTINATION share/icons/hicolor/1024x1024/apps
+			RENAME "${TBVIEWER_BUNDLE_EXECUTABLE}.png")
 	endif()
 endif()

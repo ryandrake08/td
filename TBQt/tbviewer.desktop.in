@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=@TBVIEWER_APPLICATION_NAME@
+Comment=Tournament viewing and display client
+Exec=@CMAKE_INSTALL_PREFIX@/bin/@TBVIEWER_BUNDLE_EXECUTABLE@
+Icon=@TBVIEWER_BUNDLE_EXECUTABLE@
+Terminal=false
+Categories=Game;Sports;
+Keywords=poker;tournament;viewer;display;remote;
+StartupNotify=true
+MimeType=application/x-tbuddy-tournament;
