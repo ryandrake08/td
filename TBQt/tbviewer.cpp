@@ -1,5 +1,6 @@
 #include "SignalHandler.hpp"
 #include "TBViewerMainWindow.hpp"
+#include "TBQtAppConfig.hpp"
 
 #include <QApplication>
 #include <QCommandLineParser>
@@ -14,10 +15,10 @@ int main(int argc, char* argv[])
     QFontDatabase::addApplicationFont(":/IBMPlexSans-Regular.otf");
 
     // set up application and organization info (for QSettings)
-    QCoreApplication::setApplicationName("Poker Remote");
-    QCoreApplication::setApplicationVersion("1.0");
-    QCoreApplication::setOrganizationName("hdnastudio");
-    QCoreApplication::setOrganizationDomain("hdnastudio.com");
+    QCoreApplication::setApplicationName(TBQtAppConfig::TBViewer::APPLICATION_NAME);
+    QCoreApplication::setApplicationVersion(TBQtAppConfig::APPLICATION_VERSION);
+    QCoreApplication::setOrganizationName(TBQtAppConfig::ORGANIZATION_NAME);
+    QCoreApplication::setOrganizationDomain(TBQtAppConfig::ORGANIZATION_DOMAIN);
 
     // set up signal handler for graceful shutdown
     SignalHandler signalHandler;

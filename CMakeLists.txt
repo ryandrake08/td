@@ -106,6 +106,30 @@ endif()
 
 find_package(Qt5 COMPONENTS Core Network Widgets Multimedia)
 if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND AND Qt5Multimedia_FOUND)
+	# Define application metadata variables (shared between C++ and Info.plist)
+	set(ORGANIZATION_NAME "HDna Studio")
+	set(APPLICATION_VERSION "1.0")
+	set(BUILD_VERSION "1")
+	
+	# tbuddy configuration
+	set(TBUDDY_APPLICATION_NAME "Poker Buddy")
+	set(TBUDDY_BUNDLE_NAME "Poker Buddy")
+	set(TBUDDY_BUNDLE_IDENTIFIER "com.hdnastudio.Poker-Buddy.qt")
+	set(TBUDDY_BUNDLE_EXECUTABLE "tbuddy")
+	
+	# tbviewer configuration
+	set(TBVIEWER_APPLICATION_NAME "Poker Remote")
+	set(TBVIEWER_BUNDLE_NAME "Poker Remote")
+	set(TBVIEWER_BUNDLE_IDENTIFIER "com.hdnastudio.Poker-Remote.qt")
+	set(TBVIEWER_BUNDLE_EXECUTABLE "tbviewer")
+	
+	# Configure Info.plist files from templates
+	configure_file(TBQt/tbuddy-Info.plist.in "${CMAKE_CURRENT_BINARY_DIR}/tbuddy-Info.plist" @ONLY)
+	configure_file(TBQt/tbviewer-Info.plist.in "${CMAKE_CURRENT_BINARY_DIR}/tbviewer-Info.plist" @ONLY)
+	
+	# Configure C++ header from template
+	configure_file(TBQt/TBQtAppConfig.hpp.in "${CMAKE_CURRENT_BINARY_DIR}/TBQtAppConfig.hpp" @ONLY)
+
 	# Configure qmdnsengine library
 	configure_file(thirdparty/qmdnsengine/qmdnsengine_export.h.in "${CMAKE_CURRENT_BINARY_DIR}/qmdnsengine_export.h")
 
@@ -330,9 +354,10 @@ if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND AND Qt5Multimedia_FOU
 		${TBUDDY_RC}
 	)
 	target_compile_definitions(tbuddy PRIVATE QT_NO_KEYWORDS)
+	target_include_directories(tbuddy PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
 	target_link_libraries(tbuddy td qmdnsengine Qt5::Network Qt5::Widgets Qt5::Multimedia ${CMAKE_THREAD_LIBS_INIT} ${OS_LIBRARIES})
 	target_compile_features(tbuddy PUBLIC cxx_std_11)
-	set_target_properties(tbuddy PROPERTIES MACOSX_BUNDLE TRUE MACOSX_BUNDLE_INFO_PLIST ${CMAKE_SOURCE_DIR}/TBQt/TBQt-Info.plist)
+	set_target_properties(tbuddy PROPERTIES MACOSX_BUNDLE TRUE MACOSX_BUNDLE_INFO_PLIST ${CMAKE_CURRENT_BINARY_DIR}/tbuddy-Info.plist)
 
 	qt5_wrap_cpp(TBVIEWER_MOC
 		TBQt/TBActionClockWidget.hpp
@@ -424,7 +449,8 @@ if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND AND Qt5Multimedia_FOU
 		${TBVIEWER_RC}
 	)
 	target_compile_definitions(tbviewer PRIVATE QT_NO_KEYWORDS)
+	target_include_directories(tbviewer PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
 	target_link_libraries(tbviewer td qmdnsengine Qt5::Network Qt5::Widgets Qt5::Multimedia ${CMAKE_THREAD_LIBS_INIT} ${OS_LIBRARIES})
 	target_compile_features(tbviewer PUBLIC cxx_std_11)
-	set_target_properties(tbviewer PROPERTIES MACOSX_BUNDLE TRUE MACOSX_BUNDLE_INFO_PLIST ${CMAKE_SOURCE_DIR}/TBQt/TBQt-Info.plist)
+	set_target_properties(tbviewer PROPERTIES MACOSX_BUNDLE TRUE MACOSX_BUNDLE_INFO_PLIST ${CMAKE_CURRENT_BINARY_DIR}/tbviewer-Info.plist)
 endif()
