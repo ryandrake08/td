@@ -752,21 +752,6 @@ void TBBuddyMainWindow::updateWindowTitle(const QString& filename)
     this->setWindowTitle(windowTitle);
 }
 
-void TBBuddyMainWindow::updateDisplayMenuText()
-{
-    // Update menu text based on display window visibility
-    bool isVisible = this->isDisplayWindowVisible();
-    QString menuText = isVisible ? tr("Hide Main Display") : tr("Show Main Display");
-    this->pimpl->ui.actionShowHideMainDisplay->setText(menuText);
-}
-
-void TBBuddyMainWindow::updateSeatingChartMenuText()
-{
-    // Update menu text based on seating chart window visibility
-    bool isVisible = this->isSeatingChartWindowVisible();
-    QString menuText = isVisible ? tr("Hide Seating Chart") : tr("Show Seating Chart");
-    this->pimpl->ui.actionShowHideSeatingChart->setText(menuText);
-}
 
 void TBBuddyMainWindow::updateMovementBadge()
 {

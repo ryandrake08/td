@@ -6,6 +6,7 @@
 
 #include "TournamentSession.hpp"
 
+#include <QAction>
 #include <QCloseEvent>
 
 struct TBBaseMainWindow::impl
@@ -136,4 +137,30 @@ void TBBaseMainWindow::on_actionShowHideMainDisplay_triggered()
         pimpl->displayWindow->activateWindow();
     }
     this->updateDisplayMenuText();
+}
+
+void TBBaseMainWindow::updateDisplayMenuText()
+{
+    // Update menu text based on display window visibility
+    bool isVisible = this->isDisplayWindowVisible();
+    QString menuText = isVisible ? tr("Hide Main Display") : tr("Show Main Display");
+    
+    // Find the action by name (both derived classes use the same name)
+    QAction* action = this->findChild<QAction*>("actionShowHideMainDisplay");
+    if (action) {
+        action->setText(menuText);
+    }
+}
+
+void TBBaseMainWindow::updateSeatingChartMenuText()
+{
+    // Update menu text based on seating chart window visibility
+    bool isVisible = this->isSeatingChartWindowVisible();
+    QString menuText = isVisible ? tr("Hide Seating Chart") : tr("Show Seating Chart");
+    
+    // Find the action by name (both derived classes use the same name)
+    QAction* action = this->findChild<QAction*>("actionShowHideSeatingChart");
+    if (action) {
+        action->setText(menuText);
+    }
 }

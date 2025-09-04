@@ -17,8 +17,6 @@ class TBViewerMainWindow : public TBBaseMainWindow
     std::unique_ptr<impl> pimpl;
 
     // updaters for various changeable UI controls
-    void updateDisplayMenuText() override;
-    void updateSeatingChartMenuText() override;
     void updateServiceMenu();
 
 private Q_SLOTS:

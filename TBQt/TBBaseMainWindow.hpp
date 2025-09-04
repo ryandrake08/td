@@ -38,9 +38,9 @@ protected:
     // accessor methods for derived classes
     class TournamentSession& getSession();
 
-    // pure virtual UI update methods (require UI access)
-    virtual void updateDisplayMenuText() = 0;
-    virtual void updateSeatingChartMenuText() = 0;
+    // common UI update methods
+    void updateDisplayMenuText();
+    void updateSeatingChartMenuText();
 
     // visibility accessor methods for child windows
     bool isSeatingChartWindowVisible() const;

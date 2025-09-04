@@ -15,8 +15,6 @@ class TBBuddyMainWindow : public TBBaseMainWindow
     void updateTournamentClock();
     void updateActionButtons();
     void updateWindowTitle(const QString& filename = QString());
-    void updateDisplayMenuText() override;
-    void updateSeatingChartMenuText() override;
     void updateMovementBadge();
 
     // helper functions to show dialogs
