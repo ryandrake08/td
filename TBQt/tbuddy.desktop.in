@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=@TBUDDY_APPLICATION_NAME@
+Comment=Professional tournament management software
+Exec=@CMAKE_INSTALL_PREFIX@/bin/@TBUDDY_BUNDLE_EXECUTABLE@
+Icon=@TBUDDY_BUNDLE_EXECUTABLE@
+Terminal=false
+Categories=Game;Sports;
+Keywords=poker;tournament;management;director;
+StartupNotify=true
+MimeType=application/x-tbuddy-tournament;

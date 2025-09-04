@@ -111,17 +111,28 @@ if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND AND Qt5Multimedia_FOU
 	set(APPLICATION_VERSION "1.0")
 	set(BUILD_VERSION "1")
 	
+	# Platform-specific icon file extensions
+	if(APPLE)
+		set(ICON_EXTENSION "icns")
+	elseif(WIN32)
+		set(ICON_EXTENSION "ico")
+	else()
+		set(ICON_EXTENSION "png")
+	endif()
+	
 	# tbuddy configuration
 	set(TBUDDY_APPLICATION_NAME "Poker Buddy")
 	set(TBUDDY_BUNDLE_NAME "Poker Buddy")
 	set(TBUDDY_BUNDLE_IDENTIFIER "com.hdnastudio.Poker-Buddy.qt")
 	set(TBUDDY_BUNDLE_EXECUTABLE "tbuddy")
+	set(TBUDDY_ICON_FILE "tbuddy.${ICON_EXTENSION}")
 	
 	# tbviewer configuration
 	set(TBVIEWER_APPLICATION_NAME "Poker Remote")
 	set(TBVIEWER_BUNDLE_NAME "Poker Remote")
 	set(TBVIEWER_BUNDLE_IDENTIFIER "com.hdnastudio.Poker-Remote.qt")
 	set(TBVIEWER_BUNDLE_EXECUTABLE "tbviewer")
+	set(TBVIEWER_ICON_FILE "tbviewer.${ICON_EXTENSION}")
 	
 	# Configure Info.plist files from templates
 	configure_file(TBQt/tbuddy-Info.plist.in "${CMAKE_CURRENT_BINARY_DIR}/tbuddy-Info.plist" @ONLY)
@@ -357,7 +368,28 @@ if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND AND Qt5Multimedia_FOU
 	target_include_directories(tbuddy PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
 	target_link_libraries(tbuddy td qmdnsengine Qt5::Network Qt5::Widgets Qt5::Multimedia ${CMAKE_THREAD_LIBS_INIT} ${OS_LIBRARIES})
 	target_compile_features(tbuddy PUBLIC cxx_std_11)
-	set_target_properties(tbuddy PROPERTIES MACOSX_BUNDLE TRUE MACOSX_BUNDLE_INFO_PLIST ${CMAKE_CURRENT_BINARY_DIR}/tbuddy-Info.plist)
+	# Platform-specific target properties and icon handling
+	if(APPLE)
+		set_target_properties(tbuddy PROPERTIES 
+			MACOSX_BUNDLE TRUE 
+			MACOSX_BUNDLE_INFO_PLIST ${CMAKE_CURRENT_BINARY_DIR}/tbuddy-Info.plist
+			MACOSX_BUNDLE_ICON_FILE ${TBUDDY_ICON_FILE}
+		)
+		
+		# Copy icon file to macOS bundle
+		add_custom_command(TARGET tbuddy POST_BUILD
+			COMMAND ${CMAKE_COMMAND} -E copy
+			${CMAKE_SOURCE_DIR}/Resources/${TBUDDY_ICON_FILE}
+			$<TARGET_BUNDLE_DIR:tbuddy>/Contents/Resources/${TBUDDY_ICON_FILE}
+		)
+	elseif(WIN32)
+		# Windows icon handling (requires .ico file and resource script)
+		# set_target_properties(tbuddy PROPERTIES WIN32_EXECUTABLE TRUE)
+		# TODO: Add Windows resource script (.rc) with icon reference
+	else()
+		# Linux: Set application icon through desktop file or Qt resources
+		# TODO: Add .desktop file generation with Icon= entry
+	endif()
 
 	qt5_wrap_cpp(TBVIEWER_MOC
 		TBQt/TBActionClockWidget.hpp
@@ -452,5 +484,26 @@ if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND AND Qt5Multimedia_FOU
 	target_include_directories(tbviewer PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
 	target_link_libraries(tbviewer td qmdnsengine Qt5::Network Qt5::Widgets Qt5::Multimedia ${CMAKE_THREAD_LIBS_INIT} ${OS_LIBRARIES})
 	target_compile_features(tbviewer PUBLIC cxx_std_11)
-	set_target_properties(tbviewer PROPERTIES MACOSX_BUNDLE TRUE MACOSX_BUNDLE_INFO_PLIST ${CMAKE_CURRENT_BINARY_DIR}/tbviewer-Info.plist)
+	# Platform-specific target properties and icon handling
+	if(APPLE)
+		set_target_properties(tbviewer PROPERTIES 
+			MACOSX_BUNDLE TRUE 
+			MACOSX_BUNDLE_INFO_PLIST ${CMAKE_CURRENT_BINARY_DIR}/tbviewer-Info.plist
+			MACOSX_BUNDLE_ICON_FILE ${TBVIEWER_ICON_FILE}
+		)
+		
+		# Copy icon file to macOS bundle
+		add_custom_command(TARGET tbviewer POST_BUILD
+			COMMAND ${CMAKE_COMMAND} -E copy
+			${CMAKE_SOURCE_DIR}/Resources/${TBVIEWER_ICON_FILE}
+			$<TARGET_BUNDLE_DIR:tbviewer>/Contents/Resources/${TBVIEWER_ICON_FILE}
+		)
+	elseif(WIN32)
+		# Windows icon handling (requires .ico file and resource script)
+		# set_target_properties(tbviewer PROPERTIES WIN32_EXECUTABLE TRUE)
+		# TODO: Add Windows resource script (.rc) with icon reference
+	else()
+		# Linux: Set application icon through desktop file or Qt resources
+		# TODO: Add .desktop file generation with Icon= entry
+	endif()
 endif()

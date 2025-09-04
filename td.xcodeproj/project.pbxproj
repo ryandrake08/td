@@ -212,7 +212,6 @@
 		94A7FCC22027E69B006AD3FC /* TBPayoutPolicyNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 94A7FCC02027E69B006AD3FC /* TBPayoutPolicyNumberFormatter.m */; };
 		94A7FCC52027EB30006AD3FC /* TBSetupDependsOnTurnoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94A7FCC42027EB30006AD3FC /* TBSetupDependsOnTurnoutViewController.m */; };
 		94A7FCC82027F54B006AD3FC /* TBSetupPayoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94A7FCC72027F54B006AD3FC /* TBSetupPayoutViewController.m */; };
-		94AD40E120134AA900AB90A3 /* piranha.icns in Resources */ = {isa = PBXBuildFile; fileRef = 94AD40E020134AA300AB90A3 /* piranha.icns */; };
 		94B30DE320020AFF0037192E /* TBMac.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 94B30DE520020AFF0037192E /* TBMac.storyboard */; };
 		94B30DE8200217710037192E /* TBMacViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B30DE7200217710037192E /* TBMacViewController.m */; };
 		94B30DEB200283CC0037192E /* TBMacWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B30DEA200283CC0037192E /* TBMacWindowController.m */; };
@@ -816,7 +815,6 @@
 		94A7FCC42027EB30006AD3FC /* TBSetupDependsOnTurnoutViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TBSetupDependsOnTurnoutViewController.m; sourceTree = "<group>"; };
 		94A7FCC62027F54B006AD3FC /* TBSetupPayoutViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBSetupPayoutViewController.h; sourceTree = "<group>"; };
 		94A7FCC72027F54B006AD3FC /* TBSetupPayoutViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TBSetupPayoutViewController.m; sourceTree = "<group>"; };
-		94AD40E020134AA300AB90A3 /* piranha.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = piranha.icns; sourceTree = "<group>"; };
 		94B30DE420020AFF0037192E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/TBMac.storyboard; sourceTree = "<group>"; };
 		94B30DE6200217710037192E /* TBMacViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TBMacViewController.h; path = TBMac/TBMacViewController.h; sourceTree = "<group>"; };
 		94B30DE7200217710037192E /* TBMacViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TBMacViewController.m; path = TBMac/TBMacViewController.m; sourceTree = "<group>"; };
@@ -1234,7 +1232,6 @@
 				946EAFB0201343FC00BD57DE /* i_piranha_44x58.png */,
 				946EAFB2201343FD00BD57DE /* i_piranha_64x64.png */,
 				946EAFB3201343FD00BD57DE /* i_piranha_320x320.png */,
-				94AD40E020134AA300AB90A3 /* piranha.icns */,
 				94D04EC81B7C59EB004F4245 /* s_break.caf */,
 				94D04EC91B7C59EB004F4245 /* s_next.caf */,
 				94D04ECA1B7C59EB004F4245 /* s_rebalance.caf */,
@@ -1944,7 +1941,6 @@
 				9481CBA728D94CDF00440B59 /* tournamentd in Resources */,
 				9481CBA828D94CDF00440B59 /* Poker Remote.app in Resources */,
 				9481CBA928D94CDF00440B59 /* tournamentctl in Resources */,
-				94AD40E120134AA900AB90A3 /* piranha.icns in Resources */,
 				AD8E68541A6C606700E5A4D8 /* TBMac.xcassets in Resources */,
 				94B30DE320020AFF0037192E /* TBMac.storyboard in Resources */,
 				9471B3F51FF8EBC4000A314C /* TBViewer.storyboard in Resources */,
