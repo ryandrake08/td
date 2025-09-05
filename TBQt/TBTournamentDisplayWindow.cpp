@@ -26,12 +26,9 @@ struct TBTournamentDisplayWindow::impl
     // Child windows
     TBActionClockWindow* actionClockWindow;
 
-    // Background theme tracking
-    bool backgroundIsDark;
-
-    explicit impl(TournamentSession& sess, TBTournamentDisplayWindow* parent) : session(sess),
-                                                                                actionClockWindow(new TBActionClockWindow(sess, parent)),
-                                                                                backgroundIsDark(false) {}
+    explicit impl(TournamentSession& sess, TBTournamentDisplayWindow* parent) : session(sess), actionClockWindow(new TBActionClockWindow(sess, parent))
+    {
+    }
 };
 
 TBTournamentDisplayWindow::TBTournamentDisplayWindow(TournamentSession& session, QWidget* parent) : TBBaseAuxiliaryWindow(parent), pimpl(new impl(session, this))
@@ -101,6 +98,7 @@ TBTournamentDisplayWindow::TBTournamentDisplayWindow(TournamentSession& session,
     this->updateCurrentRoundInfo();
     this->updateNextRoundInfo();
     this->updateAvailableChips();
+    this->updateBackgroundColor();
 }
 
 void TBTournamentDisplayWindow::onActionClockCanceled()
@@ -157,6 +155,10 @@ void TBTournamentDisplayWindow::on_tournamentStateChanged(const QString& key, co
     else if(key == "available_chips")
     {
         this->updateAvailableChips();
+    }
+    else if(key == "background_color")
+    {
+        this->updateBackgroundColor();
     }
 }
 
@@ -285,18 +287,11 @@ void TBTournamentDisplayWindow::updateAvailableChips()
     }
 }
 
-bool TBTournamentDisplayWindow::backgroundIsDark() const
+void TBTournamentDisplayWindow::updateBackgroundColor()
 {
-    return pimpl->backgroundIsDark;
-}
+    const QVariantMap& state = pimpl->session.state();
+    QString backgroundColorName = state.value("background_color").toString();
 
-void TBTournamentDisplayWindow::setBackgroundIsDark(bool isDark)
-{
-    if(pimpl->backgroundIsDark == isDark)
-    {
-        return;
-    }
-
-    pimpl->backgroundIsDark = isDark;
-    Q_EMIT backgroundIsDarkChanged(isDark);
+    // Set background color using base class method
+    this->setBackgroundColorString(backgroundColorName);
 }

@@ -94,14 +94,10 @@ void TBSeatingChartWindow::updateTournamentBuyin()
 void TBSeatingChartWindow::updateBackgroundColor()
 {
     const QVariantMap& state = pimpl->session.state();
-
-    // Background color
     QString backgroundColorName = state.value("background_color").toString();
-    if(!backgroundColorName.isEmpty())
-    {
-        // TODO: Implement background color support when CSS color parsing is added
-        // For now, use default colors
-    }
+
+    // Set background color using base class method
+    this->setBackgroundColorString(backgroundColorName);
 }
 
 void TBSeatingChartWindow::updateSeatingChart()

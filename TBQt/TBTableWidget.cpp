@@ -52,7 +52,7 @@ TBTableWidget::TBTableWidget(QWidget* parent) : QWidget(parent), pimpl(new impl)
 
     // Seats table view
     pimpl->seatsTableView = new QTableView();
-    pimpl->seatsTableView->setAlternatingRowColors(true);
+    pimpl->seatsTableView->setAlternatingRowColors(false);
     pimpl->seatsTableView->setSelectionBehavior(QAbstractItemView::SelectRows);
     pimpl->seatsTableView->setSelectionMode(QAbstractItemView::NoSelection);
     pimpl->seatsTableView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);

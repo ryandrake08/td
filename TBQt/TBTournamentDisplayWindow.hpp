@@ -11,7 +11,6 @@ class TournamentSession;
 class TBTournamentDisplayWindow : public TBBaseAuxiliaryWindow
 {
     Q_OBJECT
-    Q_PROPERTY(bool backgroundIsDark READ backgroundIsDark WRITE setBackgroundIsDark NOTIFY backgroundIsDarkChanged)
 
     // pimpl
     struct impl;
@@ -20,6 +19,7 @@ class TBTournamentDisplayWindow : public TBBaseAuxiliaryWindow
     // updaters for various changeable UI controls
     void updateTournamentName();
     void updateTournamentBuyin();
+    void updateBackgroundColor();
     void updateCurrentRoundNumber();
     void updatePlayersLeft();
     void updateTotalEntries();
@@ -41,11 +41,4 @@ private Q_SLOTS:
 public:
     explicit TBTournamentDisplayWindow(TournamentSession& session, QWidget* parent = nullptr);
     virtual ~TBTournamentDisplayWindow() override;
-
-    // Background theme properties
-    bool backgroundIsDark() const;
-    void setBackgroundIsDark(bool isDark);
-
-Q_SIGNALS:
-    void backgroundIsDarkChanged(bool isDark);
 };

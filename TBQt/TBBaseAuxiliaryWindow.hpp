@@ -13,10 +13,17 @@ class TBBaseAuxiliaryWindow : public QWidget
 protected:
     void closeEvent(QCloseEvent* event) override;
 
+    // Set background and text colors using Qt stylesheet and update backgroundIsDark property
+    void setBackgroundColorString(const QString& backgroundColorString);
+
+    // Query current widget background color to determine if it's dark
+    bool isBackgroundDark() const;
+
 public:
     explicit TBBaseAuxiliaryWindow(QWidget* parent = nullptr);
     virtual ~TBBaseAuxiliaryWindow() override;
 
 Q_SIGNALS:
+    void backgroundIsDarkChanged(bool isDark);
     void windowClosed();
 };
