@@ -5,6 +5,9 @@
 #include <QWidget>
 #include <memory>
 
+class QStandardItemModel;
+namespace Ui { class TBTableWidget; }
+
 // Widget representing a single tournament table with seats and players
 // Matches macOS TBSeatingChartCollectionViewItem design
 class TBTableWidget : public QWidget

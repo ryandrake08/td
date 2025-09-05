@@ -86,6 +86,18 @@ TBTournamentDisplayWindow::TBTournamentDisplayWindow(TournamentSession& session,
     // Connect action clock window signals
     QObject::connect(pimpl->actionClockWindow, &TBActionClockWindow::clockCanceled, this, &TBTournamentDisplayWindow::onActionClockCanceled);
 
+    // Set QGroupBox title fonts to be large and bold
+    QFont groupBoxTitleFont = this->font();
+    groupBoxTitleFont.setPointSize(21);
+    groupBoxTitleFont.setBold(true);
+
+    pimpl->ui.tournamentStatsGroupBox->setFont(groupBoxTitleFont);
+    pimpl->ui.chipsGroupBox->setFont(groupBoxTitleFont);
+    pimpl->ui.tournamentClockGroupBox->setFont(groupBoxTitleFont);
+    pimpl->ui.currentRoundGroupBox->setFont(groupBoxTitleFont);
+    pimpl->ui.nextRoundGroupBox->setFont(groupBoxTitleFont);
+    pimpl->ui.resultsGroupBox->setFont(groupBoxTitleFont);
+
     // Initial update
     this->updateTournamentName();
     this->updateTournamentBuyin();

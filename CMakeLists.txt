@@ -272,6 +272,7 @@ if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND AND Qt5Multimedia_FOU
 		TBQt/TBSetupRoundsWidget.ui
 		TBQt/TBSetupTablesWidget.ui
 		TBQt/TBSettingsDialog.ui
+		TBQt/TBTableWidget.ui
 		TBQt/TBTournamentDisplayWindow.ui)
 	qt5_add_resources(TBUDDY_RC
 		TBQt/TBQt.qrc)
@@ -438,6 +439,7 @@ if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND AND Qt5Multimedia_FOU
 		TBQt/TBConnectToDialog.ui
 		TBQt/TBSeatingChartWindow.ui
 		TBQt/TBSettingsDialog.ui
+		TBQt/TBTableWidget.ui
 		TBQt/TBTournamentDisplayWindow.ui
 		TBQt/TBViewerMainWindow.ui)
 	qt5_add_resources(TBVIEWER_RC

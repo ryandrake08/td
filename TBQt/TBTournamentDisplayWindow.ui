@@ -65,6 +65,9 @@
             <verstretch>1</verstretch>
            </sizepolicy>
           </property>
+          <property name="styleSheet">
+           <string>QGroupBox::title { subcontrol-origin: margin; subcontrol-position: top center; }</string>
+          </property>
           <property name="title">
            <string>Tournament Statistics</string>
           </property>
@@ -155,6 +158,9 @@
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
+          </property>
+          <property name="styleSheet">
+           <string>QGroupBox::title { subcontrol-origin: margin; subcontrol-position: top center; }</string>
           </property>
           <property name="title">
            <string>Tournament Chips</string>
@@ -394,6 +400,9 @@ Clock</string>
             <verstretch>1</verstretch>
            </sizepolicy>
           </property>
+          <property name="styleSheet">
+           <string>QGroupBox::title { subcontrol-origin: margin; subcontrol-position: top center; }</string>
+          </property>
           <property name="title">
            <string>Tournament Clock</string>
           </property>
@@ -431,6 +440,9 @@ Clock</string>
             <verstretch>1</verstretch>
            </sizepolicy>
           </property>
+          <property name="styleSheet">
+           <string>QGroupBox::title { subcontrol-origin: margin; subcontrol-position: top center; }</string>
+          </property>
           <property name="title">
            <string>Current Round</string>
           </property>
@@ -467,6 +479,9 @@ Clock</string>
             <horstretch>0</horstretch>
             <verstretch>1</verstretch>
            </sizepolicy>
+          </property>
+          <property name="styleSheet">
+           <string>QGroupBox::title { subcontrol-origin: margin; subcontrol-position: top center; }</string>
           </property>
           <property name="title">
            <string>Next Round</string>
@@ -529,6 +544,9 @@ Clock</string>
             <width>300</width>
             <height>400</height>
            </size>
+          </property>
+          <property name="styleSheet">
+           <string>QGroupBox::title { subcontrol-origin: margin; subcontrol-position: top center; }</string>
           </property>
           <property name="title">
            <string>Tournament Results</string>

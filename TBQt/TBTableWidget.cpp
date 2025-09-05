@@ -1,85 +1,47 @@
 #include "TBTableWidget.hpp"
+#include "ui_TBTableWidget.h"
 
-#include <QFont>
-#include <QFrame>
 #include <QHeaderView>
-#include <QLabel>
 #include <QStandardItemModel>
-#include <QTableView>
-#include <QVBoxLayout>
 
 struct TBTableWidget::impl
 {
-    // UI components
-    QLabel* tableNameLabel;
-    QTableView* seatsTableView;
+    // UI
+    Ui::TBTableWidget ui;
+
+    // Model
     QStandardItemModel* seatsModel;
-    QVBoxLayout* mainLayout;
 
     // Data
     QString tableName;
     QVariantList seats;
 
-    impl() : tableNameLabel(nullptr), seatsTableView(nullptr), seatsModel(nullptr), mainLayout(nullptr) {}
+    impl() : seatsModel(nullptr) {}
 };
 
 TBTableWidget::TBTableWidget(QWidget* parent) : QWidget(parent), pimpl(new impl)
 {
-    // Set fixed width matching macOS (320px)
-    setFixedWidth(320);
+    pimpl->ui.setupUi(this);
 
-    // Main vertical layout
-    pimpl->mainLayout = new QVBoxLayout(this);
-    pimpl->mainLayout->setContentsMargins(5, 5, 5, 5);
-    pimpl->mainLayout->setSpacing(5);
-
-    // Table name header with frame
-    QFrame* headerFrame = new QFrame();
-    headerFrame->setFrameShape(QFrame::StyledPanel);
-    headerFrame->setFixedHeight(35);
-    QVBoxLayout* headerLayout = new QVBoxLayout(headerFrame);
-    headerLayout->setContentsMargins(8, 8, 8, 8);
-
-    pimpl->tableNameLabel = new QLabel("Table Name");
-    QFont headerFont = pimpl->tableNameLabel->font();
-    headerFont.setPointSize(14);
-    headerFont.setBold(true);
-    pimpl->tableNameLabel->setFont(headerFont);
-    pimpl->tableNameLabel->setAlignment(Qt::AlignCenter);
-    headerLayout->addWidget(pimpl->tableNameLabel);
-
-    pimpl->mainLayout->addWidget(headerFrame);
-
-    // Seats table view
-    pimpl->seatsTableView = new QTableView();
-    pimpl->seatsTableView->setAlternatingRowColors(false);
-    pimpl->seatsTableView->setSelectionBehavior(QAbstractItemView::SelectRows);
-    pimpl->seatsTableView->setSelectionMode(QAbstractItemView::NoSelection);
-    pimpl->seatsTableView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    pimpl->seatsTableView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    pimpl->seatsTableView->setShowGrid(false);
+    // Set QGroupBox title font to match TBTournamentDisplayWindow (21px, bold)
+    QFont titleFont = pimpl->ui.tableGroupBox->font();
+    titleFont.setPointSize(21);
+    titleFont.setBold(true);
+    pimpl->ui.tableGroupBox->setFont(titleFont);
 
     // Set up model
     pimpl->seatsModel = new QStandardItemModel(this);
     pimpl->seatsModel->setHorizontalHeaderLabels({ "Seat", "Player" });
-    pimpl->seatsTableView->setModel(pimpl->seatsModel);
+    pimpl->ui.seatsTableView->setModel(pimpl->seatsModel);
 
     // Configure columns - seat number narrow, player name wide
-    QHeaderView* header = pimpl->seatsTableView->horizontalHeader();
+    QHeaderView* header = pimpl->ui.seatsTableView->horizontalHeader();
     header->setSectionResizeMode(0, QHeaderView::Fixed);
     header->setSectionResizeMode(1, QHeaderView::Stretch);
-    pimpl->seatsTableView->setColumnWidth(0, 60); // Fixed width for seat numbers
+    pimpl->ui.seatsTableView->setColumnWidth(0, 60); // Fixed width for seat numbers
 
     // Configure vertical header (row numbers)
-    pimpl->seatsTableView->verticalHeader()->setVisible(false);
-
-    pimpl->mainLayout->addWidget(pimpl->seatsTableView);
-
-    // Set background color
-    setAutoFillBackground(true);
-    QPalette palette = this->palette();
-    palette.setColor(QPalette::Window, QColor(250, 250, 250));
-    setPalette(palette);
+    pimpl->ui.seatsTableView->verticalHeader()->setVisible(false);
 }
 
 TBTableWidget::~TBTableWidget() = default;
@@ -87,10 +49,7 @@ TBTableWidget::~TBTableWidget() = default;
 void TBTableWidget::setTableName(const QString& name)
 {
     pimpl->tableName = name;
-    if(pimpl->tableNameLabel)
-    {
-        pimpl->tableNameLabel->setText(name);
-    }
+    pimpl->ui.tableGroupBox->setTitle(name);
     updateSeatsTable();
 }
 
@@ -179,16 +138,16 @@ void TBTableWidget::updateSeatsTable()
 
     // Update widget height based on content
     int numRows = pimpl->seatsModel->rowCount();
-    int headerHeight = 35; // Header frame height
-    int tableHeaderHeight = pimpl->seatsTableView->horizontalHeader()->height();
-    int rowHeight = pimpl->seatsTableView->rowHeight(0);
-    int margins = pimpl->mainLayout->contentsMargins().top() + pimpl->mainLayout->contentsMargins().bottom();
-    int spacing = pimpl->mainLayout->spacing();
+    int tableHeaderHeight = pimpl->ui.seatsTableView->horizontalHeader()->height();
+    int rowHeight = pimpl->ui.seatsTableView->rowHeight(0);
+    int mainLayoutMargins = pimpl->ui.mainLayout->contentsMargins().top() + pimpl->ui.mainLayout->contentsMargins().bottom();
+    int groupBoxMargins = pimpl->ui.groupBoxLayout->contentsMargins().top() + pimpl->ui.groupBoxLayout->contentsMargins().bottom();
+    int groupBoxTitleHeight = 30; // Estimated height for QGroupBox title with 21px font
 
-    int totalHeight = margins + headerHeight + spacing + tableHeaderHeight + (numRows * rowHeight) + 10; // +10 for padding
+    int totalHeight = mainLayoutMargins + groupBoxTitleHeight + groupBoxMargins + tableHeaderHeight + (numRows * rowHeight) + 10; // +10 for padding
 
     setFixedHeight(totalHeight);
-    pimpl->seatsTableView->setFixedHeight(tableHeaderHeight + (numRows * rowHeight) + 5);
+    pimpl->ui.seatsTableView->setFixedHeight(tableHeaderHeight + (numRows * rowHeight) + 5);
 }
 
 QSize TBTableWidget::sizeHint() const
@@ -197,8 +156,8 @@ QSize TBTableWidget::sizeHint() const
     int width = 320;
     int numRows = pimpl->seatsModel ? pimpl->seatsModel->rowCount() : 0;
 
-    // Calculate height matching macOS formula: 20 + 35 + 8 + 25 + (35 * numRows) + 20
-    int height = 20 + 35 + 8 + 25 + (35 * qMax(numRows, 1)) + 20;
+    // Calculate height with QGroupBox: main margins + group box title + group margins + table header + rows + padding
+    int height = 10 + 30 + 16 + 25 + (35 * qMax(numRows, 1)) + 20;
 
     return QSize(width, height);
 }
