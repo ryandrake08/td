@@ -118,8 +118,6 @@ void TBBaseMainWindow::on_actionShowHideSeatingChart_triggered()
     {
         // Close and destroy the window
         pimpl->seatingChartWindow->close();
-        pimpl->seatingChartWindow->deleteLater();
-        pimpl->seatingChartWindow = nullptr;
     }
     else
     {
@@ -127,6 +125,12 @@ void TBBaseMainWindow::on_actionShowHideSeatingChart_triggered()
         if(!pimpl->seatingChartWindow)
         {
             pimpl->seatingChartWindow = new TBSeatingChartWindow(pimpl->session, this);
+            // Connect to window closed signal to clear our pointer when user closes it
+            QObject::connect(pimpl->seatingChartWindow, &TBSeatingChartWindow::windowClosed, this, [this]()
+            {
+                pimpl->seatingChartWindow = nullptr;
+                this->updateSeatingChartMenuText();
+            });
         }
 
         // Apply settings and show
@@ -143,8 +147,6 @@ void TBBaseMainWindow::on_actionShowHideMainDisplay_triggered()
     {
         // Close and destroy the window
         pimpl->displayWindow->close();
-        pimpl->displayWindow->deleteLater();
-        pimpl->displayWindow = nullptr;
     }
     else
     {
@@ -152,6 +154,12 @@ void TBBaseMainWindow::on_actionShowHideMainDisplay_triggered()
         if(!pimpl->displayWindow)
         {
             pimpl->displayWindow = new TBTournamentDisplayWindow(pimpl->session, this);
+            // Connect to window closed signal to clear our pointer when user closes it
+            QObject::connect(pimpl->displayWindow, &TBTournamentDisplayWindow::windowClosed, this, [this]()
+            {
+                pimpl->displayWindow = nullptr;
+                this->updateDisplayMenuText();
+            });
         }
 
         // Apply settings and show
@@ -190,7 +198,7 @@ void TBBaseMainWindow::updateSeatingChartMenuText()
     }
 }
 
-void TBBaseMainWindow::applyDisplaySettings(QMainWindow* window, const QString& windowType)
+void TBBaseMainWindow::applyDisplaySettings(QWidget* window, const QString& windowType)
 {
     if(!window)
     {

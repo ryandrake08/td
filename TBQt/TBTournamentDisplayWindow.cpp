@@ -11,6 +11,7 @@
 
 #include "ui_TBTournamentDisplayWindow.h"
 
+#include <QCloseEvent>
 #include <QHeaderView>
 #include <QIcon>
 
@@ -33,8 +34,12 @@ struct TBTournamentDisplayWindow::impl
                                                                                 backgroundIsDark(false) {}
 };
 
-TBTournamentDisplayWindow::TBTournamentDisplayWindow(TournamentSession& session, QWidget* parent) : QMainWindow(parent), pimpl(new impl(session, this))
+TBTournamentDisplayWindow::TBTournamentDisplayWindow(TournamentSession& session, QWidget* parent) : QWidget(parent), pimpl(new impl(session, this))
 {
+    // Set window attributes for proper top-level window behavior
+    setAttribute(Qt::WA_DeleteOnClose, true); // Allow user to close and delete
+    setWindowFlags(Qt::Window | Qt::WindowTitleHint | Qt::WindowSystemMenuHint | Qt::WindowMinMaxButtonsHint | Qt::WindowCloseButtonHint);
+
     pimpl->ui.setupUi(this);
 
     // Set original icons using the setOriginalIcon method
@@ -108,6 +113,15 @@ void TBTournamentDisplayWindow::onActionClockCanceled()
 }
 
 TBTournamentDisplayWindow::~TBTournamentDisplayWindow() = default;
+
+void TBTournamentDisplayWindow::closeEvent(QCloseEvent* event)
+{
+    // Emit signal to notify parent that we're closing
+    Q_EMIT windowClosed();
+
+    // Accept the close event - this will delete the widget due to WA_DeleteOnClose
+    event->accept();
+}
 
 void TBTournamentDisplayWindow::on_tournamentStateChanged(const QString& key, const QVariant& value)
 {

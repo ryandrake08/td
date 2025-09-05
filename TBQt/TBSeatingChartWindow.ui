@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>TBSeatingChartWindow</class>
- <widget class="QMainWindow" name="TBSeatingChartWindow">
+ <widget class="QWidget" name="TBSeatingChartWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -23,11 +23,10 @@
    <iconset resource="TBQt.qrc">
     <normaloff>:/Resources/icon_256x256.png</normaloff>:/Resources/icon_256x256.png</iconset>
   </property>
-  <widget class="QWidget" name="centralWidget">
-   <layout class="QVBoxLayout" name="mainLayout">
-    <property name="margin">
-     <number>10</number>
-    </property>
+  <layout class="QVBoxLayout" name="mainLayout">
+   <property name="margin">
+    <number>10</number>
+   </property>
     <item>
      <!-- Tournament info header section matching TBTournamentDisplayWidget -->
      <widget class="QFrame" name="tournamentInfoFrame">
@@ -99,8 +98,7 @@
       </widget>
      </widget>
     </item>
-   </layout>
-  </widget>
+  </layout>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>

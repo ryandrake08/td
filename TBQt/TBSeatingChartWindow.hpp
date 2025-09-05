@@ -1,12 +1,12 @@
 #pragma once
 
-#include <QMainWindow>
+#include <QWidget>
 #include <memory>
 
 class TournamentSession;
 
 // Tournament seating chart display window
-class TBSeatingChartWindow : public QMainWindow
+class TBSeatingChartWindow : public QWidget
 {
     Q_OBJECT
 
@@ -23,7 +23,13 @@ class TBSeatingChartWindow : public QMainWindow
 private Q_SLOTS:
     void on_tournamentStateChanged(const QString& key, const QVariant& value);
 
+protected:
+    void closeEvent(QCloseEvent* event) override;
+
 public:
     explicit TBSeatingChartWindow(TournamentSession& tournamentSession, QWidget* parent = nullptr);
     virtual ~TBSeatingChartWindow() override;
+
+Q_SIGNALS:
+    void windowClosed();
 };

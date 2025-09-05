@@ -47,5 +47,5 @@ protected:
     bool isDisplayWindowVisible() const;
 
     // display settings application for child windows
-    void applyDisplaySettings(QMainWindow* window, const QString& windowType);
+    void applyDisplaySettings(QWidget* window, const QString& windowType);
 };

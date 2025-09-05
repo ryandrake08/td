@@ -7,6 +7,7 @@
 
 #include "ui_TBSeatingChartWindow.h"
 
+#include <QCloseEvent>
 #include <QLabel>
 #include <QVariantList>
 #include <QVariantMap>
@@ -26,8 +27,12 @@ struct TBSeatingChartWindow::impl
     explicit impl(TournamentSession& sess) : session(sess) {}
 };
 
-TBSeatingChartWindow::TBSeatingChartWindow(TournamentSession& sess, QWidget* parent) : QMainWindow(parent), pimpl(new impl(sess))
+TBSeatingChartWindow::TBSeatingChartWindow(TournamentSession& sess, QWidget* parent) : QWidget(parent), pimpl(new impl(sess))
 {
+    // Set window attributes for proper top-level window behavior
+    setAttribute(Qt::WA_DeleteOnClose, true); // Allow user to close and delete
+    setWindowFlags(Qt::Window | Qt::WindowTitleHint | Qt::WindowSystemMenuHint | Qt::WindowMinMaxButtonsHint | Qt::WindowCloseButtonHint);
+
     pimpl->ui.setupUi(this);
 
     // Set up flow layout for the table grid
@@ -45,6 +50,15 @@ TBSeatingChartWindow::TBSeatingChartWindow(TournamentSession& sess, QWidget* par
 }
 
 TBSeatingChartWindow::~TBSeatingChartWindow() = default;
+
+void TBSeatingChartWindow::closeEvent(QCloseEvent* event)
+{
+    // Emit signal to notify parent that we're closing
+    Q_EMIT windowClosed();
+
+    // Accept the close event - this will delete the widget due to WA_DeleteOnClose
+    event->accept();
+}
 
 void TBSeatingChartWindow::on_tournamentStateChanged(const QString& key, const QVariant& value)
 {

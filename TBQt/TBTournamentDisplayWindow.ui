@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>TBTournamentDisplayWindow</class>
- <widget class="QMainWindow" name="TBTournamentDisplayWindow">
+ <widget class="QWidget" name="TBTournamentDisplayWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -19,8 +19,7 @@
   <property name="windowTitle">
    <string>Tournament Display</string>
   </property>
-  <widget class="QWidget" name="centralwidget">
-   <layout class="QVBoxLayout" name="mainLayout">
+  <layout class="QVBoxLayout" name="mainLayout">
     <property name="spacing">
      <number>10</number>
     </property>
@@ -561,8 +560,7 @@ Clock</string>
       </item>
      </layout>
     </item>
-   </layout>
-  </widget>
+  </layout>
  </widget>
  <customwidgets>
   <customwidget>
