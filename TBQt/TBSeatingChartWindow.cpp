@@ -7,7 +7,6 @@
 
 #include "ui_TBSeatingChartWindow.h"
 
-#include <QCloseEvent>
 #include <QLabel>
 #include <QVariantList>
 #include <QVariantMap>
@@ -27,12 +26,8 @@ struct TBSeatingChartWindow::impl
     explicit impl(TournamentSession& sess) : session(sess) {}
 };
 
-TBSeatingChartWindow::TBSeatingChartWindow(TournamentSession& sess, QWidget* parent) : QWidget(parent), pimpl(new impl(sess))
+TBSeatingChartWindow::TBSeatingChartWindow(TournamentSession& sess, QWidget* parent) : TBBaseAuxiliaryWindow(parent), pimpl(new impl(sess))
 {
-    // Set window attributes for proper top-level window behavior
-    setAttribute(Qt::WA_DeleteOnClose, true); // Allow user to close and delete
-    setWindowFlags(Qt::Window | Qt::WindowTitleHint | Qt::WindowSystemMenuHint | Qt::WindowMinMaxButtonsHint | Qt::WindowCloseButtonHint);
-
     pimpl->ui.setupUi(this);
 
     // Set up flow layout for the table grid
@@ -43,22 +38,13 @@ TBSeatingChartWindow::TBSeatingChartWindow(TournamentSession& sess, QWidget* par
     QObject::connect(&pimpl->session, &TournamentSession::stateChanged, this, &TBSeatingChartWindow::on_tournamentStateChanged);
 
     // Initial update
-    updateTournamentName();
-    updateTournamentBuyin();
-    updateBackgroundColor();
-    updateSeatingChart();
+    this->updateTournamentName();
+    this->updateTournamentBuyin();
+    this->updateBackgroundColor();
+    this->updateSeatingChart();
 }
 
 TBSeatingChartWindow::~TBSeatingChartWindow() = default;
-
-void TBSeatingChartWindow::closeEvent(QCloseEvent* event)
-{
-    // Emit signal to notify parent that we're closing
-    Q_EMIT windowClosed();
-
-    // Accept the close event - this will delete the widget due to WA_DeleteOnClose
-    event->accept();
-}
 
 void TBSeatingChartWindow::on_tournamentStateChanged(const QString& key, const QVariant& value)
 {
@@ -66,46 +52,42 @@ void TBSeatingChartWindow::on_tournamentStateChanged(const QString& key, const Q
 
     if(key == "name")
     {
-        updateTournamentName();
+        this->updateTournamentName();
     }
     else if(key == "buyin_text")
     {
-        updateTournamentBuyin();
+        this->updateTournamentBuyin();
     }
     else if(key == "background_color")
     {
-        updateBackgroundColor();
+        this->updateBackgroundColor();
     }
     else if(key == "seating_chart")
     {
-        updateSeatingChart();
+        this->updateSeatingChart();
     }
 }
 
 void TBSeatingChartWindow::updateTournamentName()
 {
     const QVariantMap& state = pimpl->session.state();
-
-    // Tournament name
     QString tournamentName = state.value("name").toString();
     pimpl->ui.tournamentNameLabel->setText(tournamentName);
 
     // Window title
     if(tournamentName.isEmpty())
     {
-        setWindowTitle("Tournament Seating Chart");
+        setWindowTitle(QObject::tr("Tournament Seating Chart"));
     }
     else
     {
-        setWindowTitle(QString("Seating Chart: %1").arg(tournamentName));
+        setWindowTitle(QString(QObject::tr("Tournament Seating Chart: %1")).arg(tournamentName));
     }
 }
 
 void TBSeatingChartWindow::updateTournamentBuyin()
 {
     const QVariantMap& state = pimpl->session.state();
-
-    // Buyin information - use formatted buyin_text from derived state
     pimpl->ui.buyinLabel->setText(state.value("buyin_text").toString());
 }
 

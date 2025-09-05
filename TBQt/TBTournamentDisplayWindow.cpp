@@ -34,12 +34,8 @@ struct TBTournamentDisplayWindow::impl
                                                                                 backgroundIsDark(false) {}
 };
 
-TBTournamentDisplayWindow::TBTournamentDisplayWindow(TournamentSession& session, QWidget* parent) : QWidget(parent), pimpl(new impl(session, this))
+TBTournamentDisplayWindow::TBTournamentDisplayWindow(TournamentSession& session, QWidget* parent) : TBBaseAuxiliaryWindow(parent), pimpl(new impl(session, this))
 {
-    // Set window attributes for proper top-level window behavior
-    setAttribute(Qt::WA_DeleteOnClose, true); // Allow user to close and delete
-    setWindowFlags(Qt::Window | Qt::WindowTitleHint | Qt::WindowSystemMenuHint | Qt::WindowMinMaxButtonsHint | Qt::WindowCloseButtonHint);
-
     pimpl->ui.setupUi(this);
 
     // Set original icons using the setOriginalIcon method
@@ -113,15 +109,6 @@ void TBTournamentDisplayWindow::onActionClockCanceled()
 }
 
 TBTournamentDisplayWindow::~TBTournamentDisplayWindow() = default;
-
-void TBTournamentDisplayWindow::closeEvent(QCloseEvent* event)
-{
-    // Emit signal to notify parent that we're closing
-    Q_EMIT windowClosed();
-
-    // Accept the close event - this will delete the widget due to WA_DeleteOnClose
-    event->accept();
-}
 
 void TBTournamentDisplayWindow::on_tournamentStateChanged(const QString& key, const QVariant& value)
 {
@@ -217,27 +204,23 @@ void TBTournamentDisplayWindow::on_callClockButtonClicked()
 void TBTournamentDisplayWindow::updateTournamentName()
 {
     const QVariantMap& state = pimpl->session.state();
-
-    // Tournament name
     QString tournamentName = state.value("name").toString();
     pimpl->ui.tournamentNameLabel->setText(tournamentName);
 
     // Window title
     if(tournamentName.isEmpty())
     {
-        setWindowTitle("Tournament Display");
+        setWindowTitle(QObject::tr("Tournament Display"));
     }
     else
     {
-        setWindowTitle(QString("Tournament Display: %1").arg(tournamentName));
+        setWindowTitle(QString(QObject::tr("Tournament Display: %1")).arg(tournamentName));
     }
 }
 
 void TBTournamentDisplayWindow::updateTournamentBuyin()
 {
     const QVariantMap& state = pimpl->session.state();
-
-    // Buyin information - use formatted buyin_text from derived state
     pimpl->ui.fundingSourcesLabel->setText(state.value("buyin_text").toString());
 }
 

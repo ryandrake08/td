@@ -220,6 +220,7 @@ if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND AND Qt5Multimedia_FOU
 		TBQt/TBActionClockWindow.hpp
 		TBQt/TBAnteTypeDelegate.hpp
 		TBQt/TBAuthCodeDialog.hpp
+		TBQt/TBBaseAuxiliaryWindow.hpp
 		TBQt/TBBaseMainWindow.hpp
 		TBQt/TBBlindLevelDelegate.hpp
 		TBQt/TBBuddyMainWindow.hpp
@@ -284,6 +285,8 @@ if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND AND Qt5Multimedia_FOU
 		TBQt/TBAnteTypeDelegate.hpp
 		TBQt/TBAuthCodeDialog.cpp
 		TBQt/TBAuthCodeDialog.hpp
+		TBQt/TBBaseAuxiliaryWindow.cpp
+		TBQt/TBBaseAuxiliaryWindow.hpp
 		TBQt/TBBaseMainWindow.cpp
 		TBQt/TBBaseMainWindow.hpp
 		TBQt/TBBlindLevelDelegate.cpp
@@ -410,6 +413,7 @@ if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND AND Qt5Multimedia_FOU
 	qt5_wrap_cpp(TBVIEWER_MOC
 		TBQt/TBActionClockWidget.hpp
 		TBQt/TBActionClockWindow.hpp
+		TBQt/TBBaseAuxiliaryWindow.hpp
 		TBQt/TBBaseMainWindow.hpp
 		TBQt/TBChipDisplayDelegate.hpp
 		TBQt/TBConnectToDialog.hpp
@@ -444,6 +448,8 @@ if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND AND Qt5Multimedia_FOU
 		TBQt/TBActionClockWidget.hpp
 		TBQt/TBActionClockWindow.cpp
 		TBQt/TBActionClockWindow.hpp
+		TBQt/TBBaseAuxiliaryWindow.cpp
+		TBQt/TBBaseAuxiliaryWindow.hpp
 		TBQt/TBBaseMainWindow.cpp
 		TBQt/TBBaseMainWindow.hpp
 		TBQt/TBChipDisplayDelegate.cpp

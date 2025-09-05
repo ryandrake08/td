@@ -1,6 +1,6 @@
 #pragma once
 
-#include <QWidget>
+#include "TBBaseAuxiliaryWindow.hpp"
 #include <QVariantMap>
 #include <memory>
 
@@ -8,7 +8,7 @@ class TournamentSession;
 
 // Tournament display window containing shared tournament viewing functionality
 // This window provides a standalone interface for tournament display
-class TBTournamentDisplayWindow : public QWidget
+class TBTournamentDisplayWindow : public TBBaseAuxiliaryWindow
 {
     Q_OBJECT
     Q_PROPERTY(bool backgroundIsDark READ backgroundIsDark WRITE setBackgroundIsDark NOTIFY backgroundIsDarkChanged)
@@ -38,9 +38,6 @@ private Q_SLOTS:
     void on_callClockButtonClicked();
     void onActionClockCanceled();
 
-protected:
-    void closeEvent(QCloseEvent* event) override;
-
 public:
     explicit TBTournamentDisplayWindow(TournamentSession& session, QWidget* parent = nullptr);
     virtual ~TBTournamentDisplayWindow() override;
@@ -51,5 +48,4 @@ public:
 
 Q_SIGNALS:
     void backgroundIsDarkChanged(bool isDark);
-    void windowClosed();
 };
