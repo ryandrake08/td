@@ -23,7 +23,8 @@ static socketstream make_stream(const std::string& server, const std::string por
 
 static void send_command(std::iostream& stream, const std::string& cmd, const std::string& auth = std::string(), nlohmann::json arg = nlohmann::json())
 {
-    arg["echo"] = 31337;
+    static const std::string& ECHO = "tournament_ctl";
+    arg["echo"] = ECHO;
 
     // add auth if exists
     if(!auth.empty())
@@ -47,7 +48,7 @@ static void send_command(std::iostream& stream, const std::string& cmd, const st
     {
         stream >> res;
         auto echo_it(res.find("echo"));
-        if(echo_it != res.end() && *echo_it == 31337)
+        if(echo_it != res.end() && *echo_it == ECHO)
         {
             break;
         }
