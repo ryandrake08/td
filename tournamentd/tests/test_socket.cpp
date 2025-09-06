@@ -1,5 +1,6 @@
 #include "../socket.hpp"
 #include <Catch2/catch.hpp>
+#include <array>
 #include <chrono>
 #include <cstring>
 #include <memory>
@@ -144,8 +145,8 @@ TEST_CASE("Socket data operations", "[socket][data]")
         auto server = std::unique_ptr<unix_socket>(new unix_socket(temp_path.c_str(), false, 1));
 
         // Test that peek on listening socket properly throws an exception
-        char buffer[10];
-        REQUIRE_THROWS_AS(server->peek(buffer, sizeof(buffer)), std::system_error);
+        std::array<char, 10> buffer{};
+        REQUIRE_THROWS_AS(server->peek(buffer.data(), buffer.size()), std::system_error);
 
         // Cleanup
         std::remove(temp_path.c_str());
@@ -181,8 +182,8 @@ TEST_CASE("Socket data operations", "[socket][data]")
             auto accepted = server->accept();
 
             // Test peek on connected socket
-            char buffer[10];
-            long result = accepted.peek(buffer, sizeof(buffer));
+            std::array<char, 10> buffer{};
+            long result = accepted.peek(buffer.data(), buffer.size());
             REQUIRE(result >= 0); // Should not crash and return valid result
 
             client_thread.join();
@@ -307,24 +308,28 @@ TEST_CASE("Socket error conditions", "[socket][errors]")
     SECTION("Invalid unix socket path")
     {
         // Test with invalid paths
-        std::unique_ptr<unix_socket> server1, server2;
+        std::unique_ptr<unix_socket> server1;
         REQUIRE_THROWS(server1 = std::unique_ptr<unix_socket>(new unix_socket("", false, 1)));
+        std::unique_ptr<unix_socket> server2;
         REQUIRE_THROWS(server2 = std::unique_ptr<unix_socket>(new unix_socket("/dev/null/invalid/path", false, 1)));
     }
 
     SECTION("Invalid inet socket parameters")
     {
         // Test with invalid parameters
-        std::unique_ptr<inet4_socket> client1, client2, server;
+        std::unique_ptr<inet4_socket> client1;
         REQUIRE_THROWS(client1 = std::unique_ptr<inet4_socket>(new inet4_socket("", "80")));
+        std::unique_ptr<inet4_socket> client2;
         REQUIRE_THROWS(client2 = std::unique_ptr<inet4_socket>(new inet4_socket("localhost", "")));
+        std::unique_ptr<inet4_socket> server;
         REQUIRE_THROWS(server = std::unique_ptr<inet4_socket>(new inet4_socket("", 1)));
     }
 
     SECTION("Invalid port numbers")
     {
-        std::unique_ptr<inet4_socket> server1, server2;
+        std::unique_ptr<inet4_socket> server1;
         REQUIRE_THROWS(server1 = std::unique_ptr<inet4_socket>(new inet4_socket("-1", 1)));
+        std::unique_ptr<inet4_socket> server2;
         REQUIRE_THROWS(server2 = std::unique_ptr<inet4_socket>(new inet4_socket("99999999", 1)));
     }
 }

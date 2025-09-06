@@ -415,9 +415,9 @@ TEST_CASE("Server resource management", "[server][resources]")
 
         try
         {
-            server s1, s2;
-
+            server s1;
             REQUIRE_NOTHROW(s1.listen(temp_path1.c_str()));
+            server s2;
             REQUIRE_NOTHROW(s2.listen(temp_path2.c_str()));
 
             // Both should be able to poll independently

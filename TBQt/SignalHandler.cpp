@@ -3,17 +3,26 @@
 #include <QDebug>
 #include <QSocketNotifier>
 
+#include <array>
 #include <csignal>
 #include <sys/socket.h>
 #include <unistd.h>
 
 // Static member definition
-int SignalHandler::sigtermFd[2];
+std::array<int, 2> SignalHandler::sigtermFd;
+
+void SignalHandler::unixSignalHandler(int /* signum */)
+{
+    // Write to socket to wake up Qt event loop
+    char sig = 1;
+    ssize_t result = write(sigtermFd[0], &sig, 1);
+    (void)result; // Suppress unused variable warning
+}
 
 SignalHandler::SignalHandler(QObject* parent) : QObject(parent)
 {
     // Create a socket pair for self-pipe trick
-    if(::socketpair(AF_UNIX, SOCK_STREAM, 0, sigtermFd) == -1)
+    if(::socketpair(AF_UNIX, SOCK_STREAM, 0, sigtermFd.data()) == -1)
     {
         qWarning() << "Failed to create signal socket pair";
         return;
@@ -24,7 +33,7 @@ SignalHandler::SignalHandler(QObject* parent) : QObject(parent)
     QObject::connect(snTerm, &QSocketNotifier::activated, this, &SignalHandler::handleSignal);
 
     // Install signal handlers for SIGTERM and SIGINT
-    struct sigaction term_action;
+    struct sigaction term_action {};
     term_action.sa_handler = SignalHandler::unixSignalHandler;
     sigemptyset(&term_action.sa_mask);
     term_action.sa_flags = SA_RESTART;
@@ -66,19 +75,11 @@ SignalHandler::~SignalHandler()
     }
 }
 
-void SignalHandler::unixSignalHandler(int)
-{
-    // Write to socket to wake up Qt event loop
-    char sig = 1;
-    ssize_t result = write(sigtermFd[0], &sig, 1);
-    (void)result; // Suppress unused variable warning
-}
-
 void SignalHandler::handleSignal()
 {
     snTerm->setEnabled(false);
 
-    char signal;
+    char signal = '\0';
     ssize_t result = read(sigtermFd[1], &signal, 1);
     (void)result; // Suppress unused variable warning
 

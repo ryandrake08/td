@@ -34,7 +34,7 @@ void TournamentConnection::connect(const TournamentService& tournament)
     if(tournament.is_remote())
     {
         // create socket
-        QTcpSocket* socket(new QTcpSocket(this->parent()));
+        auto* socket(new QTcpSocket(this->parent()));
         this->pimpl->device.reset(socket);
 
         // hook up socket signals
@@ -49,7 +49,7 @@ void TournamentConnection::connect(const TournamentService& tournament)
     else
     {
         // create socket
-        QLocalSocket* socket(new QLocalSocket(this->parent()));
+        auto* socket(new QLocalSocket(this->parent()));
         this->pimpl->device.reset(socket);
 
         // hook up socket signals
@@ -168,11 +168,11 @@ void TournamentConnection::on_error()
     QString errorString;
 
     // get error string from the socket
-    if(auto tcpSocket = qobject_cast<QTcpSocket*>(this->pimpl->device.get()))
+    if(auto* tcpSocket = qobject_cast<QTcpSocket*>(this->pimpl->device.get()))
     {
         errorString = tcpSocket->errorString();
     }
-    else if(auto localSocket = qobject_cast<QLocalSocket*>(this->pimpl->device.get()))
+    else if(auto* localSocket = qobject_cast<QLocalSocket*>(this->pimpl->device.get()))
     {
         errorString = localSocket->errorString();
     }

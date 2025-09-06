@@ -14,7 +14,7 @@ struct TBCurrency::impl
         Custom    // Uses custom formatting rules
     };
 
-    struct CurrencyInfo
+    struct CurrencyInfo // NOLINT(cppcoreguidelines-pro-type-member-init)
     {
         QString code;          // "USD", "EUR", etc.
         QString displayName;   // Localized name (filled at runtime)
@@ -186,7 +186,7 @@ QString TBCurrency::currencyImagePath(const QString& currencyCode)
 QPixmap TBCurrency::currencyPixmap(const QString& currencyCode)
 {
     QString imagePath = currencyImagePath(currencyCode);
-    return QPixmap(imagePath);
+    return { imagePath };
 }
 
 bool TBCurrency::isValidCurrency(const QString& currencyCode)

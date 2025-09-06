@@ -11,6 +11,8 @@ class TBSetupFundingWidget : public TBSetupTabWidget
     struct impl;
     std::unique_ptr<impl> pimpl;
 
+    QVariantMap createDefaultFunding(TournamentSession::FundingType fundingType) const;
+
 public:
     explicit TBSetupFundingWidget(QWidget* parent = nullptr);
     virtual ~TBSetupFundingWidget() override;
@@ -24,7 +26,4 @@ private Q_SLOTS:
     void on_addFundingButtonClicked();
     void on_removeFundingButtonClicked();
     void on_modelDataChanged();
-
-private:
-    QVariantMap createDefaultFunding(TournamentSession::FundingType fundingType) const;
 };

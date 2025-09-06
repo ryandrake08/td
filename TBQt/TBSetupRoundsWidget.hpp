@@ -10,6 +10,9 @@ class TBSetupRoundsWidget : public TBSetupTabWidget
     struct impl;
     std::unique_ptr<impl> pimpl;
 
+    QVariantMap createDefaultRound(int littleBlind, int bigBlind) const;
+    int calculateNextBlindLevel() const;
+
 public:
     explicit TBSetupRoundsWidget(QWidget* parent = nullptr);
     virtual ~TBSetupRoundsWidget() override;
@@ -23,8 +26,4 @@ private Q_SLOTS:
     void on_generateButtonClicked();
     void on_removeButtonClicked();
     void on_modelDataChanged();
-
-private:
-    QVariantMap createDefaultRound(int littleBlind, int bigBlind) const;
-    int calculateNextBlindLevel() const;
 };

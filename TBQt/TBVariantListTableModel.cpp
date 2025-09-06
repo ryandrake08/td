@@ -4,6 +4,7 @@
 #include <QList>
 #include <QVariant>
 #include <QVector>
+#include <utility>
 
 struct TBVariantListTableModel::impl
 {
@@ -14,8 +15,8 @@ struct TBVariantListTableModel::impl
         bool isIndexColumn;
         int indexOffset;
         KeyColumn() : isIndexColumn(false), indexOffset(1) {}
-        KeyColumn(const QString& k, const QString& c) : key(k), column(c), isIndexColumn(false), indexOffset(1) {}
-        KeyColumn(const QString& k, const QString& c, int offset) : key(k), column(c), isIndexColumn(true), indexOffset(offset) {}
+        KeyColumn(QString k, QString c) : key(std::move(k)), column(std::move(c)), isIndexColumn(false), indexOffset(1) {}
+        KeyColumn(QString k, QString c, int offset) : key(std::move(k)), column(std::move(c)), isIndexColumn(true), indexOffset(offset) {}
     };
 
     QVector<KeyColumn> header_data;
@@ -29,10 +30,10 @@ TBVariantListTableModel::TBVariantListTableModel(QObject* parent) : QAbstractTab
 TBVariantListTableModel::~TBVariantListTableModel() = default;
 
 // set data
-void TBVariantListTableModel::setListData(const QVariantList& list_data)
+void TBVariantListTableModel::setListData(const QVariantList& data)
 {
     this->beginResetModel();
-    this->pimpl->model_data = list_data;
+    this->pimpl->model_data = data;
     this->endResetModel();
 }
 
@@ -65,7 +66,7 @@ QVariant TBVariantListTableModel::headerData(int section, Qt::Orientation orient
         }
     }
 
-    return QVariant();
+    return {};
 }
 
 int TBVariantListTableModel::rowCount(const QModelIndex& parent) const
@@ -117,7 +118,7 @@ QVariant TBVariantListTableModel::data(const QModelIndex& index, int role) const
         qDebug() << "TBVariantListTableModel::data: index =" << index << ", headers size =" << this->pimpl->header_data.size() << ", data size =" << this->pimpl->model_data.size();
     }
 
-    return QVariant();
+    return {};
 }
 
 bool TBVariantListTableModel::setData(const QModelIndex& index, const QVariant& value, int role)
@@ -191,5 +192,5 @@ QVariantMap TBVariantListTableModel::getRowData(int row) const
     {
         return this->pimpl->model_data[row].toMap();
     }
-    return QVariantMap();
+    return {};
 }

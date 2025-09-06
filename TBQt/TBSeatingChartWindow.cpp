@@ -14,7 +14,7 @@
 struct TBSeatingChartWindow::impl
 {
     // UI
-    Ui::TBSeatingChartWindow ui;
+    Ui::TBSeatingChartWindow ui {};
 
     // Session reference
     TournamentSession& session;
@@ -126,21 +126,23 @@ void TBSeatingChartWindow::updateSeatingChart()
     }
 
     // Get the flow layout
-    auto flowLayout = static_cast<TBFlowLayout*>(pimpl->ui.scrollAreaWidgetContents->layout());
+    auto* flowLayout = dynamic_cast<TBFlowLayout*>(pimpl->ui.scrollAreaWidgetContents->layout());
     if(!flowLayout)
     {
         return;
     }
 
     // Clear ALL existing widgets from the layout (tables and message labels)
-    QLayoutItem* item;
-    while((item = flowLayout->takeAt(0)) != nullptr)
+    for(int i = flowLayout->count() - 1; i >= 0; --i)
     {
-        if(QWidget* widget = item->widget())
+        if(auto* item = flowLayout->takeAt(i))
         {
-            widget->deleteLater();
+            if(auto* widget = item->widget())
+            {
+                widget->deleteLater();
+            }
+            delete item;
         }
-        delete item;
     }
     pimpl->tableWidgets.clear();
 
@@ -153,7 +155,7 @@ void TBSeatingChartWindow::updateSeatingChart()
         if(!tableName.isEmpty())
         {
             // Create table widget
-            TBTableWidget* tableWidget = new TBTableWidget(pimpl->ui.scrollAreaWidgetContents);
+            auto* tableWidget = new TBTableWidget(pimpl->ui.scrollAreaWidgetContents);
             tableWidget->setTableName(tableName);
 
             // Set seats for this table
@@ -169,7 +171,7 @@ void TBSeatingChartWindow::updateSeatingChart()
     // If no tables, show message
     if(pimpl->tableWidgets.isEmpty())
     {
-        QLabel* messageLabel = new QLabel("No active tables in tournament");
+        auto* messageLabel = new QLabel("No active tables in tournament");
         messageLabel->setAlignment(Qt::AlignCenter);
         messageLabel->setStyleSheet("color: gray; font-size: 14px; margin: 50px;");
         messageLabel->setMinimumSize(400, 100);

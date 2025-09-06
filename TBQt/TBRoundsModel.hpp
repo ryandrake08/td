@@ -17,7 +17,7 @@ public:
     Qt::ItemFlags flags(const QModelIndex& index) const override;
 
 private:
-    QString formatTime(int minutes) const;
+    QString formatTime(int milliseconds) const;
     QString calculateStartTime(int roundIndex) const;
     QVariantList m_originalData;
 };

@@ -24,7 +24,7 @@ TBActionClockWindow::TBActionClockWindow(TournamentSession& session, QWidget* pa
     setWindowFlags(Qt::Window | Qt::WindowTitleHint | Qt::WindowCloseButtonHint);
 
     // Create layout and add clock widget
-    auto layout = new QVBoxLayout(this);
+    auto* layout = new QVBoxLayout(this);
     layout->setContentsMargins(0, 0, 0, 0);
     layout->addWidget(pimpl->clockWidget);
 

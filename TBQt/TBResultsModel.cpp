@@ -25,7 +25,7 @@ void TBResultsModel::on_stateChanged(const QString& key, const QVariant& value)
 QVariant TBResultsModel::data(const QModelIndex& index, int role) const
 {
     if(!index.isValid())
-        return QVariant();
+        return {};
 
     // Handle sorting role for place column to sort numerically
     if((role == Qt::UserRole || role == Qt::EditRole) && index.column() == 0) // "place" column

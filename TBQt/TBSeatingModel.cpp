@@ -42,7 +42,7 @@ void TBSeatingModel::on_stateChanged(const QString& key, const QVariant& value)
 QVariant TBSeatingModel::data(const QModelIndex& index, int role) const
 {
     if(!index.isValid())
-        return QVariant();
+        return {};
 
     // Handle UserRole for numeric sorting on Table and Seat columns
     if(role == Qt::UserRole)
@@ -75,7 +75,7 @@ QVariant TBSeatingModel::data(const QModelIndex& index, int role) const
         else if(role == Qt::DisplayRole)
         {
             // Don't show text in the checkbox column
-            return QVariant();
+            return {};
         }
     }
     // Handle button for the "Manage" column (column 4)

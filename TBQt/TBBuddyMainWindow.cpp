@@ -40,7 +40,7 @@
 struct TBBuddyMainWindow::impl
 {
     // moc ui
-    Ui::TBBuddyMainWindow ui;
+    Ui::TBBuddyMainWindow ui {};
 
     // tournamentd thread (full client runs its own daemon)
     TournamentDaemon server;
@@ -55,13 +55,13 @@ struct TBBuddyMainWindow::impl
     QVariantList pendingMovements;
 };
 
-TBBuddyMainWindow::TBBuddyMainWindow() : TBBaseMainWindow(), pimpl(new impl())
+TBBuddyMainWindow::TBBuddyMainWindow() : pimpl(new impl())
 {
     // set up moc
     this->pimpl->ui.setupUi(this);
 
     // left pane: players model (all players with seat/unseat checkboxes)
-    auto playersModel(new TBPlayersModel(this->getSession(), this));
+    auto* playersModel(new TBPlayersModel(this->getSession(), this));
     (void)TBTableViewUtils::setupTableViewWithSorting(this, this->pimpl->ui.leftTableView, playersModel, -1);
 
     // configure column sizing for players view
@@ -75,10 +75,10 @@ TBBuddyMainWindow::TBBuddyMainWindow() : TBBaseMainWindow(), pimpl(new impl())
     QObject::connect(playersModel, &TBPlayersModel::unseatPlayerRequested, &this->getSession(), &TournamentSession::unseat_player);
 
     // center pane: seating model (seated players with table/seat/paid/manage)
-    auto seatingModel(new TBSeatingModel(this->getSession(), this));
+    auto* seatingModel(new TBSeatingModel(this->getSession(), this));
 
     // Set up center pane with compound sorting (table first, then seat)
-    TBSeatingCompoundSortProxyModel* seatingProxyModel = new TBSeatingCompoundSortProxyModel(this);
+    auto* seatingProxyModel = new TBSeatingCompoundSortProxyModel(this);
     seatingProxyModel->setSourceModel(seatingModel);
     this->pimpl->ui.centerTableView->setModel(seatingProxyModel);
     this->pimpl->ui.centerTableView->setSortingEnabled(true);
@@ -87,7 +87,7 @@ TBBuddyMainWindow::TBBuddyMainWindow() : TBBaseMainWindow(), pimpl(new impl())
     seatingProxyModel->sort(-1);
 
     // set up button delegate for the "Manage" column (column 4)
-    auto manageDelegate(new TBManageButtonDelegate(this));
+    auto* manageDelegate(new TBManageButtonDelegate(this));
     this->pimpl->ui.centerTableView->setItemDelegateForColumn(4, manageDelegate);
 
     // connect manage button delegate signal to context menu handler
@@ -108,10 +108,10 @@ TBBuddyMainWindow::TBBuddyMainWindow() : TBBaseMainWindow(), pimpl(new impl())
     QObject::connect(seatingModel, &TBSeatingModel::unseatPlayerRequested, &this->getSession(), &TournamentSession::unseat_player);
 
     // right pane: results model (finished players with place/name/payout)
-    auto resultsModel(new TBResultsModel(this->getSession(), this));
+    auto* resultsModel(new TBResultsModel(this->getSession(), this));
 
     // Set up table view with sorting, using UserRole for numeric sorting
-    auto resultsProxyModel = TBTableViewUtils::setupTableViewWithSorting(this, this->pimpl->ui.rightTableView, resultsModel, 0, Qt::AscendingOrder);
+    auto* resultsProxyModel = TBTableViewUtils::setupTableViewWithSorting(this, this->pimpl->ui.rightTableView, resultsModel, 0, Qt::AscendingOrder);
     resultsProxyModel->setSortRole(Qt::UserRole); // Use UserRole for numeric sorting
 
     // configure column sizing for results view
@@ -183,7 +183,7 @@ void TBBuddyMainWindow::on_actionAbout_Poker_Buddy_triggered()
 void TBBuddyMainWindow::on_actionNew_triggered()
 {
     // open a window with no document
-    auto window(new TBBuddyMainWindow);
+    auto* window(new TBBuddyMainWindow);
     window->setAttribute(Qt::WA_DeleteOnClose);
     window->show();
 }
@@ -200,7 +200,7 @@ void TBBuddyMainWindow::on_actionOpen_triggered()
     {
         for(const auto& filename : picker.selectedFiles())
         {
-            auto window(new TBBuddyMainWindow);
+            auto* window(new TBBuddyMainWindow);
             window->setAttribute(Qt::WA_DeleteOnClose);
             window->load_document(filename);
             window->show();
@@ -242,7 +242,7 @@ void TBBuddyMainWindow::on_actionQuickStart_triggered()
     const auto& seats(this->getSession().state()["seats"].toList());
     const auto& buyins(this->getSession().state()["buyins"].toList());
 
-    if(seats.size() > 0 || buyins.size() > 0)
+    if(!seats.empty() || !buyins.empty())
     {
         // alert because this is a very destructive action
         QMessageBox message(this);
@@ -278,7 +278,7 @@ void TBBuddyMainWindow::on_actionReset_triggered()
     const auto& seats(this->getSession().state()["seats"].toList());
     const auto& buyins(this->getSession().state()["buyins"].toList());
 
-    if(seats.size() > 0 || buyins.size() > 0)
+    if(!seats.empty() || !buyins.empty())
     {
         // alert because this is a very destructive action
         QMessageBox message(this);
@@ -366,7 +366,7 @@ void TBBuddyMainWindow::on_actionPlan_triggered()
     int defaultPlayerCount = players.size();
 
     // Create dialog to get number of players to plan for
-    bool ok;
+    bool ok = false;
     int playerCount = QInputDialog::getInt(this, QObject::tr("Plan Tournament"), QObject::tr("Number of players to plan seating for:"), defaultPlayerCount, 1, 10000, 1, &ok);
 
     if(ok)

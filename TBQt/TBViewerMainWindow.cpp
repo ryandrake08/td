@@ -26,16 +26,16 @@
 struct TBViewerMainWindow::impl
 {
     // moc ui
-    Ui::TBViewerMainWindow ui;
+    Ui::TBViewerMainWindow ui {};
 
     // tournament browser for service discovery
-    TournamentBrowser* browser;
+    TournamentBrowser* browser { nullptr };
 
     // services menu actions (for cleanup)
     QList<QAction*> serviceActions;
 };
 
-TBViewerMainWindow::TBViewerMainWindow() : TBBaseMainWindow(), pimpl(new impl())
+TBViewerMainWindow::TBViewerMainWindow() : pimpl(new impl())
 {
     // set up moc ui
     pimpl->ui.setupUi(this);
@@ -181,13 +181,13 @@ void TBViewerMainWindow::updateServiceMenu()
     if(!localServices.isEmpty())
     {
         // Add separator
-        QAction* separator = new QAction(this);
+        auto* separator = new QAction(this);
         separator->setSeparator(true);
         pimpl->serviceActions.append(separator);
         fileMenu->insertAction(insertBefore, separator);
 
         // Add section header
-        QAction* header = new QAction(tr("On this Computer"), this);
+        auto* header = new QAction(tr("On this Computer"), this);
         header->setEnabled(false);
         pimpl->serviceActions.append(header);
         fileMenu->insertAction(insertBefore, header);
@@ -196,7 +196,7 @@ void TBViewerMainWindow::updateServiceMenu()
         for(const QVariant& serviceVar : localServices)
         {
             QVariantMap serviceMap = serviceVar.toMap();
-            QAction* serviceAction = new QAction(serviceMap["name"].toString(), this);
+            auto* serviceAction = new QAction(serviceMap["name"].toString(), this);
 
             // Store service data in action
             serviceAction->setData(serviceVar);
@@ -218,13 +218,13 @@ void TBViewerMainWindow::updateServiceMenu()
     if(!remoteServices.isEmpty())
     {
         // Add separator
-        QAction* separator = new QAction(this);
+        auto* separator = new QAction(this);
         separator->setSeparator(true);
         pimpl->serviceActions.append(separator);
         fileMenu->insertAction(insertBefore, separator);
 
         // Add section header
-        QAction* header = new QAction(tr("On the Network"), this);
+        auto* header = new QAction(tr("On the Network"), this);
         header->setEnabled(false);
         pimpl->serviceActions.append(header);
         fileMenu->insertAction(insertBefore, header);
@@ -233,7 +233,7 @@ void TBViewerMainWindow::updateServiceMenu()
         for(const QVariant& serviceVar : remoteServices)
         {
             QVariantMap serviceMap = serviceVar.toMap();
-            QAction* serviceAction = new QAction(serviceMap["name"].toString(), this);
+            auto* serviceAction = new QAction(serviceMap["name"].toString(), this);
 
             // Store service data in action
             serviceAction->setData(serviceVar);

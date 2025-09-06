@@ -481,8 +481,9 @@ TEST_CASE("Cross-component data flow", "[integration][data_flow]")
         gi2.configure(dumped_config);
 
         // Both instances should produce similar state
-        nlohmann::json state1, state2;
+        nlohmann::json state1;
         gi1.dump_state(state1);
+        nlohmann::json state2;
         gi2.dump_state(state2);
 
         REQUIRE(state1.is_object());

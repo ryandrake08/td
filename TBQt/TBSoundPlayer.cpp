@@ -48,7 +48,7 @@ TBSoundPlayer::TBSoundPlayer(QObject* parent) : QObject(parent), pimpl(new impl(
 
 TBSoundPlayer::~TBSoundPlayer() = default;
 
-void TBSoundPlayer::setSession(const TournamentSession& session)
+void TBSoundPlayer::setSession(const TournamentSession& session) const
 {
     // Connect to session state changes
     QObject::connect(&session, &TournamentSession::stateChanged, this, &TBSoundPlayer::on_stateChanged);

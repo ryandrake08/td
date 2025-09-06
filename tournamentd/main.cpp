@@ -52,6 +52,10 @@ public:
     signal_handler(const signal_handler& other) = delete;
     signal_handler& operator=(const signal_handler& other) = delete;
 
+    // no move constructors/assignment
+    signal_handler(signal_handler&& other) = delete;
+    signal_handler& operator=(signal_handler&& other) = delete;
+
     // accessor for caught signal
     volatile static std::sig_atomic_t signal_caught;
 };
@@ -69,10 +73,10 @@ int main(int argc, char** argv)
         signal_handler sig_handler;
 
         // gather command line
-        std::vector<std::string> cmdline(&argv[0], &argv[argc]);
+        std::vector<std::string> cmdline(argv, argv + argc); // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
 
-        bool restarting(false);
-        do
+        bool restarting(true);
+        while(restarting)
         {
             restarting = false;
 
@@ -112,7 +116,7 @@ int main(int argc, char** argv)
                 signal_handler::signal_caught = 0;
             }
 #endif
-        } while(restarting);
+        }
 
         std::cerr << "FATAL ERROR: caught signal " << signal_handler::signal_caught << std::endl;
         return EXIT_FAILURE;

@@ -4,6 +4,4 @@ TBSetupTabWidget::TBSetupTabWidget(QWidget* parent) : QWidget(parent)
 {
 }
 
-TBSetupTabWidget::~TBSetupTabWidget()
-{
-}
+TBSetupTabWidget::~TBSetupTabWidget() = default;

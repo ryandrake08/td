@@ -128,8 +128,9 @@ TEST_CASE("GameInfo JSON dumping", "[gameinfo][json_dump]")
         REQUIRE_NOTHROW(gi2.configure(dumped_config));
 
         // Both should be able to dump state
-        nlohmann::json state1, state2;
+        nlohmann::json state1;
         REQUIRE_NOTHROW(gi1.dump_state(state1));
+        nlohmann::json state2;
         REQUIRE_NOTHROW(gi2.dump_state(state2));
     }
 }

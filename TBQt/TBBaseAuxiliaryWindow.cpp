@@ -32,7 +32,7 @@ void TBBaseAuxiliaryWindow::closeEvent(QCloseEvent* event)
 bool colorIsDark(const QColor& color)
 {
     // Calculate relative luminance using ITU-R BT.601 coefficients
-    return 0.299f * color.redF() + 0.587f * color.greenF() + 0.114f * color.blueF() < 0.5;
+    return 0.299F * color.redF() + 0.587F * color.greenF() + 0.114F * color.blueF() < 0.5;
 }
 
 void TBBaseAuxiliaryWindow::setBackgroundColorString(const QString& backgroundColorString)

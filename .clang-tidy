@@ -1,3 +1,2 @@
-Checks: '-*,clang-analyzer-*,performance-*,-performance-enum-size,-performance-avoid-endl'
-HeaderFilterRegex: '.*'
-ExcludeHeaderFilterRegex: 'nlohmann/json.hpp'
+Checks: '-*,clang-diagnostic-*,clang-analyzer-*,cppcoreguidelines-*,-cppcoreguidelines-avoid-magic-numbers,modernize-*,-cppcoreguidelines-narrowing-conversions,-modernize-use-trailing-return-type,-modernize-use-nodiscard,-modernize-make-unique,-modernize-concat-nested-namespaces,performance-*,-performance-enum-size,-performance-avoid-endl,portability-*,readability-*,-readability-magic-numbers,-readability-identifier-length,-readability-braces-around-statements,-readability-math-missing-parentheses,-readability-implicit-bool-conversion,-readability-else-after-return,-readability-function-cognitive-complexity,-readability-convert-member-functions-to-static,-readability-inconsistent-declaration-parameter-name'
+ExcludeHeaderFilterRegex: '.*/ui_.*\.h$|.*/thirdparty/.*'

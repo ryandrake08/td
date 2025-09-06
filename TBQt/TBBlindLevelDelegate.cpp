@@ -11,7 +11,7 @@ QWidget* TBBlindLevelDelegate::createEditor(QWidget* parent, const QStyleOptionV
     Q_UNUSED(option)
     Q_UNUSED(index)
 
-    QComboBox* comboBox = new QComboBox(parent);
+    auto* comboBox = new QComboBox(parent);
 
     // Add "Start" for round 0 (before tournament starts)
     comboBox->addItem(tr("Start"), 0);
@@ -31,7 +31,7 @@ QWidget* TBBlindLevelDelegate::createEditor(QWidget* parent, const QStyleOptionV
 
 void TBBlindLevelDelegate::setEditorData(QWidget* editor, const QModelIndex& index) const
 {
-    QComboBox* comboBox = qobject_cast<QComboBox*>(editor);
+    auto* comboBox = qobject_cast<QComboBox*>(editor);
     if(!comboBox)
         return;
 
@@ -55,7 +55,7 @@ void TBBlindLevelDelegate::setEditorData(QWidget* editor, const QModelIndex& ind
 
 void TBBlindLevelDelegate::setModelData(QWidget* editor, QAbstractItemModel* model, const QModelIndex& index) const
 {
-    QComboBox* comboBox = qobject_cast<QComboBox*>(editor);
+    auto* comboBox = qobject_cast<QComboBox*>(editor);
     if(!comboBox)
         return;
 

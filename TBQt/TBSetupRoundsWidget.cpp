@@ -65,9 +65,7 @@ TBSetupRoundsWidget::TBSetupRoundsWidget(QWidget* parent) : TBSetupTabWidget(par
     });
 }
 
-TBSetupRoundsWidget::~TBSetupRoundsWidget()
-{
-}
+TBSetupRoundsWidget::~TBSetupRoundsWidget() = default;
 
 void TBSetupRoundsWidget::setConfiguration(const QVariantMap& configuration)
 {
@@ -158,10 +156,7 @@ int TBSetupRoundsWidget::calculateNextBlindLevel() const
     {
         QVariantMap round = roundVariant.toMap();
         int bigBlind = round.value("big_blind").toInt();
-        if(bigBlind > maxBigBlind)
-        {
-            maxBigBlind = bigBlind;
-        }
+        maxBigBlind = std::max(bigBlind, maxBigBlind);
     }
 
     // Double the highest big blind, or use standard progression

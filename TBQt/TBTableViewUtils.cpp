@@ -8,7 +8,7 @@
 QSortFilterProxyModel* TBTableViewUtils::setupTableViewWithSorting(QWidget* parent, QTableView* tableView, TBVariantListTableModel* sourceModel, int defaultSortColumn, Qt::SortOrder defaultSortOrder)
 {
     // Create proxy model for sorting
-    QSortFilterProxyModel* proxyModel = new QSortFilterProxyModel(parent);
+    auto* proxyModel = new QSortFilterProxyModel(parent);
     proxyModel->setSourceModel(sourceModel);
 
     // Set up the table view
@@ -36,7 +36,7 @@ int TBTableViewUtils::getSelectedSourceRow(QTableView* tableView)
         return -1;
 
     // Get the proxy model from the table view
-    QSortFilterProxyModel* proxyModel = qobject_cast<QSortFilterProxyModel*>(tableView->model());
+    auto* proxyModel = qobject_cast<QSortFilterProxyModel*>(tableView->model());
     if(!proxyModel)
         return -1; // Fallback if not using proxy model
 

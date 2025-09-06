@@ -12,7 +12,7 @@ QWidget* TBDateEditDelegate::createEditor(QWidget* parent, const QStyleOptionVie
     Q_UNUSED(option)
     Q_UNUSED(index)
 
-    QDateEdit* editor = new QDateEdit(parent);
+    auto* editor = new QDateEdit(parent);
     editor->setDisplayFormat("yyyy-MM-dd");
     editor->setCalendarPopup(true);
     return editor;
@@ -20,7 +20,7 @@ QWidget* TBDateEditDelegate::createEditor(QWidget* parent, const QStyleOptionVie
 
 void TBDateEditDelegate::setEditorData(QWidget* editor, const QModelIndex& index) const
 {
-    QDateEdit* dateEdit = qobject_cast<QDateEdit*>(editor);
+    auto* dateEdit = qobject_cast<QDateEdit*>(editor);
     if(!dateEdit)
         return;
 
@@ -40,7 +40,7 @@ void TBDateEditDelegate::setEditorData(QWidget* editor, const QModelIndex& index
 
 void TBDateEditDelegate::setModelData(QWidget* editor, QAbstractItemModel* model, const QModelIndex& index) const
 {
-    QDateEdit* dateEdit = qobject_cast<QDateEdit*>(editor);
+    auto* dateEdit = qobject_cast<QDateEdit*>(editor);
     if(!dateEdit)
         return;
 

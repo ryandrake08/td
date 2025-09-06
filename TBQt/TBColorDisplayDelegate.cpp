@@ -17,11 +17,11 @@ QWidget* TBColorDisplayDelegate::createEditor(QWidget* parent, const QStyleOptio
     Q_UNUSED(option)
     Q_UNUSED(index)
 
-    QPushButton* button = new QPushButton(parent);
+    auto* button = new QPushButton(parent);
     button->setText(tr("Choose Color..."));
 
     // Install event filter to prevent premature editor destruction
-    button->installEventFilter(const_cast<TBColorDisplayDelegate*>(this));
+    button->installEventFilter(const_cast<TBColorDisplayDelegate*>(this)); // NOLINT(cppcoreguidelines-pro-type-const-cast)
 
     QObject::connect(button, &QPushButton::clicked, this, &TBColorDisplayDelegate::onColorButtonClicked);
 
@@ -30,7 +30,7 @@ QWidget* TBColorDisplayDelegate::createEditor(QWidget* parent, const QStyleOptio
 
 void TBColorDisplayDelegate::setEditorData(QWidget* editor, const QModelIndex& index) const
 {
-    QPushButton* button = qobject_cast<QPushButton*>(editor);
+    auto* button = qobject_cast<QPushButton*>(editor);
     if(!button)
         return;
 
@@ -56,11 +56,11 @@ void TBColorDisplayDelegate::setEditorData(QWidget* editor, const QModelIndex& i
 
 void TBColorDisplayDelegate::setModelData(QWidget* editor, QAbstractItemModel* model, const QModelIndex& index) const
 {
-    QPushButton* button = qobject_cast<QPushButton*>(editor);
+    auto* button = qobject_cast<QPushButton*>(editor);
     if(!button)
         return;
 
-    QColor selectedColor = button->property("selectedColor").value<QColor>();
+    auto selectedColor = button->property("selectedColor").value<QColor>();
     if(selectedColor.isValid())
     {
         model->setData(index, selectedColor.name(), Qt::EditRole);
@@ -97,11 +97,11 @@ void TBColorDisplayDelegate::paint(QPainter* painter, const QStyleOptionViewItem
 QColor TBColorDisplayDelegate::parseColor(const QString& colorString) const
 {
     if(colorString.isEmpty())
-        return QColor();
+        return {};
 
     // Handle hex colors
     if(colorString.startsWith("#"))
-        return QColor(colorString);
+        return { colorString };
 
     // Handle named colors
     QColor color;
@@ -111,7 +111,7 @@ QColor TBColorDisplayDelegate::parseColor(const QString& colorString) const
 
 void TBColorDisplayDelegate::onColorButtonClicked()
 {
-    QPushButton* button = qobject_cast<QPushButton*>(sender());
+    auto* button = qobject_cast<QPushButton*>(sender());
     if(!button)
         return;
 
@@ -119,7 +119,7 @@ void TBColorDisplayDelegate::onColorButtonClicked()
     QColor color = QColorDialog::getColor(currentColor, button->window(), tr("Select Chip Color"));
 
     // Check if button still exists after modal dialog
-    QPushButton* stillValidButton = qobject_cast<QPushButton*>(sender());
+    auto* stillValidButton = qobject_cast<QPushButton*>(sender());
     if(!stillValidButton || !color.isValid())
         return;
 
@@ -138,7 +138,7 @@ bool TBColorDisplayDelegate::eventFilter(QObject* watched, QEvent* event)
     // Check if this is a focus out event on our button editor
     if(event->type() == QEvent::FocusOut)
     {
-        QPushButton* button = qobject_cast<QPushButton*>(watched);
+        auto* button = qobject_cast<QPushButton*>(watched);
         if(button)
         {
             // Block focus out events to prevent Qt from destroying the editor

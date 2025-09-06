@@ -1,6 +1,5 @@
 #include "bonjour.hpp"
 #include "logger.hpp"
-#include <string>
 #include <system_error>
 
 #if defined(__APPLE__)
@@ -12,17 +11,17 @@ struct bonjour_publisher::impl
     class cf_error_category : public std::error_category
     {
     public:
-        virtual const char* name() const throw() override
+        const char* name() const noexcept override
         {
             return "CFStreamError";
         }
 
-        virtual bool equivalent(const std::error_code& code, int condition) const throw() override
+        bool equivalent(const std::error_code& code, int condition) const noexcept override
         {
-            return *this == code.category() && static_cast<int>(default_error_condition(code.value()).value()) == condition;
+            return *this == code.category() && default_error_condition(code.value()).value() == condition;
         }
 
-        virtual std::string message(int ev) const override
+        std::string message(int ev) const override
         {
             return std::to_string(ev);
         }
@@ -75,6 +74,14 @@ public:
         CFNetServiceCancel(netService);
         CFRelease(netService);
     }
+
+    // no copy constructors/assignment
+    impl(const impl& other) = delete;
+    impl& operator=(const impl& other) = delete;
+
+    // no move constructors/assignment
+    impl(impl&& other) = delete;
+    impl& operator=(impl&& other) = delete;
 };
 
 #elif defined(__linux__)
@@ -94,14 +101,14 @@ struct bonjour_publisher::impl
     class avahi_error_category : public std::error_category
     {
     public:
-        const char* name() const throw() override
+        const char* name() const noexcept override
         {
             return "avahi";
         }
 
-        bool equivalent(const std::error_code& code, int condition) const throw() override
+        bool equivalent(const std::error_code& code, int condition) const noexcept override
         {
-            return *this == code.category() && static_cast<int>(default_error_condition(code.value()).value()) == condition;
+            return *this == code.category() && default_error_condition(code.value()).value() == condition;
         }
 
         std::string message(int ev) const override
@@ -115,13 +122,13 @@ struct bonjour_publisher::impl
     int service_port;
 
     // threaded poller
-    AvahiThreadedPoll* threaded_poll;
+    AvahiThreadedPoll* threaded_poll { nullptr };
 
     // client pointer
-    AvahiClient* client;
+    AvahiClient* client { nullptr };
 
     // entry group object
-    AvahiEntryGroup* group;
+    AvahiEntryGroup* group { nullptr };
 
     // private utility methods
     static std::string alternative_name(const std::string& name)
@@ -129,7 +136,7 @@ struct bonjour_publisher::impl
         logger(ll::debug) << "generating alternative name for: " << name << "\n";
 
         // generate alternative name
-        auto tmp(avahi_alternative_service_name(name.c_str()));
+        auto* tmp(avahi_alternative_service_name(name.c_str()));
         std::string alt_name(tmp);
         avahi_free(tmp);
 
@@ -144,10 +151,10 @@ struct bonjour_publisher::impl
             logger(ll::info) << "adding avahi service: " << name << ", port: " << port << '\n';
 
             int ret(0);
-            ret = avahi_entry_group_add_service(this->group,
+            ret = avahi_entry_group_add_service(this->group, // NOLINT(cppcoreguidelines-pro-type-vararg)
                                                 AVAHI_IF_UNSPEC,
                                                 AVAHI_PROTO_UNSPEC,
-                                                static_cast<AvahiPublishFlags>(0), // NOLINT
+                                                static_cast<AvahiPublishFlags>(0), // NOLINT(clang-analyzer-optin.core.EnumCastOutOfRange)
                                                 name.c_str(),
                                                 "_pokerbuddy._tcp",
                                                 "local.",
@@ -222,7 +229,7 @@ struct bonjour_publisher::impl
     static void static_entry_group_callback(AvahiEntryGroup* g, AvahiEntryGroupState state, void* userdata)
     {
         assert(userdata != nullptr);
-        reinterpret_cast<bonjour_publisher::impl*>(userdata)->entry_group_callback(g, state);
+        static_cast<bonjour_publisher::impl*>(userdata)->entry_group_callback(g, state);
     }
 
     void client_callback(AvahiClient* c, AvahiClientState state)
@@ -295,11 +302,11 @@ struct bonjour_publisher::impl
     static void static_client_callback(AvahiClient* c, AvahiClientState state, void* userdata)
     {
         assert(userdata != nullptr);
-        reinterpret_cast<bonjour_publisher::impl*>(userdata)->client_callback(c, state);
+        static_cast<bonjour_publisher::impl*>(userdata)->client_callback(c, state);
     }
 
 public:
-    impl(const std::string& name, int port) : service_name(name), service_port(port), threaded_poll(nullptr), client(nullptr), group(nullptr)
+    impl(std::string name, int port) : service_name(std::move(name)), service_port(port)
     {
         // handle empty string by using fallback name
         if(this->service_name.empty())
@@ -329,9 +336,9 @@ public:
         logger(ll::info) << "setting up avahi service for " << this->service_name << " with port " << this->service_port << '\n';
 
         // create client
-        int error;
+        int error {};
         this->client = avahi_client_new(avahi_threaded_poll_get(this->threaded_poll),
-                                        static_cast<AvahiClientFlags>(0), // NOLINT
+                                        static_cast<AvahiClientFlags>(0), // NOLINT(clang-analyzer-optin.core.EnumCastOutOfRange)
                                         static_client_callback,
                                         this,
                                         &error);
@@ -389,6 +396,14 @@ public:
             this->threaded_poll = nullptr;
         }
     }
+
+    // no copy constructors/assignment
+    impl(const impl& other) = delete;
+    impl& operator=(const impl& other) = delete;
+
+    // no move constructors/assignment
+    impl(impl&& other) = delete;
+    impl& operator=(impl&& other) = delete;
 };
 
 #else

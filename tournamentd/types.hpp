@@ -77,12 +77,12 @@ namespace td
     // attributes of an authorized client
     struct authorized_client
     {
-        int code;
+        int code { 0 };
         std::string name;
-        datetime added_at;
+        datetime added_at { datetime::now() };
 
         authorized_client();
-        authorized_client(int c, const std::string& n);
+        authorized_client(int c, std::string n);
     };
     void to_json(nlohmann::json& j, const td::authorized_client& p);
     void from_json(const nlohmann::json& j, td::authorized_client& p);
@@ -90,12 +90,12 @@ namespace td
     // attributes of a single blind level
     struct blind_level
     {
-        unsigned long little_blind;
-        unsigned long big_blind;
-        unsigned long ante;
-        ante_type_t ante_type;
-        long duration;
-        long break_duration;
+        unsigned long little_blind { 0 };
+        unsigned long big_blind { 0 };
+        unsigned long ante { 0 };
+        ante_type_t ante_type { td::ante_type_t::none };
+        long duration { 0 };
+        long break_duration { 0 };
         std::string reason;
 
         blind_level();
@@ -110,8 +110,8 @@ namespace td
     struct chip
     {
         std::string color;
-        unsigned long denomination;
-        unsigned long count_available;
+        unsigned long denomination { 0 };
+        unsigned long count_available { 0 };
 
         chip();
 
@@ -138,11 +138,11 @@ namespace td
     // currency names use ISO 4217
     struct monetary_value
     {
-        double amount;
+        double amount { 0.0 };
         std::string currency;
 
         monetary_value();
-        monetary_value(double amt, const std::string& curr);
+        monetary_value(double amt, std::string curr);
 
         // equality
         bool operator==(const monetary_value& other) const;
@@ -153,7 +153,7 @@ namespace td
     // represents a monetary value without currency
     struct monetary_value_nocurrency
     {
-        double amount;
+        double amount { 0.0 };
         monetary_value_nocurrency();
         explicit monetary_value_nocurrency(double amt);
 
@@ -167,9 +167,9 @@ namespace td
     struct funding_source
     {
         std::string name;
-        funding_source_type_t type;
-        std::size_t forbid_after_blind_level;
-        unsigned long chips;
+        funding_source_type_t type { td::funding_source_type_t::buyin };
+        std::size_t forbid_after_blind_level { std::numeric_limits<std::size_t>::max() };
+        unsigned long chips { 0 };
         monetary_value cost;
         monetary_value commission;
         // equity currency must match configured payout_currency, so only amount is recorded here
@@ -188,7 +188,7 @@ namespace td
     {
         player_id_t player_id;
         std::string name;
-        datetime added_at;
+        datetime added_at { datetime::now() };
 
         player();
 
@@ -201,8 +201,8 @@ namespace td
     // attributes of a single physical seat at the tournament
     struct seat
     {
-        std::size_t table_number;
-        std::size_t seat_number;
+        std::size_t table_number { 0 };
+        std::size_t seat_number { 0 };
 
         seat();
         seat(std::size_t t, std::size_t s);
@@ -224,15 +224,15 @@ namespace td
         std::string to_seat_name;
 
         player_movement();
-        player_movement(const player_id_t& p, const std::string& n, const std::string& ft, const std::string& fs, const std::string& tt = std::string(), const std::string& ts = std::string());
+        player_movement(player_id_t p, std::string n, std::string ft, std::string fs, std::string tt = std::string(), std::string ts = std::string());
     };
     void to_json(nlohmann::json& j, const td::player_movement& p);
 
     // represents a quantity of chips distributed to each player
     struct player_chips
     {
-        unsigned long denomination;
-        unsigned long chips;
+        unsigned long denomination { 0 };
+        unsigned long chips { 0 };
 
         player_chips();
         player_chips(unsigned long d, unsigned long c);
@@ -242,7 +242,7 @@ namespace td
     // represents a manually built payout structure
     struct manual_payout
     {
-        size_t buyins_count;
+        size_t buyins_count { 0 };
         std::vector<td::monetary_value_nocurrency> payouts;
 
         manual_payout();
@@ -257,12 +257,12 @@ namespace td
     // represents a tournament result
     struct result
     {
-        size_t place;
-        std::string name;
+        size_t place { 0 };
+        std::string name { 0 };
         monetary_value_nocurrency payout;
 
         result();
-        explicit result(size_t p, const std::string& n = "");
+        explicit result(size_t p, std::string n = "");
     };
     void to_json(nlohmann::json& j, const td::result& p);
 
@@ -270,16 +270,16 @@ namespace td
     struct seated_player
     {
         player_id_t player_id;
-        bool buyin;
+        bool buyin { false };
         std::string player_name;
         std::string table_name;
         std::string seat_name;
         seat seat_position; // numeric table and seat numbers
 
         // unseated player
-        seated_player(const player_id_t& p, bool b, const std::string& n);
+        seated_player(player_id_t p, bool b, std::string n);
         // seated player
-        seated_player(const player_id_t& p, bool b, const std::string& n, const std::string& t, const std::string& s, const seat& pos);
+        seated_player(player_id_t p, bool b, std::string n, std::string t, std::string s, const seat& pos);
     };
     void to_json(nlohmann::json& j, const td::seated_player& p);
 
@@ -291,9 +291,9 @@ namespace td
         std::string seat_name;
 
         // empty seat
-        seating_chart_entry(const std::string& t, const std::string& s);
+        seating_chart_entry(std::string t, std::string s);
         // seat with player
-        seating_chart_entry(const std::string& n, const std::string& t, const std::string& s);
+        seating_chart_entry(std::string n, std::string t, std::string s);
     };
     void to_json(nlohmann::json& j, const td::seating_chart_entry& p);
 
@@ -301,19 +301,19 @@ namespace td
     struct automatic_payout_parameters
     {
         // configuration: automatic payouts: rough percentage of seats that get paid (0.0-1.0)
-        double percent_seats_paid;
+        double percent_seats_paid { 0.0 };
 
         // configuration: automatic payouts: round to whole numbers when calculating payouts?
-        bool round_payouts;
+        bool round_payouts { false };
 
         // configuration: automatic payouts: payout structure shape
-        double payout_shape;
+        double payout_shape { 0.0 };
 
         // configuration: automatic payouts: how much to pay the bubble
-        double pay_the_bubble;
+        double pay_the_bubble { 0.0 };
 
         // configuration: automatic payouts: how much to set aside for each knockout
-        double pay_knockouts;
+        double pay_knockouts { 0.0 };
 
         automatic_payout_parameters();
         automatic_payout_parameters(double percent_paid, bool round, double shape, double bubble, double knockouts);

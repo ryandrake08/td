@@ -7,10 +7,10 @@
 #include <vector>
 #ifdef __APPLE__
 // macOS allows up to 255 characters
-#define MAX_SERVICE_NAME_LENGTH 255
+static constexpr size_t MAX_SERVICE_NAME_LENGTH = 255;
 #else
 // Linux/Avahi and other platforms: 63 characters maximum
-#define MAX_SERVICE_NAME_LENGTH 63
+static constexpr size_t MAX_SERVICE_NAME_LENGTH = 63;
 #endif
 
 TEST_CASE("Bonjour publisher creation and destruction", "[bonjour][basic]")

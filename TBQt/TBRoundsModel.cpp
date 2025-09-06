@@ -29,7 +29,7 @@ QVariantList TBRoundsModel::listData() const
 QVariant TBRoundsModel::data(const QModelIndex& index, int role) const
 {
     if(!index.isValid() || (role != Qt::DisplayRole && role != Qt::EditRole))
-        return QVariant();
+        return {};
 
     // Handle start time calculation (column 1)
     if(index.column() == 1 && role == Qt::DisplayRole)
@@ -95,7 +95,7 @@ QString TBRoundsModel::formatTime(int milliseconds) const
 {
     int totalMinutes = milliseconds / (1000 * 60); // Convert milliseconds to minutes
     if(totalMinutes < 0)
-        return QString(); // Only return empty for negative values
+        return {}; // Only return empty for negative values
 
     int hours = totalMinutes / 60;
     int mins = totalMinutes % 60;

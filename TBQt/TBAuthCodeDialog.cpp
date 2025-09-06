@@ -9,28 +9,30 @@
 #include <QPushButton>
 #include <QRegExpValidator>
 #include <QVBoxLayout>
+#include <algorithm>
+#include <array>
 
 struct TBAuthCodeDialog::impl
 {
-    QLineEdit* codeFields[5];
-    QPushButton* okButton;
-    QPushButton* cancelButton;
-    QLabel* instructionLabel;
-    int authCode;
+    std::array<QLineEdit*, 5> codeFields {};
+    QPushButton* okButton { nullptr };
+    QPushButton* cancelButton { nullptr };
+    QLabel* instructionLabel { nullptr };
+    int authCode { 0 };
 
-    explicit impl() : okButton(nullptr), cancelButton(nullptr), instructionLabel(nullptr), authCode(0)
+    explicit impl()
     {
         // Initialize code fields
-        for(int i = 0; i < 5; ++i)
+        for(auto& codeField : codeFields)
         {
-            codeFields[i] = nullptr;
+            codeField = nullptr;
         }
     }
 };
 
 TBAuthCodeDialog::TBAuthCodeDialog(QWidget* parent) : QDialog(parent), pimpl(std::unique_ptr<impl>(new impl()))
 {
-    QVBoxLayout* mainLayout = new QVBoxLayout(this);
+    auto* mainLayout = new QVBoxLayout(this);
 
     // Instruction label
     pimpl->instructionLabel = new QLabel(tr("Enter 5-digit authorization code:"), this);
@@ -38,32 +40,32 @@ TBAuthCodeDialog::TBAuthCodeDialog(QWidget* parent) : QDialog(parent), pimpl(std
     mainLayout->addWidget(pimpl->instructionLabel);
 
     // Code fields layout
-    QHBoxLayout* codeLayout = new QHBoxLayout();
+    auto* codeLayout = new QHBoxLayout();
     codeLayout->setSpacing(5);
 
     // Create 5 single-digit fields
     QRegExp digitRegex("[0-9]");
-    QRegExpValidator* digitValidator = new QRegExpValidator(digitRegex, this);
+    auto* digitValidator = new QRegExpValidator(digitRegex, this);
 
-    for(int i = 0; i < 5; ++i)
+    for(auto& codeField : pimpl->codeFields)
     {
-        pimpl->codeFields[i] = new QLineEdit(this);
-        pimpl->codeFields[i]->setMaxLength(1);
-        pimpl->codeFields[i]->setValidator(digitValidator);
-        pimpl->codeFields[i]->setFixedSize(30, 30);
-        pimpl->codeFields[i]->setAlignment(Qt::AlignCenter);
-        pimpl->codeFields[i]->setStyleSheet("QLineEdit { font-size: 14px; font-weight: bold; }");
+        codeField = new QLineEdit(this);
+        codeField->setMaxLength(1);
+        codeField->setValidator(digitValidator);
+        codeField->setFixedSize(30, 30);
+        codeField->setAlignment(Qt::AlignCenter);
+        codeField->setStyleSheet("QLineEdit { font-size: 14px; font-weight: bold; }");
 
-        codeLayout->addWidget(pimpl->codeFields[i]);
+        codeLayout->addWidget(codeField);
     }
 
-    mainLayout->addLayout(codeLayout);
+    mainLayout->addLayout(codeLayout); // NOLINT(clang-analyzer-cplusplus.NewDeleteLeaks)
 
     // Add some spacing before buttons
     mainLayout->addSpacing(20);
 
     // Buttons
-    QDialogButtonBox* buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, this);
+    auto* buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, this);
     pimpl->okButton = buttonBox->button(QDialogButtonBox::Ok);
     pimpl->cancelButton = buttonBox->button(QDialogButtonBox::Cancel);
 
@@ -76,9 +78,9 @@ TBAuthCodeDialog::TBAuthCodeDialog(QWidget* parent) : QDialog(parent), pimpl(std
     QObject::connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
 
     // connect signals
-    for(int i = 0; i < 5; ++i)
+    for(auto& codeField : pimpl->codeFields)
     {
-        QObject::connect(pimpl->codeFields[i], &QLineEdit::textChanged, this, &TBAuthCodeDialog::onCodeFieldChanged);
+        QObject::connect(codeField, &QLineEdit::textChanged, this, &TBAuthCodeDialog::onCodeFieldChanged);
     }
 
     // Set initial UI state
@@ -87,48 +89,37 @@ TBAuthCodeDialog::TBAuthCodeDialog(QWidget* parent) : QDialog(parent), pimpl(std
     setFixedSize(300, 150);
 
     // Focus first field
-    pimpl->codeFields[0]->setFocus();
+    pimpl->codeFields.at(0)->setFocus();
 }
 
 TBAuthCodeDialog::~TBAuthCodeDialog() = default;
 
 void TBAuthCodeDialog::onCodeFieldChanged()
 {
-    QLineEdit* sender = qobject_cast<QLineEdit*>(QObject::sender());
+    auto* sender = qobject_cast<QLineEdit*>(QObject::sender());
     if(!sender)
         return;
 
     // Find which field sent the signal
-    int currentIndex = -1;
-    for(int i = 0; i < 5; ++i)
-    {
-        if(pimpl->codeFields[i] == sender)
-        {
-            currentIndex = i;
-            break;
-        }
-    }
-
-    if(currentIndex == -1)
+    auto* it = std::find(pimpl->codeFields.begin(), pimpl->codeFields.end(), sender);
+    if(it == pimpl->codeFields.end())
         return;
+
+    int currentIndex = std::distance(pimpl->codeFields.begin(), it);
 
     // If field has text and it's not the last field, move to next
     if(!sender->text().isEmpty() && currentIndex < 4)
     {
-        pimpl->codeFields[currentIndex + 1]->setFocus();
-        pimpl->codeFields[currentIndex + 1]->selectAll();
+        pimpl->codeFields.at(currentIndex + 1)->setFocus();
+        pimpl->codeFields.at(currentIndex + 1)->selectAll();
     }
 
     // Check if all fields are filled
-    bool allFilled = true;
-    for(int i = 0; i < 5; ++i)
+    bool allFilled = std::all_of(pimpl->codeFields.begin(), pimpl->codeFields.end(),
+                                 [](const QLineEdit* field)
     {
-        if(pimpl->codeFields[i]->text().isEmpty())
-        {
-            allFilled = false;
-            break;
-        }
-    }
+        return !field->text().isEmpty();
+    });
 
     pimpl->okButton->setEnabled(allFilled);
 
@@ -143,12 +134,12 @@ void TBAuthCodeDialog::onAccepted()
 {
     // Build the 5-digit code
     QString codeString;
-    for(int i = 0; i < 5; ++i)
+    for(auto& codeField : pimpl->codeFields)
     {
-        codeString += pimpl->codeFields[i]->text();
+        codeString += codeField->text();
     }
 
-    bool ok;
+    bool ok = false;
     pimpl->authCode = codeString.toInt(&ok);
 
     if(ok && pimpl->authCode >= 10000 && pimpl->authCode <= 99999)

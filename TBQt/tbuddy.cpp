@@ -33,12 +33,12 @@ int main(int argc, char* argv[])
     parser.process(a);
 
     // decide which windows to open
-    if(parser.positionalArguments().size() > 0)
+    if(!parser.positionalArguments().empty())
     {
         // open a window for every file passed on the command line
         for(const QString& filename : parser.positionalArguments())
         {
-            auto window(new TBBuddyMainWindow);
+            auto* window(new TBBuddyMainWindow);
             window->setAttribute(Qt::WA_DeleteOnClose);
             window->load_document(filename);
             window->show();
@@ -47,10 +47,10 @@ int main(int argc, char* argv[])
     else
     {
         // if no files passed on the command line, open a window without a file
-        auto window(new TBBuddyMainWindow);
+        auto* window(new TBBuddyMainWindow);
         window->setAttribute(Qt::WA_DeleteOnClose);
         window->show();
     }
 
-    return a.exec();
+    return QApplication::exec();
 }

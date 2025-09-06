@@ -20,7 +20,7 @@ public:
 
     // Called when any other tab's configuration changes
     // Override in derived classes to handle dependencies
-    virtual void onOtherTabConfigurationChanged(const QVariantMap&) {};
+    virtual void onOtherTabConfigurationChanged(const QVariantMap& /* configuration */) {};
 
 protected:
 Q_SIGNALS:

@@ -12,8 +12,8 @@
 
 struct TBSetupChipsWidget::impl
 {
-    Ui::TBSetupChipsWidget ui;
-    TBVariantListTableModel* model;
+    Ui::TBSetupChipsWidget ui {};
+    TBVariantListTableModel* model {};
 
     QList<QString> usedColors;
 };
@@ -55,9 +55,7 @@ TBSetupChipsWidget::TBSetupChipsWidget(QWidget* parent) : TBSetupTabWidget(paren
     });
 }
 
-TBSetupChipsWidget::~TBSetupChipsWidget()
-{
-}
+TBSetupChipsWidget::~TBSetupChipsWidget() = default;
 
 void TBSetupChipsWidget::setConfiguration(const QVariantMap& configuration)
 {
@@ -124,10 +122,7 @@ void TBSetupChipsWidget::on_addChipButtonClicked()
         {
             QVariantMap chip = chipVariant.toMap();
             int denomination = chip.value("denomination").toInt();
-            if(denomination > maxDenomination)
-            {
-                maxDenomination = denomination;
-            }
+            maxDenomination = std::max(denomination, maxDenomination);
         }
         nextDenomination = maxDenomination * 2;
     }
@@ -170,8 +165,9 @@ QString TBSetupChipsWidget::generateRandomColor() const
 {
     QString color;
     int attempts = 0;
+    bool needNewColor = true;
 
-    do
+    while(needNewColor && attempts < 20)
     {
         // Generate random RGB values avoiding very dark or very light colors
         int r = QRandomGenerator::global()->bounded(50, 206); // 50-205 range
@@ -180,7 +176,8 @@ QString TBSetupChipsWidget::generateRandomColor() const
 
         color = QColor(r, g, b).name();
         attempts++;
-    } while(pimpl->usedColors.contains(color) && attempts < 20);
+        needNewColor = pimpl->usedColors.contains(color);
+    }
 
     pimpl->usedColors.append(color);
     return color;

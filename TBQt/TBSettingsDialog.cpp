@@ -8,7 +8,7 @@
 
 struct TBSettingsDialog::impl
 {
-    Ui::TBSettingsDialog ui;
+    Ui::TBSettingsDialog ui {};
 
     explicit impl(TBSettingsDialog* parent)
     {

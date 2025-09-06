@@ -10,7 +10,7 @@
 #define timegm(a) _mkgmtime((a))
 #endif
 
-typedef std::chrono::system_clock sc;
+using sc = std::chrono::system_clock;
 
 datetime::datetime(const std::time_t& tt) : datetime(sc::from_time_t(tt))
 {
@@ -57,7 +57,7 @@ datetime datetime::from_local(const char* iso8601)
 static int current_century()
 {
     auto tt(std::time(nullptr));
-    struct tm tm;
+    struct tm tm {};
     ::gmtime_r(&tt, &tm);
     return (tm.tm_year / 100) * 100;
 }
@@ -86,7 +86,7 @@ datetime datetime::from_local(const std::tm& tm_s)
 datetime datetime::from_nmea0183(const std::string& timebuf, const std::string& datebuf)
 {
     struct tm tm { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, nullptr };
-    if(datebuf != std::string())
+    if(!datebuf.empty())
     {
         // Parse month, date, year from NMEA
         tm.tm_mday = std::stoi(datebuf.substr(0, 2));
@@ -96,7 +96,7 @@ datetime datetime::from_nmea0183(const std::string& timebuf, const std::string& 
 
     std::chrono::system_clock::duration fractional;
 
-    if(timebuf != std::string())
+    if(!timebuf.empty())
     {
         // Parse hour, minute, second from NMEA
         tm.tm_hour = std::stoi(timebuf.substr(0, 2));
@@ -178,7 +178,7 @@ std::ostream& operator<<(std::ostream& os, const datetime& t)
     auto tt(sc::to_time_t(t.tp));
 
     // convert to gmtime or localtime components depending on mode
-    std::tm tm;
+    std::tm tm {};
     if(os.iword(mode_iword()) == 0)
     {
         ::gmtime_r(&tt, &tm);
@@ -189,7 +189,7 @@ std::ostream& operator<<(std::ostream& os, const datetime& t)
     }
 
     // get format to output components
-    auto fmt(static_cast<const char*>(os.pword(format_iword())));
+    const auto* fmt(static_cast<const char*>(os.pword(format_iword())));
     if(fmt == nullptr)
     {
         fmt = "%FT%T";
@@ -224,7 +224,7 @@ std::ostream& operator<<(std::ostream& os, const datetime& t)
 std::istream& operator>>(std::istream& is, datetime& t)
 {
     // get format to input components
-    auto fmt(static_cast<const char*>(is.pword(format_iword())));
+    const auto* fmt(static_cast<const char*>(is.pword(format_iword())));
     if(fmt == nullptr)
     {
         fmt = "%FT%T";

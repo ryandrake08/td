@@ -10,6 +10,9 @@ class TBSetupChipsWidget : public TBSetupTabWidget
     struct impl;
     std::unique_ptr<impl> pimpl;
 
+    QString generateRandomColor() const;
+    QList<int> getDefaultDenominations() const;
+
 public:
     explicit TBSetupChipsWidget(QWidget* parent = nullptr);
     virtual ~TBSetupChipsWidget() override;
@@ -22,8 +25,4 @@ private Q_SLOTS:
     void on_addChipButtonClicked();
     void on_removeChipButtonClicked();
     void on_modelDataChanged();
-
-private:
-    QString generateRandomColor() const;
-    QList<int> getDefaultDenominations() const;
 };

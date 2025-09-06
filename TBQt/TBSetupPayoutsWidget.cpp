@@ -12,11 +12,11 @@
 
 struct TBSetupPayoutsWidget::impl
 {
-    Ui::TBSetupPayoutsWidget ui;
-    TBVariantListTableModel* manualModel;
-    TBVariantListTableModel* turnoutModel;
-    TBVariantListTableModel* turnoutPayoutsModel;
-    QString payoutCurrency = TBCurrency::defaultCurrencyCode(); // Current tournament payout currency
+    Ui::TBSetupPayoutsWidget ui {};
+    TBVariantListTableModel* manualModel { nullptr };
+    TBVariantListTableModel* turnoutModel { nullptr };
+    TBVariantListTableModel* turnoutPayoutsModel { nullptr };
+    QString payoutCurrency { TBCurrency::defaultCurrencyCode() }; // Current tournament payout currency
 };
 
 TBSetupPayoutsWidget::TBSetupPayoutsWidget(QWidget* parent) : TBSetupTabWidget(parent), pimpl(new impl())
@@ -109,9 +109,7 @@ TBSetupPayoutsWidget::TBSetupPayoutsWidget(QWidget* parent) : TBSetupTabWidget(p
     QObject::connect(pimpl->turnoutPayoutsModel, &QAbstractItemModel::dataChanged, this, &TBSetupPayoutsWidget::on_modelDataChanged);
 }
 
-TBSetupPayoutsWidget::~TBSetupPayoutsWidget()
-{
-}
+TBSetupPayoutsWidget::~TBSetupPayoutsWidget() = default;
 
 void TBSetupPayoutsWidget::setConfiguration(const QVariantMap& configuration)
 {
@@ -140,11 +138,11 @@ void TBSetupPayoutsWidget::setConfiguration(const QVariantMap& configuration)
     QVariantList forcedPayouts = configuration.value("forced_payouts").toList();
 
     // Add payout currency to each forced payout entry
-    for(int i = 0; i < forcedPayouts.size(); ++i)
+    for(auto& payoutVariant : forcedPayouts)
     {
-        QVariantMap payout = forcedPayouts[i].toMap();
+        QVariantMap payout = payoutVariant.toMap();
         payout["currency"] = pimpl->payoutCurrency;
-        forcedPayouts[i] = payout;
+        payoutVariant = payout;
     }
 
     pimpl->manualModel->setListData(forcedPayouts);
@@ -172,31 +170,31 @@ QVariantMap TBSetupPayoutsWidget::configuration() const
 
     // Get forced payouts and remove currency field (since forced_payouts only contains amount)
     QVariantList forcedPayouts = pimpl->manualModel->listData();
-    for(int i = 0; i < forcedPayouts.size(); ++i)
+    for(auto& payoutVariant : forcedPayouts)
     {
-        QVariantMap payout = forcedPayouts[i].toMap();
+        QVariantMap payout = payoutVariant.toMap();
         payout.remove("currency"); // Remove currency since forced_payouts is nocurrency structure
-        forcedPayouts[i] = payout;
+        payoutVariant = payout;
     }
     config["forced_payouts"] = forcedPayouts;
 
     // Get manual payouts and clean up any currency fields in nested payouts
     QVariantList manualPayouts = pimpl->turnoutModel->listData();
-    for(int i = 0; i < manualPayouts.size(); ++i)
+    for(auto& levelVariant : manualPayouts)
     {
-        QVariantMap level = manualPayouts[i].toMap();
+        QVariantMap level = levelVariant.toMap();
         QVariantList payouts = level.value("payouts").toList();
 
         // Remove currency field from each payout since they are nocurrency structures
-        for(int j = 0; j < payouts.size(); ++j)
+        for(auto& payoutVariant : payouts)
         {
-            QVariantMap payout = payouts[j].toMap();
+            QVariantMap payout = payoutVariant.toMap();
             payout.remove("currency");
-            payouts[j] = payout;
+            payoutVariant = payout;
         }
 
         level["payouts"] = payouts;
-        manualPayouts[i] = level;
+        levelVariant = level;
     }
     config["manual_payouts"] = manualPayouts;
     return config;
@@ -359,11 +357,11 @@ void TBSetupPayoutsWidget::updateTurnoutPayoutsDisplay()
     QVariantList payouts = selectedLevel.value("payouts").toList();
 
     // Add currency field to each payout entry for display
-    for(int i = 0; i < payouts.size(); ++i)
+    for(auto& payoutVariant : payouts)
     {
-        QVariantMap payout = payouts[i].toMap();
+        QVariantMap payout = payoutVariant.toMap();
         payout["currency"] = pimpl->payoutCurrency;
-        payouts[i] = payout;
+        payoutVariant = payout;
     }
 
     pimpl->turnoutPayoutsModel->setListData(payouts);

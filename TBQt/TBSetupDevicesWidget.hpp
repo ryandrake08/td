@@ -10,6 +10,9 @@ class TBSetupDevicesWidget : public TBSetupTabWidget
     struct impl;
     std::unique_ptr<impl> pimpl;
 
+    QVariantMap createNewDevice() const;
+    int generateAuthorizationCode() const;
+
 public:
     explicit TBSetupDevicesWidget(QWidget* parent = nullptr);
     virtual ~TBSetupDevicesWidget() override;
@@ -22,8 +25,4 @@ private Q_SLOTS:
     void on_addDeviceButtonClicked();
     void on_removeDeviceButtonClicked();
     void on_modelDataChanged();
-
-private:
-    QVariantMap createNewDevice() const;
-    int generateAuthorizationCode() const;
 };

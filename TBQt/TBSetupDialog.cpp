@@ -12,7 +12,7 @@
 
 struct TBSetupDialog::impl
 {
-    Ui::TBSetupDialog ui;
+    Ui::TBSetupDialog ui {};
     QVariantMap configuration;
 
     // Store tabs in a list for easier iteration
@@ -44,9 +44,7 @@ TBSetupDialog::TBSetupDialog(QWidget* parent) : QDialog(parent), pimpl(new impl(
     addTab(new TBSetupDevicesWidget(this), tr("Devices"));
 }
 
-TBSetupDialog::~TBSetupDialog()
-{
-}
+TBSetupDialog::~TBSetupDialog() = default;
 
 void TBSetupDialog::setConfiguration(const QVariantMap& configuration)
 {

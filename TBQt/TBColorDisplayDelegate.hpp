@@ -6,6 +6,9 @@ class TBColorDisplayDelegate : public QStyledItemDelegate
 {
     Q_OBJECT
 
+    QColor parseColor(const QString& colorString) const;
+    QString generateRandomColor() const;
+
 public:
     explicit TBColorDisplayDelegate(QObject* parent = nullptr);
 
@@ -20,8 +23,4 @@ public:
 
 private Q_SLOTS:
     void onColorButtonClicked();
-
-private:
-    QColor parseColor(const QString& colorString) const;
-    QString generateRandomColor() const;
 };

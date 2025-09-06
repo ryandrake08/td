@@ -34,10 +34,7 @@ public:
     {
         try
         {
-            if(this->ibuf != nullptr)
-            {
-                delete[] this->ibuf;
-            }
+            delete[] this->ibuf;
             if(this->obuf != nullptr)
             {
                 basic_socketstreambuf::sync();

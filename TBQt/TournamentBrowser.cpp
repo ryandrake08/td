@@ -10,6 +10,7 @@
 #include <QStandardPaths>
 #include <QVector>
 
+#include <algorithm>
 #include <memory>
 
 // Simple C++ version of TournamentSocketDirectory for Qt
@@ -49,6 +50,14 @@ struct TournamentBrowser::impl
     {
         qDeleteAll(services);
     }
+
+    // no copy constructors/assignment
+    impl(const impl& other) = delete;
+    impl& operator=(const impl& other) = delete;
+
+    // no move constructors/assignment
+    impl(impl&& other) = delete;
+    impl& operator=(impl&& other) = delete;
 };
 
 TournamentBrowser::TournamentBrowser(QObject* parent) : QObject(parent), pimpl(new impl(this))
@@ -158,16 +167,16 @@ void TournamentBrowser::on_serviceRemoved(const QMdnsEngine::Service& service)
 void TournamentBrowser::on_serviceUpdated(const QMdnsEngine::Service& service)
 {
     // Find and update the service
-    for(int i = 0; i < pimpl->services.size(); ++i)
+    auto it = std::find_if(pimpl->services.begin(), pimpl->services.end(),
+                          [&service](const TournamentService* existingService) {
+                              return *existingService == service;
+                          });
+    
+    if(it != pimpl->services.end())
     {
-        const auto& existingService = pimpl->services[i];
-        if(*existingService == service)
-        {
-            // Service details might have changed - recreate it
-            delete existingService;
-            pimpl->services[i] = new TournamentService(service);
-            break;
-        }
+        // Service details might have changed - recreate it
+        delete *it;
+        *it = new TournamentService(service);
     }
 
     updateServiceList();

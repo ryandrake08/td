@@ -23,7 +23,7 @@ typedef int socklen_t;
 #include <sys/socket.h>
 #include <sys/un.h>
 #include <unistd.h>
-typedef int SOCKET;
+using SOCKET = int;
 static const SOCKET INVALID_SOCKET = -1;
 static const int SOCKET_ERROR = -1;
 #endif
@@ -31,14 +31,14 @@ static const int SOCKET_ERROR = -1;
 class eai_error_category : public std::error_category
 {
 public:
-    const char* name() const throw() override
+    const char* name() const noexcept override
     {
         return "eai";
     }
 
-    bool equivalent(const std::error_code& code, int condition) const throw() override
+    bool equivalent(const std::error_code& code, int condition) const noexcept override
     {
-        return *this == code.category() && static_cast<int>(default_error_condition(code.value()).value()) == condition;
+        return *this == code.category() && default_error_condition(code.value()).value() == condition;
     }
 
     std::string message(int ev) const override
@@ -72,14 +72,18 @@ public:
     // no copy constructors/assignment
     socket_initializer(const socket_initializer& other) = delete;
     socket_initializer& operator=(const socket_initializer& other) = delete;
+
+    // no move constructors/assignment
+    socket_initializer(socket_initializer&& other) = delete;
+    socket_initializer& operator=(socket_initializer&& other) = delete;
 };
 
 // exception-safe wrapper for addrinfo
 
 struct addrinfo_ptr
 {
-    addrinfo* ptr;
-    addrinfo_ptr() : ptr(nullptr) {}
+    addrinfo* ptr {};
+    addrinfo_ptr() = default;
     ~addrinfo_ptr()
     {
         if(ptr != nullptr)
@@ -87,8 +91,14 @@ struct addrinfo_ptr
             ::freeaddrinfo(ptr);
         }
     }
+
+    // no copy constructors/assignment
     addrinfo_ptr(const addrinfo_ptr& other) = delete;
     addrinfo_ptr& operator=(const addrinfo_ptr&) = delete;
+
+    // no move constructors/assignment
+    addrinfo_ptr(addrinfo_ptr&& other) = delete;
+    addrinfo_ptr& operator=(addrinfo_ptr&&) = delete;
 };
 
 // pimpl (fd wrapper)
@@ -111,7 +121,7 @@ struct common_socket::impl
         // set SO_NOSIGPIPE option
         int yes(1);
 #if defined(_WIN32)
-        if(::setsockopt(newfd, SOL_SOCKET, SO_NOSIGPIPE, reinterpret_cast<const char*>(&yes), sizeof(yes)) == SOCKET_ERROR)
+        if(::setsockopt(newfd, SOL_SOCKET, SO_NOSIGPIPE, static_cast<const char*>(static_cast<const void*>(&yes)), sizeof(yes)) == SOCKET_ERROR)
 #else
         if(::setsockopt(newfd, SOL_SOCKET, SO_NOSIGPIPE, &yes, sizeof(yes)) == SOCKET_ERROR)
 #endif
@@ -129,9 +139,9 @@ struct common_socket::impl
         ::closesocket(this->fd);
 #else
         // get the socket path (in case it's a unix socket)
-        sockaddr_un addr;
+        sockaddr_un addr {};
         socklen_t addrlen(sizeof(addr));
-        auto ret(::getsockname(this->fd, reinterpret_cast<sockaddr*>(&addr), &addrlen));
+        auto ret(::getsockname(this->fd, static_cast<sockaddr*>(static_cast<void*>(&addr)), &addrlen));
 
         // close the socket
         ::close(this->fd);
@@ -140,16 +150,22 @@ struct common_socket::impl
         if((ret != SOCKET_ERROR) && (addr.sun_family == AF_UNIX))
         {
             logger(ll::debug) << "unlinking unix socket " << this->fd << " path: " << addr.sun_path << '\n';
-            unlink(addr.sun_path);
+            unlink(static_cast<const char*>(addr.sun_path));
         }
 #endif
     }
+
+    // no copy constructors/assignment
+    impl(const impl& other) = delete;
+    impl& operator=(const impl& other) = delete;
+
+    // no move constructors/assignment
+    impl(impl&& other) = delete;
+    impl& operator=(impl&& other) = delete;
 };
 
 // empty constructor
-common_socket::common_socket()
-{
-}
+common_socket::common_socket() = default;
 
 // create a socket with a given impl (needed for accept)
 common_socket::common_socket(impl* imp) : pimpl(imp)
@@ -169,13 +185,13 @@ common_socket common_socket::accept() const
     if(!this->pimpl)
     {
         logger(ll::warning) << "accepting on invalid socket impl\n";
-        return common_socket();
+        return {};
     }
 
     // accept connection
-    sockaddr_storage addr;
+    sockaddr_storage addr {};
     socklen_t addrlen(sizeof(addr));
-    auto sock(::accept(this->pimpl->fd, reinterpret_cast<sockaddr*>(&addr), &addrlen));
+    auto sock(::accept(this->pimpl->fd, static_cast<sockaddr*>(static_cast<void*>(&addr)), &addrlen));
     if(sock == SOCKET_ERROR)
     {
         throw std::system_error(errno, std::system_category(), "accept");
@@ -203,9 +219,9 @@ std::set<common_socket> common_socket::select(const std::set<common_socket>& soc
     auto max_fd(sockets.begin() == sockets.end() ? 0 : sockets.rbegin()->pimpl->fd + 1);
 
     // set the timeout
-    timeval tv;
+    timeval tv {};
     tv.tv_sec = usec / 1000000;
-    tv.tv_usec = usec % 1000000;
+    tv.tv_usec = static_cast<int>(usec % 1000000);
 
     // handle infinite timeout
     timeval* ptv(usec < 0 ? nullptr : &tv);
@@ -237,9 +253,9 @@ long common_socket::peek(void* buf, std::size_t bytes) const
     // temporarily set socket to nonblocking
     unsigned long nonblocking(1);
 #if defined(_WIN32)
-    if(::ioctlsocket(this->pimpl->fd, FIONBIO, &nonblocking) != 0)
+    if(::ioctlsocket(this->pimpl->fd, FIONBIO, &nonblocking) != 0) // NOLINT(cppcoreguidelines-pro-type-vararg)
 #else
-    if(::ioctl(this->pimpl->fd, FIONBIO, &nonblocking) != 0)
+    if(::ioctl(this->pimpl->fd, FIONBIO, &nonblocking) != 0) // NOLINT(cppcoreguidelines-pro-type-vararg)
 #endif
     {
         throw std::system_error(errno, std::system_category(), "ioctl");
@@ -247,7 +263,7 @@ long common_socket::peek(void* buf, std::size_t bytes) const
 
     // peek at bytes from a fd
 #if defined(_WIN32)
-    auto len(::recv(this->pimpl->fd, reinterpret_cast<char*>(buf), (int)bytes, MSG_PEEK));
+    auto len(::recv(this->pimpl->fd, static_cast<char*>(buf), (int)bytes, MSG_PEEK));
 #else
     auto len(::recv(this->pimpl->fd, buf, bytes, MSG_PEEK));
 #endif
@@ -258,9 +274,9 @@ long common_socket::peek(void* buf, std::size_t bytes) const
     // set socket back to blocking
     unsigned long blocking(0);
 #if defined(_WIN32)
-    if(::ioctlsocket(this->pimpl->fd, FIONBIO, &blocking) != 0)
+    if(::ioctlsocket(this->pimpl->fd, FIONBIO, &blocking) != 0) // NOLINT(cppcoreguidelines-pro-type-vararg)
 #else
-    if(::ioctl(this->pimpl->fd, FIONBIO, &blocking) != 0)
+    if(::ioctl(this->pimpl->fd, FIONBIO, &blocking) != 0) // NOLINT(cppcoreguidelines-pro-type-vararg)
 #endif
     {
         throw std::system_error(errno, std::system_category(), "ioctl");
@@ -311,7 +327,7 @@ long common_socket::recv(void* buf, std::size_t bytes)
 
     // read bytes from a fd
 #if defined(_WIN32)
-    auto len(::recv(this->pimpl->fd, reinterpret_cast<char*>(buf), (int)bytes, 0));
+    auto len(::recv(this->pimpl->fd, static_cast<char*>(buf), (int)bytes, 0));
 #else
     auto len(::recv(this->pimpl->fd, buf, bytes, 0));
 #endif
@@ -344,7 +360,7 @@ long common_socket::send(const void* buf, std::size_t bytes)
 
     // write bytes to a fd
 #if defined(_WIN32)
-    auto len(::send(this->pimpl->fd, reinterpret_cast<const char*>(buf), (int)bytes, 0));
+    auto len(::send(this->pimpl->fd, static_cast<const char*>(buf), (int)bytes, 0));
 #else
     auto len(::send(this->pimpl->fd, buf, bytes, 0));
 #endif
@@ -375,7 +391,7 @@ bool common_socket::listening() const
 
     int val(0);
     socklen_t len(sizeof(val));
-    if(::getsockopt(this->pimpl->fd, SOL_SOCKET, SO_ACCEPTCONN, reinterpret_cast<char*>(&val), &len) == SOCKET_ERROR)
+    if(::getsockopt(this->pimpl->fd, SOL_SOCKET, SO_ACCEPTCONN, static_cast<char*>(static_cast<void*>(&val)), &len) == SOCKET_ERROR)
     {
         throw std::system_error(errno, std::system_category(), "getsockopt");
     }
@@ -426,15 +442,15 @@ std::ostream& operator<<(std::ostream& os, const common_socket& sock)
         return os << "socket: invalid";
     }
 
-#if 0 // remove peer name lookup, as it can sometimes take 5 seconds if ipv6 resolution times out
+#if defined(PERFORM_PEER_NAME_LOOKUP) // remove peer name lookup, as it can sometimes take 5 seconds if ipv6 resolution times out
     sockaddr_storage addr;
     socklen_t addrlen(sizeof(addr));
-    auto ret(::getpeername(sock.pimpl->fd, reinterpret_cast<sockaddr*>(&addr), &addrlen));
+    auto ret(::getpeername(sock.pimpl->fd, static_cast<sockaddr*>(static_cast<void*>(&addr)), &addrlen));
     if(ret != SOCKET_ERROR)
     {
         // get info
         char buffer[NI_MAXHOST];
-        auto err(::getnameinfo(reinterpret_cast<sockaddr*>(&addr), addrlen, buffer, sizeof(buffer), nullptr, 0, 0));
+        auto err(::getnameinfo(static_cast<sockaddr*>(static_cast<void*>(&addr)), addrlen, buffer, sizeof(buffer), nullptr, 0, 0));
         if(err == 0)
         {
             return os << "socket: " << sock.pimpl->fd << ", peer: " << buffer;
@@ -447,7 +463,7 @@ std::ostream& operator<<(std::ostream& os, const common_socket& sock)
 unix_socket::unix_socket(const char* path, bool client, int backlog)
 {
 #if !defined(_WIN32)
-    sockaddr_un addr;
+    sockaddr_un addr {};
 
     // first check size of path
     if(std::strlen(path) == 0)
@@ -460,7 +476,7 @@ unix_socket::unix_socket(const char* path, bool client, int backlog)
     }
 
     // set up addr
-    std::strncpy(addr.sun_path, path, sizeof(addr.sun_path) - 1);
+    std::strncpy(static_cast<char*>(addr.sun_path), path, sizeof(addr.sun_path) - 1);
     addr.sun_family = AF_UNIX;
 #if defined(__APPLE__)
     addr.sun_len = static_cast<unsigned char>(SUN_LEN(&addr));
@@ -481,7 +497,7 @@ unix_socket::unix_socket(const char* path, bool client, int backlog)
         logger(ll::debug) << "connecting " << *this << '\n';
 
         // connect to remote address
-        if(::connect(sock, reinterpret_cast<sockaddr*>(&addr), sizeof(addr)) == SOCKET_ERROR)
+        if(::connect(sock, static_cast<sockaddr*>(static_cast<void*>(&addr)), sizeof(addr)) == SOCKET_ERROR)
         {
             throw std::system_error(errno, std::system_category(), "connect");
         }
@@ -492,7 +508,7 @@ unix_socket::unix_socket(const char* path, bool client, int backlog)
         ::unlink(path);
 
         // bind to server port
-        if(::bind(sock, reinterpret_cast<sockaddr*>(&addr), sizeof(addr)) == SOCKET_ERROR)
+        if(::bind(sock, static_cast<sockaddr*>(static_cast<void*>(&addr)), sizeof(addr)) == SOCKET_ERROR)
         {
             throw std::system_error(errno, std::system_category(), "bind");
         }
@@ -508,7 +524,7 @@ unix_socket::unix_socket(const char* path, bool client, int backlog)
 #endif
 }
 
-inet_socket::inet_socket(const char* host, const char* service, int family) : common_socket()
+inet_socket::inet_socket(const char* host, const char* service, int family)
 {
     // validate parameters
     if(!host || std::strlen(host) == 0)
@@ -561,7 +577,7 @@ inet_socket::inet_socket(const char* host, const char* service, int family) : co
     }
 }
 
-inet_socket::inet_socket(const char* service, int family, int backlog) : common_socket()
+inet_socket::inet_socket(const char* service, int family, int backlog)
 {
     // validate parameters
     if(!service || std::strlen(service) == 0)
@@ -570,7 +586,7 @@ inet_socket::inet_socket(const char* service, int family, int backlog) : common_
     }
 
     // validate port number if it's numeric
-    char* endptr;
+    char* endptr {};
     long port = std::strtol(service, &endptr, 10);
     if(*endptr == '\0') // service is purely numeric
     {
@@ -613,7 +629,7 @@ inet_socket::inet_socket(const char* service, int family, int backlog) : common_
     // set SO_REUSADDR option
     int yes(1);
 #if defined(_WIN32)
-    if(::setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, reinterpret_cast<const char*>(&yes), sizeof(yes)) == SOCKET_ERROR)
+    if(::setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, static_cast<const char*>(static_cast<const void*>(&yes)), sizeof(yes)) == SOCKET_ERROR)
 #else
     if(::setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, &yes, sizeof(yes)) == SOCKET_ERROR)
 #endif
@@ -628,7 +644,7 @@ inet_socket::inet_socket(const char* service, int family, int backlog) : common_
         // set IPV6_V6ONLY option. some systems don't support dual-stack. if ipv4 is needed, create a separate ipv4 socket
         yes = 1;
 #if defined(_WIN32)
-        if(::setsockopt(sock, IPPROTO_IPV6, IPV6_V6ONLY, reinterpret_cast<const char*>(&yes), sizeof(yes)) == SOCKET_ERROR)
+        if(::setsockopt(sock, IPPROTO_IPV6, IPV6_V6ONLY, static_cast<const char*>(static_cast<const void*>(&yes)), sizeof(yes)) == SOCKET_ERROR)
 #else
         if(::setsockopt(sock, IPPROTO_IPV6, IPV6_V6ONLY, &yes, sizeof(yes)) == SOCKET_ERROR)
 #endif

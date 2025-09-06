@@ -1,4 +1,5 @@
 #include "gameinfo.hpp"
+
 #include "datetime.hpp"
 #include "logger.hpp"
 #include "nlohmann/json.hpp"
@@ -51,7 +52,7 @@ class gameinfo::impl
     std::vector<td::player> players;
 
     // configuration: number of players per table
-    std::size_t table_capacity;
+    std::size_t table_capacity { 2 };
 
     // configuration: table names
     std::vector<std::string> table_names;
@@ -69,7 +70,7 @@ class gameinfo::impl
     std::vector<td::table> available_tables;
 
     // configuration: payout policy
-    td::payout_policy_t payout_policy;
+    td::payout_policy_t payout_policy { td::payout_policy_t::automatic };
 
     // configuration: payout currency
     std::string payout_currency;
@@ -84,21 +85,21 @@ class gameinfo::impl
     std::vector<td::manual_payout> manual_payouts;
 
     // configuration: how long after round starts should prev command go to the previous round (rather than restart)? (ms)
-    long previous_blind_level_hold_duration;
+    long previous_blind_level_hold_duration { 2000 };
 
     // configuration: rebalance policy
-    td::rebalance_policy_t rebalance_policy;
+    td::rebalance_policy_t rebalance_policy { td::rebalance_policy_t::manual };
 
     // configuration: clock screen background color (synced to all clients)
     std::string background_color;
 
     // configuration: how to move players to final table: fill in or randomize
-    td::final_table_policy_t final_table_policy;
+    td::final_table_policy_t final_table_policy { td::final_table_policy_t::fill };
 
     // ----- state -----
 
     // state is dirty
-    bool dirty;
+    bool dirty { true };
 
     // ---------- results ----------
 
@@ -118,7 +119,7 @@ class gameinfo::impl
     std::deque<td::seat> empty_seats;
 
     // number of tables total
-    std::size_t table_count;
+    std::size_t table_count { 0 };
 
     // ---------- funding ----------
 
@@ -135,26 +136,26 @@ class gameinfo::impl
     std::vector<td::monetary_value_nocurrency> payouts;
 
     // total game currency (chips) in play
-    unsigned long total_chips;
+    unsigned long total_chips { 0 };
 
     // total funds received, for each currency
     std::unordered_map<std::string, double> total_cost;
     std::unordered_map<std::string, double> total_commission;
 
     // total fund paid out, in payout_currency
-    double total_equity;
+    double total_equity { 0.0 };
 
     // ---------- clock ----------
 
     // Current bind level (index into above vector)
     // Note: blind level 0 is reserved for setup/planning
-    std::size_t current_blind_level;
+    std::size_t current_blind_level { 0 };
 
     // represents the system clock
-    typedef std::chrono::system_clock sc;
+    using sc = std::chrono::system_clock;
 
     // represents a point in time
-    typedef sc::time_point time_point_t;
+    using time_point_t = sc::time_point;
 
     // end of period (valid when running)
     time_point_t end_of_round;
@@ -170,7 +171,7 @@ class gameinfo::impl
     time_point_t paused_time;
 
     // represents a time duration
-    typedef std::chrono::milliseconds duration_t;
+    using duration_t = std::chrono::milliseconds;
 
     // ----- private methods -----
 
@@ -184,7 +185,7 @@ class gameinfo::impl
     }
 
     // utility: return a player's name by id
-    const std::string player_name(const td::player_id_t& player_id) const
+    std::string player_name(const td::player_id_t& player_id) const
     {
         auto player_it(std::find_if(this->players.begin(), this->players.end(), [player_id](const td::player& item)
         {
@@ -198,7 +199,7 @@ class gameinfo::impl
     }
 
     // utility: return a description of a player, by id
-    const std::string player_description(const td::player_id_t& player_id) const
+    std::string player_description(const td::player_id_t& player_id) const
     {
         return player_id + " (" + this->player_name(player_id) + ")";
     }
@@ -209,7 +210,7 @@ class gameinfo::impl
         // build up two vectors, outer = tables, inner = players per table
         std::vector<std::vector<td::player_id_t>> ret(this->table_count);
 
-        for(auto& seat : this->seats)
+        for(const auto& seat : this->seats)
         {
             ret[seat.second.table_number].push_back(seat.first);
         }
@@ -223,7 +224,7 @@ class gameinfo::impl
     }
 
     // utility: return name of given table number or seat number
-    const std::string table_name(std::size_t table_number) const
+    std::string table_name(std::size_t table_number) const
     {
         if(this->table_names.size() > table_number)
         {
@@ -237,7 +238,7 @@ class gameinfo::impl
         }
     }
 
-    const std::string seat_name(std::size_t seat_number) const
+    std::string seat_name(std::size_t seat_number) const
     {
         // seat number is not configurable
         return std::to_string(seat_number + 1);
@@ -398,7 +399,7 @@ class gameinfo::impl
             // add a table full of new seats
             for(std::size_t s(0); s < this->table_capacity; s++)
             {
-                this->empty_seats.push_back(td::seat(this->table_count, s));
+                this->empty_seats.emplace_back(this->table_count, s);
             }
 
             // randomize seats
@@ -432,7 +433,7 @@ class gameinfo::impl
         {
             for(size_t s(0); s < this->table_capacity; s++)
             {
-                this->empty_seats.push_back(td::seat(t, s));
+                this->empty_seats.emplace_back(t, s);
             }
         }
 
@@ -680,7 +681,7 @@ public:
 
         // automatic calculation, if no manual payout found:
         // first, calculate how many places pay, given configuration and number of entries
-        std::size_t seats_paid(static_cast<std::size_t>(count_entries * this->automatic_payouts.percent_seats_paid + 0.5));
+        auto seats_paid(static_cast<std::size_t>(count_entries * this->automatic_payouts.percent_seats_paid + 0.5));
         if(seats_paid == 0)
         {
             seats_paid = 1;
@@ -712,15 +713,7 @@ public:
         logger(ll::info) << "setting asiude " << this->automatic_payouts.pay_the_bubble << " for the bubble and " << this->automatic_payouts.pay_knockouts << " for each knockout\n";
 
         // exponent for harmonic series = shape/(shape-1), or 0 -> 0, 0.5 -> -1, 1 -> -inf
-        double f;
-        if(shape >= 1.0)
-        {
-            f = -INFINITY;
-        }
-        else
-        {
-            f = shape / (shape - 1.0);
-        }
+        double f = (shape >= 1.0) ? -INFINITY : shape / (shape - 1.0);
 
         // ratio for each seat is comp[seat]:total
         std::vector<double> comp(seats_paid);
@@ -769,7 +762,7 @@ public:
         // if we're paying the bubble, add it last
         if(this->automatic_payouts.pay_the_bubble > 0.0)
         {
-            this->payouts.push_back(td::monetary_value_nocurrency(this->automatic_payouts.pay_the_bubble));
+            this->payouts.emplace_back(this->automatic_payouts.pay_the_bubble);
         }
     }
 
@@ -1471,7 +1464,7 @@ public:
             {
                 for(std::size_t s(0); s < preferred_seats; s++)
                 {
-                    this->empty_seats.push_back(td::seat(t, s));
+                    this->empty_seats.emplace_back(t, s);
                 }
             }
 
@@ -1483,7 +1476,7 @@ public:
             {
                 for(std::size_t s(preferred_seats); s < this->table_capacity; s++)
                 {
-                    this->empty_seats.push_back(td::seat(t, s));
+                    this->empty_seats.emplace_back(t, s);
                 }
             }
 
@@ -1501,12 +1494,12 @@ public:
                 this->empty_seats.pop_front();
 
                 // record movement
-                movements.push_back(td::player_movement(p.first,
-                                                        this->player_name(p.first),
-                                                        this->table_name(p.second.table_number),
-                                                        this->seat_name(p.second.seat_number),
-                                                        this->table_name(seat.table_number),
-                                                        this->seat_name(seat.seat_number)));
+                movements.emplace_back(p.first,
+                                       this->player_name(p.first),
+                                       this->table_name(p.second.table_number),
+                                       this->seat_name(p.second.seat_number),
+                                       this->table_name(seat.table_number),
+                                       this->seat_name(seat.seat_number));
             }
 
             // swap
@@ -1627,17 +1620,20 @@ public:
         // collect bought-in players still seated
         struct collector
         {
-            const std::unordered_set<td::player_id_t>& container;
+            const std::unordered_set<td::player_id_t>* container;
             std::vector<td::player_id_t> playing;
-            collector(const std::unordered_set<td::player_id_t>& c) : container(c) {}
+            collector(const std::unordered_set<td::player_id_t>& c) : container(&c) {}
             void operator()(const std::pair<td::player_id_t, td::seat>& s)
             {
-                if(container.find(s.first) != container.end())
+                if(container->find(s.first) != container->end())
                 {
                     playing.push_back(s.first);
                 }
             }
-            operator std::vector<td::player_id_t>() { return playing; }
+            operator std::vector<td::player_id_t>() const
+            {
+                return playing;
+            }
         };
         std::vector<td::player_id_t> playing(std::for_each(this->seats.begin(), this->seats.end(), collector(this->buyins)));
 
@@ -1911,9 +1907,9 @@ public:
         }
 
         remain = 0;
-        auto moved_a_chip(false);
+        auto moved_a_chip(true);
 
-        do
+        while(moved_a_chip)
         {
             moved_a_chip = false;
 
@@ -1955,13 +1951,13 @@ public:
             }
 
             // step 3: keep doing the above until no chips left to move
-        } while(moved_a_chip);
+        }
 
         // check that we can represent buyin with our chip set
         if(remain != 0)
         {
             logger(ll::info) << "done moving, remaining value: T" << remain << '\n';
-            return std::vector<td::player_chips>();
+            return {};
         }
 
         // convert to vector to return
@@ -1970,7 +1966,7 @@ public:
         {
             if(p.second > 0)
             {
-                ret.push_back(td::player_chips(p.first, p.second));
+                ret.emplace_back(p.first, p.second);
             }
         }
 
@@ -2334,18 +2330,7 @@ public:
         return this->gen_count_blind_levels(static_cast<std::size_t>(count), level_duration, chip_up_break_duration, blind_increase_factor, antes, ante_sb_ratio);
     }
 
-    impl() :
-        table_capacity(2),
-        blind_levels(1),
-        payout_policy(td::payout_policy_t::automatic),
-        previous_blind_level_hold_duration(2000),
-        rebalance_policy(td::rebalance_policy_t::manual),
-        final_table_policy(td::final_table_policy_t::fill),
-        dirty(true),
-        table_count(0),
-        total_chips(0),
-        total_equity(0.0),
-        current_blind_level(0)
+    impl() : blind_levels(1)
     {
     }
 };

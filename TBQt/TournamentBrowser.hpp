@@ -19,6 +19,10 @@ class TournamentBrowser : public QObject
     struct impl;
     std::unique_ptr<impl> pimpl;
 
+    // Utility
+    void addLocalServices();
+    void updateServiceList();
+
 public:
     explicit TournamentBrowser(QObject* parent = nullptr);
     ~TournamentBrowser();
@@ -36,8 +40,4 @@ private Q_SLOTS:
     void on_serviceAdded(const QMdnsEngine::Service& service);
     void on_serviceRemoved(const QMdnsEngine::Service& service);
     void on_serviceUpdated(const QMdnsEngine::Service& service);
-
-private:
-    void addLocalServices();
-    void updateServiceList();
 };

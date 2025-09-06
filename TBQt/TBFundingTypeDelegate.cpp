@@ -12,7 +12,7 @@ QWidget* TBFundingTypeDelegate::createEditor(QWidget* parent, const QStyleOption
     Q_UNUSED(option)
     Q_UNUSED(index)
 
-    QComboBox* comboBox = new QComboBox(parent);
+    auto* comboBox = new QComboBox(parent);
     comboBox->addItem(TournamentSession::toString(TournamentSession::FundingType::Buyin), TournamentSession::toInt(TournamentSession::FundingType::Buyin));
     comboBox->addItem(TournamentSession::toString(TournamentSession::FundingType::Rebuy), TournamentSession::toInt(TournamentSession::FundingType::Rebuy));
     comboBox->addItem(TournamentSession::toString(TournamentSession::FundingType::Addon), TournamentSession::toInt(TournamentSession::FundingType::Addon));
@@ -21,7 +21,7 @@ QWidget* TBFundingTypeDelegate::createEditor(QWidget* parent, const QStyleOption
 
 void TBFundingTypeDelegate::setEditorData(QWidget* editor, const QModelIndex& index) const
 {
-    QComboBox* comboBox = qobject_cast<QComboBox*>(editor);
+    auto* comboBox = qobject_cast<QComboBox*>(editor);
     if(!comboBox)
         return;
 
@@ -35,7 +35,7 @@ void TBFundingTypeDelegate::setEditorData(QWidget* editor, const QModelIndex& in
 
 void TBFundingTypeDelegate::setModelData(QWidget* editor, QAbstractItemModel* model, const QModelIndex& index) const
 {
-    QComboBox* comboBox = qobject_cast<QComboBox*>(editor);
+    auto* comboBox = qobject_cast<QComboBox*>(editor);
     if(!comboBox)
         return;
 

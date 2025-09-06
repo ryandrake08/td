@@ -10,6 +10,11 @@ class TBSetupPayoutsWidget : public TBSetupTabWidget
     struct impl;
     std::unique_ptr<impl> pimpl;
 
+    void updateTurnoutPayoutsDisplay();
+    QVariantMap createDefaultPayout(double amount) const;
+    QVariantMap createDefaultTurnoutLevel(int buyinsCount) const;
+    QString payoutShapeDescription(double shape) const;
+
 public:
     explicit TBSetupPayoutsWidget(QWidget* parent = nullptr);
     virtual ~TBSetupPayoutsWidget() override;
@@ -32,10 +37,4 @@ private Q_SLOTS:
     void on_percentSeatsSpinBoxChanged(int value);
     void on_payoutShapeChanged(int value);
     void on_payoutTabChanged(int index);
-
-private:
-    void updateTurnoutPayoutsDisplay();
-    QVariantMap createDefaultPayout(double amount) const;
-    QVariantMap createDefaultTurnoutLevel(int buyinsCount) const;
-    QString payoutShapeDescription(double shape) const;
 };

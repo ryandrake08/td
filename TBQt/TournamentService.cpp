@@ -8,7 +8,7 @@ struct TournamentService::impl
 {
     std::string path;
     std::string address;
-    int port;
+    int port {};
     std::string name;
 };
 

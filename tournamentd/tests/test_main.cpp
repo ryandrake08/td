@@ -11,4 +11,4 @@ struct LoggerDisabler
     }
 };
 
-static LoggerDisabler logger_disabler;
+static const LoggerDisabler logger_disabler;

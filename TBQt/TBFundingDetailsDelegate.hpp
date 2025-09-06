@@ -6,6 +6,8 @@ class TBFundingDetailsDelegate : public QStyledItemDelegate
 {
     Q_OBJECT
 
+    bool showDetailsDialog(QWidget* parent, QVariantMap& fundingData) const;
+
 public:
     explicit TBFundingDetailsDelegate(QObject* parent = nullptr);
 
@@ -16,7 +18,4 @@ public:
 
 private Q_SLOTS:
     void onDetailsButtonClicked();
-
-private:
-    bool showDetailsDialog(QWidget* parent, QVariantMap& fundingData) const;
 };

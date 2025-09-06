@@ -19,7 +19,7 @@ QWidget* TBAnteTypeDelegate::createEditor(QWidget* parent, const QStyleOptionVie
         return nullptr; // No editor when no ante
     }
 
-    QComboBox* comboBox = new QComboBox(parent);
+    auto* comboBox = new QComboBox(parent);
     comboBox->addItem(TournamentSession::toString(TournamentSession::AnteType::Traditional), TournamentSession::toInt(TournamentSession::AnteType::Traditional));
     comboBox->addItem(TournamentSession::toString(TournamentSession::AnteType::BigBlind), TournamentSession::toInt(TournamentSession::AnteType::BigBlind));
     return comboBox;
@@ -27,7 +27,7 @@ QWidget* TBAnteTypeDelegate::createEditor(QWidget* parent, const QStyleOptionVie
 
 void TBAnteTypeDelegate::setEditorData(QWidget* editor, const QModelIndex& index) const
 {
-    QComboBox* comboBox = qobject_cast<QComboBox*>(editor);
+    auto* comboBox = qobject_cast<QComboBox*>(editor);
     if(!comboBox)
         return;
 
@@ -41,7 +41,7 @@ void TBAnteTypeDelegate::setEditorData(QWidget* editor, const QModelIndex& index
 
 void TBAnteTypeDelegate::setModelData(QWidget* editor, QAbstractItemModel* model, const QModelIndex& index) const
 {
-    QComboBox* comboBox = qobject_cast<QComboBox*>(editor);
+    auto* comboBox = qobject_cast<QComboBox*>(editor);
     if(!comboBox)
         return;
 

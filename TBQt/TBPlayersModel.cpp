@@ -23,7 +23,7 @@ void TBPlayersModel::on_stateChanged(const QString& key, const QVariant& value)
 QVariant TBPlayersModel::data(const QModelIndex& index, int role) const
 {
     if(!index.isValid())
-        return QVariant();
+        return {};
 
     // Handle checkbox for the "Seated" column (column 1)
     if(index.column() == 1) // "seat_name" column
@@ -67,7 +67,7 @@ bool TBPlayersModel::setData(const QModelIndex& index, const QVariant& value, in
     // Handle checkbox toggle for the "Seated" column (column 1)
     if(index.column() == 1 && role == Qt::CheckStateRole)
     {
-        Qt::CheckState checkState = static_cast<Qt::CheckState>(value.toInt());
+        auto checkState = static_cast<Qt::CheckState>(value.toInt());
 
         // Get the raw row data which contains all player information
         QVariantMap rowData = this->getRowData(index.row());

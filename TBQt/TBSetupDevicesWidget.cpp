@@ -54,9 +54,7 @@ TBSetupDevicesWidget::TBSetupDevicesWidget(QWidget* parent) : TBSetupTabWidget(p
     });
 }
 
-TBSetupDevicesWidget::~TBSetupDevicesWidget()
-{
-}
+TBSetupDevicesWidget::~TBSetupDevicesWidget() = default;
 
 void TBSetupDevicesWidget::setConfiguration(const QVariantMap& configuration)
 {

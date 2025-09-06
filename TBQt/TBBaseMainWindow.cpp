@@ -16,13 +16,13 @@ struct TBBaseMainWindow::impl
     TournamentSession session;
 
     // common child windows
-    TBSeatingChartWindow* seatingChartWindow;
-    TBTournamentDisplayWindow* displayWindow;
+    TBSeatingChartWindow* seatingChartWindow { nullptr };
+    TBTournamentDisplayWindow* displayWindow { nullptr };
 
     // sound notifications
     TBSoundPlayer* soundPlayer;
 
-    explicit impl(TBBaseMainWindow* parent) : seatingChartWindow(nullptr), displayWindow(nullptr), soundPlayer(new TBSoundPlayer(parent)) {}
+    explicit impl(TBBaseMainWindow* parent) : soundPlayer(new TBSoundPlayer(parent)) {}
 };
 
 TBBaseMainWindow::TBBaseMainWindow(QWidget* parent) : QMainWindow(parent), pimpl(new impl(this))
@@ -171,7 +171,7 @@ void TBBaseMainWindow::updateDisplayMenuText()
     QString menuText = isVisible ? tr("Hide Main Display") : tr("Show Main Display");
 
     // Find the action by name (both derived classes use the same name)
-    QAction* action = this->findChild<QAction*>("actionShowHideMainDisplay");
+    auto* action = this->findChild<QAction*>("actionShowHideMainDisplay");
     if(action)
     {
         action->setText(menuText);
@@ -185,7 +185,7 @@ void TBBaseMainWindow::updateSeatingChartMenuText()
     QString menuText = isVisible ? tr("Hide Seating Chart") : tr("Show Seating Chart");
 
     // Find the action by name (both derived classes use the same name)
-    QAction* action = this->findChild<QAction*>("actionShowHideSeatingChart");
+    auto* action = this->findChild<QAction*>("actionShowHideSeatingChart");
     if(action)
     {
         action->setText(menuText);

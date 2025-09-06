@@ -25,7 +25,7 @@ TBFlowLayout::TBFlowLayout(int margin, int hSpacing, int vSpacing) : pimpl(new i
 
 TBFlowLayout::~TBFlowLayout()
 {
-    QLayoutItem* item;
+    QLayoutItem* item = nullptr;
     while((item = TBFlowLayout::takeAt(0)))
         delete item;
 }
@@ -116,7 +116,10 @@ QSize TBFlowLayout::minimumSize() const
 
 int TBFlowLayout::doLayout(const QRect& rect, bool testOnly) const
 {
-    int left, top, right, bottom;
+    int left = 0;
+    int top = 0;
+    int right = 0;
+    int bottom = 0;
     getContentsMargins(&left, &top, &right, &bottom);
     QRect effectiveRect = rect.adjusted(+left, +top, -right, -bottom);
 
@@ -227,11 +230,11 @@ int TBFlowLayout::smartSpacing(QStyle::PixelMetric pm) const
     }
     else if(parent->isWidgetType())
     {
-        QWidget* pw = static_cast<QWidget*>(parent);
+        auto* pw = dynamic_cast<QWidget*>(parent);
         return pw->style()->pixelMetric(pm, nullptr, pw);
     }
     else
     {
-        return static_cast<QLayout*>(parent)->spacing();
+        return dynamic_cast<QLayout*>(parent)->spacing();
     }
 }

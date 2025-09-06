@@ -40,7 +40,7 @@ class basic_logstream : public std::basic_ostream<T>
     explicit basic_logstream(std::basic_streambuf<T>* sb, const char* function, ll level) : std::basic_ostream<T>(nullptr), lock(mutex)
     {
         // set the streambuf only if given loglevel is allowed by the global mask
-        if((1 << static_cast<size_t>(level)) & this->mask)
+        if((1 << static_cast<size_t>(level)) & mask)
         {
             this->rdbuf(sb);
         }

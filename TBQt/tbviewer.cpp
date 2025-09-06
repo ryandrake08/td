@@ -32,9 +32,9 @@ int main(int argc, char* argv[])
     parser.process(a);
 
     // open a single viewer window (no file arguments for viewer)
-    auto window(new TBViewerMainWindow);
+    auto* window(new TBViewerMainWindow);
     window->setAttribute(Qt::WA_DeleteOnClose);
     window->show();
 
-    return a.exec();
+    return QApplication::exec();
 }

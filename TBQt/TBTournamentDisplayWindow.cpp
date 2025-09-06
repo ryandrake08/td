@@ -18,7 +18,7 @@
 struct TBTournamentDisplayWindow::impl
 {
     // UI
-    Ui::TBTournamentDisplayWindow ui;
+    Ui::TBTournamentDisplayWindow ui {};
 
     // Session reference
     TournamentSession& session;
@@ -54,13 +54,13 @@ TBTournamentDisplayWindow::TBTournamentDisplayWindow(TournamentSession& session,
     QObject::connect(this, &TBTournamentDisplayWindow::backgroundIsDarkChanged, pimpl->ui.callClockButton, &TBInvertableButton::setImageInverted);
 
     // Set up chips model
-    auto chipsModel = new TBVariantListTableModel(this);
+    auto* chipsModel = new TBVariantListTableModel(this);
     chipsModel->addHeader("color", tr("Color"));
     chipsModel->addHeader("denomination", tr("Denomination"));
     pimpl->ui.chipsTableView->setModel(chipsModel);
 
     // Set custom delegate for chip color display with ellipses
-    auto chipDelegate = new TBChipDisplayDelegate(this);
+    auto* chipDelegate = new TBChipDisplayDelegate(this);
     pimpl->ui.chipsTableView->setItemDelegate(chipDelegate);
 
     // Configure column sizing for chips view
@@ -70,7 +70,7 @@ TBTournamentDisplayWindow::TBTournamentDisplayWindow(TournamentSession& session,
     chipsHeader->setSectionResizeMode(1, QHeaderView::Stretch);
 
     // Set up results model
-    auto resultsModel = new TBResultsModel(pimpl->session, this);
+    auto* resultsModel = new TBResultsModel(pimpl->session, this);
     pimpl->ui.resultsTableView->setModel(resultsModel);
 
     // Configure column sizing for results view
@@ -289,7 +289,7 @@ void TBTournamentDisplayWindow::updateNextRoundInfo()
 void TBTournamentDisplayWindow::updateAvailableChips()
 {
     // Update chips model
-    auto chipsModel = qobject_cast<TBVariantListTableModel*>(pimpl->ui.chipsTableView->model());
+    auto* chipsModel = qobject_cast<TBVariantListTableModel*>(pimpl->ui.chipsTableView->model());
     if(chipsModel)
     {
         const QVariantMap& state = pimpl->session.state();

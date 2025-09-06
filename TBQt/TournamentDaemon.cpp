@@ -12,14 +12,14 @@
 struct TournamentDaemon::impl
 {
     // flag to control whether or not daemon is running, and mutex to synchronize access
-    bool running;
+    bool running {};
     std::mutex running_mutex;
 
     // background thread
     std::thread thread;
 
     // listening port
-    int port;
+    int port {};
 
     // published Bonjour service
     bonjour_publisher publisher;
@@ -72,18 +72,18 @@ TournamentService TournamentDaemon::start(int code)
     // return the unix socket path, for subsequent local connection
     if(service.first.empty())
     {
-        return TournamentService("localhost", service.second);
+        return { "localhost", service.second };
     }
     else
     {
-        return TournamentService(service.first);
+        return { service.first };
     }
 }
 
 // publish over Bojour using name
 void TournamentDaemon::publish(const std::string& name)
 {
-    this->pimpl->publisher.publish(name.c_str(), this->pimpl->port);
+    this->pimpl->publisher.publish(name, this->pimpl->port);
 }
 
 // stop the daemon (and stop publishing if doing so)

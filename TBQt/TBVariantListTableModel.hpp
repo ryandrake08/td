@@ -18,7 +18,7 @@ public:
     virtual ~TBVariantListTableModel() override;
 
     // set data
-    virtual void setListData(const QVariantList& model);
+    virtual void setListData(const QVariantList& data);
     virtual QVariantList listData() const;
     void addHeader(const QString& key, const QString& column);
     void addIndexHeader(const QString& key, const QString& column, int offset = 1);

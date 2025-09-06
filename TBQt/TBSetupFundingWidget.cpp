@@ -73,9 +73,7 @@ TBSetupFundingWidget::TBSetupFundingWidget(QWidget* parent) : TBSetupTabWidget(p
     });
 }
 
-TBSetupFundingWidget::~TBSetupFundingWidget()
-{
-}
+TBSetupFundingWidget::~TBSetupFundingWidget() = default;
 
 void TBSetupFundingWidget::setConfiguration(const QVariantMap& configuration)
 {

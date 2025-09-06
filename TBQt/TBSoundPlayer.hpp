@@ -20,5 +20,5 @@ public:
     explicit TBSoundPlayer(QObject* parent = nullptr);
     virtual ~TBSoundPlayer();
 
-    void setSession(const TournamentSession& session);
+    void setSession(const TournamentSession& session) const;
 };

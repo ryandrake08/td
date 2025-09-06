@@ -1,18 +1,16 @@
 #include "types.hpp"
 
+#include <utility>
+
 // ----- construction
 
-td::authorized_client::authorized_client() : code(0), added_at(datetime::now())
+td::authorized_client::authorized_client() = default;
+
+td::authorized_client::authorized_client(int c, std::string n) : code(c), name(std::move(n)), added_at(datetime::now())
 {
 }
 
-td::authorized_client::authorized_client(int c, const std::string& n) : code(c), name(n), added_at(datetime::now())
-{
-}
-
-td::blind_level::blind_level() : little_blind(0), big_blind(0), ante(0), ante_type(td::ante_type_t::none), duration(0), break_duration(0)
-{
-}
+td::blind_level::blind_level() = default;
 
 bool td::blind_level::operator==(const td::blind_level& other) const
 {
@@ -25,29 +23,23 @@ bool td::blind_level::operator==(const td::blind_level& other) const
            this->reason == other.reason;
 }
 
-td::chip::chip() : denomination(0), count_available(0)
-{
-}
+td::chip::chip() = default;
 
 bool td::chip::operator==(const td::chip& other) const
 {
     return this->color == other.color && this->denomination == other.denomination && this->count_available == other.count_available;
 }
 
-td::table::table()
-{
-}
+td::table::table() = default;
 
 bool td::table::operator==(const td::table& other) const
 {
     return this->table_name == other.table_name;
 }
 
-td::monetary_value::monetary_value() : amount(0.0)
-{
-}
+td::monetary_value::monetary_value() = default;
 
-td::monetary_value::monetary_value(double amt, const std::string& curr) : amount(amt), currency(curr)
+td::monetary_value::monetary_value(double amt, std::string curr) : amount(amt), currency(std::move(curr))
 {
 }
 
@@ -56,9 +48,7 @@ bool td::monetary_value::operator==(const td::monetary_value& other) const
     return this->amount == other.amount && this->currency == other.currency;
 }
 
-td::monetary_value_nocurrency::monetary_value_nocurrency() : amount(0.0)
-{
-}
+td::monetary_value_nocurrency::monetary_value_nocurrency() = default;
 
 td::monetary_value_nocurrency::monetary_value_nocurrency(double amt) : amount(amt)
 {
@@ -69,9 +59,7 @@ bool td::monetary_value_nocurrency::operator==(const td::monetary_value_nocurren
     return this->amount == other.amount;
 }
 
-td::funding_source::funding_source() : type(td::funding_source_type_t::buyin), forbid_after_blind_level(std::numeric_limits<std::size_t>::max()), chips(0)
-{
-}
+td::funding_source::funding_source() = default;
 
 bool td::funding_source::operator==(const td::funding_source& other) const
 {
@@ -84,18 +72,14 @@ bool td::funding_source::operator==(const td::funding_source& other) const
            this->equity == other.equity;
 }
 
-td::player::player() : added_at(datetime::now())
-{
-}
+td::player::player() = default;
 
 bool td::player::operator==(const td::player& other) const
 {
     return this->player_id == other.player_id && this->name == other.name && this->added_at == other.added_at;
 }
 
-td::seat::seat() : table_number(0), seat_number(0)
-{
-}
+td::seat::seat() = default;
 
 td::seat::seat(std::size_t t, std::size_t s) : table_number(t), seat_number(s)
 {
@@ -106,25 +90,19 @@ bool td::seat::operator==(const td::seat& other) const
     return this->seat_number == other.seat_number && this->table_number == other.table_number;
 }
 
-td::player_movement::player_movement()
+td::player_movement::player_movement() = default;
+
+td::player_movement::player_movement(player_id_t p, std::string n, std::string ft, std::string fs, std::string tt, std::string ts) : player_id(std::move(p)), name(std::move(n)), from_table_name(std::move(ft)), from_seat_name(std::move(fs)), to_table_name(std::move(tt)), to_seat_name(std::move(ts))
 {
 }
 
-td::player_movement::player_movement(const player_id_t& p, const std::string& n, const std::string& ft, const std::string& fs, const std::string& tt, const std::string& ts) : player_id(p), name(n), from_table_name(ft), from_seat_name(fs), to_table_name(tt), to_seat_name(ts)
-{
-}
-
-td::player_chips::player_chips() : denomination(0), chips(0)
-{
-}
+td::player_chips::player_chips() = default;
 
 td::player_chips::player_chips(unsigned long d, unsigned long c) : denomination(d), chips(c)
 {
 }
 
-td::manual_payout::manual_payout() : buyins_count(0)
-{
-}
+td::manual_payout::manual_payout() = default;
 
 td::manual_payout::manual_payout(size_t c, const std::vector<td::monetary_value_nocurrency>& p) : buyins_count(c), payouts(p)
 {
@@ -135,33 +113,29 @@ bool td::manual_payout::operator==(const td::manual_payout& other) const
     return this->buyins_count == other.buyins_count && this->payouts == other.payouts;
 }
 
-td::result::result() : place(0)
+td::result::result() = default;
+
+td::result::result(size_t p, std::string n) : place(p), name(std::move(n))
 {
 }
 
-td::result::result(size_t p, const std::string& n) : place(p), name(n)
+td::seated_player::seated_player(player_id_t p, bool b, std::string n) : player_id(std::move(p)), buyin(b), player_name(std::move(n))
 {
 }
 
-td::seated_player::seated_player(const player_id_t& p, bool b, const std::string& n) : player_id(p), buyin(b), player_name(n), seat_position()
+td::seated_player::seated_player(player_id_t p, bool b, std::string n, std::string t, std::string s, const seat& pos) : player_id(std::move(p)), buyin(b), player_name(std::move(n)), table_name(std::move(t)), seat_name(std::move(s)), seat_position(pos)
 {
 }
 
-td::seated_player::seated_player(const player_id_t& p, bool b, const std::string& n, const std::string& t, const std::string& s, const seat& pos) : player_id(p), buyin(b), player_name(n), table_name(t), seat_name(s), seat_position(pos)
+td::seating_chart_entry::seating_chart_entry(std::string t, std::string s) : table_name(std::move(t)), seat_name(std::move(s))
 {
 }
 
-td::seating_chart_entry::seating_chart_entry(const std::string& t, const std::string& s) : table_name(t), seat_name(s)
+td::seating_chart_entry::seating_chart_entry(std::string n, std::string t, std::string s) : player_name(std::move(n)), table_name(std::move(t)), seat_name(std::move(s))
 {
 }
 
-td::seating_chart_entry::seating_chart_entry(const std::string& n, const std::string& t, const std::string& s) : player_name(n), table_name(t), seat_name(s)
-{
-}
-
-td::automatic_payout_parameters::automatic_payout_parameters() : percent_seats_paid(0.0), round_payouts(false), payout_shape(0.0), pay_the_bubble(0.0), pay_knockouts(0.0)
-{
-}
+td::automatic_payout_parameters::automatic_payout_parameters() = default;
 
 td::automatic_payout_parameters::automatic_payout_parameters(double percent_paid, bool round, double shape, double bubble, double knockouts) : percent_seats_paid(percent_paid), round_payouts(round), payout_shape(shape), pay_the_bubble(bubble), pay_knockouts(knockouts)
 {
@@ -190,7 +164,6 @@ namespace std
 {
     namespace chrono
     {
-
         void to_json(nlohmann::json& j, const system_clock::time_point& p)
         {
             j = duration_cast<milliseconds>(p.time_since_epoch()).count();
@@ -200,7 +173,6 @@ namespace std
         {
             p = system_clock::time_point(milliseconds(j));
         }
-
     }
 };
 

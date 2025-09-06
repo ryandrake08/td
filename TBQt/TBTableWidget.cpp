@@ -7,16 +7,16 @@
 struct TBTableWidget::impl
 {
     // UI
-    Ui::TBTableWidget ui;
+    Ui::TBTableWidget ui {};
 
     // Model
-    QStandardItemModel* seatsModel;
+    QStandardItemModel* seatsModel { nullptr };
 
     // Data
     QString tableName;
     QVariantList seats;
 
-    impl() : seatsModel(nullptr) {}
+    impl() = default;
 };
 
 TBTableWidget::TBTableWidget(QWidget* parent) : QWidget(parent), pimpl(new impl)
@@ -113,14 +113,14 @@ void TBTableWidget::updateSeatsTable()
             QString seatName = seat.value("seat_name").toString();
 
             // Seat number in first column
-            QStandardItem* seatItem = new QStandardItem(seatName);
+            auto* seatItem = new QStandardItem(seatName);
             seatItem->setFlags(seatItem->flags() & ~Qt::ItemIsEditable);
             seatItem->setTextAlignment(Qt::AlignCenter);
             pimpl->seatsModel->setItem(row, 0, seatItem);
 
             // Player name in second column
             QString displayName = playerName.isEmpty() ? "(empty)" : playerName;
-            QStandardItem* playerItem = new QStandardItem(displayName);
+            auto* playerItem = new QStandardItem(displayName);
             playerItem->setFlags(playerItem->flags() & ~Qt::ItemIsEditable);
 
             if(playerName.isEmpty())
@@ -159,5 +159,5 @@ QSize TBTableWidget::sizeHint() const
     // Calculate height with QGroupBox: main margins + group box title + group margins + table header + rows + padding
     int height = 10 + 30 + 16 + 25 + (35 * qMax(numRows, 1)) + 20;
 
-    return QSize(width, height);
+    return { width, height };
 }

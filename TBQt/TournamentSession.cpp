@@ -10,6 +10,7 @@
 #include <QHash>
 #include <QSettings>
 #include <QTextCodec>
+#include <algorithm>
 
 #include <random>
 #include <set>
@@ -26,10 +27,10 @@ struct TournamentSession::impl
     QVariantMap state;
 
     // true if connected
-    bool connected;
+    bool connected {};
 
     // true if authorized
-    bool authorized;
+    bool authorized {};
 
     // last connection error
     QString last_error;
@@ -175,24 +176,18 @@ QString TournamentSession::formatClockTime(qint64 timeValue, qint64 currentTime,
     qint64 systemTime = QDateTime::currentMSecsSinceEpoch();
     qint64 timeOffset = systemTime - currentTime;
 
-    qint64 adjustedTime;
+    qint64 adjustedTime = 0;
     if(countingDown)
     {
         // For countdown clocks, subtract the offset
         adjustedTime = timeValue - timeOffset;
-        if(adjustedTime < 0)
-        {
-            adjustedTime = 0;
-        }
+        adjustedTime = std::max<qint64>(adjustedTime, 0);
     }
     else
     {
         // For elapsed time, add the offset
         adjustedTime = timeValue + timeOffset;
-        if(adjustedTime < 0)
-        {
-            adjustedTime = 0;
-        }
+        adjustedTime = std::max<qint64>(adjustedTime, 0);
     }
 
     // Convert to seconds
@@ -226,7 +221,7 @@ void TournamentSession::on_connected()
     qDebug() << "tournament state cleared";
 
     // set connected state
-    if(this->pimpl->connected == false)
+    if(!this->pimpl->connected)
     {
         this->pimpl->connected = true;
         qDebug() << "tournament connected";
@@ -623,7 +618,7 @@ QByteArray TournamentSession::results_as_csv() const
     }
 
     // serialize results using WINDOWS-1252
-    auto codec(QTextCodec::codecForName("Windows-1252"));
+    auto* codec(QTextCodec::codecForName("Windows-1252"));
     return codec->fromUnicode(csv);
 }
 

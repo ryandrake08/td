@@ -19,7 +19,7 @@ class TournamentSession : public QObject
     std::unique_ptr<impl> pimpl;
 
     // send command
-    void send_command(const QString& cmd, const QVariantMap& arg, const std::function<void(const QVariantMap&)>& result);
+    void send_command(const QString& cmd, const QVariantMap& arg, const std::function<void(const QVariantMap&)>& handler);
 
     // update state
     void update(const QVariantMap& new_state);

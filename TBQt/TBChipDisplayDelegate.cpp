@@ -95,20 +95,20 @@ QColor TBChipDisplayDelegate::parseColor(const QString& colorString) const
 {
     if(colorString.isEmpty())
     {
-        return QColor(128, 128, 128); // Default gray
+        return { 128, 128, 128 }; // Default gray
     }
 
     // Try hex color first (starts with #)
     if(colorString.startsWith("#"))
     {
-        return QColor(colorString);
+        return { colorString };
     }
 
     // Try CSS color name lookup
     QString lowerColorName = colorString.toLower();
     if(cssColors.contains(lowerColorName))
     {
-        return QColor(cssColors[lowerColorName]);
+        return { cssColors[lowerColorName] };
     }
 
     // Try as direct hex without #
@@ -126,7 +126,7 @@ QColor TBChipDisplayDelegate::parseColor(const QString& colorString) const
     }
 
     // Final fallback to gray
-    return QColor(128, 128, 128);
+    return { 128, 128, 128 };
 }
 
 QMap<QString, QString> TBChipDisplayDelegate::createCssColorMap()

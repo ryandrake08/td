@@ -21,7 +21,7 @@ server::~server() = default;
 void server::listen(const char* unix_socket_path, const char* inet_service)
 {
     // erase any existing listeners
-    for(auto& it : this->pimpl->listeners)
+    for(const auto& it : this->pimpl->listeners)
     {
         this->pimpl->all.erase(it);
     }
@@ -123,7 +123,7 @@ bool server::poll(const std::function<bool(std::ostream&)>& handle_new_client, c
 // broadcast message to all clients
 void server::broadcast(const std::string& message) const
 {
-    for(auto& client : this->pimpl->clients)
+    for(const auto& client : this->pimpl->clients)
     {
         // handle client i/o
         socketstream ss(client);

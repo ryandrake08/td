@@ -10,12 +10,12 @@
 
 struct TBSetupTablesWidget::impl
 {
-    Ui::TBSetupTablesWidget ui;
-    TBVariantListTableModel* model;
+    Ui::TBSetupTablesWidget ui {};
+    TBVariantListTableModel* model { nullptr };
 
-    int nextTableNumber;
+    int nextTableNumber { 1 };
 
-    impl() : nextTableNumber(1) {}
+    impl() = default;
 };
 
 TBSetupTablesWidget::TBSetupTablesWidget(QWidget* parent) : TBSetupTabWidget(parent), pimpl(new impl())
@@ -58,9 +58,7 @@ TBSetupTablesWidget::TBSetupTablesWidget(QWidget* parent) : TBSetupTabWidget(par
     });
 }
 
-TBSetupTablesWidget::~TBSetupTablesWidget()
-{
-}
+TBSetupTablesWidget::~TBSetupTablesWidget() = default;
 
 void TBSetupTablesWidget::setConfiguration(const QVariantMap& configuration)
 {

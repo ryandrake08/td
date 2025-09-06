@@ -27,7 +27,7 @@ public:
 
     // Set table data
     void setTableName(const QString& tableName);
-    void setSeats(const QVariantList& seats);
+    void setSeats(const QVariantList& seatList);
 
     // Get preferred size for this table
     QSize sizeHint() const override;

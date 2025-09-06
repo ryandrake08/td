@@ -7,7 +7,7 @@
 
 struct TBMovementDialog::impl
 {
-    Ui::TBMovementDialog ui;
+    Ui::TBMovementDialog ui {};
     QStandardItemModel* model;
 
     explicit impl(TBMovementDialog* parent) : model(new QStandardItemModel(parent))

@@ -3,25 +3,18 @@ project(td)
 
 include(CMakeToolsHelpers OPTIONAL)
 
-if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
-	set(MACOSX TRUE)
-endif()
-
-if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
-	set(LINUX TRUE)
-endif()
-
-if(DEFINED MACOSX)
+if(APPLE)
 	find_library(COREFOUNDATION_LIBRARY CoreFoundation)
 	find_library(CFNETWORK_LIBRARY CFNetwork)
 	set(OS_LIBRARIES ${COREFOUNDATION_LIBRARY} ${CFNETWORK_LIBRARY})
-elseif(DEFINED LINUX)
+elseif(WIN32)
+	# TBD for Windows, for now no OS-specific libraries
+	set(OS_LIBRARIES "")
+else()
+	# Assume Linux
 	find_library(AVAHI_LIBRARY-COMMON NAMES avahi-common)
 	find_library(AVAHI_LIBRARY-CLIENT NAMES avahi-client)
 	set(OS_LIBRARIES ${AVAHI_LIBRARY-COMMON} ${AVAHI_LIBRARY-CLIENT})
-else()
-	# For other platforms (Windows, etc.), no OS-specific libraries
-	set(OS_LIBRARIES "")
 endif()
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra")
@@ -58,13 +51,7 @@ add_library(td STATIC
 	tournamentd/types.cpp
 	tournamentd/types.hpp
 )
-target_include_directories(td PRIVATE .)
 target_compile_features(td PUBLIC cxx_std_11)
-
-find_program(CLANG_TIDY_EXE NAMES "clang-tidy" DOC "Path to clang-tidy executable")
-if(FALSE AND CLANG_TIDY_EXE)
-	set_target_properties(td PROPERTIES CXX_CLANG_TIDY "${CLANG_TIDY_EXE};-header-filter=.*td/tournamentd.*;-checks=-*,cert*,misc*,modernize*,-modernize-make-unique,-modernize-pass-by-value,performance*,readability*,-readability-else-after-return")
-endif()
 
 add_executable(tournamentd
 	tournamentd/main.cpp
@@ -99,7 +86,7 @@ target_link_libraries(tournamentd_tests td ${OS_LIBRARIES})
 target_compile_features(tournamentd_tests PUBLIC cxx_std_11)
 
 # Configure Qt5 paths for different platforms
-if(DEFINED MACOSX)
+if(APPLE)
 	# macOS: Add Homebrew Qt5 installation path
 	list(APPEND CMAKE_PREFIX_PATH "/usr/local/opt/qt@5")
 endif()

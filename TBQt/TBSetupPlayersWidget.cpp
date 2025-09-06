@@ -13,12 +13,12 @@
 
 struct TBSetupPlayersWidget::impl
 {
-    Ui::TBSetupPlayersWidget ui;
-    TBVariantListTableModel* model;
+    Ui::TBSetupPlayersWidget ui {};
+    TBVariantListTableModel* model { nullptr };
 
-    int nextPlayerNumber;
+    int nextPlayerNumber { 1 };
 
-    impl() : nextPlayerNumber(1) {}
+    impl() = default;
 };
 
 TBSetupPlayersWidget::TBSetupPlayersWidget(QWidget* parent) : TBSetupTabWidget(parent), pimpl(new impl())
@@ -56,9 +56,7 @@ TBSetupPlayersWidget::TBSetupPlayersWidget(QWidget* parent) : TBSetupTabWidget(p
     });
 }
 
-TBSetupPlayersWidget::~TBSetupPlayersWidget()
-{
-}
+TBSetupPlayersWidget::~TBSetupPlayersWidget() = default;
 
 void TBSetupPlayersWidget::setConfiguration(const QVariantMap& configuration)
 {
@@ -76,7 +74,7 @@ void TBSetupPlayersWidget::setConfiguration(const QVariantMap& configuration)
         if(name.startsWith("Player "))
         {
             QString numberPart = name.mid(7); // Remove "Player " prefix
-            bool ok;
+            bool ok = false;
             int number = numberPart.toInt(&ok);
             if(ok && number >= pimpl->nextPlayerNumber)
             {

@@ -39,7 +39,7 @@ bool TBManageButtonDelegate::editorEvent(QEvent* event, QAbstractItemModel* mode
 
     if(event->type() == QEvent::MouseButtonPress)
     {
-        QMouseEvent* mouseEvent = static_cast<QMouseEvent*>(event);
+        auto* mouseEvent = dynamic_cast<QMouseEvent*>(event);
         if(mouseEvent->button() == Qt::LeftButton)
         {
             // Check if click is within the button area (with padding)
@@ -61,5 +61,5 @@ QSize TBManageButtonDelegate::sizeHint(const QStyleOptionViewItem& option, const
 
     // Return a reasonable size for the button
     QFontMetrics fm(option.font);
-    return QSize(fm.horizontalAdvance("Manage") + 40, fm.height() + 8); // Extra width for icon
+    return { fm.horizontalAdvance("Manage") + 40, fm.height() + 8 }; // Extra width for icon
 }

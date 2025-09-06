@@ -91,7 +91,7 @@ void TBActionClockWidget::setArcFillsIn(bool fillsIn)
 
 QSize TBActionClockWidget::sizeHint() const
 {
-    return QSize(200, 200);
+    return { 200, 200 };
 }
 
 void TBActionClockWidget::paintEvent(QPaintEvent* event)

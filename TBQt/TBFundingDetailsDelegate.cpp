@@ -17,7 +17,7 @@ QWidget* TBFundingDetailsDelegate::createEditor(QWidget* parent, const QStyleOpt
 {
     Q_UNUSED(option)
 
-    QPushButton* button = new QPushButton(tr("Details..."), parent);
+    auto* button = new QPushButton(tr("Details..."), parent);
 
     QObject::connect(button, &QPushButton::clicked, [button, index, this]()
     {
@@ -39,7 +39,7 @@ void TBFundingDetailsDelegate::setEditorData(QWidget* editor, const QModelIndex&
 
 void TBFundingDetailsDelegate::setModelData(QWidget* editor, QAbstractItemModel* model, const QModelIndex& index) const
 {
-    QPushButton* button = qobject_cast<QPushButton*>(editor);
+    auto* button = qobject_cast<QPushButton*>(editor);
     if(!button)
         return;
 
@@ -66,30 +66,30 @@ bool TBFundingDetailsDelegate::showDetailsDialog(QWidget* parent, QVariantMap& f
     dialog.setWindowTitle(tr("Funding Details"));
     dialog.resize(300, 200);
 
-    QFormLayout* layout = new QFormLayout(&dialog);
+    auto* layout = new QFormLayout(&dialog);
 
     // Cost amount and currency
-    QDoubleSpinBox* costSpinBox = new QDoubleSpinBox(&dialog);
+    auto* costSpinBox = new QDoubleSpinBox(&dialog);
     costSpinBox->setRange(0.01, 99999.99);
     costSpinBox->setDecimals(2);
     costSpinBox->setValue(fundingData.value("cost_amount", 20.0).toDouble());
 
-    QComboBox* costCurrencyCombo = new QComboBox(&dialog);
+    auto* costCurrencyCombo = new QComboBox(&dialog);
     costCurrencyCombo->addItems(TBCurrency::supportedCodes());
     costCurrencyCombo->setCurrentText(fundingData.value("cost_currency", TBCurrency::defaultCurrencyCode()).toString());
 
     // Commission/Fee amount and currency
-    QDoubleSpinBox* feeSpinBox = new QDoubleSpinBox(&dialog);
+    auto* feeSpinBox = new QDoubleSpinBox(&dialog);
     feeSpinBox->setRange(0.0, 99999.99);
     feeSpinBox->setDecimals(2);
     feeSpinBox->setValue(fundingData.value("commission_amount", 0.0).toDouble());
 
-    QComboBox* feeCurrencyCombo = new QComboBox(&dialog);
+    auto* feeCurrencyCombo = new QComboBox(&dialog);
     feeCurrencyCombo->addItems(TBCurrency::supportedCodes());
     feeCurrencyCombo->setCurrentText(fundingData.value("commission_currency", TBCurrency::defaultCurrencyCode()).toString());
 
     // Equity amount (currency not editable, uses tournament payout currency)
-    QDoubleSpinBox* equitySpinBox = new QDoubleSpinBox(&dialog);
+    auto* equitySpinBox = new QDoubleSpinBox(&dialog);
     equitySpinBox->setRange(0.01, 99999.99);
     equitySpinBox->setDecimals(2);
     equitySpinBox->setValue(fundingData.value("equity_amount", 20.0).toDouble());
@@ -103,13 +103,13 @@ bool TBFundingDetailsDelegate::showDetailsDialog(QWidget* parent, QVariantMap& f
     }
     if(parentWidget)
     {
-        QComboBox* currencyCombo = parentWidget->findChild<QComboBox*>("payoutCurrencyComboBox");
+        auto* currencyCombo = parentWidget->findChild<QComboBox*>("payoutCurrencyComboBox");
         if(currencyCombo)
         {
             payoutCurrency = currencyCombo->currentText();
         }
     }
-    QLabel* equityCurrencyLabel = new QLabel(payoutCurrency, &dialog);
+    auto* equityCurrencyLabel = new QLabel(payoutCurrency, &dialog);
 
     // Add fields to form
     layout->addRow(tr("Cost:"), costSpinBox);
@@ -120,7 +120,7 @@ bool TBFundingDetailsDelegate::showDetailsDialog(QWidget* parent, QVariantMap& f
     layout->addRow(tr("Equity Currency:"), equityCurrencyLabel);
 
     // Dialog buttons
-    QDialogButtonBox* buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, &dialog);
+    auto* buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, &dialog);
     layout->addRow(buttonBox);
 
     QObject::connect(buttonBox, &QDialogButtonBox::accepted, &dialog, &QDialog::accept);
@@ -141,11 +141,11 @@ bool TBFundingDetailsDelegate::showDetailsDialog(QWidget* parent, QVariantMap& f
 
 void TBFundingDetailsDelegate::onDetailsButtonClicked()
 {
-    QPushButton* button = qobject_cast<QPushButton*>(sender());
+    auto* button = qobject_cast<QPushButton*>(sender());
     if(!button)
         return;
 
-    QModelIndex index = button->property("modelIndex").value<QModelIndex>();
+    auto index = button->property("modelIndex").value<QModelIndex>();
     if(!index.isValid())
         return;
 

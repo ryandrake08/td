@@ -19,14 +19,10 @@
 #include <unordered_set>
 
 // poll clients for commands, waiting at most 50ms
-#if !defined SERVER_POLL_TIMEOUT
-#define SERVER_POLL_TIMEOUT 50000
-#endif
+static constexpr long SERVER_POLL_TIMEOUT = 50000;
 
 // default listen port for tournamentd
-#if !defined(DEFAULT_PORT)
-#define DEFAULT_PORT 25600
-#endif
+static constexpr int DEFAULT_PORT = 25600;
 
 struct tournament::impl
 {
@@ -203,7 +199,7 @@ struct tournament::impl
         }
     }
 
-    void handle_cmd_gen_blind_levels(const nlohmann::json& in, nlohmann::json& out)
+    void handle_cmd_gen_blind_levels(const nlohmann::json& in, nlohmann::json& out) const
     {
         auto levels(this->game_info.gen_blind_levels(in.at("desired_duration"),
                                                      in.at("level_duration"),
@@ -311,10 +307,10 @@ struct tournament::impl
                     {
                         nlohmann::json in;
                         auto cmd(input.substr(cmd0, cmd1));
-                        auto arg0(input.find_first_not_of(whitespace, cmd1));
-                        if(arg0 != std::string::npos)
+                        auto pos(input.find_first_not_of(whitespace, cmd1));
+                        if(pos != std::string::npos)
                         {
-                            auto arg(input.substr(arg0, std::string::npos));
+                            auto arg(input.substr(pos, std::string::npos));
                             in = nlohmann::json::parse(arg);
                         }
 
@@ -891,10 +887,10 @@ struct tournament::impl
         return code;
     }
 
-    static const std::string get_snapshot_path()
+    static std::string get_snapshot_path()
     {
         // look in environment for better temp dir
-        auto tmpdir(std::getenv("TMPDIR"));
+        auto* tmpdir(std::getenv("TMPDIR"));
         if(tmpdir != nullptr)
         {
             return std::string(tmpdir) + "/tournamentd.snapshot.json";
@@ -919,7 +915,7 @@ struct tournament::impl
         }
     }
 
-    void remove_snapshot()
+    void remove_snapshot() const
     {
         // remove any snapshot
         std::remove(this->snapshot_path.c_str());
@@ -1009,8 +1005,8 @@ public:
         }
 
         // poll clients for commands
-        auto greeter(std::bind(&tournament::impl::handle_new_client, this, std::placeholders::_1));
-        auto handler(std::bind(&tournament::impl::handle_client_input, this, std::placeholders::_1));
+        auto greeter([this](std::ostream& client) { return handle_new_client(client); });
+        auto handler([this](std::iostream& client) { return handle_client_input(client); });
         auto quit(this->game_server.poll(greeter, handler, SERVER_POLL_TIMEOUT));
 
         // snapshot if state is dirty
@@ -1035,6 +1031,14 @@ public:
         // return whether or not the server should quit
         return quit;
     }
+
+    // no copy constructors/assignment
+    impl(const impl& other) = delete;
+    impl& operator=(const impl& other) = delete;
+
+    // no move constructors/assignment
+    impl(impl&& other) = delete;
+    impl& operator=(impl&& other) = delete;
 };
 
 tournament::tournament() : pimpl(new impl)
@@ -1078,7 +1082,7 @@ std::pair<std::string, int> tournament::listen(const char* unix_socket_directory
     }
 
     // fail
-    return std::pair<std::string, int>();
+    return {};
 }
 
 // load configuration from file
