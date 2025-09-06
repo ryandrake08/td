@@ -36,7 +36,7 @@ TournamentService::TournamentService(const QMdnsEngine::Service& service) : pimp
 }
 
 // default move constructor
-TournamentService::TournamentService(TournamentService&& other) = default;
+TournamentService::TournamentService(TournamentService&& other) noexcept = default;
 
 // default destructor
 TournamentService::~TournamentService() = default;

@@ -29,7 +29,7 @@ public:
     TournamentService(const QMdnsEngine::Service& service);
 
     // move constructor
-    TournamentService(TournamentService&& other);
+    TournamentService(TournamentService&& other) noexcept;
 
     // destructor
     ~TournamentService();

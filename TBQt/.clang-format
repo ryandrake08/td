@@ -1,4 +1,3 @@
-#BasedOnStyle: Google
 AccessModifierOffset: -4
 AllowShortLambdasOnASingleLine: Empty
 BreakBeforeBraces: Allman

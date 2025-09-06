@@ -61,7 +61,7 @@ struct tournament::impl
     {
         std::vector<td::authorized_client> auths;
         auths.reserve(this->game_auths.size());
-        for(auto kv : this->game_auths)
+        for(const auto& kv : this->game_auths)
         {
             auths.push_back(kv.second);
         }
@@ -118,8 +118,8 @@ struct tournament::impl
 
     void handle_cmd_check_authorized(const nlohmann::json& in, nlohmann::json& out) const
     {
-        auto code(in.at("authenticate"));
-        auto authorized(this->code_authorized(code));
+        const auto& code(in.at("authenticate"));
+        const auto& authorized(this->code_authorized(code));
         logger(ll::debug) << "code " << code << " is " << (authorized ? "authorized\n" : "not authorized\n");
         out["authorized"] = authorized;
     }

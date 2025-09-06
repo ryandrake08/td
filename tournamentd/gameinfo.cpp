@@ -1644,7 +1644,7 @@ public:
         // if only one bought-in players still seated
         if(playing.size() == 1)
         {
-            auto first_place_player_id(playing.front());
+            const auto& first_place_player_id(playing.front());
 
             // bust player
             this->bust_player(first_place_player_id);
@@ -1722,6 +1722,7 @@ public:
 
                 // get the current list of seats
                 std::vector<td::seat> to;
+                to.reserve(this->seats.size());
                 for(const auto& s : this->seats)
                 {
                     to.push_back(s.second);

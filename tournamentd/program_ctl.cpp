@@ -52,7 +52,7 @@ static nlohmann::json read_json_file(const std::string& filename)
     return json_data;
 }
 
-static socketstream make_stream(const std::string& server, const std::string port, const std::string& unix_path = std::string())
+static socketstream make_stream(const std::string& server, const std::string& port, const std::string& unix_path = std::string())
 {
     if(unix_path.empty())
     {
