@@ -147,7 +147,7 @@ struct bonjour_publisher::impl
             ret = avahi_entry_group_add_service(this->group,
                                                 AVAHI_IF_UNSPEC,
                                                 AVAHI_PROTO_UNSPEC,
-                                                static_cast<AvahiPublishFlags>(0),
+                                                static_cast<AvahiPublishFlags>(0), // NOLINT
                                                 name.c_str(),
                                                 "_pokerbuddy._tcp",
                                                 "local.",
@@ -330,7 +330,11 @@ public:
 
         // create client
         int error;
-        this->client = avahi_client_new(avahi_threaded_poll_get(this->threaded_poll), static_cast<AvahiClientFlags>(0), static_client_callback, this, &error);
+        this->client = avahi_client_new(avahi_threaded_poll_get(this->threaded_poll),
+                                        static_cast<AvahiClientFlags>(0), // NOLINT
+                                        static_client_callback,
+                                        this,
+                                        &error);
         if(this->client == nullptr)
         {
             throw std::system_error(error, avahi_error_category(), "avahi_client_new");

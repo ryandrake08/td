@@ -228,7 +228,6 @@ std::set<common_socket> common_socket::select(const std::set<common_socket>& soc
 
 long common_socket::peek(void* buf, std::size_t bytes) const
 {
-    logger(ll::debug) << "peeking " << bytes << " on " << *this << '\n';
     if(!this->pimpl)
     {
         logger(ll::warning) << "peeking from invalid socket impl\n";
@@ -304,7 +303,6 @@ long common_socket::peek(void* buf, std::size_t bytes) const
 
 long common_socket::recv(void* buf, std::size_t bytes)
 {
-    logger(ll::debug) << "receiving " << bytes << " on " << *this << '\n';
     if(!this->pimpl)
     {
         logger(ll::warning) << "receiving from invalid socket impl\n";
@@ -317,6 +315,8 @@ long common_socket::recv(void* buf, std::size_t bytes)
 #else
     auto len(::recv(this->pimpl->fd, buf, bytes, 0));
 #endif
+
+    logger(ll::debug) << "receiving " << bytes << " on " << *this << '\n';
     if(len == SOCKET_ERROR)
     {
         if(errno == EPIPE)
