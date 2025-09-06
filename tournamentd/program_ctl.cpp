@@ -89,7 +89,8 @@ public:
             "\tget_state: Get tournament state\n"
             "\n"
             " Tournament Setup and Planning:\n"
-            "\tconfigure [config_json]: Configure tournament\n"
+            "\tconfigure [config_json]: Configure tournament with entire config json\n"
+            "\tconfigure <config_key> <config_value>: Configure a single config key/value\n"
             "\tplan_seating <max_players>: Plan seating arrangement\n"
             "\tquick_setup [max_players]: Quick tournament setup\n"
             "\tgen_blind_levels <chips> <target_min> <level_min> <structure>: Generate blind structure\n"
@@ -244,6 +245,24 @@ public:
                     if(it != cmdline.end())
                     {
                         arg["max_expected_players"] = std::stol(*it++);
+                    }
+                    send_command(stream, opt, auth, arg);
+                }
+                else if(opt == "configure")
+                {
+                    // first argument is different depending on how configure is invoked (one or two argument methods)
+                    auto arg0(*it++);
+
+                    nlohmann::json arg;
+                    // if two arguments passed, we are configuring only one root-level config item
+                    if(it != cmdline.end())
+                    {
+                        arg[arg0] = nlohmann::json(*it++);
+                    }
+                    // if one argument passed, it's the full config json
+                    else
+                    {
+                        arg = arg0;
                     }
                     send_command(stream, opt, auth, arg);
                 }
