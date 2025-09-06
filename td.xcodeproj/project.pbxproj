@@ -94,8 +94,6 @@
 		9458126C2012657700208575 /* TBClockDateComponentsFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 945812682012657700208575 /* TBClockDateComponentsFormatter.m */; };
 		9458126D2012657700208575 /* TBClockDateComponentsFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 945812682012657700208575 /* TBClockDateComponentsFormatter.m */; };
 		9458126E2012657700208575 /* TBClockDateComponentsFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 945812682012657700208575 /* TBClockDateComponentsFormatter.m */; };
-		9458F704215DEFF700E1DEF3 /* defaults.json in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9476F4CD1B3C3F8300A158F8 /* defaults.json */; };
-		9458F706215DF02A00E1DEF3 /* defaults.json in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9476F4CD1B3C3F8300A158F8 /* defaults.json */; };
 		945D83912032426E00DFE032 /* TBSetupAutomaticPayoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 945D83902032426E00DFE032 /* TBSetupAutomaticPayoutViewController.m */; };
 		945D83942032459E00DFE032 /* TBPayoutShapeNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 945D83932032459E00DFE032 /* TBPayoutShapeNumberFormatter.m */; };
 		945D83A02032B47400DFE032 /* Setup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 945D839E2032B47400DFE032 /* Setup.storyboard */; };
@@ -272,7 +270,6 @@
 		94D7290F20034F5A009EC463 /* TBSetupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94D7290E20034F5A009EC463 /* TBSetupViewController.m */; };
 		94E16F221B6C99840070F1BA /* TBResizeTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 94562E6B1B65D9420017C692 /* TBResizeTextField.m */; };
 		94E273FF200F2B2F0048B07A /* TBArrayEmptyTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 94C9D87A200F265800D4DA10 /* TBArrayEmptyTransformer.m */; };
-		94E33DFB21604AC400FFFE1D /* defaults.json in Resources */ = {isa = PBXBuildFile; fileRef = 9476F4CD1B3C3F8300A158F8 /* defaults.json */; };
 		94E6F1782011B34B0054D94F /* WatchConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E6F1772011B34A0054D94F /* WatchConnectivity.framework */; };
 		94E6F1792011B3500054D94F /* WatchConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E6F1772011B34A0054D94F /* WatchConnectivity.framework */; };
 		94E6F17B2011B54E0054D94F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E6F17A2011B54E0054D94F /* CoreGraphics.framework */; };
@@ -579,32 +576,12 @@
 			name = "Copy Utilities";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		9458F705215DF01A00E1DEF3 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 16;
-			files = (
-				9458F706215DF02A00E1DEF3 /* defaults.json in CopyFiles */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		946C65651FFF54360094E4D8 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = /usr/share/man/man1/;
 			dstSubfolderSpec = 0;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 1;
-		};
-		9476F4C41B3C3F3D00A158F8 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 8;
-			dstPath = "";
-			dstSubfolderSpec = 16;
-			files = (
-				9458F704215DEFF700E1DEF3 /* defaults.json in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 		};
@@ -772,7 +749,6 @@
 		9476F4801B3C3EA700A158F8 /* TournamentSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TournamentSession.h; sourceTree = "<group>"; };
 		9476F4811B3C3EA700A158F8 /* TournamentSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TournamentSession.m; sourceTree = "<group>"; };
 		9476F4C61B3C3F3D00A158F8 /* tournamentd */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = tournamentd; sourceTree = BUILT_PRODUCTS_DIR; };
-		9476F4CD1B3C3F8300A158F8 /* defaults.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = defaults.json; sourceTree = "<group>"; };
 		9476F4D11B3C3F8300A158F8 /* bonjour.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bonjour.cpp; sourceTree = "<group>"; };
 		9476F4D21B3C3F8300A158F8 /* bonjour.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = bonjour.hpp; sourceTree = "<group>"; };
 		9476F4D31B3C3F8300A158F8 /* datetime.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = datetime.cpp; sourceTree = "<group>"; };
@@ -1227,7 +1203,6 @@
 			children = (
 				946404462363DCEA0057BAC4 /* IBMPlexSans-Regular.otf */,
 				9464043F2363DB740057BAC4 /* IBMPlexSans-Bold.otf */,
-				9476F4CD1B3C3F8300A158F8 /* defaults.json */,
 				946EAFB1201343FD00BD57DE /* i_piranha_22x29.png */,
 				946EAFB0201343FC00BD57DE /* i_piranha_44x58.png */,
 				946EAFB2201343FD00BD57DE /* i_piranha_64x64.png */,
@@ -1983,7 +1958,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				94E33DFB21604AC400FFFE1D /* defaults.json in Resources */,
 				ADF636121BAB8AF800D019AE /* TBRemote.xcassets in Resources */,
 				ADF6360F1BAB8AF800D019AE /* Main.storyboard in Resources */,
 				945D83A22032B9FC00DFE032 /* Setup.storyboard in Resources */,

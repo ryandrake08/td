@@ -119,11 +119,6 @@ public:
             " Utilities:\n"
             "\tchips_for_buyin <source_id> <max_players>: Calculate chip distribution\n";
 
-#if !defined(DEBUG)
-        // disable ll::debug
-        logger_enable(ll::info, ll::warning, ll::error);
-#endif
-
         // parse command-line
         for(auto it(cmdline.begin() + 1); it != cmdline.end();)
         {

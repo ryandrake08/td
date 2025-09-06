@@ -20,19 +20,8 @@ public:
         static const char* usage =
             "Usage: tournamentd [options]\n"
             " -c, --conf FILE\tInitialize configuration from file\n"
-            " -a, --auth CODE\tPre-authorize client authentication code\n"
+            " -a, --auth CODE\tPre-authorize client authentication code.\n"
             " -n, --name NAME\tPublish Bonjour service with given name (default: tournamentd)\n";
-
-#if defined(DEBUG)
-        // debug only: always accept this code
-        this->tourney.authorize(31337);
-
-        // debug only: load a default configuration
-        this->tourney.load_configuration("defaults.json");
-#else
-        // disable ll::debug
-        logger_enable(ll::info, ll::warning, ll::error);
-#endif
 
         // parse command-line
         for(auto it(cmdline.begin() + 1); it != cmdline.end();)

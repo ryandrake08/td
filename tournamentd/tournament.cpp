@@ -68,6 +68,21 @@ struct tournament::impl
         return auths;
     }
 
+    void authorize_from_config(const nlohmann::json& in)
+    {
+        // read auth codes from input
+        auto ac_it(in.find("authorized_clients"));
+        if(ac_it != in.end())
+        {
+            std::vector<td::authorized_client> auths_vector(ac_it->begin(), ac_it->end());
+            for(auto& auth : auths_vector)
+            {
+                logger(ll::debug) << "authorizing code " << auth.code << " named \"" << auth.name << "\"\n";
+                this->game_auths.emplace(auth.code, auth);
+            }
+        }
+    }
+
     // ----- broadcast helpers
 
     void broadcast_state() const
@@ -120,17 +135,7 @@ struct tournament::impl
     void handle_cmd_configure(const nlohmann::json& in, nlohmann::json& out)
     {
         // handle auth codes. game_info doesn't handle these
-        // read auth codes from input
-        auto ac_it(in.find("authorized_clients"));
-        if(ac_it != in.end())
-        {
-            std::vector<td::authorized_client> auths_vector(ac_it->begin(), ac_it->end());
-            for(auto& auth : auths_vector)
-            {
-                logger(ll::debug) << "authorizing code " << auth.code << " named \"" << auth.name << "\"\n";
-                this->game_auths.emplace(auth.code, auth);
-            }
-        }
+        this->authorize_from_config(in);
 
         // pass auth codes back into output
         out["authorized_clients"] = this->all_auths();
@@ -978,6 +983,11 @@ public:
         {
             nlohmann::json config;
             config_stream >> config;
+
+            // handle auth codes. game_info doesn't handle these
+            this->authorize_from_config(config);
+
+            // configure
             this->game_info.configure(config);
         }
     }
@@ -1041,6 +1051,12 @@ int tournament::authorize(int code)
 // listen for clients on any available service, returning the unix socket path and port
 std::pair<std::string, int> tournament::listen(const char* unix_socket_directory)
 {
+    // warn if no authorized clients - tournament will not be configurable or controllable
+    if(this->pimpl->game_auths.empty())
+    {
+        logger(ll::warning) << "no authorized clients configured, so tournament will not be configurable or controllable.";
+    }
+
     // start at default port, and increment until we find one that binds
     for(int port(DEFAULT_PORT); port < DEFAULT_PORT + 100; port++)
     {
