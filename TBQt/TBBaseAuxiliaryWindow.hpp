@@ -23,6 +23,9 @@ public:
     explicit TBBaseAuxiliaryWindow(QWidget* parent = nullptr);
     virtual ~TBBaseAuxiliaryWindow() override;
 
+    // Apply display settings (screen, fullscreen, etc.) for this window
+    void showUsingDisplaySettings(const QString& windowType);
+
 Q_SIGNALS:
     void backgroundIsDarkChanged(bool isDark);
     void windowClosed();

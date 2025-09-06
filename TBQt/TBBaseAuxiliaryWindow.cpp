@@ -5,6 +5,8 @@
 #include <QColor>
 #include <QPalette>
 #include <QRegExp>
+#include <QScreen>
+#include <QSettings>
 #include <QString>
 #include <QWidget>
 #include <QtMath>
@@ -90,4 +92,42 @@ bool TBBaseAuxiliaryWindow::isBackgroundDark() const
     }
 
     return colorIsDark(backgroundColor);
+}
+
+void TBBaseAuxiliaryWindow::showUsingDisplaySettings(const QString& windowType)
+{
+    QSettings settings;
+
+    // Get available screens
+    QList<QScreen*> screens = QApplication::screens();
+
+    // Get the screen index for this window type
+    int screenIndex = settings.value(QString("Display/%1Screen").arg(windowType), 0).toInt();
+    if(screenIndex >= 0 && screenIndex < screens.size())
+    {
+
+        // Move window to the specified screen
+        QScreen* targetScreen = screens[screenIndex];
+        QRect screenGeometry = targetScreen->geometry();
+
+        // Move to the screen and then go fullscreen
+        this->move(screenGeometry.topLeft());
+    }
+
+    // Check if this window type should start fullscreen
+    bool startFullscreen = settings.value(QString("Display/%1Fullscreen").arg(windowType), false).toBool();
+    if(startFullscreen)
+    {
+        // Show fullscreen
+        this->showFullScreen();
+    }
+    else
+    {
+        // Show normally
+        this->show();
+    }
+
+    // Always raise to the top and activate
+    this->raise();
+    this->activateWindow();
 }

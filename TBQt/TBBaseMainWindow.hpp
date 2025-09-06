@@ -46,6 +46,4 @@ protected:
     bool isSeatingChartWindowVisible() const;
     bool isDisplayWindowVisible() const;
 
-    // display settings application for child windows
-    void applyDisplaySettings(QWidget* window, const QString& windowType);
 };

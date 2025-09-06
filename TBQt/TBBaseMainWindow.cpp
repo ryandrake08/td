@@ -9,8 +9,6 @@
 #include <QAction>
 #include <QApplication>
 #include <QCloseEvent>
-#include <QScreen>
-#include <QSettings>
 
 struct TBBaseMainWindow::impl
 {
@@ -134,9 +132,7 @@ void TBBaseMainWindow::on_actionShowHideSeatingChart_triggered()
         }
 
         // Apply settings and show
-        this->applyDisplaySettings(pimpl->seatingChartWindow, "SeatingChart");
-        pimpl->seatingChartWindow->raise();
-        pimpl->seatingChartWindow->activateWindow();
+        pimpl->seatingChartWindow->showUsingDisplaySettings("SeatingChart");
     }
     this->updateSeatingChartMenuText();
 }
@@ -163,9 +159,7 @@ void TBBaseMainWindow::on_actionShowHideMainDisplay_triggered()
         }
 
         // Apply settings and show
-        this->applyDisplaySettings(pimpl->displayWindow, "TournamentDisplay");
-        pimpl->displayWindow->raise();
-        pimpl->displayWindow->activateWindow();
+        pimpl->displayWindow->showUsingDisplaySettings("TournamentDisplay");
     }
     this->updateDisplayMenuText();
 }
@@ -195,44 +189,5 @@ void TBBaseMainWindow::updateSeatingChartMenuText()
     if(action)
     {
         action->setText(menuText);
-    }
-}
-
-void TBBaseMainWindow::applyDisplaySettings(QWidget* window, const QString& windowType)
-{
-    if(!window)
-    {
-        return;
-    }
-
-    QSettings settings;
-
-    // Get available screens
-    QList<QScreen*> screens = QApplication::screens();
-
-    // Get the screen index for this window type
-    int screenIndex = settings.value(QString("Display/%1Screen").arg(windowType), 0).toInt();
-    if(screenIndex >= 0 && screenIndex < screens.size())
-    {
-
-        // Move window to the specified screen
-        QScreen* targetScreen = screens[screenIndex];
-        QRect screenGeometry = targetScreen->geometry();
-
-        // Move to the screen and then go fullscreen
-        window->move(screenGeometry.topLeft());
-    }
-
-    // Check if this window type should start fullscreen
-    bool startFullscreen = settings.value(QString("Display/%1Fullscreen").arg(windowType), false).toBool();
-    if(startFullscreen)
-    {
-        // Show fullscreen
-        window->showFullScreen();
-    }
-    else
-    {
-        // Show normally
-        window->show();
     }
 }
