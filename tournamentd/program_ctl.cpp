@@ -6,6 +6,45 @@
 #include "socketstream.hpp"
 #include <iostream>
 #include <random>
+#include <stdexcept>
+
+// Safe iterator function that throws if we're at the end
+static std::string string_arg(std::vector<std::string>::const_iterator& it, const std::vector<std::string>::const_iterator& end)
+{
+    if(it == end)
+    {
+        throw std::invalid_argument("Missing required argument for command");
+    }
+    return *it++;
+}
+
+// Safe long conversion with error handling
+static long long_arg(std::vector<std::string>::const_iterator& it, const std::vector<std::string>::const_iterator& end)
+{
+    std::string str = string_arg(it, end);
+    try
+    {
+        return std::stol(str);
+    }
+    catch(const std::exception& e)
+    {
+        throw std::invalid_argument("Invalid numeric argument: '" + str + "'");
+    }
+}
+
+// Safe JSON conversion with error handling
+static nlohmann::json json_arg(std::vector<std::string>::const_iterator& it, const std::vector<std::string>::const_iterator& end)
+{
+    std::string str = string_arg(it, end);
+    try
+    {
+        return nlohmann::json(str);
+    }
+    catch(const std::exception& e)
+    {
+        throw std::invalid_argument("Invalid JSON argument: '" + str + "'");
+    }
+}
 
 static socketstream make_stream(const std::string& server, const std::string port, const std::string& unix_path = std::string())
 {
@@ -120,155 +159,144 @@ public:
             "\tchips_for_buyin <source_id> <max_players>: Calculate chip distribution\n";
 
         // parse command-line
-        for(auto it(cmdline.begin() + 1); it != cmdline.end();)
+        try
         {
-            auto opt(*it++);
+            for(auto it(cmdline.begin() + 1); it != cmdline.end();)
+            {
+                auto opt(*it++);
 
-            if(opt == "-s" || opt == "--server")
-            {
-                if(it != cmdline.end())
+                if(opt == "-s" || opt == "--server")
                 {
-                    server = *it++;
+                    server = string_arg(it, cmdline.end());
+                }
+                else if(opt == "-p" || opt == "--port")
+                {
+                    port = string_arg(it, cmdline.end());
+                }
+                else if(opt == "-u" || opt == "--unix")
+                {
+                    unix_path = string_arg(it, cmdline.end());
+                }
+                else if(opt == "-a" || opt == "--auth")
+                {
+                    auth = string_arg(it, cmdline.end());
+                }
+                else if(opt == "-h" || opt == "--help")
+                {
+                    std::cerr << usage;
+                    std::exit(EXIT_SUCCESS);
                 }
                 else
                 {
-                    std::cerr << "No parameter for " << opt << "\n"
-                              << usage;
-                    std::exit(EXIT_FAILURE);
-                }
-            }
-            else if(opt == "-p" || opt == "--port")
-            {
-                if(it != cmdline.end())
-                {
-                    port = *it++;
-                }
-                else
-                {
-                    std::cerr << "No parameter for " << opt << "\n"
-                              << usage;
-                    std::exit(EXIT_FAILURE);
-                }
-            }
-            else if(opt == "-u" || opt == "--unix")
-            {
-                if(it != cmdline.end())
-                {
-                    unix_path = *it++;
-                }
-                else
-                {
-                    std::cerr << "No parameter for " << opt << "\n"
-                              << usage;
-                    std::exit(EXIT_FAILURE);
-                }
-            }
-            else if(opt == "-a" || opt == "--auth")
-            {
-                if(it != cmdline.end())
-                {
-                    auth = *it++;
-                }
-                else
-                {
-                    std::cerr << "No parameter for " << opt << "\n"
-                              << usage;
-                    std::exit(EXIT_FAILURE);
-                }
-            }
-            else if(opt == "-h" || opt == "--help")
-            {
-                std::cerr << usage;
-                std::exit(EXIT_SUCCESS);
-            }
-            else
-            {
-                // make a stream, given server and port, or unix_path
-                auto stream(make_stream(server, port, unix_path));
+                    // make a stream, given server and port, or unix_path
+                    auto stream(make_stream(server, port, unix_path));
 
-                // handle command
-                if(opt == "bust_player" || opt == "seat_player" || opt == "unseat_player")
-                {
-                    // commands that need player_id
-                    nlohmann::json arg;
-                    arg["player_id"] = *it++;
-                    send_command(stream, opt, auth, arg);
-                }
-                else if(opt == "fund_player")
-                {
-                    // needs player_id and source_id
-                    nlohmann::json arg;
-                    arg["player_id"] = *it++;
-                    arg["source_id"] = std::stol(*it++);
-                    send_command(stream, opt, auth, arg);
-                }
-                else if(opt == "plan_seating")
-                {
-                    // needs max_expected_players
-                    nlohmann::json arg;
-                    arg["max_expected_players"] = std::stol(*it++);
-                    send_command(stream, opt, auth, arg);
-                }
-                else if(opt == "chips_for_buyin")
-                {
-                    // needs source_id and max_expected_players
-                    nlohmann::json arg;
-                    arg["source_id"] = std::stol(*it++);
-                    arg["max_expected_players"] = std::stol(*it++);
-                    send_command(stream, opt, auth, arg);
-                }
-                else if(opt == "set_action_clock")
-                {
-                    // needs clock duration in milliseconds
-                    nlohmann::json arg;
-                    arg["duration"] = std::stol(*it++);
-                    send_command(stream, opt, auth, arg);
-                }
-                else if(opt == "gen_blind_levels")
-                {
-                    // needs starting_chips, target_duration, level_duration, structure
-                    nlohmann::json arg;
-                    arg["starting_chips"] = std::stol(*it++);
-                    arg["target_duration"] = std::stol(*it++);
-                    arg["level_duration"] = std::stol(*it++);
-                    arg["structure"] = *it++;
-                    send_command(stream, opt, auth, arg);
-                }
-                else if(opt == "quick_setup")
-                {
-                    // optional max_expected_players
-                    nlohmann::json arg;
-                    if(it != cmdline.end())
+                    // handle command
+                    if(opt == "bust_player" || opt == "seat_player" || opt == "unseat_player")
                     {
-                        arg["max_expected_players"] = std::stol(*it++);
+                        // commands that need player_id
+                        nlohmann::json arg;
+                        arg["player_id"] = string_arg(it, cmdline.end());
+                        send_command(stream, opt, auth, arg);
                     }
-                    send_command(stream, opt, auth, arg);
-                }
-                else if(opt == "configure")
-                {
-                    // first argument is different depending on how configure is invoked (one or two argument methods)
-                    auto arg0(*it++);
-
-                    nlohmann::json arg;
-                    // if two arguments passed, we are configuring only one root-level config item
-                    if(it != cmdline.end())
+                    else if(opt == "fund_player")
                     {
-                        arg[arg0] = nlohmann::json(*it++);
+                        // needs player_id and source_id
+                        nlohmann::json arg;
+                        arg["player_id"] = string_arg(it, cmdline.end());
+                        arg["source_id"] = long_arg(it, cmdline.end());
+                        send_command(stream, opt, auth, arg);
                     }
-                    // if one argument passed, it's the full config json
+                    else if(opt == "plan_seating")
+                    {
+                        // needs max_expected_players
+                        nlohmann::json arg;
+                        arg["max_expected_players"] = long_arg(it, cmdline.end());
+                        send_command(stream, opt, auth, arg);
+                    }
+                    else if(opt == "chips_for_buyin")
+                    {
+                        // needs source_id and max_expected_players
+                        nlohmann::json arg;
+                        arg["source_id"] = long_arg(it, cmdline.end());
+                        arg["max_expected_players"] = long_arg(it, cmdline.end());
+                        send_command(stream, opt, auth, arg);
+                    }
+                    else if(opt == "set_action_clock")
+                    {
+                        // needs clock duration in milliseconds
+                        nlohmann::json arg;
+                        arg["duration"] = long_arg(it, cmdline.end());
+                        send_command(stream, opt, auth, arg);
+                    }
+                    else if(opt == "gen_blind_levels")
+                    {
+                        // needs starting_chips, target_duration, level_duration, structure
+                        nlohmann::json arg;
+                        arg["starting_chips"] = long_arg(it, cmdline.end());
+                        arg["target_duration"] = long_arg(it, cmdline.end());
+                        arg["level_duration"] = long_arg(it, cmdline.end());
+                        arg["structure"] = string_arg(it, cmdline.end());
+                        send_command(stream, opt, auth, arg);
+                    }
+                    else if(opt == "quick_setup")
+                    {
+                        // optional max_expected_players
+                        nlohmann::json arg;
+                        if(it != cmdline.end())
+                        {
+                            arg["max_expected_players"] = long_arg(it, cmdline.end());
+                        }
+                        send_command(stream, opt, auth, arg);
+                    }
+                    else if(opt == "start_game")
+                    {
+                        // optional start_at parameter
+                        nlohmann::json arg;
+                        if(it != cmdline.end())
+                        {
+                            arg["start_at"] = string_arg(it, cmdline.end());
+                        }
+                        send_command(stream, opt, auth, arg);
+                    }
+                    else if(opt == "configure")
+                    {
+                        // first argument is different depending on how configure is invoked (one or two argument methods)
+                        auto arg0 = string_arg(it, cmdline.end());
+
+                        nlohmann::json arg;
+                        // if two arguments passed, we are configuring only one root-level config item
+                        if(it != cmdline.end())
+                        {
+                            arg[arg0] = json_arg(it, cmdline.end());
+                        }
+                        // if one argument passed, it's the full config json
+                        else
+                        {
+                            arg = arg0;
+                        }
+                        send_command(stream, opt, auth, arg);
+                    }
                     else
                     {
-                        arg = arg0;
+                        // all other commands with no arguments
+                        nlohmann::json arg;
+                        send_command(stream, opt, auth, arg);
                     }
-                    send_command(stream, opt, auth, arg);
-                }
-                else
-                {
-                    // all other commands with optional arg
-                    nlohmann::json arg = (it != cmdline.end()) ? nlohmann::json(*it++) : nlohmann::json();
-                    send_command(stream, opt, auth, arg);
                 }
             }
+        }
+        catch(const std::invalid_argument& e)
+        {
+            std::cerr << "Error: " << e.what() << "\n"
+                      << usage;
+            std::exit(EXIT_FAILURE);
+        }
+        catch(const std::exception& e)
+        {
+            std::cerr << "Error parsing command line: " << e.what() << "\n"
+                      << usage;
+            std::exit(EXIT_FAILURE);
         }
     }
 };
