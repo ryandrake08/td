@@ -32,6 +32,21 @@ TBBaseMainWindow::TBBaseMainWindow(QWidget* parent) : QMainWindow(parent), pimpl
 
     // initialize sound player with session
     pimpl->soundPlayer->setSession(pimpl->session);
+
+    // Connect action request signals to state-dependent handlers
+    QObject::connect(this, &TBBaseMainWindow::pauseResumeRequested, this, [this]() {
+        this->handlePauseResumeAction(pimpl->session.state());
+    });
+    QObject::connect(this, &TBBaseMainWindow::previousRoundRequested, this, [this]() {
+        this->handlePreviousRoundAction(pimpl->session.state());
+    });
+    QObject::connect(this, &TBBaseMainWindow::nextRoundRequested, this, [this]() {
+        this->handleNextRoundAction(pimpl->session.state());
+    });
+    QObject::connect(this, &TBBaseMainWindow::callClockRequested, this, [this]() {
+        this->handleCallClockAction(pimpl->session.state());
+    });
+    QObject::connect(this, &TBBaseMainWindow::clearClockRequested, this, &TBBaseMainWindow::handleClearClockAction);
 }
 
 TBBaseMainWindow::~TBBaseMainWindow() = default;
@@ -66,48 +81,27 @@ void TBBaseMainWindow::on_actionExit_triggered()
 
 void TBBaseMainWindow::on_actionPauseResume_triggered()
 {
-    const auto& current_blind_level(this->getSession().state()["current_blind_level"].toInt());
-    if(current_blind_level != 0)
-    {
-        this->getSession().toggle_pause_game();
-    }
-    else
-    {
-        this->getSession().start_game();
-    }
+    Q_EMIT pauseResumeRequested();
 }
 
 void TBBaseMainWindow::on_actionPreviousRound_triggered()
 {
-    const auto& current_blind_level(this->getSession().state()["current_blind_level"].toInt());
-    if(current_blind_level != 0)
-    {
-        this->getSession().set_previous_level();
-    }
+    Q_EMIT previousRoundRequested();
 }
 
 void TBBaseMainWindow::on_actionNextRound_triggered()
 {
-    const auto& current_blind_level(this->getSession().state()["current_blind_level"].toInt());
-    if(current_blind_level != 0)
-    {
-        this->getSession().set_next_level();
-    }
+    Q_EMIT nextRoundRequested();
 }
 
 void TBBaseMainWindow::on_actionCallClock_triggered()
 {
-    const auto& current_blind_level(this->getSession().state()["current_blind_level"].toInt());
-    const auto& actionClockTimeRemaining(this->getSession().state()["action_clock_time_remaining"].toInt());
-    if(current_blind_level != 0 && actionClockTimeRemaining == 0)
-    {
-        this->getSession().set_action_clock(TournamentSession::kActionClockRequestTime);
-    }
+    Q_EMIT callClockRequested();
 }
 
 void TBBaseMainWindow::on_actionClearClock_triggered()
 {
-    this->getSession().clear_action_clock();
+    Q_EMIT clearClockRequested();
 }
 
 void TBBaseMainWindow::on_actionShowHideSeatingChart_triggered()
@@ -156,6 +150,13 @@ void TBBaseMainWindow::on_actionShowHideMainDisplay_triggered()
                 pimpl->displayWindow = nullptr;
                 this->updateDisplayMenuText();
             });
+            
+            // Connect TBTournamentDisplayWindow action signals to base main window signals
+            QObject::connect(pimpl->displayWindow, &TBTournamentDisplayWindow::previousLevelRequested, this, &TBBaseMainWindow::previousRoundRequested);
+            QObject::connect(pimpl->displayWindow, &TBTournamentDisplayWindow::pauseToggleRequested, this, &TBBaseMainWindow::pauseResumeRequested);
+            QObject::connect(pimpl->displayWindow, &TBTournamentDisplayWindow::nextLevelRequested, this, &TBBaseMainWindow::nextRoundRequested);
+            QObject::connect(pimpl->displayWindow, &TBTournamentDisplayWindow::actionClockStartRequested, this, &TBBaseMainWindow::callClockRequested);
+            QObject::connect(pimpl->displayWindow, &TBTournamentDisplayWindow::actionClockClearRequested, this, &TBBaseMainWindow::clearClockRequested);
         }
 
         // Apply settings and show
@@ -190,4 +191,50 @@ void TBBaseMainWindow::updateSeatingChartMenuText()
     {
         action->setText(menuText);
     }
+}
+
+void TBBaseMainWindow::handlePauseResumeAction(const QVariantMap& state)
+{
+    const auto& current_blind_level(state["current_blind_level"].toInt());
+    if(current_blind_level != 0)
+    {
+        pimpl->session.toggle_pause_game();
+    }
+    else
+    {
+        pimpl->session.start_game();
+    }
+}
+
+void TBBaseMainWindow::handlePreviousRoundAction(const QVariantMap& state)
+{
+    const auto& current_blind_level(state["current_blind_level"].toInt());
+    if(current_blind_level != 0)
+    {
+        pimpl->session.set_previous_level();
+    }
+}
+
+void TBBaseMainWindow::handleNextRoundAction(const QVariantMap& state)
+{
+    const auto& current_blind_level(state["current_blind_level"].toInt());
+    if(current_blind_level != 0)
+    {
+        pimpl->session.set_next_level();
+    }
+}
+
+void TBBaseMainWindow::handleCallClockAction(const QVariantMap& state)
+{
+    const auto& current_blind_level(state["current_blind_level"].toInt());
+    const auto& actionClockTimeRemaining(state["action_clock_time_remaining"].toInt());
+    if(current_blind_level != 0 && actionClockTimeRemaining == 0)
+    {
+        pimpl->session.set_action_clock(TournamentSession::kActionClockRequestTime);
+    }
+}
+
+void TBBaseMainWindow::handleClearClockAction()
+{
+    pimpl->session.clear_action_clock();
 }

@@ -137,7 +137,7 @@ TBBuddyMainWindow::TBBuddyMainWindow() : pimpl(new impl())
     this->getSession().connect(service);
 
     // set initial window title
-    this->updateWindowTitle();
+    this->updateWindowTitle(this->getSession().state());
 
     // initialize display menu text
     this->updateDisplayMenuText();
@@ -471,14 +471,14 @@ void TBBuddyMainWindow::on_authorizedChanged(bool auth)
     }
 
     // Update action button states when authorization changes
-    this->updateActionButtons();
+    this->updateActionButtons(this->getSession().state(), auth);
 }
 
 void TBBuddyMainWindow::on_filenameChanged(const QString& filename)
 {
     // store filename and update window title
     this->pimpl->currentFilename = QFileInfo(filename).fileName();
-    this->updateWindowTitle();
+    this->updateWindowTitle(this->getSession().state());
 }
 
 void TBBuddyMainWindow::on_configurationChanged(const QVariantMap& config)
@@ -489,18 +489,27 @@ void TBBuddyMainWindow::on_configurationChanged(const QVariantMap& config)
 
 void TBBuddyMainWindow::on_tournamentStateChanged(const QString& key, const QVariant& /*value*/)
 {
+    // Get the session that sent the signal and current state
+    auto* session = qobject_cast<TournamentSession*>(sender());
+    if(!session)
+    {
+        return;
+    }
+
+    const QVariantMap& state = session->state();
+
     if(key == "name")
     {
         // update window title with tournament name
-        this->updateWindowTitle();
+        this->updateWindowTitle(state);
     }
     else if(key == "running" || key == "current_time" || key == "end_of_round" ||
             key == "current_blind_level" || key == "action_clock_time_remaining")
     {
         // update tournament clock display
-        this->updateTournamentClock();
+        this->updateTournamentClock(state);
         // update action button states
-        this->updateActionButtons();
+        this->updateActionButtons(state, session->is_authorized());
     }
 }
 
@@ -643,10 +652,8 @@ void TBBuddyMainWindow::on_manageButtonClicked(const QModelIndex& index)
     contextMenu.exec(QCursor::pos());
 }
 
-void TBBuddyMainWindow::updateTournamentClock()
+void TBBuddyMainWindow::updateTournamentClock(const QVariantMap& state)
 {
-    const QVariantMap& state = this->getSession().state();
-
     bool running = state["running"].toBool();
     int currentBlindLevel = state["current_blind_level"].toInt();
     qint64 currentTime = state["current_time"].toLongLong();
@@ -683,11 +690,8 @@ void TBBuddyMainWindow::updateTournamentClock()
     this->pimpl->ui.actionTournamentClock->setText(clockText);
 }
 
-void TBBuddyMainWindow::updateActionButtons()
+void TBBuddyMainWindow::updateActionButtons(const QVariantMap& state, bool authorized)
 {
-    const QVariantMap& state = this->getSession().state();
-    bool authorized = this->getSession().is_authorized();
-
     bool running = state["running"].toBool();
     int currentBlindLevel = state["current_blind_level"].toInt();
     int actionClockTimeRemaining = state["action_clock_time_remaining"].toInt();
@@ -727,7 +731,7 @@ void TBBuddyMainWindow::updateActionButtons()
     }
 }
 
-void TBBuddyMainWindow::updateWindowTitle(const QString& filename)
+void TBBuddyMainWindow::updateWindowTitle(const QVariantMap& state, const QString& filename)
 {
     // Update current filename if provided
     if(!filename.isEmpty())
@@ -736,7 +740,6 @@ void TBBuddyMainWindow::updateWindowTitle(const QString& filename)
     }
 
     // Get tournament name from session state
-    const QVariantMap& state = this->getSession().state();
     QString tournamentName = state["name"].toString();
 
     // Build window title

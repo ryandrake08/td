@@ -26,6 +26,21 @@ private Q_SLOTS:
     // virtual slots that derived classes must implement
     virtual void on_authorizedChanged(bool auth) = 0;
 
+    // session state-dependent action handlers
+    void handlePauseResumeAction(const QVariantMap& state);
+    void handlePreviousRoundAction(const QVariantMap& state);
+    void handleNextRoundAction(const QVariantMap& state);
+    void handleCallClockAction(const QVariantMap& state);
+    void handleClearClockAction();
+
+Q_SIGNALS:
+    // signals emitted by UI actions that need session state checking
+    void pauseResumeRequested();
+    void previousRoundRequested();
+    void nextRoundRequested();
+    void callClockRequested();
+    void clearClockRequested();
+
 public:
     // create a base main window
     TBBaseMainWindow(QWidget* parent = nullptr);

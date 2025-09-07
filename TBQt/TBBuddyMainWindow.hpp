@@ -12,9 +12,9 @@ class TBBuddyMainWindow : public TBBaseMainWindow
     std::unique_ptr<impl> pimpl;
 
     // updaters for various changeable UI controls
-    void updateTournamentClock();
-    void updateActionButtons();
-    void updateWindowTitle(const QString& filename = QString());
+    void updateTournamentClock(const QVariantMap& state);
+    void updateActionButtons(const QVariantMap& state, bool authorized);
+    void updateWindowTitle(const QVariantMap& state, const QString& filename = QString());
     void updateMovementBadge();
 
     // helper functions to show dialogs
