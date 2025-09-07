@@ -169,7 +169,7 @@ void TBBaseMainWindow::updateDisplayMenuText()
 {
     // Update menu text based on display window visibility
     bool isVisible = this->isDisplayWindowVisible();
-    QString menuText = isVisible ? tr("Hide Main Display") : tr("Show Main Display");
+    QString menuText = isVisible ? QObject::tr("Hide Main Display") : QObject::tr("Show Main Display");
 
     // Find the action by name (both derived classes use the same name)
     auto* action = this->findChild<QAction*>("actionShowHideMainDisplay");
@@ -183,7 +183,7 @@ void TBBaseMainWindow::updateSeatingChartMenuText()
 {
     // Update menu text based on seating chart window visibility
     bool isVisible = this->isSeatingChartWindowVisible();
-    QString menuText = isVisible ? tr("Hide Seating Chart") : tr("Show Seating Chart");
+    QString menuText = isVisible ? QObject::tr("Hide Seating Chart") : QObject::tr("Show Seating Chart");
 
     // Find the action by name (both derived classes use the same name)
     auto* action = this->findChild<QAction*>("actionShowHideSeatingChart");

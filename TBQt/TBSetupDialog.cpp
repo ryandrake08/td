@@ -35,13 +35,13 @@ TBSetupDialog::TBSetupDialog(QWidget* parent) : QDialog(parent), pimpl(new impl(
         return tab;
     };
 
-    addTab(new TBSetupPlayersWidget(this), tr("Players"));
-    addTab(new TBSetupChipsWidget(this), tr("Chips"));
-    addTab(new TBSetupTablesWidget(this), tr("Tables"));
-    addTab(new TBSetupFundingWidget(this), tr("Funding"));
-    addTab(new TBSetupRoundsWidget(this), tr("Rounds"));
-    addTab(new TBSetupPayoutsWidget(this), tr("Payouts"));
-    addTab(new TBSetupDevicesWidget(this), tr("Devices"));
+    addTab(new TBSetupPlayersWidget(this), QObject::tr("Players"));
+    addTab(new TBSetupChipsWidget(this), QObject::tr("Chips"));
+    addTab(new TBSetupTablesWidget(this), QObject::tr("Tables"));
+    addTab(new TBSetupFundingWidget(this), QObject::tr("Funding"));
+    addTab(new TBSetupRoundsWidget(this), QObject::tr("Rounds"));
+    addTab(new TBSetupPayoutsWidget(this), QObject::tr("Payouts"));
+    addTab(new TBSetupDevicesWidget(this), QObject::tr("Devices"));
 }
 
 TBSetupDialog::~TBSetupDialog() = default;
@@ -51,7 +51,7 @@ void TBSetupDialog::setConfiguration(const QVariantMap& configuration)
     pimpl->configuration = configuration;
 
     // Set tournament name
-    pimpl->ui.tournamentNameEdit->setText(configuration.value("name", tr("Untitled Tournament")).toString());
+    pimpl->ui.tournamentNameEdit->setText(configuration.value("name", QObject::tr("Untitled Tournament")).toString());
 
     // Set configuration for each tab
     for(auto* tab : pimpl->tabs)

@@ -23,15 +23,15 @@ TBSetupRoundsWidget::TBSetupRoundsWidget(QWidget* parent) : TBSetupTabWidget(par
 
     // Create and configure model
     pimpl->model = new TBRoundsModel(this);
-    pimpl->model->addIndexHeader("round_number", tr("Round"), 1); // Start from 1 since round 0 is filtered out
-    pimpl->model->addHeader("start_time", tr("Start Time"));
-    pimpl->model->addHeader("duration", tr("Duration"));
-    pimpl->model->addHeader("little_blind", tr("Small Blind"));
-    pimpl->model->addHeader("big_blind", tr("Big Blind"));
-    pimpl->model->addHeader("ante", tr("Ante"));
-    pimpl->model->addHeader("ante_type", tr("Ante Type"));
-    pimpl->model->addHeader("break_duration", tr("Break"));
-    pimpl->model->addHeader("reason", tr("Break Message"));
+    pimpl->model->addIndexHeader("round_number", QObject::tr("Round"), 1); // Start from 1 since round 0 is filtered out
+    pimpl->model->addHeader("start_time", QObject::tr("Start Time"));
+    pimpl->model->addHeader("duration", QObject::tr("Duration"));
+    pimpl->model->addHeader("little_blind", QObject::tr("Small Blind"));
+    pimpl->model->addHeader("big_blind", QObject::tr("Big Blind"));
+    pimpl->model->addHeader("ante", QObject::tr("Ante"));
+    pimpl->model->addHeader("ante_type", QObject::tr("Ante Type"));
+    pimpl->model->addHeader("break_duration", QObject::tr("Break"));
+    pimpl->model->addHeader("reason", QObject::tr("Break Message"));
 
     pimpl->ui.tableView->setModel(pimpl->model);
 

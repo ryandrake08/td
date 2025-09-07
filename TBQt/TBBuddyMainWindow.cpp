@@ -156,7 +156,7 @@ bool TBBuddyMainWindow::load_document(const QString& filename)
     }
     catch(const TBRuntimeError& e)
     {
-        QMessageBox::warning(this, tr("Open File"), e.q_what());
+        QMessageBox::warning(this, QObject::tr("Open File"), e.q_what());
         return false;
     }
 }
@@ -349,11 +349,11 @@ void TBBuddyMainWindow::on_actionAuthorize_triggered()
             // Add to document (this will automatically reconfigure the session via signal)
             this->pimpl->doc.addAuthorizedClient(newClient);
 
-            QMessageBox::information(this, tr("Remote Device Authorized"), QObject::tr("Authorization code %1 has been added to the tournament configuration.").arg(authCode));
+            QMessageBox::information(this, QObject::tr("Remote Device Authorized"), QObject::tr("Authorization code %1 has been added to the tournament configuration.").arg(authCode));
         }
         else
         {
-            QMessageBox::warning(this, tr("Invalid Code"), QObject::tr("Authorization code must be a 5-digit number."));
+            QMessageBox::warning(this, QObject::tr("Invalid Code"), QObject::tr("Authorization code must be a 5-digit number."));
         }
     }
 }
@@ -380,7 +380,7 @@ void TBBuddyMainWindow::on_actionPlan_triggered()
             }
             else
             {
-                QMessageBox::information(this, tr("Plan Tournament"), tr("No player movements required."));
+                QMessageBox::information(this, QObject::tr("Plan Tournament"), QObject::tr("No player movements required."));
             }
         });
     }
@@ -397,7 +397,7 @@ void TBBuddyMainWindow::on_actionShowMoves_triggered()
     }
     else
     {
-        QMessageBox::information(this, tr("Show Player Moves"), tr("No player movements are currently pending."));
+        QMessageBox::information(this, QObject::tr("Show Player Moves"), QObject::tr("No player movements are currently pending."));
     }
 }
 
@@ -412,7 +412,7 @@ void TBBuddyMainWindow::on_actionRebalance_triggered()
         }
         else
         {
-            QMessageBox::information(this, tr("Rebalance Tables"), tr("Tables are already balanced. No player movements required."));
+            QMessageBox::information(this, QObject::tr("Rebalance Tables"), QObject::tr("Tables are already balanced. No player movements required."));
         }
     });
 }
@@ -623,7 +623,7 @@ void TBBuddyMainWindow::on_manageButtonClicked(const QModelIndex& index)
     // BUSINESS LOGIC FOR BUST AND UNSEAT (matching TBSeatingViewController.m)
 
     // Bust Player: enabled if game is running (current_blind_level > 0) AND player has bought in
-    QAction* bustAction = contextMenu.addAction(tr("Bust Player"));
+    QAction* bustAction = contextMenu.addAction(QObject::tr("Bust Player"));
     bool bustEnabled = (currentBlindLevel > 0) && playerHasBuyin;
     bustAction->setEnabled(bustEnabled);
 
@@ -636,7 +636,7 @@ void TBBuddyMainWindow::on_manageButtonClicked(const QModelIndex& index)
     }
 
     // Unseat Player: enabled if player has NOT bought in
-    QAction* unseatAction = contextMenu.addAction(tr("Unseat Player"));
+    QAction* unseatAction = contextMenu.addAction(QObject::tr("Unseat Player"));
     bool unseatEnabled = !playerHasBuyin;
     unseatAction->setEnabled(unseatEnabled);
 
@@ -663,7 +663,7 @@ void TBBuddyMainWindow::updateTournamentClock(const QVariantMap& state)
 
     if(!running || currentBlindLevel == 0)
     {
-        clockText = tr("PAUSED");
+        clockText = QObject::tr("PAUSED");
     }
     else if(endOfRound > currentTime)
     {
@@ -684,7 +684,7 @@ void TBBuddyMainWindow::updateTournamentClock(const QVariantMap& state)
     }
     else
     {
-        clockText = tr("BREAK");
+        clockText = QObject::tr("BREAK");
     }
 
     this->pimpl->ui.actionTournamentClock->setText(clockText);
@@ -713,20 +713,20 @@ void TBBuddyMainWindow::updateActionButtons(const QVariantMap& state, bool autho
     // Update pause/resume button text
     if(running)
     {
-        this->pimpl->ui.actionPauseResume->setText(tr("Pause"));
-        this->pimpl->ui.actionPauseResume->setIconText(tr("Pause"));
+        this->pimpl->ui.actionPauseResume->setText(QObject::tr("Pause"));
+        this->pimpl->ui.actionPauseResume->setIconText(QObject::tr("Pause"));
     }
     else
     {
         if(currentBlindLevel == 0)
         {
-            this->pimpl->ui.actionPauseResume->setText(tr("Start Tournament"));
-            this->pimpl->ui.actionPauseResume->setIconText(tr("Start"));
+            this->pimpl->ui.actionPauseResume->setText(QObject::tr("Start Tournament"));
+            this->pimpl->ui.actionPauseResume->setIconText(QObject::tr("Start"));
         }
         else
         {
-            this->pimpl->ui.actionPauseResume->setText(tr("Resume"));
-            this->pimpl->ui.actionPauseResume->setIconText(tr("Resume"));
+            this->pimpl->ui.actionPauseResume->setText(QObject::tr("Resume"));
+            this->pimpl->ui.actionPauseResume->setIconText(QObject::tr("Resume"));
         }
     }
 }
@@ -746,7 +746,7 @@ void TBBuddyMainWindow::updateWindowTitle(const QVariantMap& state, const QStrin
     QString windowTitle;
     if(this->pimpl->currentFilename.isEmpty())
     {
-        windowTitle = tr("Untitled");
+        windowTitle = QObject::tr("Untitled");
     }
     else
     {
@@ -766,7 +766,7 @@ void TBBuddyMainWindow::updateMovementBadge()
 {
     // Update the Show Moves action text with movement count badge
     int count = pimpl->pendingMovements.size();
-    QString baseText = tr("Show Player Moves...");
+    QString baseText = QObject::tr("Show Player Moves...");
 
     if(count > 0)
     {

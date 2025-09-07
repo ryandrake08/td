@@ -27,11 +27,11 @@ TBSetupFundingWidget::TBSetupFundingWidget(QWidget* parent) : TBSetupTabWidget(p
 
     // Create and configure model
     pimpl->model = new TBVariantListTableModel(this);
-    pimpl->model->addHeader("name", tr("Name"));
-    pimpl->model->addHeader("type", tr("Type"));
-    pimpl->model->addHeader("chips", tr("Chips"));
-    pimpl->model->addHeader("cost_amount", tr("Details"));
-    pimpl->model->addHeader("forbid_after_blind_level", tr("Forbid After Level"));
+    pimpl->model->addHeader("name", QObject::tr("Name"));
+    pimpl->model->addHeader("type", QObject::tr("Type"));
+    pimpl->model->addHeader("chips", QObject::tr("Chips"));
+    pimpl->model->addHeader("cost_amount", QObject::tr("Details"));
+    pimpl->model->addHeader("forbid_after_blind_level", QObject::tr("Forbid After Level"));
 
     // Set up table view with sorting
     TBTableViewUtils::setupTableViewWithSorting(this, pimpl->ui.tableView, pimpl->model, 1, Qt::AscendingOrder);

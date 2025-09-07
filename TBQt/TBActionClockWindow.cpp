@@ -18,7 +18,7 @@ struct TBActionClockWindow::impl
 TBActionClockWindow::TBActionClockWindow(TournamentSession& session, QWidget* parent) : QWidget(parent), pimpl(new impl(this))
 {
     // Set window properties
-    setWindowTitle(tr("Action Clock"));
+    setWindowTitle(QObject::tr("Action Clock"));
     setWindowFlags(Qt::Window | Qt::WindowTitleHint | Qt::WindowCloseButtonHint);
 
     // Create layout and add clock widget

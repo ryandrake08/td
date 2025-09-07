@@ -24,9 +24,9 @@ TBSetupDevicesWidget::TBSetupDevicesWidget(QWidget* parent) : TBSetupTabWidget(p
 
     // Create and configure model
     pimpl->model = new TBVariantListTableModel(this);
-    pimpl->model->addHeader("code", tr("Code"));
-    pimpl->model->addHeader("name", tr("Device Name"));
-    pimpl->model->addHeader("added_at", tr("Authorized"));
+    pimpl->model->addHeader("code", QObject::tr("Code"));
+    pimpl->model->addHeader("name", QObject::tr("Device Name"));
+    pimpl->model->addHeader("added_at", QObject::tr("Authorized"));
 
     // Set up table view with sorting
     TBTableViewUtils::setupTableViewWithSorting(this, pimpl->ui.tableView, pimpl->model, 1, Qt::AscendingOrder);
@@ -112,7 +112,7 @@ QVariantMap TBSetupDevicesWidget::createNewDevice() const
 {
     QVariantMap device;
     device["code"] = generateAuthorizationCode();
-    device["name"] = tr("Remote Device");
+    device["name"] = QObject::tr("Remote Device");
     device["added_at"] = QDateTime::currentDateTime().toString(Qt::ISODate);
     return device;
 }

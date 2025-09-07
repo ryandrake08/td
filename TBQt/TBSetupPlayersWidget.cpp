@@ -28,8 +28,8 @@ TBSetupPlayersWidget::TBSetupPlayersWidget(QWidget* parent) : TBSetupTabWidget(p
 
     // Create and configure model
     pimpl->model = new TBVariantListTableModel(this);
-    pimpl->model->addHeader("name", tr("Player Name"));
-    pimpl->model->addHeader("added_at", tr("Member Since"));
+    pimpl->model->addHeader("name", QObject::tr("Player Name"));
+    pimpl->model->addHeader("added_at", QObject::tr("Member Since"));
 
     // Set up table view with sorting
     TBTableViewUtils::setupTableViewWithSorting(this, pimpl->ui.tableView, pimpl->model, 0, Qt::AscendingOrder);
@@ -101,7 +101,7 @@ void TBSetupPlayersWidget::on_addPlayerButtonClicked()
 {
     QVariantMap newPlayer;
     newPlayer["player_id"] = QUuid::createUuid().toString();
-    newPlayer["name"] = tr("Player %1").arg(pimpl->nextPlayerNumber);
+    newPlayer["name"] = QObject::tr("Player %1").arg(pimpl->nextPlayerNumber);
     newPlayer["added_at"] = QDateTime::currentDateTime().toString(Qt::ISODate);
 
     pimpl->nextPlayerNumber++;

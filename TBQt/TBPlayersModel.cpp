@@ -40,7 +40,7 @@ QVariant TBPlayersModel::data(const QModelIndex& index, int role) const
         else if(role == Qt::DisplayRole)
         {
             // Show "Seat" label next to the checkbox
-            return tr("Seat");
+            return QObject::tr("Seat");
         }
         else if(role == Qt::TextAlignmentRole)
         {

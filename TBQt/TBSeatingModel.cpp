@@ -83,7 +83,7 @@ QVariant TBSeatingModel::data(const QModelIndex& index, int role) const
     {
         if(role == Qt::DisplayRole)
         {
-            return tr("Manage");
+            return QObject::tr("Manage");
         }
     }
 

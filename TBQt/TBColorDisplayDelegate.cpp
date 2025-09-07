@@ -18,7 +18,7 @@ QWidget* TBColorDisplayDelegate::createEditor(QWidget* parent, const QStyleOptio
     Q_UNUSED(index)
 
     auto* button = new QPushButton(parent);
-    button->setText(tr("Choose Color..."));
+    button->setText(QObject::tr("Choose Color..."));
 
     // Install event filter to prevent premature editor destruction
     button->installEventFilter(const_cast<TBColorDisplayDelegate*>(this)); // NOLINT(cppcoreguidelines-pro-type-const-cast)
@@ -49,7 +49,7 @@ void TBColorDisplayDelegate::setEditorData(QWidget* editor, const QModelIndex& i
     }
     else
     {
-        button->setText(tr("Choose Color..."));
+        button->setText(QObject::tr("Choose Color..."));
         button->setStyleSheet("");
     }
 }
@@ -116,7 +116,7 @@ void TBColorDisplayDelegate::onColorButtonClicked()
         return;
 
     QColor currentColor = parseColor(button->property("currentColorString").toString());
-    QColor color = QColorDialog::getColor(currentColor, button->window(), tr("Select Chip Color"));
+    QColor color = QColorDialog::getColor(currentColor, button->window(), QObject::tr("Select Chip Color"));
 
     // Check if button still exists after modal dialog
     auto* stillValidButton = qobject_cast<QPushButton*>(sender());

@@ -25,8 +25,8 @@ TBSetupTablesWidget::TBSetupTablesWidget(QWidget* parent) : TBSetupTabWidget(par
 
     // Create and configure model
     pimpl->model = new TBVariantListTableModel(this);
-    pimpl->model->addIndexHeader("table_number", tr("Table #"), 1);
-    pimpl->model->addHeader("table_name", tr("Table Name"));
+    pimpl->model->addIndexHeader("table_number", QObject::tr("Table #"), 1);
+    pimpl->model->addHeader("table_name", QObject::tr("Table Name"));
 
     // Set up table view with sorting
     TBTableViewUtils::setupTableViewWithSorting(this, pimpl->ui.tableView, pimpl->model, 0, Qt::AscendingOrder);
@@ -94,7 +94,7 @@ bool TBSetupTablesWidget::validateConfiguration() const
 void TBSetupTablesWidget::on_addTableButtonClicked()
 {
     QVariantMap newTable;
-    newTable["table_name"] = tr("Table %1").arg(pimpl->nextTableNumber);
+    newTable["table_name"] = QObject::tr("Table %1").arg(pimpl->nextTableNumber);
 
     pimpl->nextTableNumber++;
 

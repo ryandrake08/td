@@ -187,7 +187,7 @@ void TBViewerMainWindow::updateServiceMenu()
         fileMenu->insertAction(insertBefore, separator);
 
         // Add section header
-        auto* header = new QAction(tr("On this Computer"), this);
+        auto* header = new QAction(QObject::tr("On this Computer"), this);
         header->setEnabled(false);
         pimpl->serviceActions.append(header);
         fileMenu->insertAction(insertBefore, header);
@@ -224,7 +224,7 @@ void TBViewerMainWindow::updateServiceMenu()
         fileMenu->insertAction(insertBefore, separator);
 
         // Add section header
-        auto* header = new QAction(tr("On the Network"), this);
+        auto* header = new QAction(QObject::tr("On the Network"), this);
         header->setEnabled(false);
         pimpl->serviceActions.append(header);
         fileMenu->insertAction(insertBefore, header);

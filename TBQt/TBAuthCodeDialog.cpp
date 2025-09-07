@@ -35,7 +35,7 @@ TBAuthCodeDialog::TBAuthCodeDialog(QWidget* parent) : QDialog(parent), pimpl(std
     auto* mainLayout = new QVBoxLayout(this);
 
     // Instruction label
-    pimpl->instructionLabel = new QLabel(tr("Enter 5-digit authorization code:"), this);
+    pimpl->instructionLabel = new QLabel(QObject::tr("Enter 5-digit authorization code:"), this);
     pimpl->instructionLabel->setAlignment(Qt::AlignCenter);
     mainLayout->addWidget(pimpl->instructionLabel);
 
@@ -69,7 +69,7 @@ TBAuthCodeDialog::TBAuthCodeDialog(QWidget* parent) : QDialog(parent), pimpl(std
     pimpl->okButton = buttonBox->button(QDialogButtonBox::Ok);
     pimpl->cancelButton = buttonBox->button(QDialogButtonBox::Cancel);
 
-    pimpl->okButton->setText(tr("Authorize"));
+    pimpl->okButton->setText(QObject::tr("Authorize"));
     pimpl->okButton->setEnabled(false); // Initially disabled
 
     mainLayout->addWidget(buttonBox);
@@ -84,7 +84,7 @@ TBAuthCodeDialog::TBAuthCodeDialog(QWidget* parent) : QDialog(parent), pimpl(std
     }
 
     // Set initial UI state
-    setWindowTitle(tr("Authorization Code"));
+    setWindowTitle(QObject::tr("Authorization Code"));
     setModal(true);
     setFixedSize(300, 150);
 

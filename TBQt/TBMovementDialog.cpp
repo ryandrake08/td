@@ -20,11 +20,11 @@ TBMovementDialog::TBMovementDialog(QWidget* parent) : QDialog(parent), pimpl(new
     pimpl->ui.setupUi(this);
 
     // Set up model headers
-    pimpl->model->setHorizontalHeaderLabels({ tr("Player"),
-                                              tr("From Table"),
-                                              tr("From Seat"),
-                                              tr("To Table"),
-                                              tr("To Seat") });
+    pimpl->model->setHorizontalHeaderLabels({ QObject::tr("Player"),
+                                              QObject::tr("From Table"),
+                                              QObject::tr("From Seat"),
+                                              QObject::tr("To Table"),
+                                              QObject::tr("To Seat") });
 
     pimpl->ui.tableView->setModel(pimpl->model);
 
@@ -50,18 +50,18 @@ void TBMovementDialog::setMovements(const QVariantList& movements)
 
     if(movements.isEmpty())
     {
-        pimpl->ui.titleLabel->setText(tr("No player movements are required."));
+        pimpl->ui.titleLabel->setText(QObject::tr("No player movements are required."));
         return;
     }
 
     // Set title based on number of movements
     if(movements.size() == 1)
     {
-        pimpl->ui.titleLabel->setText(tr("The following player movement is required:"));
+        pimpl->ui.titleLabel->setText(QObject::tr("The following player movement is required:"));
     }
     else
     {
-        pimpl->ui.titleLabel->setText(tr("The following %1 player movements are required:").arg(movements.size()));
+        pimpl->ui.titleLabel->setText(QObject::tr("The following %1 player movements are required:").arg(movements.size()));
     }
 
     // Populate model with movement data

@@ -25,9 +25,9 @@ TBSetupChipsWidget::TBSetupChipsWidget(QWidget* parent) : TBSetupTabWidget(paren
 
     // Create and configure model
     pimpl->model = new TBVariantListTableModel(this);
-    pimpl->model->addHeader("color", tr("Color"));
-    pimpl->model->addHeader("denomination", tr("Denomination"));
-    pimpl->model->addHeader("count_available", tr("Count"));
+    pimpl->model->addHeader("color", QObject::tr("Color"));
+    pimpl->model->addHeader("denomination", QObject::tr("Denomination"));
+    pimpl->model->addHeader("count_available", QObject::tr("Count"));
 
     // Set up table view with sorting
     TBTableViewUtils::setupTableViewWithSorting(this, pimpl->ui.tableView, pimpl->model, 1, Qt::AscendingOrder);

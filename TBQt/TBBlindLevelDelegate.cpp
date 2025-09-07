@@ -14,7 +14,7 @@ QWidget* TBBlindLevelDelegate::createEditor(QWidget* parent, const QStyleOptionV
     auto* comboBox = new QComboBox(parent);
 
     // Add "Start" for round 0 (before tournament starts)
-    comboBox->addItem(tr("Start"), 0);
+    comboBox->addItem(QObject::tr("Start"), 0);
 
     // Add blind levels from rounds (skip round 0, start from round 1)
     for(int i = 1; i < m_rounds.size(); i++)
@@ -24,7 +24,7 @@ QWidget* TBBlindLevelDelegate::createEditor(QWidget* parent, const QStyleOptionV
     }
 
     // Add "Never" at the end (special value -1 indicates missing key)
-    comboBox->addItem(tr("Never"), -1);
+    comboBox->addItem(QObject::tr("Never"), -1);
 
     return comboBox;
 }
@@ -78,19 +78,19 @@ QString TBBlindLevelDelegate::displayText(const QVariant& value, const QLocale& 
     // Check if the key exists in the data - if not, show "Never"
     if(!value.isValid() || value.isNull())
     {
-        return tr("Never");
+        return QObject::tr("Never");
     }
 
     int blindLevel = value.toInt();
 
     if(blindLevel < 0)
     {
-        return tr("Never");
+        return QObject::tr("Never");
     }
 
     if(blindLevel == 0)
     {
-        return tr("Start");
+        return QObject::tr("Start");
     }
 
     return QString("Level %1").arg(blindLevel);

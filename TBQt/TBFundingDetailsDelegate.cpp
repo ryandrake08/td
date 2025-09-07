@@ -17,7 +17,7 @@ QWidget* TBFundingDetailsDelegate::createEditor(QWidget* parent, const QStyleOpt
 {
     Q_UNUSED(option)
 
-    auto* button = new QPushButton(tr("Details..."), parent);
+    auto* button = new QPushButton(QObject::tr("Details..."), parent);
 
     QObject::connect(button, &QPushButton::clicked, [button, index, this]()
     {
@@ -63,7 +63,7 @@ QString TBFundingDetailsDelegate::displayText(const QVariant& value, const QLoca
 bool TBFundingDetailsDelegate::showDetailsDialog(QWidget* parent, QVariantMap& fundingData) const
 {
     QDialog dialog(parent);
-    dialog.setWindowTitle(tr("Funding Details"));
+    dialog.setWindowTitle(QObject::tr("Funding Details"));
     dialog.resize(300, 200);
 
     auto* layout = new QFormLayout(&dialog);
@@ -112,12 +112,12 @@ bool TBFundingDetailsDelegate::showDetailsDialog(QWidget* parent, QVariantMap& f
     auto* equityCurrencyLabel = new QLabel(payoutCurrency, &dialog);
 
     // Add fields to form
-    layout->addRow(tr("Cost:"), costSpinBox);
-    layout->addRow(tr("Cost Currency:"), costCurrencyCombo);
-    layout->addRow(tr("Fee:"), feeSpinBox);
-    layout->addRow(tr("Fee Currency:"), feeCurrencyCombo);
-    layout->addRow(tr("Equity:"), equitySpinBox);
-    layout->addRow(tr("Equity Currency:"), equityCurrencyLabel);
+    layout->addRow(QObject::tr("Cost:"), costSpinBox);
+    layout->addRow(QObject::tr("Cost Currency:"), costCurrencyCombo);
+    layout->addRow(QObject::tr("Fee:"), feeSpinBox);
+    layout->addRow(QObject::tr("Fee Currency:"), feeCurrencyCombo);
+    layout->addRow(QObject::tr("Equity:"), equitySpinBox);
+    layout->addRow(QObject::tr("Equity Currency:"), equityCurrencyLabel);
 
     // Dialog buttons
     auto* buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, &dialog);

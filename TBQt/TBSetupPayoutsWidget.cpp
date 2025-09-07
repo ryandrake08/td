@@ -26,9 +26,9 @@ TBSetupPayoutsWidget::TBSetupPayoutsWidget(QWidget* parent) : TBSetupTabWidget(p
 
     // Create and configure manual payouts model
     pimpl->manualModel = new TBVariantListTableModel(this);
-    pimpl->manualModel->addIndexHeader("place", tr("Place"), 1);
-    pimpl->manualModel->addHeader("amount", tr("Payout"));
-    pimpl->manualModel->addHeader("currency", tr("Currency"));
+    pimpl->manualModel->addIndexHeader("place", QObject::tr("Place"), 1);
+    pimpl->manualModel->addHeader("amount", QObject::tr("Payout"));
+    pimpl->manualModel->addHeader("currency", QObject::tr("Currency"));
 
     // Set up manual table view with sorting
     TBTableViewUtils::setupTableViewWithSorting(this, pimpl->ui.manualTableView, pimpl->manualModel, 0, Qt::AscendingOrder);
@@ -41,7 +41,7 @@ TBSetupPayoutsWidget::TBSetupPayoutsWidget(QWidget* parent) : TBSetupTabWidget(p
 
     // Create and configure turnout levels model
     pimpl->turnoutModel = new TBVariantListTableModel(this);
-    pimpl->turnoutModel->addHeader("buyins_count", tr("Buy-ins"));
+    pimpl->turnoutModel->addHeader("buyins_count", QObject::tr("Buy-ins"));
 
     // Set up turnout table view with sorting
     TBTableViewUtils::setupTableViewWithSorting(this, pimpl->ui.turnoutTableView, pimpl->turnoutModel, 0, Qt::AscendingOrder);
@@ -52,9 +52,9 @@ TBSetupPayoutsWidget::TBSetupPayoutsWidget(QWidget* parent) : TBSetupTabWidget(p
 
     // Create and configure turnout payouts model
     pimpl->turnoutPayoutsModel = new TBVariantListTableModel(this);
-    pimpl->turnoutPayoutsModel->addIndexHeader("place", tr("Place"), 1);
-    pimpl->turnoutPayoutsModel->addHeader("amount", tr("Payout"));
-    pimpl->turnoutPayoutsModel->addHeader("currency", tr("Currency"));
+    pimpl->turnoutPayoutsModel->addIndexHeader("place", QObject::tr("Place"), 1);
+    pimpl->turnoutPayoutsModel->addHeader("amount", QObject::tr("Payout"));
+    pimpl->turnoutPayoutsModel->addHeader("currency", QObject::tr("Currency"));
 
     // Set up turnout payouts table view with sorting
     TBTableViewUtils::setupTableViewWithSorting(this, pimpl->ui.turnoutPayoutsTableView, pimpl->turnoutPayoutsModel, 0, Qt::AscendingOrder);
@@ -418,26 +418,26 @@ QString TBSetupPayoutsWidget::payoutShapeDescription(double shape) const
 {
     if(shape <= 0.0)
     {
-        return tr("Same To Everyone");
+        return QObject::tr("Same To Everyone");
     }
     else if(shape < 0.25)
     {
-        return tr("Relatively Flat");
+        return QObject::tr("Relatively Flat");
     }
     else if(shape < 0.5)
     {
-        return tr("Balanced");
+        return QObject::tr("Balanced");
     }
     else if(shape < 0.75)
     {
-        return tr("Top Heavy");
+        return QObject::tr("Top Heavy");
     }
     else if(shape < 1.0)
     {
-        return tr("Reward Deep");
+        return QObject::tr("Reward Deep");
     }
     else
     {
-        return tr("Winner Takes All");
+        return QObject::tr("Winner Takes All");
     }
 }

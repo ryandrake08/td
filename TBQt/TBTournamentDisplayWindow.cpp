@@ -57,8 +57,8 @@ TBTournamentDisplayWindow::TBTournamentDisplayWindow(TournamentSession& session,
 
     // Set up chips model
     auto* chipsModel = new TBVariantListTableModel(this);
-    chipsModel->addHeader("color", tr("Color"));
-    chipsModel->addHeader("denomination", tr("Denomination"));
+    chipsModel->addHeader("color", QObject::tr("Color"));
+    chipsModel->addHeader("denomination", QObject::tr("Denomination"));
     pimpl->ui.chipsTableView->setModel(chipsModel);
 
     // Set custom delegate for chip color display with ellipses
