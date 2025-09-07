@@ -4,8 +4,6 @@
 #include <QVariantMap>
 #include <memory>
 
-class TBBackgroundMonitor;
-
 class TournamentSession;
 
 // Tournament display window containing shared tournament viewing functionality

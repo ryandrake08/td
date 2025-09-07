@@ -32,29 +32,39 @@ void TBBaseAuxiliaryWindow::closeEvent(QCloseEvent* event)
 
 void TBBaseAuxiliaryWindow::setBackgroundColorString(const QString& backgroundColorString)
 {
-    // Default: empty stylesheet restores system defaults
-    QString styleSheet = QString();
-
     // Check if we have a valid custom color
     if(!backgroundColorString.isEmpty())
     {
         QColor backgroundColor(backgroundColorString);
         if(backgroundColor.isValid())
         {
+            // Create modified palette instead of using CSS stylesheets
+            QPalette palette = this->palette();
+            palette.setColor(QPalette::Window, backgroundColor);
+
             // Choose appropriate text color based on background darkness
-            QColor textColor = TBColorUtils::colorIsDark(backgroundColor) ? QColor("white") : QColor("black");
+            QColor textColor = TBColorUtils::colorIsDark(backgroundColor) ? Qt::white : Qt::black;
 
-            // Apply custom window and text colors
-            QString className = this->metaObject()->className();
-            styleSheet = QString("%1 { background-color: %2; color: %3; }").arg(className, backgroundColor.name(), textColor.name());
+            // Set palette colors that Qt template icons can access
+            palette.setColor(QPalette::WindowText, textColor);
+            palette.setColor(QPalette::ButtonText, textColor);
+            palette.setColor(QPalette::Text, textColor);
 
-            // Make all child widgets transparent so parent background shows through
-            styleSheet += QString(" %1 * { background-color: transparent; color: %2; }").arg(className, textColor.name());
+            // Apply palette and enable auto-fill background
+            this->setPalette(palette);
+            this->setAutoFillBackground(true);
+
+            // Clear any existing stylesheets that would override palette
+            this->setStyleSheet(QString());
         }
     }
-
-    // Set the styleshieet
-    this->setStyleSheet(styleSheet);
+    else
+    {
+        // Restore default palette and disable custom background
+        this->setPalette(QApplication::palette());
+        this->setAutoFillBackground(false);
+        this->setStyleSheet(QString());
+    }
 }
 
 void TBBaseAuxiliaryWindow::showUsingDisplaySettings(const QString& windowType)

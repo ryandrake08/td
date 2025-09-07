@@ -49,7 +49,7 @@ void TBChipDisplayDelegate::paint(QPainter* painter, const QStyleOptionViewItem&
         painter->drawEllipse(chipRect);
 
         // Draw chip image on top of the colored ellipse
-        static QPixmap chipImage(":/Resources/i_chip_64x64.png");
+        static QPixmap chipImage(":/Resources/i_chip.svg");
 
         if(!chipImage.isNull())
         {

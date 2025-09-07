@@ -221,7 +221,7 @@
   <action name="actionQuickStart">
    <property name="icon">
     <iconset resource="TBQt.qrc">
-     <normaloff>:/Resources/b_rocket_64x64.png</normaloff>:/Resources/b_rocket_64x64.png</iconset>
+     <normaloff>:/Resources/b_rocket.svg</normaloff>:/Resources/b_rocket.svg</iconset>
    </property>
    <property name="text">
     <string>Quick Start &amp;Tournament</string>
@@ -236,7 +236,7 @@
   <action name="actionReset">
    <property name="icon">
     <iconset resource="TBQt.qrc">
-     <normaloff>:/Resources/b_restart_64x64.png</normaloff>:/Resources/b_restart_64x64.png</iconset>
+     <normaloff>:/Resources/b_restart.svg</normaloff>:/Resources/b_restart.svg</iconset>
    </property>
    <property name="text">
     <string>&amp;Reset Tournament</string>
@@ -251,7 +251,7 @@
   <action name="actionConfigure">
    <property name="icon">
     <iconset resource="TBQt.qrc">
-     <normaloff>:/Resources/b_configure_64x64.png</normaloff>:/Resources/b_configure_64x64.png</iconset>
+     <normaloff>:/Resources/b_configure.svg</normaloff>:/Resources/b_configure.svg</iconset>
    </property>
    <property name="text">
     <string>Setup Tournament...</string>
@@ -266,7 +266,7 @@
   <action name="actionAuthorize">
    <property name="icon">
     <iconset resource="TBQt.qrc">
-     <normaloff>:/Resources/b_auth_64x64.png</normaloff>:/Resources/b_auth_64x64.png</iconset>
+     <normaloff>:/Resources/b_auth.svg</normaloff>:/Resources/b_auth.svg</iconset>
    </property>
    <property name="text">
     <string>Authorize Remote Device...</string>
@@ -278,7 +278,7 @@
   <action name="actionPlan">
    <property name="icon">
     <iconset resource="TBQt.qrc">
-     <normaloff>:/Resources/b_new_64x64.png</normaloff>:/Resources/b_new_64x64.png</iconset>
+     <normaloff>:/Resources/b_new.svg</normaloff>:/Resources/b_new.svg</iconset>
    </property>
    <property name="text">
     <string>Plan Tournament...</string>
@@ -290,7 +290,7 @@
   <action name="actionShowHideMainDisplay">
    <property name="icon">
     <iconset resource="TBQt.qrc">
-     <normaloff>:/Resources/b_display_64x64.png</normaloff>:/Resources/b_display_64x64.png</iconset>
+     <normaloff>:/Resources/b_display.svg</normaloff>:/Resources/b_display.svg</iconset>
    </property>
    <property name="text">
     <string>Show / Hide Main &amp;Display</string>
@@ -305,7 +305,7 @@
   <action name="actionShowMoves">
    <property name="icon">
     <iconset resource="TBQt.qrc">
-     <normaloff>:/Resources/b_move_64x64.png</normaloff>:/Resources/b_move_64x64.png</iconset>
+     <normaloff>:/Resources/b_move.svg</normaloff>:/Resources/b_move.svg</iconset>
    </property>
    <property name="text">
     <string>Show Player Moves...</string>
@@ -317,7 +317,7 @@
   <action name="actionRebalance">
    <property name="icon">
     <iconset resource="TBQt.qrc">
-     <normaloff>:/Resources/b_rebalance_64x64.png</normaloff>:/Resources/b_rebalance_64x64.png</iconset>
+     <normaloff>:/Resources/b_rebalance.svg</normaloff>:/Resources/b_rebalance.svg</iconset>
    </property>
    <property name="text">
     <string>Rebalance Tables...</string>
@@ -329,7 +329,7 @@
   <action name="actionPauseResume">
    <property name="icon">
     <iconset resource="TBQt.qrc">
-     <normaloff>:/Resources/b_play_pause_64x64.png</normaloff>:/Resources/b_play_pause_64x64.png</iconset>
+     <normaloff>:/Resources/b_play_pause.svg</normaloff>:/Resources/b_play_pause.svg</iconset>
    </property>
    <property name="text">
     <string>Resume / Pause</string>
@@ -344,7 +344,7 @@
   <action name="actionPreviousRound">
    <property name="icon">
     <iconset resource="TBQt.qrc">
-     <normaloff>:/Resources/b_previous_64x64.png</normaloff>:/Resources/b_previous_64x64.png</iconset>
+     <normaloff>:/Resources/b_previous.svg</normaloff>:/Resources/b_previous.svg</iconset>
    </property>
    <property name="text">
     <string>Previous Round</string>
@@ -359,7 +359,7 @@
   <action name="actionNextRound">
    <property name="icon">
     <iconset resource="TBQt.qrc">
-     <normaloff>:/Resources/b_next_64x64.png</normaloff>:/Resources/b_next_64x64.png</iconset>
+     <normaloff>:/Resources/b_next.svg</normaloff>:/Resources/b_next.svg</iconset>
    </property>
    <property name="text">
     <string>Next Round</string>
@@ -374,7 +374,7 @@
   <action name="actionCallClock">
    <property name="icon">
     <iconset resource="TBQt.qrc">
-     <normaloff>:/Resources/b_call_clock_64x64.png</normaloff>:/Resources/b_call_clock_64x64.png</iconset>
+     <normaloff>:/Resources/b_call_clock.svg</normaloff>:/Resources/b_call_clock.svg</iconset>
    </property>
    <property name="text">
     <string>Call the Clock</string>
@@ -389,7 +389,7 @@
   <action name="actionEndGame">
    <property name="icon">
     <iconset resource="TBQt.qrc">
-     <normaloff>:/Resources/b_stop_64x64.png</normaloff>:/Resources/b_stop_64x64.png</iconset>
+     <normaloff>:/Resources/b_stop.svg</normaloff>:/Resources/b_stop.svg</iconset>
    </property>
    <property name="text">
     <string>End Game</string>
@@ -401,7 +401,7 @@
   <action name="actionExport">
    <property name="icon">
     <iconset resource="TBQt.qrc">
-     <normaloff>:/Resources/b_export_64x64.png</normaloff>:/Resources/b_export_64x64.png</iconset>
+     <normaloff>:/Resources/b_export.svg</normaloff>:/Resources/b_export.svg</iconset>
    </property>
    <property name="text">
     <string>Export Results...</string>
@@ -428,7 +428,7 @@
   <action name="actionShowHideSeatingChart">
    <property name="icon">
     <iconset resource="TBQt.qrc">
-     <normaloff>:/Resources/b_seating_64x64.png</normaloff>:/Resources/b_seating_64x64.png</iconset>
+     <normaloff>:/Resources/b_seating.svg</normaloff>:/Resources/b_seating.svg</iconset>
    </property>
    <property name="text">
     <string>Show / Hide Seating Chart</string>

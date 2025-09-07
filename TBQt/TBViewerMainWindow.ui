@@ -103,7 +103,7 @@
   <action name="actionPauseResume">
    <property name="icon">
     <iconset resource="TBQt.qrc">
-     <normaloff>:/Resources/b_play_pause_64x64.png</normaloff>:/Resources/b_play_pause_64x64.png</iconset>
+     <normaloff>:/Resources/b_play_pause.svg</normaloff>:/Resources/b_play_pause.svg</iconset>
    </property>
    <property name="text">
     <string>&amp;Pause/Resume</string>
@@ -115,7 +115,7 @@
   <action name="actionPreviousRound">
    <property name="icon">
     <iconset resource="TBQt.qrc">
-     <normaloff>:/Resources/b_previous_64x64.png</normaloff>:/Resources/b_previous_64x64.png</iconset>
+     <normaloff>:/Resources/b_previous.svg</normaloff>:/Resources/b_previous.svg</iconset>
    </property>
    <property name="text">
     <string>&amp;Previous Round</string>
@@ -127,7 +127,7 @@
   <action name="actionNextRound">
    <property name="icon">
     <iconset resource="TBQt.qrc">
-     <normaloff>:/Resources/b_next_64x64.png</normaloff>:/Resources/b_next_64x64.png</iconset>
+     <normaloff>:/Resources/b_next.svg</normaloff>:/Resources/b_next.svg</iconset>
    </property>
    <property name="text">
     <string>&amp;Next Round</string>
@@ -139,7 +139,7 @@
   <action name="actionCallClock">
    <property name="icon">
     <iconset resource="TBQt.qrc">
-     <normaloff>:/Resources/b_call_clock_64x64.png</normaloff>:/Resources/b_call_clock_64x64.png</iconset>
+     <normaloff>:/Resources/b_call_clock.svg</normaloff>:/Resources/b_call_clock.svg</iconset>
    </property>
    <property name="text">
     <string>&amp;Call the Clock</string>

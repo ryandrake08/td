@@ -284,7 +284,7 @@
               <number>15</number>
              </property>
              <item>
-              <widget class="TBInvertableButton" name="previousRoundButton">
+              <widget class="QToolButton" name="previousRoundButton">
                <property name="minimumSize">
                 <size>
                  <width>100</width>
@@ -298,19 +298,24 @@
                 <string>Previous
 Round</string>
                </property>
+               <property name="icon">
+                <iconset resource="TBQt.qrc">
+                 <normaloff>:/Resources/b_previous.svg</normaloff>
+                </iconset>
+               </property>
                <property name="iconSize">
                 <size>
                  <width>32</width>
                  <height>32</height>
                 </size>
                </property>
-               <property name="textBelowIcon" stdset="0">
-                <bool>true</bool>
+               <property name="toolButtonStyle">
+                <enum>Qt::ToolButtonTextUnderIcon</enum>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="TBInvertableButton" name="pauseResumeButton">
+              <widget class="QToolButton" name="pauseResumeButton">
                <property name="minimumSize">
                 <size>
                  <width>100</width>
@@ -324,19 +329,24 @@ Round</string>
                 <string>Pause/
 Resume</string>
                </property>
+               <property name="icon">
+                <iconset resource="TBQt.qrc">
+                 <normaloff>:/Resources/b_play_pause.svg</normaloff>
+                </iconset>
+               </property>
                <property name="iconSize">
                 <size>
                  <width>32</width>
                  <height>32</height>
                 </size>
                </property>
-               <property name="textBelowIcon" stdset="0">
-                <bool>true</bool>
+               <property name="toolButtonStyle">
+                <enum>Qt::ToolButtonTextUnderIcon</enum>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="TBInvertableButton" name="nextRoundButton">
+              <widget class="QToolButton" name="nextRoundButton">
                <property name="minimumSize">
                 <size>
                  <width>100</width>
@@ -350,19 +360,24 @@ Resume</string>
                 <string>Next
 Round</string>
                </property>
+               <property name="icon">
+                <iconset resource="TBQt.qrc">
+                 <normaloff>:/Resources/b_next.svg</normaloff>
+                </iconset>
+               </property>
                <property name="iconSize">
                 <size>
                  <width>32</width>
                  <height>32</height>
                 </size>
                </property>
-               <property name="textBelowIcon" stdset="0">
-                <bool>true</bool>
+               <property name="toolButtonStyle">
+                <enum>Qt::ToolButtonTextUnderIcon</enum>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="TBInvertableButton" name="callClockButton">
+              <widget class="QToolButton" name="callClockButton">
                <property name="minimumSize">
                 <size>
                  <width>100</width>
@@ -376,14 +391,19 @@ Round</string>
                 <string>Call
 Clock</string>
                </property>
+               <property name="icon">
+                <iconset resource="TBQt.qrc">
+                 <normaloff>:/Resources/b_call_clock.svg</normaloff>
+                </iconset>
+               </property>
                <property name="iconSize">
                 <size>
                  <width>32</width>
                  <height>32</height>
                 </size>
                </property>
-               <property name="textBelowIcon" stdset="0">
-                <bool>true</bool>
+               <property name="toolButtonStyle">
+                <enum>Qt::ToolButtonTextUnderIcon</enum>
                </property>
               </widget>
              </item>
@@ -581,11 +601,6 @@ Clock</string>
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>TBInvertableButton</class>
-   <extends>QPushButton</extends>
-   <header>TBQt/TBInvertableButton.hpp</header>
-  </customwidget>
   <customwidget>
    <class>TBScalableLabel</class>
    <extends>QLabel</extends>

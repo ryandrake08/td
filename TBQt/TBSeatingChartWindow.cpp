@@ -102,10 +102,7 @@ void TBSeatingChartWindow::updateTournamentBuyin(const QVariantMap& state)
 
 void TBSeatingChartWindow::updateBackgroundColor(const QVariantMap& state)
 {
-    QString backgroundColorName = state.value("background_color").toString();
-
-    // Set background color using base class method
-    this->setBackgroundColorString(backgroundColorName);
+    this->setBackgroundColorString(state.value("background_color").toString());
 }
 
 void TBSeatingChartWindow::updateSeatingChart(const QVariantMap& state)

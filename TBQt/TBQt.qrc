@@ -1,26 +1,26 @@
 <RCC>
     <qresource prefix="/">
-        <file>../Resources/b_auth_64x64.png</file>
-        <file>../Resources/b_call_clock_64x64.png</file>
-        <file>../Resources/b_configure_64x64.png</file>
-        <file>../Resources/b_display_64x64.png</file>
-        <file>../Resources/b_export_64x64.png</file>
-        <file>../Resources/b_move_64x64.png</file>
-        <file>../Resources/b_new_64x64.png</file>
-        <file>../Resources/b_next_64x64.png</file>
-        <file>../Resources/b_note_dollar_64x64.png</file>
-        <file>../Resources/b_note_euro_64x64.png</file>
-        <file>../Resources/b_note_rupee_64x64.png</file>
-        <file>../Resources/b_note_sterling_64x64.png</file>
-        <file>../Resources/b_note_yen_yuan_64x64.png</file>
-        <file>../Resources/b_play_pause_64x64.png</file>
-        <file>../Resources/b_previous_64x64.png</file>
-        <file>../Resources/b_rebalance_64x64.png</file>
-        <file>../Resources/b_restart_64x64.png</file>
-        <file>../Resources/b_rocket_64x64.png</file>
-        <file>../Resources/b_seating_64x64.png</file>
-        <file>../Resources/b_stop_64x64.png</file>
-        <file>../Resources/i_chip_64x64.png</file>
+        <file>../Resources/b_auth.svg</file>
+        <file>../Resources/b_call_clock.svg</file>
+        <file>../Resources/b_configure.svg</file>
+        <file>../Resources/b_display.svg</file>
+        <file>../Resources/b_export.svg</file>
+        <file>../Resources/b_move.svg</file>
+        <file>../Resources/b_new.svg</file>
+        <file>../Resources/b_next.svg</file>
+        <file>../Resources/b_note_dollar.svg</file>
+        <file>../Resources/b_note_euro.svg</file>
+        <file>../Resources/b_note_rupee.svg</file>
+        <file>../Resources/b_note_sterling.svg</file>
+        <file>../Resources/b_note_yen_yuan.svg</file>
+        <file>../Resources/b_play_pause.svg</file>
+        <file>../Resources/b_previous.svg</file>
+        <file>../Resources/b_rebalance.svg</file>
+        <file>../Resources/b_restart.svg</file>
+        <file>../Resources/b_rocket.svg</file>
+        <file>../Resources/b_seating.svg</file>
+        <file>../Resources/b_stop.svg</file>
+        <file>../Resources/i_chip.svg</file>
         <file>../Resources/icon_256x256.png</file>
         <file>../Resources/icon_64x64.png</file>
         <file>../Resources/IBMPlexSans-Bold.otf</file>

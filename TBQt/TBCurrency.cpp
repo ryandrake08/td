@@ -35,16 +35,16 @@ struct TBCurrency::impl
         QMap<QString, CurrencyInfo> currencies;
 
         // Standard currencies - displayName filled at runtime
-        currencies["USD"] = { "USD", "", ":/images/b_note_dollar_64x64.png", Type::Standard, "", "" };
-        currencies["EUR"] = { "EUR", "", ":/images/b_note_euro_64x64.png", Type::Standard, "", "" };
-        currencies["INR"] = { "INR", "", ":/images/b_note_rupee_64x64.png", Type::Standard, "", "" };
-        currencies["GBP"] = { "GBP", "", ":/images/b_note_sterling_64x64.png", Type::Standard, "", "" };
-        currencies["JPY"] = { "JPY", "", ":/images/b_note_yen_yuan_64x64.png", Type::Standard, "", "" };
-        currencies["CNY"] = { "CNY", "", ":/images/b_note_yen_yuan_64x64.png", Type::Standard, "", "" };
+        currencies["USD"] = { "USD", "", ":/Resources/b_note_dollar.svg", Type::Standard, "", "" };
+        currencies["EUR"] = { "EUR", "", ":/Resources/b_note_euro.svg", Type::Standard, "", "" };
+        currencies["INR"] = { "INR", "", ":/Resources/b_note_rupee.svg", Type::Standard, "", "" };
+        currencies["GBP"] = { "GBP", "", ":/Resources/b_note_sterling.svg", Type::Standard, "", "" };
+        currencies["JPY"] = { "JPY", "", ":/Resources/b_note_yen_yuan.svg", Type::Standard, "", "" };
+        currencies["CNY"] = { "CNY", "", ":/Resources/b_note_yen_yuan.svg", Type::Standard, "", "" };
 
         // Custom currencies with localized names
-        currencies["XBP"] = { "XBP", QObject::tr("Bucks"), ":/images/b_note_dollar_64x64.png", Type::Custom, QObject::tr("Bucks"), "#,##0 ¤" };
-        currencies["XPT"] = { "XPT", QObject::tr("Points"), ":/images/b_note_dollar_64x64.png", Type::Custom, QObject::tr("Points"), "#,##0 ¤" };
+        currencies["XBP"] = { "XBP", QObject::tr("Bucks"), ":/Resources/b_note_dollar.svg", Type::Custom, QObject::tr("Bucks"), "#,##0 ¤" };
+        currencies["XPT"] = { "XPT", QObject::tr("Points"), ":/Resources/b_note_dollar.svg", Type::Custom, QObject::tr("Points"), "#,##0 ¤" };
 
         return currencies;
     }
@@ -180,7 +180,7 @@ QString TBCurrency::currencyImagePath(const QString& currencyCode)
     }
 
     // Fallback to dollar image
-    return ":/images/b_note_dollar_64x64.png";
+    return ":/Resources/b_note_dollar.svg";
 }
 
 QPixmap TBCurrency::currencyPixmap(const QString& currencyCode)

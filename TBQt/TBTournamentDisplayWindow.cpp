@@ -1,9 +1,7 @@
 #include "TBTournamentDisplayWindow.hpp"
 
 #include "TBActionClockWindow.hpp"
-#include "TBBackgroundMonitor.hpp"
 #include "TBChipDisplayDelegate.hpp"
-#include "TBInvertableButton.hpp"
 #include "TBPlayersModel.hpp"
 #include "TBResultsModel.hpp"
 #include "TBVariantListTableModel.hpp"
@@ -24,9 +22,6 @@ struct TBTournamentDisplayWindow::impl
     // Child windows
     TBActionClockWindow* actionClockWindow;
 
-    // Background monitor for automatic button inversion
-    TBBackgroundMonitor* backgroundMonitor { nullptr };
-
     explicit impl(TournamentSession& sess, TBTournamentDisplayWindow* parent) : actionClockWindow(new TBActionClockWindow(sess, parent))
     {
     }
@@ -36,24 +31,11 @@ TBTournamentDisplayWindow::TBTournamentDisplayWindow(TournamentSession& session,
 {
     pimpl->ui.setupUi(this);
 
-    // Set original icons using the setOriginalIcon method
-    pimpl->ui.previousRoundButton->setOriginalIcon(QIcon(":/Resources/b_previous_64x64.png"));
-    pimpl->ui.pauseResumeButton->setOriginalIcon(QIcon(":/Resources/b_play_pause_64x64.png"));
-    pimpl->ui.nextRoundButton->setOriginalIcon(QIcon(":/Resources/b_next_64x64.png"));
-    pimpl->ui.callClockButton->setOriginalIcon(QIcon(":/Resources/b_call_clock_64x64.png"));
-
     // Connect button signals (these are auto-connected by Qt's naming convention)
-    QObject::connect(pimpl->ui.previousRoundButton, &QPushButton::clicked, this, &TBTournamentDisplayWindow::on_previousRoundButtonClicked);
-    QObject::connect(pimpl->ui.pauseResumeButton, &QPushButton::clicked, this, &TBTournamentDisplayWindow::on_pauseResumeButtonClicked);
-    QObject::connect(pimpl->ui.nextRoundButton, &QPushButton::clicked, this, &TBTournamentDisplayWindow::on_nextRoundButtonClicked);
-    QObject::connect(pimpl->ui.callClockButton, &QPushButton::clicked, this, &TBTournamentDisplayWindow::on_callClockButtonClicked);
-
-    // Set up automatic background monitoring for button inversion
-    pimpl->backgroundMonitor = new TBBackgroundMonitor(this);
-    pimpl->backgroundMonitor->registerButton(pimpl->ui.previousRoundButton);
-    pimpl->backgroundMonitor->registerButton(pimpl->ui.pauseResumeButton);
-    pimpl->backgroundMonitor->registerButton(pimpl->ui.nextRoundButton);
-    pimpl->backgroundMonitor->registerButton(pimpl->ui.callClockButton);
+    QObject::connect(pimpl->ui.previousRoundButton, &QToolButton::clicked, this, &TBTournamentDisplayWindow::on_previousRoundButtonClicked);
+    QObject::connect(pimpl->ui.pauseResumeButton, &QToolButton::clicked, this, &TBTournamentDisplayWindow::on_pauseResumeButtonClicked);
+    QObject::connect(pimpl->ui.nextRoundButton, &QToolButton::clicked, this, &TBTournamentDisplayWindow::on_nextRoundButtonClicked);
+    QObject::connect(pimpl->ui.callClockButton, &QToolButton::clicked, this, &TBTournamentDisplayWindow::on_callClockButtonClicked);
 
     // Set up chips model
     auto* chipsModel = new TBVariantListTableModel(this);
@@ -284,14 +266,5 @@ void TBTournamentDisplayWindow::updateAvailableChips(const QVariantMap& state)
 
 void TBTournamentDisplayWindow::updateBackgroundColor(const QVariantMap& state)
 {
-    QString backgroundColorName = state.value("background_color").toString();
-
-    // Set background color using base class method
-    this->setBackgroundColorString(backgroundColorName);
-
-    // Tell our background color monitor to update immediately
-    if(pimpl->backgroundMonitor)
-    {
-        pimpl->backgroundMonitor->checkAndUpdateButtons();
-    }
+    this->setBackgroundColorString(state.value("background_color").toString());
 }
