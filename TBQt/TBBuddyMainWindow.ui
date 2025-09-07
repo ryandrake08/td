@@ -426,11 +426,18 @@
    </property>
   </action>
   <action name="actionShowHideSeatingChart">
-   <property name="checkable">
-    <bool>true</bool>
+   <property name="icon">
+    <iconset resource="TBQt.qrc">
+     <normaloff>:/Resources/b_seating_64x64.png</normaloff>:/Resources/b_seating_64x64.png</iconset>
    </property>
    <property name="text">
     <string>Show / Hide Seating Chart</string>
+   </property>
+   <property name="iconText">
+    <string>Seating Chart</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+D</string>
    </property>
   </action>
   <action name="actionSettings">

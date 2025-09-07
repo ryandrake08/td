@@ -206,7 +206,7 @@ if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND AND Qt5Multimedia_FOU
 
 	find_package(Threads REQUIRED)
 	set(CMAKE_INCLUDE_CURRENT_DIR ON)
-	
+
 	# Create shared TBQt library with common functionality
 	qt5_wrap_cpp(TBQT_COMMON_MOC
 		TBQt/TBActionClockWidget.hpp
@@ -293,7 +293,6 @@ if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND AND Qt5Multimedia_FOU
 		TBQt/TournamentSession.hpp
 		${TBQT_COMMON_MOC}
 		${TBQT_COMMON_UI}
-		${TBQT_COMMON_RC}
 	)
 	target_compile_definitions(tbqt_common PRIVATE QT_NO_KEYWORDS)
 	target_include_directories(tbqt_common PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
@@ -385,6 +384,7 @@ if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND AND Qt5Multimedia_FOU
 		TBQt/TournamentDocument.hpp
 		${TBUDDY_MOC}
 		${TBUDDY_UI}
+		${TBQT_COMMON_RC}
 	)
 	target_compile_definitions(tbuddy PRIVATE QT_NO_KEYWORDS)
 	target_include_directories(tbuddy PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
@@ -434,6 +434,7 @@ if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND AND Qt5Multimedia_FOU
 		TBQt/TournamentBrowser.hpp
 		${TBVIEWER_MOC}
 		${TBVIEWER_UI}
+		${TBQT_COMMON_RC}
 	)
 	target_compile_definitions(tbviewer PRIVATE QT_NO_KEYWORDS)
 	target_include_directories(tbviewer PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
