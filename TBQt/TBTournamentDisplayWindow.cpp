@@ -20,13 +20,10 @@ struct TBTournamentDisplayWindow::impl
     // UI
     Ui::TBTournamentDisplayWindow ui {};
 
-    // Session reference
-    TournamentSession& session;
-
     // Child windows
     TBActionClockWindow* actionClockWindow;
 
-    explicit impl(TournamentSession& sess, TBTournamentDisplayWindow* parent) : session(sess), actionClockWindow(new TBActionClockWindow(sess, parent))
+    explicit impl(TournamentSession& sess, TBTournamentDisplayWindow* parent) : actionClockWindow(new TBActionClockWindow(sess, parent))
     {
     }
 };
@@ -70,7 +67,7 @@ TBTournamentDisplayWindow::TBTournamentDisplayWindow(TournamentSession& session,
     chipsHeader->setSectionResizeMode(1, QHeaderView::Stretch);
 
     // Set up results model
-    auto* resultsModel = new TBResultsModel(pimpl->session, this);
+    auto* resultsModel = new TBResultsModel(session, this);
     pimpl->ui.resultsTableView->setModel(resultsModel);
 
     // Configure column sizing for results view
@@ -81,7 +78,7 @@ TBTournamentDisplayWindow::TBTournamentDisplayWindow(TournamentSession& session,
     resultsHeader->setSectionResizeMode(2, QHeaderView::ResizeToContents);
 
     // Connect to session state changes
-    QObject::connect(&pimpl->session, &TournamentSession::stateChanged, this, &TBTournamentDisplayWindow::on_tournamentStateChanged);
+    QObject::connect(&session, &TournamentSession::stateChanged, this, &TBTournamentDisplayWindow::on_tournamentStateChanged);
 
     // Connect action clock window signals
     QObject::connect(pimpl->actionClockWindow, &TBActionClockWindow::clockCanceled, this, &TBTournamentDisplayWindow::onActionClockCanceled);
@@ -99,125 +96,117 @@ TBTournamentDisplayWindow::TBTournamentDisplayWindow(TournamentSession& session,
     pimpl->ui.resultsGroupBox->setFont(groupBoxTitleFont);
 
     // Initial update
-    this->updateTournamentName();
-    this->updateTournamentBuyin();
-    this->updateCurrentRoundNumber();
-    this->updatePlayersLeft();
-    this->updateTotalEntries();
-    this->updateAverageStack();
-    this->updateElapsedTime();
-    this->updateTournamentClock();
-    this->updateCurrentRoundInfo();
-    this->updateNextRoundInfo();
-    this->updateAvailableChips();
-    this->updateBackgroundColor();
+    this->updateFromState(session.state());
 }
 
 void TBTournamentDisplayWindow::onActionClockCanceled()
 {
-    pimpl->session.clear_action_clock();
+    Q_EMIT actionClockClearRequested();
 }
 
 TBTournamentDisplayWindow::~TBTournamentDisplayWindow() = default;
+
+void TBTournamentDisplayWindow::updateFromState(const QVariantMap& state)
+{
+    this->updateTournamentName(state);
+    this->updateTournamentBuyin(state);
+    this->updateCurrentRoundNumber(state);
+    this->updatePlayersLeft(state);
+    this->updateTotalEntries(state);
+    this->updateAverageStack(state);
+    this->updateElapsedTime(state);
+    this->updateTournamentClock(state);
+    this->updateCurrentRoundInfo(state);
+    this->updateNextRoundInfo(state);
+    this->updateAvailableChips(state);
+    this->updateBackgroundColor(state);
+}
 
 void TBTournamentDisplayWindow::on_tournamentStateChanged(const QString& key, const QVariant& value)
 {
     Q_UNUSED(value)
 
+    // Get the session that sent the signal
+    auto* session = qobject_cast<TournamentSession*>(sender());
+    if(!session)
+    {
+        return;
+    }
+
+    const QVariantMap& state = session->state();
+
     if(key == "name")
     {
-        this->updateTournamentName();
+        this->updateTournamentName(state);
     }
     else if(key == "buyin_text")
     {
-        this->updateTournamentBuyin();
+        this->updateTournamentBuyin(state);
     }
     else if(key == "current_round_number_text")
     {
-        this->updateCurrentRoundNumber();
+        this->updateCurrentRoundNumber(state);
     }
     else if(key == "players_left_text")
     {
-        this->updatePlayersLeft();
+        this->updatePlayersLeft(state);
     }
     else if(key == "entries_text")
     {
-        this->updateTotalEntries();
+        this->updateTotalEntries(state);
     }
     else if(key == "average_stack_text")
     {
-        this->updateAverageStack();
+        this->updateAverageStack(state);
     }
     else if(key == "elapsed_time_text")
     {
-        this->updateElapsedTime();
+        this->updateElapsedTime(state);
     }
     else if(key == "clock_text")
     {
-        this->updateTournamentClock();
+        this->updateTournamentClock(state);
     }
     else if(key == "current_round_text")
     {
-        this->updateCurrentRoundInfo();
+        this->updateCurrentRoundInfo(state);
     }
     else if(key == "next_round_text")
     {
-        this->updateNextRoundInfo();
+        this->updateNextRoundInfo(state);
     }
     else if(key == "available_chips")
     {
-        this->updateAvailableChips();
+        this->updateAvailableChips(state);
     }
     else if(key == "background_color")
     {
-        this->updateBackgroundColor();
+        this->updateBackgroundColor(state);
     }
 }
 
 void TBTournamentDisplayWindow::on_previousRoundButtonClicked()
 {
-    const auto& current_blind_level(pimpl->session.state()["current_blind_level"].toInt());
-    if(current_blind_level != 0)
-    {
-        pimpl->session.set_previous_level();
-    }
+    Q_EMIT previousLevelRequested();
 }
 
 void TBTournamentDisplayWindow::on_pauseResumeButtonClicked()
 {
-    const auto& current_blind_level(pimpl->session.state()["current_blind_level"].toInt());
-    if(current_blind_level != 0)
-    {
-        pimpl->session.toggle_pause_game();
-    }
-    else
-    {
-        pimpl->session.start_game();
-    }
+    Q_EMIT pauseToggleRequested();
 }
 
 void TBTournamentDisplayWindow::on_nextRoundButtonClicked()
 {
-    const auto& current_blind_level(pimpl->session.state()["current_blind_level"].toInt());
-    if(current_blind_level != 0)
-    {
-        pimpl->session.set_next_level();
-    }
+    Q_EMIT nextLevelRequested();
 }
 
 void TBTournamentDisplayWindow::on_callClockButtonClicked()
 {
-    const auto& current_blind_level(pimpl->session.state()["current_blind_level"].toInt());
-    const auto& actionClockTimeRemaining(pimpl->session.state()["action_clock_time_remaining"].toInt());
-    if(current_blind_level != 0 && actionClockTimeRemaining == 0)
-    {
-        pimpl->session.set_action_clock(TournamentSession::kActionClockRequestTime);
-    }
+    Q_EMIT actionClockStartRequested();
 }
 
-void TBTournamentDisplayWindow::updateTournamentName()
+void TBTournamentDisplayWindow::updateTournamentName(const QVariantMap& state)
 {
-    const QVariantMap& state = pimpl->session.state();
     QString tournamentName = state.value("name").toString();
     pimpl->ui.tournamentNameLabel->setText(tournamentName);
 
@@ -232,76 +221,64 @@ void TBTournamentDisplayWindow::updateTournamentName()
     }
 }
 
-void TBTournamentDisplayWindow::updateTournamentBuyin()
+void TBTournamentDisplayWindow::updateTournamentBuyin(const QVariantMap& state)
 {
-    const QVariantMap& state = pimpl->session.state();
     pimpl->ui.fundingSourcesLabel->setText(state.value("buyin_text").toString());
 }
 
-void TBTournamentDisplayWindow::updateCurrentRoundNumber()
+void TBTournamentDisplayWindow::updateCurrentRoundNumber(const QVariantMap& state)
 {
-    const QVariantMap& state = pimpl->session.state();
     pimpl->ui.currentRoundValue->setText(state.value("current_round_number_text").toString());
 }
 
-void TBTournamentDisplayWindow::updatePlayersLeft()
+void TBTournamentDisplayWindow::updatePlayersLeft(const QVariantMap& state)
 {
-    const QVariantMap& state = pimpl->session.state();
     pimpl->ui.playersLeftValue->setText(state.value("players_left_text").toString());
 }
 
-void TBTournamentDisplayWindow::updateTotalEntries()
+void TBTournamentDisplayWindow::updateTotalEntries(const QVariantMap& state)
 {
-    const QVariantMap& state = pimpl->session.state();
     pimpl->ui.totalEntriesValue->setText(state.value("entries_text").toString());
 }
 
-void TBTournamentDisplayWindow::updateAverageStack()
+void TBTournamentDisplayWindow::updateAverageStack(const QVariantMap& state)
 {
-    const QVariantMap& state = pimpl->session.state();
     pimpl->ui.averageStackValue->setText(state.value("average_stack_text").toString());
 }
 
-void TBTournamentDisplayWindow::updateElapsedTime()
+void TBTournamentDisplayWindow::updateElapsedTime(const QVariantMap& state)
 {
-    const QVariantMap& state = pimpl->session.state();
     pimpl->ui.elapsedTimeValue->setText(state.value("elapsed_time_text").toString());
 }
 
-void TBTournamentDisplayWindow::updateTournamentClock()
+void TBTournamentDisplayWindow::updateTournamentClock(const QVariantMap& state)
 {
-    const QVariantMap& state = pimpl->session.state();
     pimpl->ui.tournamentClockLabel->setText(state.value("clock_text").toString());
 }
 
-void TBTournamentDisplayWindow::updateCurrentRoundInfo()
+void TBTournamentDisplayWindow::updateCurrentRoundInfo(const QVariantMap& state)
 {
-    const QVariantMap& state = pimpl->session.state();
     pimpl->ui.currentRoundInfoLabel->setText(state.value("current_round_text").toString());
 }
 
-void TBTournamentDisplayWindow::updateNextRoundInfo()
+void TBTournamentDisplayWindow::updateNextRoundInfo(const QVariantMap& state)
 {
-    const QVariantMap& state = pimpl->session.state();
     pimpl->ui.nextRoundInfoLabel->setText(state.value("next_round_text").toString());
 }
 
-void TBTournamentDisplayWindow::updateAvailableChips()
+void TBTournamentDisplayWindow::updateAvailableChips(const QVariantMap& state)
 {
     // Update chips model
     auto* chipsModel = qobject_cast<TBVariantListTableModel*>(pimpl->ui.chipsTableView->model());
     if(chipsModel)
     {
-        const QVariantMap& state = pimpl->session.state();
-
         // Use available_chips from configuration state
         chipsModel->setListData(state.value("available_chips").toList());
     }
 }
 
-void TBTournamentDisplayWindow::updateBackgroundColor()
+void TBTournamentDisplayWindow::updateBackgroundColor(const QVariantMap& state)
 {
-    const QVariantMap& state = pimpl->session.state();
     QString backgroundColorName = state.value("background_color").toString();
 
     // Set background color using base class method

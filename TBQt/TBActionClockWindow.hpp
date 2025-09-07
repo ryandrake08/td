@@ -15,7 +15,7 @@ class TBActionClockWindow : public QWidget
     std::unique_ptr<impl> pimpl;
 
     // updaters for various changeable UI controls
-    void updateActionClock();
+    void updateActionClock(const QVariantMap& state);
 
 private Q_SLOTS:
     void on_tournamentStateChanged(const QString& key, const QVariant& value);

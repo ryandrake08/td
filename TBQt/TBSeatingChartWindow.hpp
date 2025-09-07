@@ -15,10 +15,11 @@ class TBSeatingChartWindow : public TBBaseAuxiliaryWindow
     std::unique_ptr<impl> pimpl;
 
     // updaters for various changeable UI controls
-    void updateTournamentName();
-    void updateTournamentBuyin();
-    void updateBackgroundColor();
-    void updateSeatingChart();
+    void updateFromState(const QVariantMap& state);
+    void updateTournamentName(const QVariantMap& state);
+    void updateTournamentBuyin(const QVariantMap& state);
+    void updateBackgroundColor(const QVariantMap& state);
+    void updateSeatingChart(const QVariantMap& state);
 
 private Q_SLOTS:
     void on_tournamentStateChanged(const QString& key, const QVariant& value);

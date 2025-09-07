@@ -9,15 +9,13 @@
 
 struct TBActionClockWindow::impl
 {
-    TournamentSession& session;
-
     // Child widgets
     TBActionClockWidget* clockWidget;
 
-    explicit impl(TournamentSession& sess, TBActionClockWindow* parent) : session(sess), clockWidget(new TBActionClockWidget(parent)) {}
+    explicit impl(TBActionClockWindow* parent) : clockWidget(new TBActionClockWidget(parent)) {}
 };
 
-TBActionClockWindow::TBActionClockWindow(TournamentSession& session, QWidget* parent) : QWidget(parent), pimpl(new impl(session, this))
+TBActionClockWindow::TBActionClockWindow(TournamentSession& session, QWidget* parent) : QWidget(parent), pimpl(new impl(this))
 {
     // Set window properties
     setWindowTitle(tr("Action Clock"));
@@ -29,10 +27,10 @@ TBActionClockWindow::TBActionClockWindow(TournamentSession& session, QWidget* pa
     layout->addWidget(pimpl->clockWidget);
 
     // Connect to session state changes
-    QObject::connect(&pimpl->session, &TournamentSession::stateChanged, this, &TBActionClockWindow::on_tournamentStateChanged);
+    QObject::connect(&session, &TournamentSession::stateChanged, this, &TBActionClockWindow::on_tournamentStateChanged);
 
     // Initialize clock state
-    this->updateActionClock();
+    this->updateActionClock(session.state());
 }
 
 TBActionClockWindow::~TBActionClockWindow() = default;
@@ -69,7 +67,12 @@ void TBActionClockWindow::on_tournamentStateChanged(const QString& key, const QV
 
     if(key == "action_clock_time_remaining")
     {
-        this->updateActionClock();
+        // Get the session that sent the signal
+        auto* session = qobject_cast<TournamentSession*>(sender());
+        if(session)
+        {
+            this->updateActionClock(session->state());
+        }
     }
 }
 
@@ -80,9 +83,8 @@ void TBActionClockWindow::closeEvent(QCloseEvent* event)
     event->accept();
 }
 
-void TBActionClockWindow::updateActionClock()
+void TBActionClockWindow::updateActionClock(const QVariantMap& state)
 {
-    const QVariantMap& state = pimpl->session.state();
 
     int timeRemaining = state["action_clock_time_remaining"].toInt();
     if(timeRemaining > 0)

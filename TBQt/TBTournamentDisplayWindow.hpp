@@ -17,18 +17,19 @@ class TBTournamentDisplayWindow : public TBBaseAuxiliaryWindow
     std::unique_ptr<impl> pimpl;
 
     // updaters for various changeable UI controls
-    void updateTournamentName();
-    void updateTournamentBuyin();
-    void updateBackgroundColor();
-    void updateCurrentRoundNumber();
-    void updatePlayersLeft();
-    void updateTotalEntries();
-    void updateAverageStack();
-    void updateElapsedTime();
-    void updateTournamentClock();
-    void updateCurrentRoundInfo();
-    void updateNextRoundInfo();
-    void updateAvailableChips();
+    void updateFromState(const QVariantMap& state);
+    void updateTournamentName(const QVariantMap& state);
+    void updateTournamentBuyin(const QVariantMap& state);
+    void updateBackgroundColor(const QVariantMap& state);
+    void updateCurrentRoundNumber(const QVariantMap& state);
+    void updatePlayersLeft(const QVariantMap& state);
+    void updateTotalEntries(const QVariantMap& state);
+    void updateAverageStack(const QVariantMap& state);
+    void updateElapsedTime(const QVariantMap& state);
+    void updateTournamentClock(const QVariantMap& state);
+    void updateCurrentRoundInfo(const QVariantMap& state);
+    void updateNextRoundInfo(const QVariantMap& state);
+    void updateAvailableChips(const QVariantMap& state);
 
 private Q_SLOTS:
     void on_tournamentStateChanged(const QString& key, const QVariant& value);
@@ -41,4 +42,12 @@ private Q_SLOTS:
 public:
     explicit TBTournamentDisplayWindow(TournamentSession& session, QWidget* parent = nullptr);
     virtual ~TBTournamentDisplayWindow() override;
+
+Q_SIGNALS:
+    void actionClockClearRequested();
+    void previousLevelRequested();
+    void pauseToggleRequested();
+    void gameStartRequested();
+    void nextLevelRequested();
+    void actionClockStartRequested();
 };

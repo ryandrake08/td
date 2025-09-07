@@ -16,17 +16,14 @@ struct TBSeatingChartWindow::impl
     // UI
     Ui::TBSeatingChartWindow ui {};
 
-    // Session reference
-    TournamentSession& session;
-
     // Internal data
     QMap<QString, QVariantList> tables; // Table name -> list of seats
     QList<TBTableWidget*> tableWidgets;
 
-    explicit impl(TournamentSession& sess) : session(sess) {}
+    explicit impl() = default;
 };
 
-TBSeatingChartWindow::TBSeatingChartWindow(TournamentSession& sess, QWidget* parent) : TBBaseAuxiliaryWindow(parent), pimpl(new impl(sess))
+TBSeatingChartWindow::TBSeatingChartWindow(TournamentSession& sess, QWidget* parent) : TBBaseAuxiliaryWindow(parent), pimpl(new impl)
 {
     pimpl->ui.setupUi(this);
 
@@ -35,42 +32,55 @@ TBSeatingChartWindow::TBSeatingChartWindow(TournamentSession& sess, QWidget* par
     pimpl->ui.scrollAreaWidgetContents->setLayout(flowLayout);
 
     // Connect to session state changes
-    QObject::connect(&pimpl->session, &TournamentSession::stateChanged, this, &TBSeatingChartWindow::on_tournamentStateChanged);
+    QObject::connect(&sess, &TournamentSession::stateChanged, this, &TBSeatingChartWindow::on_tournamentStateChanged);
 
     // Initial update
-    this->updateTournamentName();
-    this->updateTournamentBuyin();
-    this->updateBackgroundColor();
-    this->updateSeatingChart();
+    this->updateFromState(sess.state());
 }
 
 TBSeatingChartWindow::~TBSeatingChartWindow() = default;
+
+void TBSeatingChartWindow::updateFromState(const QVariantMap& state)
+{
+    this->updateTournamentName(state);
+    this->updateTournamentBuyin(state);
+    this->updateBackgroundColor(state);
+    this->updateSeatingChart(state);
+}
 
 void TBSeatingChartWindow::on_tournamentStateChanged(const QString& key, const QVariant& value)
 {
     Q_UNUSED(value)
 
+    // Get the session that sent the signal
+    auto* session = qobject_cast<TournamentSession*>(sender());
+    if(!session)
+    {
+        return;
+    }
+
+    const QVariantMap& state = session->state();
+
     if(key == "name")
     {
-        this->updateTournamentName();
+        this->updateTournamentName(state);
     }
     else if(key == "buyin_text")
     {
-        this->updateTournamentBuyin();
+        this->updateTournamentBuyin(state);
     }
     else if(key == "background_color")
     {
-        this->updateBackgroundColor();
+        this->updateBackgroundColor(state);
     }
     else if(key == "seating_chart")
     {
-        this->updateSeatingChart();
+        this->updateSeatingChart(state);
     }
 }
 
-void TBSeatingChartWindow::updateTournamentName()
+void TBSeatingChartWindow::updateTournamentName(const QVariantMap& state)
 {
-    const QVariantMap& state = pimpl->session.state();
     QString tournamentName = state.value("name").toString();
     pimpl->ui.tournamentNameLabel->setText(tournamentName);
 
@@ -85,24 +95,21 @@ void TBSeatingChartWindow::updateTournamentName()
     }
 }
 
-void TBSeatingChartWindow::updateTournamentBuyin()
+void TBSeatingChartWindow::updateTournamentBuyin(const QVariantMap& state)
 {
-    const QVariantMap& state = pimpl->session.state();
     pimpl->ui.buyinLabel->setText(state.value("buyin_text").toString());
 }
 
-void TBSeatingChartWindow::updateBackgroundColor()
+void TBSeatingChartWindow::updateBackgroundColor(const QVariantMap& state)
 {
-    const QVariantMap& state = pimpl->session.state();
     QString backgroundColorName = state.value("background_color").toString();
 
     // Set background color using base class method
     this->setBackgroundColorString(backgroundColorName);
 }
 
-void TBSeatingChartWindow::updateSeatingChart()
+void TBSeatingChartWindow::updateSeatingChart(const QVariantMap& state)
 {
-    const QVariantMap& state = pimpl->session.state();
 
     // Clear existing tables data
     pimpl->tables.clear();
