@@ -91,6 +91,10 @@ if(APPLE)
 	list(APPEND CMAKE_PREFIX_PATH "/usr/local/opt/qt@5")
 endif()
 
+# Force Qt to use shared libraries for license compliance
+set(Qt5_USE_STATIC_LIBS OFF)
+set(Qt5_USE_STATIC_RUNTIME OFF)
+
 find_package(Qt5 COMPONENTS Core Network Widgets Multimedia)
 if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND AND Qt5Multimedia_FOUND)
 	# Define application metadata variables (shared between C++ and Info.plist)
@@ -202,35 +206,114 @@ if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND AND Qt5Multimedia_FOU
 
 	find_package(Threads REQUIRED)
 	set(CMAKE_INCLUDE_CURRENT_DIR ON)
-	qt5_wrap_cpp(TBUDDY_MOC
+	
+	# Create shared TBQt library with common functionality
+	qt5_wrap_cpp(TBQT_COMMON_MOC
 		TBQt/TBActionClockWidget.hpp
 		TBQt/TBActionClockWindow.hpp
-		TBQt/TBAnteTypeDelegate.hpp
-		TBQt/TBAuthCodeDialog.hpp
 		TBQt/TBBackgroundMonitor.hpp
 		TBQt/TBBaseAuxiliaryWindow.hpp
 		TBQt/TBBaseMainWindow.hpp
-		TBQt/TBBlindLevelDelegate.hpp
-		TBQt/TBBuddyMainWindow.hpp
 		TBQt/TBChipDisplayDelegate.hpp
-		TBQt/TBColorDisplayDelegate.hpp
-		TBQt/TBDateEditDelegate.hpp
 		TBQt/TBFlowLayout.hpp
-		TBQt/TBFundingDetailsDelegate.hpp
-		TBQt/TBFundingTypeDelegate.hpp
 		TBQt/TBInvertableButton.hpp
-		TBQt/TBManageButtonDelegate.hpp
-		TBQt/TBMovementDialog.hpp
 		TBQt/TBPlayersModel.hpp
 		TBQt/TBResultsModel.hpp
-		TBQt/TBRoundsModel.hpp
 		TBQt/TBScalableLabel.hpp
 		TBQt/TBSeatingChartWindow.hpp
-		TBQt/TBSeatingCompoundSortProxyModel.hpp
-		TBQt/TBSeatingModel.hpp
 		TBQt/TBSettingsDialog.hpp
 		TBQt/SignalHandler.hpp
 		TBQt/TBSoundPlayer.hpp
+		TBQt/TBTableWidget.hpp
+		TBQt/TBTournamentDisplayWindow.hpp
+		TBQt/TBVariantListTableModel.hpp
+		TBQt/TournamentConnection.hpp
+		TBQt/TournamentSession.hpp)
+	qt5_wrap_ui(TBQT_COMMON_UI
+		TBQt/TBSeatingChartWindow.ui
+		TBQt/TBSettingsDialog.ui
+		TBQt/TBTableWidget.ui
+		TBQt/TBTournamentDisplayWindow.ui)
+	qt5_add_resources(TBQT_COMMON_RC
+		TBQt/TBQt.qrc)
+
+	add_library(tbqt_common STATIC
+		TBQt/SignalHandler.cpp
+		TBQt/SignalHandler.hpp
+		TBQt/TBActionClockWidget.cpp
+		TBQt/TBActionClockWidget.hpp
+		TBQt/TBActionClockWindow.cpp
+		TBQt/TBActionClockWindow.hpp
+		TBQt/TBBackgroundMonitor.cpp
+		TBQt/TBBackgroundMonitor.hpp
+		TBQt/TBBaseAuxiliaryWindow.cpp
+		TBQt/TBBaseAuxiliaryWindow.hpp
+		TBQt/TBBaseMainWindow.cpp
+		TBQt/TBBaseMainWindow.hpp
+		TBQt/TBChipDisplayDelegate.cpp
+		TBQt/TBChipDisplayDelegate.hpp
+		TBQt/TBColorUtils.hpp
+		TBQt/TBCurrency.cpp
+		TBQt/TBCurrency.hpp
+		TBQt/TBFlowLayout.cpp
+		TBQt/TBFlowLayout.hpp
+		TBQt/TBImageInversionHelper.cpp
+		TBQt/TBImageInversionHelper.hpp
+		TBQt/TBInvertableButton.cpp
+		TBQt/TBInvertableButton.hpp
+		TBQt/TBPlayersModel.cpp
+		TBQt/TBPlayersModel.hpp
+		TBQt/TBResultsModel.cpp
+		TBQt/TBResultsModel.hpp
+		TBQt/TBRuntimeError.cpp
+		TBQt/TBRuntimeError.hpp
+		TBQt/TBScalableLabel.cpp
+		TBQt/TBScalableLabel.hpp
+		TBQt/TBSeatingChartWindow.cpp
+		TBQt/TBSeatingChartWindow.hpp
+		TBQt/TBSettingsDialog.cpp
+		TBQt/TBSettingsDialog.hpp
+		TBQt/TBSoundPlayer.cpp
+		TBQt/TBSoundPlayer.hpp
+		TBQt/TBTableViewUtils.cpp
+		TBQt/TBTableViewUtils.hpp
+		TBQt/TBTableWidget.cpp
+		TBQt/TBTableWidget.hpp
+		TBQt/TBTournamentDisplayWindow.cpp
+		TBQt/TBTournamentDisplayWindow.hpp
+		TBQt/TBVariantListTableModel.cpp
+		TBQt/TBVariantListTableModel.hpp
+		TBQt/TournamentConnection.cpp
+		TBQt/TournamentConnection.hpp
+		TBQt/TournamentDaemon.cpp
+		TBQt/TournamentDaemon.hpp
+		TBQt/TournamentService.cpp
+		TBQt/TournamentService.hpp
+		TBQt/TournamentSession.cpp
+		TBQt/TournamentSession.hpp
+		${TBQT_COMMON_MOC}
+		${TBQT_COMMON_UI}
+		${TBQT_COMMON_RC}
+	)
+	target_compile_definitions(tbqt_common PRIVATE QT_NO_KEYWORDS)
+	target_include_directories(tbqt_common PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
+	target_link_libraries(tbqt_common td qmdnsengine Qt5::Network Qt5::Widgets Qt5::Multimedia ${CMAKE_THREAD_LIBS_INIT} ${OS_LIBRARIES})
+	target_compile_features(tbqt_common PUBLIC cxx_std_11)
+
+	qt5_wrap_cpp(TBUDDY_MOC
+		TBQt/TBAnteTypeDelegate.hpp
+		TBQt/TBAuthCodeDialog.hpp
+		TBQt/TBBlindLevelDelegate.hpp
+		TBQt/TBBuddyMainWindow.hpp
+		TBQt/TBColorDisplayDelegate.hpp
+		TBQt/TBDateEditDelegate.hpp
+		TBQt/TBFundingDetailsDelegate.hpp
+		TBQt/TBFundingTypeDelegate.hpp
+		TBQt/TBManageButtonDelegate.hpp
+		TBQt/TBMovementDialog.hpp
+		TBQt/TBRoundsModel.hpp
+		TBQt/TBSeatingCompoundSortProxyModel.hpp
+		TBQt/TBSeatingModel.hpp
 		TBQt/TBSetupChipsWidget.hpp
 		TBQt/TBSetupDevicesWidget.hpp
 		TBQt/TBSetupDialog.hpp
@@ -240,16 +323,10 @@ if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND AND Qt5Multimedia_FOU
 		TBQt/TBSetupRoundsWidget.hpp
 		TBQt/TBSetupTablesWidget.hpp
 		TBQt/TBSetupTabWidget.hpp
-		TBQt/TBTableWidget.hpp
-		TBQt/TBTournamentDisplayWindow.hpp
-		TBQt/TBVariantListTableModel.hpp
-		TBQt/TournamentConnection.hpp
-		TBQt/TournamentDocument.hpp
-		TBQt/TournamentSession.hpp)
+		TBQt/TournamentDocument.hpp)
 	qt5_wrap_ui(TBUDDY_UI
 		TBQt/TBBuddyMainWindow.ui
 		TBQt/TBMovementDialog.ui
-		TBQt/TBSeatingChartWindow.ui
 		TBQt/TBSetupChipsWidget.ui
 		TBQt/TBSetupDevicesWidget.ui
 		TBQt/TBSetupDialog.ui
@@ -257,77 +334,35 @@ if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND AND Qt5Multimedia_FOU
 		TBQt/TBSetupPayoutsWidget.ui
 		TBQt/TBSetupPlayersWidget.ui
 		TBQt/TBSetupRoundsWidget.ui
-		TBQt/TBSetupTablesWidget.ui
-		TBQt/TBSettingsDialog.ui
-		TBQt/TBTableWidget.ui
-		TBQt/TBTournamentDisplayWindow.ui)
-	qt5_add_resources(TBUDDY_RC
-		TBQt/TBQt.qrc)
+		TBQt/TBSetupTablesWidget.ui)
 	add_executable(tbuddy
 		TBQt/tbuddy.cpp
-		TBQt/TBActionClockWidget.cpp
-		TBQt/TBActionClockWidget.hpp
-		TBQt/TBActionClockWindow.cpp
-		TBQt/TBActionClockWindow.hpp
 		TBQt/TBAnteTypeDelegate.cpp
 		TBQt/TBAnteTypeDelegate.hpp
 		TBQt/TBAuthCodeDialog.cpp
 		TBQt/TBAuthCodeDialog.hpp
-		TBQt/TBBackgroundMonitor.cpp
-		TBQt/TBBackgroundMonitor.hpp
-		TBQt/TBBaseAuxiliaryWindow.cpp
-		TBQt/TBBaseAuxiliaryWindow.hpp
-		TBQt/TBColorUtils.hpp
-		TBQt/TBBaseMainWindow.cpp
-		TBQt/TBBaseMainWindow.hpp
 		TBQt/TBBlindLevelDelegate.cpp
 		TBQt/TBBlindLevelDelegate.hpp
 		TBQt/TBBuddyMainWindow.cpp
 		TBQt/TBBuddyMainWindow.hpp
-		TBQt/TBChipDisplayDelegate.cpp
-		TBQt/TBChipDisplayDelegate.hpp
 		TBQt/TBColorDisplayDelegate.cpp
 		TBQt/TBColorDisplayDelegate.hpp
-		TBQt/TBCurrency.cpp
-		TBQt/TBCurrency.hpp
 		TBQt/TBDateEditDelegate.cpp
 		TBQt/TBDateEditDelegate.hpp
-		TBQt/TBFlowLayout.cpp
-		TBQt/TBFlowLayout.hpp
 		TBQt/TBFundingDetailsDelegate.cpp
 		TBQt/TBFundingDetailsDelegate.hpp
 		TBQt/TBFundingTypeDelegate.cpp
 		TBQt/TBFundingTypeDelegate.hpp
-		TBQt/TBImageInversionHelper.cpp
-		TBQt/TBImageInversionHelper.hpp
-		TBQt/TBInvertableButton.cpp
-		TBQt/TBInvertableButton.hpp
 		TBQt/TBManageButtonDelegate.cpp
 		TBQt/TBManageButtonDelegate.hpp
 		TBQt/TBMovementDialog.cpp
 		TBQt/TBMovementDialog.hpp
-		TBQt/TBPlayersModel.cpp
-		TBQt/TBPlayersModel.hpp
-		TBQt/TBResultsModel.cpp
-		TBQt/TBResultsModel.hpp
 		TBQt/TBRoundsModel.cpp
 		TBQt/TBRoundsModel.hpp
-		TBQt/TBRuntimeError.cpp
-		TBQt/TBRuntimeError.hpp
-		TBQt/TBScalableLabel.cpp
-		TBQt/TBScalableLabel.hpp
-		TBQt/TBSeatingChartWindow.cpp
-		TBQt/TBSeatingChartWindow.hpp
 		TBQt/TBSeatingCompoundSortProxyModel.cpp
 		TBQt/TBSeatingCompoundSortProxyModel.hpp
 		TBQt/TBSeatingModel.cpp
 		TBQt/TBSeatingModel.hpp
-		TBQt/TBSettingsDialog.cpp
-		TBQt/TBSettingsDialog.hpp
-		TBQt/SignalHandler.cpp
-		TBQt/SignalHandler.hpp
-		TBQt/TBSoundPlayer.cpp
-		TBQt/TBSoundPlayer.hpp
 		TBQt/TBSetupChipsWidget.cpp
 		TBQt/TBSetupChipsWidget.hpp
 		TBQt/TBSetupDevicesWidget.cpp
@@ -346,31 +381,14 @@ if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND AND Qt5Multimedia_FOU
 		TBQt/TBSetupTablesWidget.hpp
 		TBQt/TBSetupTabWidget.cpp
 		TBQt/TBSetupTabWidget.hpp
-		TBQt/TBTableViewUtils.cpp
-		TBQt/TBTableViewUtils.hpp
-		TBQt/TBTableWidget.cpp
-		TBQt/TBTableWidget.hpp
-		TBQt/TBTournamentDisplayWindow.cpp
-		TBQt/TBTournamentDisplayWindow.hpp
-		TBQt/TBVariantListTableModel.cpp
-		TBQt/TBVariantListTableModel.hpp
-		TBQt/TournamentConnection.cpp
-		TBQt/TournamentConnection.hpp
-		TBQt/TournamentDaemon.cpp
-		TBQt/TournamentDaemon.hpp
 		TBQt/TournamentDocument.cpp
 		TBQt/TournamentDocument.hpp
-		TBQt/TournamentService.cpp
-		TBQt/TournamentService.hpp
-		TBQt/TournamentSession.cpp
-		TBQt/TournamentSession.hpp
 		${TBUDDY_MOC}
 		${TBUDDY_UI}
-		${TBUDDY_RC}
 	)
 	target_compile_definitions(tbuddy PRIVATE QT_NO_KEYWORDS)
 	target_include_directories(tbuddy PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
-	target_link_libraries(tbuddy td qmdnsengine Qt5::Network Qt5::Widgets Qt5::Multimedia ${CMAKE_THREAD_LIBS_INIT} ${OS_LIBRARIES})
+	target_link_libraries(tbuddy tbqt_common)
 	target_compile_features(tbuddy PUBLIC cxx_std_11)
 	# Platform-specific target properties and icon handling
 	if(APPLE)
@@ -400,106 +418,26 @@ if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND AND Qt5Multimedia_FOU
 	endif()
 
 	qt5_wrap_cpp(TBVIEWER_MOC
-		TBQt/TBActionClockWidget.hpp
-		TBQt/TBActionClockWindow.hpp
-		TBQt/TBBackgroundMonitor.hpp
-		TBQt/TBBaseAuxiliaryWindow.hpp
-		TBQt/TBBaseMainWindow.hpp
-		TBQt/TBChipDisplayDelegate.hpp
 		TBQt/TBConnectToDialog.hpp
-		TBQt/TBFlowLayout.hpp
-		TBQt/TBInvertableButton.hpp
-		TBQt/TBPlayersModel.hpp
-		TBQt/TBResultsModel.hpp
-		TBQt/TBScalableLabel.hpp
-		TBQt/TBSeatingChartWindow.hpp
-		TBQt/TBSettingsDialog.hpp
-		TBQt/SignalHandler.hpp
-		TBQt/TBSoundPlayer.hpp
-		TBQt/TBTableWidget.hpp
-		TBQt/TBTournamentDisplayWindow.hpp
-		TBQt/TBVariantListTableModel.hpp
 		TBQt/TournamentBrowser.hpp
-		TBQt/TBViewerMainWindow.hpp
-		TBQt/TournamentConnection.hpp
-		TBQt/TournamentSession.hpp)
+		TBQt/TBViewerMainWindow.hpp)
 	qt5_wrap_ui(TBVIEWER_UI
 		TBQt/TBConnectToDialog.ui
-		TBQt/TBSeatingChartWindow.ui
-		TBQt/TBSettingsDialog.ui
-		TBQt/TBTableWidget.ui
-		TBQt/TBTournamentDisplayWindow.ui
 		TBQt/TBViewerMainWindow.ui)
-	qt5_add_resources(TBVIEWER_RC
-		TBQt/TBQt.qrc)
 	add_executable(tbviewer
 		TBQt/tbviewer.cpp
-		TBQt/TBActionClockWidget.cpp
-		TBQt/TBActionClockWidget.hpp
-		TBQt/TBActionClockWindow.cpp
-		TBQt/TBActionClockWindow.hpp
-		TBQt/TBBackgroundMonitor.cpp
-		TBQt/TBBackgroundMonitor.hpp
-		TBQt/TBBaseAuxiliaryWindow.cpp
-		TBQt/TBBaseAuxiliaryWindow.hpp
-		TBQt/TBColorUtils.hpp
-		TBQt/TBBaseMainWindow.cpp
-		TBQt/TBBaseMainWindow.hpp
-		TBQt/TBChipDisplayDelegate.cpp
-		TBQt/TBChipDisplayDelegate.hpp
 		TBQt/TBConnectToDialog.cpp
 		TBQt/TBConnectToDialog.hpp
-		TBQt/TBCurrency.cpp
-		TBQt/TBCurrency.hpp
-		TBQt/TBFlowLayout.cpp
-		TBQt/TBFlowLayout.hpp
-		TBQt/TBImageInversionHelper.cpp
-		TBQt/TBImageInversionHelper.hpp
-		TBQt/TBInvertableButton.cpp
-		TBQt/TBInvertableButton.hpp
-		TBQt/TBPlayersModel.cpp
-		TBQt/TBPlayersModel.hpp
-		TBQt/TBResultsModel.cpp
-		TBQt/TBResultsModel.hpp
-		TBQt/TBRuntimeError.cpp
-		TBQt/TBRuntimeError.hpp
-		TBQt/TBScalableLabel.cpp
-		TBQt/TBScalableLabel.hpp
-		TBQt/TBSeatingChartWindow.cpp
-		TBQt/TBSeatingChartWindow.hpp
-		TBQt/TBSettingsDialog.cpp
-		TBQt/TBSettingsDialog.hpp
-		TBQt/SignalHandler.cpp
-		TBQt/SignalHandler.hpp
-		TBQt/TBSoundPlayer.cpp
-		TBQt/TBSoundPlayer.hpp
-		TBQt/TBTableViewUtils.cpp
-		TBQt/TBTableViewUtils.hpp
-		TBQt/TBTableWidget.cpp
-		TBQt/TBTableWidget.hpp
-		TBQt/TBTournamentDisplayWindow.cpp
-		TBQt/TBTournamentDisplayWindow.hpp
-		TBQt/TBVariantListTableModel.cpp
-		TBQt/TBVariantListTableModel.hpp
 		TBQt/TBViewerMainWindow.cpp
 		TBQt/TBViewerMainWindow.hpp
 		TBQt/TournamentBrowser.cpp
 		TBQt/TournamentBrowser.hpp
-		TBQt/TournamentConnection.cpp
-		TBQt/TournamentConnection.hpp
-		TBQt/TournamentDaemon.cpp
-		TBQt/TournamentDaemon.hpp
-		TBQt/TournamentService.cpp
-		TBQt/TournamentService.hpp
-		TBQt/TournamentSession.cpp
-		TBQt/TournamentSession.hpp
 		${TBVIEWER_MOC}
 		${TBVIEWER_UI}
-		${TBVIEWER_RC}
 	)
 	target_compile_definitions(tbviewer PRIVATE QT_NO_KEYWORDS)
 	target_include_directories(tbviewer PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
-	target_link_libraries(tbviewer td qmdnsengine Qt5::Network Qt5::Widgets Qt5::Multimedia ${CMAKE_THREAD_LIBS_INIT} ${OS_LIBRARIES})
+	target_link_libraries(tbviewer tbqt_common)
 	target_compile_features(tbviewer PUBLIC cxx_std_11)
 	# Platform-specific target properties and icon handling
 	if(APPLE)
