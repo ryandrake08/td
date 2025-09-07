@@ -1,6 +1,5 @@
 <RCC>
     <qresource prefix="/">
-        <file>../Resources/b_arrow_64x64.png</file>
         <file>../Resources/b_auth_64x64.png</file>
         <file>../Resources/b_call_clock_64x64.png</file>
         <file>../Resources/b_configure_64x64.png</file>
