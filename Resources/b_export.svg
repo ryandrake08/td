@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="32pt" height="32pt" viewBox="0 0 32 32">
+<path fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="rgb(0%, 0%, 0%)" stroke-opacity="1" stroke-miterlimit="10" d="M 0 0 L 20 0 L 31 11 L 31 20 " transform="matrix(0.5, 0, 0, 0.5, 6, 3.5)"/>
+<path fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="rgb(0%, 0%, 0%)" stroke-opacity="1" stroke-miterlimit="10" d="M 0 0 L 0 9 C 0 10.65625 1.34375 12 3 12 L 12 12 " transform="matrix(0.5, 0, 0, 0.5, 15.5, 3.5)"/>
+<path fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="rgb(0%, 0%, 0%)" stroke-opacity="1" stroke-miterlimit="10" d="M 0 0 L 30 0 Z M 0 0 " transform="matrix(0.5, 0, 0, 0.5, 12.5, 16.5)"/>
+<path fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="rgb(0%, 0%, 0%)" stroke-opacity="1" stroke-miterlimit="10" d="M 8 8 L 0 0 Z M 8 8 " transform="matrix(0.5, 0, 0, 0.5, 23.5, 12.5)"/>
+<path fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="rgb(0%, 0%, 0%)" stroke-opacity="1" stroke-miterlimit="10" d="M 8 0 L 0 8 Z M 8 0 " transform="matrix(0.5, 0, 0, 0.5, 23.5, 16.5)"/>
+<path fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="rgb(0%, 0%, 0%)" stroke-opacity="1" stroke-miterlimit="10" d="M 3 0 C 1.34375 0 0 1.34375 0 3 L 0 43 C 0 44.65625 1.34375 46 3 46 L 31 46 C 32.65625 46 34 44.65625 34 43 L 34 32 " transform="matrix(0.5, 0, 0, 0.5, 4.5, 3.5)"/>
+</svg>
