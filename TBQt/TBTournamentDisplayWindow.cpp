@@ -1,6 +1,7 @@
 #include "TBTournamentDisplayWindow.hpp"
 
 #include "TBActionClockWindow.hpp"
+#include "TBBackgroundMonitor.hpp"
 #include "TBChipDisplayDelegate.hpp"
 #include "TBInvertableButton.hpp"
 #include "TBPlayersModel.hpp"
@@ -23,6 +24,9 @@ struct TBTournamentDisplayWindow::impl
     // Child windows
     TBActionClockWindow* actionClockWindow;
 
+    // Background monitor for automatic button inversion
+    TBBackgroundMonitor* backgroundMonitor { nullptr };
+
     explicit impl(TournamentSession& sess, TBTournamentDisplayWindow* parent) : actionClockWindow(new TBActionClockWindow(sess, parent))
     {
     }
@@ -44,11 +48,12 @@ TBTournamentDisplayWindow::TBTournamentDisplayWindow(TournamentSession& session,
     QObject::connect(pimpl->ui.nextRoundButton, &QPushButton::clicked, this, &TBTournamentDisplayWindow::on_nextRoundButtonClicked);
     QObject::connect(pimpl->ui.callClockButton, &QPushButton::clicked, this, &TBTournamentDisplayWindow::on_callClockButtonClicked);
 
-    // Connect background theme changes to button inversion
-    QObject::connect(this, &TBTournamentDisplayWindow::backgroundIsDarkChanged, pimpl->ui.previousRoundButton, &TBInvertableButton::setImageInverted);
-    QObject::connect(this, &TBTournamentDisplayWindow::backgroundIsDarkChanged, pimpl->ui.pauseResumeButton, &TBInvertableButton::setImageInverted);
-    QObject::connect(this, &TBTournamentDisplayWindow::backgroundIsDarkChanged, pimpl->ui.nextRoundButton, &TBInvertableButton::setImageInverted);
-    QObject::connect(this, &TBTournamentDisplayWindow::backgroundIsDarkChanged, pimpl->ui.callClockButton, &TBInvertableButton::setImageInverted);
+    // Set up automatic background monitoring for button inversion
+    pimpl->backgroundMonitor = new TBBackgroundMonitor(this);
+    pimpl->backgroundMonitor->registerButton(pimpl->ui.previousRoundButton);
+    pimpl->backgroundMonitor->registerButton(pimpl->ui.pauseResumeButton);
+    pimpl->backgroundMonitor->registerButton(pimpl->ui.nextRoundButton);
+    pimpl->backgroundMonitor->registerButton(pimpl->ui.callClockButton);
 
     // Set up chips model
     auto* chipsModel = new TBVariantListTableModel(this);
@@ -283,4 +288,10 @@ void TBTournamentDisplayWindow::updateBackgroundColor(const QVariantMap& state)
 
     // Set background color using base class method
     this->setBackgroundColorString(backgroundColorName);
+
+    // Tell our background color monitor to update immediately
+    if(pimpl->backgroundMonitor)
+    {
+        pimpl->backgroundMonitor->checkAndUpdateButtons();
+    }
 }

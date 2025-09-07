@@ -58,7 +58,7 @@ struct TBBuddyMainWindow::impl
 TBBuddyMainWindow::TBBuddyMainWindow() : pimpl(new impl())
 {
     // set up moc
-    this->pimpl->ui.setupUi(this);
+    pimpl->ui.setupUi(this);
 
     // left pane: players model (all players with seat/unseat checkboxes)
     auto* playersModel(new TBPlayersModel(this->getSession(), this));

@@ -10,14 +10,13 @@ struct TBSettingsDialog::impl
 {
     Ui::TBSettingsDialog ui {};
 
-    explicit impl(TBSettingsDialog* parent)
-    {
-        ui.setupUi(parent);
-    }
+    explicit impl(TBSettingsDialog* /* parent */) {}
 };
 
 TBSettingsDialog::TBSettingsDialog(QWidget* parent) : QDialog(parent), pimpl(new impl(this))
 {
+    pimpl->ui.setupUi(this);
+
     // Populate screen selection comboboxes
     QList<QScreen*> screens = QApplication::screens();
 
