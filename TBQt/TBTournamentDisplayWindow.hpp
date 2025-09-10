@@ -31,6 +31,11 @@ class TBTournamentDisplayWindow : public TBBaseAuxiliaryWindow
     void updateNextRoundInfo(const QVariantMap& state);
     void updateAvailableChips(const QVariantMap& state);
 
+protected:
+    // Override window-specific icon switching to access UI objects directly
+    void overrideIconsForBackground(bool isDark) override;
+    void restoreThemeBasedIcons() override;
+
 private Q_SLOTS:
     void on_tournamentStateChanged(const QString& key, const QVariant& value);
     void on_previousRoundButtonClicked();

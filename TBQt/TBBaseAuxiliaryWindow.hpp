@@ -16,6 +16,11 @@ protected:
     // Set background and text colors using Qt stylesheet and update backgroundIsDark property
     void setBackgroundColorString(const QString& backgroundColorString);
 
+protected:
+    // Window-specific icon override system for custom backgrounds - override in derived classes
+    virtual void overrideIconsForBackground(bool isDark);
+    virtual void restoreThemeBasedIcons();
+
 public:
     explicit TBBaseAuxiliaryWindow(QWidget* parent = nullptr);
     virtual ~TBBaseAuxiliaryWindow() override;

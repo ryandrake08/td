@@ -289,6 +289,7 @@ if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND AND Qt5Multimedia_FOU
 		TBQt/TournamentSession.hpp
 		${TBQT_COMMON_MOC}
 		${TBQT_COMMON_UI}
+		Resources/TBQt.qrc
 	)
 	target_compile_definitions(tbqt_common PRIVATE QT_NO_KEYWORDS)
 	target_include_directories(tbqt_common PRIVATE ${CMAKE_CURRENT_BINARY_DIR})

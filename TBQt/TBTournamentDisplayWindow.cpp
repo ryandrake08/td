@@ -269,3 +269,24 @@ void TBTournamentDisplayWindow::updateBackgroundColor(const QVariantMap& state)
     this->setBackgroundColorString(state.value("background_color").toString());
 }
 
+void TBTournamentDisplayWindow::overrideIconsForBackground(bool isDark)
+{
+    // Override icons for this specific background color by accessing UI objects directly
+    const QString themePrefix = isDark ? ":/icons/dark_theme/svg/" : ":/icons/light_theme/svg/";
+    
+    // Set icons directly on known UI button objects
+    pimpl->ui.previousRoundButton->setIcon(QIcon(themePrefix + "b_previous.svg"));
+    pimpl->ui.pauseResumeButton->setIcon(QIcon(themePrefix + "b_play_pause.svg"));
+    pimpl->ui.nextRoundButton->setIcon(QIcon(themePrefix + "b_next.svg"));
+    pimpl->ui.callClockButton->setIcon(QIcon(themePrefix + "b_call_clock.svg"));
+}
+
+void TBTournamentDisplayWindow::restoreThemeBasedIcons()
+{
+    // Restore theme-based icons by accessing UI objects directly
+    pimpl->ui.previousRoundButton->setIcon(QIcon::fromTheme("b_previous"));
+    pimpl->ui.pauseResumeButton->setIcon(QIcon::fromTheme("b_play_pause"));
+    pimpl->ui.nextRoundButton->setIcon(QIcon::fromTheme("b_next"));
+    pimpl->ui.callClockButton->setIcon(QIcon::fromTheme("b_call_clock"));
+}
+

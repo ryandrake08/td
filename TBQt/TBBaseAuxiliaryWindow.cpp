@@ -37,32 +37,44 @@ void TBBaseAuxiliaryWindow::setBackgroundColorString(const QString& backgroundCo
         QColor backgroundColor(backgroundColorString);
         if(backgroundColor.isValid())
         {
-            // Create modified palette instead of using CSS stylesheets
-            QPalette palette = this->palette();
-            palette.setColor(QPalette::Window, backgroundColor);
+            bool isDark = backgroundColor.lightnessF() < 0.5;
 
             // Choose appropriate text color based on background darkness
-            QColor textColor = backgroundColor.lightnessF() < 0.5 ? Qt::white : Qt::black;
+            QColor textColor = isDark ? Qt::white : Qt::black;
 
-            // Set palette colors that Qt template icons can access
+            // Create modified palette
+            QPalette palette = this->palette();
+            palette.setColor(QPalette::Window, backgroundColor);
             palette.setColor(QPalette::WindowText, textColor);
+            palette.setColor(QPalette::Button, backgroundColor);
             palette.setColor(QPalette::ButtonText, textColor);
+            palette.setColor(QPalette::Base, backgroundColor);
+            palette.setColor(QPalette::AlternateBase, backgroundColor);
             palette.setColor(QPalette::Text, textColor);
 
-            // Apply palette and enable auto-fill background
+            // Apply palette to widget and child widgets
             this->setPalette(palette);
-            this->setAutoFillBackground(true);
+            for(QWidget* child : this->findChildren<QWidget*>())
+            {
+                child->setPalette(palette);
+            }
 
-            // Clear any existing stylesheets that would override palette
-            this->setStyleSheet(QString());
+            // Override icons for this specific background color
+            this->overrideIconsForBackground(isDark);
         }
     }
     else
     {
-        // Restore default palette and disable custom background
-        this->setPalette(QApplication::palette());
-        this->setAutoFillBackground(false);
-        this->setStyleSheet(QString());
+        // Restore default palette to widget and child widgets
+        QPalette palette = QApplication::palette();
+        this->setPalette(palette);
+        for(QWidget* child : this->findChildren<QWidget*>())
+        {
+            child->setPalette(palette);
+        }
+
+        // Restore theme-based icons
+        this->restoreThemeBasedIcons();
     }
 }
 
@@ -102,4 +114,12 @@ void TBBaseAuxiliaryWindow::showUsingDisplaySettings(const QString& windowType)
     // Always raise to the top and activate
     this->raise();
     this->activateWindow();
+}
+
+void TBBaseAuxiliaryWindow::overrideIconsForBackground(bool /* isDark */)
+{
+}
+
+void TBBaseAuxiliaryWindow::restoreThemeBasedIcons()
+{
 }
