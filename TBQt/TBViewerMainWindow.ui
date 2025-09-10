@@ -21,7 +21,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="TBQt.qrc">
-    <normaloff>:/Resources/icon_256x256.png</normaloff>:/Resources/icon_256x256.png</iconset>
+    <normaloff>:/icons/i_application.svg</normaloff>:/icons/i_application.svg</iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
    <!-- Central widget will be replaced programmatically with TBTournamentDisplayWidget -->
@@ -102,8 +102,7 @@
   </action>
   <action name="actionPauseResume">
    <property name="icon">
-    <iconset resource="TBQt.qrc">
-     <normaloff>:/Resources/b_play_pause.svg</normaloff>:/Resources/b_play_pause.svg</iconset>
+    <iconset theme="b_play_pause"/>
    </property>
    <property name="text">
     <string>&amp;Pause/Resume</string>
@@ -114,8 +113,7 @@
   </action>
   <action name="actionPreviousRound">
    <property name="icon">
-    <iconset resource="TBQt.qrc">
-     <normaloff>:/Resources/b_previous.svg</normaloff>:/Resources/b_previous.svg</iconset>
+    <iconset theme="b_previous"/>
    </property>
    <property name="text">
     <string>&amp;Previous Round</string>
@@ -126,8 +124,7 @@
   </action>
   <action name="actionNextRound">
    <property name="icon">
-    <iconset resource="TBQt.qrc">
-     <normaloff>:/Resources/b_next.svg</normaloff>:/Resources/b_next.svg</iconset>
+    <iconset theme="b_next"/>
    </property>
    <property name="text">
     <string>&amp;Next Round</string>
@@ -138,8 +135,7 @@
   </action>
   <action name="actionCallClock">
    <property name="icon">
-    <iconset resource="TBQt.qrc">
-     <normaloff>:/Resources/b_call_clock.svg</normaloff>:/Resources/b_call_clock.svg</iconset>
+    <iconset theme="b_call_clock"/>
    </property>
    <property name="text">
     <string>&amp;Call the Clock</string>

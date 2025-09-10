@@ -1,0 +1,12 @@
+[Icon Theme]
+Name=light_theme
+Comment=light theme icons
+
+Directories=svg
+
+[svg]
+Size=32
+Context=Actions
+MinSize=16
+MaxSize=512
+Type=Scalable

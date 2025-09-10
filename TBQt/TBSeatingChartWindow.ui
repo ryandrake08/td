@@ -21,7 +21,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="TBQt.qrc">
-    <normaloff>:/Resources/icon_256x256.png</normaloff>:/Resources/icon_256x256.png</iconset>
+    <normaloff>:/icons/i_application.svg</normaloff>:/icons/i_application.svg</iconset>
   </property>
   <layout class="QVBoxLayout" name="mainLayout">
    <property name="margin">

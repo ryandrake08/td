@@ -31,11 +31,11 @@ TBSoundPlayer::TBSoundPlayer(QObject* parent) : QObject(parent), pimpl(new impl(
     pimpl->rebalanceSound = new QSoundEffect(this);
 
     // Load sound files from Resources (use WAV format for Qt cross-platform compatibility)
-    pimpl->startSound->setSource(QUrl("qrc:/Resources/s_start.wav"));
-    pimpl->nextSound->setSource(QUrl("qrc:/Resources/s_next.wav"));
-    pimpl->breakSound->setSource(QUrl("qrc:/Resources/s_break.wav"));
-    pimpl->warningSound->setSource(QUrl("qrc:/Resources/s_warning.wav"));
-    pimpl->rebalanceSound->setSource(QUrl("qrc:/Resources/s_rebalance.wav"));
+    pimpl->startSound->setSource(QUrl("qrc:/s_start.wav"));
+    pimpl->nextSound->setSource(QUrl("qrc:/s_next.wav"));
+    pimpl->breakSound->setSource(QUrl("qrc:/s_break.wav"));
+    pimpl->warningSound->setSource(QUrl("qrc:/s_warning.wav"));
+    pimpl->rebalanceSound->setSource(QUrl("qrc:/s_rebalance.wav"));
 
     // Sound files are now loading correctly with qrc:/ URLs
 

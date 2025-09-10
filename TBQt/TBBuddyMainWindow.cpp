@@ -173,7 +173,7 @@ void TBBuddyMainWindow::on_actionAbout_Poker_Buddy_triggered()
 {
     // show about box
     QMessageBox message(this);
-    message.setIconPixmap(QPixmap(":/Resources/icon_64x64.png"));
+    message.setIconPixmap(QIcon(":/icons/i_application.svg").pixmap(64, 64));
     message.setWindowTitle(QObject::tr("About %1...").arg(QCoreApplication::applicationName()));
     message.setText(QCoreApplication::applicationName());
     message.setInformativeText(QObject::tr("Version %1").arg(QCoreApplication::applicationVersion()));
@@ -245,24 +245,19 @@ void TBBuddyMainWindow::on_actionQuickStart_triggered()
     if(!seats.empty() || !buyins.empty())
     {
         // alert because this is a very destructive action
-        QMessageBox message(this);
-        message.setIconPixmap(QPixmap(":/Resources/icon_64x64.png"));
-        message.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
-        message.setText(QObject::tr("Quick Start"));
-
-        // display a different message if the game is running
         const auto& current_blind_level(this->getSession().state()["current_blind_level"].toInt());
+        QString informativeText;
         if(current_blind_level != 0)
         {
-            message.setInformativeText(QObject::tr("Quick Start will end the current tournament immediately, then re-seat and buy in all players."));
+            informativeText = QObject::tr("Quick Start will end the current tournament immediately, then re-seat and buy in all players.");
         }
         else
         {
-            message.setInformativeText(QObject::tr("Quick Start will clear any existing seats and buy-ins, then re-seat and buy in all players."));
+            informativeText = QObject::tr("Quick Start will clear any existing seats and buy-ins, then re-seat and buy in all players.");
         }
 
         // present and only perform setup if confirmed by user
-        if(message.exec() == QMessageBox::Ok)
+        if(QMessageBox::warning(this, QObject::tr("Quick Start"), informativeText, QMessageBox::Ok | QMessageBox::Cancel) == QMessageBox::Ok)
         {
             this->getSession().quick_setup();
         }
@@ -281,24 +276,19 @@ void TBBuddyMainWindow::on_actionReset_triggered()
     if(!seats.empty() || !buyins.empty())
     {
         // alert because this is a very destructive action
-        QMessageBox message(this);
-        message.setIconPixmap(QPixmap(":/Resources/icon_64x64.png"));
-        message.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
-        message.setText(QObject::tr("Reset tournament"));
-
-        // display a different message if the game is running
         const auto& current_blind_level(this->getSession().state()["current_blind_level"].toInt());
+        QString informativeText;
         if(current_blind_level != 0)
         {
-            message.setInformativeText(QObject::tr("This will end the current tournament immediately, then clear any existing seats and buy-ins."));
+            informativeText = QObject::tr("This will end the current tournament immediately, then clear any existing seats and buy-ins.");
         }
         else
         {
-            message.setInformativeText(QObject::tr("This will clear any existing seats and buy-ins."));
+            informativeText = QObject::tr("This will clear any existing seats and buy-ins.");
         }
 
         // present and only perform setup if confirmed by user
-        if(message.exec() == QMessageBox::Ok)
+        if(QMessageBox::warning(this, QObject::tr("Reset tournament"), informativeText, QMessageBox::Ok | QMessageBox::Cancel) == QMessageBox::Ok)
         {
             this->getSession().reset_state();
         }

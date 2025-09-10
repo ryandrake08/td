@@ -19,6 +19,10 @@
   <property name="windowTitle">
    <string>Tournament Display</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="TBQt.qrc">
+    <normaloff>:/icons/i_application.svg</normaloff>:/icons/i_application.svg</iconset>
+  </property>
   <layout class="QVBoxLayout" name="mainLayout">
     <property name="spacing">
      <number>10</number>
@@ -299,9 +303,7 @@
 Round</string>
                </property>
                <property name="icon">
-                <iconset resource="TBQt.qrc">
-                 <normaloff>:/Resources/b_previous.svg</normaloff>
-                </iconset>
+                <iconset theme="b_previous"/>
                </property>
                <property name="iconSize">
                 <size>
@@ -330,9 +332,7 @@ Round</string>
 Resume</string>
                </property>
                <property name="icon">
-                <iconset resource="TBQt.qrc">
-                 <normaloff>:/Resources/b_play_pause.svg</normaloff>
-                </iconset>
+                <iconset theme="b_play_pause"/>
                </property>
                <property name="iconSize">
                 <size>
@@ -361,9 +361,7 @@ Resume</string>
 Round</string>
                </property>
                <property name="icon">
-                <iconset resource="TBQt.qrc">
-                 <normaloff>:/Resources/b_next.svg</normaloff>
-                </iconset>
+                <iconset theme="b_next"/>
                </property>
                <property name="iconSize">
                 <size>
@@ -392,9 +390,7 @@ Round</string>
 Clock</string>
                </property>
                <property name="icon">
-                <iconset resource="TBQt.qrc">
-                 <normaloff>:/Resources/b_call_clock.svg</normaloff>
-                </iconset>
+                <iconset theme="b_call_clock"/>
                </property>
                <property name="iconSize">
                 <size>

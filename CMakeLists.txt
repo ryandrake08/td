@@ -211,7 +211,6 @@ if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND AND Qt5Multimedia_FOU
 	qt5_wrap_cpp(TBQT_COMMON_MOC
 		TBQt/TBActionClockWidget.hpp
 		TBQt/TBActionClockWindow.hpp
-		TBQt/TBBackgroundMonitor.hpp
 		TBQt/TBBaseAuxiliaryWindow.hpp
 		TBQt/TBBaseMainWindow.hpp
 		TBQt/TBChipDisplayDelegate.hpp
@@ -235,7 +234,7 @@ if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND AND Qt5Multimedia_FOU
 		TBQt/TBTableWidget.ui
 		TBQt/TBTournamentDisplayWindow.ui)
 	qt5_add_resources(TBQT_COMMON_RC
-		TBQt/TBQt.qrc)
+		Resources/TBQt.qrc)
 
 	add_library(tbqt_common STATIC
 		TBQt/SignalHandler.cpp
@@ -244,15 +243,12 @@ if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND AND Qt5Multimedia_FOU
 		TBQt/TBActionClockWidget.hpp
 		TBQt/TBActionClockWindow.cpp
 		TBQt/TBActionClockWindow.hpp
-		TBQt/TBBackgroundMonitor.cpp
-		TBQt/TBBackgroundMonitor.hpp
 		TBQt/TBBaseAuxiliaryWindow.cpp
 		TBQt/TBBaseAuxiliaryWindow.hpp
 		TBQt/TBBaseMainWindow.cpp
 		TBQt/TBBaseMainWindow.hpp
 		TBQt/TBChipDisplayDelegate.cpp
 		TBQt/TBChipDisplayDelegate.hpp
-		TBQt/TBColorUtils.hpp
 		TBQt/TBCurrency.cpp
 		TBQt/TBCurrency.hpp
 		TBQt/TBFlowLayout.cpp

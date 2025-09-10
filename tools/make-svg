@@ -1,12 +1,17 @@
 #!/bin/bash
 
-# NOTE: Requires packages pdf2svg and xmlstarlet
+# NOTE: Requires packages: ImageMagick, pdf2svg and xmlstarlet
 
-# Function to convert a single PDF to SVG template icon
-convert_pdf_to_svg() {
+# Function to convert a single PDF to SVG icon
+convert_pdf() {
     local filename="$1"
     local pdf_file="Art/${filename}.pdf"
-    local svg_file="Resources/${filename}.svg"
+    local svg_file="Resources/icons/${filename}.svg"
+    local light_svg_file="Resources/icons/light_theme/svg/${filename}.svg"
+    local dark_svg_file="Resources/icons/dark_theme/svg/${filename}.svg"
+
+    # Ensure directories exist
+    mkdir -p Resources/icons/light_theme/svg
 
     # Convert PDF to SVG
     if ! pdf2svg "$pdf_file" "$svg_file"; then
@@ -21,10 +26,18 @@ convert_pdf_to_svg() {
 
     # Convert stroke colors to black for template icon compatibility (skip for i_chip)
     if [[ "$filename" != "i_chip" ]]; then
-        xmlstarlet ed -P -L -N x="http://www.w3.org/2000/svg" \
+        xmlstarlet ed -P -N x="http://www.w3.org/2000/svg" \
             -u "//x:path[@stroke][starts-with(@stroke, 'rgb(')]/@stroke" \
             -v "rgb(0%, 0%, 0%)" \
-            "$svg_file"
+            "$svg_file" > "$light_svg_file"
+
+        xmlstarlet ed -P -N x="http://www.w3.org/2000/svg" \
+            -u "//x:path[@stroke][starts-with(@stroke, 'rgb(')]/@stroke" \
+            -v "rgb(100%, 100%, 100%)" \
+            "$svg_file" > "$dark_svg_file"
+
+        # Remove the working copy
+        rm -f "$svg_file"
     fi
 }
 
@@ -67,7 +80,12 @@ pdf_files=(
     "t_rounds"
 )
 
-# Convert all PDF files to template SVG icons
+# Convert all PDF files to SVG icons
 for filename in "${pdf_files[@]}"; do
-    convert_pdf_to_svg "$filename"
+    convert_pdf "$filename"
 done
+
+# Convert AI file into a SVG app icon
+magick -colorspace sRGB Art/piranha_osx.ai Resources/icons/i_application.pdf
+pdf2svg Resources/icons/i_application.pdf Resources/icons/i_application.svg
+rm Resources/icons/i_application.pdf

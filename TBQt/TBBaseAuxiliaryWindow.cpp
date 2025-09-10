@@ -1,5 +1,4 @@
 #include "TBBaseAuxiliaryWindow.hpp"
-#include "TBColorUtils.hpp"
 
 #include <QApplication>
 #include <QCloseEvent>
@@ -43,7 +42,7 @@ void TBBaseAuxiliaryWindow::setBackgroundColorString(const QString& backgroundCo
             palette.setColor(QPalette::Window, backgroundColor);
 
             // Choose appropriate text color based on background darkness
-            QColor textColor = TBColorUtils::colorIsDark(backgroundColor) ? Qt::white : Qt::black;
+            QColor textColor = backgroundColor.lightnessF() < 0.5 ? Qt::white : Qt::black;
 
             // Set palette colors that Qt template icons can access
             palette.setColor(QPalette::WindowText, textColor);

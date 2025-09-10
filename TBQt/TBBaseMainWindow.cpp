@@ -9,6 +9,9 @@
 #include <QAction>
 #include <QApplication>
 #include <QCloseEvent>
+#include <QColor>
+#include <QIcon>
+#include <QPalette>
 
 struct TBBaseMainWindow::impl
 {
@@ -33,17 +36,25 @@ TBBaseMainWindow::TBBaseMainWindow(QWidget* parent) : QMainWindow(parent), pimpl
     // initialize sound player with session
     pimpl->soundPlayer->setSession(pimpl->session);
 
+    // Set initial theme based on current system palette
+    QColor windowColor = QApplication::palette().color(QPalette::Window);
+    QIcon::setThemeName(windowColor.lightnessF() < 0.5 ? "dark_theme" : "light_theme");
+
     // Connect action request signals to state-dependent handlers
-    QObject::connect(this, &TBBaseMainWindow::pauseResumeRequested, this, [this]() {
+    QObject::connect(this, &TBBaseMainWindow::pauseResumeRequested, this, [this]()
+    {
         this->handlePauseResumeAction(pimpl->session.state());
     });
-    QObject::connect(this, &TBBaseMainWindow::previousRoundRequested, this, [this]() {
+    QObject::connect(this, &TBBaseMainWindow::previousRoundRequested, this, [this]()
+    {
         this->handlePreviousRoundAction(pimpl->session.state());
     });
-    QObject::connect(this, &TBBaseMainWindow::nextRoundRequested, this, [this]() {
+    QObject::connect(this, &TBBaseMainWindow::nextRoundRequested, this, [this]()
+    {
         this->handleNextRoundAction(pimpl->session.state());
     });
-    QObject::connect(this, &TBBaseMainWindow::callClockRequested, this, [this]() {
+    QObject::connect(this, &TBBaseMainWindow::callClockRequested, this, [this]()
+    {
         this->handleCallClockAction(pimpl->session.state());
     });
     QObject::connect(this, &TBBaseMainWindow::clearClockRequested, this, &TBBaseMainWindow::handleClearClockAction);
@@ -150,7 +161,7 @@ void TBBaseMainWindow::on_actionShowHideMainDisplay_triggered()
                 pimpl->displayWindow = nullptr;
                 this->updateDisplayMenuText();
             });
-            
+
             // Connect TBTournamentDisplayWindow action signals to base main window signals
             QObject::connect(pimpl->displayWindow, &TBTournamentDisplayWindow::previousLevelRequested, this, &TBBaseMainWindow::previousRoundRequested);
             QObject::connect(pimpl->displayWindow, &TBTournamentDisplayWindow::pauseToggleRequested, this, &TBBaseMainWindow::pauseResumeRequested);
@@ -237,4 +248,15 @@ void TBBaseMainWindow::handleCallClockAction(const QVariantMap& state)
 void TBBaseMainWindow::handleClearClockAction()
 {
     pimpl->session.clear_action_clock();
+}
+
+void TBBaseMainWindow::changeEvent(QEvent* event)
+{
+    if(event->type() == QEvent::PaletteChange || event->type() == QEvent::ApplicationPaletteChange)
+    {
+        QColor windowColor = QApplication::palette().color(QPalette::Window);
+        QIcon::setThemeName(windowColor.lightnessF() < 0.5 ? "dark_theme" : "light_theme");
+    }
+
+    QMainWindow::changeEvent(event);
 }

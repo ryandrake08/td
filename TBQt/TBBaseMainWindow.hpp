@@ -3,6 +3,8 @@
 #include <QMainWindow>
 #include <memory>
 
+class QEvent;
+
 class TBBaseMainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -49,6 +51,9 @@ public:
     // override closeEvent to do clean shutdown
     void closeEvent(QCloseEvent* event) override;
 
+    // Handle theme changes for app-wide icon adaptation
+    void changeEvent(QEvent* event) override;
+
 protected:
     // accessor methods for derived classes
     class TournamentSession& getSession();
@@ -60,5 +65,4 @@ protected:
     // visibility accessor methods for child windows
     bool isSeatingChartWindowVisible() const;
     bool isDisplayWindowVisible() const;
-
 };

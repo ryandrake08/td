@@ -73,10 +73,10 @@ void TBViewerMainWindow::on_actionAbout_Poker_Remote_triggered()
 {
     // show about box
     QMessageBox message(this);
-    message.setIconPixmap(QPixmap(":/Resources/icon_64x64.png"));
-    message.setWindowTitle(QObject::tr("About %1...").arg("Poker Remote"));
-    message.setText("Poker Remote");
-    message.setInformativeText(QObject::tr("Version %1").arg(QApplication::applicationVersion()));
+    message.setIconPixmap(QIcon(":/icons/i_application.svg").pixmap(64, 64));
+    message.setWindowTitle(QObject::tr("About %1...").arg(QCoreApplication::applicationName()));
+    message.setText(QCoreApplication::applicationName());
+    message.setInformativeText(QObject::tr("Version %1").arg(QCoreApplication::applicationVersion()));
     message.exec();
 }
 

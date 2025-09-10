@@ -35,16 +35,16 @@ struct TBCurrency::impl
         QMap<QString, CurrencyInfo> currencies;
 
         // Standard currencies - displayName filled at runtime
-        currencies["USD"] = { "USD", "", ":/Resources/b_note_dollar.svg", Type::Standard, "", "" };
-        currencies["EUR"] = { "EUR", "", ":/Resources/b_note_euro.svg", Type::Standard, "", "" };
-        currencies["INR"] = { "INR", "", ":/Resources/b_note_rupee.svg", Type::Standard, "", "" };
-        currencies["GBP"] = { "GBP", "", ":/Resources/b_note_sterling.svg", Type::Standard, "", "" };
-        currencies["JPY"] = { "JPY", "", ":/Resources/b_note_yen_yuan.svg", Type::Standard, "", "" };
-        currencies["CNY"] = { "CNY", "", ":/Resources/b_note_yen_yuan.svg", Type::Standard, "", "" };
+        currencies["USD"] = { "USD", "", "b_note_dollar", Type::Standard, "", "" };
+        currencies["EUR"] = { "EUR", "", "b_note_euro", Type::Standard, "", "" };
+        currencies["INR"] = { "INR", "", "b_note_rupee", Type::Standard, "", "" };
+        currencies["GBP"] = { "GBP", "", "b_note_sterling", Type::Standard, "", "" };
+        currencies["JPY"] = { "JPY", "", "b_note_yen_yuan", Type::Standard, "", "" };
+        currencies["CNY"] = { "CNY", "", "b_note_yen_yuan", Type::Standard, "", "" };
 
         // Custom currencies with localized names
-        currencies["XBP"] = { "XBP", QObject::tr("Bucks"), ":/Resources/b_note_dollar.svg", Type::Custom, QObject::tr("Bucks"), "#,##0 ¤" };
-        currencies["XPT"] = { "XPT", QObject::tr("Points"), ":/Resources/b_note_dollar.svg", Type::Custom, QObject::tr("Points"), "#,##0 ¤" };
+        currencies["XBP"] = { "XBP", QObject::tr("Bucks"), "b_note_dollar", Type::Custom, QObject::tr("Bucks"), "#,##0 ¤" };
+        currencies["XPT"] = { "XPT", QObject::tr("Points"), "b_note_dollar", Type::Custom, QObject::tr("Points"), "#,##0 ¤" };
 
         return currencies;
     }

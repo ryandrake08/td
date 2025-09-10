@@ -268,3 +268,4 @@ void TBTournamentDisplayWindow::updateBackgroundColor(const QVariantMap& state)
 {
     this->setBackgroundColorString(state.value("background_color").toString());
 }
+

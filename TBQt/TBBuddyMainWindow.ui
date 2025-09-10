@@ -21,7 +21,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="TBQt.qrc">
-    <normaloff>:/Resources/icon_256x256.png</normaloff>:/Resources/icon_256x256.png</iconset>
+    <normaloff>:/icons/i_application.svg</normaloff>:/icons/i_application.svg</iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
@@ -220,8 +220,7 @@
   </action>
   <action name="actionQuickStart">
    <property name="icon">
-    <iconset resource="TBQt.qrc">
-     <normaloff>:/Resources/b_rocket.svg</normaloff>:/Resources/b_rocket.svg</iconset>
+    <iconset theme="b_rocket"/>
    </property>
    <property name="text">
     <string>Quick Start &amp;Tournament</string>
@@ -235,8 +234,7 @@
   </action>
   <action name="actionReset">
    <property name="icon">
-    <iconset resource="TBQt.qrc">
-     <normaloff>:/Resources/b_restart.svg</normaloff>:/Resources/b_restart.svg</iconset>
+    <iconset theme="b_restart"/>
    </property>
    <property name="text">
     <string>&amp;Reset Tournament</string>
@@ -250,8 +248,7 @@
   </action>
   <action name="actionConfigure">
    <property name="icon">
-    <iconset resource="TBQt.qrc">
-     <normaloff>:/Resources/b_configure.svg</normaloff>:/Resources/b_configure.svg</iconset>
+    <iconset theme="b_configure"/>
    </property>
    <property name="text">
     <string>Setup Tournament...</string>
@@ -265,8 +262,7 @@
   </action>
   <action name="actionAuthorize">
    <property name="icon">
-    <iconset resource="TBQt.qrc">
-     <normaloff>:/Resources/b_auth.svg</normaloff>:/Resources/b_auth.svg</iconset>
+    <iconset theme="b_auth"/>
    </property>
    <property name="text">
     <string>Authorize Remote Device...</string>
@@ -277,8 +273,7 @@
   </action>
   <action name="actionPlan">
    <property name="icon">
-    <iconset resource="TBQt.qrc">
-     <normaloff>:/Resources/b_new.svg</normaloff>:/Resources/b_new.svg</iconset>
+    <iconset theme="b_new"/>
    </property>
    <property name="text">
     <string>Plan Tournament...</string>
@@ -289,8 +284,7 @@
   </action>
   <action name="actionShowHideMainDisplay">
    <property name="icon">
-    <iconset resource="TBQt.qrc">
-     <normaloff>:/Resources/b_display.svg</normaloff>:/Resources/b_display.svg</iconset>
+    <iconset theme="b_display"/>
    </property>
    <property name="text">
     <string>Show / Hide Main &amp;Display</string>
@@ -304,8 +298,7 @@
   </action>
   <action name="actionShowMoves">
    <property name="icon">
-    <iconset resource="TBQt.qrc">
-     <normaloff>:/Resources/b_move.svg</normaloff>:/Resources/b_move.svg</iconset>
+    <iconset theme="b_move"/>
    </property>
    <property name="text">
     <string>Show Player Moves...</string>
@@ -316,8 +309,7 @@
   </action>
   <action name="actionRebalance">
    <property name="icon">
-    <iconset resource="TBQt.qrc">
-     <normaloff>:/Resources/b_rebalance.svg</normaloff>:/Resources/b_rebalance.svg</iconset>
+    <iconset theme="b_rebalance"/>
    </property>
    <property name="text">
     <string>Rebalance Tables...</string>
@@ -328,8 +320,7 @@
   </action>
   <action name="actionPauseResume">
    <property name="icon">
-    <iconset resource="TBQt.qrc">
-     <normaloff>:/Resources/b_play_pause.svg</normaloff>:/Resources/b_play_pause.svg</iconset>
+    <iconset theme="b_play_pause"/>
    </property>
    <property name="text">
     <string>Resume / Pause</string>
@@ -343,8 +334,7 @@
   </action>
   <action name="actionPreviousRound">
    <property name="icon">
-    <iconset resource="TBQt.qrc">
-     <normaloff>:/Resources/b_previous.svg</normaloff>:/Resources/b_previous.svg</iconset>
+    <iconset theme="b_previous"/>
    </property>
    <property name="text">
     <string>Previous Round</string>
@@ -358,8 +348,7 @@
   </action>
   <action name="actionNextRound">
    <property name="icon">
-    <iconset resource="TBQt.qrc">
-     <normaloff>:/Resources/b_next.svg</normaloff>:/Resources/b_next.svg</iconset>
+    <iconset theme="b_next"/>
    </property>
    <property name="text">
     <string>Next Round</string>
@@ -373,8 +362,7 @@
   </action>
   <action name="actionCallClock">
    <property name="icon">
-    <iconset resource="TBQt.qrc">
-     <normaloff>:/Resources/b_call_clock.svg</normaloff>:/Resources/b_call_clock.svg</iconset>
+    <iconset theme="b_call_clock"/>
    </property>
    <property name="text">
     <string>Call the Clock</string>
@@ -388,8 +376,7 @@
   </action>
   <action name="actionEndGame">
    <property name="icon">
-    <iconset resource="TBQt.qrc">
-     <normaloff>:/Resources/b_stop.svg</normaloff>:/Resources/b_stop.svg</iconset>
+    <iconset theme="b_stop"/>
    </property>
    <property name="text">
     <string>End Game</string>
@@ -400,8 +387,7 @@
   </action>
   <action name="actionExport">
    <property name="icon">
-    <iconset resource="TBQt.qrc">
-     <normaloff>:/Resources/b_export.svg</normaloff>:/Resources/b_export.svg</iconset>
+    <iconset theme="b_export"/>
    </property>
    <property name="text">
     <string>Export Results...</string>
@@ -427,8 +413,7 @@
   </action>
   <action name="actionShowHideSeatingChart">
    <property name="icon">
-    <iconset resource="TBQt.qrc">
-     <normaloff>:/Resources/b_seating.svg</normaloff>:/Resources/b_seating.svg</iconset>
+    <iconset theme="b_seating"/>
    </property>
    <property name="text">
     <string>Show / Hide Seating Chart</string>
