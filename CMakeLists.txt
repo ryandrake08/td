@@ -215,7 +215,6 @@ if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND AND Qt5Multimedia_FOU
 		TBQt/TBBaseMainWindow.hpp
 		TBQt/TBChipDisplayDelegate.hpp
 		TBQt/TBFlowLayout.hpp
-		TBQt/TBInvertableButton.hpp
 		TBQt/TBPlayersModel.hpp
 		TBQt/TBResultsModel.hpp
 		TBQt/TBScalableLabel.hpp
@@ -253,10 +252,6 @@ if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND AND Qt5Multimedia_FOU
 		TBQt/TBCurrency.hpp
 		TBQt/TBFlowLayout.cpp
 		TBQt/TBFlowLayout.hpp
-		TBQt/TBImageInversionHelper.cpp
-		TBQt/TBImageInversionHelper.hpp
-		TBQt/TBInvertableButton.cpp
-		TBQt/TBInvertableButton.hpp
 		TBQt/TBPlayersModel.cpp
 		TBQt/TBPlayersModel.hpp
 		TBQt/TBResultsModel.cpp
