@@ -31,6 +31,7 @@
 #include <QLabel>
 #include <QMenu>
 #include <QMessageBox>
+#include <QSettings>
 #include <QSortFilterProxyModel>
 #include <QString>
 #include <QTimer>
@@ -50,6 +51,10 @@ struct TBBuddyMainWindow::impl
 
     // current filename for window title
     QString currentFilename;
+
+    // recent files menu
+    QMenu* recentFilesMenu;
+    static const int MaxRecentFiles = 10;
 
     // player movement tracking
     QVariantList pendingMovements;
@@ -121,6 +126,10 @@ TBBuddyMainWindow::TBBuddyMainWindow() : pimpl(new impl())
     resultsHeader->setSectionResizeMode(1, QHeaderView::Stretch);          // Player Name: stretch to fill
     resultsHeader->setSectionResizeMode(2, QHeaderView::ResizeToContents); // Payout: fit content
 
+    // Create the recent files submenu
+    pimpl->recentFilesMenu = new QMenu(this);
+    pimpl->ui.actionOpenRecent->setMenu(pimpl->recentFilesMenu);
+
     // hook up TournamentDocument signals
     QObject::connect(&this->pimpl->doc, &TournamentDocument::filenameChanged, this, &TBBuddyMainWindow::on_filenameChanged);
     QObject::connect(&this->pimpl->doc, &TournamentDocument::configurationChanged, this, &TBBuddyMainWindow::on_configurationChanged);
@@ -142,9 +151,72 @@ TBBuddyMainWindow::TBBuddyMainWindow() : pimpl(new impl())
     // initialize display menu text
     this->updateDisplayMenuText();
     this->updateSeatingChartMenuText();
+
+    // Update the recent files list
+    this->updateRecentFilesMenu();
 }
 
 TBBuddyMainWindow::~TBBuddyMainWindow() = default;
+
+void TBBuddyMainWindow::updateRecentFilesMenu()
+{
+    QSettings settings;
+    QStringList recentFiles = settings.value("recentFiles").toStringList();
+
+    // Clear existing actions
+    pimpl->recentFilesMenu->clear();
+
+    // Add actions for each recent file
+    for(int i = 0; i < recentFiles.size() && i < pimpl->MaxRecentFiles; ++i)
+    {
+        const QString& filePath = recentFiles.at(i);
+        QFileInfo fileInfo(filePath);
+
+        if(fileInfo.exists())
+        {
+            QString displayName = fileInfo.fileName();
+            QAction* action = pimpl->recentFilesMenu->addAction(displayName);
+            action->setData(filePath);
+            action->setToolTip(filePath);
+            QObject::connect(action, &QAction::triggered, this, &TBBuddyMainWindow::on_openRecentFileTriggered);
+        }
+    }
+
+    // Add separator and "Clear Recent Files" action if we have recent files
+    if(pimpl->recentFilesMenu->actions().size() > 0)
+    {
+        pimpl->recentFilesMenu->addSeparator();
+        QAction* clearAction = pimpl->recentFilesMenu->addAction(QObject::tr("Clear Menu"));
+        QObject::connect(clearAction, &QAction::triggered, this, &TBBuddyMainWindow::on_clearRecentFilesTriggered);
+    }
+    else
+    {
+        QAction* clearAction = pimpl->recentFilesMenu->addAction(QObject::tr("Clear Menu"));
+        clearAction->setEnabled(false);
+    }
+}
+
+void TBBuddyMainWindow::addRecentFile(const QString& filePath)
+{
+    QSettings settings;
+    QStringList recentFiles = settings.value("recentFiles").toStringList();
+
+    // Remove if already exists
+    recentFiles.removeAll(filePath);
+
+    // Add to front
+    recentFiles.prepend(filePath);
+
+    // Limit to MaxRecentFiles
+    while(recentFiles.size() > pimpl->MaxRecentFiles)
+    {
+        recentFiles.removeLast();
+    }
+
+    // Save and update menu
+    settings.setValue("recentFiles", recentFiles);
+    this->updateRecentFilesMenu();
+}
 
 // load a document to be managed by this window
 bool TBBuddyMainWindow::load_document(const QString& filename)
@@ -152,7 +224,12 @@ bool TBBuddyMainWindow::load_document(const QString& filename)
     try
     {
         qDebug() << "loading document:" << filename;
-        return this->pimpl->doc.load(filename);
+        bool success = this->pimpl->doc.load(filename);
+        if(success)
+        {
+            addRecentFile(filename);
+        }
+        return success;
     }
     catch(const TBRuntimeError& e)
     {
@@ -200,12 +277,49 @@ void TBBuddyMainWindow::on_actionOpen_triggered()
     {
         for(const auto& filename : picker.selectedFiles())
         {
-            auto* window(new TBBuddyMainWindow);
+            // Create new window and load the file
+            auto* window = new TBBuddyMainWindow;
             window->setAttribute(Qt::WA_DeleteOnClose);
-            window->load_document(filename);
-            window->show();
+            if(window->load_document(filename))
+            {
+                window->show();
+            }
+            else
+            {
+                delete window;
+            }
         }
     }
+}
+
+void TBBuddyMainWindow::on_openRecentFileTriggered()
+{
+    QAction* action = qobject_cast<QAction*>(sender());
+    if(action)
+    {
+        QString filePath = action->data().toString();
+        if(!filePath.isEmpty())
+        {
+            // Create new window and load the file
+            auto* window = new TBBuddyMainWindow;
+            window->setAttribute(Qt::WA_DeleteOnClose);
+            if(window->load_document(filePath))
+            {
+                window->show();
+            }
+            else
+            {
+                delete window;
+            }
+        }
+    }
+}
+
+void TBBuddyMainWindow::on_clearRecentFilesTriggered()
+{
+    QSettings settings;
+    settings.remove("recentFiles");
+    this->updateRecentFilesMenu();
 }
 
 void TBBuddyMainWindow::on_actionClose_triggered()
@@ -469,6 +583,12 @@ void TBBuddyMainWindow::on_filenameChanged(const QString& filename)
     // store filename and update window title
     this->pimpl->currentFilename = QFileInfo(filename).fileName();
     this->updateWindowTitle(this->getSession().state());
+
+    // Add to recent files if the file exists (was saved)
+    if(QFileInfo::exists(filename))
+    {
+        addRecentFile(filename);
+    }
 }
 
 void TBBuddyMainWindow::on_configurationChanged(const QVariantMap& config)

@@ -20,6 +20,10 @@ class TBBuddyMainWindow : public TBBaseMainWindow
     // helper functions to show dialogs
     void showPlayerMovements(const QVariantList& movements);
 
+    // recent files management
+    void updateRecentFilesMenu();
+    void addRecentFile(const QString& filePath);
+
 private Q_SLOTS:
     // ui slots
     void on_actionAbout_Poker_Buddy_triggered();
@@ -38,6 +42,10 @@ private Q_SLOTS:
     void on_actionRebalance_triggered();
     void on_actionEndGame_triggered();
     void on_actionExport_triggered();
+
+    // recent files slots  
+    void on_openRecentFileTriggered();
+    void on_clearRecentFilesTriggered();
 
     void on_manageButtonClicked(const QModelIndex& index);
 

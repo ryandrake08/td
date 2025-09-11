@@ -76,6 +76,8 @@
     </property>
     <addaction name="actionNew"/>
     <addaction name="actionOpen"/>
+    <addaction name="actionOpenRecent"/>
+    <addaction name="separator"/>
     <addaction name="actionClose"/>
     <addaction name="actionSave"/>
     <addaction name="actionSaveAs"/>
@@ -184,6 +186,11 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+O</string>
+   </property>
+  </action>
+  <action name="actionOpenRecent">
+   <property name="text">
+    <string>Open &amp;Recent</string>
    </property>
   </action>
   <action name="actionClose">
