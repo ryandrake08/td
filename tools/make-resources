@@ -1,0 +1,160 @@
+#!/bin/bash
+
+# NOTE: Requires packages: ImageMagick, pdf2svg and xmlstarlet, ffmpeg, and iconutil on macOS / icnsutil on Linux
+
+# Detect which icon utility is available
+if command -v iconutil >/dev/null 2>&1; then
+    ICON_UTIL="iconutil"
+elif command -v icnsutil >/dev/null 2>&1; then
+    ICON_UTIL="icnsutil"
+else
+    echo "Error: Neither iconutil (macOS) nor icnsutil (Linux) found. Please install the appropriate tool."
+    exit 1
+fi
+
+convert_ai_to_svg() {
+    local filename="$1"
+    local destination="$2"
+
+    # Convert AI file into SVG file
+    magick -colorspace sRGB ${filename} /tmp/tmp.pdf
+    pdf2svg /tmp/tmp.pdf ${destination}
+    rm /tmp/tmp.pdf
+}
+
+convert_ai_to_icns() {
+    local filename="$1"
+    local destination="$2"
+
+    # Rasterize AI file into very high resolution PNG
+    magick -colorspace sRGB -density 600 ${filename} /tmp/hires.png
+
+    # Convert AI file into macOS .icns file
+    mkdir -p /tmp/tmp.iconset
+    magick /tmp/hires.png -depth 8 -colors 256 -resize 1024x  -strip /tmp/tmp.iconset/icon_1024x1024.png
+    mv /tmp/tmp.iconset/icon_1024x1024.png /tmp/tmp.iconset/icon_512x512@2x.png
+    magick /tmp/hires.png -depth 8 -colors 256 -resize 512x  -strip /tmp/tmp.iconset/icon_512x512.png
+    cp /tmp/tmp.iconset/icon_512x512.png /tmp/tmp.iconset/icon_256x256@2x.png
+    magick /tmp/hires.png -depth 8 -colors 256 -resize 256x  -strip /tmp/tmp.iconset/icon_256x256.png
+    cp /tmp/tmp.iconset/icon_256x256.png /tmp/tmp.iconset/icon_128x128@2x.png
+    magick /tmp/hires.png -depth 8 -colors 128 -resize 128x  -strip /tmp/tmp.iconset/icon_128x128.png
+    magick /tmp/hires.png -depth 8 -colors 64 -resize 64x  -strip /tmp/tmp.iconset/icon_64x64.png
+    mv /tmp/tmp.iconset/icon_64x64.png /tmp/tmp.iconset/icon_32x32@2x.png
+    magick /tmp/hires.png -depth 8 -colors 32 -resize 32x  -strip /tmp/tmp.iconset/icon_32x32.png
+    cp /tmp/tmp.iconset/icon_32x32.png /tmp/tmp.iconset/icon_16x16@2x.png
+    magick /tmp/hires.png -depth 4 -colors 16 -resize 16x  -strip /tmp/tmp.iconset/icon_16x16.png
+    ${ICON_UTIL} -c icns -o ${destination} /tmp/tmp.iconset
+    rm -rf /tmp/tmp.iconset
+}
+
+# Function to convert a single PDF to SVG icon with theme variants
+convert_pdf_to_svg() {
+    local pdf_file="$1"
+    local svg_file="$2"
+
+    # Extract base directory and filename from svg_file path
+    local base_dir="$(dirname "$svg_file")"
+    local base_filename="$(basename "$svg_file")"
+    local filename_without_ext="${base_filename%.svg}"
+
+    # Derive theme-specific paths intelligently
+    local light_svg_file="${base_dir}/light_theme/svg/${base_filename}"
+    local dark_svg_file="${base_dir}/dark_theme/svg/${base_filename}"
+
+    # Convert PDF to SVG
+    if ! pdf2svg "$pdf_file" "$svg_file"; then
+        echo "Error: Failed to convert $pdf_file"
+        return 1
+    fi
+
+    # Special case for b_new: remove defs and g elements first
+    if [[ "$filename_without_ext" == "b_new" ]]; then
+        xmlstarlet ed -P -L -N x="http://www.w3.org/2000/svg" -d //x:defs -d //x:g "$svg_file"
+    fi
+
+    # Convert stroke colors to black for template icon compatibility (skip for i_chip)
+    if [[ "$filename_without_ext" != "i_chip" ]]; then
+        xmlstarlet ed -P -N x="http://www.w3.org/2000/svg" \
+            -u "//x:path[@stroke][starts-with(@stroke, 'rgb(')]/@stroke" \
+            -v "rgb(0%, 0%, 0%)" \
+            "$svg_file" > "$light_svg_file"
+
+        xmlstarlet ed -P -N x="http://www.w3.org/2000/svg" \
+            -u "//x:path[@stroke][starts-with(@stroke, 'rgb(')]/@stroke" \
+            -v "rgb(100%, 100%, 100%)" \
+            "$svg_file" > "$dark_svg_file"
+
+        # Remove the working copy
+        rm -f "$svg_file"
+    fi
+}
+
+# Ensure theme directories exist
+mkdir -p Resources/icons/light_theme/svg
+mkdir -p Resources/icons/dark_theme/svg
+
+# Convert all PDF files to SVG icons
+convert_pdf_to_svg "Art/combination_lock.pdf" "Resources/icons/b_auth.svg"
+convert_pdf_to_svg "Art/past.pdf" "Resources/icons/b_call_clock.svg"
+convert_pdf_to_svg "Art/checkbox.pdf" "Resources/icons/b_configure.svg"
+convert_pdf_to_svg "Art/tv_demand.pdf" "Resources/icons/b_display.svg"
+convert_pdf_to_svg "Art/file_send.pdf" "Resources/icons/b_export.svg"
+convert_pdf_to_svg "Art/walking.pdf" "Resources/icons/b_move.svg"
+convert_pdf_to_svg "Art/new.pdf" "Resources/icons/b_new.svg"
+convert_pdf_to_svg "Art/controls_forward.pdf" "Resources/icons/b_next.svg"
+convert_pdf_to_svg "Art/note_dollar.pdf" "Resources/icons/b_note_dollar.svg"
+convert_pdf_to_svg "Art/note_euro.pdf" "Resources/icons/b_note_euro.svg"
+convert_pdf_to_svg "Art/note_rupee.pdf" "Resources/icons/b_note_rupee.svg"
+convert_pdf_to_svg "Art/note_sterling.pdf" "Resources/icons/b_note_sterling.svg"
+convert_pdf_to_svg "Art/note_yen_yuan.pdf" "Resources/icons/b_note_yen_yuan.svg"
+convert_pdf_to_svg "Art/controls_end.pdf" "Resources/icons/b_play_pause.svg"
+convert_pdf_to_svg "Art/controls_rewind.pdf" "Resources/icons/b_previous.svg"
+convert_pdf_to_svg "Art/scales_justice.pdf" "Resources/icons/b_rebalance.svg"
+convert_pdf_to_svg "Art/repeat.pdf" "Resources/icons/b_restart.svg"
+convert_pdf_to_svg "Art/rocket.pdf" "Resources/icons/b_rocket.svg"
+convert_pdf_to_svg "Art/armchair.pdf" "Resources/icons/b_seat.svg"
+convert_pdf_to_svg "Art/b_seating.pdf" "Resources/icons/b_seating.svg"
+convert_pdf_to_svg "Art/controls_stop.pdf" "Resources/icons/b_stop.svg"
+convert_pdf_to_svg "Art/table.pdf" "Resources/icons/b_table.svg"
+convert_pdf_to_svg "Art/i_chip.pdf" "Resources/icons/i_chip.svg"
+convert_pdf_to_svg "Art/redo_arrow.pdf" "Resources/icons/m_addon.svg"
+convert_pdf_to_svg "Art/arrows_in.pdf" "Resources/icons/m_buyin.svg"
+convert_pdf_to_svg "Art/reset.pdf" "Resources/icons/m_rebuy.svg"
+convert_pdf_to_svg "Art/coins.pdf" "Resources/icons/t_chips.svg"
+convert_pdf_to_svg "Art/clock.pdf" "Resources/icons/t_clock.svg"
+convert_pdf_to_svg "Art/bullet_list.pdf" "Resources/icons/t_connect.svg"
+convert_pdf_to_svg "Art/mobile_monitor.pdf" "Resources/icons/t_devices.svg"
+convert_pdf_to_svg "Art/notes_coins.pdf" "Resources/icons/t_funding.svg"
+convert_pdf_to_svg "Art/dollar_bag.pdf" "Resources/icons/t_payouts.svg"
+convert_pdf_to_svg "Art/users_three.pdf" "Resources/icons/t_players.svg"
+convert_pdf_to_svg "Art/winners_podium.pdf" "Resources/icons/t_results.svg"
+convert_pdf_to_svg "Art/timer.pdf" "Resources/icons/t_rounds.svg"
+
+# Icon used in Qt resources to display in-app
+convert_ai_to_svg  Art/piranha_osx.ai Resources/icons/i_application.svg
+
+# Icon used in macOS info.plist to set app's icon
+convert_ai_to_icns Art/piranha_osx.ai Resources/tbuddy.icns
+convert_ai_to_icns Art/piranha_osx.ai Resources/tbviewer.icns
+
+# Icon used in macOS info.plist to set up file extension's icon
+convert_ai_to_icns Art/piranha_ios.ai Resources/tbfile.icns
+
+# Convert AI file into single PNG icons (Linux)
+magick -colorspace sRGB -density 288 Art/piranha_ios.ai -depth 4 -colors 16 -strip Resources/tbuddy.png
+magick -colorspace sRGB -density 288 Art/piranha_ios.ai -depth 4 -colors 16 -strip Resources/tbviewer.png
+magick -colorspace sRGB -density 288 Art/piranha_ios.ai -depth 4 -colors 16 -strip Resources/tbfile.png
+
+# Copy WAV files
+cp "Art/Sonar Song.wav" Resources/s_break.wav
+cp "Art/Sonar Descent.wav" Resources/s_next.wav
+cp "Art/Fancy Toast.wav" Resources/s_rebalance.wav
+cp "Art/Double Sonar Ping.wav" Resources/s_start.wav
+cp "Art/Sonar Ping.wav" Resources/s_warning.wav
+
+# Make CAF versions
+ffmpeg -loglevel error -y -i Resources/s_break.wav Resources/s_break.caf
+ffmpeg -loglevel error -y -i Resources/s_next.wav Resources/s_next.caf
+ffmpeg -loglevel error -y -i Resources/s_rebalance.wav Resources/s_rebalance.caf
+ffmpeg -loglevel error -y -i Resources/s_start.wav Resources/s_start.caf
+ffmpeg -loglevel error -y -i Resources/s_warning.wav Resources/s_warning.caf

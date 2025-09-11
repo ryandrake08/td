@@ -99,6 +99,12 @@
 		945D83A02032B47400DFE032 /* Setup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 945D839E2032B47400DFE032 /* Setup.storyboard */; };
 		945D83A12032B9B500DFE032 /* TBTournamentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476F4581B3C385400A158F8 /* TBTournamentsViewController.m */; };
 		945D83A22032B9FC00DFE032 /* Setup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 945D839E2032B47400DFE032 /* Setup.storyboard */; };
+		945DB41B2E733F6A0083E58D /* tbfile.icns in Resources */ = {isa = PBXBuildFile; fileRef = 945DB41A2E733F6A0083E58D /* tbfile.icns */; };
+		945DB41C2E733F6A0083E58D /* tbfile.icns in Resources */ = {isa = PBXBuildFile; fileRef = 945DB41A2E733F6A0083E58D /* tbfile.icns */; };
+		945DB41D2E733F6A0083E58D /* tbfile.icns in Resources */ = {isa = PBXBuildFile; fileRef = 945DB41A2E733F6A0083E58D /* tbfile.icns */; };
+		945DB41E2E733F6A0083E58D /* tbfile.icns in Resources */ = {isa = PBXBuildFile; fileRef = 945DB41A2E733F6A0083E58D /* tbfile.icns */; };
+		945DB41F2E733F6A0083E58D /* tbfile.icns in Resources */ = {isa = PBXBuildFile; fileRef = 945DB41A2E733F6A0083E58D /* tbfile.icns */; };
+		945DB4202E733F6A0083E58D /* tbfile.icns in Resources */ = {isa = PBXBuildFile; fileRef = 945DB41A2E733F6A0083E58D /* tbfile.icns */; };
 		945E1684228D08AC00AA98C1 /* TBSetupTablesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 945E1683228D08AC00AA98C1 /* TBSetupTablesViewController.m */; };
 		945E168B228D22C400AA98C1 /* TBSetupTablesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 945E1686228D187800AA98C1 /* TBSetupTablesViewController.m */; };
 		945E168C228D22CB00AA98C1 /* TBSetupDetailsTablesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 945E1689228D1E7300AA98C1 /* TBSetupDetailsTablesViewController.m */; };
@@ -691,6 +697,7 @@
 		945D83932032459E00DFE032 /* TBPayoutShapeNumberFormatter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TBPayoutShapeNumberFormatter.m; sourceTree = "<group>"; };
 		945D839F2032B47400DFE032 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Setup.storyboard; sourceTree = "<group>"; };
 		945D83A32035366800DFE032 /* stopwatch.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = stopwatch.hpp; sourceTree = "<group>"; };
+		945DB41A2E733F6A0083E58D /* tbfile.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = tbfile.icns; sourceTree = "<group>"; };
 		945E1682228D08AC00AA98C1 /* TBSetupTablesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TBSetupTablesViewController.h; path = TBMac/TBSetupTablesViewController.h; sourceTree = "<group>"; };
 		945E1683228D08AC00AA98C1 /* TBSetupTablesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TBSetupTablesViewController.m; path = TBMac/TBSetupTablesViewController.m; sourceTree = "<group>"; };
 		945E1685228D187800AA98C1 /* TBSetupTablesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBSetupTablesViewController.h; sourceTree = "<group>"; };
@@ -1212,6 +1219,7 @@
 				94D04ECA1B7C59EB004F4245 /* s_rebalance.caf */,
 				94D04ECB1B7C59EB004F4245 /* s_start.caf */,
 				94D04ECC1B7C59EB004F4245 /* s_warning.caf */,
+				945DB41A2E733F6A0083E58D /* tbfile.icns */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -1567,7 +1575,6 @@
 			buildPhases = (
 				943FC67320261FC400B6AA4C /* Sources */,
 				943FC67420261FC400B6AA4C /* Frameworks */,
-				9458F705215DF01A00E1DEF3 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -1638,7 +1645,6 @@
 			buildPhases = (
 				9476F4C21B3C3F3D00A158F8 /* Sources */,
 				9476F4C31B3C3F3D00A158F8 /* Frameworks */,
-				9476F4C41B3C3F3D00A158F8 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -1857,6 +1863,7 @@
 				946404412363DB740057BAC4 /* IBMPlexSans-Bold.otf in Resources */,
 				94BD8D391FF7F4360047EB68 /* TBViewer.storyboard in Resources */,
 				94D04ECE1B7C59EB004F4245 /* s_break.caf in Resources */,
+				945DB41C2E733F6A0083E58D /* tbfile.icns in Resources */,
 				94D04ED01B7C59EB004F4245 /* s_next.caf in Resources */,
 				94D04ED21B7C59EB004F4245 /* s_rebalance.caf in Resources */,
 				94D04ED41B7C59EB004F4245 /* s_start.caf in Resources */,
@@ -1878,6 +1885,7 @@
 				94C2DA81200D27D7001B95B8 /* s_next.caf in Resources */,
 				946404432363DB740057BAC4 /* IBMPlexSans-Bold.otf in Resources */,
 				9464044A2363DCEA0057BAC4 /* IBMPlexSans-Regular.otf in Resources */,
+				945DB41E2E733F6A0083E58D /* tbfile.icns in Resources */,
 				942B84E5200DA6FA001F8EEB /* s_rebalance.caf in Resources */,
 				942B84E6200DA6FA001F8EEB /* s_start.caf in Resources */,
 				ADA5DAC01B949CB1004F50C8 /* s_warning.caf in Resources */,
@@ -1893,6 +1901,7 @@
 				946404442363DB740057BAC4 /* IBMPlexSans-Bold.otf in Resources */,
 				AD33BA4A1BAC634F0011777C /* Assets.xcassets in Resources */,
 				AD33BA4B1BAC634F0011777C /* Interface.storyboard in Resources */,
+				945DB41F2E733F6A0083E58D /* tbfile.icns in Resources */,
 				AD33BA491BAC634F0011777C /* s_break.caf in Resources */,
 				AD33BA4C1BAC634F0011777C /* s_next.caf in Resources */,
 				AD33BA481BAC634F0011777C /* s_warning.caf in Resources */,
@@ -1923,6 +1932,7 @@
 				94D04ECF1B7C59EB004F4245 /* s_next.caf in Resources */,
 				946404402363DB740057BAC4 /* IBMPlexSans-Bold.otf in Resources */,
 				946404472363DCEA0057BAC4 /* IBMPlexSans-Regular.otf in Resources */,
+				945DB41B2E733F6A0083E58D /* tbfile.icns in Resources */,
 				94A0D64623558C88004A9696 /* TBSeatingChartCollectionViewItem.xib in Resources */,
 				94D04ED11B7C59EB004F4245 /* s_rebalance.caf in Resources */,
 				94D04ED31B7C59EB004F4245 /* s_start.caf in Resources */,
@@ -1938,6 +1948,7 @@
 				946404452363DB740057BAC4 /* IBMPlexSans-Bold.otf in Resources */,
 				ADA6A19E1B97FE8A00C83762 /* Assets.xcassets in Resources */,
 				ADA6A19C1B97FE8A00C83762 /* Interface.storyboard in Resources */,
+				945DB4202E733F6A0083E58D /* tbfile.icns in Resources */,
 				AD7E5D011B9FE766004654E9 /* s_break.caf in Resources */,
 				AD7E5D021B9FE766004654E9 /* s_next.caf in Resources */,
 				AD7E5D031B9FE766004654E9 /* s_warning.caf in Resources */,
@@ -1959,6 +1970,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				ADF636121BAB8AF800D019AE /* TBRemote.xcassets in Resources */,
+				945DB41D2E733F6A0083E58D /* tbfile.icns in Resources */,
 				ADF6360F1BAB8AF800D019AE /* Main.storyboard in Resources */,
 				945D83A22032B9FC00DFE032 /* Setup.storyboard in Resources */,
 				946404492363DCEA0057BAC4 /* IBMPlexSans-Regular.otf in Resources */,
