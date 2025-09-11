@@ -396,6 +396,13 @@ if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND AND Qt5Multimedia_FOU
 			${CMAKE_SOURCE_DIR}/Resources/${TBUDDY_ICON_FILE}
 			$<TARGET_BUNDLE_DIR:tbuddy>/Contents/Resources/${TBUDDY_ICON_FILE}
 		)
+
+		# Copy document type icon to macOS bundle
+		add_custom_command(TARGET tbuddy POST_BUILD
+			COMMAND ${CMAKE_COMMAND} -E copy
+			${CMAKE_SOURCE_DIR}/Resources/tbfile.icns
+			$<TARGET_BUNDLE_DIR:tbuddy>/Contents/Resources/tbfile.icns
+		)
 	elseif(WIN32)
 		# Windows icon handling (requires .ico file and resource script)
 		# set_target_properties(tbuddy PROPERTIES WIN32_EXECUTABLE TRUE)

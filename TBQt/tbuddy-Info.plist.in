@@ -24,6 +24,49 @@
 	<string>@BUILD_VERSION@</string>
 	<key>CSResourcesFileMapped</key>
 	<true/>
+	<key>CFBundleDocumentTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>pokerbuddy</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>tbfile</string>
+			<key>CFBundleTypeName</key>
+			<string>Poker Buddy Configuration</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>LSHandlerRank</key>
+			<string>Owner</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>com.hdnastudio.Poker-Buddy.pokerbuddy</string>
+			</array>
+		</dict>
+	</array>
+	<key>UTExportedTypeDeclarations</key>
+	<array>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.json</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Poker Buddy Tournament Configuration</string>
+			<key>UTTypeIconFile</key>
+			<string>tbfile</string>
+			<key>UTTypeIdentifier</key>
+			<string>com.hdnastudio.Poker-Buddy.pokerbuddy</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>pokerbuddy</string>
+				</array>
+			</dict>
+		</dict>
+	</array>
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2015 @ORGANIZATION_NAME@. All rights reserved.</string>
     <key>NSPrincipalClass</key>
