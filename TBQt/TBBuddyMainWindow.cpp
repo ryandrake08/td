@@ -53,8 +53,8 @@ struct TBBuddyMainWindow::impl
     QString currentFilename;
 
     // recent files menu
-    QMenu* recentFilesMenu;
-    static const int MaxRecentFiles = 10;
+    QMenu* recentFilesMenu { nullptr };
+    static const int MaxRecentFiles { 10 };
 
     // player movement tracking
     QVariantList pendingMovements;
@@ -170,7 +170,7 @@ void TBBuddyMainWindow::updateRecentFilesMenu()
     pimpl->recentFilesMenu->clear();
 
     // Add actions for each recent file
-    for(int i = 0; i < recentFiles.size() && i < pimpl->MaxRecentFiles; ++i)
+    for(int i = 0; i < recentFiles.size() && i < TBBuddyMainWindow::impl::MaxRecentFiles; ++i)
     {
         const QString& filePath = recentFiles.at(i);
         QFileInfo fileInfo(filePath);
@@ -186,7 +186,7 @@ void TBBuddyMainWindow::updateRecentFilesMenu()
     }
 
     // Add separator and "Clear Recent Files" action if we have recent files
-    if(pimpl->recentFilesMenu->actions().size() > 0)
+    if(!pimpl->recentFilesMenu->actions().empty())
     {
         pimpl->recentFilesMenu->addSeparator();
         QAction* clearAction = pimpl->recentFilesMenu->addAction(QObject::tr("Clear Menu"));
@@ -211,7 +211,7 @@ void TBBuddyMainWindow::addRecentFile(const QString& filePath)
     recentFiles.prepend(filePath);
 
     // Limit to MaxRecentFiles
-    while(recentFiles.size() > pimpl->MaxRecentFiles)
+    while(recentFiles.size() > TBBuddyMainWindow::impl::MaxRecentFiles)
     {
         recentFiles.removeLast();
     }
@@ -297,7 +297,7 @@ void TBBuddyMainWindow::on_actionOpen_triggered()
 
 void TBBuddyMainWindow::on_openRecentFileTriggered()
 {
-    QAction* action = qobject_cast<QAction*>(sender());
+    auto* action = qobject_cast<QAction*>(sender());
     if(action)
     {
         QString filePath = action->data().toString();
