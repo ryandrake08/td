@@ -295,7 +295,7 @@
     <iconset theme="b_display"/>
    </property>
    <property name="text">
-    <string>Show / Hide Main &amp;Display</string>
+    <string>Show Main Display</string>
    </property>
    <property name="iconText">
     <string>Display</string>
@@ -424,7 +424,7 @@
     <iconset theme="b_seating"/>
    </property>
    <property name="text">
-    <string>Show / Hide Seating Chart</string>
+    <string>Show Seating Chart</string>
    </property>
    <property name="iconText">
     <string>Seating Chart</string>

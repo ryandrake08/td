@@ -144,19 +144,25 @@
    </property>
   </action>
   <action name="actionShowHideMainDisplay">
+   <property name="icon">
+    <iconset theme="b_display"/>
+   </property>
    <property name="text">
-    <string>Show/Hide &amp;Main Display</string>
+    <string>Show Main Display</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+M</string>
+    <string>Ctrl+D</string>
    </property>
   </action>
   <action name="actionShowHideSeatingChart">
+   <property name="icon">
+    <iconset theme="b_seating"/>
+   </property>
    <property name="text">
-    <string>Show &amp;Seating Chart</string>
+    <string>Show Seating Chart</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+S</string>
+    <string>Ctrl+Shift+D</string>
    </property>
   </action>
   <action name="actionAbout_Poker_Remote">
