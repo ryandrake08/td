@@ -11,6 +11,7 @@
 #include <QCloseEvent>
 #include <QColor>
 #include <QIcon>
+#include <QMessageBox>
 #include <QPalette>
 
 struct TBBaseMainWindow::impl
@@ -174,6 +175,39 @@ void TBBaseMainWindow::on_actionShowHideMainDisplay_triggered()
         pimpl->displayWindow->showUsingDisplaySettings("TournamentDisplay");
     }
     this->updateDisplayMenuText();
+}
+
+void TBBaseMainWindow::on_actionMinimize_triggered()
+{
+    this->showMinimized();
+}
+
+void TBBaseMainWindow::on_actionZoom_triggered()
+{
+    if (this->isMaximized())
+    {
+        this->showNormal();
+    }
+    else
+    {
+        this->showMaximized();
+    }
+}
+
+void TBBaseMainWindow::on_actionBringAllToFront_triggered()
+{
+    this->raise();
+    this->activateWindow();
+}
+
+void TBBaseMainWindow::on_actionHelp_triggered()
+{
+    QMessageBox helpBox(this);
+    helpBox.setIcon(QMessageBox::Information);
+    helpBox.setIconPixmap(QIcon::fromTheme("i_application").pixmap(64, 64));
+    helpBox.setWindowTitle(QObject::tr("Help"));
+    helpBox.setText(QObject::tr("Help isn't available for %1").arg(QCoreApplication::applicationName()));
+    helpBox.exec();
 }
 
 void TBBaseMainWindow::updateDisplayMenuText()

@@ -23,6 +23,10 @@ protected Q_SLOTS:
     void on_actionClearClock_triggered();
     void on_actionShowHideSeatingChart_triggered();
     void on_actionShowHideMainDisplay_triggered();
+    void on_actionMinimize_triggered();
+    void on_actionZoom_triggered();
+    void on_actionBringAllToFront_triggered();
+    void on_actionHelp_triggered();
 
 private Q_SLOTS:
     // virtual slots that derived classes must implement
