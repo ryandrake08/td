@@ -16,6 +16,7 @@ class TBBuddyMainWindow : public TBBaseMainWindow
     void updateActionButtons(const QVariantMap& state, bool authorized);
     void updateWindowTitle(const QVariantMap& state, const QString& filename = QString());
     void updateMovementBadge();
+    void updateToolbarMenuText();
 
     // helper functions to show dialogs
     void showPlayerMovements(const QVariantList& movements);
@@ -42,8 +43,9 @@ private Q_SLOTS:
     void on_actionRebalance_triggered();
     void on_actionEndGame_triggered();
     void on_actionExport_triggered();
+    void on_actionShowHideToolbar_triggered();
 
-    // recent files slots  
+    // recent files slots
     void on_openRecentFileTriggered();
     void on_clearRecentFilesTriggered();
 

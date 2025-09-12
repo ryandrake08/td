@@ -148,9 +148,12 @@ TBBuddyMainWindow::TBBuddyMainWindow() : pimpl(new impl())
     // set initial window title
     this->updateWindowTitle(this->getSession().state());
 
-    // initialize display menu text
+    // initialize menu text
     this->updateDisplayMenuText();
     this->updateSeatingChartMenuText();
+
+    // Connect toolbar visibility changes to menu text updates
+    QObject::connect(this->pimpl->ui.toolBar, &QToolBar::visibilityChanged, this, &TBBuddyMainWindow::updateToolbarMenuText);
 
     // Update the recent files list
     this->updateRecentFilesMenu();
@@ -561,6 +564,13 @@ void TBBuddyMainWindow::on_actionExport_triggered()
     }
 }
 
+void TBBuddyMainWindow::on_actionShowHideToolbar_triggered()
+{
+    // Toggle toolbar visibility
+    bool isVisible = this->pimpl->ui.toolBar->isVisible();
+    this->pimpl->ui.toolBar->setVisible(!isVisible);
+}
+
 void TBBuddyMainWindow::on_authorizedChanged(bool auth)
 {
     qDebug() << "TBBuddyMainWindow::on_authorized:" << auth;
@@ -887,6 +897,13 @@ void TBBuddyMainWindow::updateMovementBadge()
     {
         pimpl->ui.actionShowMoves->setText(baseText);
     }
+}
+
+void TBBuddyMainWindow::updateToolbarMenuText()
+{
+    bool isVisible = this->pimpl->ui.toolBar->isVisible();
+    QString menuText = isVisible ? QObject::tr("Hide Toolbar") : QObject::tr("Show Toolbar");
+    this->pimpl->ui.actionShowHideToolbar->setText(menuText);
 }
 
 void TBBuddyMainWindow::showPlayerMovements(const QVariantList& movements)

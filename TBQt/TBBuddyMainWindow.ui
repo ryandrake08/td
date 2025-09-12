@@ -113,6 +113,8 @@
     </property>
     <addaction name="actionShowHideMainDisplay"/>
     <addaction name="actionShowHideSeatingChart"/>
+    <addaction name="separator"/>
+    <addaction name="actionShowHideToolbar"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -437,6 +439,14 @@
    </property>
    <property name="menuRole">
     <enum>QAction::PreferencesRole</enum>
+   </property>
+  </action>
+  <action name="actionShowHideToolbar">
+   <property name="text">
+    <string>Hide Toolbar</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+Ctrl+T</string>
    </property>
   </action>
  </widget>
