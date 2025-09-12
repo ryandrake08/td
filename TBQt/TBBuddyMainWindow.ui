@@ -96,7 +96,6 @@
     <addaction name="actionAuthorize"/>
     <addaction name="actionPlan"/>
     <addaction name="separator"/>
-    <addaction name="actionShowHideMainDisplay"/>
     <addaction name="actionShowMoves"/>
     <addaction name="actionRebalance"/>
     <addaction name="separator"/>
@@ -159,6 +158,7 @@
    <addaction name="actionRebalance"/>
    <addaction name="actionShowMoves"/>
    <addaction name="actionShowHideMainDisplay"/>
+   <addaction name="actionShowHideSeatingChart"/>
    <addaction name="separator"/>
    <addaction name="actionPauseResume"/>
    <addaction name="actionTournamentClock"/>
