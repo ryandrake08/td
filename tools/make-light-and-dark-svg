@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# make-light-and-dark-svg - Generate light and dark theme SVG icons
+#
+# Usage: make-light-and-dark-svg <input.svg> <light-output.svg> <dark-output.svg>
+#
+# This script takes a source SVG file and creates two themed versions:
+# - Light theme: Converts gray strokes (39.99939%) to darker gray (40%)
+# - Dark theme: Converts gray strokes (39.99939%) to lighter gray (60%)
+# - Also removes <defs> and <g> elements for simplified svg output
+#
+# If xmlstarlet is not available, gracefully falls back to copying the
+# source file to both outputs without theme processing.
+
+# Check if xmlstarlet is available
+if command -v xmlstarlet >/dev/null 2>&1; then
+    xmlstarlet ed -P -N x=http://www.w3.org/2000/svg -d //x:defs -d //x:g -u '//x:path[@stroke][@stroke="rgb(39.99939%, 39.99939%, 39.99939%)"]/@stroke' -v 'rgb(40%, 40%, 40%)' "$1" > "$2"
+    xmlstarlet ed -P -N x=http://www.w3.org/2000/svg -d //x:defs -d //x:g -u '//x:path[@stroke][@stroke="rgb(39.99939%, 39.99939%, 39.99939%)"]/@stroke' -v 'rgb(60%, 60%, 60%)' "$1" > "$3"
+else
+    echo "Warning: xmlstarlet not found - copying SVG files without theme processing" >&2
+    cp "$1" "$2" "$3"
+fi

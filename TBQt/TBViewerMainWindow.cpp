@@ -73,7 +73,7 @@ void TBViewerMainWindow::on_actionAbout_Poker_Remote_triggered()
 {
     // show about box
     QMessageBox message(this);
-    message.setIconPixmap(QIcon(":/icons/i_application.svg").pixmap(64, 64));
+    message.setIconPixmap(QIcon::fromTheme("i_application").pixmap(64, 64));
     message.setWindowTitle(QObject::tr("About %1...").arg(QCoreApplication::applicationName()));
     message.setText(QCoreApplication::applicationName());
     message.setInformativeText(QObject::tr("Version %1").arg(QCoreApplication::applicationVersion()));

@@ -7,7 +7,7 @@
 	<key>CFBundleExecutable</key>
 	<string>@TBUDDY_BUNDLE_EXECUTABLE@</string>
 	<key>CFBundleIconFile</key>
-	<string>@TBUDDY_ICON_FILE@</string>
+	<string>tbuddy.icns</string>
 	<key>CFBundleIdentifier</key>
 	<string>@TBUDDY_BUNDLE_IDENTIFIER@</string>
 	<key>CFBundleInfoDictionaryVersion</key>

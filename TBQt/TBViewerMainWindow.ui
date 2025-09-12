@@ -20,8 +20,7 @@
    <string>Poker Remote</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="TBQt.qrc">
-    <normaloff>:/icons/i_application.svg</normaloff>:/icons/i_application.svg</iconset>
+   <iconset theme="i_application"/>
   </property>
   <widget class="QWidget" name="centralWidget">
    <!-- Central widget will be replaced programmatically with TBTournamentDisplayWidget -->

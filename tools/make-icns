@@ -1,0 +1,57 @@
+#!/bin/bash
+
+# make-icns - Generate macOS ICNS files from PDF input
+#
+# Usage: make-icns <input.pdf> <output.icns>
+#
+# This script converts a PDF file to an ICNS icon file by:
+# 1. Creating PNG images at various resolutions (1024, 512, 256, 128, 64, 32, 16)
+# 2. Creating @2x retina versions as needed
+# 3. Using iconutil (macOS) or icnsutil (Linux) to create the final ICNS file
+
+# Detect ImageMagick command (prefer modern 'magick' over legacy 'convert')
+if command -v magick >/dev/null 2>&1; then
+    MAGICK_CMD="magick"
+elif command -v convert >/dev/null 2>&1; then
+    MAGICK_CMD="convert"
+else
+    echo "Error: ImageMagick not found - cannot convert input PDF into PNG files" >&2
+    exit 1
+fi
+
+# Detect icon utility command
+if command -v iconutil >/dev/null 2>&1; then
+    ICON_CMD="iconutil"
+elif command -v icnsutil >/dev/null 2>&1; then
+    ICON_CMD="icnsutil"
+else
+    echo "Error: iconutil or icnsutil not found - cannot build ICNS file" >&2
+    exit 1
+fi
+
+# Create temporary iconset directory
+ICONSET_DIR=$(mktemp -d)
+mv "$ICONSET_DIR" "${ICONSET_DIR}.iconset"
+ICONSET_DIR="${ICONSET_DIR}.iconset"
+
+# Convert pdf to png icons of various sizes
+"$MAGICK_CMD" -density 576 "$1" -depth 8 -colors 256 -strip "${ICONSET_DIR}/icon_1024x1024.png"
+"$MAGICK_CMD" -density 288 "$1" -depth 8 -colors 256 -strip "${ICONSET_DIR}/icon_512x512.png"
+"$MAGICK_CMD" -density 144 "$1" -depth 8 -colors 256 -strip "${ICONSET_DIR}/icon_256x256.png"
+"$MAGICK_CMD" -density 72  "$1" -depth 8 -colors 256 -strip "${ICONSET_DIR}/icon_128x128.png"
+"$MAGICK_CMD" -density 36  "$1" -depth 8 -colors 256 -strip "${ICONSET_DIR}/icon_64x64.png"
+"$MAGICK_CMD" -density 18  "$1" -depth 8 -colors 256 -strip "${ICONSET_DIR}/icon_32x32.png"
+"$MAGICK_CMD" -density 9   "$1" -depth 8 -colors 256 -strip "${ICONSET_DIR}/icon_16x16.png"
+
+# Copy/Move to produce @2x resolution versions
+mv "${ICONSET_DIR}/icon_1024x1024.png" "${ICONSET_DIR}/icon_512x512@2x.png"
+cp "${ICONSET_DIR}/icon_512x512.png"   "${ICONSET_DIR}/icon_256x256@2x.png"
+cp "${ICONSET_DIR}/icon_256x256.png"   "${ICONSET_DIR}/icon_128x128@2x.png"
+mv "${ICONSET_DIR}/icon_64x64.png"     "${ICONSET_DIR}/icon_32x32@2x.png"
+cp "${ICONSET_DIR}/icon_32x32.png"     "${ICONSET_DIR}/icon_16x16@2x.png"
+
+# Convert iconset to ICNS using available tool
+"$ICON_CMD" -c icns -o "$2" "${ICONSET_DIR}"
+
+# Cleanup temporary files
+rm -rf "${ICONSET_DIR}"

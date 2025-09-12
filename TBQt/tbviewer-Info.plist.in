@@ -7,7 +7,7 @@
 	<key>CFBundleExecutable</key>
 	<string>@TBVIEWER_BUNDLE_EXECUTABLE@</string>
 	<key>CFBundleIconFile</key>
-	<string>@TBVIEWER_ICON_FILE@</string>
+	<string>tbviewer.icns</string>
 	<key>CFBundleIdentifier</key>
 	<string>@TBVIEWER_BUNDLE_IDENTIFIER@</string>
 	<key>CFBundleInfoDictionaryVersion</key>
