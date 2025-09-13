@@ -15,12 +15,8 @@ struct TBActionClockWindow::impl
     explicit impl(TBActionClockWindow* parent) : clockWidget(new TBActionClockWidget(parent)) {}
 };
 
-TBActionClockWindow::TBActionClockWindow(const TournamentSession& session, QWidget* parent) : QWidget(parent), pimpl(new impl(this))
+TBActionClockWindow::TBActionClockWindow(const TournamentSession& session, QWidget* parent) : TBBaseAuxiliaryWindow(parent), pimpl(new impl(this))
 {
-    // Set window attributes for proper top-level window behavior
-    setAttribute(Qt::WA_DeleteOnClose, true); // Allow user to close and delete
-    setWindowFlags(Qt::Window | Qt::WindowTitleHint | Qt::WindowSystemMenuHint | Qt::WindowMinMaxButtonsHint | Qt::WindowCloseButtonHint);
-
     // Set window title
     setWindowTitle(QObject::tr("Action Clock"));
 
@@ -29,23 +25,11 @@ TBActionClockWindow::TBActionClockWindow(const TournamentSession& session, QWidg
     layout->setContentsMargins(0, 0, 0, 0);
     layout->addWidget(pimpl->clockWidget);
 
-    // Connect to session state changes
-    QObject::connect(&session, &TournamentSession::stateChanged, this, &TBActionClockWindow::on_tournamentStateChanged);
-
     // Initialize clock state
     this->updateActionClock(session.state());
 }
 
 TBActionClockWindow::~TBActionClockWindow() = default;
-
-void TBActionClockWindow::closeEvent(QCloseEvent* event)
-{
-    // Emit signal to notify parent that we're closing
-    Q_EMIT windowClosed();
-
-    // Accept the close event - this will delete the widget due to WA_DeleteOnClose
-    event->accept();
-}
 
 void TBActionClockWindow::showCenteredOverParent()
 {
@@ -71,21 +55,6 @@ void TBActionClockWindow::showCenteredOverParent()
     show();
     raise();
     activateWindow();
-}
-
-void TBActionClockWindow::on_tournamentStateChanged(const QString& key, const QVariant& value)
-{
-    Q_UNUSED(value);
-
-    if(key == "action_clock_time_remaining")
-    {
-        // Get the session that sent the signal
-        auto* session = qobject_cast<TournamentSession*>(sender());
-        if(session)
-        {
-            this->updateActionClock(session->state());
-        }
-    }
 }
 
 void TBActionClockWindow::updateActionClock(const QVariantMap& state)

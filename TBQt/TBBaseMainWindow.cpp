@@ -326,5 +326,8 @@ void TBBaseMainWindow::updateActionClock(const QVariantMap& state)
         {
             pimpl->actionClockWindow->showCenteredOverParent();
         }
+
+        // Update the clock itself
+        pimpl->actionClockWindow->updateActionClock(state);
     }
 }
