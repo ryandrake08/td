@@ -23,7 +23,7 @@ struct TBSeatingChartWindow::impl
     explicit impl() = default;
 };
 
-TBSeatingChartWindow::TBSeatingChartWindow(const TournamentSession& session, QWidget* parent) : TBBaseAuxiliaryWindow(parent), pimpl(new impl)
+TBSeatingChartWindow::TBSeatingChartWindow(const TournamentSession& session, QWidget* parent) : TBBaseAuxiliaryWindow(parent), pimpl(new impl())
 {
     pimpl->ui.setupUi(this);
 

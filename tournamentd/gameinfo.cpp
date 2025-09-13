@@ -2335,7 +2335,7 @@ public:
     }
 };
 
-gameinfo::gameinfo() : pimpl(new impl)
+gameinfo::gameinfo() : pimpl(new impl())
 {
 }
 

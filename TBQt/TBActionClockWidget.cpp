@@ -39,7 +39,7 @@ struct TBActionClockWidget::impl
     double digitOffset = 0.0;
 };
 
-TBActionClockWidget::TBActionClockWidget(QWidget* parent) : QWidget(parent), pimpl(new impl)
+TBActionClockWidget::TBActionClockWidget(QWidget* parent) : QWidget(parent), pimpl(new impl())
 {
     setAttribute(Qt::WA_TransparentForMouseEvents, true);
     setAttribute(Qt::WA_TranslucentBackground, true);

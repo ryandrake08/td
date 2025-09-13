@@ -11,7 +11,7 @@ struct server::impl
     std::set<common_socket> clients;
 };
 
-server::server() : pimpl(new impl)
+server::server() : pimpl(new impl())
 {
 }
 

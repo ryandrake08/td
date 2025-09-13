@@ -22,7 +22,7 @@ struct TournamentConnection::impl
 };
 
 // construct from TournamentService
-TournamentConnection::TournamentConnection(QObject* parent) : QObject(parent), pimpl(new impl)
+TournamentConnection::TournamentConnection(QObject* parent) : QObject(parent), pimpl(new impl())
 {
 }
 

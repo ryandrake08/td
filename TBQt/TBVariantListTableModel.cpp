@@ -23,7 +23,7 @@ struct TBVariantListTableModel::impl
     QVariantList model_data;
 };
 
-TBVariantListTableModel::TBVariantListTableModel(QObject* parent) : QAbstractTableModel(parent), pimpl(new impl)
+TBVariantListTableModel::TBVariantListTableModel(QObject* parent) : QAbstractTableModel(parent), pimpl(new impl())
 {
 }
 

@@ -1041,7 +1041,7 @@ public:
     impl& operator=(impl&& other) = delete;
 };
 
-tournament::tournament() : pimpl(new impl)
+tournament::tournament() : pimpl(new impl())
 {
 }
 

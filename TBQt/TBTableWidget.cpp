@@ -19,7 +19,7 @@ struct TBTableWidget::impl
     impl() = default;
 };
 
-TBTableWidget::TBTableWidget(QWidget* parent) : QWidget(parent), pimpl(new impl)
+TBTableWidget::TBTableWidget(QWidget* parent) : QWidget(parent), pimpl(new impl())
 {
     pimpl->ui.setupUi(this);
 

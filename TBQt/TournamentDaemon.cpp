@@ -25,7 +25,7 @@ struct TournamentDaemon::impl
     bonjour_publisher publisher;
 };
 
-TournamentDaemon::TournamentDaemon() : pimpl(new impl)
+TournamentDaemon::TournamentDaemon() : pimpl(new impl())
 {
 }
 

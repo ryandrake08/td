@@ -13,7 +13,7 @@ struct TournamentService::impl
 };
 
 // construct from address and port
-TournamentService::TournamentService(const std::string& address, int port) : pimpl(new impl)
+TournamentService::TournamentService(const std::string& address, int port) : pimpl(new impl())
 {
     this->pimpl->address = address;
     this->pimpl->port = port;
@@ -21,14 +21,14 @@ TournamentService::TournamentService(const std::string& address, int port) : pim
 }
 
 // construct from unix socket path
-TournamentService::TournamentService(const std::string& path) : pimpl(new impl)
+TournamentService::TournamentService(const std::string& path) : pimpl(new impl())
 {
     this->pimpl->path = path;
     this->pimpl->name = path.substr(path.find_last_of("/\\") + 1);
 }
 
 // construct from qmdnsengine service
-TournamentService::TournamentService(const QMdnsEngine::Service& service) : pimpl(new impl)
+TournamentService::TournamentService(const QMdnsEngine::Service& service) : pimpl(new impl())
 {
     this->pimpl->address = service.hostname().toStdString();
     this->pimpl->port = service.port();

@@ -22,7 +22,7 @@ struct TournamentDocument::impl
     QVariantMap configuration;
 };
 
-TournamentDocument::TournamentDocument() : pimpl(new impl)
+TournamentDocument::TournamentDocument() : pimpl(new impl())
 {
 }
 
