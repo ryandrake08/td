@@ -11,8 +11,6 @@ class TBBaseAuxiliaryWindow : public QWidget
     Q_OBJECT
 
 protected:
-    void closeEvent(QCloseEvent* event) override;
-
     // Set background and text colors using Qt stylesheet and update backgroundIsDark property
     void setBackgroundColorString(const QString& backgroundColorString);
 
@@ -27,7 +25,4 @@ public:
 
     // Apply display settings (screen, fullscreen, etc.) for this window
     void showUsingDisplaySettings(const QString& windowType);
-
-Q_SIGNALS:
-    void windowClosed();
 };

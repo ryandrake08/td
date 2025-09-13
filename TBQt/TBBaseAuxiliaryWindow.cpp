@@ -20,15 +20,6 @@ TBBaseAuxiliaryWindow::TBBaseAuxiliaryWindow(QWidget* parent) : QWidget(parent)
 
 TBBaseAuxiliaryWindow::~TBBaseAuxiliaryWindow() = default;
 
-void TBBaseAuxiliaryWindow::closeEvent(QCloseEvent* event)
-{
-    // Emit signal to notify parent that we're closing
-    Q_EMIT windowClosed();
-
-    // Accept the close event - this will delete the widget due to WA_DeleteOnClose
-    event->accept();
-}
-
 void TBBaseAuxiliaryWindow::setBackgroundColorString(const QString& backgroundColorString)
 {
     // Check if we have a valid custom color

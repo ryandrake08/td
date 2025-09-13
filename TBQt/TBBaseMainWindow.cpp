@@ -157,8 +157,9 @@ void TBBaseMainWindow::on_actionShowHideSeatingChart_triggered()
         if(!pimpl->seatingChartWindow)
         {
             pimpl->seatingChartWindow = new TBSeatingChartWindow(pimpl->session, this);
-            // Connect to window closed signal to clear our pointer when user closes it
-            QObject::connect(pimpl->seatingChartWindow, &TBSeatingChartWindow::windowClosed, this, [this]()
+
+            // Connect to destroyed signal to handle automatic destruction by closing
+            QObject::connect(pimpl->seatingChartWindow, &QObject::destroyed, this, [this]()
             {
                 pimpl->seatingChartWindow = nullptr;
                 this->updateSeatingChartMenuText();
@@ -184,8 +185,9 @@ void TBBaseMainWindow::on_actionShowHideMainDisplay_triggered()
         if(!pimpl->displayWindow)
         {
             pimpl->displayWindow = new TBTournamentDisplayWindow(pimpl->session, this);
-            // Connect to window closed signal to clear our pointer when user closes it
-            QObject::connect(pimpl->displayWindow, &TBTournamentDisplayWindow::windowClosed, this, [this]()
+
+            // Connect to destroyed signal to handle automatic destruction by closing
+            QObject::connect(pimpl->displayWindow, &QObject::destroyed, this, [this]()
             {
                 pimpl->displayWindow = nullptr;
                 this->updateDisplayMenuText();
@@ -313,11 +315,11 @@ void TBBaseMainWindow::updateActionClock(const QVariantMap& state)
             // Create the window, parent is either the display (if open) or this window
             pimpl->actionClockWindow = new TBActionClockWindow(pimpl->session, parent);
 
-            // Connect to window closed signal to clear our pointer when user closes it
-            QObject::connect(pimpl->actionClockWindow, &TBActionClockWindow::windowClosed, this, [this]()
+            // Connect to destroyed signal to handle automatic destruction by closing
+            QObject::connect(pimpl->actionClockWindow, &QObject::destroyed, this, [this]()
             {
-                this->on_actionCancelClock_triggered();
                 pimpl->actionClockWindow = nullptr;
+                this->on_actionCancelClock_triggered();
             });
         }
 
