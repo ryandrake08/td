@@ -15,40 +15,28 @@ struct TBSoundPlayer::impl
     QSoundEffect* warningSound;
     QSoundEffect* rebalanceSound;
 
-    int previousBlindLevel;
-    bool previousOnBreak;
-    int previousTimeRemaining;
-    int previousBreakTimeRemaining;
+    int previousBlindLevel { -1 };
+    bool previousOnBreak { false };
+    int previousTimeRemaining { -1 };
+    int previousBreakTimeRemaining { -1 };
+
+    explicit impl(TBSoundPlayer* parent) :
+        startSound(new QSoundEffect(parent)),
+        nextSound(new QSoundEffect(parent)),
+        breakSound(new QSoundEffect(parent)),
+        warningSound(new QSoundEffect(parent)),
+        rebalanceSound(new QSoundEffect(parent))
+    {
+        // Load sound files from Resources (use WAV format for Qt cross-platform compatibility)
+        this->startSound->setSource(QUrl("qrc:/s_start.wav"));
+        this->nextSound->setSource(QUrl("qrc:/s_next.wav"));
+        this->breakSound->setSource(QUrl("qrc:/s_break.wav"));
+        this->warningSound->setSource(QUrl("qrc:/s_warning.wav"));
+        this->rebalanceSound->setSource(QUrl("qrc:/s_rebalance.wav"));
+    }
 };
 
-TBSoundPlayer::TBSoundPlayer(QObject* parent) : QObject(parent), pimpl(new impl())
-{
-    // Initialize sound effects with Qt parent-child ownership
-    pimpl->startSound = new QSoundEffect(this);
-    pimpl->nextSound = new QSoundEffect(this);
-    pimpl->breakSound = new QSoundEffect(this);
-    pimpl->warningSound = new QSoundEffect(this);
-    pimpl->rebalanceSound = new QSoundEffect(this);
-
-    // Load sound files from Resources (use WAV format for Qt cross-platform compatibility)
-    pimpl->startSound->setSource(QUrl("qrc:/s_start.wav"));
-    pimpl->nextSound->setSource(QUrl("qrc:/s_next.wav"));
-    pimpl->breakSound->setSource(QUrl("qrc:/s_break.wav"));
-    pimpl->warningSound->setSource(QUrl("qrc:/s_warning.wav"));
-    pimpl->rebalanceSound->setSource(QUrl("qrc:/s_rebalance.wav"));
-
-    // Sound files are now loading correctly with qrc:/ URLs
-
-    // Initialize state tracking
-    pimpl->previousBlindLevel = -1;
-    pimpl->previousOnBreak = false;
-    pimpl->previousTimeRemaining = -1;
-    pimpl->previousBreakTimeRemaining = -1;
-}
-
-TBSoundPlayer::~TBSoundPlayer() = default;
-
-void TBSoundPlayer::setSession(const TournamentSession& session) const
+TBSoundPlayer::TBSoundPlayer(const TournamentSession& session, QObject* parent) : QObject(parent), pimpl(new impl(this))
 {
     // Connect to session state changes
     QObject::connect(&session, &TournamentSession::stateChanged, this, &TBSoundPlayer::on_stateChanged);
@@ -56,6 +44,8 @@ void TBSoundPlayer::setSession(const TournamentSession& session) const
     // Connect to player movement updates
     QObject::connect(&session, &TournamentSession::playerMovementsUpdated, this, &TBSoundPlayer::on_playerMovementsUpdated);
 }
+
+TBSoundPlayer::~TBSoundPlayer() = default;
 
 void TBSoundPlayer::on_stateChanged(const QString& key, const QVariant& value)
 {
@@ -121,10 +111,6 @@ void TBSoundPlayer::on_stateChanged(const QString& key, const QVariant& value)
 
         pimpl->previousBreakTimeRemaining = newBreakTimeRemaining;
     }
-
-    // Handle player movements/rebalancing
-    // Note: The macOS version listens for kMovementsUpdatedNotification
-    // We could add this when movements are implemented, or listen for relevant state changes
 }
 
 void TBSoundPlayer::on_playerMovementsUpdated(const QVariantList& movements)

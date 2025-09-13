@@ -24,7 +24,7 @@ protected:
     void closeEvent(QCloseEvent* event) override;
 
 public:
-    explicit TBActionClockWindow(TournamentSession& session, QWidget* parent = nullptr);
+    explicit TBActionClockWindow(const TournamentSession& session, QWidget* parent = nullptr);
     virtual ~TBActionClockWindow();
 
     // Show and center the window over the parent with 3/4 size

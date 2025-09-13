@@ -26,16 +26,13 @@ struct TBBaseMainWindow::impl
     // sound notifications
     TBSoundPlayer* soundPlayer;
 
-    explicit impl(TBBaseMainWindow* parent) : soundPlayer(new TBSoundPlayer(parent)) {}
+    explicit impl(TBBaseMainWindow* parent) : soundPlayer(new TBSoundPlayer(session, parent)) {}
 };
 
 TBBaseMainWindow::TBBaseMainWindow(QWidget* parent) : QMainWindow(parent), pimpl(new impl(this))
 {
     // set up rest of window
     this->setUnifiedTitleAndToolBarOnMac(true);
-
-    // initialize sound player with session
-    pimpl->soundPlayer->setSession(pimpl->session);
 
     // Set initial theme based on current system palette
     QColor windowColor = QApplication::palette().color(QPalette::Window);
@@ -184,7 +181,7 @@ void TBBaseMainWindow::on_actionMinimize_triggered()
 
 void TBBaseMainWindow::on_actionZoom_triggered()
 {
-    if (this->isMaximized())
+    if(this->isMaximized())
     {
         this->showNormal();
     }

@@ -23,7 +23,7 @@ struct TBSeatingChartWindow::impl
     explicit impl() = default;
 };
 
-TBSeatingChartWindow::TBSeatingChartWindow(TournamentSession& sess, QWidget* parent) : TBBaseAuxiliaryWindow(parent), pimpl(new impl)
+TBSeatingChartWindow::TBSeatingChartWindow(const TournamentSession& session, QWidget* parent) : TBBaseAuxiliaryWindow(parent), pimpl(new impl)
 {
     pimpl->ui.setupUi(this);
 
@@ -32,10 +32,10 @@ TBSeatingChartWindow::TBSeatingChartWindow(TournamentSession& sess, QWidget* par
     pimpl->ui.scrollAreaWidgetContents->setLayout(flowLayout);
 
     // Connect to session state changes
-    QObject::connect(&sess, &TournamentSession::stateChanged, this, &TBSeatingChartWindow::on_tournamentStateChanged);
+    QObject::connect(&session, &TournamentSession::stateChanged, this, &TBSeatingChartWindow::on_tournamentStateChanged);
 
     // Initial update
-    this->updateFromState(sess.state());
+    this->updateFromState(session.state());
 }
 
 TBSeatingChartWindow::~TBSeatingChartWindow() = default;

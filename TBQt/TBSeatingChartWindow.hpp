@@ -25,6 +25,6 @@ private Q_SLOTS:
     void on_tournamentStateChanged(const QString& key, const QVariant& value);
 
 public:
-    explicit TBSeatingChartWindow(TournamentSession& sess, QWidget* parent = nullptr);
+    explicit TBSeatingChartWindow(const TournamentSession& session, QWidget* parent = nullptr);
     virtual ~TBSeatingChartWindow() override;
 };

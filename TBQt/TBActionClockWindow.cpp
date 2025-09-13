@@ -15,7 +15,7 @@ struct TBActionClockWindow::impl
     explicit impl(TBActionClockWindow* parent) : clockWidget(new TBActionClockWidget(parent)) {}
 };
 
-TBActionClockWindow::TBActionClockWindow(TournamentSession& session, QWidget* parent) : QWidget(parent), pimpl(new impl(this))
+TBActionClockWindow::TBActionClockWindow(const TournamentSession& session, QWidget* parent) : QWidget(parent), pimpl(new impl(this))
 {
     // Set window properties
     setWindowTitle(QObject::tr("Action Clock"));

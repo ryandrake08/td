@@ -14,8 +14,6 @@ struct TBSetupTablesWidget::impl
     TBVariantListTableModel* model { nullptr };
 
     int nextTableNumber { 1 };
-
-    impl() = default;
 };
 
 TBSetupTablesWidget::TBSetupTablesWidget(QWidget* parent) : TBSetupTabWidget(parent), pimpl(new impl())

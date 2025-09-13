@@ -17,8 +17,6 @@ struct TBSetupPlayersWidget::impl
     TBVariantListTableModel* model { nullptr };
 
     int nextPlayerNumber { 1 };
-
-    impl() = default;
 };
 
 TBSetupPlayersWidget::TBSetupPlayersWidget(QWidget* parent) : TBSetupTabWidget(parent), pimpl(new impl())

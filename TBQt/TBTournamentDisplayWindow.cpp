@@ -22,12 +22,10 @@ struct TBTournamentDisplayWindow::impl
     // Child windows
     TBActionClockWindow* actionClockWindow;
 
-    explicit impl(TournamentSession& sess, TBTournamentDisplayWindow* parent) : actionClockWindow(new TBActionClockWindow(sess, parent))
-    {
-    }
+    explicit impl(const TournamentSession& session, TBTournamentDisplayWindow* parent) : actionClockWindow(new TBActionClockWindow(session, parent)) {}
 };
 
-TBTournamentDisplayWindow::TBTournamentDisplayWindow(TournamentSession& session, QWidget* parent) : TBBaseAuxiliaryWindow(parent), pimpl(new impl(session, this))
+TBTournamentDisplayWindow::TBTournamentDisplayWindow(const TournamentSession& session, QWidget* parent) : TBBaseAuxiliaryWindow(parent), pimpl(new impl(session, this))
 {
     pimpl->ui.setupUi(this);
 
@@ -273,7 +271,7 @@ void TBTournamentDisplayWindow::overrideIconsForBackground(bool isDark)
 {
     // Override icons for this specific background color by accessing UI objects directly
     const QString themePrefix = isDark ? ":/icons/dark_theme/svg/" : ":/icons/light_theme/svg/";
-    
+
     // Set icons directly on known UI button objects
     pimpl->ui.previousRoundButton->setIcon(QIcon(themePrefix + "b_previous.svg"));
     pimpl->ui.pauseResumeButton->setIcon(QIcon(themePrefix + "b_play_pause.svg"));
@@ -289,4 +287,3 @@ void TBTournamentDisplayWindow::restoreThemeBasedIcons()
     pimpl->ui.nextRoundButton->setIcon(QIcon::fromTheme("b_next"));
     pimpl->ui.callClockButton->setIcon(QIcon::fromTheme("b_call_clock"));
 }
-

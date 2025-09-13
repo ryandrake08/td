@@ -17,8 +17,6 @@ private Q_SLOTS:
     void on_playerMovementsUpdated(const QVariantList& movements);
 
 public:
-    explicit TBSoundPlayer(QObject* parent = nullptr);
+    explicit TBSoundPlayer(const TournamentSession& session, QObject* parent = nullptr);
     virtual ~TBSoundPlayer();
-
-    void setSession(const TournamentSession& session) const;
 };

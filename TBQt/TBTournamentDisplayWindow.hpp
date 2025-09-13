@@ -45,7 +45,7 @@ private Q_SLOTS:
     void onActionClockCanceled();
 
 public:
-    explicit TBTournamentDisplayWindow(TournamentSession& session, QWidget* parent = nullptr);
+    explicit TBTournamentDisplayWindow(const TournamentSession& session, QWidget* parent = nullptr);
     virtual ~TBTournamentDisplayWindow() override;
 
 Q_SIGNALS:
