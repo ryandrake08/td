@@ -20,7 +20,7 @@ protected Q_SLOTS:
     void on_actionPreviousRound_triggered();
     void on_actionNextRound_triggered();
     void on_actionCallClock_triggered();
-    void on_actionClearClock_triggered();
+    void on_actionEndGame_triggered();
     void on_actionShowHideSeatingChart_triggered();
     void on_actionShowHideMainDisplay_triggered();
     void on_actionMinimize_triggered();

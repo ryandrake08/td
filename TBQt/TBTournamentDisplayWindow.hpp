@@ -37,11 +37,13 @@ protected:
     void restoreThemeBasedIcons() override;
 
 private Q_SLOTS:
-    void on_tournamentStateChanged(const QString& key, const QVariant& value);
+    // ui slots
     void on_previousRoundButtonClicked();
     void on_pauseResumeButtonClicked();
     void on_nextRoundButtonClicked();
     void on_callClockButtonClicked();
+
+    void on_tournamentStateChanged(const QString& key, const QVariant& value);
     void onActionClockCanceled();
 
 public:

@@ -114,16 +114,27 @@ void TBBaseMainWindow::on_actionNextRound_triggered()
 void TBBaseMainWindow::on_actionCallClock_triggered()
 {
     const auto& current_blind_level(pimpl->session.state()["current_blind_level"].toInt());
-    const auto& actionClockTimeRemaining(pimpl->session.state()["action_clock_time_remaining"].toInt());
-    if(current_blind_level != 0 && actionClockTimeRemaining == 0)
+    if(current_blind_level != 0)
     {
-        pimpl->session.set_action_clock(TournamentSession::kActionClockRequestTime);
+        const auto& actionClockTimeRemaining(pimpl->session.state()["action_clock_time_remaining"].toInt());
+        if(actionClockTimeRemaining == 0)
+        {
+            pimpl->session.set_action_clock(TournamentSession::kActionClockRequestTime);
+        }
+        else
+        {
+            pimpl->session.clear_action_clock();
+        }
     }
 }
 
-void TBBaseMainWindow::on_actionClearClock_triggered()
+void TBBaseMainWindow::on_actionEndGame_triggered()
 {
-    pimpl->session.clear_action_clock();
+    const auto& current_blind_level(pimpl->session.state()["current_blind_level"].toInt());
+    if(current_blind_level != 0)
+    {
+        pimpl->session.stop_game();
+    }
 }
 
 void TBBaseMainWindow::on_actionShowHideSeatingChart_triggered()
@@ -178,7 +189,6 @@ void TBBaseMainWindow::on_actionShowHideMainDisplay_triggered()
             QObject::connect(pimpl->displayWindow, &TBTournamentDisplayWindow::pauseToggleRequested, this, &TBBaseMainWindow::on_actionPauseResume_triggered);
             QObject::connect(pimpl->displayWindow, &TBTournamentDisplayWindow::nextLevelRequested, this, &TBBaseMainWindow::on_actionNextRound_triggered);
             QObject::connect(pimpl->displayWindow, &TBTournamentDisplayWindow::actionClockStartRequested, this, &TBBaseMainWindow::on_actionCallClock_triggered);
-            QObject::connect(pimpl->displayWindow, &TBTournamentDisplayWindow::actionClockClearRequested, this, &TBBaseMainWindow::on_actionClearClock_triggered);
         }
 
         // Apply settings and show

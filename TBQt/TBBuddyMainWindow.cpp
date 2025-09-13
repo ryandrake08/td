@@ -506,15 +506,6 @@ void TBBuddyMainWindow::on_actionRebalance_triggered()
     });
 }
 
-void TBBuddyMainWindow::on_actionEndGame_triggered()
-{
-    const auto& current_blind_level(this->getSession().state()["current_blind_level"].toInt());
-    if(current_blind_level != 0)
-    {
-        this->getSession().stop_game();
-    }
-}
-
 void TBBuddyMainWindow::on_actionExport_triggered()
 {
     QFileDialog picker(this);
@@ -553,23 +544,6 @@ void TBBuddyMainWindow::on_actionShowHideToolbar_triggered()
     this->pimpl->ui.toolBar->setVisible(!isVisible);
 }
 
-void TBBuddyMainWindow::on_authorizedChanged(bool auth)
-{
-    qDebug() << "TBBuddyMainWindow::on_authorized:" << auth;
-
-    if(auth)
-    {
-        qDebug() << "sending configuration:" << this->pimpl->doc.configuration().size() << "items";
-        this->getSession().configure_with_handler(this->pimpl->doc.configuration(), [](const QVariantMap& config)
-        {
-            qDebug() << "configured:" << config.size() << "items";
-        });
-    }
-
-    // Update action button states when authorization changes
-    this->updateActionButtons(this->getSession().state(), auth);
-}
-
 void TBBuddyMainWindow::on_filenameChanged(const QString& filename)
 {
     // store filename and update window title
@@ -587,6 +561,23 @@ void TBBuddyMainWindow::on_configurationChanged(const QVariantMap& config)
 {
     // Automatically reconfigure the session when document configuration changes
     this->getSession().configure(config);
+}
+
+void TBBuddyMainWindow::on_authorizedChanged(bool auth)
+{
+    qDebug() << "TBBuddyMainWindow::on_authorized:" << auth;
+
+    if(auth)
+    {
+        qDebug() << "sending configuration:" << this->pimpl->doc.configuration().size() << "items";
+        this->getSession().configure_with_handler(this->pimpl->doc.configuration(), [](const QVariantMap& config)
+        {
+            qDebug() << "configured:" << config.size() << "items";
+        });
+    }
+
+    // Update action button states when authorization changes
+    this->updateActionButtons(this->getSession().state(), auth);
 }
 
 void TBBuddyMainWindow::on_tournamentStateChanged(const QString& key, const QVariant& /*value*/)
@@ -814,7 +805,7 @@ void TBBuddyMainWindow::updateActionButtons(const QVariantMap& state, bool autho
     this->pimpl->ui.actionPauseResume->setEnabled(authorized);
     this->pimpl->ui.actionPreviousRound->setEnabled(authorized && currentBlindLevel > 0);
     this->pimpl->ui.actionNextRound->setEnabled(authorized && currentBlindLevel > 0);
-    this->pimpl->ui.actionCallClock->setEnabled(authorized && currentBlindLevel > 0 && actionClockTimeRemaining == 0);
+    this->pimpl->ui.actionCallClock->setEnabled(authorized && currentBlindLevel > 0);
     this->pimpl->ui.actionEndGame->setEnabled(authorized && currentBlindLevel > 0);
 
     // Update pause/resume button text
@@ -835,6 +826,16 @@ void TBBuddyMainWindow::updateActionButtons(const QVariantMap& state, bool autho
             this->pimpl->ui.actionPauseResume->setText(QObject::tr("Resume"));
             this->pimpl->ui.actionPauseResume->setIconText(QObject::tr("Resume"));
         }
+    }
+
+    // Update call clock button text
+    if(actionClockTimeRemaining == 0)
+    {
+        this->pimpl->ui.actionCallClock->setText(QObject::tr("Call the Clock"));
+    }
+    else
+    {
+        this->pimpl->ui.actionCallClock->setText(QObject::tr("Reset the Clock"));
     }
 }
 

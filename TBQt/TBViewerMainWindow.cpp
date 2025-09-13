@@ -45,6 +45,7 @@ TBViewerMainWindow::TBViewerMainWindow() : pimpl(new impl())
 
     // hook up TournamentSession signals
     QObject::connect(&this->getSession(), &TournamentSession::authorizedChanged, this, &TBViewerMainWindow::on_authorizedChanged);
+    QObject::connect(&this->getSession(), &TournamentSession::stateChanged, this, &TBViewerMainWindow::on_tournamentStateChanged);
     QObject::connect(&this->getSession(), &TournamentSession::connectedChanged, this, &TBViewerMainWindow::on_connectedChanged);
 
     // hook up TournamentBrowser signals
@@ -97,6 +98,27 @@ void TBViewerMainWindow::on_actionDisconnect_triggered()
 void TBViewerMainWindow::on_authorizedChanged(bool auth)
 {
     qDebug() << "TBViewerMainWindow::on_authorized:" << auth;
+
+    // Update action button states when authorization changes
+    this->updateActionButtons(this->getSession().state(), auth);
+}
+
+void TBViewerMainWindow::on_tournamentStateChanged(const QString& key, const QVariant& /*value*/)
+{
+    // Get the session that sent the signal and current state
+    auto* session = qobject_cast<TournamentSession*>(sender());
+    if(!session)
+    {
+        return;
+    }
+
+    const QVariantMap& state = session->state();
+
+    if(key == "running" || key == "current_time" || key == "end_of_round" || key == "current_blind_level" || key == "action_clock_time_remaining")
+    {
+        // update action button states
+        this->updateActionButtons(state, session->is_authorized());
+    }
 }
 
 void TBViewerMainWindow::on_connectedChanged(bool connected)
@@ -239,5 +261,49 @@ void TBViewerMainWindow::updateServiceMenu()
             pimpl->serviceActions.append(serviceAction);
             fileMenu->insertAction(insertBefore, serviceAction);
         }
+    }
+}
+
+void TBViewerMainWindow::updateActionButtons(const QVariantMap& state, bool authorized)
+{
+    bool running = state["running"].toBool();
+    int currentBlindLevel = state["current_blind_level"].toInt();
+    int actionClockTimeRemaining = state["action_clock_time_remaining"].toInt();
+
+    // Tournament control actions
+    this->pimpl->ui.actionPauseResume->setEnabled(authorized);
+    this->pimpl->ui.actionPreviousRound->setEnabled(authorized && currentBlindLevel > 0);
+    this->pimpl->ui.actionNextRound->setEnabled(authorized && currentBlindLevel > 0);
+    this->pimpl->ui.actionCallClock->setEnabled(authorized && currentBlindLevel > 0);
+    this->pimpl->ui.actionEndGame->setEnabled(authorized && currentBlindLevel > 0);
+
+    // Update pause/resume button text
+    if(running)
+    {
+        this->pimpl->ui.actionPauseResume->setText(QObject::tr("Pause"));
+        this->pimpl->ui.actionPauseResume->setIconText(QObject::tr("Pause"));
+    }
+    else
+    {
+        if(currentBlindLevel == 0)
+        {
+            this->pimpl->ui.actionPauseResume->setText(QObject::tr("Start Tournament"));
+            this->pimpl->ui.actionPauseResume->setIconText(QObject::tr("Start"));
+        }
+        else
+        {
+            this->pimpl->ui.actionPauseResume->setText(QObject::tr("Resume"));
+            this->pimpl->ui.actionPauseResume->setIconText(QObject::tr("Resume"));
+        }
+    }
+
+    // Update call clock button text
+    if(actionClockTimeRemaining == 0)
+    {
+        this->pimpl->ui.actionCallClock->setText(QObject::tr("Call the Clock"));
+    }
+    else
+    {
+        this->pimpl->ui.actionCallClock->setText(QObject::tr("Reset the Clock"));
     }
 }

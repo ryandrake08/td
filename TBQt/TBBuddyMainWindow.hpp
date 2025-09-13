@@ -40,7 +40,6 @@ private Q_SLOTS:
     void on_actionPlan_triggered();
     void on_actionShowMoves_triggered();
     void on_actionRebalance_triggered();
-    void on_actionEndGame_triggered();
     void on_actionExport_triggered();
     void on_actionShowHideToolbar_triggered();
 
@@ -50,10 +49,12 @@ private Q_SLOTS:
 
     void on_manageButtonClicked(const QModelIndex& index);
 
-    // other slots
-    void on_authorizedChanged(bool auth) override;
+    // slots for TournamentDocument changes
     void on_filenameChanged(const QString& filename);
     void on_configurationChanged(const QVariantMap& config);
+
+    // slots for TournamentSession changes
+    void on_authorizedChanged(bool auth) override;
     void on_tournamentStateChanged(const QString& key, const QVariant& value);
     void on_playerMovementsUpdated(const QVariantList& movements);
 

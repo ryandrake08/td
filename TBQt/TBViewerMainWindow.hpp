@@ -18,6 +18,7 @@ class TBViewerMainWindow : public TBBaseMainWindow
 
     // updaters for various changeable UI controls
     void updateServiceMenu();
+    void updateActionButtons(const QVariantMap& state, bool authorized);
 
 private Q_SLOTS:
     // ui slots - limited viewer functionality
@@ -25,10 +26,13 @@ private Q_SLOTS:
     void on_actionConnectToTournament_triggered();
     void on_actionDisconnect_triggered();
 
-    // other slots
-    void on_authorizedChanged(bool auth) override;
-    void on_connectedChanged(bool connected);
+    // slots for TournamentBrowser changes
     void on_servicesUpdated(const QVariantList& services);
+
+    // slots for TournamentSession changes
+    void on_authorizedChanged(bool auth) override;
+    void on_tournamentStateChanged(const QString& key, const QVariant& value);
+    void on_connectedChanged(bool connected);
 
 public:
     // create a viewer main window

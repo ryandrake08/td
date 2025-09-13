@@ -155,6 +155,17 @@
     <string>Ctrl+Alt+C</string>
    </property>
   </action>
+  <action name="actionEndGame">
+   <property name="icon">
+    <iconset theme="b_stop"/>
+   </property>
+   <property name="text">
+    <string>End Game</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+E</string>
+   </property>
+  </action>
   <action name="actionShowHideMainDisplay">
    <property name="icon">
     <iconset theme="b_display"/>
