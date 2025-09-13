@@ -1,6 +1,7 @@
 #include "TBBaseMainWindow.hpp"
 
 #include "TBSeatingChartWindow.hpp"
+#include "TBSettingsDialog.hpp"
 #include "TBSoundPlayer.hpp"
 #include "TBTournamentDisplayWindow.hpp"
 
@@ -73,11 +74,6 @@ bool TBBaseMainWindow::isSeatingChartWindowVisible() const
 bool TBBaseMainWindow::isDisplayWindowVisible() const
 {
     return pimpl->displayWindow && pimpl->displayWindow->isVisible();
-}
-
-void TBBaseMainWindow::on_actionExit_triggered()
-{
-    this->close();
 }
 
 void TBBaseMainWindow::on_actionPauseResume_triggered()
@@ -239,6 +235,17 @@ void TBBaseMainWindow::on_actionAbout_triggered()
     message.setText(QCoreApplication::applicationName());
     message.setInformativeText(QObject::tr("Version %1").arg(QCoreApplication::applicationVersion()));
     message.exec();
+}
+
+void TBBaseMainWindow::on_actionSettings_triggered()
+{
+    TBSettingsDialog dialog(this);
+    dialog.exec();
+}
+
+void TBBaseMainWindow::on_actionExit_triggered()
+{
+    this->close();
 }
 
 void TBBaseMainWindow::updateDisplayMenuText()

@@ -15,7 +15,6 @@ class TBBaseMainWindow : public QMainWindow
 
 protected Q_SLOTS:
     // common UI slots shared by both derived classes
-    void on_actionExit_triggered();
     void on_actionPauseResume_triggered();
     void on_actionPreviousRound_triggered();
     void on_actionNextRound_triggered();
@@ -28,6 +27,8 @@ protected Q_SLOTS:
     void on_actionBringAllToFront_triggered();
     void on_actionHelp_triggered();
     void on_actionAbout_triggered();
+    void on_actionSettings_triggered();
+    void on_actionExit_triggered();
 
 private Q_SLOTS:
     // virtual slots that derived classes must implement

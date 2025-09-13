@@ -8,7 +8,6 @@
 #include "TBSeatingChartWindow.hpp"
 #include "TBSeatingCompoundSortProxyModel.hpp"
 #include "TBSeatingModel.hpp"
-#include "TBSettingsDialog.hpp"
 #include "TBSetupDialog.hpp"
 #include "TBTableViewUtils.hpp"
 #include "TBTournamentDisplayWindow.hpp"
@@ -234,14 +233,6 @@ bool TBBuddyMainWindow::load_document(const QString& filename)
         QMessageBox::warning(this, QObject::tr("Open File"), e.q_what());
         return false;
     }
-}
-
-// closeEvent is now handled by base class
-
-void TBBuddyMainWindow::on_actionSettings_triggered()
-{
-    TBSettingsDialog dialog(this);
-    dialog.exec();
 }
 
 void TBBuddyMainWindow::on_actionNew_triggered()

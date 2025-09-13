@@ -22,7 +22,6 @@ class TBViewerMainWindow : public TBBaseMainWindow
 
 private Q_SLOTS:
     // ui slots - limited viewer functionality
-    void on_actionSettings_triggered();
     void on_actionConnectToTournament_triggered();
     void on_actionDisconnect_triggered();
 

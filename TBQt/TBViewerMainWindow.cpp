@@ -3,7 +3,6 @@
 #include "TBConnectToDialog.hpp"
 #include "TBRuntimeError.hpp"
 #include "TBSeatingChartWindow.hpp"
-#include "TBSettingsDialog.hpp"
 #include "TBTournamentDisplayWindow.hpp"
 #include "TournamentBrowser.hpp"
 
@@ -63,12 +62,6 @@ TBViewerMainWindow::TBViewerMainWindow() : pimpl(new impl())
 }
 
 TBViewerMainWindow::~TBViewerMainWindow() = default;
-
-void TBViewerMainWindow::on_actionSettings_triggered()
-{
-    TBSettingsDialog dialog(this);
-    dialog.exec();
-}
 
 void TBViewerMainWindow::on_actionConnectToTournament_triggered()
 {
