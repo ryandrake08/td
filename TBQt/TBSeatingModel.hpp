@@ -9,11 +9,6 @@ class TBSeatingModel : public TBVariantListTableModel
 {
     Q_OBJECT
 
-Q_SIGNALS:
-    void fundPlayerRequested(const QString& playerId, int sourceId);
-    void bustPlayerRequested(const QString& playerId);
-    void unseatPlayerRequested(const QString& playerId);
-
 private Q_SLOTS:
     void on_stateChanged(const QString& key, const QVariant& value);
 

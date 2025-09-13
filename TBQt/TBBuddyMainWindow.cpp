@@ -107,11 +107,6 @@ TBBuddyMainWindow::TBBuddyMainWindow() : pimpl(new impl())
     seatingHeader->setSectionResizeMode(3, QHeaderView::ResizeToContents); // Paid: fit content
     seatingHeader->setSectionResizeMode(4, QHeaderView::ResizeToContents); // Manage: fit content
 
-    // connect seating model signals to session methods
-    QObject::connect(seatingModel, &TBSeatingModel::fundPlayerRequested, &this->getSession(), &TournamentSession::fund_player);
-    QObject::connect(seatingModel, &TBSeatingModel::bustPlayerRequested, this, &TBBuddyMainWindow::on_bustPlayer);
-    QObject::connect(seatingModel, &TBSeatingModel::unseatPlayerRequested, &this->getSession(), &TournamentSession::unseat_player);
-
     // right pane: results model (finished players with place/name/payout)
     auto* resultsModel(new TBResultsModel(this->getSession(), this));
 
@@ -468,9 +463,7 @@ void TBBuddyMainWindow::on_actionAuthorize_triggered()
 void TBBuddyMainWindow::on_actionPlan_triggered()
 {
     // Get current number of players from configuration
-    const QVariantMap& config = this->getSession().state();
-    QVariantList players = config["players"].toList();
-    int defaultPlayerCount = players.size();
+    int defaultPlayerCount = this->getSession().state()["players"].toList().size();
 
     // Create dialog to get number of players to plan for
     bool ok = false;
@@ -642,8 +635,7 @@ void TBBuddyMainWindow::on_manageButtonClicked(const QModelIndex& index)
         return;
 
     // Get the tournament session state to find the player data
-    const QVariantMap& sessionState = this->getSession().state();
-    QVariantList seatedPlayers = sessionState["seated_players"].toList();
+    QVariantList seatedPlayers = this->getSession().state()["seated_players"].toList();
 
     // Find the player data by player_id (reliable lookup)
     QVariantMap playerData;
@@ -666,10 +658,10 @@ void TBBuddyMainWindow::on_manageButtonClicked(const QModelIndex& index)
     // BUSINESS LOGIC FOR CREATING CONTEXT MENU (matching TBSeatingViewController.m)
 
     // Get tournament state information
-    int currentBlindLevel = sessionState["current_blind_level"].toInt();
+    int currentBlindLevel = this->getSession().state()["current_blind_level"].toInt();
     bool playerHasBuyin = playerData["buyin"].toBool();
-    QVariantList uniqueEntries = sessionState["unique_entries"].toList();
-    QVariantList fundingSources = sessionState["funding_sources"].toList();
+    QVariantList uniqueEntries = this->getSession().state()["unique_entries"].toList();
+    QVariantList fundingSources = this->getSession().state()["funding_sources"].toList();
 
     // Build QMenu
     QMenu contextMenu(this);
@@ -751,7 +743,13 @@ void TBBuddyMainWindow::on_manageButtonClicked(const QModelIndex& index)
     {
         QObject::connect(bustAction, &QAction::triggered, this, [this, playerId]()
         {
-            this->on_bustPlayer(playerId);
+            this->getSession().bust_player_with_handler(playerId, [this](const QVariantList& movements)
+            {
+                if(!movements.isEmpty())
+                {
+                    this->showPlayerMovements(movements);
+                }
+            });
         });
     }
 
@@ -929,15 +927,4 @@ void TBBuddyMainWindow::on_playerMovementsUpdated(const QVariantList& movements)
 
     // Update movement badge
     updateMovementBadge();
-}
-
-void TBBuddyMainWindow::on_bustPlayer(const QString& playerId)
-{
-    this->getSession().bust_player_with_handler(playerId, [this](const QVariantList& movements)
-    {
-        if(!movements.isEmpty())
-        {
-            this->showPlayerMovements(movements);
-        }
-    });
 }

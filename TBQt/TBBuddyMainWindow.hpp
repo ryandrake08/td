@@ -57,7 +57,6 @@ private Q_SLOTS:
     void on_configurationChanged(const QVariantMap& config);
     void on_tournamentStateChanged(const QString& key, const QVariant& value);
     void on_playerMovementsUpdated(const QVariantList& movements);
-    void on_bustPlayer(const QString& playerId);
 
 public:
     // create a main window
