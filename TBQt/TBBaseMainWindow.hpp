@@ -32,12 +32,12 @@ private Q_SLOTS:
     // virtual slots that derived classes must implement
     virtual void on_authorizedChanged(bool auth) = 0;
 
-    // session state-dependent action handlers
-    void handlePauseResumeAction(const QVariantMap& state);
-    void handlePreviousRoundAction(const QVariantMap& state);
-    void handleNextRoundAction(const QVariantMap& state);
-    void handleCallClockAction(const QVariantMap& state);
-    void handleClearClockAction();
+    // session state control
+    void doPauseResumeAction();
+    void doPreviousRoundAction();
+    void doNextRoundAction();
+    void doCallClockAction();
+    void doClearClockAction();
 
 Q_SIGNALS:
     // signals emitted by UI actions that need session state checking

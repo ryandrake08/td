@@ -38,29 +38,28 @@ TBBaseMainWindow::TBBaseMainWindow(QWidget* parent) : QMainWindow(parent), pimpl
     QColor windowColor = QApplication::palette().color(QPalette::Window);
     QIcon::setThemeName(windowColor.lightnessF() < 0.5 ? "dark_theme" : "light_theme");
 
-    // Connect action request signals to state-dependent handlers
-    QObject::connect(this, &TBBaseMainWindow::pauseResumeRequested, this, [this]()
-    {
-        this->handlePauseResumeAction(pimpl->session.state());
-    });
-    QObject::connect(this, &TBBaseMainWindow::previousRoundRequested, this, [this]()
-    {
-        this->handlePreviousRoundAction(pimpl->session.state());
-    });
-    QObject::connect(this, &TBBaseMainWindow::nextRoundRequested, this, [this]()
-    {
-        this->handleNextRoundAction(pimpl->session.state());
-    });
-    QObject::connect(this, &TBBaseMainWindow::callClockRequested, this, [this]()
-    {
-        this->handleCallClockAction(pimpl->session.state());
-    });
-    QObject::connect(this, &TBBaseMainWindow::clearClockRequested, this, &TBBaseMainWindow::handleClearClockAction);
+    // Connect action request signals to state control
+    QObject::connect(this, &TBBaseMainWindow::pauseResumeRequested, this, &TBBaseMainWindow::doPauseResumeAction);
+    QObject::connect(this, &TBBaseMainWindow::previousRoundRequested, this, &TBBaseMainWindow::doPreviousRoundAction);
+    QObject::connect(this, &TBBaseMainWindow::nextRoundRequested, this, &TBBaseMainWindow::doNextRoundAction);
+    QObject::connect(this, &TBBaseMainWindow::callClockRequested, this, &TBBaseMainWindow::doCallClockAction);
+    QObject::connect(this, &TBBaseMainWindow::clearClockRequested, this, &TBBaseMainWindow::doClearClockAction);
 }
 
 TBBaseMainWindow::~TBBaseMainWindow() = default;
 
-// initializeTournamentSession is now pure virtual - implemented by derived classes
+// Events
+
+void TBBaseMainWindow::changeEvent(QEvent* event)
+{
+    if(event->type() == QEvent::PaletteChange || event->type() == QEvent::ApplicationPaletteChange)
+    {
+        QColor windowColor = QApplication::palette().color(QPalette::Window);
+        QIcon::setThemeName(windowColor.lightnessF() < 0.5 ? "dark_theme" : "light_theme");
+    }
+
+    QMainWindow::changeEvent(event);
+}
 
 void TBBaseMainWindow::closeEvent(QCloseEvent* /* event */)
 {
@@ -235,9 +234,9 @@ void TBBaseMainWindow::updateSeatingChartMenuText()
     }
 }
 
-void TBBaseMainWindow::handlePauseResumeAction(const QVariantMap& state)
+void TBBaseMainWindow::doPauseResumeAction()
 {
-    const auto& current_blind_level(state["current_blind_level"].toInt());
+    const auto& current_blind_level(pimpl->session.state()["current_blind_level"].toInt());
     if(current_blind_level != 0)
     {
         pimpl->session.toggle_pause_game();
@@ -248,46 +247,35 @@ void TBBaseMainWindow::handlePauseResumeAction(const QVariantMap& state)
     }
 }
 
-void TBBaseMainWindow::handlePreviousRoundAction(const QVariantMap& state)
+void TBBaseMainWindow::doPreviousRoundAction()
 {
-    const auto& current_blind_level(state["current_blind_level"].toInt());
+    const auto& current_blind_level(pimpl->session.state()["current_blind_level"].toInt());
     if(current_blind_level != 0)
     {
         pimpl->session.set_previous_level();
     }
 }
 
-void TBBaseMainWindow::handleNextRoundAction(const QVariantMap& state)
+void TBBaseMainWindow::doNextRoundAction()
 {
-    const auto& current_blind_level(state["current_blind_level"].toInt());
+    const auto& current_blind_level(pimpl->session.state()["current_blind_level"].toInt());
     if(current_blind_level != 0)
     {
         pimpl->session.set_next_level();
     }
 }
 
-void TBBaseMainWindow::handleCallClockAction(const QVariantMap& state)
+void TBBaseMainWindow::doCallClockAction()
 {
-    const auto& current_blind_level(state["current_blind_level"].toInt());
-    const auto& actionClockTimeRemaining(state["action_clock_time_remaining"].toInt());
+    const auto& current_blind_level(pimpl->session.state()["current_blind_level"].toInt());
+    const auto& actionClockTimeRemaining(pimpl->session.state()["action_clock_time_remaining"].toInt());
     if(current_blind_level != 0 && actionClockTimeRemaining == 0)
     {
         pimpl->session.set_action_clock(TournamentSession::kActionClockRequestTime);
     }
 }
 
-void TBBaseMainWindow::handleClearClockAction()
+void TBBaseMainWindow::doClearClockAction()
 {
     pimpl->session.clear_action_clock();
-}
-
-void TBBaseMainWindow::changeEvent(QEvent* event)
-{
-    if(event->type() == QEvent::PaletteChange || event->type() == QEvent::ApplicationPaletteChange)
-    {
-        QColor windowColor = QApplication::palette().color(QPalette::Window);
-        QIcon::setThemeName(windowColor.lightnessF() < 0.5 ? "dark_theme" : "light_theme");
-    }
-
-    QMainWindow::changeEvent(event);
 }
