@@ -111,6 +111,8 @@ void TBViewerMainWindow::on_tournamentStateChanged(const QString& key, const QVa
     {
         // update action button states
         this->updateActionButtons(state, session->is_authorized());
+        // update actual action clock show/hide state
+        this->updateActionClock(state);
     }
 }
 

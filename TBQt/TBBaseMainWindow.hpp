@@ -53,6 +53,7 @@ protected:
     // common UI update methods
     void updateDisplayMenuText();
     void updateSeatingChartMenuText();
+    void updateActionClock(const QVariantMap& state);
 
     // visibility accessor methods for child windows
     bool isSeatingChartWindowVisible() const;

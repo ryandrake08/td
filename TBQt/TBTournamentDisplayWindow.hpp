@@ -49,5 +49,4 @@ Q_SIGNALS:
     void pauseResumeRequested();
     void nextRoundRequested();
     void callClockRequested();
-    void cancelClockRequested();
 };

@@ -17,9 +17,12 @@ struct TBActionClockWindow::impl
 
 TBActionClockWindow::TBActionClockWindow(const TournamentSession& session, QWidget* parent) : QWidget(parent), pimpl(new impl(this))
 {
-    // Set window properties
+    // Set window attributes for proper top-level window behavior
+    setAttribute(Qt::WA_DeleteOnClose, true); // Allow user to close and delete
+    setWindowFlags(Qt::Window | Qt::WindowTitleHint | Qt::WindowSystemMenuHint | Qt::WindowMinMaxButtonsHint | Qt::WindowCloseButtonHint);
+
+    // Set window title
     setWindowTitle(QObject::tr("Action Clock"));
-    setWindowFlags(Qt::Window | Qt::WindowTitleHint | Qt::WindowCloseButtonHint);
 
     // Create layout and add clock widget
     auto* layout = new QVBoxLayout(this);
@@ -34,6 +37,15 @@ TBActionClockWindow::TBActionClockWindow(const TournamentSession& session, QWidg
 }
 
 TBActionClockWindow::~TBActionClockWindow() = default;
+
+void TBActionClockWindow::closeEvent(QCloseEvent* event)
+{
+    // Emit signal to notify parent that we're closing
+    Q_EMIT windowClosed();
+
+    // Accept the close event - this will delete the widget due to WA_DeleteOnClose
+    event->accept();
+}
 
 void TBActionClockWindow::showCenteredOverParent()
 {
@@ -76,35 +88,13 @@ void TBActionClockWindow::on_tournamentStateChanged(const QString& key, const QV
     }
 }
 
-void TBActionClockWindow::closeEvent(QCloseEvent* event)
-{
-    // Closing the window cancels the clock
-    Q_EMIT clockCanceled();
-    event->accept();
-}
-
 void TBActionClockWindow::updateActionClock(const QVariantMap& state)
 {
-
     int timeRemaining = state["action_clock_time_remaining"].toInt();
     if(timeRemaining > 0)
     {
         // Clock is active - update display and show window
         double seconds = timeRemaining / 1000.0;
         pimpl->clockWidget->setTimeRemaining(seconds);
-
-        // Show window if not already visible
-        if(!isVisible())
-        {
-            showCenteredOverParent();
-        }
-    }
-    else
-    {
-        // Clock is not active - hide window
-        if(isVisible())
-        {
-            hide();
-        }
     }
 }

@@ -1,5 +1,6 @@
 #include "TBBaseMainWindow.hpp"
 
+#include "TBActionClockWindow.hpp"
 #include "TBSeatingChartWindow.hpp"
 #include "TBSettingsDialog.hpp"
 #include "TBSoundPlayer.hpp"
@@ -23,6 +24,7 @@ struct TBBaseMainWindow::impl
     // common child windows
     TBSeatingChartWindow* seatingChartWindow { nullptr };
     TBTournamentDisplayWindow* displayWindow { nullptr };
+    TBActionClockWindow* actionClockWindow { nullptr };
 
     // sound notifications
     TBSoundPlayer* soundPlayer;
@@ -194,7 +196,6 @@ void TBBaseMainWindow::on_actionShowHideMainDisplay_triggered()
             QObject::connect(pimpl->displayWindow, &TBTournamentDisplayWindow::pauseResumeRequested, this, &TBBaseMainWindow::on_actionPauseResume_triggered);
             QObject::connect(pimpl->displayWindow, &TBTournamentDisplayWindow::nextRoundRequested, this, &TBBaseMainWindow::on_actionNextRound_triggered);
             QObject::connect(pimpl->displayWindow, &TBTournamentDisplayWindow::callClockRequested, this, &TBBaseMainWindow::on_actionCallClock_triggered);
-            QObject::connect(pimpl->displayWindow, &TBTournamentDisplayWindow::cancelClockRequested, this, &TBBaseMainWindow::on_actionCancelClock_triggered);
         }
 
         // Apply settings and show
@@ -283,5 +284,47 @@ void TBBaseMainWindow::updateSeatingChartMenuText()
     if(action)
     {
         action->setText(menuText);
+    }
+}
+
+void TBBaseMainWindow::updateActionClock(const QVariantMap& state)
+{
+
+    int timeRemaining = state["action_clock_time_remaining"].toInt();
+    if(timeRemaining == 0)
+    {
+        // Clock is not active - hide window
+        if(pimpl->actionClockWindow)
+        {
+            pimpl->actionClockWindow->close();
+        }
+    }
+    else
+    {
+        // If the window is not yet created
+        if(!pimpl->actionClockWindow)
+        {
+            QWidget* parent(this);
+            if(pimpl->displayWindow)
+            {
+                parent = pimpl->displayWindow;
+            }
+
+            // Create the window, parent is either the display (if open) or this window
+            pimpl->actionClockWindow = new TBActionClockWindow(pimpl->session, parent);
+
+            // Connect to window closed signal to clear our pointer when user closes it
+            QObject::connect(pimpl->actionClockWindow, &TBActionClockWindow::windowClosed, this, [this]()
+            {
+                this->on_actionCancelClock_triggered();
+                pimpl->actionClockWindow = nullptr;
+            });
+        }
+
+        // Show window if not already visible
+        if(!pimpl->actionClockWindow->isVisible())
+        {
+            pimpl->actionClockWindow->showCenteredOverParent();
+        }
     }
 }

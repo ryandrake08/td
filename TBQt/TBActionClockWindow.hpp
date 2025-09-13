@@ -31,5 +31,5 @@ public:
     void showCenteredOverParent();
 
 Q_SIGNALS:
-    void clockCanceled();
+    void windowClosed();
 };

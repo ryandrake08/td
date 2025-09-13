@@ -1,6 +1,5 @@
 #include "TBTournamentDisplayWindow.hpp"
 
-#include "TBActionClockWindow.hpp"
 #include "TBChipDisplayDelegate.hpp"
 #include "TBPlayersModel.hpp"
 #include "TBResultsModel.hpp"
@@ -18,14 +17,9 @@ struct TBTournamentDisplayWindow::impl
 {
     // UI
     Ui::TBTournamentDisplayWindow ui {};
-
-    // Child windows
-    TBActionClockWindow* actionClockWindow;
-
-    explicit impl(const TournamentSession& session, TBTournamentDisplayWindow* parent) : actionClockWindow(new TBActionClockWindow(session, parent)) {}
 };
 
-TBTournamentDisplayWindow::TBTournamentDisplayWindow(const TournamentSession& session, QWidget* parent) : TBBaseAuxiliaryWindow(parent), pimpl(new impl(session, this))
+TBTournamentDisplayWindow::TBTournamentDisplayWindow(const TournamentSession& session, QWidget* parent) : TBBaseAuxiliaryWindow(parent), pimpl(new impl())
 {
     pimpl->ui.setupUi(this);
 
@@ -64,9 +58,6 @@ TBTournamentDisplayWindow::TBTournamentDisplayWindow(const TournamentSession& se
 
     // Connect to session state changes
     QObject::connect(&session, &TournamentSession::stateChanged, this, &TBTournamentDisplayWindow::on_tournamentStateChanged);
-
-    // Connect action clock window signals
-    QObject::connect(pimpl->actionClockWindow, &TBActionClockWindow::clockCanceled, this, &TBTournamentDisplayWindow::cancelClockRequested);
 
     // Set QGroupBox title fonts to be large and bold
     QFont groupBoxTitleFont = this->font();
