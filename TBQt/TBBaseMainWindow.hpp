@@ -27,6 +27,7 @@ protected Q_SLOTS:
     void on_actionZoom_triggered();
     void on_actionBringAllToFront_triggered();
     void on_actionHelp_triggered();
+    void on_actionAbout_triggered();
 
 private Q_SLOTS:
     // virtual slots that derived classes must implement

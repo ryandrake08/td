@@ -76,7 +76,7 @@
     </property>
     <addaction name="actionHelp"/>
     <addaction name="separator"/>
-    <addaction name="actionAbout_Poker_Remote"/>
+    <addaction name="actionAbout"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuTournament"/>
@@ -177,7 +177,7 @@
     <string>Ctrl+Shift+D</string>
    </property>
   </action>
-  <action name="actionAbout_Poker_Remote">
+  <action name="actionAbout">
    <property name="text">
     <string>&amp;About Poker Remote...</string>
    </property>

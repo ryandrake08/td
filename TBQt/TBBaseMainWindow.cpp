@@ -212,12 +212,23 @@ void TBBaseMainWindow::on_actionBringAllToFront_triggered()
 
 void TBBaseMainWindow::on_actionHelp_triggered()
 {
-    QMessageBox helpBox(this);
-    helpBox.setIcon(QMessageBox::Information);
-    helpBox.setIconPixmap(QIcon::fromTheme("i_application").pixmap(64, 64));
-    helpBox.setWindowTitle(QObject::tr("Help"));
-    helpBox.setText(QObject::tr("Help isn't available for %1").arg(QCoreApplication::applicationName()));
-    helpBox.exec();
+    QMessageBox message(this);
+    message.setIcon(QMessageBox::Information);
+    message.setIconPixmap(QIcon::fromTheme("i_application").pixmap(64, 64));
+    message.setWindowTitle(QObject::tr("Help"));
+    message.setText(QObject::tr("Help isn't available for %1").arg(QCoreApplication::applicationName()));
+    message.exec();
+}
+
+void TBBaseMainWindow::on_actionAbout_triggered()
+{
+    // show about box
+    QMessageBox message(this);
+    message.setIconPixmap(QIcon::fromTheme("i_application").pixmap(64, 64));
+    message.setWindowTitle(QObject::tr("About %1...").arg(QCoreApplication::applicationName()));
+    message.setText(QCoreApplication::applicationName());
+    message.setInformativeText(QObject::tr("Version %1").arg(QCoreApplication::applicationVersion()));
+    message.exec();
 }
 
 void TBBaseMainWindow::updateDisplayMenuText()

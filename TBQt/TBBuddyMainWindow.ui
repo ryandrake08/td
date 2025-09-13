@@ -131,7 +131,7 @@
     </property>
     <addaction name="actionHelp"/>
     <addaction name="separator"/>
-    <addaction name="actionAbout_Poker_Buddy"/>
+    <addaction name="actionAbout"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuTournament"/>
@@ -177,7 +177,7 @@
    <addaction name="actionPauseResume"/>
    <addaction name="actionTournamentClock"/>
   </widget>
-  <action name="actionAbout_Poker_Buddy">
+  <action name="actionAbout">
    <property name="text">
     <string>About Poker Buddy...</string>
    </property>

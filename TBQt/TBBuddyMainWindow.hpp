@@ -27,7 +27,6 @@ class TBBuddyMainWindow : public TBBaseMainWindow
 
 private Q_SLOTS:
     // ui slots
-    void on_actionAbout_Poker_Buddy_triggered();
     void on_actionSettings_triggered();
     void on_actionNew_triggered();
     void on_actionOpen_triggered();

@@ -69,17 +69,6 @@ void TBViewerMainWindow::on_actionSettings_triggered()
     dialog.exec();
 }
 
-void TBViewerMainWindow::on_actionAbout_Poker_Remote_triggered()
-{
-    // show about box
-    QMessageBox message(this);
-    message.setIconPixmap(QIcon::fromTheme("i_application").pixmap(64, 64));
-    message.setWindowTitle(QObject::tr("About %1...").arg(QCoreApplication::applicationName()));
-    message.setText(QCoreApplication::applicationName());
-    message.setInformativeText(QObject::tr("Version %1").arg(QCoreApplication::applicationVersion()));
-    message.exec();
-}
-
 void TBViewerMainWindow::on_actionConnectToTournament_triggered()
 {
     TBConnectToDialog dialog(this);

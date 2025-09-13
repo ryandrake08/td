@@ -244,17 +244,6 @@ void TBBuddyMainWindow::on_actionSettings_triggered()
     dialog.exec();
 }
 
-void TBBuddyMainWindow::on_actionAbout_Poker_Buddy_triggered()
-{
-    // show about box
-    QMessageBox message(this);
-    message.setIconPixmap(QIcon::fromTheme("i_application").pixmap(64, 64));
-    message.setWindowTitle(QObject::tr("About %1...").arg(QCoreApplication::applicationName()));
-    message.setText(QCoreApplication::applicationName());
-    message.setInformativeText(QObject::tr("Version %1").arg(QCoreApplication::applicationVersion()));
-    message.exec();
-}
-
 void TBBuddyMainWindow::on_actionNew_triggered()
 {
     // open a window with no document
