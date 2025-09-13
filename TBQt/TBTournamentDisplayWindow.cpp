@@ -30,10 +30,10 @@ TBTournamentDisplayWindow::TBTournamentDisplayWindow(const TournamentSession& se
     pimpl->ui.setupUi(this);
 
     // Connect button signals (these are auto-connected by Qt's naming convention)
-    QObject::connect(pimpl->ui.previousRoundButton, &QToolButton::clicked, this, &TBTournamentDisplayWindow::on_previousRoundButtonClicked);
-    QObject::connect(pimpl->ui.pauseResumeButton, &QToolButton::clicked, this, &TBTournamentDisplayWindow::on_pauseResumeButtonClicked);
-    QObject::connect(pimpl->ui.nextRoundButton, &QToolButton::clicked, this, &TBTournamentDisplayWindow::on_nextRoundButtonClicked);
-    QObject::connect(pimpl->ui.callClockButton, &QToolButton::clicked, this, &TBTournamentDisplayWindow::on_callClockButtonClicked);
+    QObject::connect(pimpl->ui.previousRoundButton, &QToolButton::clicked, this, &TBTournamentDisplayWindow::previousRoundRequested);
+    QObject::connect(pimpl->ui.pauseResumeButton, &QToolButton::clicked, this, &TBTournamentDisplayWindow::pauseResumeRequested);
+    QObject::connect(pimpl->ui.nextRoundButton, &QToolButton::clicked, this, &TBTournamentDisplayWindow::nextRoundRequested);
+    QObject::connect(pimpl->ui.callClockButton, &QToolButton::clicked, this, &TBTournamentDisplayWindow::callClockRequested);
 
     // Set up chips model
     auto* chipsModel = new TBVariantListTableModel(this);
@@ -66,7 +66,7 @@ TBTournamentDisplayWindow::TBTournamentDisplayWindow(const TournamentSession& se
     QObject::connect(&session, &TournamentSession::stateChanged, this, &TBTournamentDisplayWindow::on_tournamentStateChanged);
 
     // Connect action clock window signals
-    QObject::connect(pimpl->actionClockWindow, &TBActionClockWindow::clockCanceled, this, &TBTournamentDisplayWindow::onActionClockCanceled);
+    QObject::connect(pimpl->actionClockWindow, &TBActionClockWindow::clockCanceled, this, &TBTournamentDisplayWindow::cancelClockRequested);
 
     // Set QGroupBox title fonts to be large and bold
     QFont groupBoxTitleFont = this->font();
@@ -82,11 +82,6 @@ TBTournamentDisplayWindow::TBTournamentDisplayWindow(const TournamentSession& se
 
     // Initial update
     this->updateFromState(session.state());
-}
-
-void TBTournamentDisplayWindow::onActionClockCanceled()
-{
-    Q_EMIT actionClockClearRequested();
 }
 
 TBTournamentDisplayWindow::~TBTournamentDisplayWindow() = default;
@@ -168,26 +163,6 @@ void TBTournamentDisplayWindow::on_tournamentStateChanged(const QString& key, co
     {
         this->updateBackgroundColor(state);
     }
-}
-
-void TBTournamentDisplayWindow::on_previousRoundButtonClicked()
-{
-    Q_EMIT previousLevelRequested();
-}
-
-void TBTournamentDisplayWindow::on_pauseResumeButtonClicked()
-{
-    Q_EMIT pauseToggleRequested();
-}
-
-void TBTournamentDisplayWindow::on_nextRoundButtonClicked()
-{
-    Q_EMIT nextLevelRequested();
-}
-
-void TBTournamentDisplayWindow::on_callClockButtonClicked()
-{
-    Q_EMIT actionClockStartRequested();
 }
 
 void TBTournamentDisplayWindow::updateTournamentName(const QVariantMap& state)

@@ -124,6 +124,15 @@ void TBBaseMainWindow::on_actionCallClock_triggered()
     }
 }
 
+void TBBaseMainWindow::on_actionCancelClock_triggered()
+{
+    const auto& current_blind_level(pimpl->session.state()["current_blind_level"].toInt());
+    if(current_blind_level != 0)
+    {
+        pimpl->session.clear_action_clock();
+    }
+}
+
 void TBBaseMainWindow::on_actionEndGame_triggered()
 {
     const auto& current_blind_level(pimpl->session.state()["current_blind_level"].toInt());
@@ -180,11 +189,12 @@ void TBBaseMainWindow::on_actionShowHideMainDisplay_triggered()
                 this->updateDisplayMenuText();
             });
 
-            // Connect TBTournamentDisplayWindow action signals to base main window signals
-            QObject::connect(pimpl->displayWindow, &TBTournamentDisplayWindow::previousLevelRequested, this, &TBBaseMainWindow::on_actionPreviousRound_triggered);
-            QObject::connect(pimpl->displayWindow, &TBTournamentDisplayWindow::pauseToggleRequested, this, &TBBaseMainWindow::on_actionPauseResume_triggered);
-            QObject::connect(pimpl->displayWindow, &TBTournamentDisplayWindow::nextLevelRequested, this, &TBBaseMainWindow::on_actionNextRound_triggered);
-            QObject::connect(pimpl->displayWindow, &TBTournamentDisplayWindow::actionClockStartRequested, this, &TBBaseMainWindow::on_actionCallClock_triggered);
+            // Connect TBTournamentDisplayWindow action signals to base main window slots
+            QObject::connect(pimpl->displayWindow, &TBTournamentDisplayWindow::previousRoundRequested, this, &TBBaseMainWindow::on_actionPreviousRound_triggered);
+            QObject::connect(pimpl->displayWindow, &TBTournamentDisplayWindow::pauseResumeRequested, this, &TBBaseMainWindow::on_actionPauseResume_triggered);
+            QObject::connect(pimpl->displayWindow, &TBTournamentDisplayWindow::nextRoundRequested, this, &TBBaseMainWindow::on_actionNextRound_triggered);
+            QObject::connect(pimpl->displayWindow, &TBTournamentDisplayWindow::callClockRequested, this, &TBBaseMainWindow::on_actionCallClock_triggered);
+            QObject::connect(pimpl->displayWindow, &TBTournamentDisplayWindow::cancelClockRequested, this, &TBBaseMainWindow::on_actionCancelClock_triggered);
         }
 
         // Apply settings and show

@@ -37,24 +37,17 @@ protected:
     void restoreThemeBasedIcons() override;
 
 private Q_SLOTS:
-    // ui slots
-    void on_previousRoundButtonClicked();
-    void on_pauseResumeButtonClicked();
-    void on_nextRoundButtonClicked();
-    void on_callClockButtonClicked();
-
+    // slots for TournamentSession changes
     void on_tournamentStateChanged(const QString& key, const QVariant& value);
-    void onActionClockCanceled();
 
 public:
     explicit TBTournamentDisplayWindow(const TournamentSession& session, QWidget* parent = nullptr);
     virtual ~TBTournamentDisplayWindow() override;
 
 Q_SIGNALS:
-    void actionClockClearRequested();
-    void previousLevelRequested();
-    void pauseToggleRequested();
-    void gameStartRequested();
-    void nextLevelRequested();
-    void actionClockStartRequested();
+    void previousRoundRequested();
+    void pauseResumeRequested();
+    void nextRoundRequested();
+    void callClockRequested();
+    void cancelClockRequested();
 };
