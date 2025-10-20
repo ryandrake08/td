@@ -172,18 +172,41 @@ Qt::ItemFlags TBVariantListTableModel::flags(const QModelIndex& index) const
 
 bool TBVariantListTableModel::insertRows(int row, int count, const QModelIndex& parent)
 {
+    if(count <= 0 || row < 0 || row > this->pimpl->model_data.size())
+    {
+        return false;
+    }
+
     beginInsertRows(parent, row, row + count - 1);
-    // FIXME: Implement me!
+
+    // Insert empty QVariantMap objects at the specified position
+    for(int i = 0; i < count; ++i)
+    {
+        this->pimpl->model_data.insert(row, QVariantMap());
+    }
+
     endInsertRows();
-    return false;
+    return true;
 }
 
 bool TBVariantListTableModel::removeRows(int row, int count, const QModelIndex& parent)
 {
+    if(count <= 0 || row < 0 || row + count > this->pimpl->model_data.size())
+    {
+        return false;
+    }
+
     beginRemoveRows(parent, row, row + count - 1);
-    // FIXME: Implement me!
+
+    // Remove rows from the data list
+    // Remove in reverse order to avoid index shifting issues
+    for(int i = row + count - 1; i >= row; --i)
+    {
+        this->pimpl->model_data.removeAt(i);
+    }
+
     endRemoveRows();
-    return false;
+    return true;
 }
 
 QVariantMap TBVariantListTableModel::getRowData(int row) const
