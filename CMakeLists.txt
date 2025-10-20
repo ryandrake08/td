@@ -530,6 +530,7 @@ if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND AND Qt5Multimedia_FOU
 		TBQt/TBDateEditDelegate.hpp
 		TBQt/TBFundingDetailsDelegate.hpp
 		TBQt/TBFundingTypeDelegate.hpp
+		TBQt/TBGenerateRoundsDialog.hpp
 		TBQt/TBManageButtonDelegate.hpp
 		TBQt/TBMovementDialog.hpp
 		TBQt/TBRoundsModel.hpp
@@ -547,6 +548,7 @@ if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND AND Qt5Multimedia_FOU
 		TBQt/TournamentDocument.hpp)
 	qt5_wrap_ui(TBUDDY_UI
 		TBQt/TBBuddyMainWindow.ui
+		TBQt/TBGenerateRoundsDialog.ui
 		TBQt/TBMovementDialog.ui
 		TBQt/TBSetupChipsWidget.ui
 		TBQt/TBSetupDevicesWidget.ui
@@ -574,6 +576,8 @@ if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND AND Qt5Multimedia_FOU
 		TBQt/TBFundingDetailsDelegate.hpp
 		TBQt/TBFundingTypeDelegate.cpp
 		TBQt/TBFundingTypeDelegate.hpp
+		TBQt/TBGenerateRoundsDialog.cpp
+		TBQt/TBGenerateRoundsDialog.hpp
 		TBQt/TBManageButtonDelegate.cpp
 		TBQt/TBManageButtonDelegate.hpp
 		TBQt/TBMovementDialog.cpp

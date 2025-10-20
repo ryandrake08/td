@@ -9,6 +9,7 @@
 #include "TBSeatingCompoundSortProxyModel.hpp"
 #include "TBSeatingModel.hpp"
 #include "TBSetupDialog.hpp"
+#include "TBSetupRoundsWidget.hpp"
 #include "TBTableViewUtils.hpp"
 #include "TBTournamentDisplayWindow.hpp"
 
@@ -398,6 +399,16 @@ void TBBuddyMainWindow::on_actionConfigure_triggered()
 
     // Set current configuration from tournament document
     dialog.setConfiguration(pimpl->doc.configuration());
+
+    // Find the rounds widget and set the blind level generator
+    TBSetupRoundsWidget* roundsWidget = dialog.findChild<TBSetupRoundsWidget*>();
+    if(roundsWidget)
+    {
+        roundsWidget->setBlindLevelGenerator([this](const QVariantMap& request, std::function<void(const QVariantList&)> handler)
+        {
+            this->getSession().gen_blind_levels_with_handler(request, handler);
+        });
+    }
 
     if(dialog.exec() == QDialog::Accepted)
     {

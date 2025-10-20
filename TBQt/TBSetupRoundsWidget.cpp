@@ -1,6 +1,7 @@
 #include "TBSetupRoundsWidget.hpp"
 
 #include "TBAnteTypeDelegate.hpp"
+#include "TBGenerateRoundsDialog.hpp"
 #include "TBRoundsModel.hpp"
 
 #include "TournamentSession.hpp"
@@ -9,11 +10,13 @@
 
 #include <QHeaderView>
 #include <QInputDialog>
+#include <QMessageBox>
 
 struct TBSetupRoundsWidget::impl
 {
     Ui::TBSetupRoundsWidget ui;
     TBRoundsModel* model;
+    BlindLevelGenerator blindLevelGenerator;
 };
 
 TBSetupRoundsWidget::TBSetupRoundsWidget(QWidget* parent) : TBSetupTabWidget(parent), pimpl(new impl())
@@ -102,8 +105,43 @@ void TBSetupRoundsWidget::on_addRoundButtonClicked()
 
 void TBSetupRoundsWidget::on_generateButtonClicked()
 {
-    // TODO: Implement round auto-generation dialog
-    // This should invoke the round generation dialog as seen in macOS client
+    // Check if generator is available
+    if(!pimpl->blindLevelGenerator)
+    {
+        QMessageBox::warning(this, QObject::tr("Generate Rounds"),
+                             QObject::tr("Blind level generator is not available."));
+        return;
+    }
+
+    // Show the generate rounds dialog
+    TBGenerateRoundsDialog dialog(this);
+
+    if(dialog.exec() == QDialog::Accepted)
+    {
+        // Build request from dialog values
+        QVariantMap request;
+        request["desired_duration"] = dialog.desiredDurationMs();
+        request["level_duration"] = dialog.levelDurationMs();
+        request["expected_buyins"] = dialog.expectedBuyins();
+        request["expected_rebuys"] = dialog.expectedRebuys();
+        request["expected_addons"] = dialog.expectedAddons();
+        request["break_duration"] = dialog.breakDurationMs();
+        request["antes"] = dialog.anteType();
+        request["ante_sb_ratio"] = dialog.anteSbRatio();
+
+        // Call the generator with a handler that updates configuration
+        pimpl->blindLevelGenerator(request, [this](const QVariantList& blindLevels)
+        {
+            // Update model with generated blind levels
+            pimpl->model->setListData(blindLevels);
+            Q_EMIT configurationChanged();
+        });
+    }
+}
+
+void TBSetupRoundsWidget::setBlindLevelGenerator(BlindLevelGenerator generator)
+{
+    pimpl->blindLevelGenerator = generator;
 }
 
 void TBSetupRoundsWidget::on_removeButtonClicked()
