@@ -54,6 +54,7 @@
     <addaction name="actionNextRound"/>
     <addaction name="actionCallClock"/>
     <addaction name="separator"/>
+    <addaction name="actionExport"/>
     <addaction name="actionPrintSeatingChart"/>
    </widget>
    <widget class="QMenu" name="menuView">
@@ -230,6 +231,17 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+?</string>
+   </property>
+  </action>
+  <action name="actionExport">
+   <property name="icon">
+    <iconset theme="b_export"/>
+   </property>
+   <property name="text">
+    <string>Export Results...</string>
+   </property>
+   <property name="iconText">
+    <string>Results</string>
    </property>
   </action>
   <action name="actionPrintSeatingChart">

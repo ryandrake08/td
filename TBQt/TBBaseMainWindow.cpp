@@ -2,6 +2,7 @@
 
 #include "TBActionClockWindow.hpp"
 #include "TBFlowLayout.hpp"
+#include "TBRuntimeError.hpp"
 #include "TBSeatingChartWindow.hpp"
 #include "TBSettingsDialog.hpp"
 #include "TBSoundPlayer.hpp"
@@ -15,6 +16,9 @@
 #include <QCloseEvent>
 #include <QColor>
 #include <QDebug>
+#include <QDir>
+#include <QFile>
+#include <QFileDialog>
 #include <QIcon>
 #include <QMessageBox>
 #include <QPainter>
@@ -337,6 +341,37 @@ void TBBaseMainWindow::updateActionClock(const QVariantMap& state)
 
         // Update the clock itself
         pimpl->actionClockWindow->updateActionClock(state);
+    }
+}
+
+void TBBaseMainWindow::on_actionExport_triggered()
+{
+    QFileDialog picker(this);
+    picker.setAcceptMode(QFileDialog::AcceptSave);
+    picker.setFileMode(QFileDialog::AnyFile);
+    picker.setNameFilter(QObject::tr("CSV Files (*.csv)"));
+    picker.setViewMode(QFileDialog::Detail);
+    if(picker.exec())
+    {
+        for(const auto& filename : picker.selectedFiles())
+        {
+            // get results
+            auto results(this->getSession().results_as_csv());
+
+            // create and open file
+            QFile file_obj(filename);
+            if(!file_obj.open(QFile::WriteOnly | QFile::Text))
+            {
+                // handle file open failure
+                throw TBRuntimeError(QObject::tr("Cannot write file %1:\n%2.").arg(QDir::toNativeSeparators(filename), file_obj.errorString()));
+            }
+
+            // write to file
+            file_obj.write(results);
+
+            // close file
+            file_obj.close();
+        }
     }
 }
 

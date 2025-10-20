@@ -23,6 +23,7 @@ protected Q_SLOTS:
     void on_actionEndGame_triggered();
     void on_actionShowHideSeatingChart_triggered();
     void on_actionShowHideMainDisplay_triggered();
+    void on_actionExport_triggered();
     void on_actionPrintSeatingChart_triggered();
     void on_actionMinimize_triggered();
     void on_actionZoom_triggered();

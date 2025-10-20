@@ -23,7 +23,6 @@
 #include <QCursor>
 #include <QDateTime>
 #include <QDebug>
-#include <QFile>
 #include <QFileDialog>
 #include <QFileInfo>
 #include <QHeaderView>
@@ -506,37 +505,6 @@ void TBBuddyMainWindow::on_actionRebalance_triggered()
             QMessageBox::information(this, QObject::tr("Rebalance Tables"), QObject::tr("Tables are already balanced. No player movements required."));
         }
     });
-}
-
-void TBBuddyMainWindow::on_actionExport_triggered()
-{
-    QFileDialog picker(this);
-    picker.setAcceptMode(QFileDialog::AcceptSave);
-    picker.setFileMode(QFileDialog::AnyFile);
-    picker.setNameFilter(QObject::tr("CSV Files (*.csv)"));
-    picker.setViewMode(QFileDialog::Detail);
-    if(picker.exec())
-    {
-        for(const auto& filename : picker.selectedFiles())
-        {
-            // get results
-            auto results(this->getSession().results_as_csv());
-
-            // create and open file
-            QFile file_obj(filename);
-            if(!file_obj.open(QFile::WriteOnly | QFile::Text))
-            {
-                // handle file open failure
-                throw TBRuntimeError(QObject::tr("Cannot write file %1:\n%2.").arg(QDir::toNativeSeparators(filename), file_obj.errorString()));
-            }
-
-            // write to file
-            file_obj.write(results);
-
-            // close file
-            file_obj.close();
-        }
-    }
 }
 
 void TBBuddyMainWindow::on_actionShowHideToolbar_triggered()
