@@ -318,6 +318,7 @@ if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND AND Qt5Multimedia_FOU
 	add_pdf_to_svg_icon("Art/note_yen_yuan.pdf" "b_note_yen_yuan")
 	add_pdf_to_svg_icon("Art/controls_end.pdf" "b_play_pause")
 	add_pdf_to_svg_icon("Art/controls_rewind.pdf" "b_previous")
+	add_pdf_to_svg_icon("Art/printer.pdf" "b_printer")
 	add_pdf_to_svg_icon("Art/scales_justice.pdf" "b_rebalance")
 	add_pdf_to_svg_icon("Art/repeat.pdf" "b_restart")
 	add_pdf_to_svg_icon("Art/rocket.pdf" "b_rocket")

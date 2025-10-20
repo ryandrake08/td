@@ -23,6 +23,7 @@
         <file>icons/light_theme/svg/b_note_yen_yuan.svg</file>
         <file>icons/light_theme/svg/b_play_pause.svg</file>
         <file>icons/light_theme/svg/b_previous.svg</file>
+        <file>icons/light_theme/svg/b_printer.svg</file>
         <file>icons/light_theme/svg/b_rebalance.svg</file>
         <file>icons/light_theme/svg/b_restart.svg</file>
         <file>icons/light_theme/svg/b_rocket.svg</file>
@@ -58,6 +59,7 @@
         <file>icons/dark_theme/svg/b_note_yen_yuan.svg</file>
         <file>icons/dark_theme/svg/b_play_pause.svg</file>
         <file>icons/dark_theme/svg/b_previous.svg</file>
+        <file>icons/dark_theme/svg/b_printer.svg</file>
         <file>icons/dark_theme/svg/b_rebalance.svg</file>
         <file>icons/dark_theme/svg/b_restart.svg</file>
         <file>icons/dark_theme/svg/b_rocket.svg</file>

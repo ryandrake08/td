@@ -489,6 +489,9 @@
    </property>
   </action>
   <action name="actionPrintSeatingChart">
+   <property name="icon">
+    <iconset theme="b_printer"/>
+   </property>
    <property name="text">
     <string>Print Seating Chart...</string>
    </property>
