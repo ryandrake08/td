@@ -424,14 +424,38 @@ if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND AND Qt5Multimedia_FOU
 	)
 	list(APPEND QRC_RESOURCE_FILES "${CMAKE_BINARY_DIR}/Resources/icons/dark_theme/index.theme")
 
-	# Copy QRC file to build directory
-	set(COPIED_QRC_FILE "${CMAKE_BINARY_DIR}/Resources/TBQt.qrc")
+	# Generate QRC file from resource list
+	set(GENERATED_QRC_FILE "${CMAKE_BINARY_DIR}/Resources/TBQt.qrc")
+
+	# Convert absolute paths to relative paths from Resources directory
+	set(QRC_RELATIVE_FILES "")
+	foreach(RESOURCE_FILE ${QRC_RESOURCE_FILES})
+		file(RELATIVE_PATH REL_PATH "${CMAKE_BINARY_DIR}/Resources" "${RESOURCE_FILE}")
+		list(APPEND QRC_RELATIVE_FILES "${REL_PATH}")
+	endforeach()
+
+	# Create a CMake script that will generate the QRC file
+	set(GENERATE_QRC_SCRIPT "${CMAKE_BINARY_DIR}/generate_qrc.cmake")
+	file(WRITE "${GENERATE_QRC_SCRIPT}" "
+# Auto-generated script to create TBQt.qrc
+file(WRITE \"${GENERATED_QRC_FILE}\" \"<RCC>\\n\")
+file(APPEND \"${GENERATED_QRC_FILE}\" \"    <qresource prefix=\\\"/\\\">\\n\")
+")
+	foreach(REL_FILE ${QRC_RELATIVE_FILES})
+		file(APPEND "${GENERATE_QRC_SCRIPT}" "file(APPEND \"${GENERATED_QRC_FILE}\" \"        <file>${REL_FILE}</file>\\n\")\n")
+	endforeach()
+	file(APPEND "${GENERATE_QRC_SCRIPT}" "
+file(APPEND \"${GENERATED_QRC_FILE}\" \"    </qresource>\\n\")
+file(APPEND \"${GENERATED_QRC_FILE}\" \"</RCC>\\n\")
+")
+
+	# Run the script to generate the QRC file
 	add_custom_command(
-		OUTPUT "${COPIED_QRC_FILE}"
+		OUTPUT "${GENERATED_QRC_FILE}"
 		COMMAND ${CMAKE_COMMAND} -E make_directory "${CMAKE_BINARY_DIR}/Resources"
-		COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_SOURCE_DIR}/Resources/TBQt.qrc" "${COPIED_QRC_FILE}"
-		DEPENDS "${CMAKE_SOURCE_DIR}/Resources/TBQt.qrc"
-		COMMENT "Generating TBQt.qrc in build directory"
+		COMMAND ${CMAKE_COMMAND} -P "${GENERATE_QRC_SCRIPT}"
+		DEPENDS ${QRC_RESOURCE_FILES}
+		COMMENT "Generating TBQt.qrc from resource list"
 	)
 
 	# Create shared TBQt library with common functionality
@@ -460,7 +484,7 @@ if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND AND Qt5Multimedia_FOU
 		TBQt/TBTableWidget.ui
 		TBQt/TBTournamentDisplayWindow.ui)
 	qt5_add_resources(TBQT_COMMON_RC
-		"${COPIED_QRC_FILE}")
+		"${GENERATED_QRC_FILE}")
 
 	add_library(tbqt_common STATIC
 		TBQt/SignalHandler.cpp
@@ -511,7 +535,7 @@ if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND AND Qt5Multimedia_FOU
 		TBQt/TournamentSession.hpp
 		${TBQT_COMMON_MOC}
 		${TBQT_COMMON_UI}
-		${COPIED_QRC_FILE}
+		${GENERATED_QRC_FILE}
 	)
 	target_compile_definitions(tbqt_common PRIVATE QT_NO_KEYWORDS)
 	target_include_directories(tbqt_common PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
