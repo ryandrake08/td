@@ -95,8 +95,8 @@ endif()
 set(Qt5_USE_STATIC_LIBS OFF)
 set(Qt5_USE_STATIC_RUNTIME OFF)
 
-find_package(Qt5 COMPONENTS Core Network Widgets Multimedia)
-if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND AND Qt5Multimedia_FOUND)
+find_package(Qt5 COMPONENTS Core Network Widgets Multimedia PrintSupport)
+if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND AND Qt5Multimedia_FOUND AND Qt5PrintSupport_FOUND)
 	# Define application metadata variables (shared between C++ and Info.plist)
 	set(ORGANIZATION_NAME "HDna Studio")
 	set(APPLICATION_VERSION "1.0")
@@ -514,7 +514,7 @@ if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND AND Qt5Multimedia_FOU
 	)
 	target_compile_definitions(tbqt_common PRIVATE QT_NO_KEYWORDS)
 	target_include_directories(tbqt_common PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
-	target_link_libraries(tbqt_common td qmdnsengine Qt5::Network Qt5::Widgets Qt5::Multimedia ${CMAKE_THREAD_LIBS_INIT} ${OS_LIBRARIES})
+	target_link_libraries(tbqt_common td qmdnsengine Qt5::Network Qt5::Widgets Qt5::Multimedia Qt5::PrintSupport ${CMAKE_THREAD_LIBS_INIT} ${OS_LIBRARIES})
 	target_compile_features(tbqt_common PUBLIC cxx_std_11)
 
 	# Always build resources

@@ -53,6 +53,8 @@
     <addaction name="actionPreviousRound"/>
     <addaction name="actionNextRound"/>
     <addaction name="actionCallClock"/>
+    <addaction name="separator"/>
+    <addaction name="actionPrintSeatingChart"/>
    </widget>
    <widget class="QMenu" name="menuView">
     <property name="title">
@@ -228,6 +230,14 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+?</string>
+   </property>
+  </action>
+  <action name="actionPrintSeatingChart">
+   <property name="text">
+    <string>Print Seating Chart...</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+P</string>
    </property>
   </action>
  </widget>

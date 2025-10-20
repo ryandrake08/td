@@ -1,9 +1,11 @@
 #include "TBBaseMainWindow.hpp"
 
 #include "TBActionClockWindow.hpp"
+#include "TBFlowLayout.hpp"
 #include "TBSeatingChartWindow.hpp"
 #include "TBSettingsDialog.hpp"
 #include "TBSoundPlayer.hpp"
+#include "TBTableWidget.hpp"
 #include "TBTournamentDisplayWindow.hpp"
 
 #include "TournamentSession.hpp"
@@ -12,9 +14,13 @@
 #include <QApplication>
 #include <QCloseEvent>
 #include <QColor>
+#include <QDebug>
 #include <QIcon>
 #include <QMessageBox>
+#include <QPainter>
 #include <QPalette>
+#include <QPrintDialog>
+#include <QPrinter>
 
 struct TBBaseMainWindow::impl
 {
@@ -332,4 +338,222 @@ void TBBaseMainWindow::updateActionClock(const QVariantMap& state)
         // Update the clock itself
         pimpl->actionClockWindow->updateActionClock(state);
     }
+}
+
+void TBBaseMainWindow::on_actionPrintSeatingChart_triggered()
+{
+    // Get current tournament state
+    QVariantMap state = this->pimpl->session.state();
+
+    // Get seating chart data from state
+    QVariantList seatingChart = state.value("seating_chart").toList();
+    QVariantList tablesPlaying = state.value("tables_playing").toList();
+    QString tournamentName = state.value("name").toString();
+    QString buyinText = state.value("buyin_text").toString();
+
+    // Check if there's anything to print
+    if(tablesPlaying.isEmpty())
+    {
+        QMessageBox::information(this, QObject::tr("Print Seating Chart"),
+                                 QObject::tr("No active tables to print."));
+        return;
+    }
+
+    // Build tables dictionary from seating chart
+    QMap<QString, QVariantList> tables;
+    for(const QVariant& entryVariant : seatingChart)
+    {
+        QVariantMap entry = entryVariant.toMap();
+        QString tableName = entry.value("table_name").toString();
+
+        if(!tableName.isEmpty())
+        {
+            if(!tables.contains(tableName))
+            {
+                tables[tableName] = QVariantList();
+            }
+            tables[tableName].append(entry);
+        }
+    }
+
+    // Create printer and show print dialog
+    QPrinter printer(QPrinter::HighResolution);
+    printer.setPageOrientation(QPageLayout::Landscape);
+
+    QPrintDialog printDialog(&printer, this);
+    printDialog.setWindowTitle(QObject::tr("Print Seating Chart"));
+
+    if(printDialog.exec() != QDialog::Accepted)
+    {
+        return;
+    }
+
+    // Create painter for printing
+    QPainter painter;
+    if(!painter.begin(&printer))
+    {
+        QMessageBox::warning(this, QObject::tr("Print Seating Chart"),
+                             QObject::tr("Failed to initialize printer."));
+        return;
+    }
+
+    // Set up fonts and metrics - scale font sizes for printer DPI
+    QFont headerFont = painter.font();
+    headerFont.setPointSize(16);
+    headerFont.setBold(true);
+
+    QFont normalFont = painter.font();
+    normalFont.setPointSize(10);
+
+    qDebug() << "Header font point size:" << headerFont.pointSize();
+    qDebug() << "Normal font point size:" << normalFont.pointSize();
+
+    // Calculate page dimensions in device coordinates for proper scaling
+    // Use device pixels for precise positioning, but account for resolution
+    QRect pageRect = printer.pageRect(QPrinter::DevicePixel).toRect();
+
+    // Get printer resolution to convert between screen and printer coordinates
+    int printerDpiX = printer.resolution();
+
+    // Typical screen DPI (Qt default is 96 on most platforms)
+    const int screenDpi = 96;
+    double dpiScale = static_cast<double>(printerDpiX) / screenDpi;
+
+    int margin = static_cast<int>(50 * dpiScale);
+    int contentWidth = pageRect.width() - 2 * margin;
+    int yPos = margin;
+
+    // Draw header - scale dimensions to printer DPI
+    int headerHeight = static_cast<int>(40 * dpiScale);
+    int headerSpacing = static_cast<int>(50 * dpiScale);
+    int buyinHeight = static_cast<int>(30 * dpiScale);
+    int buyinSpacing = static_cast<int>(40 * dpiScale);
+
+    painter.setFont(headerFont);
+    painter.drawText(margin, yPos, contentWidth, headerHeight, Qt::AlignCenter,
+                     tournamentName.isEmpty() ? QObject::tr("Tournament Seating Chart") : tournamentName);
+    yPos += headerSpacing;
+
+    // Draw buy-in info if available
+    if(!buyinText.isEmpty())
+    {
+        painter.setFont(normalFont);
+        painter.drawText(margin, yPos, contentWidth, buyinHeight, Qt::AlignCenter, buyinText);
+        yPos += buyinSpacing;
+    }
+
+    // Calculate table layout
+    const int tableSpacing = 5; // Reduced to allow more tables per page
+    const int tablesPerRow = 3; // Print 3 tables per row
+
+    // Build list of table names to print
+    QStringList tableNames;
+    for(const QVariant& tableNameVariant : tablesPlaying)
+    {
+        QString tableName = tableNameVariant.toString();
+        if(!tableName.isEmpty())
+        {
+            tableNames.append(tableName);
+        }
+    }
+
+    if(tableNames.isEmpty())
+    {
+        painter.end();
+        return;
+    }
+
+    // Create ONE reusable widget for rendering all tables
+    // This is much faster than creating 63+ widget hierarchies
+    auto* tableWidget = new TBTableWidget(nullptr);
+
+    // Initialize with first table to get size
+    tableWidget->setTableName(tableNames[0]);
+    tableWidget->setSeats(tables.value(tableNames[0], QVariantList()));
+    QSize sampleTableSize = tableWidget->sizeHint();
+
+    // Convert table spacing to printer coordinates
+    int tableSpacingPrinter = static_cast<int>(tableSpacing * dpiScale);
+
+    // Calculate width available for each table in printer coordinates
+    int tableWidth = contentWidth / tablesPerRow - tableSpacingPrinter;
+
+    // Calculate scale factor: must account for DPI difference
+    // Widget is in screen pixels, we need to scale it to printer pixels
+    double scale = static_cast<double>(tableWidth) / (sampleTableSize.width() * dpiScale);
+
+    // Calculate available height per row (target 2 rows in landscape)
+    int availableHeightForTables = pageRect.height() - yPos - margin;
+    int targetRowsPerPage = 2; // Aim for 2 rows in landscape
+    int maxTableHeight = (availableHeightForTables / targetRowsPerPage) - tableSpacingPrinter;
+
+    // Apply the scale to get height, then convert to printer pixels
+    int scaledTableHeight = static_cast<int>(sampleTableSize.height() * scale * dpiScale);
+
+    // Constrain to max height to ensure we can fit target rows
+    scaledTableHeight = std::min(scaledTableHeight, maxTableHeight);
+
+    // Set a minimum table height to ensure readability (convert to printer pixels)
+    const int minTableHeight = static_cast<int>(100 * dpiScale);
+    scaledTableHeight = std::max(scaledTableHeight, minTableHeight);
+
+    // Recalculate scale based on final height to maintain aspect ratio
+    scale = static_cast<double>(scaledTableHeight) / (sampleTableSize.height() * dpiScale);
+
+    int rowHeight = scaledTableHeight + tableSpacingPrinter;
+
+    // Calculate how many rows fit on a page (after the header)
+    int availableHeight = pageRect.height() - yPos - margin;
+    int rowsPerPage = std::max(1, availableHeight / rowHeight);
+    int tablesPerPage = rowsPerPage * tablesPerRow;
+
+    // Render tables in grid layout with proper pagination
+    int tableIndex = 0;
+    int currentYPos = yPos; // Start after header on first page
+
+    while(tableIndex < tableNames.size())
+    {
+        // Render up to tablesPerPage tables on this page
+        int tablesOnThisPage = std::min(tablesPerPage, tableNames.size() - tableIndex);
+
+        for(int i = 0; i < tablesOnThisPage; ++i)
+        {
+            int row = i / tablesPerRow;
+            int col = i % tablesPerRow;
+
+            // Update the reusable widget with current table's data
+            QString tableName = tableNames[tableIndex + i];
+            tableWidget->setTableName(tableName);
+            tableWidget->setSeats(tables.value(tableName, QVariantList()));
+
+            // Calculate position
+            int xPos = margin + col * (tableWidth + tableSpacingPrinter);
+            int tableYPos = currentYPos + row * rowHeight;
+
+            // Render the table widget
+            painter.save();
+            painter.translate(xPos, tableYPos);
+
+            // Apply scaling: DPI conversion * fit-to-width scaling
+            double combinedScale = scale * dpiScale;
+            painter.scale(combinedScale, combinedScale);
+
+            tableWidget->render(&painter);
+            painter.restore();
+        }
+
+        tableIndex += tablesOnThisPage;
+
+        // Start new page if there are more tables to render
+        if(tableIndex < tableNames.size())
+        {
+            printer.newPage();
+            currentYPos = margin;
+        }
+    }
+
+    // Clean up the single reusable widget
+    delete tableWidget;
+
+    painter.end();
 }
