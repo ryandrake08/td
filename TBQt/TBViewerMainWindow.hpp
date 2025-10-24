@@ -4,6 +4,7 @@
 #include "TournamentService.hpp"
 #include <memory>
 
+class QListWidgetItem;
 class TBSeatingChartWindow;
 class TBTournamentDisplayWindow;
 class TournamentBrowser;
@@ -32,6 +33,9 @@ private Q_SLOTS:
     void on_authorizedChanged(bool auth) override;
     void on_tournamentStateChanged(const QString& key, const QVariant& value);
     void on_connectedChanged(bool connected);
+
+    // slot for tournament list double-click
+    void on_tournamentListItemActivated(QListWidgetItem* item);
 
 public:
     // create a viewer main window

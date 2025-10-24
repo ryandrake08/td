@@ -14,7 +14,8 @@
 #include <QAction>
 #include <QApplication>
 #include <QDateTime>
-#include <QDebug>
+#include <QListWidget>
+#include <QListWidgetItem>
 #include <QMenu>
 #include <QMessageBox>
 #include <QString>
@@ -50,6 +51,11 @@ TBViewerMainWindow::TBViewerMainWindow() : pimpl(new impl())
     // hook up TournamentBrowser signals
     QObject::connect(pimpl->browser, &TournamentBrowser::servicesUpdated, this, &TBViewerMainWindow::on_servicesUpdated);
 
+    // hook up connection launcher UI
+    QObject::connect(pimpl->ui.connectOtherButton, &QPushButton::clicked, pimpl->ui.actionConnectToTournament, &QAction::trigger);
+    QObject::connect(pimpl->ui.disconnectButton, &QPushButton::clicked, pimpl->ui.actionDisconnect, &QAction::trigger);
+    QObject::connect(pimpl->ui.tournamentsList, &QListWidget::itemDoubleClicked, this, &TBViewerMainWindow::on_tournamentListItemActivated);
+
     // initialize connection state
     on_connectedChanged(false); // start with disconnected state
 
@@ -59,6 +65,9 @@ TBViewerMainWindow::TBViewerMainWindow() : pimpl(new impl())
 
     // initialize service menu
     this->updateServiceMenu();
+
+    // set fixed size for launcher window
+    this->setFixedSize(this->minimumSize());
 }
 
 TBViewerMainWindow::~TBViewerMainWindow() = default;
@@ -74,8 +83,6 @@ void TBViewerMainWindow::on_actionConnectToTournament_triggered()
         QString host = dialog.host();
         int port = dialog.port();
 
-        qDebug() << "Connecting to tournament at" << host << ":" << port;
-
         // create tournament service and connect
         TournamentService service(host.toStdString(), port);
         this->getSession().connect(service);
@@ -84,14 +91,21 @@ void TBViewerMainWindow::on_actionConnectToTournament_triggered()
 
 void TBViewerMainWindow::on_actionDisconnect_triggered()
 {
-    qDebug() << "Disconnecting from tournament";
+    // Close all tournament windows before disconnecting
+    if(this->isDisplayWindowVisible())
+    {
+        pimpl->ui.actionShowHideMainDisplay->trigger();
+    }
+    if(this->isSeatingChartWindowVisible())
+    {
+        pimpl->ui.actionShowHideSeatingChart->trigger();
+    }
+
     this->getSession().disconnect();
 }
 
 void TBViewerMainWindow::on_authorizedChanged(bool auth)
 {
-    qDebug() << "TBViewerMainWindow::on_authorized:" << auth;
-
     // Update action button states when authorization changes
     this->updateActionButtons(this->getSession().state(), auth);
 }
@@ -118,17 +132,46 @@ void TBViewerMainWindow::on_tournamentStateChanged(const QString& key, const QVa
 
 void TBViewerMainWindow::on_connectedChanged(bool connected)
 {
-    qDebug() << "TBViewerMainWindow::on_connected:" << connected;
-
-    // update menu state using UI actions
+    // update menu state and button state
     pimpl->ui.actionConnectToTournament->setEnabled(!connected);
     pimpl->ui.actionDisconnect->setEnabled(connected);
+    pimpl->ui.disconnectButton->setEnabled(connected);
+
+    // update status label
+    if(connected)
+    {
+        QString tournamentName = this->getSession().state()["name"].toString();
+        if(tournamentName.isEmpty())
+        {
+            pimpl->ui.statusLabel->setText(QObject::tr("Connection Status: Connected"));
+        }
+        else
+        {
+            pimpl->ui.statusLabel->setText(QObject::tr("Connection Status: Connected to %1").arg(tournamentName));
+        }
+    }
+    else
+    {
+        pimpl->ui.statusLabel->setText(QObject::tr("Connection Status: Not connected"));
+    }
 
     // automatically show display window when connected
     if(connected && !this->isDisplayWindowVisible())
     {
         // Use the same logic as the menu action to show the display window
         pimpl->ui.actionShowHideMainDisplay->trigger();
+    }
+    // close all windows when disconnected
+    else if(!connected)
+    {
+        if(this->isDisplayWindowVisible())
+        {
+            pimpl->ui.actionShowHideMainDisplay->trigger();
+        }
+        if(this->isSeatingChartWindowVisible())
+        {
+            pimpl->ui.actionShowHideSeatingChart->trigger();
+        }
     }
 }
 
@@ -179,6 +222,25 @@ void TBViewerMainWindow::updateServiceMenu()
     // Get services from browser
     QVariantList localServices = pimpl->browser->localServiceList();
     QVariantList remoteServices = pimpl->browser->remoteServiceList();
+
+    // Update the tournaments list widget
+    pimpl->ui.tournamentsList->clear();
+    for(const QVariant& serviceVar : localServices)
+    {
+        QVariantMap serviceMap = serviceVar.toMap();
+        QString displayName = QObject::tr("%1").arg(serviceMap["name"].toString());
+        auto* item = new QListWidgetItem(displayName);
+        item->setData(Qt::UserRole, serviceVar);
+        pimpl->ui.tournamentsList->addItem(item);
+    }
+    for(const QVariant& serviceVar : remoteServices)
+    {
+        QVariantMap serviceMap = serviceVar.toMap();
+        QString displayName = QObject::tr("%1").arg(serviceMap["name"].toString());
+        auto* item = new QListWidgetItem(displayName);
+        item->setData(Qt::UserRole, serviceVar);
+        pimpl->ui.tournamentsList->addItem(item);
+    }
 
     // Find insertion point (before Exit action, after Disconnect action)
     QAction* insertBefore = pimpl->ui.actionExit;
@@ -300,5 +362,28 @@ void TBViewerMainWindow::updateActionButtons(const QVariantMap& state, bool auth
     else
     {
         this->pimpl->ui.actionCallClock->setText(QObject::tr("Reset the Clock"));
+    }
+}
+
+void TBViewerMainWindow::on_tournamentListItemActivated(QListWidgetItem* item)
+{
+    if(!item)
+    {
+        return;
+    }
+
+    // Get service data from item
+    QVariantMap serviceMap = item->data(Qt::UserRole).toMap();
+
+    // Create TournamentService and connect
+    if(serviceMap["isRemote"].toBool())
+    {
+        TournamentService service(serviceMap["address"].toString().toStdString(), serviceMap["port"].toInt());
+        this->connectToTournament(service);
+    }
+    else
+    {
+        TournamentService service(serviceMap["unixSocketPath"].toString().toStdString());
+        this->connectToTournament(service);
     }
 }
