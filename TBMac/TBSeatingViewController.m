@@ -23,13 +23,9 @@
     // filter predicate to not show empty seats
     [[self arrayController] setFilterPredicate:[NSPredicate predicateWithFormat: @"seat_name != nil"]];
 
-    // setup sort descriptors
-    NSSortDescriptor* tableNumberSort = [[NSSortDescriptor alloc] initWithKey:@"table_name" ascending:YES comparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        return [obj1 compare:obj2 options:NSCaseInsensitiveSearch|NSNumericSearch];
-    }];
-    NSSortDescriptor* seatNumberSort = [[NSSortDescriptor alloc] initWithKey:@"seat_name" ascending:YES comparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        return [obj1 compare:obj2 options:NSCaseInsensitiveSearch|NSNumericSearch];
-    }];
+    // setup sort descriptors using seat_position field (matches Qt client)
+    NSSortDescriptor* tableNumberSort = [[NSSortDescriptor alloc] initWithKey:@"seat_position.table_number" ascending:YES];
+    NSSortDescriptor* seatNumberSort = [[NSSortDescriptor alloc] initWithKey:@"seat_position.seat_number" ascending:YES];
 
     // set sort descriptors for arrays
     [[self arrayController] setSortDescriptors:@[tableNumberSort, seatNumberSort]];
