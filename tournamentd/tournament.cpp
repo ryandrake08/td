@@ -954,8 +954,10 @@ public:
             }
             catch(const std::system_error& e)
             {
-                // EPERM: failed to bind due to permission issue. retry without unix socket
-                if(e.code().value() != EPERM)
+                // EPERM: failed to bind due to permission issue
+                // EAFNOSUPPORT: address family not supported (e.g., Unix sockets on Windows)
+                // In both cases, retry without unix socket
+                if(e.code().value() != EPERM && e.code() != std::errc::address_family_not_supported)
                 {
                     throw;
                 }

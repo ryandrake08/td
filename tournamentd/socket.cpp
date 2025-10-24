@@ -10,9 +10,9 @@
 #if defined(_WIN32)
 #define STRICT 1
 #define WIN32_LEAN_AND_MEAN 1
-#include <WS2tcpip.h>
-#include <windows.h>
 #include <winsock2.h>
+#include <ws2tcpip.h>
+#include <windows.h>
 typedef int socklen_t;
 #endif
 #if defined(__unix) || defined(__APPLE__)
@@ -56,9 +56,11 @@ public:
 #if defined(_WIN32)
         WORD ver(MAKEWORD(1, 1));
         WSADATA data;
-        auto res = WSAStartup(ver, &data);
-        assert(res == 0);
-        assert(LOBYTE(data.wVersion) == 1 && HIBYTE(data.wVersion) == 1);
+        int res = WSAStartup(ver, &data);
+        if(res != 0)
+            throw std::system_error(res, std::system_category(), "WSAStartup");
+        if(LOBYTE(data.wVersion) != 1 || HIBYTE(data.wVersion) != 1)
+            throw std::runtime_error("WSAStartup returned incorrect Winsock version");
 #endif
     }
 
@@ -192,7 +194,7 @@ common_socket common_socket::accept() const
     sockaddr_storage addr {};
     socklen_t addrlen(sizeof(addr));
     auto sock(::accept(this->pimpl->fd, static_cast<sockaddr*>(static_cast<void*>(&addr)), &addrlen));
-    if(sock == SOCKET_ERROR)
+    if(sock == INVALID_SOCKET)
     {
         throw std::system_error(errno, std::system_category(), "accept");
     }
@@ -462,7 +464,12 @@ std::ostream& operator<<(std::ostream& os, const common_socket& sock)
 
 unix_socket::unix_socket(const char* path, bool client, int backlog)
 {
-#if !defined(_WIN32)
+#if defined(_WIN32)
+    (void)path;
+    (void)client;
+    (void)backlog;
+    throw std::system_error(std::make_error_code(std::errc::address_family_not_supported), "unix_socket");
+#else
     sockaddr_un addr {};
 
     // first check size of path

@@ -3,16 +3,47 @@
 #include <vector>
 
 #if defined(_WIN32)
-#include <Windows.h>
+#include <winsock2.h>
+#include <windows.h>
+
+// Forward declaration of helper struct
+template<typename TChar, typename TTraits>
+struct MessageOutputer;
+
+// Specialization for char
+template<>
+struct MessageOutputer<char, std::char_traits<char>>
+{
+    template<typename TIterator>
+    void operator()(TIterator begin, TIterator end) const
+    {
+        std::string s(begin, end);
+        OutputDebugStringA(s.c_str());
+    }
+};
+
+// Specialization for wchar_t
+template<>
+struct MessageOutputer<wchar_t, std::char_traits<wchar_t>>
+{
+    template<typename TIterator>
+    void operator()(TIterator begin, TIterator end) const
+    {
+        std::wstring s(begin, end);
+        OutputDebugStringW(s.c_str());
+    }
+};
 
 template<typename TChar, typename TTraits = std::char_traits<TChar>>
 class basic_outputdebugstringbuf : public std::basic_stringbuf<TChar, TTraits>
 {
 public:
+    using typename std::basic_stringbuf<TChar, TTraits>::int_type;
+
     explicit basic_outputdebugstringbuf() : _buffer(256)
     {
-        setg(nullptr, nullptr, nullptr);
-        setp(_buffer.data(), _buffer.data(), _buffer.data() + _buffer.size());
+        this->setg(nullptr, nullptr, nullptr);
+        this->setp(_buffer.data(), _buffer.data() + _buffer.size());
     }
 
     virtual ~basic_outputdebugstringbuf()
@@ -24,8 +55,8 @@ public:
     virtual int sync()
     try
     {
-        MessageOutputer<TChar, TTraits>()(pbase(), pptr());
-        setp(_buffer.data(), _buffer.data(), _buffer.data() + _buffer.size());
+        MessageOutputer<TChar, TTraits>()(this->pbase(), this->pptr());
+        this->setp(_buffer.data(), _buffer.data() + _buffer.size());
         return 0;
     }
     catch(...)
@@ -39,38 +70,14 @@ public:
         if(c != TTraits::eof())
         {
             _buffer[0] = c;
-            setp(_buffer.data(), _buffer.data() + 1, _buffer.data() + _buffer.size());
+            this->setp(_buffer.data(), _buffer.data() + _buffer.size());
+            this->pbump(1);
         }
         return syncRet == -1 ? TTraits::eof() : 0;
     }
 
 private:
     std::vector<TChar> _buffer;
-
-    template<typename TChar, typename TTraits>
-    struct MessageOutputer;
-
-    template<>
-    struct MessageOutputer<char, std::char_traits<char>>
-    {
-        template<typename TIterator>
-        void operator()(TIterator begin, TIterator end) const
-        {
-            std::string s(begin, end);
-            OutputDebugStringA(s.c_str());
-        }
-    };
-
-    template<>
-    struct MessageOutputer<wchar_t, std::char_traits<wchar_t>>
-    {
-        template<typename TIterator>
-        void operator()(TIterator begin, TIterator end) const
-        {
-            std::wstring s(begin, end);
-            OutputDebugStringW(s.c_str());
-        }
-    };
 };
 
 typedef basic_outputdebugstringbuf<char> outputdebugstringbuf;

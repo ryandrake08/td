@@ -5,22 +5,23 @@
 
 #include <array>
 #include <csignal>
+
+#if !defined(_WIN32)
 #include <sys/socket.h>
 #include <unistd.h>
 
-// Static member definition
-std::array<int, 2> SignalHandler::sigtermFd;
-
-void SignalHandler::unixSignalHandler(int /* signum */)
+namespace
 {
-    // Write to socket to wake up Qt event loop
-    char sig = 1;
-    ssize_t result = write(sigtermFd[0], &sig, 1);
-    (void)result; // Suppress unused variable warning
-}
+
+    // File-local static variable for Unix signal handling
+    std::array<int, 2> sigtermFd = { -1, -1 };
+
+} // anonymous namespace
+#endif
 
 SignalHandler::SignalHandler(QObject* parent) : QObject(parent)
 {
+#if !defined(_WIN32)
     // Create a socket pair for self-pipe trick
     if(::socketpair(AF_UNIX, SOCK_STREAM, 0, sigtermFd.data()) == -1)
     {
@@ -34,9 +35,15 @@ SignalHandler::SignalHandler(QObject* parent) : QObject(parent)
 
     // Install signal handlers for SIGTERM and SIGINT
     struct sigaction term_action {};
-    term_action.sa_handler = SignalHandler::unixSignalHandler;
     sigemptyset(&term_action.sa_mask);
     term_action.sa_flags = SA_RESTART;
+    term_action.sa_handler = [](int /* signum */)
+    {
+        // Write to socket to wake up Qt event loop
+        char sig = 1;
+        ssize_t result = write(sigtermFd[0], &sig, 1);
+        (void)result; // Suppress unused variable warning
+    };
 
     if(sigaction(SIGINT, &term_action, nullptr) == -1)
     {
@@ -55,10 +62,16 @@ SignalHandler::SignalHandler(QObject* parent) : QObject(parent)
         qWarning() << "Failed to install SIGQUIT handler";
         return;
     }
+#else
+    // Windows doesn't support Unix signals in the same way
+    // Signal handling could be implemented using Windows-specific mechanisms if needed
+    snTerm = nullptr;
+#endif
 }
 
 SignalHandler::~SignalHandler()
 {
+#if !defined(_WIN32)
     if(snTerm)
     {
         snTerm->setEnabled(false);
@@ -73,10 +86,12 @@ SignalHandler::~SignalHandler()
     {
         close(sigtermFd[1]);
     }
+#endif
 }
 
 void SignalHandler::handleSignal()
 {
+#if !defined(_WIN32)
     snTerm->setEnabled(false);
 
     char signal = '\0';
@@ -86,4 +101,5 @@ void SignalHandler::handleSignal()
     Q_EMIT shutdownRequested();
 
     snTerm->setEnabled(true);
+#endif
 }

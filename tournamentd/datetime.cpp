@@ -85,7 +85,7 @@ datetime datetime::from_local(const std::tm& tm_s)
 // Named constructor (from NMEA0183)
 datetime datetime::from_nmea0183(const std::string& timebuf, const std::string& datebuf)
 {
-    struct tm tm { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, nullptr };
+    struct tm tm = {};
     if(!datebuf.empty())
     {
         // Parse month, date, year from NMEA

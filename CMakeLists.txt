@@ -8,8 +8,8 @@ if(APPLE)
 	find_library(CFNETWORK_LIBRARY CFNetwork)
 	set(OS_LIBRARIES ${COREFOUNDATION_LIBRARY} ${CFNETWORK_LIBRARY})
 elseif(WIN32)
-	# TBD for Windows, for now no OS-specific libraries
-	set(OS_LIBRARIES "")
+	# Windows requires Winsock library for socket operations
+	set(OS_LIBRARIES ws2_32)
 else()
 	# Assume Linux
 	find_library(AVAHI_LIBRARY-COMMON NAMES avahi-common)
@@ -97,6 +97,32 @@ set(Qt5_USE_STATIC_RUNTIME OFF)
 
 find_package(Qt5 COMPONENTS Core Network Widgets Multimedia PrintSupport)
 if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND AND Qt5Multimedia_FOUND AND Qt5PrintSupport_FOUND)
+	# When cross-compiling for Windows, use native Linux Qt tools for code generation
+	# Qt's moc/uic/rcc tools are platform-independent, so we can use the Linux versions
+	if(WIN32 AND CMAKE_CROSSCOMPILING)
+		# Use native Linux Qt tools instead of Windows .exe files
+		# Check common locations for native Qt5 tools
+		if(EXISTS "/usr/lib/qt5/bin/moc")
+			set(Qt5Core_MOC_EXECUTABLE "/usr/lib/qt5/bin/moc" CACHE FILEPATH "MOC executable" FORCE)
+		elseif(EXISTS "/usr/lib/x86_64-linux-gnu/qt5/bin/moc")
+			set(Qt5Core_MOC_EXECUTABLE "/usr/lib/x86_64-linux-gnu/qt5/bin/moc" CACHE FILEPATH "MOC executable" FORCE)
+		endif()
+
+		if(EXISTS "/usr/lib/qt5/bin/uic")
+			set(Qt5Widgets_UIC_EXECUTABLE "/usr/lib/qt5/bin/uic" CACHE FILEPATH "UIC executable" FORCE)
+		elseif(EXISTS "/usr/lib/x86_64-linux-gnu/qt5/bin/uic")
+			set(Qt5Widgets_UIC_EXECUTABLE "/usr/lib/x86_64-linux-gnu/qt5/bin/uic" CACHE FILEPATH "UIC executable" FORCE)
+		endif()
+
+		if(EXISTS "/usr/lib/qt5/bin/rcc")
+			set(Qt5Core_RCC_EXECUTABLE "/usr/lib/qt5/bin/rcc" CACHE FILEPATH "RCC executable" FORCE)
+		elseif(EXISTS "/usr/lib/x86_64-linux-gnu/qt5/bin/rcc")
+			set(Qt5Core_RCC_EXECUTABLE "/usr/lib/x86_64-linux-gnu/qt5/bin/rcc" CACHE FILEPATH "RCC executable" FORCE)
+		endif()
+
+		message(STATUS "Cross-compiling: Using native Qt tools - moc: ${Qt5Core_MOC_EXECUTABLE}, uic: ${Qt5Widgets_UIC_EXECUTABLE}, rcc: ${Qt5Core_RCC_EXECUTABLE}")
+	endif()
+
 	# Define application metadata variables (shared between C++ and Info.plist)
 	set(ORGANIZATION_NAME "HDna Studio")
 	set(APPLICATION_VERSION "1.0")

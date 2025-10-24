@@ -34,14 +34,14 @@ struct bonjour_publisher::impl
     }
 
 public:
-    impl(const std::string& name, int port)
+    impl(const char* name, int port)
     {
         logger(ll::info) << "setting up bonjour service for " << name << " with port " << port << '\n';
 
         // describe net service
         CFStringRef theDomain = CFSTR("local.");
         CFStringRef serviceType = CFSTR("_pokerbuddy._tcp");
-        CFStringRef serviceName = CFStringCreateWithCString(kCFAllocatorDefault, name.c_str(), kCFStringEncodingUTF8);
+        CFStringRef serviceName = CFStringCreateWithCString(kCFAllocatorDefault, name, kCFStringEncodingUTF8);
 
         // create net service
         netService = CFNetServiceCreate(nullptr, theDomain, serviceType, serviceName, port);
@@ -306,7 +306,7 @@ struct bonjour_publisher::impl
     }
 
 public:
-    impl(std::string name, int port) : service_name(std::move(name)), service_port(port)
+    impl(const char* name, int port) : service_name(name), service_port(port)
     {
         // handle empty string by using fallback name
         if(this->service_name.empty())
@@ -424,5 +424,5 @@ bonjour_publisher::~bonjour_publisher() = default;
 
 void bonjour_publisher::publish(const std::string& name, int port)
 {
-    this->pimpl = std::unique_ptr<impl>(new impl(name, port));
+    this->pimpl = std::unique_ptr<impl>(new impl(name.c_str(), port));
 }
