@@ -32,12 +32,12 @@ void server::listen(const char* unix_socket_path, const char* inet_service)
     if(inet_service != nullptr)
     {
         // add socket to listen for ipv4
-        inet4_socket sock4(inet_service);
+        inet4_socket sock4(nullptr, inet_service);
         this->pimpl->all.insert(sock4);
         this->pimpl->listeners.insert(sock4);
 
         // add socket to listen for ipv6
-        inet6_socket sock6(inet_service);
+        inet6_socket sock6(nullptr, inet_service);
         this->pimpl->all.insert(sock6);
         this->pimpl->listeners.insert(sock6);
     }

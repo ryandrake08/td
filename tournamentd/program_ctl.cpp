@@ -56,7 +56,7 @@ static socketstream make_stream(const std::string& server, const std::string& po
 {
     if(unix_path.empty())
     {
-        return socketstream(inet4_socket(server.c_str(), port.c_str()));
+        return socketstream(inet4_socket(server.c_str(), port.c_str(), true));
     }
     else
     {

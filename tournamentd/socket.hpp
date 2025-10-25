@@ -22,7 +22,7 @@ protected:
 
 public:
     // destructor
-    virtual ~common_socket();
+    ~common_socket();
 
     // create a new socket by accepting on a listening socket
     common_socket accept() const;
@@ -53,37 +53,26 @@ class unix_socket : public common_socket
 {
 public:
     // create a unix socket by either connecting or binding/listening
-    explicit unix_socket(const char* path, bool client = false, int backlog = 5);
+    explicit unix_socket(const char* path, bool connecting = false);
 };
 
 class inet_socket : public common_socket
 {
 public:
-    ~inet_socket() override;
-
-    // create and connect socket and connect to a host at a port
-    inet_socket(const char* host, const char* service, int family);
-
-    // create a listening socket by binding to a port
-    inet_socket(const char* service, int family, int backlog);
+    // create an inet socket by either connecting or binding/listening
+    inet_socket(const char* host, const char* service, int family, bool connecting);
 };
 
 class inet4_socket : public inet_socket
 {
 public:
-    // create and connect socket and connect to a host at a port
-    inet4_socket(const char* host, const char* service);
-
-    // create a listening socket by binding to a port
-    explicit inet4_socket(const char* service, int backlog = 5);
+    // create an inet4 socket by either connecting or binding/listening
+    inet4_socket(const char* host, const char* service, bool connecting = false);
 };
 
 class inet6_socket : public inet_socket
 {
 public:
-    // create and connect socket and connect to a host at a port
-    inet6_socket(const char* host, const char* service);
-
-    // create a listening socket by binding to a port
-    explicit inet6_socket(const char* service, int backlog = 5);
+    // create an inet6 socket by either connecting or binding/listening
+    inet6_socket(const char* host, const char* service, bool connecting = false);
 };

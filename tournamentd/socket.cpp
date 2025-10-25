@@ -516,12 +516,11 @@ std::ostream& operator<<(std::ostream& os, const common_socket& sock)
     return os << "socket: " << sock.pimpl->fd;
 }
 
-unix_socket::unix_socket(const char* path, bool client, int backlog)
+unix_socket::unix_socket(const char* path, bool connecting)
 {
 #if defined(_WIN32)
     (void)path;
-    (void)client;
-    (void)backlog;
+    (void)connecting;
     throw std::system_error(std::make_error_code(std::errc::address_family_not_supported), "unix_socket");
 #else
     sockaddr_un addr {};
@@ -553,7 +552,7 @@ unix_socket::unix_socket(const char* path, bool client, int backlog)
     // wrap the socket and store
     this->pimpl = std::make_shared<impl>(sock);
 
-    if(client)
+    if(connecting)
     {
         logger(ll::debug) << "connecting " << *this << '\n';
 
@@ -574,10 +573,10 @@ unix_socket::unix_socket(const char* path, bool client, int backlog)
             throw std::system_error(SOCKET_ERRNO(), std::system_category(), "bind");
         }
 
-        logger(ll::debug) << "listening on " << *this << " with backlog: " << backlog << '\n';
+        logger(ll::debug) << "listening on " << *this << " with backlog: " << SOMAXCONN << '\n';
 
         // begin listening on the socket
-        if(::listen(sock, backlog) == SOCKET_ERROR)
+        if(::listen(sock, SOMAXCONN) == SOCKET_ERROR)
         {
             throw std::system_error(SOCKET_ERRNO(), std::system_category(), "listen");
         }
@@ -585,25 +584,45 @@ unix_socket::unix_socket(const char* path, bool client, int backlog)
 #endif
 }
 
-inet_socket::inet_socket(const char* host, const char* service, int family)
+inet_socket::inet_socket(const char* host, const char* service, int family, bool connecting)
 {
     // validate parameters
-    if(!host || std::strlen(host) == 0)
-    {
-        throw std::invalid_argument("inet_socket: host cannot be empty");
-    }
     if(!service || std::strlen(service) == 0)
     {
+        // no service
         throw std::invalid_argument("inet_socket: service cannot be empty");
+    }
+
+    // validate port number if it's numeric (for listening sockets)
+    char* endptr {};
+    long port = std::strtol(service, &endptr, 10);
+    if(*endptr == '\0' && (port < 0 || port > 65535))
+    {
+        // service is purely numeric, but number is invalid
+        throw std::invalid_argument("inet_socket: port number out of valid range (0-65535)");
+    }
+
+    // validate host
+    if(connecting && (!host || std::strlen(host) == 0))
+    {
+        // connecting, but no host
+        throw std::invalid_argument("inet_socket: host cannot be empty when connecting");
     }
 
     // set up hints
     addrinfo hints = { 0, 0, 0, 0, 0, nullptr, nullptr, nullptr };
     hints.ai_family = family;
     hints.ai_socktype = SOCK_STREAM;
-    hints.ai_flags = 0;
+    hints.ai_flags = connecting ? 0 : AI_PASSIVE;
 
-    logger(ll::debug) << "looking up host: " << host << ", service: " << service << '\n';
+    if(connecting)
+    {
+        logger(ll::debug) << "looking up host: " << host << ", service: " << service << '\n';
+    }
+    else
+    {
+        logger(ll::debug) << "looking up service: " << service << '\n';
+    }
 
     // fill in addrinfo
     addrinfo_ptr result;
@@ -625,130 +644,77 @@ inet_socket::inet_socket(const char* host, const char* service, int family)
     // wrap the socket and store
     this->pimpl = std::make_shared<impl>(sock);
 
-    logger(ll::debug) << "connecting " << *this << " to host: " << host << ", service: " << service << '\n';
+    if(connecting)
+    {
+        logger(ll::debug) << "connecting " << *this << " to host: " << host << ", service: " << service << '\n';
 
-    // connect to remote address
+        // connect to remote address
 #if defined(_WIN32)
-    if(::connect(sock, result.ptr->ai_addr, (int)result.ptr->ai_addrlen) == SOCKET_ERROR)
+        if(::connect(sock, result.ptr->ai_addr, (int)result.ptr->ai_addrlen) == SOCKET_ERROR)
 #else
-    if(::connect(sock, result.ptr->ai_addr, result.ptr->ai_addrlen) == SOCKET_ERROR)
+        if(::connect(sock, result.ptr->ai_addr, result.ptr->ai_addrlen) == SOCKET_ERROR)
 #endif
-    {
-        throw std::system_error(SOCKET_ERRNO(), std::system_category(), "connect");
-    }
-}
-
-inet_socket::inet_socket(const char* service, int family, int backlog)
-{
-    // validate parameters
-    if(!service || std::strlen(service) == 0)
-    {
-        throw std::invalid_argument("inet_socket: service cannot be empty");
-    }
-
-    // validate port number if it's numeric
-    char* endptr {};
-    long port = std::strtol(service, &endptr, 10);
-    if(*endptr == '\0') // service is purely numeric
-    {
-        if(port < 0 || port > 65535)
         {
-            throw std::invalid_argument("inet_socket: port number out of valid range (0-65535)");
+            throw std::system_error(SOCKET_ERRNO(), std::system_category(), "connect");
         }
     }
-
-    // set up hints
-    addrinfo hints = { 0, 0, 0, 0, 0, nullptr, nullptr, nullptr };
-    hints.ai_family = family;
-    hints.ai_socktype = SOCK_STREAM;
-    hints.ai_flags = AI_PASSIVE;
-
-    logger(ll::debug) << "looking up service: " << service << '\n';
-
-    // fill in addrinfo
-    addrinfo_ptr result;
-    auto err(::getaddrinfo(nullptr, service, &hints, &result.ptr));
-    if(err != 0)
+    else
     {
-        throw std::system_error(err, eai_error_category(), "getaddrinfo");
-    }
+        logger(ll::debug) << "setting SO_REUSEADDR\n";
 
-    logger(ll::debug) << "creating a socket\n";
-
-    // create the socket
-    auto sock(::socket(result.ptr->ai_family, result.ptr->ai_socktype, result.ptr->ai_protocol));
-    if(sock == INVALID_SOCKET)
-    {
-        throw std::system_error(SOCKET_ERRNO(), std::system_category(), "socket");
-    }
-
-    // wrap the socket and store
-    this->pimpl = std::make_shared<impl>(sock);
-
-    logger(ll::debug) << "setting SO_REUSEADDR\n";
-
-    // set SO_REUSADDR option
-    int yes(1);
+        // set SO_REUSADDR option
+        int yes(1);
 #if defined(_WIN32)
-    if(::setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, static_cast<const char*>(static_cast<const void*>(&yes)), sizeof(yes)) == SOCKET_ERROR)
+        if(::setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, static_cast<const char*>(static_cast<const void*>(&yes)), sizeof(yes)) == SOCKET_ERROR)
 #else
-    if(::setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, &yes, sizeof(yes)) == SOCKET_ERROR)
-#endif
-    {
-        throw std::system_error(SOCKET_ERRNO(), std::system_category(), "setsockopt");
-    }
-
-    if(family == PF_INET6)
-    {
-        logger(ll::debug) << "setting IPV6_V6ONLY\n";
-
-        // set IPV6_V6ONLY option. some systems don't support dual-stack. if ipv4 is needed, create a separate ipv4 socket
-        yes = 1;
-#if defined(_WIN32)
-        if(::setsockopt(sock, IPPROTO_IPV6, IPV6_V6ONLY, static_cast<const char*>(static_cast<const void*>(&yes)), sizeof(yes)) == SOCKET_ERROR)
-#else
-        if(::setsockopt(sock, IPPROTO_IPV6, IPV6_V6ONLY, &yes, sizeof(yes)) == SOCKET_ERROR)
+        if(::setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, &yes, sizeof(yes)) == SOCKET_ERROR)
 #endif
         {
             throw std::system_error(SOCKET_ERRNO(), std::system_category(), "setsockopt");
         }
-    }
 
-    logger(ll::debug) << "binding " << *this << " to service: " << service << '\n';
+        if(family == PF_INET6)
+        {
+            logger(ll::debug) << "setting IPV6_V6ONLY\n";
 
-    // bind to server port
+            // set IPV6_V6ONLY option. some systems don't support dual-stack. if ipv4 is needed, create a separate ipv4 socket
+            yes = 1;
 #if defined(_WIN32)
-    if(::bind(sock, result.ptr->ai_addr, (int)result.ptr->ai_addrlen) == SOCKET_ERROR)
+            if(::setsockopt(sock, IPPROTO_IPV6, IPV6_V6ONLY, static_cast<const char*>(static_cast<const void*>(&yes)), sizeof(yes)) == SOCKET_ERROR)
 #else
-    if(::bind(sock, result.ptr->ai_addr, result.ptr->ai_addrlen) == SOCKET_ERROR)
+            if(::setsockopt(sock, IPPROTO_IPV6, IPV6_V6ONLY, &yes, sizeof(yes)) == SOCKET_ERROR)
 #endif
-    {
-        throw std::system_error(SOCKET_ERRNO(), std::system_category(), "bind");
+            {
+                throw std::system_error(SOCKET_ERRNO(), std::system_category(), "setsockopt");
+            }
+        }
+
+        logger(ll::debug) << "binding " << *this << " to service: " << service << '\n';
+
+        // bind to server port
+#if defined(_WIN32)
+        if(::bind(sock, result.ptr->ai_addr, (int)result.ptr->ai_addrlen) == SOCKET_ERROR)
+#else
+        if(::bind(sock, result.ptr->ai_addr, result.ptr->ai_addrlen) == SOCKET_ERROR)
+#endif
+        {
+            throw std::system_error(SOCKET_ERRNO(), std::system_category(), "bind");
+        }
+
+        logger(ll::debug) << "listening on " << *this << " with backlog: " << SOMAXCONN << '\n';
+
+        // begin listening on the socket
+        if(::listen(sock, SOMAXCONN) == SOCKET_ERROR)
+        {
+            throw std::system_error(SOCKET_ERRNO(), std::system_category(), "listen");
+        }
     }
-
-    logger(ll::debug) << "listening on " << *this << " with backlog: " << backlog << '\n';
-
-    // begin listening on the socket
-    if(::listen(sock, backlog) == SOCKET_ERROR)
-    {
-        throw std::system_error(SOCKET_ERRNO(), std::system_category(), "listen");
-    }
 }
 
-inet_socket::~inet_socket() = default;
-
-inet4_socket::inet4_socket(const char* host, const char* service) : inet_socket(host, service, PF_INET)
+inet4_socket::inet4_socket(const char* host, const char* service, bool connecting) : inet_socket(host, service, PF_INET, connecting)
 {
 }
 
-inet4_socket::inet4_socket(const char* service, int backlog) : inet_socket(service, PF_INET, backlog)
-{
-}
-
-inet6_socket::inet6_socket(const char* host, const char* service) : inet_socket(host, service, PF_INET6)
-{
-}
-
-inet6_socket::inet6_socket(const char* service, int backlog) : inet_socket(service, PF_INET6, backlog)
+inet6_socket::inet6_socket(const char* host, const char* service, bool connecting) : inet_socket(host, service, PF_INET6, connecting)
 {
 }
