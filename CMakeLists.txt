@@ -618,7 +618,7 @@ file(APPEND \"${GENERATED_QRC_FILE}\" \"</RCC>\\n\")
 		TBQt/TBSetupPlayersWidget.ui
 		TBQt/TBSetupRoundsWidget.ui
 		TBQt/TBSetupTablesWidget.ui)
-	add_executable(tbuddy
+	add_executable(tbuddy $<$<CONFIG:Release>:WIN32>
 		TBQt/tbuddy.cpp
 		TBQt/TBAnteTypeDelegate.cpp
 		TBQt/TBAnteTypeDelegate.hpp
@@ -724,7 +724,7 @@ file(APPEND \"${GENERATED_QRC_FILE}\" \"</RCC>\\n\")
 	qt5_wrap_ui(TBVIEWER_UI
 		TBQt/TBConnectToDialog.ui
 		TBQt/TBViewerMainWindow.ui)
-	add_executable(tbviewer
+	add_executable(tbviewer $<$<CONFIG:Release>:WIN32>
 		TBQt/tbviewer.cpp
 		TBQt/TBConnectToDialog.cpp
 		TBQt/TBConnectToDialog.hpp
