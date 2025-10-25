@@ -19,6 +19,12 @@ public:
     server();
     ~server();
 
+    // Non-copyable, non-movable (manages unique resources)
+    server(const server&) = delete;
+    server& operator=(const server&) = delete;
+    server(server&&) = delete;
+    server& operator=(server&&) = delete;
+
     // listen on given unix socket path and optional internet service
     void listen(const char* unix_socket_path, const char* inet_service = nullptr);
 

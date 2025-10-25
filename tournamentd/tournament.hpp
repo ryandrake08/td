@@ -14,6 +14,12 @@ public:
     tournament();
     ~tournament();
 
+    // Non-copyable, non-movable (manages unique resources)
+    tournament(const tournament&) = delete;
+    tournament& operator=(const tournament&) = delete;
+    tournament(tournament&&) = delete;
+    tournament& operator=(tournament&&) = delete;
+
     // pre-authorize a client code
     int authorize(int code);
 

@@ -17,6 +17,12 @@ public:
     gameinfo();
     ~gameinfo();
 
+    // Non-copyable, non-movable (manages unique resources)
+    gameinfo(const gameinfo&) = delete;
+    gameinfo& operator=(const gameinfo&) = delete;
+    gameinfo(gameinfo&&) = delete;
+    gameinfo& operator=(gameinfo&&) = delete;
+
     // load configuration from JSON (object or file)
     void configure(const nlohmann::json& config);
 

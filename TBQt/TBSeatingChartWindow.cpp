@@ -19,8 +19,6 @@ struct TBSeatingChartWindow::impl
     // Internal data
     QMap<QString, QVariantList> tables; // Table name -> list of seats
     QList<TBTableWidget*> tableWidgets;
-
-    explicit impl() = default;
 };
 
 TBSeatingChartWindow::TBSeatingChartWindow(const TournamentSession& session, QWidget* parent) : TBBaseAuxiliaryWindow(parent), pimpl(new impl())

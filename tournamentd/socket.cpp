@@ -78,14 +78,6 @@ public:
         WSACleanup();
 #endif
     }
-
-    // no copy constructors/assignment
-    socket_initializer(const socket_initializer& other) = delete;
-    socket_initializer& operator=(const socket_initializer& other) = delete;
-
-    // no move constructors/assignment
-    socket_initializer(socket_initializer&& other) = delete;
-    socket_initializer& operator=(socket_initializer&& other) = delete;
 };
 
 // exception-safe wrapper for addrinfo
@@ -93,7 +85,6 @@ public:
 struct addrinfo_ptr
 {
     addrinfo* ptr {};
-    addrinfo_ptr() = default;
     ~addrinfo_ptr()
     {
         if(ptr != nullptr)
@@ -101,14 +92,6 @@ struct addrinfo_ptr
             ::freeaddrinfo(ptr);
         }
     }
-
-    // no copy constructors/assignment
-    addrinfo_ptr(const addrinfo_ptr& other) = delete;
-    addrinfo_ptr& operator=(const addrinfo_ptr&) = delete;
-
-    // no move constructors/assignment
-    addrinfo_ptr(addrinfo_ptr&& other) = delete;
-    addrinfo_ptr& operator=(addrinfo_ptr&&) = delete;
 };
 
 // pimpl (fd wrapper)
@@ -161,14 +144,6 @@ struct common_socket::impl
         }
 #endif
     }
-
-    // no copy constructors/assignment
-    impl(const impl& other) = delete;
-    impl& operator=(const impl& other) = delete;
-
-    // no move constructors/assignment
-    impl(impl&& other) = delete;
-    impl& operator=(impl&& other) = delete;
 };
 
 // empty constructor

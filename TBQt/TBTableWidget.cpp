@@ -15,8 +15,6 @@ struct TBTableWidget::impl
     // Data
     QString tableName;
     QVariantList seats;
-
-    impl() = default;
 };
 
 TBTableWidget::TBTableWidget(QWidget* parent) : QWidget(parent), pimpl(new impl())

@@ -74,14 +74,6 @@ public:
         CFNetServiceCancel(netService);
         CFRelease(netService);
     }
-
-    // no copy constructors/assignment
-    impl(const impl& other) = delete;
-    impl& operator=(const impl& other) = delete;
-
-    // no move constructors/assignment
-    impl(impl&& other) = delete;
-    impl& operator=(impl&& other) = delete;
 };
 
 #elif defined(__linux__)
@@ -396,14 +388,6 @@ public:
             this->threaded_poll = nullptr;
         }
     }
-
-    // no copy constructors/assignment
-    impl(const impl& other) = delete;
-    impl& operator=(const impl& other) = delete;
-
-    // no move constructors/assignment
-    impl(impl&& other) = delete;
-    impl& operator=(impl&& other) = delete;
 };
 
 #else

@@ -50,14 +50,6 @@ struct TournamentBrowser::impl
     {
         qDeleteAll(services);
     }
-
-    // no copy constructors/assignment
-    impl(const impl& other) = delete;
-    impl& operator=(const impl& other) = delete;
-
-    // no move constructors/assignment
-    impl(impl&& other) = delete;
-    impl& operator=(impl&& other) = delete;
 };
 
 TournamentBrowser::TournamentBrowser(QObject* parent) : QObject(parent), pimpl(new impl(this))

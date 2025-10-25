@@ -16,6 +16,12 @@ public:
     // Destructor
     ~program();
 
+    // Non-copyable, non-movable (manages unique resources)
+    program(const program&) = delete;
+    program& operator=(const program&) = delete;
+    program(program&&) = delete;
+    program& operator=(program&&) = delete;
+
     // Run one iteration of the program run loop, returns true to exit
     bool run();
 

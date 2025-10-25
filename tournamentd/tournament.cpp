@@ -1039,14 +1039,6 @@ public:
         // return whether or not the server should quit
         return quit;
     }
-
-    // no copy constructors/assignment
-    impl(const impl& other) = delete;
-    impl& operator=(const impl& other) = delete;
-
-    // no move constructors/assignment
-    impl(impl&& other) = delete;
-    impl& operator=(impl&& other) = delete;
 };
 
 tournament::tournament() : pimpl(new impl())

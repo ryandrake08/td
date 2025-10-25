@@ -48,14 +48,6 @@ public:
 #endif
     }
 
-    // no copy constructors/assignment
-    signal_handler(const signal_handler& other) = delete;
-    signal_handler& operator=(const signal_handler& other) = delete;
-
-    // no move constructors/assignment
-    signal_handler(signal_handler&& other) = delete;
-    signal_handler& operator=(signal_handler&& other) = delete;
-
     // accessor for caught signal
     volatile static std::sig_atomic_t signal_caught;
 };
