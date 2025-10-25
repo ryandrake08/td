@@ -340,6 +340,7 @@ if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND AND Qt5Multimedia_FOU
 	set(QRC_RESOURCE_FILES "")
 	add_pdf_to_svg_icon("Art/combination_lock.pdf" "b_auth")
 	add_pdf_to_svg_icon("Art/past.pdf" "b_call_clock")
+	add_pdf_to_svg_icon("Art/multiply.pdf" "b_cancel_clock")
 	add_pdf_to_svg_icon("Art/checkbox.pdf" "b_configure")
 	add_pdf_to_svg_icon("Art/tv_demand.pdf" "b_display")
 	add_pdf_to_svg_icon("Art/file_send.pdf" "b_export")

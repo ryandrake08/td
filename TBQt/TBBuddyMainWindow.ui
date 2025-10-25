@@ -103,6 +103,7 @@
     <addaction name="actionPreviousRound"/>
     <addaction name="actionNextRound"/>
     <addaction name="actionCallClock"/>
+    <addaction name="actionCancelClock"/>
     <addaction name="actionEndGame"/>
     <addaction name="separator"/>
     <addaction name="actionExport"/>
@@ -393,6 +394,20 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+Alt+C</string>
+   </property>
+  </action>
+  <action name="actionCancelClock">
+   <property name="icon">
+    <iconset theme="b_cancel_clock"/>
+   </property>
+   <property name="text">
+    <string>Cancel the Clock</string>
+   </property>
+   <property name="iconText">
+    <string>Cancel the Clock</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Alt+Shift+C</string>
    </property>
   </action>
   <action name="actionEndGame">
