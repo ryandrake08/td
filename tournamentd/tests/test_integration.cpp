@@ -17,7 +17,7 @@
 #include <functional>
 #include <memory>
 
-TEST_CASE("Tournament integration - basic tournament lifecycle", "[integration][tournament_lifecycle]")
+TEST_CASE("Tournament integration - basic tournament lifecycle", "[integration][tournament_lifecycle][unix_socket]")
 {
     SECTION("Complete tournament setup and execution")
     {
@@ -103,7 +103,7 @@ TEST_CASE("GameInfo and Tournament integration", "[integration][gameinfo_tournam
     }
 }
 
-TEST_CASE("Server client interaction simulation", "[integration][server_clients]")
+TEST_CASE("Server client interaction simulation", "[integration][server_clients][unix_socket]")
 {
     SECTION("Server with mock client handlers")
     {
@@ -152,7 +152,7 @@ TEST_CASE("Server client interaction simulation", "[integration][server_clients]
     }
 }
 
-TEST_CASE("Bonjour service publishing integration", "[integration][bonjour_service]")
+TEST_CASE("Bonjour service publishing integration", "[integration][bonjour_service][bonjour]")
 {
     SECTION("Tournament service discovery")
     {
@@ -241,7 +241,7 @@ TEST_CASE("DateTime and GameInfo timing integration", "[integration][datetime_ti
     }
 }
 
-TEST_CASE("Full tournament daemon simulation", "[integration][full_daemon]")
+TEST_CASE("Full tournament daemon simulation", "[integration][full_daemon][unix_socket]")
 {
     SECTION("Simulated tournament daemon workflow")
     {
@@ -305,7 +305,7 @@ TEST_CASE("Full tournament daemon simulation", "[integration][full_daemon]")
     }
 }
 
-TEST_CASE("Error handling integration", "[integration][error_handling]")
+TEST_CASE("Error handling integration", "[integration][error_handling][unix_socket]")
 {
     SECTION("Tournament with invalid configuration")
     {
@@ -407,7 +407,7 @@ TEST_CASE("Performance integration test", "[integration][performance]")
     }
 }
 
-TEST_CASE("Memory usage integration test", "[integration][memory]")
+TEST_CASE("Memory usage integration test", "[integration][memory][unix_socket]")
 {
     SECTION("Tournament lifecycle memory management")
     {

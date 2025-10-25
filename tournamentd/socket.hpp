@@ -4,8 +4,12 @@
 #include <memory>
 #include <set>
 
+class socket_initializer;
+
 class common_socket
 {
+    std::shared_ptr<socket_initializer> socket_subsystem;
+
 protected:
     struct impl;
     std::shared_ptr<impl> pimpl;

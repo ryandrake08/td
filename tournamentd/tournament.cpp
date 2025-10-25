@@ -919,7 +919,7 @@ struct tournament::impl
     {
         // remove any snapshot
         std::remove(this->snapshot_path.c_str());
-        logger(ll::info) << "removed snapshot at " << this->snapshot_path << " because we are cleanly shutting down";
+        logger(ll::info) << "removed snapshot at " << this->snapshot_path << " because we are cleanly shutting down\n";
     }
 
 public:
@@ -1007,8 +1007,14 @@ public:
         }
 
         // poll clients for commands
-        auto greeter([this](std::ostream& client) { return handle_new_client(client); });
-        auto handler([this](std::iostream& client) { return handle_client_input(client); });
+        auto greeter([this](std::ostream& client)
+        {
+            return handle_new_client(client);
+        });
+        auto handler([this](std::iostream& client)
+        {
+            return handle_client_input(client);
+        });
         auto quit(this->game_server.poll(greeter, handler, SERVER_POLL_TIMEOUT));
 
         // snapshot if state is dirty

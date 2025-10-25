@@ -136,7 +136,7 @@ TEST_CASE("inet6_socket creation", "[socket][inet6_socket]")
     }
 }
 
-TEST_CASE("Socket data operations", "[socket][data]")
+TEST_CASE("Socket data operations", "[socket][data][unix_socket]")
 {
     SECTION("Listening socket error handling")
     {
@@ -199,7 +199,7 @@ TEST_CASE("Socket data operations", "[socket][data]")
     }
 }
 
-TEST_CASE("Socket select functionality", "[socket][select]")
+TEST_CASE("Socket select functionality", "[socket][select][unix_socket]")
 {
     SECTION("Select with empty set")
     {
@@ -233,7 +233,7 @@ TEST_CASE("Socket select functionality", "[socket][select]")
     }
 }
 
-TEST_CASE("Socket comparison and equality", "[socket][comparison]")
+TEST_CASE("Socket comparison and equality", "[socket][comparison][unix_socket]")
 {
     SECTION("Socket equality operators")
     {
@@ -260,7 +260,7 @@ TEST_CASE("Socket comparison and equality", "[socket][comparison]")
     }
 }
 
-TEST_CASE("Socket stream insertion", "[socket][stream]")
+TEST_CASE("Socket stream insertion", "[socket][stream][unix_socket]")
 {
     SECTION("Stream insertion for unix socket")
     {
@@ -303,7 +303,7 @@ TEST_CASE("Socket stream insertion", "[socket][stream]")
     }
 }
 
-TEST_CASE("Socket error conditions", "[socket][errors]")
+TEST_CASE("Socket error conditions", "[socket][errors][unix_socket]")
 {
     SECTION("Invalid unix socket path")
     {

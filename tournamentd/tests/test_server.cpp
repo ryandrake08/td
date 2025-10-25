@@ -29,7 +29,7 @@ TEST_CASE("Server creation and destruction", "[server][basic]")
     }
 }
 
-TEST_CASE("Server listen functionality", "[server][listen]")
+TEST_CASE("Server listen functionality", "[server][listen][unix_socket]")
 {
     SECTION("Listen on unix socket only")
     {
@@ -85,7 +85,7 @@ TEST_CASE("Server listen functionality", "[server][listen]")
     }
 }
 
-TEST_CASE("Server poll functionality", "[server][poll]")
+TEST_CASE("Server poll functionality", "[server][poll][unix_socket]")
 {
     SECTION("Poll with no clients")
     {
@@ -180,7 +180,7 @@ TEST_CASE("Server poll functionality", "[server][poll]")
     }
 }
 
-TEST_CASE("Server broadcast functionality", "[server][broadcast]")
+TEST_CASE("Server broadcast functionality", "[server][broadcast][unix_socket]")
 {
     SECTION("Broadcast with no clients")
     {
@@ -227,7 +227,7 @@ TEST_CASE("Server broadcast functionality", "[server][broadcast]")
     }
 }
 
-TEST_CASE("Server client handling", "[server][clients]")
+TEST_CASE("Server client handling", "[server][clients][unix_socket]")
 {
     SECTION("Client handler return values")
     {
@@ -285,7 +285,7 @@ TEST_CASE("Server client handling", "[server][clients]")
     }
 }
 
-TEST_CASE("Server stream operations", "[server][streams]")
+TEST_CASE("Server stream operations", "[server][streams][unix_socket]")
 {
     SECTION("Client handler stream usage")
     {
@@ -328,7 +328,7 @@ TEST_CASE("Server stream operations", "[server][streams]")
     }
 }
 
-TEST_CASE("Server multiple listen calls", "[server][multiple_listen]")
+TEST_CASE("Server multiple listen calls", "[server][multiple_listen][unix_socket]")
 {
     SECTION("Multiple listen calls")
     {
@@ -382,7 +382,7 @@ TEST_CASE("Server multiple listen calls", "[server][multiple_listen]")
     }
 }
 
-TEST_CASE("Server resource management", "[server][resources]")
+TEST_CASE("Server resource management", "[server][resources][unix_socket]")
 {
     SECTION("Server cleanup on destruction")
     {

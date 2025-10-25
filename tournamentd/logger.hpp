@@ -47,7 +47,7 @@ class basic_logstream : public std::basic_ostream<T>
 
         // prepend the time, log level, and function
         static const char* level_string[] = { " DEBUG ", " INFO ", " WARNING ", " ERROR " };
-        *this << datetime::local << datetime::setf("%F %T%qqqqqq%z") << datetime::now() << level_string[static_cast<size_t>(level)] << function << ": ";
+        *this << datetime::local << datetime::setf("%Y-%m-%d %H:%M:%S%f") << datetime::now() << level_string[static_cast<size_t>(level)] << function << ": ";
     }
 
 public:

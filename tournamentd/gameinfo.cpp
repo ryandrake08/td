@@ -710,7 +710,7 @@ public:
         }
 
         logger(ll::info) << "recalculating " << (round ? "" : "and rounding ") << "payouts for " << count_entries << " entries: " << this->automatic_payouts.percent_seats_paid * 100 << "% (" << seats_paid << " seats) will be paid. payout shape: " << shape << "\n";
-        logger(ll::info) << "setting asiude " << this->automatic_payouts.pay_the_bubble << " for the bubble and " << this->automatic_payouts.pay_knockouts << " for each knockout\n";
+        logger(ll::info) << "setting aside " << this->automatic_payouts.pay_the_bubble << " for the bubble and " << this->automatic_payouts.pay_knockouts << " for each knockout\n";
 
         // exponent for harmonic series = shape/(shape-1), or 0 -> 0, 0.5 -> -1, 1 -> -inf
         double f = (shape >= 1.0) ? -INFINITY : shape / (shape - 1.0);

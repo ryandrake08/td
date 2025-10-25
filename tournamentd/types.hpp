@@ -258,7 +258,7 @@ namespace td
     struct result
     {
         size_t place { 0 };
-        std::string name { 0 };
+        std::string name;
         monetary_value_nocurrency payout;
 
         result();

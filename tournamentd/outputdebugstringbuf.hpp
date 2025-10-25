@@ -3,8 +3,10 @@
 #include <vector>
 
 #if defined(_WIN32)
+// clang-format off
 #include <winsock2.h>
 #include <windows.h>
+// clang-format on
 
 // Forward declaration of helper struct
 template<typename TChar, typename TTraits>

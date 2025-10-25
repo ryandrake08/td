@@ -5,9 +5,22 @@
 #include <utility>
 
 #if defined(_WIN32)
-#define gmtime_r(a, b) gmtime((a))
-#define localtime_r(a, b) localtime((a))
-#define timegm(a) _mkgmtime((a))
+// Windows equivalents for POSIX time functions
+// gmtime_s/localtime_s have reversed parameter order compared to POSIX gmtime_r/localtime_r
+static inline struct tm* gmtime_r(const time_t* timer, struct tm* buf)
+{
+    return gmtime_s(buf, timer) == 0 ? buf : nullptr;
+}
+
+static inline struct tm* localtime_r(const time_t* timer, struct tm* buf)
+{
+    return localtime_s(buf, timer) == 0 ? buf : nullptr;
+}
+
+static inline time_t timegm(struct tm* tm)
+{
+    return _mkgmtime(tm);
+}
 #endif
 
 using sc = std::chrono::system_clock;
@@ -192,13 +205,14 @@ std::ostream& operator<<(std::ostream& os, const datetime& t)
     const auto* fmt(static_cast<const char*>(os.pword(format_iword())));
     if(fmt == nullptr)
     {
-        fmt = "%FT%T";
+        // Use portable format specifiers (not %F or %T which are POSIX extensions)
+        fmt = "%Y-%m-%dT%H:%M:%S";
     }
     std::string fstring(fmt);
 
-    // output milliseconds if required
-    auto millis_ofs(fstring.find("%q"));
-    if(millis_ofs != std::string::npos)
+    // output microseconds if %f is present
+    auto micros_pos(fstring.find("%f"));
+    if(micros_pos != std::string::npos)
     {
         // calculate remaining time in microseconds
         auto micros(std::chrono::duration_cast<std::chrono::microseconds>(t.tp - sc::from_time_t(tt)));
@@ -206,14 +220,9 @@ std::ostream& operator<<(std::ostream& os, const datetime& t)
         // render to a string, including decimal point
         std::stringstream ss;
         ss << '.' << std::setw(6) << std::setfill('0') << micros.count();
-        auto micros_str(ss.str());
 
-        // find last q in sequence e.g. %qqqqq
-        auto millis_end(fstring.find_first_not_of('q', millis_ofs + 1));
-        auto sublen(millis_end - millis_ofs);
-
-        // replace % with . and each q after % with a digit
-        fstring.replace(millis_ofs, sublen, micros_str, 0, sublen);
+        // replace %f with .microseconds
+        fstring.replace(micros_pos, 2, ss.str());
     }
 
     os << std::put_time(&tm, fstring.c_str());
@@ -262,7 +271,8 @@ std::ios& datetime::local(std::ios& os)
 
 std::ios& datetime::iso8601(std::ios& os)
 {
-    os.pword(format_iword()) = (void*)"%FT%T";
+    // Use portable format specifiers (not %F or %T which are POSIX extensions)
+    os.pword(format_iword()) = (void*)"%Y-%m-%dT%H:%M:%S";
     return os;
 }
 

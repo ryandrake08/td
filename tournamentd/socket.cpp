@@ -3,17 +3,22 @@
 #include "shared_instance.hpp"
 #include <cassert>
 #include <cerrno> // for errno
+#include <chrono>
 #include <cstring>
 #include <iterator>
 #include <system_error>
+#include <thread>
 
 #if defined(_WIN32)
 #define STRICT 1
 #define WIN32_LEAN_AND_MEAN 1
+// clang-format off
 #include <winsock2.h>
 #include <ws2tcpip.h>
 #include <windows.h>
+// clang-format on
 typedef int socklen_t;
+#define SOCKET_ERRNO() WSAGetLastError()
 #endif
 #if defined(__unix) || defined(__APPLE__)
 #include <arpa/inet.h>
@@ -26,6 +31,7 @@ typedef int socklen_t;
 using SOCKET = int;
 static const SOCKET INVALID_SOCKET = -1;
 static const int SOCKET_ERROR = -1;
+#define SOCKET_ERRNO() errno
 #endif
 
 class eai_error_category : public std::error_category
@@ -54,6 +60,7 @@ public:
     socket_initializer()
     {
 #if defined(_WIN32)
+        logger(ll::debug) << "socket_initializer: calling WSAStartup\n";
         WORD ver(MAKEWORD(1, 1));
         WSADATA data;
         int res = WSAStartup(ver, &data);
@@ -67,6 +74,7 @@ public:
     ~socket_initializer()
     {
 #if defined(_WIN32)
+        logger(ll::debug) << "socket_initializer: calling WSACleanup\n";
         WSACleanup();
 #endif
     }
@@ -107,13 +115,10 @@ struct addrinfo_ptr
 
 struct common_socket::impl
 {
-    // raii object to init/terminate socket subsystem
-    std::shared_ptr<socket_initializer> socket_subsystem;
-
     SOCKET fd;
 
     // construct with given fd
-    explicit impl(SOCKET newfd) : socket_subsystem(get_shared_instance<socket_initializer>()), fd(newfd)
+    explicit impl(SOCKET newfd) : fd(newfd)
     {
         logger(ll::debug) << "wrapped fd: " << this->fd << '\n';
 
@@ -128,7 +133,7 @@ struct common_socket::impl
         if(::setsockopt(newfd, SOL_SOCKET, SO_NOSIGPIPE, &yes, sizeof(yes)) == SOCKET_ERROR)
 #endif
         {
-            throw std::system_error(errno, std::system_category(), "setsockopt");
+            throw std::system_error(SOCKET_ERRNO(), std::system_category(), "setsockopt");
         }
 #endif
     }
@@ -167,10 +172,15 @@ struct common_socket::impl
 };
 
 // empty constructor
-common_socket::common_socket() = default;
+common_socket::common_socket() : socket_subsystem(get_shared_instance<socket_initializer>())
+{
+    // Socket subsystem (WSAStartup on Windows) is initialized via member initializer list
+    // This ensures all derived class constructors have the subsystem initialized before
+    // their constructor bodies execute. The shared_ptr keeps the subsystem alive.
+}
 
 // create a socket with a given impl (needed for accept)
-common_socket::common_socket(impl* imp) : pimpl(imp)
+common_socket::common_socket(impl* imp) : socket_subsystem(get_shared_instance<socket_initializer>()), pimpl(imp)
 {
     logger(ll::debug) << "creating socket from existing impl: " << *this << '\n';
     if(!this->pimpl)
@@ -196,7 +206,7 @@ common_socket common_socket::accept() const
     auto sock(::accept(this->pimpl->fd, static_cast<sockaddr*>(static_cast<void*>(&addr)), &addrlen));
     if(sock == INVALID_SOCKET)
     {
-        throw std::system_error(errno, std::system_category(), "accept");
+        throw std::system_error(SOCKET_ERRNO(), std::system_category(), "accept");
     }
 
     logger(ll::debug) << "accepted connection on " << *this << '\n';
@@ -206,6 +216,9 @@ common_socket common_socket::accept() const
 // select on multiple sockets
 std::set<common_socket> common_socket::select(const std::set<common_socket>& sockets, long usec)
 {
+    // ensure socket subsystem is initialized (WSAStartup on Windows)
+    static auto socket_init = get_shared_instance<socket_initializer>();
+
     // iterate through set, and add to our fd_set
     fd_set fds;
     FD_ZERO(&fds);
@@ -216,6 +229,19 @@ std::set<common_socket> common_socket::select(const std::set<common_socket>& soc
             FD_SET(s.pimpl->fd, &fds);
         }
     });
+
+#if defined(_WIN32)
+    // On Windows, select() with empty fd_set is invalid (WSAEINVAL)
+    // Return empty set immediately or sleep if timeout specified
+    if(sockets.empty())
+    {
+        if(usec > 0)
+        {
+            std::this_thread::sleep_for(std::chrono::microseconds(usec));
+        }
+        return std::set<common_socket>();
+    }
+#endif
 
     // set is ordered, so max fd is the last element
     auto max_fd(sockets.begin() == sockets.end() ? 0 : sockets.rbegin()->pimpl->fd + 1);
@@ -232,7 +258,7 @@ std::set<common_socket> common_socket::select(const std::set<common_socket>& soc
     auto err(::select(max_fd, &fds, nullptr, nullptr, ptv));
     if(err == SOCKET_ERROR)
     {
-        throw std::system_error(errno, std::system_category(), "select");
+        throw std::system_error(SOCKET_ERRNO(), std::system_category(), "select");
     }
 
     // copy sockets returned
@@ -260,18 +286,19 @@ long common_socket::peek(void* buf, std::size_t bytes) const
     if(::ioctl(this->pimpl->fd, FIONBIO, &nonblocking) != 0) // NOLINT(cppcoreguidelines-pro-type-vararg)
 #endif
     {
-        throw std::system_error(errno, std::system_category(), "ioctl");
+        throw std::system_error(SOCKET_ERRNO(), std::system_category(), "ioctl");
     }
 
     // peek at bytes from a fd
 #if defined(_WIN32)
+    logger(ll::debug) << "calling recv with fd " << this->pimpl->fd << ", length " << bytes << ", using MSG_PEEK\n";
     auto len(::recv(this->pimpl->fd, static_cast<char*>(buf), (int)bytes, MSG_PEEK));
 #else
     auto len(::recv(this->pimpl->fd, buf, bytes, MSG_PEEK));
 #endif
 
-    // store errno
-    int recv_errno(errno);
+    // store socket error
+    int recv_errno = SOCKET_ERRNO();
 
     // set socket back to blocking
     unsigned long blocking(0);
@@ -281,21 +308,30 @@ long common_socket::peek(void* buf, std::size_t bytes) const
     if(::ioctl(this->pimpl->fd, FIONBIO, &blocking) != 0) // NOLINT(cppcoreguidelines-pro-type-vararg)
 #endif
     {
-        throw std::system_error(errno, std::system_category(), "ioctl");
+        throw std::system_error(SOCKET_ERRNO(), std::system_category(), "ioctl");
     }
 
     if(len == SOCKET_ERROR)
     {
+#if defined(_WIN32)
+        if(recv_errno == WSAEWOULDBLOCK)
+        {
+            logger(ll::debug) << "peek: no bytes available (WSAEWOULDBLOCK)\n";
+        }
+        else if(recv_errno == WSAECONNRESET)
+        {
+            logger(ll::debug) << "peek: connection reset by peer\n";
+            return -1;
+        }
+        else
+        {
+            throw std::system_error(recv_errno, std::system_category(), "recv");
+        }
+#else
         if(recv_errno == EAGAIN)
         {
             logger(ll::debug) << "peek: no bytes available (EAGAIN)\n";
         }
-#if defined(_WIN32)
-        else if(recv_errno == 42 || recv_errno == 0)
-        {
-            logger(ll::debug) << "peek: no bytes available\n";
-        }
-#endif
         else if(recv_errno == ECONNRESET)
         {
             logger(ll::debug) << "peek: connection reset by peer\n";
@@ -305,6 +341,7 @@ long common_socket::peek(void* buf, std::size_t bytes) const
         {
             throw std::system_error(recv_errno, std::system_category(), "recv");
         }
+#endif
         return 0;
     }
     else if(len == 0)
@@ -329,6 +366,7 @@ long common_socket::recv(void* buf, std::size_t bytes)
 
     // read bytes from a fd
 #if defined(_WIN32)
+    logger(ll::debug) << "calling recv with fd " << this->pimpl->fd << ", length " << bytes << "\n";
     auto len(::recv(this->pimpl->fd, static_cast<char*>(buf), (int)bytes, 0));
 #else
     auto len(::recv(this->pimpl->fd, buf, bytes, 0));
@@ -337,13 +375,21 @@ long common_socket::recv(void* buf, std::size_t bytes)
     logger(ll::debug) << "receiving " << bytes << " on " << *this << '\n';
     if(len == SOCKET_ERROR)
     {
-        if(errno == EPIPE)
+        int err = SOCKET_ERRNO();
+#if defined(_WIN32)
+        if(err == WSAECONNRESET || err == WSAECONNABORTED)
         {
-            logger(ll::debug) << "recv: broken pipe\n";
+            logger(ll::debug) << "recv: connection reset/aborted\n";
             return -1;
         }
-
-        throw std::system_error(errno, std::system_category(), "recv");
+#else
+        if(err == EPIPE || err == ECONNRESET)
+        {
+            logger(ll::debug) << "recv: broken pipe/connection reset\n";
+            return -1;
+        }
+#endif
+        throw std::system_error(err, std::system_category(), "recv");
     }
 
     logger(ll::debug) << "received " << len << " bytes\n";
@@ -368,13 +414,21 @@ long common_socket::send(const void* buf, std::size_t bytes)
 #endif
     if(len == SOCKET_ERROR)
     {
-        if(errno == EPIPE)
+        int err = SOCKET_ERRNO();
+#if defined(_WIN32)
+        if(err == WSAECONNRESET || err == WSAECONNABORTED || err == WSAESHUTDOWN)
         {
-            logger(ll::debug) << "send: connection broken pipe\n";
+            logger(ll::debug) << "send: connection reset/aborted/shutdown\n";
             return -1;
         }
-
-        throw std::system_error(errno, std::system_category(), "send");
+#else
+        if(err == EPIPE || err == ECONNRESET)
+        {
+            logger(ll::debug) << "send: broken pipe/connection reset\n";
+            return -1;
+        }
+#endif
+        throw std::system_error(err, std::system_category(), "send");
     }
 
     logger(ll::debug) << "sent " << len << " bytes\n";
@@ -395,7 +449,7 @@ bool common_socket::listening() const
     socklen_t len(sizeof(val));
     if(::getsockopt(this->pimpl->fd, SOL_SOCKET, SO_ACCEPTCONN, static_cast<char*>(static_cast<void*>(&val)), &len) == SOCKET_ERROR)
     {
-        throw std::system_error(errno, std::system_category(), "getsockopt");
+        throw std::system_error(SOCKET_ERRNO(), std::system_category(), "getsockopt");
     }
 
     return val != 0;
@@ -493,7 +547,7 @@ unix_socket::unix_socket(const char* path, bool client, int backlog)
     auto sock(::socket(PF_UNIX, SOCK_STREAM, 0));
     if(sock == INVALID_SOCKET)
     {
-        throw std::system_error(errno, std::system_category(), "socket");
+        throw std::system_error(SOCKET_ERRNO(), std::system_category(), "socket");
     }
 
     // wrap the socket and store
@@ -506,7 +560,7 @@ unix_socket::unix_socket(const char* path, bool client, int backlog)
         // connect to remote address
         if(::connect(sock, static_cast<sockaddr*>(static_cast<void*>(&addr)), sizeof(addr)) == SOCKET_ERROR)
         {
-            throw std::system_error(errno, std::system_category(), "connect");
+            throw std::system_error(SOCKET_ERRNO(), std::system_category(), "connect");
         }
     }
     else
@@ -517,7 +571,7 @@ unix_socket::unix_socket(const char* path, bool client, int backlog)
         // bind to server port
         if(::bind(sock, static_cast<sockaddr*>(static_cast<void*>(&addr)), sizeof(addr)) == SOCKET_ERROR)
         {
-            throw std::system_error(errno, std::system_category(), "bind");
+            throw std::system_error(SOCKET_ERRNO(), std::system_category(), "bind");
         }
 
         logger(ll::debug) << "listening on " << *this << " with backlog: " << backlog << '\n';
@@ -525,7 +579,7 @@ unix_socket::unix_socket(const char* path, bool client, int backlog)
         // begin listening on the socket
         if(::listen(sock, backlog) == SOCKET_ERROR)
         {
-            throw std::system_error(errno, std::system_category(), "listen");
+            throw std::system_error(SOCKET_ERRNO(), std::system_category(), "listen");
         }
     }
 #endif
@@ -565,7 +619,7 @@ inet_socket::inet_socket(const char* host, const char* service, int family)
     auto sock(::socket(result.ptr->ai_family, result.ptr->ai_socktype, result.ptr->ai_protocol));
     if(sock == INVALID_SOCKET)
     {
-        throw std::system_error(errno, std::system_category(), "socket");
+        throw std::system_error(SOCKET_ERRNO(), std::system_category(), "socket");
     }
 
     // wrap the socket and store
@@ -580,7 +634,7 @@ inet_socket::inet_socket(const char* host, const char* service, int family)
     if(::connect(sock, result.ptr->ai_addr, result.ptr->ai_addrlen) == SOCKET_ERROR)
 #endif
     {
-        throw std::system_error(errno, std::system_category(), "connect");
+        throw std::system_error(SOCKET_ERRNO(), std::system_category(), "connect");
     }
 }
 
@@ -625,7 +679,7 @@ inet_socket::inet_socket(const char* service, int family, int backlog)
     auto sock(::socket(result.ptr->ai_family, result.ptr->ai_socktype, result.ptr->ai_protocol));
     if(sock == INVALID_SOCKET)
     {
-        throw std::system_error(errno, std::system_category(), "socket");
+        throw std::system_error(SOCKET_ERRNO(), std::system_category(), "socket");
     }
 
     // wrap the socket and store
@@ -641,7 +695,7 @@ inet_socket::inet_socket(const char* service, int family, int backlog)
     if(::setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, &yes, sizeof(yes)) == SOCKET_ERROR)
 #endif
     {
-        throw std::system_error(errno, std::system_category(), "setsockopt");
+        throw std::system_error(SOCKET_ERRNO(), std::system_category(), "setsockopt");
     }
 
     if(family == PF_INET6)
@@ -656,7 +710,7 @@ inet_socket::inet_socket(const char* service, int family, int backlog)
         if(::setsockopt(sock, IPPROTO_IPV6, IPV6_V6ONLY, &yes, sizeof(yes)) == SOCKET_ERROR)
 #endif
         {
-            throw std::system_error(errno, std::system_category(), "setsockopt");
+            throw std::system_error(SOCKET_ERRNO(), std::system_category(), "setsockopt");
         }
     }
 
@@ -669,7 +723,7 @@ inet_socket::inet_socket(const char* service, int family, int backlog)
     if(::bind(sock, result.ptr->ai_addr, result.ptr->ai_addrlen) == SOCKET_ERROR)
 #endif
     {
-        throw std::system_error(errno, std::system_category(), "bind");
+        throw std::system_error(SOCKET_ERRNO(), std::system_category(), "bind");
     }
 
     logger(ll::debug) << "listening on " << *this << " with backlog: " << backlog << '\n';
@@ -677,7 +731,7 @@ inet_socket::inet_socket(const char* service, int family, int backlog)
     // begin listening on the socket
     if(::listen(sock, backlog) == SOCKET_ERROR)
     {
-        throw std::system_error(errno, std::system_category(), "listen");
+        throw std::system_error(SOCKET_ERRNO(), std::system_category(), "listen");
     }
 }
 
