@@ -8,6 +8,7 @@ struct TournamentService::impl
 {
     std::string path;
     std::string address;
+    std::string hostname;
     int port {};
     std::string name;
 };
@@ -15,6 +16,7 @@ struct TournamentService::impl
 // construct from address and port
 TournamentService::TournamentService(const std::string& address, int port) : pimpl(new impl())
 {
+    this->pimpl->hostname = address;
     this->pimpl->address = address;
     this->pimpl->port = port;
     this->pimpl->name = address + ":" + std::to_string(port);
@@ -30,7 +32,8 @@ TournamentService::TournamentService(const std::string& path) : pimpl(new impl()
 // construct from qmdnsengine service
 TournamentService::TournamentService(const QMdnsEngine::Service& service) : pimpl(new impl())
 {
-    this->pimpl->address = service.hostname().toStdString();
+    this->pimpl->hostname = service.hostname().toStdString();
+    this->pimpl->address = this->pimpl->hostname;
     this->pimpl->port = service.port();
     this->pimpl->name = QString::fromUtf8(service.name()).toStdString();
 }
@@ -71,6 +74,18 @@ std::string TournamentService::name() const
     return this->pimpl->name;
 }
 
+// service hostname (mDNS hostname before resolution)
+std::string TournamentService::hostname() const
+{
+    return this->pimpl->hostname;
+}
+
+// set resolved IP address
+void TournamentService::set_resolved_address(const std::string& ip_address)
+{
+    this->pimpl->address = ip_address;
+}
+
 // comparison operators
 bool TournamentService::operator==(const TournamentService& other) const
 {
@@ -97,6 +112,6 @@ bool TournamentService::operator==(const QMdnsEngine::Service& service) const
     }
 
     return this->pimpl->name == QString::fromUtf8(service.name()).toStdString() &&
-           this->pimpl->address == service.hostname().toStdString() &&
+           this->pimpl->hostname == service.hostname().toStdString() &&
            this->pimpl->port == service.port();
 }

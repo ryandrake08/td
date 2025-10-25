@@ -206,6 +206,7 @@ if(Qt5Core_FOUND AND Qt5Network_FOUND AND Qt5Widgets_FOUND AND Qt5Multimedia_FOU
 		thirdparty/qmdnsengine/include/qmdnsengine/server.h
 		thirdparty/qmdnsengine/src/browser_p.h
 		thirdparty/qmdnsengine/src/cache_p.h
+		thirdparty/qmdnsengine/src/resolver_p.h
 		thirdparty/qmdnsengine/src/server_p.h
 	)
 

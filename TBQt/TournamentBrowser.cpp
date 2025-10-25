@@ -3,10 +3,12 @@
 #include "TournamentService.hpp"
 
 #include <qmdnsengine/browser.h>
+#include <qmdnsengine/resolver.h>
 #include <qmdnsengine/server.h>
 #include <qmdnsengine/service.h>
 
 #include <QDir>
+#include <QHostAddress>
 #include <QStandardPaths>
 #include <QVector>
 
@@ -39,6 +41,7 @@ struct TournamentBrowser::impl
     QList<TournamentService*> services;
     QMdnsEngine::Server* mdnsServer;
     QMdnsEngine::Browser* mdnsBrowser;
+    QList<QMdnsEngine::Resolver*> resolvers;
 
     impl(QObject* parent) :
         mdnsServer(new QMdnsEngine::Server(parent)),
@@ -49,6 +52,7 @@ struct TournamentBrowser::impl
     ~impl()
     {
         qDeleteAll(services);
+        qDeleteAll(resolvers);
     }
 };
 
@@ -134,7 +138,18 @@ void TournamentBrowser::on_serviceAdded(const QMdnsEngine::Service& service)
     }
 
     // Add new remote service
-    pimpl->services.append(new TournamentService(service));
+    TournamentService* newService = new TournamentService(service);
+    pimpl->services.append(newService);
+
+    // Resolve hostname to IP address
+    QMdnsEngine::Resolver* resolver = new QMdnsEngine::Resolver(pimpl->mdnsServer, service.hostname(), nullptr, this);
+    pimpl->resolvers.append(resolver);
+
+    // When resolved, update the service with the IP address
+    QObject::connect(resolver, &QMdnsEngine::Resolver::resolved, this, [this, newService](const QHostAddress& address) {
+        newService->set_resolved_address(address.toString().toStdString());
+        updateServiceList();
+    });
 
     updateServiceList();
 }
@@ -163,12 +178,23 @@ void TournamentBrowser::on_serviceUpdated(const QMdnsEngine::Service& service)
                           [&service](const TournamentService* existingService) {
                               return *existingService == service;
                           });
-    
+
     if(it != pimpl->services.end())
     {
         // Service details might have changed - recreate it
         delete *it;
-        *it = new TournamentService(service);
+        TournamentService* updatedService = new TournamentService(service);
+        *it = updatedService;
+
+        // Resolve hostname to IP address
+        QMdnsEngine::Resolver* resolver = new QMdnsEngine::Resolver(pimpl->mdnsServer, service.hostname(), nullptr, this);
+        pimpl->resolvers.append(resolver);
+
+        // When resolved, update the service with the IP address
+        QObject::connect(resolver, &QMdnsEngine::Resolver::resolved, this, [this, updatedService](const QHostAddress& address) {
+            updatedService->set_resolved_address(address.toString().toStdString());
+            updateServiceList();
+        });
     }
 
     updateServiceList();

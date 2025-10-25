@@ -40,8 +40,12 @@ public:
     // service attributes
     std::string path() const;
     std::string address() const;
+    std::string hostname() const;
     int port() const;
     std::string name() const;
+
+    // set resolved IP address (for services discovered via mDNS)
+    void set_resolved_address(const std::string& ip_address);
 
     // comparison operators
     bool operator==(const TournamentService& other) const;
